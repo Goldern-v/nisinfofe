@@ -88,8 +88,8 @@ export default {
               {"name": "实<br/>入", "colspan": "1", "rowspan": "1"},
               {"name": "累<br/>计", "colspan": "1", "rowspan": "1"},
               {"name": "量<br/>ml", "colspan": "1", "rowspan": "1"},
-              {"name": "种<br/>类", "colspan": "1", "rowspan": "1",style: { minWidth: "80px",  maxWidth: "80px"}, },
-              
+              {"name": "种<br/>类", "colspan": "1", "rowspan": "1"},
+
             ]
         ,
     }

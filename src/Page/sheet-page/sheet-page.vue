@@ -544,6 +544,7 @@ export default {
     getSheetData() {
       const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
       this.tableLoading = true;
+      sheetInfo.isDone = false;
       if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
           this.bus.$emit("refreshTitleTemplate", this.getTemplateList);
         }
@@ -553,6 +554,7 @@ export default {
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
         this.tableLoading = false;
+
         return;
       }
       $(".red-border").removeClass("red-border");
@@ -637,7 +639,9 @@ export default {
           }
           let timeNum = 15;
           //页面初始化之后 从本地localStorage拿值 如果是有值 就滚动到当前值回到当前操作页面  如果没有 就滚动到底部
+          //isDone 判断护记执行完所有操作后 加载完成标准
           this.tableLoading = false;
+          sheetInfo.isDone = true;
           function toBottom() {
             timeNum--;
               //初始化护记数据都设置保存状态为已经保存，放这里运行是借用多次执行判断护记加载完成再设置
@@ -877,6 +881,7 @@ export default {
               }
             })
             let newLen = new Set(trueRecordTimes).size
+            console.log('newLen',newLen,trueRecordTimes)
             if(trueRecordTimes.length>newLen){
               this.$notify.warning({
                 title: "提示",

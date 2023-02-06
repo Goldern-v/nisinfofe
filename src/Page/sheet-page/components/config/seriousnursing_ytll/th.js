@@ -7,10 +7,10 @@ export default {
   th: {
     top: [
       {
-        name: '', 
-        style: {}, 
-        colspan: "2", 
-        rowspan: "1", 
+        name: '',
+        style: {},
+        colspan: "2",
+        rowspan: "1",
         key:'recordYear'
       },
       {
@@ -80,7 +80,7 @@ export default {
         name: `
         入量
         `,
-        colspan: '2',
+        colspan: '3',
         rowspan: '1',
         style: {
           minWidth: '80px',
@@ -188,6 +188,14 @@ export default {
         },
       },
       {
+        name: `途径`,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '50px',
+        },
+      },
+      {
         name: `
         ml
         `,
@@ -289,7 +297,7 @@ export default {
       }
     ],
     bottom: [
-      
+
     ]
   }
 }

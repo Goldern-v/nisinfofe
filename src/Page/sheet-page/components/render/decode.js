@@ -25,10 +25,19 @@ function decode(ayncVisitedData) {
 
   let allData = [];
   let result = [];
-  const PreviousRecord = sheetInfo.extraData&&sheetInfo.extraData.first || []
-  const NextRecord = sheetInfo.extraData&&sheetInfo.extraData.last || []
   for (let pageIndex = 0; pageIndex < data.length; pageIndex++) {
     let bodyModel = data[pageIndex].bodyModel;
+    /**
+     * 在sheet.js里面通过接口拿到上下页码的补充数据 存在sheetInfo里面
+     * 如果是第一页的页码存在跨页数据 则把 supplementLastList（上页数据的跨页数据补上）、
+     * 如果是最后一页的页码存在跨页数据  则把supplementNextList（下一页的跨页数据给补上）
+    */
+    if (pageIndex === 0) {
+      bodyModel = [...data[pageIndex].supplementLastList, ...bodyModel]
+    }
+    if (pageIndex === data.length - 1) {
+      bodyModel = [ ...bodyModel ,...data[pageIndex].supplementNextList,]
+    }
     let firstRecordDate = ''
     for (let index in bodyModel) {
       // 一定要做这个优化速度需求，被逼无奈，轻喷
@@ -40,7 +49,6 @@ function decode(ayncVisitedData) {
           if(recordDate && recordDate.value) {
             tr[`recordDate`] = recordDate.value
           }else{
-
             let itemRecordYear = bodyModel[index].find(
               item => item.key == "recordYear"
             ).value
@@ -54,10 +62,25 @@ function decode(ayncVisitedData) {
             if (firstRecordDate) {
               bodyModel[index].find(item => item.key == "recordDate").value = firstRecordDate
             } else {
-              bodyModel[index].find(item => item.key == "recordDate").value =
-              itemRecordYear + "-" + month + " " + hour
+              if(month && hour){
+                bodyModel[index].find(item => item.key == "recordDate").value =`${itemRecordYear}-${month} ${hour}`
+              }else{
+                let i = index
+                if(i==0){
+                  bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${moment().format("MM-DD")} ${hour}`
+                }else{
+                  while(i--) {
+                    const lastRecordMonth = bodyModel[i].find(item => item.key == "recordMonth").value
+                    if (lastRecordMonth) {
+                      bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
+                      bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
+                      break;
+                    }
+                  }
+                }
+
+              }
             }
-            //修改就保存  所以这里初始化签名数据  重新保存签名
           }
         }
         tr.pageIndex = pageIndex;
@@ -66,8 +89,7 @@ function decode(ayncVisitedData) {
     }
 
   }
-    //上页的结束记录 + ...allData,...result + 下一页的开始记录  头尾会丢失  顺序不能改  一定要这样子
-    allData = [...PreviousRecord,...allData,...result,...NextRecord];
+    allData = [...allData,...result];
 
   // 贵州-同步护理巡视内容到特殊情况
   if (['guizhou', '925'].includes(process.env.HOSPITAL_ID) && ayncVisitedData) {
@@ -129,7 +151,7 @@ function decode(ayncVisitedData) {
   ) {
     auditorMapData.auditorMap = sheetInfo.auditorMap;
   }
-  if(process.env.splitSave){
+  //第一条记录  录入数据没有日期的情况
     let firstRecord = allData[0]
     if(firstRecord && (!firstRecord.recordMonth || !firstRecord.recordHour)){
       let [month,hour] = firstRecord.recordDate ? firstRecord.recordDate.split(' ') : moment().format('YYYY-MM-DD HH:ss').split(' ')
@@ -137,8 +159,6 @@ function decode(ayncVisitedData) {
       !firstRecord.recordMonth && (firstRecord.recordMonth = month)
       !firstRecord.recordHour && (firstRecord.recordHour = hour)
     }
-  }
-
   return {
     list: allData,
     relObj: renderRelObj(sheetInfo.relObj),

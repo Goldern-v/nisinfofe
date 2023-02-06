@@ -206,7 +206,7 @@
               'size-75': newModalSize === '7*5'
             },
           ]"
-          :style="newModalSize == '3*7'&&'margin-bottom:1cm'"
+          :style="newModalSize == '3*7'&&'margin-bottom:0.5cm'"
           v-for="(itemBottleCard, bottleCardIndex) in printObj"
           :key="bottleCardIndex"
         >

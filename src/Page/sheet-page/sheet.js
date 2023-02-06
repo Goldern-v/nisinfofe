@@ -27,11 +27,18 @@ let addPage = []
  * @returns
  */
 let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = '', autoOptionsData = []}) {
+  const supplementLast = sheetInfo.extraData&&sheetInfo.extraData.first || []
+  const supplementNext = sheetInfo.extraData&&sheetInfo.extraData.last || []
+  const supplementLastList = Body(supplementLast, index - 1, autoOptionsData).slice(0,supplementLast.length)
+  const supplementNextList = Body(supplementNext, index + 1, autoOptionsData).slice(0,supplementNext.length)
   return {
     titleModel: Title(titleData, autoTitleData, index),
     bodyModel: Body(bodyData, index, autoOptionsData),
     index,
-    blockId:sheetInfo.selectBlock.id
+    blockId:sheetInfo.selectBlock.id,
+    supplementLastList,
+    supplementNextList
+    // supplement:sheetInfo
   };
 };
 let data = [];
@@ -276,6 +283,7 @@ export function delSheetPage(index, callback) {
        ||sheetInfo.sheetType === "prenataldelivery2_tj"
        ||sheetInfo.sheetType === "pediatric3_tj"
        ||sheetInfo.sheetType === "postpartum2_tj"
+       ||sheetInfo.sheetType === "ecgmonitoring_tj"
      ) {
       let flag =
       tr.find(item => item.key == "status").value === "1" && // 是否已签名

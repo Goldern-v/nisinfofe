@@ -74,14 +74,14 @@ export default [{
   },
   {
     hidden: true,
-    key: "systolicPressure", //收缩压
+    key: "fieldOne", //收缩压
     value: "",
     name: "收缩压",
     next: "mmHg",
   },
   {
     hidden: true,
-    key: "diastolicPressure", //舒张压
+    key: "fieldTwo", //舒张压
     value: "",
     name: "舒张压",
     next: "mmHg",

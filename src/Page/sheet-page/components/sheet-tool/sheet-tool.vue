@@ -59,6 +59,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="emit('addSheetPage')"
+        v-show="limitAddPage"
       >
         <div class="text-con">添加新页</div>
       </div>
@@ -76,6 +77,7 @@
         flex="cross:center main:center"
         @click="emit('addSheetPage')"
         v-if="!isLock"
+        v-show="limitAddPage"
       >
         <div class="text-con">添加新页</div>
       </div>
@@ -697,7 +699,8 @@ export default {
       babelFirst:true,
       scrollOptionFlag:false,
       scrollOptionNum:1,
-      printRecordValue:''
+      printRecordValue:'',
+      checkSheetRender:null,//查询是否完成定时器
     };
   },
   methods: {
@@ -712,8 +715,8 @@ export default {
       const sheetStartPage = this.sheetInfo.sheetStartPage
       if(!pageByDateFlag){
               let maxPage = {
-        'wujing': 30,
-        'default': 20
+        'wujing': 40,
+        'default': 30
       }
         if (
           Number(endPage) - Number(startPage) >= 0 &&
@@ -1038,7 +1041,7 @@ export default {
       }
       this.sheetInfo.addPage = []
     },
-    toPrint() {
+      toPrint() {
       // 正式环境打印会打开窗口,个别医院双签名打印设置为不打开新窗口（打开窗口样式有bug）
       // 不打开窗口，打印完返回会有Bug（下拉不显示和表头不能修改）,只能重新加载页面
       const fromParams = {
@@ -1050,43 +1053,75 @@ export default {
           formName:this.sheetInfo.selectBlock.recordName,
       }
       if(['liaocheng','huadu','foshanrenyi','xiegang'].includes(this.HOSPITAL_ID)){
-         this.$store.commit('upPreRouter',location.href)
+        this.$store.commit('upPreRouter',location.href)
       }
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
-      if (
-        process.env.HOSPITAL_ID == "fuyou" ||
-        process.env.HOSPITAL_ID == "quzhou" ||
-        process.env.HOSPITAL_ID == "huadu" ||
-        process.env.HOSPITAL_ID === "foshanrenyi"||
-        process.env.HOSPITAL_ID == "liaocheng"||
-        process.env.HOSPITAL_ID == "xiegang"
-      ) {
-        this.bus.$emit("toSheetPrintPage");
-      } else {
-        if (process.env.NODE_ENV == "production") {
-          let newWid;
-          if (this.HOSPITAL_ID === 'whfk') {
-            newWid = window.open();
-            return this.bus.$emit("toSheetPrintPagewhfk", { newWid, fromParams });
-          } else {
-            if (!$(".sign-text").length) {
-              newWid = window.open();
-              return this.bus.$emit("toSheetPrintPage", newWid);
-            }
-            if (
-              $(".mark-mark-mark").length == 0 &&
-              $(".noSignRow").length == 0 &&
-              $(".multiSign").length == 0
-            ) {
-              newWid = window.open();
-            }
-            this.bus.$emit("toSheetPrintPage", newWid);
-          }
+        //后端返回的上页或者下页数据 如果有长度 就说明打印不完整 需要调整一下页码
+        const first = this.sheetInfo.extraData&&this.sheetInfo.extraData.first || []
+        const last = this.sheetInfo.extraData&&this.sheetInfo.extraData.last || []
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+          if (first.length || last.length) {
+        let printArea = ''
+        if (first.length && last.length) {
+          printArea = `${Number(this.pageArea.split('-')[0]) - 1}-${Number(this.pageArea.split('-')[1]) + 1}`
         } else {
-          this.bus.$emit("toSheetPrintPage");
+          if (first.length) {
+            printArea = `${Number(this.pageArea.split('-')[0]) - 1}-${this.pageArea.split('-')[1]}`
+          }
+          if (last.length) {
+            printArea = `${this.pageArea.split('-')[0]}-${Number(this.pageArea.split('-')[1]) + 1}`
+          }
         }
+      this.updateSheetPageInfo(printArea)
       }
+        }
+      /**
+       * 护记加载完成后isDone会转为true 所有用循环半秒去查询一次 如果完成了 再走打印界面
+      */
+        this.checkSheetRender = setInterval(() => {
+          console.log('正在查询户籍是否完成', sheetInfo.isDone)
+          if (sheetInfo.isDone) {
+            clearInterval(this.checkSheetRender)
+            setTimeout(() => {
+              if (
+                process.env.HOSPITAL_ID == "fuyou" ||
+                process.env.HOSPITAL_ID == "quzhou" ||
+                process.env.HOSPITAL_ID == "huadu" ||
+                process.env.HOSPITAL_ID === "foshanrenyi" ||
+                process.env.HOSPITAL_ID == "liaocheng" ||
+                process.env.HOSPITAL_ID == "xiegang"
+              ) {
+                this.bus.$emit("toSheetPrintPage");
+              } else {
+                if (process.env.NODE_ENV == "production") {
+                  let newWid;
+                  if (this.HOSPITAL_ID === 'whfk') {
+                    newWid = window.open();
+                    return this.bus.$emit("toSheetPrintPagewhfk", { newWid, fromParams });
+                  } else {
+                    if (!$(".sign-text").length) {
+                      newWid = window.open();
+                      return this.bus.$emit("toSheetPrintPage", newWid);
+                    }
+                    if (
+                      $(".mark-mark-mark").length == 0 &&
+                      $(".noSignRow").length == 0 &&
+                      $(".multiSign").length == 0
+                    ) {
+                      newWid = window.open();
+                    }
+                    this.bus.$emit("toSheetPrintPage", newWid);
+                  }
+                } else {
+                  this.bus.$emit("toSheetPrintPage");
+                }
+              }
+            }, 500);
+          }
+        },
+          200
+        );
     },
     toAllPrint() {
       let pageIndex = 0;
@@ -1765,6 +1800,9 @@ export default {
     });
     this.bus.$emit("sheetToolLoaded");
 
+  },
+  destroyed(){
+    this.checkSheetRender = null
   },
   watch: {
     "sheetInfo.selectBlock":{

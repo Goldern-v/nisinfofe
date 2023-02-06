@@ -34,7 +34,7 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date, 
+    event: event_date,
     click: click_date
   },
   {
@@ -292,7 +292,7 @@ export default [
     },
   },
   {
-    key: "expand", //空白
+    key: "armValue2", //空白
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),

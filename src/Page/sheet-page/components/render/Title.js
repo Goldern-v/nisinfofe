@@ -2058,6 +2058,13 @@ export default function Title(
     );
   }
   break;
+  case "ecgmonitoring_tj": {
+    // 广东同江 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ecgmonitoring_tj/th").default)
+    );
+  }
+  break;
   case "magnesiumsulphate_tj": {
     // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
     Th = JSON.parse(
