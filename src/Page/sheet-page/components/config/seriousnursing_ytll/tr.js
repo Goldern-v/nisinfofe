@@ -18,12 +18,12 @@ let xlztList =['好','差','无法评估']
 
 
 export default [
-  { hidden: true, 
-    key: 'recordDate', 
+  { hidden: true,
+    key: 'recordDate',
     value: ""
   },
   {
-    key: "recordMonth", //日期 
+    key: "recordMonth", //日期
     value: "",
     event: event_date,
     click: click_date
@@ -116,6 +116,15 @@ export default [
       width: 60
     },
     name: "入量名称"
+  },
+  {
+    key: "foodway", //入量-途径
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 50
+    },
+    name: "入量途径"
   },
   {
     key: "foodSize", //入量-ml
