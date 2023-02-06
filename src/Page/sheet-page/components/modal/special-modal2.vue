@@ -1511,11 +1511,11 @@ export default {
       if (this.sheetInfo.sheetType === 'common_gzry') {
         const bloodPressure = this.fixedList.bloodPressure
         if (bloodPressure.value && bloodPressure.value.includes('/')) {
-          const [systolicPressure, diastolicPressure] = bloodPressure.value.split('/')
-          this.fixedList.systolicPressure.value = systolicPressure
-          this.fixedList.diastolicPressure.value = diastolicPressure
+          const [fieldOne, fieldTwo] = bloodPressure.value.split('/')
+          this.fixedList.fieldOne.value = fieldOne
+          this.fixedList.fieldTwo.value = fieldTwo
         } else {
-          this.fixedList.systolicPressure.value = bloodPressure.value
+          this.fixedList.fieldOne.value = bloodPressure.value
         }
         delete this.fixedList.bloodPressure
       }
@@ -2344,16 +2344,16 @@ export default {
           );
           // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
           if (this.sheetInfo.sheetType === 'common_gzry') {
-            const systolicPressure = this.fixedList.systolicPressure
-            const diastolicPressure = this.fixedList.diastolicPressure
+            const fieldOne = this.fixedList.fieldOne
+            const fieldTwo = this.fixedList.fieldTwo
             let bloodPressure = ''
-            if (systolicPressure.value && diastolicPressure.value) {
-              bloodPressure = systolicPressure.value + '/' + diastolicPressure.value
+            if (fieldOne.value && fieldTwo.value) {
+              bloodPressure = fieldOne.value + '/' + fieldTwo.value
             } else {
-              bloodPressure = systolicPressure.value || diastolicPressure.value
+              bloodPressure = fieldOne.value || fieldTwo.value
             }
             this.fixedList.bloodPressure = {
-              ...systolicPressure,
+              ...fieldOne,
               key: 'bloodPressure',
               name: '血压',
               value: bloodPressure
