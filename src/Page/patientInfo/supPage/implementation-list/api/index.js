@@ -9,3 +9,11 @@ export function getOrdersExecuteWithPatinetId(obj) {
     obj
   );
 }
+// 获取执行单 by临邑
+export function getExecuteWithWardCodeLyxrm(obj) {
+  // 通过执行时间段获取
+  return axios.post(
+    `${apiPath}procedure/webExecute/getOrdersExecuteWithWardCodeNew`,
+    obj
+  );
+}

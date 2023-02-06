@@ -372,6 +372,8 @@ import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
 import implementationPersonytll
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-ytll";
+import implementationPersonwhsl
+  from "@/Page/patientInfo/supPage/implementation-list/implementation-list-whsl";
 const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-form/index.vue")
 const medicalCheck = () => import("@/Page/patientInfo/supPage/medical-check/index.vue")
 // 患者个人护理巡视
@@ -1261,8 +1263,10 @@ const router = new Router({
             switch (process.env.HOSPITAL_ID) {
               case 'liaocheng':
                 return implementationPersonLiaocheng
-                case 'ytll':
+              case 'ytll':
                 return implementationPersonytll
+              case 'whsl':
+                return implementationPersonwhsl
               default:
                 return implementationPersonLiaocheng
             }
