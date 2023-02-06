@@ -74,6 +74,7 @@ function decode(ayncVisitedData) {
                     if (lastRecordMonth) {
                       bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
                       bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
+                      break;
                     }
                   }
                 }

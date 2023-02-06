@@ -59,6 +59,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click="emit('addSheetPage')"
+        v-show="limitAddPage"
       >
         <div class="text-con">添加新页</div>
       </div>
@@ -76,6 +77,7 @@
         flex="cross:center main:center"
         @click="emit('addSheetPage')"
         v-if="!isLock"
+        v-show="limitAddPage"
       >
         <div class="text-con">添加新页</div>
       </div>
@@ -1058,7 +1060,8 @@ export default {
         //后端返回的上页或者下页数据 如果有长度 就说明打印不完整 需要调整一下页码
         const first = this.sheetInfo.extraData&&this.sheetInfo.extraData.first || []
         const last = this.sheetInfo.extraData&&this.sheetInfo.extraData.last || []
-      if (first.length || last.length) {
+        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+          if (first.length || last.length) {
         let printArea = ''
         if (first.length && last.length) {
           printArea = `${Number(this.pageArea.split('-')[0]) - 1}-${Number(this.pageArea.split('-')[1]) + 1}`
@@ -1072,6 +1075,7 @@ export default {
         }
       this.updateSheetPageInfo(printArea)
       }
+        }
       /**
        * 护记加载完成后isDone会转为true 所有用循环半秒去查询一次 如果完成了 再走打印界面
       */
