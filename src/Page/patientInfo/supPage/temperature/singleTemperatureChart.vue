@@ -7,7 +7,12 @@
   >
     <div class="head-con" flex>
       <div class="tool-con" flex-box="1">
-        <sheetTool2 ref="sheetTool" v-if="sheetTool2Visible" :isNursingPreview="isNursingPreview"></sheetTool2>
+        <sheetTool2
+        ref="sheetTool"
+        v-if="sheetTool2Visible"
+        :isNursingPreview="isNursingPreview"
+        :sheetTitleData="sheetTitleData"
+        ></sheetTool2>
       </div>
     </div>
     <div
@@ -32,7 +37,7 @@
             ></sheetTable>
           </div>
           <div
-            v-show="sheetModel.length == 0"
+          v-show="!sheetModelData.length"
             class="null-btn"
             flex="cross:center main:center"
             @click="addSheetPage"
@@ -43,7 +48,7 @@
         </div>
       </div>
     </div>
-    <delPageModal ref="delPageModal" :index="sheetModel.length"></delPageModal>
+    <delPageModal ref="delPageModal" :index="sheetModelData.length"></delPageModal>
     <HjModal ref="HjModal"></HjModal>
     <HdModal ref="HdModal"></HdModal>
     <GuizhouModal ref="GuizhouModal"></GuizhouModal>
@@ -170,12 +175,13 @@ import sheetModel, {
   delSheetPage,
   initSheetPage,
   cleanData,
+  getData,
 } from "@/Page/sheet-page/sheet.js";
 import { typeList } from "@/api/lesion";
 import decode from "@/Page/sheet-page/components/render/decode.js";
 import {
   saveBody,
-  showBody,
+  showBodyByPage,
   showTitle,
   delPage,
   markList,
@@ -197,7 +203,7 @@ import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
 import evalModel from "@/Page/sheet-page/components/modal/eval-model/eval-model.vue";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
-import { sheetScrollBotton } from "@/Page/sheet-page/components/utils/scrollBottom";
+import { sheetScrollBottom } from "@/Page/sheet-page/components/utils/scrollBottom";
 import { patients } from "@/api/lesion";
 import { blockSave, getNurseExchageInfo } from "@/Page/sheet-page/api/index";
 export default {
@@ -221,7 +227,9 @@ export default {
       pageloading: false,
       bus: bus(this),
       sheetModel,
+      sheetModelData:[],
       sheetInfo,
+      sheetTitleData: {}, // 自定义表头数据
       scrollTop: 0,
       scrollY: 0,
       bedAndDeptChange: {},
@@ -243,33 +251,7 @@ export default {
       return this.$store.state.sheet.fullpage;
     },
     filterSheetModel() {
-      // 根据页码处理后的页面
-      let showSheetPage = (i) => {
-        let startPage = this.sheetInfo.startPage;
-        let endPage = this.sheetInfo.endPage;
-        let index = i + this.sheetInfo.sheetStartPage;
-        if (startPage && endPage) {
-          if (index >= Number(startPage) && index <= Number(endPage)) {
-            return true;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      };
-      let mapSheetModel = this.sheetModel.map((item, index, arr) => {
-        let obj = {
-          index,
-          data: item,
-          length: arr.length,
-        };
-        return obj;
-      });
-
-      let resultModel = mapSheetModel.filter((item) => {
-        return showSheetPage(item.index);
-      });
+      let resultModel =this.sheetModelData
       return resultModel;
     },
   },
@@ -292,10 +274,6 @@ export default {
             break;
         }
       })();
-      // let recordCode =
-      //   this.HOSPITAL_ID === "huadu" || HOSPITAL_ID === "wujing"
-      //     ? "body_temperature_Hd"
-      //     : "body_temperature_lcey";
       blockSave(
         this.patientInfo.patientId,
         this.patientInfo.visitId,
@@ -305,17 +283,35 @@ export default {
         this.bus.$emit("getBlockList");
         this.$message.success("创建成功");
       });
-      // if (this.patientInfo.name) {
-      //   this.bus.$emit("openNewSheetModal");
-      //   // addSheetPage()
-      // } else {
-      //   this.$notify.info({
-      //     title: "提示",
-      //     message: "请选择一名患者"
-      //   });
-      // }
+    },
+    scrollFun(scrollValue){
+      this.$nextTick(() => {
+        //不传入参滚动值 默认选择refscrollCon的scrollTop
+        this.$refs.scrollCon.scrollTop = scrollValue;
+        $(".red-border").removeClass("red-border");
+        setTimeout(() => {
+          if (this.$refs.scrollCon.scrollTop == 0) {
+            this.$refs.scrollCon.scrollTop = this.scrollTop;
+          }
+          $(".red-border").removeClass("red-border");
+        }, 200);
+        setTimeout(() => {
+          if (this.$refs.scrollCon.scrollTop == 0) {
+            this.$refs.scrollCon.scrollTop = this.scrollTop;
+          }
+          $(".red-border").removeClass("red-border");
+        }, 400);
+        setTimeout(() => {
+          if (this.$refs.scrollCon.scrollTop == 0) {
+            this.$refs.scrollCon.scrollTop = this.scrollTop;
+          }
+          $(".red-border").removeClass("red-border");
+        }, 600);
+      });
+
     },
     getSheetData(isBottom) {
+      const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
         cleanData();
         setTimeout(() => {
@@ -326,8 +322,8 @@ export default {
       this.tableLoading = true;
       $(".red-border").removeClass("red-border");
       return Promise.all([
-        showTitle(this.patientInfo.patientId, this.patientInfo.visitId),
-        showBody(this.patientInfo.patientId, this.patientInfo.visitId),
+        showTitle(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
+        showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
       ]).then((res) => {
         let titleData = res[0].data.data;
@@ -342,37 +338,31 @@ export default {
           };
         }
         // this.sheetModel = []
-        this.$nextTick(() => {
-          this.sheetModel = sheetModel;
-          initSheetPage(titleData, bodyData, markData);
+        this.$nextTick(async () => {
+          await initSheetPage(titleData, bodyData, markData, this.listData);
+          this.sheetModelData= getData()
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
-          this.getHomePage(isBottom);
-
           this.tableLoading = false;
-
-          let timeNum = 5;
-
+          let timeNum = 10;
           function toBottom() {
             timeNum--;
-            setTimeout(() => {
-              this.sheetInfo.isSave = true;
-              if (
-                isBottom &&
-                this.$refs.scrollCon.scrollHeight >
+              //初始化护记数据都设置保存状态为已经保存，放这里运行是借用多次执行判断护记加载完成再设置
+                this.sheetInfo.isSave = true;
+                const sheetPageScrollValue = localStorage.getItem('sheetPageScrollValue')
+                const isBottom = sheetPageScrollValue !== "null" ? false : true
+                if (
+                  this.$refs.scrollCon.scrollHeight >
                   this.$refs.scrollCon.offsetHeight
-              ) {
-                // this.$refs.scrollCon.scrollTop =
-                //   this.$refs.scrollCon.scrollHeight -
-                //   this.$refs.scrollCon.offsetHeight -
-                //   190;
-                sheetScrollBotton.call(this, 0);
-                timeNum > 0 && toBottom.call(this);
-              } else {
-                timeNum > 0 && toBottom.call(this);
-              }
-            }, 200);
+                ) {
+                  if (isBottom) {
+                    sheetScrollBottom.call(this, 0);
+                    timeNum > 0 && toBottom.call(this);
+                    localStorage.setItem('sheetPageScrollValue', null)
+                  } else {
+                    this.scrollFun(sheetPageScrollValue)
+                  }
+                }
           }
-
           this.$nextTick(() => {
             toBottom.call(this);
           });
@@ -409,6 +399,7 @@ export default {
       if (sheetInfo.sheetType && sheetInfo.sheetType.indexOf("_wx") > -1) {
       } else {
         this.scrollY = parseInt(e.target.scrollTop);
+        localStorage.setItem('sheetPageScrollValue',e.target.scrollTop>0?e.target.scrollTop:null)
       }
     },
     getDate() {
@@ -436,19 +427,24 @@ export default {
     setTimeout(() => {
       this.$store.commit("upPatientInfo", this.$route.query);
     }, 100);
-
+    this.bus.$on('clearSheetModel',()=>{
+      this.sheetModelData=[]
+    })
     this.bus.$on("addSheetPage", () => {
-      addSheetPage(() => {
-        this.$nextTick(() => {
-          this.bus.$emit("initSheetPageSize");
-          // $(this.$refs.scrollCon).animate({
-          //   scrollTop:
-          //     this.$refs.scrollCon.scrollHeight -
-          //     this.$refs.scrollCon.offsetHeight -
-          //     190
-          // });
-          sheetScrollBotton.call(this);
+      if (!this.sheetInfo.selectBlock.id) {
+        return this.$notify.info({
+          title: "提示",
+          message: "请先创建体温单",
         });
+      }
+      addSheetPage(() => {
+        this.bus.$emit("initSheetPageSize",true);
+        this.sheetModelData = getData()
+        this.$nextTick(() => {
+          /**添加页码重新赋值*/
+            sheetScrollBottom.call(this);
+        });
+
       });
     });
     this.bus.$on("delSheetPage", () => {

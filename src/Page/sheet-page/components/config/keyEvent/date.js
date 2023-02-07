@@ -45,9 +45,9 @@ export function event_date(e, td) {
           if (input.selectionStart == 2) {
             input.setSelectionRange(3, 6);
             }
-          });
-          }
+        });
         }
+      }
 }
 export function event_time(e, td) {
   if (td.value.length >= "2" && td.value.indexOf(":") == -1 && e.keyCode != 8) {
@@ -101,7 +101,7 @@ export function click_date(e, td, tr) {
     td.value = moment().format("MM-DD");
     tr.isChange = true
   }
-  if(['guizhou'].includes(process.env.HOSPITAL_ID)) return
+  if(['guizhou','nanfangzhongxiyi'].includes(process.env.HOSPITAL_ID)) return
   const input = e.target
   setTimeout(()=>{
     input.focus()
