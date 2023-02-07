@@ -22,7 +22,7 @@
               <th center p1 v-for="(c, index) of item.itemConfig" :key="index">
                 {{c.dataLabel}}
                 <template v-if="c.ifHoldAll">
-                  <el-checkbox :key="index+'checkAll'" :value="choseAllParamsObj[c.ifHoldAll]" @change="changeAll(c.ifHoldAll,item.tabKey)"></el-checkbox>
+                  <el-checkbox :key="index+'checkAll'" :value="choseAllParamsObj[c.ifHoldAll+item.tabKey]" @change="changeAll(c.ifHoldAll,item.tabKey)"></el-checkbox>
                 </template>
               </th>
             </tr>
@@ -154,16 +154,17 @@ export default {
   },
   methods: {
     changeAll(dataKey,tabKey){
-      this.choseAllParamsObj[dataKey] = !this.choseAllParamsObj[dataKey]
+      this.choseAllParamsObj[dataKey+tabKey] = !this.choseAllParamsObj[dataKey+tabKey]
       this.boardConfigureList.forEach(item=>{
-        if(item.configureType==="1"){
-          item[dataKey.replace("All","")]=this.choseAllParamsObj[dataKey]
+        if(item.configureType===tabKey){
+          item[dataKey.replace("All","")]=this.choseAllParamsObj[dataKey+tabKey]
         }
       })
     },
     open(boardConfigureList) {
       this.selecRow = {};
       this.boardConfigureList = boardConfigureList || [];
+      this.choseAllParamsObj={"nameShowAll0":false,"bedLabelShowAll0":false,"verticalShowAll0":false,"showOrHideAll0":false,"nameShowAll1":false,"bedLabelShowAll1":false,"verticalShowAll1":false,"showOrHideAll1":false}
       this.$refs.modal.open();
     },
     close() {
@@ -173,12 +174,12 @@ export default {
       let filterArr =  this.boardConfigureList.filter(
         item => item.configureType == configureType
       );
-      if(configureType==="1"){
+      if( configureType==="0" || configureType==="1"){
         choseAllParams.forEach(params=>{
           let flag = filterArr.some((item)=>{
-            return item[params.replace("All",'')]===true
+            return item[params.replace("All",'')]===false
           })
-          this.choseAllParamsObj[params]=flag
+          this.choseAllParamsObj[params+configureType]=!flag
         })
       }
       return filterArr

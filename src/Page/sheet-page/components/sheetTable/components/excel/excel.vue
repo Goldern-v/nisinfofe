@@ -582,6 +582,9 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
+        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry'"
+          >质控护士签名：</span
+        >
         <span v-else-if=" sheetInfo.sheetType == 'critical_new_weihai'"
           ></span
         >
@@ -763,6 +766,7 @@ export default {
         "common_sn",
         "maternity_sn",
         "waiting_birth_wj",
+        'orthopaedic_sdry',
         "internal_eval_lcey", //一般或者护理记录单
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
         "critical_new_lcey",
@@ -2938,6 +2942,7 @@ export default {
   mounted() {
   },
   created() {
+    console.log(moment(),moment().week(),'moment()')
     if(this.HOSPITAL_ID == 'wujing' && sheetInfo.sheetType == 'common_hl'){
       let sUserAgent = navigator.userAgent;
       if(sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1 || sUserAgent.indexOf("Windows NT 5.1") > -1){

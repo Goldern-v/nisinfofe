@@ -44,9 +44,9 @@ const currentTargetUrl = (() => {
       // return "http://120.197.141.41:9091" //厚街正式
       // return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
-    // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+    return "http://192.168.1.54:9866" // 公司-厚街测试-内网
       // return "http://192.168.20.83:8080" // 彬哥本地
-      return "http://192.168.3.191:9091"//锦泳本地
+      // return "http://192.168.3.191:9091"//锦泳本地
 
     /** 威县 */
     case "weixian":
@@ -257,7 +257,8 @@ const currentTargetUrl = (() => {
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
       // return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
       // return ' http://221.2.154.22:19094/'
-      return 'http://192.168.1.54:9896/'
+      // return 'http://192.168.1.54:9896/'
+      return 'http://192.168.20.20:9092'
     //
     case 'nfyksdyy':
       return 'http://59.38.110.189:9092'
