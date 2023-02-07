@@ -299,6 +299,7 @@ import { decodeRelObj } from "./components/utils/relObj";
 import { sheetScrollBottom } from "./components/utils/scrollBottom";
 import { blockSave, getNurseExchageInfo } from "./api/index";
 import {GetUserList,verifyNewCaSign} from '../../api/caCardApi'
+import testSheet from './testSheet.json'
 //解锁
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 
@@ -543,6 +544,7 @@ export default {
     },
     getSheetData() {
       const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
+      if(startPageIndex == null||endPageIndex == null) return
       this.tableLoading = true;
       sheetInfo.isDone = false;
       if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
@@ -595,6 +597,7 @@ export default {
           localStorage.setItem('lockForm',JSON.stringify(formConfig))
         }
 
+        // let bodyData = testSheet.data;
         let bodyData = res[1].data.data;
         sheetInfo.extraData = res[1].data.data.extraData
         this.$store.commit('upMasterInfo',bodyData)

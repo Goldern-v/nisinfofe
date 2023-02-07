@@ -161,7 +161,7 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://192.168.20.147:9091"  // 双艳
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      return "http://218.204.204.90:9095" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
       // return "http://120.24.240.231:19097" //
       // return "http://192.168.103.16:9091" //
