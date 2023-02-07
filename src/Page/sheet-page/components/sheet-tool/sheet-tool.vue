@@ -126,7 +126,7 @@
         class="item-box"
         flex="cross:center main:center"
         @click.stop="toPdfPrint"
-        v-show="isDev && isShow()"
+        v-show="isDev && isShow() && !showPrintAll"
       >
         <div class="text-con">批量打印</div>
       </div>
@@ -975,6 +975,9 @@ export default {
       } else {
         return true;
       }
+    },
+    showPrintAll(){
+        return ['huadu'].includes('this.HOSPITAL_ID')&&(!this.$route.path.includes("singleTemperatureChart")||!this.$route.path.includes("temperature"))
     },
     // 是否显示设为模板
     showSetAsTemplate() {
