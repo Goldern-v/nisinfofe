@@ -35,18 +35,23 @@
 import tree from "./component/tree";
 import rightPart from "./component/right-part/right-part.vue";
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
+import bus from "vue-happy-bus";
 export default {
   props: {
     filterObj: Object
   },
   data() {
     return {
-      lockHospitalList:['huadu']//配置了表单锁定的医院
+      lockHospitalList:['huadu'],//配置了表单锁定的医院
+      bus: bus(this),
     };
   },
   mounted(){
     //挂载。让嵌套的iframe可以调用
-    window.hangleBatchAudit=(e,formCode)=>this.$refs.tree.hangleBatchAudit(e,formCode)
+    this.bus.$on("handleBatchAudit",(e,formCode)=>this.$refs.tree.handleBatchAudit(e,formCode))
+  },
+  beforeDestroy () {
+    this.bus.$off("handleBatchAudit");
   },
   methods:{
     async destroyUnlock(){

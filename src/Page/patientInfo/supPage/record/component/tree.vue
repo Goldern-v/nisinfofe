@@ -752,7 +752,7 @@ export default {
       }
     },
     // 表单里面的按钮直接调用。会传formCode过来做处理。拿到当前的表单
-    hangleBatchAudit(e,formCode){
+    handleBatchAudit(e,formCode){
         const node= this.regions.find(formMsg=>{
          return formMsg.formCode==formCode
         })
