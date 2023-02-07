@@ -197,7 +197,7 @@ import {
       next: '',
       textarea:{ width:50},
       change: (e, td) => limitChange(e, td, 6),
-      autoComplete: { data: ['尿','大便','痰','呕吐物','咯血','引流液','出血']},
+      autoComplete: { data: ['尿','大便','痰','呕吐物','咯血','引流液','血']},
     },
     {
       key: "dischargeSize", //出量量
@@ -236,7 +236,7 @@ import {
       next: '',
       textarea:{ width:32},
       change: (e, td) => limitChange(e, td, 4),
-      autoComplete: { data: ['口腔护理','雾化吸入','膀胱冲洗','会阴擦洗','吸痰','鼻饲']},
+      autoComplete: { data: ['口腔护理','雾化吸入','膀胱冲洗','会阴擦洗','吸痰','鼻饲','IV','IM','Ⓗ']},
     },
     {
       key: "custom", //自定义
