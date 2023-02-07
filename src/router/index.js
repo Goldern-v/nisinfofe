@@ -583,6 +583,7 @@ const router = new Router({
             return temperatureFSXT
           case 'lyyz':
           case 'whhk':
+          case 'zzwy':
             return temperatureLYYZ
           case 'whyx':
             return temperatureWHYX
@@ -1143,6 +1144,7 @@ const router = new Router({
                 return temperatureWHYX
               case 'lyyz':
               case 'whhk':
+              case 'zzwy':
                 return temperatureLYYZ
               case 'gdtj':
                   return temperatureGDTJ
@@ -1566,9 +1568,10 @@ const router = new Router({
             case 'zhzxy':
               return allTemperatureChartFSRY
             case 'lyyz':
+            case 'whhk':
+            case 'zzwy':
               return allTemperatureChartLYYZ
             case 'ytll':
-            case 'whhk':
               return allTemperatureChartYTLL
             case 'gdtj':
             return allTemperatureChartGDTJ
@@ -1624,6 +1627,7 @@ const router = new Router({
               return newSingleTemperatureChartLiaoCheng;
             case "lyyz":
             case 'whhk':
+            case 'zzwy':  
               return newSingleTemperatureChartLYYZ;
             case "gdtj":
               return newSingleTemperatureChartGDTJ

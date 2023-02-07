@@ -1806,6 +1806,13 @@ export default function Title(
     );
   }
   break;
+  case "orthopaedic_sdry": {
+    // 顺德龙江 - 护理记录单（骨科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopaedic_sdry/th.js").default)
+    );
+  }
+  break;
   case "pediatrics_sdlj": {
     // 顺德龙江 - 护理记录单（儿科）
     Th = JSON.parse(

@@ -70,8 +70,11 @@ let ifChoseFlag
     nullSelect,
     ...res.data.data.white_board_orders_add_expand
   );
-  if(process.env.HOSPITAL_ID=='zhzxy') window.ifChoseFlag=true
 })();
+
+(async function initAll(){
+  if(process.env.HOSPITAL_ID=='zhzxy') window.ifChoseFlag=true
+})()
 
 function addWidth(){
   if(process.env.HOSPITAL_ID=='zhzxy') return 20
@@ -84,10 +87,10 @@ export default [
       new CheckBox("是否显示", "show", 70),
       new Text("项目名称", "configure", 150),
       new Input("大屏顺序", "sortValue", 70),
-      new CheckBox("无数据隐藏", "showOrHide", 80),
-      new CheckBox("患者换行", "verticalShow", 70),
-      new CheckBox("显示床号", "bedLabelShow", 70),
-      new CheckBox("显示姓名", "nameShow", 70),
+      new CheckBox("无数据隐藏", "showOrHide", 80 + addWidth(), window.ifChoseFlag && 'showOrHideAll'),
+      new CheckBox("患者换行", "verticalShow", 70 + addWidth(),window.ifChoseFlag && "verticalShowAll"),
+      new CheckBox("显示床号", "bedLabelShow", 70 + addWidth(),window.ifChoseFlag && "bedLabelShowAll"),
+      new CheckBox("显示姓名", "nameShow", 70 + addWidth(), window.ifChoseFlag && "nameShowAll"),
       new Select("额外显示", "addExpand", 130, white_board_add_expand),
       new Select("内容排序", "sortContent", 100, white_board_add_expand)
     ]

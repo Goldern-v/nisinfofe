@@ -1406,6 +1406,11 @@ function switchSheetType(type) {
       schema = require("../config/orthopaedic_sdlj/tr.js").default;
     }
     break;
+    case "orthopaedic_sdry": {
+      // 顺德龙江 - 护理记录单（骨科）
+      schema = require("../config/orthopaedic_sdry/tr.js").default;
+    }
+    break;
     case "pediatrics_sdlj": {
       // 顺德龙江 - 护理记录单（儿科）
       schema = require("../config/pediatrics_sdlj/tr.js").default;

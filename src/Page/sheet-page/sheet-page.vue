@@ -97,7 +97,7 @@
     <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
     <!-- 电子病例弹窗 -->
-    <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt'].includes(HOSPITAL_ID)" />
+    <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt','dglb'].includes(HOSPITAL_ID)" />
   </div>
 </template>
 
