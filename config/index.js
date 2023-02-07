@@ -257,7 +257,8 @@ const currentTargetUrl = (() => {
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
       // return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
       // return ' http://221.2.154.22:19094/'
-      return 'http://192.168.1.54:9896/'
+      // return 'http://192.168.1.54:9896/'
+      return 'http://192.168.20.20:9092'
     //
     case 'nfyksdyy':
       return 'http://59.38.110.189:9092'
