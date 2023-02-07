@@ -116,7 +116,9 @@ export default {
         case 'lyyz':
           return 'http://10.66.3.23:9091/temperature/'
         case 'whhk':
-          return 'http://10.1.50.245:9091/temperature/'
+          return 'http://10.1.50.246:9091/temperature/'
+        case 'zzwy':
+          return 'http:192.168.61.130:9092/temperature/'
         default:
           break;
       }

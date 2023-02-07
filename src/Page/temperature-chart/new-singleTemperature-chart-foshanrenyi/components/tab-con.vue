@@ -638,7 +638,7 @@ export default {
           let o = {
             体温: {
               value: val,
-              reg: [34, 42],
+              reg: [32, 42],
               errorMsg: "体温请填入30~42之间的数值",
             },
           };

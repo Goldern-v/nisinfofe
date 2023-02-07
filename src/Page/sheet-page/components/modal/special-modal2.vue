@@ -99,6 +99,23 @@
               检查报告
             </el-button>
           </div>
+          <div class="modal-btn-box" v-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID)">
+            <el-button
+              type="primary"
+              size="mini"
+              @click="openPISlide('testModal')"
+            >
+              检验报告
+            </el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              @click="openPISlide('inspectModal')"
+            >
+              检查报告
+            </el-button>
+          </div>
+
         </div>
         <div class="extra-box">
           <div class="extra-box__content">
@@ -1494,11 +1511,11 @@ export default {
       if (this.sheetInfo.sheetType === 'common_gzry') {
         const bloodPressure = this.fixedList.bloodPressure
         if (bloodPressure.value && bloodPressure.value.includes('/')) {
-          const [systolicPressure, diastolicPressure] = bloodPressure.value.split('/')
-          this.fixedList.systolicPressure.value = systolicPressure
-          this.fixedList.diastolicPressure.value = diastolicPressure
+          const [fieldOne, fieldTwo] = bloodPressure.value.split('/')
+          this.fixedList.fieldOne.value = fieldOne
+          this.fixedList.fieldTwo.value = fieldTwo
         } else {
-          this.fixedList.systolicPressure.value = bloodPressure.value
+          this.fixedList.fieldOne.value = bloodPressure.value
         }
         delete this.fixedList.bloodPressure
       }
@@ -1522,31 +1539,27 @@ export default {
       this.foodVal = foodStr;
         this.recordDate =
         config.recordDate ||
-        record[0].find((item) => item.key == "recordDate").value || ''
+        record[0].find((item) => item.key == "recordDate").value || ""
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
       if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll'].includes(this.HOSPITAL_ID)) {
-        const itemListTime = config.recordDate ||
+        const firstDate = record[0].find((item) => item.key == "recordDate")
+        const itemListTime = config.recordDate || firstDate.value
           record[0].find((item) => item.key == "recordDate").value
         if(!itemListTime){
-          if (!(
-        record[0].find((item) => item.key == "recordMonth").value)) {
-          this.staticObj.recordMonth = moment().format('MM-DD');
-          if (!(
-            record[0].find((item) => item.key == "recordHour").value)) {
+          if (!(record[0].find((item) => item.key == "recordMonth").value)) {
+            this.staticObj.recordMonth = record[0].addRowDate || moment().format('MM-DD');
+          if (!(record[0].find((item) => item.key == "recordHour").value)) {
             this.staticObj.recordHour = moment().format('HH:mm');
           }
-          if (!(
-            record[0].find((item) => item.key == "recordDate").value)) {
+          if (!(record[0].find((item) => item.key == "recordDate").value)) {
             this.staticObj.recordDate = moment().format('YYYY-MM-DD HH:mm');
           }
         }
         } else {
-          if (!(
-            record[0].find((item) => item.key == "recordMonth").value)) {
+          if (!(record[0].find((item) => item.key == "recordMonth").value)) {
             this.staticObj.recordMonth = moment(itemListTime).format('MM-DD');
           }
-          if (!(
-            record[0].find((item) => item.key == "recordHour").value)) {
+          if (!(record[0].find((item) => item.key == "recordHour").value)) {
             this.staticObj.recordHour = moment(itemListTime).format('HH:mm');
           }
 
@@ -2331,16 +2344,16 @@ export default {
           );
           // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
           if (this.sheetInfo.sheetType === 'common_gzry') {
-            const systolicPressure = this.fixedList.systolicPressure
-            const diastolicPressure = this.fixedList.diastolicPressure
+            const fieldOne = this.fixedList.fieldOne
+            const fieldTwo = this.fixedList.fieldTwo
             let bloodPressure = ''
-            if (systolicPressure.value && diastolicPressure.value) {
-              bloodPressure = systolicPressure.value + '/' + diastolicPressure.value
+            if (fieldOne.value && fieldTwo.value) {
+              bloodPressure = fieldOne.value + '/' + fieldTwo.value
             } else {
-              bloodPressure = systolicPressure.value || diastolicPressure.value
+              bloodPressure = fieldOne.value || fieldTwo.value
             }
             this.fixedList.bloodPressure = {
-              ...systolicPressure,
+              ...fieldOne,
               key: 'bloodPressure',
               name: '血压',
               value: bloodPressure

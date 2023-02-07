@@ -29,6 +29,7 @@
         >
           <img
             class="qr-code"
+            :style="{opacity:HOSPITAL_ID == 'zhzxy'?'0':'1'}"
             :class="{ hasRemark: hasRemark }"
             :src="qrCode"
           />

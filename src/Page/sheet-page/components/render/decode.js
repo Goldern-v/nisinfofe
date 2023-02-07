@@ -72,8 +72,11 @@ function decode(ayncVisitedData) {
                   while(i--) {
                     const lastRecordMonth = bodyModel[i].find(item => item.key == "recordMonth").value
                     if (lastRecordMonth) {
-                      bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
-                      bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
+                      if(bodyModel[index].find(item => item.key == "recordHour").value){
+                        bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
+                        bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
+                      }
+                      break;
                     }
                   }
                 }

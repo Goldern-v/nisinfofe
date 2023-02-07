@@ -44,6 +44,10 @@ function patients(deptCode, config, HisName = process.env.HOSPITAL_NAME) {
     // return axios.get(`${apiPath}bed/patList/${deptCode}`)
   }
 }
+//后端查询床位信息很慢 所以把查询信息分出来
+const getPatLevelAndStatus = (data)=>{
+  return  axios.post(`${apiPath}bed/getPatLevelAndStatus`,data)
+}
 // 关注床位
 function follow(deptCode, bedLabel, bedNo) {
   return axios.get(`${apiPath}bed/followBed/${bedLabel}/${deptCode}/${bedNo}`)
@@ -129,6 +133,7 @@ function synchronizationPatientByBedNo(deptCode,bedNo) {
 export {
   nursingUnit,
   patients,
+  getPatLevelAndStatus,
   follow,
   unfollow,
   getLink,

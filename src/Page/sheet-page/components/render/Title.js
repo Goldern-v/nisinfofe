@@ -1806,6 +1806,13 @@ export default function Title(
     );
   }
   break;
+  case "orthopaedic_sdry": {
+    // 顺德龙江 - 护理记录单（骨科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/orthopaedic_sdry/th.js").default)
+    );
+  }
+  break;
   case "pediatrics_sdlj": {
     // 顺德龙江 - 护理记录单（儿科）
     Th = JSON.parse(
@@ -2058,6 +2065,13 @@ export default function Title(
     );
   }
   break;
+  case "ecgmonitoring_tj": {
+    // 广东同江 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ecgmonitoring_tj/th").default)
+    );
+  }
+  break;
   case "magnesiumsulphate_tj": {
     // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
     Th = JSON.parse(
@@ -2300,6 +2314,13 @@ export default function Title(
     // 烟台玲珑 - 住院待产护理记录
     Th = JSON.parse(
       JSON.stringify(require("../config/prenatal_ytll/th").default)
+    );
+  }
+  break;
+  case "oxytocin_ytll": {
+    // 烟台玲珑-催产素引产及催产记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_ytll/th").default)
     );
   }
   break;
