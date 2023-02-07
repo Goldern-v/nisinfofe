@@ -61,7 +61,7 @@
         </div>
       </span>
     </div>
-    <div class="info-con" flex="main:justify" v-else-if="['labor_ytll','labor_con_ytll'].includes(sheetInfo.sheetType)">
+    <div class="info-con" flex="main:justify" v-else-if="['labor_ytll','labor_con_ytll', 'oxytocin_ytll'].includes(sheetInfo.sheetType)">
        <span>
         姓名：
         <div class="bottom-line" style="min-width: 70px">
@@ -74,16 +74,17 @@
           {{ patientInfo.age }}
         </div>
       </span>
-      <span v-if="sheetInfo.sheetType == 'labor_ytll'">
+      <span v-if="['oxytocin_ytll', 'labor_ytll'].includes(sheetInfo.sheetType)">
        胎次:
-        <input type="text" v-model="sheetInfo.relObj.deliveryMOde" style="width:60px;">
+        <input type="text" v-model="sheetInfo.relObj.deliveryMOde" :data-value="sheetInfo.relObj.deliveryMOde" style="width:60px;">
       </span>
-       <span v-if="sheetInfo.sheetType == 'labor_ytll'">
+       <span v-if="['oxytocin_ytll', 'labor_ytll'].includes(sheetInfo.sheetType)">
         预产期：
           <crDatePicker
             :data-value="sheetInfo.relObj.laborTime"
             v-model="sheetInfo.relObj.laborTime"
             :width="140"
+            :type="sheetInfo.sheetType === 'oxytocin_ytll' ? 'time' : 'date'"
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
       </span>
@@ -233,7 +234,7 @@
       </span>
     </div> -->
     <div class="info-con">
-      <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll', 'babymilk_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)">
+      <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll', 'babymilk_ytll', 'oxytocin_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)">
         入院诊断：
         <div
           class="bottom-line"
