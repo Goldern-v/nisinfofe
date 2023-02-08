@@ -46,10 +46,10 @@
         姓名：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
       </span>
-      <!-- <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
+      <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
         性别：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
-      </span> -->
+      </span>
       <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-if="showAge.includes(sheetInfo.sheetType)">
         年龄：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
