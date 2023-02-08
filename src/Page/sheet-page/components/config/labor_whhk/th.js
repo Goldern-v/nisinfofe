@@ -36,7 +36,7 @@ export default {
         }
       },
       {
-        name: "胎心<br/>次/分",
+        name: "胎心<br/>(次/分)",
         colspan: "1",
         rowspan: "3",
         style: {
@@ -59,14 +59,14 @@ export default {
           minWidth: "50px"
         }
       },
-      {
-        name: `血压`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: "50px"
-        }
-      },
+      // {
+      //   name: `血压`,
+      //   colspan: "1",
+      //   rowspan: "3",
+      //   style: {
+      //     minWidth: "50px"
+      //   }
+      // },
       {
         name: `胎膜`,
         colspan: "1",
@@ -76,7 +76,7 @@ export default {
         }
       },
       {
-        name: `T`,
+        name: `T<br/>℃`,
         colspan: "1",
         rowspan: "3",
         style: {
@@ -84,7 +84,7 @@ export default {
         }
       },
       {
-        name: `P`,
+        name: `P<br/>(次/分)`,
         colspan: "1",
         rowspan: "3",
         style: {
@@ -92,7 +92,15 @@ export default {
         }
       },
       {
-        name: `R`,
+        name: `R<br/>(次/分)`,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "50px"
+        }
+      },
+      {
+        name: `BP<br/>mmHg`,
         colspan: "1",
         rowspan: "3",
         style: {
@@ -117,7 +125,7 @@ export default {
         rowspan: "3"
       },
       {
-        name: `检查者`,
+        name: `检查`,
         style: {
           minWidth: "70px",
           maxWidth: "70px"
