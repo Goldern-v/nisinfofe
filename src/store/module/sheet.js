@@ -15,8 +15,8 @@ export default {
     isAddPageModal:false,
     sheetPageArea:{
       //护记页码起始页,
-      startPageIndex:1,
-      endPageIndex:1
+      startPageIndex:null,
+      endPageIndex:null
     },
     pageIndexs:1,
   },

@@ -1173,20 +1173,22 @@ export default {
         item,
       );
     },
-    addNullRow(index, row,direction) {
-      let newRow = nullRow();
+    getLastRecordDate(index,row,direction){
+      let lastRecordMonth = ''
+      let addRowDate = ''
       const rowRecordDate = row.find((item) => item.key == "recordDate").value
       const rowRecordMonth = row.find((item) => item.key == "recordMonth").value
       const allDateList = this.data.bodyModel.map((bodyModelItem)=>{
         return bodyModelItem.find((item) => item.key == "recordMonth").value
       })
-      let lastRecordMonth = ''
-      let addRowDate = ''
       /*如果向上插入 就不能使用当前鼠标的日期 ，要用当前鼠标的下标位置来向上查找日期
       **/
+      console.log('allDateList',allDateList)
       if (direction == 'upward') {
         //以前代码传过来index-1 聚焦上一行  所以我们index+1  才对得上下标
       let findIndex = index + 1
+      console.log(index,findIndex)
+
         while(findIndex--){
         if(allDateList[findIndex]){
           lastRecordMonth = allDateList[findIndex]
@@ -1196,6 +1198,7 @@ export default {
         addRowDate = lastRecordMonth
       } else {
         let findIndex = index
+        console.log(index,findIndex)
         while(findIndex--){
         if(allDateList[findIndex]){
           lastRecordMonth = allDateList[findIndex]
@@ -1206,7 +1209,13 @@ export default {
         **/
         addRowDate = rowRecordDate ? moment(rowRecordDate).format('MM-DD') : rowRecordMonth ? rowRecordMonth : lastRecordMonth
       }
-      newRow.addRowDate = addRowDate;
+      console.log('数值',addRowDate)
+      return addRowDate
+
+    },
+    addNullRow(index, row,direction) {
+      let newRow = nullRow();
+      newRow.find((item) => item.key == "recordMonth").addRowDate = this.getLastRecordDate(index, row,direction);
       if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
         // 发送请求。有自定义标题且含下拉的。放进去
         const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea

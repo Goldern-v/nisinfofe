@@ -114,11 +114,19 @@
         </div>
       </span>
       <span
-        v-if="sheetInfo.sheetType === 'postpartumnursing_jm'||sheetInfo.sheetType === 'neonatology_jm'"
+        v-if="sheetInfo.sheetType === 'postpartumnursing_jm'"
       >
         {{sheetInfo.sheetType == 'postpartumnursing_jm'?'分娩日期':'出生日期'}}：
         <div class="bottom-line" style="min-width: 95px">
-          {{ patientInfo.relObj.deliveryDate ? patientInfo.relObj.deliveryDate : "" }}
+          {{ patientInfo.relObj.deliveryDate ? patientInfo.relObj.deliveryDate : "" }} 
+        </div>
+      </span>
+      <span
+        v-if="sheetInfo.sheetType === 'neonatology_jm'"
+      >
+        {{sheetInfo.sheetType == 'postpartumnursing_jm'?'分娩日期':'出生日期'}}：
+        <div class="bottom-line" style="min-width: 95px">
+          {{ patientInfo.birthday ? patientInfo.birthday : "" }} 
         </div>
       </span>
       <span v-if="sheetInfo.sheetType === 'gynaecology_jm'">
