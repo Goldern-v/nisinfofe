@@ -46,7 +46,7 @@
         姓名：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
       </span>
-      <span v-if="sheetInfo.sheetType === 'labor_whhk'" @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
+      <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
         性别：
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
       </span>
