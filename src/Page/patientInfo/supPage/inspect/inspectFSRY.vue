@@ -62,9 +62,16 @@
             </div>
           </div>
           </el-checkbox-group>
-          <div class="null-con" v-show="listByFilter.length == 0">
-            <img src="../../../../common/images/task/nondata.png" alt />
+          <div class="null-con">
+            <div v-if="!isDone"
+            :style="{ height: height }"
+            v-loading="!isDone"
+            element-loading-text="正在加载中"
+            ></div>
+            <div v-else-if="listByFilter.length == 0">
+              <img src="../../../../common/images/task/nondata.png" alt />
             <p>没有相关检查数据～</p>
+            </div>
           </div>
         </div>
       </div>
@@ -72,6 +79,7 @@
         <!-- <inspectFormFuyou v-show="rightData.examNo" ref="inspectForm" v-if="HOSPITAL_ID=='fuyou'"></inspectFormFuyou> -->
         <!--佛一检查报告-->
         <inspectFormFSRY v-if="['foshanrenyi'].includes(HOSPITAL_ID)" v-show="rightData.examNo" ref="inspectForm" ></inspectFormFSRY>
+        <inspectFormNFZXY v-else-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID)" v-show="rightData.examNo" ref="inspectForm" ></inspectFormNFZXY>
         <inspectForm v-else v-show="rightData.examNo" ref="inspectForm" ></inspectForm>
 
       </div>
@@ -198,6 +206,7 @@
 <script>
 import inspectForm from "./component/inspectForm";
 import inspectFormFSRY from "./component/inspectFormFSRY";
+import inspectFormNFZXY from "./component/inspectForm_nfzxy";
 // import inspectFormFuyou from "./component/inspectForm_fuyou";
 import { examList, getExamList } from "@/api/patientInfo";
 import bus from "vue-happy-bus";
@@ -206,6 +215,7 @@ export default {
     return {
       list: [],
       rightData: {},
+      isDone:false,
       optionsFSRY:[
       {
           label: "全部",
@@ -236,7 +246,7 @@ export default {
       return `${this.wih - 255}px`;
     },
     paddingLeft(){
-      if(['foshanrenyi','zhzxy'].includes(this.HOSPITAL_ID)){
+      if(['foshanrenyi','zhzxy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
         return '40px'
       }else{
         return '20px'
@@ -308,6 +318,10 @@ export default {
         this.toRight(this.list[0]);
         }
         this.pending=false
+        this.isDone = true
+      }).catch((error)=>{
+        this.pending=false
+        this.isDone = true
       });
     },
   },
@@ -318,7 +332,8 @@ export default {
   },
   components: {
     inspectForm,
-    inspectFormFSRY
+    inspectFormFSRY,
+    inspectFormNFZXY
   },
 };
 </script>
