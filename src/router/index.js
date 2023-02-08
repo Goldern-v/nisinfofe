@@ -172,6 +172,10 @@ const birthCertificateForm = () =>
 
 const healthEducationList = () =>
   import("@/Page/healthEducation-list/healthEducation-list.vue");
+const checkSheet = () =>
+  import("@/Page/checkSheet/checkSheet.vue");
+const checkSheetPage = () =>
+  import("@/Page/checkSheet/checkSheetMain.vue");
 
 
 
@@ -372,6 +376,8 @@ import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
 import implementationPersonytll
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-ytll";
+import implementationPersonwhsl
+  from "@/Page/patientInfo/supPage/implementation-list/implementation-list-whsl";
 const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-form/index.vue")
 const medicalCheck = () => import("@/Page/patientInfo/supPage/medical-check/index.vue")
 // 患者个人护理巡视
@@ -581,6 +587,7 @@ const router = new Router({
             return temperatureFSXT
           case 'lyyz':
           case 'whhk':
+          case 'zzwy':
             return temperatureLYYZ
           case 'whyx':
             return temperatureWHYX
@@ -1141,6 +1148,7 @@ const router = new Router({
                 return temperatureWHYX
               case 'lyyz':
               case 'whhk':
+              case 'zzwy':
                 return temperatureLYYZ
               case 'gdtj':
                   return temperatureGDTJ
@@ -1261,8 +1269,10 @@ const router = new Router({
             switch (process.env.HOSPITAL_ID) {
               case 'liaocheng':
                 return implementationPersonLiaocheng
-                case 'ytll':
+              case 'ytll':
                 return implementationPersonytll
+              case 'whsl':
+                return implementationPersonwhsl
               default:
                 return implementationPersonLiaocheng
             }
@@ -1302,6 +1312,17 @@ const router = new Router({
         path: "/nursingDocumentation",
         component: nursingDocumentation,
         name: "患者查询"
+      },
+      {
+        path: "/checkSheets",
+        component: checkSheetPage,
+        children:[
+          {
+            name: 'checkSheets',
+            path: "/checkSheets/:code?/:id?",
+            component: checkSheet,
+          }
+        ]
       },
       {
         path: "/workloadSatistics",
@@ -1562,9 +1583,10 @@ const router = new Router({
             case 'zhzxy':
               return allTemperatureChartFSRY
             case 'lyyz':
+            case 'whhk':
+            case 'zzwy':
               return allTemperatureChartLYYZ
             case 'ytll':
-            case 'whhk':
               return allTemperatureChartYTLL
             case 'gdtj':
             return allTemperatureChartGDTJ
@@ -1620,6 +1642,7 @@ const router = new Router({
               return newSingleTemperatureChartLiaoCheng;
             case "lyyz":
             case 'whhk':
+            case 'zzwy':  
               return newSingleTemperatureChartLYYZ;
             case "gdtj":
               return newSingleTemperatureChartGDTJ

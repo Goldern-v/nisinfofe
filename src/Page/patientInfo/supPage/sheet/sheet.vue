@@ -67,7 +67,7 @@
     <evalModelPaging ref="evalModelPaging"></evalModelPaging>
     <!-- 电子病例弹窗 -->
     <doctorEmr
-      v-if="['foshanrenyi','huadu','zhzxy'].includes(HOSPITAL_ID) && !$route.path.includes('temperature')"
+      v-if="['foshanrenyi','huadu','zhzxy','dglb'].includes(HOSPITAL_ID) && !$route.path.includes('temperature')"
     />
   </div>
 </template>
@@ -385,6 +385,7 @@ export default {
     },
     getSheetData(isBottom) {
       const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
+      if(startPageIndex == null||endPageIndex == null) return
       this.tableLoading = true;
       sheetInfo.isDone = false;
       if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){

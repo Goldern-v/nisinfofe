@@ -55,7 +55,8 @@ export function getRowNum(index) {
     sheetInfo.sheetType == "critical_new_lc" ||
     sheetInfo.sheetType === 'babyarea_fs'||
     sheetInfo.sheetType == "icu_yz" ||
-    sheetInfo.sheetType === 'intravenous_whhk'
+    sheetInfo.sheetType === 'intravenous_whhk' || 
+    sheetInfo.sheetType === 'oxytocin_ytll'
   ) {
     return 20;
   } else if (sheetInfo.sheetType == "cardiology_lcey") {
