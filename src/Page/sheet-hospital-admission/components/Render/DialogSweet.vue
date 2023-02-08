@@ -413,7 +413,6 @@ export default {
                   continue;
                 }
                 let valueArr = value.split(",");
-                console.log("选项:", item, [code], [value], [valueArr]);
                 if (
                   code == value ||
                   title == value ||

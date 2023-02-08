@@ -715,8 +715,8 @@ export default {
       const sheetStartPage = this.sheetInfo.sheetStartPage
       if(!pageByDateFlag){
               let maxPage = {
-        'wujing': 40,
-        'default': 30
+        'zhzxy': 150,
+        'default': 100
       }
         if (
           Number(endPage) - Number(startPage) >= 0 &&

@@ -413,6 +413,7 @@ export default {
   },
   methods: {
     open() {
+      this.class_4_zhzyx = '0'
       this.getData();
       this.show = true;
       this.selectWidth = 100;

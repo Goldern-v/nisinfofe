@@ -77,7 +77,7 @@ export default {
   },
   watch: {
     datePickerValue(valueNew, oldvaule) {
-      console.log("datePickerValue:", valueNew, oldvaule);
+      // console.log("datePickerValue:", valueNew, oldvaule,this.formObj);
 
       // let value = valueNew.toString();
       // let index = -1;
@@ -123,6 +123,8 @@ export default {
     //   (this.obj.title || this.obj.label);
     if(this.datePickerValue){
       this.datePickerValue = this.datePickerValue;
+    }else if(this.HOSPITAL_ID ='lyxrm'){
+      this.datePickerValue =null;
     }else{
        this.datePickerValue = moment(new Date()).format("YYYY-MM-DD HH:mm");
     }
