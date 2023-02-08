@@ -1545,9 +1545,12 @@ export default {
         const firstDate = record[0].find((item) => item.key == "recordDate")
         const itemListTime = config.recordDate || firstDate.value
           record[0].find((item) => item.key == "recordDate").value
+          console.log(999999,itemListTime)
         if(!itemListTime){
+          const addRowDate = record[0].find((item) => item.key == "recordMonth").addRowDate
+          console.log('sp传参',)
           if (!(record[0].find((item) => item.key == "recordMonth").value)) {
-            this.staticObj.recordMonth = record[0].addRowDate || moment().format('MM-DD');
+            this.staticObj.recordMonth = addRowDate || moment().format('MM-DD');
           if (!(record[0].find((item) => item.key == "recordHour").value)) {
             this.staticObj.recordHour = moment().format('HH:mm');
           }

@@ -1,33 +1,17 @@
 <template>
   <div>
-    <div
-      class="exam-list"
-      v-if="HOSPITAL_ID == 'guizhou'"
-      v-show="dataGz.reportUrl"
-      :style="{ height: height }"
-    >
-      <div class="page">
-        <iframe
-          :src="dataGz.reportUrl"
-          frameborder="0"
-        ></iframe>
-      </div>
-    </div>
-    <div v-else-if="Object.keys(data1).length != 0">
+    <div v-if="Object.keys(data).length != 0">
       <el-row v-loading="loading" class="form" :style="{ height: height }">
-        <div class="title" v-if="HOSPITAL_ID == 'sdlj'">广东医科大学附属第三医院佛山市顺德区龙江医院</div>
-        <div class="title" v-else>{{ HOSPITAL_NAME }}</div>
+        <div class="title">{{ HOSPITAL_NAME }}</div>
         <div class="name">{{ data.examItem }}报告单</div>
         <table>
           <tr>
             <td class="key">检查号</td>
-            <td class="value">{{ data1.examNo ? data1.examNo : "" }}</td>
+            <td class="value">{{ data.examNo }}</td>
             <td class="key">病人ID</td>
-            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ $route.query.inpNo }}</td>
-            <td class="value" v-else>{{ data.patientId }}</td>
+            <td class="value">{{ data.patientId }}</td>
             <td class="key">住院号</td>
-            <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ data.patientId }}</td>
-            <td class="value" v-else>{{ $route.query.inpNo }}</td>
+            <td class="value">{{ $route.query.inpNo }}</td>
           </tr>
           <tr>
             <td class="key">姓名</td>
@@ -47,12 +31,9 @@
           </tr>
           <tr>
             <td class="key">报告日期</td>
-            <td class="value" v-if="['foshanrenyi'].includes(HOSPITAL_ID)">{{ data.examResult&&data.examResult.reportDateTime ||'未出报告'}}</td>
-            <td class="value" v-else>{{ data.reportDate | dataForm }}</td>
-            <td class="value">{{ data.reportDate | dataForm }}</td>
+            <td class="value">{{ data.examResult&&data.examResult.reportDateTime ||'未出报告'}}</td>
             <td class="key">报告医生</td>
-            <td class="value" colspan="3" v-if="['foshanrenyi'].includes(HOSPITAL_ID)">{{ data.examResult&&data.examResult.reportDoctor ||'未出报告'}}</td>
-            <td class="value" colspan="3" v-else>{{ data.reportDoctor }}</td>
+            <td class="value" colspan="3">{{ data.examResult&&data.examResult.reportDoctor ||'无报告医生'}}</td>
           </tr>
           <tr>
             <td class="key">临床诊断</td>
@@ -60,23 +41,20 @@
           </tr>
           <tr style="height: 112px">
             <td class="key">检查所见</td>
-            <td colspan="5">{{ data1.description ||'未出报告'}}</td>
+            <td colspan="5">{{ data.examResult&&data.examResult.description ||'未出报告检查'}}</td>
           </tr>
           <tr style="height: 112px">
             <td class="key">印象</td>
-            <td colspan="5">{{ data1.impression || '未出报告'}}</td>
+            <td colspan="5">{{ data.examResult&&data.examResult.impression|| '未出报告印象'}}</td>
           </tr>
         </table>
         <div>
-          <!-- <el-button type="text" @click="toShowImg" style="margin-top: 20px" v-show="picNum">
-            点击查看本次检查图像 ({{picNum}}张)
-          </el-button>-->
         </div>
       </el-row>
     </div>
 
     <div
-      v-if="(Object.keys(data1).length == 0 && !data.examNo) || (HOSPITAL_ID == 'guizhou' && !dataGz.reportUrl)"
+      v-if="(Object.keys(data).length == 0 && !data.examNo)"
       class="form"
       :style="{ height: height }"
     >
@@ -219,62 +197,20 @@ export default {
       // this.$refs.imgModal.open(examNo, name)
     },
     open(data) {
+      this.loading = true;
       if (data) {
         this.data = data;
         this.data.name = this.$route.query.name || this.$store.state.sheet.patientInfo.name
-        this.loading = true;
-        this.data1 = {};
+        this.loading = false;
         this.showImg = false;
-        if (this.HOSPITAL_ID == "guizhou") {
-          this.data1 = null;
-          this.data == null
-          this.dataGz = data
-          // getExamTestUrl(
-          //   this.$route.query.patientId,
-          //   this.$route.query.visitId,
-          //   this.data.examNo
-          // ).then((res) => {
-          //   this.examList = res.data.data;
-          //   this.loading = false;
-          // }).catch(e => {
-          //   this.loading = false;
-          // });
-          return;
-        }
+        console.log(data)
         if (this.data.examNo !== "") {
-          if(['whsl'].includes(this.HOSPITAL_ID)){
-            examResultWhsl(this.data.examNo)
-            .then((res) => {
-              this.data1 = res.data.data;
-              this.loading = false;
-            })
-            .catch(() => {
-              this.data1 = {};
-              this.loading = false;
-            });
-          }else{
-            examResult(this.data.examNo)
-              .then((res) => {
-                this.data1 = res.data.data; 
-                this.loading = false;
-                // picNum(this.data.examNo, this.data.name).then(res => {
-                //     this.picNum = res.data.data.picNum
-                // })
-                this.$emit('changeExamResult',this.data1,this.data.examNo)
-              })
-              .catch(() => {
-                this.data1 = {};
-                this.loading = false;
-              });
-          }
         }else{
           this.data1 = {};
-          this.dataGz = {}
           this.loading = false;
         }
       } else {
         this.data1 = {};
-        this.dataGz = {}
         this.loading = false;
       }
     },

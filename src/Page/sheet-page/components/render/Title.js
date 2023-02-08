@@ -2317,6 +2317,13 @@ export default function Title(
     );
   }
   break;
+  case "oxytocin_ytll": {
+    // 烟台玲珑-催产素引产及催产记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_ytll/th").default)
+    );
+  }
+  break;
   case "one_whhk": {
     // 武汉汉口 - 护理记录单（一）
     Th = JSON.parse(

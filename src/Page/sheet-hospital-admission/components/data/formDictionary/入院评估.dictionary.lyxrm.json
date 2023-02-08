@@ -987,32 +987,8 @@
             "code": "有",
             "name": "有",
             "pinyin": "y"
-        },
-        {
-            "code": "头部",
-            "name": "头部",
-            "pinyin": "tb"
-        },
-        {
-            "code": "腮腺",
-            "name": "腮腺",
-            "pinyin": "sx"
-        },
-        {
-            "code": "腹部",
-            "name": "腹部",
-            "pinyin": "fb"
-        },
-        {
-            "code": "关节处",
-            "name": "关节处",
-            "pinyin": "gjc"
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
         }
+       
     ],
     "I001352": [
         {

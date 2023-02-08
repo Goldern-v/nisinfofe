@@ -385,6 +385,7 @@ export default {
     },
     getSheetData(isBottom) {
       const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
+      if(startPageIndex == null||endPageIndex == null) return
       this.tableLoading = true;
       sheetInfo.isDone = false;
       if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){

@@ -1771,6 +1771,11 @@ function switchSheetType(type) {
       schema = require("../config/prenatal_ytll/tr.js").default;
     }
       break;
+    case "oxytocin_ytll": {
+      // 烟台玲珑 - 催产素引产及催产记录表
+      schema = require("../config/oxytocin_ytll/tr.js").default;
+    }
+      break;
     case "one_whhk": {
       // 武汉汉口 - 护理记录单（一）
       schema = require("../config/one_whhk/tr.js").default;

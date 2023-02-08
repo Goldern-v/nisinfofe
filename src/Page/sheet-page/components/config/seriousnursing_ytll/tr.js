@@ -113,7 +113,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 60
+      width: 120
     },
     name: "入量名称"
   },

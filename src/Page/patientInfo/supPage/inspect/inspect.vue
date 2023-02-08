@@ -58,14 +58,22 @@
               }}</span>
             </div>
           </div>
-          <div class="null-con" v-show="listByFilter.length == 0">
-            <img src="../../../../common/images/task/nondata.png" alt />
+          <div class="null-con">
+            <div v-if="!isDone"
+            :style="{ height: height }"
+            v-loading="!isDone"
+            element-loading-text="正在加载中"
+            ></div>
+            <div v-else-if="listByFilter.length == 0">
+              <img src="../../../../common/images/task/nondata.png" alt />
             <p>没有相关检查数据～</p>
+            </div>
           </div>
         </div>
       </div>
       <div class="right-part">
         <inspectFormFuyou v-show="rightData.examNo" ref="inspectForm" v-if="HOSPITAL_ID=='fuyou'"></inspectFormFuyou>
+        <inspectFormNFZXY v-show="rightData.examNo" ref="inspectForm" v-else-if="HOSPITAL_ID=='nanfangzhongxiyi'"></inspectFormNFZXY>
         <inspectForm  ref="inspectForm" v-else></inspectForm>
       </div>
     </div>
@@ -188,21 +196,22 @@
 <script>
 import inspectForm from "./component/inspectForm";
 import inspectFormFuyou from "./component/inspectForm_fuyou";
+import inspectFormNFZXY from "./component/inspectForm_nfzxy";
 import { examList, getExamList } from "@/api/patientInfo";
 export default {
   data() {
     return {
+      isDone:false,
       list: [],
       rightData: {},
-
       value: "全部",
       visitList: [],
       visitId: "",
-      optionsFSRY:[
+      optionsByExamClass:[
       {
           label: "全部",
         },
-      ]
+      ],
     };
   },
   computed: {
@@ -230,7 +239,8 @@ export default {
         },
       ]
       case 'foshanrenyi':
-        return this.optionsFSRY
+      case 'nanfangzhongxiyi':
+        return this.optionsByExamClass
         default:
         return [
           {
@@ -313,7 +323,8 @@ export default {
           this.visitId == "门诊" ? 0 : this.visitId
         ).then(res => {
           this.list = res.data.data;
-          this.toRight(this.list[0]);
+          this.toRight(this.list[0])
+        this.isDone = true
         })
         return
       }
@@ -322,13 +333,16 @@ export default {
         this.visitId == "门诊" ? 0 : this.visitId
       ).then((res) => {
         this.list = res.data.data;
-      const fsryOption =  res.data.data.length&&Array.from(new Set(res.data.data.map((listItem)=>{
+        const fsryOption = Array.from(new Set(res.data.data.map((listItem) => {
           return listItem.examClass
         })))
-        fsryOption.map((fsryOptionList)=>{
-          this.optionsFSRY.push({label:fsryOptionList})
+        fsryOption.map((fsryOptionList) => {
+          this.optionsByExamClass.push({ label: fsryOptionList })
         })
+        this.isDone = true
         this.toRight(this.list[0]);
+      }).catch((err)=>{
+        this.isDone = true
       });
     },
   },
@@ -339,7 +353,8 @@ export default {
   },
   components: {
     inspectForm,
-    inspectFormFuyou
+    inspectFormFuyou,
+    inspectFormNFZXY
   },
 };
 </script>

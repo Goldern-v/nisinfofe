@@ -172,6 +172,10 @@ const birthCertificateForm = () =>
 
 const healthEducationList = () =>
   import("@/Page/healthEducation-list/healthEducation-list.vue");
+const checkSheet = () =>
+  import("@/Page/checkSheet/checkSheet.vue");
+const checkSheetPage = () =>
+  import("@/Page/checkSheet/checkSheetMain.vue");
 
 
 
@@ -1308,6 +1312,17 @@ const router = new Router({
         path: "/nursingDocumentation",
         component: nursingDocumentation,
         name: "患者查询"
+      },
+      {
+        path: "/checkSheets",
+        component: checkSheetPage,
+        children:[
+          {
+            name: 'checkSheets',
+            path: "/checkSheets/:code?/:id?",
+            component: checkSheet,
+          }
+        ]
       },
       {
         path: "/workloadSatistics",
