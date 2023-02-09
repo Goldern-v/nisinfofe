@@ -26,6 +26,11 @@
             <div class="label">患者医嘱</div>
             <el-button @click="openModal('adviceModal')">查看</el-button>
           </div>
+          <div class="item-box" v-if="HOSPITAL_ID == 'foshanrenyi'">
+            <div class="label-icon"></div>
+            <div class="label">360视图</div>
+            <el-button @click="openModal('360')">查看</el-button>
+          </div>
           <div class="item-box" v-if="HOSPITAL_ID == 'lingcheng'">
             <img src="../images/检验报告@2x.png" alt class="label-icon" />
             <div class="label">病历</div>
@@ -198,7 +203,9 @@ export default {
       this.show = !this.show;
     },
     openModal(name, feature) {
-      this.$refs[name].open(feature);
+      if(name == '360'){
+        window.open(`http://hz360.fsyyy.com:8081/cdr/personal/?patientId=${this.$route.query.patientId}&visitNumber=1&systemcode=HLXT&doctorcode=${JSON.parse(localStorage.user).empNo}&oporIp=IP`)
+      }else this.$refs[name].open(feature);
     },
     url360Hd() {
       const { inpNo = '' } = this.$route.query

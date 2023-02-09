@@ -403,9 +403,28 @@ export default {
       let empNo =JSON.parse(localStorage.user).empNo
       getLink(patientId,visitId,empNo,wardCode).then(res=>{
         console.log("res===",res)
+        this.copy(res.data.data.link)
       })
     },
-
+    copy (text) {
+      console.log('text',text)
+      this.$confirm("即将跳转至外部链接", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        let a =  document.createElement('a');
+        a.setAttribute('href', `openIE:${text}`);
+        a.setAttribute('target', '_blank');
+        a.setAttribute('id', 'startTelMedicine');
+        // 防止反复添加
+        if (document.getElementById('startTelMedicine')) {
+          document.body.removeChild(document.getElementById('startTelMedicine'));
+        }
+        document.body.appendChild(a);
+        a.click();
+      })
+    },
     // （顺德龙江）手麻记录单（第三方链接）
     toHandNumbness() {
       window.open(

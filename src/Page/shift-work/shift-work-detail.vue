@@ -418,7 +418,7 @@
               </td>
             </tr>
           </ExcelTable>
-        <div v-if="HOSPITAL_ID = 'gdtj'">
+        <div v-if="HOSPITAL_ID == 'gdtj'">
           <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
             <div data-print-style="width: auto">
               <span>A班签名：</span>
