@@ -670,7 +670,8 @@ export default {
               console.log("saveError:", e);
             }
             try {
-              window.formTool.formSave();
+              // 签名成功后保存返回当前位置
+              window.formTool.formSave('六、风险评估、活动及自理能力');
              this.$root.$refs["sheetPage"].fillForm();
             } catch (err) {
               console.log("formSave", err, window.formTool);
