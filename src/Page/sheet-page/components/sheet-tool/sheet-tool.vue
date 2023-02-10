@@ -1746,7 +1746,7 @@ export default {
     },
     // 显示入量同步
     showRltbN() {
-      return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
+      // return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
     },
     // 选择表单下拉框的输入框所显示的文字
     selectText() {
