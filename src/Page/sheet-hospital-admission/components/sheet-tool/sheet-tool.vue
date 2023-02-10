@@ -595,7 +595,7 @@ export default {
       });
     },
     //获取当前表的填项数据
-    changeSelectBlock(item) {
+    changeSelectBlock(item, title='') {
       if (!this.selectBlock.id) return;
       // window.performance（监控网页与程序性能）
       // 可以精确计算程序执行时间
@@ -679,6 +679,7 @@ export default {
           this.bus.$emit("openHosptialAdmissionForm", {
             patient: item,
             formObj: formObj,
+            title
           });
           // 解锁loading动画
           // this.bus.$emit("setHosptialAdmissionLoading", false);
@@ -1209,7 +1210,10 @@ export default {
       }, "你确定要删除本记录吗？");
     },
     // 保存表单
-    formSave() {
+    /**
+     * title:保存成功后跳转到对饮位置
+     */
+    formSave(title = '') {
       if (this.patientInfo && this.patientInfo.hasOwnProperty("patientId")) {
         this.bus.$emit("setHosptialAdmissionLoading", {
           status: true,
@@ -1263,7 +1267,7 @@ export default {
           .then((res) => {
             this.$message.success("保存成功");
             this.selectBlock.status = "1";
-            this.changeSelectBlock(this.selectBlock);
+            this.changeSelectBlock(this.selectBlock,title);
             this.showMeasureDetailBox(res);
 
             //

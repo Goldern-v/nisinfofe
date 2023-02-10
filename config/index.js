@@ -180,7 +180,7 @@ const currentTargetUrl = (() => {
 
     //阳春
     case 'yangchunzhongyi':
-      return "http://192.168.1.54:9866" // 默认公司本地内网厚街
+      return "http://ydyh.ycszyy.cn" // 默认公司本地内网厚街
 
      //武汉亚心
     case 'whyx':
