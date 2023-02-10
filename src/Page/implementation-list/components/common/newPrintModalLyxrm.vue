@@ -1,9 +1,10 @@
 <template>
 <!-- 6.7 -->
   <div
+    id="lyxrm-print-modal"
     :style="{
       width: `${newModalSize == '70*80' || newModalSize == '7*7' ? '7' : '14'}cm`,
-      height: `${newModalSize == '70*80' ? '8' : newModalSize == '7*7' ? '7' :HOSPITAL_ID == 'lyxrm' ?'7.3': '5.3'}cm`
+      height: `${newModalSize == '70*80' ? '8' : newModalSize == '7*7' ? '7' :HOSPITAL_ID == 'lyxrm' ?'7.1': '5.3'}cm`
     }"
   >
     <!-- 小瓶签一张纸需要打印3条数据数据间要留白 -->
