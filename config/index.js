@@ -69,7 +69,7 @@ const currentTargetUrl = (() => {
     case "huadu":
       // return "http://120.238.239.27:9094" //花都正式
       // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
-      return "http://192.168.1.54:9868" //公司-花都测试-内网
+      return "http://192.168.1.54:9883" //公司-花都测试-内网
       // return "http://192.168.20.112:8080" //公司-花都测试-内网
 
     /** 贵州医科大正式 */
@@ -180,7 +180,7 @@ const currentTargetUrl = (() => {
 
     //阳春
     case 'yangchunzhongyi':
-      return "http://ydyh.ycszyy.cn" // 默认公司本地内网厚街
+      return "http://192.168.1.54:9866" // 默认公司本地内网厚街
 
      //武汉亚心
     case 'whyx':
