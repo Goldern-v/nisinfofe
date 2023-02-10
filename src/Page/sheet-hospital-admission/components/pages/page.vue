@@ -299,11 +299,12 @@ export default {
         this.$refs["renderForm"].runDevMode();
       }
 
-
-      // 滚动到顶端
+      if(!config.title){
+         // 滚动到顶端
       document.querySelector(".sheetTable-contain").scrollTop = 0;
       document.querySelector(".sheetTable-contain").style.background =
         "#DFDFDF";
+      }
 
       setTimeout(() => {
         //数据回填表单

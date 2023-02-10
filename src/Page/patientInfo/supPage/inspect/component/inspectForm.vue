@@ -255,11 +255,12 @@ export default {
           }else{
             examResult(this.data.examNo)
               .then((res) => {
-                this.data1 = res.data.data;
+                this.data1 = res.data.data; 
                 this.loading = false;
                 // picNum(this.data.examNo, this.data.name).then(res => {
                 //     this.picNum = res.data.data.picNum
                 // })
+                this.$emit('changeExamResult',this.data1,this.data.examNo)
               })
               .catch(() => {
                 this.data1 = {};

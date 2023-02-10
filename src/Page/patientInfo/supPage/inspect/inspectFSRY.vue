@@ -80,7 +80,7 @@
         <!--佛一检查报告-->
         <inspectFormFSRY v-if="['foshanrenyi'].includes(HOSPITAL_ID)" v-show="rightData.examNo" ref="inspectForm" ></inspectFormFSRY>
         <inspectFormNFZXY v-else-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID)" v-show="rightData.examNo" ref="inspectForm" ></inspectFormNFZXY>
-        <inspectForm v-else v-show="rightData.examNo" ref="inspectForm" ></inspectForm>
+        <inspectForm v-else v-show="rightData.examNo" ref="inspectForm"  @changeExamResult="changeExamResultdata"></inspectForm>
 
       </div>
       </el-row>
@@ -294,6 +294,13 @@ export default {
       this.$emit('closeSweet')
       this.bus.$emit("openclosePatientInfo",'',true)
       this.bus.$emit('syncReportFSSY',str)
+    },
+    changeExamResultdata(data,examNo){
+       this.listByFilter.map((item)=>{
+         if(item.examNo ==examNo){
+           item.examResult =data;
+         }
+       })
     },
     toRight(data) {
       if (!data) return;

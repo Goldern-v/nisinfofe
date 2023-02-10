@@ -69,7 +69,7 @@ const currentTargetUrl = (() => {
     case "huadu":
       // return "http://120.238.239.27:9094" //花都正式
       // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
-      return "http://192.168.1.54:9868" //公司-花都测试-内网
+      return "http://192.168.1.54:9883" //公司-花都测试-内网
       // return "http://192.168.20.112:8080" //公司-花都测试-内网
 
     /** 贵州医科大正式 */
@@ -214,8 +214,8 @@ const currentTargetUrl = (() => {
 
     //珠海中西医
     case 'zhzxy':
-      // return "http://192.168.1.54:9883" //珠海中西医测试
-      return "http://183.234.20.149:19094"//正式
+      return "http://192.168.1.54:9883" //珠海中西医测试
+      // return "http://183.234.20.149:19094"//正式
       // return "http://192.168.20.20:9092"//正式
       // return "https://info.cr-health.com:20217"
 
@@ -237,10 +237,10 @@ const currentTargetUrl = (() => {
 
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
-      // return 'http://192.168.1.54:9866'
+      return 'http://192.168.1.54:9866'
       // return 'http://120.24.240.231:19097'
       // return 'http://192.168.3.226:8080'
-      return 'http://192.168.3.191:9091'
+      // return 'http://192.168.3.191:9091'
 
     //武汉汉口
     case 'whhk':

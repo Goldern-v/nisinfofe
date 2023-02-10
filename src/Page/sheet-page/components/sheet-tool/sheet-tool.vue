@@ -715,8 +715,7 @@ export default {
       const sheetStartPage = this.sheetInfo.sheetStartPage
       if(!pageByDateFlag){
               let maxPage = {
-        'zhzxy': 150,
-        'default': 100
+        'default': 50
       }
         if (
           Number(endPage) - Number(startPage) >= 0 &&
@@ -1086,6 +1085,7 @@ export default {
           console.log('正在查询户籍是否完成', sheetInfo.isDone)
           if (sheetInfo.isDone) {
             clearInterval(this.checkSheetRender)
+            this.checkSheetRender = null
             setTimeout(() => {
               if (
                 process.env.HOSPITAL_ID == "fuyou" ||
@@ -1746,7 +1746,7 @@ export default {
     },
     // 显示入量同步
     showRltbN() {
-      return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
+      // return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
     },
     // 选择表单下拉框的输入框所显示的文字
     selectText() {
