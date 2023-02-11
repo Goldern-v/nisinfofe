@@ -260,6 +260,16 @@
               >补执行</el-button
             >
             <el-button
+            type="text"
+            @click="editTime(scope.row)"
+            
+            v-if="
+              isEdit &&
+              HOSPITAL_ID == '925' && scope.row.executeFlag > 0
+            "
+            >修改</el-button
+          >
+            <el-button
               type="text"
               @click="editTime(scope.row)"
               v-if="
@@ -576,6 +586,9 @@ export default {
           });
       }
     },
+    editTime(data) {
+      this.$refs.editModal.open(data);
+    },
     // 补录
     backTracking(item) {
       this.$prompt("请输入补执行的原因", "提示", {
@@ -616,9 +629,6 @@ export default {
           });
         })
         .catch(() => {});
-    },
-    editTime(data) {
-      this.$refs.editModal.open(data);
     },
     addRowClass(row) {
       if (row.row.nurseMemo) {
@@ -674,6 +684,6 @@ export default {
       ? // && JSON.parse(localStorage.user).post == "护长"
         true
       : false;
-  },
-};
+  }
+}
 </script>

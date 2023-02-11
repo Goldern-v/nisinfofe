@@ -564,6 +564,13 @@ export default function Title(
     );
   }
   break;
+  case "internal_eval_hj": {
+    // 厚街-护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_eval_hj/th").default)
+    );
+  }
+  break;
   case "common_wj": {
     // 武警-护理记录单
     Th = JSON.parse(

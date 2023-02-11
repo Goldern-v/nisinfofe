@@ -103,6 +103,13 @@
             <el-button
               type="primary"
               size="mini"
+              @click="openZxdtbModal"
+            >
+              执行单同步
+            </el-button>
+            <el-button
+              type="primary"
+              size="mini"
               @click="openPISlide('testModal')"
             >
               检验报告

@@ -44,7 +44,7 @@ export default {
         },
         {
           name: `
-          脉搏/心率
+          心率/脉搏
           `,
           colspan: '1',
           rowspan: '1',

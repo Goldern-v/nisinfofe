@@ -42,6 +42,12 @@
           {{ patientInfo.realDeptName }}
         </div>
       </span>
+      <span v-if="useDepatNameList.includes(sheetInfo.sheetType)">
+        病区：
+        <div class="bottom-line" style="min-width: 120px">
+          {{ patientInfo.deptName }}
+        </div>
+      </span>
       <span>
         床号：
         <div :class="['bottom-line',HOSPITAL_ID=='huadu'?'has-background':'']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
@@ -90,7 +96,14 @@ export default {
   },
   data() {
     return {
-      sheetInfo
+      sheetInfo,
+      useDepatNameList:[
+        'mild_hypothermia_hd','neurosurgery_hd',
+        'common_hd','stress_injury_hd','prenatal_hd',
+        'postpartum_hd','wait_delivery_hd',
+        'contraction_inhibitor_hd','magnesium_sulphate_hd',
+        'neonatology_hd','nicu_custody_hd','neonatology2_hd'
+      ]
       // relObj: {
       //   wxNo: ""
       // }

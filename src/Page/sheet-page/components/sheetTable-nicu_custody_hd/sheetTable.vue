@@ -36,6 +36,10 @@
               <div class="info-item-msg">{{ patientInfo.age }}</div>
             </div>
             <div class="info-item">
+              病区：
+              <div class="info-item-msg">{{ patientInfo.deptName }}</div>
+            </div>
+            <div class="info-item">
               住院号：
               <div class="info-item-msg">{{ patientInfo.patientId }}</div>
             </div>
