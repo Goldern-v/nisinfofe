@@ -13,6 +13,7 @@
       >删除行</Button> -->
       <Button  @click="onSave(true)">保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
+      <Button  @click="copyNextPage()">复制上一张</Button>
       <div class="empty"></div>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
@@ -23,7 +24,7 @@
         icon="el-icon-plus"
         @click="onCreateModalOpen($route.params.code)"
       >创建交班志</Placeholder>
-      
+
       <div class="paper" v-else>
         <div ref="printable" data-print-style="height: auto;">
           <div class="head shift-paper">
@@ -134,7 +135,7 @@
       </div>
     </div>
     <div id="monring-print" class="paper" style="display:none;">
-      
+
     </div>
     <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <SignModal ref="signModal" />
@@ -182,7 +183,8 @@ export default {
     "getFullPage",
     "reloadSideList",
     "onCreateModalOpen",
-    "onToggleFullPage"
+    "onToggleFullPage",
+    'onRecordsData'
   ],
   async beforeRouteLeave(to, from, next) {
     if (this.modified) {
@@ -279,8 +281,8 @@ export default {
     },
     selectCallBack(patients){
       let arr = patients.map((item,index)=>{
-        let {bedLabel,patientId,visitId,name,age} = item
-        let content = `${bedLabel}床，${name}，${age}，`
+        let {bedLabel,patientId,visitId,name,age,diagnosis} = item
+        let content = `${bedLabel}床，${name}，${age}，${diagnosis}`
         // this.shiftWorkData[this.selectedRow].patientId = patientId
         // this.shiftWorkData[this.selectedRow].visitId = visitId
         // this.shiftWorkData[this.selectedRow].content = content
@@ -447,6 +449,46 @@ export default {
         this.reloadSideList();
       });
     },
+    // 复制上一张
+    async copyNextPage(){
+      let totalPage = this.onRecordsData()
+      let nextPage = totalPage.find(item =>new Date(item.changeShiftDate).getTime() < new Date(this.record.changeShiftDate).getTime())
+      let isCopy = this.shiftWorkData.some(item => item.id)
+      if(isCopy) {
+       this.$confirm('当前页已有数据, 如果确定复制将替代已有数据, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then( async() => {
+            try {
+            const {
+              data: { data }
+            } = await apis.getShiftRecord(nextPage.id);
+            const { changeShiftContents: patients } = data;
+            this.shiftWorkData = this.initShiftWorkData(patients)
+          } catch(err){
+            console.log(err)
+          }
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      }else{
+         try {
+            const {
+              data: { data }
+            } = await apis.getShiftRecord(nextPage.id);
+            const { changeShiftContents: patients } = data;
+            this.shiftWorkData = this.initShiftWorkData(patients)
+          } catch(err){
+            console.log(err)
+          }
+      }
+
+
+    },
     GetLength(str) {
       var realLength = 0,
         len = str.length,
@@ -490,7 +532,7 @@ export default {
         //   strArr.map(e=>{
         //   let strNum = this.GetLength(text + e)
         //   if(strNum > 84){
-            
+
         //   }
         //   })
         //   // let strNum = this.GetLength(ele.value)

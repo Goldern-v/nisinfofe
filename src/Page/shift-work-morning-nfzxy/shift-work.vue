@@ -58,7 +58,8 @@
         reloadSideList: this.load,
         getFullPage: this.getFullPage,
         onToggleFullPage: this.onToggleFullPage,
-        onCreateModalOpen: this.onCreateModalOpen
+        onCreateModalOpen: this.onCreateModalOpen,
+        onRecordsData: this.onRecordsData
       }
     },
     data() {
@@ -167,6 +168,9 @@
       },
       onToggleFullPage () {
         this.fullPage = !this.fullPage
+      },
+      onRecordsData () {
+        return this.records
       }
     },
     components: {
