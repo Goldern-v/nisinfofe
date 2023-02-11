@@ -24,6 +24,9 @@
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==4 && HOSPITAL_ID=='hj'">A3：</span>
             <!-- <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || HOSPITAL_ID=='huadu' || HOSPITAL_ID=='liaocheng' ? index+1 : index}}：</span> -->
             <span style="width: 60px; text-align: center" v-else-if="HOSPITAL_ID=='whyx'">{{index+1}}：</span>
+            <span style="width: 100px; text-align: center" v-else-if="HOSPITAL_ID=='gdtj'">
+              <input  style="width: 60px;margin-right: 20px" v-model="item.groupCode" @blur="update">
+            </span>
             <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi'].includes(HOSPITAL_ID)? index+1 : index}}：</span>
             <input v-if="HOSPITAL_ID !== 'liaocheng'" flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
             <!-- 聊城二院 床位 添加 下拉选项 -->
@@ -416,7 +419,7 @@ export default {
       let resultList = [];
       for (let i = 0; i < this.value; i++) {
         if (this.list[i]) {
-          !this.list[i].groupCode && (this.list[i].groupCode = i + 1);
+          !this.list[i].groupCode && (this.list[i].groupCode = 'A'+(i + 1));
           !this.list[i].deptCode && (this.list[i].deptCode = this.deptCode);
           this.list[i].bedSets = this.list[i].bedSets ? this.list[i].bedSets : []
           this.list[i].dutyNurses = this.list[i].dutyNurses ? this.list[i].dutyNurses : []
@@ -428,7 +431,7 @@ export default {
             deptCode: this.deptCode,
             dutyNurse: "",
             dutyNurses: [], // 聊城二院 护士可以多选
-            groupCode: i + 1,
+            groupCode: 'A'+( i + 1),
           });
         }
       }
