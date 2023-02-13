@@ -49,7 +49,6 @@ export default {
   methods: {
     // 依据医院名字，标题组件切换
     switchCompt(HisName = process.env.HOSPITAL_NAME) {
-      console.log(process.env.HOSPITAL_NAME)
       let hisList = {
         威县人民医院: "WeiXianHeader",
         东莞市厚街医院: "HLheader",

@@ -176,7 +176,7 @@
         prop="baiNurse"
         label="摆药人/摆药时间"
         min-width="170px"
-        v-if="isInfusion"
+        v-if="isInfusion &&  this.HOSPITAL_ID !== '925'"
       >
         <template slot-scope="scope">
           {{ scope.row.baiNurse }} {{ scope.row.baiTime | ymdhm2 }}
@@ -187,7 +187,7 @@
         prop="peiNurse"
         label="配药人/配药时间"
         min-width="170px"
-        v-if="isInfusion"
+        v-if="isInfusion &&  this.HOSPITAL_ID !== '925'"
       >
         <template slot-scope="scope">
           {{ scope.row.peiNurse }} {{ scope.row.peiTime | ymdhm2 }}
@@ -246,7 +246,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="操作" min-width="100px" v-if="HOSPITAL_ID !== 'whsl'" align="center">
+      <u-table-column label="操作" min-width="200px" v-if="HOSPITAL_ID !== 'whsl'" align="center">
         <template slot-scope="scope">
           <div v-show="scope.row.executeDateTime">
             <el-button
@@ -262,7 +262,7 @@
             <el-button
             type="text"
             @click="editTime(scope.row)"
-            
+
             v-if="
               isEdit &&
               HOSPITAL_ID == '925' && scope.row.executeFlag > 0
