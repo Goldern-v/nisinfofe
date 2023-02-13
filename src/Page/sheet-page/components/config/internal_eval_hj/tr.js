@@ -66,21 +66,21 @@ export default [
     }
   },
   {
-    key: "eyeOne", // 大小左
+    key: "fieldThree", // 大小左
     name: "大小左",
     next: "mm",
     value: "",
     event: keyf1
   },
   {
-    key: "eyeTwo", // 大小右
+    key: "fieldFour", // 大小右
     name: "大小右",
     next: "mm",
     value: "",
     event: keyf1
   },
   {
-    key: "eyeThree", // 反射左
+    key: "fieldFive", // 反射左
     name: "反射左",
     value: "",
     event: keyf1,
@@ -89,7 +89,7 @@ export default [
     }
   },
   {
-    key: "eyeFour", // 反射右
+    key: "fieldSix", // 反射右
     name: "反射右",
     value: "",
     event: keyf1,
@@ -136,7 +136,7 @@ export default [
     event: keyf1
   },
   {
-    key: "fieldOne", //标题1
+    key: "fieldSeven", //标题1
     value: "",
     event: keyf1,
     textarea: {
@@ -144,7 +144,7 @@ export default [
     }
   },
   {
-    key: "fieldTwo", //标题2
+    key: "fieldEight", //标题2
     value: "",
     event: keyf1,
     textarea: {
@@ -152,7 +152,7 @@ export default [
     }
   },
   {
-    key: "fieldThree", //标题3
+    key: "fieldNine", //标题3
     value: "",
     event: keyf1,
     textarea: {
@@ -160,7 +160,7 @@ export default [
     }
   },
   {
-    key: "fieldFour", //标题4
+    key: "fieldTen", //标题4
     value: "",
     event: keyf1,
     textarea: {
@@ -168,7 +168,7 @@ export default [
     }
   },
   {
-    key: "fieldFive", //标题5
+    key: "fieldEleven", //标题5
     value: "",
     event: keyf1,
     textarea: {
@@ -176,7 +176,7 @@ export default [
     }
   },
   {
-    key: "fieldSix", //标题6
+    key: "fieldTwelve", //标题6
     value: "",
     event: keyf1,
     textarea: {
