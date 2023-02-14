@@ -4,7 +4,7 @@
     id="lyxrm-print-modal"
     :style="{
       width: `${newModalSize == '70*80' || newModalSize == '7*7' ? '7' : '14'}cm`,
-      height: `${newModalSize == '70*80' ? '8' : newModalSize == '7*7' ? '7' :HOSPITAL_ID == 'lyxrm' ?'7.1': '5.3'}cm`
+      height: `${newModalSize == '70*80' ? '8.01' : newModalSize == '7*7' ? '7' :HOSPITAL_ID == 'lyxrm' ?'7.1': '5.3'}cm`
     }"
   >
     <!-- 小瓶签一张纸需要打印3条数据数据间要留白 -->
@@ -48,7 +48,7 @@
           <span>{{currentBottle.dosageDosageUnits[index]}}</span>
         </div>
       </div>
-      <div class="new-print-modal__content" :class="{is925}" v-esle>
+      <div class="new-print-modal__content" :class="{is925}" v-if="HOSPITAL_ID == '925'">
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
