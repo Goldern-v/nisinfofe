@@ -13,7 +13,7 @@
       </colgroup>
       <thead>
         <tr>
-          <th colspan="8" class="thead-title">{{ "dafdf" }}医嘱查对登记表</th>
+          <th colspan="8" class="thead-title">{{ $store.state.lesion.checkDeptName }}医嘱查对登记表</th>
         </tr>
         <tr>
           <th rowspan="2" class="date-line">日期</th>
@@ -35,50 +35,50 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in sheetData" :key="index + 'diff'">
+        <tr v-for="(item, index) in checkData" :key="index + 'diff'">
           <td>
-            <input type="text" @click="handelDate(item)" v-model="item.date" />
+            <input type="text" @click="handelDate(item)" v-model="item.orderCheckDate" />
           </td>
           <td>
             <textarea
-              v-model="item.mainClass"
-              :rows="getRows(4, item.mainClass)"
+              v-model="item.aPrincipal"
+              :rows="getRows(4, item.aPrincipal)"
             ></textarea>
           </td>
           <td>
             <textarea
-              v-model="item.mainClass"
-              :rows="getRows(8, item.mainClass)"
+              v-model="item.aDuty"
+              :rows="getRows(8, item.aDuty)"
             ></textarea>
           </td>
           <td>
             <textarea
-              v-model="item.mainClass"
-              :rows="getRows(4, item.mainClass)"
+              v-model="item.aHeadNurse"
+              :rows="getRows(4, item.aHeadNurse)"
             ></textarea>
           </td>
           <td>
             <textarea
-              v-model="item.mainClass"
-              :rows="getRows(8, item.mainClass)"
+              v-model="item.aNight"
+              :rows="getRows(8, item.aNight)"
             ></textarea>
           </td>
           <td>
             <textarea
-              v-model="item.mainClass"
-              :rows="getRows(4, item.mainClass)"
+              v-model="item.nNight"
+              :rows="getRows(4, item.nNight)"
             ></textarea>
           </td>
           <td>
             <textarea
-              v-model="item.mainClass"
-              :rows="getRows(4, item.mainClass)"
+              v-model="item.nNextDay"
+              :rows="getRows(4, item.nNextDay)"
             ></textarea>
           </td>
           <td>
             <textarea
-              v-model="item.mainClass"
-              :rows="getRows(8, item.mainClass)"
+              v-model="item.nNextNurse"
+              :rows="getRows(8, item.nNextNurse)"
             ></textarea>
           </td>
         </tr>
@@ -158,22 +158,26 @@
 <script>
 import moment from "moment";
 export default {
-  props: {},
+  props: {
+    checkData:{
+      type:Array,
+      default:()=>[]
+    }
+  },
   data() {
     return {
-      sheetData: Array.from({ length: 14 }, () => {
-        return { date: "", mainClass: "" };
-      })
+
     };
   },
   methods: {
     handelDate(item) {
-      if (!item.date) {
-        item.date = moment().format("YYYY年MM月DD日");
+      if (!item.orderCheckDate) {
+        item.orderCheckDate = moment().format("YYYY-MM-DD");
       }
     },
     getRows(num, data) {
       let fontLen = 0;
+      if(!data) return 1;
       for (let i = 0; i < data.length; i++) {
         let han = /[a-zA-Z0-9_]/;
         if (!han.test(data[i])) {
