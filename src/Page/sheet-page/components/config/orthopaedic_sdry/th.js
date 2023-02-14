@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1500px"
+      width: "1300px"
     },
     th: {
         top:
@@ -49,8 +49,8 @@ export default {
         ,
         mid:
             [
-                {"name":"日期","colspan":"1","rowspan":"1","style":{"minWidth":"50px","maxWidth":"50px"}},
-                {"name":"时间","colspan":"1","rowspan":"1","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"日期","colspan":"1","rowspan":"1","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"时间","colspan":"1","rowspan":"1","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"内<br/>容","colspan":"1","rowspan":"1"},
                 {"name":"量<br/>ml","colspan":"1","rowspan":"1"},
                 {"name":"内<br/>容","colspan":"1","rowspan":"1"},

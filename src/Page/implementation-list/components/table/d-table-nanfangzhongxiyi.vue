@@ -19,8 +19,8 @@
         align="center"
       ></el-table-column>
       <el-table-column
-        prop="bedLabel"
         label="床号"
+        prop="bedlabel"
         min-width="50px"
         align="center"
       >
@@ -28,7 +28,7 @@
           <div>
             {{
               scope.row.rowType == 1 || !scope.row.rowType
-                ? scope.row.bedLabel
+                ? scope.row.bedlabel
                 : ""
             }}
           </div>

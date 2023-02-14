@@ -15,7 +15,7 @@
         <span class="bigger">
           {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
         </span>
-        <span>
+        <span style="font-size: 8px;">
           {{currentBottle.administration}}
         </span>
       </div>
@@ -99,6 +99,9 @@
 <style lang="scss" scoped>
 .new-print-modal {
   page-break-after: always;
+  * {
+      font-family: 'SimHei' !important;
+    }
   >>> * {
     font-size: 12px;
     color: #000;
@@ -156,7 +159,7 @@
       text-align: center;
     }
     span {
-      font-weight: 900;
+      // font-weight: 900;
       line-height: 14px;
     }
   }

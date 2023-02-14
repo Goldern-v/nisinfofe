@@ -151,6 +151,7 @@ import tableHeadXieGang from "./components/table-head/table-head-xiegang";
 import tableHeadNanFangZhongXiYi from "./components/table-head/table-head-nanfangzhongxiyi";
 import tableHeadBeiHaiRenYi from "./components/table-head/table-head-beihairenyi";
 import tableHeadFoShanRenYi from "./components/table-head/table-head-foshanrenyi";
+import tableHeadNfykdxsdyy from "./components/table-head/table-head-nfykdxsdyy";
 import tableHeadHengLi from "./components/table-head/table-head-hengli";
 import tableHeadShanNan from "./components/table-head/table-head-shannan";
 import tableHeadQz from "./components/table-head/table-head-qz";
@@ -238,6 +239,8 @@ export default {
         return tableHeadBeiHaiRenYi;
       } else if (this.HOSPITAL_ID == "foshanrenyi") {
         return tableHeadFoShanRenYi;
+      } else if (this.HOSPITAL_ID == "nfyksdyy") {
+        return tableHeadNfykdxsdyy;
       } else if (this.HOSPITAL_ID == "hengli") {
         return tableHeadHengLi;
       } else if (this.HOSPITAL_ID == "guizhou") {

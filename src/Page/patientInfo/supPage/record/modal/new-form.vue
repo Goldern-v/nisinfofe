@@ -15,7 +15,8 @@
             HOSPITAL_ID != 'liaocheng' &&
             HOSPITAL_ID != 'guizhou' &&
             HOSPITAL_ID != 'foshanrenyi' &&
-            HOSPITAL_ID != 'fsxt'
+            HOSPITAL_ID != 'fsxt' &&
+            HOSPITAL_ID != 'whhk' 
           "
           v-model="formType"
           placeholder="选择类型"
@@ -36,7 +37,8 @@
             HOSPITAL_ID != 'liaocheng' &&
             HOSPITAL_ID != 'guizhou' &&
             HOSPITAL_ID != 'foshanrenyi' &&
-            HOSPITAL_ID != 'fsxt'
+            HOSPITAL_ID != 'fsxt' &&
+            HOSPITAL_ID != 'whhk' 
           "
           class="text-con"
           :placeholder="
@@ -64,6 +66,29 @@
           class="text-con"
           :placeholder="
             '搜索' + foshanrenyiOptions.find((item) => item.value == formType).label
+          "
+          icon="search"
+          v-model="searchWord"
+        ></el-input>
+        <el-select
+          v-if="HOSPITAL_ID == 'whhk'"
+          v-model="formType"
+          placeholder="选择类型"
+          class="type-select"
+          :disabled="formTypeReadOnly"
+        >
+          <el-option
+            v-for="item in whhkOptions"
+            :key="item.value || item.label"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <el-input
+          v-if="HOSPITAL_ID == 'whhk'"
+          class="text-con"
+          :placeholder="
+            '搜索' + whhkOptions.find((item) => item.value == formType).label
           "
           icon="search"
           v-model="searchWord"
@@ -445,6 +470,16 @@ export default {
         //   value: "4",
         //   label: "健康宣教"
         // }
+      ],
+      whhkOptions: [
+        {
+          value: "1",
+          label: "护理评估",
+        },
+        {
+          value:"authorization",
+          label:"知情同意书",
+        }
       ],
       hjOptions: [
         {

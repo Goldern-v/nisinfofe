@@ -416,7 +416,9 @@ export default {
         'lyyz',
         'zhzxy',
         'ytll',
-        'nfyksdyy'
+        'nfyksdyy',
+        'liaocheng',
+        '925'
       ].includes(this.HOSPITAL_ID);
     },
   },
