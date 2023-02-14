@@ -6,10 +6,10 @@ let HOSPITAL_ID = process.env.HOSPITAL_ID,
   hospitalExecute;
 switch (HOSPITAL_ID) {
   case "lingcheng":
-  case "925":
     hospitalExecute = "hisLingChengExecute";
     break;
   case "liaocheng":
+  case "925":
     hospitalExecute = "hisLiaoChengExecute";
     break;
   case "zhongshanqi":
