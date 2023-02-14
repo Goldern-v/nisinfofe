@@ -16,7 +16,8 @@
               'gdtj',
               'ytll',
               'whsl',
-              'nfyksdyy'
+              'nfyksdyy',
+              'nanfangzhongxiyi'
             ].includes(HOSPITAL_ID)
           "
         >
@@ -80,7 +81,8 @@
               'gdtj',
               'ytll',
               'whsl',
-              'nfyksdyy'
+              'nfyksdyy',
+              'nanfangzhongxiyi'
             ].includes(HOSPITAL_ID)
           "
           style="margin-left: 20px"
@@ -262,7 +264,8 @@
                 'gdtj',
                 'ytll',
                 'whsl',
-                'nfyksdyy'
+                'nfyksdyy',
+                'nanfangzhongxiyi'
               ].includes(HOSPITAL_ID)
             "
           >
@@ -405,7 +408,7 @@ export default {
         },
       ],
       // 是否显示医嘱类型
-      showAdvice: ['foshanrenyi','zhzxy'].includes(this.HOSPITAL_ID),
+      showAdvice: ['foshanrenyi','zhzxy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID),
     };
   },
   methods: {
@@ -451,7 +454,8 @@ export default {
           'stmz',
           'ytll',
           'whsl',
-          'nfyksdyy'
+          'nfyksdyy',
+          'nanfangzhongxiyi'
         ].includes(this.HOSPITAL_ID)
       ) {
         this.multipleSelection.map((item, index) => {
@@ -488,7 +492,7 @@ export default {
           return item;
         });
       }
-      if (["foshanrenyi",'zhzxy', "lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (["foshanrenyi",'zhzxy', "lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.foodSize = item.dosage;
           return item;
@@ -601,7 +605,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
@@ -684,7 +688,7 @@ export default {
     },
     // 一行选中
     handleRowClick(row, column, event) {
-      if (!["foshanrenyi",'zhzxy', '925'].includes(this.HOSPITAL_ID)) return;
+      if (!["foshanrenyi",'zhzxy', '925','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) return;
       this.$refs["zxdtb-table"].toggleRowSelection(row);
     },
     changeRecordDate(row, type, newVal) {
@@ -806,7 +810,7 @@ export default {
             name: "其他",
           },
         ];
-      } else if (["foshanrenyi", '925','zhzxy'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", '925','zhzxy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",

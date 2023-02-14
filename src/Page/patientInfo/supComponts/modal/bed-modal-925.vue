@@ -135,7 +135,7 @@
           class="bottom-line"
           :value="formData.drugGms"
         />
-       
+
       </div>
       <div class="diagnosis">
         <span>诊断：</span>
@@ -668,7 +668,7 @@ export default {
     },
     isOpen() {
       this.$refs.modal.open();
-      let qr_png_value = this.query.patientId + "|" + this.query.visitId;
+      let qr_png_value = "P" +this.query.patientId + "|" + this.query.visitId;
       var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: 2 });
       function arrayBufferToBase64(buffer) {
         var binary = "";
@@ -792,6 +792,7 @@ export default {
           css: `
             ${css}
             @page {
+              width: 50%;
               margin: 0;
             }
             `,

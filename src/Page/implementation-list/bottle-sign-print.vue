@@ -943,7 +943,7 @@ export default {
           "whhk",
           "zhzxy",
           "925",
-          "whsl", 
+          "whsl",
           'stmz',
           'wujing'
         ].includes(this.HOSPITAL_ID)
