@@ -547,12 +547,19 @@ export default {
       //     ? this.$refs.standingOrderTable.$el
       //     : this.$refs.statOrderTable.$el;
       this.$nextTick(async () => {
+        // 预览（用于调试）
+        // print.preview(target, options)
         const printEle = this.$refs.printRef.$el
         await print(printEle, {
+          // 在打印之前修改DOM
           beforePrint: formatter,
+          // 纸张方向，默认是'vertical'
           direction: "vertical",
+          // 插入所有link和style标签到打印，默认是false
           injectGlobalCss: true,
+          // 指定扫描样式，默认是true（全部）
           scanStyles: false,
+          // 注入css样式，默认是''
           css: `
           .fixedTh {
             display: none !important;
