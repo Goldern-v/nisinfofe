@@ -419,7 +419,7 @@
         class="item-box"
         :style="{width:'80px',display:'flex !important'}"
         flex="cross:center main:center"
-        v-if="!isDeputy || ['guizhou', 'huadu', '925','fuyou','foshanrenyi','zhzxy','beihairenyi'].includes(HOSPITAL_ID)"
+        v-if="!isDeputy"
       >
         <el-autocomplete
           class="pegeSelect"
