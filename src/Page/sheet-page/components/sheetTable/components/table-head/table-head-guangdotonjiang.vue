@@ -9,9 +9,12 @@
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.patientName }}
         </div>
-        <span v-if="sheetInfo.sheetType == 'pediatric3_tj' ">之婴</span>
       </span>
-      <span>
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-if="sheetInfo.sheetType=='pediatric3_tj'">
+        年龄：
+        <div class="bottom-line" style="min-width: 30px">{{patientInfo.age}}</div>
+      </span>
+      <span v-else>
         年龄：
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.age }}
@@ -526,6 +529,18 @@ export default {
     },
   },
   methods: {
+    updateTetxInfo(key, label, autoText) {
+      window.openSetTextModal(
+        text => {
+          updateSheetHeadInfo({ [key]: text }).then(res => {
+            this.patientInfo[key] = res.data.data[key];
+            this.$message.success(`修改${label}成功`);
+          });
+        },
+        autoText,
+        `修改${label}`
+      );
+    },
     openBedRecordModal(){
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");

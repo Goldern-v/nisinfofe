@@ -734,6 +734,16 @@ export default {
           }))
           if(isAccess) return this.$message.error('入量填项输入应为数字！')
         }
+      // inout_ytll 部分项目需填写数值
+      if (this.sheetInfo.sheetType == 'inout_ytll') {
+        let data =  decode(ayncVisitedData)
+        let reg = /^[0-9]+.?[0-9]*$/
+        const keys = ['actualInput', 'urine', 'stool', 'vomiting', 'drainage', 'otherOutput', 'totalOutput']
+        const isAccess = data.list.find(item => {
+          return keys.some(key => item[key] && !reg.test(item[key]))
+        })
+        if (isAccess) return this.$message.error('出入量项目输入应为数字！')
+      }
       let save = () => {
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;

@@ -419,7 +419,7 @@
         class="item-box"
         :style="{width:'80px',display:'flex !important'}"
         flex="cross:center main:center"
-        v-if="!isDeputy || ['guizhou', 'huadu', '925','fuyou','foshanrenyi','zhzxy','beihairenyi'].includes(HOSPITAL_ID)"
+        v-if="!isDeputy"
       >
         <el-autocomplete
           class="pegeSelect"
@@ -920,7 +920,7 @@ export default {
     */
     async initSheetPageSize(isAddPageFlag) {
       !isAddPageFlag && await this.getHomePageInfo()
-      this.initSelectList(isAddPageFlag);
+      await this.initSelectList(isAddPageFlag);
       // 判断是否存在recodeId
       // 获取被标记的页数，recordId是某一行的记录ID 如果从首页进来 就携带这个recordId ，否则走正常的页面定位
       try {
@@ -937,7 +937,7 @@ export default {
           let pageSelectListValue = ''
           let old_list_length = this.oldSelectList.length;
           let new_list_length = this.selectList.length;
-          let old_list_index = this.selectList.findIndex((item) => item.value == this.pageArea);
+          let old_list_index = this.selectList.findIndex((item) => item.value == this.pageInfoObj.pageArea);
           pageSelectListValue = this.selectList[this.selectList.length - 1].value || "";
           if (old_list_length == new_list_length) {
             if (old_list_index != -1) {
@@ -945,10 +945,10 @@ export default {
             } else {
               //1-9 =======》 1-10  1>=1&&1<=10
               const page = this.selectList.find((list, index) => {
-                const oldStart = this.pageArea.split('-')[0]
+                const oldStart = this.pageInfoObj.pageArea.split('-')[0]
                 const start = list.value.split('-')[0]
                 const end = list.value.split('-')[1]
-                return (oldStart >= start && oldStart <= end)
+                return (+oldStart >= +start && +oldStart <= +end)
               })
               if(page&&page.value)
               pageSelectListValue = page.value
@@ -1168,10 +1168,11 @@ export default {
     },
     initSelectList(isAddPageFlag) {
       //如果是添加新页  那就再原本的数据长度上加 1
-      if(isAddPageFlag)
+      return new Promise((resolve, reject) => {
+        if(isAddPageFlag)
       this.sheetInfo.maxPageIndex = this.sheetInfo.maxPageIndex + 1
       let length = this.sheetInfo.maxPageIndex + this.sheetInfo.sheetStartPage;
-
+      this.oldSelectList = this.selectList
       let pagelist = [];
       let rest_num = this.sheetInfo.sheetStartPage % 10;
       let num = Math.max(Math.ceil(length / 10), 1);
@@ -1186,7 +1187,6 @@ export default {
       }
       pagelist[0] = this.sheetInfo.sheetStartPage;
       pagelist[pagelist.length - 1] = length;
-      this.oldSelectList = this.selectList
       this.selectList = [];
       for (let i = 0; i < pagelist.length; i++) {
         if (i == pagelist.length - 1) {
@@ -1219,8 +1219,10 @@ export default {
               item.endPageIndex = currObj.endPageIndex;
             } catch (error) {}
           });
+          resolve(true)
         });
       }
+      })
     },
     querySearch(queryString, cb) {
       cb(this.selectList);
@@ -1746,7 +1748,7 @@ export default {
     },
     // 显示入量同步
     showRltbN() {
-      return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
+      // return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
     },
     // 选择表单下拉框的输入框所显示的文字
     selectText() {
@@ -1765,7 +1767,6 @@ export default {
        * 因为现在从接口拿数据渲染界面 不走前端computed计算界面 所以添加新页面得加判断
        * 比如说 后端接口页面是7页 前端添加新页后为8 这时候页码改动，如果不加判断就会重新请求数据 后端为7 前端为8 页码数值就会对应不上
       */
-      console.log(this.sheetInfo)
       this.initSheetPageSize(isAddPageFlag)
     });
     this.bus.$on("openSearchPageByDateModal", () => {
@@ -1827,7 +1828,7 @@ export default {
     },
     patientId:{
       handler() {
-        this.oldSelectList = this.selectList
+        this.oldSelectList = []
         this.selectList = [];
           this.$parent.breforeQuit(() => {
             this.bus.$emit("setSheetTableLoading", true);

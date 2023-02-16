@@ -24,7 +24,7 @@
           :to="{name: 'checkSheets', params: {code: record.deptCode, id: record.id} } "
           :key="record.id"
         >
-          <div class="text">{{record.changeShiftDate}}</div>
+          <div class="text">{{record.startData+'-'+record.endData }}</div>
           <div :class="['state', {success: isAllSigned(record)}]"></div>
         </router-link>
       </div>
@@ -44,6 +44,7 @@ import common from "@/common/mixin/common.mixin.js";
 import * as apis from "./apis";
 import CreateCheckSheetModal from "./components/create-check-sheet-modal";
 import PrimaryButton from "./components/primary-button";
+import moment from 'moment';
 
 export default {
   mixins: [common],
@@ -96,8 +97,8 @@ export default {
 
       let [startDate, endDate] = this.dates;
 
-      startDate = startDate.Format("yyyy-MM-dd");
-      endDate = endDate.Format("yyyy-MM-dd");
+      startDate = moment(startDate).format("YYYY-MM-DD");
+      endDate = moment(endDate).format("YYYY-MM-DD");
 
       const code = this.$route.params.code;
       if (code) {
@@ -147,14 +148,7 @@ export default {
         params: { code, id: res.data.data.id }
       });
 
-      const start = new Date(date);
-      const end = new Date(date);
-
-      start.setDate(1);
-      end.setMonth(end.getMonth() + 1);
-      end.setDate(0);
-
-      this.dates = [start, end];
+      this.dates = [startDate, endDate];
       this.load();
 
       if (this.$refs.child) {
@@ -175,7 +169,7 @@ export default {
 <style lang="stylus" scoped>
   .shift-work
     position relative
-    padding-left 200px
+    padding-left 250px
     height 100%
 
     &.fullPage
@@ -194,7 +188,7 @@ export default {
     display flex
     flex-direction column
     height 100%
-    width 200px
+    width 250px
     border-right 1px solid #CBD5DD
     background white
 

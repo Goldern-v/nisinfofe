@@ -530,6 +530,11 @@ function switchSheetType(type) {
       schema = require("../config/neonatology_picc/tr.js").default;
     }
       break;
+    case "internal_eval_hj": {
+      // 厚街-护理记录单
+      schema = require("../config/internal_eval_hj/tr.js").default;
+    }
+      break;
     case "pediatrics_jm": {
       // 江门妇幼 - 儿科护理记录单
       schema = require("../config/pediatrics_jm/tr.js").default;

@@ -1,65 +1,56 @@
 <template>
   <div class="header-con">
-    <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
-    <div class="title">{{ patientInfo.recordName }}</div>
+    <div class="his-name">
+      <img src='./images/hospital-name.png'
+         height="70"
+          width="400"/>
+
+    </div>
+    <div class="title">{{patientInfo.recordName}}</div>
     <!-- {{sheetInfo.relObj}} -->
     <div class="info-con">
-      <span
-        @click="
-          updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)
-        "
-      >
+     <span>
+        科室：
+        <div class="bottom-line" style="min-width: 547px">{{patientInfo.deptName}}</div>
+      </span>
+      <span>
+        病区：
+        <div class="bottom-line" style="min-width: 120px">{{patientInfo.wardName}}</div>
+      </span>
+      </div>
+    <div class="info-con" >
+      <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
         姓名：
-        <div class="bottom-line" style="min-width: 70px">
-          {{ patientInfo.patientName }}
-        </div>
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
       </span>
       <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
         性别：
-        <div class="bottom-line" style="min-width: 50px">
-          {{ patientInfo.sex }}
-        </div>
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.sex}}</div>
       </span>
-      <span
-        @click="updateNeonatology2Age"
-        v-if="sheetInfo.sheetType == 'neonatology2'"
-      >
+      <!-- <span @click="updateNeonatology2Age" v-if="sheetInfo.sheetType == 'neonatology2'">
         年龄：
-        <div class="bottom-line" style="min-width: 50px">
-          {{ neonatology2Age }}
-        </div>
-      </span>
-      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-else>
+        <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
+      </span> -->
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
         年龄：
-        <div class="bottom-line" style="min-width: 50px">
-          {{ patientInfo.age }}
-        </div>
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
       </span>
-
-      <span>
-        科室：
-        <div class="bottom-line" style="min-width: 120px">
-          {{ patientInfo.realDeptName }}
-        </div>
-      </span>
-      <span v-if="useDepatNameList.includes(sheetInfo.sheetType)">
-        病区：
-        <div class="bottom-line" style="min-width: 120px">
-          {{ patientInfo.deptName }}
-        </div>
-      </span>
-      <span>
+      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号：
-        <div :class="['bottom-line',HOSPITAL_ID=='huadu'?'has-background':'']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ patientInfo.bedLabel }}
-        </div>
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
       </span>
       <span>
         住院号：
-        <div class="bottom-line" style="min-width: 80px">
-          {{ patientInfo.patientId }}
-        </div>
+        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
+      <span>
+        诊断：
+        <div  class="bottom-line">{{patientInfo.diagnosis}}</div>
+      </span>
+      <!-- <span>
+        ID号：
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
+      </span> -->
       <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
         温箱编号：
         <input
@@ -70,14 +61,13 @@
           v-model="relObj.wxNo"
         />
       </span>-->
-      <span v-if="!(HOSPITAL_ID == 'huadu')">
+      <!-- <span>
         入院日期：
-        {{ patientInfo.admissionDate | toymd }}
-      </span>
+        {{patientInfo.admissionDate | toymd}}
+      </span> -->
     </div>
-    <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
+
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
-    <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
 
@@ -87,33 +77,20 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
-import bedRecordModal from "../../../modal/bedRecord-modal";
 export default {
   props: {
     patientInfo: Object,
-    index: Number,
-    bedAndDeptChange: Object
+    index: Number
   },
   data() {
     return {
-      sheetInfo,
-      useDepatNameList:[
-        'mild_hypothermia_hd','neurosurgery_hd',
-        'common_hd','stress_injury_hd','prenatal_hd',
-        'postpartum_hd','wait_delivery_hd',
-        'contraction_inhibitor_hd','magnesium_sulphate_hd',
-        'neonatology_hd','nicu_custody_hd','neonatology2_hd'
-      ]
+      sheetInfo
       // relObj: {
       //   wxNo: ""
       // }
     };
   },
-  mounted() {},
   computed: {
-    routePath(){
-      return window.location.href
-    },
     neonatology2Age() {
       if (this.index == 0) {
         return sheetInfo.relObj.age || this.patientInfo.age;
@@ -161,12 +138,6 @@ export default {
     }
   },
   methods: {
-    openBedRecordModal(){
-      // if (this.readOnly) {
-      //   return this.$message.warning("你无权操作此护记，仅供查阅");
-      // }
-      this.$refs.bedRecordModal.open();
-    },
     updateBirthDay() {
       window.openSetAuditDateModal(
         date => {
@@ -272,23 +243,15 @@ export default {
     //   }
     // }
   },
-  components: {
-    bedRecordModal
-  }
+  components: {}
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 input.bottom-line {
   border-top: 0;
   border-left: 0;
   border-right: 0;
   outline: none;
-}
-.title {
-  font-size: 18px !important;
-}
-.has-background{
-  background:#f4f2f5;
 }
 </style>

@@ -7,7 +7,8 @@ export default {
     wardName: "",
     updateDataTime: new Date().Format("hh: mm"),
     taskType: "0",
-    oldFormInfo:{}
+    oldFormInfo:{},
+    checkDeptName: ""
   },
   mutations: {
     upDeptList(state, value) {
@@ -30,6 +31,9 @@ export default {
     },
     upTaskType(state, value) {
       state.taskType = value;
+    },
+    upCheckDeptName(state, value) {
+      state.checkDeptName = value;
     },
     updateDataTime(state, val) {
       state.updateDataTime = new Date().Format("hh: mm");

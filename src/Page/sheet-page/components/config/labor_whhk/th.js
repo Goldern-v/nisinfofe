@@ -100,7 +100,7 @@ export default {
         }
       },
       {
-        name: `BP<br/>mmHg`,
+        name: `BP<br/>(mmHg)`,
         colspan: "1",
         rowspan: "3",
         style: {

@@ -23,3 +23,14 @@ export function listShiftRecord(
 ) {
   return axios.get(`${apiPath}ordercheckmaster/list/${deptCode}/${startDate}/${endDate}`);
 }
+// 获取table的内容
+export function getOrderCheckByData(
+  orderCheckId
+) {
+  return axios.get(`${apiPath}ordercheckmaster/getOrderCheckByData/${orderCheckId}`);
+}
+
+// 保存table的内容
+export function saveOrderCheck(data) {
+  return axios.post(`${apiPath}ordercheckmaster/saveOrderCheck`,data);
+}

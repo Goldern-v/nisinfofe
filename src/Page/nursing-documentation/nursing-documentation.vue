@@ -316,7 +316,9 @@ export default {
         'whsl',
         'lyyz',
         'ytll',
-        'nfyksdyy'
+        'nfyksdyy',
+        'liaocheng',
+        '925'
       ].includes(this.HOSPITAL_ID);
     },
     //是否为新出院数据

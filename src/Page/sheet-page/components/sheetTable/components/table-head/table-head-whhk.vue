@@ -173,6 +173,7 @@ export default {
       bus: bus(this),
       sheetInfo,
       showAge: ['labor_whhk'], // 显示年龄
+      showSex: ['labor_whhk']
     };
   },
   computed: {
