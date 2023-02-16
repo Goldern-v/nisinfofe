@@ -1616,6 +1616,11 @@ function switchSheetType(type) {
         schema = require("../config/blood_tj/tr.js").default;
       }
       break;
+    case "cardiology_tj": {
+      // 广东同江 - 介入、导管治疗术后首次护理记录单
+        schema = require("../config/cardiology_tj/tr.js").default;
+      }
+      break;
     case "surgical_qhwy": {
         // 青海五院 - 外科护理记录单
         schema = require("../config/surgical_qhwy/tr.js").default;

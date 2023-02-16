@@ -59,7 +59,7 @@ export function getRowNum(index) {
     sheetInfo.sheetType === 'oxytocin_ytll'
   ) {
     return 20;
-  } else if (sheetInfo.sheetType == "cardiology_lcey") {
+  } else if (sheetInfo.sheetType == "cardiology_lcey" || sheetInfo.sheetType == "cardiology_tj") {
     return 15;
   } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
     return 15;
