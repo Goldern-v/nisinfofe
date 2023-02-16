@@ -51,9 +51,8 @@ const currentTargetUrl = (() => {
     /** 威县 */
     case "weixian":
       // return "http://211.143.127.136:9093" //威县正式
-      // return "http://wxzf.hbwxrmyy.com:9093" //威县正式 admin  ad123456
+      return "http://wxzf.hbwxrmyy.com:9093" //威县正式 admin  ad123456
       // return "http://192.168.1.54:9865" // 公司-威县测试-内网
-      return "http://wxzf.hbwxrmyy.com:9093"
 
     /** 陵城正式 */
     case "lingcheng":
@@ -147,8 +146,8 @@ const currentTargetUrl = (() => {
       // return "http://192.168.1.54:9879" // 内网测试
 
     case 'xiegang':
-      // return "http://183.234.1.124:9093" // 谢岗正式
-      return "http://192.168.1.54:9882" // 测试地址-内网地址
+      return "http://183.234.1.124:9093" // 谢岗正式
+      // return "http://192.168.1.54:9882" // 测试地址-内网地址
       // return "http://192.168.20.223:8080" // 初升本地
     // 北海人医
     case 'beihairenyi':
@@ -266,8 +265,6 @@ const currentTargetUrl = (() => {
     case 'dglb':
       return 'http://http://10.51.7.22:9094'
 
-    case 'xiegang':
-      return 'http://183.234.1.124:9093'
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"
