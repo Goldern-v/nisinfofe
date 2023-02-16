@@ -359,6 +359,12 @@
 }
 
 .bed-card-wrapper-h-small {
+  width:9.3cm;
+  height:4.3cm;
+  font-size: 13px;
+  font-weight: normal;
+  padding: 10px 20px 24px;
+ 
   .hs-content {
     position: relative;
     padding: 1px;
@@ -372,25 +378,27 @@
   }
   .hs-line1 {
   width: calc(100% - 50px);
+  height:24px;
   }
   .hs-line2 {
     width: calc(100% - 110px);
     display: flex;
+    height:24px;
     div.input-item {
       display: flex;
-      height: 26px;
+      height: 24px;
       padding-right: 2px;
-      font-size: 20px;
+      font-size: 13px;
     }
     .label {
       margin-right: 0px;
-      line-height: 26px;
+      line-height: 24px;
     }
 
     input {
       padding: 0px;
       flex: 1;
-      font-size: 20px;
+      font-size: 13px;
       line-height: 26px;
     }
   }
