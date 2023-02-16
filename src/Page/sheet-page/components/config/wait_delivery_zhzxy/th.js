@@ -98,7 +98,7 @@ export default {
       },
       {
         name: `
-        羊水性状
+        羊水性状量(ml)
         `,
         style: {
           minWidth: "55px",
