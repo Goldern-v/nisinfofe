@@ -221,6 +221,64 @@
         </div>
       </span>
     </div>
+
+    <div class="info-con" v-if="sheetInfo.sheetType === 'cardiology_tj'">
+      <span>介入手术或造影名称：</span>
+      <input
+        v-model="sheetInfo.relObj.operation"
+        style="border-bottom: 1px solid #000; width: 300px"
+        :data-value="sheetInfo.relObj.operation"
+      />&nbsp;
+      <span>药物试验结果：</span>
+      <input
+        v-model="sheetInfo.relObj.Drugoutcome"
+        :data-value="sheetInfo.relObj.Drugoutcome"
+        style="border-bottom: 1px solid #000; width: 300px"
+      />&nbsp;
+    </div>
+    <div class="info-con" v-if="sheetInfo.sheetType === 'cardiology_tj'">
+      <span>穿刺血管:</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['donmai']"
+        v-model="checkeddonmai"
+      />
+      <span>动脉</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['jingmai']"
+        v-model="checkedjingmai"
+      />
+      <span>静脉</span> &nbsp;
+      <span>部位/名称：</span>
+      <input
+        v-model="sheetInfo.relObj.toponym"
+        :data-value="sheetInfo.relObj.toponym"
+        style="border-bottom: 1px solid #000; width: 220px"
+      />&nbsp;
+      <span>体内留置管:</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['wu']"
+        v-model="checkedwu"
+      />
+      <span>无</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['you']"
+        v-model="checkedyou"
+      />
+      <span>有</span>&nbsp;
+      <span>名称：</span>
+      <input
+        v-model="sheetInfo.relObj.nameA"
+        :data-value="sheetInfo.relObj.nameA"
+        style="border-bottom: 1px solid #000; width: 220px"
+      />
+    </div>
+    
+    
+
     <div class="info-con" v-if="sheetInfo.sheetType === 'blood_tj'">
       <span>观察部位：</span>
       <input
@@ -322,7 +380,7 @@ export default {
         },
         set(nVal){
           this.sheetInfo.relObj[`bzc`] = nVal ? "true" : "false"
-        }
+        },
       },
       newPatientInfo() {
         /*  每页独立床号功能 */
@@ -337,7 +395,41 @@ export default {
           [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
         }
       }
-  },
+    },
+    ...{
+      'checkeddonmai':{
+        get(){
+          return this.sheetInfo.relObj[`donmai`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`donmai`] = nVal ? "true" : "false"
+        },
+      },
+      'checkedjingmai':{
+        get(){
+          return this.sheetInfo.relObj[`jingmai`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`jingmai`] = nVal ? "true" : "false"
+        },
+      },
+      'checkedyou':{
+        get(){
+          return this.sheetInfo.relObj[`you`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`you`] = nVal ? "true" : "false"
+        },
+      },
+      'checkedwu':{
+        get(){
+          return this.sheetInfo.relObj[`wu`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`wu`] = nVal ? "true" : "false"
+        }, 
+      }
+    },
     diagnosis() {
       /** 最接近的index */
       let realIndex = 0;
