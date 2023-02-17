@@ -585,6 +585,7 @@
       :blockId="blockId"
       :title="titleName"
       :modalWidth="modalWidth"
+      :modalHeight="modalHeight"
     ></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
     <searchPageByDateModal ref="searchPageByDateModal" @updateCallBack="updateCallBack" :sheetStartPage="sheetInfo.sheetStartPage" :blockId="blockId"></searchPageByDateModal>
@@ -693,6 +694,7 @@ export default {
       pageBlockId:'',
       titleName: "",
       modalWidth: 720,
+      modalHeight:350,
       pageNum: "",
       firstPage: 1,
       printRecord:[],
@@ -1603,7 +1605,11 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      if (this.HOSPITAL_ID == "wujing"|| this.HOSPITAL_ID == "gdtj") {
+      if (this.HOSPITAL_ID == "wujing") {
+        this.modalWidth = document.body.clientWidth - 150;
+        this.modalHeight = document.body.clientHeight - 100
+      }
+      if (this.HOSPITAL_ID == "gdtj") {
         this.modalWidth = 850;
       }
       if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
