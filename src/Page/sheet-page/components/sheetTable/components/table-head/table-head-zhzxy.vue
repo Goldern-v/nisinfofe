@@ -48,11 +48,26 @@
         />
       </span>-->
       <span v-if="sheetInfo.sheetType == 'nursing_zhzxy'">
-        中医方案患者：
+        <!-- 中医方案患者：
         <input
           class="bottom-line"
           style="width: 50px"
           v-model="sheetInfo.relObj.expand1"
+        /> -->
+        中医方案
+        <input
+          type="checkbox"
+          class="checkbox"
+          value="zyfa"
+          :ischecked="sheetInfo.relObj['zyfa']"
+          v-model="checkedzyfa"
+        />中医常规
+        <input
+          type="checkbox"
+          class="checkbox"
+          value="zycg"
+          :ischecked="sheetInfo.relObj['zycg']"
+          v-model="checkedzycg"
         />
       </span>
       <span>
@@ -131,6 +146,24 @@ export default {
           return sheetInfo.relObj.age || this.patientInfo.age;
         }
       }
+    },
+    ...{
+      'checkedzyfa':{
+        get(){
+          return this.sheetInfo.relObj[`zyfa`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`zyfa`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedzycg':{
+        get(){
+          return this.sheetInfo.relObj[`zycg`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`zycg`] = nVal ? "true" : "false"
+        }
+      },
     }
   },
   methods: {
@@ -251,5 +284,8 @@ input.bottom-line {
   border-left: 0;
   border-right: 0;
   outline: none;
+}
+input.checkbox {
+  margin: 0 !important;
 }
 </style>

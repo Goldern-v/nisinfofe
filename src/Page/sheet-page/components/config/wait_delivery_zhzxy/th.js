@@ -98,7 +98,7 @@ export default {
       },
       {
         name: `
-        羊水性状量(ml)
+        羊水性状
         `,
         style: {
           minWidth: "55px",
@@ -107,6 +107,18 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
+      {
+        name: `
+        量(ml)
+        `,
+        style: {
+          minWidth: "55px",
+          maxWidth: "55px",
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+
       {
         name: `
         检查方式
