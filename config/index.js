@@ -42,18 +42,17 @@ const currentTargetUrl = (() => {
     /** 厚街 */
     case "hj":
       // return "http://120.197.141.41:9091" //厚街正式
-      // return "http://120.197.141.41:9094" //东莞正式库的测试
+      return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
-    return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+    // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
       // return "http://192.168.20.83:8080" // 彬哥本地
       // return "http://192.168.3.191:9091"//锦泳本地
 
     /** 威县 */
     case "weixian":
       // return "http://211.143.127.136:9093" //威县正式
-      // return "http://wxzf.hbwxrmyy.com:9093" //威县正式 admin  ad123456
+      return "http://wxzf.hbwxrmyy.com:9093" //威县正式 admin  ad123456
       // return "http://192.168.1.54:9865" // 公司-威县测试-内网
-      return "http://wxzf.hbwxrmyy.com:9093"
 
     /** 陵城正式 */
     case "lingcheng":
@@ -147,8 +146,8 @@ const currentTargetUrl = (() => {
       // return "http://192.168.1.54:9879" // 内网测试
 
     case 'xiegang':
-      // return "http://183.234.1.124:9093" // 谢岗正式
-      return "http://192.168.1.54:9882" // 测试地址-内网地址
+      return "http://183.234.1.124:9093" // 谢岗正式
+      // return "http://192.168.1.54:9882" // 测试地址-内网地址
       // return "http://192.168.20.223:8080" // 初升本地
     // 北海人医
     case 'beihairenyi':
@@ -266,8 +265,6 @@ const currentTargetUrl = (() => {
     case 'dglb':
       return 'http://http://10.51.7.22:9094'
 
-    case 'xiegang':
-      return 'http://183.234.1.124:9093'
     /** 默认公司本地内网厚街测试环境 */
     default:
       return "http://192.168.1.54:9866"

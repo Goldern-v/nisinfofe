@@ -4,7 +4,7 @@
         <div class="contont">
             <div class="contont-title">修改更换时间</div>
             <div class="username">
-                <div style="width:100px;">更换时间：</div>
+                <div style="width:100px;">预计留置时间：</div>
                 <el-date-picker
                     v-model="replaceDay"
                     type="datetime"

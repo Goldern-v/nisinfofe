@@ -54,6 +54,44 @@
             recordYear()
           }}</span>
           <span v-else v-html="item.name"></span>
+          <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
+            <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['sdyou']"
+                v-model="checkedsdyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['sdwu']"
+                v-model="checkedsdwu"
+              />无
+            </template>
+            <template v-if="item.checkbox && item.checkbox === '留置管描述'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['zlyou']"
+                v-model="checkedzlyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['zlwu']"
+                v-model="checkedzlwu"
+              />无
+            </template>
+            <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['jpylyou']"
+                v-model="checkedjpylyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['jpylwu']"
+                v-model="checkedjpylwu"
+              />无
+            </template>
+          </template>
         </th>
       </tr>
     </table>
@@ -82,6 +120,44 @@
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
           <span v-else v-html="item.name"></span>
+          <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
+            <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['sdyou']"
+                v-model="checkedsdyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['sdwu']"
+                v-model="checkedsdwu"
+              />无
+            </template>
+            <template v-if="item.checkbox && item.checkbox === '留置管描述'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['zlyou']"
+                v-model="checkedzlyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['zlwu']"
+                v-model="checkedzlwu"
+              />无
+            </template>
+            <template v-if="item.checkbox && item.checkbox === '经皮引流'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['jpylyou']"
+                v-model="checkedjpylyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['jpylwu']"
+                v-model="checkedjpylwu"
+              />无
+            </template>
+          </template>
         </th>
       </tr>
       <tr
@@ -582,7 +658,7 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry'"
+        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' || sheetInfo.sheetType == 'cardiology_tj'"
           >质控护士签名：</span
         >
         <span v-else-if=" sheetInfo.sheetType == 'critical_new_weihai'"
@@ -794,6 +870,7 @@ export default {
         'prenatal_dglb',
         'baby_dglb',
         'baby_obs_dglb',
+        'cardiology_tj'
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -843,7 +920,66 @@ export default {
       wujingCommonHl:false
     };
   },
+  
   computed: {
+    ...{
+      'checkedsc': {
+        get(){
+          return this.sheetInfo.relObj[`sc`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`sc`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedsdyou':{
+        get(){
+          return this.sheetInfo.relObj[`sdyou`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`sdyou`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedsdwu':{
+        get(){
+          return this.sheetInfo.relObj[`sdwu`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`sdwu`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedzlyou':{
+        get(){
+          return this.sheetInfo.relObj[`zlyou`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`zlyou`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedzlwu':{
+        get(){
+          return this.sheetInfo.relObj[`zlwu`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`zlwu`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedjpylyou':{
+        get(){
+          return this.sheetInfo.relObj[`jpylyou`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`jpylyou`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedjpylwu':{
+        get(){
+          return this.sheetInfo.relObj[`jpylwu`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`jpylwu`] = nVal ? "true" : "false"
+        }
+      },
+    },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },

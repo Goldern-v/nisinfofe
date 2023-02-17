@@ -394,7 +394,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/checkSheets') > -1 }"
                 >
                   <router-link to="/checkSheets" tag="span">
@@ -402,7 +402,7 @@
                       <i class="badEvent"></i>医嘱查对表
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
 
                 <el-dropdown-item
                   :class="{

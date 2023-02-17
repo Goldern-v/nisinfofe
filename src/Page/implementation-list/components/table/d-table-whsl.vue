@@ -287,17 +287,17 @@
           </div>
         </template>
       </u-table-column>
-       <u-table-column label="操作" min-width="100px" v-if="HOSPITAL_ID == 'whsl'" align="center">
+       <!-- <u-table-column label="操作" min-width="100px" v-if="HOSPITAL_ID == 'whsl'" align="center">
         <template slot-scope="scope">
           <el-button type="text" @click="backTracking(scope.row)" v-if="scope.row.executeFlag==0">补录</el-button>
-          <!-- <el-button
+          <el-button
             type="text"
             @click="editTime(scope.row)"
             v-if="  isTimeSelect &&
                 scope.row.executeFlag === 4||scope.row.executeFlag > 0"
-          >修改</el-button> -->
+          >修改</el-button>
         </template>
-      </u-table-column>
+      </u-table-column> -->
     </u-table>
     <editModal ref="editModal"></editModal>
   </div>

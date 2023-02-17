@@ -309,6 +309,7 @@ export default {
       return this.$route.query.nursingType;
     },
     nodeClick(data, node) {
+      console.log(data.component, node.level);
       this.$refs.templateSide.close();
 
       if (data.component) {
@@ -331,6 +332,7 @@ export default {
       }
     },
     renderContent(h, { node, data, store }) {
+      console.log(node,'node')
       // 如果存在保存
       let hasSave =
         node.childNodes.filter((item) => {
@@ -419,9 +421,11 @@ export default {
                 }
                 return {
                   status: option.status,
-                  label: `${option.evalDate || ""} ${
-                    option.creatorName || ""
-                  } ${option.status == 0 ? "T" : option.status}`,
+                 label: `${option.evalDate}
+                  ${option.countSize ? option.countSize + "条" : ""}
+                  ${option.evalScore ? option.evalScore + "分" : ""}
+                  ${option.pusherName ? option.pusherName : option.creatorName}
+                  ${this.HOSPITAL_ID == 'whfk' ? '' : option.status == 0 ? "T" : option.status}`,
                   form_id: option.id,
                   formName: item.formName,
                 };
