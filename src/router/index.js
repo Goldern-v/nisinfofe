@@ -144,6 +144,7 @@ const MEWS = () => import("@/Page/MEWS/MEWS.vue");
 // const catheterPage = () => import("@/Page/catheter-page/catheter-page"); //导管
 const sugarPage = () => import("@/Page/sugar-page/sugar-page"); //血糖
 const nursingRules = () => import("@/Page/nursing-rules/nursing-rules"); //护理制度
+const wardManagement = () => import("@/Page/ward-management/ward-management"); //护理制度
 const noCheckTest = () => import("@/Page/no-check-test/no-check-test"); //未做检查/检验菜单
 const toPdfPrint = () => import("@/Page/sheet-page/pdfPrintPage/toPdfPrint"); //护记pdf打印
 const scheduling = () => import("@/Page/scheduling/scheduling"); //血透患者排班
@@ -1480,6 +1481,10 @@ const router = new Router({
       {
         path: "/nursingRules",
         component: nursingRules
+      },
+      {
+        path: "/wardManagement",
+        component: wardManagement
       },
       {
         path: "/noCheckTest",

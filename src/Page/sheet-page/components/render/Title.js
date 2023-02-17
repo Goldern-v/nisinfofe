@@ -2093,6 +2093,13 @@ export default function Title(
     );
   }
   break;
+  case "cardiology_tj": {
+    // 广东同江 - 介入、导管治疗术后首次护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiology_tj/th.js").default)
+    );
+  }
+  break;
   case "surgical_qhwy": {
     // 青海五院 - 外科护理记录单
     Th = JSON.parse(

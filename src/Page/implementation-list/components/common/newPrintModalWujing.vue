@@ -1,7 +1,7 @@
 <template>
-  <div :style="{
+  <div id="wujing-print-model" :style="{
       width: `${isLargeType ? '8' : '10'}cm`,
-      height: `${isLargeType ? '4.8' : '5.8'}cm`,
+      height: `${isLargeType ? '4.971' : '4.68'}cm`,
     }">
     <!-- <div
       v-if="newModalSize == '6*8'"
