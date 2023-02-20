@@ -143,9 +143,9 @@
             <template slot-scope="scope">
               <!-- <el-input v-model="scope.row.temperature"></el-input> -->
               <input
-                v-model="scope.row.fieldOne"
+                v-model="scope.row.anusTemperature"
                 :class="className"
-                class="fieldOne"
+                class="anusTemperature"
                 :readonly="isReadonly(scope.row.recordDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="number"
@@ -448,14 +448,14 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="fieldOne"
+            prop="anusTemperature"
             label="肛温"
             min-width="60"
             v-if="['zhzxy'].includes(HOSPITAL_ID)"
             align="center"
           >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.fieldOne"></el-input>
+              <el-input v-model="scope.row.anusTemperature"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -1130,7 +1130,7 @@ export default {
         painScore: "",
         stoolNum: "",
         nursingEvent: "",
-        fieldOne:"",
+        anusTemperature:"",
         height: ""
       };
       let list = this.tableData.map(item => {
