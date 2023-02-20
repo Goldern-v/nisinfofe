@@ -48,6 +48,7 @@
     <div class="new-modal-bottom-second">
       <div style="width: 20%">频次途径</div>
       <div style="flex: 1">{{ currentBottle.frequency }}</div>
+      <div>{{ currentBottle.freqDetail }}</div>
     </div>
   </div>
 </template>
