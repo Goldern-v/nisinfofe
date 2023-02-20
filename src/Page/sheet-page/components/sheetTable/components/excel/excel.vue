@@ -8,7 +8,7 @@
     </div>-->
     <table
       class="sheet-table table-fixed-th no-print"
-      :style="{ width: fiexHeaderWidth }"
+      :style="{ width: fiexHeaderWidth}"
       :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl}"
       ref="tableHead"
       v-if="hasFiexHeader"
@@ -1319,11 +1319,9 @@ export default {
       })
       /*如果向上插入 就不能使用当前鼠标的日期 ，要用当前鼠标的下标位置来向上查找日期
       **/
-      console.log('allDateList',allDateList)
       if (direction == 'upward') {
         //以前代码传过来index-1 聚焦上一行  所以我们index+1  才对得上下标
       let findIndex = index + 1
-      console.log(index,findIndex)
 
         while(findIndex--){
         if(allDateList[findIndex]){
@@ -1334,7 +1332,6 @@ export default {
         addRowDate = lastRecordMonth
       } else {
         let findIndex = index
-        console.log(index,findIndex)
         while(findIndex--){
         if(allDateList[findIndex]){
           lastRecordMonth = allDateList[findIndex]
@@ -1345,7 +1342,6 @@ export default {
         **/
         addRowDate = rowRecordDate ? moment(rowRecordDate).format('MM-DD') : rowRecordMonth ? rowRecordMonth : lastRecordMonth
       }
-      console.log('数值',addRowDate)
       return addRowDate
 
     },
@@ -2141,7 +2137,6 @@ export default {
         return item.key == "status";
       }).value;
       const sign = trArr.find(item => item.key == 'auditorNo').value
-        // console.log("koaosdad",status)
       let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
@@ -3062,6 +3057,7 @@ export default {
       }
       this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
+      console.log('长度=====》',this.$refs.table && this.$refs.table.offsetWidth + "px")
       // console.log(this.$refs.table.getBoundingClientRect());
     },
     scrollX(val) {
@@ -3069,9 +3065,9 @@ export default {
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz','ytll','huadu'].includes(this.HOSPITAL_ID)) {
-        tableHead && (tableHead.style.left = left + 'px')
-      }
+      tableHead && (tableHead.style.left = left + 'px')
+      // if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz','ytll','huadu'].includes(this.HOSPITAL_ID)) {
+      // }
     }
   },
   destroyed() {} /* fix vue-happy-bus bug */,

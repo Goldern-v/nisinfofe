@@ -14,9 +14,9 @@
       </div>
       <div class="list">
         <TemplateItem
-          v-for="item of filteredlist"
+          v-for="item of list"
           :key="item.id"
-          :data="item"
+          :listData="item"
           @click="onItemClick"
           @edit="onItemEdit"
           @remove="onItemRemove"
@@ -49,12 +49,12 @@ export default {
     list: []
   }),
   computed: {
-    filteredlist() {
-      const title = this.title.trim();
-      return this.list.filter(item => {
-        return item.title.includes(title) || item.content.includes(title);
-      });
-    }
+    // filteredlist() {
+    //   const title = this.title.trim();
+    //   return this.list.filter(item => {
+    //     return item.title.includes(title) || item.content.includes(title);
+    //   });
+    // }
   },
   watch: {
     tab(tab) {
@@ -68,7 +68,6 @@ export default {
 
       const res = await apis.listTemplate(this.deptCode, "", this.tab, "");
       this.list = res.data.data;
-      this.title = "";
     },
     open() {
       this.$refs.panel.open();
