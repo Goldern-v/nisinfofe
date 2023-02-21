@@ -550,7 +550,7 @@ export default {
         // 预览（用于调试）
         // print.preview(target, options)
         const printEle = this.$refs.printRef.$el
-        await print(printEle, {
+        await print.preview(printEle, {
           // 在打印之前修改DOM
           beforePrint: formatter,
           // 纸张方向，默认是'vertical'

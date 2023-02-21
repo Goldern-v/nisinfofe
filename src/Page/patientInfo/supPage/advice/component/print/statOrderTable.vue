@@ -37,7 +37,7 @@
           <div
             class="orderText"
             :class="type(scope.row.orderStatusName)"
-            style="text-align: left; padding-left: 10px"
+            style="text-align: left; padding-left: 5px"
           >
             <span :class="type(scope.row.orderStatusName)">{{
               scope.row.orderText
@@ -45,7 +45,7 @@
             <span
               :class="[
                 type(scope.row.orderStatusName),
-              ]" style="margin-right: 15px;"
+              ]" style="margin-right: 5px;"
               >{{ scope.row.dosage }}{{ scope.row.dosageUnits }}{{scope.row.specialSymbols}}</span
             >
             <span
@@ -113,7 +113,7 @@
       >
         <template slot-scope="scope">
           <div v-show="Number(scope.row.orderSubNo) <= 1">
-            {{scope.row.nurseExecute}}
+            {{['925'].includes(HOSPITAL_ID)?  scope.row.nurse :scope.row.nurseExecute}}
           </div>
         </template>
       </el-table-column>
@@ -155,14 +155,14 @@
 
     span {
       margin-right: 8px;
-      min-width: 40px;
+      min-width: 30px;
 
       &:first-of-type {
         flex: 1;
       }
 
       &:nth-of-type(3) {
-        width: 60px;
+        width: 65px;
       }
 
       &:last-of-type {
