@@ -130,6 +130,9 @@ export default [
     key: "foodSize", //入量-ml
     value: "",
     event: keyf1,
+    textarea: {
+      width: 35
+    },
     name: "入量",
     next: "ml",
     statBottomLine: true
@@ -147,6 +150,9 @@ export default [
     key: "dischargeSize", //出量-ml
     value: "",
     event: keyf1,
+    textarea: {
+      width:  35
+    },
     name: "出量",
     next: "ml",
     statBottomLine: true
@@ -155,6 +161,9 @@ export default [
     key: "colorProperties", //出量-颜色性状
     value: "",
     event: keyf1,
+    textarea: {
+      width:  35
+    },
     name: "出量-颜色性状"
   },
   {
@@ -203,6 +212,9 @@ export default [
     key: "educationalNeeds", //病情评估-教育需求
     value: "",
     event: keyf1,
+    textarea: {
+      width:  35
+    },
     name: "病情评估-教育需求"
   },
   {
