@@ -42,7 +42,7 @@ import {
       //   data: 疼痛部位
       // },
       textarea: {
-        width: 60
+        width: 120
       },
       name: "入量-名称"
     },

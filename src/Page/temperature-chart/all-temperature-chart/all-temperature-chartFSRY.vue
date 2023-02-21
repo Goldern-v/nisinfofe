@@ -134,6 +134,31 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="temperature"
+            label="肛温"
+            min-width="80"
+            align="center"
+            v-if="['zhzxy'].includes(HOSPITAL_ID)"
+          >
+            <template slot-scope="scope">
+              <!-- <el-input v-model="scope.row.temperature"></el-input> -->
+              <input
+                v-model="scope.row.anusTemperature"
+                :class="className"
+                class="anusTemperature"
+                :readonly="isReadonly(scope.row.recordDate)"
+                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                type="number"
+                @input="(e)=>{
+                  voidValue(scope.row)
+                }"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="pulse"
             label="脉搏"
             align="center"
@@ -420,6 +445,17 @@
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.temperature"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="anusTemperature"
+            label="肛温"
+            min-width="60"
+            v-if="['zhzxy'].includes(HOSPITAL_ID)"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.anusTemperature"></el-input>
             </template>
           </el-table-column>
           <el-table-column
@@ -1094,6 +1130,7 @@ export default {
         painScore: "",
         stoolNum: "",
         nursingEvent: "",
+        anusTemperature:"",
         height: ""
       };
       let list = this.tableData.map(item => {

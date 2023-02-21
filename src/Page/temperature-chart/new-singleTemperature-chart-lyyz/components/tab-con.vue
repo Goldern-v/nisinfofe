@@ -23,10 +23,18 @@
             >
         </div>
         <div class="times">
-          <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
+          <el-radio-group v-model="query.entryTime"  v-if="this.HOSPITAL_ID != 'whhk' " @change="changeEntryTime">
             <el-radio
               size="mini"
               v-for="item in timesOdd1"
+              :key="item.id"
+              :label="item.value"
+            ></el-radio>
+          </el-radio-group>
+          <el-radio-group v-model="query.entryTime" v-if="this.HOSPITAL_ID == 'whhk' " @change="changeEntryTime">
+            <el-radio
+              size="mini"
+              v-for="item in timesOdd2"
               :key="item.id"
               :label="item.value"
             ></el-radio>
@@ -664,6 +672,32 @@ export default {
         {
           id: 5,
           value: "23",
+        },
+      ],
+      timesOdd2: [
+      {
+          id: 0,
+          value: "02",
+        },
+        {
+          id: 1,
+          value: "06",
+        },
+      {
+          id: 2,
+          value: "10",
+        },
+      {
+          id: 3,
+          value: "14",
+        },
+        {
+          id: 4,
+          value: "18",
+        },
+        {
+          id: 5,
+          value: "22",
         },
       ],
       bottomContextList: [""],

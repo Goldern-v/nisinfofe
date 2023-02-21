@@ -74,17 +74,17 @@ export default [
       width: 50
     },
   },
-  // {
-  //   key: "fieldFive", // 胎心
-  //   value: "",
-  //   event: keyf1,
-  //   change: (e, td) => limitChange(e, td, 8),
-  //   name: "胎心",
-  //   next: "次/分",
-  //   textarea: {
-  //     width: 50
-  //   },
-  // },
+  {
+    key: "fieldFive", // 胎心
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 8),
+    name: "胎心",
+    next: "次/分",
+    textarea: {
+      width: 50
+    },
+  },
   {
     key: "fieldSix", // 阵缩
     value: "",
@@ -169,17 +169,6 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
     name: "BP",
     next: "mmHg",
-    textarea: {
-      width: 50
-    },
-  },
-  {
-    key: "fieldFive", // 胎心
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
-    name: "BP",
-    next: "mmhg",
     textarea: {
       width: 50
     },

@@ -77,6 +77,8 @@ export default {
             this.regions = regions;
           }).then(res => {
             this.treeLoading = false;
+          }).catch((error)=>{
+            this.treeLoading = false;
           });
         }else{
           Promise.all([
@@ -117,6 +119,8 @@ export default {
             this.regions = regions;
           })
           .then(res => {
+            this.treeLoading = false;
+          }).catch((err)=>{
             this.treeLoading = false;
           });
         }

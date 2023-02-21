@@ -1224,6 +1224,7 @@ const router = new Router({
               case 'foshanrenyi':
                 return bloodSugarFoShanRenYi
               case 'zhzxy':
+              case 'whhk':
                 return bloodSugarZhuHaiZhongXiYi
               default:
                 return bloodSugar
