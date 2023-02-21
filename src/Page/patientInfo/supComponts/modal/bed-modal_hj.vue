@@ -386,9 +386,9 @@
 }
 
 .bed-card-con {
-  margin: 10px;
-  width: 500px;
-  height: 325px;
+  margin: 20px;
+  width: 510px;
+  height: 330px;
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
