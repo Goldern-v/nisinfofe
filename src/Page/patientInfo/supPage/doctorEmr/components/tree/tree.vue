@@ -62,7 +62,8 @@ export default {
     },
     getTreeData() {
       this.treeLoading = true;
-      if(this.HOSPITAL_ID != "beihairenyi"){
+      setTimeout(()=>{
+        if(this.HOSPITAL_ID=='beihairenyi') return
         if(this.HOSPITAL_ID == "hj"){
           Promise.all([getDoctorEmr2(this.$route.query.patientId, this.$route.query.visitId)]).then(res2=>{
             let regions = [];
@@ -82,9 +83,7 @@ export default {
           });
         }else{
           Promise.all([
-          getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)
-        ])
-          .then(res => {
+          getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)]).then(res => {
             let resDataArr = res[0].data.data;
             let keys = Object.keys(resDataArr);
             let regions = [];
@@ -113,18 +112,13 @@ export default {
                 });
               }
             }
-
-            // debugger;
-
             this.regions = regions;
-          })
-          .then(res => {
             this.treeLoading = false;
           }).catch((err)=>{
             this.treeLoading = false;
           });
         }
-      }
+      },0)
 
     },
     nodeClick(data, node) {
