@@ -1621,6 +1621,11 @@ function switchSheetType(type) {
         schema = require("../config/cardiology_tj/tr.js").default;
       }
       break;
+      case "cardiac_therapy_tj": {
+        // 广东同江 - 心脏介入术中护理记录单
+          schema = require("../config/cardiac_therapy_tj/tr.js").default;
+        }
+        break;
     case "surgical_qhwy": {
         // 青海五院 - 外科护理记录单
         schema = require("../config/surgical_qhwy/tr.js").default;

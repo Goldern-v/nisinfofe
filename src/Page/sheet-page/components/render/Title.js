@@ -2100,6 +2100,13 @@ export default function Title(
     );
   }
   break;
+  case "cardiac_therapy_tj": {
+    // 广东同江 - 心脏介入术中护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiac_therapy_tj/th.js").default)
+    );
+  }
+  break;
   case "surgical_qhwy": {
     // 青海五院 - 外科护理记录单
     Th = JSON.parse(
