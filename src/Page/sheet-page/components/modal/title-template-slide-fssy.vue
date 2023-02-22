@@ -242,6 +242,7 @@ export default {
         if(this.isTemperature){
           //如果是体温单界面  就只查询体温单的自定义标题
         this.listMap = res.data.data.filter((x)=>x.recordCode==="bodyTemperature")
+        console.log(this.listMap);
         }else{
         this.listMap = res.data.data.filter((x)=>x.recordCode!=="bodyTemperature")
 
