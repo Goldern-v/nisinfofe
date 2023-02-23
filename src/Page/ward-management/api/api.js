@@ -3,17 +3,19 @@ import qs from "qs";
 import { apiPath } from "@/api/apiConfig";
 
 export function getList(query) {
-    return axios.post(`${apiPath}nursingInstitution/getListWithJurisdiction`, query);
+    return axios.get(`${apiPath}patientRoom/getPage?${qs.stringify(query)}`);
+}
+export function getBedNo(query) {
+    return axios.get(`${apiPath}patientRoom/getBedNo/${query.deptCode}`);
 }
 
-export function getFileContent(query) {
-    return axios.post(`${apiPath}nursingInstitution/getFileContent`, qs.stringify(query), { responseType: 'blob' });
+export function deletePatientRoom(query) {
+    return axios.post(`${apiPath}patientRoom/delete`, query);
+}
+export function addPatientRoom(query) {
+    return axios.post(`${apiPath}patientRoom/save`,query);
 }
 
-export function getFileTypes() {
-    return axios.get(`${apiPath}nursingInstitution/getTypeDict`);
-}
-
-export function getCatalogByType(type) {
-    return axios.post(`${apiPath}/nursingInstitution/getCatalogByType`, qs.stringify({ type }))
+export function updatePatientRoom(query) {
+    return axios.post(`${apiPath}patientRoom/update`, query);
 }
