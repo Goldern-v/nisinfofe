@@ -3,7 +3,7 @@
     <div class="search-topbar">
       <!-- <span class="title">护理制度</span> -->
       <div class="float-left">
-        <h3>病床管理</h3>
+        <h3>病房管理</h3>
       </div>
       <div class="float-right">
         <el-button @click="addPatientRoom">添加病房</el-button>
