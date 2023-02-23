@@ -134,6 +134,15 @@
             ></el-option>
           </el-select>
         </div>
+        <div v-if="HOSPITAL_ID == 'wujing'" style="margin-left: 20px">
+          <span class="label">入量筛选：</span>
+          <el-input
+            v-model="instructions"
+            placeholder="输入入量关键字"
+            size="small"
+            style="width: 120px"
+          />
+        </div>
         <whiteButton
           style="margin-left: 20px"
           text="查询"
@@ -178,7 +187,7 @@
                   border: 'none',
                   background: 'transparentify',
                   textAlign: 'center',
-                  color:`${scope.row.recordSync.includes('已同步')?'red':''}`
+                  color:`${scope.row.recordSync&&scope.row.recordSync.includes('已同步')?'red':''}`
                 }"
                 :value="scope.row.recordDate.split(' ')[0]"
                 @input="(value) => changeRecordDate(scope.row, 'Month', value)"
@@ -223,7 +232,7 @@
                   border: 'none',
                   background: 'transparentify',
                   textAlign: 'center',
-                  color:`${scope.row.recordSync.includes('已同步')?'red':''}`
+                  color:`${scope.row.recordSync&&scope.row.recordSync.includes('已同步')?'red':''}`
                 }"
                 :value="scope.row.recordDate.split(' ')[1]"
                 @input="(value) => changeRecordDate(scope.row, 'Hour', value)"
@@ -402,6 +411,7 @@ export default {
         ? "输液"
         : "",
       repeatIndicator: "",
+      instructions:'',//入量名称
       identicalGroupSelect: ["wujing"],
       repeatIndicatorList: [
         {
@@ -527,7 +537,7 @@ export default {
       this.bus.$emit("refreshSheetPageOne", this.multipleSelection);
     },
     styleByrecordSync(row,indx){
-      if(row.recordSync.indexOf('已同步')==-1) return
+      if(row.recordSync&&row.recordSync.indexOf('已同步')==-1) return
       const style = {}
         style.color = 'red !important'
         return style
@@ -662,7 +672,8 @@ export default {
           this.executeType,
           this.repeatIndicator,
           this.blockId,
-          this.HOSPITAL_ID
+          this.HOSPITAL_ID,
+          this.instructions
         ).then((res) => {
           if (this.identicalGroupSelect.includes(this.HOSPITAL_ID)) {
             let responeList = JSON.parse(JSON.stringify(res.data.data.list));

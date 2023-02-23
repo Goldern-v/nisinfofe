@@ -133,12 +133,12 @@ export default {
     //二维码
     qrcode() {
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi','fsxt','','lyxrm','beihairenyi', 'whhk', 'stmz'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
+      ['foshanrenyi','fsxt','','lyxrm','beihairenyi', 'whhk', 'stmz','qhwy'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         // width: this.cmpx,// 二维码的宽
         // height: this.cmpx,// 二维码的高
-        width: 60,// 二维码的宽
-        height: 60,// 二维码的高
+        width: 120,// 二维码的宽
+        height: 120,// 二维码的高
         // text: this.userName + " " + this.passWord , // 二维码的内容
         text:titleObject,
         colorDark: '#000',// 二维码的颜色

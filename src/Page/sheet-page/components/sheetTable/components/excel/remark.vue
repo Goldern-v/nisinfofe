@@ -665,6 +665,142 @@
       备注：1、硫酸镁静脉滴注时每 2h 观察记录一次，有异常情况时随时记录；<br/>
       &nbsp;&nbsp;&nbsp;2、每 24h 或停止使用时统计尿量一次，统计时划双红线，并写清楚统计的起止时间和签名。
     </div>
+    <div v-if="sheetInfo.sheetType == 'cardiac_therapy_tj'">
+      冠脉介入治疗情况：<br/>
+      植入支架：
+     <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>前降支近段</span>
+      <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym"
+        :data-value="sheetInfo.relObj.toponym"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita10']"
+        v-model="checkeqita10"
+      />
+      <span>前降支中段</span>
+     <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym10"
+        :data-value="sheetInfo.relObj.toponym10"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita9']"
+        v-model="checkeqita9"
+      />
+      <span>前降支远端</span>
+    <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym9"
+        :data-value="sheetInfo.relObj.toponym9"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita8']"
+        v-model="checkeqita8"
+      />
+      <span>回旋支近段</span>
+     <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym8"
+        :data-value="sheetInfo.relObj.toponym8"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>回旋支中段</span>
+     <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym7"
+        :data-value="sheetInfo.relObj.toponym7"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>回旋支远端</span>
+      <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym6"
+        :data-value="sheetInfo.relObj.toponym6"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>右冠近段</span>
+      <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym5"
+        :data-value="sheetInfo.relObj.toponym5"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>右冠中段</span>
+      <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym4"
+        :data-value="sheetInfo.relObj.toponym4"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>右冠远端 </span>
+      <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym3"
+        :data-value="sheetInfo.relObj.toponym3"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>对角支</span>
+      <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym2"
+        :data-value="sheetInfo.relObj.toponym2"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>其他</span>
+      <input
+      class="bottomInput"
+        v-model="sheetInfo.relObj.toponym1"
+        :data-value="sheetInfo.relObj.toponym1"
+        style="border-bottom: 1px solid #000; width: 80px"
+      />个，
+    </div>
 
     <!-- 佛一 - 新生儿NICU护理记录单 -->
     <div v-if="sheetInfo.sheetType == 'NICU_fs'">

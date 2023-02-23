@@ -16,17 +16,17 @@
 <script>
 export default {
   props: {
-    listData: Object
+    data: Object
   },
-  // data: () => ({}),
+  data: () => ({}),
   methods: {
     onClick() {
-      // this.$emit("click", this.data);
+      this.$emit("click", this.data);
     },
     onEdit() {
-      console.log(this.data,99999)
+      // console.log(this.data,99999)
 
-      // this.$emit("edit", this.data);
+      this.$emit("edit", this.data);
     },
     onRemove() {
       this.$emit("remove", this.data);

@@ -81,6 +81,8 @@ export default {
           this.pageLoading = false;
         })
         .then(res => {
+        }).catch((error)=>{
+          this.pageLoading = false;
         });
     }
   }

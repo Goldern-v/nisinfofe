@@ -29,7 +29,7 @@ export default {
       },
       {
           name: `
-          呼吸频率<br/>(次/分)
+          心律<br/>(次/分)
           `,
           style: {},
           colspan: "1",

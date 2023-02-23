@@ -3,8 +3,50 @@
     <sweet-modal
       ref="newRecord"
       :modalWidth="500"
+      title="提示"
+      class="modal-record padding-0"
+      v-if="type =='补执行'"
+    >
+      <div class="group">
+        <span>开始执行时间：</span>
+        <el-date-picker
+          type="datetime"
+          format="yyyy-MM-dd HH:mm:ss"
+          placeholder="选择开始执行时间"
+          size="small"
+          v-model="afterStartExecuteTime"
+          style="width:120px"
+        ></el-date-picker>
+      </div>
+      <div class="group">
+        <span>结束执行时间：</span>
+        <el-date-picker
+          type="datetime"
+          format="yyyy-MM-dd HH:mm:ss"
+          placeholder="选择结束执行时间"
+          size="small"
+          v-model="afterEndExecuteTime"
+          style="width:120px"
+        ></el-date-picker>
+      </div>
+      <div class="group">
+        <span>补执行的原因：</span>
+        <el-input   size="small"  style="width:200px" placeholder="请输入补执行的原因" v-model="reason"></el-input>
+     
+      </div>
+      <div slot="button">
+        <el-button class="modal-btn" @click="close">关闭</el-button>
+        <el-button class="modal-btn" type="primary" @click="postReason"
+          >保存</el-button
+        >
+      </div>
+    </sweet-modal>
+    <sweet-modal
+      ref="newRecord"
+      :modalWidth="500"
       title="修改时间"
       class="modal-record padding-0"
+      v-if="type !='补执行'"
     >
       <div class="group">
         <span>实际执行时间：</span>
@@ -36,6 +78,7 @@
       </div>
     </sweet-modal>
   </div>
+  
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -61,6 +104,11 @@
 <script>
 import commonMixin from "@/common/mixin/common.mixin";
 import moment from "moment";
+import {
+  addRecord,
+  cancelOrderExecuteApi,
+  updateOrderExecutePc,
+} from "../../api/index";
 import { updateExecuteTime } from "../../api/index";
 import bus from "vue-happy-bus";
 export default {
@@ -70,11 +118,14 @@ export default {
       eidtRowData: {},
       afterStartExecuteTime: moment().format("YYYY-MM-DD HH:mm"),
       afterEndExecuteTime: moment().format("YYYY-MM-DD HH:mm"),
-      bus: bus(this)
+      bus: bus(this),
+      type:'',
+      reason:''
     };
   },
   methods: {
-    open(data) {
+    open(data,type) {
+      this.type = type;
       this.$refs.newRecord.open();
       this.afterStartExecuteTime = data.realExecuteDateTime;
       this.afterEndExecuteTime = data.endDateTime || data.endInfusionTime;
@@ -108,7 +159,56 @@ export default {
         this.bus.$emit("loadImplementationList");
         this.close();
       });
-    }
+    },
+    postReason(){
+      let data = {
+        barcode:  this.eidtRowData.barCode, //条码号
+        empNO: this.empNo, //执行人
+        type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
+        typeReason: this.reason, //补执行的原因填写
+        p_startdate: this.afterStartExecuteTime
+          ? moment(this.afterStartExecuteTime).format("YYYY-MM-DD HH:mm:ss")
+          : this.afterStartExecuteTime, //需要修改后的实际执行时间
+        p_enddate: this.afterEndExecuteTime
+          ? moment(this.afterEndExecuteTime).format("YYYY-MM-DD HH:mm:ss")
+          : this.afterEndExecuteTime //需要修改后的实际结束时间
+      };
+      updateOrderExecutePc(data).then((res) => {
+        this.$message.success("补录成功");
+        this.bus.$emit("loadImplementationList");
+        this.close();
+      });
+    },
+    cancelOrderExecute(item) {
+      let user = JSON.parse(localStorage.getItem("user"));
+      // console.log(user);
+      if (!["护长", "护士长"].includes(user.job)) {
+        this.$message.error("没有权限！");
+      } else {
+        this.$prompt("请输入取消的原因", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+        })
+          .then(({ value }) => {
+            let { empNo } = user;
+            let { barCode } = item;
+            let cancelReason = value;
+            console.log(cancelReason);
+            cancelOrderExecuteApi({
+              empNO: empNo,
+              barcode: barCode,
+              cancelReason,
+            }).then((res) => {
+              this.$message.success(res.data.desc);
+              this.bus.$emit("loadImplementationList");
+              this.close();
+            });
+          })
+          .catch((err) => {
+            this.$message.success(err.data.desc);
+          });
+      }
+    },
   },
   created() {},
   mounted() {},
