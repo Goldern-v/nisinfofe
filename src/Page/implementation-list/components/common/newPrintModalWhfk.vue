@@ -40,7 +40,7 @@
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
-          style="text-indent: 5px"
+          :style="[!whsl35Style?{'text-indent': '5px'}:{'padding-left': '5px'}]"
         >
           {{ item }}
         </div>
@@ -285,6 +285,9 @@ export default {
   },
   methods: {},
   computed: {
+    whsl35Style(){
+      return ['whsl'].includes(this.HOSPITAL_ID) && this.newModalSize=="3*5"
+    },
     currentBottle() {
       let cloneObj = cloneDeep(this.itemObj[0]);
       let orderText = [];
@@ -295,17 +298,6 @@ export default {
         let content = `${item.dosage || ""}${item.dosageUnits || ""}`;
         dosageDosageUnits.push(content);
       });
-      if(['whsl'].includes(this.HOSPITAL_ID) && this.newModalSize=="3*5"){
-        let orderTextArr=[]
-        orderText.forEach(itemSecond=>{
-          if(itemSecond.length>=22){
-            let arr = itemSecond.split(" ")
-            orderTextArr.push(arr[0])
-            orderTextArr.push(arr[1])
-          }else orderTextArr.push(itemSecond)
-        })
-        orderText = [...orderTextArr]
-      }
       let qr_png_value = this.itemObj[0].barCode;
       var qr_png = qr.imageSync(qr_png_value, { type: "png",margin: 2 });
       function arrayBufferToBase64(buffer) {
