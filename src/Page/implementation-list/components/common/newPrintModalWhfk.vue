@@ -43,7 +43,7 @@
           style="text-indent: 5px"
         >
           {{ item }}
-      </div>
+        </div>
     </div>
     <div class="new-modal-bottom-second">
       <div style="width: 20%">频次途径</div>
@@ -295,6 +295,17 @@ export default {
         let content = `${item.dosage || ""}${item.dosageUnits || ""}`;
         dosageDosageUnits.push(content);
       });
+      if(['whsl'].includes(this.HOSPITAL_ID) && this.newModalSize=="3*5"){
+        let orderTextArr=[]
+        orderText.forEach(itemSecond=>{
+          if(itemSecond.length>=22){
+            let arr = itemSecond.split(" ")
+            orderTextArr.push(arr[0])
+            orderTextArr.push(arr[1])
+          }else orderTextArr.push(itemSecond)
+        })
+        orderText = [...orderTextArr]
+      }
       let qr_png_value = this.itemObj[0].barCode;
       var qr_png = qr.imageSync(qr_png_value, { type: "png",margin: 2 });
       function arrayBufferToBase64(buffer) {
