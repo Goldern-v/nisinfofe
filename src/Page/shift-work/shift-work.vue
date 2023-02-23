@@ -133,7 +133,11 @@
         return [start, end]
       },
       isAllSigned (record) {
-        return !!(record.autographNameA && record.autographNameP && record.autographNameN  &&  record.autographNameA2 && record.autographNameP2 && record.autographNameN2)
+        if(this.HOSPITAL_ID == 'gdtj'){
+          return !!(record.autographNameA2 && record.autographNameP2 && record.autographNameN2)
+        }else{
+          return !!(record.autographNameA && record.autographNameP && record.autographNameN  )
+        }
       },
       onCreateModalOpen (code) {
         this.$refs.createModal.open(code)
