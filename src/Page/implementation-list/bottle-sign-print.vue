@@ -173,7 +173,7 @@
             <el-button size="small" @click="createImplement"
               >生成执行</el-button
             >
-            <el-button v-if="['sdlj', 'lyxrm', 'ytll', '925', 'stmz'].includes(HOSPITAL_ID)"
+            <el-button v-if="['sdlj', 'lyxrm', 'ytll', '925', 'stmz','qhwy'].includes(HOSPITAL_ID)"
                        size="small"
                        @click="syncData">同步医嘱
             </el-button>
@@ -360,7 +360,7 @@ import { hisMatch } from "@/utils/tool";
 import getLodop from "@/assets/js/LodopFuncs";
 const initStartDate = () => {
   if (
-    ["whfk", "fsxt", "lyxrm", "whhk", "ytll", "zhzxy", "925","whsl", 'stmz'].includes(
+    ["whfk", "fsxt", "lyxrm", "whhk", "ytll", "zhzxy", "925","whsl", 'stmz','qhwy'].includes(
       process.env.HOSPITAL_ID
     )
   )
@@ -377,7 +377,7 @@ const initEndDate = () => {
     return (
       moment(moment().toDate().getTime()).format("YYYY-MM-DD") + " 23:59:00"
     );
-  if (["lyxrm", "whhk", "zhzxy", "925","whsl", 'stmz'].includes(process.env.HOSPITAL_ID))
+  if (["lyxrm", "whhk", "zhzxy", "925","whsl", 'stmz','qhwy'].includes(process.env.HOSPITAL_ID))
     return (
       moment(moment().toDate().getTime()).format("YYYY-MM-DD") + " 23:59:59"
     );
@@ -430,7 +430,7 @@ export default {
       isShowModal: false,
       query: {
         wardCode: "",
-        itemType: ["whfk", "lyxrm", "whhk", "zhzxy", "925", 'stmz'].includes(
+        itemType: ["whfk", "lyxrm", "whhk", "zhzxy", "925", 'stmz','qhwy'].includes(
           this.HOSPITAL_ID
         )
           ? "全部"
@@ -439,7 +439,7 @@ export default {
         bedLabel: "", //床位号，如果查全部传*"
         repeatIndicator: ["whfk"].includes(this.HOSPITAL_ID) ? 0 : 9,
         //医嘱类型，长期传1，临时传0，全部传9
-        reprintFlag: ["lyxrm", "whhk", "zhzxy", "925", 'stmz'].includes(
+        reprintFlag: ["lyxrm", "whhk", "zhzxy", "925", 'stmz','qhwy'].includes(
           this.HOSPITAL_ID
         )
           ? 9
@@ -448,7 +448,7 @@ export default {
       },
       multiItemType: ["输液"],
       // 是否医嘱分类使用多选
-      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl","ytll", 'stmz'].includes(
+      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl","ytll", 'stmz','qhwy'].includes(
         this.HOSPITAL_ID
       ),
       selectedData: [], //选中打印执行单条数
@@ -464,6 +464,7 @@ export default {
       hasNewPrintHos: [
         "sdlj",
         "gdtj",
+        "qhwy",
         "fsxt",
         "whfk",
         "whhk",
@@ -491,7 +492,7 @@ export default {
             { label: "口服" },
             { label: "治疗" },
           ],
-          "lyxrm,whhk,zhzxy,925,stmz": [
+          "lyxrm,whhk,zhzxy,925,stmz,qhwy": [
             { label: "全部" },
             { label: "输液" },
             { label: "注射" },
@@ -548,7 +549,7 @@ export default {
       }),
       thumpOptions: hisMatch({
         map: {
-          "lyxrm,whhk,zhzxy,925,stmz": [
+          "lyxrm,whhk,zhzxy,925,stmz,qhwy": [
             { label: "全部", value: 9 },
             { label: "已打印", value: 1 },
             { label: "未打印", value: 0 },
@@ -568,7 +569,7 @@ export default {
       bedList: [],
       bedLabels: [],
       // 是否显示途径
-      showAdministration: ["sdlj", "lyxrm", "ytll", "zhzxy", "925", 'stmz'].includes(
+      showAdministration: ["sdlj", "lyxrm", "ytll", "zhzxy", "925", 'stmz','qhwy'].includes(
         this.HOSPITAL_ID
       ),
       // 能否打印全部
@@ -628,7 +629,7 @@ export default {
       if (["sdlj"].includes(this.HOSPITAL_ID)) {
         getOrder = getSDLJPatientOrder;
       } else if (
-        ["lyxrm", "whfk", "ytll", "whhk", "zhzxy", "925", "whsl"].includes(
+        ["lyxrm", "whfk", "ytll", "whhk", "zhzxy", "925", "whsl","qhwy"].includes(
           this.HOSPITAL_ID
         )
       ) {
@@ -724,7 +725,7 @@ export default {
     search() {
       this.page.pageIndex = 1;
       // 查看打印效果可以注释掉此行
-      this.printObj = []
+      // this.printObj = []
       this.onLoad();
     },
     // 打印
@@ -920,7 +921,7 @@ export default {
         this.selectedData.map((item) => item.barcode)
       );
       if (
-        ["lyxrm", "whhk", "zhzxy", "925", "lyyz"].includes(this.HOSPITAL_ID)
+        ["lyxrm", "whhk", "zhzxy", "925", "lyyz","qhwy"].includes(this.HOSPITAL_ID)
       ) {
         // 该条执行单是一组多条的 或者该执行单是已完成的隐藏
         barCodeList = this.selectedData.reduce((per, item, index) => {
@@ -936,6 +937,7 @@ export default {
         [
           "sdlj",
           "gdtj",
+          "qhwy",
           "fsxt",
           "lyxrm",
           "whfk",
@@ -1090,6 +1092,7 @@ export default {
           return "NewPrintModalFsxt";
         case "lyxrm":
         case "stmz":
+          case "qhwy":
         // case "zhzxy":
         case "925":
           return "NewPrintModalLyxrm";
@@ -1112,6 +1115,7 @@ export default {
       switch (this.HOSPITAL_ID) {
         case "lyxrm":
         case "whhk":
+          case "qhwy":
         case "925":
         case "stmz":
           return ["70*80", "3*7"];
@@ -1154,6 +1158,8 @@ export default {
       if (this.newModalSize == "5*8" && ["wujing"].includes(this.HOSPITAL_ID)) {
         return "margin: 0 0 0 15mm;";
       }
+     if (this.newModalSize === '3*5' && '925' === this.HOSPITAL_ID)
+      return 'margin: 10mm 0 0 5mm;'
       if (this.newModalSize == "7*7" && ["ytll"].includes(this.HOSPITAL_ID)) {
         return "margin: 0 0 0 3mm;";
       }
@@ -1164,7 +1170,7 @@ export default {
     },
     /**床号多选 */
     multiBed() {
-      return ["lyxrm", "zhzxy", "925", "ytll", 'stmz','whsl'].includes(this.HOSPITAL_ID);
+      return ["lyxrm", "zhzxy", "925", "ytll", 'stmz','whsl','qhwy'].includes(this.HOSPITAL_ID);
     },
     // 瓶签是否分页 超过多少条开始分
     printPagingNo() {

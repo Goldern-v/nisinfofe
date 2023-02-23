@@ -870,7 +870,8 @@ export default {
         'prenatal_dglb',
         'baby_dglb',
         'baby_obs_dglb',
-        'cardiology_tj'
+        'cardiology_tj',
+        'cardiac_therapy_tj'
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -920,7 +921,7 @@ export default {
       wujingCommonHl:false
     };
   },
-  
+
   computed: {
     ...{
       'checkedsc': {

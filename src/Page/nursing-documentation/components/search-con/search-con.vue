@@ -418,7 +418,8 @@ export default {
         'ytll',
         'nfyksdyy',
         'liaocheng',
-        '925'
+        '925',
+        'qhwy'
       ].includes(this.HOSPITAL_ID);
     },
   },

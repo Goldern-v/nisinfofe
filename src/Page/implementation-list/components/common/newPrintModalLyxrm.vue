@@ -68,7 +68,7 @@
         </div>
       </div>
 
-      <div :class="{isZhzxy:isZhzxy}" class="new-print-modal__b">
+      <div :class="{isZhzxy:isZhzxy}" class="new-print-modal__b" v-if="HOSPITAL_ID != '925'">
         <div class="new-print-modal__b__l">
           <span>
             途径:{{ currentBottle.administration }}
@@ -82,6 +82,20 @@
           <span v-if="!is925 && !isZhzxy">核对者</span>
         </div>
         <div class="qc-box">
+          <img :src="currentBottle.qcSrc || ''" />
+        </div>
+      </div>
+      <div  style="position:relative" v-if="HOSPITAL_ID == '925'">
+        <div>
+          <p style="padding:5px">
+            途径:{{ currentBottle.administration }}
+          </p>
+          <p style="padding:5px">
+            频率:{{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
+          </p>
+          <p style="padding:5px">执行时间:{{ currentBottle.executeDate.substr(0, 16) }}</p>
+        </div>
+        <div class="qc-box" style="position:absolute;bottom: 25px;left:50%">
           <img :src="currentBottle.qcSrc || ''" />
         </div>
       </div>
