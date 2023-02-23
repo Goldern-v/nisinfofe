@@ -388,7 +388,9 @@ export default {
     }
     let dom = this.$refs.container;
     $(dom).scroll(e => {
-      if ($(dom).scrollTop() >= 117) {
+      if(this.HOSPITAL_ID == 'zhzxy' && $(dom).scrollTop() >= 250){
+         this.fixedTh = true;
+      }else if (!this.HOSPITAL_ID == 'zhzxy' && $(dom).scrollTop() >= 117) {
         this.fixedTh = true;
       } else {
         this.fixedTh = false;
@@ -424,6 +426,11 @@ export default {
       sessionStorage.setItem(this.$route.fullPath,this.currentClass);
       this.load();
     },
+    // 创建保存一次
+    async getToSave(){
+      await this.load()
+      await this.onSave()
+    },
     async load() {
       const id = this.$route.params.id;
       if (!id) return;
@@ -433,101 +440,6 @@ export default {
         const {
           data: { data }
         } = await apis.getShiftRecord(id);
-        /*
-        const {data} = {
-    "code": "200",
-    "desc": "操作成功",
-    "data": {
-        "shiftWithWardcodesN": [
-            {
-                "bedEmpty": "39",
-                "bedTotal": "74",
-                "patientDead": "0",
-                "outHospitalTotal": "0",
-                "patientTransferIn": "0",
-                "nowHospitalTotal": "35",
-                "patientExchange": "0",
-                "patientOutTommorow": "0",
-                "patientNewBorn": "0",
-                "patientWait": "0",
-                "patientYi": "5",
-                "patientOpration": "0",
-                "transOutTotal": "2",
-                "patientNew": "0",
-                "patientBirth": "0",
-                "seriousTotal": "0",
-                "patientTotal": "0",
-                "patientOprationTommorow": "0",
-                "patientBw": "0"
-            }
-        ],
-        "shiftWithWardcodesP": [
-            {
-                "bedEmpty": "39",
-                "bedTotal": "74",
-                "patientDead": "0",
-                "outHospitalTotal": "0",
-                "patientTransferIn": "0",
-                "nowHospitalTotal": "35",
-                "patientExchange": "0",
-                "patientOutTommorow": "0",
-                "patientNewBorn": "0",
-                "patientWait": "0",
-                "patientYi": "4",
-                "patientOpration": "0",
-                "transOutTotal": "0",
-                "patientNew": "1",
-                "patientBirth": "0",
-                "seriousTotal": "0",
-                "patientTotal": "36",
-                "patientOprationTommorow": "0",
-                "patientBw": "0"
-            }
-        ],
-        "shiftWithWardcodesA": [
-            {
-                "bedEmpty": "38",
-                "bedTotal": "74",
-                "patientDead": "0",
-                "outHospitalTotal": "9",
-                "patientTransferIn": "0",
-                "nowHospitalTotal": "36",
-                "patientExchange": "0",
-                "patientOutTommorow": "0",
-                "patientNewBorn": "0",
-                "patientWait": "0",
-                "patientYi": "1",
-                "patientOpration": "0",
-                "transOutTotal": "0",
-                "patientNew": "8",
-                "patientBirth": "0",
-                "seriousTotal": "0",
-                "patientTotal": "37",
-                "patientOprationTommorow": "0",
-                "patientBw": "0"
-            }
-        ],
-        "changeShiftPatients": [],
-        "changeShiftTimes": {
-            "id": 291,
-            "deptCode": "9",
-            "shiftTypeId": 1,
-            "changeShiftDate": "2021-10-19",
-            "creator": "admin",
-            "createTime": "2021-10-19 10:09:19",
-            "specialSituation": "",
-            "autographNameA": "",
-            "autographEmpNoA": "",
-            "autographNameP": "",
-            "autographEmpNoP": "",
-            "autographNameN": "",
-            "autographEmpNoN": ""
-        }
-    },
-    "errorCode": ""
-}
-        */
-        
         const { changeShiftTimes: record, changeShiftPatients: patients,shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN } = data;
         record.specialCase = record.specialCase || "";
         this.record = {...record,...shiftWithWardcodesA[0]||{}};
