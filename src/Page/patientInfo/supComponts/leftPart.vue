@@ -127,7 +127,7 @@
             flex="cross:center main:center"
             @click="openWristPrint('wrist-children')"
             v-if="
-              ['beihairenyi', 'zhzxy', 'lyyz', 'dglb'].includes(HOSPITAL_ID)
+              ['beihairenyi', 'zhzxy', 'lyyz', 'dglb','925'].includes(HOSPITAL_ID)
             "
           >
             儿童腕带打印
