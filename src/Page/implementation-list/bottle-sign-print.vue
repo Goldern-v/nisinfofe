@@ -770,7 +770,7 @@ export default {
       await this.getPrintData();
       document.getElementById("new-print-box").style.display = "block";
       this.$nextTick(() => {
-        printing.preview(this.$refs.new_print_modal, {
+        printing(this.$refs.new_print_modal, {
           injectGlobalCss: true,
           scanStyles: false,
           // margin: 0 0;
