@@ -388,15 +388,23 @@
                     >
                     </el-option>
                   </el-select>
-                  <el-time-picker
+                  <el-time-select
+                    width="90px"
                     size="mini"
+                    id="timeSelectTop"
                     :readonly="isDisable()"
                     v-model="timeVal"
                     placeholder="选择表顶时间"
                     style="width: 100%"
-                    @change="formatTopExpandDate"
+                  @focus="getSelectionStart"
+                  @keydown.native="getSelectionStartInput"
+                    :picker-options="{
+                    start: '03:00',
+                    step: '04:00',
+                    end: '23:00',
+                    }"
                   >
-                  </el-time-picker>
+                  </el-time-select>
                 </div>
                 <!--目前武警是没有用的中间注释的--->
                 <div class="rowBox" v-if="multiDictList['中间注释']">
@@ -533,7 +541,7 @@ export default {
         updatePerson: "", //原来的记录人
       },
       recordDate: "",
-        timeVal:new moment(),
+      timeVal:new moment().format("HH:mm"),
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
       checkItem: [
         "腋温",
@@ -596,13 +604,7 @@ async mounted() {
     },
         patientInfo() {
       //切换患者重新获得时间
-      this.timeVal = new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() + 1,
-        new Date().getDate(),
-        new Date().getHours(),
-        new Date().getMinutes()
-      );
+      this.timeVal = moment().format('HH:mm')
     },
   },
   methods: {
@@ -786,6 +788,10 @@ async mounted() {
           });
           setTimeout(()=>{
       e.target.value = e.target.value.substring(0, 5);
+      if(this.HOSPITAL_ID == 'zhzxy'){
+        this.timeVal = e.target.value.substring(0, 5)
+        return
+      }
       if(e.target.value.length==5)
       this.changeDate(this.$refs.timeSelect)
           }, 100)
@@ -988,7 +994,7 @@ async mounted() {
             if (v.vitalSigns == "表顶注释") {
               this.timeVal = moment(
                 this.vitalSignObj[v.vitalCode].expand2
-              ).utc()._d;
+              ).format('HH:mm');
             }
           });
         } else {
@@ -1166,14 +1172,8 @@ async mounted() {
         item.recordDate = recordDate;
         switch (item.vitalSigns) {
           case "表顶注释":
-            if(this.topExpandDate){
-            item.expand2 =moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +" " +this.topExpandDate
-            }else{
-            item.expand2 = moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +" " +this.query.entryTime;
-
-            }
+            item.expand2 =moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +" " +this.timeVal + ':00'
             break;
-
           default:
             break;
         }
