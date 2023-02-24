@@ -34,7 +34,8 @@ export default {
     TableRadio
   },
   created() {
-    // console.log(this.item.name)
+  },
+  watch:{
   },
   methods: {
     ChildComponent(item) {

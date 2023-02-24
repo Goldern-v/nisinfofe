@@ -19,7 +19,7 @@
                 v-for="(item, itemIdx) in td.children"
                 :key="itemIdx"
                 :item="item"
-                :model.sync="model"
+                :model.sync="sheetInfo.relObj"
               />
             </td>
           </tr>
@@ -33,13 +33,13 @@
 <script>
 import RenderItem from "../../sheetTable/components/table-components/RenderItem";
 import tableModel from "../data/dataModel";
-import sheetInfo from "../../config/sheetInfo";
+import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo/index.js'
 export default {
   data() {
     return {
       cols: tableModel.table.cols,
       table: tableModel.table.tbody,
-      model: {}
+      sheetInfo,
     };
   },
   props: [],
@@ -52,13 +52,9 @@ export default {
       console.log(this.model);
     }
   },
-  created() {
-    this.model = {};
-    this.$nextTick(() => {
-      this.model = sheetInfo.relObj;
-    });
+  mounted() {
     window.getRelObj = () => {
-      return this.model;
+      return this.sheetInfo.relObj;
     };
   }
 };
