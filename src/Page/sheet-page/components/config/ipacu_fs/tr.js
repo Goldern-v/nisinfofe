@@ -125,7 +125,7 @@ export default [
   { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'hr', event: keyf1, value: '', next: '次/分', name: 'HR',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R',autoComplete: { data: R },textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R',autoComplete: { data: R },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spo', event: keyf1, value: '', next: '%', name: 'SPO₂',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spirit', event: keyf1, value: '', next: '', name: '神志',autoComplete: { data:
     [{name:"麻醉未醒",value:"麻醉未醒"},{name:"清醒",value:"清醒"},{name:"镇静状态",value:"镇静状态"},{name:"谵妄",value:"谵妄"},
@@ -138,7 +138,7 @@ export default [
   { key: 'cvp', event: keyf1, value: '', next: '', name: 'CVP',textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'vas', event: keyf1, value: '', next: '', name: '疼痛VAS评分',autoComplete: { data: VAS },textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量项目',autoComplete: { data: food} ,
-    textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8) },
+    textarea: { width: 40  }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
 
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量项目',autoComplete: { data: outup },textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
