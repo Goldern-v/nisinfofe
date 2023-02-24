@@ -27,6 +27,7 @@ const infuseStat = () => import("@/Page/lesion/supPage/infuse/infuse-stat.vue");
 import autoLogin from "../Part/auto-login";
 import autoLoginGuizhou from "../Part/auto-login-guizhou";
 import autoLoginToHomePage from "../Part/auto-login-homePage";
+import autoLoginToHomeBed from "../Part/auto-login-bed";
 // import whiteBoard from '@/Part/whiteBoard/whiteBoard'
 // import home1 from "@/Page/catheter-page/home1/home";
 
@@ -1839,6 +1840,10 @@ const router = new Router({
   {
     path: "/autoLoginToHomePage",
     component:autoLoginToHomePage,
+  },
+  {
+    path: "/autoLoginToHomeBed",
+    component:autoLoginToHomeBed,
   },
   {
     path: "/print/:type",
