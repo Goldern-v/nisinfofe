@@ -26,7 +26,7 @@
 
 <script>
 import bus from "vue-happy-bus";
-import sheetInfo from "../../../config/sheetInfo";
+import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo/index.js'
 // import { getEquiDict } from "../api/index";
 export default {
   data() {
@@ -43,6 +43,7 @@ export default {
       if (val.name == this.item.name) {
         this.inputVal = val.value;
       }
+      sheetInfo.relObj = {...this.model}
     },
     // 判断是否勾选input前选框
     runTask(isFocus) {

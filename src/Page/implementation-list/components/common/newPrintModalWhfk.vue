@@ -40,10 +40,10 @@
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
-          style="text-indent: 5px"
+          :style="[!whsl35Style?{'text-indent': '5px'}:{'padding-left': '5px'}]"
         >
           {{ item }}
-      </div>
+        </div>
     </div>
     <div class="new-modal-bottom-second">
       <div style="width: 20%">频次途径</div>
@@ -285,6 +285,9 @@ export default {
   },
   methods: {},
   computed: {
+    whsl35Style(){
+      return ['whsl'].includes(this.HOSPITAL_ID) && this.newModalSize=="3*5"
+    },
     currentBottle() {
       let cloneObj = cloneDeep(this.itemObj[0]);
       let orderText = [];

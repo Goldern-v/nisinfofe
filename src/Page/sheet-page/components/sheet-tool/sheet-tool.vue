@@ -1219,9 +1219,9 @@ export default {
               let currObj = res.data.data.list.find((obj) => obj.id == item.id);
               item.pageIndex = currObj.pageIndex;
               item.endPageIndex = currObj.endPageIndex;
+              resolve(res)
             } catch (error) {}
           });
-          resolve(true)
         });
       }
       })

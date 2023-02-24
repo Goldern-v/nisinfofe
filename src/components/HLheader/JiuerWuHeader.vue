@@ -413,7 +413,7 @@
               >
                 <router-link  to="/wardManagement" tag="span">
                   <el-row class="menu-item" type="flex" align="middle"
-                    ><i class="nursingDocumentation"></i> 病床管理
+                    ><i class="nursingDocumentation"></i> 病房管理
                   </el-row>
                 </router-link>
               </el-dropdown-item>

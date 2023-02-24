@@ -2348,95 +2348,98 @@ export default {
             // 佛山人医签名修改与删除比较严格。
             if(this.HOSPITAL_ID == "foshanrenyi"){
               // 根据之前判断的isRead
-              isRead=row.isRead
+              isRead = row.isRead
             }
-            if(this.HOSPITAL_ID == "foshanrenyi"){
+            if (this.HOSPITAL_ID == "foshanrenyi") {
               // 佛山人医根据canModify
-               if (id) {
-                  if (isRead) {
-                    //isRead=true.直接弹窗不让他删除
-                    this.$message({
-                     message: '您没有权限删除整行',
-                     type: 'error',
-                     duration: 2000,
-                     });
-                  }else{
-                    //isRead=false,有权限输出。提示直接是否删除。不用输密码
-                   this.$confirm("你确定删除该行数据吗", "提示", {
+              if (id) {
+                if (isRead) {
+                  //isRead=true.直接弹窗不让他删除
+                  this.$message({
+                    message: '您没有权限删除整行',
+                    type: 'error',
+                    duration: 2000,
+                  });
+                } else {
+                  //isRead=false,有权限输出。提示直接是否删除。不用输密码
+                  this.$confirm("你确定删除该行数据吗", "提示", {
                     confirmButtonText: "删除",
                     cancelButtonText: "取消",
                     type: "warning",
-                   }).then((res) => {
-                   delRow(id, "", "").then((res) => {
-                    this.delRow(index);
-                    this.$notify.success({
-                      title: "提示",
-                      message: "删除成功",
-                      duration: 1000,
-                    });
-                    this.bus.$emit("saveSheetPage", true);
-                   });
-                   });
-                  }
-               }else{
-                  this.$confirm("你确定删除该行数据吗", "提示", {
-                   confirmButtonText: "删除",
-                   cancelButtonText: "取消",
-                   type: "warning",
                   }).then((res) => {
-                   this.delRow(index);
-                   this.$notify.success({
-                   title: "提示",
-                   message: "删除成功",
-                   duration: 1000,
-                 });
-                 this.bus.$emit("saveSheetPage", true);
-                });
-               }
-            }else{
-              if (id) {
-                if (isRead) {
-                     this.$parent.$parent.$refs.signModal.open((password, empNo) => {
-                     delRow(id, password, empNo).then((res) => {
-                       this.delRow(index);
-                       this.$notify.success({
-                       title: "提示",
-                       message: "删除成功",
-                       duration: 1000,
-                     });
-                    this.bus.$emit("saveSheetPage", true);
-                   });
-                  },);
-                 } else {
-                  this.$confirm("你确定删除该行数据吗", "提示", {
-                   confirmButtonText: "删除",
-                   cancelButtonText: "取消",
-                   type: "warning",
-                  }).then((res) => {
-                   delRow(id, "", "").then((res) => {
-                    this.delRow(index);
-                    this.$notify.success({
-                      title: "提示",
-                      message: "删除成功",
-                      duration: 1000,
+                    delRow(id, "", "").then((res) => {
+                      this.delRow(index);
+                      this.$notify.success({
+                        title: "提示",
+                        message: "删除成功",
+                        duration: 1000,
+                      });
+                      this.bus.$emit("saveSheetPage", true);
                     });
-                    this.bus.$emit("saveSheetPage", true);
-                   });
-                 });
+                  });
                 }
               } else {
-                 this.$confirm("你确定删除该行数据吗", "提示", {
-                   confirmButtonText: "删除",
-                   cancelButtonText: "取消",
-                   type: "warning",
-                 }).then((res) => {
-                 this.delRow(index);
-                 this.$notify.success({
-                   title: "提示",
-                   message: "删除成功",
-                   duration: 1000,
-                 });
-                 this.bus.$emit("saveSheetPage", true);
+                this.$confirm("你确定删除该行数据吗", "提示", {
+                  confirmButtonText: "删除",
+                  cancelButtonText: "取消",
+                  type: "warning",
+                }).then((res) => {
+                  this.delRow(index);
+                  this.$notify.success({
+                    title: "提示",
+                    message: "删除成功",
+                    duration: 1000,
+                  });
+                  this.bus.$emit("saveSheetPage", true);
+                });
+              }
+            } else {
+              if (id) {
+                let barCode = (row.find((item) => {
+                    return item.key == "expand";
+                    })||{}).value;
+                if (isRead) {
+                  this.$parent.$parent.$refs.signModal.open((password, empNo,barCode) => {
+                    delRow(id, password, empNo,barCode).then((res) => {
+                      this.delRow(index);
+                      this.$notify.success({
+                        title: "提示",
+                        message: "删除成功",
+                        duration: 1000,
+                      });
+                      this.bus.$emit("saveSheetPage", true);
+                    });
+                  },);
+                } else {
+                  this.$confirm("你确定删除该行数据吗", "提示", {
+                    confirmButtonText: "删除",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                  }).then((res) => {
+                    delRow(id, "", "",barCode).then((res) => {
+                      this.delRow(index);
+                      this.$notify.success({
+                        title: "提示",
+                        message: "删除成功",
+                        duration: 1000,
+                      });
+                      this.bus.$emit("saveSheetPage", true);
+                    });
+                  });
+                }
+              } else {
+                this.$confirm("你确定删除该行数据吗", "提示", {
+                  confirmButtonText: "删除",
+                  cancelButtonText: "取消",
+                  type: "warning",
+                }).then((res) => {
+                  this.delRow(index);
+                  this.$notify.success({
+                    title: "提示",
+                    message: "删除成功",
+                    duration: 1000,
+                  });
+                  this.bus.$emit("saveSheetPage", true);
                 });
               }
             }
@@ -3058,8 +3061,6 @@ export default {
       }
       this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
-      console.log('长度=====》',this.$refs.table && this.$refs.table.offsetWidth + "px")
-      // console.log(this.$refs.table.getBoundingClientRect());
     },
     scrollX(val) {
       if (!this.hasFiexHeader) return;
@@ -3075,7 +3076,6 @@ export default {
   mounted() {
   },
   created() {
-    console.log(moment(),moment().week(),'moment()')
     if(this.HOSPITAL_ID == 'wujing' && sheetInfo.sheetType == 'common_hl'){
       let sUserAgent = navigator.userAgent;
       if(sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1 || sUserAgent.indexOf("Windows NT 5.1") > -1){

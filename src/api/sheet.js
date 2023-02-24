@@ -62,13 +62,30 @@ export const delPage = (patientId, visitId, index) => {
   );
 };
 // 删除护理记录
-export const delRow = (id, password, empNo) => {
+export const delRowWuJing= (id, password, empNo) => {
   return axios.post(
     `${apiPath}record/${sheetInfo.sheetType}/delete`,
     qs.stringify({
       id,
       password,
       empNo
+    })
+  );
+};
+// 武警删除护理整行记录 提交记录执行单barCode 然后同步删除执行单
+export const delRow = (id, password, empNo,barCode) => {
+  console.log(id, password, empNo,barCode)
+  const url = {
+    wujing:`${apiPath}record/${sheetInfo.sheetType}/deleteWj`,
+    default:`${apiPath}record/${sheetInfo.sheetType}/delete`,
+  }
+  return axios.post(
+    url[process.env.HOSPITAL_ID]||url[`default`],
+    qs.stringify({
+      id,
+      password,
+      empNo,
+      barCode,
     })
   );
 };
