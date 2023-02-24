@@ -2395,9 +2395,9 @@ export default {
               }
             } else {
               if (id) {
-                let barCode = row.find((item) => {
+                let barCode = (row.find((item) => {
                     return item.key == "expand";
-                    }).value;
+                    })||{}).value;
                 if (isRead) {
                   this.$parent.$parent.$refs.signModal.open((password, empNo,barCode) => {
                     delRow(id, password, empNo,barCode).then((res) => {
