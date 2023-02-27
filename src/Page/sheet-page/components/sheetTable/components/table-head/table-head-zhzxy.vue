@@ -254,7 +254,7 @@ export default {
     toymd(val) {
       if (process.env.HOSPITAL_ID == "weixian") {
         return moment(val).format("YYYY-MM-DD");
-      }else if(process.env.HOSPITAL_ID == "zhzxy" && sheetInfo.sheetType=="nursing_zhzxy"){
+      }else if(process.env.HOSPITAL_ID == "zhzxy" && ["nursing_zhzxy",'wait_delivery_zhzxy'].includes(sheetInfo.sheetType)){
         return moment(val).format("YYYY年MM月DD日");
       }else {
         return moment(val).format("YYYY年MM月");

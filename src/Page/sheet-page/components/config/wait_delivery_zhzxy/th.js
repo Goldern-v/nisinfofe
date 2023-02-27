@@ -166,13 +166,13 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
-      {
-        name: `
-        质控护士签名
-        `,
-        colspan: "1",
-        rowspan: "3"
-      }
+      // {
+      //   name: `
+      //   质控护士签名
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3"
+      // }
     ],
     mid: [
       {
