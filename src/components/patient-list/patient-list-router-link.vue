@@ -577,7 +577,9 @@ export default {
         this.$router.push('/sheetPage')
       }
     },
-    "$route.params.patientId": "fetchData",
+    "$route.params.patientId"(nVal, oVal) {
+      nVal && nVal === this.curSheetPatient.patientId && this.fetchData()
+    },
     isGroup(val){
       this.bedList = val?this.groupBedList:this.baseBedList
     },

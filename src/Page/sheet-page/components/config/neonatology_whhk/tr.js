@@ -130,7 +130,7 @@ export default [
     },
   },
   {
-    key: "time", // f
+    key: "fTime", // f
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -152,7 +152,7 @@ export default [
     },
   },
   {
-    key: "depth", // 插管深度
+    key: "oneDepth", // 插管深度
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
@@ -207,7 +207,7 @@ export default [
     },
   },
   {
-    key: "order", // 自定义2
+    key: "oneOrder", // 自定义2
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
