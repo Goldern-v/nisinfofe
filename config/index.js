@@ -215,13 +215,14 @@ const currentTargetUrl = (() => {
     //珠海中西医
     case 'zhzxy':
       // return "http://192.168.1.54:9883" //珠海中西医测试
-      return "http://183.234.20.149:19094"//正式
+    return "http://218.13.87.27:9094"
+      // return "http://183.234.20.149:19094"//正式
       // return "http://192.168.20.20:9092"//正式
       // return "https://info.cr-health.com:20217"
 
     // 青海五院
     case 'qhwy':
-      return 'http://192.168.1.54:9894'
+      return 'http://223.220.175.6:50014'
 
     // 临沂沂州
     case 'lyyz':
@@ -238,7 +239,7 @@ const currentTargetUrl = (() => {
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
       // return 'http://192.168.1.54:9866'
-      return 'http://222.133.53.230:9091'
+      return 'http://218.13.87.27:9094'
       // return 'http://120.24.240.231:19097'
       // return 'http://192.168.3.226:8080'
       // return 'http://192.168.3.191:9091'

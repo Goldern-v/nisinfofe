@@ -455,7 +455,7 @@
     position: absolute;
     top: 92px;
     left: 0px;
-    width: 96px;
+    width: 120px;
     text-align: center;
     z-index: 2;
     font-size: 16px;
@@ -1059,9 +1059,13 @@ export default {
           qr_png_value =
             "P" + "|" + this.query.patientId + "|" + this.query.visitId;
           break;
+        case "qhwy":
+          qr_png_value =this.query.inpNo;
+          break;
         default:
           qr_png_value = this.query.patientId;
           break;
+
       }
       var qr_png = qr.imageSync(qr_png_value, {
         type: "png",

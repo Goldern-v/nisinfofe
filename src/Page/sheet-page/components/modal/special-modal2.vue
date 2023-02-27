@@ -68,7 +68,7 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
-          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925','zhzxy','whsl'].includes(HOSPITAL_ID)">
+          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925','zhzxy','whsl','qhwy'].includes(HOSPITAL_ID)">
             <el-button
               type="primary"
               size="mini"
