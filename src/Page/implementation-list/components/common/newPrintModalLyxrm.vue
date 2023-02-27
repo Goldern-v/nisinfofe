@@ -12,7 +12,7 @@
     <div
       v-if="['70*80','7*7'].includes(newModalSize)"
       class="new-print-modal new-print-modal--large"
-      :style="{width: '8cm',height: `${newModalSize == '7*7' ? 8 : 8}cm`}"
+      :style="{width: '8cm',height: `${newModalSize == '7*7' ? 7 : 8}cm`}"
     >
       <div class="new-print-modal__title">
         <span>{{currentBottle.printFlag ? '补' : ''}}</span>
