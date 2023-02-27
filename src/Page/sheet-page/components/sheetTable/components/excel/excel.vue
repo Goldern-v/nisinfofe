@@ -819,7 +819,7 @@ export default {
         'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
-        "wait_delivery_zhzxy",
+        // "wait_delivery_zhzxy",
         "neurosurgery_hd",
         "neonatology_hd",
         "neonatology2_hd",
