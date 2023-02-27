@@ -112,7 +112,7 @@
         ></el-input>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
-    
+
       <dTable
         :tableData="tableData"
         :currentType="type"

@@ -1460,6 +1460,7 @@ export default {
           //选择接口最后一个护记
           this.sheetInfo.selectBlock =this.sheetBlockList[this.sheetBlockList.length - 1] || {};
           if (!this.sheetBlockList.length) {
+            this.sheetInfo.relObj = {}
             this.bus.$emit('clearSheetModel')
               // 如果该病人没有护记，切换病人时需要清空分页
               setTimeout(()=>{
@@ -1819,12 +1820,12 @@ export default {
       deep:true,
       handler(val) {
         if (val) {
-        localStorage.wardCode = val.deptCode;
-      this.pageBlockId = val.id;
-      }
-      cleanData();
-      this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
-      this.initSheetPageSize()
+          localStorage.wardCode = val.deptCode;
+          this.pageBlockId = val.id;
+        }
+        cleanData();
+        this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+        this.initSheetPageSize()
       },
     },
     "sheetInfo.startPage"() {

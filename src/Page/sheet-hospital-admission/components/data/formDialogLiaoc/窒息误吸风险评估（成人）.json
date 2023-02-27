@@ -279,9 +279,9 @@
         {
           "name": "I613016",
           "type": "checkbox",
-          "title": "肥胖(2分)",
-          "code": "2",
-          "score": 2,
+          "title": "肥胖(1分)",
+          "code": "1",
+          "score": 1,
           "style": null,
           "class": null,
           "html": null,

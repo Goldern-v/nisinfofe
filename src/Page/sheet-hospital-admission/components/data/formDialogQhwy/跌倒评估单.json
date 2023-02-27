@@ -10,7 +10,7 @@
   },
   "formSetting": {
     "formTitle": {
-      "hospitalName": "临邑县人民医院",
+      "hospitalName": "青海省第五人民医院",
       "formName": "跌倒评估单"
     },
     "formHeads": [
@@ -77,8 +77,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E1316",
-      "formApiCode": "E1316",
+      "formCode": "E1818",
+      "formApiCode": "E1818",
       "formName": "跌倒风险评估单",
       "status": "0",
       "formType": "eval"
@@ -327,9 +327,9 @@
       ]
     },
     {
-      "name": "1. 近3个月有无跌倒",
+      "name": "1. 病人曾跌倒(3月内)/视觉障碍",
       "type": "formGroupVerticalBox",
-      "title": "1. 近3个月有无跌倒",
+      "title": "1. 病人曾跌倒(3月内)/视觉障碍",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -337,10 +337,10 @@
       "style": null,
       "classes": "name",
       "readOnly": null,
-      "keys": "I1316001",
+      "keys": "I181802",
       "children": [
         {
-          "name": "I1316001",
+          "name": "I181802",
           "type": "radio",
           "title": "无（0分）",
           "code": "0",
@@ -351,7 +351,7 @@
           "readOnly": null
         },
         {
-          "name": "I1316001",
+          "name": "I181802",
           "type": "radio",
           "title": "有（25分）",
           "code": "25",
@@ -375,20 +375,20 @@
       "readOnly": ""
     },
     {
-      "name": "2. 多于1个疾病诊断：",
+      "name": "2. 超出一个医学诊断",
       "type": "formGroupVerticalBox",
-      "title": "2. 多于1个疾病诊断：",
+      "title": "2. 超出一个医学诊断",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316002",
+      "keys": "I181803",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316002",
+          "name": "I181803",
           "type": "radio",
           "title": "无（0分）",
           "code": "0",
@@ -398,7 +398,7 @@
           "readOnly": null
         },
         {
-          "name": "I1316002",
+          "name": "I181803",
           "type": "radio",
           "title": "有（15分）",
           "code": "15",
@@ -422,20 +422,20 @@
       "readOnly": ""
     },
     {
-      "name": "3. 步行需要帮助：",
+      "name": "3. 使用助行器具",
       "type": "formGroupVerticalBox",
-      "title": "3. 步行需要帮助：",
+      "title": "3. 使用助行器具",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316003",
+      "keys": "I181804",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316003",
+          "name": "I181804",
           "type": "radio",
           "title": "不需要、卧床休息、坐轮椅、护士辅助”（0分）",
           "code": "0",
@@ -445,9 +445,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316003",
+          "name": "I181804",
           "type": "radio",
-          "title": "拐杖、助行器、手杖（15分）",
+          "title": "丁型拐杖/手杖、学步车",
           "code": "15",
           "score": 15,
           "style": null,
@@ -455,7 +455,7 @@
           "readOnly": null
         },
         {
-          "name": "I1316003",
+          "name": "I181804",
           "type": "radio",
           "title": "依扶家具行走（30分）",
           "code": "30",
@@ -479,20 +479,20 @@
       "readOnly": ""
     },
     {
-      "name": "4. 接受药物治疗：",
+      "name": "4. 静脉输液/置管/使用药物治疗",
       "type": "formGroupVerticalBox",
-      "title": "4. 接受药物治疗：",
+      "title": "4. 静脉输液/置管/使用药物治疗",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316038",
+      "keys": "I181805",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316038",
+          "name": "I181805",
           "type": "radio",
           "title": "否（0分）",
           "code": "0",
@@ -502,7 +502,7 @@
           "readOnly": null
         },
         {
-          "name": "I1316038",
+          "name": "I181805",
           "type": "radio",
           "title": "是（20分）",
           "code": "20",
@@ -533,15 +533,15 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316004",
+      "keys": "I181806",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316004",
+          "name": "I181806",
           "type": "radio",
-          "title": "正常、卧床、轮椅（0分）",
+          "title": "正常、卧床、轮椅代步（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -550,9 +550,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316004",
+          "name": "I181806",
           "type": "radio",
-          "title": "乏力（10分）",
+          "title": "乏力/≥65岁/体位性低血压（10分）",
           "code": "10",
           "score": 10,
           "style": null,
@@ -560,9 +560,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316004",
+          "name": "I181806",
           "type": "radio",
-          "title": "严重虚弱/受损（20分）",
+          "title": "失调及不平衡（20分）",
           "code": "20",
           "score": 20,
           "style": null,
@@ -584,22 +584,22 @@
       "readOnly": ""
     },
     {
-      "name": "6. 认识状态：",
+      "name": "6. 精神状态:",
       "type": "formGroupVerticalBox",
-      "title": "6. 认识状态：",
+      "title": "6. 精神状态:",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I1316006",
+      "keys": "I181807",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I1316006",
+          "name": "I181807",
           "type": "radio",
-          "title": "自主行为能力（0分）",
+          "title": "了解自己能力（0分）",
           "code": "0",
           "score": 0,
           "style": null,
@@ -608,9 +608,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316006",
+          "name": "I181807",
           "type": "radio",
-          "title": "无控制力（15分）",
+          "title": "忘记自己限制/意识障碍/躁动不安/沟通障碍/睡眠障碍（15分）",
           "code": "20",
           "score": 20,
           "style": null,
@@ -762,9 +762,9 @@
       "readOnly": ""
     },
     {
-      "name": "低风险标准预防干预性措施",
+      "name": "预防措施",
       "type": "formGroupVerticalBox",
-      "title": "低风险标准预防干预性措施",
+      "title": "预防措施",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -775,9 +775,9 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I1316007",
+          "name": "I181809",
           "type": "checkbox",
-          "title": "1.保持病区地面清洁干燥，告知卫生间防滑措施(淋浴时有人陪伴)，鼓励使用卫生间扶手",
+          "title": "1.加强巡视，及时发现病满足病人需要",
           "code": "√",
           "style": null,
           "class": null,
@@ -785,9 +785,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316008",
+          "name": "I181810",
           "type": "checkbox",
-          "title": "2.提供足够的照明，及时清除病房、床旁、通道及卫生间障碍",
+          "title": "2.告知并指导患者及家属服用特殊药物的注意事项",
           "code": "√",
           "style": null,
           "class": null,
@@ -795,9 +795,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316009",
+          "name": "I181811",
           "type": "checkbox",
-          "title": "3.正确使用床头灯及呼叫器，放于可及处",
+          "title": "3.指导患者穿舒适的鞋及衣裤",
           "code": "√",
           "style": null,
           "class": null,
@@ -805,9 +805,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316010",
+          "name": "I181812",
           "type": "checkbox",
-          "title": "4.锁定病床，将日常物品放于患者易取处",
+          "title": "4.使用床档给予保护",
           "code": "√",
           "style": null,
           "class": null,
@@ -815,9 +815,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316011",
+          "name": "I181813",
           "type": "checkbox",
-          "title": "5.患者活动时有人陪伴，指导患者渐进坐起、渐进下床的方法",
+          "title": "5.使用保护性约束",
           "code": "√",
           "style": null,
           "class": null,
@@ -825,9 +825,9 @@
           "readOnly": null
         },
         {
-          "name": "I1316012",
+          "name": "I181814",
           "type": "checkbox",
-          "title": "6.穿舒适的鞋及衣裤，必要时为患者提供步态技巧指导",
+          "title": "6.使用相应的警示标识",
           "code": "√",
           "style": null,
           "class": null,
@@ -835,87 +835,20 @@
           "readOnly": null
         },
         {
-          "name": "I1316013",
+          "name": "I181815",
           "type": "checkbox",
-          "title": "7.应用平车、轮椅时及时锁定轮子，使用护栏及安全带",
+          "title": "7.保持地面无水渍、障碍物,病室及活动区灯光充足",
           "code": "√",
           "style": null,
           "class": null,
           "html": null,
           "readOnly": null
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "高风险预防干预性措施",
-      "type": "formGroupVerticalBox",
-      "title": "高风险预防干预性措施",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "I003003111",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I1316014",
-          "type": "checkbox",
-          "title": "1.执行基础护理及低风险标准预防性干预措施",
-          "code":"√",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
         },
         {
-          "name": "I1316015",
+          "name": "I181816",
           "type": "checkbox",
-          "title": "2.在床头、病员服明显位置放“防跌倒”标示",
-          "code":"√",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316016",
-          "type": "checkbox",
-          "title": "3.将两侧床栏全部抬起，在患者下床活动需要协助时要求助",
-          "code":"√",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316017",
-          "type": "checkbox",
-          "title": "4.如患者神志障碍，必要时限制患者活动，适当约束，家属参与照护",
-          "code":"√",
-          "style": null,
-          "class": null,
-          "html": null,
-          "readOnly": null
-        },
-        {
-          "name": "I1316018",
-          "type": "checkbox",
-          "title": "5.加强营养，协助患者排尿、排便",
-          "code":"√",
+          "title": "7.按医嘱留家属陪护",
+          "code": "√",
           "style": null,
           "class": null,
           "html": null,
@@ -923,6 +856,7 @@
         }
       ]
     }
+
   ],
   "dialogs": [],
   "header": [],

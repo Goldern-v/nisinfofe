@@ -19,7 +19,7 @@
                 v-for="(item, itemIdx) in td.children"
                 :key="itemIdx"
                 :item="item"
-                :model.sync="sheetInfo.relObj"
+                :model="relObj"
               />
             </td>
           </tr>
@@ -46,11 +46,12 @@ export default {
   components: {
     RenderItem
   },
-  computed: {},
-  methods: {
-    save() {
-      console.log(this.model);
+  computed: {
+    relObj(){
+      return this.sheetInfo.relObj
     }
+  },
+  methods: {
   },
   mounted() {
     window.getRelObj = () => {

@@ -1,5 +1,5 @@
 <template>
-  <span
+    <span
     :class="[item.class, { showModal: showModal && item.autoComplete.data }]"
     v-if="item.type == 'input'"
   >
@@ -33,7 +33,8 @@ export default {
     return {
       inputVal: "",
       bus: bus(this),
-      showModal: false
+      showModal: false,
+      sheetInfo
     };
   },
   props: ["item", "model", "data"],
@@ -109,17 +110,26 @@ export default {
       // this.getEquiDictList();
     }
   },
-  mounted() {},
+  mounted() {
+    this.$nextTick(()=>{
+      if (this.model[this.item.name]) {
+          this.inputVal = this.model[this.item.name];
+        }
+    })
+
+  },
   watch: {
     inputVal() {
       this.model[this.item.name] = this.inputVal;
       this.runTask();
     },
-    model() {
-      if (this.model[this.item.name]) {
-        this.inputVal = this.model[this.item.name];
-      }
-    }
+    model: {
+      handler() {
+        if (this.model[this.item.name]) {
+          this.inputVal = this.model[this.item.name];
+        }
+      }, deep: true
+    },
   }
 };
 </script>

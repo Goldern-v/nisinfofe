@@ -339,6 +339,7 @@ import NewPrintModalWhfk from "./components/common/newPrintModalWhfk";
 import NewPrintModalWujing from "./components/common/newPrintModalWujing";
 import NewPrintModalYtll from "./components/common/newPrintModalYtll";
 import NewPrintModalZhzxy from "./components/common/newPrintModalZhzxy";
+import NewPrintModalQhwy from "./components/common/newPrintModalQhwy";
 
 import printing from "printing";
 import {
@@ -1092,7 +1093,6 @@ export default {
           return "NewPrintModalFsxt";
         case "lyxrm":
         case "stmz":
-          case "qhwy":
         // case "zhzxy":
         case "925":
           return "NewPrintModalLyxrm";
@@ -1106,6 +1106,8 @@ export default {
           return "NewPrintModalYtll";
         case "zhzxy":
           return "NewPrintModalZhzxy";
+        case "qhwy":
+          return "NewPrintModalQhwy";
         default:
           return "NewPrintModal";
       }
@@ -1115,7 +1117,6 @@ export default {
       switch (this.HOSPITAL_ID) {
         case "lyxrm":
         case "whhk":
-          case "qhwy":
         case "925":
         case "stmz":
           return ["70*80", "3*7"];
@@ -1131,6 +1132,8 @@ export default {
           return ["6*8", "3.5*5"];
         case "whsl":
           return ["3*5", "6*8"];
+        case "qhwy":
+          return ["3*5", "5*8"];
         default:
           return ["6*8","3*5"];
       }
@@ -1218,6 +1221,7 @@ export default {
     NewPrintModalWujing,
     NewPrintModalYtll,
     NewPrintModalZhzxy,
+    NewPrintModalQhwy,
   },
 };
 </script>
