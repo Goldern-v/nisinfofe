@@ -78,8 +78,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0780",
-      "formApiCode": "E0780",
+      "formCode": "E1629",
+      "formApiCode": "E1629",
       "formName": "外科血栓风险评估量表（Caprini评估量表）",
       "status": "0",
       "formType": "eval"
@@ -224,7 +224,7 @@
           "html": null,
           "readOnly": null
         },
-        
+
         {
           "name": "V62901",
           "type": "checkbox",

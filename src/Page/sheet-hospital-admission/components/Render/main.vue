@@ -221,11 +221,9 @@ export default {
             window.formObj.model["I001351"] = deptName + "";
           }
         } else {
-          if(this.HOSPITAL_ID ='foshanrenyi') {
-            this.formObj.formSetting.formTitle.formName = "首次护理记录";
-          }else {
-            this.formObj.formSetting.formTitle.formName = "入 院 评 估 表";
-          }
+
+            this.formObj.formSetting.formTitle.formName = "首次与出院护理记录单";
+
         }
       } catch (error) {}
     },

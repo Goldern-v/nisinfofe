@@ -49,7 +49,7 @@
           >
           </el-table-column>
 
-          <el-table-column 
+          <el-table-column
             v-for="(column,index) in resConfig"
             :key="index"
             :prop="column.prop"
@@ -82,7 +82,7 @@
   }
 }
 .time-box{
-  margin-bottom:5px; 
+  margin-bottom:5px;
 }
 .callback-result{
   width: 100%;
@@ -90,7 +90,7 @@
   border: 1px solid #dfece8;
 }
 >>>.el-table__body-wrapper{
-  overflow-x:hidden; 
+  overflow-x:hidden;
 }
 </style>
 
@@ -214,11 +214,11 @@ export default {
       console.log(this.callBackResult);
       if(this.type=='sheet'&&!this.recordDate){
         this.$message.warning("记录时间不得为空！")
-        return 
+        return
       }
       if(!this.callBackResult){
         this.$message.warning("插入结果不能为空！")
-        return 
+        return
       }
       console.log(this.type);
       if(this.type=='sheet'){
