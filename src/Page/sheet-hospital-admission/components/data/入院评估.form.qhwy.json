@@ -2173,16 +2173,15 @@
           "class": null,
           "options": [
             "无",
-            "有,跌倒评估单(成人)",
-            "有,跌倒评估单(儿童)"
+            "有,跌倒评估单(成人)"
           ],
           "rule": [
             {
               "dialog": {
                 "openKey": "有,跌倒评估单(成人)",
                 "cleanKey": "无",
-                "title": "跌倒评估单(成人)",
-                "default": "跌倒评估单(成人)",
+                "title": "跌倒评估单",
+                "default": "跌倒评估单",
                 "name": "S0305_2",
                 "type": "independent",
                 "parentName": "S0305_2",
@@ -2218,7 +2217,7 @@
           "class": null,
           "options": [
             "有,外科血栓风险评估量表（Caprini评估量表）",
-            "有,VTE风险评估(Padua 内科版)"
+            "有,内科血栓风险评估量表（Padua评估量表）"
           ],
           "rule": [
             {
@@ -2252,21 +2251,7 @@
           ]
         },
         {
-          "name": "S0629",
-          "type": "select",
-          "title": "疼痛评估",
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "style": null,
-          "class": null,
-          "options": [
-            "无",
-            "有,疼痛评估单",
-            "有,新生儿疼痛评估(CRIES)",
-            "有,新生儿疼痛评估(NIPS)",
-            "有,新生儿疼痛评估(PIPP)"
-          ],
+
           "rule": [
             {
               "dialog": {
@@ -2322,38 +2307,7 @@
             }
           ]
         },
-        {
-          "name": "I100396",
-          "type": "select",
-          "title": "非计划性拔管风险评估",
-          "style": null,
-          "titleStyle": "width:132px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "options": [
-            "非计划性拔管风险评估"
-          ],
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": "无",
-                "openDiffKey": "无",
-                "title": "非计划性拔管风险评估",
-                "default": "非计划性拔管风险评估",
-                "name": "I100396",
-                "type": "independent",
-                "parentName": "I100396",
-                "showHead": "true"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        },
+
         {
           "name": "S0618",
           "type": "select",
@@ -2369,7 +2323,7 @@
           "rule": [
             {
               "dialog": {
-                "openKey": "住院患者营养风险护理评估表",
+                "openKey": "住院患者营养风险护理评估表,住院患者营养风险护理评估表",
                 "cleanKey": "无",
                 "title": "住院患者营养风险护理评估表",
                 "default": "住院患者营养风险护理评估表",
@@ -2571,52 +2525,367 @@
               "elementClass": "el-radio",
               "style": null,
               "class": null
-            },
+            }
+
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "九、出院小结及护理指导",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "九、出院小结及护理指导",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001017",
+          "type": "input",
+          "labelTitle": "出院日期",
+          "suffixDesc": "",
+          "placeholder": "",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "style": "width:99%",
+          "elementStyle": "width:192px",
+          "class": null,
+          "readOnly": false,
+          "disabled": false,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "tdProps": {
+            "colspan": "2"
+          }
+        },
+        {
+          "name": "I001016",
+          "type": "input",
+          "title": "出院诊断",
+          "suffixDesc": "",
+          "placeholder": "",
+          "style": "width:100%",
+          "titleStyle": "width:72px!important;padding-left:0px;",
+          "inputStyle": "width:100%!important",
+          "elementStyle": "width:100%",
+          "inputWidth": "100%",
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "tdProps": {
+            "colspan": "4"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001452",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "九、出院小结及护理指导",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001452",
+          "type": "",
+          "title": "出科方式",
+          "titleStyle": "width:95px!important",
+          "boxStyle": "height:auto!important",
+          "elementsStyle": "margin-top:8px",
+          "class": null,
+          "children": [
             {
-              "name": "I001501",
+              "name": "I001452",
               "type": "checkbox",
-              "title": "体温计管理",
+              "title": "步行",
               "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
             },
             {
-              "name": "I001501",
+              "name": "I001452",
               "type": "checkbox",
-              "title": "社保管理",
+              "title": "轮椅",
               "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
             },
             {
-              "name": "I001501",
+              "name": "I001452",
               "type": "checkbox",
-              "title": "其他",
+              "title": "平车",
               "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
               "style": null,
               "class": null
-            },
-            {
-              "name": "I001502",
-              "type": "input",
-              "title": "其他",
-              "parentName": "I001501",
-              "elementStyle": "margin: 8px 5px 0 0;",
-              "elementClass": "el-radio-long",
-              "style": "margin: 0px!important",
-              "class": "text-margin-0"
             }
           ]
         }
       ]
     },
-
-
-
-
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001453",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "九、出院小结及护理指导",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001453",
+          "type": "",
+          "title": "饮食",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "elementsStyle": "margin-top:8px",
+          "children": [
+            {
+              "name": "I001453",
+              "type": "checkbox",
+              "title": "饮食注意事项",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001454",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "九、出院小结及护理指导",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I001454",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001454",
+          "type": "",
+          "title": "活动与休息",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "children": [
+            {
+              "name": "I001454",
+              "type": "radio",
+              "title": "活动与休息方式注意事项",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "I001884",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "九、出院小结及护理指导",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I001884",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001884",
+          "type": "",
+          "title": "出院用药",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "children": [
+            {
+              "name": "I001884",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001884",
+              "type": "radio",
+              "title": "有",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001884",
+              "type": "radio",
+              "title": "出院用药指导",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I001885",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "九、出院小结及护理指导",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I001885",
+          "type": "",
+          "title": "复  诊",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "elementsStyle": "margin-top:8px",
+          "children": [
+            {
+              "name": "I001885",
+              "type": "checkbox",
+              "title": "不需要",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I001885",
+              "type": "checkbox",
+              "title": "按医生要求复诊",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
     {
       "name": "",
       "type": "formGroupHR",

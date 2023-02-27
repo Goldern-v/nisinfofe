@@ -10,7 +10,7 @@
     },
     "formSetting": {
         "formTitle": {
-            "hospitalName": "聊城市第二人民医院",
+            "hospitalName": "青海省第五人民医院",
             "formName": "营养风险筛查评估"
         },
         "formHeads": [
@@ -77,8 +77,8 @@
             "showAudit": true
         },
         "formInfo": {
-            "formCode": "E0618",
-            "formApiCode": "E0618",
+            "formCode": "E1626",
+            "formApiCode": "E1626",
             "formName": "营养风险筛查评估",
             "status": "0",
             "formType": "eval"

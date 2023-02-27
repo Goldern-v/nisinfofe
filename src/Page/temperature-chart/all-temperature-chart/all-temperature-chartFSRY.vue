@@ -874,6 +874,7 @@ export default {
       timesPoint: (() => {
         switch (this.HOSPITAL_ID) {
           case 'foshanrenyi' :
+          case 'qhwy' :
           return [
               {
                 id: 0,

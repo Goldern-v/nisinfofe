@@ -752,6 +752,7 @@ import {
   sign,
   cancelSign,
   delRow,
+  delRowWuJing,
   delSelectRow,
   markSave,
   markDelete,
@@ -787,7 +788,6 @@ import moment from "moment";
 import { getUser,saveRecordAllSign } from "@/api/common.js";
 import bottomRemark from "./remark";
 import { GetUserList} from "@/api/caCardApi";
-// console.dir(sheetInfo);
 export default {
   props: {
     data: Object,
@@ -2393,14 +2393,69 @@ export default {
                   this.bus.$emit("saveSheetPage", true);
                 });
               }
-            } else {
+            } else if(['wujing'].includes(this.HOSPITAL_ID)){
               if (id) {
                 let barCode = (row.find((item) => {
                     return item.key == "expand";
                     })||{}).value;
+                    const first = this.sheetInfo.extraData&&this.sheetInfo.extraData.first || []
+                    const last = this.sheetInfo.extraData&&this.sheetInfo.extraData.last || []
+                    const listData = [...first,...this.listData,...last]
+                    let idList = []
+                    if(barCode){
+                      idList = listData.filter(list => (list.id&&(list.expand == barCode))).map(list=>list.id)
+                    }else{
+                      idList = [id]
+                    }
                 if (isRead) {
                   this.$parent.$parent.$refs.signModal.open((password, empNo,barCode) => {
-                    delRow(id, password, empNo,barCode).then((res) => {
+                    delRowWuJing(idList, password, empNo,barCode).then((res) => {
+                      this.delRow(index);
+                      this.$notify.success({
+                        title: "提示",
+                        message: "删除成功",
+                        duration: 1000,
+                      });
+                      this.bus.$emit("saveSheetPage", true);
+                    });
+                  },);
+                } else {
+                  this.$confirm("你确定删除该行数据吗", "提示", {
+                    confirmButtonText: "删除",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                  }).then((res) => {
+                    delRowWuJing(idList, "", "",barCode).then((res) => {
+                      this.delRow(index);
+                      this.$notify.success({
+                        title: "提示",
+                        message: "删除成功",
+                        duration: 1000,
+                      });
+                      this.bus.$emit("saveSheetPage", true);
+                    });
+                  });
+                }
+              } else {
+                this.$confirm("你确定删除该行数据吗", "提示", {
+                  confirmButtonText: "删除",
+                  cancelButtonText: "取消",
+                  type: "warning",
+                }).then((res) => {
+                  this.delRow(index);
+                  this.$notify.success({
+                    title: "提示",
+                    message: "删除成功",
+                    duration: 1000,
+                  });
+                  this.bus.$emit("saveSheetPage", true);
+                });
+              }
+            }else {
+              if (id) {
+                if (isRead) {
+                  this.$parent.$parent.$refs.signModal.open((password, empNo,barCode) => {
+                    delRow(id, password, empNo).then((res) => {
                       this.delRow(index);
                       this.$notify.success({
                         title: "提示",
@@ -2865,7 +2920,6 @@ export default {
       }
       window.openSignModal((password, empNo,auditDate=moment().format("YYYY-MM-DD HH:mm:ss")) => {
           getUser(password, empNo).then((res) => {
-            console.log(res.data.data)
             let { empNo, empName } = res.data.data;
             if(this.sheetInfo.sheetType=="nurse_jew" ||this.sheetInfo.sheetType == 'danger_nurse_jew'){
               saveRecordAllSign( {

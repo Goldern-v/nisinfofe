@@ -191,8 +191,8 @@ const implementationListLingcheng = () =>
   import("@/Page/implementation-list/implementation-list-lingcheng.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
   import("@/Page/implementation-list/implementation-list-liaocheng.vue"); //聊城执行单
-const implementationListQHWY = () =>
-  import("@/Page/implementation-list/implementation-list-qhwy.vue"); //青海五院执行单
+// const implementationListQHWY = () =>
+//   import("@/Page/implementation-list/implementation-list-qhwy.vue"); //青海五院执行单
   const implementationListWhsl = () =>
   import("@/Page/implementation-list/implementation-list-whsl.vue"); //青海五院执行单
 const implementationListShannan = () =>
@@ -428,8 +428,7 @@ const getImplementation = () => {
     case 'liaocheng':
     case 'lyyz':
       return implementationListLiaocheng
-    case 'qhwy':
-      return implementationListQHWY
+
     case 'whsl':
       return implementationListWhsl
     case 'shannan':
@@ -443,6 +442,7 @@ const getImplementation = () => {
     case "stmz":
     case 'beihairenyi':
     case 'nfyksdyy':
+    case 'qhwy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -1571,7 +1571,6 @@ const router = new Router({
             case 'beihairenyi':
               return allTemperatureChartBHRY
             case 'xiegang':
-              case 'qhwy':
               return allTemperatureChartDGXG
             case 'whfk':
               return allTemperatureChartWHFK
@@ -1588,6 +1587,7 @@ const router = new Router({
               return allTemperatureChartWHYX
             case 'foshanrenyi':
             case 'zhzxy':
+            case 'qhwy':
               return allTemperatureChartFSRY
             case 'lyyz':
             case 'whhk':
@@ -1649,7 +1649,7 @@ const router = new Router({
               return newSingleTemperatureChartLiaoCheng;
             case "lyyz":
             case 'whhk':
-            case 'zzwy':  
+            case 'zzwy':
               return newSingleTemperatureChartLYYZ;
             case "gdtj":
               return newSingleTemperatureChartGDTJ

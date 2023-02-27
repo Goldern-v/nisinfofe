@@ -89,7 +89,8 @@
                       <i class="sheetHospitalAdmission"></i>入院评估
                     </el-row>
                   </router-link> </el-dropdown-item
-                ><el-dropdown-item
+                >
+                <!-- <el-dropdown-item
                   :class="{
                     active: $route.path == '/sheetHospitalEval'
                   }"
@@ -99,7 +100,8 @@
                       <i class="sheetHospitalEval"></i>住院评估
                     </el-row>
                   </router-link> </el-dropdown-item
-                ><el-dropdown-item
+                > -->
+                <el-dropdown-item
                   :class="{
                     active: $route.path == '/MEWS'
                   }"
@@ -258,6 +260,17 @@
                   <router-link to="/wardReport" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="wardReport"></i>病房日报
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/inpatientReport') > -1,
+                  }"
+                >
+                  <router-link to="/inpatientReport" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="inpatientReport"></i>住院日报
                     </el-row>
                   </router-link>
                 </el-dropdown-item>

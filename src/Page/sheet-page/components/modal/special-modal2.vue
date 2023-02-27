@@ -68,7 +68,7 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
-          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925','zhzxy','whsl'].includes(HOSPITAL_ID)">
+          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925','zhzxy','whsl','qhwy'].includes(HOSPITAL_ID)">
             <el-button
               type="primary"
               size="mini"
@@ -1446,7 +1446,6 @@ export default {
     },
     // 珠海中西医新模板添加
     addZkmodalDoc(val){
-      console.log(val,"addZkmodalDoc","this.doc",this.doc)
       const regP = /(<\/?p.*?>)/gi;
       let doc = this.doc.replace(regP, "");
       let valRegP = val.replace(regP, "");
@@ -1552,10 +1551,8 @@ export default {
         const firstDate = record[0].find((item) => item.key == "recordDate")
         const itemListTime = config.recordDate || firstDate.value
           record[0].find((item) => item.key == "recordDate").value
-          console.log(999999,itemListTime)
         if(!itemListTime){
           const addRowDate = record[0].find((item) => item.key == "recordMonth").addRowDate
-          console.log('sp传参',)
           if (!(record[0].find((item) => item.key == "recordMonth").value)) {
             this.staticObj.recordMonth = addRowDate || moment().format('MM-DD');
           if (!(record[0].find((item) => item.key == "recordHour").value)) {
@@ -1654,7 +1651,6 @@ export default {
     // 处理特殊字符转换函数
     htmlEscape(str) {
       let reg = new RegExp(/&#44;/g);
-      console.log(str);
       return String(str)
         .replace(/&amp;/g, "&")
         .replace(/&quot;/g, '"')
@@ -1757,7 +1753,7 @@ export default {
       if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "hengli") {
         okLength = 46;
       } else if (this.sheetInfo.sheetType === "common_wj") {
-        okLength = 40;
+        okLength = 43;
       } else {
         okLength = 23;
       }
@@ -1952,8 +1948,6 @@ export default {
           foodResult.push(foodText);
         }
       }
-
-      // console.log(foodResult,"foodResult")
       if (
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
@@ -2246,8 +2240,6 @@ export default {
           }
         }
       }
-
-      console.log("GetLength", result);
       if (text) {
         result.push(text);
       }
@@ -2368,7 +2360,6 @@ export default {
               name: '血压',
               value: bloodPressure
             }
-            console.log('bloodPressure', bloodPressure)
           }
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
@@ -2459,7 +2450,6 @@ export default {
     },
     //失去焦点
     handleInputBlur(e) {
-      console.log(this.blurIndex,"handleInputBlur")
       this.blurIndex = e.srcElement.selectionStart;
     },
     /**打开弹窗 */
