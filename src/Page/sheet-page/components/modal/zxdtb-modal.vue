@@ -243,6 +243,13 @@
           </el-table-column>
           <el-table-column
             v-if="HOSPITAL_ID == 'wujing'"
+            prop="executeType"
+            label="医嘱分类"
+            width="70px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            v-if="HOSPITAL_ID == 'wujing'"
             prop="food"
             label="入量名称"
             min-width="200px"

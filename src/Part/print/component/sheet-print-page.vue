@@ -412,8 +412,10 @@ export default {
               `
           @media print {
             .sheet-page-container {
-              transform: scaleY(0.90) !important;
+              margin-top:-80px !important;
+            transform: scaleY(0.8) !important;
             }
+
           }
           `
             );

@@ -2454,7 +2454,7 @@ export default {
             }else {
               if (id) {
                 if (isRead) {
-                  this.$parent.$parent.$refs.signModal.open((password, empNo,barCode) => {
+                  this.$parent.$parent.$refs.signModal.open((password, empNo) => {
                     delRow(id, password, empNo).then((res) => {
                       this.delRow(index);
                       this.$notify.success({
@@ -2471,7 +2471,7 @@ export default {
                     cancelButtonText: "取消",
                     type: "warning",
                   }).then((res) => {
-                    delRow(id, "", "",barCode).then((res) => {
+                    delRow(id, "", "").then((res) => {
                       this.delRow(index);
                       this.$notify.success({
                         title: "提示",
