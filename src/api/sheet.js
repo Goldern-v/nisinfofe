@@ -62,7 +62,7 @@ export const delPage = (patientId, visitId, index) => {
   );
 };
 //删除护理整行记录
-export const delRow = (id, password, empNo,barCode) => {
+export const delRow = (id, password, empNo) => {
   const url = {
     default:`${apiPath}record/${sheetInfo.sheetType}/delete`,
   }
@@ -72,7 +72,6 @@ export const delRow = (id, password, empNo,barCode) => {
       id,
       password,
       empNo,
-      barCode,
     })
   );
 };
