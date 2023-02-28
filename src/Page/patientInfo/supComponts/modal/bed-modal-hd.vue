@@ -166,7 +166,8 @@
         <div class="bed-card-vert-con">
           <div :class="{ huaduStyle: ['huadu'].includes(HOSPITAL_ID) }">
             <div class="top">
-              <span>科室：{{ query.wardName }}</span>
+              <span  v-if="!['dglb'].includes(HOSPITAL_ID)">科室：{{ query.wardName }}</span>
+              <span  v-if="['dglb'].includes(HOSPITAL_ID)">科室：{{ query.deptName }}</span>
               <span
                 v-if="!['zhzxy', 'whhk'].includes(HOSPITAL_ID)"
                 :style="{
@@ -392,7 +393,8 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span>科室：{{ query.wardName }}</span>
+            <span  v-if="!['dglb'].includes(HOSPITAL_ID)">科室：{{ query.wardName }}</span>
+            <span  v-if="['dglb'].includes(HOSPITAL_ID)">科室：{{ query.deptName }}</span>
           </div>
           <div>
             <div>
