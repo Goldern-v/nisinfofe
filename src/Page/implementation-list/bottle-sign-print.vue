@@ -202,7 +202,7 @@
           :class="[
             {
               'break-page':bottleCardIndex % 2 == 1 &&
-                newModalSize == '3*7',
+                newModalSize == '3*7' || newModalSize === '5*8',
               'size-75': newModalSize === '7*5'
             },
           ]"
@@ -459,6 +459,7 @@ export default {
       printStatusReq: null,
       printStatusMsg: "",
       showCancelPrint: false,
+      isPreview:false,
       pagedTable: [],
       printObj: [],
       newModalSize: "6*8",
@@ -578,6 +579,8 @@ export default {
     };
   },
   mounted() {
+    //打印预览
+    this.isPreview = this.$route.query.checkPrinting
     this.newModalSize = this.sizeList[0];
     if (this.multiBed) {
       this.getBedList();
@@ -771,7 +774,8 @@ export default {
       await this.getPrintData();
       document.getElementById("new-print-box").style.display = "block";
       this.$nextTick(() => {
-        printing(this.$refs.new_print_modal, {
+        const printingFun = this.isPreview ? printing.preview :printing
+        printingFun(this.$refs.new_print_modal, {
           injectGlobalCss: true,
           scanStyles: false,
           // margin: 0 0;
@@ -1084,6 +1088,10 @@ export default {
     this.onLoad();
   },
   computed: {
+    checkPrinting(){
+      // console.log(this.$route)
+      // return this.$route.query.checkPrinting
+    },
     newPrintCom() {
       switch (this.HOSPITAL_ID) {
         case "sdlj":
