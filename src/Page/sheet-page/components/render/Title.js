@@ -585,6 +585,13 @@ export default function Title(
     );
   }
   break;
+  case "generalcare_wj": {
+    // 武警-一般患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/generalcare_wj/th").default)
+    );
+  }
+  break;
   case "neonatology_picc": {
     // 新生儿科PICC导管维护护理记录单
     Th = JSON.parse(

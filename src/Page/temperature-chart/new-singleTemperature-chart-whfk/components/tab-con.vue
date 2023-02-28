@@ -362,6 +362,7 @@
                   </el-select>
                   <el-date-picker
                     size="mini"
+                    clearable
                     :readonly="isDisable()"
                     format="yyyy-MM-dd HH:mm:ss"
                     value-format="yyyy-MM-dd HH:mm:ss"

@@ -222,7 +222,7 @@
       </span> -->
 
       <el-button class="modal-btn" @click="close">取消</el-button>
-      <el-button class="modal-btn" @click="switchBed" v-if="printMode=='h'||printMode=='h-small'">切换{{ printMode }}</el-button>
+      <el-button class="modal-btn" @click="switchBed" v-if="printMode=='h'||printMode=='h-small'">切换</el-button>
       <!-- <el-button class="modal-btn" type="primary" @click="post">保存</el-button> -->
       <el-button class="modal-btn" type="info" @click="onPrint">打印</el-button>
     </div>
@@ -837,7 +837,7 @@ export default {
     //   }
     //   return data;
     // },
-    open(printMode) {
+    open(printMode = "h") {
       this.printMode = printMode;
       this.init();
       this.isOpen();
@@ -908,8 +908,8 @@ export default {
             .bed-card-warpper {
                 box-shadow: none !important;
                 width:560px!important;
-                // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.5);
-                transform: rotate(-90deg) translateY(30%) translateX(-97%) scale(0.5);
+                // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
+                transform: rotate(-90deg) translateY(30%) translateX(-97%) scale(0.8);
                 transform-origin: 0 0;
               }
             `;

@@ -130,7 +130,7 @@ export default [
     },
   },
   {
-    key: "fTime", // f
+    key: "ffTime", // f
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),

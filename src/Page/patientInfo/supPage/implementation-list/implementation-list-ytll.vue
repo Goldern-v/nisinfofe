@@ -59,7 +59,7 @@
           </el-row> -->
           <span class="label">医嘱分类:</span>
           <el-select
-            v-model="query.itemType"
+            v-model="query.executeType"
             placeholder="请选择"
             size="small"
             style="width: 120px"
@@ -74,7 +74,7 @@
           ></el-input> -->
           <span class="label">执行标志:</span>
           <el-select
-            v-model="query.executeFlag"
+            v-model="query.executeStatus"
             placeholder="请选择"
             size="small"
             style="width: 120px"
@@ -163,6 +163,8 @@ import dTable from "@/Page/implementation-list/components/table/d-table-whfk.vue
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode, handleWebExecuteBatch } from "@/Page/implementation-list/api/index.js";
+
+import { getOrdersExecuteWithPatinetIdNew } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -188,12 +190,18 @@ export default {
       bedLabel: "",
       test: "",
       query: {
-        wardCode: "",
-        itemType: "输液", //医嘱类别，输液、雾化
-        executeDate: moment().format("YYYY-MM-DD"), //执行日期
-        bedLabel: "", //床位号，如果查全部传*"
-        repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
-        executeFlag: "全部", //0未执行，2已执行
+        // wardCode: "",
+        // itemType: "输液", //医嘱类别，输液、雾化
+        // executeDate: moment().format("YYYY-MM-DD"), //执行日期
+        // bedLabel: "", //床位号，如果查全部传*"
+        // repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
+        // executeFlag: "全部", //0未执行，2已执行
+        executeType:'全部',
+        "administration": "",
+        "executeStatus": "",
+        "repeatIndicator": "",
+        "visitId": "",
+        "patientId": ""
       },
       isExecutionTime: false,
       form: {
@@ -229,19 +237,18 @@ export default {
     onLoad() {
       if (!this.deptCode) return;
       this.pageLoadng = true;
-      this.query.wardCode = this.deptCode;
+      // this.query.wardCode = this.deptCode;
       this.query.startDate = moment(this.startDate).format(
         "YYYY-MM-DD HH:mm:ss"
       );
       this.query.endDate = moment(this.endDate).format("YYYY-MM-DD HH:mm:ss");
-      this.query.executeDate = this.query.executeDate
-        ? moment(this.query.executeDate).format("YYYY-MM-DD")
-        : moment().format("YYYY-MM-DD");
-      this.query.executeDate = this.query.executeDate
-        ? moment(this.query.executeDate).format("YYYY-MM-DD")
-        : moment().format("YYYY-MM-DD");
-      this.query.bedLabel =this.$route.query.bedLabel ;
-      getExecuteWithWardcode(this.query).then((res) => {
+      // this.query.executeDate = this.query.executeDate
+      //   ? moment(this.query.executeDate).format("YYYY-MM-DD")
+      //   : moment().format("YYYY-MM-DD");
+      // this.query.bedLabel =this.$route.query.bedLabel ;
+      this.query.patientId =this.$route.query.patientId ;
+      this.query.visitId =this.$route.query.visitId ;
+      getOrdersExecuteWithPatinetIdNew(this.query).then((res) => {
         let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&

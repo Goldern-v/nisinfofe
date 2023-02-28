@@ -525,6 +525,11 @@ function switchSheetType(type) {
       schema = require("../config/postpartum_nurse_wj/tr.js").default;
     }
       break;
+    case "generalcare_wj": {
+      // 武警-一般患者护理记录
+      schema = require("../config/generalcare_wj/tr.js").default;
+    }
+      break;
     case "neonatology_picc": {
       // 厚街-新生儿科PICC导管维护护理记录单
       schema = require("../config/neonatology_picc/tr.js").default;

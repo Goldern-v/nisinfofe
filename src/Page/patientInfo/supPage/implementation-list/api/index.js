@@ -17,3 +17,12 @@ export function getExecuteWithWardCodeLyxrm(obj) {
     obj
   );
 }
+
+// 获取执行单 
+export function getOrdersExecuteWithPatinetIdNew(obj) {
+  // 通过执行时间段获取
+  return axios.post(
+    `${apiPath}procedure/webExecute/getOrdersExecuteWithPatinetIdNew`,
+    obj
+  );
+}
