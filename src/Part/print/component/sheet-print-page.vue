@@ -260,7 +260,6 @@ export default {
         "wait_delivery_hd", // 花都_候产记录单
         "wait_delivery_zhzxy", // 珠海中西医_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
-
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
         "pediatrics_jm", //江门妇幼_儿科护理记录单

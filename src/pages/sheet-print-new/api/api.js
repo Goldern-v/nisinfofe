@@ -19,26 +19,38 @@ export const showBody = () => {
     data.printSessionId = $params.printSessionId
     return axios.post(`${apiPath}record/${sheetInfo.sheetType}/list`, data)
 }
-export const showBodyByPage = (patientId, visitId,startPageIndex ,endPageIndex) => {
+export const findListByBlockId = (startPageIndex,endPageIndex) => {
+  return axios.post(`${apiPath}record/titleTempalate/findListByBlockId`, {
+    blockId: sheetInfo.selectBlock.id,
+    startPageIndex,endPageIndex
+  })
+}
+export const showBodyByPage = (startPageIndex ,endPageIndex) => {
   let data = {
-    patientId,
-    visitId,
     blockId: sheetInfo.selectBlock.id,
     pageIndex: startPageIndex,
     endPageIndex: endPageIndex,
   };
   return axios.post(`${apiPath}record/${sheetInfo.sheetType}/listByPage`, data);
 };
-export const showTitle = (patientId, visitId,startPageIndex,endPageIndex) => {
+export const showTitle = (startPageIndex,endPageIndex) => {
   return axios.get(`${apiPath}record/setting/list/${sheetInfo.selectBlock.id}?startPageIndex=${startPageIndex}&endPageIndex=${endPageIndex}`);
 };
-
-
-// 获取起始页 有时候sheetInfo没有响应  所以加了判断  预防报错
-export const getHomePage = (patientId, visitId) => {
-  if(sheetInfo.selectBlock.id)
-  return axios.get(`${apiPath}record/homePage/${sheetInfo.selectBlock.id}/get`);
+// 获取标记集合
+export const markList = () => {
+    return axios.get(`${apiPath}record/${sheetInfo.sheetType}/sign/list/${sheetInfo.selectBlock.id}`)
+}
+export const blockList = (patientId, visitId, deptCode) => {
+  return axios.post(`${apiPath}record/block/list`, {
+    patientId,
+    visitId,
+    deptCode
+  });
 };
+// 获取起始页
+export const getHomePage = () => {
+    return axios.get(`${apiPath}record/homePage/${sheetInfo.selectBlock.id}/get`)
+}
 // 获取block信息
 export const getBlock = (id) => {
     return axios.get(`${apiPath}record/block/get/${id}`)
