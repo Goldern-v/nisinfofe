@@ -550,7 +550,7 @@ export default {
       if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
           this.bus.$emit("refreshTitleTemplate", this.getTemplateList);
         }
-      if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
+      if(["guizhou", 'huadu', '925', 'wujing'].includes(this.HOSPITAL_ID)){
         this.isLoad=false
       }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
@@ -572,7 +572,7 @@ export default {
         fnArr.unshift(findListByBlockId(startPageIndex,endPageIndex))
       }
       return Promise.all(fnArr).then((res) => {
-        if(["guizhou", 'huadu', '925'].includes(this.HOSPITAL_ID)){
+        if(["guizhou", 'huadu', '925', 'wujing'].includes(this.HOSPITAL_ID)){
           this.isLoad=true
         }
         let titleData = res[0].data.data;
