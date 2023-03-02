@@ -24,7 +24,7 @@
           <div>{{ currentBottle.age }}</div>
         </div>
         <div class="new-modal-top-left-second">
-          <div v-if="HOSPITAL_ID = 'whsl'" style="text-indent: 5px">
+          <div v-if="HOSPITAL_ID == 'whsl'" style="text-indent: 5px">
             {{ currentBottle.executeDate.substr(0, 16) }}
           </div>
           <div v-else style="text-indent: 5px">
@@ -48,7 +48,7 @@
     <div class="new-modal-bottom-second">
       <div style="width: 20%">频次途径</div>
       <div style="flex: 1">{{ currentBottle.frequency }}</div>
-      <div>{{ currentBottle.freqDetail }}</div>
+      <div v-if="HOSPITAL_ID == 'whsl'">{{ currentBottle.freqDetail }}</div>
     </div>
   </div>
 </template>
