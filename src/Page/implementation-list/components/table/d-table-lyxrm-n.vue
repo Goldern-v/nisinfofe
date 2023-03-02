@@ -176,7 +176,7 @@
         prop="baiNurse"
         label="摆药人/摆药时间"
         min-width="170px"
-        v-if="isInfusion"
+        v-if="isInfusion &&  this.HOSPITAL_ID !== '925'"
       >
         <template slot-scope="scope">
           {{ scope.row.baiNurse }} {{ scope.row.baiTime | ymdhm2 }}
@@ -187,7 +187,7 @@
         prop="peiNurse"
         label="配药人/配药时间"
         min-width="170px"
-        v-if="isInfusion"
+        v-if="isInfusion &&  this.HOSPITAL_ID !== '925'"
       >
         <template slot-scope="scope">
           {{ scope.row.peiNurse }} {{ scope.row.peiTime | ymdhm2 }}
@@ -246,7 +246,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="操作" min-width="100px" v-if="HOSPITAL_ID !== 'whsl'" align="center">
+      <u-table-column label="操作" min-width="200px" v-if="HOSPITAL_ID !== 'whsl'" align="center">
         <template slot-scope="scope">
           <div v-show="scope.row.executeDateTime">
             <el-button
@@ -259,6 +259,16 @@
               "
               >补执行</el-button
             >
+            <el-button
+            type="text"
+            @click="editTime(scope.row)"
+
+            v-if="
+              isEdit &&
+              HOSPITAL_ID == '925' && scope.row.executeFlag > 0
+            "
+            >修改</el-button
+          >
             <el-button
               type="text"
               @click="editTime(scope.row)"
@@ -576,8 +586,14 @@ export default {
           });
       }
     },
+    editTime(data) {
+      this.$refs.editModal.open(data);
+    },
     // 补录
     backTracking(item) {
+      if(this.HOSPITAL_ID == '925'){
+        this.$refs.editModal.open(item,'补执行');
+      }else{
       this.$prompt("请输入补执行的原因", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -616,9 +632,7 @@ export default {
           });
         })
         .catch(() => {});
-    },
-    editTime(data) {
-      this.$refs.editModal.open(data);
+      }
     },
     addRowClass(row) {
       if (row.row.nurseMemo) {
@@ -674,6 +688,6 @@ export default {
       ? // && JSON.parse(localStorage.user).post == "护长"
         true
       : false;
-  },
-};
+  }
+}
 </script>

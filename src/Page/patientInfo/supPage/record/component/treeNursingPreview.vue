@@ -356,8 +356,11 @@ export default {
                 }
                 return {
                   status: option.status,
-                  label: `${option.evalDate || ""} ${option.creatorName ||
-                    ""} ${option.status == 0 ? "T" : option.status}`,
+                  label: `${option.evalDate || ""}
+                  ${option.countSize ? option.countSize + "条" : ""}
+                  ${option.evalScore ? option.evalScore + "分" : ""}
+                  ${option.pusherName ? option.pusherName : option.creatorName}
+                  ${this.HOSPITAL_ID == 'whfk' ? '' : option.status == 0 ? "T" : option.status}`,
                   form_id: option.id,
                   formName: item.formName
                 };

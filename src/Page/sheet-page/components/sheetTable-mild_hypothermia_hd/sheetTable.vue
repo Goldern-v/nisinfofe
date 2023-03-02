@@ -50,6 +50,12 @@
             </div>
           </span>
           <span>
+            病区：
+            <div class="bottom-line" style="min-width: 120px">
+              {{ patientInfo.deptName }}
+            </div>
+          </span>
+          <span>
             体重：
             <div
               class="bottom-line"

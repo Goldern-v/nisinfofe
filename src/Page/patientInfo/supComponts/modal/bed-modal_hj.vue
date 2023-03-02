@@ -387,14 +387,14 @@
 
 .bed-card-con {
   margin: 20px;
-  width: 511px;
-  height: 335px;
+  width: 510px;
+  height: 330px;
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
   border: 1px solid #000;
-  height: 370px;
+  // height: 370px;
 
   // &.remarkCon
 

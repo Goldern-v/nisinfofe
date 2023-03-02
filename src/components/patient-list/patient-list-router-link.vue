@@ -1,7 +1,7 @@
 <template>
   <div
     class="patient-list-part"
-   
+
     v-loading="patientListLoading"
   >
     <div class="search-box" v-if="!isRefresh">
@@ -378,6 +378,7 @@ export default {
       console.log(
         "selectPatient",
         patient,
+        patient.name,
         patient.patientId,
         patient.visitId,
         patient.formId,
@@ -391,6 +392,7 @@ export default {
         patient.formId = this.$route.params.formId || "";
         //
         this.$store.commit("upCurrentPatientObj", patient);
+        console.log(this.$store.getters.getCurrentPatient(),'this.$store.getters.getCurrentPatient();');
         this.$store.commit("upWardCode", patient.wardCode || "");
         this.$store.commit("upWardName", patient.wardName || "");
         //patient 参数 true是否要滚动到最后一页
@@ -414,7 +416,7 @@ export default {
     async fetchData() {
       // 返回模块时还是原来的患者
       let currentPatient = this.$store.getters.getCurrentPatient();
-      let patientId =this.$route.params.patientId || currentPatient.patientId || "";
+      let patientId = currentPatient.patientId ||this.$route.params.patientId || "";
       let visitId = this.$route.params.visitId || currentPatient.visitId || "";
       let p = this.findCurrentPatient({
         patientId,
@@ -426,10 +428,12 @@ export default {
         let res = await getPatientInfo(patientId,visitId)
         p = res.data.data
       }
+       console.log(p,'p',currentPatient);
       if (p) {
         if(currentPatient){
           p = {...currentPatient,...p}
         }
+
         this.selectPatient(p);
       }
       console.log(
@@ -443,6 +447,7 @@ export default {
     selectFirstPatient() {
       // if (!this.isAutoSelect) return
       // if (this.sortList.length === 0) return this.$router.push('/sheetPage')
+      console.log('this.curSheetPatient',this.curSheetPatient.name);
       let item = this.sortList[0]
       if (this.curSheetPatient.patientId) {
         item = this.curSheetPatient
@@ -463,7 +468,7 @@ export default {
   },
   computed: {
     ...mapState({
-      curSheetPatient: state => state.sheet.curSheetPatient
+      curSheetPatient: state => state.patient.currentPatient
     }),
     isAdmissionHisView(){
       return this.$route.path.includes('admissionHisView')
@@ -572,7 +577,9 @@ export default {
         this.$router.push('/sheetPage')
       }
     },
-    "$route.params.patientId": "fetchData",
+    "$route.params.patientId"(nVal, oVal) {
+      nVal && nVal === this.curSheetPatient.patientId && this.fetchData()
+    },
     isGroup(val){
       this.bedList = val?this.groupBedList:this.baseBedList
     },
@@ -585,6 +592,7 @@ export default {
     },
     'sortList.length': {
       handler(n, o) {
+        console.log(n && (n != o), n , o);
         if (n && (n != o)) {
           this.selectFirstPatient()
         }

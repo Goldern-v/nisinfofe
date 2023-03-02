@@ -1,5 +1,5 @@
 <template>
-  <span
+    <span
     :class="[item.class, { showModal: showModal && item.autoComplete.data }]"
     v-if="item.type == 'input'"
   >
@@ -26,14 +26,15 @@
 
 <script>
 import bus from "vue-happy-bus";
-import sheetInfo from "../../../config/sheetInfo";
+import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo/index.js'
 // import { getEquiDict } from "../api/index";
 export default {
   data() {
     return {
       inputVal: "",
       bus: bus(this),
-      showModal: false
+      showModal: false,
+      sheetInfo
     };
   },
   props: ["item", "model", "data"],
@@ -43,6 +44,7 @@ export default {
       if (val.name == this.item.name) {
         this.inputVal = val.value;
       }
+      sheetInfo.relObj = {...this.model}
     },
     // 判断是否勾选input前选框
     runTask(isFocus) {
@@ -108,17 +110,26 @@ export default {
       // this.getEquiDictList();
     }
   },
-  mounted() {},
+  mounted() {
+    this.$nextTick(()=>{
+      if (this.model[this.item.name]) {
+          this.inputVal = this.model[this.item.name];
+        }
+    })
+
+  },
   watch: {
     inputVal() {
       this.model[this.item.name] = this.inputVal;
       this.runTask();
     },
-    model() {
-      if (this.model[this.item.name]) {
-        this.inputVal = this.model[this.item.name];
-      }
-    }
+    model: {
+      handler() {
+        if (this.model[this.item.name]) {
+          this.inputVal = this.model[this.item.name];
+        }
+      }, deep: true
+    },
   }
 };
 </script>

@@ -61,15 +61,41 @@ export const delPage = (patientId, visitId, index) => {
     `${apiPath}record/${sheetInfo.sheetType}/delete/${patientId}/${visitId}/${index}`
   );
 };
-// 删除护理记录
+//删除护理整行记录
 export const delRow = (id, password, empNo) => {
+  const url = {
+    default:`${apiPath}record/${sheetInfo.sheetType}/delete`,
+  }
   return axios.post(
-    `${apiPath}record/${sheetInfo.sheetType}/delete`,
+    url[process.env.HOSPITAL_ID]||url[`default`],
     qs.stringify({
       id,
       password,
-      empNo
+      empNo,
     })
+  );
+};
+/**
+ *武警删除护记行接口,删除某一行时，查询该行是否有执行单同步 如果有 则一起删除
+ * @param {*} idList //需要删除的护记行id,删除单条记录时 寻找有相同执行同步的记录一起删除
+ * @param {*} password //null
+ * @param {*} empNo //null
+ * @param {*} barCode //删除当前行ID的执行单barCode
+ * @returns
+ */
+export const delRowWuJing = (idList, password, empNo,barCode) => {
+  const url = {
+    wujing:`${apiPath}record/${sheetInfo.sheetType}/deleteWj`,
+    default:`${apiPath}record/${sheetInfo.sheetType}/delete`,
+  }
+  return axios.post(
+    url[process.env.HOSPITAL_ID]||url[`default`],
+    {
+      id:idList,
+      password,
+      empNo,
+      barCode,
+    }
   );
 };
 // 设置标记

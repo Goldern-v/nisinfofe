@@ -419,7 +419,7 @@
         class="item-box"
         :style="{width:'80px',display:'flex !important'}"
         flex="cross:center main:center"
-        v-if="!isDeputy || ['guizhou', 'huadu', '925','fuyou','foshanrenyi','zhzxy','beihairenyi'].includes(HOSPITAL_ID)"
+        v-if="!isDeputy"
       >
         <el-autocomplete
           class="pegeSelect"
@@ -585,6 +585,7 @@
       :blockId="blockId"
       :title="titleName"
       :modalWidth="modalWidth"
+      :modalHeight="modalHeight"
     ></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
     <searchPageByDateModal ref="searchPageByDateModal" @updateCallBack="updateCallBack" :sheetStartPage="sheetInfo.sheetStartPage" :blockId="blockId"></searchPageByDateModal>
@@ -693,6 +694,7 @@ export default {
       pageBlockId:'',
       titleName: "",
       modalWidth: 720,
+      modalHeight:350,
       pageNum: "",
       firstPage: 1,
       printRecord:[],
@@ -715,8 +717,7 @@ export default {
       const sheetStartPage = this.sheetInfo.sheetStartPage
       if(!pageByDateFlag){
               let maxPage = {
-        'zhzxy': 150,
-        'default': 100
+        'default': 50
       }
         if (
           Number(endPage) - Number(startPage) >= 0 &&
@@ -921,7 +922,7 @@ export default {
     */
     async initSheetPageSize(isAddPageFlag) {
       !isAddPageFlag && await this.getHomePageInfo()
-      this.initSelectList(isAddPageFlag);
+      await this.initSelectList(isAddPageFlag);
       // 判断是否存在recodeId
       // 获取被标记的页数，recordId是某一行的记录ID 如果从首页进来 就携带这个recordId ，否则走正常的页面定位
       try {
@@ -938,7 +939,7 @@ export default {
           let pageSelectListValue = ''
           let old_list_length = this.oldSelectList.length;
           let new_list_length = this.selectList.length;
-          let old_list_index = this.selectList.findIndex((item) => item.value == this.pageArea);
+          let old_list_index = this.selectList.findIndex((item) => item.value == this.pageInfoObj.pageArea);
           pageSelectListValue = this.selectList[this.selectList.length - 1].value || "";
           if (old_list_length == new_list_length) {
             if (old_list_index != -1) {
@@ -946,10 +947,10 @@ export default {
             } else {
               //1-9 =======》 1-10  1>=1&&1<=10
               const page = this.selectList.find((list, index) => {
-                const oldStart = this.pageArea.split('-')[0]
+                const oldStart = this.pageInfoObj.pageArea.split('-')[0]
                 const start = list.value.split('-')[0]
                 const end = list.value.split('-')[1]
-                return (oldStart >= start && oldStart <= end)
+                return (+oldStart >= +start && +oldStart <= +end)
               })
               if(page&&page.value)
               pageSelectListValue = page.value
@@ -1086,6 +1087,7 @@ export default {
           console.log('正在查询户籍是否完成', sheetInfo.isDone)
           if (sheetInfo.isDone) {
             clearInterval(this.checkSheetRender)
+            this.checkSheetRender = null
             setTimeout(() => {
               if (
                 process.env.HOSPITAL_ID == "fuyou" ||
@@ -1168,10 +1170,11 @@ export default {
     },
     initSelectList(isAddPageFlag) {
       //如果是添加新页  那就再原本的数据长度上加 1
-      if(isAddPageFlag)
+      return new Promise((resolve, reject) => {
+        if(isAddPageFlag)
       this.sheetInfo.maxPageIndex = this.sheetInfo.maxPageIndex + 1
       let length = this.sheetInfo.maxPageIndex + this.sheetInfo.sheetStartPage;
-
+      this.oldSelectList = this.selectList
       let pagelist = [];
       let rest_num = this.sheetInfo.sheetStartPage % 10;
       let num = Math.max(Math.ceil(length / 10), 1);
@@ -1186,7 +1189,6 @@ export default {
       }
       pagelist[0] = this.sheetInfo.sheetStartPage;
       pagelist[pagelist.length - 1] = length;
-      this.oldSelectList = this.selectList
       this.selectList = [];
       for (let i = 0; i < pagelist.length; i++) {
         if (i == pagelist.length - 1) {
@@ -1217,10 +1219,12 @@ export default {
               let currObj = res.data.data.list.find((obj) => obj.id == item.id);
               item.pageIndex = currObj.pageIndex;
               item.endPageIndex = currObj.endPageIndex;
+              resolve(res)
             } catch (error) {}
           });
         });
       }
+      })
     },
     querySearch(queryString, cb) {
       cb(this.selectList);
@@ -1456,6 +1460,7 @@ export default {
           //选择接口最后一个护记
           this.sheetInfo.selectBlock =this.sheetBlockList[this.sheetBlockList.length - 1] || {};
           if (!this.sheetBlockList.length) {
+            this.sheetInfo.relObj = {}
             this.bus.$emit('clearSheetModel')
               // 如果该病人没有护记，切换病人时需要清空分页
               setTimeout(()=>{
@@ -1601,7 +1606,11 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      if (this.HOSPITAL_ID == "wujing"|| this.HOSPITAL_ID == "gdtj") {
+      if (this.HOSPITAL_ID == "wujing") {
+        this.modalWidth = document.body.clientWidth - 150;
+        this.modalHeight = document.body.clientHeight - 100
+      }
+      if (this.HOSPITAL_ID == "gdtj") {
         this.modalWidth = 850;
       }
       if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
@@ -1746,7 +1755,7 @@ export default {
     },
     // 显示入量同步
     showRltbN() {
-      return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
+      // return ['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)
     },
     // 选择表单下拉框的输入框所显示的文字
     selectText() {
@@ -1765,7 +1774,6 @@ export default {
        * 因为现在从接口拿数据渲染界面 不走前端computed计算界面 所以添加新页面得加判断
        * 比如说 后端接口页面是7页 前端添加新页后为8 这时候页码改动，如果不加判断就会重新请求数据 后端为7 前端为8 页码数值就会对应不上
       */
-      console.log(this.sheetInfo)
       this.initSheetPageSize(isAddPageFlag)
     });
     this.bus.$on("openSearchPageByDateModal", () => {
@@ -1812,12 +1820,12 @@ export default {
       deep:true,
       handler(val) {
         if (val) {
-        localStorage.wardCode = val.deptCode;
-      this.pageBlockId = val.id;
-      }
-      cleanData();
-      this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
-      this.initSheetPageSize()
+          localStorage.wardCode = val.deptCode;
+          this.pageBlockId = val.id;
+        }
+        cleanData();
+        this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+        this.initSheetPageSize()
       },
     },
     "sheetInfo.startPage"() {
@@ -1827,7 +1835,7 @@ export default {
     },
     patientId:{
       handler() {
-        this.oldSelectList = this.selectList
+        this.oldSelectList = []
         this.selectList = [];
           this.$parent.breforeQuit(() => {
             this.bus.$emit("setSheetTableLoading", true);

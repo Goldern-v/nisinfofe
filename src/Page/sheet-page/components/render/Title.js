@@ -564,6 +564,13 @@ export default function Title(
     );
   }
   break;
+  case "internal_eval_hj": {
+    // 厚街-护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internal_eval_hj/th").default)
+    );
+  }
+  break;
   case "common_wj": {
     // 武警-护理记录单
     Th = JSON.parse(
@@ -575,6 +582,13 @@ export default function Title(
     // 武警-产科护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/postpartum_nurse_wj/th").default)
+    );
+  }
+  break;
+  case "generalcare_wj": {
+    // 武警-一般患者护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/generalcare_wj/th").default)
     );
   }
   break;
@@ -2083,6 +2097,20 @@ export default function Title(
     // 广东同江 - 硫酸镁注射液静脉滴注观察记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/blood_tj/th.js").default)
+    );
+  }
+  break;
+  case "cardiology_tj": {
+    // 广东同江 - 介入、导管治疗术后首次护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiology_tj/th.js").default)
+    );
+  }
+  break;
+  case "cardiac_therapy_tj": {
+    // 广东同江 - 心脏介入术中护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cardiac_therapy_tj/th.js").default)
     );
   }
   break;

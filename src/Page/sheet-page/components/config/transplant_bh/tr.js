@@ -1,5 +1,5 @@
 
-/** 
+/**
   北海人医 -肢体与组织移植血液循环观察记录单
 */
 
@@ -30,13 +30,13 @@ import {
     click_date,
     click_time
   } from "../keyEvent/date";
-  
+  const hzysList = ['红润','暗红','紫绀','苍白']
   export default [
     { hidden: true, key: 'recordDate', value: '' },
     { key: "recordMonth", event: event_date, click: click_date, value: ''},
     { key: "recordHour", event: event_time,  value: ''},
     { key: 'watchParts', event: keyf1, value: '', next: '', name: '观察部位',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16) },
-    { key: 'color', event: keyf1, value: '', next: '', name: '颜色',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16),autoComplete: { data: ['红润','暗红','紫绀','苍白'] } },
+    { key: 'color', event: keyf1, value: '', next: '', name: '颜色',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16),autoComplete: { data: hzysList } },
     { key: 'temperature', event: keyf1, value: '', next: '', name: '皮肤温度',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16) ,autoComplete: { data: ['温暖','冰凉','稍凉'] }},
     { key: 'skinTension', event: keyf1, value: '', next: '', name: '皮肤张力',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16) ,autoComplete: { data: ['正常','肿胀','干瘪'] }},
     { key: 'capillaries', event: keyf1, value: '', next: '', name: '毛细血管反应',textarea: { width: 100 }, change: (e, td) => limitChange(e, td, 16) ,autoComplete: { data: ['好','迟钝','差'] }},
@@ -69,6 +69,27 @@ import {
     { hidden:true, key:'auditorName', value:''},
     { hidden:true, key:'empNo', value:''},
     { hidden:true, key:'multiSign', value:''}
-    
+
   ]
-  
+
+export function getListData() {
+  let list = ["患肢颜色"];
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(hzysList, "患肢颜色", data);
+  });
+}
+
+getListData();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}

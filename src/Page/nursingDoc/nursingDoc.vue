@@ -275,7 +275,6 @@ export default {
       let type,
         patientId = url.patientId,
         visitId = url.visitId || "all";
-        console.log(patientId,visitId);
       switch (url.viewType) {
         case "nursingPreview":
           {

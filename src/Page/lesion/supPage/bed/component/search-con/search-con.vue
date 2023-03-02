@@ -613,7 +613,7 @@ export default {
           [
             "zhongshanqi", "liaocheng",  "beihairenyi",'ytll',
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
-            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','qhwy','zhzxy', 'nanfangzhongxiyi','whsl'
+            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','zhzxy', 'nanfangzhongxiyi','whsl','925'
           ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
@@ -623,7 +623,7 @@ export default {
         });
       }
       if (
-          ["nfyksdyy"].includes(this.HOSPITAL_ID)
+          ["nfyksdyy","qhwy"].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
           name: "我的管床",

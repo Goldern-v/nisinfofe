@@ -1185,7 +1185,6 @@ function CreateWebSocketObject() {
     };
 
     o.GetUserList = function (cb, ctx) {
-        console.log("3333333");
         o.callMethod('SOF_GetUserList', cb, ctx, "string");
     };
 

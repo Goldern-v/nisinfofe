@@ -1,9 +1,10 @@
 <template>
 <!-- 6.7 -->
   <div
+    id="lyxrm-print-modal"
     :style="{
       width: `${newModalSize == '70*80' || newModalSize == '7*7' ? '7' : '14'}cm`,
-      height: `${newModalSize == '70*80' ? '8' : newModalSize == '7*7' ? '7' :HOSPITAL_ID == 'lyxrm' ?'7.3': '5.3'}cm`
+      height: `${newModalSize == '70*80' ? '8.01' : newModalSize == '7*7' ? '7' :HOSPITAL_ID == 'lyxrm' ?'7.1': '5.3'}cm`
     }"
   >
     <!-- 小瓶签一张纸需要打印3条数据数据间要留白 -->
@@ -11,7 +12,7 @@
     <div
       v-if="['70*80','7*7'].includes(newModalSize)"
       class="new-print-modal new-print-modal--large"
-      :style="{width: '7cm',height: `${newModalSize == '7*7' ? 7 : 8}cm`}"
+      :style="{width: '8cm',height: `${newModalSize == '7*7' ? 7 : 8}cm`}"
     >
       <div class="new-print-modal__title">
         <span>{{currentBottle.printFlag ? '补' : ''}}</span>
@@ -47,17 +48,17 @@
           <span>{{currentBottle.dosageDosageUnits[index]}}</span>
         </div>
       </div>
-      <div class="new-print-modal__content" :class="{is925}" v-esle>
+      <div class="new-print-modal__content" :class="{is925}" v-if="HOSPITAL_ID == '925'">
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
           style="
             display: block;
-            margin-bottom:5px;
-            font-size:22px
+            margin-bottom:2px;
+            font-size:15px
             "
         >{{item}}
-          <span  style="font-size:22px">{{currentBottle.dosageDosageUnits[index]}}</span>
+          <span  style="font-size:15px">{{currentBottle.dosageDosageUnits[index]}}</span>
         </div>
       </div>
       <div class="new-print-modal__tip">
@@ -67,7 +68,7 @@
         </div>
       </div>
 
-      <div :class="{isZhzxy:isZhzxy}" class="new-print-modal__b">
+      <div :class="{isZhzxy:isZhzxy}" class="new-print-modal__b" v-if="HOSPITAL_ID != '925'">
         <div class="new-print-modal__b__l">
           <span>
             途径:{{ currentBottle.administration }}
@@ -81,6 +82,20 @@
           <span v-if="!is925 && !isZhzxy">核对者</span>
         </div>
         <div class="qc-box">
+          <img :src="currentBottle.qcSrc || ''" />
+        </div>
+      </div>
+      <div  style="position:relative" v-if="HOSPITAL_ID == '925'">
+        <div>
+          <p style="padding:5px">
+            途径:{{ currentBottle.administration }}
+          </p>
+          <p style="padding:5px">
+            频率:{{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
+          </p>
+          <p style="padding:5px">执行时间:{{ currentBottle.executeDate.substr(0, 16) }}</p>
+        </div>
+        <div class="qc-box" style="position:absolute;bottom: 25px;left:50%">
           <img :src="currentBottle.qcSrc || ''" />
         </div>
       </div>
@@ -162,8 +177,11 @@
     min-height: 20px;
     width: 100%;
     font-size: 18px;
-    margin: 2px 0 4px;
+    margin: 10px 0 4px;
     flex-shrink: 0;
+    .center{
+      margin-right: 10px;
+    }
   }
 
   .new-print-modal__second {
@@ -242,7 +260,8 @@
     }
     &.is925 {
       * {
-        font-size: 16px;
+        line-height: 14px;
+        font-size: 14px;
       }
     }
   }

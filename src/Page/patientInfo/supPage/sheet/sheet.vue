@@ -388,7 +388,7 @@ export default {
       if(startPageIndex == null||endPageIndex == null) return
       this.tableLoading = true;
       sheetInfo.isDone = false;
-      if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
+      if(["guizhou", 'huadu', '925', 'wujing'].includes(this.HOSPITAL_ID)){
         this.isLoad=false
       }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
@@ -411,8 +411,8 @@ export default {
       }
       $(".red-border").removeClass("red-border");
       return Promise.all(fnArr).then(res => {
-        if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
-          this.isLoad=true
+        if(["guizhou", 'huadu', '925', 'wujing'].includes(this.HOSPITAL_ID)){
+          this.isLoad = true
         }
         let titleData = res[0].data.data;
         this.sheetTitleData = res[0].data.data || {};
@@ -734,6 +734,16 @@ export default {
           }))
           if(isAccess) return this.$message.error('入量填项输入应为数字！')
         }
+      // inout_ytll 部分项目需填写数值
+      if (this.sheetInfo.sheetType == 'inout_ytll') {
+        let data =  decode(ayncVisitedData)
+        let reg = /^[0-9]+.?[0-9]*$/
+        const keys = ['actualInput', 'urine', 'stool', 'vomiting', 'drainage', 'otherOutput', 'totalOutput']
+        const isAccess = data.list.find(item => {
+          return keys.some(key => item[key] && !reg.test(item[key]))
+        })
+        if (isAccess) return this.$message.error('出入量项目输入应为数字！')
+      }
       let save = () => {
         this.pageLoading = true;
         this.scrollTop = this.$refs.scrollCon.scrollTop;

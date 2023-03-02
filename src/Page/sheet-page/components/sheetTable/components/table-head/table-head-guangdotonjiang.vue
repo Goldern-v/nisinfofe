@@ -9,9 +9,12 @@
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.patientName }}
         </div>
-        <span v-if="sheetInfo.sheetType == 'pediatric3_tj' ">之婴</span>
       </span>
-      <span>
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-if="sheetInfo.sheetType=='pediatric3_tj'">
+        年龄：
+        <div class="bottom-line" style="min-width: 30px">{{patientInfo.age}}</div>
+      </span>
+      <span v-else>
         年龄：
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.age }}
@@ -221,6 +224,266 @@
         </div>
       </span>
     </div>
+
+    <div class="info-con" v-if="sheetInfo.sheetType === 'cardiology_tj'">
+      <span>介入手术或造影名称：</span>
+      <input
+        v-model="sheetInfo.relObj.operation"
+        style="border-bottom: 1px solid #000; width: 300px"
+        :data-value="sheetInfo.relObj.operation"
+      />&nbsp;
+      <span>药物试验结果：</span>
+      <input
+        v-model="sheetInfo.relObj.Drugoutcome"
+        :data-value="sheetInfo.relObj.Drugoutcome"
+        style="border-bottom: 1px solid #000; width: 300px"
+      />&nbsp;
+    </div>
+    <div class="info-con" v-if="sheetInfo.sheetType === 'cardiology_tj'">
+      <span>穿刺血管:</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['donmai']"
+        v-model="checkeddonmai"
+      />
+      <span>动脉</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['jingmai']"
+        v-model="checkedjingmai"
+      />
+      <span>静脉</span> &nbsp;
+      <span>部位/名称：</span>
+      <input
+        v-model="sheetInfo.relObj.toponym"
+        :data-value="sheetInfo.relObj.toponym"
+        style="border-bottom: 1px solid #000; width: 220px"
+      />&nbsp;
+      <span>体内留置管:</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['wu']"
+        v-model="checkedwu"
+      />
+      <span>无</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['you']"
+        v-model="checkedyou"
+      />
+      <span>有</span>&nbsp;
+      <span>名称：</span>
+      <input
+        v-model="sheetInfo.relObj.nameA"
+        :data-value="sheetInfo.relObj.nameA"
+        style="border-bottom: 1px solid #000; width: 220px"
+      />
+    </div>
+    <div class="info-con" v-if="sheetInfo.sheetType === 'cardiac_therapy_tj'">
+      <span>入室情况：</span>
+    </div>
+
+    <div class="info-con" v-if="sheetInfo.sheetType === 'cardiac_therapy_tj'">
+      <span>意识  :</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qingchu']"
+        v-model="checkedqingchu"
+      />
+      <span>清楚</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['danmo']"
+        v-model="checkeddanmo"
+      />
+      <span>淡漠</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['hunsui']"
+        v-model="checkedhunsui"
+      />
+      <span>昏睡</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['hunmi']"
+        v-model="checkedhunmi"
+      />
+      <span>昏迷</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['yixian']"
+        v-model="checkedyixian"
+      />
+      <span>谵妄</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkedqita"
+      />
+      <span>其他</span>
+      <input
+        v-model="sheetInfo.relObj.toponym"
+        :data-value="sheetInfo.relObj.toponym"
+        style="border-bottom: 1px solid #000; width: 220px"
+      />&nbsp;
+    </div>
+
+    <div class="info-con" v-if="sheetInfo.sheetType === 'cardiac_therapy_tj'">
+      <span>主诉不适症状 :</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['wu']"
+        v-model="checkedwu"
+      />
+      <span>无</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['you']"
+        v-model="checkedyou"
+      />
+      <span>有</span>(
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['xiongtong']"
+        v-model="checkedxiontong"
+      />
+      <span>胸痛 </span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['xingji']"
+        v-model="checkedxingji"
+      />
+      <span>心悸</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['exin']"
+        v-model="checkedexin"
+      />
+      <span>恶心</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['tuoyun']"
+        v-model="checketouyun"
+      />
+      <span>头痛头晕 </span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>其他</span>
+      <input
+        v-model="sheetInfo.relObj.toponym"
+        :data-value="sheetInfo.relObj.toponym"
+        style="border-bottom: 1px solid #000; width: 220px"
+      />)
+    </div>
+     <div class="info-con" v-if="sheetInfo.sheetType === 'cardiac_therapy_tj'">
+      <span>肢体活动 :</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['wu']"
+        v-model="checkedwu"
+      />
+      <span>正常</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['you']"
+        v-model="checkedyou"
+      />
+      <span>左侧肢体活动障碍 </span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['xiongtong']"
+        v-model="checkedxiontong"
+      />
+      <span>右侧肢体活动障碍</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['xingji']"
+        v-model="checkedxingji"
+      />
+      <span>不能活动</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>其他</span>
+      <input
+        v-model="sheetInfo.relObj.toponym"
+        :data-value="sheetInfo.relObj.toponym"
+        style="border-bottom: 1px solid #000; width: 220px"
+      />
+    </div>
+        <div class="info-con" v-if="sheetInfo.sheetType === 'cardiac_therapy_tj'">
+      <span>实际操作项目:</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['wu']"
+        v-model="checkedwu"
+      />
+      <span>冠状动脉造影 </span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['you']"
+        v-model="checkedyou"
+      />
+      <span>PCI（平诊） </span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['xiongtong']"
+        v-model="checkedxiontong"
+      />
+      <span>PCI（急诊）</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['xingji']"
+        v-model="checkedxingji"
+      />
+      <span>临时起搏器术</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>永久起搏器术</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>IABP</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>起搏器更换</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>左室造影</span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>右室造影 </span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita']"
+        v-model="checkeqita"
+      />
+      <span>其它 </span>
+      <input
+        v-model="sheetInfo.relObj.toponym"
+        :data-value="sheetInfo.relObj.toponym"
+        style="border-bottom: 1px solid #000; width: 220px"
+      />
+    </div>
     <div class="info-con" v-if="sheetInfo.sheetType === 'blood_tj'">
       <span>观察部位：</span>
       <input
@@ -322,7 +585,7 @@ export default {
         },
         set(nVal){
           this.sheetInfo.relObj[`bzc`] = nVal ? "true" : "false"
-        }
+        },
       },
       newPatientInfo() {
         /*  每页独立床号功能 */
@@ -337,7 +600,41 @@ export default {
           [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
         }
       }
-  },
+    },
+    ...{
+      'checkeddonmai':{
+        get(){
+          return this.sheetInfo.relObj[`donmai`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`donmai`] = nVal ? "true" : "false"
+        },
+      },
+      'checkedjingmai':{
+        get(){
+          return this.sheetInfo.relObj[`jingmai`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`jingmai`] = nVal ? "true" : "false"
+        },
+      },
+      'checkedyou':{
+        get(){
+          return this.sheetInfo.relObj[`you`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`you`] = nVal ? "true" : "false"
+        },
+      },
+      'checkedwu':{
+        get(){
+          return this.sheetInfo.relObj[`wu`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`wu`] = nVal ? "true" : "false"
+        },
+      }
+    },
     diagnosis() {
       /** 最接近的index */
       let realIndex = 0;
@@ -434,6 +731,18 @@ export default {
     },
   },
   methods: {
+    updateTetxInfo(key, label, autoText) {
+      window.openSetTextModal(
+        text => {
+          updateSheetHeadInfo({ [key]: text }).then(res => {
+            this.patientInfo[key] = res.data.data[key];
+            this.$message.success(`修改${label}成功`);
+          });
+        },
+        autoText,
+        `修改${label}`
+      );
+    },
     openBedRecordModal(){
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");

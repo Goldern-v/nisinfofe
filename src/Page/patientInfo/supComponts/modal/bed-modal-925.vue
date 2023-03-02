@@ -47,6 +47,41 @@
       <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
     </div>
     <div
+        class="bed-card-warpper printRef  wrist-strap-print children-wrist"
+        ref="printCon4"
+        :class="{ zhzxyStyle: ['zhzxy'].includes(HOSPITAL_ID) }"
+        v-else-if="printMode == 'wrist-children'"
+      >
+        <div class="bed-card-vert-con">
+          <div class="top">
+            <span>科室：{{ query.wardName }}</span>
+          </div>
+          <div>
+            <div>
+              <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
+                >床位：{{ query.bedLabel }}</span
+              >
+              <span>住院号：{{ 'dglb' === HOSPITAL_ID ? query.inpNo : query.patientId }}</span>
+            </div>
+            <div>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+            </div>
+          </div>
+          <div>
+            <div>
+              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+            </div>
+          </div>
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
+        </div>
+    </div>
+    <div
       class="bed-card-wrapper bed-card-wrapper-h-small"
       v-loading="modalLoading"
       ref="printConHS"
@@ -55,8 +90,8 @@
       <div class="hs-content">
 
         <div class="hs-header">床头卡</div>
-        <div class="hs-line1 flex-between">
-          <span>科别：{{ query.deptName }}</span>
+        <div>
+          <span  style="margin-right:5px">科别：{{ query.deptName }}</span>
           <span>入院时间：{{ moment(query.admissionDate).format("YYYY-MM-DD") }}</span>
         </div>
         <div class="hs-line1 flex-between">
@@ -64,8 +99,8 @@
           <span>床号：{{ query.bedLabel }}</span>
         </div>
         <div class="hs-line2 flex-between">
-          <span>姓名：{{ query.name }}</span>
-          <span>性别：{{ query.sex }}</span>
+          <span >姓名：{{ query.name }}</span>
+          <span style="flex:0.7">性别：{{ query.sex }}</span>
           <span>年龄：{{ query.age }}</span>
         </div>
         <div class="hs-line2">
@@ -135,7 +170,7 @@
           class="bottom-line"
           :value="formData.drugGms"
         />
-       
+
       </div>
       <div class="diagnosis">
         <span>诊断：</span>
@@ -187,7 +222,7 @@
       </span> -->
 
       <el-button class="modal-btn" @click="close">取消</el-button>
-      <el-button class="modal-btn" @click="switchBed" v-if="printMode.includes('h')">切换</el-button>
+      <el-button class="modal-btn" @click="switchBed" v-if="printMode=='h'||printMode=='h-small'">切换</el-button>
       <!-- <el-button class="modal-btn" type="primary" @click="post">保存</el-button> -->
       <el-button class="modal-btn" type="info" @click="onPrint">打印</el-button>
     </div>
@@ -357,8 +392,151 @@
     }
   }
 }
+.bed-card-warpper {
+  background: #fff;
+  box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  font-size: 16px;
 
+  &.zhzxyStyle {
+    font-size: 20px;
+  }
+
+  .bed-card-con {
+    width: 9cm;
+    height: 5.7cm;
+  }
+
+  >>> * {
+    font-family: 'SimHei', 'Microsoft Yahei' !important;
+    font-weight: bold;
+  }
+}
+.wrist-strap-print {
+  .bed-card-vert-con {
+    margin: 20px;
+    width: 119px;
+    height: 498px;
+    padding: 35px 8px 5px !important;
+    box-sizing: border-box;
+    position: relative;
+    border: 3px solid #000;
+    text-align: left;
+    width: 500px;
+    height: auto;
+    padding: 5px 0 0 0 !important;
+    border: none;
+
+    .top {
+      span {
+        margin-left: 10px;
+
+        &:first-of-type {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    >>>.allergy {
+      width: 80%;
+
+      &.whhkAllergy {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        >p {
+          display: flex;
+          align-items: center;
+        }
+
+        >.input-item {
+          height: 25px;
+          font-size: 20px;
+          margin-left: 10px;
+
+          >span {
+            font-size: 16px;
+          }
+
+          >input {
+            font-size: 16px;
+            width: 100px;
+          }
+        }
+      }
+
+      p {
+        height: 25px;
+        overflow: hidden;
+        margin-left: 10px;
+        font-size: 20px;
+      }
+
+      span {
+        margin-left: 0px;
+        font-size: 20px;
+      }
+
+      p.gm {
+        span {
+          color: red;
+        }
+      }
+    }
+
+    span {
+      font-size: 20px;
+      line-height: 24px;
+      margin-left: 10px;
+    }
+
+    .qr-code {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      margin-top: -56px;
+      height: 112px;
+      width: 112px;
+
+      &.hasRemark {
+        width: 96px;
+        height: 96px;
+      }
+    }
+
+    svg {
+      height: 60px !important;
+      margin-left: 15px;
+    }
+  }
+
+  &.children-wrist {
+    width: 10cm;
+    height: 3cm;
+    box-sizing: border-box;
+
+    .bed-card-vert-con {
+      transform: scale(0.8) translateX(-2.1cm) translateY(-0.7cm);
+    }
+
+    .qr-code {
+      position: absolute;
+      right: 75px !important;
+      top: 55% !important;
+      margin-top: -56px;
+      height: 112px;
+      width: 112px;
+    }
+  }
+}
 .bed-card-wrapper-h-small {
+  width:9.3cm;
+  height:4.3cm;
+  font-size: 13px;
+  font-weight: normal;
+  padding: 10px 20px 24px;
+ 
   .hs-content {
     position: relative;
     padding: 1px;
@@ -372,25 +550,27 @@
   }
   .hs-line1 {
   width: calc(100% - 50px);
+  height:24px;
   }
   .hs-line2 {
-    width: calc(100% - 110px);
+    width: calc(100% - 95px);
     display: flex;
+    height:24px;
     div.input-item {
       display: flex;
-      height: 26px;
+      height: 24px;
       padding-right: 2px;
-      font-size: 20px;
+      font-size: 13px;
     }
     .label {
       margin-right: 0px;
-      line-height: 26px;
+      line-height: 24px;
     }
 
     input {
       padding: 0px;
       flex: 1;
-      font-size: 20px;
+      font-size: 13px;
       line-height: 26px;
     }
   }
@@ -571,6 +751,8 @@ export default {
           return "床头卡打印";
         case "wrist":
           return "腕带打印";
+        case "wrist-children":
+          return "儿童腕带打印";
         default:
           return "打印";
       }
@@ -668,7 +850,7 @@ export default {
     },
     isOpen() {
       this.$refs.modal.open();
-      let qr_png_value = this.query.patientId + "|" + this.query.visitId;
+      let qr_png_value = "P" +this.query.patientId + "|" + this.query.visitId;
       var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: 2 });
       function arrayBufferToBase64(buffer) {
         var binary = "";
@@ -712,6 +894,18 @@ export default {
             printRef = this.$refs.printConW;
             css = `
               .bed-card-wrapper {
+                box-shadow: none !important;
+                width:560px!important;
+                // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
+                transform: rotate(-90deg) translateY(30%) translateX(-97%) scale(0.8)!important;
+                transform-origin: 0 0;
+              }
+            `;
+            break;
+          case "wrist-children":
+            printRef = this.$refs.printCon4;
+            css = `
+            .bed-card-warpper {
                 box-shadow: none !important;
                 width:560px!important;
                 // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
@@ -792,6 +986,7 @@ export default {
           css: `
             ${css}
             @page {
+              width: 50%;
               margin: 0;
             }
             `,

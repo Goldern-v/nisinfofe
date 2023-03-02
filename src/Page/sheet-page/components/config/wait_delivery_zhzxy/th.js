@@ -109,6 +109,18 @@ export default {
       },
       {
         name: `
+        量(ml)
+        `,
+        style: {
+          minWidth: "55px",
+          maxWidth: "55px",
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+
+      {
+        name: `
         检查方式
         `,
         style: {
@@ -154,13 +166,13 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
-      {
-        name: `
-        质控护士签名
-        `,
-        colspan: "1",
-        rowspan: "3"
-      }
+      // {
+      //   name: `
+      //   质控护士签名
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3"
+      // }
     ],
     mid: [
       {

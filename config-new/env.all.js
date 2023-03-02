@@ -229,7 +229,8 @@ module.exports = {
     HOSPITAL_NAME_SPACE: '"青 海 省 第 五 人 民 医 院"',
     COMPANY_NAME: '"百辰源(广州)科技有限公司"',
     ABOUT_INFO: '"关于百辰源"',
-    title: '"智慧护理信息系统"'
+    title: '"智慧护理信息系统"',
+    hasFollow:true
   },
   whsl: {
     HOSPITAL_ID: '"whsl"',
@@ -275,7 +276,9 @@ module.exports = {
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
     ABOUT_INFO: '"关于宸瑞普惠"',
     title: '"智慧护理信息系统"',
-    ENABLE_BLUETOOTH_SIGN: false
+    ENABLE_BLUETOOTH_SIGN: false,
+    hasFollow:true,
+    splitSave:true
   },
   'dglb': {
     HOSPITAL_ID: '"dglb"',

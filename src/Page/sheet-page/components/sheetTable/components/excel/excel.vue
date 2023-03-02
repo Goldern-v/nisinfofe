@@ -8,7 +8,7 @@
     </div>-->
     <table
       class="sheet-table table-fixed-th no-print"
-      :style="{ width: fiexHeaderWidth }"
+      :style="{ width: fiexHeaderWidth}"
       :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl}"
       ref="tableHead"
       v-if="hasFiexHeader"
@@ -54,6 +54,44 @@
             recordYear()
           }}</span>
           <span v-else v-html="item.name"></span>
+          <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
+            <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['sdyou']"
+                v-model="checkedsdyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['sdwu']"
+                v-model="checkedsdwu"
+              />无
+            </template>
+            <template v-if="item.checkbox && item.checkbox === '留置管描述'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['zlyou']"
+                v-model="checkedzlyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['zlwu']"
+                v-model="checkedzlwu"
+              />无
+            </template>
+            <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['jpylyou']"
+                v-model="checkedjpylyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['jpylwu']"
+                v-model="checkedjpylwu"
+              />无
+            </template>
+          </template>
         </th>
       </tr>
     </table>
@@ -82,6 +120,44 @@
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
           <span v-else v-html="item.name"></span>
+          <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
+            <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['sdyou']"
+                v-model="checkedsdyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['sdwu']"
+                v-model="checkedsdwu"
+              />无
+            </template>
+            <template v-if="item.checkbox && item.checkbox === '留置管描述'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['zlyou']"
+                v-model="checkedzlyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['zlwu']"
+                v-model="checkedzlwu"
+              />无
+            </template>
+            <template v-if="item.checkbox && item.checkbox === '经皮引流'">
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['jpylyou']"
+                v-model="checkedjpylyou"
+              />有
+              <input
+                type="checkbox"
+                :ischecked="sheetInfo.relObj['jpylwu']"
+                v-model="checkedjpylwu"
+              />无
+            </template>
+          </template>
         </th>
       </tr>
       <tr
@@ -582,7 +658,7 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry'"
+        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' || sheetInfo.sheetType == 'cardiology_tj'"
           >质控护士签名：</span
         >
         <span v-else-if=" sheetInfo.sheetType == 'critical_new_weihai'"
@@ -676,6 +752,7 @@ import {
   sign,
   cancelSign,
   delRow,
+  delRowWuJing,
   delSelectRow,
   markSave,
   markDelete,
@@ -711,7 +788,6 @@ import moment from "moment";
 import { getUser,saveRecordAllSign } from "@/api/common.js";
 import bottomRemark from "./remark";
 import { GetUserList} from "@/api/caCardApi";
-// console.dir(sheetInfo);
 export default {
   props: {
     data: Object,
@@ -743,7 +819,7 @@ export default {
         'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
-        "wait_delivery_zhzxy",
+        // "wait_delivery_zhzxy",
         "neurosurgery_hd",
         "neonatology_hd",
         "neonatology2_hd",
@@ -794,6 +870,8 @@ export default {
         'prenatal_dglb',
         'baby_dglb',
         'baby_obs_dglb',
+        'cardiology_tj',
+        'cardiac_therapy_tj'
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -843,7 +921,66 @@ export default {
       wujingCommonHl:false
     };
   },
+
   computed: {
+    ...{
+      'checkedsc': {
+        get(){
+          return this.sheetInfo.relObj[`sc`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`sc`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedsdyou':{
+        get(){
+          return this.sheetInfo.relObj[`sdyou`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`sdyou`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedsdwu':{
+        get(){
+          return this.sheetInfo.relObj[`sdwu`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`sdwu`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedzlyou':{
+        get(){
+          return this.sheetInfo.relObj[`zlyou`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`zlyou`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedzlwu':{
+        get(){
+          return this.sheetInfo.relObj[`zlwu`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`zlwu`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedjpylyou':{
+        get(){
+          return this.sheetInfo.relObj[`jpylyou`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`jpylyou`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedjpylwu':{
+        get(){
+          return this.sheetInfo.relObj[`jpylwu`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`jpylwu`] = nVal ? "true" : "false"
+        }
+      },
+    },
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
@@ -1183,11 +1320,9 @@ export default {
       })
       /*如果向上插入 就不能使用当前鼠标的日期 ，要用当前鼠标的下标位置来向上查找日期
       **/
-      console.log('allDateList',allDateList)
       if (direction == 'upward') {
         //以前代码传过来index-1 聚焦上一行  所以我们index+1  才对得上下标
       let findIndex = index + 1
-      console.log(index,findIndex)
 
         while(findIndex--){
         if(allDateList[findIndex]){
@@ -1198,7 +1333,6 @@ export default {
         addRowDate = lastRecordMonth
       } else {
         let findIndex = index
-        console.log(index,findIndex)
         while(findIndex--){
         if(allDateList[findIndex]){
           lastRecordMonth = allDateList[findIndex]
@@ -1209,7 +1343,6 @@ export default {
         **/
         addRowDate = rowRecordDate ? moment(rowRecordDate).format('MM-DD') : rowRecordMonth ? rowRecordMonth : lastRecordMonth
       }
-      console.log('数值',addRowDate)
       return addRowDate
 
     },
@@ -2005,7 +2138,6 @@ export default {
         return item.key == "status";
       }).value;
       const sign = trArr.find(item => item.key == 'auditorNo').value
-        // console.log("koaosdad",status)
       let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
@@ -2216,95 +2348,153 @@ export default {
             // 佛山人医签名修改与删除比较严格。
             if(this.HOSPITAL_ID == "foshanrenyi"){
               // 根据之前判断的isRead
-              isRead=row.isRead
+              isRead = row.isRead
             }
-            if(this.HOSPITAL_ID == "foshanrenyi"){
+            if (this.HOSPITAL_ID == "foshanrenyi") {
               // 佛山人医根据canModify
-               if (id) {
-                  if (isRead) {
-                    //isRead=true.直接弹窗不让他删除
-                    this.$message({
-                     message: '您没有权限删除整行',
-                     type: 'error',
-                     duration: 2000,
-                     });
-                  }else{
-                    //isRead=false,有权限输出。提示直接是否删除。不用输密码
-                   this.$confirm("你确定删除该行数据吗", "提示", {
+              if (id) {
+                if (isRead) {
+                  //isRead=true.直接弹窗不让他删除
+                  this.$message({
+                    message: '您没有权限删除整行',
+                    type: 'error',
+                    duration: 2000,
+                  });
+                } else {
+                  //isRead=false,有权限输出。提示直接是否删除。不用输密码
+                  this.$confirm("你确定删除该行数据吗", "提示", {
                     confirmButtonText: "删除",
                     cancelButtonText: "取消",
                     type: "warning",
-                   }).then((res) => {
-                   delRow(id, "", "").then((res) => {
-                    this.delRow(index);
-                    this.$notify.success({
-                      title: "提示",
-                      message: "删除成功",
-                      duration: 1000,
-                    });
-                    this.bus.$emit("saveSheetPage", true);
-                   });
-                   });
-                  }
-               }else{
-                  this.$confirm("你确定删除该行数据吗", "提示", {
-                   confirmButtonText: "删除",
-                   cancelButtonText: "取消",
-                   type: "warning",
                   }).then((res) => {
-                   this.delRow(index);
-                   this.$notify.success({
-                   title: "提示",
-                   message: "删除成功",
-                   duration: 1000,
-                 });
-                 this.bus.$emit("saveSheetPage", true);
-                });
-               }
-            }else{
-              if (id) {
-                if (isRead) {
-                     this.$parent.$parent.$refs.signModal.open((password, empNo) => {
-                     delRow(id, password, empNo).then((res) => {
-                       this.delRow(index);
-                       this.$notify.success({
-                       title: "提示",
-                       message: "删除成功",
-                       duration: 1000,
-                     });
-                    this.bus.$emit("saveSheetPage", true);
-                   });
-                  },);
-                 } else {
-                  this.$confirm("你确定删除该行数据吗", "提示", {
-                   confirmButtonText: "删除",
-                   cancelButtonText: "取消",
-                   type: "warning",
-                  }).then((res) => {
-                   delRow(id, "", "").then((res) => {
-                    this.delRow(index);
-                    this.$notify.success({
-                      title: "提示",
-                      message: "删除成功",
-                      duration: 1000,
+                    delRow(id, "", "").then((res) => {
+                      this.delRow(index);
+                      this.$notify.success({
+                        title: "提示",
+                        message: "删除成功",
+                        duration: 1000,
+                      });
+                      this.bus.$emit("saveSheetPage", true);
                     });
-                    this.bus.$emit("saveSheetPage", true);
-                   });
-                 });
+                  });
                 }
               } else {
-                 this.$confirm("你确定删除该行数据吗", "提示", {
-                   confirmButtonText: "删除",
-                   cancelButtonText: "取消",
-                   type: "warning",
-                 }).then((res) => {
-                 this.delRow(index);
-                 this.$notify.success({
-                   title: "提示",
-                   message: "删除成功",
-                   duration: 1000,
-                 });
-                 this.bus.$emit("saveSheetPage", true);
+                this.$confirm("你确定删除该行数据吗", "提示", {
+                  confirmButtonText: "删除",
+                  cancelButtonText: "取消",
+                  type: "warning",
+                }).then((res) => {
+                  this.delRow(index);
+                  this.$notify.success({
+                    title: "提示",
+                    message: "删除成功",
+                    duration: 1000,
+                  });
+                  this.bus.$emit("saveSheetPage", true);
+                });
+              }
+            } else if(['wujing'].includes(this.HOSPITAL_ID)){
+              if (id) {
+                let barCode = (row.find((item) => {
+                    return item.key == "expand";
+                    })||{}).value;
+                    const first = this.sheetInfo.extraData&&this.sheetInfo.extraData.first || []
+                    const last = this.sheetInfo.extraData&&this.sheetInfo.extraData.last || []
+                    const listData = [...first,...this.listData,...last]
+                    let idList = []
+                    if(barCode){
+                      idList = listData.filter(list => (list.id&&(list.expand == barCode))).map(list=>list.id)
+                    }else{
+                      idList = [id]
+                    }
+                if (isRead) {
+                  this.$parent.$parent.$refs.signModal.open((password, empNo,barCode) => {
+                    delRowWuJing(idList, password, empNo,barCode).then((res) => {
+                      this.delRow(index);
+                      this.$notify.success({
+                        title: "提示",
+                        message: "删除成功",
+                        duration: 1000,
+                      });
+                      this.bus.$emit("saveSheetPage", true);
+                    });
+                  },);
+                } else {
+                  this.$confirm("你确定删除该行数据吗", "提示", {
+                    confirmButtonText: "删除",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                  }).then((res) => {
+                    delRowWuJing(idList, "", "",barCode).then((res) => {
+                      this.delRow(index);
+                      this.$notify.success({
+                        title: "提示",
+                        message: "删除成功",
+                        duration: 1000,
+                      });
+                      this.bus.$emit("saveSheetPage", true);
+                    });
+                  });
+                }
+              } else {
+                this.$confirm("你确定删除该行数据吗", "提示", {
+                  confirmButtonText: "删除",
+                  cancelButtonText: "取消",
+                  type: "warning",
+                }).then((res) => {
+                  this.delRow(index);
+                  this.$notify.success({
+                    title: "提示",
+                    message: "删除成功",
+                    duration: 1000,
+                  });
+                  this.bus.$emit("saveSheetPage", true);
+                });
+              }
+            }else {
+              if (id) {
+                if (isRead) {
+                  this.$parent.$parent.$refs.signModal.open((password, empNo) => {
+                    delRow(id, password, empNo).then((res) => {
+                      this.delRow(index);
+                      this.$notify.success({
+                        title: "提示",
+                        message: "删除成功",
+                        duration: 1000,
+                      });
+                      this.bus.$emit("saveSheetPage", true);
+                    });
+                  },);
+                } else {
+                  this.$confirm("你确定删除该行数据吗", "提示", {
+                    confirmButtonText: "删除",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                  }).then((res) => {
+                    delRow(id, "", "").then((res) => {
+                      this.delRow(index);
+                      this.$notify.success({
+                        title: "提示",
+                        message: "删除成功",
+                        duration: 1000,
+                      });
+                      this.bus.$emit("saveSheetPage", true);
+                    });
+                  });
+                }
+              } else {
+                this.$confirm("你确定删除该行数据吗", "提示", {
+                  confirmButtonText: "删除",
+                  cancelButtonText: "取消",
+                  type: "warning",
+                }).then((res) => {
+                  this.delRow(index);
+                  this.$notify.success({
+                    title: "提示",
+                    message: "删除成功",
+                    duration: 1000,
+                  });
+                  this.bus.$emit("saveSheetPage", true);
                 });
               }
             }
@@ -2730,7 +2920,6 @@ export default {
       }
       window.openSignModal((password, empNo,auditDate=moment().format("YYYY-MM-DD HH:mm:ss")) => {
           getUser(password, empNo).then((res) => {
-            console.log(res.data.data)
             let { empNo, empName } = res.data.data;
             if(this.sheetInfo.sheetType=="nurse_jew" ||this.sheetInfo.sheetType == 'danger_nurse_jew'){
               saveRecordAllSign( {
@@ -2926,23 +3115,21 @@ export default {
       }
       this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
-      // console.log(this.$refs.table.getBoundingClientRect());
     },
     scrollX(val) {
       if (!this.hasFiexHeader) return;
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       const tableHead = this.$refs.tableHead
       // 临邑护记横向滚动时表头跟着滚动
-      if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz','ytll','huadu'].includes(this.HOSPITAL_ID)) {
-        tableHead && (tableHead.style.left = left + 'px')
-      }
+      tableHead && (tableHead.style.left = left + 'px')
+      // if (['lyxrm', 'foshanrenyi', 'gdtj','whsl', 'stmz','ytll','huadu'].includes(this.HOSPITAL_ID)) {
+      // }
     }
   },
   destroyed() {} /* fix vue-happy-bus bug */,
   mounted() {
   },
   created() {
-    console.log(moment(),moment().week(),'moment()')
     if(this.HOSPITAL_ID == 'wujing' && sheetInfo.sheetType == 'common_hl'){
       let sUserAgent = navigator.userAgent;
       if(sUserAgent.indexOf("Windows NT 6.1") > -1 || sUserAgent.indexOf("Windows 7") > -1 || sUserAgent.indexOf("Windows NT 5.1") > -1){

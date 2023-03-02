@@ -199,7 +199,7 @@ export default {
       cacheSearchList: localStorage.diagnosisCacheSearchList
         ? JSON.parse(localStorage.diagnosisCacheSearchList)
         : [],
-      hasImport:['liaocheng','guizhou','foshanrenyi'],
+      hasImport:['liaocheng','guizhou','foshanrenyi','zhzxy'],
       isConfirm:false,
       fileList:[],
       isImportModuleDevSuccess:true,

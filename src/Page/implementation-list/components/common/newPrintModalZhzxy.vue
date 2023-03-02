@@ -45,7 +45,15 @@
 
     <div class="new-print-modal__b">
       <div class="new-print-modal__b__l">
-        <span> 途径:{{ currentBottle.administration }} </span>
+        <div style="width:100px;">
+          <span> 途径:{{ currentBottle.administration }} </span>
+          <span>执行时间:</span>
+          <div>{{ currentBottle.executeDate.substr(0, 16) }}</div>
+        </div>
+        <div class="qc-box">
+          <img :src="currentBottle.qcSrc || ''" />
+        </div>
+      </div>
         <span>
           频率:{{
             `${currentBottle.frequency}${
@@ -53,11 +61,6 @@
             }`
           }}
         </span>
-        <span>执行时间:{{ currentBottle.executeDate.substr(0, 16) }}</span>
-      </div>
-      <div class="qc-box">
-        <img :src="currentBottle.qcSrc || ''" />
-      </div>
     </div>
   </div>
 
@@ -212,7 +215,7 @@
   }
 
   .qc-box {
-    width: 54px;
+    width: 50px;
     overflow: hidden;
     padding: 1px 1px 0px 0px;
     img {
@@ -255,7 +258,7 @@
   }
   .new-print-modal__b__l {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-around;
     flex: 1;
     span {
       width: 100%;

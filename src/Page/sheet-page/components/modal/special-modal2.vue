@@ -5,7 +5,6 @@
       @close="beforeClose"
       :modalWidth="720"
       :title="title"
-       v-if="activeTab!='4'"
       :enable-mobile-fullscreen="false"
       :blocking="HOSPITAL_ID == 'liaocheng' ? true : false"
     >
@@ -69,7 +68,7 @@
             <el-switch v-model="isSyncTemp"></el-switch>
             <span>是否同步</span>
           </div>
-          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925','zhzxy','whsl'].includes(HOSPITAL_ID)">
+          <div class="modal-btn-box" v-if="activeTab === '3' &&['foshanrenyi', '925','zhzxy','whsl','qhwy'].includes(HOSPITAL_ID)">
             <el-button
               type="primary"
               size="mini"
@@ -100,6 +99,30 @@
               检查报告
             </el-button>
           </div>
+          <div class="modal-btn-box" v-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID)">
+            <el-button
+              type="primary"
+              size="mini"
+              @click="openZxdtbModal"
+            >
+              执行单同步
+            </el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              @click="openPISlide('testModal')"
+            >
+              检验报告
+            </el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              @click="openPISlide('inspectModal')"
+            >
+              检查报告
+            </el-button>
+          </div>
+
         </div>
         <div class="extra-box">
           <div class="extra-box__content">
@@ -629,7 +652,7 @@
                     maxlength="10"
                     style="width: 140px"
                     v-else-if="
-                      sheetInfo.sheetType === 'common_hd' &&
+                      (sheetInfo.sheetType === 'common_hd'||sheetInfo.sheetType === 'seriousnursing_ytll') &&
                       (key === 'food' || key === 'discharge')
                     "
                   />
@@ -780,6 +803,9 @@
             ></el-input>
           </el-tab-pane>
         </el-tabs>
+        <div class="symbols-btn" v-if="['foshanrenyi'].includes(HOSPITAL_ID) && activeTab == '3'">
+          <el-button class="modal-btn" type="primary" @click="openSpecialSymbols">特殊符号</el-button>
+        </div>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -799,85 +825,17 @@
         >
       </div>
     </sweet-modal>
-    <el-dialog
-      title="执行单同步"
-      :visible="drugSyncShow"
-      custom-class="custom-dialog"
-      width="860px"
-      center
-      :close-on-click-modal="false"
-      @close="close"
-      top="0"
-    >
-      <div class="content">
-        <!-- 查询条件 -->
-        <div class="content-header">
-          <div class="content-header__left">
-            <span class="item-name">执行单日期：</span>
-            <el-date-picker
-              popper-class="execute-picker"
-              v-model="query.executeDate"
-              type="datetimerange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期">
-            </el-date-picker>
-            <span class="item-name">类型：</span>
-            <el-select style="width: 120px" v-model="query.type" placeholder="请选择">
-              <el-option
-                v-for="item in typeList"
-                :key="item.value"
-                :label="item.name"
-                :value="item.value">
-              </el-option>
-            </el-select>
-            <span>&nbsp;</span>
-            <el-select style="width: 90px" v-model="query.intensiveSync" placeholder="请选择">
-              <el-option
-                v-for="item in syncs"
-                :key="item.value"
-                :label="item.name"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="content-header__right">
-            <el-button :disabled="loading" @click="onSearchData">查询</el-button>
-          </div>
-        </div>
-        <!-- 数据 -->
-        <el-table 
-          @selection-change="onSelectChange" 
-          :data="tableData" 
-          border 
-          max-height="350" 
-          width="100%"
-          ref="executeTb"
-        >
-          <el-table-column type="selection" min-width="55" :selectable="nonSyncRecord"></el-table-column>
-          <el-table-column prop="executeDate" label="日期" align="center" min-width="140"></el-table-column>
-          <el-table-column prop="executeTime" label="时间" align="center" min-width="80"></el-table-column>
-          <el-table-column prop="orderText" label="医嘱内容" align="center" min-width="290"></el-table-column>
-          <el-table-column prop="dosage" label="药品剂量" align="center" min-width="130"></el-table-column>
-          <el-table-column prop="administration" label="途径" align="center" min-width="130"></el-table-column>
-        </el-table>
-      </div>
-      <span slot="footer" class="custom-footer">
-        <el-button @click="drugSyncShow = false" size="small">取 消</el-button>
-        <el-button type="primary" size="small" @click="confirmSync">确 定</el-button>
-      </span>
-    </el-dialog>
     <templateSlide ref="templateSlide"></templateSlide>
     <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
     />
     <advice-modal
-      v-if="['lyxrm', 'whhk'].includes(HOSPITAL_ID)"
+      v-if="['lyxrm', 'whhk', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)"
       ref="adviceModalRef"
       @handleOk="handleDiagnosis"
     />
@@ -1072,75 +1030,12 @@
   justify-content: flex-end;
   flex: 1;
 }
+.symbols-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 </style>
-<style lang="scss" scoped>
-  /deep/.el-icon-close:before {
-    content: "✕";
-    font-weight: bold;
-  }
-  /deep/ .el-table .el-table__body-wrapper {
-    &::-webkit-scrollbar {
-      width: 7px;
-      height: 7px;
-      background-color: #eaeaea;
-    }
-    &::-webkit-scrollbar-thumb {
-      border-radius: 50px;
-      background-color: #c2c2c2;
-    }
-    &::-webkit-scrollbar-track {
-      border-radius: 50px;
-      background-color: #eaeaea;
-    }
-  }
-  /deep/.el-dialog {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  /deep/ .el-dialog__header {
-    padding: 15px;
-    background: #f9fafa;
-    border-bottom: 1px solid #ddd;
-    .el-dialog__title {
-      font-size: 14px;
-    }
-  }
-  /deep/.el-dialog__footer {
-    text-align: center!important;
-    background: #f9fafa;
-    border-top: 1px solid #ddd;
-  }
-  /deep/ .el-dialog__body {
-    padding: 15px 15px;
-  }
-  /deep/ .el-input__inner {
-    width: inherit;
-    outline: none;
-  }
-  /deep/ .el-range-input {
-    outline: none;
-  }
-  
-  .content {
-    .content-header {
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      width: 100%;
-      .item-name {
-        font-weight: bold;
-        font-size: 16px;
-        &:not(:first-child) {
-          margin-left: 16px;
-        }
-      }
-    }
-  }
-</style>
-
 <script>
 import bus from "vue-happy-bus";
 import moment from "moment";
@@ -1172,6 +1067,7 @@ function autoComplete(el, bind) {
     let key = bind.value.key;
     let tr = bind.value.tr;
     let td = bind.value.td;
+    const splice = td && td.splice
     el.onfocus = (e) => {
       let dataList = bind.value.dataList;
       if (el.readOnly) return;
@@ -1197,9 +1093,35 @@ function autoComplete(el, bind) {
             }
             if (data) {
               if (typeof obj[key] == "object") {
-                obj[key].value = data.trim();
+                // 多选
+                if (splice) {
+                  const split = typeof splice === 'string' ? splice : ','
+                  const oldValue =  obj[key].value ? obj[key].value.split(split) : []
+                  const index = oldValue.findIndex(v => v === data)
+                  if (index > -1) {
+                    oldValue.splice(index, 1)
+                  } else {
+                    oldValue.push(data.trim())
+                  }
+                  obj[key].value = oldValue.join()
+                } else { // 单选
+                  obj[key].value = data.trim();
+                }
               } else {
-                obj[key] = data.trim();
+                // 多选
+                if (splice) {
+                  const split = typeof splice === 'string' ? splice : ','
+                  const oldValue =  obj[key] ? obj[key].split(split) : []
+                  const index = oldValue.findIndex(v => v === data)
+                  if (index > -1) {
+                    oldValue.splice(index, 1)
+                  } else {
+                    oldValue.push(data.trim())
+                  }
+                  obj[key] = oldValue.join()
+                } else { // 单选
+                  obj[key] = data.trim();
+                }
               }
             }
           },
@@ -1209,11 +1131,11 @@ function autoComplete(el, bind) {
         });
       });
     };
-    el.onblur = (e) => {
-      setTimeout(() => {
-        window.closeAutoComplete(key);
-      }, 400);
-    };
+    // el.onblur = (e) => {
+    //   setTimeout(() => {
+    //     window.closeAutoComplete(key);
+    //   }, 400);
+    // };
   } else {
     el.onfocus = null;
   }
@@ -1237,7 +1159,6 @@ export default {
       lastZ: 0,
       lastY: 0,
       activeTab: "1",
-      isMedication:false,
       customTitle: [],
       staticObj: {},
       sheetInfo,
@@ -1285,28 +1206,6 @@ export default {
       beihaiList: ["体温", "脉搏", "呼吸", "血压", "心率"],
       isSaving: false, //给弹窗保存做节流
       isRecordBan: false, // 佛医记录是否禁用编辑
-      drugSyncShow: false, // 显示
-      loading: false,
-      // 查询参数
-      query: {
-        executeDate: [
-          moment().format('YYYY-MM-DD 00:00:00'), 
-          moment().format('YYYY-MM-DD 23:59:59')
-        ],
-        type: "",
-        intensiveSync: '已同步',
-      },
-      // 类型
-      typeList: [
-        { name: "全部", value: "" },
-        { name: "输液类", value: "输液" },
-        { name: "口服药", value: "口服" },
-        { name: "注射类", value: "注射" },
-      ],
-      syncs: [{ name: '已同步', value: '已同步' }, { name: '未同步', value: '未同步' }],
-      // 表格数据
-      tableData: [],
-      syncList: [], // 同步数据
     };
   },
   computed: {
@@ -1377,6 +1276,9 @@ export default {
         case "lyxrm":
         case "huadu":
         case 'whhk':
+        case "stmz":
+        case "nfyksdyy":
+        case "foshanrenyi":
           return this.activeTab === "3";
         default:
           return false;
@@ -1387,6 +1289,8 @@ export default {
       switch (process.env.HOSPITAL_ID) {
         case "lyxrm":
         case 'whhk':
+        case "stmz":
+        case "nfyksdyy":
           return this.activeTab === "3";
         default:
           return false;
@@ -1397,6 +1301,9 @@ export default {
         case "lyxrm":
         case "huadu":
         case 'whhk':
+        case "stmz":
+        case "nfyksdyy":
+        case "foshanrenyi":
           return 1200;
         default:
           return 720;
@@ -1539,7 +1446,6 @@ export default {
     },
     // 珠海中西医新模板添加
     addZkmodalDoc(val){
-      console.log(val,"addZkmodalDoc","this.doc",this.doc)
       const regP = /(<\/?p.*?>)/gi;
       let doc = this.doc.replace(regP, "");
       let valRegP = val.replace(regP, "");
@@ -1552,7 +1458,7 @@ export default {
         window.closeAutoCompleteNoId();
       }, 300);
       let record = config.record;
-      this.record = record;
+      this.record = record
       /**以前isLast是判断是否是最后一条 时间久了功能好像更改了
        * 现在每次保存都必须传true更新页码 所以改为true
       */
@@ -1607,8 +1513,19 @@ export default {
           this.fixedList[item].maxWidth = width + 10;
         }
       }
+      // 贵州省医common_gzry，血压弹框分开为收缩压和舒张压
+      if (this.sheetInfo.sheetType === 'common_gzry') {
+        const bloodPressure = this.fixedList.bloodPressure
+        if (bloodPressure.value && bloodPressure.value.includes('/')) {
+          const [fieldOne, fieldTwo] = bloodPressure.value.split('/')
+          this.fixedList.fieldOne.value = fieldOne
+          this.fixedList.fieldTwo.value = fieldTwo
+        } else {
+          this.fixedList.fieldOne.value = bloodPressure.value
+        }
+        delete this.fixedList.bloodPressure
+      }
       let tab = config.tab;
-      this.isMedication=  config.tab;
       // 特殊记录组合
       let doc = "";
       for (let i = 0; i < record.length; i++) {
@@ -1628,31 +1545,28 @@ export default {
       this.foodVal = foodStr;
         this.recordDate =
         config.recordDate ||
-        record[0].find((item) => item.key == "recordDate").value || ''
+        record[0].find((item) => item.key == "recordDate").value || ""
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj', 'zhzxy'].includes(this.HOSPITAL_ID)) {
-        const itemListTime = config.recordDate ||
+      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll'].includes(this.HOSPITAL_ID)) {
+        const firstDate = record[0].find((item) => item.key == "recordDate")
+        const itemListTime = config.recordDate || firstDate.value
           record[0].find((item) => item.key == "recordDate").value
         if(!itemListTime){
-          if (!(
-        record[0].find((item) => item.key == "recordMonth").value)) {
-          this.staticObj.recordMonth = moment().format('MM-DD');
-          if (!(
-            record[0].find((item) => item.key == "recordHour").value)) {
+          const addRowDate = record[0].find((item) => item.key == "recordMonth").addRowDate
+          if (!(record[0].find((item) => item.key == "recordMonth").value)) {
+            this.staticObj.recordMonth = addRowDate || moment().format('MM-DD');
+          if (!(record[0].find((item) => item.key == "recordHour").value)) {
             this.staticObj.recordHour = moment().format('HH:mm');
           }
-          if (!(
-            record[0].find((item) => item.key == "recordDate").value)) {
+          if (!(record[0].find((item) => item.key == "recordDate").value)) {
             this.staticObj.recordDate = moment().format('YYYY-MM-DD HH:mm');
           }
         }
         } else {
-          if (!(
-            record[0].find((item) => item.key == "recordMonth").value)) {
+          if (!(record[0].find((item) => item.key == "recordMonth").value)) {
             this.staticObj.recordMonth = moment(itemListTime).format('MM-DD');
           }
-          if (!(
-            record[0].find((item) => item.key == "recordHour").value)) {
+          if (!(record[0].find((item) => item.key == "recordHour").value)) {
             this.staticObj.recordHour = moment(itemListTime).format('HH:mm');
           }
 
@@ -1660,7 +1574,6 @@ export default {
 
 
       }
-
 
       //肺科特别需求。补记时间另起一行
       if (this.HOSPITAL_ID == "whfk" && doc.split("补记时间").length == 2) {
@@ -1694,11 +1607,7 @@ export default {
           }
         }
       }
-      if(this.isMedication){
-        this.drugSyncShow=true;
-      }else{
-        this.$refs.modal.open();
-      } 
+      this.$refs.modal.open();
       this.check = [
         false,
         false,
@@ -1742,7 +1651,6 @@ export default {
     // 处理特殊字符转换函数
     htmlEscape(str) {
       let reg = new RegExp(/&#44;/g);
-      console.log(str);
       return String(str)
         .replace(/&amp;/g, "&")
         .replace(/&quot;/g, '"')
@@ -1845,7 +1753,7 @@ export default {
       if (this.HOSPITAL_ID == "lingcheng" || this.HOSPITAL_ID == "hengli") {
         okLength = 46;
       } else if (this.sheetInfo.sheetType === "common_wj") {
-        okLength = 40;
+        okLength = 41;
       } else {
         okLength = 23;
       }
@@ -1992,8 +1900,9 @@ export default {
       if (this.isSaving) {
         return;
       }
-      if (this.HOSPITAL_ID == "foshanrenyi") {
+      if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zhzxy") {
         // 佛山市一，护记弹窗保存有换行\n,所以要全部清理。不然textarea显示有问题
+        // 珠海中西医 弹窗保存会复制病例过来会有换行。所以全部清理
         this.doc = this.doc.replace(/\n/gi, "");
       }
       if (type != "asyncVisitedData" && !this.staticObj.recordHour) {
@@ -2039,8 +1948,6 @@ export default {
           foodResult.push(foodText);
         }
       }
-
-      // console.log(foodResult,"foodResult")
       if (
         this.HOSPITAL_ID != "weixian" &&
         this.sheetInfo.sheetType != "special" &&
@@ -2203,7 +2110,8 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType === "nursingrecords_zxy" ||
-              this.sheetInfo.sheetType === "internal_eval_weihai"
+              this.sheetInfo.sheetType === "internal_eval_weihai" ||
+              this.sheetInfo.sheetType === "babymilk_ytll"
             ) {
               if (GetLength(text) > 54) {
                 result.push(text);
@@ -2218,7 +2126,10 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "common_wj") {
+            } else if (
+              this.sheetInfo.sheetType === "common_wj" ||
+              this.sheetInfo.sheetType === "babyarea_fs"
+            ) {
               if (GetLength(text) > 27) {
                 result.push(text);
                 text = allDoc[i];
@@ -2290,15 +2201,29 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "nurse_jew"||this.sheetInfo.sheetType === "danger_nurse_jew") {
+            } else if (this.sheetInfo.sheetType === "nurse_jew"||this.sheetInfo.sheetType === "danger_nurse_jew"||this.sheetInfo.sheetType === "NICU_fs") {
               if (GetLength(text) > 34) {
                 result.push(text);
                 text = allDoc[i];
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "icu_yz" ) {
+            } else if (this.sheetInfo.sheetType === "icu_yz" || this.sheetInfo.sheetType === "prenatal_ytll") {
               if (GetLength(text) > 38) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if ( this.sheetInfo.sheetType === "premiumcare_ytll") {
+              if (GetLength(text) > 36) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            }else if (this.sheetInfo.sheetType == "nursing_qhwy") {
+              if (GetLength(text) > 50) {
                 result.push(text);
                 text = allDoc[i];
               } else {
@@ -2315,8 +2240,6 @@ export default {
           }
         }
       }
-
-      console.log("GetLength", result);
       if (text) {
         result.push(text);
       }
@@ -2421,6 +2344,23 @@ export default {
             "mergeTr2",
             mergeTr(this.record[0], this.staticObj, this.fixedList)
           );
+          // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
+          if (this.sheetInfo.sheetType === 'common_gzry') {
+            const fieldOne = this.fixedList.fieldOne
+            const fieldTwo = this.fixedList.fieldTwo
+            let bloodPressure = ''
+            if (fieldOne.value && fieldTwo.value) {
+              bloodPressure = fieldOne.value + '/' + fieldTwo.value
+            } else {
+              bloodPressure = fieldOne.value || fieldTwo.value
+            }
+            this.fixedList.bloodPressure = {
+              ...fieldOne,
+              key: 'bloodPressure',
+              name: '血压',
+              value: bloodPressure
+            }
+          }
           mergeTr(this.record[0], this.staticObj, this.fixedList);
         }
         if (this.record[i]) {
@@ -2510,7 +2450,6 @@ export default {
     },
     //失去焦点
     handleInputBlur(e) {
-      console.log(this.blurIndex,"handleInputBlur")
       this.blurIndex = e.srcElement.selectionStart;
     },
     /**打开弹窗 */
@@ -2544,86 +2483,9 @@ export default {
       this.upOpenModalFromSpecial(true)
       this.$refs.zxdtbModal.open();
     },
-      // 查询数据
-    async onSearchData() {
-      const params = {
-        patientId: this.saveParams.patientId,
-        visitId: this.saveParams.visitId,
-        startDate: this.query.executeDate ? 
-          moment(this.query.executeDate[0]).format('YYYY-MM-DD HH:mm:ss') : '',
-        endDate: this.query.executeDate ? 
-          moment(this.query.executeDate[1]).format('YYYY-MM-DD HH:mm:ss') : '',
-        executeType: this.query.type,
-        executeStatus: 4,
-        intensiveSync: this.query.intensiveSync,
-      }
-      try {
-        this.loading = true
-        const result = await getExecuteData(params)
-        this.tableData = result.data.data.map(item => {
-          return {
-            ...item,
-            executeDate: moment(item.executeDateTime).format('YYYY-MM-DD'),
-            executeTime: moment(item.executeDateTime).format('HH:mm'),
-          }
-        })
-        // 已同步数据默认选中
-        this.$nextTick(() => {
-          this.tableData.forEach(item => {
-            if (item.intensiveSync === '已同步') {
-              this.$refs.executeTb.toggleRowSelection(item, true)
-            }
-          })
-        })
-        this.loading= false
-      } catch (e) {
-        throw new Error('获取数据失败')
-      }
-    },
-    // 未同步记录
-    nonSyncRecord(row, index) {
-      // console.log('row', row)
-      return row.intensiveSync === '未同步'
-    },
-    // 勾选
-    onSelectChange(selection) {
-      this.syncList = selection
-    },
-    // 确定
-    async confirmSync() {
-      // formType: 重症单为 intensive，评估单为 eval，护理记录单为 record
-      const params = {
-        formId: this.saveParams.id,
-        formType: 'intensive',
-        syncType: '执行单同步',
-        list: this.syncList.map(item => item.barCode)
-      }
-      try {
-        const res = await saveSyncRecords(params)
-        if (res.data.code == '200') {
-          this.$message({
-            type: "success",
-            message: "同步成功",
-          });
-        }
-      } catch (e) {
-        throw new Error('同步失败')
-      }
-      this.$emit('onConfirmSync', this.syncList)
-      this.close()
-    },
-    // 关闭
-    close() {
-      this.drugSyncShow = false
-      this.loading = false
-      this.syncList = []
-      this.query.executeDate = [
-        moment().format('YYYY-MM-DD 00:00:00'), 
-        moment().format('YYYY-MM-DD 23:59:59')
-      ]
-      this.query.type = ""
-      this.query.intensiveSync = '已同步'
-    },
+    openSpecialSymbols() {
+      this.$refs.templateSlideFsry.openSpecialSymbols();
+    }
   },
   mounted() {
     // 打开特殊情况

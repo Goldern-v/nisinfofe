@@ -23,6 +23,7 @@
 
 <script>
 import bus from "vue-happy-bus";
+import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo/index.js'
 import TableInput from "./TableInput";
 export default {
   name: "checkBox",
@@ -68,13 +69,14 @@ export default {
       }
 
       this.model[child.name] = arr.join(",");
-
-      console.log(this.model);
+      sheetInfo.relObj = {...this.model}
     }
   },
   watch: {
-    model() {
-      this.item.children.map(chil => {
+    model: {
+      deep:true,
+      handler(){
+        this.item.children.map(chil => {
         chil.addClass = chil.addClass == "is-checked" ? "" : chil.addClass;
         if (this.model[chil.name]) {
           let arr = this.model[chil.name].split(",");
@@ -83,6 +85,7 @@ export default {
           }
         }
       });
+      }
     }
   }
 };

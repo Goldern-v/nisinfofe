@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     openPrintModel(event){
-      if(event.which==3 && this.HOSPITAL_ID=="huadu"){
+      if(event.which==3 &&  ['huadu','dglb'].includes(this.HOSPITAL_ID) ){
         this.$emit("itemMouseRight",event)
         event.preventDefault();
       }

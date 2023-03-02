@@ -9,6 +9,7 @@ switch (HOSPITAL_ID) {
     hospitalExecute = "hisLingChengExecute";
     break;
   case "liaocheng":
+  case "925":
     hospitalExecute = "hisLiaoChengExecute";
     break;
   case "zhongshanqi":

@@ -113,7 +113,7 @@
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-hulijiludan"></i> 护理文书
               </el-row>
-              
+
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   :class="{ active: $route.path == '/sheetHospitalAdmission' }"
@@ -222,7 +222,11 @@
                 <i class="nursingAssessment"></i> 护理评估单
               </el-row>
             </router-link>
-
+            <router-link to="/sugarPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="bloodSugar"></i> 血糖
+              </el-row>
+            </router-link>
             <router-link to="/sheetPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理记录单
