@@ -1,0 +1,147 @@
+#sheetPagePrint {
+//     overflow:hidden;
+width: 100%;
+height: 100%;
+    pointer-events: none;
+    background: #fff !important;
+  .contant{
+    margin :0 auto !important;
+    box-sizing:content-box;
+  }
+  .add-row {
+      display: none;
+    }
+  input, textarea {
+    color: #000 !important;
+  }
+  .inPreview * {
+    color: blue !important;
+  }
+  .canSet{
+    color:#000;
+  }
+
+td[datakey="signerNo"] {
+  display: table-cell !important;
+}
+td[datakey="sign"] {
+  display :none !important;
+}
+td[datakey='sign2'] {
+  display: none !important;
+}
+td[datakey="audit"] {
+  display :none !important;
+}
+td[datakey="auditorNo"] {
+  display: none !important
+}
+
+  th[dataname='护士签名'] {
+    width: 90px !important;
+  }
+  th[dataname='签名'] {
+    width: 60px !important;
+  }
+  th[dataname='检查者'] {
+    width: 60px !important;
+  }
+  th[dataname='审核签名'] {
+    display: none !important;
+  }
+
+  th[dataname='记录人签名']:first-child{
+    width: 90px !important;
+  }
+  th[dataname='记录人签名']{
+    width: 90px !important;
+  }
+  th[dataname='护士<br>签名']{
+    width: 90px !important;
+  }
+  th[dataname='带教<br/>护士']{
+    display: none !important;
+  }
+.sign-img {
+    width:100%
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width :0;
+      flex :1;
+      height: 30px;
+      object-fit: contain;
+      margin :0 -5px
+    }
+    span {
+      font-size:20px;
+      color:#000;
+      margin:0 -1px;
+    }
+  }
+  .fullFill {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+.no-print {
+  display:none !important;
+}
+.border-none {
+  border: 0 !important;
+}
+.head-sign-text {
+    display: none;
+  }
+  .head-sign-img {
+    display: inline-block;
+  }
+ [datakey="description"] {
+   text-align: left;
+ }
+
+
+}
+@media print {
+  #sheetPagePrint {
+    .sheet-page-container {
+      box-shadow: 0 0 0 !important;
+      background: #fff;
+    }
+    .his-logo {
+      top: 0 !important;
+      left: 0 !important;
+      }
+    .header-con h1 {
+      margin-top: 0 !important;
+      }
+      .iframe > div {
+      page-break-after:always;
+      box-sizing: border-box;
+    }
+    .el-checkbox__inner::after {
+      border-color: #000;
+    }
+    }
+    strong {
+    font-family: "SimHei" !important;
+    font-size: 13px !important;
+  }
+}
+@media print {
+  @page {
+  margin:0mm 10mm
+}
+}
+body {
+  background: #fff;
+}
+
+
