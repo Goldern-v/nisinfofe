@@ -138,7 +138,7 @@ export default [
   { key: 'cvp', event: keyf1, value: '', next: '', name: 'CVP',textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'vas', event: keyf1, value: '', next: '', name: '疼痛VAS评分',autoComplete: { data: VAS },textarea: { width: 25 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量项目',autoComplete: { data: food} ,
-    textarea: { width: 40  }, change: (e, td) => limitChange(e, td, 8) },
+    textarea: { width: 50  }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
 
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量项目',autoComplete: { data: outup },textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
