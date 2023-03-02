@@ -53,7 +53,7 @@ export default {
         , 
         mid:  
             [
-              {"name": "项<br/>目", "colspan": "1", "rowspan": "1"}, 
+              {"name": "项<br/>目", "colspan": "1", "rowspan": "1","style":{"minWidth":"50px","maxWidth":"50px"}}, 
               {"name": "量", "colspan": "1", "rowspan": "1"}, 
               {"name": "项<br/>目", "colspan": "1", "rowspan": "1"}, 
               {"name": "量", "colspan": "1", "rowspan": "1"}, 
