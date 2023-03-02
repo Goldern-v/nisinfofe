@@ -5,7 +5,7 @@
       <slot name="loading" v-if="vLoading">
         <div v-loading="vLoading" element-loading-text="护记拼命加载中" class="fullFill"></div>
       </slot>
-      <div v-else-if="errorFlag" class="fullFill">{{errorMessage }}</div>
+      <div v-else-if="errorFlag" class="fullFill">{{ errorMessage }}</div>
       <div ref="sheetTableContain" class="iframe" :class="HOSPITAL_ID === 'hengli' ? 'reduceGap' : ''" v-else>
         <sheetTable v-for="(item, index) in filterSheetModel" :key="index" :data="item.data" :index="item.index"
           :length="item.length"></sheetTable>
@@ -19,13 +19,14 @@
 import sheetTable from "@/Page/sheet-page/components/sheetTable/sheetTable.vue";
 import sheetModel, {
   initSheetPage,
-  cleanData
+  cleanData,
 } from "@/Page/sheet-page/sheet.js";
 import {
   showBodyByPage,
   showTitle,
   findListByBlockId,
   markList,
+  getHomePage,
   getBlock,
 } from "../api/api";
 import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
@@ -108,38 +109,48 @@ export default {
       if (startPageIndex == undefined || endPageIndex == undefined || !id) {
         return this.errorFlag = true
       }
-      startPageIndex = startPageIndex - 1 >= 0 ? startPageIndex - 1 : 0
-      endPageIndex = endPageIndex - 1 >= 0 ? endPageIndex - 1 : 0
-      getBlock($params.id).then(res_b => {
-        this.sheetInfo.selectBlock = res_b.data.data;
-        this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
-        let fnArr = [
-          showTitle(startPageIndex, endPageIndex),
-          showBodyByPage(startPageIndex, endPageIndex),
-          markList(),
-        ]
-        // 佛山市一 获取自定义标题数据
-        if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
-          fnArr.shift()
-          fnArr.unshift(findListByBlockId(startPageIndex, endPageIndex))
-        }
-        Promise.all(fnArr).then(res => {
-          let titleData = res[0].data.data;
-          let bodyData = res[1].data.data;
-          let markData = [];
-          let pageData = res[2].data.data;
-          this.vLoading = false
-          this.$nextTick(() => {
-            initSheetPage(titleData, bodyData, markData);
-            sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
-            this.formatPrintCriterion()
+      getHomePage(id).then((res_a) => {
+        /**
+         * 这个接口是获取护记的汇总信息的 ，indexNo是设置的起始页
+         * 传入的页码  要先减去起始页 再请求  比如户籍第一页 但是设置起始页是10  但是后端识别是 0
+         * 所以就是 10 - 10 = 0
+         * */
+        sheetInfo.sheetStartPage = res_a.data.data.indexNo
+        const start = startPageIndex - sheetInfo.sheetStartPage
+        const end = endPageIndex - sheetInfo.sheetStartPage
+        startPageIndex = start ? start : 0
+        endPageIndex = end ? end : 0
+        getBlock($params.id).then(res_b => {
+          this.sheetInfo.selectBlock = res_b.data.data;
+          this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+          let fnArr = [
+            showTitle(startPageIndex, endPageIndex),
+            showBodyByPage(startPageIndex, endPageIndex),
+            markList(),
+          ]
+          // 佛山市一 获取自定义标题数据
+          if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+            fnArr.shift()
+            fnArr.unshift(findListByBlockId(startPageIndex, endPageIndex))
+          }
+          Promise.all(fnArr).then(res => {
+            let titleData = res[0].data.data;
+            let bodyData = res[1].data.data;
+            let markData = [];
+            let pageData = res[2].data.data;
+            this.vLoading = false
+            this.$nextTick(() => {
+              initSheetPage(titleData, bodyData, markData);
+              sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
+              this.formatPrintCriterion()
+            });
           });
-        });
-      }).catch((err)=>{
+        })
+      }).catch((err) => {
           this.vLoading = false
           this.errorFlag = true
-          this.errorMessage = err.data.desc
-      });
+          this.errorMessage =`请检查护记ID！${err.data.desc}或者护记ID错误`
+        });
     },
     formatPrintCriterion() {
       this.$nextTick(() => {

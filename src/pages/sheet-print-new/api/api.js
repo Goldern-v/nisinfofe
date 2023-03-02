@@ -48,8 +48,8 @@ export const blockList = (patientId, visitId, deptCode) => {
   });
 };
 // 获取起始页
-export const getHomePage = () => {
-    return axios.get(`${apiPath}record/homePage/${sheetInfo.selectBlock.id}/get`)
+export const getHomePage = (id) => {
+    return axios.get(`${apiPath}record/homePage/${id}/get`)
 }
 // 获取block信息
 export const getBlock = (id) => {
