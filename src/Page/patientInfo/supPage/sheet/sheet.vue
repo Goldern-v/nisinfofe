@@ -388,7 +388,7 @@ export default {
       if(startPageIndex == null||endPageIndex == null) return
       this.tableLoading = true;
       sheetInfo.isDone = false;
-      if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
+      if(["guizhou", 'huadu', '925', 'wujing'].includes(this.HOSPITAL_ID)){
         this.isLoad=false
       }
       if (!(this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id)) {
@@ -411,8 +411,8 @@ export default {
       }
       $(".red-border").removeClass("red-border");
       return Promise.all(fnArr).then(res => {
-        if(this.HOSPITAL_ID=='guizhou'||this.HOSPITAL_ID=='huadu'){
-          this.isLoad=true
+        if(["guizhou", 'huadu', '925', 'wujing'].includes(this.HOSPITAL_ID)){
+          this.isLoad = true
         }
         let titleData = res[0].data.data;
         this.sheetTitleData = res[0].data.data || {};

@@ -3,9 +3,12 @@
   <div>
     <div class="contain">
       <el-button-group>
-        <el-button type="primary" @click="onPrint()">打印当周</el-button>
-        <el-button type="primary" @click="printAll()">批量打印</el-button>
-        <el-button type="primary" @click="openDetailChat()" v-if="['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)">曲线详情</el-button>
+        <el-button size="mini" type="primary" @click="onPrint()">打印当周</el-button>
+        <el-button size="mini" type="primary" @click="printAll()">批量打印</el-button>
+        <el-button size="mini" type="primary" @click="openDetailChat()" v-if="['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)">曲线详情</el-button>
+        <el-button size="mini" type="primary" @click="onSyncMedical()" v-if="['lyxrm'].includes(this.HOSPITAL_ID)">
+          同步麦迪斯顿
+        </el-button>
       </el-button-group>
       <!-- <div class="newBorn">
         <div @click="nomalModel()" class="nomal">默认体温单</div>
@@ -104,7 +107,7 @@ import nullBg from "../../../../components/null/null-bg";
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 import bus from "vue-happy-bus";
 import moment from 'moment';
-
+import { syncMedical } from './api/api.js'
 
 export default {
   props: {
@@ -184,6 +187,17 @@ export default {
           // this.outNetUrl /* 外网 */
         );
       }, 1500);
+    },
+    // 同步麦迪斯顿
+    async onSyncMedical() {
+      try {
+        const res = await syncMedical()
+        if (res.data.code == '200') {
+          this.$message.success('同步成功')
+        }
+      } catch (e) {
+        this.$message.error('同步失败')
+      }
     },
     toNext() {
       if (this.currentPage === this.pageTotal) return;
