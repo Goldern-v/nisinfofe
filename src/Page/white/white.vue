@@ -100,6 +100,9 @@ export default {
       this.pageLoading = true;
       queryByDeptCode(this.deptCode).then(res => {
         this.deptInfo = res.data.data;
+        if(this.deptInfo.message&&this.deptInfo.message!==''){
+          this.deptInfo.message = this.deptInfo.message.replace("<br/>", "\n")
+        }
         this.pageLoading = false;
         setTimeout(() => {
           this.isSave = true;
