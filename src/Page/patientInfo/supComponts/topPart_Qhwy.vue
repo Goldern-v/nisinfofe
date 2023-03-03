@@ -75,7 +75,7 @@
       >
         <div class="nav-item">体温单</div>
       </router-link>
-      <router-link
+      <!-- <router-link
         :to="{
           path: '/hospitalEval',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -83,7 +83,7 @@
         tag="span"
       >
         <div class="nav-item">住院日常评估</div>
-      </router-link>
+      </router-link> -->
       <router-link
         :to="{
           path: '/diagnosis',

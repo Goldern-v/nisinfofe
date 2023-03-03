@@ -179,7 +179,7 @@ export function delSheetPage(index, callback) {
     }
 
     // 临邑日期时间禁用符号，识别该行已经被占用
-    if (['lyxrm', 'whhk', 'stmz','foshanrenyi'].includes(process.env.HOSPITAL_ID)) {
+    if (['whhk', 'stmz','foshanrenyi'].includes(process.env.HOSPITAL_ID)) {
       if (listData[nowX]) {
         // 第一条记录
         const firstEqualIndex = listData.findIndex(
@@ -227,6 +227,7 @@ export function delSheetPage(index, callback) {
         listData[nowX])||
       (process.env.HOSPITAL_ID == "sdlj" && listData && listData[nowX])||
       (process.env.HOSPITAL_ID == "dglb" && listData && listData[nowX])||
+      (process.env.HOSPITAL_ID == "lyxrm" && listData && listData[nowX])||
       (process.env.HOSPITAL_ID == "qhwy" && listData && listData[nowX])
     ) {
       return !listData[nowX].canModify;

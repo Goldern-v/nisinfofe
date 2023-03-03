@@ -1107,14 +1107,14 @@
     ],
     "I001366": [
         {
-            "code": "是",
-            "name": "是",
-            "pinyin": "s"
+            "code": "有",
+            "name": "有",
+            "pinyin": "you"
         },
         {
-            "code": "否",
-            "name": "否",
-            "pinyin": "f"
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu"
         }
     ],
     "I001367": [

@@ -17,7 +17,8 @@
               'ytll',
               'whsl',
               'nfyksdyy',
-              'nanfangzhongxiyi'
+              'nanfangzhongxiyi',
+              'qhwy'
             ].includes(HOSPITAL_ID)
           "
         >
@@ -75,6 +76,7 @@
               'foshanrenyi',
               'whfk',
               'lyxrm',
+              'qhwy',
               'zhzxy',
               'whhk',
               '925',
@@ -281,6 +283,7 @@
                 'zhzxy',
                 'whfk',
                 'lyxrm',
+                'qhwy',
                 'whhk',
                 '925',
                 'gdtj',
@@ -414,7 +417,7 @@ export default {
       bus: bus(this),
       formlist: {},
       yizhuTypeItem:"临时",
-      executeType: ["liaocheng", "lyxrm", "whhk",'ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)
+      executeType: ["liaocheng", "lyxrm", "qhwy","whhk",'ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)
         ? "输液"
         : "",
       repeatIndicator: "",
@@ -476,6 +479,7 @@ export default {
           'zhzxy',
           "whfk",
           "lyxrm",
+          "qhwy",
           "whhk",
           '925',
           'stmz',
@@ -519,7 +523,7 @@ export default {
           return item;
         });
       }
-      if (["foshanrenyi",'zhzxy', "lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
+      if (["foshanrenyi",'zhzxy', "lyxrm","qhwy", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.foodSize = item.dosage;
           return item;
@@ -638,7 +642,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", 'zhzxy',"lyxrm","qhwy", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
@@ -774,7 +778,7 @@ export default {
       ]
     },
     allType() {
-      if (["liaocheng", "lyxrm", "whhk", 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (["liaocheng", "lyxrm", "qhwy","whhk", 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",

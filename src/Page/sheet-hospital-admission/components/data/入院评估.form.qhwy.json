@@ -1286,6 +1286,16 @@
               "style": "color:red"
             }
           ]
+        },
+        {
+          "name": "I001366",
+          "type": "select",
+          "title": "长期用药",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
         }
       ]
     },
@@ -2569,23 +2579,16 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I001017",
-          "type": "input",
-          "labelTitle": "出院日期",
-          "suffixDesc": "",
-          "placeholder": "",
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:100%!important",
-          "style": "width:99%",
-          "elementStyle": "width:192px",
-          "class": null,
-          "readOnly": false,
-          "disabled": false,
-          "labelLeft": true,
+          "name": "I003001",
+          "type": "datePicker",
+          "title": "评估时间",
+          "titleStyle": "width:90px!important;margin:0;",
           "hiddenTips": true,
-          "tdProps": {
-            "colspan": "2"
-          }
+          "value": "",
+          "placeholder": "评估时间",
+          "style": "width:145px",
+          "class": null,
+          "readOnly": null
         },
         {
           "name": "I001016",

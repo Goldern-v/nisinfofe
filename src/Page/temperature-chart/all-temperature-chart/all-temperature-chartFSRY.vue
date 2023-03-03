@@ -828,6 +828,7 @@ export default {
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
             case "zhzxy":
+            case 'qhwy':
               if (this.getHours() >= 1 && this.getHours() <= 3) {
                 return "03";
               }
@@ -874,7 +875,6 @@ export default {
       timesPoint: (() => {
         switch (this.HOSPITAL_ID) {
           case 'foshanrenyi' :
-          case 'qhwy' :
           return [
               {
                 id: 0,
@@ -902,6 +902,7 @@ export default {
               }
             ];
             case 'zhzxy':
+            case 'qhwy':
             return [
               {
                 id: 0,

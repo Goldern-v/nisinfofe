@@ -58,7 +58,7 @@
               inpNo: item.inpNo,
             },
           }"
-          :class="{active: makePatient? isActive(item) :false ,lyxrmActive: ['lyxrm', 'stmz'].includes(HOSPITAL_ID)&&makePatient? isActive(item) :false}"
+          :class="{active: makePatient? isActive(item) :false ,lyxrmActive: ['lyxrm', 'stmz','925','qhwy'].includes(HOSPITAL_ID)&&makePatient? isActive(item) :false}"
           @click.native="()=>{
             toUnlock(item)
             selectPatient(item)}"
@@ -76,7 +76,7 @@
             v-else
           />
           <div class="name" flex-box="1">{{ item.name }}  <span class="nursingClass"
-           v-if="['lyxrm', 'stmz'].includes(HOSPITAL_ID)"
+           v-if="['lyxrm', 'stmz','925','qhwy'].includes(HOSPITAL_ID)"
            :style="{ color:levelColor[item.nursingClass],fontSize:'12px' }"
           >{{item.nursingClass&&item.nursingClass.replace('护理','')}}</span></div>
 
