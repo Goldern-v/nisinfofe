@@ -29,8 +29,9 @@ let tmqkList = ["破", "存", "破？", "存？"];
 let xlgdsList = ["s-4", "s-3", "s-2", "s-1", "s=0", "s+1", "s+2", "s+3"];
 let jcffList = ["pv", "肛查"];
 let autoComplete1 = ['√','/√','√/√','无','有','减轻','正常','减退','丧失' ,'0级','I级','II级','III级','IV级','V级','清','浑浊','沉渣淡黄','深黄','茶色','乳白','淡红']
-let Output = ['大便','尿量','阴道出血','引流量','胃管','尿管','伤口引流管','胸腔引流管','腹腔管','鼻胆管','PTBD管','PTGD管','腹腔双套管','盆腔引流管','肛管','引流管']
+let Output = ['大便','尿量','阴道出血量','引流量','胃液量','伤口引流量','胸腔引流量','腹腔液量','盆腔引流量']
 let Input = ['输入液量','进食量']
+let colorCharacter = ['深红色/','暗红色/','鲜红色/']
 
 export default [
   { hidden: true, key: "recordDate", value: "" },
@@ -154,6 +155,7 @@ export default [
     next: "",
     name: "颜色/性状",
     textarea: { width: 40 },
+    autoComplete: { data: colorCharacter },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
