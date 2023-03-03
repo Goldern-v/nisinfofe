@@ -214,6 +214,7 @@ export default {
         case "nanfangzhongxiyi":
           return temperatureNFZXY;
         case "foshanrenyi":
+        case 'nfyksdyy':
           return temperatureFSSY;
         case "xiegang":
         case "qhwy":
