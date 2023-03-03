@@ -47,7 +47,13 @@ export const saveHomePage = (patientId, visitId, indexNo) => {
     indexNo
   });
 };
-
+// 新建的时候保存起始页
+export const createNewHomePage = (blockId, indexNo) => {
+  return axios.post(`${apiPath}record/homePage/save`, {
+    blockId,
+    indexNo
+  });
+};
 // 获取起始页 有时候sheetInfo没有响应  所以加了判断  预防报错
 export const getHomePage = (patientId, visitId) => {
   if(sheetInfo.selectBlock.id)

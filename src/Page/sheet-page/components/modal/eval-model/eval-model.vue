@@ -98,15 +98,15 @@
             <div class="midEditHeader">
               护记时间：
               <div class="midEditInput">
-                <template  v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='xiegang'">
-                 <el-date-picker
-                   @change="changeEvalDate"
-                   v-model="value1"
-                   type="datetime"
-                   placeholder="选择日期时间"
+                <template  v-if="editTimeHosipital.includes(HOSPITAL_ID)">
+                <el-date-picker
+                  @change="changeEvalDate"
+                  v-model="value1"
+                  type="datetime"
+                  placeholder="选择日期时间"
                     default-time="请选择日期时间"
-                 >
-               </el-date-picker>
+                >
+              </el-date-picker>
                 </template>
                 <input
                   v-else
@@ -115,7 +115,7 @@
                   suffix-icon="el-icon-date"
                   :value="rowData.evalDate"
                 >
-                <i class="el-icon-time" v-if="HOSPITAL_ID!=='liaocheng'&&HOSPITAL_ID!=='xiegang'"></i>
+                <i class="el-icon-time" v-if="!editTimeHosipital.includes(this.HOSPITAL_ID)"></i>
               </div>
             </div>
             <div>
@@ -154,11 +154,12 @@ export default {
       bus: bus(this),
       startData: "",
       endData: "",
+      editTimeHosipital:['xiegang','liaocheng','zhzxy'],//同步时间允许修改的医院
       tableData: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
       rightTime: "",
       rowData: { evalDate: "", syncToRecordDesc: "", creatorName: "" },
       tableLoading: false,
-      value1:"",
+      value1:''
     };
   },
   computed: {
@@ -194,7 +195,6 @@ export default {
     queryList() {
       let startData = moment(this.startData).format("YYYY-MM-DD");
       let endData = moment(this.endData).format("YYYY-MM-DD");
-      console.log(startData, endData);
       this.tableLoading = true;
       getListAssessment(startData, endData).then(res => {
         if (res.data.code == "200" && res.data.data) {
@@ -217,7 +217,7 @@ export default {
       });
     },
     clickTr(rowData, event) {
-      if(this.HOSPITAL_ID==='liaocheng'||this.HOSPITAL_ID==='xiegang'){
+      if(editTimeHosipital.includes(this.HOSPITAL_ID)){
         const user=JSON.parse(localStorage.getItem("user"))
         this.rowData = {...rowData}
         if(this.HOSPITAL_ID==='liaocheng'){
