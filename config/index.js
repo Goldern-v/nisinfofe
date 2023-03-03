@@ -249,7 +249,7 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.1.54:9883'
       return 'http://119.97.229.206:9094'
     case 'dglb':
-      return 'http://219.131.126.38:9094'
+      return 'http://192.168.1.54:9866'
 
     // 威海市立
     case 'whsl':

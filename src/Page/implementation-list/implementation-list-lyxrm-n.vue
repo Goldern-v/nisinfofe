@@ -99,28 +99,11 @@
           v-model="patientName"
         ></el-input>
         <el-input
-          v-if="!isMultiBed"
           size="small"
           style="width: 75px;margin-right: 15px;"
           placeholder="输入床号进行搜索"
           v-model="bedLabel"
         ></el-input>
-        <el-select
-            v-else
-            v-model="bedLabels"
-            placeholder="请选择床号"
-            size="small"
-            style="width:180px"
-            multiple
-            @change="search"
-          >
-            <el-option
-              v-for="(v, i) in bedList"
-              :key="i"
-              :label="v"
-              :value="v"
-            />
-          </el-select>
         <el-input
           type="text"
           auto-complete="off"
@@ -287,8 +270,8 @@
 <script>
 import dTable from "./components/table/d-table-lyxrm-n";
 import pagination from "./components/common/pagination";
-import { getExecuteWithWardCodeLyxrm, getBedLabelByWardCode, } from "./api/index";
-import common from "@/common/mixin/common.mixin.js";
+import { getExecuteWithWardCodeLyxrm } from "./api/index";
+import common from "@/common/mixin/common.mixin.js"; 
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
@@ -359,7 +342,7 @@ export default {
           value: "其他"
         },
       ],
-      statusList: [
+      statusList: [ 
         {
           id: "3",
           name: "全部"
@@ -377,7 +360,7 @@ export default {
           name: "未执行"
         },
       ],
-      whslstatusList: [
+      whslstatusList: [ 
         {
           id: "",
           name: "全部"
@@ -396,8 +379,6 @@ export default {
         },
       ],
       workClassList:["白班","夜班"],
-      bedList: [],
-      bedLabels: [],
       // 核对状态
       dispenseFlag: '',
       dispenseFlagList: [
@@ -414,8 +395,6 @@ export default {
           name: '已核对'
         },
       ],
-      // 是否床号为多选
-      isMultiBed: ['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)
     };
   },
   methods: {
@@ -443,12 +422,6 @@ export default {
         administration: this.administration, // //途径
         dispenseFlag: this.dispenseFlag,
       };
-
-      if (this.isMultiBed) {
-        obj.bedLabel = this.bedLabels.join(",") || "";
-      } else {
-        obj.bedLabel = this.bedLabel ? this.bedLabel : "";
-      }
 
       getExecuteWithWardCodeLyxrm(obj).then(res => {
         // let children = [],
@@ -542,15 +515,6 @@ export default {
         }
       }).catch((err)=> this.pageLoading = false);
     },
-     /**获取当前住院患者 */
-     async getBedList() {
-      try {
-        const res = await getBedLabelByWardCode(this.deptCode);
-        const { data } = res.data;
-        this.bedLabels = [];
-        this.bedList = data || [];
-      } catch (error) {}
-    },
     search() {
       this.page.pageIndex = 1;
       this.onLoad();
@@ -568,18 +532,9 @@ export default {
     this.bus.$on("loadImplementationList", () => {
       this.onLoad();
     });
-    if (this.isMultiBed) {
-      this.getBedList();
-    }
   },
   watch: {
     deptCode() {
-      if (this.isMultiBed) {
-        this.getBedList().then((res) => {
-          this.search();
-        });
-        return;
-      }
       this.search();
     },
     startDate() {

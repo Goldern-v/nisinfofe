@@ -17,11 +17,11 @@
           <WhiteButton class="button" icon="icon-search"/>
         </div>
       </div>
-      <div class="list">
+      <div class="list" >
         <TemplateItem
           v-for="item of filteredlist"
           :key="item.id"
-          :data="item"
+          :listData="item"
           @click="onItemClick"
           @edit="onItemEdit"
           @remove="onItemRemove"
@@ -73,7 +73,7 @@
 
         const res2 = await apis.listType(this.deptCode)
         this.types = res2.data.data
-        this.title = ''
+        // this.title = ''
       },
       open () {
         this.$refs.panel.open()

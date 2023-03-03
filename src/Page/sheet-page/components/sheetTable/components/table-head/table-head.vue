@@ -83,44 +83,46 @@ export default {
       if (this.index == 0) {
         return sheetInfo.relObj.age || this.patientInfo.age;
       } else {
-        let real_birthday;
-        let now_time = moment(
-          sheetData[this.index].bodyModel[0].find(
-            item => item.key == "recordDate"
-          ).value
-        );
-        if (!now_time.valueOf())
-          return sheetInfo.relObj.age || this.patientInfo.age;
-        /** 推导实际出生日期 */
-        if (sheetInfo.relObj.age.indexOf("小时") > -1) {
-          let h = Number(sheetInfo.relObj.age.replace("小时", ""));
-          real_birthday = moment(
-            sheetData[0].bodyModel[0].find(item => item.key == "recordDate")
-              .value
-          ).subtract(h, "h");
+        if (sheetData[this.index]) {
+          let real_birthday;
+          let now_time = moment(
+            sheetData[this.index].bodyModel[0].find(
+              item => item.key == "recordDate"
+            ).value
+          );
+          if (!now_time.valueOf())
+            return sheetInfo.relObj.age || this.patientInfo.age;
+          /** 推导实际出生日期 */
+          if (sheetInfo.relObj.age.indexOf("小时") > -1) {
+            let h = Number(sheetInfo.relObj.age.replace("小时", ""));
+            real_birthday = moment(
+              sheetData[0].bodyModel[0].find(item => item.key == "recordDate")
+                .value
+            ).subtract(h, "h");
 
-          let diff = now_time.diff(real_birthday, "d");
-          if (diff == 0) {
-            return now_time.diff(real_birthday, "h") + "小时";
+            let diff = now_time.diff(real_birthday, "d");
+            if (diff == 0) {
+              return now_time.diff(real_birthday, "h") + "小时";
+            } else {
+              return diff + "天";
+            }
+          } else if (sheetInfo.relObj.age.indexOf("天") > -1) {
+            let d = Number(sheetInfo.relObj.age.replace("天", ""));
+            real_birthday = moment(
+              sheetData[0].bodyModel[0].find(item => item.key == "recordDate")
+                .value
+            ).subtract(d, "d");
+            let diff = now_time.diff(real_birthday, "d");
+            if (sheetInfo.relObj.age.indexOf("月") > -1) {
+              let arr = sheetInfo.relObj.age.split("月");
+              let d = parseInt(arr[1]);
+              return arr[0] + "月" + (d + diff) + "天";
+            } else {
+              return diff + "天";
+            }
           } else {
-            return diff + "天";
+            return sheetInfo.relObj.age || this.patientInfo.age;
           }
-        } else if (sheetInfo.relObj.age.indexOf("天") > -1) {
-          let d = Number(sheetInfo.relObj.age.replace("天", ""));
-          real_birthday = moment(
-            sheetData[0].bodyModel[0].find(item => item.key == "recordDate")
-              .value
-          ).subtract(d, "d");
-          let diff = now_time.diff(real_birthday, "d");
-          if (sheetInfo.relObj.age.indexOf("月") > -1) {
-            let arr = sheetInfo.relObj.age.split("月");
-            let d = parseInt(arr[1]);
-            return arr[0] + "月" + (d + diff) + "天";
-          } else {
-            return diff + "天";
-          }
-        } else {
-          return sheetInfo.relObj.age || this.patientInfo.age;
         }
       }
     }

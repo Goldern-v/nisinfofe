@@ -1,9 +1,9 @@
 <template>
-  <div class="template-item" @click="onClick">
+  <div class="template-item" @click="onClick" >
     <div class="title">{{listData.title}}</div>
     <div class="content">{{listData.content}}</div>
     <div class="actions" @click.stop>
-      <ElTooltip content="编辑111" placement="bottom" effect="dark">
+      <ElTooltip content="编辑" placement="bottom" effect="dark">
         <i class="iconfont icon-hulijiludan" @click="onEdit"></i>
       </ElTooltip>
       <ElTooltip content="删除" placement="bottom" effect="dark">
@@ -16,7 +16,7 @@
 <script>
 export default {
   props: {
-    listData: Object
+    listData:Object
   },
   // data: () => ({}),
   methods: {
@@ -24,14 +24,13 @@ export default {
       this.$emit("click", this.listData);
     },
     onEdit() {
-      console.log(this.listData,99999)
-
       this.$emit("edit", this.listData);
     },
     onRemove() {
       this.$emit("remove", this.listData);
     }
-  }
+  },
+
 };
 </script>
 
