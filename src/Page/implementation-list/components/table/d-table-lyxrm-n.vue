@@ -591,6 +591,9 @@ export default {
     },
     // 补录
     backTracking(item) {
+      if(this.HOSPITAL_ID == '925'){
+        this.$refs.editModal.open(item,'补执行');
+      }else{
       this.$prompt("请输入补执行的原因", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -629,6 +632,7 @@ export default {
           });
         })
         .catch(() => {});
+      }
     },
     addRowClass(row) {
       if (row.row.nurseMemo) {

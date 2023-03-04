@@ -236,7 +236,7 @@ import {
       next: '',
       textarea:{ width:32},
       change: (e, td) => limitChange(e, td, 4),
-      autoComplete: { data: ['口腔护理','雾化吸入','膀胱冲洗','会阴擦洗','吸痰','鼻饲','IV','IM','Ⓗ']},
+      autoComplete: { data: ['口腔护理','雾化吸入','膀胱冲洗','会阴擦洗','吸痰','鼻饲','IV','IM','Ⓗ','ID','VD']},
     },
     {
       key: "custom", //自定义

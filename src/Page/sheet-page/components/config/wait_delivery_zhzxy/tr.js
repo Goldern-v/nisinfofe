@@ -174,6 +174,16 @@ export default [
     },
   },
   {
+    key: "fieldTwenty", //量(ml)
+    value: "",
+    event: keyf1,
+    name: "量(ml)",
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 55
+    },
+  },
+  {
     key: "fieldFifteen", //检查方式
     value: "",
     event: keyf1,
@@ -235,10 +245,10 @@ export default [
     key: "sign",
     value: ""
   },
-  {
-    key: "sign2",
-    value: ""
-  },
+  // {
+  //   key: "sign2",
+  //   value: ""
+  // },
   // {
   //   key: "audit",
   //   value: ""

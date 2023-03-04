@@ -162,6 +162,7 @@
 <script>
 import { templates, listRecord, inform, healthEdu } from "@/api/patientInfo";
 import commonMixin from "@/common/mixin/common.mixin";
+import {createNewHomePage} from '../../api/index.js'
 import { host } from "@/api/apiConfig";
 import bus from "vue-happy-bus";
 import { blockSave } from "../../api/index.js";
@@ -199,6 +200,20 @@ export default {
         this.selectData = item;
       }
     },
+    createNewPageSetPage(blockId,endPageIndex){
+      return new Promise((resolve, reject)=>{
+        createNewHomePage(blockId,endPageIndex).then((res)=>{
+          const resp = res.data.data
+          if(res.data.data == 200){
+            resolve(resp)
+          }else{
+            reject(resp)
+          }
+        }).catch((err)=>{
+          reject(err)
+        })
+      })
+    },
     create(data) {
       let item;
       if (data.formCode || data.recordCode) {
@@ -206,17 +221,25 @@ export default {
       } else {
         item = this.selectData;
       }
+      const sheetBlockList = this.$parent.sheetBlockList.map((list)=>{
+        return {sheetId:list.id,pageIndex:list.pageIndex,endPageIndex:list.endPageIndex}
+      })
       blockSave(
         this.patientInfo.patientId,
         this.patientInfo.visitId,
         this.deptCode,
         item.recordCode
-      ).then((res) => {
-        this.bus.$emit("getBlockList");
-        this.$message.success("创建成功");
-        this.bus.$emit("setSheetTableLoading", true);
+      ).then(async (res) => {
+        await this.bus.$emit("getBlockList");
+        if (res.data.data.id && ['zhzxy'].includes(this.HOSPITAL_ID) && sheetBlockList.length) {
+          //先创建
+          await this.createNewPageSetPage(res.data.data.id, Number(sheetBlockList[sheetBlockList.length - 1].endPageIndex) + 1)
+        }
+        await this.$message.success("创建成功");
+        await this.bus.$emit("setSheetTableLoading", true);
       });
       this.newRecordClose();
+
     },
     newRecordClose() {
       this.$refs.newRecord.close();

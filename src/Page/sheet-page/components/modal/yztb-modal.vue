@@ -11,7 +11,7 @@
               'whfk',
               'lyxrm',
               'whhk',
-              '925', 'stmz'
+              '925', 'stmz','qhwy'
             ].includes(HOSPITAL_ID)
           "
         >
@@ -54,7 +54,7 @@
               'whfk',
               'lyxrm',
               'whhk',
-              '925', 'stmz'
+              '925', 'stmz','qhwy'
             ].includes(HOSPITAL_ID)
           "
           style="margin-left: 20px"
@@ -115,7 +115,7 @@
                 'whfk',
                 'lyxrm',
                 'whhk',
-                '925', 'stmz'
+                '925', 'stmz','qhwy'
               ].includes(HOSPITAL_ID)
             "
           >
@@ -238,7 +238,7 @@ export default {
       bus: bus(this),
       formlist: {},
       yizhuTypeItem:["输液"],
-      executeType: ["liaocheng", "lyxrm", "whhk", 'stmz'].includes(this.HOSPITAL_ID)
+      executeType: ["liaocheng", "lyxrm", "whhk", 'stmz','qhwy'].includes(this.HOSPITAL_ID)
         ? "输液"
         : "",
       repeatIndicator: "",

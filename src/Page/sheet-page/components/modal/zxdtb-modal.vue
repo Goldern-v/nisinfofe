@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="modalWidth" :title="title">
+    <sweet-modal ref="modal" :modalWidth="modalWidth"  :title="title">
       <div flex="cross:center">
         <div
           v-if="
@@ -17,7 +17,8 @@
               'ytll',
               'whsl',
               'nfyksdyy',
-              'nanfangzhongxiyi'
+              'nanfangzhongxiyi',
+              'qhwy'
             ].includes(HOSPITAL_ID)
           "
         >
@@ -75,6 +76,7 @@
               'foshanrenyi',
               'whfk',
               'lyxrm',
+              'qhwy',
               'zhzxy',
               'whhk',
               '925',
@@ -134,6 +136,15 @@
             ></el-option>
           </el-select>
         </div>
+        <div v-if="HOSPITAL_ID == 'wujing'" style="margin-left: 20px">
+          <span class="label">入量筛选：</span>
+          <el-input
+            v-model="instructions"
+            placeholder="输入入量关键字"
+            size="small"
+            style="width: 120px"
+          />
+        </div>
         <whiteButton
           style="margin-left: 20px"
           text="查询"
@@ -145,19 +156,21 @@
           ref="zxdtb-table"
           :data="tableDatalist"
           border
-          height="350"
+          :height="modalHeight"
           @selection-change="handleSelectionChange"
           @select="handleSelect"
           @row-click="handleRowClick"
+          :row-style="styleByrecordSync"
         >
           <el-table-column
             type="selection"
-            width="40"
+            width="50"
             align="center"
           ></el-table-column>
           <el-table-column
             prop="recordDate"
             label="日期"
+            width="120px"
             min-width="90px"
             align="center"
           >
@@ -176,6 +189,7 @@
                   border: 'none',
                   background: 'transparentify',
                   textAlign: 'center',
+                  color:`${scope.row.recordSync&&scope.row.recordSync.includes('已同步')?'red':''}`
                 }"
                 :value="scope.row.recordDate.split(' ')[0]"
                 @input="(value) => changeRecordDate(scope.row, 'Month', value)"
@@ -201,6 +215,7 @@
             prop="recordDate"
             label="时间"
             min-width="70px"
+            width="100px"
             align="center"
           >
             <template slot-scope="scope">
@@ -219,6 +234,7 @@
                   border: 'none',
                   background: 'transparentify',
                   textAlign: 'center',
+                  color:`${scope.row.recordSync&&scope.row.recordSync.includes('已同步')?'red':''}`
                 }"
                 :value="scope.row.recordDate.split(' ')[1]"
                 @input="(value) => changeRecordDate(scope.row, 'Hour', value)"
@@ -229,15 +245,23 @@
           </el-table-column>
           <el-table-column
             v-if="HOSPITAL_ID == 'wujing'"
+            prop="executeType"
+            label="医嘱分类"
+            width="70px"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            v-if="HOSPITAL_ID == 'wujing'"
             prop="food"
             label="入量名称"
-            min-width="110px"
+            min-width="200px"
             align="center"
           ></el-table-column>
           <el-table-column
             v-if="HOSPITAL_ID == 'wujing'"
             prop="foodSize"
             label="入量"
+            width="110px"
             min-width="110px"
             align="center"
           ></el-table-column>
@@ -259,6 +283,7 @@
                 'zhzxy',
                 'whfk',
                 'lyxrm',
+                'qhwy',
                 'whhk',
                 '925',
                 'gdtj',
@@ -377,6 +402,10 @@ export default {
       type: Number,
       value: 720,
     },
+    modalHeight: {
+      type: Number,
+      value: 720,
+    },
   },
   data() {
     return {
@@ -388,10 +417,11 @@ export default {
       bus: bus(this),
       formlist: {},
       yizhuTypeItem:"临时",
-      executeType: ["liaocheng", "lyxrm", "whhk",'ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)
+      executeType: ["liaocheng", "lyxrm", "qhwy","whhk",'ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)
         ? "输液"
         : "",
       repeatIndicator: "",
+      instructions:'',//入量名称
       identicalGroupSelect: ["wujing"],
       repeatIndicatorList: [
         {
@@ -449,6 +479,7 @@ export default {
           'zhzxy',
           "whfk",
           "lyxrm",
+          "qhwy",
           "whhk",
           '925',
           'stmz',
@@ -492,7 +523,7 @@ export default {
           return item;
         });
       }
-      if (["foshanrenyi",'zhzxy', "lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
+      if (["foshanrenyi",'zhzxy', "lyxrm","qhwy", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
         temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
           item.foodSize = item.dosage;
           return item;
@@ -515,6 +546,12 @@ export default {
         // this.bus.$emit("refreshSheetPage");
       });
       this.bus.$emit("refreshSheetPageOne", this.multipleSelection);
+    },
+    styleByrecordSync(row,indx){
+      if(row.recordSync&&row.recordSync.indexOf('已同步')==-1) return
+      const style = {}
+        style.color = 'red !important'
+        return style
     },
     getData() {
       if (this.HOSPITAL_ID == "quzhou") {
@@ -605,7 +642,7 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", 'zhzxy',"lyxrm", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", 'zhzxy',"lyxrm","qhwy", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
@@ -646,7 +683,8 @@ export default {
           this.executeType,
           this.repeatIndicator,
           this.blockId,
-          this.HOSPITAL_ID
+          this.HOSPITAL_ID,
+          this.instructions
         ).then((res) => {
           if (this.identicalGroupSelect.includes(this.HOSPITAL_ID)) {
             let responeList = JSON.parse(JSON.stringify(res.data.data.list));
@@ -740,7 +778,7 @@ export default {
       ]
     },
     allType() {
-      if (["liaocheng", "lyxrm", "whhk", 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (["liaocheng", "lyxrm", "qhwy","whhk", 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",
@@ -759,7 +797,7 @@ export default {
             name: "口服药",
           },
         ];
-      } else if (this.HOSPITAL_ID === "wujing"&&this.HOSPITAL_ID == 'gdtj') {
+      } else if (['gdtj',"wujing"].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",

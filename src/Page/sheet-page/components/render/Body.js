@@ -525,6 +525,11 @@ function switchSheetType(type) {
       schema = require("../config/postpartum_nurse_wj/tr.js").default;
     }
       break;
+    case "generalcare_wj": {
+      // 武警-一般患者护理记录
+      schema = require("../config/generalcare_wj/tr.js").default;
+    }
+      break;
     case "neonatology_picc": {
       // 厚街-新生儿科PICC导管维护护理记录单
       schema = require("../config/neonatology_picc/tr.js").default;
@@ -1621,6 +1626,11 @@ function switchSheetType(type) {
         schema = require("../config/cardiology_tj/tr.js").default;
       }
       break;
+      case "cardiac_therapy_tj": {
+        // 广东同江 - 心脏介入术中护理记录单
+          schema = require("../config/cardiac_therapy_tj/tr.js").default;
+        }
+        break;
     case "surgical_qhwy": {
         // 青海五院 - 外科护理记录单
         schema = require("../config/surgical_qhwy/tr.js").default;

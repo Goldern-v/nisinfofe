@@ -26,6 +26,7 @@
 <script>
 import TableCheckBox from "./TableCheckBox";
 import TableInput from "./TableInput";
+import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo/index.js'
 import bus from "vue-happy-bus";
 export default {
   name: "TableRadio",
@@ -55,7 +56,7 @@ export default {
           });
         }
       });
-      console.log(this.model);
+      sheetInfo.relObj = {...this.model}
     }
   },
   mounted() {},

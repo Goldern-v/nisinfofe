@@ -42,9 +42,9 @@ const currentTargetUrl = (() => {
     /** 厚街 */
     case "hj":
       // return "http://120.197.141.41:9091" //厚街正式
-      // return "http://120.197.141.41:9094" //东莞正式库的测试
+      return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
-    return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+    // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
       // return "http://192.168.20.83:8080" // 彬哥本地
       // return "http://192.168.3.191:9091"//锦泳本地
 
@@ -160,11 +160,12 @@ const currentTargetUrl = (() => {
      case 'foshanrenyi':
       // return "https://cr.fsyyy.com:9094"  // 正式外网地址
       // return "http://192.168.20.147:9091"  // 双艳
-      return "http://192.168.1.54:9883" // 默认公司本地内网厚街
+      // return "http://218.204.204.90:9095" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
       // return "http://120.24.240.231:19097" //
       // return "http://192.168.103.16:9091" //
       // return "http://218.13.87.27:9094" //
+      return "http://192.168.1.54:9883" //测试
       // return "https://info.cr-health.com:20215"
 
     // 福清妇幼保健院
@@ -213,14 +214,15 @@ const currentTargetUrl = (() => {
 
     //珠海中西医
     case 'zhzxy':
-      return "http://192.168.1.54:9883" //珠海中西医测试
-      // return "http://183.234.20.149:19094"//正式
+      // return "http://192.168.1.54:9883" //珠海中西医测试
+    // return "http://218.13.87.27:9094"
+      return "http://183.234.20.149:19094"//正式
       // return "http://192.168.20.20:9092"//正式
       // return "https://info.cr-health.com:20217"
 
     // 青海五院
     case 'qhwy':
-      return 'http://192.168.1.54:9894'
+      return 'http://223.220.175.6:50014'
 
     // 临沂沂州
     case 'lyyz':
@@ -237,16 +239,17 @@ const currentTargetUrl = (() => {
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
       // return 'http://192.168.1.54:9866'
-      return 'http://222.133.53.230:9091'
+      return 'http://218.13.87.27:9094'
       // return 'http://120.24.240.231:19097'
       // return 'http://192.168.3.226:8080'
       // return 'http://192.168.3.191:9091'
 
     //武汉汉口
     case 'whhk':
-      return 'http://192.168.1.54:9866'
+      // return 'http://192.168.1.54:9883'
+      return 'http://119.97.229.206:9094'
     case 'dglb':
-      return 'http://219.131.126.38:9094'
+      return 'http://192.168.1.54:9866'
 
     // 威海市立
     case 'whsl':
@@ -254,9 +257,9 @@ const currentTargetUrl = (() => {
       // return 'http://221.2.154.22:19094'
       // return 'https://info.cr-health.com:20217'
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
-      // return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
+      return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
       // return ' http://221.2.154.22:19094/'
-      return 'http://192.168.1.54:9896'
+      // return 'http://192.168.1.54:9896'
       // return 'http://192.168.20.20:9092'
     //
     case 'nfyksdyy':

@@ -585,6 +585,7 @@
       :blockId="blockId"
       :title="titleName"
       :modalWidth="modalWidth"
+      :modalHeight="modalHeight"
     ></zxdtbModal>
     <patientInfoModal ref="patientInfoModal"></patientInfoModal>
     <searchPageByDateModal ref="searchPageByDateModal" @updateCallBack="updateCallBack" :sheetStartPage="sheetInfo.sheetStartPage" :blockId="blockId"></searchPageByDateModal>
@@ -693,6 +694,7 @@ export default {
       pageBlockId:'',
       titleName: "",
       modalWidth: 720,
+      modalHeight:350,
       pageNum: "",
       firstPage: 1,
       printRecord:[],
@@ -1217,9 +1219,9 @@ export default {
               let currObj = res.data.data.list.find((obj) => obj.id == item.id);
               item.pageIndex = currObj.pageIndex;
               item.endPageIndex = currObj.endPageIndex;
+              resolve(res)
             } catch (error) {}
           });
-          resolve(true)
         });
       }
       })
@@ -1458,6 +1460,7 @@ export default {
           //选择接口最后一个护记
           this.sheetInfo.selectBlock =this.sheetBlockList[this.sheetBlockList.length - 1] || {};
           if (!this.sheetBlockList.length) {
+            this.sheetInfo.relObj = {}
             this.bus.$emit('clearSheetModel')
               // 如果该病人没有护记，切换病人时需要清空分页
               setTimeout(()=>{
@@ -1603,7 +1606,11 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      if (this.HOSPITAL_ID == "wujing"|| this.HOSPITAL_ID == "gdtj") {
+      if (this.HOSPITAL_ID == "wujing") {
+        this.modalWidth = document.body.clientWidth - 150;
+        this.modalHeight = document.body.clientHeight - 100
+      }
+      if (this.HOSPITAL_ID == "gdtj") {
         this.modalWidth = 850;
       }
       if (['guizhou', '925'].includes(this.HOSPITAL_ID)) {
@@ -1813,12 +1820,12 @@ export default {
       deep:true,
       handler(val) {
         if (val) {
-        localStorage.wardCode = val.deptCode;
-      this.pageBlockId = val.id;
-      }
-      cleanData();
-      this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
-      this.initSheetPageSize()
+          localStorage.wardCode = val.deptCode;
+          this.pageBlockId = val.id;
+        }
+        cleanData();
+        this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+        this.initSheetPageSize()
       },
     },
     "sheetInfo.startPage"() {

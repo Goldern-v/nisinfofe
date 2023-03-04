@@ -42,7 +42,7 @@ import {
       //   data: 疼痛部位
       // },
       textarea: {
-        width: 60
+        width: 120
       },
       name: "入量-名称"
     },
@@ -51,7 +51,7 @@ import {
       value: "",
       event: keyf1,
       textarea: {
-        width: 60
+        width: 45
       },
       name: "入量-途径"
     },
@@ -114,7 +114,7 @@ import {
         data: 意识
       },
       textarea: {
-        width: 60
+        width: 25
       },
     },
   

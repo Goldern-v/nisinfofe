@@ -318,7 +318,8 @@
           class="bottom-line"
           :style="shoushuLine()"
         >
-          {{ sheetInfo.relObj[`PageIndex_diagops_${index}`] }}
+          <!-- {{ sheetInfo.relObj[`PageIndex_diagops_${index}`] }} -->
+                    {{ diagops }}
         </div>
       </span>
 
@@ -426,6 +427,25 @@ export default {
       return (
         (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
         this.patientInfo.diagnosis
+      );
+    },
+    diagops() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_diagops_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_diagops_${realIndex}`] ||
+        this.patientInfo.diagops
       );
     },
     delivery() {
@@ -544,6 +564,7 @@ export default {
         this.sheetInfo.relObj[`PageIndex_diagops_${this.index}`],
         `修改手术`
       );
+      console.log('123',this.diagops);
     },
     updateDelivery(key, label, autoText) {
       window.openSetTextModal(

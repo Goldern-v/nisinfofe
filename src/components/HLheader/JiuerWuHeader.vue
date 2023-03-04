@@ -409,6 +409,16 @@
               </el-dropdown-item>
               <el-dropdown-item
                   v-if="HOSPITAL_ID == '925'"
+                :class="{ active: $route.path == '/wardManagement' }"
+              >
+                <router-link  to="/wardManagement" tag="span">
+                  <el-row class="menu-item" type="flex" align="middle"
+                    ><i class="nursingDocumentation"></i> 病房管理
+                  </el-row>
+                </router-link>
+              </el-dropdown-item>
+              <el-dropdown-item
+                  v-if="HOSPITAL_ID == '925'"
                 :class="{ active: $route.path == '/nursingRounds' }"
               >
                 <router-link  to="/nursingRounds" tag="span">

@@ -187,9 +187,9 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <!-- <router-link to="/sugarPage" tag="span">
+            <router-link to="/sugarPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
-            </router-link> -->
+            </router-link>
             <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理计划单</el-row
@@ -210,11 +210,11 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
-            <!-- <router-link to="/allCatheter" tag="span">
+            <router-link to="/allCatheter" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-allCatheter"></i> 导管
               </el-row>
-            </router-link> -->
+            </router-link>
             <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-allCatheter"></i> MEWS

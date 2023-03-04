@@ -7,8 +7,6 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 #diagnosisPagePrint {
-  overflow: hidden;
-
   .containter {
     margin: 0 !important;
     border-radius: 2px;
@@ -19,7 +17,7 @@
     width: 1500px; // 关键
     margin: 0 auto 20px;
     box-sizing: content-box;
-    height: 1060px !important;
+    height: 1100px;
     position: relative;
   }
 
@@ -77,6 +75,7 @@
         height: auto !important;
       }
     }
+
   }
 }
 
@@ -85,25 +84,29 @@
     .containter {
       box-shadow: 0 0 0 !important;
       padding: 0 !important;
-      // margin 80px 0 0 !important
-      // width 1100px !important
-      margin: 0 !important;
+      margin: 0!important;
+
     }
 
     .el-table th {
       .cell {
+        line-height:13px;
         // background: #f4f2f4;
       }
     }
-
-    .iframe > div {
-      page-break-after: always;
-      padding-top: 80px !important;
-      box-sizing: border-box;
+    .el-table .cell{
+      line-height:13px;
     }
 
+    .iframe > div {
+      padding-top: 80px !important;
+      page-break-after: always;
+      box-sizing: border-box;
+
+    }
     .iframe > div:nth-of-type(2n) {
       transform: rotate(180deg);
+
     }
   }
 }
@@ -204,6 +207,7 @@ export default {
     sheetModel() {
       let html = window.localStorage.diagnosisModel;
       var reg = /data-value/g;
+      console.log('html',html)
       return html.replace(reg, "value");
     }
   },

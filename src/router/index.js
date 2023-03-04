@@ -27,6 +27,7 @@ const infuseStat = () => import("@/Page/lesion/supPage/infuse/infuse-stat.vue");
 import autoLogin from "../Part/auto-login";
 import autoLoginGuizhou from "../Part/auto-login-guizhou";
 import autoLoginToHomePage from "../Part/auto-login-homePage";
+import autoLoginToHomeBed from "../Part/auto-login-bed";
 // import whiteBoard from '@/Part/whiteBoard/whiteBoard'
 // import home1 from "@/Page/catheter-page/home1/home";
 
@@ -147,6 +148,7 @@ const MEWS = () => import("@/Page/MEWS/MEWS.vue");
 // const catheterPage = () => import("@/Page/catheter-page/catheter-page"); //导管
 const sugarPage = () => import("@/Page/sugar-page/sugar-page"); //血糖
 const nursingRules = () => import("@/Page/nursing-rules/nursing-rules"); //护理制度
+const wardManagement = () => import("@/Page/ward-management/ward-management"); //护理制度
 const noCheckTest = () => import("@/Page/no-check-test/no-check-test"); //未做检查/检验菜单
 const toPdfPrint = () => import("@/Page/sheet-page/pdfPrintPage/toPdfPrint"); //护记pdf打印
 const scheduling = () => import("@/Page/scheduling/scheduling"); //血透患者排班
@@ -192,8 +194,8 @@ const implementationListLingcheng = () =>
   import("@/Page/implementation-list/implementation-list-lingcheng.vue"); //陵城执行单
 const implementationListLiaocheng = () =>
   import("@/Page/implementation-list/implementation-list-liaocheng.vue"); //聊城执行单
-const implementationListQHWY = () =>
-  import("@/Page/implementation-list/implementation-list-qhwy.vue"); //青海五院执行单
+// const implementationListQHWY = () =>
+//   import("@/Page/implementation-list/implementation-list-qhwy.vue"); //青海五院执行单
   const implementationListWhsl = () =>
   import("@/Page/implementation-list/implementation-list-whsl.vue"); //青海五院执行单
 const implementationListShannan = () =>
@@ -429,8 +431,7 @@ const getImplementation = () => {
     case 'liaocheng':
     case 'lyyz':
       return implementationListLiaocheng
-    case 'qhwy':
-      return implementationListQHWY
+
     case 'whsl':
       return implementationListWhsl
     case 'shannan':
@@ -444,6 +445,7 @@ const getImplementation = () => {
     case "stmz":
     case 'beihairenyi':
     case 'nfyksdyy':
+    case 'qhwy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
@@ -1226,6 +1228,7 @@ const router = new Router({
               case 'foshanrenyi':
                 return bloodSugarFoShanRenYi
               case 'zhzxy':
+              case 'whhk':
                 return bloodSugarZhuHaiZhongXiYi
               default:
                 return bloodSugar
@@ -1505,6 +1508,10 @@ const router = new Router({
         component: nursingRules
       },
       {
+        path: "/wardManagement",
+        component: wardManagement
+      },
+      {
         path: "/noCheckTest",
         component: noCheckTest
       },
@@ -1555,6 +1562,7 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
             case 'zhzxy':
+            case 'nanfangzhongxiyi':
             case '925':
             case 'gdtj':
               return nursingMakeListGuizhou
@@ -1563,7 +1571,7 @@ const router = new Router({
           }
         })(),
         name: "护理巡视",
-        children:['guizhou', 'zhzxy', '925','gdtj'].includes(HOSPITAL_ID)?[
+        children:['guizhou', 'nanfangzhongxiyi','zhzxy', '925','gdtj'].includes(HOSPITAL_ID)?[
           {
             path: "/nursingMakeItem",
             name: "nursingMakeItem",
@@ -1587,7 +1595,6 @@ const router = new Router({
             case 'beihairenyi':
               return allTemperatureChartBHRY
             case 'xiegang':
-              case 'qhwy':
               return allTemperatureChartDGXG
             case 'whfk':
               return allTemperatureChartWHFK
@@ -1604,6 +1611,7 @@ const router = new Router({
               return allTemperatureChartWHYX
             case 'foshanrenyi':
             case 'zhzxy':
+            case 'qhwy':
               return allTemperatureChartFSRY
             case 'lyyz':
             case 'whhk':
@@ -1665,7 +1673,7 @@ const router = new Router({
               return newSingleTemperatureChartLiaoCheng;
             case "lyyz":
             case 'whhk':
-            case 'zzwy':  
+            case 'zzwy':
               return newSingleTemperatureChartLYYZ;
             case "gdtj":
               return newSingleTemperatureChartGDTJ
@@ -1856,6 +1864,10 @@ const router = new Router({
   {
     path: "/autoLoginToHomePage",
     component:autoLoginToHomePage,
+  },
+  {
+    path: "/autoLoginToHomeBed",
+    component:autoLoginToHomeBed,
   },
   {
     path: "/print/:type",

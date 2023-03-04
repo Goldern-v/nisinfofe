@@ -5,7 +5,7 @@
     :style="item.eleStyle"
   >
     <span class="prev" v-if="item.prev" v-html="item.prev" />
-    <component :is="ChildComponent(item)" :item="item" :model.sync="model">
+    <component :is="ChildComponent(item)" :item="item" :model="model">
       <!-- <template v-if="item.children">
         <renderItem
           v-for="(child, idx) in item.children"
@@ -24,17 +24,22 @@ import TableText from "./TableText";
 import TableInput from "./TableInput";
 import TableRadio from "./TableRadio";
 import TableCheckBox from "./TableCheckBox";
+import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo/index.js'
 export default {
   name: "renderItem",
   props: ["item", "model"],
+  data(){
+    return {
+      sheetInfo
+    }
+  },
   components: {
     TableText,
     TableInput,
     TableCheckBox,
     TableRadio
   },
-  created() {
-    // console.log(this.item.name)
+  watch:{
   },
   methods: {
     ChildComponent(item) {

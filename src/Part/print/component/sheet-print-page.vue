@@ -260,7 +260,6 @@ export default {
         "wait_delivery_hd", // 花都_候产记录单
         "wait_delivery_zhzxy", // 珠海中西医_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
-
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
         "pediatrics_jm", //江门妇幼_儿科护理记录单
@@ -317,6 +316,7 @@ export default {
        ||this.HOSPITAL_ID==='whsl'
        ||this.HOSPITAL_ID==='ytll'
        ||this.HOSPITAL_ID==='stmz'
+       ||this.HOSPITAL_ID==='lyyz'
        ||this.HOSPITAL_ID==='dglb'){
       printDir("h");
             addCSS(
@@ -390,7 +390,6 @@ export default {
       );
     }
     if(['zhzxy'].includes(process.env.HOSPITAL_ID)){
-      console.log("nursing_zhzxy  该样式啦")
             addCSS(
               window,
               `
@@ -406,6 +405,23 @@ export default {
           }
           `
             );
+            if(this.sheetInfo.sheetType =='wait_delivery_zhzxy'){
+              addCSS(
+              window,
+              `
+          @media print {
+            .sheet-page-container {
+              margin-top:-80px !important;
+            transform: scaleY(0.8) !important;
+            }
+            .body-con{
+            height:30px !important;
+          }
+
+          }
+          `
+            );
+            }
     }
     if((this.HOSPITAL_ID === "huadu")){
       addCSS(
@@ -486,7 +502,7 @@ export default {
         `
       );
     }
-    if ( (this.HOSPITAL_ID === "foshanrenyi") &&
+    if ( (["foshanrenyi","zhzxy"].includes(this.HOSPITAL_ID)) &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -500,24 +516,6 @@ export default {
         `
       );
     }
-    /* 护理记录单行高 */
-    // if ((this.HOSPITAL_ID === "huadu") &&
-    //   this.lineSpacingArr.includes(this.sheetInfo.sheetType)
-    // ) {
-    //   addCSS(
-    //     window,
-    //     `
-    //     @media print {
-    //       .body-con{
-    //         height: 40px !important;
-    //       }
-    //       .body-con textarea{
-    //         font-size: 16px !important;
-    //       }
-    //     }
-    //     `
-    //   );
-    // }
     /* 花都打印双签名：第二个护士签名打印时隐藏 */
     if (
       (this.HOSPITAL_ID === "huadu") &&
@@ -656,7 +654,7 @@ export default {
         `
       );
     }
-    if (this.HOSPITAL_ID === "foshanrenyi") {
+    if (["foshanrenyi"].includes(this.HOSPITAL_ID)) {
       addCSS(
         window,
         `
@@ -770,7 +768,7 @@ export default {
       (sheetInfo.sheetType == "generalnursing_tj")
     ) {
       addCSS(
-        
+
         window,
         `
             #sheetPagePrint th[dataname="护士<br/>签名"] {
@@ -784,7 +782,7 @@ export default {
       (sheetInfo.sheetType == "baby_tj")
     ) {
       addCSS(
-        
+
         window,
         `
             #sheetPagePrint th[dataname="签 名"] {

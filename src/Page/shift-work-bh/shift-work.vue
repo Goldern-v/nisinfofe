@@ -164,6 +164,9 @@
         if (this.$refs.child) {
           this.$refs.child.onPatientsModalShow(d)
         }
+        if (this.$refs.child && this.HOSPITAL_ID  == 'zhzxy') {
+          await this.$refs.child.getToSave()
+        }
       },
       onToggleFullPage () {
         this.fullPage = !this.fullPage
