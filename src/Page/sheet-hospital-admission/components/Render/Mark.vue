@@ -480,6 +480,7 @@ export default {
       if (this.HOSPITAL_ID === 'foshanrenyi')
       {
         this.$root.$refs.templateSlideFoshanshiyi.open(this.obj.name);
+
       } else {
         this.$root.$refs.templateSlide.open(this.obj.name);
       }

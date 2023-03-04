@@ -1,0 +1,2865 @@
+[
+  {
+    "title": "词语描述量表",
+    "type": "formGroupHorizontalBox",
+    "name": "C003007",
+    "children": [
+      {
+        "name": "C003007",
+        "type": "radio",
+        "title": "无痛(0)",
+        "value": "0",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "C003007",
+        "type": "radio",
+        "title": "轻度痛(2)",
+        "value": "2",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "C003007",
+        "type": "radio",
+        "title": "中度痛(4)",
+        "value": "4",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "C003007",
+        "type": "radio",
+        "title": "重度痛(6)",
+        "value": "6",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "C003007",
+        "type": "radio",
+        "title": "极度痛(8)",
+        "value": "8",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "C003007",
+        "type": "radio",
+        "title": "最痛(10)",
+        "value": "10",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "肌力分级说明",
+    "type": "html",
+    "name": "C003007",
+    "showLight": true,
+    "html": "<p>0级    肌肉无任何收缩现象</p><p>1级    肌肉仅能轻微收缩</p><p>2级    肢体能在床上平行移动，但不能对抗阻力</p><p>3级    肢体能抬高床面，但不能对抗阻力</p><p>4级    能对抗阻力活动</p><p>5级    肌力正常</p>"
+  },
+  {
+    "title": "毛细血管充盈说明",
+    "type": "html",
+    "name": "C003007",
+    "showLight": true,
+    "html": "<p>阴性    撤除压力后，局部皮肤颜色由白转红的时间≤2s</p><p>阳性    撤除压力后，局部皮肤颜色由白转红的时间＞3s,或成斑点状发红</p>"
+  },
+  {
+    "title": "体温类型",
+    "type": "formGroupHorizontalBox",
+    "name": "I100000",
+    "modalWidth": 460,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "formCode": "E0001",
+    "keys": "I100000",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "children": [
+      {
+        "name": "I100000",
+        "type": "radio",
+        "title": "耳温",
+        "value": "耳温",
+        "style": "min-width: 50px;",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100000",
+        "type": "radio",
+        "title": "口腔",
+        "value": "口腔",
+        "style": "min-width: 50px;",
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100000",
+        "type": "radio",
+        "title": "腋下",
+        "value": "腋下",
+        "style": "min-width: 50px;",
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100000",
+        "type": "radio",
+        "title": "腔门",
+        "value": "腔门",
+        "style": "min-width: 50px;",
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "呼吸困难",
+    "type": "formGroupHorizontalBox",
+    "name": "I100037",
+    "modalWidth": 540,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100037",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "children": [
+      {
+        "name": "I100038",
+        "type": "radio",
+        "title": "吸气性",
+        "code": "吸气性",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100038",
+        "type": "radio",
+        "title": "呼气性",
+        "code": "呼气性",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100038",
+        "type": "radio",
+        "title": "混合性",
+        "code": "混合性",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "咳嗽咳痰",
+    "type": "formGroupVerticalBox",
+    "name": "I100041",
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100041",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100042",
+        "type": "input",
+        "label": "呕吐物",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [
+          "干咳",
+          "白黏痰",
+          "白泡沫痰",
+          "黄粘稠痰",
+          "黄绿稠痰",
+          "铁锈色",
+          "血性痰"
+        ],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100043",
+        "type": "input",
+        "label": "痰液量",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [
+          "增多",
+          "减少",
+          "无"
+        ],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100044",
+        "type": "input",
+        "label": "排吸痰",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [
+          "排痰",
+          "吸痰"
+        ],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "气管切开",
+    "type": "formGroupHorizontalBox",
+    "name": "I100046",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "固定效果",
+    "showTitle": false,
+    "suffixDesc": "",
+    "keys": "I100046",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 700,
+    "children": [
+      {
+        "name": "I100046",
+        "type": "radio",
+        "title": "过紧",
+        "value": "1",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100046",
+        "type": "radio",
+        "title": "过松",
+        "value": "1",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100046",
+        "type": "radio",
+        "title": "合适（以伸入一指为宜）",
+        "value": "1",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "气管插管",
+    "type": "formGroupVerticalBox",
+    "name": "C003007",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I003003",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100048",
+        "type": "input",
+        "label": "固定效果",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [
+          "过紧",
+          "过松",
+          "合适"
+        ],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100049",
+        "type": "input",
+        "label": "插管深度",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "cm",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100050",
+        "type": "input",
+        "label": "气囊压力",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "kp",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "给氧方式",
+    "type": "formGroupVerticalBox",
+    "name": "C003007",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I003003",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100052",
+        "type": "input",
+        "label": "给氧方式",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [
+          "双腔鼻导管给氧",
+          "氧气面罩给氧",
+          "储氧面罩给氧",
+          "正压面罩给氧给氧-连接无创辅助通气",
+          "口插管给氧",
+          "鼻插管给氧",
+          "气管切开处给氧"
+        ],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100053",
+        "type": "input",
+        "label": "给氧流量",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "cm",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "伤口",
+    "type": "formGroupVerticalBox",
+    "name": "I100080",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100080",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 730,
+    "children": [
+      {
+        "name": "I100080",
+        "type": "input",
+        "label": "部位",
+        "labelWidth": "100px",
+        "inputWidth": "500px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100080",
+        "type": "body",
+        "label": "",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "cm",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "假肢",
+    "type": "formGroupVerticalBox",
+    "name": "I100085",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100085",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 730,
+    "children": [
+      {
+        "name": "I100085",
+        "type": "input",
+        "label": "部位",
+        "labelWidth": "100px",
+        "inputWidth": "500px",
+        "value": "",
+        "style": "flex:1",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100085",
+        "type": "body",
+        "label": "",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "皮下出血",
+    "aliasTitle": "皮下出血",
+    "type": "formGroupVerticalBox",
+    "inputWidth": "500px",
+    "name": "I100071",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100071",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 730,
+    "children": [
+      {
+        "name": "I100071",
+        "type": "input",
+        "label": "出血部位",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100072",
+        "type": "radioBox",
+        "label": "出血范围",
+        "labelWidth": "100px",
+        "value": "",
+        "style": "margin: 10px 0",
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "children": [
+          {
+            "name": "I100072",
+            "type": "radio",
+            "title": "<2mm",
+            "code": "<2mm",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100072",
+            "type": "radio",
+            "title": "3-5mm",
+            "code": "3-5mm",
+            "style": null,
+            "class": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100072",
+            "type": "radio",
+            "title": ">5mm",
+            "code": ">5mm",
+            "style": null,
+            "class": null,
+            "readOnly": null
+          }
+        ]
+      },
+      {
+        "name": "I100071",
+        "type": "body",
+        "label": "",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "cm",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "皮疹",
+    "type": "formGroupVerticalBox",
+    "name": "I100069",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100069",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 730,
+    "children": [
+      {
+        "name": "I100069",
+        "type": "input",
+        "label": "部位",
+        "labelWidth": "100px",
+        "inputWidth": "500px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100069",
+        "type": "body",
+        "label": "",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "压疮",
+    "type": "formGroupVerticalBox",
+    "name": "I100083",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100083",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 730,
+    "children": [
+      {
+        "name": "I100083",
+        "type": "input",
+        "label": "部位",
+        "labelWidth": "100px",
+        "inputWidth": "500px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100083",
+        "type": "body",
+        "label": "",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "腹胀",
+    "type": "formGroupVerticalBox",
+    "name": "I100099",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100099",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 730,
+    "children": [
+      {
+        "name": "I100099",
+        "type": "input",
+        "label": "部位",
+        "labelWidth": "100px",
+        "inputWidth": "500px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100099",
+        "type": "body",
+        "label": "",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "腹部压痛",
+    "type": "formGroupVerticalBox",
+    "name": "I100102",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100102",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 730,
+    "children": [
+      {
+        "name": "I100102",
+        "type": "input",
+        "label": "部位",
+        "labelWidth": "100px",
+        "inputWidth": "500px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100102",
+        "type": "body",
+        "label": "",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "外固定",
+    "type": "formGroupVerticalBox",
+    "name": "I100071",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100071",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100087",
+        "type": "input",
+        "label": "外固定类型",
+        "labelWidth": "140px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "options": [
+          "皮牵引",
+          "骨牵引",
+          "石膏",
+          "夹板",
+          "外固定架"
+        ]
+      },
+      {
+        "name": "I100088",
+        "type": "input",
+        "label": "固定/牵引效果",
+        "labelWidth": "140px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "options": [
+          "牵引有效",
+          "牵引合适",
+          "无效",
+          "过紧",
+          "过松"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "呕吐",
+    "type": "formGroupVerticalBox",
+    "name": "I100071",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100071",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100137",
+        "type": "input",
+        "label": "呕吐物",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "options": [
+          "胃内容物",
+          "咖啡渣样物",
+          "暗红色血液",
+          "鲜血"
+        ]
+      },
+      {
+        "name": "I100138",
+        "type": "input",
+        "label": "量",
+        "suffixDesc": "ml",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "大便频率",
+    "type": "formGroupVerticalBox",
+    "name": "I100071",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100071",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100106",
+        "type": "input",
+        "label": "频率",
+        "suffixDesc": "次/天",
+        "labelWidth": "50px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "腹泻",
+    "type": "formGroupVerticalBox",
+    "name": "I100072",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100072",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100107",
+        "type": "input",
+        "label": "频率",
+        "suffixDesc": "次/天",
+        "labelWidth": "50px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100108",
+        "type": "input",
+        "label": "性状",
+        "suffixDesc": "ml",
+        "labelWidth": "50px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "膀胱冲洗",
+    "type": "formGroupVerticalBox",
+    "name": "I100116",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100116",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100116",
+        "type": "input",
+        "label": "频率",
+        "suffixDesc": "次/天",
+        "labelWidth": "50px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "阴道流血",
+    "type": "formGroupVerticalBox",
+    "name": "I100116",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100116",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100120",
+        "type": "input",
+        "label": "流血量",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "options": [
+          "少许",
+          "月经量",
+          "多于月经量"
+        ]
+      },
+      {
+        "name": "I100121",
+        "type": "input",
+        "label": "颜色",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "阴道异常分泌物",
+    "type": "formGroupVerticalBox",
+    "name": "I100116",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100116",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100123",
+        "type": "input",
+        "label": "性状",
+        "labelWidth": "80px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "options": [
+          "血性",
+          "脓样",
+          "水样"
+        ]
+      },
+      {
+        "name": "I100124",
+        "type": "input",
+        "label": "量",
+        "suffixDesc": "ml",
+        "labelWidth": "80px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "用户验证",
+    "type": "formGroupVerticalBox",
+    "name": "C003007",
+    "showTitle": false,
+    "modalWidth": 400,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "username,password",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "children": [
+      {
+        "type": "html",
+        "title": "",
+        "style": "width:100%;text-indent: 0em;",
+        "class": null,
+        "html": "输入用户名或者工号"
+      },
+      {
+        "name": "username",
+        "type": "input",
+        "title": "用户名",
+        "value": "",
+        "focus": true,
+        "placehold": "请输入用户名",
+        "style": "width:100%!important",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "type": "html",
+        "title": "",
+        "style": "width:100%;text-indent: 0em;",
+        "class": null,
+        "html": "请输入登录密码"
+      },
+      {
+        "name": "password",
+        "type": "input",
+        "title": "密码",
+        "inputType": "password",
+        "value": "",
+        "placehold": "请输入密码",
+        "style": "width:100%!important",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "四肢活动",
+    "aliasTitle": "肌力评级",
+    "type": "formGroupVerticalBox",
+    "name": "I100128",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100128",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 730,
+    "children": [
+      {
+        "name": "I100029",
+        "type": "radioBox",
+        "label": "肌力（左上肢）",
+        "labelWidth": "160px",
+        "value": "",
+        "style": "margin: 10px 0",
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "children": [
+          {
+            "name": "I100029",
+            "type": "radio",
+            "title": "5级",
+            "code": "5级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100029",
+            "type": "radio",
+            "title": "4级",
+            "code": "4级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100029",
+            "type": "radio",
+            "title": "3级",
+            "code": "3级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100029",
+            "type": "radio",
+            "title": "2级",
+            "code": "2级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100029",
+            "type": "radio",
+            "title": "1级",
+            "code": "1级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100029",
+            "type": "radio",
+            "title": "0级",
+            "code": "0级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          }
+        ]
+      },
+      {
+        "name": "I100030",
+        "type": "radioBox",
+        "label": "肌力（右上肢）",
+        "labelWidth": "160px",
+        "value": "",
+        "style": "margin: 10px 0",
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "children": [
+          {
+            "name": "I100030",
+            "type": "radio",
+            "title": "5级",
+            "code": "5级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100030",
+            "type": "radio",
+            "title": "4级",
+            "code": "4级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100030",
+            "type": "radio",
+            "title": "3级",
+            "code": "3级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100030",
+            "type": "radio",
+            "title": "2级",
+            "code": "2级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100030",
+            "type": "radio",
+            "title": "1级",
+            "code": "1级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100030",
+            "type": "radio",
+            "title": "0级",
+            "code": "0级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          }
+        ]
+      },
+      {
+        "name": "I100031",
+        "type": "radioBox",
+        "label": "肌力（左下肢）",
+        "labelWidth": "160px",
+        "value": "",
+        "style": "margin: 10px 0",
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "children": [
+          {
+            "name": "I100031",
+            "type": "radio",
+            "title": "5级",
+            "code": "5级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100031",
+            "type": "radio",
+            "title": "4级",
+            "code": "4级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100031",
+            "type": "radio",
+            "title": "3级",
+            "code": "3级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100031",
+            "type": "radio",
+            "title": "2级",
+            "code": "2级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100031",
+            "type": "radio",
+            "title": "1级",
+            "code": "1级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100031",
+            "type": "radio",
+            "title": "0级",
+            "code": "0级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          }
+        ]
+      },
+      {
+        "name": "I100032",
+        "type": "radioBox",
+        "label": "肌力（右下肢）",
+        "labelWidth": "160px",
+        "value": "",
+        "style": "margin: 10px 0",
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "children": [
+          {
+            "name": "I100032",
+            "type": "radio",
+            "title": "5级",
+            "code": "5级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100032",
+            "type": "radio",
+            "title": "4级",
+            "code": "4级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100032",
+            "type": "radio",
+            "title": "3级",
+            "code": "3级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100032",
+            "type": "radio",
+            "title": "2级",
+            "code": "2级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100032",
+            "type": "radio",
+            "title": "1级",
+            "code": "1级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I100032",
+            "type": "radio",
+            "title": "0级",
+            "code": "0级",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          }
+        ]
+      },
+      {
+        "name": "",
+        "type": "html",
+        "title": "",
+        "code": "",
+        "style": null,
+        "class": null,
+        "html": "<div>评估说明：5级（评估说明：肌力正常）；</div><div><span style=\"color: #fff\">评估说明：</span>4级（评估说明：能对抗阻力活动，但比正常者弱）；</div><div><span style=\"color: #fff\">评估说明：</span>3级（评估说明：肢体能抬离床面，但不能对抗阻力)；</div><div><span style=\"color: #fff\">评估说明：</span>2级（评估说明：肢体能在床上平行移动，但不能抬离床面）；</div><div><span style=\"color: #fff\">评估说明：</span>1级（评估说明：肌肉有主动收缩力，但不能带动关节活动）；</div><div><span style=\"color: #fff\">评估说明：</span>0级（完全麻痹，触诊肌肉完全无收缩力）。</div>",
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "心脏起搏",
+    "type": "formGroupHorizontalBox",
+    "name": "I001103",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "心脏起搏",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001103",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001103",
+        "type": "radio",
+        "title": "永久",
+        "value": "永久",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001103",
+        "type": "radio",
+        "title": "临时",
+        "value": "临时",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+
+
+  {
+    "title": "吸烟",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "30%",
+      "70%"
+    ],
+    "name": "I2332016",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "吸烟频率",
+    "showTitle": true,
+    "suffixDesc": "(支/天)",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332016",
+        "type": "input",
+        "title": "吸烟频率",
+        "suffixDesc": "(支/天)",
+        "inputWidth": "auto!important",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+
+  {
+    "title": "嗜烟",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "30%",
+      "70%"
+    ],
+    "name": "I001018",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "嗜烟频率",
+    "showTitle": true,
+    "suffixDesc": "(两/支)",
+    "keys": "",
+    "inputWidth": "auto!important",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001018",
+        "type": "input",
+        "title": "嗜烟频率",
+        "suffixDesc": "(两/支)",
+        "inputWidth": "auto!important",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+
+  {
+    "title": "嗜酒",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "30%",
+      "70%"
+    ],
+    "name": "I2332018",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "嗜酒频率",
+    "showTitle": true,
+    "suffixDesc": "(ml/天)",
+    "keys": "",
+    "inputWidth": "auto!important",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332018",
+        "type": "input",
+        "title": "嗜酒频率",
+        "suffixDesc": "(ml/天)",
+        "inputWidth": "auto!important",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "手术史",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I2332022",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "手术史",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332022",
+        "type": "input",
+        "inputType": "textarea",
+        "title": "手术史",
+        "style": "width:100%",
+        "tdStyle": "width:100%",
+        "elementStyle": "width:100%",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+
+
+
+
+  {
+    "title": "药物名称（药物依赖/吸毒）",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "40%",
+      "60%"
+    ],
+    "name": "I001109",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "药物名称",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001109",
+        "type": "input",
+        "title": "药物名称",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "药物名称（父/母药物依赖/吸毒）",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "40%",
+      "60%"
+    ],
+    "name": "I001111",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "药物名称",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001111",
+        "type": "input",
+        "title": "药物名称",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "家族史",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I001113",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "家族史",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001113",
+        "type": "input",
+        "inputType": "textarea",
+        "title": "家族史",
+        "style": "width:100%",
+        "tdStyle": "width:100%",
+        "elementStyle": "width:100%",
+        "class": null,
+        "html": null,
+        "readOnly": null,
+        "options": [
+          "糖尿病",
+          "高血压",
+          "哮喘",
+          "消化性溃疡"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "输液港周围皮肤",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "40%",
+      "60%"
+    ],
+    "name": "I0011021",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I0011021",
+        "type": "input",
+        "inputType": "textarea",
+        "title": "输液港周围皮肤",
+        "style": "width:100%",
+        "tdStyle": "width:100%",
+        "elementStyle": "width:100%",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "同侧肢体活动",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "40%",
+      "60%"
+    ],
+    "name": "I0011023",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I0011023",
+        "type": "input",
+        "inputType": "textarea",
+        "title": "同侧肢体活动",
+        "style": "width:100%",
+        "tdStyle": "width:100%",
+        "elementStyle": "width:100%",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "过敏史",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I003003",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 550,
+    "children": [
+      {
+        "name": "I001120",
+        "type": "input",
+        "inputType": "select",
+        "label": "过敏原",
+        "labelWidth": "50px",
+        "multiplechoice": true,
+        "value": "",
+        "options": [
+          "青霉素",
+          "链霉素",
+          "磺胺",
+          "先锋",
+          "头孢",
+          "庆大",
+          "克林",
+          "感冒通",
+          "鱼",
+          "虾",
+          "蟹"
+        ],
+        "style": null,
+        "inputWidth": "400px",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "name": "I001258",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "35%",
+      "65%"
+    ],
+    "title": "皮肤详细描述",
+    "showTitle": true,
+    "inputWidth": "180px",
+    "message": "",
+    "require": "false",
+    "suffixDesc": "",
+    "keys": "",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001113",
+        "type": "input",
+        "inputType": "textarea",
+        "title": "皮肤详细描述",
+        "style": "width:100%",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ],
+    "class": null
+  },
+  {
+    "title": "治疗饮食",
+    "type": "formGroupHorizontalBox",
+    "name": "I001126",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "治疗饮食",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001126",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001126",
+        "type": "checkbox",
+        "title": "低盐",
+        "value": "低盐",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001126",
+        "type": "checkbox",
+        "title": "低胆固醇",
+        "value": "低胆固醇",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001126",
+        "type": "checkbox",
+        "title": "低糖",
+        "value": "低糖",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001126",
+        "type": "checkbox",
+        "title": "高蛋白",
+        "value": "高蛋白",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "呕吐描述",
+    "type": "formGroupVerticalBox",
+    "name": "I100137",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100137",
+        "type": "input",
+        "label": "呕吐物",
+        "labelWidth": "100px",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001133",
+        "type": "input",
+        "label": "量",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "(ml/次)",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001134",
+        "type": "input",
+        "label": "频率",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "(次/天)",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "切题情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I001149",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "切题情况",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001149",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001149",
+        "type": "radio",
+        "title": "切题",
+        "value": "切题",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001149",
+        "type": "radio",
+        "title": "不切题",
+        "value": "不切题",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "接种情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I001124",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "接种情况",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001124",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001124",
+        "type": "radio",
+        "title": "按时按序",
+        "value": "按时按序",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001124",
+        "type": "radio",
+        "title": "未按时按序",
+        "value": "未按时按序",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "义齿",
+    "type": "formGroupHorizontalBox",
+    "name": "I001136",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "义齿情况",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001136",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001136",
+        "type": "checkbox",
+        "title": "上",
+        "value": "上",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001136",
+        "type": "checkbox",
+        "title": "下",
+        "value": "下",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001136",
+        "type": "checkbox",
+        "title": "固定",
+        "value": "固定",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001136",
+        "type": "checkbox",
+        "title": "活动",
+        "value": "活动",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他语言",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "40%",
+      "60%"
+    ],
+    "name": "I001154",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他语言",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001154",
+        "type": "input",
+        "title": "其他语言",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他排便说明",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "40%",
+      "60%"
+    ],
+    "name": "I001204",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他排便说明",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001204",
+        "type": "input",
+        "title": "其他排便说明",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "其他排尿说明",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "40%",
+      "60%"
+    ],
+    "name": "I001202",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他排尿说明",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001202",
+        "type": "input",
+        "title": "其他排尿说明",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "造瘘情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I003003",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001207",
+        "type": "input",
+        "label": "患者自我护理",
+        "labelWidth": "140px",
+        "value": "",
+
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "留置引流管",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I003003",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001211",
+        "type": "input",
+        "label": "部位",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001212",
+        "type": "input",
+        "label": "类型",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001214",
+        "type": "input",
+        "label": "引流管通畅",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001213",
+        "type": "input",
+        "label": "引流液性状",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001215",
+        "type": "input",
+        "label": "引流液颜色",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [],
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "静脉置管情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I003003",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001217",
+        "type": "input",
+        "label": "类型",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [
+          "输液港",
+          "CVC",
+          "PTCC"
+        ],
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "水肿程度情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I100075",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "水肿程度",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I100075",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100075",
+        "type": "radio",
+        "title": "Ⅰ°",
+        "value": "Ⅰ°",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100075",
+        "type": "radio",
+        "title": "Ⅱ°",
+        "value": "Ⅱ°",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100075",
+        "type": "radio",
+        "title": "Ⅲ°",
+        "value": "Ⅲ°",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100075",
+        "type": "radio",
+        "title": "Ⅳ°",
+        "value": "Ⅳ°",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "紫绀情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I001962",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "紫绀",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001962",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001962",
+        "type": "radio",
+        "title": "四肢末端",
+        "value": "四肢末端",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001962",
+        "type": "radio",
+        "title": "全身",
+        "value": "全身",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "黄染情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I001963",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "黄染",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001963",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001963",
+        "type": "radio",
+        "title": "轻",
+        "value": "轻",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001963",
+        "type": "radio",
+        "title": "中",
+        "value": "中",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001963",
+        "type": "radio",
+        "title": "重",
+        "value": "重",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "压力性损伤情况",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "30%",
+      "70%"
+    ],
+    "name": "I001259",
+    "message": "",
+    "require": "false",
+    "showTitle": false,
+    "suffixDesc": "",
+    "keys": "I001259",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+      "name": "I001259",
+      "type": "input",
+      "inputType": "textarea",
+      "style": "width:100%",
+      "tdStyle": "width:100%",
+      "elementStyle": "width:100%",
+      "label": "详细描述",
+      "labelWidth": "120px",
+      "value": "",
+      "suffixDesc": "",
+      "class": null,
+      "html": null,
+      "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "末次月经情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001353",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001353",
+        "type": "datePicker",
+        "label": "末次月经日期",
+        "labelWidth": "120px",
+        "value": "",
+        "suffixDesc": "",
+        "style": "width: 200px",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "月经其他情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001354",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001354",
+        "type": "input",
+        "label": "其他说明",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "月经失调其他情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001356",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001356",
+        "type": "input",
+        "label": "其他说明",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "避孕方法其他情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001358",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001358",
+        "type": "input",
+        "label": "其他说明",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "阴道异常分泌物其他情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I001365",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001365",
+        "type": "input",
+        "label": "其他说明",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "阴道流血情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100120",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100120",
+        "type": "input",
+        "label": "流血情况",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [
+          "少许",
+          "月经量",
+          "多于月经量"
+        ],
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100121",
+        "type": "input",
+        "label": "颜色",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "阴道分泌物情况",
+    "type": "formGroupVerticalBox",
+    "name": "",
+    "showTitle": false,
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "I100123",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I100123",
+        "type": "input",
+        "label": "性状",
+        "labelWidth": "100px",
+        "value": "",
+        "options": [],
+        "suffixDesc": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I100124",
+        "type": "input",
+        "label": "量",
+        "labelWidth": "100px",
+        "value": "",
+        "suffixDesc": "ml",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "前囟未闭情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I001370",
+    "message": "",
+    "require": "false",
+    "prefixDesc": "",
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 550,
+    "children": [
+      {
+        "name": "I001370",
+        "type": "radio",
+        "title": "平软",
+        "value": "平软",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001370",
+        "type": "radio",
+        "title": "饱满",
+        "value": "饱满",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001370",
+        "type": "radio",
+        "title": "其他",
+        "value": "其他",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001371",
+        "type": "input",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "呼吸受限情况",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "40%",
+      "60%"
+    ],
+    "name": "I001374",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "呼吸受限情况",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001374",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 460,
+    "children": [
+      {
+        "name": "I001374",
+        "type": "radio",
+        "title": "左",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      },
+      {
+        "name": "I001374",
+        "type": "radio",
+        "title": "右",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "听力异常",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "40%",
+      "60%"
+    ],
+    "name": "I001167",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "听力异常",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001167",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 460,
+    "body": [
+      {
+        "title": "听力下降",
+        "type": "formGroupHorizontalBox",
+        "colWidth": [
+          "40%",
+          "60%"
+        ],
+        "name": "I001167",
+        "message": "",
+        "require": "false",
+        "aliasTitle": "听力下降",
+        "showTitle": true,
+        "suffixDesc": "",
+        "keys": "I001167",
+        "style": null,
+        "classes": null,
+        "readOnly": null,
+        "modalWidth": 460,
+        "children": [
+          {
+            "name": "I001167",
+            "type": "checkbox",
+            "title": "左",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I001167",
+            "type": "checkbox",
+            "title": "右",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          }
+        ]
+      },
+      {
+        "title": "听力失聪",
+        "type": "formGroupHorizontalBox",
+        "colWidth": [
+          "40%",
+          "60%"
+        ],
+        "name": "I001169",
+        "message": "",
+        "require": "false",
+        "aliasTitle": "听力失聪",
+        "showTitle": true,
+        "suffixDesc": "",
+        "keys": "I001169",
+        "style": null,
+        "classes": null,
+        "readOnly": null,
+        "modalWidth": 460,
+        "children": [
+          {
+            "name": "I001169",
+            "type": "checkbox",
+            "title": "左",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          },
+          {
+            "name": "I001169",
+            "type": "checkbox",
+            "title": "右",
+            "style": null,
+            "class": null,
+            "html": null,
+            "readOnly": null
+          }
+        ]
+      }
+    ],
+    "children": []
+  }
+]

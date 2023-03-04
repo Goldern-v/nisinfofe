@@ -375,16 +375,16 @@ export default {
     },
     selectPatient(patient) {
       this.selectPatientId = patient.patientId;
-      console.log(
-        "selectPatient",
-        patient,
-        patient.name,
-        patient.patientId,
-        patient.visitId,
-        patient.formId,
-        this.$route.path,
-        this.$route
-      );
+      // console.log(
+      //   "selectPatient",
+      //   patient,
+      //   patient.name,
+      //   patient.patientId,
+      //   patient.visitId,
+      //   patient.formId,
+      //   this.$route.path,
+      //   this.$route, 88888
+      // );
       if (this.callFunction) {
         this.$route.query.patientId = patient.patientId;
         this.$route.query.visitId = patient.visitId;
@@ -392,7 +392,7 @@ export default {
         patient.formId = this.$route.params.formId || "";
         //
         this.$store.commit("upCurrentPatientObj", patient);
-        console.log(this.$store.getters.getCurrentPatient(),'this.$store.getters.getCurrentPatient();');
+        // console.log(this.$store.getters.getCurrentPatient(),'this.$store.getters.getCurrentPatient();');
         this.$store.commit("upWardCode", patient.wardCode || "");
         this.$store.commit("upWardName", patient.wardName || "");
         //patient 参数 true是否要滚动到最后一页

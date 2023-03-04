@@ -327,13 +327,14 @@ export default {
                 bedLabel,
                 inpNo,
                 age,
-                id: this.formObj.model[r.relationForm.params.formCode]//关联表单id
+                id: this.formObj.model[r.relationForm.params.formCode] //关联表单id
               };
               const params = {
                 formId: this.formObj.model[r.relationForm.params.formCode] || "",
                 showSignBtn: true,
                 query,
                 ...r.relationForm.params,
+                valueNew
               };
               this.$root.bus.$emit('showRelationFormModal',params)
 
@@ -393,6 +394,7 @@ export default {
       }, 100);
     },
     inputClick(e, child) {
+      console.log('弹出框起来')
       if (this.readOnly) {
         return;
       }

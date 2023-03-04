@@ -76,7 +76,7 @@ export default {
   computed: {
     formCode() {
       try {
-        return this.formObj.formSetting.formInfo.formCode;
+        return window.formObj.formSetting.formInfo.formCode;
       } catch (error) {}
       return "E0001";
     }

@@ -960,4 +960,9 @@ export default {
     }
   }
 }
+.elseFillInput{
+  .input-element{
+    float: left;
+  }
+}
 </style>
