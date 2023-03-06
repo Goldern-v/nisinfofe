@@ -3,7 +3,7 @@
     <div
       class="chart-con"
       :style="{height: wih - 110 + 'px'}"
-      :class="{lc:HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'liaocheng'}"
+      :class="{lc:HOSPITAL_ID == 'lingcheng' || HOSPITAL_ID == 'liaocheng',nfyksdyy:HOSPITAL_ID == 'nfyksdyy',zhzxy:HOSPITAL_ID == 'zhzxy'}"
     >
       <chart
         v-if="visible"
@@ -18,10 +18,16 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .chart-con {
   background: #fff;
-
   &.lc {
     padding-right: 134px;
   }
+  &.nfyksdyy {
+    width :1150px !important;
+  }
+  &.zhzxy {
+    width :1150px !important;
+  }
+
 }
 </style>
 
@@ -69,7 +75,7 @@ export default {
       this.visible = true;
     }, 300);
     // 血糖曲线图打点有问题（项目名称有误）的话改这里
-    if (["lingcheng","liaocheng","foshanrenyi"].includes(this.HOSPITAL_ID)) { // 通过接口请求项目类型的医院
+    if (["lingcheng","liaocheng","foshanrenyi",'nfyksdyy','zhzxy'].includes(this.HOSPITAL_ID)) { // 通过接口请求项目类型的医院
       this.types = this.sugarItem.map(item => {
         return item.vitalSign;
       });
