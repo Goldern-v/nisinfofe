@@ -217,7 +217,7 @@ export default {
       });
     },
     clickTr(rowData, event) {
-      if(editTimeHosipital.includes(this.HOSPITAL_ID)){
+      if(this.editTimeHosipital.includes(this.HOSPITAL_ID)){
         const user=JSON.parse(localStorage.getItem("user"))
         this.rowData = {...rowData}
         if(this.HOSPITAL_ID==='liaocheng'){

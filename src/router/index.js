@@ -136,6 +136,9 @@ const sheetHospitalAdmission = () =>
 const sheetHospitalAdmissionPage = () =>
   import("@/Page/sheet-hospital-admission/components/pages/page.vue"); // 入院评估
 
+const sheetAdmissionPageAdult = () =>
+  import("@/Page/sheet-hospital-admission/components/pages/pageAdult.vue"); // 入院评估
+
 const admissionHisView = () =>
   import("@/Page/admissionHisView/admissionHisView.vue"); // 入院评估预览界面
 
@@ -1398,11 +1401,31 @@ const router = new Router({
       {
         path: "/sheetHospitalAdmission",
         component: sheetHospitalAdmission,
-        children: [{
-          name: "sheetHospitalAdmissionPage",
-          path: "/sheetHospitalAdmission/:patientId?/:visitId?/:formId?",
-          component: sheetHospitalAdmissionPage
-        }]
+        children: [
+          {
+            name: "sheetHospitalAdmissionPage",
+            path: "/sheetHospitalAdmission/:patientId?/:visitId?/:formId?",
+            component: sheetHospitalAdmissionPage
+          },
+          // 佛山市一入院评估入口
+          {
+            name: "admissionPageAdult",
+            path: "/admissionPageAdult/:patientId?/:visitId?/:formId?",
+            meta: {
+              formCode: 'E2332'
+            },
+            component: sheetAdmissionPageAdult
+          },
+          {
+            name: "admissionPageChild",
+            meta: {
+              formCode: 'E2333'
+            },
+            path: "/admissionPageChild/:patientId?/:visitId?/:formId?",
+            component: sheetHospitalAdmissionPage
+          }
+        ]
+        
       },
       {
         path: "/sheetHospitalEval",

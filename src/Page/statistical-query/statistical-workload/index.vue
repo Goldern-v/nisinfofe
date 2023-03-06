@@ -228,6 +228,169 @@ export default {
 					width: 120,
           sortable: true
 				},
+      ],
+      otherColumns_foshanrenyi: [
+        {
+					key: 'transfusion',
+					title: '静脉输液',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'replaceFluid',
+					title: '更换液体',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'medicine',
+					title: '口服药',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'skinTest',
+					title: '皮试',
+          align: 'center',
+					width: 90,
+          sortable: true
+				},
+        {
+					key: 'injection',
+					title: '注射',
+          align: 'center',
+					width: 90,
+          sortable: true
+				},
+        {
+					key: 'atomization',
+					title: '雾化',
+          align: 'center',
+					width: 90,
+          sortable: true
+				},
+        {
+					key: 'cure',
+					title: '治疗',
+          align: 'center',
+					width: 90,
+          sortable: true
+				},
+        {
+					key: 'specimen',
+					title: '标本',
+          align: 'center',
+					width: 90,
+          sortable: true
+				},
+        {
+					key: 'blood',
+					title: '输血',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'matching',
+					title: '交叉配血',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'intensiveCare',
+					title: '重症监护',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'intensiveCare',
+					title: '重症监护',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'inDanger',
+					title: '病危（重）',
+          align: 'center',
+					width: 130,
+          sortable: true
+				},
+        {
+					key: 'nursingClass0',
+					title: '特级护理',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'nursingClass1',
+					title: '一级护理',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'nursingClass2',
+					title: '二级护理',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'nursingClass3',
+					title: '三级护理',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'nursingRecord',
+					title: '护理记录',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'admissionAssess',
+					title: '入院评估',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'inHospitalAssess',
+					title: '住院评估',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'riskAssess',
+					title: '风险评估',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'healthEducation',
+					title: '健康宣教',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
+        {
+					key: 'nursingVisit',
+					title: '护理巡视',
+          align: 'center',
+					width: 120,
+          sortable: true
+				},
       ]
     };
   },
@@ -245,6 +408,7 @@ export default {
           title: '序号',
           align: 'center',
           width: 70,
+          fixed: 'left', // 滑动固定我就没有做医院限制了 （佛一提的这个优化）
           render: (h, { index }) => {
             return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
           }
@@ -257,6 +421,7 @@ export default {
             title: '病区',
             align: 'center',
             width: 150,
+            fixed: 'left',
           }
         ],
         nurse: [
@@ -265,19 +430,21 @@ export default {
             title: '护士',
             align: 'center',
             width: 70,
+            fixed: 'left',
           },
           {
             key: 'hierarchy',
             title: '层级',
             align: 'center',
             width: 70,
+            fixed: 'left',
           },
         ]
       }
 
-      let curItem = searchItem(WORKLOAD_BAR1, this.type1, 'key')
+      let curItem = searchItem(WORKLOAD_BAR1, this.type1, 'key') 
 
-      return [firstItem, ...(curItem ? obj[curItem.code] || [] : []), ...this.otherColumns]
+      return [firstItem, ...(curItem ? obj[curItem.code] || [] : []), ...(this.HOSPITAL_ID === 'foshanrenyi' ? this.otherColumns_foshanrenyi : this.otherColumns)]
 
     },
     options() {

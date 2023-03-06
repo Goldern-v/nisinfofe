@@ -269,6 +269,21 @@ export default {
     runTasks() {
       //
       if (this.obj.tasks) {
+
+        // 特殊处理  tasks_special为true 点击 this.obj.tasks 这个配置字段的隐藏 其余显示
+        if (this.obj.tasks_special) {
+          if (this.obj.title === this.obj.tasks) {
+            this.$root.$refs[this.formCode][
+            "formGroupColBox" + this.obj.tasks
+              ].hidden = true;
+          } else {
+            this.$root.$refs[this.formCode][
+            "formGroupColBox" + this.obj.tasks
+              ].hidden = false;
+          }
+          return
+        }
+
         if (
           !this.$root.$refs[this.formCode][this.obj.name][this.obj.title]
             .isChecked
@@ -280,8 +295,10 @@ export default {
               // clean.map(c=>{
               //   this.$root.$refs[this.formCode]['formGroupColBox'+c].hidden = true
               // })
+              
               if (task.clean) {
                 if (task.clean.constructor == Array) {
+                  
                   task.clean.map(c => {
                     if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
                       this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = true;
@@ -328,6 +345,7 @@ export default {
             ].hidden = true;
         }
       }
+      
     }
   }
 };

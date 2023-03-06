@@ -182,7 +182,7 @@ export default {
         return (
           this.dialogFormCode ||
           this.parentFormCode ||
-          this.formObj.formSetting.formInfo.formCode ||
+          window.formObj.formSetting.formInfo.formCode ||
           "E0100"
         );
       } catch (error) {}

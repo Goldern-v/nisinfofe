@@ -154,7 +154,7 @@ export default {
   created() {},
   methods: {
     updateMissingItems(missingItems) {
-      console.log("updateMissingItems", missingItems);
+      // console.log("updateMissingItems", missingItems);
       this.missingItems = missingItems;
     },
     scrollTo(e, title) {
