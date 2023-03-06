@@ -414,9 +414,11 @@ const statisticalBloodPressure = () => import("@/Page/statistical-query/statisti
 const statisticalTemperature = () => import("@/Page/statistical-query/statistical-temperature/index.vue")
 const statisticalNursingLv = () => import("@/Page/statistical-query/statistical-nursingLv/index.vue")
 const statisticalWorkload = () => import("@/Page/statistical-query/statistical-workload/index.vue")
+const statisticalWorkloadZhzxy = () => import("@/Page/statistical-query/statistical-workload_zhzxy/index.vue")
 const statisticalBreath = () => import("@/Page/statistical-query/statistical-breath/index.vue")
 const statisticalExitAdmission = () => import("@/Page/statistical-query/statistical-exitAdmission/index.vue")
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
+const StatisticalConsultation = () => import("@/Page/statistical-query/statistical-consultation/index.vue")
 const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
@@ -1782,7 +1784,14 @@ const router = new Router({
             meta: {
               title: '工作量统计'
             },
-            component: statisticalWorkload,
+            component: (() => {
+              switch (HOSPITAL_ID) {
+                case 'zhzxy':
+                  return statisticalWorkloadZhzxy
+                default:
+                  return statisticalWorkload;
+              }
+            })(),
           },
           {
             path: "statisticalBreath",
@@ -1807,6 +1816,14 @@ const router = new Router({
               title: 'VTE统计'
             },
             component: statisticalVTE,
+          },
+          {
+            path: "statisticalConsultation",
+            name: "statisticalConsultation",
+            meta: {
+              title: '会诊统计'
+            },
+            component: StatisticalConsultation,
           },
         ]
       },
