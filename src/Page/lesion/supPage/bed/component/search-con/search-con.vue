@@ -125,6 +125,7 @@
         :isPain="isPain"
         :isAdl="isAdl"
         :tubingShedding="tubingShedding"
+        :selfCare="selfCare"
       ></footerBar>
     </div>
   </div>
@@ -450,6 +451,10 @@ export default {
     dangerInVteLy() {
       return this.bedList.filter((item) => item.dangerInVteLy);
     },
+    //自理能力
+    selfCare(){
+      return this.bedList.filter((item) => item.adl);
+    },
     // 压疮高分险
     dangerInYachuang() {
       let list = []
@@ -613,7 +618,7 @@ export default {
           [
             "zhongshanqi", "liaocheng",  "beihairenyi",'ytll',
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
-            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','zhzxy', 'nanfangzhongxiyi','whsl','925'
+            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','zhzxy', 'nanfangzhongxiyi','whsl','925','whhk'
           ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
@@ -1035,7 +1040,7 @@ export default {
             this.$parent.bedList = this.isFever;
           }
           break;
-        case "VTE高风险":
+        case "VTE高风险2222":
           {
             this.$parent.bedList = this.hasVteDanger;
           }
