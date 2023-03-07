@@ -6,18 +6,19 @@
         :style="{width: openLeft?'200px':'0',transition: 'all 0.4s cubic-bezier(0.55, 0, 0.1, 1)'}"
       ></div>
       <div class="tool-con" flex-box="1">
-        <sheetTool ref="sheetHospitalAdmissionTool"></sheetTool>
+        <sheetTool :formCodeFy='formCode' ref="sheetHospitalAdmissionTool"></sheetTool>
       </div>
     </div>
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
       <div class="left-part" v-show="!$route.path.includes('admissionHisView')">
         <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
-        <patientList toName="sheetHospitalAdmissionPage" :callFunction="isSelectPatient"/>
+        <patientList :toName="pathRouter" :callFunction="isSelectPatient"/>
       </div>
       <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
         <!-- <record></record> -->
         <div class="sheetTable-contain">
-          <pages/>
+          <!-- <pages /> -->
+          <router-view></router-view>
         </div>
       </div>
     </div>
@@ -130,7 +131,10 @@ export default {
       },
       pageLoading: false,
       patientListLoading: false,
-      bus: bus(this)
+      bus: bus(this),
+      routerPath: '',
+      formCode: '',
+      pathRouter: 'sheetHospitalAdmissionPage',
     };
   },
   computed: {
@@ -179,12 +183,23 @@ export default {
     }
   },
   created() {
+    console.log(this.$route, 88888)
+    let route = this.$route
+    this.formCode = (route.meta && route.meta.formCode) || ''
+    this.pathRouter =  this.HOSPITAL_ID === 'foshanrenyi' ? route.name : 'sheetHospitalAdmissionPage'
     if(this.isAdmissionHisView){
       // console.log('this.$route',this.$route);
       // console.log('this.data.bedList',this.data.bedList);
       return
     }
     this.$store.commit("upPatientInfo", {});
+  },
+  beforeRouteUpdate(to,from,next){
+    // console.log(to.meta,from.meta, from.name, 77766)
+    this.formCode = (to.meta && to.meta.formCode) || ''
+    this.pathRouter = to.name
+    console.log(this.formCode, 6666666)
+    next()
   },
   mounted() {
 

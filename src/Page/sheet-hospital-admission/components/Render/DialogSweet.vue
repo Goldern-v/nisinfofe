@@ -523,7 +523,7 @@ export default {
                 this.$root.$refs[this.formCode][newKey].$parent.inputValue =
                   this.formBox.model[newKey];
               }
-            }else if( key == 'I001119' && ['liaocheng'.includes(this.HOSPITAL_ID)]){
+            }else if( key == 'I001119' && ['liaocheng'].includes(this.HOSPITAL_ID)){
               let results = `${this.formBox.model[key]}(${this.formBox.model["I001120"]}+${this.formBox.model["I001121"]}+${this.formBox.model["I001122"]})`
               this.$root.$refs[this.formCode]['I001119'].setCurrentValue(results);
               this.$root.$refs[this.formCode]['I001119'].checkValueRule(results);

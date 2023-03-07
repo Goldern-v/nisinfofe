@@ -78,6 +78,7 @@ export default {
         // suffix: '',//返回值的后缀，可以为array[{max:'',min:'',value}]
       },
       formCode: null,//表单code
+      selectedValue: '', // 下拉选中值
     };
   },
   mounted() {
@@ -110,6 +111,7 @@ export default {
   },
   methods: {
     handleOpen(payload) {
+      console.log(payload, '关联表单')
       this.$refs.modal.open();
 
       if (!payload.noFetch) {
@@ -134,6 +136,8 @@ export default {
       }
       this.callbackInfo = payload && payload.callbackInfo;
       this.formCode = payload && payload.formCode;
+      this.selectedValue = payload && payload.valueNew
+      console.log(payload.callback, 7777777777)
       //覆写成功回调
       if (payload.callback)
         this.successCallback = (data) => payload.callback(data);
@@ -144,8 +148,10 @@ export default {
     handleSave() {
       if (this.useIframe) {
         let target = document.querySelector(".relation-form-modal-iframe");
-        if (target && target.contentWindow.todoSave)
+        if (target && target.contentWindow.todoSave) {
           target.contentWindow.todoSave();
+        }
+        
       }
     },
     handleSign() {
@@ -188,6 +194,9 @@ export default {
     },
     //成功后返回表单id和evalscore
     successCallback(data){
+      console.log(data, '关联表单成功回调值查看');
+      console.log(this.formCode, '表单formcode')
+
       //表单id返回formCode值
       this.formObj.model[this.formCode] = data.master.id;
       if(this.callbackInfo.code && data.master.evalScore) {
@@ -218,7 +227,8 @@ export default {
               resVal = resVal + this.callbackInfo.suffix;
             }
           }
-          this.formObj.model[this.callbackInfo.code] = resVal
+          // this.formObj.modal[this.callbackInfo.id] = data.master.id
+          this.formObj.model[this.callbackInfo.code] = (this.callbackInfo.openKeyName ? this.selectedValue + ',' : '') + resVal
         }
       }
       //弹窗精准找到需要修改的inputBox

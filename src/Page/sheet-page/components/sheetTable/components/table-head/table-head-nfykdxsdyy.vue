@@ -11,11 +11,11 @@
     <div class="info-con">
      <span>
         科室：
-        <div class="bottom-line" style="min-width: 547px">{{patientInfo.deptName}}</div>
+        <div class="bottom-line" style="min-width: 135px">{{patientInfo.realDeptName}}</div>
       </span>
       <span>
         病区：
-        <div class="bottom-line" style="min-width: 120px">{{patientInfo.wardName}}</div>
+        <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
       </span>
       </div>
     <div class="info-con" >
@@ -45,7 +45,7 @@
       </span>
       <span>
         诊断：
-        <div  class="bottom-line">{{patientInfo.diagnosis}}</div>
+        <div  class="bottom-line" style="min-width: 480px">{{patientInfo.diagnosis}}</div>
       </span>
       <!-- <span>
         ID号：

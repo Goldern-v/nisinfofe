@@ -414,6 +414,9 @@ export default {
               margin-top:-80px !important;
             transform: scaleY(0.8) !important;
             }
+            .body-con{
+            height:30px !important;
+          }
 
           }
           `

@@ -945,7 +945,7 @@
   font-size: 12px
 }
 
-.el-radio, .el-radio__inner, .el-radio__input {
+.el-radio, .el-radio__inner, .el-radio__input, .el-radio_fs {
   position: relative;
   display: inline-block
 }

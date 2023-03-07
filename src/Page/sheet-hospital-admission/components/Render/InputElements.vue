@@ -643,6 +643,9 @@ export default {
   // padding 0px 0 0px 5px
   white-space: normal;
 }
+.radio_input, .itemRadio{
+  display: flex;
+}
 
 .el-radio-long {
   min-width: 130px;
@@ -729,4 +732,6 @@ export default {
 .result-text-noeffect {
   max-width: initial;
 }
+
+
 </style>

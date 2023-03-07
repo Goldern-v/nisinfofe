@@ -231,6 +231,7 @@ import SynchronousModal from "../Render/modal/SynchronousSingsModal";
 
 export default {
   mixins: [commom],
+  props: ['formCodeFy'],
   data() {
     return {
       gridData: [],
@@ -251,7 +252,7 @@ export default {
       user: JSON.parse(localStorage.user),
       selectList: [],
       pageArea: "",
-      formCode: "E0001",
+      formCode: this.HOSPITAL_ID === 'foshanrenyi' ? this.formCodeFy : 'E0001',
       formId: "",
       // sheetModel,
       // sheetInfo,
@@ -562,12 +563,14 @@ export default {
      * 获取当前患者的入院评估列表
      */
     getHEvalBlockList(patientInfo = this.patientInfo) {
+      // console.log(this.formCode, this.formCodeFy,  666655)
       this.selectBlock = "";
       let postData = {
         patientId: patientInfo.patientId,
         visitId: patientInfo.visitId,
         formCode: this.formCode,
       };
+      console.log(postData.formCode, '获取接口的code')
       // 获取表单列表数据接口
       list(postData).then((res) => {
         if (res && res.data && res.data.data.list) {
@@ -637,6 +640,8 @@ export default {
 
           let formObj = { ...itemData, ...master };
 
+          // console.log(formObj, '获取接口数据')
+
           // this.formObj.model
           if (this.isNewForm) {
             formObj = { ...formObj, ...this.formObj.model };
@@ -647,22 +652,22 @@ export default {
 
           if (this.isNewForm) {
             // 增加默认值
-            mergeDefaultValue(formObj);
+            mergeDefaultValue(formObj, this.formCode);
             setDefaultValue(formObj);
             this.formSave();
           }
-          console.log(
-            "---获取页面数据",
-            res,
-            itemData,
-            "master",
-            master,
-            item,
-            "formObj",
-            window.formObj,
-            this.formObj,
-            formObj
-          );
+          // console.log(
+          //   "---获取页面数据",
+          //   res,
+          //   itemData,
+          //   "master",
+          //   master,
+          //   item,
+          //   "formObj",
+          //   window.formObj,
+          //   this.formObj,
+          //   formObj
+          // );
 
           //
           if (master.updaterName && master.updateTime) {
@@ -740,7 +745,7 @@ export default {
             } catch (error) {
               console.log("----error", error, key, element);
             }
-            if (isXRadiobox && key === this.formObj.design.XRadiobox.name) {
+            if (isXRadiobox && this.formObj.design && key === this.formObj.design.XRadiobox.name) {
               keys.map((x) => {
                 element[x].checked = false;
               });
@@ -759,7 +764,13 @@ export default {
           }
         }
       }
-      this.$root.$refs.tableOfContent.updateMissingItems(null);
+      if (
+        this.$root.$refs.tableOfContent &&
+        this.$root.$refs.tableOfContent.updateMissingItems
+      ) {
+        this.$root.$refs.tableOfContent.updateMissingItems(null);
+      }
+      // this.$root.$refs.tableOfContent.updateMissingItems(null);
     },
     // 检查表单漏填
     checkFormMissingItems() {
@@ -859,14 +870,14 @@ export default {
                   try {
                     top = element.$el.getBoundingClientRect().top - 20;
                   } catch (error) {
-                    console.log(
-                      "error!!!",
-                      title,
-                      error,
-                      top,
-                      element,
-                      element.$el
-                    );
+                    // console.log(
+                    //   "error!!!",
+                    //   title,
+                    //   error,
+                    //   top,
+                    //   element,
+                    //   element.$el
+                    // );
                     top =
                       element[
                         keys[0]
@@ -914,7 +925,7 @@ export default {
                 //佛山人医，添加input disabled属性的校验
                 let disabled = element.disabled;
                 if(disabled) {
-                  console.log( 'cmd disabled',disabled)
+                  // console.log( 'cmd disabled',disabled)
                   continue;
                 }
                 name = element.$parent.obj.name;
@@ -1242,6 +1253,7 @@ export default {
         post = Object.assign({}, this.formObj.model, post);
 
         // post.formCode = this.formCode
+        console.log(window.formObj.model, "window.formObj.model")
 
         let postData = new Object();
         for (const key in post) {
@@ -1262,6 +1274,8 @@ export default {
           }
         }
 
+
+        console.log(postData, '入参值')
 
         save(postData)
           .then((res) => {
@@ -1294,7 +1308,7 @@ export default {
     },
     hotkeyForm() {
       window.document.onkeydown = (e) => {
-        console.log('gao');
+        // console.log('gao');
         var currKey = 0;
         e = e || event || window.event;
         currKey = e.keyCode || e.which || e.charCode;
@@ -1412,6 +1426,9 @@ export default {
       this.bus.$emit("setHosptialAdmissionPageMessage", "请选择左侧患者~");
       let route = {name:this.$route.name}
       this.$router.push(route);
+    },
+    formCodeFy: function (newVal) {
+      this.formCode = this.HOSPITAL_ID === 'foshanrenyi' ? newVal : 'E0001'
     },
   },
   components: {

@@ -440,7 +440,7 @@ export default {
         } else {
           // 不能点击弹窗外的区域来关闭，只通过关闭、取消、保存按钮关闭。
           // 医院名单
-          const blackList=['guizhou','foshanrenyi','wujing','fsxt', 'whfk' , 'gdtj', 'zhzxy','fsxt']
+          const blackList=['guizhou','foshanrenyi','wujing','fsxt', 'whfk' , 'gdtj', 'zhzxy','fsxt','nfyksdyy']
           if(!blackList.includes(this.HOSPITAL_ID)){
             this.close();
           }

@@ -45,7 +45,7 @@ export default {
       //护理记录
       {
         name: `
-        病情观察及护理措施
+        备注
         `,
         style: {
           minWidth: "155px",
