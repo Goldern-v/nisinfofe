@@ -61,8 +61,11 @@ export default {
   },
   mounted() {},
   watch: {
-    model() {
-      this.item.children.map(chil => {
+    model:{
+      deep:true,
+      handler()
+{
+  this.item.children.map(chil => {
         chil.addClass = "";
         for (let key in this.model) {
           if (
@@ -75,6 +78,7 @@ export default {
           }
         }
       });
+}
     }
   }
 };
