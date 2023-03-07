@@ -142,7 +142,7 @@
       </router-link>
       <router-link
         :to="{
-          path: '/patientImplementationList',
+          path: '/implementationPerson',
           query: {
             patientId: query.patientId,
             visitId: query.visitId,
