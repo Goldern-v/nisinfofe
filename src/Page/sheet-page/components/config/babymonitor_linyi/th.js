@@ -1,6 +1,6 @@
 
 /*
-  佛山市一 - 护理记录单(爱婴区新生儿护理记录)
+  临邑 - 新生儿监护室监护记录
 */
 
 /**
@@ -36,7 +36,7 @@ export default {
             {"name": '血<br/>氧<br/>饱<br/>和<br/>度<br/>%',"colspan": "1","rowspan": "3",},
             {"name": '氧疗',"colspan": "2","rowspan": "1",},
             {"name": '呼吸机管理',"colspan": "8","rowspan": "1",},
-            {"name": '翻身记录',"colspan": "1","rowspan": "3",},
+            {"name": '翻<br/>身<br/>记<br/>录',"colspan": "1","rowspan": "3",},
             {"name": '护理措施',"colspan": "1","rowspan": "3",},
             { "name": "病情观察及其他处理", "colspan": "1", "rowspan": "3", style: { minWidth: "135px",  maxWidth: "135px"}, },
             { "name": "签名", "colspan": "1", "rowspan": "3"},
