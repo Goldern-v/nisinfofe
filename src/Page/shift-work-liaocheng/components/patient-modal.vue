@@ -54,11 +54,9 @@
           <ElInput type="textarea" ref="proposal" v-model="form.proposal" class="textarea" :disabled="isSignedN"/>
         </ElTabPane>
       </ElTabs>
-      <div class="shouwenshu" @click="showWenShu">护理文书</div>
     </div>
     <ElButton slot="button" @click="onClose">取消</ElButton>
     <ElButton slot="button" type="primary" @click="onConfirm" v-if="!$store.state.shiftRecords.isLock">保存</ElButton>
-    <showWenShu></showWenShu>
   </SweetModal>
 </template>
 
@@ -67,7 +65,6 @@
 
   import * as apis from '../apis'
   import Button from './button'
-  import showWenShu from "./showWenshu.vue"
 
   const defaultForm = {
     name:'',
@@ -93,9 +90,6 @@
       form: {...defaultForm}
     }),
     methods: {
-      showWenShu(){
-        console.log("dhwasdasd")
-      },
       open (tab, form, autoFocus, isSignedN) {
         this.tab = tab || '1'
         this.form = {...defaultForm, ...form}
@@ -167,7 +161,6 @@
     },
     components: {
       Button,
-      showWenShu
     }
   }
 </script>
