@@ -312,6 +312,7 @@ import newForm from "../modal/new-form.vue";
 import commonMixin from "@/common/mixin/common.mixin";
 import { getFormConfig } from "../config/form-config.js";
 import { hadTransferToWard } from "../api/index.js";
+import { DATA_CHANGE } from '@/utils/localStorage'
 
 export default {
   props: {
@@ -423,7 +424,9 @@ export default {
       };
     },
     async nodeClick(data, node) {
-      if (!this.$store.state.admittingSave.admittingSave) {
+      let isChange = localStorage.getItem(DATA_CHANGE)
+      isChange = isChange ? JSON.parse(isChange) : false
+      if (isChange && node.level == 2 && '925' == this.HOSPITAL_ID) {
       // if (node.level == 2) {
         const comfirm = await this.$confirm(
           "入院评估单还未保存，是否需要离开页面?",
@@ -440,6 +443,7 @@ export default {
             //   message: "退出成功!",
             // });
             // this.$store.state.admittingSave.admittingSave = true;
+            localStorage.setItem(DATA_CHANGE, false)
             return true;
           })
           .catch(() => {
@@ -524,7 +528,7 @@ export default {
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "zhongshanqi" ||
         this.HOSPITAL_ID == "foshanrenyi" ||
-        this.HOSPITAL_ID == "weixian" || 
+        this.HOSPITAL_ID == "weixian" ||
         this.HOSPITAL_ID == "zzwy"
       ) {
         // 文件夹
@@ -762,7 +766,7 @@ export default {
         }
         this.$message.error('你无权批量审核')
     },
-    /* 
+    /*
     isNode el-tree中的节点
      */
     batchAudit(e, node,query,isNode=true) {
