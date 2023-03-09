@@ -3,6 +3,7 @@
   <span
     style="margin: 0 0px 0 0"
     :style="{ display: 'flex', alignItems: 'start' }"
+    :class="obj.class"
   >
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
@@ -29,6 +30,7 @@
       :style="[obj.style, obj.inputWidth && { width: obj.inputWidth }]"
       :ref="obj.name"
       :name="obj.name"
+      :rows="Number(obj.rows) || 2"
       :placeholder="'空'"
       :class="model === 'development' ? 'development-model' : obj.class || ''"
       :size="obj.size || ''"
@@ -597,6 +599,9 @@ export default {
   margin-top: 8px;
   margin-bottom: 10px;
   resize: none;
+}
+.mark >>>.el-textarea textarea {
+  width: 720px;
 }
 
 .muban {
