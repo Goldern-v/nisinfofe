@@ -458,11 +458,13 @@ export default {
     // 压疮高分险
     dangerInYachuang() {
       let list = []
-      if(this.HOSPITAL_ID=="beihairenyi"){
-         list = this.bedList.filter((item) => item.dangerInYachuangBh);
-      }else{
-         list = this.bedList.filter((item) => item.dangerInYachuang);
+      let HisMap = {
+        beihairenyi:'dangerInYachuangBh',
+        whhk:'hasYachuangWhhk',
+        default:'dangerInYachuang'
       }
+      const ItemKey = HisMap[this.HOSPITAL_ID] || HisMap[`default`]
+      list = this.bedList.filter((item) => item[ItemKey]);
       return list;
     },
     // 已有压疮
@@ -1040,7 +1042,7 @@ export default {
             this.$parent.bedList = this.isFever;
           }
           break;
-        case "VTE高风险2222":
+        case "VTE高风险":
           {
             this.$parent.bedList = this.hasVteDanger;
           }
