@@ -125,6 +125,7 @@
         :isPain="isPain"
         :isAdl="isAdl"
         :tubingShedding="tubingShedding"
+        :selfCare="selfCare"
       ></footerBar>
     </div>
   </div>
@@ -450,14 +451,20 @@ export default {
     dangerInVteLy() {
       return this.bedList.filter((item) => item.dangerInVteLy);
     },
+    //自理能力
+    selfCare(){
+      return this.bedList.filter((item) => item.adl);
+    },
     // 压疮高分险
     dangerInYachuang() {
       let list = []
-      if(this.HOSPITAL_ID=="beihairenyi"){
-         list = this.bedList.filter((item) => item.dangerInYachuangBh);
-      }else{
-         list = this.bedList.filter((item) => item.dangerInYachuang);
+      let HisMap = {
+        beihairenyi:'dangerInYachuangBh',
+        whhk:'hasYachuangWhhk',
+        default:'dangerInYachuang'
       }
+      const ItemKey = HisMap[this.HOSPITAL_ID] || HisMap[`default`]
+      list = this.bedList.filter((item) => item[ItemKey]);
       return list;
     },
     // 已有压疮
@@ -613,7 +620,7 @@ export default {
           [
             "zhongshanqi", "liaocheng",  "beihairenyi",'ytll',
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
-            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','zhzxy', 'nanfangzhongxiyi','whsl','925'
+            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','zhzxy', 'nanfangzhongxiyi','whsl','925','whhk'
           ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {

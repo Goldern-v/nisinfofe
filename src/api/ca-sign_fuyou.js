@@ -48,6 +48,9 @@ export const getAuthorize=(data)=>{
       return axios.get(`${apiPath}caSignHoujie/getAccessToken`)
     case 'zhzxy':
       return axios.get(`${apiPath}caSignZhzxy/authorizeCaZhzxy`,{params:{selfSign:true}})
+    case 'zzwy':
+      return axios.get(`${apiPath}manufactor/zzwy/getQRCodeForLogin`)
+      // /api/manufactor/zzwy/getQRCodeForLogin
     default:
       return axios.get(`${apiPath}caSignJmfy/authorizeCaJmfy`)
   }
@@ -64,6 +67,8 @@ export const getTrustUserInfo=(data)=>{
       })
     case 'zhzxy':
       return axios.get(`${apiPath}caSignZhzxy/tokeninfoCaZhzxy/${data.requestId}`)
+    case 'zzwy':
+      return axios.post(`${apiPath}manufactor/zzwy/queryQRCode`,data)
     default:
       return axios.get(`${apiPath}caSignJmfy/tokeninfoCaJmfy/${data.requestId}`)
   }

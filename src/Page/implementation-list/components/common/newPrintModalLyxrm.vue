@@ -12,9 +12,14 @@
     <div
       v-if="['70*80','7*7'].includes(newModalSize)"
       class="new-print-modal new-print-modal--large"
-      :style="{width: '8cm',height: `${newModalSize == '7*7' ? 7 : 8}cm`}"
+      :style="{width: '7cm',height: `${newModalSize == '7*7' ? 7 : 8}cm`}"
     >
-      <div class="new-print-modal__title">
+      <div class="new-print-modal__title"  :class="{is925}" v-if="HOSPITAL_ID == '925'">
+        <span>{{currentBottle.printFlag ? '补' : ''}}</span>
+        <span class="center">{{ hospitalName }}</span>
+        <span>{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
+      </div>
+      <div class="new-print-modal__title"  :class="{is925}" v-if="HOSPITAL_ID !== '925'">
         <span>{{currentBottle.printFlag ? '补' : ''}}</span>
         <span class="center">{{ hospitalName }}</span>
         <span>{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
@@ -177,10 +182,15 @@
     min-height: 20px;
     width: 100%;
     font-size: 18px;
-    margin: 10px 0 4px;
+    margin: 2px 0 4px;
     flex-shrink: 0;
     .center{
       margin-right: 10px;
+    }
+    &.is925 {
+      * {
+        margin: 10px 0 4px;
+      }
     }
   }
 

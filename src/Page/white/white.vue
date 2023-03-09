@@ -101,7 +101,7 @@ export default {
       queryByDeptCode(this.deptCode).then(res => {
         this.deptInfo = res.data.data;
         if(this.deptInfo.message&&this.deptInfo.message!==''){
-          this.deptInfo.message = this.deptInfo.message.replace("<br/>", "\n")
+          this.deptInfo.message = this.deptInfo.message.replace(/<br\/>/g, "\n");
         }
         this.pageLoading = false;
         setTimeout(() => {

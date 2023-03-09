@@ -6,7 +6,7 @@
       v-for="item in list"
       :key="item.key"
       @click="selectType(item)"
-      :class="{ active: selectName == item.key }"
+      :class="{ active: selectName == item.key,bigger:item.key.length > 7}"
     >
       {{ item.key }}（{{ item.length || 0 }}）
     </div>
@@ -38,7 +38,9 @@
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
     border-right: 1px solid #EAEEF1;
     cursor: pointer;
-
+    &.bigger {
+      max-width: 158px !important;
+      }
     &.active {
       background: #F1F1F5;
       color: #333333;
@@ -72,6 +74,7 @@ export default {
     isAdl:Array,
     isPain:Array,
     tubingShedding:Array,
+    selfCare:Array
   },
   data() {
     return {};
@@ -152,6 +155,12 @@ export default {
         arr.splice(2,0, {key: "ADL",length: this.isAdl.length},
           {key: "疼痛",length: this.isPain.length},
           {key: "管道脱落风险",length: this.tubingShedding.length},)
+
+      }
+      if(this.HOSPITAL_ID == "whhk"){
+        arr.splice(2,0,
+        {key: "自理能力",length: this.selfCare.length},
+          {key: "已有疼痛",length: this.isPain.length})
 
       }
       if(this.HOSPITAL_ID == "beihairenyi"){
