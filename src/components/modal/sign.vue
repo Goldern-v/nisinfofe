@@ -48,13 +48,12 @@
           :disabled="['nanfangzhongxiyi'].includes(HOSPITAL_ID) && nanfangCa"
           placeholder="输入用户名或者工号"
           v-model="username"
-          :readonly="['foshanrenyi','weixian'].includes(HOSPITAL_ID)"
+          :readonly="['foshanrenyi','weixian','zzwy'].includes(HOSPITAL_ID)"
         ></el-input>
       </div>
     </span>
     <div style="height: 5px"></div>
     <span v-if="hasQrCaSignHos.includes(HOSPITAL_ID)" v-show="!pw">
-    <!-- <span v-if="['fuyou'].includes(HOSPITAL_ID)" v-show="!pw"> -->
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -66,6 +65,20 @@
       </div>
     </span>
     <span v-else-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID) && nanfangCa"></span>
+    <span v-else-if="(['zzwy'].includes(HOSPITAL_ID))">
+      <div v-show="zzwyNoHasCaSign">
+        <p for class="name-title">{{ '请输入口令' }}</p>
+        <div ref="passwordInput">
+          <el-input
+            size="small"
+            type="text"
+            placeholder="请输入口令"
+            v-model="caPassword"
+            class="passwordInput"
+          ></el-input>
+        </div>
+      </div>
+    </span>
     <span v-else-if="(!['foshanrenyi','weixian'].includes(HOSPITAL_ID)) || pw ">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
@@ -78,6 +91,7 @@
         ></el-input>
       </div>
     </span>
+    
     <span v-else>
       <p for class="name-title">
         验证方式
@@ -183,7 +197,7 @@
 </style>
 
 <script>
-import { GetUserList,verifyNewCaSign,nanfnagCaSign } from "@/api/caCardApi";
+import { GetUserList,verifyNewCaSign,nanfnagCaSign,zzwyVerifySign,zzwyVerifySignNoPw } from "@/api/caCardApi";
 import dayjs from "dayjs";
 import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
@@ -252,7 +266,9 @@ export default {
       btnLoading:false,
       verifySignObj:{},
       SigndataObj:{},
-      foshanshiyiIFca:false
+      foshanshiyiIFca:false,
+      caPassword:'',//zzwy口令
+      zzwyNoHasCaSign:true,//zzwy 这次登录是否有ca签过名,没有就是true
     };
   },
   methods: {
@@ -270,7 +286,8 @@ export default {
     return !!flag
     },
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType,SigndataObj,verifySignObj) {//formData为表单数据
-      console.log(callback, title, showDate, isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj,"open")
+      // console.log(callback, title, showDate, isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj,"open")
+      
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
        GetUserList().then(res=>{
          if(res.data.length==0){
@@ -288,7 +305,14 @@ export default {
           this.ca_name = "";
           this.ca_isLogin = !!this.ca_name;
       })
-    }
+      }else if(['zzwy'].includes(this.HOSPITAL_ID)){
+          // 漳州五院 判断需不需要传口令
+          if(localStorage.getItem('zzwyHasCaSign')){
+            this.zzwyNoHasCaSign = false
+          }else{
+            this.zzwyNoHasCaSign = true
+          }
+      }
    this.btnLoading = false
     if(doctorTure){
       this.isDoctor = doctorTure
@@ -392,6 +416,7 @@ export default {
       return null;
     },
     close() {
+      this.caPassword = ''
       this.isDoctor =false
       this.showAduit=false
       this.activeSheetType=""
@@ -470,7 +495,10 @@ export default {
               })
           }
         }
-      } else {
+      } else if(['zzwy'].includes(this.HOSPITAL_ID)){
+			this.turnToDealzzwy()
+			
+      }else {
         if (this.password == "" && !this.nanfangCa) {
            this.$message({
             message: "请输入密码",
@@ -501,6 +529,7 @@ export default {
               }
           },err=>{this.$message.error(err)})
         }else{
+          
           this.$refs.modalName.close();
           if(this.aduitDate != '' && this.HOSPITAL_ID == 'hengli'){
             return this.callback(this.password, this.username,this.signDate='', this.aduitDate);
@@ -523,6 +552,80 @@ export default {
         }
       }
     },
+	/**处理漳州五院的签名，登录首次签名需要口令，其它不需要口令 */
+	turnToDealzzwy(){
+		if(this.zzwyNoHasCaSign){
+			// 没有签过名,要口令
+			if (this.caPassword == "" ) {
+			this.$message({
+				message: "请输入口令",
+				type: "warning",
+				showClose: true
+			});
+			return this.btnLoading = false
+			}
+			zzwyVerifySign({
+				empNo:this.username,
+				password:this.caPassword
+			}).then(res=>{
+				// console.log(res.data.data.password)
+				if(res.data.data.resultCode=='0'){
+				localStorage.setItem('zzwyHasCaSign','1')
+				// 口令正确 保存数据
+				this.$refs.modalName.close();
+					if (this.signDate) {
+					return this.callback(
+						res.data.data.password,
+						this.username,
+						this.signDate,
+					);
+					} else {
+					return this.callback(res.data.data.password, this.username);
+					}
+				}else{
+
+				this.$message({
+					message: "口令错误，请重试",
+					type: "error",
+					showClose: true
+				});
+				}
+				this.btnLoading = false
+			}).catch(err=>{
+				this.btnLoading = false
+			})
+		}else{
+      // debugger
+			// 不需要口令
+			zzwyVerifySignNoPw({
+				empNo:this.username,
+			}).then(res=>{
+				// console.log(res.data.data.password)
+				if(res.data.data.resultCode=='0'){
+				// 保存数据
+				this.$refs.modalName.close();
+					if (this.signDate) {
+					return this.callback(
+						res.data.data.password,
+						this.username,
+						this.signDate,
+					);
+					} else {
+					return this.callback(res.data.data.password, this.username);
+					}
+				}else{
+					this.$message({
+						message: "数据错误",
+						type: "error",
+						showClose: true
+					});
+				}
+				this.btnLoading = false
+			}).catch(err=>{
+				this.btnLoading = false
+			})
+		} 
+	},
     openCaSignModal() {
       window.openCaSignModal();
       this.$refs.modalName.close();
@@ -637,6 +740,7 @@ export default {
   },
   beforeDestroy() {
     this.fuyouCaData = null
+    this.caPassword = ''
     this.isDoctor = false
   },
   components: {}

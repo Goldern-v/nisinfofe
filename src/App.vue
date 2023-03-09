@@ -21,6 +21,7 @@
     <setTextModalNew ref="setTextModalNew"></setTextModalNew>
     <caSignModal ref="caSignModal"></caSignModal>
     <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
+    <zzwyCaSignModal ref="zzwyCaSignModal"></zzwyCaSignModal>
     <hjCaSignModal ref="hjCaSignModal"></hjCaSignModal>
     <!-- 测试 -->
 
@@ -53,6 +54,7 @@ import common from "@/common/mixin/common.mixin";
 import detectZoom from "@/plugin/tool/detectZoom.js";
 import ScreenLockView from "@/components/screenLockView/ScreenLockView";
 import fuyouCaSignModal from "@/components/modal/fuyou-ca-sign";
+import zzwyCaSignModal from "@/components/modal/zzwy-ca-sign";
 import hjCaSignModal from "@/components/modal/hj-ca-sign";
 
 
@@ -127,6 +129,7 @@ export default {
       newFormBox: this.$refs.newFormBox,
       caSignModal: this.$refs.caSignModal,
       fuyouCaSignModal: this.$refs.fuyouCaSignModal,
+      zzwyCaSignModal: this.$refs.zzwyCaSignModal,
       hjCaSignModal: this.$refs.hjCaSignModal,
       selectDiagnosis: this.$refs.selectDiagnosis,
       formBox: this.$refs.moadl,
@@ -230,6 +233,7 @@ export default {
     window.openFuyouCaSignModal = (isStart) => {
       return this.$refs.fuyouCaSignModal.open(()=>{},isStart);
     };
+    
     window.openHjCaSignModal = (isStart) => {
       return this.$refs.hjCaSignModal.open(()=>{},isStart);
     };
@@ -238,6 +242,13 @@ export default {
     };
     window.closeHjCaSignModal = () => {
       this.$refs.hjCaSignModal.close();
+    };
+    /** 漳州五院ca签名 */
+    window.openZzwyCaSignModal = (isStart) => {
+      return this.$refs.zzwyCaSignModal.open(()=>{},isStart);
+    };
+    window.closeZzwyCaSignModal = () => {
+      this.$refs.zzwyCaSignModal.close();
     };
     //fuyouCaSignModal
     /** 关闭前提示 */
@@ -396,6 +407,7 @@ export default {
     caSignModal,
     ScreenLockView,
     fuyouCaSignModal,
+    zzwyCaSignModal,
     hjCaSignModal
   }
 };
