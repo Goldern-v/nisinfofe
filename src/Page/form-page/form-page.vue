@@ -63,6 +63,7 @@ import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
 import record from "@/Page/patientInfo/supPage/record/record";
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
+import { DATA_CHANGE } from '@/utils/localStorage'
 export default {
   mixins: [common],
   data() {
@@ -140,6 +141,9 @@ export default {
     },
   },
   beforeRouteUpdate(to, from, next) {
+    // let isChange = localStorage.getItem(DATA_CHANGE)
+    // isChange = isChange ? JSON.parse(isChange) : false
+    // (isChange && '925' == this.HOSPITAL_ID)
     if(!this.$store.state.admittingSave.admittingSave){
       return this.$confirm('入院评估单还未保存，是否需要离开页面?', '提示', {
           confirmButtonText: '确定',

@@ -6,7 +6,7 @@
     @close="handleClose"
     id="relation-form-modal-con"
   >
-    <div class="form-area">
+    <div class="form-area" :class="{'form-area--full': '925' === HOSPITAL_ID}">
       <div class="loading-mask" v-show="loading">
         <div class="loading-mask-info">
           <i class="el-icon-loading" v-show="iconVisible"></i>
@@ -190,6 +190,9 @@ export default {
       width: 100%;
       height: 50vh;
       position: relative;
+      &.form-area--full {
+        height: 85vh;
+      }
       .loading-mask {
         position: absolute;
         top: 0;
