@@ -120,7 +120,7 @@
 
       <!-- Tabs: If title AND tabs are present -->
       <ul class="sweet-modal-tabs" v-if="has_title && has_tabs">
-        <li v-for="tab in tabs" :class="_getClassesForTab(tab)">
+        <li v-for="(tab, i) in tabs" :class="_getClassesForTab(tab)" :key={i}>
           <a href="#" v-on:click.prevent="_changeTab(tab)">
             <div class="sweet-modal-valign">
               <span v-if="tab.icon" v-html="tab.icon" class="sweet-modal-tab-icon" />
@@ -1090,7 +1090,7 @@ export default {
       top: 20px;
       bottom: 10px;
     }
-    max-height: calc(100vh - 220px);
+    max-height: calc(100vh - 50px);
     overflow: auto;
     line-height: 1.5;
     .sweet-content-content {
