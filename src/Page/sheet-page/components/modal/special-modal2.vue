@@ -2128,7 +2128,8 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType === "common_wj" ||
-              this.sheetInfo.sheetType === "babyarea_fs"
+              this.sheetInfo.sheetType === "babyarea_fs" || 
+              this.sheetInfo.sheetType === "ipacu_fs"
             ) {
               if (GetLength(text) > 27) {
                 result.push(text);
