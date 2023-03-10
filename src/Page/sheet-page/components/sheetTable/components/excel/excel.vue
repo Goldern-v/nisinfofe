@@ -1123,6 +1123,7 @@ export default {
       leftTopBottomRight(e, bind);
     },
     onFocus(e, bind) {
+      console.log("sheetInfo.model",sheetInfo.model,this.sheetInfo.downControl,this.isOpenEditModal)
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
         setTimeout(() => {

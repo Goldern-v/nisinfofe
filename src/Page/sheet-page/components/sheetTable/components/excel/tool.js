@@ -107,6 +107,7 @@ function leftTopBottomRight(e, bind) {
 }
 
 function onFocusToAutoComplete(e, bind, cb) {
+  console.log(bind,'onFocusToAutoComplete')
   let { autoComplete, x, y, z, td, tr, splice } = bind;
   let scrollTop = document.querySelector(".sheetTable-contain").scrollTop;
   let scrollLeft = document.querySelector(".sheetTable-contain").scrollLeft;
@@ -115,6 +116,7 @@ function onFocusToAutoComplete(e, bind, cb) {
   let isRead;
   let status = tr.find(item => item.key == "status").value;
   let empNo = tr.find(item => item.key == "empNo").value;
+  console.log(isRead,status,empNo,'djw-isRead1111')
   if (status >= 1) {
     if (
       empNo == JSON.parse(localStorage.user).empNo ||
@@ -127,6 +129,7 @@ function onFocusToAutoComplete(e, bind, cb) {
   } else {
     isRead = false;
   }
+  console.log(isRead,status,empNo,'djw-isRead2222')
   if (isRead) return;
   let autoCompleteData = autoComplete.data
   //顺德龙江颅脑外科的意识瞳孔下拉选项只保留符号
