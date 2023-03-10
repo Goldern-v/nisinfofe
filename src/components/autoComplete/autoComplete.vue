@@ -120,7 +120,6 @@ export default {
       this.show = false
     },
     open(config) {
-      console.log(config,'open')
       this.config = config
       this.style = config.style;
       this.callback = config.callback;

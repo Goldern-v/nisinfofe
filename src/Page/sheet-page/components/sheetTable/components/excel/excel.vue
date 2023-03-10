@@ -467,6 +467,7 @@
                 td.click &&
                 td.click($event, td)
             "
+            class="11111"
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <!-- 武警 护理记录单特殊情况单独处理，可以加粗 -->
@@ -1123,7 +1124,6 @@ export default {
       leftTopBottomRight(e, bind);
     },
     onFocus(e, bind) {
-      console.log("sheetInfo.model",sheetInfo.model,this.sheetInfo.downControl,this.isOpenEditModal)
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
         setTimeout(() => {
