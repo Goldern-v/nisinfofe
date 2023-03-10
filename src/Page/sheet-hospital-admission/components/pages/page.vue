@@ -87,7 +87,7 @@ export default {
     },
     formCode() {
       try {
-        return this.formObj.formSetting.formInfo.formCode;
+        return window.formObj.formSetting.formInfo.formCode;
       } catch (error) {
       }
       return "E0001";
@@ -141,6 +141,10 @@ export default {
         file = JSON.parse(
           JSON.stringify(require(`../data/入院评估.form.${this.HOSPITAL_ID}.json`))
         )
+      } else if(this.HOSPITAL_ID === 'foshanrenyi'){
+        file = JSON.parse(
+          JSON.stringify(require("../data/formFoshanrenyi/child/入院评估.form.json"))
+        )
       } else {
         file = JSON.parse(
           JSON.stringify(require("../data/入院评估.form.json"))
@@ -160,7 +164,9 @@ export default {
       if (this.HOSPITAL_ID === 'liaocheng') {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.liaoc.json")))
       } else if (this.HOSPITAL_ID === 'foshanrenyi') {
-        dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+        // dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+        dictionary = JSON.parse(JSON.stringify(require("../data/formFoshanrenyi/child/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+
       } else if (['lyxrm', 'qhwy','lyyz', 'stmz', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require(`../data/formDictionary/入院评估.dictionary.${this.HOSPITAL_ID}.json`)))
       } else {
@@ -185,7 +191,9 @@ export default {
       } else if (this.HOSPITAL_ID === 'qhwy') {
         contexts = require.context('../data/formDialogQhwy', true, /\.json$/);
       } else if (this.HOSPITAL_ID === 'foshanrenyi') {
-        contexts = require.context('../data/foshanrenyi/formDialog', true, /\.json$/);
+        // contexts = require.context('../data/foshanrenyi/formDialog', true, /\.json$/);
+        contexts = require.context('../data/formFoshanrenyi/child/formDialog', true, /\.json$/);
+
       } else if (this.HOSPITAL_ID === 'lyyz') {
         contexts = require.context('../data/formDialogLyyz', true, /\.json$/);
       } else if (this.HOSPITAL_ID === 'nfyksdyy') {

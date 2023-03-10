@@ -1252,7 +1252,7 @@ export default {
       }
     },
     setTitle(item,item2) {
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy'].includes(this.HOSPITAL_ID)) {
         // if (item2.fromAddPage) {
         //   return
         // }
@@ -1472,13 +1472,13 @@ export default {
       return [allList, currIndex];
     },
     toSign(trArr, index, bodyModel, showSign, e, td) {
-      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
-    GetUserList().then(res=>{
-      if (res.data.length == 0) {
-        localStorage.removeItem("caUser")
-      }
-    })
-  }
+      	if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+			GetUserList().then(res=>{
+				if (res.data.length == 0) {
+					localStorage.removeItem("caUser")
+				}
+			})
+		}
       this.sheetInfo.downControl = e.ctrlKey;
       if (this.sheetInfo.downControl) return;
       if (this.sheetInfo.selectRow.length) {
@@ -2107,7 +2107,7 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        if (["weixian","foshanrenyi","nanfangzhongxiyi",'zhzxy'].includes(this.HOSPITAL_ID)) {
+        if (["weixian","foshanrenyi","nanfangzhongxiyi",'zhzxy','zzwy'].includes(this.HOSPITAL_ID)) {
           return trArr.find((item) => item.key == "signerNo").value
             ? `<img
               width="50"
@@ -2144,7 +2144,7 @@ export default {
       }).value;
         // console.log("koaosdad",auditorName)
       if (status == "2" && sign) {
-        if (this.HOSPITAL_ID == "foshanrenyi") {
+        if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zzwy") {
           return  `<img
               width="50"
               height="100%"

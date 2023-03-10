@@ -1182,7 +1182,7 @@ export default {
                     data: { master },
                   },
                 } = res;
-                //
+                
                 if (master.updaterName && master.updateTime) {
                   this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
                 }
@@ -1290,7 +1290,6 @@ export default {
                 data: { master },
               },
             } = res;
-            //
             if (master.updaterName && master.updateTime) {
               this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
             }

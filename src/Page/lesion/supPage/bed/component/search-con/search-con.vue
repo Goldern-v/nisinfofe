@@ -458,21 +458,24 @@ export default {
     // 压疮高分险
     dangerInYachuang() {
       let list = []
-      if(this.HOSPITAL_ID=="beihairenyi"){
-         list = this.bedList.filter((item) => item.dangerInYachuangBh);
-      }else{
-         list = this.bedList.filter((item) => item.dangerInYachuang);
+      let HisMap = {
+        beihairenyi:'dangerInYachuangBh',
+        default:'dangerInYachuang'
       }
+      const ItemKey = HisMap[this.HOSPITAL_ID] || HisMap[`default`]
+      list = this.bedList.filter((item) => item[ItemKey]);
       return list;
     },
     // 已有压疮
     hasYachuang() {
       let list = []
-      if(this.HOSPITAL_ID=="beihairenyi"){
-        list = this.bedList.filter((item) => item.hasYachuangBh);
-      }else{
-        list = this.bedList.filter((item) => item.hasYachuang);
+      let HisMap = {
+        beihairenyi: 'hasYachuangBh',
+        whhk: 'hasYachuangWhhk',
+        default: 'hasYachuang'
       }
+      const ItemKey = HisMap[this.HOSPITAL_ID] || HisMap[`default`]
+      list = this.bedList.filter((item) => item[ItemKey]);
       return list;
     },
     // MEWS预警
@@ -1040,7 +1043,7 @@ export default {
             this.$parent.bedList = this.isFever;
           }
           break;
-        case "VTE高风险2222":
+        case "VTE高风险":
           {
             this.$parent.bedList = this.hasVteDanger;
           }

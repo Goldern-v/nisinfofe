@@ -295,7 +295,6 @@ export default {
               // clean.map(c=>{
               //   this.$root.$refs[this.formCode]['formGroupColBox'+c].hidden = true
               // })
-              
               if (task.clean) {
                 if (task.clean.constructor == Array) {
                   

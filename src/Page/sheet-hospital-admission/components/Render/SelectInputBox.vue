@@ -1,6 +1,6 @@
 
 <template>
-  <span style="margin: 0; display:flex; align-items:center;" class="input-box">
+  <span style="display:flex; align-items:center;" class="input-box">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span

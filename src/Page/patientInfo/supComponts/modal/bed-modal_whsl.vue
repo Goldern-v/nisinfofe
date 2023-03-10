@@ -269,6 +269,7 @@
 }
 
 .bed-card-wrapper {
+  margin: -4mm 2mm 2mm 3mm ;
   background: #fff;
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;

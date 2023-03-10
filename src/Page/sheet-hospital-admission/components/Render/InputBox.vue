@@ -1,7 +1,7 @@
 
 <template>
   <span
-    :style="(obj.label||obj.suffixDesc || alertMessage) && {display: 'flex', alignItems: 'center', margin:'5px 0' }"
+    :style="(obj.label||obj.suffixDesc || alertMessage) && {display: 'flex', alignItems: 'center', margin:'0 0 5px 0' }"
   >
   <!-- 警报icon -->
     <div

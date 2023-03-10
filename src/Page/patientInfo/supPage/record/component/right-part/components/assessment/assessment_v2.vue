@@ -498,10 +498,10 @@ default {
           let css = `#app input,#app label,#app td,#app .sign-con{
               pointer-events: none !important;
           }`;
-          // 厚街（手术患者交接记录单第三方查阅时可以编辑）
+          // 厚街（手术患者交接记录单第三方查阅时可以编辑）ZHZXY_E0007      ZHZXY_E0004
           let listHospital = [
               ()=> this.HOSPITAL_ID == 'hj' && (this.info.formCode == 'J0010' || this.info.formCode == 'operationInstrumentDressing'),
-              ()=> this.HOSPITAL_ID == 'zhzxy' && (this.info.formCode == 'E2157' || this.info.formCode == 'E2158'|| this.info.formCode == 'E1760'),
+              ()=> this.HOSPITAL_ID == 'zhzxy' && (this.info.formCode == 'ZHZXY_E0007' || this.info.formCode == 'ZHZXY_E000'|| this.info.formCode == 'E1760'),
           ]
           if (listHospital[0]() || listHospital[1]()) {
             css = `#app input,#app label,#app td,#app .sign-con{
