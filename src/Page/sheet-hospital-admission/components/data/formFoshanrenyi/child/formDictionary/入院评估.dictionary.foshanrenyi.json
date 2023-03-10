@@ -1,0 +1,147 @@
+{
+    "I2333054": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
+        },
+        {
+            "code": "吞咽障碍",
+            "name": "吞咽障碍",
+            "pinyin": "tyza"
+        },
+        {
+            "code": "饮水试验：洼田",
+            "name": "饮水试验：洼田",
+            "pinyin": "yssy"
+        }
+    ],
+    "I2333093": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ],
+    "I2333094": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ],
+    "I2333095": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ],
+    "I2333096": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ]
+}

@@ -231,6 +231,9 @@ export default {
           this.formObj.model[this.callbackInfo.code] = (this.callbackInfo.openKeyName ? this.selectedValue + ',' : '') + resVal
         }
       }
+      if (this.callbackInfo.defaultName) {
+        this.formObj.model[this.callbackInfo.code] = this.callbackInfo.prefix
+      }
       //弹窗精准找到需要修改的inputBox
       this.bus.$emit(`updateValue${this.callbackInfo.code}`)
     },

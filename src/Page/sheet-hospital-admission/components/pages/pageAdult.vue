@@ -186,32 +186,32 @@ export default {
         } catch (error) {
         }
 
-        if (djson.schemes) {
-          let fromName = context.replace("./", "").replace(".json", "");
+        // if (djson.schemes) {
+        //   let fromName = context.replace("./", "").replace(".json", "");
 
-          console.log(fromName, '弹出框文件')
-          let hospitalSchemes = {
-            'liaocheng':'formSchemesLiaoc',
-            'lyxrm':'formSchemesLyxrm',
-            'stmz':'formSchemesLyxrm',
-            'qhwy':'formSchemesQhwy',
-            'lyyz':'formSchemesLyyz',
-            'nfyksdyy':'formSchemesNfyksdyy',
-          }
-          let schemesJson = null
-          if (['liaocheng', 'lyxrm', 'qhwy', 'lyyz', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
-            schemesJson = require(`../data/${hospitalSchemes[this.HOSPITAL_ID]}/${fromName}.txt.json`)
-          } else {
-            schemesJson = require(`../data/formSchemes/${fromName}.txt.json`)
-          }
-          let schemes = JSON.parse(JSON.stringify(schemesJson));
+        //   console.log(fromName, '弹出框文件')
+        //   let hospitalSchemes = {
+        //     'liaocheng':'formSchemesLiaoc',
+        //     'lyxrm':'formSchemesLyxrm',
+        //     'stmz':'formSchemesLyxrm',
+        //     'qhwy':'formSchemesQhwy',
+        //     'lyyz':'formSchemesLyyz',
+        //     'nfyksdyy':'formSchemesNfyksdyy',
+        //   }
+        //   let schemesJson = null
+        //   if (['liaocheng', 'lyxrm', 'qhwy', 'lyyz', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+        //     schemesJson = require(`../data/${hospitalSchemes[this.HOSPITAL_ID]}/${fromName}.txt.json`)
+        //   } else {
+        //     schemesJson = require(`../data/formSchemes/${fromName}.txt.json`)
+        //   }
+        //   let schemes = JSON.parse(JSON.stringify(schemesJson));
 
-          djson.schemes = schemes;
-          djson.schemesObj = {};
-          djson.schemes.map(key => {
-            djson.schemesObj[key.name] = key.title;
-          });
-        }
+        //   djson.schemes = schemes;
+        //   djson.schemesObj = {};
+        //   djson.schemes.map(key => {
+        //     djson.schemesObj[key.name] = key.title;
+        //   });
+        // }
 
         if (patient) {
           this.setPatientInfo(djson, patient);

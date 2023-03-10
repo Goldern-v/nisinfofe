@@ -12,7 +12,7 @@
     "updateInfo": "由{{updaterName}}创建，最后编辑于{{updateTime}}",
     "formTitle": {
       "hospitalName": "青 海 省 第 五 人 民 医 院",
-      "formName": "入 院 评 估"
+      "formName": "首次与出院护理记录单"
     },
     "formHeads": [],
     "formTail": {
@@ -1355,7 +1355,6 @@
         {
           "name": "I001119",
           "type": "select",
-          "multiplechoice": true,
           "title": "过敏史",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:300px!important",
@@ -2567,7 +2566,7 @@
     {
       "name": "",
       "type": "formGroupColBox",
-      "col": 1,
+      "col": 2,
       "title": "九、出院小结及护理指导",
       "message": "",
       "require": "false",
@@ -2581,14 +2580,19 @@
         {
           "name": "I003001",
           "type": "datePicker",
-          "title": "评估时间",
-          "titleStyle": "width:90px!important;margin:0;",
+          "title": "出院时间",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:100%!important",
+          "style": "width:99%",
+          "elementStyle": "width:192px",
           "hiddenTips": true,
           "value": "",
-          "placeholder": "评估时间",
-          "style": "width:145px",
+          "placeholder": "出院时间",
           "class": null,
-          "readOnly": null
+          "readOnly": null,
+          "tdProps": {
+            "colspan": "1"
+          }
         },
         {
           "name": "I001016",
@@ -2605,11 +2609,12 @@
           "labelLeft": true,
           "hiddenTips": true,
           "tdProps": {
-            "colspan": "4"
+            "colspan": "1"
           }
         }
       ]
     },
+
 
     {
       "name": "",

@@ -645,6 +645,15 @@ export default {
 }
 .radio_input, .itemRadio{
   display: flex;
+  flex-wrap: wrap;
+}
+.itemRadio {
+  .input-element{
+    display: flex;
+  }
+  .input-box{ // select 调整
+    margin: -5px 0 0 0;
+  }
 }
 
 .el-radio-long {

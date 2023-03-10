@@ -84,6 +84,15 @@ function verifySign(loginOBJ) {
   return axios.post(`${apiPath}dsvsFssyNew/verifySign`, loginOBJ)
 }
 
+//zzwy 验证口令签名
+function zzwyVerifySign(obj) {
+  return axios.post(`${apiPath}manufactor/zzwy/signDataByPasswordWithExtraInfo`, obj)
+}
+//zzwy 不验证口令签名
+function zzwyVerifySignNoPw(obj) {
+  return axios.post(`${apiPath}manufactor/zzwy/signDataWithExtraInfo`, obj)
+}
+
 function caLoginBefore() {
   return new Promise((resolve, reject) => {
     genRandom().then(genRes => {
@@ -313,5 +322,7 @@ export {
   SOF_GetRetryCount,
   nanfnagCaSign,
   getRandomQrCode,
-  getQrCodeStatus
+  getQrCodeStatus,
+  zzwyVerifySign,
+  zzwyVerifySignNoPw
 }

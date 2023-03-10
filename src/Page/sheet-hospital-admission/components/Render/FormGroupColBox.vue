@@ -39,6 +39,7 @@
                 :key="'td'+cindex+col"
                 v-bind="obj.children[n+(col-1)].tdProps"
               >
+              
                 <TipsBox :obj="obj.children[n+(col-1)]" :formObj="formObj">
                   <div
                     class="box-td"

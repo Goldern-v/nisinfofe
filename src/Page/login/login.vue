@@ -710,7 +710,13 @@ export default {
               return this.$router.push("/resetpassword");
             }
           }
-          this.loginSucceed(res, type);
+          if(['zzwy'].includes(this.HOSPITAL_ID)){
+            this.loginSucceedZZwy(res, type);
+          }else{
+            this.loginSucceed(res, type);
+          }
+          
+          
         })
         .catch((res) => {
           this.ajax = false;
@@ -789,6 +795,43 @@ export default {
       this.$store.commit("updateIsMobile",this.isMobile)
       localStorage.setItem("isMobile",this.isMobile)
       }
+    },
+
+    /**漳州五院的登陆流程：
+     * 1、先系统的账号密码登录，
+     * 2、弹框，二维码或者证书账号口令验证
+     * 3、通过才登录
+     */
+    loginSucceedZZwy(res,type){
+      clearInterval(nanfanImgtimer);
+      // 存下token 和用户信息 Auth-Token-Nursing
+      let user = res.data.data.user;
+      user.token = res.data.data.authToken;
+      window.app.authToken = res.data.data.authToken;
+      localStorage["ppp"] = this.password;
+      localStorage.setItem("user", JSON.stringify(res.data.data.user));
+      this.setUser(res.data.data.user || {});
+      localStorage["adminNurse"] = res.data.data.adminNurse;
+      Cookies.remove("NURSING_USER");
+      //清除江门妇幼ca
+      if(!['guizhou'].includes(this.HOSPITAL_ID)) localStorage.removeItem("fuyouCaData");
+      Cookies.set(
+        "NURSING_USER",
+        `${res.data.data.user.id}##${res.data.data.authToken}`,
+        {
+          path: "/",
+        }
+      );
+      // this.loginLoading = false;   暂时注释
+      // 从这里截断
+      window.openZzwyCaSignModal(true);
+      // return
+
+      // 清除科室记录
+      this.$store.commit("upDeptCode", "");
+      localStorage.selectDeptValue = "";
+      this.$store.commit("upDeptName", "");
+      
     },
     toReset() {
       this.$router.push("/resetPassword");
