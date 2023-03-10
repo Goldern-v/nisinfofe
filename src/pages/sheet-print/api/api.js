@@ -29,8 +29,13 @@ export const showBodyByPage = (patientId, visitId,startPageIndex ,endPageIndex) 
   };
   return axios.post(`${apiPath}record/${sheetInfo.sheetType}/listByPage`, data);
 };
-export const showTitle = (patientId, visitId,startPageIndex,endPageIndex) => {
-  return axios.get(`${apiPath}record/setting/list/${sheetInfo.selectBlock.id}?startPageIndex=${startPageIndex}&endPageIndex=${endPageIndex}`);
+export const showTitle = (patientId, visitId, startPageIndex, endPageIndex) => {
+  if (startPageIndex && endPageIndex) {
+    return axios.get(
+      `${apiPath}record/setting/list/${sheetInfo.selectBlock.id}?startPageIndex=${startPageIndex}&endPageIndex=${endPageIndex}`
+    );
+  }
+  return axios.get(`${apiPath}record/setting/list/${sheetInfo.selectBlock.id}`);
 };
 
 
