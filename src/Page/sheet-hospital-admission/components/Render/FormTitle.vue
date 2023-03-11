@@ -72,6 +72,12 @@ export default {
           value: "",
           title: "床号"
         },
+        // ...this.obj.formInfo.formCode !== "E2332" ? 
+        {
+          name: "visitId",
+          value: "",
+          title: "第几次住院"
+        },
         {
           name: "inpNo",
           value: "",
@@ -82,7 +88,7 @@ export default {
           value: "",
           title: "入院日期"
         }
-      ];
+      ]
       ret.map(r => {
         try {
           r.value = patient[r.name];
@@ -92,7 +98,8 @@ export default {
     }
   },
   watch: {},
-  mounted() {},
+  mounted() {
+  },
   created() {},
   methods: {}
 };

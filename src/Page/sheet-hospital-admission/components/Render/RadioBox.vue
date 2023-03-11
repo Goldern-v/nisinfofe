@@ -266,7 +266,8 @@ export default {
       );
 
     },
-    runTasks() {
+    runTasks(init = false) {
+      console.log("初始化执行嘛", this.obj)
       //
       if (this.obj.tasks) {
 
@@ -289,6 +290,7 @@ export default {
             .isChecked
         ) {
           // this.obj.tasks.checked.clean
+          
           try {
             this.obj.tasks.map(task => {
               // let clean = task.clean
@@ -332,7 +334,16 @@ export default {
           }
         }
       }
-      // 隐藏切换
+
+      if (init && this.obj.showName) {
+        console.log(init, this.obj.showName)
+        if (this.obj.showName !== this.obj.title.trim()){
+          this.$root.$refs[this.formCode][
+          "formGroupColBox" + this.obj.showName
+            ].hidden = false;
+        }
+      }
+
       if (this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.title]) {
         if (this.formObj.model[this.obj.name] === this.obj.title) {
           this.$root.$refs[this.formCode][
@@ -344,7 +355,6 @@ export default {
             ].hidden = true;
         }
       }
-      
     }
   }
 };

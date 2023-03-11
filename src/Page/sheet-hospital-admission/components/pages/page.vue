@@ -445,7 +445,7 @@ export default {
                           ].$parent.checkboxValue = [c];
                         //
                         if (value === c) {
-                          this.$root.$refs[this.formCode][key][c].runTasks();
+                          this.$root.$refs[this.formCode][key][c].runTasks(true);
                         }
                       }
                     } catch (error) {
