@@ -102,7 +102,7 @@ export function getExecuteWithWardCodeLyxrm(obj) {
 
 // 补录（陵城）
 export function addRecord(obj) {
-  if (HOSPITAL_ID == "lingcheng") {
+  if (HOSPITAL_ID == "lingcheng" || HOSPITAL_ID == "foshanrenyi") {
     return axios.post(`${apiPath}procedure/his`, obj);
   } else if (
     ["whfk", "lyxrm", "ytll", "whhk", "925", "zhzxy", 'stmz'].includes(HOSPITAL_ID)

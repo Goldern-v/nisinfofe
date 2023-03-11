@@ -1195,7 +1195,7 @@ export default {
       // if (this.allSigned) {
       //   return
       // }
-
+      console.log(row, rowIndex, col,'onDblClickRow')
       const tabMap = {
         background: "2",
         assessmentSituation: "3",

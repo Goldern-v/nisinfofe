@@ -210,6 +210,8 @@ const implementationListWhfk = () =>
   import("@/Page/implementation-list/implementation-list-whfk.vue"); //肺科执行单
 const implementationListFSSY = () =>
   import("@/Page/implementation-list/implementation-list-FSSY.vue"); //武警执行单
+const implementationListFSSY2 = () =>
+  import("@/Page/implementation-list/implementation-list-FSSY2.vue"); //武警执行单
 const implementationListFsxt = ()=>
   import('@/Page/implementation-list/implementation-list-fsxt.vue') //佛山杏坛执行单
 const implementationListQuzhou = () =>
@@ -379,6 +381,8 @@ import healthEducationGuizhou from "@/Page/patientInfo/supPage/healthEducationGu
 import hospitalEval from "@/Page/patientInfo/supPage/hospital-eval/hospital-eval";
 import implementationPersonLiaocheng
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-liaocheng";
+import implementationPersoFssy
+  from "@/Page/patientInfo/supPage/implementation-list/implementation-list-FSSY";
 import implementationPersonytll
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-ytll";
 import implementationPersonwhsl
@@ -433,7 +437,6 @@ const getImplementation = () => {
     case 'liaocheng':
     case 'lyyz':
       return implementationListLiaocheng
-
     case 'whsl':
       return implementationListWhsl
     case 'shannan':
@@ -460,7 +463,6 @@ const getImplementation = () => {
     case 'fsxt':
       return implementationListFsxt
     case 'foshanrenyi':
-
       return implementationListFSSY
     case 'quzhou':
       return implementationListQuzhou
@@ -1277,6 +1279,8 @@ const router = new Router({
             switch (process.env.HOSPITAL_ID) {
               case 'liaocheng':
                 return implementationPersonLiaocheng
+              case 'foshanrenyi':
+                return implementationPersoFssy
               case 'ytll':
                 return implementationPersonytll
               case 'whsl':
