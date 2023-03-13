@@ -35,7 +35,9 @@ export default {
   props: ["item", "model"],
   components: { TableInput },
   mounted(){
-    this.item.children.map(chil => {
+    this.$nextTick(()=>{
+      console.log(this.item,this.model)
+      this.item.children.map(chil => {
         chil.addClass = chil.addClass == "is-checked" ? "" : chil.addClass;
         if (this.model[chil.name]) {
           let arr = this.model[chil.name].split(",");
@@ -44,6 +46,7 @@ export default {
           }
         }
       });
+    })
   },
   methods: {
     handlecheckClick(child) {

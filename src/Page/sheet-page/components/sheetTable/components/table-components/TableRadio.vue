@@ -1,20 +1,15 @@
 <template>
-  <span class="TableRadio" v-if="item.type=='radio'">
-    <span
-      class="radio"
-      v-for="(child,chInde) in item.children"
-      :key="chInde"
-      :style="child.eleStyle"
-    >
-      <label @click="handleRadioClick(child)" v-if="child.type=='radio'">
+  <span class="TableRadio" v-if="item.type == 'radio'">
+    <span class="radio" v-for="(child, chInde) in item.children" :key="chInde" :style="child.eleStyle">
+      <label @click="handleRadioClick(child)" v-if="child.type == 'radio'">
         <span class="radio_input" :class="child.addClass">
           <span class="radio_inner"></span>
         </span>
-        <span class="radio_label">{{child.value}}</span>
+        <span class="radio_label">{{ child.value }}</span>
       </label>
-      <TableCheckBox v-if="child.childType=='checkbox'" :item="child" :model="model"></TableCheckBox>
-      <TableRadio v-if="child.childType=='radio'" :item="child" :model="model"></TableRadio>
-      <span v-if="child.type=='input'">
+      <TableCheckBox v-if="child.childType == 'checkbox'" :item="child" :model="model"></TableCheckBox>
+      <TableRadio v-if="child.childType == 'radio'" :item="child" :model="model"></TableRadio>
+      <span v-if="child.type == 'input'">
         <span class="prev" v-if="child.prev" v-html="child.prev" />
         <TableInput :item="child" :model="model" :data="item"></TableInput>
         <span class="next" v-if="child.next" v-html="child.next" />
@@ -56,29 +51,42 @@ export default {
           });
         }
       });
-      sheetInfo.relObj = {...this.model}
+      sheetInfo.relObj = { ...this.model }
     }
   },
-  mounted() {},
-  watch: {
-    model:{
-      deep:true,
-      handler()
-{
-  this.item.children.map(chil => {
-        chil.addClass = "";
-        for (let key in this.model) {
-          if (
-            key == chil.name &&
-            this.model[key] &&
-            this.model[key] == chil.value
-          ) {
-            chil.addClass = "is-checked";
-            return;
+  mounted() {
+    this.item.children.map(chil => {
+          chil.addClass = "";
+          for (let key in this.model) {
+            if (
+              key == chil.name &&
+              this.model[key] &&
+              this.model[key] == chil.value
+            ) {
+              chil.addClass = "is-checked";
+              return;
+            }
           }
-        }
-      });
-}
+        });
+  },
+  watch: {
+    model: {
+      deep: true,
+      handler() {
+        this.item.children.map(chil => {
+          chil.addClass = "";
+          for (let key in this.model) {
+            if (
+              key == chil.name &&
+              this.model[key] &&
+              this.model[key] == chil.value
+            ) {
+              chil.addClass = "is-checked";
+              return;
+            }
+          }
+        });
+      }
     }
   }
 };
@@ -92,11 +100,13 @@ export default {
     }
   }
 }
+
 .radio_input {
   cursor: pointer;
   display: inline-block;
   position: relative;
   white-space: nowrap;
+
   input {
     opacity: 0;
     outline: 0;
@@ -106,6 +116,7 @@ export default {
     height: 0;
     left: -999px;
   }
+
   &.is-checked {
     .radio_inner {
       &::after {
@@ -124,11 +135,13 @@ export default {
       }
     }
   }
+
   &.is-disabled {
     .radio_inner {
       background-color: rgb(238, 246, 245);
       border-color: rgb(209, 229, 224);
       cursor: not-allowed;
+
       &::after {
         cursor: not-allowed;
         border-color: rgb(238, 246, 245);
@@ -136,6 +149,7 @@ export default {
     }
   }
 }
+
 .radio_inner {
   display: inline-block;
   position: relative;

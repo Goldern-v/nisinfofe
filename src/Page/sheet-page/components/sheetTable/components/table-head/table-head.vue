@@ -83,10 +83,11 @@ export default {
       if (this.index == 0) {
         return sheetInfo.relObj.age || this.patientInfo.age;
       } else {
-        if (sheetData[this.index]) {
+        const tableData = sheetData.find(list=> list.index === this.index)
+        if (tableData) {
           let real_birthday;
           let now_time = moment(
-            sheetData[this.index].bodyModel[0].find(
+            tableData.bodyModel[0].find(
               item => item.key == "recordDate"
             ).value
           );
@@ -95,11 +96,8 @@ export default {
           /** 推导实际出生日期 */
           if (sheetInfo.relObj.age.indexOf("小时") > -1) {
             let h = Number(sheetInfo.relObj.age.replace("小时", ""));
-            real_birthday = moment(
-              sheetData[0].bodyModel[0].find(item => item.key == "recordDate")
-                .value
+            real_birthday = moment(sheetInfo.selectBlock.createTime
             ).subtract(h, "h");
-
             let diff = now_time.diff(real_birthday, "d");
             if (diff == 0) {
               return now_time.diff(real_birthday, "h") + "小时";
@@ -108,9 +106,7 @@ export default {
             }
           } else if (sheetInfo.relObj.age.indexOf("天") > -1) {
             let d = Number(sheetInfo.relObj.age.replace("天", ""));
-            real_birthday = moment(
-              sheetData[0].bodyModel[0].find(item => item.key == "recordDate")
-                .value
+            real_birthday = moment(sheetInfo.selectBlock.createTime
             ).subtract(d, "d");
             let diff = now_time.diff(real_birthday, "d");
             if (sheetInfo.relObj.age.indexOf("月") > -1) {
@@ -197,7 +193,7 @@ export default {
     },
     updateNeonatology2Age() {
       if (this.index !== 0) {
-        this.$message.warning("请修改第一页护记的年龄，后续页的年龄会动态计算");
+        this.$message.warning("请修改第一页护记的年龄，后续页的年龄会动态计算2222");
       } else {
         window.openSetTextModal(
           text => {

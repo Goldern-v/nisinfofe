@@ -21,8 +21,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E2332",
-      "formApiCode": "E2332",
+      "formCode": "E2333",
+      "formApiCode": "E2333",
       "formName": "入院评估",
       "status": "0",
       "formType": "eval"
@@ -3699,6 +3699,15 @@
             {
               "name": "I2333087",
               "type": "checkbox",
+              "title": "鹅口疮",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333087",
+              "type": "checkbox",
               "title": "其他：",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",
@@ -4241,7 +4250,7 @@
               "title": "",
               "titleStyle": "width: 95px;",
               "inputStyle": "width:100%!important",
-              "inputWidth": "80%",
+              "inputWidth": "100px",
               "labelLeft": true,
               "suffixDesc": " 右:",
               "style": null,
@@ -4255,7 +4264,7 @@
               "title": "",
               "titleStyle": "width: 95px;",
               "inputStyle": "width:100%!important",
-              "inputWidth": "70%",
+              "inputWidth": "100px",
               "labelLeft": true,
               "suffixDesc": " 瞳孔形状:",
               "style": null,
@@ -4269,7 +4278,7 @@
               "title": "",
               "titleStyle": "width: 95px;",
               "inputStyle": "width:100%!important",
-              "inputWidth": "70%",
+              "inputWidth": "100px",
               "labelLeft": true,
               "suffixDesc": "等大等圆:",
               "style": null,
@@ -4384,7 +4393,7 @@
               "title": "",
               "titleStyle": "width: 95px;",
               "inputStyle": "width:100%!important",
-              "inputWidth": "80%",
+              "inputWidth": "100px",
               "labelLeft": true,
               "suffixDesc": " 右:",
               "style": null,
@@ -4398,7 +4407,7 @@
               "title": "",
               "titleStyle": "width: 95px;",
               "inputStyle": "width:100%!important",
-              "inputWidth": "70%",
+              "inputWidth": "100px",
               "labelLeft": true,
               "suffixDesc": " 瞳孔形状:",
               "style": null,
@@ -4412,7 +4421,7 @@
               "title": "",
               "titleStyle": "width: 95px;",
               "inputStyle": "width:100%!important",
-              "inputWidth": "70%",
+              "inputWidth": "100px",
               "labelLeft": true,
               "suffixDesc": "等大等圆:",
               "style": null,
@@ -4537,6 +4546,7 @@
         }
       ]
     },
+    
     {
       "name": "I2333075",
       "type": "formGroupColBox",
@@ -5571,6 +5581,15 @@
               "name": "I2333144",
               "type": "checkbox",
               "title": "正常",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333144",
+              "type": "checkbox",
+              "title": "便秘",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
@@ -6326,7 +6345,10 @@
           "class": null,
           "options": [
             "无",
-            "深静脉血栓护理单"
+            "深静脉血栓护理单",
+            "Caprini血栓风险评估表",
+            "Autar深静脉血栓形成风险评估表",
+            "血栓风险评估（Padua评估量表）"
           ],
           "rule": [
             {
@@ -6340,6 +6362,71 @@
                   "formUrl": "佛山人医深静脉血栓护理单.html",
                   "callbackInfo": {
                     "needScore": false
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "Caprini血栓风险评估表",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "E0592",
+                  "showSignBtn": true,
+                  "title": "佛山人医Caprini血栓风险评估表",
+                  "formUrl": "佛山人医Caprini血栓风险评估表.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "I2333174",
+                    "prefix": "Caprini血栓风险评估表:",
+                    "suffix": "分"
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "Autar深静脉血栓形成风险评估表",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "E0363",
+                  "showSignBtn": true,
+                  "title": "佛山人医Autar深静脉血栓形成风险评估表",
+                  "formUrl": "佛山人医Autar深静脉血栓形成风险评估表.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "I2333174",
+                    "prefix": "Autar深静脉血栓形成风险评估表:",
+                    "suffix": "分"
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "血栓风险评估（Padua评估量表）",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "FSSY_E0010",
+                  "showSignBtn": true,
+                  "title": "血栓风险评估（Padua评估量表）",
+                  "formUrl": "血栓风险评估（Padua评估量表）.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "I2333174",
+                    "prefix": "PICU营养异常风险评估单:",
+                    "suffix":[
+                      {
+                        "max": 3,
+                        "min": 0,
+                        "value": "分，低风险"
+                      },
+                      {
+                        "max": 20,
+                        "min": 4,
+                        "value": "分，高风险"
+                      }
+                    ]
                   }
                 }
               }
@@ -6370,10 +6457,41 @@
                   "title": "佛山人医儿童疼痛评估及护理措施",
                   "formUrl": "佛山人医儿童疼痛评估及护理措施.html",
                   "callbackInfo": {
-                    "needScore": false,
+                    "needScore": true,
                     "code": "I2333177",
-                    "prefix": "儿童疼痛评估及护理措施:",
-                    "suffix": "分"
+                    "prefix": "儿童疼痛评估:",
+                    "suffix":[
+                      {
+                        "max": 10,
+                        "min": 9,
+                        "value": "分，剧烈疼痛"
+                      },
+                      {
+                        "max": 8,
+                        "min": 7,
+                        "value": "分，疼痛较严重"
+                      },
+                      {
+                        "max": 6,
+                        "min": 5,
+                        "value": "分，疼痛明显"
+                      },
+                      {
+                        "max": 4,
+                        "min": 3,
+                        "value": "分，轻微疼痛"
+                      },
+                      {
+                        "max": 2,
+                        "min": 1,
+                        "value": "分，有一点疼痛"
+                      },
+                      {
+                        "max": 1,
+                        "min": 0,
+                        "value": "分，无疼痛"
+                      }
+                    ]
                   }
                 }
               }
@@ -6498,18 +6616,6 @@
     },
     {
       "name": "",
-      "type": "formGroupTitle",
-      "level": "1",
-      "title": "基础护理",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "",
       "type": "formGroupHorizontalBox",
       "colWidth": [
         "0",
@@ -6531,25 +6637,15 @@
         {
           "name": "I2333184",
           "type": "mark",
-          "title": "基础护理",
-          "style": "",
+          "label": "基础护理：",
           "elementStyle": "",
+          "labelWidth": "80px",
+          "textAlign": "left",
+          "lineFeedFize": "45",
           "rows": "4",
           "class": "mark"
         }
       ]
-    },
-    {
-      "name": "",
-      "type": "formGroupTitle",
-      "level": "1",
-      "title": "专科护理",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
     },
     {
       "name": "",
@@ -6574,9 +6670,12 @@
         {
           "name": "I2333185",
           "type": "mark",
-          "title": "专科护理",
+          "label": "专科护理：",
           "style": "",
           "elementStyle": "",
+          "labelWidth": "80px",
+          "textAlign": "left",
+          "lineFeedFize": "45",
           "rows": "4",
           "class": "mark"
         }
@@ -6683,9 +6782,23 @@
               "type": "checkbox",
               "title": "其他",
               "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
+              "elementClass": "el-radio_fs itemRadio",
               "style": null,
-              "class": null
+              "class": null,
+              "children": [
+                {
+                  "name": "I2333188",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width: 129px;",
+                  "inputStyle": "width:100%!important",
+                  "inputWidth": "100%",
+                  "style": null,
+                  "class": null,
+                  "readOnly": null,
+                  "hiddenTips": true
+                }
+              ]
             }
           ]
         }
@@ -6714,10 +6827,12 @@
         {
           "name": "I2333187",
           "type": "mark",
-          "title": "",
-          "style": "",
+          "label": "其他：",
           "elementStyle": "",
-          "rows": "3",
+          "labelWidth": "54px",
+          "textAlign": "left",
+          "rows": "4",
+          "lineFeedFize": "46",
           "class": "mark"
         }
       ]
@@ -6768,14 +6883,17 @@
           "class": null,
           "options": [
             "无",
-            "住院告知"
+            "住院告知",
+            "新生儿科（NICU）住院告知书",
+            "PICU住院告知",
+            "住院告知（新）"
           ],
           "rule": [
             {
               "relationForm": {
                 "openKey": "住院告知",
                 "params": {
-                  "formCode": "E2066",
+                  "formCode": "E2234",
                   "showSignBtn": true,
                   "title": "佛山人医住院告知（改）",
                   "formUrl": "佛山人医住院告知（改）.html",
@@ -6784,6 +6902,60 @@
                     "defaultName": true,
                     "code": "I2333190",
                     "prefix": "住院告知, 已完成",
+                    "suffix": ""
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "新生儿科（NICU）住院告知书",
+                "params": {
+                  "formCode": "E2066",
+                  "showSignBtn": true,
+                  "title": "佛山人医新生儿科（NICU）住院告知书",
+                  "formUrl": "佛山人医新生儿科（NICU）住院告知书.html",
+                  "callbackInfo": {
+                    "needScore": false,
+                    "defaultName": true,
+                    "code": "I2333190",
+                    "prefix": "新生儿科（NICU）住院告知书, 已完成",
+                    "suffix": ""
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "PICU住院告知",
+                "params": {
+                  "formCode": "E2066",
+                  "showSignBtn": true,
+                  "title": "佛山人医新生儿科（NICU）住院告知书",
+                  "formUrl": "佛山人医新生儿科（NICU）住院告知书.html",
+                  "callbackInfo": {
+                    "needScore": false,
+                    "defaultName": true,
+                    "code": "I2333190",
+                    "prefix": "PICU住院告知, 已完成",
+                    "suffix": ""
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "住院告知（新）",
+                "params": {
+                  "formCode": "E2066",
+                  "showSignBtn": true,
+                  "title": "佛山人医新生儿科（NICU）住院告知书",
+                  "formUrl": "佛山人医新生儿科（NICU）住院告知书.html",
+                  "callbackInfo": {
+                    "needScore": false,
+                    "defaultName": true,
+                    "code": "I2333190",
+                    "prefix": "住院告知（新）, 已完成",
                     "suffix": ""
                   }
                 }
@@ -6995,8 +7167,7 @@
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": "cursor: pointer!important",
-          "class": null,
-          "readOnly": true
+          "class": null
         },
         {
           "name": "auditTime",
@@ -7007,8 +7178,7 @@
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": null,
-          "class": null,
-          "readOnly": true
+          "class": null
         },
         {
           "name": "auditorName",
@@ -7019,8 +7189,7 @@
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": "cursor: pointer!important",
-          "class": null,
-          "readOnly": true
+          "class": null
         }
       ]
     }

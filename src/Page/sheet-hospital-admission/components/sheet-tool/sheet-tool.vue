@@ -586,6 +586,7 @@ export default {
             this.changeSelectBlock(this.sheetBlockList[len - 1]);
             // 赋值最后一条作为当前渲染
             this.selectBlock = this.sheetBlockList[len - 1];
+            console.log(this.selectBlock, 888888888888)
           }
         }
         if (this.sheetBlockList.length === 0) {
@@ -654,7 +655,7 @@ export default {
           if (this.isNewForm) {
             // 增加默认值
             mergeDefaultValue(formObj, this.formCode);
-            setDefaultValue(formObj);
+            setDefaultValue(formObj, this.formCode);
             this.formSave();
           }
           // console.log(
@@ -775,6 +776,7 @@ export default {
     },
     // 检查表单漏填
     checkFormMissingItems() {
+      console.log("填写检查， 66666666")
       // K0001
       let missingObj = {};
       let missingObjArrayList = [];
@@ -794,6 +796,8 @@ export default {
       };
       //
       let object = this.$root.$refs[this.formCode];
+      console.log(this.$root.$refs, 7777)
+      console.log(object, this.formCode,  '1111111111')
       if (!object) {
         return;
       }

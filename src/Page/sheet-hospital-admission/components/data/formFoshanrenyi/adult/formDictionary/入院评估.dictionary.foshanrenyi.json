@@ -40,43 +40,6 @@
             "pinyin": "shoushuy"
         }
     ],
-    "I2332032": [
-        {
-            "code": "清醒",
-            "name": "清醒",
-            "pinyin": "qx"
-        },
-        {
-            "code": "镇静状态",
-            "name": "镇静状态",
-            "pinyin": "zjzt"
-        },
-        {
-            "code": "嗜睡",
-            "name": "嗜睡",
-            "pinyin": "sshui"
-        },
-        {
-            "code": "模糊",
-            "name": "模糊",
-            "pinyin": "mh"
-        },
-        {
-            "code": "谵妄",
-            "name": "谵妄",
-            "pinyin": "sw"
-        },
-        {
-            "code": "昏睡",
-            "name": "昏睡",
-            "pinyin": "hs"
-        },
-        {
-            "code": "昏迷",
-            "name": "昏迷",
-            "pinyin": "hm"
-        }
-    ],
     "I2332039": [
         {
             "code": "是",

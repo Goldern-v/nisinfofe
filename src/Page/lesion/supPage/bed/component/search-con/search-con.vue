@@ -989,7 +989,11 @@ export default {
           break;
         case "VTE高风险":
           {
-            this.$parent.bedList = this.dangerInVteLy;
+            if (['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
+              this.$parent.bedList = this.dangerInVteLy;
+            } else {
+              this.$parent.bedList = this.hasVteDanger;
+            }
           }
           break;
         case "压疮高风险":
@@ -1043,11 +1047,7 @@ export default {
             this.$parent.bedList = this.isFever;
           }
           break;
-        case "VTE高风险":
-          {
-            this.$parent.bedList = this.hasVteDanger;
-          }
-          break;
+
         case "多重耐药患者":
           {
             this.$parent.bedList = this.isMultiDrugResistant;
