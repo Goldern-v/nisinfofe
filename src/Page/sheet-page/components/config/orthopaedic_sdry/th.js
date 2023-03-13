@@ -13,16 +13,22 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1300px"
+    width: "1350px"
   },
   th: {
     top: [
+
       {
-        name: "",
-        style: {},
-        colspan: "2",
-        rowspan: "1",
-        key: "recordYear"
+        name: "日期",
+        colspan: "1",
+        rowspan: "2",
+        style: { minWidth: "70px", maxWidth: "70px" }
+      },
+      {
+        name: "时间",
+        colspan: "1",
+        rowspan: "2",
+        style: { minWidth: "40px", maxWidth: "40px" }
       },
       { name: "意<br/>识", colspan: "1", rowspan: "2" },
       { name: "T<br/>℃", colspan: "1", rowspan: "2" },
@@ -57,14 +63,16 @@ export default {
         key: "fieldSix",
         colspan: "1",
           rowspan: "2",
-        name: "瞳孔<br/>大小<br/>左/右<br/>mm",
+          canSet: true,
+        name: "",
         style: { minWidth: "40px", maxWidth: "40px" }
       },
       {
         key: "fieldSeven",
         colspan: "1",
           rowspan: "2",
-        name: "瞳孔<br/>反光<br/>左/右<br/>mm",
+        name: "",
+        canSet: true,
         style: { minWidth: "40px", maxWidth: "40px" }
       },
       {
@@ -129,18 +137,6 @@ export default {
       }
     ],
     mid: [
-      {
-        name: "日期",
-        colspan: "1",
-        rowspan: "1",
-        style: { minWidth: "40px", maxWidth: "40px" }
-      },
-      {
-        name: "时间",
-        colspan: "1",
-        rowspan: "1",
-        style: { minWidth: "40px", maxWidth: "40px" }
-      },
       { name: "内<br/>容", colspan: "1", rowspan: "1" },
       { name: "量<br/>ml", colspan: "1", rowspan: "1" },
       { name: "内<br/>容", colspan: "1", rowspan: "1" },

@@ -11,7 +11,7 @@
     <div class="info-con">
      <span>
         科室：
-        <div class="bottom-line" style="min-width: 135px">{{patientInfo.realDeptName}}</div>
+        <div class="bottom-line" style="min-width: 455px">{{patientInfo.realDeptName}}</div>
       </span>
       <span>
         病区：
@@ -37,7 +37,7 @@
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号：
-        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+        <div class="bottom-line" style="min-width: 90px">{{patientInfo.bedLabel}}</div>
       </span>
       <span>
         住院号：

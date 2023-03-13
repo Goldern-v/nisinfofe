@@ -26,19 +26,12 @@ import {
 } from "../keyEvent/date";
 
 const yishi = ["清醒√", "嗜睡+", "浅昏迷++", "深昏迷+++"];
-const yanse = [
-  "①血性液",
-  "②淡红色液体",
-  "③暗红色液",
-  "④黄色液",
-  "⑤淡黄色液",
-  "⑥深黄色液"
-];
+const yanse = [{name: '①血性液', value: '①'},{name: '②淡红色液体', value: '②'},{name: '③暗红色液', value: '③'},{name: '④黄色液', value: '④'},{name: '⑤淡黄色液', value: '⑤'},{name: '⑥深黄色液', value: '⑥'}];
 
 export default [
   { hidden: true, key: "recordDate", value: "" },
   { key: "recordMonth", event: event_date, click: click_date, value: "" },
-  { key: "recordHour", event: event_time, value: "" },
+  { key: "recordHour", event: event_time, click: click_time,value: "" },
   {
     key: "consciousness",
     event: keyf1,
@@ -118,35 +111,35 @@ export default [
     next: "ml",
     name: "入量",
     textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 2)
+    change: (e, td) => limitChange(e, td, 8)
   },
   {
     key: "discharge",
     event: keyf1,
     value: "",
     next: "ml",
-    name: "入量",
+    name: "出量内容",
     textarea: { width: 55 },
-    change: (e, td) => limitChange(e, td, 2)
+    change: (e, td) => limitChange(e, td, 8)
   },
   {
     key: "dischargeSize",
     event: keyf1,
     value: "",
     next: "ml",
-    name: "入量",
+    name: "出量",
     textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 2)
+    change: (e, td) => limitChange(e, td, 8)
   },
   {
     key: "fieldThree",
     event: keyf1,
     value: "",
     autoComplete: { data: yanse },
-    textarea: { width: 60 },
+    textarea: { width: 30 },
     next: "ml",
-    name: "入量"
-  },
+    name: "颜色性状"
+   },
   // {
   //   key: "fieldSix",
   //   event: keyf1,
