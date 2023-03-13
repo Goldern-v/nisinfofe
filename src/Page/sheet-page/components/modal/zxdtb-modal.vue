@@ -379,6 +379,7 @@ import {
   saveVitalSign,
   ordersExecuteList,
   nurseBloodList,
+  getOrdersExecuteNew,
   getOrdersExecuteWx,
   getOrdersExecuteLc,
   getOrdersExecuteFsry,
@@ -634,6 +635,23 @@ export default {
           ? moment(this.longDate[1]).format("YYYY-MM-DD")
           : "";
         getOrdersExecuteLc({
+          patientId: this.patientInfo.patientId || this.formlist.patientId,
+          visitId: this.patientInfo.visitId || this.formlist.visitId,
+          startDate,
+          endDate,
+          executeType: this.executeType,
+        }).then((res) => {
+          this.tableData = res.data.data.list;
+        });
+      } else if (["ytll"].includes(this.HOSPITAL_ID)) {
+        let startDate = this.longDate[0]
+            ? moment(this.longDate[0]).format("YYYY-MM-DD")
+            : "";
+        let endDate = this.longDate[1]
+            ? moment(this.longDate[1]).format("YYYY-MM-DD")
+            : "";
+
+        getOrdersExecuteNew({
           patientId: this.patientInfo.patientId || this.formlist.patientId,
           visitId: this.patientInfo.visitId || this.formlist.visitId,
           startDate,

@@ -865,7 +865,6 @@ export default {
                 if(!this.pageArea)
                 this.pageArea = `${startIndex}-${endIndex}`
               }
-
             }
           })
       })
@@ -982,7 +981,7 @@ export default {
     },
     // 是否显示设为模板
     showSetAsTemplate() {
-      if (this.HOSPITAL_ID === 'foshanrenyi') {
+      if (this.HOSPITAL_ID === 'foshanrenyi' || this.HOSPITAL_ID === 'nfyksdyy') {
         return this.isRoleManage || this.isNewAdminOrNursingDepartment
       } else {
         return false
@@ -1202,6 +1201,10 @@ export default {
           });
         }
       }
+      /**数据分割后,需要将页码的计算保存，然后给有一些表头信息使用
+       *
+      */
+      sheetInfo.selectList = this.selectList
       //不是添加新页 才刷新界面
       /* 刷新block分页信息 */
       if (
@@ -1681,8 +1684,6 @@ export default {
           pageArea: this.pageArea,
           blockId: this.pageBlockId
         }
-      },
-      set(val) {
       },
     },
     blockId: {

@@ -44,7 +44,12 @@
                 <i class="nursingDocumentation"></i>患者查询
               </el-row>
             </router-link>
-            <el-dropdown
+            <router-link to="/implementationList" tag="span">
+                    <el-row class="nav-item" type="flex" align="middle">
+                      <i class="catheterPage"></i>执行单
+                    </el-row>
+            </router-link>
+            <!-- <el-dropdown
               menu-align="start"
               :hide-on-click="false"
             >
@@ -72,7 +77,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
 
             <!-- <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
