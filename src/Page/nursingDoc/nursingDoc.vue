@@ -29,6 +29,7 @@ export default {
       }else{
         url = this.$route.query;
       }
+      console.log(window.app,'window.app')
       var token =
         (window.app && window.app.$getCookie("NURSING_USER").split("##")[1]) ||
         url.token;

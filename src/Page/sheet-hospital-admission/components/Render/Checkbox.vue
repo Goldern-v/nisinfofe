@@ -119,7 +119,37 @@ export default {
       let uuid_ = uuid.v1();
       return uuid_;
     },
-    runTasks() {},
+    runTasks(init = false) {
+      if (!this.$root.$refs[this.formCode][this.obj.name][this.obj.title].isChecked) {
+        try {
+          if (this.obj.tasks.constructor == Array) {
+            this.obj.tasks.map(task => {
+              if (task.clean) {
+                if (task.clean.constructor == Array) {
+                  task.clean.map(c => {
+                    if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
+                      this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = true;
+                    }
+                  });
+                } else {
+                  if (this.$root.$refs[this.formCode]["formGroupColBox" + task.clean]) {
+                    this.$root.$refs[this.formCode]["formGroupColBox" + task.clean].hidden = true;
+                  }
+                }
+              }
+            });
+          } else {
+            this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.tasks].hidden = false;
+          }
+        } catch (error) {
+          console.log("tasks:error", error, this.obj);
+        }
+      }
+      else {
+        if (this.obj.tasks.constructor != Array)
+          this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.tasks].hidden = true;
+      }
+    },
     checkboxClick(e) {
       if (e.target.tagName !== "INPUT") {
         return;
@@ -274,7 +304,9 @@ export default {
       ) {
         this.$root.$refs[this.formCode]["I047024"].$parent.inputValue = "+";
       }
+      this.runTasks();
     }
+    
   }
 };
 </script>

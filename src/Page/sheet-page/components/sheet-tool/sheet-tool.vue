@@ -981,7 +981,7 @@ export default {
     },
     // 是否显示设为模板
     showSetAsTemplate() {
-      if (this.HOSPITAL_ID === 'foshanrenyi') {
+      if (this.HOSPITAL_ID === 'foshanrenyi' || this.HOSPITAL_ID === 'nfyksdyy') {
         return this.isRoleManage || this.isNewAdminOrNursingDepartment
       } else {
         return false

@@ -114,6 +114,7 @@
               HOSPITAL_ID == 'xiegang' ||
               HOSPITAL_ID == 'zhzxy' ||
               HOSPITAL_ID == '925' ||
+              HOSPITAL_ID == 'stmz' ||
               HOSPITAL_ID == 'gdtj' ||
               HOSPITAL_ID == 'whhk' ||
               HOSPITAL_ID == 'lyyz' ||
@@ -127,7 +128,7 @@
             flex="cross:center main:center"
             @click="openWristPrint('wrist-children')"
             v-if="
-              ['beihairenyi', 'zhzxy', 'lyyz', 'dglb','925'].includes(HOSPITAL_ID)
+              ['beihairenyi', 'zhzxy', 'lyyz', 'dglb','925','stmz'].includes(HOSPITAL_ID)
             "
           >
             儿童腕带打印
@@ -191,6 +192,7 @@
     <bedModalXiegang ref="bedModalXiegang" />
     <bedModalHj ref="bedModalHj"></bedModalHj>
     <bedModal925 ref="bedModal925" />
+    <bedModalstmz ref="bedModalstmz" />
     <bedModalGDTJ ref="bedModalGDTJ" />
     <bedModalWhsl ref="bedModalWhsl" />
     <printModal ref="printModal"></printModal>
@@ -347,6 +349,7 @@ import bedModalWhfk from "./modal/bed-modal-whfk.vue";
 import bedModalXiegang from "./modal/bed-modal_xiegang.vue";
 import bedModalHj from "./modal/bed-modal_hj";
 import bedModal925 from "./modal/bed-modal-925";
+import bedModalstmz from "./modal/bed-modal-stmz";
 import bedModalWhsl from "./modal/bed-modal_whsl";
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
@@ -407,6 +410,7 @@ export default {
         hj: "bedModalHj",
         ytll: "bedModalYtLL",
         925: "bedModal925",
+        stmz: "bedModalstmz",
         whsl: "bedModalWhsl",
         // nanfangzhongxiyi:'bedModalNfzxy',
       };
@@ -432,7 +436,9 @@ export default {
         this.$refs.bedModalXiegang.open(printMode);
       } else if (["925"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModal925.open(printMode);
-      } else if (["gdtj"].includes(this.HOSPITAL_ID)) {
+      }else if (["stmz"].includes(this.HOSPITAL_ID)) {
+        this.$refs.bedModalstmz.open(printMode);
+      }  else if (["gdtj"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalGDTJ.open(printMode);
       } else if (["lyyz"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalGDTJ.open(printMode);
@@ -502,6 +508,7 @@ export default {
     bedModalHj,
     bedModalYtLL,
     bedModal925,
+    bedModalstmz,
     bedModalGDTJ,
     bedModalWhsl,
   },

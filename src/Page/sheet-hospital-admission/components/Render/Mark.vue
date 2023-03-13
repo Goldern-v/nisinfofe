@@ -30,7 +30,7 @@
       :style="[obj.style, obj.inputWidth && { width: obj.inputWidth }]"
       :ref="obj.name"
       :name="obj.name"
-      :rows="Number(obj.rows) || 2"
+      :rows="reactiveRows(obj.name, 50, 2, 100)"
       :placeholder="'空'"
       :class="model === 'development' ? 'development-model' : obj.class || ''"
       :size="obj.size || ''"
@@ -233,6 +233,25 @@ export default {
     }
   },
   methods: {
+    reactiveRows(key, maxLength, minRows, maxRows) {
+      if (this.formObj.model[key]) {
+        let number = this.formObj.model[key].replace(/[^0-9]/ig,""); 
+        let word = this.formObj.model[key].replace(/[^a-z]+/ig,"");
+        let char = this.formObj.model[key].split('').filter(i => i == ',').join('')
+        let curLength = (this.formObj.model[key].length - number.length - word.length - char.length) + ((number.length + word.length + char.length) / 2)
+        if(Math.ceil(curLength / maxLength) > minRows) {
+          if(maxRows) {
+            return (Math.ceil(curLength / maxLength) >= maxRows ? maxRows : Math.ceil(curLength / maxLength))
+          } else {
+            return Math.ceil(curLength / maxLength)
+          }
+        } else {
+          return minRows
+        }
+      } else {
+        return minRows
+      }
+    },
     checkValueRule(valueNew) {
       let textResult = valueNew;
       this.obj.style = "";

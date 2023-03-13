@@ -155,10 +155,15 @@ export default {
     //获取local里的用户名和密码
     loadComments() {
       let rememberAccount = ""
+      let ppp = ""
       if(['foshanrenyi'].includes(this.HOSPITAL_ID) && localStorage.getItem("caUser")){
-        rememberAccount = localStorage.getItem("caUser");
-      }else rememberAccount = localStorage.getItem("rememberAccount");
-      let ppp = localStorage.getItem("ppp");
+        let user = JSON.parse(localStorage.getItem("user"))
+        rememberAccount = user.empNo
+        ppp = user.maps.userKey
+      }else{
+        rememberAccount = localStorage.getItem("rememberAccount");
+        ppp = localStorage.getItem("ppp");
+      } 
       this.userName = rememberAccount;
       this.passWord = ppp;
     }

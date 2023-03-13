@@ -632,15 +632,6 @@
             {
               "name": "I2332014",
               "type": "checkbox",
-              "title": "佛教",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332014",
-              "type": "checkbox",
               "title": "英语",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -880,25 +871,7 @@
               "class": null
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "I2332019",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "健康史",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "titleStyle": "margin-top: 7px;",
-      "boxStyle": "height:auto!important",
-      "classes": null,
-      "readOnly": null,
-      "children": [
+        },
         {
           "name": "I2332019",
           "type": "",
@@ -1971,15 +1944,7 @@
                   "clean": [
                     "破损",
                     "溃疡",
-                    "瘢痕",
-                    "水疱",
-                    "硬结",
-                    "瘀斑",
-                    "出血点",
-                    "丘疹",
-                    "皲裂",
-                    "抓痕",
-                    "其他"
+                    "瘢痕"
                   ]
                 }
               ]
@@ -1995,16 +1960,8 @@
               "tasks": [
                 {
                   "clean": [
-                    "溃疡",
-                    "瘢痕",
-                    "水疱",
-                    "硬结",
-                    "瘀斑",
-                    "出血点",
-                    "丘疹",
-                    "皲裂",
-                    "抓痕",
-                    "其他"
+                    "溃疡 ",
+                    "瘢痕"
                   ]
                 },
                 {
@@ -2015,7 +1972,7 @@
             {
               "name": "I2332052",
               "type": "radio",
-              "title": "溃疡",
+              "title": "溃疡 ",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -2024,19 +1981,11 @@
                 {
                   "clean": [
                     "破损",
-                    "瘢痕",
-                    "水疱",
-                    "硬结",
-                    "瘀斑",
-                    "出血点",
-                    "丘疹",
-                    "皲裂",
-                    "抓痕",
-                    "其他"
+                    "瘢痕"
                   ]
                 },
                 {
-                  "show": ["溃疡"]
+                  "show": ["溃疡 "]
                 }
               ]
             },
@@ -2052,15 +2001,7 @@
                 {
                   "clean": [
                     "破损",
-                    "溃疡",
-                    "水疱",
-                    "硬结",
-                    "瘀斑",
-                    "出血点",
-                    "丘疹",
-                    "皲裂",
-                    "抓痕",
-                    "其他"
+                    "溃疡 "
                   ]
                 },
                 {
@@ -2080,14 +2021,7 @@
                 {
                   "clean": [
                     "破损",
-                    "溃疡",
-                    "硬结",
-                    "瘀斑",
-                    "出血点",
-                    "丘疹",
-                    "皲裂",
-                    "抓痕",
-                    "其他"
+                    "溃疡"
                   ]
                 },
                 {
@@ -2107,13 +2041,7 @@
                 {
                   "clean": [
                     "破损",
-                    "溃疡",
-                    "瘀斑",
-                    "出血点",
-                    "丘疹",
-                    "皲裂",
-                    "抓痕",
-                    "其他"
+                    "溃疡"
                   ]
                 },
                 {
@@ -2133,13 +2061,7 @@
                 {
                   "clean": [
                     "破损",
-                    "溃疡",
-                    "硬结",
-                    "出血点",
-                    "丘疹",
-                    "皲裂",
-                    "抓痕",
-                    "其他"
+                    "溃疡"
                   ]
                 },
                 {
@@ -2159,13 +2081,7 @@
                 {
                   "clean": [
                     "破损",
-                    "溃疡",
-                    "硬结",
-                    "瘀斑",
-                    "丘疹",
-                    "皲裂",
-                    "抓痕",
-                    "其他"
+                    "溃疡"
                   ]
                 },
                 {
@@ -2185,13 +2101,7 @@
                 {
                   "clean": [
                     "破损",
-                    "溃疡",
-                    "硬结",
-                    "瘀斑",
-                    "出血点",
-                    "皲裂",
-                    "抓痕",
-                    "其他"
+                    "溃疡"
                   ]
                 },
                 {
@@ -2210,13 +2120,7 @@
                 {
                   "clean": [
                     "破损",
-                    "溃疡",
-                    "硬结",
-                    "瘀斑",
-                    "出血点",
-                    "丘疹",
-                    "抓痕",
-                    "其他"
+                    "溃疡"
                   ]
                 },
                 {
@@ -2235,13 +2139,7 @@
                 {
                   "clean": [
                     "破损",
-                    "溃疡",
-                    "硬结",
-                    "瘀斑",
-                    "出血点",
-                    "丘疹",
-                    "皲裂",
-                    "其他"
+                    "溃疡"
                   ]
                 },
                 {
@@ -2260,13 +2158,7 @@
                 {
                   "clean": [
                     "破损",
-                    "溃疡",
-                    "硬结",
-                    "瘀斑",
-                    "出血点",
-                    "丘疹",
-                    "皲裂",
-                    "抓痕"
+                    "溃疡"
                   ]
                 },
                 {
@@ -2279,7 +2171,7 @@
       ]
     },
     {
-      "name": "",
+      "name": "I2332054",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
@@ -2287,6 +2179,7 @@
         "50%"
       ],
       "title": "破损",
+      "parentKey": "I2332052",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2324,14 +2217,15 @@
       ]
     },
     {
-      "name": "",
+      "name": "I2332056",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
         "50%",
         "50%"
       ],
-      "title": "溃疡",
+      "title": "溃疡 ",
+      "parentKey": "I2332052",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2369,7 +2263,7 @@
       ]
     },
     {
-      "name": "",
+      "name": "I2332053",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
@@ -3211,7 +3105,7 @@
             {
               "name": "I2332076",
               "type": "radio",
-              "title": "其他:",
+              "title": "其他：",
               "titleStyle": "width:80px!important",
               "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
               "inputWidth": "80px",
@@ -4039,7 +3933,7 @@
               "class": null,
               "children": [
                 {
-                  "name": "I2332094",
+                  "name": "I2332190",
                   "type": "input",
                   "title": "",
                   "titleStyle": "width:80px!important",
@@ -4053,7 +3947,7 @@
                   "readOnly": null
                 },
                 {
-                  "name": "I2332190",
+                  "name": "I2332191",
                   "type": "input",
                   "title": "",
                   "titleStyle": "width:80px!important",
@@ -4067,7 +3961,7 @@
                   "readOnly": null
                 },
                 {
-                  "name": "I2332214",
+                  "name": "I2332192",
                   "type": "input",
                   "title": "",
                   "titleStyle": "width:80px!important",
@@ -4419,7 +4313,7 @@
             {
               "name": "I2332102",
               "type": "radio",
-              "title": "其他:",
+              "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",
               "class": null,
@@ -5301,7 +5195,7 @@
             {
               "name": "I2332128",
               "type": "radio",
-              "title": "其他:",
+              "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",
               "class": null,
@@ -6562,6 +6456,18 @@
     },
     {
       "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "基础护理",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
       "type": "formGroupHorizontalBox",
       "colWidth": [
         "0",
@@ -6593,9 +6499,9 @@
     },
     {
       "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "专科护理",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -6787,7 +6693,7 @@
       "readOnly": ""
     },
     {
-      "name": "I2332192",
+      "name": "I2332094",
       "type": "formGroupColBox",
       "col": 2,
       "title": "八、入院健康教育",
@@ -6795,13 +6701,13 @@
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I2332191",
+      "keys": "I2332094",
       "style": null,
       "classes": null,
       "readOnly": null,
       "children": [
         {
-          "name": "I2332191",
+          "name": "I2332094",
           "type": "select",
           "title": "入院宣教",
           "titleStyle": "width:62px!important",

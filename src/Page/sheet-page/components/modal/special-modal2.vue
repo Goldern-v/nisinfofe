@@ -2101,7 +2101,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "magnesiumsulf_fs" || this.sheetInfo.sheetType === "laborobservation_fs") {
+            } else if (this.sheetInfo.sheetType === "magnesiumsulf_fs") {
               if (GetLength(text) > 62) {
                 result.push(text);
                 text = allDoc[i];
@@ -2128,7 +2128,8 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType === "common_wj" ||
-              this.sheetInfo.sheetType === "babyarea_fs"
+              this.sheetInfo.sheetType === "babyarea_fs" || 
+              this.sheetInfo.sheetType === "ipacu_fs"
             ) {
               if (GetLength(text) > 27) {
                 result.push(text);

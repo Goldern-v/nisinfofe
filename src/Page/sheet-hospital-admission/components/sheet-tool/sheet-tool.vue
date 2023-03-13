@@ -204,6 +204,7 @@ import $ from "jquery";
 import commom from "@/common/mixin/common.mixin.js";
 import dayjs from "dayjs";
 import qs from "qs";
+import { adult_notCheckFill } from "@/Page/sheet-hospital-admission/components/data/formFoshanrenyi/notCheckFill"
 import {
   createForm,
   save,
@@ -796,214 +797,218 @@ export default {
       if (!object) {
         return;
       }
+
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
-          let element = object[key];
-          let name = "",
-            value = "",
-            parentName = "",
-            title = "";
-          // 多选单选组件
-          if (element && element.constructor === Array) {
-            (name = ""), (value = "");
-            let keys = Object.keys(element);
-            totalItems += 1;
-            try {
-              if (element[keys[0]].$parent) {
-                name = element[keys[0]].$parent.obj.name;
-                title = element[keys[0]].$parent.obj.title;
-                parentName = element[keys[0]].$parent.obj.parentName
-                  ? element[keys[0]].$parent.obj.parentName
-                  : "";
-                value = window.formObj.model[name];
-              }
+          let find = adult_notCheckFill.find((item) => item === key)
+          if (!find) {
+            let element = object[key];
+            let name = "",
+              value = "",
+              parentName = "",
+              title = "";
+            // 多选单选组件
+            if (element && element.constructor === Array) {
+              (name = ""), (value = "");
+              let keys = Object.keys(element);
+              totalItems += 1;
+              try {
+                if (element[keys[0]].$parent) {
+                  name = element[keys[0]].$parent.obj.name;
+                  title = element[keys[0]].$parent.obj.title;
+                  parentName = element[keys[0]].$parent.obj.parentName
+                    ? element[keys[0]].$parent.obj.parentName
+                    : "";
+                  value = window.formObj.model[name];
+                }
 
 
-              if (
-                (skipItems.indexOf(title) == -1 && !value && !parentName) ||
-                (!value && parentName && !window.formObj.model[parentName])
-              ) {
-                // element[keys[0]].$parent.$parent.$el.style.outline =
-                //   "1px solid red";
-
-                //
-                if (title) {
-                  missItems += 1;
-                  element[keys[0]].$parent.$parent.$parent.$el.style.outline =
-                    "1px solid red";
-                  element[
-                    keys[0]
-                  ].$parent.$parent.$parent.$el.style.backgroundColor =
-                    "yellow;";
-
-                  let itemTitle =
-                    element[keys[0]].$parent.$parent.$parent.$parent.$parent.obj
-                      .title;
-                  //
-                  if (!itemTitle) {
-                    console.log("===:itemTitle", title, element);
-                  }
+                if (
+                  (skipItems.indexOf(title) == -1 && !value && !parentName) ||
+                  (!value && parentName && !window.formObj.model[parentName])
+                ) {
+                  // element[keys[0]].$parent.$parent.$el.style.outline =
+                  //   "1px solid red";
 
                   //
-                  title =
-                    element[keys[0]].$parent.$parent.$parent.$parent.obj.title;
-
-                  if (skipItems.indexOf(title) > -1) {
+                  if (title) {
+                    missItems += 1;
                     element[keys[0]].$parent.$parent.$parent.$el.style.outline =
-                      "none";
+                      "1px solid red";
                     element[
                       keys[0]
                     ].$parent.$parent.$parent.$el.style.backgroundColor =
-                      "transparent";
-                    continue;
-                  }
+                      "yellow;";
 
-                  if (!missingObj[itemTitle]) {
-                    missingObj[itemTitle] = new Array();
-                  }
-                  if (itemTitle) {
-                    missingObj[itemTitle].push(title);
-                  }
+                    let itemTitle =
+                      element[keys[0]].$parent.$parent.$parent.$parent.$parent.obj
+                        .title;
+                    //
+                    if (!itemTitle) {
+                      console.log("===:itemTitle", title, element);
+                    }
 
-                  //
-                  let top = 0;
-                  try {
-                    top = element.$el.getBoundingClientRect().top - 20;
-                  } catch (error) {
-                    // console.log(
-                    //   "error!!!",
-                    //   title,
-                    //   error,
-                    //   top,
-                    //   element,
-                    //   element.$el
-                    // );
-                    top =
+                    //
+                    title =
+                      element[keys[0]].$parent.$parent.$parent.$parent.obj.title;
+
+                    if (skipItems.indexOf(title) > -1) {
+                      element[keys[0]].$parent.$parent.$parent.$el.style.outline =
+                        "none";
                       element[
                         keys[0]
-                      ].$parent.$parent.$parent.$parent.$el.getBoundingClientRect()
-                        .top - 20;
-                  }
-
-                  //
-                  missingObjArrayList.push({
-                    title: title,
-                    element: element.$el,
-                    top: top,
-                  });
-                }
-                //
-              } else {
-                element[keys[0]].$parent.$parent.$parent.$el.style.outline =
-                  "none";
-                element[
-                  keys[0]
-                ].$parent.$parent.$parent.$el.style.backgroundColor =
-                  "transparent";
-                // element[keys[0]].$parent.$parent.$el.style.outline = "none";
-              }
-            } catch (error) {
-              console.log("error", title, error, element);
-            }
-          }
-          // 输入框组件
-          if (
-            element &&
-            element.$el &&
-            element.$parent &&
-            element.$parent.hasOwnProperty("obj") > -1 &&
-            element.$parent.obj &&
-            element.$parent.obj.hasOwnProperty("name") > -1
-          ) {
-            (name = ""), (value = "");
-            if (element.constructor !== Array) {
-              try {
-                let readOnly = element.$parent.obj.readOnly;
-                if (readOnly) {
-                  continue;
-                }
-                //佛山人医，添加input disabled属性的校验
-                let disabled = element.disabled;
-                if(disabled) {
-                  // console.log( 'cmd disabled',disabled)
-                  continue;
-                }
-                name = element.$parent.obj.name;
-                title = element.$parent.obj.title;
-                parentName = element.$parent.obj.parentName
-                  ? element.$parent.obj.parentName
-                  : "";
-                value = window.formObj.model[name];
-              } catch (error) {
-                console.log("error", error, element);
-              }
-
-              totalItems += 1;
-
-              //
-              if (
-                skipItems.indexOf(title) > -1 ||
-                skipItems.indexOf(
-                  element.$parent.$parent.$parent.$parent.obj.title
-                ) > -1
-              ) {
-                element.$el.style.outline = "none";
-                element.$el.style.backgroundColor = "transparent";
-                continue;
-              }
-
-              if (
-                (skipItems.indexOf(title) == -1 && !value && !parentName) ||
-                (!value && parentName && !window.formObj.model[parentName])
-              ) {
-                let parentTitle = "";
-                let parent = element.$parent;
-                while (parent) {
-                  if (
-                    parent.hasOwnProperty("uui") ||
-                    !parent.$parent ||
-                    (parent.obj.type &&
-                      parent.obj.type.indexOf("formGroup") > -1)
-                  ) {
-                    break;
-                  }
-                  parent = parent.$parent;
-                }
-                if (
-                  (!value && !parent.obj.title) ||
-                  (parent.obj.title &&
-                    (parent.obj.hasOwnProperty("parentKey") === -1 ||
-                      !parent.obj.parentKey ||
-                      (parent.obj.hasOwnProperty("parentKey") > -1 &&
-                        parent.obj.parentKey &&
-                        parent.obj.title ==
-                          window.formObj.model[parent.obj.parentKey])))
-                ) {
-                  let parentTitle = parent.obj.title;
-
-                  if (!parentTitle) {
-                    if (parent.obj.parentTitle) {
-                      parentTitle = parent.obj.parentTitle;
+                      ].$parent.$parent.$parent.$el.style.backgroundColor =
+                        "transparent";
+                      continue;
                     }
-                  }
 
-                  if (!missingObj[parentTitle]) {
-                    missingObj[parentTitle] = new Array();
-                  }
-                  missingObj[parentTitle].push(element.$parent.obj.title);
-                  missingObjArrayList.push({
-                    title: element.$parent.obj.title,
-                    element: element.$el,
-                    top: element.$el.getBoundingClientRect().top - 120,
-                  });
+                    if (!missingObj[itemTitle]) {
+                      missingObj[itemTitle] = new Array();
+                    }
+                    if (itemTitle) {
+                      missingObj[itemTitle].push(title);
+                    }
 
-                  missItems += 1;
-                  element.$el.style.outline = "1px solid red";
-                  element.$el.style.backgroundColor = "yellow";
+                    //
+                    let top = 0;
+                    try {
+                      top = element.$el.getBoundingClientRect().top - 20;
+                    } catch (error) {
+                      // console.log(
+                      //   "error!!!",
+                      //   title,
+                      //   error,
+                      //   top,
+                      //   element,
+                      //   element.$el
+                      // );
+                      top =
+                        element[
+                          keys[0]
+                        ].$parent.$parent.$parent.$parent.$el.getBoundingClientRect()
+                          .top - 20;
+                    }
+
+                    //
+                    missingObjArrayList.push({
+                      title: title,
+                      element: element.$el,
+                      top: top,
+                    });
+                  }
+                  //
+                } else {
+                  element[keys[0]].$parent.$parent.$parent.$el.style.outline =
+                    "none";
+                  element[
+                    keys[0]
+                  ].$parent.$parent.$parent.$el.style.backgroundColor =
+                    "transparent";
+                  // element[keys[0]].$parent.$parent.$el.style.outline = "none";
                 }
-              } else {
-                element.$el.style.outline = "none";
-                element.$el.style.backgroundColor = "transparent";
+              } catch (error) {
+                console.log("error", title, error, element);
+              }
+            }
+            // 输入框组件
+            if (
+              element &&
+              element.$el &&
+              element.$parent &&
+              element.$parent.hasOwnProperty("obj") > -1 &&
+              element.$parent.obj &&
+              element.$parent.obj.hasOwnProperty("name") > -1
+            ) {
+              (name = ""), (value = "");
+              if (element.constructor !== Array) {
+                try {
+                  let readOnly = element.$parent.obj.readOnly;
+                  if (readOnly) {
+                    continue;
+                  }
+                  //佛山人医，添加input disabled属性的校验
+                  let disabled = element.disabled;
+                  if(disabled) {
+                    // console.log( 'cmd disabled',disabled)
+                    continue;
+                  }
+                  name = element.$parent.obj.name;
+                  title = element.$parent.obj.title;
+                  parentName = element.$parent.obj.parentName
+                    ? element.$parent.obj.parentName
+                    : "";
+                  value = window.formObj.model[name];
+                } catch (error) {
+                  console.log("error", error, element);
+                }
+
+                totalItems += 1;
+
+                //
+                if (
+                  skipItems.indexOf(title) > -1 ||
+                  skipItems.indexOf(
+                    element.$parent.$parent.$parent.$parent.obj.title
+                  ) > -1
+                ) {
+                  element.$el.style.outline = "none";
+                  element.$el.style.backgroundColor = "transparent";
+                  continue;
+                }
+
+                if (
+                  (skipItems.indexOf(title) == -1 && !value && !parentName) ||
+                  (!value && parentName && !window.formObj.model[parentName])
+                ) {
+                  let parentTitle = "";
+                  let parent = element.$parent;
+                  while (parent) {
+                    if (
+                      parent.hasOwnProperty("uui") ||
+                      !parent.$parent ||
+                      (parent.obj.type &&
+                        parent.obj.type.indexOf("formGroup") > -1)
+                    ) {
+                      break;
+                    }
+                    parent = parent.$parent;
+                  }
+                  if (
+                    (!value && !parent.obj.title) ||
+                    (parent.obj.title &&
+                      (parent.obj.hasOwnProperty("parentKey") === -1 ||
+                        !parent.obj.parentKey ||
+                        (parent.obj.hasOwnProperty("parentKey") > -1 &&
+                          parent.obj.parentKey &&
+                          parent.obj.title ==
+                            window.formObj.model[parent.obj.parentKey])))
+                  ) {
+                    let parentTitle = parent.obj.title;
+
+                    if (!parentTitle) {
+                      if (parent.obj.parentTitle) {
+                        parentTitle = parent.obj.parentTitle;
+                      }
+                    }
+
+                    if (!missingObj[parentTitle]) {
+                      missingObj[parentTitle] = new Array();
+                    }
+                    missingObj[parentTitle].push(element.$parent.obj.title);
+                    missingObjArrayList.push({
+                      title: element.$parent.obj.title,
+                      element: element.$el,
+                      top: element.$el.getBoundingClientRect().top - 120,
+                    });
+
+                    missItems += 1;
+                    element.$el.style.outline = "1px solid red";
+                    element.$el.style.backgroundColor = "yellow";
+                  }
+                } else {
+                  element.$el.style.outline = "none";
+                  element.$el.style.backgroundColor = "transparent";
+                }
               }
             }
           }
@@ -1024,6 +1029,8 @@ export default {
           }
         });
       }
+
+      console.log("检查漏填项目",missingObj )
 
       //
       if (

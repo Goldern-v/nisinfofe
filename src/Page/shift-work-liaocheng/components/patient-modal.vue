@@ -160,7 +160,7 @@
       }
     },
     components: {
-      Button
+      Button,
     }
   }
 </script>
@@ -214,7 +214,12 @@
 
   .content
     height 325px
-
+    position:relative
+    .shouwenshu
+      position: absolute;
+      right: 0;
+      top: 10px;
+      cursor: pointer;
     .label
       margin 10px 0
 

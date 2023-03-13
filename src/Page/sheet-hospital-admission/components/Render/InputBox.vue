@@ -44,6 +44,7 @@
       :class="model === 'development' ? 'development-model' : (obj.class||'')"
       :size="obj.size||''"
       :type="obj.inputType||'text'"
+      :rows="reactiveRows(obj.name, 50, 2, 100)"
       :disabled="!!obj.disabled || isDisabled(obj)"
       :readonly="obj.readOnly?obj.readOnly:false"
       v-bind="obj.props"
@@ -235,6 +236,25 @@ export default {
     }
   },
   methods: {
+    reactiveRows(key, maxLength, minRows, maxRows) {
+      if (this.formObj.model[key]) {
+        let number = this.formObj.model[key].replace(/[^0-9]/ig,""); 
+        let word = this.formObj.model[key].replace(/[^a-z]+/ig,"");
+        let char = this.formObj.model[key].split('').filter(i => i == ',').join('')
+        let curLength = (this.formObj.model[key].length - number.length - word.length - char.length) + ((number.length + word.length + char.length) / 2)
+        if(Math.ceil(curLength / maxLength) > minRows) {
+          if(maxRows) {
+            return (Math.ceil(curLength / maxLength) >= maxRows ? maxRows : Math.ceil(curLength / maxLength))
+          } else {
+            return Math.ceil(curLength / maxLength)
+          }
+        } else {
+          return minRows
+        }
+      } else {
+        return minRows
+      }
+    },
     // 疼痛评分弹框
     tableScoreSum(){
       this.tableScore =true;
@@ -822,6 +842,12 @@ export default {
       cursor: no-drop!important;
       color: black!important;
   }
+}
+
+>>>.el-textarea textarea {
+  margin-top: 8px;
+  margin-bottom: 10px;
+  resize: none;
 }
 
 >>>.el-textarea__inner {

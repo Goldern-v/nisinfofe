@@ -9,12 +9,14 @@
           序号
         </th>
         <th
-          v-if="HOSPITAL_ID != 'lingcheng'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl' && HOSPITAL_ID != 'ytll'"
+          v-if="HOSPITAL_ID != 'lingcheng'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl' && HOSPITAL_ID != 'ytll' && HOSPITAL_ID != 'nfyksdyy'"
           style="width: 22%; min-width: 75px"
         >
           时间
         </th>
-        <th v-else style="width: 27%; min-width: 75px">日期</th>
+<th :style="HOSPITAL_ID == 'nfyksdyy' ? {width: '17%'} : {width: '27%'}"v-else >日期</th>
+        <!-- <th v-else style="width: 17%; min-width: 60px">日期</th> -->
+        <th v-if="HOSPITAL_ID == 'nfyksdyy'">时间</th>
         <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng' && HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl'" style="width: 20%">项目</th>
         <th v-else-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID == 'liaocheng'" style="width: 20%">类型</th>
         <th v-else style="width: 24%">测量时间</th>
@@ -62,7 +64,7 @@
         <td v-if="HOSPITAL_ID != 'guizhou' && HOSPITAL_ID != 'whfk'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl' && HOSPITAL_ID != 'ytll'">
           {{index + baseIndex + 1}}
         </td>
-        <td v-if="HOSPITAL_ID != 'lingcheng'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl'" style="padding: 0 4px">
+        <td v-if="HOSPITAL_ID != 'lingcheng'&& HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl'&& HOSPITAL_ID != 'nfyksdyy'" style="padding: 0 4px">
           <div flex="main:justify" style="white-space: nowrap">
             <span>
               <span>{{ item.date }}</span>
@@ -72,8 +74,14 @@
             </span>
           </div>
         </td>
+        <td v-else-if="HOSPITAL_ID == 'nfyksdyy'">
+          <div class="cell">{{ item.date }}</div>
+        </td>
         <td v-else>
           <div class="cell">{{ item.date }}</div>
+        </td>
+        <td v-if="HOSPITAL_ID == 'nfyksdyy'">
+          <div class="cell">{{ item.time }}</div>
         </td>
         <td v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl'">
           <div class="cell" :title="item.sugarItem">{{ item.sugarItem }}</div>
@@ -81,6 +89,7 @@
         <td v-else>
           <div class="cell" :title="item.sugarItem">{{ item.time }}</div>
         </td>
+
         <td>
           <div class="cell">
             {{
@@ -155,7 +164,7 @@
               v-if="item.expand1"
             />
           </div>
-          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'', HOSPITAL_ID=='ytll'?'ytll-img':'' , HOSPITAL_ID=='whsl'?'whsl-img':'']" v-else>
+          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'', HOSPITAL_ID=='ytll'?'ytll-img':'' , HOSPITAL_ID=='whsl'?'whsl-img':'', HOSPITAL_ID=='nfyksdyy'?'nfyksdyy-img':'']" v-else>
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
@@ -252,6 +261,9 @@
   }
   .ytll-img img{
     height: 24px !important;
+  }
+  .nfyksdyy-img img{
+    height: 26px !important;
   }
   .whsl-img img{
     width: 45px !important;

@@ -183,7 +183,6 @@ export default {
     }
   },
   created() {
-    console.log(this.$route, 88888)
     let route = this.$route
     this.formCode = (route.meta && route.meta.formCode) || ''
     this.pathRouter =  this.HOSPITAL_ID === 'foshanrenyi' ? route.name : 'sheetHospitalAdmissionPage'
@@ -198,7 +197,6 @@ export default {
     // console.log(to.meta,from.meta, from.name, 77766)
     this.formCode = (to.meta && to.meta.formCode) || ''
     this.pathRouter = to.name
-    console.log(this.formCode, 6666666)
     next()
   },
   mounted() {
