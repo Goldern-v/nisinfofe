@@ -159,7 +159,7 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table-whfk";
+import dTable from "./components/table/d-table-ytll";
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode, handleWebExecuteBatch } from "./api/index";
