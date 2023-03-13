@@ -10,7 +10,7 @@
           <span
             v-for="(item, index) in formHeads "
             :key="index"
-          >{{item.title}}:{{item.value}}{{item.postText?`(${item.postText})`:''}}</span>
+          >{{item.title}}{{item.colon ? "" : ":"}}{{item.value}}{{item.postText?`${item.postText}`:''}}</span>
         </div>
       </div>
     </TipsBox>
@@ -25,7 +25,7 @@ export default {
   name: "FormTitle",
   props: {
     obj: Object,
-    formObj: Object
+    formObj: Object,
   },
   components: {
     TipsBox
@@ -60,7 +60,7 @@ export default {
           name: "age",
           value: "",
           title: "年龄",
-          postText: this.ageLevel
+          postText: `(${this.ageLevel})`
         },
         {
           name: "wardName",
@@ -72,11 +72,13 @@ export default {
           value: "",
           title: "床号"
         },
-        // ...this.obj.formInfo.formCode !== "E2332" ? 
+        this.HOSPITAL_ID === 'foshanrenyi' && 
         {
           name: "visitId",
           value: "",
-          title: "第几次住院"
+          title: "第",
+          postText: "次住院",
+          colon: true
         },
         {
           name: "inpNo",
@@ -88,7 +90,7 @@ export default {
           value: "",
           title: "入院日期"
         }
-      ]
+      ].filter(item => item)
       ret.map(r => {
         try {
           r.value = patient[r.name];
@@ -100,6 +102,7 @@ export default {
   watch: {},
   mounted() {
   },
+
   created() {},
   methods: {}
 };

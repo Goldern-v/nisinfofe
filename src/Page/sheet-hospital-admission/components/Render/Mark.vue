@@ -1,8 +1,7 @@
 
 <template>
   <span
-    style="margin: 0 0px 0 0"
-    :style="{ display: 'flex', alignItems: 'start' }"
+    :style="[{ display: 'flex', alignItems: 'start', alignItems: 'center'}]"
     :class="obj.class"
   >
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
@@ -11,12 +10,12 @@
       v-if="obj.label"
       :style="{
         width: obj.labelWidth,
-        textAlign: 'right',
+        textAlign: `${obj.textAlign || 'right'} `,
         paddingRight: '10px',
       }"
     >
       <span
-        style="font-size: 13px"
+        style="font-size: 13px; font-weight: normal"
         :style="obj.labelStyle"
         :class="obj.labelClass"
         >{{ obj.label }}</span
@@ -30,7 +29,7 @@
       :style="[obj.style, obj.inputWidth && { width: obj.inputWidth }]"
       :ref="obj.name"
       :name="obj.name"
-      :rows="reactiveRows(obj.name, 50, 2, 100)"
+      :rows="reactiveRows(obj.name, obj.lineFeedFize || 50, 2, 200)"
       :placeholder="'空'"
       :class="model === 'development' ? 'development-model' : obj.class || ''"
       :size="obj.size || ''"
@@ -620,7 +619,7 @@ export default {
   resize: none;
 }
 .mark >>>.el-textarea textarea {
-  width: 720px;
+  width: 100%;
 }
 
 .muban {
