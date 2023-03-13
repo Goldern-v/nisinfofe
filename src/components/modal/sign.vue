@@ -91,7 +91,7 @@
         ></el-input>
       </div>
     </span>
-    
+
     <span v-else>
       <p for class="name-title">
         验证方式
@@ -287,7 +287,7 @@ export default {
     },
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType,SigndataObj,verifySignObj) {//formData为表单数据
       // console.log(callback, title, showDate, isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj,"open")
-      
+
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
        GetUserList().then(res=>{
          if(res.data.length==0){
@@ -497,7 +497,7 @@ export default {
         }
       } else if(['zzwy'].includes(this.HOSPITAL_ID)){
 			this.turnToDealzzwy()
-			
+
       }else {
         if (this.password == "" && !this.nanfangCa) {
            this.$message({
@@ -529,7 +529,7 @@ export default {
               }
           },err=>{this.$message.error(err)})
         }else{
-          
+
           this.$refs.modalName.close();
           if(this.aduitDate != '' && this.HOSPITAL_ID == 'hengli'){
             return this.callback(this.password, this.username,this.signDate='', this.aduitDate);
@@ -624,7 +624,7 @@ export default {
 			}).catch(err=>{
 				this.btnLoading = false
 			})
-		} 
+		}
 	},
     openCaSignModal() {
       window.openCaSignModal();

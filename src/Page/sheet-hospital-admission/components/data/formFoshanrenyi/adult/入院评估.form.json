@@ -3280,34 +3280,6 @@
               "class": null,
               "children": [
                 {
-                  "name": "I2332071",
-                  "type": "input",
-                  "title": "留置尿管时间",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "/",
-                  "style": null,
-                  "class": "itemRadio_input",
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332072",
-                  "type": "input",
-                  "title": "留置尿管时间",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "/",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
                   "name": "I2332073",
                   "type": "input",
                   "title": "留置尿管时间",
@@ -4275,34 +4247,6 @@
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "80px",
                   "suffixDesc": "年",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332191",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "月",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332192",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "日",
                   "style": null,
                   "class": null,
                   "labelLeft": true,
@@ -6597,7 +6541,7 @@
           "title": "血栓评估",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",         
+          "inputStyle": "width:270px!important",
           "class": null,
           "options": [
             "无",
@@ -6644,7 +6588,7 @@
                 }
               }
             },
-            
+
             {
               "relationForm": {
                 "openKey": "Caprini血栓风险评估表",
@@ -7120,7 +7064,7 @@
           "title": "住院告知",
           "style": null,
           "titleStyle": "width:62px!important",
-          "inputStyle": "width:270px!important",         
+          "inputStyle": "width:270px!important",
           "class": null,
           "options": [
             "住院告知（新）",
@@ -7132,10 +7076,10 @@
               "relationForm": {
                 "openKey": "住院告知（新）",
                 "params": {
-                  "formCode": "E2066",
+                  "formCode": "FSSY_G0001",
                   "showSignBtn": true,
-                  "title": "住院告知（新）",
-                  "formUrl": "住院告知（新）.html",
+                  "title": "住院告知V3",
+                  "formUrl": "住院告知V3.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,
@@ -7150,10 +7094,10 @@
               "relationForm": {
                 "openKey": "EICU住院告知",
                 "params": {
-                  "formCode": "E2066",
+                  "formCode": "FSSY_E0002",
                   "showSignBtn": true,
-                  "title": "EICU住院告知",
-                  "formUrl": "EICU住院告知.html",
+                  "title": "佛山人医EICU住院告知",
+                  "formUrl": "佛山人医EICU住院告知.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,
@@ -7184,7 +7128,7 @@
             }
           ]
         }
-        
+
       ]
     },
     {
