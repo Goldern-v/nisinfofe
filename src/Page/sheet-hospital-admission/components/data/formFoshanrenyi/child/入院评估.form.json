@@ -6265,6 +6265,7 @@
                 {
                   "name": "I2333158",
                   "type": "input",
+                  "dateTimeType": "date",
                   "title": "",
                   "titleStyle": "width: 129px;",
                   "inputStyle": "width:100%!important",
@@ -7154,8 +7155,8 @@
                 "params": {
                   "formCode": "FSSY_G0001",
                   "showSignBtn": true,
-                  "title": "住院告知（新）",
-                  "formUrl": "住院告知（新）.html",
+                  "title": "住院告知V3",
+                  "formUrl": "住院告知V3.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,

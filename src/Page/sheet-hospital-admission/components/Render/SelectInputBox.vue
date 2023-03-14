@@ -394,7 +394,6 @@ export default {
       }, 100);
     },
     inputClick(e, child) {
-      console.log('弹出框起来')
       if (this.readOnly) {
         return;
       }

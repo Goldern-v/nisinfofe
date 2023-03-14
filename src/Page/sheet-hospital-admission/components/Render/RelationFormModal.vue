@@ -126,7 +126,6 @@ export default {
         })}`;
 
         this.showSignBtn = payload.showSignBtn || false;
-
         this.$refs.iframe.setAttribute("src", url);
 
         this.useIframe = true;
@@ -180,7 +179,6 @@ export default {
     },
     handleLoadingBtn() {
       // this.$refs.modal.open();
-      console.log(this.loadintText);
       if (this.loadingBtnText == "签名成功") {
         this.$refs.modal.close();
       } else {
@@ -193,8 +191,6 @@ export default {
     },
     //成功后返回表单id和evalscore
     successCallback(data){
-      console.log(data, '关联表单成功回调值查看');
-      console.log(this.formCode, '表单formcode')
 
       //表单id返回formCode值
       this.formObj.model[this.formCode] = data.master.id;
