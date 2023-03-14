@@ -118,7 +118,7 @@ export default {
             formatter: "{value} mmol/L"
           },
           max: value => {
-            return 16;
+            return ['nfyksdyy'].includes(this.HOSPITAL_ID) ? 30 : 16;
           },
           min: value => {
             return 0;

@@ -1069,6 +1069,25 @@ export default {
         signType = { audit: true };
         titleModal = "取消审核护士签名";
       }
+      let datapost = Object.assign({}, window.formObj.model);
+      let SigndataObj = {
+            Patient_ID:this.patientInfo.patientId,
+            Visit_ID:this.patientInfo.visitId,
+            Document_Title:this.formObj.formSetting.formTitle.formName,
+            Document_ID:"eval",
+            Section_ID:this.formId,
+            strSignData: JSON.stringify(datapost),
+          };
+
+      let verifySignObj = {
+            patientId:this.patientInfo.patientId,
+            visitId:this.patientInfo.visitId,
+            formName:this.formObj.formSetting.formTitle.formName,
+            formCode:"eval",
+            instanceId:this.formId,
+            recordId:"",
+            signData:JSON.stringify(datapost),
+          }
       window.openSignModal((password, empNo) => {
         let post = {
           // sign: true,
@@ -1097,7 +1116,8 @@ export default {
               status: false,
             });
           });
-      }, titleModal);
+      }, titleModal,false,undefined,  undefined, undefined, undefined ,undefined,undefined,
+          SigndataObj,verifySignObj);
     },
     // 责任护士签名
     formSignOrAudit(config = {}) {
@@ -1123,14 +1143,14 @@ export default {
             };
 
         let verifySignObj = {
-                    patientId:this.patientInfo.patientId,
-                    visitId:this.patientInfo.visitId,
-                    formName:this.formObj.formSetting.formTitle.formName,
-                    formCode:"eval",
-                    instanceId:this.formId,
-                    recordId:"",
-                    signData:JSON.stringify(datapost),
-                  }
+              patientId:this.patientInfo.patientId,
+              visitId:this.patientInfo.visitId,
+              formName:this.formObj.formSetting.formTitle.formName,
+              formCode:"eval",
+              instanceId:this.formId,
+              recordId:"",
+              signData:JSON.stringify(datapost),
+            }
 
         window.openSignModal(
           (password, empNo, signDate) => {
