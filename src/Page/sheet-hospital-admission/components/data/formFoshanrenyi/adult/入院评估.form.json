@@ -6728,7 +6728,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332163",
-                    "prefix": "有,静脉血栓栓塞症（VTE）表:",
+                    "prefix": "静脉血栓栓塞症（VTE）表:",
                     "suffix": "分"
                   }
                 }
@@ -6801,7 +6801,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332163",
-                    "prefix": "PICU营养异常风险评估单:",
+                    "prefix": "Padua评估量表:",
                     "suffix":[
                       {
                         "max": 3,
@@ -7242,8 +7242,8 @@
                 "params": {
                   "formCode": "FSSY_G0001",
                   "showSignBtn": true,
-                  "title": "住院告知V3",
-                  "formUrl": "住院告知V3.html",
+                  "title": "住院告知（新）",
+                  "formUrl": "住院告知（新）.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,
@@ -7260,8 +7260,8 @@
                 "params": {
                   "formCode": "FSSY_E0002",
                   "showSignBtn": true,
-                  "title": "佛山人医EICU住院告知",
-                  "formUrl": "佛山人医EICU住院告知.html",
+                  "title": "EICU住院告知",
+                  "formUrl": "EICU住院告知.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,

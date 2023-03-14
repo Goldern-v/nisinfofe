@@ -6747,7 +6747,6 @@
           "inputStyle": "width:270px!important",
           "options": [
             "无",
-            "有",
             "Braden压疮危险评估及护理记录单"
           ],
           "class": null,
@@ -7137,8 +7136,8 @@
                 "params": {
                   "formCode": "FSSY_G0002",
                   "showSignBtn": true,
-                  "title": "佛山人医新生儿科（NICU）住院告知书",
-                  "formUrl": "佛山人医新生儿科（NICU）住院告知书.html",
+                  "title": "PICU住院告知",
+                  "formUrl": "PICU住院告知.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,
@@ -7155,8 +7154,8 @@
                 "params": {
                   "formCode": "FSSY_G0001",
                   "showSignBtn": true,
-                  "title": "佛山人医新生儿科（NICU）住院告知书",
-                  "formUrl": "佛山人医新生儿科（NICU）住院告知书.html",
+                  "title": "住院告知（新）",
+                  "formUrl": "住院告知（新）.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,
