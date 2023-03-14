@@ -804,7 +804,7 @@ export default {
         else 
           notCheckFill = child_notCheckFill
       }
-      console.log(notCheckFill, "检查项目code")
+      // console.log(notCheckFill, "检查项目code")
 
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
