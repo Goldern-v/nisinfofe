@@ -196,7 +196,7 @@ export default {
         // bedLabel: "", //床位号，如果查全部传*"
         // repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
         // executeFlag: "全部", //0未执行，2已执行
-        executeType:'全部',
+        executeType:'',
         "administration": "",
         "executeStatus": "",
         "repeatIndicator": "",
