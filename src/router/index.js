@@ -1616,6 +1616,7 @@ const router = new Router({
             case 'whyx':
               return allTemperatureChartWHYX
             case 'foshanrenyi':
+            case 'nfyksdyy':
             case 'zhzxy':
             case 'qhwy':
               return allTemperatureChartFSRY

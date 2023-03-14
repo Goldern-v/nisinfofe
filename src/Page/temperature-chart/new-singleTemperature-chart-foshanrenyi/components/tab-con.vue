@@ -560,6 +560,9 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
+    this.bus.$on("syncInAndOutHospital", (type) => {
+      this.syncInAndOutHospital(type);
+    });
     this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate = dateTime.slice(0, 10);
       this.query.entryTime = dateTime.slice(11, 16) + ":00";
@@ -623,6 +626,26 @@ export default {
     },
     getHeight() {
       this.contentHeight.height = window.innerHeight - 110 + "px";
+    },
+        /* 同步入院、同步出院 */
+        syncInAndOutHospital(type) {
+      autoVitalSigns({
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        type: type,
+      }).then(async (res) => {
+        this.$message.success("同步成功");
+        await this.bus.$emit("refreshImg");
+        this.getList();
+        setTimeout(() => {
+          this.bus.$emit("dateChangePage", this.query.entryDate);
+        }, 1000);
+      });
+
+      if (type === "0") {
+        this.query.entryDate = this.patientInfo.admissionDate.slice(0, 10);
+        this.dateInp = this.patientInfo.admissionDate.slice(11, 20);
+      }
     },
     show(e) {
       if (e.keyCode == 13) {

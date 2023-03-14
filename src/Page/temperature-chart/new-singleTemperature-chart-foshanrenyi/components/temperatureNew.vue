@@ -7,110 +7,57 @@
         <el-button type="primary" @click="openDetailChat()">曲线详情</el-button>
       </el-button-group>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
-      <div
-        :class="rightSheet === true ? 'pagination' : 'paginationRight'"
-        v-show="!isPrintAll"
-      >
-        <button
-          :disabled="currentPage === 1"
-          @click="
-            currentPage = 1;
-            toCurrentPage = 1;
-          "
-        >
+      <div :class="rightSheet === true ? 'pagination' : 'paginationRight'" v-show="!isPrintAll">
+        <button :disabled="currentPage === 1" @click="
+          currentPage = 1;
+        toCurrentPage = 1;
+                    ">
           首周
         </button>
         <button :disabled="currentPage === 1" @click="toPre">上一周</button>
-        <span class="page"
-          >第<input
-            type="number"
-            min="1"
-            v-model.number="toCurrentPage"
-            class="pageInput"
-            @keyup.enter="toPage()"
-          />页/共{{ pageTotal }}页</span
-        >
+        <span class="page">第<input type="number" min="1" v-model.number="toCurrentPage" class="pageInput"
+            @keyup.enter="toPage()" />页/共{{ pageTotal }}页</span>
         <button :disabled="currentPage === pageTotal" @click="toNext">
           下一周
         </button>
-        <button
-          :disabled="currentPage === pageTotal"
-          @click="
-            currentPage = pageTotal;
-            toCurrentPage = pageTotal;
-          "
-        >
+        <button :disabled="currentPage === pageTotal" @click="
+          currentPage = pageTotal;
+        toCurrentPage = pageTotal;
+                    ">
           尾周
         </button>
-        <button
-        @click="()=>{this.bus.$emit('dateChangeEvent','pre')}"
-        >
+        <button @click="() => { this.bus.$emit('dateChangeEvent', 'pre') }">
           上一日
         </button>
-        <button
-          @click="()=>{this.bus.$emit('dateChangeEvent','next')}"
-        >
+        <button @click="() => { this.bus.$emit('dateChangeEvent', 'next') }">
           下一日
         </button>
+        <el-button-group :style="rightButton()" v-if="['nfyksdyy'].includes(HOSPITAL_ID)">
+          <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '0'))" :disabled="!isDisable">同步入院</el-button>
+          <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '1'))" :disabled="!isDisable">同步出院</el-button>
+        </el-button-group>
       </div>
-      <moveContext
-        :id="'detailChatBox'"
-        :titlex="'曲详情线'"
-        class="detailChatBox"
-      >
+      <moveContext :id="'detailChatBox'" :titlex="'曲详情线'" class="detailChatBox">
         <div class="button-context">
-          <el-button
-            type="primary"
-            @click="changeDetailChatUrl((type = 1))"
-            class="detail-button"
-            >体温</el-button
-          >
-          <el-button
-            type="primary"
-            @click="changeDetailChatUrl((type = 2))"
-            class="detail-button"
-            >脉搏</el-button
-          >
-          <el-button
-            type="primary"
-            @click="changeDetailChatUrl((type = 3))"
-            class="detail-button"
-            >心率</el-button
-          >
+          <el-button type="primary" @click="changeDetailChatUrl((type = 1))" class="detail-button">体温</el-button>
+          <el-button type="primary" @click="changeDetailChatUrl((type = 2))" class="detail-button">脉搏</el-button>
+          <el-button type="primary" @click="changeDetailChatUrl((type = 3))" class="detail-button">心率</el-button>
         </div>
         <div>
           <null-bg v-show="!filePath" :image-size="100"></null-bg>
-          <iframe
-            id="detailChat"
-            v-if="detailChatFlag && filePath"
-            :src="detailChatUrl"
-            frameborder="0"
-            ref="detailChat"
-            class="detailChat"
-          ></iframe>
+          <iframe id="detailChat" v-if="detailChatFlag && filePath" :src="detailChatUrl" frameborder="0" ref="detailChat"
+            class="detailChat"></iframe>
         </div>
       </moveContext>
       <div class="tem-con" :style="contentHeight" v-if="!isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
-        <iframe
-          id="temperatureChart"
-          :src="filePath"
-          v-if="!isPrintAll&&filePath"
-          frameborder="0"
-          ref="pdfCon"
-          class="lcIframe"
-        ></iframe>
+        <iframe id="temperatureChart" :src="filePath" v-if="!isPrintAll && filePath" frameborder="0" ref="pdfCon"
+          class="lcIframe"></iframe>
       </div>
       <div class="tem-con" :style="contentHeight" v-if="isPrintAll">
         <null-bg v-show="!filePath"></null-bg>
-        <iframe
-          id="chartPrintAll"
-          :src="printAllPath"
-           v-if="isPrintAll&&printAllPath"
-          frameborder="0"
-          ref="pdfConAll"
-          class="lcIframe"
-        ></iframe>
+        <iframe id="chartPrintAll" :src="printAllPath" v-if="isPrintAll && printAllPath" frameborder="0" ref="pdfConAll"
+          class="lcIframe"></iframe>
       </div>
     </div>
   </div>
@@ -127,18 +74,18 @@ export default {
     queryTem: Object,
   },
   data() {
-        //佛一跟顺德医院共用录入界面 ，判断ip地址
-        const baseUrl=(()=>{
-  switch (process.env.HOSPITAL_ID) {
-    case 'foshanrenyi':
-      // return "http://localhost:8080"
-      return "http://192.168.103.17:9091"
-    case 'nfyksdyy':
-      return "http://192.168.0.200:9091"
-    default:
-      break;
-  }
- })()
+    //佛一跟顺德医院共用录入界面 ，判断ip地址
+    const baseUrl = (() => {
+      switch (process.env.HOSPITAL_ID) {
+        case 'foshanrenyi':
+          // return "http://localhost:8080"
+          return "http://192.168.103.17:9091"
+        case 'nfyksdyy':
+          return "http://192.168.0.200:9091"
+        default:
+          break;
+      }
+    })()
     return {
       bus: bus(this),
       date: "",
@@ -157,7 +104,7 @@ export default {
       visibled: false,
       printAllPath: "",
       intranetUrl:
-      `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
+        `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
       // `${baseUrl}/#/` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         `${baseUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
@@ -184,6 +131,15 @@ export default {
         );
       }, 1500);
     },
+    rightButton() {
+      return {
+        position: "relative",
+        left: this.rightSheet === false ? "10%" : "4%",
+      };
+    },
+    syncInAndOutHospital(type) {
+      this.bus.$emit("syncInAndOutHospital", type);
+    },
     //将体温单上的时间传过来，再监听到录入组件，获取录入记录
     getDataFromPage(dateTime) {
       this.bus.$emit("getDataFromPage", dateTime);
@@ -205,14 +161,14 @@ export default {
       setTimeout(() => {
         this.detailChatFlag = true;
       }, 0);
-         setTimeout(() => {
-               if (this.$refs.detailChat.contentWindow) {
-        let value = this.currentPage;
-        this.$refs.detailChat.contentWindow.postMessage(
-          { type: "currentPage", value },
-          this.detailChatUrl /* 内网 */
-        );
-      }
+      setTimeout(() => {
+        if (this.$refs.detailChat.contentWindow) {
+          let value = this.currentPage;
+          this.$refs.detailChat.contentWindow.postMessage(
+            { type: "currentPage", value },
+            this.detailChatUrl /* 内网 */
+          );
+        }
       }, 300);
     },
     toPage() {
@@ -283,7 +239,7 @@ export default {
           case "dblclick" /* 双击查阅体温单子 */:
             this.openRight();
             break;
-              case "currentPage":
+          case "currentPage":
             this.currentPage = e.data.value;
             break;
           case "clickDateTime":
@@ -366,6 +322,12 @@ export default {
     authTokenNursing() {
       return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
+    isDisable(){
+    return (
+      this.$route.path.includes("newSingleTemperatureChart") ||
+      this.$route.path.includes("temperature")
+    )
+    }
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);
