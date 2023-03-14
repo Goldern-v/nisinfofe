@@ -444,11 +444,17 @@ export default {
   },
   methods: {
     ...mapMutations(["upOpenModalFromSpecial", "upEvalData"]),
+    reset() {
+      this.executeType = ''
+      this.instructions = ''
+      this.repeatIndicator = ''
+    },
     open(baseParams) {
       this.formlist = baseParams;
       if (!this.patientInfo.patientId && !baseParams.patientId) {
         return this.$message.warning("请选择一名患者");
       }
+      if ('wujing' === this.HOSPITAL_ID) this.reset()
       this.searchDate = moment().format("YYYY-MM-DD");
       this.getData();
       this.$refs.modal.open();

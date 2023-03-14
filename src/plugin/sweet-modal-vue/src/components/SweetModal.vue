@@ -1090,7 +1090,7 @@ export default {
       top: 20px;
       bottom: 10px;
     }
-    max-height: calc(100vh - 50px);
+    max-height: calc(100vh - 220px);
     overflow: auto;
     line-height: 1.5;
     .sweet-content-content {
