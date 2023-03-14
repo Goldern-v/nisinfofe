@@ -2028,9 +2028,9 @@ export default {
               this.sheetInfo.sheetType === "icu_qz" ||
               this.sheetInfo.sheetType === "intersurgerycure_qzx" ||
               this.sheetInfo.sheetType === "common_gzry" ||
-              this.sheetInfo.sheetType === "hydrochloricacid_fs" ||
               this.sheetInfo.sheetType === "baby_yz" ||
-              this.sheetInfo.sheetType === "seriousnursing_ytll"
+              this.sheetInfo.sheetType === "seriousnursing_ytll" ||
+              this.sheetInfo.sheetType == "postpartum_fs" 
             ) {
               // 特殊情况长度截取，前端控制部分(长度计算：输入的字数*2-2)
               if (GetLength(text) > 46) {
@@ -2039,7 +2039,14 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.HOSPITAL_ID == "hengli"||this.sheetInfo.sheetType == "custody_yz") {
+            } else if (this.sheetInfo.sheetType == "hydrochloricacid_fs") {
+              if (GetLength(text) > 47) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else if (this.HOSPITAL_ID == "hengli" || this.sheetInfo.sheetType == "custody_yz") {
               if (GetLength(text) > 40) {
                 result.push(text);
                 text = allDoc[i];
@@ -2048,7 +2055,8 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType == "common_xg" ||
-              this.sheetInfo.sheetType == "internal_xg"
+              this.sheetInfo.sheetType == "internal_xg" || 
+              this.sheetInfo.sheetType == "babyarea_fs" 
             ) {
               if (GetLength(text) > 32) {
                 result.push(text);
@@ -2056,8 +2064,10 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "iabp_fs") {
-              if (GetLength(text) > 56) {
+            } else if (
+              this.sheetInfo.sheetType === "iabp_fs" 
+            ) {
+              if (GetLength(text) > 57) {
                 result.push(text);
                 text = allDoc[i];
               } else {
@@ -2094,14 +2104,11 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "prenatalcheck_bh") {
-              if (GetLength(text) > 58) {
-                result.push(text);
-                text = allDoc[i];
-              } else {
-                text += allDoc[i];
-              }
-            } else if (this.sheetInfo.sheetType === "magnesiumsulf_fs") {
+            } else if (
+              this.sheetInfo.sheetType === "magnesiumsulf_fs" || 
+              this.sheetInfo.sheetType == "prenatal_fs" ||
+              this.sheetInfo.sheetType == "magnesiumsulf_fs" 
+              ) {
               if (GetLength(text) > 62) {
                 result.push(text);
                 text = allDoc[i];
