@@ -656,11 +656,11 @@ export default {
           visitId: this.patientInfo.visitId || this.formlist.visitId,
           startDate,
           endDate,
-          executeType: this.executeType,
+          executeType: this.executeType === '全部' ? '' : this.executeType,
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", 'zhzxy',"lyxrm","qhwy", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
+      } else if (["foshanrenyi", 'zhzxy',"lyxrm","qhwy", "whhk", '925','gdtj', 'stmz','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
