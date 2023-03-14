@@ -204,7 +204,7 @@ import $ from "jquery";
 import commom from "@/common/mixin/common.mixin.js";
 import dayjs from "dayjs";
 import qs from "qs";
-import { adult_notCheckFill } from "@/Page/sheet-hospital-admission/components/data/formFoshanrenyi/notCheckFill"
+import { adult_notCheckFill, child_notCheckFill } from "@/Page/sheet-hospital-admission/components/data/formFoshanrenyi/notCheckFill"
 import {
   createForm,
   save,
@@ -796,9 +796,19 @@ export default {
         return;
       }
 
+      let notCheckFill = []
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        // 成人
+        if (this.formCode === 'E2332')
+          notCheckFill = adult_notCheckFill
+        else 
+          notCheckFill = child_notCheckFill
+      }
+      console.log(notCheckFill, "检查项目code")
+
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
-          let find = adult_notCheckFill.find((item) => item === key)
+          let find = notCheckFill.find((item) => item === key)
           if (!find) {
             let element = object[key];
             let name = "",
