@@ -775,7 +775,7 @@
       "readOnly": ""
     },
     {
-      "name": "I2332019",
+      "name": "I2332219",
       "type": "formGroupColBox",
       "col": 1,
       "title": "健康史",
@@ -791,7 +791,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2332019",
+          "name": "I2332219",
           "type": "",
           "title": "1.既往史",
           "titleStyle": "width:62px!important",
@@ -802,19 +802,69 @@
           "hiddenTips": true,
           "children": [
             {
-              "name": "I2332019",
-              "type": "checkbox",
+              "name": "I2332219",
+              "type": "radio",
               "title": "无",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "clean": "既往史，有："
+                }
+              ]
             },
+            {
+              "name": "I2332219",
+              "type": "radio",
+              "title": "有：",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "show": "既往史，有："
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "I2332219",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "既往史，有：",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332019",
+          "type": "",
+          "title": "",
+          "titleStyle": "width:62px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
             {
               "name": "I2332019",
               "type": "checkbox",
               "title": "高血压病",
-              "elementStyle": "margin: 8px 0px 0 0px;",
+              "elementStyle": "margin: 8px 0px 0 66px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -869,20 +919,7 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null
-            }
-          ]
-        },
-        {
-          "name": "I2332019",
-          "type": "",
-          "title": "",
-          "titleStyle": "width:62px!important",
-          "class": "radio_input",
-          "boxStyle": "height:auto!important",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
+            },
             {
               "name": "I2332019",
               "type": "checkbox",
@@ -922,7 +959,7 @@
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important",
                   "inputWidth": "100%",
-                  "suffixDesc": "",
+                  "suffixDesc": "）",
                   "style": null,
                   "class": null,
                   "labelLeft": true,
@@ -935,6 +972,8 @@
         }
       ]
     },
+
+
     {
       "name": "I2332021",
       "type": "formGroupColBox",
@@ -1021,7 +1060,12 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "clean": "健康史，有："
+                }
+              ]
             },
             {
               "name": "I2332023",
@@ -1030,39 +1074,10 @@
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332024",
-              "type": "checkbox",
-              "title": "食物",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332024",
-              "type": "checkbox",
-              "title": "药物：",
-              "elementStyle": "margin: 8px 5px 0 0;",
-              "elementClass": "el-radio_fs itemRadio",
-              "style": null,
               "class": null,
-              "children": [
+              "tasks": [
                 {
-                  "name": "I2332025",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important",
-                  "inputWidth": "480px",
-                  "suffixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
+                  "show": "健康史，有："
                 }
               ]
             }
@@ -1071,10 +1086,10 @@
       ]
     },
     {
-      "name": "I2332023",
+      "name": "I2332024",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "健康史",
+      "title": "健康史，有：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -1087,7 +1102,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2332023",
+          "name": "I2332024",
           "type": "",
           "title": "",
           "titleStyle": "width:62px!important",
@@ -1098,8 +1113,58 @@
           "hiddenTips": true,
           "children": [
             {
-              "name": "I2332023",
-              "type": "radio",
+              "name": "I2332024",
+              "type": "checkbox",
+              "title": "食物：",
+              "elementStyle": "margin: 8px 5px 0 66px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": "radio_input",
+              "children": [
+                {
+                  "name": "I2332220",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:80px!important",
+                  "inputStyle": "width:100%!important",
+                  "inputWidth": "625px",
+                  "suffixDesc": "",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
+            },
+            {
+              "name": "I2332024",
+              "type": "checkbox",
+              "title": "药物：",
+              "elementStyle": "margin: 8px 5px 0 66px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null,
+              "children": [
+                {
+                  "name": "I2332025",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:80px!important",
+                  "inputStyle": "width:100%!important",
+                  "inputWidth": "625px",
+                  "suffixDesc": "",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
+            },
+            {
+              "name": "I2332024",
+              "type": "checkbox",
               "title": "其他",
               "elementStyle": "margin: 8px 5px 0 66px;",
               "elementClass": "el-radio_fs",
@@ -1107,8 +1172,8 @@
               "class": null
             },
             {
-              "name": "I2332023",
-              "type": "radio",
+              "name": "I2332024",
+              "type": "checkbox",
               "title": "不明确",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -1287,34 +1352,474 @@
         }
       ]
     },
+
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "2. 意识/神志",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
     {
       "name": "I2332032",
       "type": "formGroupColBox",
-      "col": 2,
-      "title": "三、健康史/饮食/认知/语言沟通",
+      "col": 1,
+      "title": "意识/神志",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
-      "keys": "I2332032",
+      "keys": "",
       "style": null,
+      "titleStyle": "margin-top: 7px;",
       "classes": null,
       "readOnly": null,
       "children": [
         {
           "name": "I2332032",
+          "type": "",
+          "title": "",
+          "titleStyle": "width: 75px!important",
+          "class": null,
+          "labelLeft": true,
+          "readOnly": null,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "清醒",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "镇静状态",
+                    "嗜睡"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "镇静状态",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "show": "镇静状态"
+                },
+                {
+                  "clean": [
+                    "嗜睡"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "嗜睡",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "show": "嗜睡"
+                },
+                {
+                  "clean": "镇静状态"
+                }
+              ]
+            },
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "模糊",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "showName": "嗜睡",
+              "tasks": [
+                {
+                  "show": "嗜睡"
+                },
+                {
+                  "clean": "镇静状态"
+                }
+              ]
+            },
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "谵妄",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "镇静状态",
+                    "嗜睡"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "昏睡",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "showName": "嗜睡",
+              "tasks": [
+                {
+                  "show": "嗜睡"
+                },
+                {
+                  "clean": "镇静状态"
+                }
+              ]
+            },
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "昏迷",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "showName": "嗜睡",
+              "tasks": [
+                {
+                  "show": "嗜睡"
+                },
+                {
+                  "clean": "镇静状态"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "镇静状态",
+      "parentKey": "I2333099",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "labelLeft": true,
+      "readOnly": null,
+      "hiddenTips": true,
+      "children": [
+        {
+          "name": "I2332036",
+          "type": "",
+          "title": "瞳孔大小：左",
+          "titleStyle": "width: 92px!important",
+          "class": "radio_input",
+          "labelLeft": true,
+          "readOnly": null,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332036",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width: 95px;",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "100px",
+              "labelLeft": true,
+              "suffixDesc": " 右:",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
+            },
+            {
+              "name": "I2332037",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width: 95px;",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "100px",
+              "labelLeft": true,
+              "suffixDesc": " 瞳孔形状:",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
+            },
+            {
+              "name": "I2332038",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width: 95px;",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "100px",
+              "labelLeft": true,
+              "suffixDesc": "等大等圆:",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
+            },
+            {
+              "name": "I2332039",
+              "type": "",
+              "title": "",
+              "titleStyle": "width: 66px!important",
+              "class": "radio_input",
+              "labelLeft": true,
+              "readOnly": null,
+              "hiddenTips": true,
+              "children": [
+                {
+                  "name": "I2332039",
+                  "type": "radio",
+                  "title": "是",
+                  "elementStyle": "margin: 3px 5px 0 0;",
+                  "elementClass": "el-radio_fs itemRadio",
+                  "style": null,
+                  "class": null
+                },
+                {
+                  "name": "I2332039",
+                  "type": "radio",
+                  "title": "否",
+                  "elementStyle": "margin: 3px 5px 0 0;",
+                  "elementClass": "el-radio_fs itemRadio",
+                  "style": null,
+                  "class": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "I2332040",
+          "type": "",
+          "title": "对光反射",
+          "titleStyle": "width: 62px!important",
+          "class": "radio_input",
+          "labelLeft": true,
+          "readOnly": null,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332040",
+              "type": "radio",
+              "title": "灵敏",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332040",
+              "type": "radio",
+              "title": "迟钝",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332040",
+              "type": "radio",
+              "title": "消失",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "嗜睡",
+      "parentKey": "I2333099",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "labelLeft": true,
+      "readOnly": null,
+      "hiddenTips": true,
+      "children": [
+        {
+          "name": "I2332222",
+          "type": "",
+          "title": "瞳孔大小：左",
+          "titleStyle": "width: 92px!important",
+          "class": "radio_input",
+          "labelLeft": true,
+          "readOnly": null,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332222",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width: 95px;",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "100px",
+              "labelLeft": true,
+              "suffixDesc": " 右:",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
+            },
+            {
+              "name": "I2332223",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width: 95px;",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "100px",
+              "labelLeft": true,
+              "suffixDesc": " 瞳孔形状:",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
+            },
+            {
+              "name": "I2332224",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width: 95px;",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "100px",
+              "labelLeft": true,
+              "suffixDesc": "等大等圆:",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
+            },
+            {
+              "name": "I2332225",
+              "type": "",
+              "title": "",
+              "titleStyle": "width: 66px!important",
+              "class": "radio_input",
+              "labelLeft": true,
+              "readOnly": null,
+              "hiddenTips": true,
+              "children": [
+                {
+                  "name": "I2332225",
+                  "type": "radio",
+                  "title": "是",
+                  "elementStyle": "margin: 3px 5px 0 0;",
+                  "elementClass": "el-radio_fs itemRadio",
+                  "style": null,
+                  "class": null
+                },
+                {
+                  "name": "I2332225",
+                  "type": "radio",
+                  "title": "否",
+                  "elementStyle": "margin: 3px 5px 0 0;",
+                  "elementClass": "el-radio_fs itemRadio",
+                  "style": null,
+                  "class": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "I2332226",
+          "type": "",
+          "title": "对光反射",
+          "titleStyle": "width: 62px!important",
+          "class": "radio_input",
+          "labelLeft": true,
+          "readOnly": null,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332226",
+              "type": "radio",
+              "title": "灵敏",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332226",
+              "type": "radio",
+              "title": "迟钝",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332226",
+              "type": "radio",
+              "title": "消失",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null
+            }
+          ]
+        },
+        {
+          "name": "I2332033",
           "type": "select",
-          "title": "2.意识/神志",
-          "titleStyle": "width:100px!important",
+          "title": "GCS评分",
+          "titleStyle": "width:62px!important",
           "inputStyle": "width:100%!important",
           "labelLeft": true,
           "readOnly": null,
           "hiddenTips": true,
+          "options": [
+            "GCS评分",
+            "无"
+          ],
           "rule": [
             {
               "relationForm": {
-                "openKey": ["嗜睡", "昏睡", "昏迷", "模糊"],
-                "cleanKey": "清醒",
+                "openKey": ["GCS评分"],
+                "cleanKey": "无",
                 "params": {
                   "formCode": "E0390",
                   "showSignBtn": true,
@@ -1322,10 +1827,9 @@
                   "formUrl": "佛山人医意识护理单（GCS评分）.html",
                   "callbackInfo": {
                     "needScore": true,
-                    "code": "I2332032",
-                    "prefix": "关联GSC评分表，",
+                    "code": "I2332033",
+                    "prefix": "GSC评分表，",
                     "suffix": "分",
-                    "id": "I2332033",
                     "openKeyName": true
                   }
                 }
@@ -1335,7 +1839,7 @@
               "indexOfScore": true,
               "scoreStrMin": "1",
               "scoreStrMax": "12",
-              "equal": "关联GSC评分表，",
+              "equal": "GSC评分表，",
               "style": "color:red"
             }
           ],
@@ -1344,130 +1848,19 @@
         }
       ]
     },
+
+
     {
       "name": "",
-      "type": "formGroupColBox",
-      "col": 4,
-      "colWidth": [
-        "25%",
-        "25%",
-        "25%",
-        "25%"
-      ],
-      "title": "一般健康状况",
-      "message": "",
-      "require": "false",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "3.睡眠",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
-      "boxStyle": "padding-left: 0px;",
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I2332036",
-          "type": "input",
-          "title": "瞳孔大小：左",
-          "titleStyle": "width: 129px;",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "100%",
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "hiddenTips": true
-        },
-        {
-          "name": "I2332037",
-          "type": "input",
-          "title": "瞳孔大小：右",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "100%",
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "hiddenTips": true
-        },
-        {
-          "name": "I2332038",
-          "type": "input",
-          "labelTitle": "瞳孔形状",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "100%",
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "hiddenTips": true
-        },
-        {
-          "name": "I2332039",
-          "type": "select",
-          "labelTitle": "等大等圆",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "100%",
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "hiddenTips": true
-        }
-      ]
-    },
-    {
-      "name": "I2332040",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "一般健康状况",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "titleStyle": "margin-top: 7px;",
-      "boxStyle": "height:auto!important",
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I2332040",
-          "type": "",
-          "title": "对光反射",
-          "titleStyle": "width:70px!important",
-          "class": null,
-          "boxStyle": "height:auto!important",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332040",
-              "type": "checkbox",
-              "title": "灵敏",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332040",
-              "type": "checkbox",
-              "title": "迟钝",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332040",
-              "type": "checkbox",
-              "title": "消失",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            }
-          ]
-        }
-      ]
+      "style": "",
+      "classes": "",
+      "readOnly": ""
     },
     {
       "name": "I2332041",
@@ -1488,7 +1881,7 @@
         {
           "name": "I2332041",
           "type": "",
-          "title": "3.睡眠",
+          "title": "",
           "titleStyle": "width:62px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important",
@@ -1626,7 +2019,7 @@
           "children": [
             {
               "name": "I2332043",
-              "type": "checkbox",
+              "type": "radio",
               "title": "正常",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1635,7 +2028,7 @@
             },
             {
               "name": "I2332043",
-              "type": "checkbox",
+              "type": "radio",
               "title": "增进",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -1644,7 +2037,7 @@
             },
             {
               "name": "I2332043",
-              "type": "checkbox",
+              "type": "radio",
               "title": "下降",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1879,7 +2272,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "I2332048",
-                    "prefix": "关联吞咽进食护理单，",
+                    "prefix": "吞咽进食护理单，",
                     "suffix": "分",
                     "openKeyName": true
                   }
@@ -1933,7 +2326,7 @@
           "children": [
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "完整",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1942,229 +2335,127 @@
               "tasks": [
                 {
                   "clean": [
-                    "破损",
-                    "溃疡",
-                    "瘢痕"
+                    "破损部位",
+                    "溃疡部位",
+                    "瘢痕部位",
+                    "水疱部位",
+                    "硬结部位",
+                    "瘀斑部位",
+                    "出血点部位",
+                    "丘疹部位",
+                    "皲裂部位",
+                    "抓痕部位",
+                    "其他部位"
                   ]
                 }
               ]
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "破损",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "溃疡 ",
-                    "瘢痕"
-                  ]
-                },
-                {
-                  "show": ["破损"]
-                }
-              ]
+              "tasks": "破损部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
-              "title": "溃疡 ",
+              "type": "checkbox",
+              "title": "溃疡",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "瘢痕"
-                  ]
-                },
-                {
-                  "show": ["溃疡 "]
-                }
-              ]
+              "tasks": "溃疡部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "瘢痕",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡 "
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "瘢痕部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "水疱",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "水疱部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "硬结",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "硬结部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "瘀斑",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "瘀斑部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "出血点",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "出血点部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "丘疹",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "丘疹部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "皲裂",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "皲裂部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "抓痕",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "抓痕部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "其他",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "其他部位"
             }
           ]
         }
@@ -2178,7 +2469,7 @@
         "50%",
         "50%"
       ],
-      "title": "破损",
+      "title": "破损部位",
       "parentKey": "I2332052",
       "message": "",
       "require": "false",
@@ -2192,7 +2483,7 @@
         {
           "name": "I2332054",
           "type": "input",
-          "title": "部位",
+          "title": "破损部位",
           "titleStyle": "width: 81px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
@@ -2205,7 +2496,7 @@
         {
           "name": "I2332055",
           "type": "input",
-          "title": "面积",
+          "title": "破损面积",
           "titleStyle": "width: 100px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
@@ -2224,7 +2515,7 @@
         "50%",
         "50%"
       ],
-      "title": "溃疡 ",
+      "title": "溃疡部位",
       "parentKey": "I2332052",
       "message": "",
       "require": "false",
@@ -2238,7 +2529,7 @@
         {
           "name": "I2332056",
           "type": "input",
-          "title": "部位",
+          "title": "溃疡部位",
           "titleStyle": "width: 81px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
@@ -2251,7 +2542,7 @@
         {
           "name": "I2332057",
           "type": "input",
-          "title": "面积",
+          "title": "溃疡面积",
           "titleStyle": "width: 100px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
@@ -2262,15 +2553,16 @@
         }
       ]
     },
+
     {
-      "name": "I2332053",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
         "50%",
         "50%"
       ],
-      "title": "瘢痕",
+      "title": "瘢痕部位",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2281,9 +2573,9 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2332053",
+          "name": "I2332196",
           "type": "input",
-          "title": "部位",
+          "title": "瘢痕部位",
           "titleStyle": "width: 81px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
@@ -2295,6 +2587,271 @@
         }
       ]
     },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "水疱部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332197",
+          "type": "input",
+          "title": "水疱部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "硬结部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332198",
+          "type": "input",
+          "title": "硬结部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "瘀斑部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332199",
+          "type": "input",
+          "title": "瘀斑部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "出血点部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332200",
+          "type": "input",
+          "title": "出血点部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "丘疹部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332203",
+          "type": "input",
+          "title": "丘疹部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "皲裂部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332207",
+          "type": "input",
+          "title": "皲裂部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "抓痕部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332208",
+          "type": "input",
+          "title": "抓痕部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "其他部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332209",
+          "type": "input",
+          "title": "其他部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+
     {
       "name": "I2332058",
       "type": "formGroupColBox",
@@ -2887,34 +3444,6 @@
               "class": null,
               "children": [
                 {
-                  "name": "I2332071",
-                  "type": "input",
-                  "title": "留置尿管时间",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "/",
-                  "style": null,
-                  "class": "itemRadio_input",
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332072",
-                  "type": "input",
-                  "title": "留置尿管时间",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "/",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
                   "name": "I2332073",
                   "type": "input",
                   "title": "留置尿管时间",
@@ -3182,23 +3711,7 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
-              "class": null,
-              "children": [
-                {
-                  "name": "I2332194",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "60px",
-                  "suffixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2332078",
@@ -3564,46 +4077,6 @@
       ]
     },
     {
-      "name": "I2332084",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "8.四肢活动度/肌力",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "titleStyle": "margin-top: 7px;",
-      "boxStyle": "height:auto!important",
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I2332084",
-          "type": "",
-          "title": "",
-          "titleStyle": "width:62px!important",
-          "class": "",
-          "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332084",
-              "type": "radio",
-              "title": "肌力",
-              "elementStyle": "margin: 8px 5px 0 0;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            }
-          ]
-        }
-      ]
-    },
-    {
       "name": "I2332086",
       "type": "formGroupColBox",
       "col": 1,
@@ -3627,8 +4100,6 @@
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
           "children": [
             {
               "name": "I2332086",
@@ -3742,7 +4213,7 @@
       "name": "I2332091",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "8.四肢活动度/肌力",
+      "title": "9. 成人体型",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -3768,6 +4239,15 @@
             {
               "name": "I2332091",
               "type": "radio",
+              "title": "正力型（匀称型）",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332091",
+              "type": "radio",
               "title": "无力型（瘦长型）",
               "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio_fs",
@@ -3778,15 +4258,6 @@
               "name": "I2332091",
               "type": "radio",
               "title": "超力型（矮胖型）",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332091",
-              "type": "radio",
-              "title": "正力型（匀称型）",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -3945,34 +4416,6 @@
                   "labelLeft": true,
                   "hiddenTips": true,
                   "readOnly": null
-                },
-                {
-                  "name": "I2332191",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "月",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332192",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "日",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
                 }
               ]
             },
@@ -4060,7 +4503,7 @@
           "children": [
             {
               "name": "I2332096",
-              "type": "radio",
+              "type": "checkbox",
               "title": "药物",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4068,7 +4511,7 @@
             },
             {
               "name": "I2332096",
-              "type": "radio",
+              "type": "checkbox",
               "title": "上环",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4076,7 +4519,7 @@
             },
             {
               "name": "I2332096",
-              "type": "radio",
+              "type": "checkbox",
               "title": "结扎",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4084,7 +4527,7 @@
             },
             {
               "name": "I2332096",
-              "type": "radio",
+              "type": "checkbox",
               "title": "避孕套",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4092,7 +4535,7 @@
             },
             {
               "name": "I2332096",
-              "type": "radio",
+              "type": "checkbox",
               "title": "安全期",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4100,7 +4543,7 @@
             },
             {
               "name": "I2332096",
-              "type": "radio",
+              "type": "checkbox",
               "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",
@@ -4420,7 +4863,7 @@
           "children": [
             {
               "name": "I2332107",
-              "type": "radio",
+              "type": "checkbox",
               "title": "无",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4428,7 +4871,7 @@
             },
             {
               "name": "I2332107",
-              "type": "radio",
+              "type": "checkbox",
               "title": "顺产",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4436,7 +4879,7 @@
             },
             {
               "name": "I2332107",
-              "type": "radio",
+              "type": "checkbox",
               "title": "剖宫产",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4444,7 +4887,7 @@
             },
             {
               "name": "I2332107",
-              "type": "radio",
+              "type": "checkbox",
               "title": "阴道助产",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4452,7 +4895,7 @@
             },
             {
               "name": "I2332107",
-              "type": "radio",
+              "type": "checkbox",
               "title": "人流",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4460,7 +4903,7 @@
             },
             {
               "name": "I2332107",
-              "type": "radio",
+              "type": "checkbox",
               "title": "其他",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4578,7 +5021,7 @@
           "children": [
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "不清",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4586,7 +5029,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "LOA",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4594,7 +5037,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "LOP",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4602,7 +5045,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "ROA",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4610,7 +5053,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "LSA",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4618,7 +5061,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "RSA",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4626,7 +5069,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "LSCA",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4634,7 +5077,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "LSCP",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4642,7 +5085,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "LOT",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4650,7 +5093,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "ROT",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4658,7 +5101,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "ROP",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4666,7 +5109,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "LMA",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4674,7 +5117,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "LMP",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4682,7 +5125,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "RMA",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4690,7 +5133,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "RMT",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4698,7 +5141,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "RMP",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4706,7 +5149,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "LST",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4714,7 +5157,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "LSP",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4722,7 +5165,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "RST",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4730,7 +5173,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "RSP",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4738,7 +5181,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "RSCA",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4746,7 +5189,7 @@
             },
             {
               "name": "I2332114",
-              "type": "radio",
+              "type": "checkbox",
               "title": "RSCP",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -5050,6 +5493,14 @@
               "name": "I2332125",
               "type": "radio",
               "title": "少许",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I2332125",
+              "type": "radio",
+              "title": "月经量",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
               "class": null
@@ -5596,7 +6047,7 @@
           "name": "I2332139",
           "type": "",
           "title": "眼球活动受限",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:96px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5978,7 +6429,7 @@
           "name": "I2332149",
           "type": "",
           "title": "中心静脉导管",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:96px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -6103,12 +6554,12 @@
           "class": null,
           "options": [
             "完全自理",
-            "其他"
+            "ADL量表(Barthel 指数)"
           ],
           "rule": [
             {
               "relationForm": {
-                "openKey": "其他",
+                "openKey": "ADL量表(Barthel 指数)",
                 "cleanKey": "完全自理",
                 "params": {
                   "formCode": "E0362",
@@ -6118,7 +6569,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332154",
-                    "prefix": "BADL评分",
+                    "prefix": "ADL评分",
                     "suffix":[
                       {
                         "max": 100,
@@ -6200,12 +6651,13 @@
           "class": null,
           "options": [
             "无",
-            "有"
+            "跌倒护理单",
+            "产科跌倒护理单"
           ],
           "rule": [
             {
               "relationForm": {
-                "openKey": "有",
+                "openKey": "跌倒护理单",
                 "cleanKey": "无",
                 "params": {
                   "formCode": "E0367",
@@ -6215,7 +6667,25 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332160",
-                    "prefix": "有，跌倒护理单:",
+                    "prefix": "跌倒护理单:",
+                    "suffix": "分"
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "产科跌倒护理单",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "E1890",
+                  "showSignBtn": true,
+                  "title": "佛山市一产科跌倒护理单",
+                  "formUrl": "佛山市一产科跌倒护理单.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "S2332160",
+                    "prefix": "产科跌倒护理单:",
                     "suffix": "分"
                   }
                 }
@@ -6235,12 +6705,15 @@
           "title": "血栓评估",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",         
+          "inputStyle": "width:270px!important",
           "class": null,
           "options": [
             "无",
             "静脉血栓栓塞症（VTE）表",
-            "产科VTE风险评估单"
+            "产科VTE风险评估单",
+            "Caprini血栓风险评估表",
+            "Autar深静脉血栓形成风险评估表",
+            "血栓风险评估（Padua评估量表）"
           ],
           "rule": [
             {
@@ -6255,7 +6728,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332163",
-                    "prefix": "有,静脉血栓栓塞症（VTE）表:",
+                    "prefix": "静脉血栓栓塞症（VTE）表:",
                     "suffix": "分"
                   }
                 }
@@ -6273,26 +6746,77 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332163",
-                    "prefix": "有,产科VTE风险评估单:",
+                    "prefix": "产科VTE风险评估单:",
+                    "suffix": "分"
+                  }
+                }
+              }
+            },
+
+            {
+              "relationForm": {
+                "openKey": "Caprini血栓风险评估表",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "E0592",
+                  "showSignBtn": true,
+                  "title": "佛山人医Caprini血栓风险评估表",
+                  "formUrl": "佛山人医Caprini血栓风险评估表.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "S2332163",
+                    "prefix": "Caprini血栓风险评估表:",
                     "suffix": "分"
                   }
                 }
               }
             },
             {
-              "ScoreOpenkey": "静脉血栓栓塞症（VTE）风险评估与预防措施",
-              "first": true,
-              "indexOfScore": true,
-              "scoreStrMin": "11",
-              "scoreStrMax": "100",
-              "style": "color:red"
+              "relationForm": {
+                "openKey": "Autar深静脉血栓形成风险评估表",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "E0363",
+                  "showSignBtn": true,
+                  "title": "佛山人医Autar深静脉血栓形成风险评估表",
+                  "formUrl": "佛山人医Autar深静脉血栓形成风险评估表.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "S2332163",
+                    "prefix": "Autar深静脉血栓形成风险评估表:",
+                    "suffix": "分"
+                  }
+                }
+              }
             },
             {
-              "ScoreOpenkey": "产科VTE风险评估单",
-              "indexOfScore": true,
-              "scoreStrMin": "5",
-              "scoreStrMax": "100",
-              "style": "color:red"
+              "relationForm": {
+                "openKey": "血栓风险评估（Padua评估量表）",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "FSSY_E0010",
+                  "showSignBtn": true,
+                  "title": "血栓风险评估（Padua评估量表）",
+                  "formUrl": "血栓风险评估（Padua评估量表）.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "S2332163",
+                    "prefix": "Padua评估量表:",
+                    "suffix":[
+                      {
+                        "max": 3,
+                        "min": 0,
+                        "value": "分，低风险"
+                      },
+                      {
+                        "max": 20,
+                        "min": 4,
+                        "value": "分，高风险"
+                      }
+                    ]
+                  }
+                }
+              }
             }
           ]
         },
@@ -6306,12 +6830,12 @@
           "class": null,
           "options": [
             "无",
-            "有，疼痛护理单"
+            "疼痛护理单"
           ],
           "rule": [
             {
               "relationForm": {
-                "openKey": "有，疼痛护理单",
+                "openKey": "疼痛护理单",
                 "cleanKey": "无",
                 "params": {
                   "formCode": "E0384",
@@ -6321,7 +6845,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332166",
-                    "prefix": "有，疼痛护理单:",
+                    "prefix": "疼痛护理单:",
                     "suffix": "分"
                   }
                 }
@@ -6344,7 +6868,6 @@
           "inputStyle": "width:270px!important",
           "options": [
             "无",
-            "有",
             "Braden压疮危险评估及护理记录单"
           ],
           "class": null,
@@ -6456,18 +6979,6 @@
     },
     {
       "name": "",
-      "type": "formGroupTitle",
-      "level": "1",
-      "title": "基础护理",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
-    {
-      "name": "",
       "type": "formGroupHorizontalBox",
       "colWidth": [
         "0",
@@ -6489,25 +7000,15 @@
         {
           "name": "I2332181",
           "type": "mark",
-          "title": "基础护理",
-          "style": "",
+          "label": "基础护理：",
           "elementStyle": "",
+          "labelWidth": "80px",
+          "textAlign": "left",
+          "lineFeedFize": "45",
           "rows": "4",
           "class": "mark"
         }
       ]
-    },
-    {
-      "name": "",
-      "type": "formGroupTitle",
-      "level": "1",
-      "title": "专科护理",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
     },
     {
       "name": "",
@@ -6532,9 +7033,12 @@
         {
           "name": "I2332182",
           "type": "mark",
-          "title": "专科护理",
+          "label": "专科护理：",
           "style": "",
           "elementStyle": "",
+          "labelWidth": "80px",
+          "textAlign": "left",
+          "lineFeedFize": "45",
           "rows": "4",
           "class": "mark"
         }
@@ -6672,10 +7176,12 @@
         {
           "name": "I2332184",
           "type": "mark",
-          "title": "",
-          "style": "",
+          "label": "其他：",
           "elementStyle": "",
-          "rows": "3",
+          "labelWidth": "54px",
+          "textAlign": "left",
+          "rows": "4",
+          "lineFeedFize": "46",
           "class": "mark"
         }
       ]
@@ -6722,14 +7228,50 @@
           "title": "住院告知",
           "style": null,
           "titleStyle": "width:62px!important",
-          "inputStyle": "width:270px!important",         
+          "inputStyle": "width:270px!important",
           "class": null,
           "options": [
-            "核医学科住院告知",
-            "新生儿科（NICU）住院告知书",
-            "住院告知（新）"
+            "住院告知（新）",
+            "EICU住院告知",
+            "核医学科住院告知"
           ],
           "rule": [
+            {
+              "relationForm": {
+                "openKey": "住院告知（新）",
+                "params": {
+                  "formCode": "FSSY_G0001",
+                  "showSignBtn": true,
+                  "title": "住院告知（新）",
+                  "formUrl": "住院告知（新）.html",
+                  "callbackInfo": {
+                    "needScore": false,
+                    "defaultName": true,
+                    "code": "I2332192",
+                    "prefix": "住院告知（新）, 已完成",
+                    "suffix": ""
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "EICU住院告知",
+                "params": {
+                  "formCode": "FSSY_E0002",
+                  "showSignBtn": true,
+                  "title": "EICU住院告知",
+                  "formUrl": "EICU住院告知.html",
+                  "callbackInfo": {
+                    "needScore": false,
+                    "defaultName": true,
+                    "code": "I2332192",
+                    "prefix": "EICU住院告知, 已完成",
+                    "suffix": ""
+                  }
+                }
+              }
+            },
             {
               "relationForm": {
                 "openKey": "核医学科住院告知",
@@ -6740,45 +7282,9 @@
                   "formUrl": "佛山市一住院告知.html",
                   "callbackInfo": {
                     "needScore": false,
-                    "code": "I2332192",
                     "defaultName": true,
+                    "code": "I2332192",
                     "prefix": "核医学科住院告知, 已完成",
-                    "suffix": ""
-                  }
-                }
-              }
-            },
-            {
-              "relationForm": {
-                "openKey": "新生儿科（NICU）住院告知书",
-                "params": {
-                  "formCode": "E2066",
-                  "showSignBtn": true,
-                  "title": "佛山人医新生儿科（NICU）住院告知书",
-                  "formUrl": "佛山人医新生儿科（NICU）住院告知书.html",
-                  "callbackInfo": {
-                    "needScore": false,
-                    "defaultName": true,
-                    "code": "I2332192",
-                    "prefix": "新生儿科（NICU）住院告知书, 已完成",
-                    "suffix": ""
-                  }
-                }
-              }
-            },
-            {
-              "relationForm": {
-                "openKey": "住院告知（新）",
-                "params": {
-                  "formCode": "E2234",
-                  "showSignBtn": true,
-                  "title": "佛山人医住院告知（改）",
-                  "formUrl": "佛山人医住院告知（改）.html",
-                  "callbackInfo": {
-                    "needScore": false,
-                    "defaultName": true,
-                    "code": "I2332192",
-                    "prefix": "住院告知（新）,已完成",
                     "suffix": ""
                   }
                 }
@@ -6786,7 +7292,7 @@
             }
           ]
         }
-        
+
       ]
     },
     {
@@ -6991,8 +7497,7 @@
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": "cursor: pointer!important",
-          "class": null,
-          "readOnly": true
+          "class": null
         },
         {
           "name": "auditTime",
@@ -7003,8 +7508,7 @@
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": null,
-          "class": null,
-          "readOnly": true
+          "class": null
         },
         {
           "name": "auditorName",
@@ -7015,8 +7519,7 @@
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": "cursor: pointer!important",
-          "class": null,
-          "readOnly": true
+          "class": null
         }
       ]
     }

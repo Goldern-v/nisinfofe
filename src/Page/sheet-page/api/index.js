@@ -255,6 +255,12 @@ export const getOrdersExecuteWx = (obj = {}) => {
   return axios.post(`${apiPath}record/block/getOrdersExecuteWx/list/${id}`, obj);
 };
 
+// 获取his患者体征
+export const getOrdersExecuteNew = (obj = {}) => {
+  let id = sheetInfo.selectBlock.id;
+  return axios.post(`${apiPath}record/block/getOrdersExecuteNew/list/${id}`, obj);
+};
+
 // 聊城获取his患者体征
 export const getOrdersExecuteLc = (obj = {}) => {
   let id = sheetInfo.selectBlock.id;

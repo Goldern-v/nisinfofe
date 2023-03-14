@@ -96,7 +96,7 @@ export default {
     source: String,
     lock: Boolean,
     sourceObj: Object,
-    updateFunc: Function
+    updateFunc: Function,
   },
   components: {
     UIEditor,

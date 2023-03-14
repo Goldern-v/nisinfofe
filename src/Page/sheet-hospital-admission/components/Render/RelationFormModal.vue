@@ -88,7 +88,8 @@ export default {
 
     let $methods = {
       busEmit: this.bus.$emit,
-      setLoadingStatus: (visible) => (this.loading = visible),
+      // 初始的有时候单子显示有问题  
+      setLoadingStatus: (visible) => (this.loading = false),
       setLoadingText: (text) => (this.loadintText = text),
       setloadingSVGHidden: (hidden) => (this.iconVisible = !hidden),
       setLoadingButton: (visible, text, callback) => {
@@ -111,7 +112,6 @@ export default {
   },
   methods: {
     handleOpen(payload) {
-      console.log(payload, '关联表单')
       this.$refs.modal.open();
 
       if (!payload.noFetch) {
@@ -137,7 +137,6 @@ export default {
       this.callbackInfo = payload && payload.callbackInfo;
       this.formCode = payload && payload.formCode;
       this.selectedValue = payload && payload.valueNew
-      console.log(payload.callback, 7777777777)
       //覆写成功回调
       if (payload.callback)
         this.successCallback = (data) => payload.callback(data);

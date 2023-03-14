@@ -165,7 +165,7 @@ export default [
     next: "mm",
     name: "瞳孔大小左",
     textarea: { width: 25 },
-    change: (e, td) => limitChange(e, td, 2)
+    change: (e, td) => limitChange(e, td, 4)
   },
   {
     key: "fieldSeven",
@@ -174,7 +174,7 @@ export default [
     next: "mm",
     name: "瞳孔大小右",
     textarea: { width: 25 },
-    change: (e, td) => limitChange(e, td, 2)
+    change: (e, td) => limitChange(e, td, 4)
   },
   {
     key: "fieldEight",

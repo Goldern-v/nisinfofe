@@ -47,6 +47,7 @@ export default {
   },
   mounted() {
     if (!this.$root.$refs[this.formCode]) {
+      console.log("检查填写222222222")
       this.$root.$refs[this.formCode] = [];
     }
 
@@ -87,6 +88,7 @@ export default {
     },
     formCode() {
       try {
+        console.log(window.formObj.formSetting.formInfo.formCode, 77777)
         return window.formObj.formSetting.formInfo.formCode;
       } catch (error) {
       }

@@ -586,6 +586,7 @@ export default {
             this.changeSelectBlock(this.sheetBlockList[len - 1]);
             // 赋值最后一条作为当前渲染
             this.selectBlock = this.sheetBlockList[len - 1];
+            console.log(this.selectBlock, 888888888888)
           }
         }
         if (this.sheetBlockList.length === 0) {
@@ -654,7 +655,7 @@ export default {
           if (this.isNewForm) {
             // 增加默认值
             mergeDefaultValue(formObj, this.formCode);
-            setDefaultValue(formObj);
+            setDefaultValue(formObj, this.formCode);
             this.formSave();
           }
           // console.log(
@@ -775,6 +776,7 @@ export default {
     },
     // 检查表单漏填
     checkFormMissingItems() {
+      console.log("填写检查， 66666666")
       // K0001
       let missingObj = {};
       let missingObjArrayList = [];
@@ -794,6 +796,8 @@ export default {
       };
       //
       let object = this.$root.$refs[this.formCode];
+      console.log(this.$root.$refs, 7777)
+      console.log(object, this.formCode,  '1111111111')
       if (!object) {
         return;
       }
@@ -1063,6 +1067,25 @@ export default {
         signType = { audit: true };
         titleModal = "取消审核护士签名";
       }
+      let datapost = Object.assign({}, window.formObj.model);
+      let SigndataObj = {
+            Patient_ID:this.patientInfo.patientId,
+            Visit_ID:this.patientInfo.visitId,
+            Document_Title:this.formObj.formSetting.formTitle.formName,
+            Document_ID:"eval",
+            Section_ID:this.formId,
+            strSignData: JSON.stringify(datapost),
+          };
+
+      let verifySignObj = {
+            patientId:this.patientInfo.patientId,
+            visitId:this.patientInfo.visitId,
+            formName:this.formObj.formSetting.formTitle.formName,
+            formCode:"eval",
+            instanceId:this.formId,
+            recordId:"",
+            signData:JSON.stringify(datapost),
+          }
       window.openSignModal((password, empNo) => {
         let post = {
           // sign: true,
@@ -1091,7 +1114,8 @@ export default {
               status: false,
             });
           });
-      }, titleModal);
+      }, titleModal,false,undefined,  undefined, undefined, undefined ,undefined,undefined,
+          SigndataObj,verifySignObj);
     },
     // 责任护士签名
     formSignOrAudit(config = {}) {
@@ -1117,14 +1141,14 @@ export default {
             };
 
         let verifySignObj = {
-                    patientId:this.patientInfo.patientId,
-                    visitId:this.patientInfo.visitId,
-                    formName:this.formObj.formSetting.formTitle.formName,
-                    formCode:"eval",
-                    instanceId:this.formId,
-                    recordId:"",
-                    signData:JSON.stringify(datapost),
-                  }
+              patientId:this.patientInfo.patientId,
+              visitId:this.patientInfo.visitId,
+              formName:this.formObj.formSetting.formTitle.formName,
+              formCode:"eval",
+              instanceId:this.formId,
+              recordId:"",
+              signData:JSON.stringify(datapost),
+            }
 
         window.openSignModal(
           (password, empNo, signDate) => {

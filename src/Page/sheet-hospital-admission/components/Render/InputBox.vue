@@ -44,7 +44,7 @@
       :class="model === 'development' ? 'development-model' : (obj.class||'')"
       :size="obj.size||''"
       :type="obj.inputType||'text'"
-      :rows="reactiveRows(obj.name, 50, 2, 100)"
+      :rows="reactiveRows(obj.name, 54, 2, 200)"
       :disabled="!!obj.disabled || isDisabled(obj)"
       :readonly="obj.readOnly?obj.readOnly:false"
       v-bind="obj.props"

@@ -267,7 +267,7 @@ export default {
 
     },
     runTasks(init = false) {
-      console.log("初始化执行嘛", this.obj)
+      // console.log("初始化执行嘛", this.obj)
       //
       if (this.obj.tasks) {
 

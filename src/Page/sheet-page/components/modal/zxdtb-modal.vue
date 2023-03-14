@@ -379,6 +379,7 @@ import {
   saveVitalSign,
   ordersExecuteList,
   nurseBloodList,
+  getOrdersExecuteNew,
   getOrdersExecuteWx,
   getOrdersExecuteLc,
   getOrdersExecuteFsry,
@@ -443,11 +444,17 @@ export default {
   },
   methods: {
     ...mapMutations(["upOpenModalFromSpecial", "upEvalData"]),
+    reset() {
+      this.executeType = ''
+      this.instructions = ''
+      this.repeatIndicator = ''
+    },
     open(baseParams) {
       this.formlist = baseParams;
       if (!this.patientInfo.patientId && !baseParams.patientId) {
         return this.$message.warning("请选择一名患者");
       }
+      if ('wujing' === this.HOSPITAL_ID) this.reset()
       this.searchDate = moment().format("YYYY-MM-DD");
       this.getData();
       this.$refs.modal.open();
@@ -642,7 +649,24 @@ export default {
         }).then((res) => {
           this.tableData = res.data.data.list;
         });
-      } else if (["foshanrenyi", 'zhzxy',"lyxrm","qhwy", "whhk", '925','gdtj', 'stmz','ytll','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
+      } else if (["ytll"].includes(this.HOSPITAL_ID)) {
+        let startDate = this.longDate[0]
+            ? moment(this.longDate[0]).format("YYYY-MM-DD")
+            : "";
+        let endDate = this.longDate[1]
+            ? moment(this.longDate[1]).format("YYYY-MM-DD")
+            : "";
+
+        getOrdersExecuteNew({
+          patientId: this.patientInfo.patientId || this.formlist.patientId,
+          visitId: this.patientInfo.visitId || this.formlist.visitId,
+          startDate,
+          endDate,
+          executeType: this.executeType === '全部' ? '' : this.executeType,
+        }).then((res) => {
+          this.tableData = res.data.data.list;
+        });
+      } else if (["foshanrenyi", 'zhzxy',"lyxrm","qhwy", "whhk", '925','gdtj', 'stmz','whsl','nfyksdyy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
           ? moment(this.longDate[0]).format("YYYY-MM-DD")
           : "";
