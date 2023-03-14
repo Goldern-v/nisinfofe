@@ -2578,7 +2578,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I003001",
+          "name": "I001017",
           "type": "datePicker",
           "title": "出院时间",
           "titleStyle": "width:80px!important",

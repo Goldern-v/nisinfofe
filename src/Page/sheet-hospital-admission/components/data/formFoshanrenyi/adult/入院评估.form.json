@@ -2326,7 +2326,7 @@
           "children": [
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "完整",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -2335,229 +2335,127 @@
               "tasks": [
                 {
                   "clean": [
-                    "破损",
-                    "溃疡",
-                    "瘢痕"
+                    "破损部位",
+                    "溃疡部位",
+                    "瘢痕部位",
+                    "水疱部位",
+                    "硬结部位",
+                    "瘀斑部位",
+                    "出血点部位",
+                    "丘疹部位",
+                    "皲裂部位",
+                    "抓痕部位",
+                    "其他部位"
                   ]
                 }
               ]
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "破损",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "溃疡 ",
-                    "瘢痕"
-                  ]
-                },
-                {
-                  "show": ["破损"]
-                }
-              ]
+              "tasks": "破损部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
-              "title": "溃疡 ",
+              "type": "checkbox",
+              "title": "溃疡",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "瘢痕"
-                  ]
-                },
-                {
-                  "show": ["溃疡 "]
-                }
-              ]
+              "tasks": "溃疡部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "瘢痕",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡 "
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "瘢痕部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "水疱",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "水疱部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "硬结",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "硬结部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "瘀斑",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "瘀斑部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "出血点",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "出血点部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "丘疹",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "丘疹部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "皲裂",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "皲裂部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "抓痕",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "抓痕部位"
             },
             {
               "name": "I2332052",
-              "type": "radio",
+              "type": "checkbox",
               "title": "其他",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "破损",
-                    "溃疡"
-                  ]
-                },
-                {
-                  "show": ["瘢痕"]
-                }
-              ]
+              "tasks": "其他部位"
             }
           ]
         }
@@ -2571,7 +2469,7 @@
         "50%",
         "50%"
       ],
-      "title": "破损",
+      "title": "破损部位",
       "parentKey": "I2332052",
       "message": "",
       "require": "false",
@@ -2585,7 +2483,7 @@
         {
           "name": "I2332054",
           "type": "input",
-          "title": "部位",
+          "title": "破损部位",
           "titleStyle": "width: 81px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
@@ -2598,7 +2496,7 @@
         {
           "name": "I2332055",
           "type": "input",
-          "title": "面积",
+          "title": "破损面积",
           "titleStyle": "width: 100px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
@@ -2617,7 +2515,7 @@
         "50%",
         "50%"
       ],
-      "title": "溃疡 ",
+      "title": "溃疡部位",
       "parentKey": "I2332052",
       "message": "",
       "require": "false",
@@ -2631,7 +2529,7 @@
         {
           "name": "I2332056",
           "type": "input",
-          "title": "部位",
+          "title": "溃疡部位",
           "titleStyle": "width: 81px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
@@ -2644,7 +2542,7 @@
         {
           "name": "I2332057",
           "type": "input",
-          "title": "面积",
+          "title": "溃疡面积",
           "titleStyle": "width: 100px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
@@ -2655,15 +2553,16 @@
         }
       ]
     },
+
     {
-      "name": "I2332053",
+      "name": "",
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
         "50%",
         "50%"
       ],
-      "title": "瘢痕",
+      "title": "瘢痕部位",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2674,9 +2573,9 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2332053",
+          "name": "I2332196",
           "type": "input",
-          "title": "部位",
+          "title": "瘢痕部位",
           "titleStyle": "width: 81px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
@@ -2688,6 +2587,271 @@
         }
       ]
     },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "水疱部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332197",
+          "type": "input",
+          "title": "水疱部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "硬结部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332198",
+          "type": "input",
+          "title": "硬结部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "瘀斑部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332199",
+          "type": "input",
+          "title": "瘀斑部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "出血点部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332200",
+          "type": "input",
+          "title": "出血点部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "丘疹部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332203",
+          "type": "input",
+          "title": "丘疹部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "皲裂部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332207",
+          "type": "input",
+          "title": "皲裂部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "抓痕部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332208",
+          "type": "input",
+          "title": "抓痕部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "colWidth": [
+        "50%",
+        "50%"
+      ],
+      "title": "其他部位",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332209",
+          "type": "input",
+          "title": "其他部位",
+          "titleStyle": "width: 81px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
+        }
+      ]
+    },
+
     {
       "name": "I2332058",
       "type": "formGroupColBox",
@@ -3279,34 +3443,6 @@
               "elementClass": "el-radio_fs itemRadio",
               "class": null,
               "children": [
-                {
-                  "name": "I2332071",
-                  "type": "input",
-                  "title": "留置尿管时间",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "/",
-                  "style": null,
-                  "class": "itemRadio_input",
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332072",
-                  "type": "input",
-                  "title": "留置尿管时间",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "/",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
                 {
                   "name": "I2332073",
                   "type": "input",
@@ -4275,34 +4411,6 @@
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "80px",
                   "suffixDesc": "年",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332191",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "月",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332192",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "日",
                   "style": null,
                   "class": null,
                   "labelLeft": true,
@@ -6597,7 +6705,7 @@
           "title": "血栓评估",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",         
+          "inputStyle": "width:270px!important",
           "class": null,
           "options": [
             "无",
@@ -6620,7 +6728,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332163",
-                    "prefix": "有,静脉血栓栓塞症（VTE）表:",
+                    "prefix": "静脉血栓栓塞症（VTE）表:",
                     "suffix": "分"
                   }
                 }
@@ -6644,7 +6752,7 @@
                 }
               }
             },
-            
+
             {
               "relationForm": {
                 "openKey": "Caprini血栓风险评估表",
@@ -6693,7 +6801,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332163",
-                    "prefix": "PICU营养异常风险评估单:",
+                    "prefix": "Padua评估量表:",
                     "suffix":[
                       {
                         "max": 3,
@@ -7120,7 +7228,7 @@
           "title": "住院告知",
           "style": null,
           "titleStyle": "width:62px!important",
-          "inputStyle": "width:270px!important",         
+          "inputStyle": "width:270px!important",
           "class": null,
           "options": [
             "住院告知（新）",
@@ -7132,7 +7240,7 @@
               "relationForm": {
                 "openKey": "住院告知（新）",
                 "params": {
-                  "formCode": "E2066",
+                  "formCode": "FSSY_G0001",
                   "showSignBtn": true,
                   "title": "住院告知（新）",
                   "formUrl": "住院告知（新）.html",
@@ -7150,7 +7258,7 @@
               "relationForm": {
                 "openKey": "EICU住院告知",
                 "params": {
-                  "formCode": "E2066",
+                  "formCode": "FSSY_E0002",
                   "showSignBtn": true,
                   "title": "EICU住院告知",
                   "formUrl": "EICU住院告知.html",
@@ -7184,7 +7292,7 @@
             }
           ]
         }
-        
+
       ]
     },
     {

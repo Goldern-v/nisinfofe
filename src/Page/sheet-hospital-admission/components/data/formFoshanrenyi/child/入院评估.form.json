@@ -1470,6 +1470,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "2、反应",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "I2333047",
       "type": "formGroupColBox",
       "col": 1,
@@ -1488,7 +1500,7 @@
         {
           "name": "I2333047",
           "type": "",
-          "title": "2、反应",
+          "title": "",
           "titleStyle": "width:70px!important",
           "class": null,
           "boxStyle": "height:auto!important",
@@ -1546,6 +1558,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "3、哭声",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "I2333048",
       "type": "formGroupColBox",
       "col": 1,
@@ -1564,7 +1588,7 @@
         {
           "name": "I2333048",
           "type": "",
-          "title": "3、哭声",
+          "title": "",
           "titleStyle": "width:70px!important",
           "class": null,
           "boxStyle": "height:auto!important",
@@ -1631,6 +1655,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "4、饮食",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "I2333049",
       "type": "formGroupColBox",
       "col": 1,
@@ -1648,7 +1684,7 @@
         {
           "name": "I2333049",
           "type": "",
-          "title": "4、饮食",
+          "title": "",
           "titleStyle": "width: 62px!important",
           "class": null,
           "readOnly": null,
@@ -1931,7 +1967,7 @@
               "indexOfScore": true,
               "scoreStrMin": "1",
               "scoreStrMax": "12",
-              "equal": "关联GSC评分表，",
+              "equal": "",
               "style": "color:red"
             }
           ],
@@ -2069,6 +2105,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "5、语音表达",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "I2333060",
       "type": "formGroupColBox",
       "col": 1,
@@ -2086,7 +2134,7 @@
         {
           "name": "I2333060",
           "type": "",
-          "title": "5、语音表达",
+          "title": "",
           "titleStyle": "width: 86px!important",
           "class": "radio_input",
           "readOnly": null,
@@ -2177,6 +2225,18 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "6、心理状况：患者",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "I2333063",
       "type": "formGroupColBox",
       "col": 1,
@@ -2194,7 +2254,7 @@
         {
           "name": "I2333063",
           "type": "",
-          "title": "6、心理状况：患者",
+          "title": "患者",
           "titleStyle": "width: 130px!important",
           "class": "radio_input",
           "readOnly": null,
@@ -2460,7 +2520,7 @@
               "style": null,
               "class": null,
               "tasks": "破损部位"
-              
+
             },
             {
               "name": "I2333068",
@@ -2613,6 +2673,7 @@
         }
       ]
     },
+
     {
       "name": "",
       "type": "formGroupColBox",
@@ -2722,7 +2783,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333215",
+          "name": "I2333196",
           "type": "input",
           "title": "瘢痕部位",
           "titleStyle": "width: 81px",
@@ -2755,7 +2816,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333216",
+          "name": "I2333197",
           "type": "input",
           "title": "水疱部位",
           "titleStyle": "width: 81px",
@@ -2788,7 +2849,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333217",
+          "name": "I2333198",
           "type": "input",
           "title": "硬结部位",
           "titleStyle": "width: 81px",
@@ -2821,7 +2882,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333218",
+          "name": "I2333199",
           "type": "input",
           "title": "瘀斑部位",
           "titleStyle": "width: 81px",
@@ -2854,7 +2915,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333219",
+          "name": "I2333200",
           "type": "input",
           "title": "出血点部位",
           "titleStyle": "width: 81px",
@@ -2887,7 +2948,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333220",
+          "name": "I2333201",
           "type": "input",
           "title": "湿疹部位",
           "titleStyle": "width: 81px",
@@ -2920,7 +2981,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333221",
+          "name": "I2333202",
           "type": "input",
           "title": "斑疹部位",
           "titleStyle": "width: 81px",
@@ -2953,7 +3014,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333222",
+          "name": "I2333203",
           "type": "input",
           "title": "丘疹部位",
           "titleStyle": "width: 81px",
@@ -2986,7 +3047,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333223",
+          "name": "I2333204",
           "type": "input",
           "title": "汗疱疹部位",
           "titleStyle": "width: 81px",
@@ -3019,7 +3080,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333224",
+          "name": "I2333205",
           "type": "input",
           "title": "脓疱疹部位",
           "titleStyle": "width: 81px",
@@ -3052,7 +3113,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333225",
+          "name": "I2333206",
           "type": "input",
           "title": "糜烂部位",
           "titleStyle": "width: 81px",
@@ -3085,7 +3146,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333226",
+          "name": "I2333207",
           "type": "input",
           "title": "皲裂部位",
           "titleStyle": "width: 81px",
@@ -3118,7 +3179,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333227",
+          "name": "I2333208",
           "type": "input",
           "title": "抓痕部位",
           "titleStyle": "width: 81px",
@@ -3151,7 +3212,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2333228",
+          "name": "I2333209",
           "type": "input",
           "title": "其他部位",
           "titleStyle": "width: 81px",
@@ -3165,14 +3226,6 @@
         }
       ]
     },
-
-
-
-
-
-
-
-
 
     {
       "name": "I2333073",
@@ -3377,7 +3430,7 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
-            }            
+            }
           ]
         },
         {
@@ -3602,11 +3655,41 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "2、眼部分泌物",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I2333085",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "眼部分泌物",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
         {
           "name": "I2333085",
           "type": "",
-          "title": "2、眼部分泌物",
+          "title": "",
           "titleStyle": "width:95px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
@@ -3648,11 +3731,42 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "3、口腔黏膜",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I2333133",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "口腔黏膜",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+
         {
           "name": "I2333087",
           "type": "",
-          "title": "3、口腔黏膜",
+          "title": "",
           "titleStyle": "width:84px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
@@ -3730,11 +3844,41 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "4、肌张力",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I2333133",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "肌张力",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
         {
           "name": "I2333089",
           "type": "",
-          "title": "4、肌张力",
+          "title": "",
           "titleStyle": "width:84px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
@@ -3803,11 +3947,42 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "5、四肢活动",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I2333133",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "四肢活动",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+
         {
           "name": "I2333091",
           "type": "",
-          "title": "5、四肢活动",
+          "title": "",
           "titleStyle": "width:84px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
@@ -3876,7 +4051,8 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": "活动受限："
             }
           ]
         }
@@ -3886,7 +4062,7 @@
       "name": "I2333092",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "5、四肢活动",
+      "title": "活动受限：",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -4002,11 +4178,42 @@
               ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "6、畸形",
+      "titleStyle": "width:62px!important",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I2333097",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "畸形",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
         {
           "name": "I2333097",
           "type": "",
-          "title": "6、畸形",
+          "title": "",
           "titleStyle": "width:62px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
@@ -4546,7 +4753,7 @@
         }
       ]
     },
-    
+
     {
       "name": "I2333075",
       "type": "formGroupColBox",
@@ -5069,7 +5276,7 @@
       "name": "I2333130",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "呼吸系统",
+      "title": "循环系统",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -6235,7 +6442,7 @@
           "title": "营养风险筛查",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",         
+          "inputStyle": "width:270px!important",
           "class": null,
           "options": [
             "无",
@@ -6341,7 +6548,7 @@
           "title": "血栓评估",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",         
+          "inputStyle": "width:270px!important",
           "class": null,
           "options": [
             "无",
@@ -6414,7 +6621,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "I2333174",
-                    "prefix": "PICU营养异常风险评估单:",
+                    "prefix": "Padua评估量表:",
                     "suffix":[
                       {
                         "max": 3,
@@ -6439,7 +6646,7 @@
           "title": "疼痛评估",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",         
+          "inputStyle": "width:270px!important",
           "class": null,
           "options": [
             "无",
@@ -6540,7 +6747,6 @@
           "inputStyle": "width:270px!important",
           "options": [
             "无",
-            "有",
             "Braden压疮危险评估及护理记录单"
           ],
           "class": null,
@@ -6601,7 +6807,7 @@
     },
 
 
-  
+
     {
       "name": "",
       "type": "formGroupTitle",
@@ -6879,11 +7085,10 @@
           "title": "住院告知",
           "style": null,
           "titleStyle": "width:62px!important",
-          "inputStyle": "width:270px!important",         
+          "inputStyle": "width:270px!important",
           "class": null,
           "options": [
             "无",
-            "住院告知",
             "新生儿科（NICU）住院告知书",
             "PICU住院告知",
             "住院告知（新）"
@@ -6929,10 +7134,10 @@
               "relationForm": {
                 "openKey": "PICU住院告知",
                 "params": {
-                  "formCode": "E2066",
+                  "formCode": "FSSY_G0002",
                   "showSignBtn": true,
-                  "title": "佛山人医新生儿科（NICU）住院告知书",
-                  "formUrl": "佛山人医新生儿科（NICU）住院告知书.html",
+                  "title": "PICU住院告知",
+                  "formUrl": "PICU住院告知.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,
@@ -6947,10 +7152,10 @@
               "relationForm": {
                 "openKey": "住院告知（新）",
                 "params": {
-                  "formCode": "E2066",
+                  "formCode": "FSSY_G0001",
                   "showSignBtn": true,
-                  "title": "佛山人医新生儿科（NICU）住院告知书",
-                  "formUrl": "佛山人医新生儿科（NICU）住院告知书.html",
+                  "title": "住院告知（新）",
+                  "formUrl": "住院告知（新）.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,

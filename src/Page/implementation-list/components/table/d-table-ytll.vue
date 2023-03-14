@@ -79,13 +79,13 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="医嘱内容" prop="itemName" min-width="250px">
+      <u-table-column label="医嘱内容" prop="orderText" min-width="250px">
         <template slot-scope="scope">
           <div
             :class="scope.row.rowType && `rowType-${scope.row.rowType}`"
             :title="scope.row.orderText"
           >
-            {{ scope.row.itemName }}
+            {{ scope.row.orderText }}
           </div>
         </template>
       </u-table-column>
