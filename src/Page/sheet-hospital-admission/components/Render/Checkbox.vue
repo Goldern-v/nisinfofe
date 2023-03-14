@@ -145,10 +145,6 @@ export default {
           console.log("tasks:error", error, this.obj);
         }
       }
-      else {
-        if (this.obj.tasks.constructor != Array)
-          this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.tasks].hidden = true;
-      }
     },
     checkboxClick(e) {
       if (e.target.tagName !== "INPUT") {
