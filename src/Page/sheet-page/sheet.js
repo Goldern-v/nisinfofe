@@ -414,6 +414,7 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
             // 如果传x永远都是当前护记的行数，不会叠加（列入0~16 17条数据的护记）。使用的时候是判断的是整个表格的数据(一页显示17条数据的护记  可能会有几百条数据，所以x需要计算)
             // 不计算 isRead  isDisabed  永远都是拿第一页数据进行比对，是否签名与审核，第2页之后的都是用第一页的数据比较
             let nowX = "";
+            let tdnowX = ""
             if (item.index == 0) {
               nowX = x;
             } else {
@@ -424,6 +425,13 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
                 x +
                 1;
             }
+            if(index == 0){
+              tdnowX = x
+            } else{
+              tdnowX = 
+              getRowNum(item.index) * index +
+              x 
+            }
             tr.isRead = isRead(tr, x, nowX, listData);
             tr.find((item) => item.key == 'id').value && tr.map((td, y) => {
               td.isDisabed = isDisabed(
@@ -432,7 +440,7 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
                 x,
                 y,
                 item.data.bodyModel,
-                nowX,
+                tdnowX,
                 sheetInfo.sheetType
               );
               td.signDisabled = setSignDiabled(td, nowX, listData);
