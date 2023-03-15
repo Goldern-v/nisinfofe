@@ -65,15 +65,15 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="姓名" prop="name" width="80px" align="center">
+      <u-table-column label="姓名" prop="patientName" width="80px" align="center">
         <template slot-scope="scope">
           <div
             :title="
-              scope.row.rowType == 1 || !scope.row.rowType ? scope.row.name : ''
+              scope.row.rowType == 1 || !scope.row.rowType ? scope.row.patientName : ''
             "
           >
             {{
-              scope.row.rowType == 1 || !scope.row.rowType ? scope.row.name : ""
+              scope.row.rowType == 1 || !scope.row.rowType ? scope.row.patientName : ""
             }}
           </div>
         </template>

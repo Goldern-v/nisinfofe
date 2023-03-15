@@ -1379,7 +1379,7 @@
           ]
         },
         {
-          "name": "I100094",
+          "name": "I100095",
           "type": "select",
           "title": "饮食",
           "multiplechoice": true,
@@ -1409,7 +1409,7 @@
           ]
         },
         {
-          "name": "I100095",
+          "name": "I100094",
           "type": "select",
           "title": "食欲",
           "titleStyle": "width:60px!important",
@@ -1419,6 +1419,16 @@
           "class": null
         },
 
+        {
+          "name": "I100098",
+          "type": "select",
+          "title": "进食方式",
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "180px",
+          "style": null,
+          "class": null
+        },
 
         {
           "name": "I100096",

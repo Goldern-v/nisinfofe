@@ -67,7 +67,7 @@
             血糖记录单
           </div>
           <div class="sup-title" v-else-if="!['ytll','lyxrm'].includes(HOSPITAL_ID)">微量血糖测定登记表</div>
-     
+
           <div class="identifying" v-if="['liaocheng','whsl','lyxrm'].includes(HOSPITAL_ID)">POCT</div>
           <p flex="main:justify" class="info" v-if="HOSPITAL_ID == 'liaocheng'">
             <span v-if="HOSPITAL_ID == 'fuyou'">科室：{{ tDeptName }}</span>
@@ -714,6 +714,7 @@ if(this.selected.expand2!==undefined){
       this.pageLoading = false;
 
       this.hisPatSugarList = res.data.data.hisPatSugarList;
+      console.log('this.hisPatSugarList',this.hisPatSugarList)
       /** 时间排序 */
       let list = res.data.data.hisPatSugarList.sort(
         (a, b) =>

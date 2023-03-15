@@ -80,6 +80,7 @@ import faceForm from './modal/faceForm/index'
 import adultForm from './modal/adultForm/index'
 import severForm from './modal/severForm/index'
 import childForm from './modal/childForm/index'
+import moment from "moment";
 
 export default {
   name: "InputBox",
@@ -548,6 +549,14 @@ export default {
       // this.isShow = false
     },
     inputFocus(e, child) {
+      if (child.dateTimeType && child.dateTimeType === "date") {
+        this.inputValue = moment().format("YYYY/MM/DD")
+      } else if (child.dateTimeType && child.dateTimeType === "datetime") {
+        this.inputValue = moment().format("YYYY-MM-DD HH:mm")
+      } else if (child.dateTimeType && child.dateTimeType === "date2") {
+        this.inputValue = moment().format("YYYY-MM-DD")
+      }
+
       let self = this;
       let xy = e.target.getBoundingClientRect();
       let delt = xy.height;
@@ -812,7 +821,7 @@ export default {
         }
       }
     }
-  }
+  },
 };
 </script>
 

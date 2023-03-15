@@ -159,7 +159,7 @@
 }
 </style>
 <script>
-import dTable from "@/Page/implementation-list/components/table/d-table-whfk.vue";
+import dTable from "@/Page/implementation-list/components/table/d-table-ytll.vue";
 // import pagination from "./components/common/pagination";
 import { patEmrList } from "@/api/document";
 import { getExecuteWithWardcode, handleWebExecuteBatch } from "@/Page/implementation-list/api/index.js";
@@ -194,12 +194,11 @@ export default {
         // itemType: "输液", //医嘱类别，输液、雾化
         // executeDate: moment().format("YYYY-MM-DD"), //执行日期
         // bedLabel: "", //床位号，如果查全部传*"
-        // repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
-        // executeFlag: "全部", //0未执行，2已执行
+        repeatIndicator: 9, //医嘱类型，长期传1，临时传0，全部传9
+        executeFlag: "全部", //0未执行，2已执行
         executeType:'全部',
         "administration": "",
         "executeStatus": "",
-        "repeatIndicator": "",
         "visitId": "",
         "patientId": ""
       },

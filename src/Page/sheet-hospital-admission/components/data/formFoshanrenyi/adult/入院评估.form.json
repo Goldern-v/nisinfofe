@@ -3446,10 +3446,11 @@
                 {
                   "name": "I2332073",
                   "type": "input",
+                  "dateTimeType": "date",
                   "title": "留置尿管时间",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
+                  "inputWidth": "120px",
                   "suffixDesc": "（年/月/日）",
                   "style": null,
                   "class": null,
@@ -4406,11 +4407,12 @@
                 {
                   "name": "I2332190",
                   "type": "input",
+                  "dateTimeType": "date2",
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "年",
+                  "inputWidth": "100px",
+                  "suffixDesc": "",
                   "style": null,
                   "class": null,
                   "labelLeft": true,
@@ -4933,41 +4935,12 @@
                 {
                   "name": "I2332109",
                   "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "【时间】",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332110",
-                  "type": "input",
+                  "dateTimeType": "date2",
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "100px",
-                  "suffixDesc": "预期:",
-                  "prefixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332111",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "【时间】",
-                  "prefixDesc": "",
+                  "suffixDesc": "预产期:",
                   "style": null,
                   "class": null,
                   "labelLeft": true,
@@ -4977,6 +4950,7 @@
                 {
                   "name": "I2332112",
                   "type": "input",
+                  "dateTimeType": "date2",
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
@@ -5394,6 +5368,7 @@
                 {
                   "name": "I2332122",
                   "type": "input",
+                  "dateTimeType": "datetime",
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
@@ -6651,13 +6626,13 @@
           "class": null,
           "options": [
             "无",
-            "跌倒护理单",
+            "跌倒护理单 ",
             "产科跌倒护理单"
           ],
           "rule": [
             {
               "relationForm": {
-                "openKey": "跌倒护理单",
+                "openKey": "跌倒护理单 ",
                 "cleanKey": "无",
                 "params": {
                   "formCode": "E0367",
@@ -6690,12 +6665,6 @@
                   }
                 }
               }
-            },
-            {
-              "indexOfScore": true,
-              "scoreStrMin": "40",
-              "scoreStrMax": "100",
-              "style": "color:red"
             }
           ]
         },
@@ -7242,8 +7211,8 @@
                 "params": {
                   "formCode": "FSSY_G0001",
                   "showSignBtn": true,
-                  "title": "住院告知（新）",
-                  "formUrl": "住院告知（新）.html",
+                  "title": "住院告知V3",
+                  "formUrl": "住院告知V3.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,
@@ -7508,7 +7477,8 @@
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": null,
-          "class": null
+          "class": null,
+          "readOnly": true
         },
         {
           "name": "auditorName",
