@@ -65,27 +65,27 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="姓名" prop="name" width="80px" align="center">
+      <u-table-column label="姓名" prop="patientName" width="80px" align="center">
         <template slot-scope="scope">
           <div
             :title="
-              scope.row.rowType == 1 || !scope.row.rowType ? scope.row.name : ''
+              scope.row.rowType == 1 || !scope.row.rowType ? scope.row.patientName : ''
             "
           >
             {{
-              scope.row.rowType == 1 || !scope.row.rowType ? scope.row.name : ""
+              scope.row.rowType == 1 || !scope.row.rowType ? scope.row.patientName : ""
             }}
           </div>
         </template>
       </u-table-column>
 
-      <u-table-column label="医嘱内容" prop="itemName" min-width="250px">
+      <u-table-column label="医嘱内容" prop="orderText" min-width="250px">
         <template slot-scope="scope">
           <div
             :class="scope.row.rowType && `rowType-${scope.row.rowType}`"
             :title="scope.row.orderText"
           >
-            {{ scope.row.itemName }}
+            {{ scope.row.orderText }}
           </div>
         </template>
       </u-table-column>

@@ -185,6 +185,7 @@ export default {
 #relation-form-modal-con .sweet-content {
   overflow:hidden;
   padding: 0;
+  max-height: calc(100vh - 50px);
   .sweet-content-content {
     .form-area {
       width: 100%;

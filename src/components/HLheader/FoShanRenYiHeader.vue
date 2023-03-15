@@ -70,14 +70,14 @@
                 <el-dropdown-item :class="{active: $route.path == '/admissionPageAdult'}">
                   <router-link to="/admissionPageAdult" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalAdmission"></i> 首次评估(成人)
+                      <i class="sheetHospitalAdmission"></i> 入院评估(成人)
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item :class="{active: $route.path == '/admissionPageChild'}">
                   <router-link to="/admissionPageChild" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalAdmission"></i> 首次评估(儿童)
+                      <i class="sheetHospitalAdmission"></i> 入院评估(儿童)
                     </el-row>
                   </router-link>
                 </el-dropdown-item>

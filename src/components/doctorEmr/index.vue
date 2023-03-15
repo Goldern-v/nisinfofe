@@ -298,23 +298,17 @@ export default {
       this.$refs[name].open(feature);
     },
     async getTreeData() {
-      if(this.HOSPITAL_ID === 'foshanrenyi'){
-        this.fileUrl = `http://192.168.99.72:8099/?hospital_no=45607379-3&patient_id=${this.$route.query.patientId}&visit_id=${this.$route.query.visitId}`;
-      }else{
+      switch (this.HOSPITAL_ID) {
+        case 'foshanrenyi':
+        this.fileUrl = `http://192.168.99.72:8099/?hospital_no=45607379-3&patient_id=${this.$route.query.patientId}&visit_id=${this.$route.query.visitId}`
+          break;
+        case 'nfyksdyy':
+        this.fileUrl = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid=${this.$route.query.patientId}_${this.$route.query.visitId}`
+        break;
+        default:
         this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`;
+          break;
       }
-      // if ((this.patientId === this.routeQuery.patientId) && (this.visitId === this.routeQuery.visitId)) return
-      // this.pageLoading = true
-      // this.patientId = this.routeQuery.patientId
-      // this.visitId = this.routeQuery.visitId
-      // const res = await getDoctorEmr(this.patientId, this.visitId)
-      // const data = res.data.data
-      // const obj = data['其他记录'] && data['其他记录'][0]
-      // if (obj) {
-      //   this.fileUrl = obj.expand1
-      //   // this.fileUrl = obj.fileUrl
-      // }
-      // this.pageLoading = false
     },
   },
 };
