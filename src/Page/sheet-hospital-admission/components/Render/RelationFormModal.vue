@@ -88,8 +88,7 @@ export default {
 
     let $methods = {
       busEmit: this.bus.$emit,
-      // 初始的有时候单子显示有问题  
-      setLoadingStatus: (visible) => (this.loading = false),
+      setLoadingStatus: (visible) => (this.loading = visible),
       setLoadingText: (text) => (this.loadintText = text),
       setloadingSVGHidden: (hidden) => (this.iconVisible = !hidden),
       setLoadingButton: (visible, text, callback) => {
