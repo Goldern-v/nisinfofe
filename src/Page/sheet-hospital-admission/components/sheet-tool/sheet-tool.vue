@@ -199,6 +199,9 @@
 </style>
 
 <script>
+let SigndataObj = {}
+let verifySignObj ={}
+
 import bus from "vue-happy-bus";
 import $ from "jquery";
 import commom from "@/common/mixin/common.mixin.js";
@@ -1059,6 +1062,27 @@ export default {
       } catch (error) {}
       return object;
     },
+    useCaData(){
+      let datapost = Object.assign({}, window.formObj.model);
+      SigndataObj = {
+        Patient_ID:this.patientInfo.patientId,
+        Visit_ID:this.patientInfo.visitId,
+        Document_Title:this.formObj.formSetting.formTitle.formName,
+        Document_ID:"eval",
+        Section_ID:this.formId,
+        strSignData: JSON.stringify(datapost),
+      };
+
+      verifySignObj = {
+        patientId:this.patientInfo.patientId,
+        visitId:this.patientInfo.visitId,
+        formName:this.formObj.formSetting.formTitle.formName,
+        formCode:"eval",
+        instanceId:this.formId,
+        recordId:"",
+        signData:JSON.stringify(datapost),
+      }
+    },
     // 取消责任护士签名
     cancelSignOrAduit(config = {}) {
       let titleModal = "取消责任护士签名";
@@ -1067,25 +1091,7 @@ export default {
         signType = { audit: true };
         titleModal = "取消审核护士签名";
       }
-      let datapost = Object.assign({}, window.formObj.model);
-      let SigndataObj = {
-            Patient_ID:this.patientInfo.patientId,
-            Visit_ID:this.patientInfo.visitId,
-            Document_Title:this.formObj.formSetting.formTitle.formName,
-            Document_ID:"eval",
-            Section_ID:this.formId,
-            strSignData: JSON.stringify(datapost),
-          };
-
-      let verifySignObj = {
-            patientId:this.patientInfo.patientId,
-            visitId:this.patientInfo.visitId,
-            formName:this.formObj.formSetting.formTitle.formName,
-            formCode:"eval",
-            instanceId:this.formId,
-            recordId:"",
-            signData:JSON.stringify(datapost),
-          }
+      this.useCaData()
       window.openSignModal((password, empNo) => {
         let post = {
           // sign: true,
@@ -1129,27 +1135,7 @@ export default {
           signType = { audit: true };
           titleModal = "审核护士签名";
         }
-
-        let datapost = Object.assign({}, window.formObj.model);
-        let SigndataObj = {
-              Patient_ID:this.patientInfo.patientId,
-              Visit_ID:this.patientInfo.visitId,
-              Document_Title:this.formObj.formSetting.formTitle.formName,
-              Document_ID:"eval",
-              Section_ID:this.formId,
-              strSignData: JSON.stringify(datapost),
-            };
-
-        let verifySignObj = {
-              patientId:this.patientInfo.patientId,
-              visitId:this.patientInfo.visitId,
-              formName:this.formObj.formSetting.formTitle.formName,
-              formCode:"eval",
-              instanceId:this.formId,
-              recordId:"",
-              signData:JSON.stringify(datapost),
-            }
-
+        this.useCaData()
         window.openSignModal(
           (password, empNo, signDate) => {
             this.bus.$emit("setHosptialAdmissionLoading", {
@@ -1235,6 +1221,7 @@ export default {
     },
     // 删除表单
     formDelete() {
+      this.useCaData()
       window.openSignModal((password, empNo) => {
         let post = {
           id: window.formObj.model.id,
@@ -1249,7 +1236,8 @@ export default {
           this.bus.$emit("closeHosptialAdmissionForm");
           this.getHEvalBlockList();
         });
-      }, "你确定要删除本记录吗？");
+      }, "你确定要删除本记录吗？",false,undefined,  undefined, undefined, undefined ,undefined,undefined,
+          SigndataObj,verifySignObj);
     },
     // 保存表单
     /**
