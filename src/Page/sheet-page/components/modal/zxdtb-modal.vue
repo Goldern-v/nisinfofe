@@ -662,7 +662,7 @@ export default {
           visitId: this.patientInfo.visitId || this.formlist.visitId,
           startDate,
           endDate,
-          executeType: this.executeType === '全部' ? '' : this.executeType,
+          executeType: this.executeType,
         }).then((res) => {
           this.tableData = res.data.data.list;
         });

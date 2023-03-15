@@ -204,7 +204,7 @@ import $ from "jquery";
 import commom from "@/common/mixin/common.mixin.js";
 import dayjs from "dayjs";
 import qs from "qs";
-import { adult_notCheckFill } from "@/Page/sheet-hospital-admission/components/data/formFoshanrenyi/notCheckFill"
+import { adult_notCheckFill, child_notCheckFill } from "@/Page/sheet-hospital-admission/components/data/formFoshanrenyi/notCheckFill"
 import {
   createForm,
   save,
@@ -350,6 +350,7 @@ export default {
             if (!selectBlock.id) return true;
           },
         },
+        ...this.HOSPITAL_ID !== 'foshanrenyi' ? 
         {
           label: "同步HIS+默认值",
           style: "min-width:100px",
@@ -359,7 +360,7 @@ export default {
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
           },
-        },
+        } : {},
         {
           label: "体征同步",
           style: "min-width:100px",
@@ -493,6 +494,7 @@ export default {
         religion: "I001004", // 宗教
         // 'admissionDate':'', // 入院日期
       };
+
       let keys = Object.keys(keyMap);
 
       keys = [...keys];
@@ -564,14 +566,12 @@ export default {
      * 获取当前患者的入院评估列表
      */
     getHEvalBlockList(patientInfo = this.patientInfo) {
-      // console.log(this.formCode, this.formCodeFy,  666655)
       this.selectBlock = "";
       let postData = {
         patientId: patientInfo.patientId,
         visitId: patientInfo.visitId,
         formCode: this.formCode,
       };
-      console.log(postData.formCode, '获取接口的code')
       // 获取表单列表数据接口
       list(postData).then((res) => {
         if (res && res.data && res.data.data.list) {
@@ -586,7 +586,6 @@ export default {
             this.changeSelectBlock(this.sheetBlockList[len - 1]);
             // 赋值最后一条作为当前渲染
             this.selectBlock = this.sheetBlockList[len - 1];
-            console.log(this.selectBlock, 888888888888)
           }
         }
         if (this.sheetBlockList.length === 0) {
@@ -641,8 +640,6 @@ export default {
           window.formObj.missingItems = new Object();
 
           let formObj = { ...itemData, ...master };
-
-          // console.log(formObj, '获取接口数据')
 
           // this.formObj.model
           if (this.isNewForm) {
@@ -776,7 +773,6 @@ export default {
     },
     // 检查表单漏填
     checkFormMissingItems() {
-      console.log("填写检查， 66666666")
       // K0001
       let missingObj = {};
       let missingObjArrayList = [];
@@ -796,15 +792,23 @@ export default {
       };
       //
       let object = this.$root.$refs[this.formCode];
-      console.log(this.$root.$refs, 7777)
-      console.log(object, this.formCode,  '1111111111')
       if (!object) {
         return;
       }
 
+      let notCheckFill = []
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        // 成人
+        if (this.formCode === 'E2332')
+          notCheckFill = adult_notCheckFill
+        else 
+          notCheckFill = child_notCheckFill
+      }
+      // console.log(notCheckFill, "检查项目code")
+
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
-          let find = adult_notCheckFill.find((item) => item === key)
+          let find = notCheckFill.find((item) => item === key)
           if (!find) {
             let element = object[key];
             let name = "",
@@ -1033,8 +1037,6 @@ export default {
           }
         });
       }
-
-      console.log("检查漏填项目",missingObj )
 
       //
       if (
@@ -1284,7 +1286,6 @@ export default {
         post = Object.assign({}, this.formObj.model, post);
 
         // post.formCode = this.formCode
-        console.log(window.formObj.model, "window.formObj.model")
 
         let postData = new Object();
         for (const key in post) {
@@ -1304,9 +1305,6 @@ export default {
             postData[key] = post[key] + "";
           }
         }
-
-
-        console.log(postData, '入参值')
 
         save(postData)
           .then((res) => {
@@ -1372,10 +1370,33 @@ export default {
     leftTablelist(val) {
       this.thisRowData = val;
       this.dialogTableVisible = false;
-      window.formObj.model.I100001 = val.axillaryTemperature;
-      window.formObj.model.I100002 = val.pulse;
-      window.formObj.model.I100003 = val.breathe;
-      window.formObj.model.I100005 = val.bloodPressure;
+
+      // 佛一体征同步
+      if (this.HOSPITAL_ID == 'foshanrenyi') {
+        // 成人
+        if (this.formCode === "E2332") {
+
+          window.formObj.model.I2332027 = val.axillaryTemperature; // 体温 T
+          window.formObj.model.I2332028 = val.pulse; // 脉博 P
+          window.formObj.model.I2332029 = val.heartRate; // 心率 HR
+          window.formObj.model.I2332030 = val.breathe; // 呼吸频率 R
+          window.formObj.model.I2332031 = val.bloodPressure; // 血压是 BP
+        } else {
+          // 儿童 E2333
+          window.formObj.model.I2333041 = val.axillaryTemperature; // 体温 T
+          window.formObj.model.I2333042 = val.pulse; // 脉博 P
+          window.formObj.model.I2333043 = val.heartRate; // 心率 HR
+          window.formObj.model.I2333044 = val.breathe; // 呼吸频率 R
+          window.formObj.model.I2333045 = val.bloodPressure; // 血压是 BP
+          window.formObj.model.I2333046 = val.weight // 体重 wt
+        }
+      } else {
+        window.formObj.model.I100001 = val.axillaryTemperature;
+        window.formObj.model.I100002 = val.pulse;
+        window.formObj.model.I100003 = val.breathe;
+        window.formObj.model.I100005 = val.bloodPressure;
+      }
+
       this.bus.$emit("setHosptialAdmissionLoading", {
         status: true,
         msg: "更新表单数据中...",
