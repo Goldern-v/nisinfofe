@@ -240,7 +240,7 @@ export default {
   .box-td
     width: 100%
     display inline-flex
-    height: 28px;
+    // height: 28px;
     align-items: center;
   .left-td
     width: 100%
