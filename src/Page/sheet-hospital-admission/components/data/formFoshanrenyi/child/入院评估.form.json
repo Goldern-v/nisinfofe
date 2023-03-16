@@ -3410,7 +3410,7 @@
           "type": "",
           "title": "性质",
           "titleStyle": "width:62px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -6509,10 +6509,10 @@
                 "openKey": "深静脉血栓护理单",
                 "cleanKey": "无",
                 "params": {
-                  "formCode": "F0060",
+                  "formCode": "FSSY_E2335",
                   "showSignBtn": true,
-                  "title": "佛山人医深静脉血栓护理单",
-                  "formUrl": "佛山人医深静脉血栓护理单.html",
+                  "title": "深静脉血栓护理单",
+                  "formUrl": "深静脉血栓护理单.html",
                   "callbackInfo": {
                     "needScore": false
                   }

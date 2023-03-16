@@ -105,6 +105,10 @@ export function delSheetPage(index, callback) {
     //保存添加新页码的数组 ，初始化清空
     sheetInfo.addPage = []
   }
+
+export function cleanDataOnly() {
+  data.splice(0, data.length);
+}
   let isFirst = function(tr, x, y, bodyModel) {
     let recordDate = tr.find(item => item.key == "recordDate").value;
     let recordSource = tr.find(item => item.key == "recordSource").value;
@@ -428,9 +432,9 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
             if(index == 0){
               tdnowX = x
             } else{
-              tdnowX = 
+              tdnowX =
               getRowNum(item.index) * index +
-              x 
+              x
             }
             tr.isRead = isRead(tr, x, nowX, listData);
             tr.find((item) => item.key == 'id').value && tr.map((td, y) => {

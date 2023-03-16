@@ -1,9 +1,6 @@
 /*
-北海人一-一般患者护理记录
+武警-一般患者护理记录 副页
 */
-import {
-  multiDictInfo
-} from "../../../api/index";
 import {
   keyf1,
   limitChange

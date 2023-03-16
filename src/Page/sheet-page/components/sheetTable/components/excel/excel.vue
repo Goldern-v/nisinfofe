@@ -1,7 +1,9 @@
 <template>
   <div
     class="sheet-excel-container"
-    :class="{ icu_lc: sheetInfo.sheetType == 'icu_lc' }"
+    :class="{ icu_lc: sheetInfo.sheetType == 'icu_lc',
+      readonly: sheetInfo.sheetType === 'generalcare_wj'
+    }"
   >
     <!-- <div>
       <img :src="dataURL" alt :style="{width: fiexHeaderWidth}">

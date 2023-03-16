@@ -2,6 +2,7 @@ import axios from "./axios";
 import qs from "qs";
 import { apiPath } from "./apiConfig";
 import sheetInfo from "../Page/sheet-page/components/config/sheetInfo/";
+import sheet from "@/store/module/sheet";
 export const saveBody = (patientId, visitId, data) => {
   data.patientId = patientId;
   data.visitId = visitId;
@@ -23,6 +24,9 @@ export const showBodyByPage = (patientId, visitId,startPageIndex ,endPageIndex) 
     pageIndex: startPageIndex,
     endPageIndex: endPageIndex,
   };
+  if (sheetInfo.sheetType === 'generalcare_wj') {
+    return axios.post(`${apiPath}record/${'common_wj'}/listByPage`, data);
+  }
   return axios.post(`${apiPath}record/${sheetInfo.sheetType}/listByPage`, data);
 };
 export const saveTitle = data => {
