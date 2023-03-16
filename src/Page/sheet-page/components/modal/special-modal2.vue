@@ -636,6 +636,7 @@
                       spaceToKey($event, fixedList[key], 'bloodPressure')
                     "
                     v-if="key == 'bloodPressure'"
+                    @blur="checkValue(fixedList[key])"
                     :style="item.maxWidth && { width: item.maxWidth + 'px' }"
                   />
                   <input
@@ -692,6 +693,7 @@
                     type="text"
                     :readonly="isRead"
                     v-model="fixedList[key].value"
+                    @blur="checkValue(fixedList[key])"
                     v-autoComplete="{
                       dataList: dictionary[item.key],
                       obj: fixedList,
@@ -1444,6 +1446,70 @@ export default {
         this.multiDictList = res.data.data;
       });
     },
+   async checkValue(td){
+      if (sheetInfo.model == "print") return;
+      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry') {
+        let confirmRes = '';
+        if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
+          confirmRes = await this.$confirm(
+            " 体温的填写范围是35～42，您的填写超出录入范围,请重新填写",
+            "错误",
+            {
+              confirmButtonText: "确定",
+              showCancelButton: false,
+              type: "error",
+            }
+          ).catch(() => {});
+            td.value ='';
+        }
+        if((td.key === 'pulse'||td.key === 'heartRate'||td.key === 'fetalRate')&&td.value !== ''&&(isNaN(td.value)||td.value<30||td.value>300)){
+          confirmRes = await this.$confirm(
+            td.name+ "的填写范围是30～300，您的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            td.value ='';
+          }
+        }
+        if((td.key === 'spo2')&&td.value !== ''&&(isNaN(td.value)||td.value<50||td.value>100)){
+          confirmRes = await this.$confirm(
+            td.name+ "的填写范围是50～100，您的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            td.value ='';
+          }
+        }
+        if((td.key === 'bloodPressure') && td.value !== ''&&!td.value.split('/')[1] && sheetInfo.sheetType !== 'common_gzry'){
+          td.value ='';
+        }
+        if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1]
+        ||(td.value.split('/')[0]>250||td.value.split('/')[0]<50)||td.value.split('/')[1]>200||td.value.split('/')[1]<0)){
+          confirmRes = await this.$confirm(
+            td.name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {});
+          if (confirmRes !== "confirm") {
+            td.value ='';
+          }
+        }
+      }
+    },
     // 珠海中西医新模板添加
     addZkmodalDoc(val){
       const regP = /(<\/?p.*?>)/gi;
@@ -2030,7 +2096,7 @@ export default {
               this.sheetInfo.sheetType === "common_gzry" ||
               this.sheetInfo.sheetType === "baby_yz" ||
               this.sheetInfo.sheetType === "seriousnursing_ytll" ||
-              this.sheetInfo.sheetType == "postpartum_fs" 
+              this.sheetInfo.sheetType == "postpartum_fs"
             ) {
               // 特殊情况长度截取，前端控制部分(长度计算：输入的字数*2-2)
               if (GetLength(text) > 46) {
@@ -2055,8 +2121,8 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType == "common_xg" ||
-              this.sheetInfo.sheetType == "internal_xg" || 
-              this.sheetInfo.sheetType == "babyarea_fs" 
+              this.sheetInfo.sheetType == "internal_xg" ||
+              this.sheetInfo.sheetType == "babyarea_fs"
             ) {
               if (GetLength(text) > 32) {
                 result.push(text);
@@ -2065,7 +2131,7 @@ export default {
                 text += allDoc[i];
               }
             } else if (
-              this.sheetInfo.sheetType === "iabp_fs" 
+              this.sheetInfo.sheetType === "iabp_fs"
             ) {
               if (GetLength(text) > 57) {
                 result.push(text);
@@ -2105,9 +2171,9 @@ export default {
                 text += allDoc[i];
               }
             } else if (
-              this.sheetInfo.sheetType === "magnesiumsulf_fs" || 
+              this.sheetInfo.sheetType === "magnesiumsulf_fs" ||
               this.sheetInfo.sheetType == "prenatal_fs" ||
-              this.sheetInfo.sheetType == "magnesiumsulf_fs" 
+              this.sheetInfo.sheetType == "magnesiumsulf_fs"
               ) {
               if (GetLength(text) > 62) {
                 result.push(text);
@@ -2135,7 +2201,7 @@ export default {
               }
             } else if (
               this.sheetInfo.sheetType === "common_wj" ||
-              this.sheetInfo.sheetType === "babyarea_fs" || 
+              this.sheetInfo.sheetType === "babyarea_fs" ||
               this.sheetInfo.sheetType === "ipacu_fs"
             ) {
               if (GetLength(text) > 27) {
