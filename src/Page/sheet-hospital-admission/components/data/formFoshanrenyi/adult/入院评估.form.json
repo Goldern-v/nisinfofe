@@ -795,7 +795,7 @@
           "type": "",
           "title": "1.既往史",
           "titleStyle": "width:62px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -854,7 +854,7 @@
           "type": "",
           "title": "",
           "titleStyle": "width:62px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -949,24 +949,23 @@
               "type": "checkbox",
               "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I2332020",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width:80px!important",
+              "inputStyle": "width:100%!important; ",
+              "marginLeft": "66px",
+              "inputWidth": "100%",
+              "suffixDesc": "",
+              "style": null,
               "class": null,
-              "children": [
-                {
-                  "name": "I2332020",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important",
-                  "inputWidth": "100%",
-                  "suffixDesc": "）",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
             }
           ]
         }
@@ -1883,7 +1882,7 @@
           "type": "",
           "title": "",
           "titleStyle": "width:62px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -1893,7 +1892,7 @@
               "name": "I2332041",
               "type": "checkbox",
               "title": "正常",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -1955,24 +1954,22 @@
               "type": "checkbox",
               "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I2332042",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width:80px!important",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "100%",
+              "suffixDesc": "",
+              "style": null,
               "class": null,
-              "children": [
-                {
-                  "name": "I2332042",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important",
-                  "inputWidth": "90px",
-                  "suffixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
             }
           ]
         }
@@ -3446,10 +3443,11 @@
                 {
                   "name": "I2332073",
                   "type": "input",
+                  "dateTimeType": "date",
                   "title": "留置尿管时间",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
+                  "inputWidth": "120px",
                   "suffixDesc": "（年/月/日）",
                   "style": null,
                   "class": null,
@@ -4406,11 +4404,12 @@
                 {
                   "name": "I2332190",
                   "type": "input",
+                  "dateTimeType": "date2",
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "年",
+                  "inputWidth": "100px",
+                  "suffixDesc": "",
                   "style": null,
                   "class": null,
                   "labelLeft": true,
@@ -4933,41 +4932,12 @@
                 {
                   "name": "I2332109",
                   "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "【时间】",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332110",
-                  "type": "input",
+                  "dateTimeType": "date2",
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "100px",
-                  "suffixDesc": "预期:",
-                  "prefixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                },
-                {
-                  "name": "I2332111",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
-                  "suffixDesc": "【时间】",
-                  "prefixDesc": "",
+                  "suffixDesc": "预产期:",
                   "style": null,
                   "class": null,
                   "labelLeft": true,
@@ -4977,6 +4947,7 @@
                 {
                   "name": "I2332112",
                   "type": "input",
+                  "dateTimeType": "date2",
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
@@ -5394,6 +5365,7 @@
                 {
                   "name": "I2332122",
                   "type": "input",
+                  "dateTimeType": "datetime",
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
@@ -5613,7 +5585,7 @@
           "type": "",
           "title": "母乳喂养知识",
           "titleStyle": "width:92px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -5648,24 +5620,22 @@
               "type": "radio",
               "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I2332129",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width:80px!important",
+              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+              "inputWidth": "100%",
+              "suffixDesc": "",
+              "style": null,
               "class": null,
-              "children": [
-                {
-                  "name": "I2332129",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "100%",
-                  "suffixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
             }
           ]
         },
@@ -6651,13 +6621,13 @@
           "class": null,
           "options": [
             "无",
-            "跌倒护理单",
+            "跌倒护理单 ",
             "产科跌倒护理单"
           ],
           "rule": [
             {
               "relationForm": {
-                "openKey": "跌倒护理单",
+                "openKey": "跌倒护理单 ",
                 "cleanKey": "无",
                 "params": {
                   "formCode": "E0367",
@@ -6690,12 +6660,6 @@
                   }
                 }
               }
-            },
-            {
-              "indexOfScore": true,
-              "scoreStrMin": "40",
-              "scoreStrMax": "100",
-              "style": "color:red"
             }
           ]
         },
@@ -7064,7 +7028,7 @@
           "type": "",
           "title": "患者安全",
           "titleStyle": "width:65px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "inputStyle": "margin-top:8px",
           "children": [
@@ -7242,8 +7206,8 @@
                 "params": {
                   "formCode": "FSSY_G0001",
                   "showSignBtn": true,
-                  "title": "住院告知（新）",
-                  "formUrl": "住院告知（新）.html",
+                  "title": "住院告知V3",
+                  "formUrl": "住院告知V3.html",
                   "callbackInfo": {
                     "needScore": false,
                     "defaultName": true,
@@ -7508,7 +7472,8 @@
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": null,
-          "class": null
+          "class": null,
+          "readOnly": true
         },
         {
           "name": "auditorName",

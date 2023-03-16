@@ -88,8 +88,7 @@ export default {
 
     let $methods = {
       busEmit: this.bus.$emit,
-      // 初始的有时候单子显示有问题  
-      setLoadingStatus: (visible) => (this.loading = false),
+      setLoadingStatus: (visible) => (this.loading = visible),
       setLoadingText: (text) => (this.loadintText = text),
       setloadingSVGHidden: (hidden) => (this.iconVisible = !hidden),
       setLoadingButton: (visible, text, callback) => {
@@ -126,7 +125,6 @@ export default {
         })}`;
 
         this.showSignBtn = payload.showSignBtn || false;
-
         this.$refs.iframe.setAttribute("src", url);
 
         this.useIframe = true;
@@ -180,7 +178,6 @@ export default {
     },
     handleLoadingBtn() {
       // this.$refs.modal.open();
-      console.log(this.loadintText);
       if (this.loadingBtnText == "签名成功") {
         this.$refs.modal.close();
       } else {
@@ -193,8 +190,6 @@ export default {
     },
     //成功后返回表单id和evalscore
     successCallback(data){
-      console.log(data, '关联表单成功回调值查看');
-      console.log(this.formCode, '表单formcode')
 
       //表单id返回formCode值
       this.formObj.model[this.formCode] = data.master.id;

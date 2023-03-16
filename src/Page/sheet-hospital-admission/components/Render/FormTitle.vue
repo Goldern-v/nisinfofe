@@ -72,7 +72,7 @@ export default {
           value: "",
           title: "床号"
         },
-        this.HOSPITAL_ID === 'foshanrenyi' && 
+        ...this.HOSPITAL_ID === 'foshanrenyi' && 
         {
           name: "visitId",
           value: "",
@@ -81,7 +81,7 @@ export default {
           colon: true
         },
         {
-          name: "inpNo",
+          name: `${this.HOSPITAL_ID === 'foshanrenyi' ? "patientId" : "inpNo" }`,
           value: "",
           title: "住院号"
         },
@@ -91,6 +91,7 @@ export default {
           title: "入院日期"
         }
       ].filter(item => item)
+
       ret.map(r => {
         try {
           r.value = patient[r.name];
