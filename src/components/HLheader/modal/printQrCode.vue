@@ -101,6 +101,7 @@ export default {
     },
     open() {
       this.init();
+      this.loadComments()
       this.$refs.modal.open();
       function arrayBufferToBase64(buffer) {
         var binary = "";
@@ -173,7 +174,7 @@ export default {
       this.getOneMmsPx();
       this.qrcode()
     })
-    this.loadComments();
+    // this.loadComments();
   },
   components: {
     QRCode,
