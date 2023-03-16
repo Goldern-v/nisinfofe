@@ -14,6 +14,9 @@
         <el-collapse-item title="其他信息" name="4">
           <infoTable :tableData="tableData4"></infoTable>
         </el-collapse-item>
+        <el-collapse-item title="门诊信息" name="5">
+          <infoTable :tableData="tableData5"></infoTable>
+        </el-collapse-item>
       </el-collapse>
     </div>
   </div>
@@ -71,7 +74,7 @@ import { info } from "@/api/patientInfo";
 export default {
   data() {
     return {
-      activeName: ["1", "2", "3", "4"],
+      activeName: ["1", "2", "3", "4", "5"],
       tableData1: [],
       tableData2: [],
       tableData3: [],
@@ -153,6 +156,9 @@ export default {
       this.tableData4 = [
         new TableItem("计划生育证", re.planCard, "准生证号", re.zszh),
         new TableItem("社保号", re.ybzh, "公医证号", re.gyzh),
+      ];
+      this.tableData5 = [
+        new TableItem("门诊医生", re.outpDoctor)
       ];
     });
   },
