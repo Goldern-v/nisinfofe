@@ -153,6 +153,7 @@
                   voidValue(scope.row)
                 }"
                 @keydown="handleKeyDown"
+                @mousewheel="(e) => {e.preventDefault();}"
                 @keyup="handleKeyUp"
                 @click="toRow"
               />
@@ -172,8 +173,8 @@
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 :class="className"
                 type="number"
-                @mousewheel="(e) => {e.preventDefault();}
-                "
+                min="0"
+                @mousewheel="(e) => {e.preventDefault();}"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
@@ -222,6 +223,25 @@
               />
               <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+          v-if="['qhwy'].includes(HOSPITAL_ID)"
+            prop="bloodOxygen"
+            label="血氧饱和度"
+            min-width="100"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.bloodOxygen"
+                :class="className"
+                class="bloodOxygen"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
             </template>
           </el-table-column>
           <el-table-column
@@ -1134,7 +1154,8 @@ export default {
         stoolNum: "",
         nursingEvent: "",
         anusTemperature:"",
-        height: ""
+        height: "",
+        bloodOxygen:""
       };
       let list = this.tableData.map(item => {
         let obj = {};
@@ -1163,7 +1184,6 @@ export default {
     handleKeyDown(e) {
       if (this.handleKeyCode.includes(e.keyCode)) {
         this.colClass = e.target.className;
-        let rowIndex = e.path[3].rowIndex;
         //回车保存
         if (e.keyCode === 13) {
           this.debounceSave();
