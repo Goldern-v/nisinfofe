@@ -3567,7 +3567,7 @@
           "type": "",
           "title": "颜色",
           "titleStyle": "width:62px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -3577,87 +3577,60 @@
               "name": "I2332076",
               "type": "radio",
               "title": "深黄色",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332076",
+              "type": "radio",
+              "title": "黄色",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332076",
+              "type": "radio",
+              "title": "浅黄色",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332076",
+              "type": "radio",
+              "title": "红色",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332076",
+              "type": "radio",
+              "title": "其他：",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332077",
+              "type": "input",
+              "title": "",
               "titleStyle": "width:80px!important",
               "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-              "inputWidth": "80px",
+              "inputWidth": "100%",
               "suffixDesc": "",
               "style": null,
               "class": null,
               "labelLeft": true,
               "hiddenTips": true,
               "readOnly": null
-            },
-            {
-              "name": "I2332076",
-              "type": "radio",
-              "title": "黄色",
-              "titleStyle": "width:80px!important",
-              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-              "inputWidth": "80px",
-              "suffixDesc": "",
-              "style": null,
-              "class":  null,
-              "labelLeft": true,
-              "hiddenTips": true,
-              "readOnly": null
-            },
-            {
-              "name": "I2332076",
-              "type": "radio",
-              "title": "浅黄色",
-              "titleStyle": "width:80px!important",
-              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-              "inputWidth": "80px",
-              "suffixDesc": "",
-              "style": null,
-              "class":  null,
-              "labelLeft": true,
-              "hiddenTips": true,
-              "readOnly": null
-            },
-            {
-              "name": "I2332076",
-              "type": "radio",
-              "title": "红色",
-              "titleStyle": "width:80px!important",
-              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-              "inputWidth": "80px",
-              "suffixDesc": "",
-              "style": null,
-              "class":  null,
-              "labelLeft": true,
-              "hiddenTips": true,
-              "readOnly": null
-            },
-            {
-              "name": "I2332076",
-              "type": "radio",
-              "title": "其他：",
-              "titleStyle": "width:80px!important",
-              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-              "inputWidth": "80px",
-              "suffixDesc": "",
-              "style": null,
-              "elementClass": "itemRadio",
-              "labelLeft": true,
-              "hiddenTips": true,
-              "readOnly": null,
-              "children": [
-                {
-                  "name": "I2332077",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "100%",
-                  "suffixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
             }
           ]
         }
@@ -4423,7 +4396,7 @@
               "type": "radio",
               "title": "绝经",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
               "class": null
             },
             {
@@ -4431,7 +4404,7 @@
               "type": "radio",
               "title": "未来潮",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
               "class": null
             },
             {
@@ -4439,7 +4412,7 @@
               "type": "radio",
               "title": "全宫切除",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
               "class": null
             }
           ]
@@ -4449,7 +4422,7 @@
           "type": "",
           "title": "性史",
           "titleStyle": "width:62px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -4460,7 +4433,7 @@
               "type": "radio",
               "title": "未婚，有性史",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
               "class": null
             },
             {
@@ -4468,7 +4441,7 @@
               "type": "radio",
               "title": "未婚，无性史",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
               "class": null
             },
             {
@@ -4476,7 +4449,7 @@
               "type": "radio",
               "title": "已婚，有性史",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
               "class": null
             },
             {
@@ -4484,7 +4457,7 @@
               "type": "radio",
               "title": "已婚，无性史",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
               "class": null
             }
           ]
@@ -4494,7 +4467,7 @@
           "type": "",
           "title": "避孕方法",
           "titleStyle": "width:62px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -4545,24 +4518,22 @@
               "type": "checkbox",
               "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I2332097",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width:80px!important",
+              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+              "inputWidth": "100%",
+              "suffixDesc": "",
+              "style": null,
               "class": null,
-              "children": [
-                {
-                  "name": "I2332097",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "100%",
-                  "suffixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
             }
           ]
         },
@@ -4600,7 +4571,7 @@
           "type": "",
           "title": "部位",
           "titleStyle": "width:62px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -4619,24 +4590,22 @@
               "type": "radio",
               "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I2332100",
+              "type": "input",
+              "title": "",
+              "titleStyle": "width:80px!important",
+              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+              "inputWidth": "100%",
+              "suffixDesc": "",
+              "style": null,
               "class": null,
-              "children": [
-                {
-                  "name": "I2332100",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "100%",
-                  "suffixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
             }
           ]
         },
