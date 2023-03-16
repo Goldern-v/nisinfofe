@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tool-contain" flex="cross:center">
+    <div class="tool-contain" flex="cross:center" :class="{'hidden-left': isGeneralCareWj}">
     <template  v-if="HOSPITAL_ID == 'whfk'">
       <div
         class="item-box"
@@ -148,6 +148,8 @@
       >
         <div class="text-con">新建记录单</div>
       </div>
+    </template>
+    <template v-else-if="isGeneralCareWj">
     </template>
     <template v-else>
       <div
@@ -434,6 +436,7 @@
       class="searchPageByDate"
       flex="cross:center main:center"
       @click="searchPageByDateModal"
+      v-if="!isGeneralCareWj"
       >
       <i class="el-icon-date"></i>日期
       </div>
@@ -488,7 +491,7 @@
       <div class="line" v-if="!isSingleTem_LCEY && !isDeputy"></div>
       <div style="width: 5px"></div>
       <template  v-if="!isLock">
-        <template v-if=" HOSPITAL_ID == 'wujing'">
+        <template v-if="HOSPITAL_ID == 'wujing'">
            <!-- 分页获取评估同步 -->
           <div
           class="right-btn"
@@ -616,7 +619,7 @@ import bus from "vue-happy-bus";
 import $ from "jquery";
 import setPageModal from "../modal/setPage-modal.vue";
 import searchPageByDateModal from "@/Page/sheet-page/components/modal/searchPageByDate-modal.vue";
-import sheetModel, { cleanData } from "../../sheet.js";
+import sheetModel, { cleanData, cleanDataOnly } from "../../sheet.js";
 import sheetInfo from "../config/sheetInfo/index.js";
 import { sign } from "@/api/sheet.js";
 import { Tr } from "../render/Body.js";
@@ -628,7 +631,7 @@ import {
   getPrintRecord,
   getPageIndex,
 } from "../../api/index.js";
-import commom from "@/common/mixin/common.mixin.js";
+import common from "@/common/mixin/common.mixin.js";
 import newFormModal from "../modal/new-sheet-modal.vue";
 import setTitleModal from "../modal/set-title-modal.vue";
 import tztbModal from "../modal/tztb-modal.vue";
@@ -648,8 +651,10 @@ import demonstarationLevca from "./demonstaration-levca.vue"
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 import { getPatientInfo } from "@/api/common.js";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
+const isWJ = 'wujing' === process.env.HOSPITAL_ID
+
 export default {
-  mixins: [commom],
+  mixins: [common],
   name: "sheetTool",
   props: {
     isNursingPreview: {//是否为调阅界面体温单调起的护记
@@ -1637,6 +1642,7 @@ export default {
     },
     /* 切换主页 */
     async backMainForm() {
+      if (isWJ) return this.switchPage()
       const id = this.sheetInfo.selectBlock.id;
       const { data } = await switchAdditionalBlock(id);
       this.sheetInfo.selectBlock = data.data;
@@ -1644,6 +1650,32 @@ export default {
     },
     /* 切换副页 */
     async addDeputyForm() {
+      if (isWJ) return this.switchPage()
+      const id = this.sheetInfo.selectBlock.id;
+      const { data } = await switchAdditionalBlock(id);
+      this.sheetInfo.selectBlock = data.data;
+      this.changeSelectBlock(false);
+    },
+    // 武警切换主副页
+    switchPage() {
+      const curSheetType = this.sheetInfo.sheetType
+      if (!['common_wj', 'generalcare_wj'].includes(curSheetType)) return this.defSwitch()
+      console.log('test-1')
+      // 主页
+      if (curSheetType === 'common_wj') {
+        this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode = 'generalcare_wj'
+        this.sheetInfo.selectBlock.additionalBlock = true
+        this.sheetInfo.selectBlock.additionalCode = ""
+      // 副页
+      } else {
+        this.sheetInfo.selectBlock.additionalBlock = false
+        this.sheetInfo.selectBlock.additionalCode = curSheetType
+        this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode = 'common_wj'
+      }
+      cleanData()
+      this.initSheetPageSize()
+    },
+    async defSwitch() {
       const id = this.sheetInfo.selectBlock.id;
       const { data } = await switchAdditionalBlock(id);
       this.sheetInfo.selectBlock = data.data;
@@ -1766,7 +1798,11 @@ export default {
           "MM-DD")}建 </span><span style="color:red">共${this.sheetBlockList.length}张</span>`
       }
       return ''
-    }
+    },
+    // 是否为武警
+    isGeneralCareWj () {
+      return this.sheetInfo.sheetType === 'generalcare_wj'
+    },
   },
   created() {
     this.bus.$on("initSheetPageSize", (isAddPageFlag) => {
@@ -2070,7 +2106,11 @@ export default {
 }
 .tool-contain {
   z-index: 4 !important;
+  &.hidden-left {
+    width: 120%;
+    overflow-x: hidden;
   }
+}
 
 .babyChat {
   position: absolute;
