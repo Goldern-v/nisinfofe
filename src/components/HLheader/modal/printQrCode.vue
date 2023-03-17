@@ -101,7 +101,8 @@ export default {
     },
     open() {
       this.init();
-      // this.loadComments()
+      this.loadComments()
+      this.qrcode()
       this.$refs.modal.open();
       function arrayBufferToBase64(buffer) {
         var binary = "";
@@ -134,6 +135,7 @@ export default {
     //二维码
     qrcode() {
       let titleObject = this.userName + " " + this.passWord;
+      this.$refs.qrcodeContainer.innerHTML && (this.$refs.qrcodeContainer.innerHTML = "");
       ['foshanrenyi','fsxt','','lyxrm','beihairenyi', 'whhk', 'stmz','qhwy'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         // width: this.cmpx,// 二维码的宽
@@ -159,6 +161,7 @@ export default {
       let ppp = ""
       if(['foshanrenyi'].includes(this.HOSPITAL_ID) && localStorage.getItem("caUser")){
         let user = JSON.parse(localStorage.getItem("user"))
+        this.user = user
         rememberAccount = user.empNo
         ppp = user.maps.userKey
       }else{
@@ -172,9 +175,9 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.getOneMmsPx();
-      this.qrcode()
+      // this.qrcode()
     })
-    this.loadComments();
+    // this.loadComments();
   },
   components: {
     QRCode,
