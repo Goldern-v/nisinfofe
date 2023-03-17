@@ -162,11 +162,11 @@ const currentTargetUrl = (() => {
       // return "http://192.168.20.147:9091"  // 双艳
       // return "http://218.204.204.90:9095" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
-      // return "http://120.24.240.231:19097" //
+      return "http://192.168.103.16:9091" //
       // return "http://192.168.103.16:9091" //
       // return "http://218.13.87.27:9094" //
       // return "http://192.168.1.54:9883" //测试
-      return "https://info.cr-health.com:20215"
+      // return "https://info.cr-health.com:20215"
 
     // 福清妇幼保健院
     case 'fqfybjy':
@@ -263,7 +263,7 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.20.20:9092'
     //
     case 'nfyksdyy':
-      return 'http://192.168.5.127:9091/'
+      return 'http://192.168.5.127:9091'
     case 'zzwy':
       return 'http://192.168.1.90:22550'//信铭
       return 'http://192.168.1.54:9897'

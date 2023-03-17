@@ -992,7 +992,7 @@
         {
           "name": "I2332021",
           "type": "select",
-          "title": "手术史",
+          "title": "2.手术史",
           "postTitle": "手术史",
           "postText": "",
           "titleStyle": "width:70px!important",
@@ -4012,7 +4012,7 @@
       "name": "I2332086",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "肌力部位及分级",
+      "title": "8.四肢活动度/肌力",
       "message": "",
       "require": "false",
       "prefixDesc": "",
