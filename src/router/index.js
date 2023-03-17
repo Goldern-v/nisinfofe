@@ -210,6 +210,8 @@ const implementationListWhfk = () =>
   import("@/Page/implementation-list/implementation-list-whfk.vue"); //肺科执行单
 const implementationListFSSY = () =>
   import("@/Page/implementation-list/implementation-list-FSSY.vue"); //武警执行单
+const implementationListNfyksdyy = () =>
+  import("@/Page/implementation-list/implementation-list-nfyksdyy.vue"); //武警执行单
 const implementationListFSSY2 = () =>
   import("@/Page/implementation-list/implementation-list-FSSY2.vue"); //武警执行单
 const implementationListFsxt = ()=>
@@ -449,7 +451,6 @@ const getImplementation = () => {
     case 'zhzxy':
     case "stmz":
     case 'beihairenyi':
-    case 'nfyksdyy':
     case 'qhwy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
@@ -464,6 +465,8 @@ const getImplementation = () => {
       return implementationListFsxt
     case 'foshanrenyi':
       return implementationListFSSY
+      case 'nfyksdyy':
+      return implementationListNfyksdyy
     case 'quzhou':
       return implementationListQuzhou
     case 'huadu':
