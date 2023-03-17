@@ -1,7 +1,7 @@
 
 <template>
   <span
-    :style="(obj.label||obj.suffixDesc || alertMessage || obj.marginLeft) && {display: 'flex', alignItems: 'center', margin:'0 0 5px 0', marginLeft: obj.marginLeft}"
+    :style="(obj.label||obj.suffixDesc || alertMessage || obj.marginLeft || obj.prefix) && {display: 'flex', alignItems: 'center', margin:'0 0 5px 0', marginLeft: obj.marginLeft}"
   >
   <!-- 警报icon -->
     <div
@@ -33,6 +33,7 @@
       <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
 
+    <span v-if="obj.prefix" style="font-size: 12px; width: 48px">{{obj.prefix}}</span>
     <el-input
       v-model="inputValue"
       :id="getUUID()"
@@ -66,6 +67,7 @@
       class="post-text"
       v-if="obj.postText||obj.suffixDesc"
       v-html="obj.postText||obj.suffixDesc"
+      :id="obj.name"
     ></span>
   </span>
 </template>

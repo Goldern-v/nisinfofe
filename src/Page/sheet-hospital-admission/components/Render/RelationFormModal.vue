@@ -228,6 +228,10 @@ export default {
       if (this.callbackInfo.defaultName) {
         this.formObj.model[this.callbackInfo.code] = this.callbackInfo.prefix
       }
+      if (this.callbackInfo.code && this.callbackInfo.needRiskRank) {
+        // 佛一成人单子: 化疗致恶心呕吐（CINV）风险评估单
+        this.formObj.model[this.callbackInfo.code] = this.callbackInfo.prefix + data.itemData.I373012
+      }
       //弹窗精准找到需要修改的inputBox
       this.bus.$emit(`updateValue${this.callbackInfo.code}`)
     },

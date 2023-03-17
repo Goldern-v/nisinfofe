@@ -523,7 +523,7 @@
             {
               "name": "I2332012",
               "type": "radio",
-              "title": "有（",
+              "title": "有：",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -575,7 +575,7 @@
             {
               "name": "I2332013",
               "type": "checkbox",
-              "title": "其他）",
+              "title": "其他",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null
@@ -834,7 +834,7 @@
       ]
     },
     {
-      "name": "I2332219",
+      "name": "I2332019",
       "type": "formGroupColBox",
       "col": 1,
       "title": "既往史，有：",
@@ -1828,18 +1828,10 @@
                     "needScore": true,
                     "code": "I2332033",
                     "prefix": "GSC评分表，",
-                    "suffix": "分",
-                    "openKeyName": true
+                    "suffix": "分"
                   }
                 }
               }
-            },
-            {
-              "indexOfScore": true,
-              "scoreStrMin": "1",
-              "scoreStrMax": "12",
-              "equal": "GSC评分表，",
-              "style": "color:red"
             }
           ],
           "style": null,
@@ -3262,7 +3254,7 @@
             {
               "name": "I2332067",
               "type": "checkbox",
-              "title": "异常（",
+              "title": "异常：",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -3318,43 +3310,12 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "I2332069",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "排尿",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "titleStyle": "margin-top: 7px;",
-      "boxStyle": "height:auto!important",
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I2332069",
-          "type": "",
-          "title": "",
-          "titleStyle": "width:62px!important",
-          "class": "radio_input",
-          "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
+            },
             {
               "name": "I2332069",
               "type": "checkbox",
               "title": "无尿",
-              "elementStyle": "margin: 8px 5px 0 66px;",
+              "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -3392,7 +3353,7 @@
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "100%",
-                  "suffixDesc": "）",
+                  "suffixDesc": "",
                   "style": null,
                   "class": null,
                   "labelLeft": true,
@@ -4631,13 +4592,13 @@
             {
               "name": "I2332101",
               "type": "radio",
-              "title": "有",
+              "title": "有：",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
               "class": null
             },
             {
-              "name": "I2332101",
+              "name": "I2332231",
               "type": "radio",
               "title": "少许",
               "elementStyle": "margin: 8px 5px 0 0px;",
@@ -4645,7 +4606,7 @@
               "class": null
             },
             {
-              "name": "I2332101",
+              "name": "I2332231",
               "type": "radio",
               "title": "月经量",
               "elementStyle": "margin: 8px 5px 0 0px;",
@@ -4653,7 +4614,7 @@
               "class": null
             },
             {
-              "name": "I2332101",
+              "name": "I2332231",
               "type": "radio",
               "title": "多于月经量",
               "elementStyle": "margin: 8px 5px 0 0px;",
@@ -4684,13 +4645,13 @@
             {
               "name": "I2332102",
               "type": "radio",
-              "title": "有",
+              "title": "有：",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
               "class": null
             },
             {
-              "name": "I2332102",
+              "name": "I2332232",
               "type": "radio",
               "title": "血性",
               "elementStyle": "margin: 8px 5px 0 0px;",
@@ -4698,7 +4659,7 @@
               "class": null
             },
             {
-              "name": "I2332102",
+              "name": "I2332232",
               "type": "radio",
               "title": "水样、量：",
               "elementStyle": "margin: 8px 5px 0 0px;",
@@ -4711,7 +4672,7 @@
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "88%",
+                  "inputWidth": "80%",
                   "suffixDesc": "ml",
                   "style": null,
                   "class": null,
@@ -4722,7 +4683,7 @@
               ]
             },
             {
-              "name": "I2332102",
+              "name": "I2332232",
               "type": "radio",
               "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 0px;",
@@ -5425,13 +5386,14 @@
             {
               "name": "I2332124",
               "type": "radio",
-              "title": "有(量:",
+              "title": "有",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
               "class": null
             },
             {
               "name": "I2332125",
+              "prefix": "量：",
               "type": "radio",
               "title": "少许",
               "elementStyle": "margin: 8px 5px 0 0px;",
@@ -5489,7 +5451,7 @@
             {
               "name": "I2332126",
               "type": "radio",
-              "title": "无凝固)",
+              "title": "无凝固",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
               "class": null
@@ -5518,7 +5480,7 @@
             {
               "name": "I2332127",
               "type": "radio",
-              "title": "异常（ ",
+              "title": "异常：",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
               "class": null
@@ -5542,7 +5504,7 @@
             {
               "name": "I2332212",
               "type": "radio",
-              "title": "其他）",
+              "title": "其他",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
               "class": null
@@ -6131,7 +6093,7 @@
           "type": "",
           "title": "面麻",
           "titleStyle": "width:62px!important",
-          "class": "radio_input",
+          "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -6150,7 +6112,7 @@
               "type": "radio",
               "title": "左侧",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
               "class": null
             },
             {
@@ -6158,34 +6120,32 @@
               "type": "radio",
               "title": "右侧",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
               "class": null
             },
             {
               "name": "I2332142",
               "type": "radio",
-              "title": "双侧；张口门齿距：",
+              "title": "双侧",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
-              "class": null,
-              "children": [
-                {
-                  "name": "I2332143",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "88%",
-                  "suffixDesc": "cm",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
+              "elementClass": "el-radio_fs",
+              "class": null
             }
           ]
+        },
+        {
+          "name": "I2332143",
+          "type": "input",
+          "title": "张口门齿距",
+          "titleStyle": "width:90px!important",
+          "inputStyle": "width:100%!important; margin: 5px 5px 8px 0px",
+          "inputWidth": "50%",
+          "suffixDesc": "cm",
+          "style": null,
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "readOnly": null
         },
         {
           "name": "I2332144",
@@ -6489,7 +6449,7 @@
           "title": "自理能力",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
+          "inputStyle": "width:300px!important",
           "class": null,
           "options": [
             "完全自理",
@@ -6548,8 +6508,8 @@
           "type": "select",
           "title": "营养风险筛查",
           "titleStyle": "width:92px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "236px",
+          "inputStyle": "width:300px!important",
+          "inputWidth": "266px",
           "options": [
             "无",
             "有"
@@ -6586,7 +6546,7 @@
           "title": "跌倒风险",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
+          "inputStyle": "width:300px!important",
           "class": null,
           "options": [
             "无",
@@ -6638,7 +6598,7 @@
           "title": "血栓评估",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
+          "inputStyle": "width:300px!important",
           "class": null,
           "options": [
             "无",
@@ -6759,7 +6719,7 @@
           "title": "疼痛评估",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
+          "inputStyle": "width:300px!important",
           "class": null,
           "options": [
             "无",
@@ -6798,7 +6758,7 @@
           "title": "压疮评估",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
+          "inputStyle": "width:300px!important",
           "options": [
             "无",
             "Braden压疮危险评估及护理记录单"
@@ -6863,7 +6823,7 @@
           "title": "认知筛查",
           "style": null,
           "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
+          "inputStyle": "width:300px!important",
           "class": null,
           "options": [
             "无",
@@ -6893,6 +6853,40 @@
               "scoreStrMin": "1",
               "scoreStrMax": "12",
               "style": "color:red"
+            }
+          ]
+        },
+        {
+          "name": "I2332230",
+          "type": "select",
+          "title": "化疗风险",
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:300px!important",
+          "class": null,
+          "options": [
+            "无",
+            "化疗致恶心呕吐（CINV）风险评估单"
+          ],
+          "rule": [
+            {
+              "relationForm": {
+                "openKey": "化疗致恶心呕吐（CINV）风险评估单",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "E0373",
+                  "showSignBtn": true,
+                  "title": "佛山人医化疗致恶心呕吐（CINV）风险评估单",
+                  "formUrl": "佛山人医化疗致恶心呕吐（CINV）风险评估单.html",
+                  "callbackInfo": {
+                    "needScore": false,
+                    "needRiskRank": true,
+                    "code": "I2332230",
+                    "prefix": "化疗致恶心呕吐（CINV）风险评估单:"
+                    
+                  }
+                }
+              }
             }
           ]
         }
@@ -7414,7 +7408,7 @@
           "type": "input",
           "title": "记录时间",
           "titleStyle": "width:70px!important",
-          "inputStyle": "width:270px!important",
+          "inputStyle": "width:270px!important; margin: 10px 0",
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": null,

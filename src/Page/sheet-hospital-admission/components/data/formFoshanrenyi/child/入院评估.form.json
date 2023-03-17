@@ -1767,7 +1767,7 @@
           "children": [
             {
               "name": "I2333051",
-              "type": "radio",
+              "type": "checkbox",
               "title": "母乳喂养",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1776,7 +1776,7 @@
             },
             {
               "name": "I2333051",
-              "type": "radio",
+              "type": "checkbox",
               "title": "人工喂养",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1785,7 +1785,7 @@
             },
             {
               "name": "I2333051",
-              "type": "radio",
+              "type": "checkbox",
               "title": "混合喂养",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1794,7 +1794,7 @@
             },
             {
               "name": "I2333051",
-              "type": "radio",
+              "type": "checkbox",
               "title": "普食",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1803,7 +1803,7 @@
             },
             {
               "name": "I2333051",
-              "type": "radio",
+              "type": "checkbox",
               "title": "软食",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1812,7 +1812,7 @@
             },
             {
               "name": "I2333051",
-              "type": "radio",
+              "type": "checkbox",
               "title": "半流质",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1821,7 +1821,7 @@
             },
             {
               "name": "I2333051",
-              "type": "radio",
+              "type": "checkbox",
               "title": "流质",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1843,7 +1843,7 @@
           "children": [
             {
               "name": "I2333051",
-              "type": "radio",
+              "type": "checkbox",
               "title": "特殊治疗饮食：",
               "elementStyle": "margin: 8px 5px 0 66px;",
               "elementClass": "el-radio_fs itemRadio",
@@ -1868,7 +1868,7 @@
             },
             {
               "name": "I2333051",
-              "type": "radio",
+              "type": "checkbox",
               "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
@@ -3317,7 +3317,7 @@
       ]
     },
     {
-      "name": "I2333075",
+      "name": "",
       "type": "formGroupColBox",
       "col": 1,
       "title": "水肿",
@@ -3347,7 +3347,7 @@
               "name": "I2333075",
               "type": "checkbox",
               "title": "无",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -3355,7 +3355,7 @@
             {
               "name": "I2333075",
               "type": "checkbox",
-              "title": "有：部位",
+              "title": "有：",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
@@ -3365,19 +3365,18 @@
                   "name": "I2333076",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width: 61px",
-                  "inputStyle": "width:74%!important",
-                  "inputWidth": "252px",
-                  "suffixDesc": "程度：",
+                  "titleStyle": "width: 62px",
+                  "inputStyle": "width:500px !important",
+                  "inputWidth": "500px",
                   "style": null,
                   "class": null,
-                  "readOnly": null,
-                  "hiddenTips": true
+                  "readOnly": null
                 }
               ]
             },
             {
               "name": "I2333077",
+              "prefix": "程度：",
               "type": "checkbox",
               "title": "轻",
               "elementStyle": "margin: 8px 0px 0 8px;",
@@ -3402,25 +3401,13 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
-            }
-          ]
-        },
-        {
-          "name": "I2333078",
-          "type": "",
-          "title": "性质",
-          "titleStyle": "width:62px!important",
-          "class": "",
-          "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
+            },
             {
               "name": "I2333078",
+              "prefix": "性质：",
               "type": "checkbox",
               "title": "凹陷性",
-              "elementStyle": "margin: 0px 0px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -3429,7 +3416,7 @@
               "name": "I2333078",
               "type": "checkbox",
               "title": "非凹陷性",
-              "elementStyle": "margin: 0px 0px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -3957,7 +3944,14 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "活动受限"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2333091",
@@ -3966,7 +3960,14 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "活动受限"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2333091",
@@ -3975,7 +3976,14 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "活动受限"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2333091",
@@ -3984,7 +3992,14 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "活动受限"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2333091",
@@ -3993,7 +4008,14 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "活动受限"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2333091",
@@ -4002,7 +4024,14 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "活动受限"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2333091",
@@ -4011,7 +4040,12 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "show": "活动受限"
+                }
+              ]
             }
           ]
         }
@@ -4022,6 +4056,7 @@
       "type": "formGroupColBox",
       "col": 1,
       "title": "四肢活动",
+      "parentKey": "I2333091",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -4690,9 +4725,8 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "I2333110",
-                    "prefix": "关联GSC评分表，",
-                    "suffix": "分",
-                    "openKeyName": true
+                    "prefix": "GSC评分表，",
+                    "suffix": "分"
                   }
                 }
               }
@@ -4712,7 +4746,7 @@
     },
 
     {
-      "name": "I2333075",
+      "name": "",
       "type": "formGroupColBox",
       "col": 1,
       "title": "头颅",
@@ -4948,7 +4982,7 @@
       "readOnly": ""
     },
     {
-      "name": "I2333075",
+      "name": "",
       "type": "formGroupColBox",
       "col": 1,
       "title": "呼吸系统",
@@ -7300,7 +7334,7 @@
           "type": "input",
           "title": "记录时间",
           "titleStyle": "width:70px!important",
-          "inputStyle": "width:270px!important",
+          "inputStyle": "width:270px!important; margin: 10px 0",
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": null,
