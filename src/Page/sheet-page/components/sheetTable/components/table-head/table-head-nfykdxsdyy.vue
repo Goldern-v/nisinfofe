@@ -251,7 +251,13 @@ export default {
 input.bottom-line {
   border-top: 0;
   border-left: 0;
+  // border-bottom: 1px solid #000;
   border-right: 0;
   outline: none;
 }
+.bottom-line {
+    display: inline-block;
+    // border-bottom: 1px solid #000;
+    padding: 2px 0 2px 2px;
+  }
 </style>

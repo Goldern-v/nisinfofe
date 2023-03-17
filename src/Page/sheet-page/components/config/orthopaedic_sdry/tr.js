@@ -239,7 +239,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      width: "300px",
       background: "transparent"
     },
     textarea: { width: 300 },
