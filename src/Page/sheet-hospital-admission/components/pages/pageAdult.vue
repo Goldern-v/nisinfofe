@@ -425,7 +425,7 @@ export default {
                           c
                           ].$parent.checkboxValue = [c];
                         //
-                        if (value === c) {
+                        if (value.includes(c)) {
                           this.$root.$refs[this.formCode][key][c].runTasks(true);
                         }
                       }
