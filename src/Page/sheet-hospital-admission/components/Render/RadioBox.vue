@@ -3,6 +3,7 @@
     <!-- !!单选!! -->
     <!-- <TipsBox :obj='obj'  :formObj="formObj"> -->
     <!-- :ref="obj.name+obj.type.toUpperCase()+obj.title||obj.label" -->
+    <span :id="obj.name" v-if="obj.prefix" style="font-size: 12px">{{obj.prefix}}</span>
     <el-checkbox
       :ref="obj.title||obj.label"
       :name="obj.name||obj.code"
@@ -247,27 +248,120 @@ export default {
       //
       // 评估得分：0-20分完全依赖；20-40分严重依赖；40-60分明显依赖；＞60分基本自理
       //
-      console.log(
-        "radioClicked",
-        e,
-        "obj:",
-        this.obj,
-        "formObj:",
-        this.formObj,
-        "selectedItems",
-        this.formObj.selectedItems,
-        this.formObj.model,
-        e.target.tagName,
-        e.target.checked,
-        "index",
-        index,
-        "score",
-        score
-      );
+      // console.log(
+      //   "radioClicked",
+      //   e,
+      //   "obj:",
+      //   this.obj,
+      //   "formObj:",
+      //   this.formObj,
+      //   "selectedItems",
+      //   this.formObj.selectedItems,
+      //   this.formObj.model,
+      //   e.target.tagName,
+      //   e.target.checked,
+      //   "index",
+      //   index,
+      //   "score",
+      //   score
+      // );
 
     },
     runTasks(init = false) {
-      // console.log("初始化执行嘛", this.obj)
+
+      if (this.HOSPITAL_ID === 'foshanrenyi' && !this.obj.tasks) {
+        let obj = [
+          {
+            id: 'I2332012',
+            value: '有：',
+            correlationID: "I2332013"
+          },
+          {
+            id: 'I2332084',
+            value: '活动受限：',
+            correlationID: "I2332085"
+          },
+          {
+            id: 'I2332149',
+            value: 'PICC：',
+            correlationID: "I2332152"
+          },
+          {
+            id: 'I2332124',
+            value: '有',
+            correlationID: "I2332125",
+            prefixId: "I2332125",
+          },
+          {
+            id: 'I2332124',
+            value: '有',
+            correlationID: "I2332211"
+          },
+          {
+            id: 'I2332124',
+            value: '有',
+            correlationID: "I2332126"
+          },
+          {
+            id: 'I2332127',
+            value: '异常：',
+            correlationID: "I2332212"
+          },
+          {
+            id: 'I2332101',
+            value: '有：',
+            correlationID: "I2332231"
+          },
+          
+          
+          {
+            id: 'I2332102',
+            value: '有：',
+            correlationID: "I2332232"
+          },
+          {
+            id: 'I2332102',
+            value: '有：',
+            inp: true,
+            correlationID: "I2332103",
+            prefixId: "I2332103",
+          },
+          {
+            id: 'I2332102',
+            value: '有：',
+            inp: true,
+            correlationID: "I2332104"
+          },
+        ]
+
+        if (obj.length > 0) {
+
+          obj.forEach(item => {
+            // input类型
+            if(!this.formObj.model[item.id]) return
+
+            if (item.inp) {
+              
+              let inp = this.$root.$refs[this.formCode][item.correlationID]
+              inp.$el.style = this.formObj.model[item.id] !== item.value ? "display: none" : "display: inlink-block"
+              if (item.prefixId) document.getElementById(item.prefixId).style = this.formObj.model[item.id] !== item.value ? "display: none" : "display: inlink-block"
+
+            } else {
+
+              let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
+              if (elArr.length > 0) {
+                elArr.forEach(it => {
+                  it.$el.style = this.formObj.model[item.id] !== item.value ? "display: none" : "display: inlink-block"
+                  if (item.prefixId) document.getElementById(item.prefixId).style = this.formObj.model[item.id] !== item.value ? "display: none" : "display: inlink-block"
+                })
+              }
+              
+            }
+          })
+        }
+      }
+
+
       //
       if (this.obj.tasks) {
 

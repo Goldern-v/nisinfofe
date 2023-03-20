@@ -319,7 +319,7 @@ export default {
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
-            if (selectBlock.status != "1") return true;
+            if (selectBlock.status != "1") return true; 
           },
         },
         {
@@ -807,7 +807,6 @@ export default {
         else 
           notCheckFill = child_notCheckFill
       }
-      // console.log(notCheckFill, "检查项目code")
 
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
@@ -1192,7 +1191,7 @@ export default {
               .then((res) => {
                 this.getHEvalBlockList(this.patientInfo);
                 this.$message.success("签名成功");
-                this.selectBlock.status = "1";
+                // this.selectBlock.status = "1";
                 this.changeSelectBlock(this.selectBlock);
                 // this.bus.$emit("setHosptialAdmissionLoading", false);
                 //
@@ -1297,7 +1296,8 @@ export default {
         save(postData)
           .then((res) => {
             this.$message.success("保存成功");
-            this.selectBlock.status = "1";
+            if (this.HOSPITAL_ID !== "foshanrenyi")
+              this.selectBlock.status = "1";
             this.changeSelectBlock(this.selectBlock,title);
             this.showMeasureDetailBox(res);
 
@@ -1324,7 +1324,6 @@ export default {
     },
     hotkeyForm() {
       window.document.onkeydown = (e) => {
-        // console.log('gao');
         var currKey = 0;
         e = e || event || window.event;
         currKey = e.keyCode || e.which || e.charCode;

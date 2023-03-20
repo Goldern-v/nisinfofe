@@ -1,8 +1,9 @@
 
 <template>
-  <span style="margin: 0 0px 0 0;">
+  <span style="margin: 0; display: flex; align-items: center">
     <!-- {{formObj.model}} -->
     <!-- <TipsBox :obj='obj'  :formObj="formObj"> obj.name+obj.type.toUpperCase()+obj.title||obj.label-->
+    <span :id="obj.name" style="font-size: 12px" v-if="obj.prefix">{{obj.prefix}}</span>
     <el-checkbox
       :ref="refName"
       :name="obj.code || obj.name || obj.title"
@@ -120,6 +121,73 @@ export default {
       return uuid_;
     },
     runTasks(init = false) {
+
+      if (this.HOSPITAL_ID === 'foshanrenyi' && !this.obj.tasks) {
+        let obj = [
+          // 成人模块
+          {
+            id: 'I2332067',
+            value: '异常：',
+            correlationID: "I2332069"
+          },
+          {
+            id: 'I2332067',
+            value: '异常：',
+            inp: true,
+            correlationID: "I2332070"
+          },
+
+          // 是儿童模块
+          {
+            id: 'I2333075',
+            value: '有：',
+            inp: true,
+            prefixId: "I2333078",
+            correlationID: "I2333076"
+          },
+          {
+            id: 'I2333075',
+            value: '有：',
+            correlationID: "I2333077",
+            prefixId: "I2333077"
+          },
+          {
+            id: 'I2333075',
+            value: '有：',
+            correlationID: "I2333078",
+            prefixId: "I2333078"
+          }
+        ]
+        if (obj.length > 0) {
+
+          obj.forEach(item => {
+            // input类型
+            if(!this.formObj.model[item.id]) return
+
+            if (item.inp) {
+              
+              let inp = this.$root.$refs[this.formCode][item.correlationID]
+              inp.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+              if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+
+            } else {
+
+              let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
+              if (elArr.length > 0) {
+                elArr.forEach(it => {
+                  
+                  it.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+                  if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+                })
+              }
+              
+            }
+            
+          })
+        }
+      }
+      // console.log(this.obj.tasks, 88888)
+      if (!this.obj.tasks) return
       if (!this.$root.$refs[this.formCode][this.obj.name][this.obj.title].isChecked) {
         try {
           if (this.obj.tasks.constructor == Array) {
@@ -137,6 +205,19 @@ export default {
                   }
                 }
               }
+              if (task.show) {
+                if (task.show.constructor == Array) {
+                  task.clean.map(c => {
+                    if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
+                      this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = false;
+                    }
+                  });
+                } else {
+                  if (this.$root.$refs[this.formCode]["formGroupColBox" + task.clean]) {
+                    this.$root.$refs[this.formCode]["formGroupColBox" + task.clean].hidden = false;
+                  }
+                }
+              }
             });
           } else {
             this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.tasks].hidden = false;
@@ -144,6 +225,11 @@ export default {
         } catch (error) {
           console.log("tasks:error", error, this.obj);
         }
+      } else {
+        if (this.obj.tasks.constructor !== Array) {
+          // console.log(this.obj.tasks, 7777)
+          this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.tasks].hidden = true;
+        } 
       }
     },
     checkboxClick(e) {
