@@ -1708,7 +1708,7 @@ export default {
 
     limitAddPage(){
       const lastPage = this.pageArea&&this.pageArea.split('-')[1]
-      return this.selectList.length&&this.selectList[this.selectList.length - 1].value.indexOf(lastPage) != -1
+      return this.selectList.length && this.selectList[this.selectList.length - 1].value.split('-')[1] === lastPage
     },
     pageInfoObj: {
       get() {
