@@ -110,6 +110,9 @@ export default {
     delete this.$root.$refs["relationFormModal"];
   },
   methods: {
+    dropDownValue(data) {
+      console.log("关联表单下拉值", data)
+    },
     handleOpen(payload) {
       this.$refs.modal.open();
 
@@ -135,11 +138,17 @@ export default {
       this.callbackInfo = payload && payload.callbackInfo;
       this.formCode = payload && payload.formCode;
       this.selectedValue = payload && payload.valueNew
+      this.selectValue = payload && payload.TSInputVal  
       //覆写成功回调
       if (payload.callback)
         this.successCallback = (data) => payload.callback(data);
     },
     toClose() {
+      if (this.selectValue){
+        this.formObj.model[this.callbackInfo.code] = this.selectValue
+        //弹窗精准找到需要修改的inputBox
+        this.bus.$emit(`updateValue${this.callbackInfo.code}`)
+      }
       this.$refs.modal.close();
     },
     handleSave() {
@@ -159,6 +168,11 @@ export default {
       }
     },
     handleClose() {
+      if (this.selectValue){
+        this.formObj.model[this.callbackInfo.code] = this.selectValue
+        //弹窗精准找到需要修改的inputBox
+        this.bus.$emit(`updateValue${this.callbackInfo.code}`)
+      }
       this.loading = false;
       this.loadintText = "";
       this.showSignBtn = false;

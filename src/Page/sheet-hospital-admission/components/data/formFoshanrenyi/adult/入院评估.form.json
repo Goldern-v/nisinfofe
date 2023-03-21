@@ -2347,7 +2347,13 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": "破损部位"
+              "tasks": [
+                {
+                  "show": [
+                    "破损部位"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332052",
@@ -2357,7 +2363,13 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": "溃疡部位"
+              "tasks": [
+                {
+                  "show": [
+                    "溃疡部位"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332052",
@@ -2367,7 +2379,13 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": "瘢痕部位"
+              "tasks": [
+                {
+                  "show": [
+                    "瘢痕部位"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332052",
@@ -2377,7 +2395,13 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": "水疱部位"
+              "tasks": [
+                {
+                  "show": [
+                    "水疱部位"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332052",
@@ -2387,7 +2411,13 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": "硬结部位"
+              "tasks": [
+                {
+                  "show": [
+                    "硬结部位"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332052",
@@ -2397,7 +2427,13 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": "瘀斑部位"
+              "tasks": [
+                {
+                  "show": [
+                    "瘀斑部位"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332052",
@@ -2407,7 +2443,13 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": "出血点部位"
+              "tasks": [
+                {
+                  "show": [
+                    "出血点部位"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332052",
@@ -2417,7 +2459,13 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
-              "tasks": "丘疹部位"
+              "tasks": [
+                {
+                  "show": [
+                    "丘疹部位"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332052",
@@ -2426,7 +2474,13 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null,
-              "tasks": "皲裂部位"
+              "tasks": [
+                {
+                  "show": [
+                    "皲裂部位"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332052",
@@ -2435,7 +2489,13 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null,
-              "tasks": "抓痕部位"
+              "tasks": [
+                {
+                  "show": [
+                    "抓痕部位"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332052",
@@ -2444,7 +2504,13 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null,
-              "tasks": "其他部位"
+              "tasks": [
+                {
+                  "show": [
+                    "其他部位"
+                  ]
+                }
+              ]
             }
           ]
         }
@@ -4674,6 +4740,7 @@
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "80%",
                   "suffixDesc": "ml",
+                  "suffixclass": "suffixClass",
                   "style": null,
                   "class": null,
                   "labelLeft": true,
@@ -7427,16 +7494,16 @@
           "class": null
         },
         {
-          "name": "auditTime",
+          "name": "I2332233",
           "type": "input",
+          "dateTimeType": "datetime",
           "title": "审核时间",
           "titleStyle": "width:70px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": null,
-          "class": null,
-          "readOnly": true
+          "class": null
         },
         {
           "name": "auditorName",
