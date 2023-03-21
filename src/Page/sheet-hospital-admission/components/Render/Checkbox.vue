@@ -10,7 +10,7 @@
       v-if="obj.type==='checkbox'"
       v-model="checkboxValue"
       border
-      @click.native.stop="checkboxClick"
+      @click.native.stop="(e) => checkboxClick(e, obj.name)"
       :size="obj.size||'small'"
       :label="obj.code || obj.title"
       :class="obj.class"
@@ -121,7 +121,62 @@ export default {
       return uuid_;
     },
     runTasks(init = false) {
+      this.abnormalClick()
 
+      if (!this.obj.tasks) return
+        
+        if (this.HOSPITAL_ID === 'foshanrenyi') {
+          let arr = ['破损部位', '溃疡部位', '瘢痕部位', '水疱部位', '硬结部位', '瘀斑部位', '出血点部位', '湿疹部位', 
+          '斑疹部位', '丘疹部位', '汗疱疹部位', '脓疱疹部位', '糜烂部位', '皲裂部位', '抓痕部位', '其他部位']
+          
+          arr.forEach(item => {
+            let value = this.formObj.model['I2333068'] || this.formObj.model['I2332052'] || ''
+            let newArr = value.split(',').map(it => it + '部位')
+            if (!newArr.includes(item)) {
+              if (this.$root.$refs[this.formCode]["formGroupColBox" + item]) {
+                this.$root.$refs[this.formCode]["formGroupColBox" + item].hidden = true;
+              }
+            }
+          })
+        }
+
+      try {
+        if (this.obj.tasks.constructor == Array) {
+          this.obj.tasks.map(task => {
+            if (task.clean) {
+              if (task.clean.constructor == Array) {
+                task.clean.map(c => {
+                  if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
+                    this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = true;
+                  }
+                });
+              } else {
+                if (this.$root.$refs[this.formCode]["formGroupColBox" + task.clean]) {
+                  this.$root.$refs[this.formCode]["formGroupColBox" + task.clean].hidden = true;
+                }
+              }
+            }
+            if (task.show) {
+              if (task.show.constructor == Array) {
+                task.show.map(c => {
+                  if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
+                    this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = false;
+                  }
+                });
+              } else {
+                if (this.$root.$refs[this.formCode]["formGroupColBox" + task.show]) {
+                  this.$root.$refs[this.formCode]["formGroupColBox" + task.show].hidden = false;
+                }
+              }
+            }
+          });
+        } 
+      } catch (error) {
+        console.log("tasks:error", error, this.obj);
+      }
+    },
+    // 点击异常的时候显示异常
+    abnormalClick () {
       if (this.HOSPITAL_ID === 'foshanrenyi' && !this.obj.tasks) {
         let obj = [
           // 成人模块
@@ -156,7 +211,31 @@ export default {
             value: '有：',
             correlationID: "I2333078",
             prefixId: "I2333078"
-          }
+          },
+          {
+            id: 'I2333154',
+            value: '异常：',
+            correlationID: "I2333156",
+          },
+          {
+            id: 'I2333154',
+            value: '异常：',
+            correlationID: "I2333158",
+            inp: true,  // input类型
+            prefixId: "I2333158" // 有前缀或者后缀
+          },
+          {
+            id: 'I2333154',
+            value: '异常：',
+            correlationID: "I2333159",
+            inp: true,  // input类型
+          },
+          {
+            id: 'I2333154',
+            value: '异常：',
+            correlationID: "I2333160",
+            inp: true,  // input类型
+          },
         ]
         if (obj.length > 0) {
 
@@ -186,53 +265,50 @@ export default {
           })
         }
       }
-      // console.log(this.obj.tasks, 88888)
+    },
+    runTasksClick(code) {
+      this.abnormalClick()
+
+      if (this.HOSPITAL_ID !== 'foshanrenyi') return;
       if (!this.obj.tasks) return
-      if (!this.$root.$refs[this.formCode][this.obj.name][this.obj.title].isChecked) {
-        try {
-          if (this.obj.tasks.constructor == Array) {
-            this.obj.tasks.map(task => {
-              if (task.clean) {
-                if (task.clean.constructor == Array) {
-                  task.clean.map(c => {
-                    if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
-                      this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = true;
-                    }
-                  });
-                } else {
-                  if (this.$root.$refs[this.formCode]["formGroupColBox" + task.clean]) {
-                    this.$root.$refs[this.formCode]["formGroupColBox" + task.clean].hidden = true;
+      let checked = !this.$root.$refs[this.formCode][this.obj.name][this.obj.title].isChecked
+      try {
+        if (this.obj.tasks.constructor == Array) {
+          this.obj.tasks.map(task => {
+            if (task.clean) {
+              if (task.clean.constructor == Array) {
+                task.clean.map(c => {
+                  if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
+                    this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = ["I2333068", "I2332052"].includes(code) ? true : checked;
                   }
+                });
+              } else {
+                if (this.$root.$refs[this.formCode]["formGroupColBox" + task.clean]) {
+                  this.$root.$refs[this.formCode]["formGroupColBox" + task.clean].hidden = checked;
                 }
               }
-              if (task.show) {
-                if (task.show.constructor == Array) {
-                  task.clean.map(c => {
-                    if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
-                      this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = false;
-                    }
-                  });
-                } else {
-                  if (this.$root.$refs[this.formCode]["formGroupColBox" + task.clean]) {
-                    this.$root.$refs[this.formCode]["formGroupColBox" + task.clean].hidden = false;
+            }
+            if (task.show) {
+              if (task.show.constructor == Array) {
+                task.show.map(c => {
+                  if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
+                    this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = !checked;
                   }
+                });
+              } else {
+                if (this.$root.$refs[this.formCode]["formGroupColBox" + task.show]) {
+                  this.$root.$refs[this.formCode]["formGroupColBox" + task.show].hidden = !checked;
                 }
               }
-            });
-          } else {
-            this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.tasks].hidden = false;
-          }
-        } catch (error) {
-          console.log("tasks:error", error, this.obj);
-        }
-      } else {
-        if (this.obj.tasks.constructor !== Array) {
-          // console.log(this.obj.tasks, 7777)
-          this.$root.$refs[this.formCode]["formGroupColBox" + this.obj.tasks].hidden = true;
+            }
+          });
         } 
+      } catch (error) {
+        console.log("tasks:error", error, this.obj);
       }
     },
-    checkboxClick(e) {
+
+    checkboxClick(e, code) {
       if (e.target.tagName !== "INPUT") {
         return;
       }
@@ -386,7 +462,7 @@ export default {
       ) {
         this.$root.$refs[this.formCode]["I047024"].$parent.inputValue = "+";
       }
-      this.runTasks();
+      this.runTasksClick(code);
     }
     
   }

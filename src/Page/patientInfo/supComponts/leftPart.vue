@@ -87,6 +87,14 @@
             打印床头卡
           </div>
           <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openBedPrintModal()"
+            v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
+          >
+            打印床位卡
+          </div>
+          <div
             v-if="HOSPITAL_ID === 'foshanrenyi'"
             class="print-btn"
             flex="cross:center main:center"
@@ -177,6 +185,7 @@
     <!-- 补登记表 弹窗 -->
     <InpatientRegis ref="inpatientRegis" @handleSave="handleInpatientSave" />
     <bedModal ref="bedModal"></bedModal>
+    <bedPrtingModal  ref="bedPrtingModal"></bedPrtingModal>
     <bedModalWx ref="bedModalWx"></bedModalWx>
     <bedModalWujing ref="bedModalWujing"></bedModalWujing>
     <bedModalYtLL ref="bedModalYtLL"></bedModalYtLL>
@@ -334,6 +343,7 @@
 </style>
 <script>
 import bedModal from "./modal/bed-modal.vue";
+import bedPrtingModal from "./modal/bedPrtingModal.vue";
 import bedModalYtLL from "./modal/bed-modal_ytll.vue";
 import bedModalWujing from "./modal/bed-modal_wujing.vue";
 import bedModalSDLJ from "./modal/bed-modal-sdlj.vue";
@@ -420,6 +430,9 @@ export default {
         this.$refs.bedModal.open();
       }
     },
+    openBedPrintModal(){
+      this.$refs.bedPrtingModal.open()
+    },
     // 腕带打印
     openWristPrint(printMode) {
       if (
@@ -471,7 +484,6 @@ export default {
         visitId: this.info.visitId,
       };
       this.$refs.archiveModal.open(item);
-      // this.$refs.printModal.open();
     },
     // 获取归档打印详情
     getArchiveStatus() {
@@ -511,6 +523,7 @@ export default {
     bedModalstmz,
     bedModalGDTJ,
     bedModalWhsl,
+    bedPrtingModal
   },
 };
 </script>

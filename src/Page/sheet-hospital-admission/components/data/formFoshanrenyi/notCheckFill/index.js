@@ -140,4 +140,6 @@ export const child_notCheckFill = [
     "I2333160",
     "I2333162",
     "I2333188",
+    "I2333041",
+    "I2333045"
 ]

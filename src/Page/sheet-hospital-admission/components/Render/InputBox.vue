@@ -64,7 +64,7 @@
     <severForm @scoreListSever="scoreListSever" @changetableSever='changetableSever' @click="tableScoreSever()" :dialogTableSever='tableScore3'></severForm>
      <childForm @scoreListChild="scoreListChild" @changetableChild='changetableChild' @click="tableScoreChild()" :dialogTableChild='tableScore4'></childForm>
     <span
-      class="post-text"
+      :class="['post-text', obj.suffixclass]"
       v-if="obj.postText||obj.suffixDesc"
       v-html="obj.postText||obj.suffixDesc"
       :id="obj.name"
@@ -924,6 +924,10 @@ export default {
   // margin-left:2px;
   // background: transparent;
   font-size: 12px!important;
+}
+.suffixClass {
+  display: inline-block;
+  width: 120px
 }
 
 .el-input__icon {
