@@ -74,7 +74,7 @@
               </div>
             </el-checkbox-group>
           </div>
-          <div class="do-box">
+          <div class="do-box"   v-if="HOSPITAL_ID !== 'zhzxy'">
             <div class="label">
               <span>【问题因素】</span>
               <span class="checkAll-con">

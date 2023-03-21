@@ -179,6 +179,12 @@
       <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
         <div class="nav-item">会诊</div>
       </router-link>
+      <router-link
+          to=""
+          @click.native="toZhzxyLink()"
+          tag="span">
+        <div class="nav-item">患者360</div>
+      </router-link>
       <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>-->
@@ -289,6 +295,13 @@ export default {
     // （顺德龙江）手麻记录单（第三方链接）
     toHandNumbness() {
       window.open(`http://192.168.100.9:8280/trackao/basedata/userLoginForClient.action?id=1668&password=123&resultCode=getTrackaoAnaesRecordPDF&hisId=${this.query.inpNo}`)
+    },
+    toZhzxyLink() {
+      //appid：医惠提供（FFEC62BF-AFE5-49CA-8E64-8A5AE79D8DEF）
+      // ysdm：护士工号
+      // hzid：HIS系统的患者住院号
+      // jzlb：3
+      window.open(`http://10.95.6.17:9016/index.html#appid=FFEC62BF-AFE5-49CA-8E64-8A5AE79D8DEF&ysdm=${this.empNo}&hzid=${this.query.patientId}&jzlb=3`)
     },
     // 医膳通
     toYst() {

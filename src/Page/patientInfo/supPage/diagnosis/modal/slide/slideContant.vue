@@ -9,7 +9,7 @@
           <i class="el-icon-close"></i>
         </div>
         <div class="save-btn" @click="save" v-if="status === '0'">
-          <div v-touch-ripple>保存</div>
+          <div v-touch-ripple>保存111</div>
         </div>
         <div class="save-btn" @click="save" v-if="status === '1'">
           <div v-touch-ripple>更新</div>
@@ -73,7 +73,7 @@
               >
             </div>
           </div>
-          <div class="do-box">
+          <div class="do-box"  v-if="HOSPITAL_ID !== 'zhzxy'">
             <div class="label">
               <span>【问题因素】</span>
             </div>
@@ -312,6 +312,7 @@ import {
 import moment from "moment";
 import { model } from "@/Page/patientInfo/supPage/diagnosis/diagnosisViewModel";
 import { mapState } from "vuex";
+import md5 from "md5";
 let bindData = {
   data: {},
   show: false,
@@ -381,7 +382,49 @@ export default {
       this.show = false;
 
     },
+    saveZhzxy(){
+      let passWord = localStorage.getItem("ppp");
+      let empNo =JSON.parse(localStorage.user).empNo
+      let obj = {
+        creator: md5(passWord),
+        empNo,
+        patientId: this.$route.query.patientId,
+        visitId: this.$route.query.visitId,
+        patientName: this.$route.query.name,
+        bedLabel: this.$route.query.bedLabel,
+        code: this.data.code,
+        name: this.data.name,
+        measureStr: this.measureStr,
+        targetStr: this.targetStr,
+        factorStr: this.factorStr||'',
+        wardCode: !this.$route.path.includes('newSingleTemperatureChart') ? model.selectedBlock.wardCode : this.$store.state.sheet.patientInfo.wardCode,
+        beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm")
+      };
+      if (this.status === "1") {
+        obj.id = this.data.id;
+      }
+      let promise =
+          this.status === "0"
+              ? nursingDiagsSave(obj)
+              : this.status === "1"
+                  ? nursingDiagsUpdate(obj)
+                  : null;
+      promise &&
+      promise.then(res => {
+        this.$message.success(!this.$route.path.includes('newSingleTemperatureChart')?"保存成功":"关联成功")
+        model.newDiagnosisModal.close();
+        this.close();
+        model.refreshTable();
+        this.$store.commit("upMeasureGuizhou", {
+          measure:"",
+          target:""
+        });
+      });
+    },
     save() {
+      if(process.env.HOSPITAL_ID === 'zhzxy'){
+         return   this.saveZhzxy()
+      }
         window.openSignModal((password, empNo) => {
         let obj = {
           creator: password,
@@ -394,7 +437,7 @@ export default {
           name: this.data.name,
           measureStr: this.measureStr,
           targetStr: this.targetStr,
-          factorStr: this.factorStr,
+          factorStr: this.factorStr||'',
           wardCode: !this.$route.path.includes('newSingleTemperatureChart') ? model.selectedBlock.wardCode : this.$store.state.sheet.patientInfo.wardCode,
           beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm")
         };
