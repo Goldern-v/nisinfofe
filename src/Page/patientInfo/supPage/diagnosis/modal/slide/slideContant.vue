@@ -383,10 +383,10 @@ export default {
 
     },
     saveZhzxy(){
-      let ppp = localStorage.getItem("ppp");
+      let passWord = localStorage.getItem("ppp");
       let empNo =JSON.parse(localStorage.user).empNo
       let obj = {
-        creator: md5(ppp),
+        creator: md5(passWord),
         empNo,
         patientId: this.$route.query.patientId,
         visitId: this.$route.query.visitId,
