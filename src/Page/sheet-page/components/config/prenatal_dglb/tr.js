@@ -15,6 +15,12 @@ import {
   click_time
 } from "../keyEvent/date";
 
+let UC = ["无","不规则",`30"`, `35"`,`40"`,`45"`] // 宫缩持续
+let uterine_neck = ['未开','1','2','3','4','5','6','7','8','9','10','1指尖','容1指','1指松'] // 宫颈扩张
+let high_low = ['S-3','S-2','S-1','S=0','S+3','S+2','S+1'] // 先露高低
+let non_drug = ['分娩球','自由体位待产','分娩操','水疗','豆袋热敷','按摩'] // 非药物减痛方法
+let UC_pause = [`2'`,`2'-3'`,`3'-4'`,`4'-5'`,`5'-6'`] // 宫缩间歇
+
 export default [
   {
     key: "recordDate", //年份
@@ -249,6 +255,9 @@ export default [
     textarea: {
       width: 43
     },
+    autoComplete: {
+      data: UC
+    },
   },
   {
     key: "fieldThirteen", 
@@ -259,6 +268,9 @@ export default [
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 43
+    },
+    autoComplete: {
+      data: UC_pause
     },
   },
   {
@@ -282,6 +294,9 @@ export default [
     textarea: {
       width: 43
     },
+    autoComplete: {
+      data: uterine_neck
+    },
   },
   {
     key: "fieldSixteen", 
@@ -292,6 +307,9 @@ export default [
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 43
+    },
+    autoComplete: {
+      data: high_low
     },
   },
   {
@@ -328,6 +346,9 @@ export default [
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 43
+    },
+    autoComplete: {
+      data: non_drug
     },
   },
   {
