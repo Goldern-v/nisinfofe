@@ -18,7 +18,7 @@
         </span>
         <span>
           病区：
-          <div class="bottom-line" style="min-width: 120px">{{ patientInfo[['guizhou'].includes(HOSPITAL_ID) ? 'wardName' : 'deptName'] }}</div>
+          <div class="bottom-line" style="min-width: 120px">{{ patientInfo[['guizhou', 'qhwy'].includes(HOSPITAL_ID) ? 'wardName' : 'deptName'] }}</div>
         </span>
         <span>
           床号：
