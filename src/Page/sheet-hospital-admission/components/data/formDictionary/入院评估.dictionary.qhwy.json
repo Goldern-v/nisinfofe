@@ -407,34 +407,19 @@
             "pinyin": "ps"
         },
         {
-            "code": "半流",
-            "name": "半流",
-            "pinyin": "bl"
+            "code": "软食",
+            "name": "软食",
+            "pinyin": "rs"
         },
         {
-            "code": "全流",
-            "name": "全流",
-            "pinyin": "ql"
+            "code": "半流食",
+            "name": "半流食",
+            "pinyin": "bls"
         },
         {
-            "code": "禁食",
-            "name": "禁食",
-            "pinyin": "js"
-        },
-        {
-            "code": "母乳喂养",
-            "name": "母乳喂养",
-            "pinyin": "mrwy"
-        },
-        {
-            "code": "混合喂养",
-            "name": "混合喂养",
-            "pinyin": "hhwy"
-        },
-        {
-            "code": "人工喂养",
-            "name": "人工喂养",
-            "pinyin": "rgwy"
+            "code": "流食",
+            "name": "流食",
+            "pinyin": "ls"
         },
         {
             "code": "治疗饮食",
@@ -442,34 +427,9 @@
             "pinyin": "zlys"
         },
         {
-            "code": "母乳",
-            "name": "母乳",
-            "pinyin": ""
-        },
-        {
-            "code": "配方奶",
-            "name": "配方奶",
-            "pinyin": ""
-        },
-        {
-            "code": "混合",
-            "name": "混合",
-            "pinyin": ""
-        },
-        {
-            "code": "禁食",
-            "name": "禁食",
-            "pinyin": ""
-        },
-        {
-            "code": "未开奶",
-            "name": "未开奶",
-            "pinyin": ""
-        },
-        {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": ""
+            "code": "禁食水",
+            "name": "禁食水",
+            "pinyin": "jss"
         }
     ],
     "I100105": [
