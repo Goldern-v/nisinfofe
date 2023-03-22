@@ -640,7 +640,7 @@ export default {
       }
       if (row.row.executeFlag == 4) {
         return "green";
-      } else if (row.row.executeFlag == 0) {
+      } else if (row.row.executeFlag == 3) {
         return "pink";
       }
       return ''

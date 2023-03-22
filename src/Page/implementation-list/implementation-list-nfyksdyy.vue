@@ -112,6 +112,7 @@
           v-model="administration"
         ></el-input>
         <el-input style="width: 0px; padding: 0px; height: 0px; overflow: hidden;" />
+        <el-button size="small" type="primary" @click="postReason">同步</el-button>
         <el-button size="small" type="primary" @click="search">查询</el-button>
       </div>
 
@@ -269,7 +270,7 @@
 <script>
 import dTable from "./components/table/d-table-nfyksdyy";
 import pagination from "./components/common/pagination";
-import { getExecuteWithWardCodeLyxrm } from "./api/index";
+import { getExecuteWithWardCodeLyxrm, syncExecuteByWardCode} from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -419,6 +420,10 @@ export default {
         administration: this.administration, // //途径
         dispenseFlag: this.dispenseFlag,
       };
+    //  syncExecuteByWardCode({wardCode,startTime,endTime}).then(res => {
+    //   this.
+    //   this.$message.success("同步成功");
+    //  },)
 
       getExecuteWithWardCodeLyxrm(obj).then(res => {
         // let children = [],
@@ -437,50 +442,6 @@ export default {
             array[index] && array[index].barCode;
 
           item.id = index;
-
-          /** 判断是此记录是多条记录 */
-        //   if (currentRowId == prevRowId || currentRowId == nextRowId) {
-        //     child.map(e=>{
-        //       if(e.orderText==item.orderText){item.orderText = "";item.dosage = "";item.dosageUnits = ""}
-        //       if(e.frequency==item.frequency){item.frequency = ""}
-        //       if(e.administration==item.administration){item.administration = ""}
-        //       if(e.executeDateTime==item.executeDateTime){
-        //         item.executeDateTime = "";
-        //         item.executeFlag= 5;
-        //         item.realExecuteDateTime="";
-        //         item.startNurse="";
-        //         item.endNurse="";
-        //         item.endDateTime=""
-        //       }
-        //     })
-        //     child.push(item);
-        //     if(item.executeType=="输液"){
-        //       children.push(item)
-        //     }
-        //     if (currentRowId != prevRowId) {
-        //       /** 第一条 */
-        //       item.rowType = 1;
-        //       tableData.push(item);
-        //     } else if (currentRowId != nextRowId) {
-        //       /** 最后条 */
-        //       item.rowType = 3;
-        //     if(item.executeType=="输液"){
-        //       tableData[tableData.length - 1].children = JSON.parse(
-        //         JSON.stringify(children)
-        //       );
-        //       children = [];
-        //     }
-        //       tableData[tableData.length - 1].child = JSON.parse(
-        //         JSON.stringify(child)
-        //       );
-        //       child = [];
-        //     } else {
-        //       /** 中间条 */
-        //       item.rowType = 2;
-        //     }
-        //   } else {
-        //     tableData.push(item);
-        //   }
           if (currentRowId == prevRowId || currentRowId == nextRowId) {
             if (currentRowId != prevRowId) {
               /** 第一条 */
@@ -511,6 +472,30 @@ export default {
           this.$refs.plTable.$children[0].reloadData(tableData);
         }
       }).catch((err)=> this.pageLoading = false);
+
+    },
+    // syncExecuteByWardCode() {
+    //   let startTime = this.startTime
+    //   let endTime = this.endTime
+    //   this.$message.info("正在同步数据...");
+    //   this.tableLoading = true;
+    //   syncExecuteByWardCode(this.wardCode== this.deptCode, startTime,endTime).then(
+    //     (res) => {
+    //       this.$message.success("同步数据成功");
+    //       this.getData();
+    //     }
+    //   );
+    // },
+    postReason(){
+      let data = {
+        startTime:moment(this.startTime).format('YYYY-MM-DD')+' 08:00:00',
+        endTime:moment(this.endTime.toDate().getTime()+86400000).format('YYYY-MM-DD')+' 07:59:59',
+        wardCode:this.deptCode,
+      };
+      syncExecuteByWardCode(data).then((res) => {
+        this.$message.success(res.data.desc);
+        this.close();
+      });
     },
     search() {
       this.page.pageIndex = 1;

@@ -9,16 +9,7 @@ import info from "../sheetInfo";
 let ysList = [];
 let chuList = [];
 let ruList = [];
-let UC = ["无","不规则",`30"/5'`, `30"／4`,`30"／4`,`35"/3'`,`35"/2'`, `40"/2'`]
-let uterine_neck = ['未开','1','2','3','4','5','6','7','8','9','10','1指尖','容1指','1指松']
-let high_low = ['S-3','S-2','S-1','S=0','S+3','S+2','S+1']
-
 export default [
-  {
-    key: "recordDate", //年份
-    value: "",
-    hidden:true
-  },
   {
     key: "recordMonth", //日期
     value: "",
@@ -64,9 +55,6 @@ export default [
     value: "",
     name: "宫缩",
     event: keyf1,
-    autoComplete: {
-      data: UC
-    },
     // event: function (e, td) {
     //   if (e.keyCode == 32) {
     //     e.target.value += "/";
@@ -99,17 +87,14 @@ export default [
     key: "fieldSeven", //宫口扩张
     value: "",
     event: keyf1,
-    name: "宫口扩张",
-    autoComplete: {
-      data: uterine_neck
-    },
+    name: "宫口扩张"
   }, {
     key: "fieldEight", //先露高低
     value: "",
     event: keyf1,
     name: "先露高低",
     autoComplete: {
-      data: high_low
+      data: []
     }
   }, {
     key: "bloodPressure", //血压mmHg

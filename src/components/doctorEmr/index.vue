@@ -303,7 +303,7 @@ export default {
         this.fileUrl = `http://192.168.99.72:8099/?hospital_no=45607379-3&patient_id=${this.$route.query.patientId}&visit_id=${this.$route.query.visitId}`
           break;
         case 'nfyksdyy':
-        this.fileUrl = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid=${this.$route.query.inpNo}_${this.$route.query.visitId}`
+        this.fileUrl = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid=${this.$route.query.inpNo}`
         break;
         default:
         this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`;

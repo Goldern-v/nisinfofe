@@ -149,7 +149,7 @@
   }
    &.zhzxyInputW{
       table td,th textarea,input,span{
-        font-size:14px !important;
+        font-size:12px !important
       }
   }
 }

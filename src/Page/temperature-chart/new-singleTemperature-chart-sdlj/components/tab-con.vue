@@ -397,23 +397,10 @@
                     >
                     </el-option>
                   </el-select>
-                  <el-date-picker
-                    size="mini"
-                    :readonly="isDisable()"
-                    format="yyyy-MM-dd HH:mm:ss"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    v-model="vitalSignObj[multiDictList['表底注释']].expand2"
-                    type="datetime"
-                    placeholder="选择日期时间"
-                    style="margin: 3px 0px 0px 55px; width: 170px"
-                    @change="formatCenterExpandDate"
-                  >
-                  </el-date-picker>
                 </div>
                 <div
                   class="rowBox"
                   v-if="multiDictList['表底注释']"
-                  style="margin-left: 10%"
                 >
                   <span class="preText">表底注释</span>
                   <el-select

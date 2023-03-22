@@ -9,16 +9,7 @@ import info from "../sheetInfo";
 let ysList = [];
 let chuList = [];
 let ruList = [];
-let UC = ["无","不规则",`30"/5'`, `30"／4`,`30"／4`,`35"/3'`,`35"/2'`, `40"/2'`]
-let uterine_neck = ['未开','1','2','3','4','5','6','7','8','9','10','1指尖','容1指','1指松']
-let high_low = ['S-3','S-2','S-1','S=0','S+3','S+2','S+1']
-
 export default [
-  {
-    key: "recordDate", //年份
-    value: "",
-    hidden:true
-  },
   {
     key: "recordMonth", //日期
     value: "",
@@ -29,31 +20,31 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time
-  }, 
-  {
-    key: "temperature", //催产素浓度
-    value: "",
-    name: "体温",
-    event: keyf1
-  }, 
-  {
-    key: "sph", //催产素浓度
-    value: "",
-    name: "脉搏",
-    event: keyf1
-  }, 
-  {
-    key: "breath", //催产素浓度
-    value: "",
-    name: "呼吸",
-    event: keyf1
-  }, 
+  },
+  // {
+  //   key: "temperature", //催产素浓度
+  //   value: "",
+  //   name: "体温",
+  //   event: keyf1
+  // },
+  // {
+  //   key: "sph", //催产素浓度
+  //   value: "",
+  //   name: "脉搏",
+  //   event: keyf1
+  // },
+  // {
+  //   key: "breath", //催产素浓度
+  //   value: "",
+  //   name: "呼吸",
+  //   event: keyf1
+  // },
   {
     key: "fieldOne", //催产素浓度
     value: "",
     name: "催产素浓度",
     event: keyf1
-  }, 
+  },
   {
     key: "fieldTwo", //滴速
     value: "",
@@ -64,9 +55,6 @@ export default [
     value: "",
     name: "宫缩",
     event: keyf1,
-    autoComplete: {
-      data: UC
-    },
     // event: function (e, td) {
     //   if (e.keyCode == 32) {
     //     e.target.value += "/";
@@ -74,20 +62,7 @@ export default [
     //   }
     //   keyf1(e, td);
     // }
-  }, {
-    key: "fieldFour", //宫缩强度
-    value: "",
-    name: "宫缩强度",
-    event: keyf1
-  }, {
-    key: "fieldFive", //胎方位
-    value: "",
-    event: keyf1,
-    name: "胎方位",
-    autoComplete: {
-      data: ['LOA', 'ROA', '其它']
-    }
-  }, {
+  },  {
     key: "fieldSix", //胎心
     value: "",
     event: keyf1,
@@ -99,17 +74,14 @@ export default [
     key: "fieldSeven", //宫口扩张
     value: "",
     event: keyf1,
-    name: "宫口扩张",
-    autoComplete: {
-      data: uterine_neck
-    },
+    name: "宫口扩张"
   }, {
     key: "fieldEight", //先露高低
     value: "",
     event: keyf1,
     name: "先露高低",
     autoComplete: {
-      data: high_low
+      data: []
     }
   }, {
     key: "bloodPressure", //血压mmHg
@@ -122,7 +94,20 @@ export default [
     textarea: {
       width: 36
     }
-  }, {
+  },
+  {
+    key: "membranes", //胎膜
+    value: "",
+    event: keyf1,
+    name: "胎膜"
+  },
+  {
+    key: "membranes", //羊水性质
+    value: "",
+    event: keyf1,
+    name: "羊水性质"
+  },
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {

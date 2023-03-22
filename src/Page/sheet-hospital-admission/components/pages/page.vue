@@ -88,7 +88,6 @@ export default {
     },
     formCode() {
       try {
-        console.log(window.formObj.formSetting.formInfo.formCode, 77777)
         return window.formObj.formSetting.formInfo.formCode;
       } catch (error) {
       }
@@ -445,10 +444,11 @@ export default {
                         this.$root.$refs[this.formCode][key][
                           c
                           ].$parent.checkboxValue = [c];
-                        //
-                        if (value === c) {
+                        // console.log(value.includes(c), c, 11111)
+                        if (value.includes(c)) {
                           this.$root.$refs[this.formCode][key][c].runTasks(true);
                         }
+                        
                       }
                     } catch (error) {
                       console.log(

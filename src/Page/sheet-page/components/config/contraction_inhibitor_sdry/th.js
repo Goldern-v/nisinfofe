@@ -1,13 +1,8 @@
+import moment from "moment";
 
-/*
-  顺德人民 - 硫酸镁注射液静脉滴注观察记录单
-*/
-
-/**
- * @description: 开发注意事项:
- 1、自定义表头 canSet: true, key: "armValue4"
-
- */
+function currYear() {
+  return moment().format('YYYY')
+}
 
 export default {
   // 科室的名称
@@ -24,8 +19,8 @@ export default {
       {
         name: `心率<br/>（次/min）`,
         style: {
-          minWidth: '32px',
-          maxWidth: '32px'
+          minWidth: '40px',
+          maxWidth: '40px'
         },
         colspan: '1',
         rowspan: '3'
@@ -33,8 +28,8 @@ export default {
       {
         name: `血压<br/>（mmHg）`,
         style: {
-          minWidth: '32px',
-          maxWidth: '32px'
+          minWidth: '40px',
+          maxWidth: '40px'
         },
         colspan: '1',
         rowspan: '3'
@@ -42,8 +37,8 @@ export default {
       {
         name: `呼吸<br/>（次/min）`,
         style: {
-          minWidth: '32px',
-          maxWidth: '32px'
+          minWidth: '40px',
+          maxWidth: '40px'
         },
         colspan: '1',
         rowspan: '3'
@@ -58,49 +53,24 @@ export default {
       },
       {
         name: `
-        尿量<br/>(ml)
+        浓度<br/>(ml)
         `,
         colspan: '1',
         rowspan: '3',
       },
       {
-        name: `
-        膝反射
-        `,
-        colspan: '1',
-        rowspan: '3',
-      },
-      {
-        name: `
-        胎心音<br/>(次/min)
-        `,
-        colspan: '1',
-        rowspan: '3',
-      },
-      {
-        name: `标题1`,
+        name: `滴数<br/>（滴/分）`,
         style: {},
         colspan: '1',
         rowspan: '3',
         canSet: true,
-        key: 'fieldSix',
+        key: 'fieldFour',
         style: {
-          minWidth: '80px',
-          maxWidth: '80px',
+          minWidth: '50px',
+          maxWidth: '50px',
         }
       },
-     /* {
-        name: `标题2`,
-        style: {},
-        colspan: '1',
-        rowspan: '3',
-        canSet: true,
-        key: 'fieldFive',
-        style: {
-          minWidth: '80px',
-          maxWidth: '80px',
-        }
-      },*/
+
       {
         name: `
         特殊情况记录
@@ -116,33 +86,30 @@ export default {
         name: `
         护士签名
         `,
-        style: {
-          minWidth: '66px',
-          maxWidth: '66px',
-        },
+        style: {},
         colspan: '1',
         rowspan: '3'
       }
     ],
     mid: [{
-        name: '日期',
-        style: {
-          minWidth: '32px',
-          maxWidth: '32px',
-        },
-        colspan: '1',
-        rowspan: '2'
+      name: '日期',
+      style: {
+        minWidth: '36px',
+        maxWidth: '36px',
       },
-      {
-        name: '时间',
-        style: {
-          minWidth: '32px',
-          maxWidth: '32px',
-        },
-        colspan: '1',
-        rowspan: '2'
+      colspan: '1',
+      rowspan: '2'
+    },
+    {
+      name: '时间',
+      style: {
+        minWidth: '36px',
+        maxWidth: '36px',
       },
-      {
+      colspan: '1',
+      rowspan: '2'
+    },
+    {
         name: `
         间歇(min)
         `,

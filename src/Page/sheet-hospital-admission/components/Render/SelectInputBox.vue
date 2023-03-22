@@ -334,7 +334,8 @@ export default {
                 showSignBtn: true,
                 query,
                 ...r.relationForm.params,
-                valueNew
+                valueNew,
+                TSInputVal: this.TSInputVal // 记录下拉前的值  为了点击关联表单又取消 上一次的值消失
               };
               this.$root.bus.$emit('showRelationFormModal',params)
 
@@ -424,6 +425,7 @@ export default {
       // }, 1);
     },
     inputFocus(e, child) {
+      this.TSInputVal = this.inputVal
       let target = this.$refs[this.obj.name].$refs.input;
 
       if (this.$refs[this.obj.name]) {
@@ -540,6 +542,7 @@ export default {
       }
     },
     inputKeyDown(e, child) {
+      console.log(child, "获取下拉值")
       if (
         e.keyCode === 37 &&
         e.target.selectionStart === 0 &&
