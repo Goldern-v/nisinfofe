@@ -69,7 +69,9 @@
     </div>
     <previewEvalModal ref="previewEvalModal"></previewEvalModal>
     <SynchronousModal :dialogTableVisible.sync="dialogTableVisible" @leftTablelist="leftTablelist"></SynchronousModal>
-
+    <doctorEmr
+      v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
+    />
   </div>
 </template>
 
@@ -207,6 +209,7 @@ import $ from "jquery";
 import commom from "@/common/mixin/common.mixin.js";
 import dayjs from "dayjs";
 import qs from "qs";
+import doctorEmr from "@/components/doctorEmr";
 import { adult_notCheckFill, child_notCheckFill } from "@/Page/sheet-hospital-admission/components/data/formFoshanrenyi/notCheckFill"
 import {
   createForm,
@@ -319,7 +322,7 @@ export default {
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
-            if (selectBlock.status != "1") return true; 
+            if (selectBlock.status != "1") return true;
           },
         },
         {
@@ -353,7 +356,7 @@ export default {
             if (!selectBlock.id) return true;
           },
         },
-        ...this.HOSPITAL_ID !== 'foshanrenyi' ? 
+        ...this.HOSPITAL_ID !== 'foshanrenyi' ?
         {
           label: "同步HIS+默认值",
           style: "min-width:100px",
@@ -364,6 +367,17 @@ export default {
             if (!selectBlock.id) return true;
           },
         } : {},
+        // {
+        //   label: "同步HIS+默认值",
+        //   style: "min-width:100px",
+        //   onClick: (e) => {
+        //     this.fillDefaultValue();
+        //   },
+        //   getDisabled(selectBlock) {
+        //     if (!selectBlock.id) return true;
+        //   },
+        // },
+
         {
           label: "体征同步",
           style: "min-width:100px",
@@ -804,7 +818,7 @@ export default {
         // 成人
         if (this.formCode === 'E2332')
           notCheckFill = adult_notCheckFill
-        else 
+        else
           notCheckFill = child_notCheckFill
       }
 
@@ -1200,7 +1214,7 @@ export default {
                     data: { master },
                   },
                 } = res;
-                
+
                 if (master.updaterName && master.updateTime) {
                   this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
                 }
@@ -1471,7 +1485,8 @@ export default {
   },
   components: {
     previewEvalModal,
-    SynchronousModal
+    SynchronousModal,
+    doctorEmr
   },
 };
 </script>
