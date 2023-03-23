@@ -2,8 +2,8 @@
 <div class="bed-card-wrapper">
 
   <div class="bed-modal-ctx" v-for="v in lens" :key="v">
-    <div>床&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：{{ query.bedLabel }}</div>
-    <div>住&nbsp;&nbsp;院&nbsp;号：{{ query.inpNo }}</div>
+    <div>床&nbsp;&nbsp;&nbsp;&nbsp;号：{{ query.bedLabel }}</div>
+    <div>住&nbsp;院&nbsp;号：{{ query.inpNo }}</div>
     <div>产妇姓名：{{ query.expand1 }}</div>
     <div>宝宝性别：{{ query.sex }}</div>
     <div class="pos-a">
