@@ -517,7 +517,7 @@
                 ref="popover1"
                 placement="bottom-end"
                 width="320"
-                trigger="click"
+                trigger="click" popper-class="user-info-main"
               >
                 <userInfo @setPassword="setPassword" @quit="quit"></userInfo>
               </el-popover>
@@ -580,7 +580,13 @@
     </div>
   </div>
 </template>
-
+<style lang='css'>
+  .user-info-main{
+    max-height: 90vh; 
+    overflow-y: auto;
+    top: 5px;
+  }
+</style>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .header-con {
   height: 60px;
@@ -592,6 +598,7 @@
   position: fixed;
   width: 100%;
 }
+
 
 .left-part, .right-part {
   height: 60px;
@@ -894,7 +901,7 @@ import Cookies from "js-cookie";
 import { logout } from "@/api/login";
 import setPassword from "../modal/setPassword.vue";
 import userInfo from "./user-info.vue";
-import { nursingUnit } from "@/api/lesion";
+import { nursingUnit,endAutoSign } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
 
@@ -1046,6 +1053,15 @@ export default {
       window.location.href = "/crNursing/admin";
     },
     quit() {
+      if(localStorage.getItem('whhkSignTye') && localStorage.getItem('whhkSignTye')=='qrcode'){
+        endAutoSign({signToken:localStorage.getItem('signDataId') || 'SD_be2ae41c-6c9d-4594-ad7a-09a1b0b2e0ab',empNo:JSON.parse(localStorage.getItem("user")).empNo}).then(res=>{
+          // console.log(res)
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
+      localStorage.removeItem('whhkSignTye')
+      localStorage.removeItem('signDataId')
       logout(Cookies.get("NURSING_USER"));
       Cookies.remove("password");
       Cookies.remove("deptId");
@@ -1056,6 +1072,7 @@ export default {
       Cookies.remove("NURSING_USER", { path: "/" });
       this.$router.push("/login");
       this.$store.commit("upDeptCode", "");
+
     },
     setPassword() {
       this.$refs.setPassword.open();

@@ -8,6 +8,10 @@ const HOSPITAL_ID = process.env.HOSPITAL_ID
 function nursingUnit() {
   return axios.get(`${apiPath}user/nursingUnit`)
 }
+/**武汉汉口--关闭自动签 */
+function endAutoSign(obj) {
+  return axios.post(`${apiPath}manufactor/whhk/endAutoSign`,obj,{headers: {'Auth-Token-Nursing':window.app.authToken}})
+}
 // 护理单元
 function typeList() {
   return axios.get(`${apiPath}record/setting/typeList`)
@@ -154,5 +158,6 @@ export {
   syncGetNurseBedRecBeiHaiExecute,
   syncGetNursePatientWHFKRecData,
   syncGetNurseBedRecWHHKExecute,
-  synchronizationPatientByBedNo
+  synchronizationPatientByBedNo,
+  endAutoSign
 }

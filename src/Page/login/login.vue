@@ -496,6 +496,7 @@ import { mapMutations } from "vuex";
 import { passwordRule } from "@/api";
 import bus from "vue-happy-bus";
 import { getDictItem } from '@/api/common';
+import { Switch } from 'view-design';
 const CryptoJS = require("crypto-js");
 const SecretKey = "chenrui2020";
 
@@ -710,7 +711,7 @@ export default {
               return this.$router.push("/resetpassword");
             }
           }
-          if(['zzwy'].includes(this.HOSPITAL_ID)){
+          if(['zzwy','whhk'].includes(this.HOSPITAL_ID)){
             this.loginSucceedZZwy(res, type);
           }else{
             this.loginSucceed(res, type);
@@ -822,10 +823,21 @@ export default {
           path: "/",
         }
       );
-      // this.loginLoading = false;   暂时注释
+      this.loginLoading = false;   //暂时注释
       // 从这里截断
-      window.openZzwyCaSignModal(true);
-      // return
+      switch (this.HOSPITAL_ID) {
+        case 'zzwy':
+          window.openZzwyCaSignModal(true);
+          break;
+        case 'whhk':
+          window.openWhhkCaSignModal(true);
+          break;
+        default:
+          break;
+      }
+      // window.openZzwyCaSignModal(true);
+          
+      
 
       // 清除科室记录
       this.$store.commit("upDeptCode", "");

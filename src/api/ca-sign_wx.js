@@ -16,6 +16,9 @@ switch(process.env.HOSPITAL_ID){
   case'foshanrenyi':
   fnPath = `dsvsFssy`;
     break;
+  case'whhk':
+    fnPath = `dsvsFssy`;
+    break;
   default:
     fnPath = `dsvs`;
     break;
@@ -54,28 +57,28 @@ export function verifyCaSign() {
     }, 500);
     // timer = setInterval(()=>logTime('证书助手','GetUserList'),1000)
     $_$WebSocketObj.GetUserList(usrInfo => {
-      console.log('调用了证书助手接口：GetUserList',sumTime);
+      // console.log('调用了证书助手接口：GetUserList',sumTime);
       let strUserCertID = usrInfo.retVal
         .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
         .replace("&&&", "");
       // console.log(strUserCertID, "strUserCertID");
       GetSignCert(strUserCertID, function(certObj) {
-      console.log('调用了证书助手接口：SOF_ExportUserCert',sumTime);
+      // console.log('调用了证书助手接口：SOF_ExportUserCert',sumTime);
         let cert = certObj.retVal;
         getCertAndRandomSign().then(res => {
-          console.log('调用了后端接口：getCertAndRandomSign',sumTime);
+          // console.log('调用了后端接口：getCertAndRandomSign',sumTime);
           // console.log('后端接口返回的cert证书',res.data.data.serverCert);
           let random = res.data.data.random;
           // console.log(`strUserCertID-${strUserCertID}`, `random-${random}`);
           SignedData(strUserCertID, random, retValObj => {
-            console.log('调用了证书助手接口：SOF_SignData',sumTime);
+            // console.log('调用了证书助手接口：SOF_SignData',sumTime);
             // console.log(retValObj, "retValObj");
             let signValue = retValObj.retVal;
             $_$WebSocketObj.GetPic(strUserCertID, function(str) {
-              console.log('调用了证书助手接口：GetPic',sumTime);
+              // console.log('调用了证书助手接口：GetPic',sumTime);
               verifyCertAndUse(cert, signValue, "SM2-256", str.retVal).then(res => {
-                console.log('调用了后端接口：verifyCertAndUse',sumTime);
-                console.log('ca相关接口调用完毕',sumTime,'s');
+                // console.log('调用了后端接口：verifyCertAndUse',sumTime);
+                // console.log('ca相关接口调用完毕',sumTime,'s');
                 clearInterval(sumTimer)
                 resolve({random,data:res.data.data});
                   // DecryptData(random, res.data.data, retValObj => {

@@ -257,7 +257,7 @@ module.exports = {
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
     ABOUT_INFO: '"关于宸瑞普惠"',
     title: '"智慧护理信息系统"',
-    ENABLE_BLUETOOTH_SIGN: false
+    ENABLE_BLUETOOTH_SIGN: true
   },
   nfyksdyy: {
     HOSPITAL_ID: '"nfyksdyy"',
