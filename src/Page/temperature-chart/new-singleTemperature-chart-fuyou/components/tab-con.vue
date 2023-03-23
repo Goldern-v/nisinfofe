@@ -82,79 +82,82 @@
                   <div class="rowItemText">
                     <span>{{ index }}</span>
                   </div>
-                  <el-tooltip
-                    placement="top"
-                    popper-class="custom-temp-dict-select"
-                    :disabled="
-                      !(
-                        totalDictInfo[index].options &&
-                        totalDictInfo[index].options.length > 0
-                      )
-                    "
-                    :visible-arrow="false"
-                    :manual="true"
-                    :value="vitalSignObj[j].popVisible"
-                  >
-                    <input
-                      :id="i + 1"
-                      @keydown.enter.prevent="changeNext"
-                       :type="totalDictInfo[index].inputType === '2'
-                          ? 'number'
-                          : 'text'"
-                      :title="vitalSignObj[j].vitalValue"
-                      @mousewheel="
-                        (e) => {
-                          e.preventDefault();
-                        }
+                  <div class="input_icon">
+                    <span @click="openNewDiagnosis(vitalSignObj[j])" style="color: red;position: absolute;" v-if="checkDiagnose(vitalSignObj[j], i + 1)" :title="`${vitalSignObj[j].vitalSigns}数值异常`"><i class="el-icon-information" ></i></span>
+                    <el-tooltip
+                      placement="top"
+                      popper-class="custom-temp-dict-select"
+                      :disabled="
+                        !(
+                          totalDictInfo[index].options &&
+                          totalDictInfo[index].options.length > 0
+                        )
                       "
-                      @input="()=>{
-                        handlePopRefresh(vitalSignObj[j])
-                        validFormFc(vitalSignObj[j], i + 1)
-                      }"
-                      @click="() => (vitalSignObj[j].popVisible = true)"
-                      @blur="() => (vitalSignObj[j].popVisible = false)"
-                      v-model="vitalSignObj[j].vitalValue"
-                    />
-                    <template v-slot:content>
-                      <div
-                        class="container"
-                        @click.prevent="
-                          () => {
-                            vitalSignObj[j].popVisible = false;
+                      :visible-arrow="false"
+                      :manual="true"
+                      :value="vitalSignObj[j].popVisible"
+                    >
+                      <input
+                        :id="i + 1"
+                        @keydown.enter.prevent="changeNext"
+                         :type="totalDictInfo[index].inputType === '2'
+                            ? 'number'
+                            : 'text'"
+                        :title="vitalSignObj[j].vitalValue"
+                        @mousewheel="
+                          (e) => {
+                            e.preventDefault();
                           }
                         "
-                      >
-                        <template
-                          v-if="
-                            totalDictInfo[index].options &&
-                            getFilterSelections(
-                              totalDictInfo[index].options,
-                              vitalSignObj[j].vitalValue
-                            ).length > 0
+                        @input="()=>{
+                          handlePopRefresh(vitalSignObj[j])
+                          validFormFc(vitalSignObj[j], i + 1)
+                        }"
+                        @click="() => (vitalSignObj[j].popVisible = true)"
+                        @blur="() => (vitalSignObj[j].popVisible = false)"
+                        v-model="vitalSignObj[j].vitalValue"
+                      />
+                      <template v-slot:content>
+                        <div
+                          class="container"
+                          @click.prevent="
+                            () => {
+                              vitalSignObj[j].popVisible = false;
+                            }
                           "
                         >
-                          <div
-                            :key="selectionDictIdx"
-                            class="selection-dict-item"
-                            v-for="(
-                              option, selectionDictIdx
-                            ) in getFilterSelections(
-                              totalDictInfo[index].options,
-                              vitalSignObj[j].vitalValue
-                            )"
-                            @click.prevent="
-                              () =>
-                                (vitalSignObj[j].vitalValue =
-                                  vitalSignObj[j].vitalValue + option)
+                          <template
+                            v-if="
+                              totalDictInfo[index].options &&
+                              getFilterSelections(
+                                totalDictInfo[index].options,
+                                vitalSignObj[j].vitalValue
+                              ).length > 0
                             "
                           >
-                            {{ option }}
-                          </div>
-                        </template>
-                        <div v-else class="null-item">无匹配数据</div>
-                      </div>
-                    </template>
-                  </el-tooltip>
+                            <div
+                              :key="selectionDictIdx"
+                              class="selection-dict-item"
+                              v-for="(
+                                option, selectionDictIdx
+                              ) in getFilterSelections(
+                                totalDictInfo[index].options,
+                                vitalSignObj[j].vitalValue
+                              )"
+                              @click.prevent="
+                                () =>
+                                  (vitalSignObj[j].vitalValue =
+                                    vitalSignObj[j].vitalValue + option)
+                              "
+                            >
+                              {{ option }}
+                            </div>
+                          </template>
+                          <div v-else class="null-item">无匹配数据</div>
+                        </div>
+                      </template>
+                    </el-tooltip>
+                  </div>
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
@@ -380,12 +383,19 @@
         </div>
       </div>
     </div>
+    <newDiagnosisModal ref="newDiagnosisModal"></newDiagnosisModal>
+    <slideContant ref="slideContant"></slideContant>
+    <slideConRight ref="slideConRight"></slideConRight>
   </div>
 </template>
 <script>
 import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
+import newDiagnosisModal from "../../../../Page/patientInfo/supPage/diagnosis/modal/newDiagnosisModal.vue";
+import slideContant from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideContant.vue"
+import slideConRight from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
+import { model } from "../../../../Page/patientInfo/supPage/diagnosis/diagnosisViewModel.js";
 import { validForm } from "../../validForm/validForm";
 import {
   getmultiDict,
@@ -399,6 +409,16 @@ import {
 } from "../../api/api";
 export default {
   props: { patientInfo: Object },
+  provide() {
+    return {
+      openSlideCon: item => {
+          this.$refs.slideConRight.open(item)
+      },
+      openSlideContant: async (item)=>{
+        this.$refs.slideContant.open(item)
+      }
+    };
+  },
   data() {
     // 初始化筛选时间
     let initTimeArea = {
@@ -508,16 +528,22 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
+      model
     };
   },
   async mounted() {
+    this.model.newDiagnosisModal = this.$refs.newDiagnosisModal;
     await this.getVitalList();
       this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate=dateTime.slice(0,10)
         this.query.entryTime=dateTime.slice(11,13)
     });
   },
-
+  beforeRouteLeave(){
+    this.$refs.slideConRight.show=false
+    this.$refs.newDiagnosisModal.show=false
+    this.$refs.slideContant.show=false
+  },
   created() {
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
@@ -549,6 +575,38 @@ export default {
     },
   },
   methods: {
+    openNewDiagnosis(diagnose) {
+      this.$refs.newDiagnosisModal.open();
+      this.$refs.newDiagnosisModal.searchWord=`${diagnose.vitalSigns}`;
+    },
+    checkDiagnose(diagnose,i){
+      console.log(diagnose,i,'checkDiagnose')
+      const { vitalCode, vitalValue } = diagnose
+      if (!['01','02','04','062','20'].includes(vitalCode)) {
+        return
+      } else {
+        if(vitalValue){
+                  let setCheckValue = (vitalCode, vitalValue) => {
+          switch (Number(vitalCode)) {
+            case 1:
+              return Number(vitalValue) < 35 || Number(vitalValue) > 37.5
+            case 2:
+            case 20:
+              return vitalValue < 60 || vitalValue > 100
+            case 4:
+              return vitalValue < 16 || vitalValue > 20
+            case 62:
+            const Contract = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[0]:vitalValue
+            const Diastolic = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[1]:""
+              return (Contract < 90 || Contract > 139)||Diastolic&&(Diastolic<60||Diastolic>89)
+            default:
+              break;
+          }
+        }
+        return setCheckValue(vitalCode, vitalValue)
+        }
+      }
+    },
        formatDate(date){
       return  moment(new Date(date)).format("YYYY-MM-DD")
     },
@@ -760,6 +818,7 @@ export default {
       }
     },
     getFilterSelections(orgin, filterStr) {
+      console.log(orgin, filterStr,'getFilterSelections--orgin, filterStr')
       if (!filterStr || !filterStr.trim()) return orgin;
       return orgin;
     },
@@ -996,7 +1055,7 @@ export default {
     },
     //设置体温单是否可编辑
   },
-  components: { nullBg },
+  components: { nullBg , newDiagnosisModal , slideContant ,slideConRight},
 };
 </script>
 
@@ -1146,6 +1205,11 @@ export default {
 
     .el-select {
       width: 85px;
+    }
+    .input_icon {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
     }
   }
 

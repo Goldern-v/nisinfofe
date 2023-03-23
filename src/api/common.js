@@ -17,6 +17,10 @@ export function signaturePicture(imageId) {
 export function userDictInfo(deptCode) {
   return axios.get(`${apiPath}user/userDictInfo/${deptCode}`);
 }
+//  妇幼获取病人分组左下拉列表
+export function leftBedlist(deptCode) {
+  return axios.get(`${apiPath}whiteboard/getBedList/${deptCode}`);
+}
 
 // 获取本科室所有患者列表
 export function getAllPatient(deptCode) {
