@@ -7,13 +7,20 @@
       :enable-mobile-fullscreen="false"
       class="modal"
     >
+      <bed-modal-baby-ctx-dglb
+        :formData.sync="formData"
+        :isPrint="isPrint"
+        v-loading="modalLoading"
+        ref="printCon"
+        v-if="isDglb && printMode === 'baby'"
+      />
       <bed-modal-ctx-dglb
         :qrCode="qrCode"
         :guominshi.sync="guominshi"
         :formData.sync="formData"
         v-loading="modalLoading"
         ref="printCon"
-        v-if="HOSPITAL_ID === 'dglb'"
+        v-else-if="isDglb"
       />
       <div
         class="bed-card-wrapper"
@@ -787,6 +794,7 @@ import moment from "moment";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
 import bedModalCtxDglb from "./bed-modal-ctx-dglb.vue";
+import bedModalBabyCtxDglb from "./bed-modal-baby-ctx-dglb.vue";
 import { hisMatch } from "@/utils/tool.js";
 
 export default {
@@ -899,7 +907,14 @@ export default {
           ],
         },
       ],
+      /**打印类型
+       * 默认床头卡
+       * baby 新生儿
+       */
+      printMode: '',
+      isPrint: false,
       isZhzxy: ["zhzxy"].includes(this.HOSPITAL_ID),
+      isDglb: ["dglb"].includes(this.HOSPITAL_ID),
     };
   },
   computed: {
@@ -957,10 +972,11 @@ export default {
             allergy2: resData.allergy2,
           };
         }
-        if ("dglb" === this.HOSPITAL_ID) {
+        else if (this.isDglb) {
           this.formData = {
             ...this.formData,
             aField5: resData.aField5,
+            weight: resData.weight
           };
         }
         console.log(this.formData, "this.formData");
@@ -1010,7 +1026,8 @@ export default {
       }
       return data;
     },
-    open() {
+    open(printMode = '') {
+      this.printMode = printMode
       this.init();
       if (
         (["lyxrm", "stmz"].includes(this.HOSPITAL_ID) &&
@@ -1119,7 +1136,7 @@ export default {
         data.aField4 = this.formData.aField4;
         data.aField5 = this.formData.aField5;
       }
-      if ("dglb" === this.HOSPITAL_ID) {
+      if (this.isDglb) {
         data.aField5 = this.formData.aField5;
       }
       saveBed(data).then((res) => {
@@ -1134,6 +1151,7 @@ export default {
         arr = printCare[i].className.split(" ");
         if (!arr.includes("active")) printCare[i].style.display = "none";
       }
+      this.isPrint = true
       this.$nextTick(() => {
         this.post();
         const ref = hisMatch({
@@ -1148,7 +1166,13 @@ export default {
             if (this.isZhzxy) {
               el.style.marginTop = "17mm";
               el.style.marginLeft = "0mm";
-            } else if ("dglb" === this.HOSPITAL_ID) {
+
+            } else if (this.isDglb && this.printMode === 'baby') {
+              const els = el.querySelectorAll('.bed-modal-ctx')
+              for (let i = 0; i < els.length; i++) {
+                els[i].style.borderColor = '#000'
+              }
+            } else if (this.isDglb) {
               el.style.position = "relative";
               el.style.width = "150mm";
               el.style.height = "215mm";
@@ -1166,6 +1190,7 @@ export default {
         for (let i = 0; i < printCare.length; i++) {
           printCare[i].style.display = "block";
         }
+        this.isPrint = false
       });
     },
     querySearchAsyncDoc(queryString, cb) {
@@ -1259,6 +1284,7 @@ export default {
   mounted() {},
   components: {
     bedModalCtxDglb,
+    bedModalBabyCtxDglb
   },
 };
 </script>
