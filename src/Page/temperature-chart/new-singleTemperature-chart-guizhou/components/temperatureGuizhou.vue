@@ -77,8 +77,8 @@ export default {
       visibled: false,
       intranetUrl:
         // "http://192.168.31.79:8081/#/" /* 医院正式环境内网 导致跨域 */,
-        "http://192.168.8.158:8588/temperature/#/" /* 医院正式环境内网 */,
-      newBornUrl: "http://192.168.8.158:8588/temperaturenew/#/",
+        "http://ydhlpt.gzsrm.com:8588/temperature/#/" /* 医院正式环境内网 */,
+      newBornUrl: "http://ydhlpt.gzsrm.com:8588/temperaturenew/#/",
       // printAllUrl:
       //   "http://192.168.8.158:8588/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
     };
