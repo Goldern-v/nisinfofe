@@ -249,6 +249,10 @@ export default {
       this.show = false;
     },
     save() {
+      let measureStr = ""
+      this.resultMeasuresList.forEach(item=>
+        measureStr = measureStr + this.measures.find(measure=>measure.serialNo==item).measureDetail +'\n'
+      )
       // window.openSignModal((password, empNo) => {
       let obj = {
         // creator: password,
@@ -261,10 +265,11 @@ export default {
         name: this.data.name,
         measures: this.resultMeasuresList,
         targets: this.resultTargetList,
+        measureStr,
         wardCode: this.deptCode,
         beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm")
       };
-
+      // return console.log(measureStr,this.resultMeasuresList,'post-resultMeasuresList')
       this.data.checked = true;
       this.data._checked = true;
       this.data.obj = obj;

@@ -11,8 +11,41 @@
           <div v-for="(item) in hengliOptions" :key="item.id">
             <div class="list-con"  flex="cross:center" v-if="item.isShow === '1'">
               <span style="width: 60px; text-align: center">{{ item.groupName }}</span>
-              <input flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
-              <el-autocomplete flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
+              <input v-if="HOSPITAL_ID !== 'fuyou'" flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
+              <el-select
+               @visible-change="update2"
+               v-else style="margin-right: 20px;flex:1" 
+               v-model="item.bedSets" 
+               multiple 
+               allow-create
+               filterable
+               @remove-tag="$e=>update2(false,$e)"
+               placeholder="请选择">
+                <el-option
+                  v-for="item in fuyouBedLisg"
+                  :key="item.bedNo"
+                  :label="item.bedLabel"
+                  :value="item.bedLabel">
+                </el-option>
+              </el-select>
+              <el-autocomplete v-if="HOSPITAL_ID !== 'fuyou'" flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
+              <el-select
+               @visible-change="update2" 
+               v-else 
+               style="margin-right: 20px;flex:1" 
+               v-model="item.dutyNurses" 
+               multiple 
+               allow-create
+               filterable
+               @remove-tag="$e=>update2(false,$e)"
+               placeholder="请选择">
+                <el-option
+                  v-for="item in nurseList"
+                  :key="item.code"
+                  :label="item.value"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </div>
           </div>
         </div>
@@ -164,7 +197,7 @@ input {
 
 <script>
 import boxBase from "../base/box-base.vue";
-import { userDictInfo, getAllPatient } from "@/api/common";
+import { userDictInfo, getAllPatient,leftBedlist } from "@/api/common";
 import { viewListByDeptCode, viewListByDeptCodeLC, updateByDeptCodeAndGroupCode,updateByDeptCodeAndGroupCodeLC, deletePatientGroupById, saveOrUpdateHL } from "../api";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
@@ -182,6 +215,7 @@ export default {
       loadingPatient: false,
       nursePatientSelect: [],
       isSave: true,
+      fuyouBedLisg:[],
       options: [
         {
           value: 4,
@@ -222,6 +256,9 @@ export default {
     } else {
       this.bus.$on("indexGetAllData", this.getData);
     }
+    if(this.HOSPITAL_ID === 'fuyou'){
+      this.bus.$on("indexGetAllBed", this.leftBedlist);
+    }
   },
   methods: {
     deletePatient() {
@@ -233,6 +270,11 @@ export default {
           value: item.name,
           code: item.code,
         }));
+      });
+    },
+    leftBedlist() {
+      leftBedlist(this.deptCode).then((res) => {
+        this.fuyouBedLisg = res.data.data
       });
     },
     getAllPatientData() {
@@ -252,6 +294,15 @@ export default {
               if (item.bedSet || item.dutyNurse)
                 this.$set(item, 'disabled', true)
               else this.$set(item, 'disabled', false)
+              if(item.dutyNurse.length>0){
+                item.dutyNurses = item.dutyNurse.split(",")
+              }else item.dutyNurses=[]
+              if(item.bedSet.length>0){
+                item.bedSets = item.bedSet.split(",")
+              }else item.bedSets=[]
+              // item.dutyNurseNos = []
+              this.$set(item, 'dutyNurseNos', [])
+              item.bedSetlist = []
             })
             this.tepHLOptions = []
             res.data.data.forEach(item => {
@@ -392,6 +443,31 @@ export default {
       let data = {};
       data.deptCode = this.deptCode;
       data.patientGroups = this.controlStatus ? this.hengliOptions  : this.computedList
+      let url = this.HOSPITAL_ID === 'liaocheng' ? updateByDeptCodeAndGroupCodeLC : updateByDeptCodeAndGroupCode
+      url(data).then((res) => {
+        if (res.data.code === '200') {
+          if (this.controlStatus)
+            this.getViewListByDeptCode()
+          else this.getData();
+        }
+        // this.$message.success('更新病人分组信息成功')
+      });
+    },
+    update2(val) {
+      // if (this.isSave) return;
+      if(val) return 
+      let data = {};
+      data.deptCode = this.deptCode;
+      data.patientGroups = this.controlStatus ? this.hengliOptions  : this.computedList
+      data.patientGroups.forEach(item=>{
+        let dutyNurseNo = []
+        item.dutyNurses.forEach(nameNo=>{
+          dutyNurseNo.push(this.nurseList.find(nurse=>nameNo==nurse.value).code)
+        })
+        item.dutyNurseNo = dutyNurseNo.length>0 && dutyNurseNo.join(",")
+        item.dutyNurse = item.dutyNurses.length>0 && item.dutyNurses.join(",")
+        item.bedSet = item.bedSets.length>0 && item.bedSets.join(",")
+      })
       let url = this.HOSPITAL_ID === 'liaocheng' ? updateByDeptCodeAndGroupCodeLC : updateByDeptCodeAndGroupCode
       url(data).then((res) => {
         if (res.data.code === '200') {

@@ -689,6 +689,31 @@
                     :style="item.maxWidth && { width: item.maxWidth + 'px' }"
                     v-else-if="HOSPITAL_ID == 'beihairenyi' && key == 'food'"
                   />
+                  <div class="fuyouDivInput" v-else-if="HOSPITAL_ID == 'fuyou'">
+                    <input
+                      type="text"
+                      :readonly="isRead"
+                      v-model="fixedList[key].value"
+                      @blur="checkValue(fixedList[key])"
+                      v-autoComplete="{
+                        dataList: dictionary[item.key],
+                        obj: fixedList,
+                        key: key,
+                        tr,
+                        td: item,
+                      }"
+                      :style="item.maxWidth && { width: item.maxWidth + 'px' }"
+                    />
+                    <el-tooltip
+                      placement="top"
+                      popper-class="custom-temp-dict-select"
+                      :visible-arrow="false"
+                      :manual="true"
+                    >
+                      <span class="redWarmIcon" @click="openNewDiagnosis(fixedList[key])" v-if="checkDiagnose(fixedList[key])" :title="`${fixedList[key].name}数值异常`"><i class="el-icon-information" ></i></span>
+                      <!-- <div slot="content"></div> -->
+                    </el-tooltip>
+                  </div>
                   <input
                     type="text"
                     :readonly="isRead"
@@ -829,9 +854,13 @@
     </sweet-modal>
     <templateSlide ref="templateSlide"></templateSlide>
     <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
+    <newDiagnosisModal ref="newDiagnosisModal"></newDiagnosisModal>
+    <slideContant ref="slideContant"></slideContant>
+    <slideConRight ref="slideConRight"></slideConRight>
+
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'fuyou','whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
@@ -955,6 +984,20 @@
     margin-left: 5px;
     margin-right: 5px;
   }
+  .fuyouDivInput{
+    position: relative;
+    input{
+      width: 70px;
+      padding-right: 15px;
+    }
+    .redWarmIcon{
+      color: red;
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
 }
 
 .tab-content {
@@ -1045,6 +1088,10 @@ import { nullRow } from "@/Page/sheet-page/components/render/Body.js";
 import sheetModel from "@/Page/sheet-page/sheet.js";
 import templateSlide from "./template-slide.vue";
 import templateSlideFSRY from "./template-slide-fsry.vue";
+import newDiagnosisModal from "@/Page/patientInfo/supPage/diagnosis/modal/newDiagnosisModal.vue";
+import slideConRight from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
+import slideContant from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideContant.vue"
+import { model } from "@/Page/patientInfo/supPage/diagnosis/diagnosisViewModel.js";
 
 import zkModalZhzxy from "./zkModal-zhzxy.vue";
 import sheetInfo from "../config/sheetInfo";
@@ -1149,6 +1196,16 @@ export default {
       update: autoComplete,
     },
   },
+  provide() {
+    return {
+      openSlideCon: item => {
+          this.$refs.slideConRight.open(item)
+      },
+      openSlideContant: async (item)=>{
+        this.$refs.slideContant.open(item)
+      }
+    };
+  },
   data() {
     return {
       bus: bus(this),
@@ -1157,6 +1214,7 @@ export default {
       blurIndex: null,
       recordDate: "",
       record: [],
+      model,
       table: [],
       lastZ: 0,
       lastY: 0,
@@ -1272,10 +1330,12 @@ export default {
       return this.sheetInfo.sheetType === "common_gzry";
     },
     showDiagnosisBtn() {
+      console.log('this.activeTab === "3"',this.activeTab === "3")
       switch (process.env.HOSPITAL_ID) {
         case "guizhou":
           return this.commonFormGZ && this.activeTab === "3";
         case "lyxrm":
+        case "fuyou":
         case "huadu":
         case 'whhk':
         case "stmz":
@@ -1301,6 +1361,7 @@ export default {
     diagnosisWid() {
       switch (process.env.HOSPITAL_ID) {
         case "lyxrm":
+        case "fuyou":
         case "huadu":
         case 'whhk':
         case "stmz":
@@ -1369,6 +1430,42 @@ export default {
               message: `${errobj.vitalSigns}未填写信息，请补充后再同步。`,
             });
           });
+      }
+    },
+    openNewDiagnosis(diagnose) {
+      this.$refs.newDiagnosisModal.open();
+      this.$refs.newDiagnosisModal.searchWord=`${diagnose.name}`;
+    },
+    checkDiagnose(diagnose){
+      const { name, value } = diagnose
+      if (!["体温","T",'脉搏','P','呼吸','R','心率','HR','血压','BP'].includes(name)) {
+        return
+      } else {
+        if(value){
+          let setCheckValue = (name, value) => {
+          switch (name) {
+            case "体温":
+            case "T":
+              return Number(value) < 35 || Number(value) > 37.5
+            case 'P':
+            case "脉搏":
+            case "HR":
+            case "心率":
+              return value < 60 || value > 100
+            case "呼吸":
+            case "R":
+            return value < 16 || value > 20
+            case "血压":
+            case "BP":
+            const Contract = value.includes('/')?value.split('/').slice(0,2)[0]:value
+            const Diastolic = value.includes('/')?value.split('/').slice(0,2)[1]:""
+              return (Contract < 90 || Contract > 139)||Diastolic&&(Diastolic<60||Diastolic>89)
+            default:
+              break;
+          }
+        }
+        return setCheckValue(name, value)
+        }
       }
     },
     /* 处理勾选了的体征信息 */
@@ -1447,6 +1544,7 @@ export default {
       });
     },
    async checkValue(td){
+    console.log("djw-testat")
       if (sheetInfo.model == "print") return;
       if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry') {
         let confirmRes = '';
@@ -1531,6 +1629,7 @@ export default {
       this.$refs.zkModalZhzxy.close();
     },
     open(config) {
+      console.log(config,'hasopen')
       setTimeout(() => {
         window.closeAutoCompleteNoId();
       }, 300);
@@ -2572,8 +2671,16 @@ export default {
       this.$refs.templateSlideFsry.openSpecialSymbols();
     }
   },
+  beforeRouteLeave(){
+    this.$refs.slideConRight.show=false
+    this.$refs.newDiagnosisModal.show=false
+    this.$refs.slideContant.show=false
+  },
   mounted() {
     // 打开特殊情况
+    if(this.HOSPITAL_ID == "fuyou"){
+     this.model.newDiagnosisModal = this.$refs.newDiagnosisModal;
+    }
     window.openSpecialModal2 = (config) => {
       this.open(config);
       if (this.HOSPITAL_ID == "foshanrenyi") {
@@ -2663,7 +2770,10 @@ export default {
     AdviceModal,
     zxdtbModal,
     zkModalZhzxy,
-    templateSlideFSRY
+    templateSlideFSRY,
+    newDiagnosisModal,
+    slideConRight,
+    slideContant
   },
 };
 </script>
