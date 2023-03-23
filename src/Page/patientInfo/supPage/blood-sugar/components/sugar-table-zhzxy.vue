@@ -1,15 +1,27 @@
 <template>
   <div flex-box="1" class="table-box blood-sugar-table">
     <table>
-      <tr>
+      <template  v-if="['zhzxy'].includes(HOSPITAL_ID)">
+         <tr>
+          <th style="width: 2%; min-width: 20px">序号</th>
+          <th style="width: 23%; min-width: 75px">日期</th>
+          <th style="width: 18%;">时间</th>
+          <th style="width: 20%">项目</th>
+          <th style="width: 23%">血糖值<br />(mmol/L)</th>
+          <th style="width: 19%">执行人</th>
+        </tr>
+      </template>
+      <template v-else-if="['whhk'].includes(HOSPITAL_ID)">
+        <tr>
         <th style="width: 2%; min-width: 20px">序号</th>
-        <th style="width: 23%; min-width: 75px">日期</th>
-        <th style="width: 18%;">时间</th>
-        <th style="width: 20%">项目</th>
-        <th style="width: 23%">血糖值<br />(mmol/L)</th>
-        <!-- <th style="width: 18%">血酮值<br/>(mmol/L)</th> -->
+        <th style="width: 16%; min-width: 75px">日期</th>
+        <th style="width: 13%;">时间</th>
+        <th style="width: 19%">项目</th>
+        <th style="width: 22%">血糖值<br />(mmol/L)</th>
+        <th style="width: 10%">RI<br/>剂量</th>
         <th style="width: 19%">执行人</th>
       </tr>
+      </template>
       <tr
         v-for="(item,index) in renderData"
         :class="{ selected: selected === item }"
@@ -73,25 +85,15 @@
             {{ item.sugarValue && item.sugarValue !== "0" ? item.sugarValue : "" }}
           </div>
         </td>
-        <!-- <td>
+        <!-- 武汉汉口的ri剂量。 -->
+        <td v-if="['whhk'].includes(HOSPITAL_ID)">
           <div class="cell noPrint">
-            <input :class="{ selected: selected === item }" v-model="item.expand1"/>
+            <input :class="{ selected: selected === item }" v-model="item.riValue"/>
           </div>
           <div class="cell inPrint">
-            {{ item.expand1 && item.expand1 !== "0" ? item.expand1 : "" }}
+            {{ item.riValue && item.riValue !== "0" ? item.riValue : "" }}
           </div>
-        </td> -->
-        <!-- <td>
-          <div class="cell noPrint sign-cell" @click="sign(item)">{{ item.nurse }}</div>
-          <div :class="['cell','inPrint']">
-            {{item.nurseEmpNo}}
-           img
-              :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"
-              :alt="item.nurse"
-              v-if="item.nurseEmpNo"
-            />
-          </div>
-        </td> -->
+        </td>
         <td >
           <div class="cell sign-con" @click="sign(item)">
             <!-- 这里改。-->
@@ -248,25 +250,19 @@ export default {
     renderData() {
       if (!this.data) return;
       let renderData = [];
-      // let firstDate = "";
       for (let i = 0; i < this.data.length; i++) {
         this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
         let obj = this.data[i];
         let date = this.data[i].md.split(" ")[0];
         let time = this.data[i].md.split(" ")[1];
-        // if (firstDate != date) {
           obj.date = date;
-        // } else {
-        //   obj.date = "";
-        // }
-        // firstDate = date;
         obj.time = time;
         renderData.push(obj);
       }
       while (renderData.length <= 26) {
         renderData.push({});
       }
-      // console.log(renderData);
+      console.log(275,renderData)
       return renderData;
     },
     patientInfo() {

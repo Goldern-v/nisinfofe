@@ -1,6 +1,6 @@
 
 /*
-  顺德人民 - 硫酸镁注射液静脉滴注观察记录单
+  广东同江 - 硫酸镁注射液静脉滴注观察记录单
 */
 
 /**
@@ -78,7 +78,7 @@ export default {
         rowspan: '3',
       },
       {
-        name: `标题1`,
+        name: `滴数<br/>(ml/h)`,
         style: {},
         colspan: '1',
         rowspan: '3',

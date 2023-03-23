@@ -789,19 +789,6 @@
           "class": null,
           "readOnly": null,
           "hiddenTips": true
-        },
-        {
-          "name": "I100004",
-          "type": "input",
-          "title": "SPO2",
-          "suffixDesc": "%",
-          "titleStyle": "width:45px!important",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "55px",
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "hiddenTips": true
         }
       ]
     },
@@ -1291,11 +1278,27 @@
           "name": "I001366",
           "type": "select",
           "title": "长期用药",
+          "postTitle": "长期用药",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:300px!important",
           "inputWidth": "180px",
           "style": null,
-          "class": null
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "长期用药",
+                "parentName": "I001366",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
         }
       ]
     },
@@ -2317,50 +2320,6 @@
                 "name": "S0629",
                 "parentName": "S0629",
                 "type": "independent",
-                "showHead": "true"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        },
-
-        {
-          "name": "S0618",
-          "type": "select",
-          "title": "住院患者营养风险护理评估表",
-          "style": null,
-          "titleStyle": "width:200px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "class": null,
-          "options": [
-            "住院患者营养风险护理评估表"
-          ],
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "住院患者营养风险护理评估表,住院患者营养风险护理评估表",
-                "cleanKey": "无",
-                "title": "住院患者营养风险护理评估表",
-                "default": "住院患者营养风险护理评估表",
-                "name": "S0618",
-                "type": "independent",
-                "parentName": "S0618",
-                "showHead": "true"
-              }
-            },
-            {
-              "dialog": {
-                "openKey": "营养风险筛查（儿童）",
-                "cleanKey": "无",
-                "title": "营养风险筛查（儿童）",
-                "default": "营养风险筛查（儿童）",
-                "name": "S0618",
-                "type": "independent",
-                "parentName": "S0618",
                 "showHead": "true"
               }
             },

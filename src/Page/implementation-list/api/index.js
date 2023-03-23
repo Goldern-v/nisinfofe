@@ -31,7 +31,7 @@ switch (HOSPITAL_ID) {
     hospitalExecute = "hisBeiHaiExecute";
     break;
     case "whsl":
-    hospitalExecute = "hisWeiHaiShiLiExecute"; 
+    hospitalExecute = "hisWeiHaiShiLiExecute";
     break;
 }
 // 获取执行单
@@ -118,6 +118,10 @@ export function addRecord(obj) {
 /** 新版补执行 by临邑 */
 export function updateOrderExecutePc(obj) {
   return axios.post(`${apiPath}procedure/webExecute/updateOrderExecutePc`, obj);
+}
+
+export function syncExecuteByWardCode(obj) {
+  return axios.post(`${apiPath}procedure/webExecute/syncExecuteByWardCode`, obj);
 }
 
 // 更新实际执行时间/结束输液时间（陵城）

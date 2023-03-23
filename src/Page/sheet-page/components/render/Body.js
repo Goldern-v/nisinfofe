@@ -1421,6 +1421,26 @@ function switchSheetType(type) {
       schema = require("../config/orthopaedic_sdry/tr.js").default;
     }
     break;
+    case "magnesiumsulphate_sdry": {
+      // 顺德"硫酸镁注射液静脉滴注观察记录单"
+      schema = require("../config/magnesiumsulphate_sdry/tr.js").default;
+    }
+    break;
+    case "oxytocin_sdry": {
+      // 顺德,"催产素静脉点滴观察表",
+      schema = require("../config/oxytocin_sdry/tr.js").default;
+    }
+    break;
+    case "insulin_pump_sdry": {
+      // 顺德,"胰岛素泵观察记录表",
+      schema = require("../config/insulin_pump_sdry/tr.js").default;
+    }
+    break;
+    case "contraction_inhibitor_sdry": {
+      // 顺德龙江 - 护理记录单（骨科）
+      schema = require("../config/contraction_inhibitor_sdry/tr.js").default;
+    }
+    break;
     case "pediatrics_sdlj": {
       // 顺德龙江 - 护理记录单（儿科）
       schema = require("../config/pediatrics_sdlj/tr.js").default;
