@@ -1731,6 +1731,36 @@
     ]
   },
   {
+    "title": "长期用药",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "40%",
+      "60%"
+    ],
+    "name": "I001366",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "长期用药",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001366",
+        "type": "input",
+        "title": "长期用药",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
     "title": "健康史",
     "type": "formGroupHorizontalBox",
     "colWidth": [

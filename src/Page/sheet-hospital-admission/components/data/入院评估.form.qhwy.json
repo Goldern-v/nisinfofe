@@ -1278,11 +1278,27 @@
           "name": "I001366",
           "type": "select",
           "title": "长期用药",
+          "postTitle": "长期用药",
           "titleStyle": "width:60px!important",
           "inputStyle": "width:300px!important",
           "inputWidth": "180px",
           "style": null,
-          "class": null
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "有",
+                "cleanKey": "无",
+                "title": "长期用药",
+                "parentName": "I001366",
+                "type": "dependent"
+              }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
+            }
+          ]
         }
       ]
     },
