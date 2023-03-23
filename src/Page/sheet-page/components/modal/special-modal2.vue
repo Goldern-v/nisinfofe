@@ -1588,7 +1588,7 @@ export default {
             td.value ='';
           }
         }
-        if (td.key === 'fieldOne' && td.value !== '' && (td.value < 50 && td.value > 250)) {
+        if ((td.key == 'fieldOne') && td.value !== ''&&(isNaN(td.value) || td.value < 50 || td.value > 250)) {
             console.log(td.key,(td.value >= 50 && td.value <= 250))
           confirmRes = await this.$confirm(
             td.name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",
@@ -1603,7 +1603,7 @@ export default {
             td.value ='';
           }
         }
-        if (td.key === 'fieldTwo' && td.value !== '' && (td.value < 0 && td.value > 200)) {
+        if ((td.key == 'fieldTwo') && td.value !== ''&&(isNaN(td.value) || td.value < 0 || td.value > 200)) {
           confirmRes = await this.$confirm(
             td.name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",
             "提示",

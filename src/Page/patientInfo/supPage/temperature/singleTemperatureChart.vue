@@ -34,6 +34,7 @@
               :isInPatientDetails="true"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
+              @onModalChange="onModalChange"
             ></sheetTable>
           </div>
           <div
@@ -284,6 +285,31 @@ export default {
         this.$message.success("创建成功");
       });
     },
+    onModalChange(e,tr,x,y,index){
+      // 改变当前行状态
+      tr.isChange = true
+      // // 获取recordDate的下标
+      let dateIndex = tr.findIndex(item=>item.key == "recordDate")
+      // 如果当前行有recordDate(即是保存过)
+      if(tr[dateIndex].value)return
+      // // 判断修改的记录是否起始页
+      let isStartPage =  index == 0 || y!=0
+      // // 获取上条记录
+      let preRow = isStartPage ? sheetModel[index].bodyModel[y - 1] : sheetModel[index - 1].bodyModel[sheetModel[index - 1].bodyModel.length - 1]
+      let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
+      let hourIndex = tr.findIndex(item=>item.key == "recordHour")
+      let monthValue = ''
+      let hourValue = ''
+      if(preRow && (preRow[monthIndex].value || preRow[dateIndex].value || preRow[hourIndex].value)){
+        monthValue = preRow[monthIndex].value || moment(preRow[dateIndex].value.split(' ')[0]).format('MM-DD')
+        hourValue = preRow[hourIndex].value || preRow[dateIndex].value.split(' ')[1]
+      } else {
+        monthValue = moment().format('MM-DD')
+        hourValue= moment().format('HH:ss')
+      }
+      ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
+      ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
+    },
     scrollFun(scrollValue){
       this.$nextTick(() => {
         //不传入参滚动值 默认选择refscrollCon的scrollTop
@@ -465,11 +491,12 @@ export default {
         });
       });
     });
-    this.bus.$on("saveSheetPage", (isInitSheetPageSize = true) => {
+    this.bus.$on("saveSheetPage", (isInitSheetPageSize = true,ayncVisitedData) => {
       let save = () => {
         this.pageLoading = true;
+        const ayncVisitedData = ayncVisitedData
         this.scrollTop = this.$refs.scrollCon.scrollTop;
-        saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode())
+        saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode(ayncVisitedData))
           .then((res) => {
             this.$notify.success({
               title: "提示",
