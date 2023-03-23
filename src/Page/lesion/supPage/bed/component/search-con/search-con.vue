@@ -758,6 +758,9 @@ export default {
           }else{
             this.selectName = "全部床位";
           }
+          if(['fuyou'].includes(this.HOSPITAL_ID)){
+            if(this.mrgc.length>0) this.selectName="默认管床"
+          }
           this.$parent.bedList = this.bedList;
           this.$parent.loading = false;
           if(['huadu'].includes(this.HOSPITAL_ID)){
