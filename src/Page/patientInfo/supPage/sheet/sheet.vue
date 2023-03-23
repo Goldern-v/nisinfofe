@@ -1119,7 +1119,6 @@ export default {
     if(this.lockHospitalList.includes(this.HOSPITAL_ID) && from.fullPath.includes("sheet") && !to.fullPath.includes("login")){
       this.destroyUnlock()
     }
-    this.sheetInfo.relObj = {}
     if (!sheetInfo.isSave) {
       window.app
         .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
@@ -1128,6 +1127,7 @@ export default {
           type: "warning"
         })
         .then(res => {
+          this.sheetInfo.relObj = {}
           next();
         });
     } else {
