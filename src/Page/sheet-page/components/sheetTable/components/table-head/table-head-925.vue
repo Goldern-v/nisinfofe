@@ -3,7 +3,7 @@
     <div class="his-name" style="font-size:26px;margin-bottom:10px">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title" style="font-size:0px" v-if="sheetInfo.sheetType=='nurse_jew' || sheetInfo.sheetType== 'danger_nurse_jew'">
       <div class="nurse_title" style="border-bottom: 1px solid #000;padding:0 5px">
-        {{ newPatientInfo[`nurseLevel_${this.sheetInfo.selectBlock.id}`] | filtertitle }}
+        {{ newPatientInfo[`nurseLevel_${index}_${this.sheetInfo.selectBlock.id}`] | filtertitle }}
       </div>
       <div class="nurse_title">患者护理记录单</div>
     </div>
@@ -58,7 +58,7 @@
       <span @click="updateNurseLevel()">
         护理级别：
         <div class="bottom-line" style="min-width: 80px">
-          {{ newPatientInfo[`nurseLevel_${this.sheetInfo.selectBlock.id}`]}}
+          {{ newPatientInfo[`nurseLevel_${index}_${this.sheetInfo.selectBlock.id}`]}}
         </div>
       </span>
     </div>
@@ -155,16 +155,11 @@ export default {
       return (sheetInfo.relObj || {})['nurseLevel'] || this.query['nursingClass'] || ''
     },
     newPatientInfo(){
-      let nowNurseLevel=sheetInfo.relObj['nurseLevel']
-      // if(sheetInfo.sheetType=='nurse_jew' || sheetInfo.sheetType== 'danger_nurse_jew' && !nowNurseLevel){
-      //     info(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
-      //       this.$set(sheetInfo.relObj,'nurseLevel',res.data.data.nursingClass)
-      //     })
-      // }
-      console.log('computed', nowNurseLevel)
+      let nowNurseLevel=sheetInfo.relObj[`${this.index}nurseLevel`]
+      let freshlyNurseLevel = sheetInfo.relObj['freshlyNurseLevel']
       return {
         ...this.patientInfo,
-        [`nurseLevel_${this.sheetInfo.selectBlock.id}`] : nowNurseLevel
+        [`nurseLevel_${this.index}_${this.sheetInfo.selectBlock.id}`] : nowNurseLevel ? nowNurseLevel : freshlyNurseLevel
       }
     }
   },
@@ -200,9 +195,8 @@ export default {
     updateNurseLevel(){
        window.openSetTextModal(
         (text) => {
-          sheetInfo.relObj['nurseLevel'] = text;
+          sheetInfo.relObj[`${this.index}nurseLevel`] = text;
           this.$message.success(`修改护理等级成功`);
-          console.log('sheetInfo', text, sheetInfo.relObj)
           this.bus.$emit("saveSheetPage", false);
         },
         this.nurseLevel,
@@ -215,9 +209,6 @@ export default {
       return moment(val).format("YYYY年MM月DD日");
     },
     filtertitle(val, nurseLevel){
-      // if(!nurseLevel){
-      //   nurseLevel=''
-      // }
       return val && (val.indexOf("特级") > -1 || val.indexOf("一级") > -1) ? "危重" : "一般"
     }
   },
