@@ -67,14 +67,17 @@
                 </template>
                 <div
                   :class="
-                    index.includes('自定义') ||
+                    [index.includes('自定义') ||
                     index.includes('注释') ||
                     index.includes('腋温') ||
                     index.includes('体温复测')
                       ? 'rowItem_noShow'
                       : (i - 1) % 2 === 0
                       ? 'rowBoxRight'
-                      : 'rowBox'
+                      : 'rowBox',
+                      (i - 1) % 2 === 0
+                      && 'rowBoxRight2'
+                    ]
                   "
                   v-for="(j, index, i) in baseMultiDictList"
                   :key="index"
@@ -577,7 +580,12 @@ export default {
   methods: {
     openNewDiagnosis(diagnose) {
       this.$refs.newDiagnosisModal.open();
-      this.$refs.newDiagnosisModal.searchWord=`${diagnose.vitalSigns}`;
+      let endStr = ""
+      if(diagnose.vitalCode==='01'){
+        const {vitalValue} = diagnose
+        endStr = Number(vitalValue)<35?'过低':Number(vitalValue)>37.5?'过高':""
+      }
+       this.$refs.newDiagnosisModal.searchWord=`${diagnose.vitalSigns}`+endStr;
     },
     checkDiagnose(diagnose,i){
       console.log(diagnose,i,'checkDiagnose')
@@ -1227,7 +1235,13 @@ export default {
     float: left;
     margin-left: 10%;
     over-flow:hidden;
-
+    &.rowBoxRight2{
+      .input_icon{
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+      }
+    }
     input {
       width: 95%;
       font-size: 16px;

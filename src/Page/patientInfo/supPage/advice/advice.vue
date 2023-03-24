@@ -425,18 +425,13 @@ export default {
             if (currentRowId != prevRowId) {
               /** 第一条 */
               item.rowType = 1;
-              (item.specialSymbols ="┌")
             } else if (currentRowId != nextRowId) {
               /** 最后条 */
               item.rowType = 3;
-              (item.specialSymbols ="└")
             } else {
               /** 中间条 */
               item.rowType = 2;
-              (item.specialSymbols ="┃")
             }
-          } else {
-            item.rowType = 1;
           }
         });
       }

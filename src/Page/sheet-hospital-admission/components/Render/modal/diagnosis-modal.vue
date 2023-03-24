@@ -90,6 +90,24 @@ export default {
       this.$root.$refs.diagnosisSlide.close();
     },
     post() {
+      let SigndataObj = {
+        Patient_ID:this.patientInfo.patientId,
+        Visit_ID:this.patientInfo.visitId,
+        Document_Title:"",
+        Document_ID: this.formCode,
+        Section_ID:"",
+        strSignData:JSON.stringify(this.formObj.model),
+      };
+
+       let verifySignObj = {
+        patientId:this.patientInfo.patientId,
+        visitId:this.patientInfo.visitId,
+        formName:"",
+        formCode: this.formCode,
+        instanceId:"",
+        recordId:"",
+        signData:JSON.stringify(this.formObj.model),
+      }
       window.openSignModal((password, empNo) => {
         let promistList = [];
         let objList = this.diagnosisList
@@ -114,7 +132,7 @@ export default {
           this.$root.$refs.diagnosisSlide.close();
           this.close();
         });
-      });
+      },"",undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
     },
     onClickBox(item) {
       item.checked = item._checked;
@@ -125,6 +143,11 @@ export default {
       }
     }
   },
-  components: {}
+  components: {},
+  computed: {
+    patientInfo() {
+      return this.$store.state.sheet.patientInfo;
+    }
+  },
 };
 </script>
