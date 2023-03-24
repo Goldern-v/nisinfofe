@@ -87,7 +87,7 @@
 
       <u-table-column
         label="频次"
-        prop="itemNo"
+        prop="frequency"
         min-width="50px"
         align="center"
       >
