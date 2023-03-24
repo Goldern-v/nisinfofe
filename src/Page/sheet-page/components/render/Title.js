@@ -2359,10 +2359,45 @@ export default function Title(
     );
   }
   break;
-  case "pediatrics_zzwy": {
+  case "pediatrics_new_zzwy": {
     // 漳州五院 - 护理记录单（儿科）
     Th = JSON.parse(
-      JSON.stringify(require("../config/pediatrics_zzwy/th.js").default)
+      JSON.stringify(require("../config/pediatrics_new_zzwy/th.js").default)
+      );
+    }
+    break;
+  case "record_icu_zzwy": {
+    // 漳州五院 - 护理记录单（ICU）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/record_icu_zzwy/th.js").default)
+      );
+    }
+    break;
+  case "obstetrics_new_zzwy": {
+    // 漳州五院 - 护理记录单（产科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/obstetrics_new_zzwy/th.js").default)
+      );
+    }
+    break;
+  case "gynecology_new_zzwy": {
+    // 漳州五院 - 护理记录单（妇科）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/gynecology_new_zzwy/th.js").default)
+      );
+    }
+    break;
+  case "baby_new_zzwy": {
+    // 漳州五院 - 护理记录单（新生儿）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/baby_new_zzwy/th.js").default)
+      );
+    }
+    break;
+  case "record_new_zzwy": {
+    // 漳州五院 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/record_new_zzwy/th.js").default)
       );
     }
     break;

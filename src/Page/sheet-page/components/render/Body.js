@@ -1840,9 +1840,35 @@ function switchSheetType(type) {
       schema = require("../config/default/tr.js").default;
     }
       break;
-    case "pediatrics_zzwy": {
+    case "pediatrics_new_zzwy": {
       // 漳州五院 - 护理记录单（儿科）
-      schema = require("../config/pediatrics_zzwy/tr.js").default;
+      schema = require("../config/pediatrics_new_zzwy/tr.js").default;
+    }
+      break;
+    case "record_icu_zzwy": {
+      // 漳州五院 - 护理记录单（ICU）
+      schema = require("../config/record_icu_zzwy/tr.js").default;
+    }
+      break;
+    case "obstetrics_new_zzwy": {
+      // 漳州五院 - 护理记录单（产科）
+      schema = require("../config/obstetrics_new_zzwy/tr.js").default;
+    }
+      break;
+      // gynecology_new_zzwy
+    case "gynecology_new_zzwy": {
+      // 漳州五院 - 护理记录单（妇科）
+      schema = require("../config/gynecology_new_zzwy/tr.js").default;
+    }
+      break;
+    case "baby_new_zzwy": {
+      // 漳州五院 - 护理记录单（新生儿）
+      schema = require("../config/baby_new_zzwy/tr.js").default;
+    }
+      break;
+    case "record_new_zzwy": {
+      // 漳州五院 - 护理记录单
+      schema = require("../config/record_new_zzwy/tr.js").default;
     }
       break;
   }

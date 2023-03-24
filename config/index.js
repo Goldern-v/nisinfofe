@@ -162,7 +162,7 @@ const currentTargetUrl = (() => {
       // return "http://192.168.20.147:9091"  // 双艳
       // return "http://218.204.204.90:9095" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
-      return "http://192.168.103.16:9091" //
+      return "http://192.168.3.187:9091" //
       // return "http://192.168.103.16:9091" //
       // return "http://218.13.87.27:9094" //
       // return "http://192.168.1.54:9883" //测试
@@ -265,8 +265,8 @@ const currentTargetUrl = (() => {
     case 'nfyksdyy':
       return 'http://192.168.5.127:9091'
     case 'zzwy':
-      return 'http://192.168.1.90:22550'//信铭
-      return 'http://192.168.1.54:9897'
+      // return 'http://192.168.1.90:22550'//信铭
+      return 'http://192.168.3.187:9091'
 
     case 'dglb':
       return 'http://http://10.51.7.22:9094'
