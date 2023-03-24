@@ -426,40 +426,40 @@ export default {
     //  },)
 
       getExecuteWithWardCodeLyxrm(obj).then(res => {
-        // let children = [],
-        //   child = [],
-        //   tableData = [];
-        let tableData = res.data.data.map((item, index, array) => {
-          let prevRowId, nextRowId, currentRowId;
-
-          prevRowId =
-            array[index - 1] &&
-            array[index - 1].barCode;
-          nextRowId =
-            array[index + 1] &&
-            array[index + 1].barCode;
-          currentRowId =
-            array[index] && array[index].barCode;
-
+        let list =  res.data.data.sort((a,b)=>{
+          if(a.orderNo === b.orderNo){
+            return a.itemNo - b.itemNo
+          }
+        })
+        let tableData = list.map((item, index, array) => {
+          let prevRowId, nextRowId, currentRowId,prevRowTime,nextRowTime,currentRowTime;
+          prevRowId = array[index - 1] && array[index - 1].orderNo;
+          nextRowId = array[index + 1] && array[index + 1].orderNo;
+          currentRowId = array[index] && array[index].orderNo;
+          prevRowTime=array[index - 1] && array[index - 1].executeDateTime;
+          nextRowTime = array[index + 1] && array[index + 1].executeDateTime;
+          currentRowTime = array[index] && array[index].executeDateTime;
           item.id = index;
-          if (currentRowId == prevRowId || currentRowId == nextRowId) {
-            if (currentRowId != prevRowId) {
-              /** 第一条 */
-              item.rowType = 1;
-            } else if (currentRowId != nextRowId) {
-              /** 最后条 */
-              item.rowType = 3;
-            } else {
-              /** 中间条 */
-              item.rowType = 2;
-            }
+          if((currentRowTime == prevRowTime&&currentRowId == prevRowId)||(currentRowTime ==nextRowTime&& currentRowId == nextRowId)){
+            // if ((currentRowId == prevRowId || currentRowId == nextRowId)) {
+                if (currentRowId != prevRowId) {
+                /** 第一条 */
+                item.rowType = 1;
+              } else if (currentRowId != nextRowId) {
+                /** 最后条 */
+                item.rowType = 3;
+              } else {
+                /** 中间条 */
+                item.rowType = 2;
+              }
+            // }
           }
           return item;
         });
-
         // tableData.map(item => {
         //   item.child = item.child ? item.child : [{ ...item }];
         // });
+
         this.tableData = [...tableData];
         // this.page.total = Number(res.data.data.pageCount) * this.page.pageNum;
         this.pageLoading = false;
