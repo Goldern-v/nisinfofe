@@ -176,6 +176,9 @@
                 </el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
+            <router-link to="/planList" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">护理诊断计划</el-row>
+            </router-link>
             <!-- <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 护理评估
