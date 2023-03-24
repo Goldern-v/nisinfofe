@@ -63,7 +63,10 @@
           <div class="sup-title" v-else-if="HOSPITAL_ID == 'whfk'">
             血糖监测单
           </div>
-          <div class="sup-title" v-else-if="HOSPITAL_ID == 'nfyksdyy'">
+          <div class="sup-title" style="border-bottom: 1px solid black、padding-bottom: 10px"
+
+          :class="{'show-border':showBorder}"show-border
+          v-else-if="HOSPITAL_ID == 'nfyksdyy'">
             血糖记录单
           </div>
           <div class="sup-title" v-else-if="!['ytll','lyxrm'].includes(HOSPITAL_ID)">微量血糖测定登记表</div>
@@ -140,7 +143,11 @@
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
           </p>
           <div v-if="HOSPITAL_ID == 'nfyksdyy'">
-          <p flex="main:justify" >
+          <p flex="main:justify" style="
+      margin-right: 4px;
+      font-size: 13px;
+      color: #000;"
+ >
             <span>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
             <span>入院日期：{{$route.query.admissionDate}}</span>
             <span>病区{{$route.query.wardName}}</span>
@@ -342,7 +349,7 @@
   }
 
   .info {
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 5px;
 
     span {
@@ -578,6 +585,12 @@ import moment from "moment";
 import common from "@/common/mixin/common.mixin.js";
 
 export default {
+  props: {
+    showBorder: {
+      type: Boolean,
+      default: false
+    }
+  },
   mixins: [common],
   data() {
     return {

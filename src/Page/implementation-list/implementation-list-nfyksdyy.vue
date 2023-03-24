@@ -489,7 +489,8 @@ export default {
     postReason(){
       let data = {
         startTime:moment(this.startTime).format('YYYY-MM-DD')+' 08:00:00',
-        endTime:moment(this.endTime.toDate().getTime()+86400000).format('YYYY-MM-DD')+' 07:59:59',
+        // endTime:moment(this.endTime+86400000).format('YYYY-MM-DD')+' 07:59:59',
+        endTime:moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:59:59',
         wardCode:this.deptCode,
       };
       syncExecuteByWardCode(data).then((res) => {

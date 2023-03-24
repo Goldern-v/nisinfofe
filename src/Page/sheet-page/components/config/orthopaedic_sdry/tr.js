@@ -25,8 +25,8 @@ import {
   click_time
 } from "../keyEvent/date";
 
-const yishi = ["清醒√", "嗜睡+", "浅昏迷++", "深昏迷+++"];
-const yanse = [{name: '①血性液', value: '①'},{name: '②淡红色液体', value: '②'},{name: '③暗红色液', value: '③'},{name: '④黄色液', value: '④'},{name: '⑤淡黄色液', value: '⑤'},{name: '⑥深黄色液', value: '⑥'}];
+const yishi = ["清醒", "嗜睡", "浅昏迷", "深昏迷"];
+const yanse = [{name: '①血性液', value: '血性液'},{name: '②淡红色液体', value: '淡红色液体'},{name: '③暗红色液', value: '暗红色液'},{name: '④黄色液', value: '黄色液'},{name: '⑤淡黄色液', value: '淡黄色液'},{name: '⑥深黄色液', value: '深黄色液'}];
 
 export default [
   { hidden: true, key: "recordDate", value: "" },
@@ -60,7 +60,7 @@ export default [
     change: (e, td) => limitChange(e, td, 4)
   },
   {
-    key: "fieldOne",
+    key: "breath",
     event: keyf1,
     value: "",
     next: "次/分",
@@ -69,7 +69,7 @@ export default [
     change: (e, td) => limitChange(e, td, 4)
   },
   {
-    key: "fieldFour",
+    key: "bloodPressure",
     event: keyf1,
     value: "",
     next: "次/分",
@@ -213,6 +213,24 @@ export default [
     change: (e, td) => limitChange(e, td, 4)
   },
   {
+    key: "fieldOne",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "",
+    textarea: { width: 30 },
+    change: (e, td) => limitChange(e, td, 4)
+  },
+  {
+    key: "fieldTow",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "",
+    textarea: { width: 30 },
+    change: (e, td) => limitChange(e, td, 4)
+  },
+  {
     key: "fieldThirteen",
     event: keyf1,
     value: "",
@@ -242,7 +260,7 @@ export default [
       width: "300px",
       background: "transparent"
     },
-    textarea: { width: 300 },
+    textarea: { width: 240 },
     event: function(e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

@@ -51,7 +51,7 @@ export default [
     name:'脉搏',
     event: keyf1,
     textarea: {
-      width: 80
+      width: 55
     },
     change: (e, td) => limitChange(e, td, 12),
   },
@@ -61,7 +61,7 @@ export default [
     name:'呼吸',
     event: keyf1,
     textarea: {
-      width: 80
+      width: 35
     },
     change: (e, td) => limitChange(e, td, 12),
   },
@@ -77,7 +77,7 @@ export default [
       keyf1(e, td);
     },
     textarea: {
-      width: 80
+      width: 55
     },
     change: (e, td) => limitChange(e, td, 12),
   },
@@ -87,7 +87,7 @@ export default [
     name:'宫缩间歇',
     event: keyf1,
     textarea: {
-      width: 65
+      width: 55
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -100,7 +100,7 @@ export default [
       data: cxList
     },
     textarea: {
-      width: 65
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -110,7 +110,7 @@ export default [
     name:'尿量',
     event: keyf1,
     textarea: {
-      width: 65
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -145,7 +145,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 18),
     textarea: {
-      width: 115
+      width: 60
     }
   },
   /*{
