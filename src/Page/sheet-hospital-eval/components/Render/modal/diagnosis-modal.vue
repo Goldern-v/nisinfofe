@@ -104,6 +104,24 @@ export default {
       this.$root.$refs.diagnosisSlide.close();
     },
     post() {
+        let SigndataObj = {
+        Patient_ID:this.patientInfo.patientId,
+        Visit_ID:this.patientInfo.visitId,
+        Document_Title:"",
+        Document_ID: this.formCode,
+        Section_ID:"",
+        strSignData:this.formObj.model.measureStr,
+      };
+
+       let verifySignObj = {
+        patientId:this.patientInfo.patientId,
+        visitId:this.patientInfo.visitId,
+        formName:"",
+        formCode: this.formCode,
+        instanceId:"",
+        recordId:"",
+        signData:this.formObj.model.measureStr,
+      }
       window.openSignModal((password, empNo) => {
         let promistList = [];
         let objList = this.diagnosisList
@@ -140,7 +158,7 @@ export default {
         //   this.$root.$refs.diagnosisSlide.close();
         //   this.close();
         // });
-      });
+      },"",undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
     },
     sign(password, empNo) {
       let post = {

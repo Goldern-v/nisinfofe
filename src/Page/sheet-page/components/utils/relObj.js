@@ -1,14 +1,14 @@
 /** 处理relobj */
 export function renderRelObj(obj) {
-  obj = {
+  let newObj = {
     ...obj
   };
-  for (let key in obj) {
-    if (obj[key] instanceof Array) {
-      obj[key] = JSON.stringify(obj[key]);
+  for (let key in newObj) {
+    if (newObj[key] instanceof Array) {
+      newObj[key] = JSON.stringify(newObj[key]);
     }
   }
-  return obj;
+  return newObj;
 }
 /** 解析relobj */
 export function decodeRelObj(obj) {

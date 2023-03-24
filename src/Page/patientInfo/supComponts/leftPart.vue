@@ -89,6 +89,14 @@
           <div
             class="print-btn"
             flex="cross:center main:center"
+            @click="openBedPrint('baby')"
+            v-if="HOSPITAL_ID === 'dglb'"
+          >
+            新生儿床头卡打印
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
             @click="openBedPrintModal()"
             v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
           >
@@ -427,7 +435,7 @@ export default {
       if (hospital_left[this.HOSPITAL_ID]) {
         this.$refs[hospital_left[this.HOSPITAL_ID]].open(printMode);
       } else {
-        this.$refs.bedModal.open();
+        this.$refs.bedModal.open(printMode);
       }
     },
     openBedPrintModal(){

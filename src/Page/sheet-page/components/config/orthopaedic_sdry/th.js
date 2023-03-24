@@ -13,7 +13,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1350px"
+    width: "1330px"
   },
   th: {
     top: [
@@ -22,7 +22,7 @@ export default {
         name: "日期",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "70px", maxWidth: "70px" }
+        style: { minWidth: "40px", maxWidth: "40px" }
       },
       {
         name: "时间",
@@ -123,12 +123,7 @@ export default {
         key: "fieldFourteen",
         style: { minWidth: "40px", maxWidth: "40px" }
       },
-      {
-        name: "特殊情况记录",
-        colspan: "1",
-        rowspan: "2",
-        style: { minWidth: "300px", maxWidth: "300px" }
-      },
+      {name: "特殊情况记录",colspan: "1",rowspan: "2",style: { minWidth: "300px", maxWidth: "300px" }},
       {
         name: "护士签名",
         colspan: "1",

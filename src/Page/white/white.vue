@@ -91,6 +91,9 @@ export default {
     if (this.deptCode) {
       this.bus.$emit("indexGetAllData");
     }
+    if(this.deptCode && this.HOSPITAL_ID === 'fuyou'){
+      this.bus.$emit("indexGetAllBed");
+    } 
   },
   created() {
     this.bus.$on("indexGetAllData", this.getData);

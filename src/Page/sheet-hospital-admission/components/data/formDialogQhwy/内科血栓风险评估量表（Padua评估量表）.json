@@ -77,8 +77,8 @@
       "showAudit": true
     },
     "formInfo": {
-      "formCode": "E0780",
-      "formApiCode": "E0780",
+      "formCode": "E1627",
+      "formApiCode": "E1627",
       "formName": "内科血栓风险评估量表（Padua评估量表）",
       "status": "0",
       "formType": "eval"

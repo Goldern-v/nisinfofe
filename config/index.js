@@ -90,7 +90,7 @@ const currentTargetUrl = (() => {
       return "http://218.14.180.38:9094" // 江门妇幼正式
       // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
       // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
-      // return "http://192.168.3.152:9091" // 本地
+      // return "http://192.168.3.153:8080" // 本地
 
 
     /** 中山七 */
@@ -162,9 +162,10 @@ const currentTargetUrl = (() => {
       // return "http://192.168.20.147:9091"  // 双艳
       // return "http://218.204.204.90:9095" // 默认公司本地内网厚街
       // return "http://192.168.20.102:8080" //宪锋本地地址
-      return "http://192.168.3.187:9091" //
+      // return "http://192.168.103.16:9091" //
       // return "http://192.168.103.16:9091" //
       // return "http://218.13.87.27:9094" //
+      return "http://192.168.3.153:8080" //测试
       // return "http://192.168.1.54:9883" //测试
       // return "https://info.cr-health.com:20215"
 

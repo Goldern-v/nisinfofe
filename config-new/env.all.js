@@ -58,7 +58,8 @@ module.exports = {
     HOSPITAL_ID: '"huadu"',
     HOSPITAL_NAME: '"广州市花都区人民医院"',
     HOSPITAL_NAME_SPACE: '"广 州 市 花 都 区 人 民 医 院"',
-    title: '"花都人医智慧护理信息系统"'
+    title: '"花都人医智慧护理信息系统"',
+    splitSave:true
   },
   "wujing": {
     HOSPITAL_ID: '"wujing"',

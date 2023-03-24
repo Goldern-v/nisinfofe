@@ -1827,6 +1827,34 @@ export default function Title(
     );
   }
   break;
+  case "magnesiumsulphate_sdry": {
+    // 顺德"硫酸镁注射液静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/magnesiumsulphate_sdry/th.js").default)
+    );
+  }
+  break;
+  case "oxytocin_sdry": {
+    // ,"催产素静脉点滴观察表",
+    Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_sdry/th.js").default)
+    );
+  }
+  break;
+  case "insulin_pump_sdry": {
+    // 顺德胰岛素泵观察记录表",
+    Th = JSON.parse(
+      JSON.stringify(require("../config/insulin_pump_sdry/th.js").default)
+    );
+  }
+  break;
+  case "contraction_inhibitor_sdry": {
+    // 顺德,"宫缩抑制剂静脉滴注观察记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/contraction_inhibitor_sdry/th.js").default)
+    );
+  }
+  break;
   case "pediatrics_sdlj": {
     // 顺德龙江 - 护理记录单（儿科）
     Th = JSON.parse(

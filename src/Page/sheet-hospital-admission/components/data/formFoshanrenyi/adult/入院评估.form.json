@@ -4069,6 +4069,15 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
+            },
+            {
+              "name": "I2332084",
+              "type": "radio",
+              "title": "肌力",
+              "elementStyle": "margin: 8px 0 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
             }
           ]
         }
@@ -6950,7 +6959,7 @@
                     "needRiskRank": true,
                     "code": "I2332230",
                     "prefix": "化疗致恶心呕吐（CINV）风险评估单:"
-                    
+
                   }
                 }
               }

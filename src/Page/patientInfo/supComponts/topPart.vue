@@ -102,6 +102,7 @@
             HOSPITAL_ID !== 'gdtj' &&
             HOSPITAL_ID !== 'whsl'&&
             HOSPITAL_ID !== 'ytll'&&
+            HOSPITAL_ID !== 'nfyksdyy'&&
             HOSPITAL_ID !== 'dglb'
         "
         :to="{
