@@ -79,6 +79,7 @@
           <el-select
             v-if="multiBed"
             v-model="bedLabels"
+            :filterable="HOSPITAL_ID === 'whsl'"
             placeholder="请选择"
             size="small"
             :style="HOSPITAL_ID == 'ytll' ? 'width:220px' : 'width:130px'"

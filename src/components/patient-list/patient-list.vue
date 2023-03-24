@@ -39,6 +39,7 @@
           @click="selectPatient(item)"
           :class="{ active: isActive(item) }"
         >
+          <span v-if="['fuyou'].includes(HOSPITAL_ID)" class="block" :style="{background: blockBg(item)}"></span>
           <img
             :src="item.bedLabel.includes('_') ? imageBoy : imageMan"
             alt
@@ -118,6 +119,14 @@
     border-radius: 3px;
     margin: 1px 0;
     position: relative;
+    .block{
+        width: 13px;
+        height: 13px;
+        display: inline-block;
+        border-radius: 2px;
+        background: transparent;
+        // margin-right: 15px;
+    }
     .angle {
       position: absolute;
       top: 0px;
@@ -278,6 +287,13 @@ export default {
     };
   },
   methods: {
+    blockBg(item){
+      const {diagsPlanStatus} = item
+      let Status = parseInt(diagsPlanStatus)
+      if(Status===0) return 'grey'
+      else if(Status===1) return 'rgb(94, 193, 110)'
+      else if(Status===3) return '#e62c2c'
+    },
     selectPatient(item) {
       this.selectPatientId = item.patientId;
       if (this.isSelectPatient) {

@@ -628,68 +628,107 @@
                   <div class="label" style="min-width: 70px">
                     {{ item.name || key }}：
                   </div>
-                  <input
-                    type="text"
-                    :readonly="isRead"
-                    v-model="fixedList[key].value"
-                    @keydown="
-                      spaceToKey($event, fixedList[key], 'bloodPressure')
-                    "
-                    v-if="key == 'bloodPressure'"
-                    @blur="checkValue(fixedList[key])"
-                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
-                  />
-                  <input
-                    type="text"
-                    :readonly="isRead"
-                    v-model="fixedList[key].value"
-                    v-autoComplete="{
-                      dataList: dictionary[item.key],
-                      obj: fixedList,
-                      key: key,
-                      tr,
-                      td: item,
-                    }"
-                    maxlength="10"
-                    style="width: 140px"
-                    v-else-if="
-                      (sheetInfo.sheetType === 'common_hd'||sheetInfo.sheetType === 'seriousnursing_ytll') &&
-                      (key === 'food' || key === 'discharge')
-                    "
-                  />
-                  <input
-                    type="text"
-                    :readonly="isRead"
-                    v-model="fixedList[key].value"
-                    v-autoComplete="{
-                      dataList: dictionary[item.key],
-                      obj: fixedList,
-                      key: key,
-                      tr,
-                      td: item,
-                    }"
-                    maxlength="16"
-                    style="width: 220px"
-                    v-else-if="
-                      sheetInfo.sheetType === 'common_hd' &&
-                      key === 'healthEducation'
-                    "
-                  />
-                  <input
-                    type="text"
-                    :readonly="isRead"
-                    v-model="foodVal"
-                    v-autoComplete="{
-                      dataList: dictionary[item.key],
-                      obj: fixedList,
-                      key: key,
-                      tr,
-                      td: item,
-                    }"
-                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
-                    v-else-if="HOSPITAL_ID == 'beihairenyi' && key == 'food'"
-                  />
-                  <div class="fuyouDivInput" v-else-if="HOSPITAL_ID == 'fuyou'">
+                  <template v-if="HOSPITAL_ID == 'fuyou'">
+                    <div class="fuyouDivInput">
+                      <input
+                        type="text"
+                        :readonly="isRead"
+                        v-model="fixedList[key].value"
+                        @keydown="
+                          spaceToKey($event, fixedList[key], 'bloodPressure')
+                        "
+                        v-if="key == 'bloodPressure'"
+                        @blur="checkValue(fixedList[key])"
+                        :style="item.maxWidth && { width: item.maxWidth + 'px' }"
+                      />
+                      <input
+                        type="text"
+                        v-else
+                        :readonly="isRead"
+                        v-model="fixedList[key].value"
+                        @blur="checkValue(fixedList[key])"
+                        v-autoComplete="{
+                          dataList: dictionary[item.key],
+                          obj: fixedList,
+                          key: key,
+                          tr,
+                          td: item,
+                        }"
+                        :style="item.maxWidth && { width: item.maxWidth + 'px' }"
+                      />
+                      <el-tooltip
+                        placement="top"
+                        popper-class="custom-temp-dict-select"
+                        :visible-arrow="false"
+                        :manual="true"
+                      >
+                        <span class="redWarmIcon" @click="openNewDiagnosis(fixedList[key])" v-if="checkDiagnose(fixedList[key])" :title="`${fixedList[key].name}数值异常`"><i class="el-icon-information" ></i></span>
+                        <!-- <div slot="content"></div> -->
+                      </el-tooltip>
+                    </div>
+                  </template>
+                  <template v-else>
+                    <input
+                      type="text"
+                      :readonly="isRead"
+                      v-model="fixedList[key].value"
+                      @keydown="
+                        spaceToKey($event, fixedList[key], 'bloodPressure')
+                      "
+                      v-if="key == 'bloodPressure'"
+                      @blur="checkValue(fixedList[key])"
+                      :style="item.maxWidth && { width: item.maxWidth + 'px' }"
+                    />
+                    <input
+                      type="text"
+                      :readonly="isRead"
+                      v-model="fixedList[key].value"
+                      v-autoComplete="{
+                        dataList: dictionary[item.key],
+                        obj: fixedList,
+                        key: key,
+                        tr,
+                        td: item,
+                      }"
+                      maxlength="10"
+                      style="width: 140px"
+                      v-else-if="
+                        (sheetInfo.sheetType === 'common_hd'||sheetInfo.sheetType === 'seriousnursing_ytll') &&
+                        (key === 'food' || key === 'discharge')
+                      "
+                    />
+                    <input
+                      type="text"
+                      :readonly="isRead"
+                      v-model="fixedList[key].value"
+                      v-autoComplete="{
+                        dataList: dictionary[item.key],
+                        obj: fixedList,
+                        key: key,
+                        tr,
+                        td: item,
+                      }"
+                      maxlength="16"
+                      style="width: 220px"
+                      v-else-if="
+                        sheetInfo.sheetType === 'common_hd' &&
+                        key === 'healthEducation'
+                      "
+                    />
+                    <input
+                      type="text"
+                      :readonly="isRead"
+                      v-model="foodVal"
+                      v-autoComplete="{
+                        dataList: dictionary[item.key],
+                        obj: fixedList,
+                        key: key,
+                        tr,
+                        td: item,
+                      }"
+                      :style="item.maxWidth && { width: item.maxWidth + 'px' }"
+                      v-else-if="HOSPITAL_ID == 'beihairenyi' && key == 'food'"
+                    />
                     <input
                       type="text"
                       :readonly="isRead"
@@ -703,32 +742,9 @@
                         td: item,
                       }"
                       :style="item.maxWidth && { width: item.maxWidth + 'px' }"
+                      v-else
                     />
-                    <el-tooltip
-                      placement="top"
-                      popper-class="custom-temp-dict-select"
-                      :visible-arrow="false"
-                      :manual="true"
-                    >
-                      <span class="redWarmIcon" @click="openNewDiagnosis(fixedList[key])" v-if="checkDiagnose(fixedList[key])" :title="`${fixedList[key].name}数值异常`"><i class="el-icon-information" ></i></span>
-                      <!-- <div slot="content"></div> -->
-                    </el-tooltip>
-                  </div>
-                  <input
-                    type="text"
-                    :readonly="isRead"
-                    v-model="fixedList[key].value"
-                    @blur="checkValue(fixedList[key])"
-                    v-autoComplete="{
-                      dataList: dictionary[item.key],
-                      obj: fixedList,
-                      key: key,
-                      tr,
-                      td: item,
-                    }"
-                    :style="item.maxWidth && { width: item.maxWidth + 'px' }"
-                    v-else
-                  />
+                  </template>
                   <div class="uniq">{{ item.next }}</div>
                 </div>
               </div>
@@ -1434,7 +1450,13 @@ export default {
     },
     openNewDiagnosis(diagnose) {
       this.$refs.newDiagnosisModal.open();
-      this.$refs.newDiagnosisModal.searchWord=`${diagnose.name}`;
+      let endStr = ""
+      console.log(diagnose,'diagnose')
+      if(diagnose.name==='体温' || diagnose.name==='T'){
+        const {value} = diagnose
+        endStr = Number(value)<35?'过低':Number(value)>37.5?'过高':""
+      }
+      this.$refs.newDiagnosisModal.searchWord=`${diagnose.name}`+endStr;
     },
     checkDiagnose(diagnose){
       const { name, value } = diagnose
