@@ -49,6 +49,7 @@
       </el-table-column>
       <el-table-column label="医嘱内容" min-width="150px" prop="orderText">
         <template slot-scope="scope">
+          <span :class="[type(scope.row.orderStatusName),'special']">{{scope.row.specialSymbols}}</span>
           <span :class="type(scope.row.orderStatusName)">{{
             scope.row.orderText
           }}</span>

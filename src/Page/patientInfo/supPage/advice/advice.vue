@@ -301,6 +301,7 @@
 <script>
 
 import adviceTable from "./component/adviceTable";
+import adviceTableNFYKSDYY from "./component/adviceTable_nfyksdyy.vue";
 import adviceTableYc from "./component/adviceTable_yangchun";
 import adviceTableWx from "./component/adviceTable_wx";
 import adviceTableHd from "./component/adviceTable_hd";
@@ -410,6 +411,34 @@ export default {
             item.rowType = 1;
           }
         });
+      }else if(this.HOSPITAL_ID==='nfyksdyy'){
+        data.map((item, index, array) => {
+          let prevRowId, nextRowId, currentRowId,prevRowTime,nextRowTime,currentRowTime;
+          prevRowId = array[index - 1] && array[index - 1].orderNo;
+          nextRowId = array[index + 1] && array[index + 1].orderNo;
+          currentRowId = array[index] && array[index].orderNo;
+          prevRowTime=array[index - 1] && array[index - 1].executeDateTime;
+          nextRowTime = array[index + 1] && array[index + 1].executeDateTime;
+          currentRowTime = array[index] && array[index].executeDateTime;
+          item.id = index;
+          if((currentRowTime == prevRowTime&&currentRowId == prevRowId)||(currentRowTime ==nextRowTime&& currentRowId == nextRowId)){
+            if (currentRowId != prevRowId) {
+              /** 第一条 */
+              item.rowType = 1;
+              (item.specialSymbols ="┌")
+            } else if (currentRowId != nextRowId) {
+              /** 最后条 */
+              item.rowType = 3;
+              (item.specialSymbols ="└")
+            } else {
+              /** 中间条 */
+              item.rowType = 2;
+              (item.specialSymbols ="┃")
+            }
+          } else {
+            item.rowType = 1;
+          }
+        });
       }
       return data;
     },
@@ -430,6 +459,7 @@ export default {
           yangchunzhongyi:"adviceTableYc",
           'sdlj,ytll,,qhwy,zhzxy,925,gdtj':"adviceTableSDLJ",
           whsl:"adviceTableWHSL",
+nfyksdyy:'adviceTableNFYKSDYY',
           default:"adviceTable",
         }
       })
@@ -593,6 +623,7 @@ export default {
     adviceTableWHSL,
     standingOrderTable,
     statOrderTable,
+    adviceTableNFYKSDYY
   },
 };
 </script>

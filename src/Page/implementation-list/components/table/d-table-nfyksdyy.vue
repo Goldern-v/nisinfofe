@@ -87,7 +87,7 @@
 
       <u-table-column
         label="频次"
-        prop="frequency"
+        prop="itemNo"
         min-width="50px"
         align="center"
       >
@@ -360,7 +360,63 @@
     th .cell {
       padding: 0 0px !important;
     }
+    /* * 第一条 */
+    .rowType-1 {
+      position: relative;
+      padding-left: 10px;
 
+      &:before {
+        content: '';
+        position: absolute;
+        width: 5px;
+        border-left: 1px solid #333;
+        border-top: 1px solid #333;
+        left: 0px;
+        top: 50%;
+        bottom: -5px;
+      }
+    }
+
+    .rowType-2 {
+      position: relative;
+      padding-left: 10px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        border-left: 1px solid #333;
+        border-top: 1px solid #333;
+        left: 0px;
+        top: -5px;
+        bottom: -5px;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        width: 5px;
+        border-left: 1px solid #333;
+        border-top: 1px solid #333;
+        left: 0;
+        top: 50%;
+      }
+    }
+
+    .rowType-3 {
+      position: relative;
+      padding-left: 10px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 5px;
+        border-left: 1px solid #333;
+        border-bottom: 1px solid #333;
+        left: 0px;
+        bottom: 50%;
+        top: -5px;
+      }
+    }
     /* * 第一条 */
     .wrapRowType-1 {
       padding-left: 10px;
