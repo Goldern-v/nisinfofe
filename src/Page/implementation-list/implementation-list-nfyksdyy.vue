@@ -61,13 +61,12 @@
           ></el-option>
         </el-select>
         <span class="label">类型:</span>
+<!--        @change="handleChangeType"-->
         <el-select
           v-model="type"
           placeholder="请选择"
           size="small"
-          style="width:180px"
-          @change="handleChangeType"
-        >
+          style="width:180px">
           <el-option
             :label="typeItem.name"
             :value="typeItem.value"
@@ -75,9 +74,8 @@
             :key="typeItem.id"
           ></el-option>
         </el-select>
-        <span class="label" v-if="HOSPITAL_ID !== 'beihairenyi'">核对状态:</span>
+        <span class="label" >核对状态:</span>
         <el-select
-          v-if="HOSPITAL_ID !== 'beihairenyi'"
           v-model="dispenseFlag"
           placeholder="请选择"
           size="small"
@@ -291,7 +289,7 @@ export default {
       startDate: moment().format("YYYY-MM-DD")+' 08:00:00',
       endDate: moment(moment().toDate().getTime()+86400000).format("YYYY-MM-DD")+' 07:59:59',
       repeatIndicator: "",
-      type: ['全部'],
+      type:'全部',
       status: "",
       bedLabel: "",
       patientName: "",
@@ -413,8 +411,8 @@ export default {
         // executeDateTime: moment(this.startDate).format("YYYY-MM-DD "), //执行单预计执行时间
         repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
         executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
-        executeType:
-          this.type.length > 0 ? this.type.join(",") : "全部", //执行单类型:输液,口服、治疗、雾化、注射
+        executeType:this.type||"全部",
+          // this.type.length > 0 ? this.type.join(",") : "全部", //执行单类型:输液,口服、治疗、雾化、注射
         bedLabel: this.bedLabel, //床号
         patientName: this.patientName, //患者姓名
         administration: this.administration, // //途径
@@ -502,13 +500,14 @@ export default {
       this.page.pageIndex = 1;
       this.onLoad();
     },
-    handleChangeType(value) {
-      if (this.type.length === 2 && this.type.includes('全部')) {
-        this.type.shift()
-      } else if (this.type.length > 2 && this.type[this.type.length - 1] === '全部') {
-        this.type = ['全部']
-      }
-    },
+    // handleChangeType(value) {
+      // console.log("value===",value)
+      // if (this.type.length === 2 && this.type.includes('全部')) {
+      //   this.type.shift()
+      // } else if (this.type.length > 2 && this.type[this.type.length - 1] === '全部') {
+      //   this.type = ['全部']
+      // }
+    // },
   },
   created() {
     this.onLoad();
@@ -527,6 +526,9 @@ export default {
       this.search();
     },
     repeatIndicator() {
+      this.search();
+    },
+    dispenseFlag(){
       this.search();
     },
     type(newVal, oldVal) {
