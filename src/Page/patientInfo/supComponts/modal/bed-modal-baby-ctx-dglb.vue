@@ -16,7 +16,7 @@
 <style lang='scss' scoped>
 .bed-modal-ctx {
   position: relative;
-  page-break-after: always;
+  /* page-break-after: always; */
   width: 110mm;
   height: 69mm;
   padding: 15px;

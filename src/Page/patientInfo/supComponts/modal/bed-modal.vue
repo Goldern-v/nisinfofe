@@ -1168,8 +1168,11 @@ export default {
               el.style.marginLeft = "0mm";
 
             } else if (this.isDglb && this.printMode === 'baby') {
+              el.style.marginLeft = "10mm";
+              el.style.marginTop = "10mm";
               const els = el.querySelectorAll('.bed-modal-ctx')
               for (let i = 0; i < els.length; i++) {
+                i > 0 && (els[i].style.marginTop = "20px");
                 els[i].style.borderColor = '#000'
               }
             } else if (this.isDglb) {
