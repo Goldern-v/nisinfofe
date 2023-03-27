@@ -12,7 +12,7 @@
   overflow hidden
   .sugr-page
     margin 0
-    page-break-after always
+    // page-break-after always
     min-height 1000px
     // background red
   .noPrint
@@ -34,8 +34,8 @@
       width:55px;
       height:18px;
 @page {
-  margin 0 10mm 
-}        
+  margin 0 10mm
+}
 </style>
 <script>
 import $ from 'jquery'
