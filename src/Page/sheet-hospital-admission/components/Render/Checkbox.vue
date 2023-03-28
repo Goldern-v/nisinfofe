@@ -178,21 +178,24 @@ export default {
     // 点击异常的时候显示异常
     abnormalClick () {
       if (this.HOSPITAL_ID === 'foshanrenyi' && !this.obj.tasks) {
-        let obj = [
-          // 成人模块
-          {
-            id: 'I2332067',
-            value: '异常：',
-            correlationID: "I2332069"
-          },
-          {
-            id: 'I2332067',
-            value: '异常：',
-            inp: true,
-            correlationID: "I2332070"
-          },
-
-          // 是儿童模块
+        let obj = []
+        if (this.formCode === 'E2332') {
+          obj = [
+            {
+              id: 'I2332067',
+              value: '异常：',
+              correlationID: "I2332069"
+            },
+            {
+              id: 'I2332067',
+              value: '异常：',
+              inp: true,
+              correlationID: "I2332070"
+            }
+          ]
+        } else {
+          obj = [
+            // 是儿童模块
           {
             id: 'I2333075',
             value: '有：',
@@ -236,21 +239,21 @@ export default {
             correlationID: "I2333160",
             inp: true,  // input类型
           },
-        ]
+          ]
+        }
         if (obj.length > 0) {
 
           obj.forEach(item => {
             // input类型
             if(!this.formObj.model[item.id]) return
-
+            
             if (item.inp) {
-              
               let inp = this.$root.$refs[this.formCode][item.correlationID]
               inp.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
               if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
 
             } else {
-
+              
               let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
               if (elArr.length > 0) {
                 elArr.forEach(it => {
