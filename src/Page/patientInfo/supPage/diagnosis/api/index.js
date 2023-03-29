@@ -112,3 +112,8 @@ export const getTemplateApi = ()=>{
     responseType: "blob"
   });
 }
+
+// 获取对应体征的评估单
+export const getMatchVital = (params) => {
+  return axios.post(`${apiPath}match/vital`, params)
+}

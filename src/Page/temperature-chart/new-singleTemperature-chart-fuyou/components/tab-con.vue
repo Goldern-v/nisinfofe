@@ -389,6 +389,7 @@
     <newDiagnosisModal ref="newDiagnosisModal"></newDiagnosisModal>
     <slideContant ref="slideContant"></slideContant>
     <slideConRight ref="slideConRight"></slideConRight>
+    <RelationFormModal/>
   </div>
 </template>
 <script>
@@ -400,6 +401,7 @@ import slideContant from "../../../../Page/patientInfo/supPage/diagnosis/modal/s
 import slideConRight from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
 import { model } from "../../../../Page/patientInfo/supPage/diagnosis/diagnosisViewModel.js";
 import { validForm } from "../../validForm/validForm";
+import RelationFormModal from  "@/Page/patientInfo/supPage/record/component/right-part/components/relationFormModal/RelationFormModal.vue";
 import {
   getmultiDict,
   getVitalSignListByDate,
@@ -415,10 +417,10 @@ export default {
   provide() {
     return {
       openSlideCon: item => {
-          this.$refs.slideConRight.open(item)
+        this.$refs.slideConRight.open(item)
       },
       openSlideContant: async (item)=>{
-        this.$refs.slideContant.open(item)
+        this.$refs.slideContant.open(item, this.diagnose)
       }
     };
   },
@@ -531,7 +533,8 @@ export default {
       bottomExpandDate: "",
       centerExpandDate: "",
       totalDictInfo: {},
-      model
+      model,
+      diagnose: null
     };
   },
   async mounted() {
@@ -579,6 +582,7 @@ export default {
   },
   methods: {
     openNewDiagnosis(diagnose) {
+      this.diagnose = diagnose
       this.$refs.newDiagnosisModal.open();
       let endStr = ""
       if(diagnose.vitalCode==='01'){
@@ -590,32 +594,53 @@ export default {
     checkDiagnose(diagnose,i){
       console.log(diagnose,i,'checkDiagnose')
       const { vitalCode, vitalValue } = diagnose
+      if (process.env.NODE_ENV === 'development') {
+        return this.checkDiagnoseDev(diagnose, i);
+      }
       if (!['01','02','04','062','20'].includes(vitalCode)) {
         return
       } else {
         if(vitalValue){
-                  let setCheckValue = (vitalCode, vitalValue) => {
-          switch (Number(vitalCode)) {
-            case 1:
-              return Number(vitalValue) < 35 || Number(vitalValue) > 37.5
-            case 2:
-            case 20:
-              return vitalValue < 60 || vitalValue > 100
-            case 4:
-              return vitalValue < 16 || vitalValue > 20
-            case 62:
-            const Contract = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[0]:vitalValue
-            const Diastolic = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[1]:""
-              return (Contract < 90 || Contract > 139)||Diastolic&&(Diastolic<60||Diastolic>89)
-            default:
-              break;
+          let setCheckValue = (vitalCode, vitalValue) => {
+            switch (Number(vitalCode)) {
+              case 1:
+                return Number(vitalValue) < 35 || Number(vitalValue) > 37.5
+              case 2:
+              case 20:
+                return vitalValue < 60 || vitalValue > 100
+              case 4:
+                return vitalValue < 16 || vitalValue > 20
+              case 62:
+                const Contract = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[0]:vitalValue
+                const Diastolic = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[1]:""
+                return (Contract < 90 || Contract > 139)||Diastolic&&(Diastolic<60||Diastolic>89)
+              default:
+                break;
+            }
           }
-        }
-        return setCheckValue(vitalCode, vitalValue)
+          return setCheckValue(vitalCode, vitalValue)
         }
       }
     },
-       formatDate(date){
+    // 测试环境
+    checkDiagnoseDev(diagnose, index) {
+      const { vitalCode, vitalValue } = diagnose
+      const matchRule = {
+        gangTemperature: (value) => Number(value) < 35 || Number(value) > 37.5,
+        pulse: (value) => +value < 60 || +value > 100,
+        heartRate: (value) => +value < 60 || +value > 100,
+        bloodPressure: (value) => {
+          const Contract = value.includes('/') ? value.split('/').slice(0,2)[0] : value
+          const Diastolic = value.includes('/') ? value.split('/').slice(0,2)[1] : ""
+          return (Contract < 90 || Contract > 139) || Diastolic && (Diastolic < 60|| Diastolic > 89)
+        }
+      }
+      if (vitalValue) {
+        return matchRule[vitalCode] ? matchRule[vitalCode](vitalValue) : false;
+      }
+      return false
+    },
+    formatDate(date){
       return  moment(new Date(date)).format("YYYY-MM-DD")
     },
     changeNext(e) {
@@ -637,7 +662,7 @@ export default {
         }
       }
     },
-        setValid(trage, val) {
+    setValid(trage, val) {
       switch (trage) {
         case "体温":
         case "肛温":
@@ -672,7 +697,7 @@ export default {
           break;
       }
     },
-     validFormFc(vitalSignObj, index) {
+    validFormFc(vitalSignObj, index) {
       let val = vitalSignObj.vitalValue;
       if (
         val !== "" &&
@@ -826,7 +851,7 @@ export default {
       }
     },
     getFilterSelections(orgin, filterStr) {
-      console.log(orgin, filterStr,'getFilterSelections--orgin, filterStr')
+      // console.log(orgin, filterStr,'getFilterSelections--orgin, filterStr')
       if (!filterStr || !filterStr.trim()) return orgin;
       return orgin;
     },
@@ -1063,7 +1088,7 @@ export default {
     },
     //设置体温单是否可编辑
   },
-  components: { nullBg , newDiagnosisModal , slideContant ,slideConRight},
+  components: { nullBg , newDiagnosisModal , slideContant ,slideConRight, RelationFormModal},
 };
 </script>
 
