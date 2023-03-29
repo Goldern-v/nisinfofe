@@ -507,7 +507,7 @@ export default {
           });
           return this.btnLoading = false
         }
-         if(['nanfangzhongxiyi勿删'].includes(this.HOSPITAL_ID)){
+         if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
           const nanFangcaToken = localStorage["nanFangcaToken"] || ""
           const nanFangcaLogin = localStorage["nanFangcaLogin"] || ""
           nanfnagCaSign(this.username,this.password,this.verifySignObj,nanFangcaToken,nanFangcaLogin).then(res1=>{

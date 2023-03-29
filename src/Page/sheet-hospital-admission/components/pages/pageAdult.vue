@@ -1,27 +1,35 @@
 <template>
-  <div :class="fileJSON ? 'pages':'no-page'" ref="sheetPage">
-    <div
-      v-if="isShowLoadingLayout"
-      class="mask-layout"
-      v-loading="loading"
-      :element-loading-text="loadingText"
-    ></div>
-    <div :style="isShow?'display:block':'display:none'">
-      <RenderForm ref="renderForm" :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="locker"/>
+  <div :style="[heightFun()]">
+    <div v-if="route" class="tool-con" flex-box="1">
+      <sheetTool :formCodeFy='formCode' ref="sheetHospitalAdmissionTool"></sheetTool>
     </div>
-    <div :style="isShow?'display:none':'display:block;backgroud:white;'">
-      <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
-        <img src="./image/分组.png" alt/>
-        <aside>{{ message }}</aside>
+    <div :class="[route&&'sheetTable-contain']">
+      <div :class="fileJSON ? 'pages':'no-page'" ref="sheetPage">
+        <div
+          v-if="isShowLoadingLayout"
+          class="mask-layout"
+          v-loading="loading"
+          :element-loading-text="loadingText"
+        ></div>
+        <div :style="isShow?'display:block':'display:none'">
+          <RenderForm ref="renderForm" :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="locker"/>
+        </div>
+        <div :style="isShow?'display:none':'display:block;backgroud:white;'">
+          <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
+            <img src="./image/分组.png" alt/>
+            <aside>{{ message }}</aside>
+          </div>
+        </div>
+        <!-- <div class="container"></div> -->
       </div>
     </div>
-    <!-- <div class="container"></div> -->
   </div>
 </template>
 
 <script>
 import RenderForm from "@/Page/sheet-hospital-admission/components/Render/main.vue";
 import { getOldFormCode } from "@/Page/sheet-hospital-admission/components/Render/common.js";
+import sheetTool from "@/Page/sheet-hospital-admission/components/sheet-tool/sheet-tool.vue";
 import BusFactory from "vue-happy-bus";
 import common from "@/common/mixin/common.mixin.js";
 import { getPatientInfo } from '../../api'
@@ -30,7 +38,8 @@ export default {
   name: "page",
   mixins: [common],
   components: {
-    RenderForm
+    RenderForm,
+    sheetTool
   },
   data() {
     return {
@@ -60,6 +69,15 @@ export default {
       this.$refs.renderForm.updateSheet();
       this.loading = false;
     });
+    if(this.route){
+      this.$nextTick(()=>{
+        console.log("djw-mounted-init")
+        this.bus.$emit("setHosptialAdmissionLoading", true);
+        this.bus.$emit("setIsNewForm", false);
+        this.bus.$emit("getHEvalBlockList", this.$route.query);
+        this.$store.commit("upPatientInfo", this.$route.query);
+      })
+    }
   },
   watch: {
     loading(newVal, oldVal) {
@@ -86,7 +104,9 @@ export default {
     locker() {
       return this.lock;
     },
-    
+    route(){
+      return this.$route.path === '/admissionPageAdult2'
+    },
     // formCode() {
     //   try {
     //     console.log(this.formObj, this.formObj.formSetting, 'code值查询问题')
@@ -106,7 +126,16 @@ export default {
     });
 
     // 加载loading状态显示
-    this.bus.$on("setHosptialAdmissionLoading", config => {
+    this.bus.$on("setHosptialAdmissionLoading", config =>this.setHosptialAdmissionLoading(config) );
+    this.initial();
+    this.loading = false;
+  },
+  methods: {
+    heightFun(){
+      if(this.route) return {'height':'100%'}
+    },
+    setHosptialAdmissionLoading(config){
+      console.log("setHosptialAdmissionLoading",config)
       if (typeof config === "object") {
         if (config.hasOwnProperty("status")) {
           this.loading = config.status;
@@ -123,12 +152,7 @@ export default {
         this.loading = config;
         this.loadingText = "数据载入中...";
       }
-    });
-
-    this.initial();
-    this.loading = false;
-  },
-  methods: {
+    },
     // 初始化话表内容渲染
     initial(patient = null, isDevMode = false) {
       this.loading = true;
@@ -473,6 +497,14 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.sheetTable-contain
+  height 100%
+  background #DFDFDF
+  overflow auto
+  padding 15px 5px 0 15px
+  box-sizing border-box
+  margin 0 auto 20px
+  position relative
 .pages
   width: 100%;
 
