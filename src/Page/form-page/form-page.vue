@@ -88,17 +88,17 @@ export default {
     },
   },
   methods: {
-    getDate() {
-      if (this.deptCode) {
-        this.patientListLoading = true;
-        patients(this.deptCode).then((res) => {
-          this.data.bedList = res.data.data.filter((item) => {
-            return item.patientId;
-          });
-          this.patientListLoading = false;
-        });
-      }
-    },
+    // getDate() {
+    //   if (this.deptCode) {
+    //     // this.patientListLoading = true;
+    //     // patients(this.deptCode).then((res) => {
+    //     //   this.data.bedList = res.data.data.filter((item) => {
+    //     //     return item.patientId;
+    //     //   });
+    //     //   this.patientListLoading = false;
+    //     // });
+    //   }
+    // },
     isSelectPatient(item) {
       this.$router.replace(
         {
@@ -121,7 +121,7 @@ export default {
     // if (this.deptCode) {
     //   this.getDate();
     // }
-    this.bus.$on("refreshFormPagePatientList", this.getDate);
+    // this.bus.$on("refreshFormPagePatientList", this.getDate);
     // 解锁
     // this.bus.$on("quitUnlock",this.destroyUnlock)
   },

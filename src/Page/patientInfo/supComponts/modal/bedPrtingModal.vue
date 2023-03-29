@@ -506,8 +506,7 @@ export default {
     },
     isOpen() {
       this.$refs.modal.open();
-      let qr_png_value
-      qr_png_value = this.query.inpNo;
+      let qr_png_value =this.HOSPITAL_ID ==='nfyksdyy' ? `B_${this.query.wardCode}_${this.query.bedLabel}` : this.query.inpNo;
       var qr_png = qr.imageSync(qr_png_value, {
         type: "png",
         margin: 4,
