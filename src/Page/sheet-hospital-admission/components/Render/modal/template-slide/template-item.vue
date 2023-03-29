@@ -92,7 +92,7 @@ export default {
         if (this.formCode === 'E2332') {
           markObj = [
             {
-              title: "现病史：症状与体征",
+              title: "现病史",
               code: "I2332026"
             },
             {
@@ -111,7 +111,7 @@ export default {
         } else {
           markObj = [
             {
-              title: "现病史：症状与体征",
+              title: "现病史",
               code: "I2333040"
             },
             {
@@ -128,10 +128,14 @@ export default {
             }
           ]
         }
-        let mark = markObj.find(item => item.title === this.data.title)
+        let mark = markObj.find(item => this.data.title.includes(item.title))
         if (mark) {
           this.$root.$refs[this.formCode][
           mark.code
+          ].$parent.inputValue += this.data.content;
+        } else {
+          this.$root.$refs[this.formCode][
+            this.refName
           ].$parent.inputValue += this.data.content;
         }
       } else {
