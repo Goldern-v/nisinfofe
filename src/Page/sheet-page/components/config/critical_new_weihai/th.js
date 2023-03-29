@@ -23,7 +23,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },
-      
+
       {
         name: '意识',
         style: {
@@ -143,8 +143,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '160px',
-          maxWidth: '160px',
+          minWidth: '260px',
+          maxWidth: '260px',
         }
       },
       {
@@ -308,7 +308,7 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '360px',
+          minWidth: '260px',
         },
       },
       {

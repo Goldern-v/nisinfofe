@@ -29,16 +29,13 @@
                 <i class="iconfont icon-shouye"></i> 首页
               </el-row>
             </router-link>
-             <router-link to="/archive" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-guidang"></i> 归档
-              </el-row>
-            </router-link>
-             <router-link to="/bed" tag="span">
+            <router-link to="/bed" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-chuangweiyilanqia"></i> 床位一览卡
               </el-row>
             </router-link>
+
+
             <router-link to="/nursingDocumentation" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingDocumentation"></i>患者查询
@@ -95,19 +92,19 @@
                 <i class="nursingAssessment"></i> 护理文书
               </el-row>
             </router-link> -->
-            <!-- <el-dropdown
+            <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isNursing }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>护理文书
+                <i class="iconfont icon-hulijiludan"></i>护理评估单
               </el-row>
               <el-dropdown-menu slot="dropdown">
                  <el-dropdown-item :class="{active: $route.path == '/sheetHospitalAdmission'}">
                   <router-link to="/sheetHospitalAdmission" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalAdmission"></i> 首次评估
+                      <i class="sheetHospitalAdmission"></i> 一体化入院评估
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -119,13 +116,13 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown> -->
+            </el-dropdown>
 
-                  <router-link to="/formPage" tag="span">
+                  <!-- <router-link to="/formPage" tag="span">
                     <el-row class="nav-item" type="flex" align="middle">
                       <i class="nursingAssessment"></i> 护理评估单
                     </el-row>
-                  </router-link>
+                  </router-link> -->
 
              <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
@@ -136,6 +133,10 @@
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理记录单
               </el-row>
+            </router-link>
+
+            <router-link to="/sugarPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
             </router-link>
             <el-dropdown
               menu-align="start"
@@ -170,8 +171,30 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-             <router-link to="/sugarPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
+             <router-link to="/healthEdu" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="healthEdu"></i>健康教育单
+              </el-row>
+            </router-link>
+            <router-link to="/archive" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-guidang"></i> 归档
+              </el-row>
+            </router-link>
+            <router-link to="/nursingRounds" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingRounds"></i>护理巡视
+              </el-row>
+            </router-link>
+             <router-link to="/allCatheter" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="allCatheter"></i>导管
+              </el-row>
+            </router-link>
+            <router-link to="/infuse" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
+              </el-row>
             </router-link>
             <!-- <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -195,31 +218,15 @@
                 <span class="red-tip" v-if="isTip"></span>
               </el-row>
             </router-link>
-            <router-link to="/healthEdu" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="healthEdu"></i>健康教育单
-              </el-row>
-            </router-link>
-            <router-link to="/nursingRounds" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="nursingRounds"></i>护理巡视
-              </el-row>
-            </router-link>
-            <router-link to="/allCatheter" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="allCatheter"></i>导管
-              </el-row>
-            </router-link>
-            <router-link to="/infuse" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
-              </el-row>
-            </router-link>
+
+
+
             <router-link to="/statisticalQuery" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-allCatheter"></i> 统计查询
               </el-row>
             </router-link>
+
 
             <!-- <router-link to="/sheetHospitalAdmission" tag="span">
               <el-row class="nav-item" type="flex" align="middle">

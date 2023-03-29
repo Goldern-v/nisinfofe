@@ -182,6 +182,9 @@ export default {
 </style>
 
 <style lang="scss">
+#relation-form-modal-con {
+  z-index: 10003!important;
+}
 #relation-form-modal-con .sweet-content {
   overflow:hidden;
   padding: 0;
