@@ -54,8 +54,8 @@
         <span>{{ fuyouCaData ? "已登录" : "未登录" }}</span>
       </p>
       <div class="button-con">
-        <el-button size="mini" @click="()=>['fuyou','zhzxy'].includes(HOSPITAL_ID)? openFuyouCaSignModal() : openHjCaSignModal()">证书登录</el-button>
-        <el-button size="mini" @click="logoutFuYouCaSign">证书退出</el-button>
+        <el-button size="mini" v-if="needCaLogin" @click="()=>['fuyou','zhzxy'].includes(HOSPITAL_ID)? openFuyouCaSignModal() : openHjCaSignModal()">证书登录</el-button>
+        <el-button size="mini" v-if="needCaLogin" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
     <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', '925' ,'gdtj', 'stmz','nfyksdyy','qhwy'].includes(HOSPITAL_ID)">
@@ -303,6 +303,10 @@ export default {
     }
   },
   computed: {
+    needCaLogin(){
+      if(!this.HOSPITAL_ID==='fuyou') return true
+      return this.fuyouCaData? (!this.fuyouCaData.userName) :true
+    },
     lastBuildDate() {
       return this.systemInfo && this.systemInfo["最近打包时间"]
         ? moment(this.systemInfo["最近打包时间"]).format("YYYY-MM-DD HH:mm:ss")

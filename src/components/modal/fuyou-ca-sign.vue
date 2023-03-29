@@ -142,6 +142,9 @@ export default {
     close(fuyouIfclose = false) {
       if(this.fuyouIfCanClose){
         fuyouIfclose = true
+        if(["fuyou"].includes(this.HOSPITAL_ID)){
+          this.bus.$emit('fuyouLoginSuccess')
+        }
       }
       if(fuyouIfclose ===true){
         this.clearIntervalItem();
@@ -268,7 +271,6 @@ export default {
     getTrustUserInfoApi(){
       getTrustUserInfo({requestId:this.requestId}).then(res=>{
           //授权成功
-          console.log(res)
           //code
           if(res.data && res.data.data.status=='0'){
             if(res.data.data.data.employeeNumber!==localStorage.rememberAccount){
@@ -283,16 +285,19 @@ export default {
               });
               //local保存
               let {data} = res.data.data
-              console.log(data);
               window.localStorage.setItem("fuyouCaData",JSON.stringify(data));
               this.bus.$emit("updateFuyouCaData")
               //清除轮询定时器
               clearInterval(this.setIntervalApi)
               this.setIntervalApi=null;
+              if(["fuyou"].includes(this.HOSPITAL_ID)){
+                this.bus.$emit('fuyouLoginSuccess')
+              }
               setTimeout(() => {
                 clearInterval(this.setIntervalItem)
                 this.setIntervalItem=null;
                 this.authoState='0'
+                
                 this.close(true)
               }, 1000);
             }
@@ -331,7 +336,7 @@ export default {
   },
   computed:{
     fuyouIfCanClose(){
-      return JSON.parse(localStorage.user).empNo=="admin" || localStorage['fuyouUseCaSign']
+      return localStorage.rememberAccount=="admin" || (localStorage['fuyouUseCaSign']==='true')
     }
   }
 };
