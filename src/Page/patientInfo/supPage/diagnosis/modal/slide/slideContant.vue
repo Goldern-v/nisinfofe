@@ -9,7 +9,7 @@
           <i class="el-icon-close"></i>
         </div>
         <div class="save-btn" @click="save" v-if="status === '0'">
-          <div v-touch-ripple>保存111</div>
+          <div v-touch-ripple>保存</div>
         </div>
         <div class="save-btn" @click="save" v-if="status === '1'">
           <div v-touch-ripple>更新</div>
@@ -92,6 +92,29 @@
               <span class="input-count"
                 >{{ factorStr.length }}/{{ textInputMaxLength2 }}</span
               >
+            </div>
+          </div>
+          <div class="do-box"  v-if="HOSPITAL_ID == 'fuyou'">
+            <div class="label">
+              <span>【护理评估】</span>
+            </div>
+            <div class="input-group">
+              <el-select
+                v-model="evalForm"
+                filterable
+                placeholder="请选择"
+                size="small"
+                style="width: 250px"
+                autocomplete="off"
+                @change="changeEvalForm"
+              >
+                <el-option
+                  v-for="item in evalFormList"
+                  :key="item.formCode"
+                  :label="item.formName"
+                  :value="item.formCode"
+                ></el-option>
+              </el-select>
             </div>
           </div>
         </div>
@@ -307,12 +330,14 @@ import {
   measure,
   nursingDiagsSave,
   nursingDiagsView,
-  nursingDiagsUpdate
+  nursingDiagsUpdate,
+  getMatchVital,
 } from "@/Page/patientInfo/supPage/diagnosis/api/index.js";
 import moment from "moment";
 import { model } from "@/Page/patientInfo/supPage/diagnosis/diagnosisViewModel";
 import { mapState } from "vuex";
 import md5 from "md5";
+import BusFactory from 'vue-happy-bus'
 let bindData = {
   data: {},
   show: false,
@@ -334,7 +359,9 @@ let bindData = {
   beginTime:"",
   showWordLimit: true,
   textInputMaxLength: 100,
-  textInputMaxLength2: ['whsl'].includes(process.env.HOSPITAL_ID)?600:1000
+  textInputMaxLength2: ['whsl'].includes(process.env.HOSPITAL_ID)?600:1000,
+  evalFormList: [],
+  evalForm: '',
 };
 let bindDataClone = { ...bindData };
 export default {
@@ -342,17 +369,19 @@ export default {
   data() {
     return {
       ...bindData,
+      bus: BusFactory(this)
     } ;
   },
   computed: {
     ...mapState({
       measureStr: state => (state.formGuizhou.measureGuizhou ? state.formGuizhou.measureGuizhou : ""),
       targetStr: state => (state.formGuizhou.targetGuizhou ? state.formGuizhou.targetGuizhou : ""),
-      factorStr: state => (state.formGuizhou.factorStrGuizhou ? state.formGuizhou.factorStrGuizhou : "")
+      factorStr: state => (state.formGuizhou.factorStrGuizhou ? state.formGuizhou.factorStrGuizhou : ""),
+      patientInfo: state => state.sheet.patientInfo
     })
   },
   methods: {
-    open(item) {
+    async open(item, diagnose) {
       Object.assign(bindData, bindDataClone);
       this.beginTime = moment().format("YYYY-MM-DD HH:mm");
       this.show = true;
@@ -375,12 +404,88 @@ export default {
           });
         }
       });
+      // 体征关联对应评估单
+      if (diagnose) {
+        try {
+          const result = await getMatchVital({
+            patientId: diagnose.patientId,
+            visitId: diagnose.visitId,
+            vitalName: diagnose.vitalSigns,
+            vitalValue: diagnose.vitalValue,
+            wardCode: diagnose.wardCode,
+          })
+          const { data } = result.data
+          if (data && data.length) {
+            data.map(item => {
+              if (item.formUrl) {
+                Object.keys(item.formUrl).map(key => {
+                  this.evalFormList = [
+                    ...this.evalFormList,
+                    {
+                      formCode: key,
+                      formName: item.formUrl[key].replace('江门妇幼', '').replace('.html', ''),
+                      formHtml: item.formUrl[key]
+                    }
+                  ]
+                })
+              }
+            })
+          }
+        } catch (error) {
+          throw new Error(error)
+        }
+      }
     },
     close() {
       //关闭弹框取消关联输入框内容
       this.$store.commit('cleanMeasureGuizhouAll')
       this.show = false;
-
+      this.evalFormList = []
+      this.evalForm = ''
+    },
+    changeEvalForm(value) {
+      const form = this.evalFormList.find(item => item.formCode === value);
+      if (form) {
+        this.onEvalFormOpen(form);
+      }
+    },
+    // 打开评估单
+    onEvalFormOpen(form) {
+      const token = `App-Token-Nursing=51e827c9-d80e-40a1-a95a-1edc257596e7&Auth-Token-Nursing=${JSON.parse(localStorage.getItem("user")).token}`
+      const query = {
+        id: '',
+        formType: 'eval',
+        formCode: form.formCode,
+        showToolBar: false,
+        relationFormModal: true,
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        name: this.patientInfo.name,
+        patientName: this.patientInfo.name,
+        sex: this.patientInfo.sex,
+        age: this.patientInfo.age,
+        onlyView: false,
+        deptCode: this.patientInfo.deptCode,
+        deptName: this.patientInfo.deptName,
+        diagnosis: this.patientInfo.diagnosis,
+        bedLabel: this.patientInfo.bedLabel,
+        inpNo: this.patientInfo.inpNo,
+        wardCode: this.patientInfo.wardCode,
+        admissionDate: this.patientInfo.admissionDate,
+        token,
+        todo: '',
+        title: '',
+        isPrint: false,
+      }
+      this.$root.bus.$emit('showRelationFormModal', {
+        query,
+        formCode: form.formCode,
+        formUrl: form.formHtml,
+        showSignBtn: true,
+        title: `江门妇幼${form.formName}`,
+        noFetch: undefined,
+        noFetchInfo: undefined,
+      });
     },
     saveZhzxy(){
       let passWord = localStorage.getItem("ppp");
