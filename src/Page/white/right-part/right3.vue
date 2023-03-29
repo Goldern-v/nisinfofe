@@ -71,6 +71,30 @@
           </div>
         </template>
       </div>
+      <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else-if="HOSPITAL_ID=='925'">
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">值班医生：</div>
+          <input flex-box="1" v-model="data.onDutyDoctor" @blur="update" />
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">二线医生：</div>
+          <input flex-box="1" v-model="data.secondTierDoctor" @blur="update" />
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label">办公室：</div>
+          <input flex-box="1" v-model="data.workClass" @blur="update" />
+        </div>
+        <template v-if="deptCode == '041702'">
+          <div style="height: 15px"></div>
+          <div flex="cross:center">
+            <div class="label">创伤值班：</div>
+            <input flex-box="1" v-model="data.traumaOnDuty" @blur="update" />
+          </div>
+        </template>
+      </div>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else>
         <div flex="cross:center">
           <div class="label">{{doctor1}}：</div>

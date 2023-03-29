@@ -43,7 +43,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 100
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -58,7 +58,7 @@ export default [
       keyf1(e, td);
     },
     textarea: {
-      width: 100
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -67,7 +67,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 100
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -76,7 +76,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 100
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -88,7 +88,7 @@ export default [
       data: 持续
     },
     textarea: {
-      width: 100
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -97,18 +97,18 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 100
+      width: 60
     },
     change: (e, td) => limitChange(e, td, 10),
   },
   {
-    key: "dripSpeed", //自定义标题1
+    key: "dripSpeed", //滴数
     value: "",
     event: keyf1,
     textarea: {
-      width: 45
+      width: 60
     },
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 10),
   },
 
   {

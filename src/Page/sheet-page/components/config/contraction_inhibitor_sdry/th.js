@@ -7,6 +7,9 @@ function currYear() {
 export default {
   // 科室的名称
   deptType: '',
+  style: {
+    width: "800px"
+  },
   th: {
     top: [
       {
@@ -63,8 +66,7 @@ export default {
         style: {},
         colspan: '1',
         rowspan: '3',
-        canSet: true,
-        key: 'fieldFour',
+        key: 'dripSpeed',
         style: {
           minWidth: '50px',
           maxWidth: '50px',

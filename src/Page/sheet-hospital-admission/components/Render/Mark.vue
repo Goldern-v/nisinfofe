@@ -234,7 +234,7 @@ export default {
   methods: {
     reactiveRows(key, maxLength, minRows, maxRows) {
       if (this.formObj.model[key]) {
-        let number = this.formObj.model[key].replace(/[^0-9]/ig,""); 
+        let number = this.formObj.model[key].replace(/[^0-9]/ig,"");
         let word = this.formObj.model[key].replace(/[^a-z]+/ig,"");
         let char = this.formObj.model[key].split('').filter(i => i == ',').join('')
         let curLength = (this.formObj.model[key].length - number.length - word.length - char.length) + ((number.length + word.length + char.length) / 2)
@@ -288,6 +288,32 @@ export default {
             this.obj.style = r.style;
             // 替换显示 r.display
             if (
+              r.display &&
+              this.$refs[this.obj.name] &&
+              this.$refs[this.obj.name].hasOwnProperty("type") &&
+              this.$refs[this.obj.name].type === "text"
+            ) {
+              this.$refs[this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(
+                r.display
+              );
+            }
+            textResult = r.display ? r.display : "";
+          } else if (r.equals && r.equals.indexOf(valueNew) !== -1) {
+            this.obj.style = r.style;
+            // 替换显示 r.display
+            if (
+              r.display &&
+              this.$refs[this.obj.name] &&
+              this.$refs[this.obj.name].hasOwnProperty("type") &&
+              this.$refs[this.obj.name].type === "text"
+            ) {
+              this.$refs[this.obj.name].setCurrentValue(r.display);
+              this.$root.$refs[this.formCode][this.obj.name].setCurrentValue(
+                r.display
+              );
+            }
+              if (
               r.display &&
               this.$refs[this.obj.name] &&
               this.$refs[this.obj.name].hasOwnProperty("type") &&

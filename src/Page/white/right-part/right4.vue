@@ -132,6 +132,7 @@ export default {
         case "yangchunzhongyi":
           return "A班："
         case "fsxt":
+          case "925":
           return "A班："
         default:
           return "P班："

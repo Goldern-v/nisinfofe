@@ -20,40 +20,23 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time
-  }, 
+  },
   {
-    key: "temperature", //催产素浓度
+    key: "dosage", //催产素浓度
     value: "",
-    name: "体温",
+    name: "基础量",
     event: keyf1
-  }, 
+
+  },
   {
-    key: "sph", //催产素浓度
+    key: "allowance", //滴速
     value: "",
-    name: "脉搏",
-    event: keyf1
-  }, 
-  {
-    key: "breath", //催产素浓度
-    value: "",
-    name: "呼吸",
-    event: keyf1
-  }, 
-  {
-    key: "fieldOne", //催产素浓度
-    value: "",
-    name: "催产素浓度",
-    event: keyf1
-  }, 
-  {
-    key: "fieldTwo", //滴速
-    value: "",
-    name: "滴速",
+    name: "余量",
     event: keyf1
   }, {
-    key: "fieldThree", //宫缩
+    key: "partDesc", //宫缩
     value: "",
-    name: "宫缩",
+    name: "局部情况",
     event: keyf1,
     // event: function (e, td) {
     //   if (e.keyCode == 32) {
@@ -62,73 +45,8 @@ export default [
     //   }
     //   keyf1(e, td);
     // }
-  }, {
-    key: "fieldFour", //宫缩强度
-    value: "",
-    name: "宫缩强度",
-    event: keyf1
-  }, {
-    key: "fieldFive", //胎方位
-    value: "",
-    event: keyf1,
-    name: "胎方位",
-    autoComplete: {
-      data: ['LOA', 'ROA', '其它']
-    }
-  }, {
-    key: "fieldSix", //胎心
-    value: "",
-    event: keyf1,
-    name: "胎心",
-    autoComplete: {
-      data: []
-    }
-  }, {
-    key: "fieldSeven", //宫口扩张
-    value: "",
-    event: keyf1,
-    name: "宫口扩张"
-  }, {
-    key: "fieldEight", //先露高低
-    value: "",
-    event: keyf1,
-    name: "先露高低",
-    autoComplete: {
-      data: []
-    }
-  }, {
-    key: "bloodPressure", //血压mmHg
-    value: "",
-    event: keyf1,
-    name: "血压mmHg",
-    autoComplete: {
-      data: []
-    },
-    textarea: {
-      width: 36
-    }
-  }, {
-    key: "description", //特殊情况记录
-    value: "",
-    style: {
-      textAlign: "left",
-      position: "absolute",
-      top: "1px",
-      bottom: "1px",
-      left: "1px",
-      width: "153px",
-      background: "transparent"
-    },
-    event: function (e, td) {
-      console.log(e.keyCode);
-      if (e.keyCode == 9) {
-        td.value = "    " + td.value;
-        e.preventDefault();
-      }
-      keyf1(e, td);
-    }
-    // oninput: next
   },
+
   {
     key: "sign", //护士签名
     style: {

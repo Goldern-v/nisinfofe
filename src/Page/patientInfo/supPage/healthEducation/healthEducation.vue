@@ -36,9 +36,25 @@
         <!-- 表单头部信息 -->
           <div class="health-education-head">
           <!-- <div class="hospital" v-if='HOSPITAL_ID == "lingcheng"'>德 州 市 陵 城 区 人 民 医 院</div> -->
-          <div class="hospital">{{HOSPITAL_NAME_SPACE}}</div>
-          <div class="title">住院患者健康教育评估及实施记录单</div>
-          <div class="info">
+          <div v-if='HOSPITAL_ID == "nfyksdyy"' class="hospital"> <img class="nfsd-img" src="./image/nfyksdyy.png"  alt="logo" /> </div>
+          <div v-else class="hospital">{{HOSPITAL_NAME_SPACE}}</div>
+          <div class="title" style="border-bottom: 1px solid #000;">住院患者健康教育评估及实施记录单</div>
+           <div v-if='HOSPITAL_ID == "nfyksdyy"'>
+            <div class="info">
+            <span>病人姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
+            <span style="margin-left: 20px;">性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
+            <span style="margin-left: 20px;">年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
+            <span style="margin-left: 20px;">科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span>
+            <span style="margin-left: 20px;">床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
+          </div>
+          <div class="info" style="border-bottom: 1px solid #000;">
+            <span>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
+            <span style="margin-left: 20px;">入院日期：{{$route.query.admissionDate}}</span>
+            <span style="margin-left: 20px;">病区:{{$route.query.wardName}}</span>
+
+          </div>
+           </div>
+          <div class="info" v-else>
                 <span>病人姓名：{{patientInfo.name}}</span>
                 <span>性别：{{patientInfo.sex}}</span>
                 <span>年龄：{{patientInfo.age}}</span>
@@ -355,6 +371,11 @@ export default {
         height: calc(100vh - 98px);
       }
     }
+    .nfsd-img{
+    text-align: center;
+    width:300px;
+    height:60px;
+  }
     .health-education-table {
       width: 80%;
       height: calc(100vh - 65px);

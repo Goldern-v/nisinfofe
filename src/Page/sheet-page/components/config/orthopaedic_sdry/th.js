@@ -30,12 +30,12 @@ export default {
         rowspan: "2",
         style: { minWidth: "40px", maxWidth: "40px" }
       },
-      { name: "意<br/>识", colspan: "1", rowspan: "2" },
+      { name: "意识", colspan: "1", rowspan: "2" },
       { name: "T<br/>℃", colspan: "1", rowspan: "2" },
-      { name: "p<br/>次/分", colspan: "1", rowspan: "2" },
+      { name: "P<br/>次/分", colspan: "1", rowspan: "2" },
       { name: "HR<br/>次/分", colspan: "1", rowspan: "2" },
       { name: "R<br/>次/分", colspan: "1", rowspan: "2" },
-      { name: "Bp<br/>mnHg", colspan: "1", rowspan: "2" },
+      { name: "BP<br/>mnHg", colspan: "1", rowspan: "2" },
       {
         name: "血<br/>氧<br/>饱<br/>和<br/>度<br/>%",
         colspan: "1",
@@ -123,7 +123,23 @@ export default {
         key: "fieldFourteen",
         style: { minWidth: "40px", maxWidth: "40px" }
       },
-      {name: "特殊情况记录",colspan: "1",rowspan: "2",style: { minWidth: "300px", maxWidth: "300px" }},
+      {
+        name: "",
+        colspan: "1",
+        rowspan: "2",
+        canSet: true,
+        key: "fieldOne",
+        style: { minWidth: "40px", maxWidth: "40px" }
+      },
+      {
+        name: "",
+        colspan: "1",
+        rowspan: "2",
+        canSet: true,
+        key: "fieldTow",
+        style: { minWidth: "40px", maxWidth: "40px" }
+      },
+      {name: "特殊情况记录",colspan: "1",rowspan: "2",style: { minWidth: "240px", maxWidth: "240px" }},
       {
         name: "护士签名",
         colspan: "1",

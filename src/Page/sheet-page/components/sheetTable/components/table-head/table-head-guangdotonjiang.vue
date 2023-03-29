@@ -10,7 +10,7 @@
           {{ patientInfo.patientName }}
         </div>
       </span>
-      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-if="sheetInfo.sheetType=='pediatric3_tj'">
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-if="['pediatric3_tj'].includes(sheetInfo.sheetType)">
         年龄：
         <div class="bottom-line" style="min-width: 30px">{{patientInfo.age}}</div>
       </span>
@@ -123,7 +123,11 @@
           {{ patientInfo.sex }}
         </div>
       </span>
-      <span>
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-if="['generalnursing_tj'].includes(sheetInfo.sheetType)">
+        年龄：
+        <div class="bottom-line" style="min-width: 30px">{{patientInfo.age}}</div>
+      </span>
+      <span v-else>
         年龄：
         <div class="bottom-line" style="min-width: 30px">
           {{ patientInfo.age }}
@@ -179,6 +183,12 @@
         入院日期：
         <div class="bottom-line" style="min-width: 50px">
           {{ patientInfo.admissionDate | YMDHM}}
+        </div>
+      </span>
+      <span v-if="sheetInfo.sheetType=='generalnursing_tj'">
+        入院日期：
+        <div @click="updateTetxInfo('admissionDate', '入院日期', patientInfo.admissionDate)" class="bottom-line" style="min-width: 150px;height: 12px;">
+          {{ patientInfo.admissionDate | YMDHM }}
         </div>
       </span>
     </div>
@@ -532,7 +542,8 @@ export default {
       sheetInfo,
       //不需要入院日期的表单
       admissionDateList: [
-        'blood_tj'
+        'blood_tj',
+        'generalnursing_tj'
       ],
       //不需要诊断的表单
       diagnosisList: [
@@ -739,7 +750,7 @@ export default {
             this.$message.success(`修改${label}成功`);
           });
         },
-        autoText,
+        key === 'admissionDate' ? moment(autoText).format("YYYY年MM月DD日HH时mm分") :autoText,
         `修改${label}`
       );
     },

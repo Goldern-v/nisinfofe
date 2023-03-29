@@ -270,70 +270,72 @@ export default {
     runTasks(init = false) {
 
       if (this.HOSPITAL_ID === 'foshanrenyi' && !this.obj.tasks) {
-        let obj = [
-          {
-            id: 'I2332012',
-            value: '有：',
-            correlationID: "I2332013"
-          },
-          {
-            id: 'I2332084',
-            value: '活动受限：',
-            correlationID: "I2332085"
-          },
-          {
-            id: 'I2332149',
-            value: 'PICC：',
-            correlationID: "I2332152"
-          },
-          {
-            id: 'I2332124',
-            value: '有',
-            correlationID: "I2332125",
-            prefixId: "I2332125",
-          },
-          {
-            id: 'I2332124',
-            value: '有',
-            correlationID: "I2332211"
-          },
-          {
-            id: 'I2332124',
-            value: '有',
-            correlationID: "I2332126"
-          },
-          {
-            id: 'I2332127',
-            value: '异常：',
-            correlationID: "I2332212"
-          },
-          {
-            id: 'I2332101',
-            value: '有：',
-            correlationID: "I2332231"
-          },
-          
-          
-          {
-            id: 'I2332102',
-            value: '有：',
-            correlationID: "I2332232"
-          },
-          {
-            id: 'I2332102',
-            value: '有：',
-            inp: true,
-            correlationID: "I2332103",
-            prefixId: "I2332103",
-          },
-          {
-            id: 'I2332102',
-            value: '有：',
-            inp: true,
-            correlationID: "I2332104"
-          },
-        ]
-
+        let obj = []
+        // 成人
+        if (this.formCode === "E2332") {
+          obj = [
+            {
+              id: 'I2332012',
+              value: '有：',
+              correlationID: "I2332013"
+            },
+            {
+              id: 'I2332084',
+              value: '活动受限：',
+              correlationID: "I2332085"
+            },
+            {
+              id: 'I2332149',
+              value: 'PICC：',
+              correlationID: "I2332152"
+            },
+            {
+              id: 'I2332124',
+              value: '有',
+              correlationID: "I2332125",
+              prefixId: "I2332125",
+            },
+            {
+              id: 'I2332124',
+              value: '有',
+              correlationID: "I2332211"
+            },
+            {
+              id: 'I2332124',
+              value: '有',
+              correlationID: "I2332126"
+            },
+            {
+              id: 'I2332127',
+              value: '异常：',
+              correlationID: "I2332212"
+            },
+            {
+              id: 'I2332101',
+              value: '有：',
+              correlationID: "I2332231"
+            },
+            {
+              id: 'I2332102',
+              value: '有：',
+              correlationID: "I2332232"
+            },
+            {
+              id: 'I2332102',
+              value: '有：',
+              inp: true,
+              correlationID: "I2332103",
+              prefixId: "I2332103",
+            },
+            {
+              id: 'I2332102',
+              value: '有：',
+              inp: true,
+              correlationID: "I2332104"
+            },
+          ]
+        }
+        
         if (obj.length > 0) {
 
           obj.forEach(item => {

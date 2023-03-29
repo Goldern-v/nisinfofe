@@ -277,6 +277,7 @@
             :data-value="td.value"
             placeholderChar=" "
             @keydown="onKeyDown($event, { x, y, z: index, td });"
+            @change="splitSave && $emit('onModalChange',$event,tr,x,y,index);"
             @focus="
               td.autoComplete &&
                 onFocus($event, {

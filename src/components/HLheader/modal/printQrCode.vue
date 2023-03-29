@@ -136,7 +136,7 @@ export default {
     qrcode() {
       let titleObject = this.userName + " " + this.passWord;
       this.$refs.qrcodeContainer.innerHTML && (this.$refs.qrcodeContainer.innerHTML = "");
-      ['foshanrenyi','fsxt','','lyxrm','beihairenyi', 'whhk', 'stmz','qhwy'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
+      ['foshanrenyi','fsxt','','lyxrm','beihairenyi', 'whhk', 'stmz','qhwy','925'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         // width: this.cmpx,// 二维码的宽
         // height: this.cmpx,// 二维码的高
@@ -167,7 +167,7 @@ export default {
       }else{
         rememberAccount = localStorage.getItem("rememberAccount");
         ppp = localStorage.getItem("ppp");
-      } 
+      }
       this.userName = rememberAccount;
       this.passWord = ppp;
     }

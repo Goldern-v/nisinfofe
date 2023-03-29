@@ -38,7 +38,7 @@
           >
         </template>
       </el-table-column>
-      <el-table-column label="开始时间11" min-width="135px">
+      <el-table-column label="开始时间" min-width="135px">
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"

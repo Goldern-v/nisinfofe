@@ -2,15 +2,15 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "800px"
+    width: "740px"
   },
   th: {
     top: [
       {
         name: '日期',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px',
+          minWidth: '15px',
+          maxWidth: '15px',
           // display: 'none',
         },
         colspan: '1',
@@ -19,119 +19,33 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '36px',
-          maxWidth: '36px'
+          minWidth: '15px',
+          maxWidth: '15px'
         },
         colspan: '1',
         rowspan: '3'
       },
       {
-        name: '体温<br/>（℃）',
+        name: `基础量(u/h) `,
         style: {
-          minWidth: '36px',
-          maxWidth: '36px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: '脉搏<br/>（次/分）',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: '呼吸<br/>（次/分）',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: `催产<br>素浓<br>度<br>（u/500ml）`,
-        style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '25px',
+          maxWidth: '25px'
         },
         colspan: '1',
         rowspan: '3'
       },{
-        name: `滴数<br>滴/分`,
+        name: `余量(u) `,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '25px',
+          maxWidth: '25px'
         },
         colspan: '1',
         rowspan: '3'
       },{
-        name: `宫缩<br>min`,
+        name: `局部情况 `,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      },{
-        name: `宫缩<br>强度<br>s`,
-        style: {
-          minWidth: '44px',
-          maxWidth: '44px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      },{
-        name: `胎<br>方位`,
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      },{
-        name: `胎心<br>次/分`,
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      },{
-        name: `宫口<br>扩张<br>cm`,
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      },{
-        name: `先露<br>高低<br>cm`,
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      },{
-        name: `
-        血压<br>mmHg
-        `,
-        style: {
-          minWidth: '72px',
-          maxWidth: '72px'
-        },
-        colspan: '1',
-        rowspan: '3',
-        canSet: false,
-      },{
-        name: `特殊情况记录`,
-        style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '200px',
+          maxWidth: '200px'
         },
         colspan: '1',
         rowspan: '3'
@@ -140,7 +54,7 @@ export default {
         护士签名
         `,
         style: {
-          minWidth: '46px',
+          minWidth: '100px',
           // maxWidth: '72px',
         },
         colspan: '1',

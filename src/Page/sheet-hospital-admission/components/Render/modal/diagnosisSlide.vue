@@ -250,8 +250,12 @@ export default {
     },
     save() {
       let measureStr = ""
+      let targetStr = ""
       this.resultMeasuresList.forEach(item=>
         measureStr = measureStr + this.measures.find(measure=>measure.serialNo==item).measureDetail +'\n'
+      )
+      this.resultTargetList.forEach(item=>
+      targetStr = targetStr + this.targetList.find(target=>target.serialNo==item).parameter +'\n'
       )
       // window.openSignModal((password, empNo) => {
       let obj = {
@@ -266,6 +270,7 @@ export default {
         measures: this.resultMeasuresList,
         targets: this.resultTargetList,
         measureStr,
+        targetStr,
         wardCode: this.deptCode,
         beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm")
       };
