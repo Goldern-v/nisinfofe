@@ -12,12 +12,11 @@
         @click="onRowRemove"
         v-if="!$store.state.shiftRecords.isLock"
       >删除行</Button>
-      <Button :disabled="isEmpty || allSigned || !modified"  v-if="!$store.state.shiftRecords.isLock" @click="onSave(true)">保存</Button>
+      <!-- <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button> -->
+      <Button :disabled="isEmpty || allSigned"  @click="onSave(true)" v-if="!$store.state.shiftRecords.isLock">保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
-      <!-- 跳转大屏，新医院不需要加入 by龙江 -->
-      <Button :disabled="isEmpty" v-if="'sdlj' === HOSPITAL_ID" @click="onOpenPage">投屏</Button>
-      <Button :disabled="isEmpty || !!record.autographNameA"  v-if="!$store.state.shiftRecords.isLock" @click="onRemove">删除交班志</Button>
+      <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove" v-if="!$store.state.shiftRecords.isLock">删除交班志</Button>
       <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
     </div>
     <div class="container" ref="container">
@@ -26,240 +25,6 @@
         icon="el-icon-plus"
         @click="onCreateModalOpen($route.params.code)"
       >创建交班志</Placeholder>
-      <div class="paper" v-else-if="['zhzxy'].includes(HOSPITAL_ID)">
-        <div ref="printable" data-print-style="height: auto;">
-          <div class="head shift-paper">
-            <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
-            <h1 class="title">{{deptName}}</h1>
-            <h2 class="sub-title">ISBAR交班记录卡</h2>
-            <div class="details">
-              <span>
-                病区情况：原有:
-                <input type="text" v-model="record.patientTotal" />
-                人，
-              </span>
-              <span>
-                新收:
-                <input type="text" v-model="record.inHospitalTotal" />
-                人，
-              </span>
-              <span>
-                转入:
-                <input type="text" v-model="record.transInTotal" />
-                人，
-              </span>
-              <span>
-                出院:
-                <input type="text" v-model="record.outHospitalTotal" />
-                人，
-              </span>
-              <span>
-                转出:
-                <input type="text" v-model="record.transOutTotal" />
-                人，
-              </span>
-              <span>
-                现有:
-                <input type="text" v-model="record.nowHospitalTotal" />
-                人，
-              </span>
-              <span>
-                病危:
-                <input type="text" v-model="record.dangerTotal" />
-                人，
-              </span>
-              <span>
-                病重:
-                <input type="text" v-model="record.seriousTotal" />
-               人，
-              </span>
-              <span>
-                手术:
-                <input type="text" v-model="record.operationTotal" />
-                人
-              </span>
-              <span>
-                死亡:
-                <input type="text" v-model="record.patientDead" />
-                人
-              </span>
-              <span>
-                分娩:
-                <input type="text" v-model="record.patientNewBorn" />
-                人
-              </span>
-              <span>
-                交班日期:
-                <input type="text" v-model="record.changeShiftDate" />
-              </span>
-            </div>
-
-            <div
-              class="details"
-              style="margin-top: 10px"
-              v-if="record.deptCode && (record.deptCode.indexOf('051102_03') > -1 || record.deptCode.indexOf('051102_04') > -1) "
-            >
-              <span>
-                <!-- 051102 051102_03 051102_04 051102_02 -->
-                <span style="color: transparent">空</span>新生儿：原有：
-                <b>{{record.babyPatintTotal || 0}}</b>人，
-              </span>
-              <span>
-                新收：
-                <b>{{record.babyInHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转入：
-                <b>{{record.babyTransInTotal || 0}}</b>人，
-              </span>
-              <span>
-                出院：
-                <b>{{record.babyOutHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转出：
-                <b>{{record.babyTransOutTotal || 0}}</b>人，
-              </span>
-              <span>
-                现有：
-                <b>{{record.babyNowHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                病危：
-                <b>{{record.babyDangerTotal || 0}}</b>人，
-              </span>
-              <span>
-                病重：
-                <b>{{record.babySeriousTotal || 0}}</b>人，
-              </span>
-              <span>
-                手术：
-                <b>{{record.babyOperationTotal || 0}}</b>人
-              </span>
-              <span style="color: transparent">交班日期： 2019-05-15</span>
-            </div>
-          </div>
-          <ExcelTable
-            ref="table"
-            class="table"
-            :fixedTh="fixedTh"
-            data-print-style="height: auto;"
-            :columns="columns"
-            :editable="!allSigned"
-            :get-context-menu="getContextMenu"
-            v-model="patients"
-            @dblclick="onDblClickRow"
-            @input-change="onTableInputChange"
-            @input-keydown="onTableInputKeydown"
-          >
-            <tr class="empty-row" v-if="!patients.length">
-              <td colspan="7" style="padding: 0">
-                <Placeholder
-                  black
-                  size="small"
-                  data-print-style="display: none;"
-                  :show-add="!allSigned"
-                  @click="onPatientModalShow()"
-                >
-                  <i class="el-icon-plus"></i> 添加患者记录
-                </Placeholder>
-              </td>
-            </tr>
-            <tr class="normal-row">
-              <td colspan="7" class="special-case-title" data-print-style="border-bottom: none;">
-                <span class="row-title">特殊情况交接：（包括特殊复查的各种结果：如MR、CT、检验异常值等以及当班未完成治疗护理、病房安全等）</span>
-                <span
-                  class="row-action"
-                  v-if="!allSigned"
-                  @click="onSpecialCasePanelOpen"
-                  data-print-style="display: none;"
-                >特殊情况模板</span>
-              </td>
-            </tr>
-            <tr class="normal-row">
-              <td
-                colspan="7"
-                style="padding: 0;"
-                data-print-style="border-top: none;"
-                @contextmenu.stop.prevent="onContextMenu($event, record.specialSituation)"
-              >
-                <label>
-                  <el-input
-                    autosize
-                    type="textarea"
-                    class="special-case"
-                    :disabled="allSigned"
-                    v-model="record.specialSituation"
-                    @input="modified = true"
-                  />
-                </label>
-              </td>
-            </tr>
-          </ExcelTable>
-          <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
-            <div data-print-style="width: auto">
-              <span>A班签名：</span>
-              <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameA">{{record.autographNameA}}</template> -->
-                <button
-                  v-if="record.autographNameA"
-                  @click="onDelSignModalOpen('A', record.autographEmpNoA)"
-                >{{record.autographNameA}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('A')">点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameA"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoA}?${token}`"
-                :alt="record.autographNameA"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-            <div data-print-style="width: auto" v-if="HOSPITAL_ID != 'weixian'">
-              <span>P班签名：</span>
-              <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
-                <button
-                  v-if="record.autographNameP"
-                  @click="onDelSignModalOpen('P',record.autographEmpNoP)"
-                >{{record.autographNameP}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('P')">点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameP"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`"
-                :alt="record.autographNameP"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-            <div data-print-style="width: auto">
-              <span>N班签名：</span>
-              <span data-print-style="display: none">
-                <button
-                  v-if="record.autographNameN"
-                  @click="onDelSignModalOpen('N', record.autographEmpNoN)"
-                >{{record.autographNameN}}</button>
-                <button
-                  v-else
-                  :disabled="isEmpty"
-                  @click="onSignModalOpen('N', record.autographEmpNoN)"
-                >点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameN"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
-                :alt="record.autographNameN"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="paper" v-else>
         <div ref="printable" data-print-style="height: auto;">
           <div class="head shift-paper">
@@ -268,90 +33,35 @@
             <h2 class="sub-title">ISBAR交班记录卡</h2>
             <div class="details">
               <span>
-                病区情况：原有：
-                <b>{{record.patientTotal || 0}}</b>人，
+                病区情况：原有：<b><input type="text" v-model="shiftWithWardcodes.original"/></b>人，
               </span>
               <span>
-                新收：
-                <b>{{record.inHospitalTotal || 0}}</b>人，
+                新收：<b><input type="text" v-model="shiftWithWardcodes.patientNew" /></b>人，
               </span>
               <span>
-                转入：
-                <b>{{record.transInTotal || 0}}</b>人，
+                转入：<b><input type="text" v-model="shiftWithWardcodes.patientTransferIn" /></b>人，
               </span>
               <span>
-                出院：
-                <b>{{record.outHospitalTotal || 0}}</b>人，
+                出院：<b><input type="text" v-model="shiftWithWardcodes.patientOut" /></b>人，
               </span>
               <span>
-                转出：
-                <b>{{record.transOutTotal || 0}}</b>人，
+                转出：<b><input type="text" v-model="shiftWithWardcodes.patientTransferOut" /></b>人，
               </span>
               <span>
-                现有：
-                <b>{{record.nowHospitalTotal || 0}}</b>人，
+                现有：<b><input type="text" v-model="shiftWithWardcodes.allTotal" /></b>人，
               </span>
               <span>
-                病危：
-                <b>{{record.dangerTotal || 0}}</b>人，
+                病危：<b><input type="text" v-model="shiftWithWardcodes.dangerTotal" /></b>人，
               </span>
               <span>
-                病重：
-                <b>{{record.seriousTotal || 0}}</b>人，
+                病重：<b><input type="text" v-model="shiftWithWardcodes.seriousTotal" /></b>人，
               </span>
               <span>
-                手术：
-                <b>{{record.operationTotal || 0}}</b>人
+                手术：<b><input type="text" v-model="shiftWithWardcodes.operationTotal" /></b>人
               </span>
               <span>
-                交班日期：
-                <b>{{record.changeShiftDate}}</b>
+                交班日期：<b>{{record.changeShiftDate}}</b>
               </span>
-            </div>
-
-            <div
-              class="details"
-              style="margin-top: 10px"
-              v-if="record.deptCode && (record.deptCode.indexOf('051102_03') > -1 || record.deptCode.indexOf('051102_04') > -1) "
-            >
-              <span>
-                <!-- 051102 051102_03 051102_04 051102_02 -->
-                <span style="color: transparent">空</span>新生儿：原有：
-                <b>{{record.babyPatintTotal || 0}}</b>人，
-              </span>
-              <span>
-                新收：
-                <b>{{record.babyInHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转入：
-                <b>{{record.babyTransInTotal || 0}}</b>人，
-              </span>
-              <span>
-                出院：
-                <b>{{record.babyOutHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转出：
-                <b>{{record.babyTransOutTotal || 0}}</b>人，
-              </span>
-              <span>
-                现有：
-                <b>{{record.babyNowHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                病危：
-                <b>{{record.babyDangerTotal || 0}}</b>人，
-              </span>
-              <span>
-                病重：
-                <b>{{record.babySeriousTotal || 0}}</b>人，
-              </span>
-              <span>
-                手术：
-                <b>{{record.babyOperationTotal || 0}}</b>人
-              </span>
-              <span style="color: transparent">交班日期： 2019-05-15</span>
             </div>
           </div>
           <ExcelTable
@@ -411,7 +121,6 @@
               </td>
             </tr>
           </ExcelTable>
-        <div v-if="HOSPITAL_ID = 'gdtj'">
           <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
             <div data-print-style="width: auto">
               <span>A班签名：</span>
@@ -528,72 +237,6 @@
             </div>
           </div>
         </div>
-
-         <div v-else>
-          <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
-            <div data-print-style="width: auto">
-              <span>A班签名：</span>
-              <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameA">{{record.autographNameA}}</template> -->
-                <button
-                  v-if="record.autographNameA"
-                  @click="onDelSignModalOpen('A', record.autographEmpNoA)"
-                >{{record.autographNameA}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('A')">点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameA"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoA}?${token}`"
-                :alt="record.autographNameA"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-            <div data-print-style="width: auto" v-if="HOSPITAL_ID != 'weixian'">
-              <span>P班签名：</span>
-              <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
-                <button
-                  v-if="record.autographNameP"
-                  @click="onDelSignModalOpen('P',record.autographEmpNoP)"
-                >{{record.autographNameP}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('P')">点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameP"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`"
-                :alt="record.autographNameP"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-            <div data-print-style="width: auto">
-              <span>N班签名：</span>
-              <span data-print-style="display: none">
-                <button
-                  v-if="record.autographNameN"
-                  @click="onDelSignModalOpen('N', record.autographEmpNoN)"
-                >{{record.autographNameN}}</button>
-                <button
-                  v-else
-                  :disabled="isEmpty"
-                  @click="onSignModalOpen('N', record.autographEmpNoN)"
-                >点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameN"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
-                :alt="record.autographNameN"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-          </div>
-          </div>
-        </div>
       </div>
     </div>
     <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm" />
@@ -633,6 +276,7 @@ import SpecialCaseModal from "./components/special-case-modal";
 import SpecialCasePanel from "./components/special-case-panel";
 import SignModal from "./components/sign-modal";
 import $ from "jquery";
+import moment from "moment";
 const defaultPatient = {
   name: "",
   bedLabel: "",
@@ -693,6 +337,7 @@ export default {
       record: {},
       patients: [],
       copiedRow: null,
+      shiftWithWardcodes: {},
       columns: [
         {
           label: "I（介绍）",
@@ -702,7 +347,7 @@ export default {
               prop: "bedLabel",
               editable: true,
               align: "center",
-              width: this.HOSPITAL_ID=="hengli"?"45":"35"
+              width: "35"
             },
             {
               label: "姓名、性别、年龄",
@@ -771,7 +416,9 @@ export default {
         }
       ],
       fixedTh: false,
-      isLock:false
+      liaocFixedTh: false,
+      currentClass: "白班",
+      countDown:0 //交班报告倒计时
     };
   },
   computed: {
@@ -786,8 +433,6 @@ export default {
     },
     allSigned() {
       const record = this.record;
-      if(this.HOSPITAL_ID == 'weixian') return !!( record && record.autographNameA && record.autographNameN);
-      if(this.HOSPITAL_ID == 'weixian') return !!( record && record.autographNameA && record.autographNameP && record.autographNameN && record.autographNameA2 && record.autographNameP2 && record.autographNameN2);
       return !!(
         record &&
         record.autographNameA &&
@@ -819,8 +464,10 @@ export default {
     $(dom).scroll(e => {
       if ($(dom).scrollTop() >= 117) {
         this.fixedTh = true;
+        this.liaocFixedTh = true;
       } else {
         this.fixedTh = false;
+        this.liaocFixedTh = false;
       }
     });
   },
@@ -876,6 +523,11 @@ export default {
     onCodeChange(code) {
       this.$router.push({ path: `/shiftWork/${code}` });
     },
+    onClassChange(currentClass){
+      this.currentClass = currentClass;
+      sessionStorage.setItem(this.$route.fullPath,this.currentClass);
+      this.load();
+    },
     async load() {
       const id = this.$route.params.id;
       if (!id) return;
@@ -909,12 +561,13 @@ export default {
       this.loading = true;
       try {
         const {
-          data: { data }
+          data
         } = await apis.getShiftRecord(id);
-        if(data.myNurseName){
+        /* 提示正在操作。然后操作按钮隐藏 */
+        if(data.errorCode=='3001'){
            window.app && window.app.$message({
             showClose: true,
-            message: `${data.myNurseName}正在编辑表单中，请稍后再编辑`,
+            message: `其他护士${data.desc}`,
             type: 'error',
             duration:5000
           })
@@ -931,7 +584,6 @@ export default {
                   clearInterval(this.$store.state.shiftRecords.countDownId)
                   this.$store.commit("changeCountDownId",'')
                }
-              // console.log('交班报告打印剩余时间，方便查找bug。一段时间没问题，可以删除',this.countDown)
               this.countDown=this.countDown-1000
             },1000)
             this.$store.commit("changeCountDownId",countDownTimeId)
@@ -942,10 +594,11 @@ export default {
           // 存入进入的时间
           this.$store.commit("changeEnterTime",Date.now())
         }
-        const { changeShiftTime: record, changeShiftPatients: patients } = data;
+        const { changeShiftTimes: record, changeShiftPatients: patients,shiftWithWardcodes: shiftWithWardcodes } = data.data;
         record.specialCase = record.specialCase || "";
         this.record = record;
         this.patients = patients;
+        this.shiftWithWardcodes = shiftWithWardcodes[0];
         this.modified = false;
 
         if (patients.length < 11) {
@@ -959,7 +612,6 @@ export default {
         this.$router.replace({ name: "shiftWorks" });
       }
       this.loading = false;
-      console.log(this.patients);
     },
     getContextMenu() {
       const { selectedRow, selectedCol } = this.$refs.table;
@@ -1054,14 +706,11 @@ export default {
               data["age"] = remoteDate["age"];
               data["patientStatus"] = remoteDate["patientStatus"];
 
-
-              if(this.HOSPITAL_ID != "hj"){
-                selectedRow["bedLabel"] = data["bedLabel"];
-                selectedRow["name"] = data["name"];
-                selectedRow["age"] = data["age"];
-                selectedRow["patientStatus"] = data["patientStatus"];
-                selectedRow["diagnosis"] = data["diagnosis"];
-              }
+              selectedRow["bedLabel"] = data["bedLabel"];
+              selectedRow["name"] = data["name"];
+              selectedRow["age"] = data["age"];
+              selectedRow["patientStatus"] = data["patientStatus"];
+              selectedRow["diagnosis"] = data["diagnosis"];
               selectedRow["mainComplaint"] = data["mainComplaint"];
               selectedRow["background"] = data["background"];
               selectedRow["assessmentSituation"] = data["assessmentSituation"];
@@ -1115,36 +764,14 @@ export default {
               });
               // this.modified = true
               const selectedRow = this.$refs.table.selectedRow;
-              if (selectedRow && selectedRow.id) {
-                await apis.removeShiftRecordRow(selectedRow.id);
+              if (selectedRow && selectedRow.sortValue) {
+                await apis.removeShiftRecordRow(this.record.id,selectedRow.sortValue);
               }
               this.$refs.table.removeRow();
             }
           }
         ];
 
-        const addOthers=[//新增操作类型
-          {
-            name: "移动至首行",
-            icon: "xiangxiacharuyihang",
-            click: async () => {
-              // this.modified = true
-              this.$refs.table.moveRowFirst();
-              await this.onSave();
-            }
-          },
-          {
-            name: "移动至末行",
-            icon: "charuxinhang",
-            click: async () => {
-              // this.modified = true
-              this.$refs.table.moveRowLast();
-              await this.onSave();
-            }
-          }
-        ];
-        //谢岗添加新增操作类型
-        (['xiegang'].includes(this.HOSPITAL_ID)) && (others.splice(2,0,...addOthers));
         menus = menus.concat(others);
       }
 
@@ -1202,8 +829,8 @@ export default {
       });
       // this.modified = true
       const selectedRow = this.$refs.table.selectedRow;
-      if (selectedRow && selectedRow.id) {
-        await apis.removeShiftRecordRow(selectedRow.id);
+      if (selectedRow && selectedRow.sortValue) {
+        await apis.removeShiftRecordRow(this.record.id,selectedRow.sortValue);
       }
       this.$refs.table.removeRow();
     },
@@ -1211,7 +838,7 @@ export default {
       // if (this.allSigned) {
       //   return
       // }
-
+      console.log(row, rowIndex, col,'onDblClickRow')
       const tabMap = {
         background: "2",
         assessmentSituation: "3",
@@ -1225,31 +852,20 @@ export default {
         !!this.record.autographNameN
       );
     },
-    onPatientsModalShow(d,isSelected=true) {
-      /*
-      d:日期
-      isSelected:已有病人是否不给选择。
-      这个函数有三个地方使用。①已经有交班志的时候 ②创建交班志的时候（不复制前一天病人） ③创建交班志的时候（复制前一天病人）
-      ①③执行selectedKeys代码
-      */
+    onPatientsModalShow(d) {
       const id = this.$route.params.id;
       const deptCode = this.$route.params.code;
       const date = d || this.record.changeShiftDate;
-      let selectedKeys=[]
-      if(isSelected){
-         selectedKeys = this.patients
-          .filter(p => p.patientId && p.visitId)
-          .map(p => p.patientId + "//" + p.visitId);
-      }
+
+      const selectedKeys = this.patients
+        .filter(p => p.patientId && p.visitId)
+        .map(p => p.patientId + "//" + p.visitId);
+
       this.$refs.patientsModal.open({ deptCode, date, id, selectedKeys });
     },
     onPatientsModalConfirm(patients) {
       for (let p of patients) {
-        let obj = {...p};
-        obj["mainComplaint"] = obj.complaint || "";
-        obj["proposal"] = obj.advice || "";
-        obj["assessmentSituation"] = obj.evaluate || "";
-        this.$refs.table.addRow(obj);
+        this.$refs.table.addRow(p);
       }
       this.modified = true;
       this.$refs.patientsModal.close();
@@ -1312,11 +928,12 @@ export default {
       const changeShiftPatients = this.patients
         .filter(p => p.name || p.id)
         .map((p, i) => ({ ...p, sortValue: i + 1 }));
+      const shiftWithWardcodes = [this.shiftWithWardcodes]
 
       await apis.updateShiftRecord({
-        changeShiftTime,
+        changeShiftTimes: changeShiftTime,
         changeShiftPatients,
-        deptCode
+        shiftWithWardcodes
       });
 
       this.load();
@@ -1414,7 +1031,7 @@ export default {
       //   }
       // });
       window.openSignModal(async (password, username) => {
-        await apis.removeShiftRecord(this.record.id, username, password);
+        const res=  await apis.removeShiftRecord(this.record.id, username, password);
         if(res.data.code==200 && res.data.desc=='操作成功'){
            await this.toUnLock()
            // 关闭定时器
@@ -1442,6 +1059,7 @@ export default {
     async onPrint() {
       this.loading = true;
       this.fixedTh = false;
+      this.liaocFixedTh = false;
       this.$nextTick(async () => {
         await print(this.$refs.printable, {
           beforePrint: formatter,
@@ -1449,14 +1067,23 @@ export default {
           injectGlobalCss: true,
           scanStyles: false,
           css: `
-        .fixedTh {
-          display: none !important;
-          height: auto;
-        }
-        pre {
-          white-space: pre-wrap;
-        }
-        `
+          .fixedTh {
+            display: none !important;
+            height: auto;
+          }
+          .liaocFixedTh {
+            display: none !important;
+            height: auto;
+          }
+          pre {
+            white-space: pre-wrap;
+          }
+          .details pre {
+            display: inline-block;
+            width: 30px;
+            text-align: center;
+          }
+         `
         });
       });
       this.loading = false;
@@ -1529,11 +1156,11 @@ export default {
 
         textareas[toIndex].focus();
       }
-    },
-    onOpenPage() {
-      const a = document.createElement('a')
-      a.href = `http://192.168.100.182:9091/crNursing/whit/#/shift-work?code=${this.$route.params.code}&date=${this.record.changeShiftDate}`
-      a.click()
+    }
+  },
+  filters:{
+    timeCountDown(val){
+       return moment(val).format('mm:ss')
     }
   },
   components: {
@@ -1602,6 +1229,14 @@ export default {
   // padding 15px 0 10px
 }
 
+.liaocFixedTh{
+  position fixed
+  background-color:#fff
+  top 103px
+  width 1040px
+  z-index 1
+}
+
 .logo {
   position: absolute;
   left: 0;
@@ -1625,10 +1260,29 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
-
+  align-items: center;
   >span {
     flex: 1;
     white-space: nowrap;
+  }
+}
+
+
+.top-detail {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.top-detail,.details {
+  input {
+    width: 20px;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-weight: bold;
   }
 }
 
@@ -1648,16 +1302,6 @@ export default {
   height: 32px;
   font-size: 13px;
   font-weight: bold;
-}
-
-.top-detail,.details {
-  input {
-    width: 15px;
-    border: none;
-    outline: none;
-    text-align: center;
-    font-weight: bold;
-  }
 }
 
 .row-action {
@@ -1713,11 +1357,25 @@ export default {
     cursor: pointer;
   }
 }
-</style>
-<style lang="stylus">
+.class-option {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 @media print {
   .shift-paper {
     padding-top: 40px !important;
+    .class-option {
+      top: 40px;
+      >>> .el-select {
+         .el-input__inner {
+            border: none;
+          }
+          i {
+            display: none;
+          }
+      }
+    }
   }
 }
 
@@ -1725,4 +1383,3 @@ export default {
   margin: 0 10mm;
 }
 </style>
-
