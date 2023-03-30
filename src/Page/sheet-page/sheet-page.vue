@@ -367,7 +367,7 @@ export default {
       return resultModel;
     },
     sheetTable() {
-      console.log("sheetInfo.sheetType",sheetInfo,sheetInfo.sheetType)
+      // console.log("sheetInfo.sheetType",sheetInfo,sheetInfo.sheetType)
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
         //  return sheetTablePost_partum;
@@ -889,7 +889,7 @@ export default {
               return data
             })
           }
-          console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
+          // console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
           if(this.HOSPITAL_ID == 'wujing'){
             let trueRecordTimes = []
             //因为相同记录跨页日期时间会一样，这时候去判断记录会判断为同一条记录 ，所以要先根据记录日期去重
@@ -900,7 +900,7 @@ export default {
               }
             })
             let newLen = new Set(trueRecordTimes).size
-            console.log('newLen',newLen,trueRecordTimes)
+            // console.log('newLen',newLen,trueRecordTimes)
             if(trueRecordTimes.length>newLen){
               this.$notify.warning({
                 title: "提示",
@@ -987,10 +987,11 @@ export default {
         }
       }
     );
-    this.bus.$on("refreshSheetPage", () => {
-
-      this.getSheetData()
-    });
+    // this.bus.$on("refreshSheetPage", () => {
+    //   // 是否刷新数据
+    //   this.getSheetData()
+    // });
+    this.getSheetData()
     //保存前做签名校验
     this.bus.$on("toSheetSaveNoSign", (newWid) => {
       let flag = true //控制保存开关
