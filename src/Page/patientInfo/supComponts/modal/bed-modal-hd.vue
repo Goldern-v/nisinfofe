@@ -627,13 +627,18 @@
     box-sizing: border-box;
 
     .bed-card-vert-con {
-      transform: scale(0.8) translateX(-2.1cm) translateY(-0.7cm);
+      transform-origin: 0 0;
+      transform: scale(0.82) translateX(-6px) translateY(-9px);
+      width: 121%;
+    }
+    span {
+      font-size: 21px;
     }
 
     .qr-code {
       position: absolute;
-      right: 75px !important;
-      top: 55% !important;
+      right: 42px !important;
+      top: 50% !important;
       margin-top: -56px;
       height: 112px;
       width: 112px;
