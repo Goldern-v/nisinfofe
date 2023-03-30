@@ -29,7 +29,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column prop="diagName" label="护理问题" width="205" header-align="center"></el-table-column>
+        <el-table-column prop="diagName" label="护理诊断" width="205" header-align="center"></el-table-column>
         <el-table-column prop="diagFactor" label="问题因素" width="180" header-align="center"></el-table-column>
         <!-- <el-table-column prop="diagMeasures" label="护理措施计划" min-width="150px" header-align="center" >
         </el-table-column> -->
@@ -192,7 +192,7 @@
         </el-table-column>
          <el-table-column label="护理等级" width="70" header-align="center" prop="nursingClass">
         </el-table-column>
-        <el-table-column prop="diagName" label="护理问题" width="120" header-align="center"></el-table-column>
+        <el-table-column prop="diagName" label="护理诊断" width="120" header-align="center"></el-table-column>
         <el-table-column label="护理措施计划" width="150" header-align="center">
           <template slot-scope="scope">
             <!-- <div v-for="(item, index) in scope.row.measuresName" :key="index">
@@ -395,6 +395,29 @@ export default {
     },
     del(row) {
       // if (!this.verify()) return;
+     let strSignData = ""
+     if(row.measuresName.length>0) row.measuresName.forEach(item=>{
+      strSignData += item.measureDetail+'/n'
+     })
+     else strSignData = row.diagMeasures
+      let SigndataObj = {
+        Patient_ID:this.$route.query.patientId,
+        Visit_ID:this.$route.query.visitId,
+        Document_Title:"",
+        Document_ID:model.selectedRow.diagCode,
+        Section_ID:this.baseParams.formCode,
+        strSignData: strSignData,
+      };
+
+       let verifySignObj = {
+        patientId:this.$route.query.patientId,
+        visitId:this.$route.query.visitId,
+        formName:"",
+        formCode:model.selectedRow.diagCode,
+        instanceId:row.id,
+        recordId:"",
+        signData:strSignData,
+      }
       model.selectedRow = row;
       window.openSignModal((password, empNo) => {
         console.log(password);
@@ -403,7 +426,7 @@ export default {
           model.refreshTable();
           model.selectedRow = null;
         });
-      }, "你确定要删除诊断？");
+      }, "你确定要删除诊断？",undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
     },
     stop(row) {
       // if (!this.verify()) return;

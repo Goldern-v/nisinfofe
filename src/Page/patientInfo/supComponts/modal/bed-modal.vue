@@ -1060,6 +1060,7 @@ export default {
           break;
         case "lyxrm":
         case "stmz":
+        case "gdtj":
           qr_png_value = "P" + this.query.patientId;
           break;
         case "whhk":
@@ -1100,10 +1101,10 @@ export default {
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
       let showqrCodeNum = "";
-      if (["zhzxy"].includes(this.HOSPITAL_ID)) {
+      if (["zhzxy",'gdtj'].includes(this.HOSPITAL_ID)) {
         showqrCodeNum = this.query.patientId;
       }
-      this.qrCodeNum = ["zhzxy"].includes(this.HOSPITAL_ID)
+      this.qrCodeNum = ["zhzxy",'gdtj'].includes(this.HOSPITAL_ID)
         ? showqrCodeNum
         : qr_png_value;
     },
