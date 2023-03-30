@@ -76,7 +76,7 @@
             />
           </ElSelect>
         </ElFormItem>
-        <ElFormItem prop="remarks" label="备注：">
+        <ElFormItem prop="remarks" label="备注：" v-if="HOSPITAL_ID !== 'qhwy'">
           <ElInput v-model="form.remarks" />
         </ElFormItem>
         <!-- <ElFormItem prop="signature" label="签名：">
