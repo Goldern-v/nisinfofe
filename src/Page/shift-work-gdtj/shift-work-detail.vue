@@ -269,51 +269,53 @@
             <div class="details">
               <span>
                 病区情况：原有：
-                <b>{{record.patientTotal || 0}}</b>人，
+                <input type="text" v-model="record.patientTotal" />人，
+                <!-- <b>{{record.patientTotal || 0}}</b>人， -->
               </span>
               <span>
                 新收：
-                <b>{{record.inHospitalTotal || 0}}</b>人，
+                <input type="text" v-model="record.inHospitalTotal" />人，
+                <!-- <b>{{record.inHospitalTotal || 0}}</b>人， -->
               </span>
               <span>
                 转入：
-                <b>{{record.transInTotal || 0}}</b>人，
+                <input type="text" v-model="record.transInTotal" />人，
+                <!-- <b>{{record.transInTotal || 0}}</b>人， -->
               </span>
               <span>
                 出院：
-                <b>{{record.outHospitalTotal || 0}}</b>人，
+                <input type="text" v-model="record.outHospitalTotal" />人，
+                <!-- <b>{{record.outHospitalTotal || 0}}</b>人， -->
               </span>
               <span>
                 转出：
-                <b>{{record.transOutTotal || 0}}</b>人，
+                <input type="text" v-model="record.transOutTotal" />人，
+                <!-- <b>{{record.transOutTotal || 0}}</b>人， -->
               </span>
               <span>
                 现有：
-                <b>{{record.nowHospitalTotal || 0}}</b>人，
+                <input type="text" v-model="record.nowHospitalTotal" />人，
+                <!-- <b>{{record.nowHospitalTotal || 0}}</b>人， -->
               </span>
               <span>
                 病危：
-                <b>{{record.dangerTotal || 0}}</b>人，
+                <input type="text" v-model="record.dangerTotal" />人，
+                <!-- <b>{{record.dangerTotal || 0}}</b>人， -->
               </span>
               <span>
                 病重：
-                <b>{{record.seriousTotal || 0}}</b>人，
+                <input type="text" v-model="record.seriousTotal" />人，
+                <!-- <b>{{record.seriousTotal || 0}}</b>人， -->
               </span>
               <span>
                 手术：
-                <b>{{record.operationTotal || 0}}</b>人
-              </span>
-              <span v-if="HOSPITAL_ID == 'zhzxy'">
-                死亡：
-                <b>{{record.patientDead || 0}}</b>人
-              </span>
-              <span v-if="HOSPITAL_ID == 'zhzxy'">
-                分娩：
-                <b>{{record.patientNewBorn || 0}}</b>人
+                <input type="text" v-model="record.operationTotal" />人，
+                <!-- <b>{{record.operationTotal || 0}}</b>人 -->
               </span>
               <span>
                 交班日期：
-                <b>{{record.changeShiftDate}}</b>
+                <input type="text" v-model="record.changeShiftDate" style="width: 90px" />
+                <!-- <b>{{record.changeShiftDate}}</b> -->
               </span>
             </div>
 
@@ -904,7 +906,7 @@ export default {
           let min=10
           const {data:{data}}=await apis.unLockTime()
           if(data!=='his_form_data_lock_timeout'){
-            min=+data 
+            min=+data
             this.$store.commit("changeSetupTime",min)
        }
       }
@@ -944,7 +946,7 @@ export default {
             },1000)
             this.$store.commit("changeCountDownId",countDownTimeId)
           }
-          
+
           // 没有锁定成功进入。把ID存入VUEX解锁用
           this.$store.commit("changeShiftRecordID",id)
           // 存入进入的时间
