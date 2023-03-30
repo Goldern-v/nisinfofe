@@ -334,8 +334,10 @@ export default {
     $("#app").css({
       minWidth: sheetTableWidth + "px"
     });
+    console.log("this.sheetInfo.sheetType ",this.sheetInfo.sheetType )
 
     if (sheetTableWidth > 1000 && !['ops_linyi','nicu_custody_hd'].includes(this.sheetInfo.sheetType) ) {
+      console.log("jinlaidayin")
       printDir("h");
       addCSS(
         window,
@@ -393,7 +395,7 @@ export default {
               `
           @media print {
             .iframe > div:nth-of-type(n) {
-              // height: ${sheetTableWidth * 0.73}px !important;
+              height: ${sheetTableWidth * 0.73}px !important;
               transform: rotateZ(0deg) scaleY(1.25) translateY(-30px) !important;
               transform-origin: top !important;
             }
@@ -905,6 +907,7 @@ export default {
       });
     });
     $(".iframe > div").each((index, element) => {
+      console.log($(element).find(".contant").length);
       if ($(element).find(".contant").length == 0) {
         $(element).remove();
       }
