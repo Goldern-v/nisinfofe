@@ -152,6 +152,8 @@ export default {
           return "P班："
         case "whyx":
           return "大N班："
+        case "gdtj":
+          return "A班："
         default:
           return "P全班："
       }

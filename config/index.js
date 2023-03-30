@@ -166,8 +166,8 @@ const currentTargetUrl = (() => {
       // return "http://192.168.103.16:9091" //
       // return "http://192.168.103.16:9091" //
       // return "http://218.13.87.27:9094" //
-      return "http://192.168.20.136:8080" //测试
-      // return "http://192.168.1.54:9883" //测试
+      // return "http://192.168.20.136:8080" //测试
+      return "http://192.168.1.54:9883" //测试
       // return "https://info.cr-health.com:20215"
 
     // 福清妇幼保健院
@@ -224,7 +224,7 @@ const currentTargetUrl = (() => {
 
     // 青海五院
     case 'qhwy':
-      return 'http://112.233.241.99:8094'
+      return 'http://223.220.175.6:50014/'
 
     // 临沂沂州
     case 'lyyz':
