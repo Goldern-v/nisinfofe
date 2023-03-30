@@ -5,7 +5,7 @@
     size="small"
     :title="title1 || title"
     :overlay-theme="overlayTheme"
-    style="z-index: 10002"
+    style="z-index: 10004"
     class="signModal"
   >
     <div v-show="message && message.length > 0" class="message-box">

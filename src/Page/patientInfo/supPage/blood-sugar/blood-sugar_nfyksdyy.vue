@@ -19,17 +19,16 @@
             血糖记录单
           </div>
 
-          <div class="info">
+          <div class="info" style="margin-top: 0px">
             <span>病人姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
             <span style="margin-left: 20px;">性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span style="margin-left: 20px;">年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
-            <span style="margin-left: 20px;">科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span>
             <span style="margin-left: 20px;">床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
+            <span style="margin-left: 20px;">住院号：{{patientInfo.inpNo}}</span>
           </div>
           <div class="info" style="border-bottom: 1px solid #000;">
-            <span>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
-            <span style="margin-left: 20px;">入院日期：{{$route.query.admissionDate}}</span>
-            <span style="margin-left: 20px;">病区:{{$route.query.wardName}}</span>
+            <span>科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span>
+            <span style="margin-left: 80px;">病区:{{$route.query.wardName}}</span>
 
           </div>
 
