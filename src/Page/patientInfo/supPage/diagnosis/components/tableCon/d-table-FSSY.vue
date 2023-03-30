@@ -405,7 +405,7 @@ export default {
         Visit_ID:this.$route.query.visitId,
         Document_Title:"",
         Document_ID:model.selectedRow.diagCode,
-        Section_ID:this.baseParams.formCode,
+        Section_ID:model.selectedRow.diagCode,
         strSignData: strSignData,
       };
 
