@@ -1,7 +1,7 @@
 <template>
-  <div :class="{ hj:  ['hj','sdlj','fuyou'].includes(HOSPITAL_ID) }">
+  <div :class="{ hj:  ['hj','sdlj','fuyou'].includes(HOSPITAL_ID) }" :style="[heightFun()]">
     <component :is="witchLeft" v-if="inited"/>
-    <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
+    <div class="right-part" :style="[{ marginLeft: openLeft ? '200px' : '0' },heightFun2()]">
       <component :is="switchCompt()" v-if="inited" />
       <router-view v-if="inited"></router-view>
     </div>
@@ -31,6 +31,7 @@
 }
 
 .right-part {
+  height: 100%;
   transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
 }
 </style>
@@ -99,6 +100,12 @@ export default {
     this.getPatientData();
   },
   methods: {
+    heightFun(){
+      if(['/admissionPageAdult2','/admissionPageChild2'].includes(this.$route.path)) return {'height':'830px'}
+    },
+    heightFun2(){
+      if(['/admissionPageAdult2','/admissionPageChild2'].includes(this.$route.path)) return {'height':'100%'}
+    },
     // openNewFormBoxClean(box){
     //   this.$refs.openNewFormModal.open(box)
     // },

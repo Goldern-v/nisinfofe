@@ -25,7 +25,7 @@
 import fileicon from "@/common/images/doctorEmr/文件.png";
 import filebox from "@/common/images/doctorEmr/文件夹.png";
 import BusFactory from "vue-happy-bus";
-import {getDoctorEmr2 } from "../../api/index";
+import {getDoctorEmr2, getDoctorEmr } from "../../api/index";
 export default {
   data() {
     return {

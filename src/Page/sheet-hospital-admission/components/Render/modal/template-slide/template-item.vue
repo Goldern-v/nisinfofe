@@ -86,9 +86,63 @@ export default {
       return this.filterData.filter(item => item.id !== this.data.id)
     },
     addTemplateAtDoc() {
-      this.$root.$refs[this.formCode][
-        this.refName
-      ].$parent.inputValue += this.data.content;
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        let markObj = []
+        // 成人模板
+        if (this.formCode === 'E2332') {
+          markObj = [
+            {
+              title: "现病史",
+              code: "I2332026"
+            },
+            {
+              title: "基础护理",
+              code: "I2332181"
+            },
+            {
+              title: "专科护理",
+              code: "I2332182"
+            },
+            {
+              title: "其他",
+              code: "I2332184"
+            }
+          ]
+        } else {
+          markObj = [
+            {
+              title: "现病史",
+              code: "I2333040"
+            },
+            {
+              title: "基础护理",
+              code: "I2333184"
+            },
+            {
+              title: "专科护理",
+              code: "I2333185"
+            },
+            {
+              title: "其他",
+              code: "I2333187"
+            }
+          ]
+        }
+        let mark = markObj.find(item => this.data.title.includes(item.title))
+        if (mark) {
+          this.$root.$refs[this.formCode][
+          mark.code
+          ].$parent.inputValue += this.data.content;
+        } else {
+          this.$root.$refs[this.formCode][
+            this.refName
+          ].$parent.inputValue += this.data.content;
+        }
+      } else {
+        this.$root.$refs[this.formCode][
+          this.refName
+        ].$parent.inputValue += this.data.content;
+      }
     },
     toEdit() {
       if (this.HOSPITAL_ID === 'foshanrenyi') {
