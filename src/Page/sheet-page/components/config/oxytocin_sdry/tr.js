@@ -102,7 +102,7 @@ export default [
     name: "胎膜"
   },
   {
-    key: "membranes", //羊水性质
+    key: "amnion", //羊水性质
     value: "",
     event: keyf1,
     name: "羊水性质"
@@ -209,21 +209,9 @@ export default [
 ];
 
 export function getListData4() {
-  let list = [
-    "宫底",
-    "子宫收缩",
-    "膀胱情况",
-    "入量项目",
-    "出量项目"
-  ];
+
   multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    console.log(data);
-    setList(宫底, "宫底", data);
-    setList(子宫收缩, "子宫收缩", data);
-    setList(膀胱情况, "膀胱情况", data);
-    setList(入量项目, "入量项目", data);
-    setList(出量项目, "出量项目", data);
+
   });
 }
 

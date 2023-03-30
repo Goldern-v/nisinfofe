@@ -187,7 +187,7 @@
       </span>
       <span v-if="sheetInfo.sheetType=='generalnursing_tj'">
         入院日期：
-        <div @click="updateTetxInfo('admissionDate', '入院日期', patientInfo.admissionDate)" class="bottom-line" style="min-width: 150px;height: 12px;">
+        <div @click="updateTime('admissionDate', '入院日期', patientInfo.admissionDate)" class="bottom-line" style="min-width: 150px;height: 12px;">
           {{ patientInfo.admissionDate | YMDHM }}
         </div>
       </span>
@@ -750,7 +750,20 @@ export default {
             this.$message.success(`修改${label}成功`);
           });
         },
-        key === 'admissionDate' ? moment(autoText).format("YYYY年MM月DD日HH时mm分") :autoText,
+        autoText,
+        `修改${label}`
+      );
+    },
+    // 修改时间方法
+    updateTime(key, label, autoText) {
+      window.openSetAuditDateModal(
+        (text) => {
+          updateSheetHeadInfo({ [key]: text }).then(res => {
+            this.patientInfo[key] = res.data.data[key];
+            this.$message.success(`修改${label}成功`);
+          });
+        },
+        autoText,
         `修改${label}`
       );
     },
@@ -825,6 +838,7 @@ export default {
     },
     YMDHM(val) {
       if(val){
+        console.log(moment(val).format())
         return moment(val).format("YYYY年MM月DD日HH时mm分");
       }
     }

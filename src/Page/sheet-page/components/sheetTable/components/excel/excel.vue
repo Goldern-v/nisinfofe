@@ -2318,7 +2318,10 @@ export default {
                 ) {
                   obj = { value: "" };
                 }
-                return Object.assign({}, item, obj);
+                if(this.HOSPITAL_ID==="qhwy"){
+                  obj={...obj,isDisabed:false}
+                }
+                return Object.assign({},item, obj);
               });
           },
         },

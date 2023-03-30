@@ -1,5 +1,5 @@
 <template>
-  <div :style="[heightFun()]">
+  <div class="adult-Container">
     <div v-if="route" class="tool-con" flex-box="1">
       <sheetTool :formCodeFy='formCode' ref="sheetHospitalAdmissionTool"></sheetTool>
     </div>
@@ -131,9 +131,6 @@ export default {
     this.loading = false;
   },
   methods: {
-    heightFun(){
-      if(this.route) return {'height':'100%'}
-    },
     setHosptialAdmissionLoading(config){
       console.log("setHosptialAdmissionLoading",config)
       if (typeof config === "object") {
@@ -497,8 +494,11 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.adult-Container{
+  height: calc(100% - 50px);
+}
 .sheetTable-contain
-  height 100%
+  height: calc(100% - 41px);
   background #DFDFDF
   overflow auto
   padding 15px 5px 0 15px
