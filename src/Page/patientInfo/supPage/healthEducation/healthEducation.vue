@@ -40,17 +40,16 @@
           <div v-else class="hospital">{{HOSPITAL_NAME_SPACE}}</div>
           <div class="title" style="border-bottom: 1px solid #000;">住院患者健康教育评估及实施记录单</div>
            <div v-if='HOSPITAL_ID == "nfyksdyy"'>
-            <div class="info">
+            <div class="sdyyinfo">
             <span>病人姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
             <span style="margin-left: 20px;">性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span style="margin-left: 20px;">年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
-            <span style="margin-left: 20px;">科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span>
             <span style="margin-left: 20px;">床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
+             <span>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
           </div>
-          <div class="info" style="border-bottom: 1px solid #000;">
-            <span>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
-            <span style="margin-left: 20px;">入院日期：{{$route.query.admissionDate}}</span>
-            <span style="margin-left: 20px;">病区:{{$route.query.wardName}}</span>
+          <div class="sdyyinfo" style="border-bottom: 1px solid #000;">
+            <span>科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span>
+            <span style="margin-left: 20px;width: 372px;">病区:{{$route.query.wardName}}</span>
 
           </div>
            </div>
@@ -446,6 +445,13 @@ export default {
     }
     .info {
       margin-top: 25px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px; // 小四
+    }
+    .sdyyinfo {
+      margin-top: 5px;
       margin-bottom: 5px;
       display: flex;
       justify-content: space-between;
