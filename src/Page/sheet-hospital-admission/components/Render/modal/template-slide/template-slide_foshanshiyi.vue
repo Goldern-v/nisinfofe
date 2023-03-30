@@ -359,7 +359,11 @@ export default {
         this.listType('000000', this.selectedType, '000000')
       }
     },
-    open(refName) {
+    open(refName, only = true) {
+      if (!only) {
+        this.refName = refName
+        return
+      }
       this.geFromCode()
       this.getDeptLists()
       this.listType()
