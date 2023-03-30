@@ -392,6 +392,9 @@ export default {
       this.$root.$refs.autoInput.close();
     },
     inputFocus(e, child) {
+      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        this.$root.$refs.templateSlideFoshanshiyi.open(this.obj.name, false);
+      }
       let self = this;
       let xy = e.target.getBoundingClientRect();
       let delt = xy.height;

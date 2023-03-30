@@ -532,6 +532,7 @@ export default {
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
       checkItem: [
         "腋温",
+        "体温",
         "脉搏",
         "心率",
         "口温",
@@ -655,6 +656,7 @@ export default {
     setValid(trage, val) {
       switch (trage) {
         case "腋温":
+        case "体温":
         case "肛温":
         case "口温":
         case "物理降温":

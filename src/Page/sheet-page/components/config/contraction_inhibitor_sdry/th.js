@@ -56,6 +56,14 @@ export default {
       },
       {
         name: `
+        胎心<br/>（次/分）
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
         浓度<br/>(ml)
         `,
         colspan: '1',
