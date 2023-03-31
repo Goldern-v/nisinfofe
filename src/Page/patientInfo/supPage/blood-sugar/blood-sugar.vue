@@ -399,7 +399,7 @@
 >>> .el-select-dropdown__empty {
   min-width: 562px;
 }
->>>.el-select .el-input .el-input__icon {
+>>>.el-select:not(.icon-center) .el-input .el-input__icon {
   top: 63%;
 }
 
