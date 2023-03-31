@@ -370,7 +370,8 @@ export default {
         this.oldRecordDate = form ? form.recordDate : "";
         return;
       }
-      if (form) {
+      // form.patientId 代表是新建  不然佛一的form都有值传出来
+      if (form.patientId) {
         this.form = {
           recordDate: new Date(form.recordDate || new Date()),
           recordTime: new Date(form.recordDate || new Date()),
@@ -383,7 +384,6 @@ export default {
         };
         this.oldRecordDate = form.recordDate;
       } else {
-
         this.form = {
           recordDate: new Date(),
           recordTime: new Date(),
@@ -404,7 +404,7 @@ export default {
       if (this.HOSPITAL_ID == 'fsxt') {
         this.form.expand1 = this.form.expand1 || 0
       }
-      if (this.HOSPITAL_ID == 'foshanrenyi') {
+      if (form && this.HOSPITAL_ID == 'foshanrenyi') {
         this.form.expand1 = form.expand1 || ''
       }
     },

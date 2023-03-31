@@ -528,6 +528,7 @@ export default {
       item.name = this.patientInfo.name;
       item.bedLabel = this.patientInfo.bedLabel;
       item.wardCode = this.patientInfo.wardCode;
+      item.oldRecordDate = item.oldRecordDate ? item.recordDate : '';
       (item.nurseEmpNo = this.empNo || ""), //护士工号
         console.log(item, "xiaog");
       await saveSugarList([item]);
