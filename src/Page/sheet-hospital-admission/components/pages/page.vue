@@ -52,6 +52,7 @@ export default {
       isShowLoadingLayout: true,
       message: "请选择左侧患者~",
       status: 0,
+      formCode: 'E2333',
       lock: false
     };
   },

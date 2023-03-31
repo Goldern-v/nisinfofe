@@ -150,10 +150,18 @@ export function updateExecuteTime(obj) {
 // 网页端：医嘱查询，执行单打印用
 export function getPrintExecuteWithWardcode(obj) {
   // getPatientOrdersWithWardCode
-  return axios.post(
-    `${apiPath}procedure/webExecute/webGetOrdersExecutePrint`,
-    obj
-  );
+  switch(HOSPITAL_ID){
+    case "gdtj":
+      return axios.post(
+        `${apiPath}procedure/webExecute/webGetOrdersExecutePrintForTongJiang`,
+        obj
+      );
+    default:
+      return axios.post(
+        `${apiPath}procedure/webExecute/webGetOrdersExecutePrint`,
+        obj
+      );
+  }
   // return axios.post(
   //     `${apiPath}procedure/webExecute/webGetOrdersPrint`,
   //     obj
