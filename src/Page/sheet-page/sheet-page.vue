@@ -987,11 +987,9 @@ export default {
         }
       }
     );
-    // this.bus.$on("refreshSheetPage", () => {
-    //   // 是否刷新数据
-    //   this.getSheetData()
-    // });
-    this.getSheetData()
+    this.bus.$on("refreshSheetPage", () => {
+      this.getSheetData()
+    });
     //保存前做签名校验
     this.bus.$on("toSheetSaveNoSign", (newWid) => {
       let flag = true //控制保存开关
@@ -1209,6 +1207,7 @@ export default {
     this.bus.$on("setSheetTableLoading", (state = false) => {
       this.tableLoading = state;
     });
+    this.getSheetData()
     this.bus.$on("splitSheet", (tr, td) => {
       this.$refs.signModal2.open((password, empNo) => {
         let recordDate = tr.find((item) => item.key == "recordDate").value;
