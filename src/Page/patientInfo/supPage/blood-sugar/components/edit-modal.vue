@@ -110,10 +110,29 @@
           />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem :label="`${HOSPITAL_ID == 'fsxt' ? '微量' : ''}血糖值：`" required>
-        <ElInput v-model="form.sugarValue" />
-        <span class="unit">(mmol/L)</span>
-      </ElFormItem>
+      <template>
+        <ElFormItem v-if="HOSPITAL_ID == 'whsl'" label="血糖值：" required>
+          <ElSelect
+            v-model="form.sugarValue"
+            filterable
+            allow-create
+            clearable
+            class="icon-center"
+          >
+            <ElOption
+              v-for="item in [{ name: '拒测', value: '拒测' }, { name: '外出', value: '外出' }]"
+              :key="item.name"
+              :label="item.name"
+              :value="item.value"
+            />
+          </ElSelect>
+          <span class="unit">(mmol/L)</span>
+        </ElFormItem>
+        <ElFormItem v-else :label="`${HOSPITAL_ID == 'fsxt' ? '微量' : ''}血糖值：`" required>
+          <ElInput v-model="form.sugarValue" />
+          <span class="unit">(mmol/L)</span>
+        </ElFormItem>
+      </template>
       <ElFormItem v-if="HOSPITAL_ID == 'fsxt'" label="瞬感血糖值：" required>
         <ElInput v-model="form.expand1" />
         <span class="unit">(mmol/L)</span>

@@ -14,7 +14,7 @@
         >
           时间
         </th>
-<th :style="HOSPITAL_ID == 'nfyksdyy' ? {width: '17%'} : {width: '27%'}"v-else >日期</th>
+<th :style="HOSPITAL_ID == 'nfyksdyy' ? {width: '17%'} : {width: '27%'}" v-else >日期</th>
         <!-- <th v-else style="width: 17%; min-width: 60px">日期</th> -->
         <th v-if="HOSPITAL_ID == 'nfyksdyy'">时间</th>
         <th v-if="HOSPITAL_ID != 'lingcheng' && HOSPITAL_ID != 'liaocheng' && HOSPITAL_ID != 'lyyz'&& HOSPITAL_ID != 'whsl'" style="width: 20%">项目</th>
