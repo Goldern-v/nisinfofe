@@ -371,7 +371,7 @@ export default {
         return;
       }
       // form.patientId 代表是新建  不然佛一的form都有值传出来
-      if (form.patientId) {
+      if (form && form.patientId) {
         this.form = {
           recordDate: new Date(form.recordDate || new Date()),
           recordTime: new Date(form.recordDate || new Date()),
@@ -387,7 +387,7 @@ export default {
         this.form = {
           recordDate: new Date(),
           recordTime: new Date(),
-          sugarItem: defaultSugarItem,
+          sugarItem: form.sugarItem || defaultSugarItem,
           sugarValue: 0,
           riValue: 0,
           remarks:'',
@@ -575,7 +575,7 @@ export default {
       }
       if (this.HOSPITAL_ID === 'foshanrenyi') {
         let newArr = this.sugarItem.filter(item => item.vitalSign === newVal)
-        this.$set(this.form, 'recordTime', new Date(moment().format(newArr.length > 0 ? 'YYYY-MM-DD ' + newArr[0].defaultTime : "YYYY-MM-DD HH:mm")));
+        this.$set(this.form, 'recordTime', new Date(moment().format(newArr.length > 0 ? ('YYYY-MM-DD ' + (newArr[0].defaultTime || moment().format("HH:mm")) ) : "YYYY-MM-DD HH:mm")));
       }
     },
   },

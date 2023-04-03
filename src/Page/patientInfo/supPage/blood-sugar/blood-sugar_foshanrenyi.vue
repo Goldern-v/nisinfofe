@@ -343,7 +343,7 @@ export default {
         sugarItem: this.selected.sugarItem,
         sugarValue: this.selected.sugarValue,
         riValue: this.selected.riValue,
-        oldRecordDate: "",
+        oldRecordDate: this.selected.oldRecordDate,
         nurseEmpNo: user.empNo,
         nurse: user.empNo,
         expand1: this.selected.expand1,
@@ -353,7 +353,7 @@ export default {
         date: this.selected.date || ""
       };
       if (moment(this.selected.recordDate).format("YYYY-MM-DD") !== item.date) {
-        item.recordDate = item.date + ' ' + moment(this.selected.recordDate).format("HH:mm:ss")
+        item.recordDate = item.date ? item.date + ' ' + moment(this.selected.recordDate).format("HH:mm:ss") : moment(this.selected.recordDate).format("YYYY-MM-DD HH:mm:ss")
       }
       // const DateArr = item.recordDate.split(" ");
       // const timeArr = DateArr[1].split(":");
@@ -528,9 +528,9 @@ export default {
       item.name = this.patientInfo.name;
       item.bedLabel = this.patientInfo.bedLabel;
       item.wardCode = this.patientInfo.wardCode;
-      item.oldRecordDate = item.oldRecordDate ? item.recordDate : '';
+      // item.oldRecordDate = item.oldRecordDate ? item.recordDate : '';
       (item.nurseEmpNo = this.empNo || ""), //护士工号
-        console.log(item, "xiaog");
+        // console.log(item, "xiaog");
       await saveSugarList([item]);
       this.load();
       this.$refs.editModal.close();
