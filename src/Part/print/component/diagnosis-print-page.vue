@@ -187,6 +187,18 @@ export default {
         `
       );
     }
+    if (this.HOSPITAL_ID == "qhwy") {
+      addCSS(
+        window,
+        `
+         @media print {
+         .containter  {
+          height: 1100px !important;
+         }
+       }
+        `
+      );
+    }
   },
   methods: {
     print() {
