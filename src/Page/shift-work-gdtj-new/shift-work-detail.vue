@@ -51,13 +51,13 @@
                 现有：<b><input type="text" v-model="shiftWithWardcodes.allTotal" /></b>人，
               </span>
               <span>
-                病危：<b><input type="text" v-model="shiftWithWardcodes.dangerTotal" /></b>人，
+                病危：<b><input type="text" v-model="shiftWithWardcodes.patientBw" /></b>人，
               </span>
               <span>
-                病重：<b><input type="text" v-model="shiftWithWardcodes.seriousTotal" /></b>人，
+                病重：<b><input type="text" v-model="shiftWithWardcodes.patientBz" /></b>人，
               </span>
               <span>
-                手术：<b><input type="text" v-model="shiftWithWardcodes.operationTotal" /></b>人
+                手术：<b><input type="text" v-model="shiftWithWardcodes.patientOpration" /></b>人
               </span>
               <span>
                 交班日期：<b>{{record.changeShiftDate}}</b>
