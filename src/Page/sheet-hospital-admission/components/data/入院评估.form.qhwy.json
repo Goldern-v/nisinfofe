@@ -2911,31 +2911,8 @@
           "style": "cursor: pointer!important",
           "class": null,
           "readOnly": true
-        },
-        {
-          "name": "auditTime",
-          "type": "input",
-          "title": "审核时间",
-          "titleStyle": "width:70px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "suffixDesc": "",
-          "style": null,
-          "class": null,
-          "readOnly": true
-        },
-        {
-          "name": "auditorName",
-          "type": "input",
-          "title": "审核人签名",
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "suffixDesc": "",
-          "style": "cursor: pointer!important",
-          "class": null,
-          "readOnly": true
         }
+       
       ]
     }
   ],
