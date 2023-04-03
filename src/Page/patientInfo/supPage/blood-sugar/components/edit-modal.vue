@@ -110,10 +110,29 @@
           />
         </ElSelect>
       </ElFormItem>
-      <ElFormItem :label="`${HOSPITAL_ID == 'fsxt' ? '微量' : ''}血糖值：`" required>
-        <ElInput v-model="form.sugarValue" />
-        <span class="unit">(mmol/L)</span>
-      </ElFormItem>
+      <template>
+        <ElFormItem v-if="HOSPITAL_ID == 'whsl'" label="血糖值：" required>
+          <ElSelect
+            v-model="form.sugarValue"
+            filterable
+            allow-create
+            clearable
+            class="icon-center"
+          >
+            <ElOption
+              v-for="item in [{ name: '拒测', value: '拒测' }, { name: '外出', value: '外出' }]"
+              :key="item.name"
+              :label="item.name"
+              :value="item.value"
+            />
+          </ElSelect>
+          <span class="unit">(mmol/L)</span>
+        </ElFormItem>
+        <ElFormItem v-else :label="`${HOSPITAL_ID == 'fsxt' ? '微量' : ''}血糖值：`" required>
+          <ElInput v-model="form.sugarValue" />
+          <span class="unit">(mmol/L)</span>
+        </ElFormItem>
+      </template>
       <ElFormItem v-if="HOSPITAL_ID == 'fsxt'" label="瞬感血糖值：" required>
         <ElInput v-model="form.expand1" />
         <span class="unit">(mmol/L)</span>
@@ -351,7 +370,8 @@ export default {
         this.oldRecordDate = form ? form.recordDate : "";
         return;
       }
-      if (form) {
+      // form.patientId 代表是新建  不然佛一的form都有值传出来
+      if (form.patientId) {
         this.form = {
           recordDate: new Date(form.recordDate || new Date()),
           recordTime: new Date(form.recordDate || new Date()),
@@ -364,7 +384,6 @@ export default {
         };
         this.oldRecordDate = form.recordDate;
       } else {
-
         this.form = {
           recordDate: new Date(),
           recordTime: new Date(),
@@ -385,7 +404,7 @@ export default {
       if (this.HOSPITAL_ID == 'fsxt') {
         this.form.expand1 = this.form.expand1 || 0
       }
-      if (this.HOSPITAL_ID == 'foshanrenyi') {
+      if (form && this.HOSPITAL_ID == 'foshanrenyi') {
         this.form.expand1 = form.expand1 || ''
       }
     },
