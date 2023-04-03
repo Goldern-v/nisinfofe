@@ -40,6 +40,7 @@
               size="mini"
               :popperClass="selected === item ? 'selected' : ''"
               @change="sugarItemChanged"
+              @visible-change="(e) => visibleChange(e, item)"
             >
               <ElOption
                 v-for="item in sugarItem"
@@ -273,9 +274,16 @@ export default {
   },
 
   methods: {
+    visibleChange(e, item) { 
+      if (item.patientId) {
+        item.oldRecordDate = moment(item.recordDate).format("YYYY-MM-DD HH:mm:ss")
+      } else {
+        item.oldRecordDate = ""
+      }
+    },
     sugarItemChanged(val) {
       let newArr = this.sugarItem.filter(item => item.vitalSign === val)
-      this.$set(this.selected, 'recordDate', moment().format(newArr.length > 0 ? 'YYYY-MM-DD ' + newArr[0].defaultTime : "YYYY-MM-DD HH:mm"))
+      this.$set(this.selected, 'recordDate', moment().format(newArr.length > 0 ? ('YYYY-MM-DD ' + (newArr[0].defaultTime || moment().format("HH:mm"))) : "YYYY-MM-DD HH:mm"))
     },
     onSelect(item) {
       this.$emit("update:selected", item);
