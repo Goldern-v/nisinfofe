@@ -315,6 +315,13 @@
               <el-collapse-item name="fieldList">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
+                  <el-button
+                    type="primary"
+                    v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
+                    class="copy-btn"
+                    @click.stop="copyLastBox"
+                    >复制</el-button
+                  >
                   <i class="header-icon el-icon-info"></i>
                 </template>
                 <div class="fieldList">
@@ -480,6 +487,7 @@ import nullBg from "../../../../components/null/null-bg";
 import { validForm } from "../../validForm/validForm";
 import {
   getVitalSignListByDate,
+  copySetting,
   getmultiDict,
   getfieldList,
   savefieldTitleNew,
@@ -609,6 +617,19 @@ export default {
     },
   },
   methods: {
+    copyLastBox(){
+      copySetting(
+        {visitId:  this.patientInfo.visitId,
+        patientId:  this.patientInfo.patientId,
+        wardCode: this.patientInfo.wardCode,
+        recordDate: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD")}
+      ).then(res=>{
+        res.data.data.list.map((item) => {
+          if (this.vitalSignObj[item.vitalCode])
+          this.fieldList[item.vitalCode] = item;
+        });
+      })
+    },
     handleChange(val) {
       // console.log(val);
     },
@@ -1384,7 +1405,12 @@ export default {
   .fieldList {
     border-radius: 7px 0px 0px 7px;
   }
-
+  .copy-btn{
+    transform: scale(.8);
+    position: relative;
+    right: 20px;
+    top: -5px;
+  }
   .save-btn {
     position: relative;
     left: 30%;
