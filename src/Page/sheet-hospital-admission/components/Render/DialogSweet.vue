@@ -90,9 +90,11 @@
     <el-button slot="button" v-if="hasOK" type="primary" @click="clickOK()">{{
       okText || "确认"
     }}</el-button>
-    <el-button slot="button" v-if="isDev" @click="clickOK(true)">{{
-      "开发确认按钮"
-    }}</el-button>
+    <template v-if="!['qhwy'].includes(HOSPITAL_ID)">
+      <el-button slot="button" v-if="isDev" @click="clickOK(true)">{{
+        "开发确认按钮"
+      }}</el-button>
+    </template>
   </SweetModal>
 </template>
 
