@@ -48,6 +48,7 @@
           <el-radio-button label="所有患者"></el-radio-button>
           <el-radio-button label="一周体重"></el-radio-button>
           <el-radio-button label="三天未大便"></el-radio-button>
+          <el-radio-button label="发热患者" v-if="HOSPITAL_ID==='nfyksdyy'"></el-radio-button>
         </el-radio-group>
       </div>
       <el-button @click="saveAllTemperture">保存</el-button>
@@ -989,13 +990,7 @@ export default {
           });
         }
         return data.filter(item => {
-          return this.admitted === "所有患者"
-            ? item.patientId
-            : this.admitted === "一周体重"
-              ?
-              item.noWeightFlag == 1
-              :
-              item.notDefecateFlag == 1;
+          return {'所有患者':item.patientId,'一周体重':item.noWeightFlag == 1,'三天未大便':item.notDefecateFlag == 1,'发热患者':item.temperatureFlag==1}[this.admitted]
         });
       },
       set(value) {}

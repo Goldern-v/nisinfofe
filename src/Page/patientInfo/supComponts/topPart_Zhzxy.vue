@@ -179,15 +179,17 @@
       <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
         <div class="nav-item">会诊</div>
       </router-link>
-      <router-link
-          to=""
-          @click.native="toZhzxyLink()"
-          tag="span">
-        <div class="nav-item">患者360</div>
-      </router-link>
-      <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
-        <div class="nav-item">护理记录单</div>
-      </router-link>-->
+      <div class="nav-item"  @click="toZhzxyLink()">患者360</div>
+<!--      <router-link-->
+<!--          to=""-->
+<!--          exact-->
+<!--          @click.native="toZhzxyLink()"-->
+<!--          tag="span">-->
+
+<!--      </router-link>-->
+<!--     <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">-->
+<!--        <div class="nav-item">护理记录单</div>-->
+<!--      </router-link>-->
       <span class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toYst')">医膳通</span>
     </div>
     <div style="height: 50px"></div>
