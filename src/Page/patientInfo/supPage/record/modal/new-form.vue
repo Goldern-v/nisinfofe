@@ -225,7 +225,7 @@
           :key="e.id || e.label"
         >
           <!-- 收藏的评估单标记 -->
-         <span class="likePng"  v-if="['foshanrenyi', 'whsl'].includes(HOSPITAL_ID)">
+         <span class="likePng"  v-if="['foshanrenyi', 'whsl','nfyksdyy'].includes(HOSPITAL_ID)">
                 <img
                  v-if="e.collectionDept && (e.collectionUser.indexOf(activeUser)!=-1)"
                  src="@/common/images/card/like.png"
