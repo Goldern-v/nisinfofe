@@ -224,7 +224,8 @@ const currentTargetUrl = (() => {
 
     // 青海五院
     case 'qhwy':
-      return 'http://223.220.175.6:50014/'
+      // return 'http://223.220.175.6:50014/'
+      return 'http://192.168.1.54:9883'
 
     // 临沂沂州
     case 'lyyz':

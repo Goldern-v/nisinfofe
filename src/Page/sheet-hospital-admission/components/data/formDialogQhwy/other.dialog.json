@@ -598,47 +598,6 @@
     ]
   },
   {
-    "title": "压疮",
-    "type": "formGroupVerticalBox",
-    "name": "I100083",
-    "showTitle": false,
-    "message": "",
-    "require": "false",
-    "prefixDesc": "",
-    "suffixDesc": "",
-    "keys": "I100083",
-    "style": null,
-    "classes": null,
-    "readOnly": null,
-    "modalWidth": 730,
-    "children": [
-      {
-        "name": "I100083",
-        "type": "input",
-        "label": "部位",
-        "labelWidth": "100px",
-        "inputWidth": "500px",
-        "value": "",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
-      },
-      {
-        "name": "I100083",
-        "type": "body",
-        "label": "",
-        "labelWidth": "100px",
-        "value": "",
-        "suffixDesc": "",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
-      }
-    ]
-  },
-  {
     "title": "腹胀",
     "type": "formGroupVerticalBox",
     "name": "I100099",
@@ -1796,6 +1755,202 @@
     ]
   },
   {
+    "title": "视力异常",
+    "type": "formGroupColBox",
+    "colWidth": [
+      "100%"
+    ],
+    "name": "I001140",
+    "col": 1,
+    "message": "",
+    "require": "false",
+    "aliasTitle": "视力异常",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001140",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001140",
+        "type": "",
+        "title": "下降",
+        "titleStyle": "width:95px!important",
+        "class": null,
+        "readOnly":false,
+        "hiddenTips":true,
+        "boxStyle": "height:auto!important",
+        "children": [
+          {
+            "name": "I001977",
+            "type": "checkbox",
+            "title": "左",
+            "elementStyle": "min-width:0;margin: 5px 0 0 10px;",
+            "elementClass": "el-radio",
+            "style": null,
+            "class": null
+          },
+          {
+            "name": "I001977",
+            "type": "checkbox",
+            "title": "右",
+            "elementStyle": "",
+            "elementClass": "el-radio",
+            "style": null,
+            "class": null
+          }
+        ]
+      },
+      {
+        "name": "I001140",
+        "type": "",
+        "title": "模糊",
+        "titleStyle": "width:95px!important",
+        "class": null,
+        "readOnly":false,
+        "hiddenTips":true,
+        "boxStyle": "height:auto!important",
+        "children": [
+          {
+            "name": "I001978",
+            "type": "checkbox",
+            "title": "左",
+            "elementStyle": "min-width:0;margin: 5px 0 0 10px;",
+            "elementClass": "el-radio",
+            "style": null,
+            "class": null
+          },
+          {
+            "name": "I001978",
+            "type": "checkbox",
+            "title": "右",
+            "elementStyle": "",
+            "elementClass": "el-radio",
+            "style": null,
+            "class": null
+          }
+        ]
+      },
+      {
+        "name": "I001140",
+        "type": "",
+        "title": "失明",
+        "titleStyle": "width:95px!important",
+        "class": null,
+        "readOnly":false,
+        "hiddenTips":true,
+        "boxStyle": "height:auto!important",
+        "children": [
+          {
+            "name": "I001979",
+            "type": "checkbox",
+            "title": "左",
+            "elementStyle": "min-width:0;margin: 5px 0 0 10px;",
+            "elementClass": "el-radio",
+            "style": null,
+            "class": null
+          },
+          {
+            "name": "I001979",
+            "type": "checkbox",
+            "title": "右",
+            "elementStyle": "",
+            "elementClass": "el-radio",
+            "style": null,
+            "class": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "听力异常",
+    "type": "formGroupColBox",
+    "colWidth": [
+      "100%"
+    ],
+    "name": "I001141",
+    "col": 1,
+    "message": "",
+    "require": "false",
+    "aliasTitle": "听力异常",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001140",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001141",
+        "type": "",
+        "title": "下降",
+        "titleStyle": "width:95px!important",
+        "class": null,
+        "readOnly":false,
+        "hiddenTips":true,
+        "boxStyle": "height:auto!important",
+        "children": [
+          {
+            "name": "I001167",
+            "type": "checkbox",
+            "title": "左",
+            "elementStyle": "min-width:0;margin: 5px 0 0 10px;",
+            "elementClass": "el-radio",
+            "style": null,
+            "class": null
+          },
+          {
+            "name": "I001167",
+            "type": "checkbox",
+            "title": "右",
+            "elementStyle": "",
+            "elementClass": "el-radio",
+            "style": null,
+            "class": null
+          }
+        ]
+      },
+      {
+        "name": "I001141",
+        "type": "",
+        "title": "失聪",
+        "titleStyle": "width:95px!important",
+        "class": null,
+        "readOnly":false,
+        "hiddenTips":true,
+        "boxStyle": "height:auto!important",
+        "children": [
+          {
+            "name": "I001169",
+            "type": "checkbox",
+            "title": "左",
+            "elementStyle": "min-width:0;margin: 5px 0 0 10px;",
+            "elementClass": "el-radio",
+            "style": null,
+            "class": null
+          },
+          {
+            "name": "I001169",
+            "type": "checkbox",
+            "title": "右",
+            "elementStyle": "",
+            "elementClass": "el-radio",
+            "style": null,
+            "class": null
+          }
+        ]
+      }
+    ]
+  },
+  {
     "title": "睡眠辅助药物",
     "type": "formGroupHorizontalBox",
     "colWidth": [
@@ -2677,6 +2832,107 @@
     ]
   },
   {
+    "title": "其他情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I001975",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001975",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001976",
+        "type": "input",
+        "title": "其他",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "压疮情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I001256",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "压疮",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001256",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001980",
+        "type": "input",
+        "label": "部位：",
+        "labelWidth": "50px",
+        "title": "压疮：部位：",
+        "style": "width:150px!important",
+        "class": null
+      },
+      {
+        "name": "I001981",
+        "type": "input",
+        "inputWidth":"130px",
+        "label": "面积：",
+        "labelWidth": "40px",
+        "suffixDesc": "cm",
+        "title": "面积：",
+        "style": "width:60px!important",
+        "class": null
+      }
+    ]
+  },
+  {
+    "title": "破损情况",
+    "type": "formGroupHorizontalBox",
+    "name": "I001254",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "破损",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I001254",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I001982",
+        "type": "input",
+        "label": "部位：",
+        "labelWidth": "50px",
+        "title": "破损：部位：",
+        "style": "width:150px!important",
+        "class": null
+      },
+      {
+        "name": "I001983",
+        "type": "input",
+        "inputWidth":"130px",
+        "label": "面积：",
+        "labelWidth": "40px",
+        "suffixDesc": "cm",
+        "title": "面积：",
+        "style": "width:60px!important",
+        "class": null
+      }
+    ]
+  },
+  {
     "title": "黄染情况",
     "type": "formGroupHorizontalBox",
     "name": "I001963",
@@ -3264,105 +3520,5 @@
         "readOnly": null
       }
     ]
-  },
-  {
-    "title": "听力异常",
-    "type": "formGroupHorizontalBox",
-    "colWidth": [
-      "40%",
-      "60%"
-    ],
-    "name": "I001167",
-    "message": "",
-    "require": "false",
-    "aliasTitle": "听力异常",
-    "showTitle": true,
-    "suffixDesc": "",
-    "keys": "I001167",
-    "style": null,
-    "classes": null,
-    "readOnly": null,
-    "modalWidth": 460,
-    "body": [
-      {
-        "title": "听力下降",
-        "type": "formGroupHorizontalBox",
-        "colWidth": [
-          "40%",
-          "60%"
-        ],
-        "name": "I001167",
-        "message": "",
-        "require": "false",
-        "aliasTitle": "听力下降",
-        "showTitle": true,
-        "suffixDesc": "",
-        "keys": "I001167",
-        "style": null,
-        "classes": null,
-        "readOnly": null,
-        "modalWidth": 460,
-        "children": [
-          {
-            "name": "I001167",
-            "type": "checkbox",
-            "title": "左",
-            "style": null,
-            "class": null,
-            "html": null,
-            "readOnly": null
-          },
-          {
-            "name": "I001167",
-            "type": "checkbox",
-            "title": "右",
-            "style": null,
-            "class": null,
-            "html": null,
-            "readOnly": null
-          }
-        ]
-      },
-      {
-        "title": "听力失聪",
-        "type": "formGroupHorizontalBox",
-        "colWidth": [
-          "40%",
-          "60%"
-        ],
-        "name": "I001169",
-        "message": "",
-        "require": "false",
-        "aliasTitle": "听力失聪",
-        "showTitle": true,
-        "suffixDesc": "",
-        "keys": "I001169",
-        "style": null,
-        "classes": null,
-        "readOnly": null,
-        "modalWidth": 460,
-        "children": [
-          {
-            "name": "I001169",
-            "type": "checkbox",
-            "title": "左",
-            "style": null,
-            "class": null,
-            "html": null,
-            "readOnly": null
-          },
-          {
-            "name": "I001169",
-            "type": "checkbox",
-            "title": "右",
-            "style": null,
-            "class": null,
-            "html": null,
-            "readOnly": null
-          }
-        ]
-      }
-    ],
-    "children": []
   }
 ]

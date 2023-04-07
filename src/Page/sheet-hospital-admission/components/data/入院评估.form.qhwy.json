@@ -1471,8 +1471,6 @@
             }
           ]
         },
-
-
         {
           "name": "I001140",
           "type": "select",
@@ -1481,7 +1479,18 @@
           "inputStyle": "width:300px!important",
           "inputWidth": "180px",
           "style": null,
-          "class": null
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "异常",
+                "cleanKey": [],
+                "title": "视力异常",
+                "parentName": "I001140",
+                "type": "dependent"
+              }
+            }
+          ]
         },
         {
           "name": "I001141",
@@ -1508,9 +1517,37 @@
               "style": "color:red"
             }
           ]
+        },
+        {
+          "name": "I001975",
+          "type": "select",
+          "title": "沟通能力",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "options": [
+            "正常",
+            "言语含糊",
+            "沟通障碍",
+            "失语",
+            "方言",
+            "其他"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [],
+                "title": "其他情况",
+                "parentName": "I001975",
+                "type": "dependent"
+              }
+            }
+          ]
         }
-
-
       ]
     },
     {
@@ -1550,13 +1587,6 @@
         }
       ]
     },
-
-
-
-
-
-
-
     {
       "name": "",
       "type": "formGroupHR",
@@ -1839,6 +1869,24 @@
               }
             },
             {
+              "dialog": {
+                "openKey": "压疮",
+                "cleanKey": [],
+                "title": "压疮情况",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "破损",
+                "cleanKey": [],
+                "title": "破损情况",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
               "equal": "有",
               "style": "color:red"
             }
@@ -1947,53 +1995,6 @@
           ]
         }
 
-      ]
-    },
-    {
-      "name": "I001260",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "五、皮肤",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "classes": null,
-      "readOnly": true,
-      "children": [
-        {
-          "name": "I001260",
-          "type": "select",
-          "title": "压力性损伤",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "class": null,
-          "options": [
-            "无",
-            "有"
-          ],
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": "无",
-                "title": "预防住院患者压力性损伤护理清单",
-                "default": "预防住院患者压力性损伤护理清单",
-                "type": "independent",
-                "parentName": "S0627",
-                "showHead": "true"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        }
       ]
     },
     {
@@ -2579,6 +2580,24 @@
           "hiddenTips": true,
           "tdProps": {
             "colspan": "1"
+          }
+        },
+        {
+          "name": "I001984",
+          "type": "input",
+          "title": "手术",
+          "suffixDesc": "",
+          "placeholder": "",
+          "style": "width:100%",
+          "titleStyle": "width:72px!important;text-align: right;",
+          "inputStyle": "width:100%!important",
+          "elementStyle": "width:100%",
+          "inputWidth": "100%",
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "tdProps": {
+            "colspan": "2"
           }
         }
       ]

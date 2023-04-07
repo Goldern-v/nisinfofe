@@ -184,16 +184,6 @@
     ],
     "I001141": [
         {
-            "code": "耳背",
-            "name": "耳背",
-            "pinyin": "eb"
-        },
-        {
-            "code": "耳聋",
-            "name": "耳聋",
-            "pinyin": "el"
-        },
-        {
             "code": "正常",
             "name": "正常",
             "pinyin": "zc"
@@ -516,19 +506,9 @@
             "pinyin": "nzl"
         },
         {
-            "code": "排尿困难",
-            "name": "排尿困难",
-            "pinyin": "pnkn"
-        },
-        {
-            "code": "尿痿",
-            "name": "尿痿",
-            "pinyin": "nw"
-        },
-        {
-            "code": "尿外渗",
-            "name": "尿外渗",
-            "pinyin": "nws"
+            "code": "尿少",
+            "name": "尿少",
+            "pinyin": "ns"
         },
         {
             "code": "其他",
@@ -931,16 +911,6 @@
             "code": "异常",
             "name": "异常",
             "pinyin": "yc"
-        },
-        {
-            "code": "模糊",
-            "name": "模糊",
-            "pinyin": "mh"
-        },
-        {
-            "code": "失明",
-            "name": "失明",
-            "pinyin": "sm"
         }
     ],
     "I001156": [
