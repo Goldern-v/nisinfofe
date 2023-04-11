@@ -304,7 +304,6 @@ export default {
     
     //获取授权二维码
     getAuthorizeApi() {
-      // debugger
       axios.post(`${apiPath}manufactor/whhk/loginAddSignJob`,
       { "empNo": JSON.parse(localStorage.getItem("user")).empNo},
       {headers: {'Auth-Token-Nursing':window.app.authToken}}).then(res=>{
@@ -400,7 +399,6 @@ export default {
       }).catch(err=>{
 
       })
-      // /api/manufactor/zzwy/getSignPicture/{empNo}
     },
     //清除信息
     clearIntervalItem(){
@@ -413,7 +411,6 @@ export default {
       clearInterval(this.setIntervalApi)
       this.setIntervalApi=null;
 
-      // debugger
       this.$refs.qrcodeContainer.innerHTML = ''//销毁二维码实例
       clearInterval(this.ukeyTimer)
       this.ukeyTimer=null

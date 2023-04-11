@@ -23,7 +23,6 @@
           format="yyyy-MM-dd HH:mm"
           placeholder="输入签名时间"
         ></el-date-picker>
-        <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
       </div>
     </span>
     <span v-show="showAduit">
@@ -37,7 +36,6 @@
           format="yyyy-MM-dd HH:mm"
           placeholder="输入审核时间"
         ></el-date-picker>
-        <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
       </div>
     </span>
     <div style="height: 5px"></div>
