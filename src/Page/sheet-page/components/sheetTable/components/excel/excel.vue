@@ -348,7 +348,6 @@
                   sheetInfo.sheetType === 'postpartum_hd' ||
                   sheetInfo.sheetType === 'neurosurgery_hd' ||
                   sheetInfo.sheetType === 'wait_delivery_hd' ||
-                  sheetInfo.sheetType === 'wait_delivery_zhzxy' ||
                   sheetInfo.sheetType === 'neonatology_hd' ||
                   sheetInfo.sheetType === 'neonatology2_hd' ||
                   sheetInfo.sheetType === 'prenatal_hd' ||
@@ -741,8 +740,14 @@
       </span>-->
     </div>
     <span v-if="sheetInfo.model != 'print'">
-      <signModal ref="signModal"></signModal>
-      <signModal ref="delsignModal" title="删除签名需签名者确认"></signModal>
+      <div v-if="['whhk'].includes(HOSPITAL_ID)">
+    <whhkSignModal ref="signModal"></whhkSignModal>
+   <whhkSignModal ref="delsignModal" title="删除签名需签名者确认"></whhkSignModal>
+   </div>
+   <div v-else>
+    <signModal ref="signModal"></signModal>
+    <signModal ref="delsignModal" title="删除签名需签名者确认"></signModal>
+   </div>
     </span>
   </div>
 </template>
@@ -764,6 +769,7 @@ import {
   findListByBlockId,
 } from "@/api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
+import whhkSignModal from "@/components/modal/whhk-sign.vue";
 import { Tr } from "../../../render/Body.js";
 import {
   offset,
@@ -823,7 +829,6 @@ export default {
         'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
-        // "wait_delivery_zhzxy",
         "neurosurgery_hd",
         "neonatology_hd",
         "neonatology2_hd",
@@ -885,7 +890,6 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
-        "wait_delivery_zhzxy", // 珠海中西医_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
@@ -1252,13 +1256,11 @@ export default {
             this.timeOnBlur[bind.y] = false;
           }
         }
-      }
+      } 
     },
     setTitle(item,item2) {
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy'].includes(this.HOSPITAL_ID)) {
-        // if (item2.fromAddPage) {
-        //   return
-        // }
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy','whhk'].includes(this.HOSPITAL_ID)) {
+        
         this.setTitleFS(item)
         return
       }
@@ -2110,7 +2112,7 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        if (["weixian","foshanrenyi","nanfangzhongxiyi",'zhzxy','zzwy'].includes(this.HOSPITAL_ID)) {
+        if (["weixian","foshanrenyi","nanfangzhongxiyi",'zhzxy','zzwy','whhk'].includes(this.HOSPITAL_ID)) {
           return trArr.find((item) => item.key == "signerNo").value
             ? `<img
               width="50"
@@ -2147,7 +2149,7 @@ export default {
       }).value;
         // console.log("koaosdad",auditorName)
       if (status == "2" && sign) {
-        if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zzwy") {
+        if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zzwy" || this.HOSPITAL_ID == "whhk") {
           return  `<img
               width="50"
               height="100%"
@@ -3152,6 +3154,7 @@ export default {
   },
   components: {
     signModal,
+    whhkSignModal,
     bottomRemark,
   },
 };
