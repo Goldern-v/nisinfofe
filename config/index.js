@@ -250,6 +250,7 @@ const currentTargetUrl = (() => {
     case 'whhk':
       // return 'http://192.168.1.54:9883'
       return 'http://119.97.229.206:9094'
+      //   return 'http://10.1.50.245:9091'
     case 'dglb':
       return 'http://192.168.1.54:9866'
 
