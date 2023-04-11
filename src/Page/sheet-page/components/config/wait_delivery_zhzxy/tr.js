@@ -1,7 +1,4 @@
 import {
-  listItem
-} from "../../../api/recordDesc";
-import {
   multiDictInfo
 } from "../../../api/index";
 import {
@@ -14,13 +11,10 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-import info from "../sheetInfo";
 
 const twList = [];
-const jsList = ["均", "缺损",];
 const ysxzList = [];
 const xlgdList = ["-5","-4","-3","-2","-1","0","+1","+2","+3","+4","+5"];
-const txbwList = ["右下腹", "左下腹", "右上腹", "左上腹", "中上腹", "脐中部", "脐上部", "脐下部", ];
 
 export default [
   {
@@ -351,12 +345,6 @@ export function getListData() {
     let data = res.data.data;
     setList(twList, list[0], data);
     setList(ysxzList, list[1], data);
-    // setList(xlgdList, list[2], data);
-    // setList(xlgdList, list[3], data);
-    // setList(gjgList, list[4], data);
-    // setList(ysxzList, list[5], data);
-    // setList(gjkzList, list[6], data);
-    // setList(gsqdList, list[7], data);
   });
 }
 

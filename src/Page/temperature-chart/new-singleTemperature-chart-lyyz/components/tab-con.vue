@@ -600,25 +600,48 @@ export default {
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
-          if (this.getHours() >= 0 && this.getHours() <= 4) {
-            return "03";
+          switch (this.HOSPITAL_ID) {
+            case "lyyz":
+              if (this.getHours() >= 0 && this.getHours() <= 4) {
+                return "03";
+              }
+              if (this.getHours() > 4 && this.getHours() <= 8) {
+                return "07";
+              }
+              if (this.getHours() > 8 && this.getHours() <= 12) {
+                return "11";
+              }
+              if (this.getHours() > 12 && this.getHours() <= 16) {
+                return "15";
+              }
+              if (this.getHours() > 16 && this.getHours() <= 20) {
+                return "19";
+              }
+              if (this.getHours() > 20 && this.getHours() <= 23) {
+                return "23";
+              }
+            case "whhk":
+              if (this.getHours() >= 0 && this.getHours() <= 4) {
+                return "02";
+              }
+              if (this.getHours() > 4 && this.getHours() <= 8) {
+                return "06";
+              }
+              if (this.getHours() > 8 && this.getHours() <= 12) {
+                return "10";
+              }
+              if (this.getHours() > 12 && this.getHours() <= 16) {
+                return "14";
+              }
+              if (this.getHours() > 16 && this.getHours() <= 20) {
+                return "18";
+              }
+              if (this.getHours() > 20 && this.getHours() <= 23) {
+                return "22";
+              }
+            default:
+              return "08";
           }
-          if (this.getHours() > 4 && this.getHours() <= 8) {
-            return "07";
-          }
-          if (this.getHours() > 8 && this.getHours() <= 12) {
-            return "11";
-          }
-          if (this.getHours() > 12 && this.getHours() <= 16) {
-            return "15";
-          }
-          if (this.getHours() > 16 && this.getHours() <= 20) {
-            return "19";
-          }
-          if (this.getHours() > 20 && this.getHours() <= 23) {
-            return "23";
-          }
-          //录入时间
         })(), //录入时间
       },
       updateData: {

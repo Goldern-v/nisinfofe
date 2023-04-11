@@ -59,11 +59,11 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 70px;"
-                  v-model="sheetInfo.relObj['wg1' + index]"
-                  :data-value="sheetInfo.relObj['wg1' + index]"
+                  v-model="sheetInfo.relObj['wg1']"
+                  :data-value="sheetInfo.relObj['wg1']"
                 />号胃管
               </div>
-              <div class="box-item">
+              <!-- <div class="box-item">
                 <input
                   type="textarea"
                   class="bottomInput"
@@ -71,16 +71,17 @@
                   v-model="sheetInfo.relObj['wg2' + index]"
                   :data-value="sheetInfo.relObj['wg2' + index]"
                 />号尿管
-              </div>
+              </div> -->
               <div class="box-item">PICC(1.9Fr)</div>
               <div class="box-item">脐静脉管</div>
+              <div class="box-item">动脉静脉管</div>
               <div class="box-item">
                 <input
                   type="textarea"
                   class="bottomInput"
                   style="width: 105px;"
-                  v-model="sheetInfo.relObj['g1' + index]"
-                  :data-value="sheetInfo.relObj['g1' + index]"
+                  v-model="sheetInfo.relObj['g1']"
+                  :data-value="sheetInfo.relObj['g1']"
                 />
               </div>
               <div class="box-item">
@@ -88,8 +89,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 105px;"
-                  v-model="sheetInfo.relObj['g2' + index]"
-                  :data-value="sheetInfo.relObj['g2' + index]"
+                  v-model="sheetInfo.relObj['g2']"
+                  :data-value="sheetInfo.relObj['g2']"
                 />
               </div>
             </div>
@@ -100,9 +101,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq1' + index)"
-                  v-model="sheetInfo.relObj['zgrq1' + index]"
-                  :data-value="sheetInfo.relObj['zgrq1' + index]"
+                  @click="(e)=>timePicker(e,'zgrq1')"
+                  v-model="sheetInfo.relObj['zgrq1']"
+                  :data-value="sheetInfo.relObj['zgrq1']"
                 />
               </div>
               <div class="box-item">
@@ -111,9 +112,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq2' + index)"
-                  v-model="sheetInfo.relObj['zgrq2' + index]"
-                  :data-value="sheetInfo.relObj['zgrq2' + index]"
+                  @click="(e)=>timePicker(e,'zgrq2')"
+                  v-model="sheetInfo.relObj['zgrq2']"
+                  :data-value="sheetInfo.relObj['zgrq2']"
                 />
               </div>
               <div class="box-item">
@@ -122,9 +123,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq3' + index)"
-                  v-model="sheetInfo.relObj['zgrq3' + index]"
-                  :data-value="sheetInfo.relObj['zgrq3' + index]"
+                  @click="(e)=>timePicker(e,'zgrq3')"
+                  v-model="sheetInfo.relObj['zgrq3']"
+                  :data-value="sheetInfo.relObj['zgrq3']"
                 />
               </div>
               <div class="box-item">
@@ -133,9 +134,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq4' + index)"
-                  v-model="sheetInfo.relObj['zgrq4' + index]"
-                  :data-value="sheetInfo.relObj['zgrq4' + index]"
+                  @click="(e)=>timePicker(e,'zgrq4')"
+                  v-model="sheetInfo.relObj['zgrq4']"
+                  :data-value="sheetInfo.relObj['zgrq4']"
                 />
               </div>
               <div class="box-item">
@@ -144,9 +145,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq5' + index)"
-                  v-model="sheetInfo.relObj['zgrq5' + index]"
-                  :data-value="sheetInfo.relObj['zgrq5' + index]"
+                  @click="(e)=>timePicker(e,'zgrq5')"
+                  v-model="sheetInfo.relObj['zgrq5']"
+                  :data-value="sheetInfo.relObj['zgrq5']"
                 />
               </div>
               <div class="box-item">
@@ -155,9 +156,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq6' + index)"
-                  v-model="sheetInfo.relObj['zgrq6' + index]"
-                  :data-value="sheetInfo.relObj['zgrq6' + index]"
+                  @click="(e)=>timePicker(e,'zgrq6')"
+                  v-model="sheetInfo.relObj['zgrq6']"
+                  :data-value="sheetInfo.relObj['zgrq6']"
                 />
               </div>
             </div>
@@ -168,8 +169,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
-                  v-model="sheetInfo.relObj['crsd' + index]"
-                  :data-value="sheetInfo.relObj['crsd' + index]"
+                  v-model="sheetInfo.relObj['crsd']"
+                  :data-value="sheetInfo.relObj['crsd']"
                 />cm
               </div>
               <div class="box-item">
@@ -178,8 +179,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
-                  v-model="sheetInfo.relObj['snzs' + index]"
-                  :data-value="sheetInfo.relObj['snzs' + index]"
+                  v-model="sheetInfo.relObj['snzs']"
+                  :data-value="sheetInfo.relObj['snzs']"
                 />cm
               </div>
               <div class="box-item">
@@ -188,8 +189,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
-                  v-model="sheetInfo.relObj['wlcd1' + index]"
-                  :data-value="sheetInfo.relObj['wlcd1' + index]"
+                  v-model="sheetInfo.relObj['wlcd1']"
+                  :data-value="sheetInfo.relObj['wlcd1']"
                 />cm
               </div>
               <div class="box-item">
@@ -198,8 +199,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
-                  v-model="sheetInfo.relObj['wlcd2' + index]"
-                  :data-value="sheetInfo.relObj['wlcd2' + index]"
+                  v-model="sheetInfo.relObj['wlcd2']"
+                  :data-value="sheetInfo.relObj['wlcd2']"
                 />cm
               </div>
               <div class="box-item">
@@ -208,8 +209,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
-                  v-model="sheetInfo.relObj['crsd1' + index]"
-                  :data-value="sheetInfo.relObj['crsd1' + index]"
+                  v-model="sheetInfo.relObj['crsd1']"
+                  :data-value="sheetInfo.relObj['crsd1']"
                 />cm
               </div>
               <div class="box-item">
@@ -217,8 +218,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 123px;"
-                  v-model="sheetInfo.relObj['crsd2' + index]"
-                  :data-value="sheetInfo.relObj['crsd2' + index]"
+                  v-model="sheetInfo.relObj['crsd2']"
+                  :data-value="sheetInfo.relObj['crsd2']"
                 />
               </div>
             </div>
@@ -231,8 +232,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 200px;"
-                  v-model="sheetInfo.relObj['wxfzqy' + index]"
-                  :data-value="sheetInfo.relObj['wxfzqy' + index]"
+                  v-model="sheetInfo.relObj['wxfzqy']"
+                  :data-value="sheetInfo.relObj['wxfzqy']"
                 />
               </div>
             </div>
@@ -243,8 +244,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 120px;"
-                  v-model="sheetInfo.relObj['wxxh' + index]"
-                  :data-value="sheetInfo.relObj['wxxh' + index]"
+                  v-model="sheetInfo.relObj['wxxh']"
+                  :data-value="sheetInfo.relObj['wxxh']"
                 />
               </div>
             </div>
@@ -257,6 +258,7 @@
           :scrollY="scrollY"
           :hasFiexHeader="true"
           :isInPatientDetails="isInPatientDetails"
+          @onModalChange="(e,tr,x,y,index)=>$emit('onModalChange',e,tr,x,y,index)"
         >
         </excel>
       </div>
