@@ -1,15 +1,17 @@
-import moment from "moment";
-import {
-  limitChange
-} from "../keyEvent/f1.js";
-function currYear() {
-  return moment().format('YYYY')
-}
+/*
+  珠海中西医 - 候产记录单
+*/
+
+/**
+ * @description: 开发注意事项:
+    1、自定义表头 canSet: true, key: "armValue4"
+    2、表格头部年份显示 {"name":'',"style":{},"colspan":"2","rowspan":"1","key":'recordYear'},
+    3、特殊情况默认 { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, },
+*/
 export default {
   style: {
     width: "1200px"
   },
-  // 科室的名称 关节骨科
   deptType: "",
   th: {
     top: [

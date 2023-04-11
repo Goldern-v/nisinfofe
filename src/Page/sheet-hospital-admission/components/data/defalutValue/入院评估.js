@@ -73,6 +73,10 @@ export const 入院默认值 = {
   I1001883: "/",
   I100136: "无",
   I100098: "普食",
+  I001114:process.env.HOSPITAL_ID=='qhwy' && "既往体健",
+  I001366:process.env.HOSPITAL_ID=='qhwy' && "无",
+  I100098:process.env.HOSPITAL_ID=='qhwy' && "普食",
+  I001975:process.env.HOSPITAL_ID=='qhwy' && "正常",
 };
 
 export const defaultFS_adult = {
