@@ -1205,7 +1205,28 @@ export default {
       }
       this.search();
     },
-    startDate() {
+    startDate(newVal,oldVal) {
+      if(['whhk'].includes(this.HOSPITAL_ID)){
+        if(moment(newVal).diff(moment(this.endDate), 'seconds' )>0){
+          this.startDate = oldVal
+          return this.$message({
+            message: '开始时间不可大于结束时间',
+            type: 'warning'
+          });
+        }
+      }
+      this.search();
+    },
+    endDate(newVal,oldVal) {
+      if(['whhk'].includes(this.HOSPITAL_ID)){
+        if(moment(newVal).diff(moment(this.startDate), 'seconds' )<0){
+          this.endDate = oldVal
+          return this.$message({
+            message: '开始时间不可大于结束时间',
+            type: 'warning'
+          });
+        }
+      }
       this.search();
     },
     repeatIndicator() {

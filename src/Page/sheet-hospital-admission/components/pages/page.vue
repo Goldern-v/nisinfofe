@@ -52,13 +52,12 @@ export default {
       isShowLoadingLayout: true,
       message: "请选择左侧患者~",
       status: 0,
-      formCode: 'E2333',
+      formCode: this.HOSPITAL_ID === 'foshanrenyi' ? 'E2333' : 'E0001',
       lock: false
     };
   },
   mounted() {
     if (!this.$root.$refs[this.formCode]) {
-      console.log("检查填写222222222")
       this.$root.$refs[this.formCode] = [];
     }
 
@@ -73,7 +72,6 @@ export default {
     });
     if(this.route){
       this.$nextTick(()=>{
-        console.log("djw-mounted-init")
         this.bus.$emit("setHosptialAdmissionLoading", true);
         this.bus.$emit("setIsNewForm", false);
         this.bus.$emit("getHEvalBlockList", this.$route.query);
@@ -109,13 +107,14 @@ export default {
     locker() {
       return this.lock;
     },
-    formCode() {
-      try {
-        return window.formObj.formSetting.formInfo.formCode;
-      } catch (error) {
-      }
-      return "E0001";
-    }
+    // 在data写判断 浚威其他说这样子他的其他业务拿不到对应code值（佛一医院需求）
+    // formCode() {
+    //   try {
+    //     return window.formObj.formSetting.formInfo.formCode;
+    //   } catch (error) {
+    //   }
+    //   return "E0001";
+    // }
   },
   created() {
     this.bus.$on("openHosptialAdmissionForm", this.openForm);
@@ -133,7 +132,6 @@ export default {
   },
   methods: {
     setHosptialAdmissionLoading(config){
-      console.log("setHosptialAdmissionLoading",config)
       if (typeof config === "object") {
         if (config.hasOwnProperty("status")) {
           this.loading = config.status;
