@@ -274,7 +274,6 @@ export default {
   methods: {
     showSignBtn(){
       if(this.hasQrCaSignHos.includes(this.HOSPITAL_ID)){
-      // if(['fuyou'].includes(this.HOSPITAL_ID)){
         return this.isCaSign
       }else{
         return false

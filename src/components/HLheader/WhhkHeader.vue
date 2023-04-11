@@ -598,8 +598,6 @@
   position: fixed;
   width: 100%;
 }
-
-
 .left-part, .right-part {
   height: 60px;
   overflow: hidden;
@@ -967,9 +965,7 @@ export default {
     isActivePage() {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
       if (this.$route.path == "/nursingDocumentation") return true;
-      // if (this.$route.path == "/badEvent") return true;
       if (this.$route.path.indexOf("/inpatientReport") > -1) return true;
-      // if (this.$route.path == "/catheterPage") return true;
       if (this.$route.path == "/nursingRules") return true;
       if (this.$route.path == "/noCheckTest") return true;
       if (this.$route.path == "/departmentSharedFile") return true;

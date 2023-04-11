@@ -57,11 +57,9 @@ export function verifyCaSign() {
     }, 500);
     // timer = setInterval(()=>logTime('证书助手','GetUserList'),1000)
     $_$WebSocketObj.GetUserList(usrInfo => {
-      // console.log('调用了证书助手接口：GetUserList',sumTime);
       let strUserCertID = usrInfo.retVal
         .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
         .replace("&&&", "");
-      // console.log(strUserCertID, "strUserCertID");
       GetSignCert(strUserCertID, function(certObj) {
       // console.log('调用了证书助手接口：SOF_ExportUserCert',sumTime);
         let cert = certObj.retVal;

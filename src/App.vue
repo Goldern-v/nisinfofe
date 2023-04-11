@@ -98,7 +98,6 @@ export default {
       }
     }.bind(_this));
     // end --- 针对花都多窗口切换用户bug的绑定监听事件
-
     window.onresize = () => {
       this.$store.commit("common/upWih");
     };

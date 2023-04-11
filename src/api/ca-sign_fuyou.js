@@ -28,7 +28,6 @@ export function saveSignPic(signPic) {
     })
   );
 }
-
 // //数字医信OAuth登陆-认证请求接口
 // export const getAuthorize=(data)=>{
 //     return axios.get(`https://test.51trust.com/gateway/oauth/authorize?responseType=code&clientId=2017070411003376`)

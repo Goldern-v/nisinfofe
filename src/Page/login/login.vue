@@ -844,10 +844,6 @@ export default {
         default:
           break;
       }
-      // window.openZzwyCaSignModal(true);
-          
-      
-
       // 清除科室记录
       this.$store.commit("upDeptCode", "");
       localStorage.selectDeptValue = "";

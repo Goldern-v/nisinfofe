@@ -1260,9 +1260,7 @@ export default {
     },
     setTitle(item,item2) {
       if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy','whhk'].includes(this.HOSPITAL_ID)) {
-        // if (item2.fromAddPage) {
-        //   return
-        // }
+        
         this.setTitleFS(item)
         return
       }

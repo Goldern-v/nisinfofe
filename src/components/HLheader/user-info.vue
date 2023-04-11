@@ -32,8 +32,6 @@
         <span class="setting-sign" @click="setSignImg">立即设置</span>
       </div>
     </div>
-    <!-- <div class="line"></div> -->
-    <!-- empNo  admin -->
     <div class="admin-system-info" v-if="['foshanrenyi','weixian'].includes(HOSPITAL_ID)">
       证书状态:
       <p>
