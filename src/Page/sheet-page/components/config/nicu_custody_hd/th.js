@@ -102,13 +102,13 @@ export default {
         colspan: '1',
         rowspan: '3'
       },
-      {
-        name: `
-        肌<br/>张<br/>力
-        `,
-        colspan: '1',
-        rowspan: '3'
-      },
+      // {
+      //   name: `
+      //   肌<br/>张<br/>力
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '3'
+      // },
       {
         name: `
         吸<br/>吮<br/>力
@@ -125,12 +125,30 @@ export default {
       },
       {
         name: `
-        瞳孔<br/>（对光反射）
+        回<br/>抽<br/>胃<br/>管
         `,
-        style: {},
-        colspan: '2',
-        rowspan: '1'
+        colspan: '1',
+        rowspan: '3'
       },
+      {
+        name: `
+        微<br/>量<br/>血<br/>糖<br/>(mmol/L)
+        `,
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: "25px",
+          maxWidth: "25px"
+        },
+      },
+      // {
+      //   name: `
+      //   瞳孔<br/>（对光反射）
+      //   `,
+      //   style: {},
+      //   colspan: '2',
+      //   rowspan: '1'
+      // },
       {
         name: `
         入量
@@ -144,7 +162,7 @@ export default {
         出量
         `,
         style: {},
-        colspan: '7',
+        colspan: '6',
         rowspan: '1'
       },
       {
@@ -174,17 +192,6 @@ export default {
         `,
         colspan: '1',
         rowspan: '3'
-      },
-      {
-        name: `
-        微<br/>量<br/>血<br/>糖<br/>(mmol/L)
-        `,
-        colspan: '1',
-        rowspan: '3',
-        style: {
-          minWidth: "25px",
-          maxWidth: "25px"
-        },
       },
       {
         name: ``,
@@ -217,20 +224,20 @@ export default {
       },
     ],
     mid: [
-      {
-        name: `
-        左<br/>(mm)
-        `,
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: `
-        右<br/>(mm)
-        `,
-        colspan: '1',
-        rowspan: '2'
-      },
+      // {
+      //   name: `
+      //   左<br/>(mm)
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2'
+      // },
+      // {
+      //   name: `
+      //   右<br/>(mm)
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2'
+      // },
       {
         name: `
         名<br/>称
@@ -294,13 +301,13 @@ export default {
         colspan: '1',
         rowspan: '2'
       },
-      {
-        name: `
-        胃<br/>肠<br/>引<br/>流<br/>(ml)
-        `,
-        colspan: '1',
-        rowspan: '2'
-      },
+      // {
+      //   name: `
+      //   胃<br/>肠<br/>引<br/>流<br/>(ml)
+      //   `,
+      //   colspan: '1',
+      //   rowspan: '2'
+      // },
       {
         name: ``,
         colspan: '1',

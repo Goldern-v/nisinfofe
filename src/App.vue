@@ -5,6 +5,7 @@
     <contextMenu ref="contextMenu"></contextMenu>
     <markTip ref="markTip"></markTip>
     <signModal ref="signModal"></signModal>
+    <whhkSignModal ref="whhkSignModal"></whhkSignModal>
     <formBox ref="moadl"></formBox>
     <formBoxClean ref="formBoxClean"></formBoxClean>
     <formBoxEdu ref="formBoxEdu"></formBoxEdu>
@@ -22,6 +23,7 @@
     <caSignModal ref="caSignModal"></caSignModal>
     <fuyouCaSignModal ref="fuyouCaSignModal"></fuyouCaSignModal>
     <zzwyCaSignModal ref="zzwyCaSignModal"></zzwyCaSignModal>
+    <whhkCaSignModal ref="whhkCaSignModal"></whhkCaSignModal>
     <hjCaSignModal ref="hjCaSignModal"></hjCaSignModal>
     <!-- 测试 -->
 
@@ -35,6 +37,7 @@ import autoComplete from "@/components/autoComplete/autoComplete.vue";
 import contextMenu from "@/components/contextMenu/contextMenu.vue";
 import markTip from "@/components/markTip/markTip.vue";
 import signModal from "@/components/modal/sign.vue";
+import whhkSignModal from "@/components/modal/whhk-sign.vue";
 import testModal from "@/components/modal/testDialog.vue";
 import Infomation from "@/components/modal/infomation.vue";
 import testFormModal from "@/components/modal/testFormDialog.vue";
@@ -55,6 +58,7 @@ import detectZoom from "@/plugin/tool/detectZoom.js";
 import ScreenLockView from "@/components/screenLockView/ScreenLockView";
 import fuyouCaSignModal from "@/components/modal/fuyou-ca-sign";
 import zzwyCaSignModal from "@/components/modal/zzwy-ca-sign";
+import whhkCaSignModal from "@/components/modal/whhk-ca-sign";
 import hjCaSignModal from "@/components/modal/hj-ca-sign";
 
 
@@ -94,7 +98,6 @@ export default {
       }
     }.bind(_this));
     // end --- 针对花都多窗口切换用户bug的绑定监听事件
-
     window.onresize = () => {
       this.$store.commit("common/upWih");
     };
@@ -115,6 +118,7 @@ export default {
   },
   mounted() {
     window.openSignModal = this.$refs.signModal.open;
+    window.openWhhkSignModal = this.$refs.whhkSignModal.open;
     window.openTestDiagnosisModal = this.$refs.testDiagnosis.open;
     window.openInfoDiagnosisModal = this.$refs.InfoDiagnosis.open;
     window.openTestFormDiagnosisModal = this.$refs.testFormDiagnosis.open;
@@ -124,12 +128,14 @@ export default {
     this.$root.$refs = {
       ...this.$root.$refs,
       sign: this.$refs.signModal,
+      whhkSignModal:this.$refs.whhkSignModal,
       setTextModal: this.$refs.setTextModal,
       setTextModalNew: this.$refs.setTextModalNew,
       newFormBox: this.$refs.newFormBox,
       caSignModal: this.$refs.caSignModal,
       fuyouCaSignModal: this.$refs.fuyouCaSignModal,
       zzwyCaSignModal: this.$refs.zzwyCaSignModal,
+      whhkCaSignModal: this.$refs.whhkCaSignModal,
       hjCaSignModal: this.$refs.hjCaSignModal,
       selectDiagnosis: this.$refs.selectDiagnosis,
       formBox: this.$refs.moadl,
@@ -249,6 +255,13 @@ export default {
     };
     window.closeZzwyCaSignModal = () => {
       this.$refs.zzwyCaSignModal.close();
+    };
+    /** 漳州五院ca签名 */
+    window.openWhhkCaSignModal = (isStart) => {
+      return this.$refs.whhkCaSignModal.open(()=>{},isStart);
+    };
+    window.closeWhhkCaSignModal = () => {
+      this.$refs.whhkCaSignModal.close();
     };
     //fuyouCaSignModal
     /** 关闭前提示 */
@@ -390,6 +403,7 @@ export default {
     contextMenu,
     markTip,
     signModal,
+    whhkSignModal,
     testModal,
     Infomation,
     testFormModal,
@@ -408,6 +422,7 @@ export default {
     ScreenLockView,
     fuyouCaSignModal,
     zzwyCaSignModal,
+    whhkCaSignModal,
     hjCaSignModal
   }
 };

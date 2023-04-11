@@ -52,7 +52,7 @@
           </td>
           <!-- 备注 -->
           <td class="remark contentLeft" v-if="HOSPITAL_ID !== 'qhwy'">
-            <span class="remark-span">{{data['备注']}}</span>
+            <span class="remark-span">{{data[`${HOSPITAL_ID === 'whhk' ? '宣教情况' : '备注'}`]}}</span>
           </td>
           <!-- 签名 -->
           <td v-if="['lingcheng','guizhou','foshanrenyi'].includes(HOSPITAL_ID)" class="specialTd">
@@ -135,7 +135,7 @@ export default {
             { colspan: 2, text: "教育对象" },
             { colspan: 4, text: "教育方法" },
             { colspan: 3, text: "教育评估" },
-            { rowspan: 2, text: "备注", width: 90 },
+            { rowspan: 2, text: `${this.HOSPITAL_ID === 'whhk' ? '宣教情况' : '备注'}`, width: 90 },
           ],
           { rowspan: 2, text: "签名", width: 60 }
         ],
@@ -194,6 +194,7 @@ export default {
           教育方法: "",
           教育评估: "",
           备注: "",
+          宣教情况: "",
           签名: ""
         });
       }

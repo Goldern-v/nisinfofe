@@ -4,7 +4,7 @@
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
 import { keyf1, limitChange } from "../keyEvent/f1.js";
-import { event_date, event_time, click_date, click_time } from "../keyEvent/date";
+import { event_date, event_time, click_date, click_time, } from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
@@ -145,19 +145,19 @@ export default [
       data: 脐部
     },
   },
-  {
-    key: "tension", //肌张力
-    value: "",
-    name: "肌张力",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
-    },
-    autoComplete: {
-      data: 肌张力
-    },
-  },
+  // {
+  //   key: "tension", //肌张力
+  //   value: "",
+  //   name: "肌张力",
+  //   event: keyf1,
+  //   change: (e, td) => limitChange(e, td, 4),
+  //   textarea: {
+  //     width: 35
+  //   },
+  //   autoComplete: {
+  //     data: 肌张力
+  //   },
+  // },
   {
     key: "sucking", //吸吮力
     value: "",
@@ -185,35 +185,56 @@ export default [
     },
   },
   {
-    key: "pupilLeft", //瞳孔对光反射左
+    key: "refluxGastric", //肌张力
     value: "",
-    name: "瞳孔（对光反射）左",
-    next: "mm",
+    name: "回抽胃管",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 40
-    },
-    splice:'/',
-    autoComplete: {
-      data: 瞳孔
-    },
+      width: 50
+    }
   },
   {
-    key: "pupilRight", //瞳孔对光反射右
+    key: "trace", //微量血糖
     value: "",
-    name: "瞳孔（对光反射）右",
-    next: "mm",
+    name: "微量血糖",
+    next: "mmol/L",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 40
-    },
-    splice:'/',
-    autoComplete: {
-      data: 瞳孔
+      width: 45
     },
   },
+  // {
+  //   key: "pupilLeft", //瞳孔对光反射左
+  //   value: "",
+  //   name: "瞳孔（对光反射）左",
+  //   next: "mm",
+  //   event: keyf1,
+  //   change: (e, td) => limitChange(e, td, 6),
+  //   textarea: {
+  //     width: 40
+  //   },
+  //   splice:'/',
+  //   autoComplete: {
+  //     data: 瞳孔
+  //   },
+  // },
+  // {
+  //   key: "pupilRight", //瞳孔对光反射右
+  //   value: "",
+  //   name: "瞳孔（对光反射）右",
+  //   next: "mm",
+  //   event: keyf1,
+  //   change: (e, td) => limitChange(e, td, 6),
+  //   textarea: {
+  //     width: 40
+  //   },
+  //   splice:'/',
+  //   autoComplete: {
+  //     data: 瞳孔
+  //   },
+  // },
   {
     key: "inputName", //名称
     value: "",
@@ -222,7 +243,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 45
+      width: 55
     },
     autoComplete: {
       data: 名称
@@ -238,9 +259,9 @@ export default [
     textarea: {
       width: 45
     },
-    autoComplete: {
-      data: 静脉
-    },
+    // autoComplete: {
+    //   data: 静脉
+    // },
   },
   {
     key: "eat", //进食
@@ -249,7 +270,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 45
+      width: 55
     },
     autoComplete: {
       data: 进食
@@ -274,7 +295,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
     autoComplete: {
       data: 便颜色
@@ -288,7 +309,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -299,7 +320,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 35
+      width: 45
     },
     autoComplete: {
       data: 便颜色
@@ -327,17 +348,17 @@ export default [
       width: 35
     },
   },
-  {
-    key: "drainage", //胃肠引流
-    value: "",
-    name: "胃肠引流",
-    next: "ml",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
-    },
-  },
+  // {
+  //   key: "drainage", //胃肠引流
+  //   value: "",
+  //   name: "胃肠引流",
+  //   next: "ml",
+  //   event: keyf1,
+  //   change: (e, td) => limitChange(e, td, 4),
+  //   textarea: {
+  //     width: 35
+  //   },
+  // },
   {
     key: "outPutCustomization1", //自定义1
     value: "",
@@ -422,17 +443,6 @@ export default [
     splice:'/',
     autoComplete: {
       data: 基础护理
-    },
-  },
-  {
-    key: "trace", //微量血糖
-    value: "",
-    name: "微量血糖",
-    next: "mmol/L",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
     },
   },
   {
