@@ -2087,9 +2087,14 @@
             "pinyin": "zz"
         },
         {
-            "code": "大专以上",
-            "name": "大专以上",
-            "pinyin": "dzys"
+            "code": "大专",
+            "name": "大专",
+            "pinyin": "dz"
+        },
+        {
+            "code": "本科及以上",
+            "name": "本科及以上",
+            "pinyin": "bkjys"
         }
     ],
     "I001010": [

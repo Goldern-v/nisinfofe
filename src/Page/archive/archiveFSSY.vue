@@ -681,7 +681,35 @@ export default {
   watch: {
     deptCode() {
       this.getArchiveList();
-    }
+    },
+    "query.dischargeDateBegin":{
+      handler(newVal,oldVal) {
+        if(['whhk'].includes(this.HOSPITAL_ID)){
+          if(moment(newVal).diff(moment(this.query.dischargeDateEnd), 'days' )>0){
+            this.query.dischargeDateBegin = oldVal
+            return this.$message({
+              message: '开始时间不可大于结束时间',
+              type: 'warning'
+            });
+          }
+        }
+        this.search();
+      },
+    },
+    "query.dischargeDateEnd":{
+      handler(newVal,oldVal) {
+        if(['whhk'].includes(this.HOSPITAL_ID)){
+          if(moment(newVal).diff(moment(this.query.dischargeDateBegin), 'days' )<0){
+            this.query.dischargeDateEnd = oldVal
+            return this.$message({
+              message: '开始时间不可大于结束时间',
+              type: 'warning'
+            });
+          }
+        }
+        this.search();
+      },
+    },
   }
 };
 </script>

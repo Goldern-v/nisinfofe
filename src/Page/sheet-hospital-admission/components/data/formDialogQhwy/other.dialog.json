@@ -1680,11 +1680,15 @@
         "class": null,
         "html": null,
         "readOnly": null,
+        "multiplechoice":true,
         "options": [
           "糖尿病",
           "高血压",
           "哮喘",
-          "消化性溃疡"
+          "消化性溃疡",
+          "心脏病",
+          "肿瘤",
+          "精神病"
         ]
       }
     ]
@@ -1709,7 +1713,7 @@
     "modalWidth": 400,
     "children": [
       {
-        "name": "I001366",
+        "name": "I001985",
         "type": "input",
         "title": "长期用药",
         "style": null,

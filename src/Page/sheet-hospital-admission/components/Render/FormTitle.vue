@@ -12,6 +12,12 @@
             :key="index"
           >{{item.title}}{{item.colon ? "" : ":"}}{{item.value}}{{item.postText?`${item.postText}`:''}}</span>
         </div>
+        <div class="header-box " v-if="formHeads2.length>0" style="justify-content: flex-start;padding-left: 30px;">
+          <span
+            v-for="(item, index) in formHeads2"
+            :key="index"
+          >{{item.title}}{{item.colon ? "" : ":"}}{{item.value}}{{item.postText?`${item.postText}`:''}}</span>
+        </div>
       </div>
     </TipsBox>
   </div>
@@ -89,7 +95,7 @@ export default {
           name: "admissionDate",
           value: "",
           title: "入院日期"
-        }
+        },
       ].filter(item => item)
 
       ret.map(r => {
@@ -98,7 +104,24 @@ export default {
         } catch (error) {}
       });
       return ret;
-    }
+    },
+    formHeads2() {
+      let patient = this.$store.getters.getCurrentPatient();
+      let ret = [
+        this.HOSPITAL_ID === 'qhwy' && 
+        {
+          name: "diagnosis",
+          value: "",
+          title: "入院诊断",
+        },
+      ].filter(item => item)
+      ret.map(r => {
+        try {
+          r.value = patient[r.name];
+        } catch (error) {}
+      });
+      return ret;
+    },
   },
   watch: {},
   mounted() {
