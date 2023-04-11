@@ -2596,7 +2596,13 @@ export default {
             (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true);
         }
       }
-
+      // 删减特殊情况超页(11页-10页);
+      if (result.length < this.record.length) {
+        const diff = this.record.length - result.length;
+        for (let i = 0; i < diff; i++) {
+          process.env.splitSave && (this.record[i + result.length].isChange = true);
+        }
+      }
       if (
         (this.HOSPITAL_ID === "huadu" &&
           sheetInfo.sheetType !== "body_temperature_Hd") ||

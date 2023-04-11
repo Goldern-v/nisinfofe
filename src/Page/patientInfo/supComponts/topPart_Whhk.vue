@@ -185,12 +185,12 @@
        <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
         <div class="nav-item">会诊</div>
       </router-link>
-      <!-- <router-link
+      <router-link
         :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
-        <div class="nav-item">患者360</div>
-      </router-link> -->
+        <div class="nav-item">360</div>
+      </router-link>
     </div>
     <div style="height: 50px"></div>
   </div>
