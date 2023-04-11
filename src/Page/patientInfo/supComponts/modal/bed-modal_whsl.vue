@@ -666,6 +666,12 @@ export default {
           remark: diagnosis,
           remarkPrint: resData.remarkPrint
         };
+        if(['whsl'].includes(this.HOSPITAL_ID)){
+            this.formData = {
+              ...this.formData,
+              aField5:resData.aField5,
+          }
+        }
         if(['zhzxy'].includes(this.HOSPITAL_ID)){
             this.formData = {
               ...this.formData,
@@ -776,6 +782,9 @@ export default {
       data.dutyNurses = this.formData.dutyNurses;
       data.remarkPrint = this.formData.remarkPrint;
       data.remark = this.formData.remark.slice(0, 24);
+      if(['whsl'].includes(this.HOSPITAL_ID)){
+         data.aField5 = this.formData.aField5;
+      }
       if(['zhzxy'].includes(this.HOSPITAL_ID)){
         data.aField1 = this.formData.aField1;
         data.aField2 = this.formData.aField2;

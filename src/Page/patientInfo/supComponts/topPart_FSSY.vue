@@ -22,16 +22,68 @@
       >
         <div class="nav-item">首页</div>
       </router-link>
-      <router-link
-        :to="{
-          path: '/record',
-          query: { patientId: query.patientId, visitId: query.visitId } 
-        }"
-        tag="span"
+      <template v-if="HOSPITAL_ID != 'foshanrenyi'">
+        <router-link
+          :to="{
+            path: '/record',
+            query: { patientId: query.patientId, visitId: query.visitId } 
+          }"
+          tag="span"
+        >
+          <div class="nav-item" v-if="HOSPITAL_ID == 'beihairenyi'">护理评估单</div>
+          <div class="nav-item" v-else>护理文书</div>
+        </router-link>
+      </template>
+      <el-dropdown
+        v-else 
+        menu-align="start"
+        class="nav-item" 
+        :class="{ 'router-link-active': isNursing }"
       >
-        <div class="nav-item" v-if="HOSPITAL_ID == 'beihairenyi'">护理评估单</div>
-        <div class="nav-item" v-else>护理文书</div>
-      </router-link>
+        <el-row type="flex" align="middle">
+          <!-- <div class="before"></div> -->
+          护理文书
+        </el-row>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item :class="{active: $route.path == '/admissionPageAdult2'}">
+            <router-link
+             :to="{
+                path: '/admissionPageAdult2',
+                query: { patientId: query.patientId, visitId: query.visitId } 
+              }"
+              tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                <i class="sheetHospitalAdmission"></i> 入院评估(成人)
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item :class="{active: $route.path == '/admissionPageChild2'}">
+            <router-link 
+            :to="{
+              path: '/admissionPageChild2',
+              query: { patientId: query.patientId, visitId: query.visitId } 
+            }"
+            tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                <i class="sheetHospitalAdmission"></i> 入院评估(儿童)
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item :class="{active: $route.path == '/record'}">
+            <router-link
+              :to="{
+                path: '/record',
+                query: { patientId: query.patientId, visitId: query.visitId } 
+              }"
+              tag="span"
+              >
+              <el-row class="menu-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i> 其他文书评估
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
        <router-link
         :to="{
           path: '/sheet',
@@ -217,7 +269,41 @@
     line-height: 16px;
   }
 }
+.el-dropdown-menu__item:not(.is-disabled):hover, .el-dropdown-menu__item.active {
+  background-color: #F8F8FA;
 
+  .menu-item {
+    color: #333;
+    font-weight: bold;
+  }
+}
+
+.menu-item {
+  height: 38px;
+  padding: 0 0px;
+  text-align: center;
+  font-size: 13px;
+  color: #687179;
+  letter-spacing: 0;
+  cursor: pointer;
+
+  i {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &.sheetHospitalAdmission {
+      background-image: url('../../../common/images/index/入院评估.png');
+    }
+
+    &.nursingAssessment {
+      background-image: url('../../../common/images/index/护理评估.png');
+    }
+  }
+}
 .nav-con {
   height: 50px;
   min-width: 1030px;
@@ -269,6 +355,10 @@ export default {
     query() {
       let query = this.$route.query;
       return query;
+    },
+    isNursing() {
+      let path = this.$route.path;
+      return path.includes("sheetHospitalAdmission") || path.includes("formPage")
     }
   },
   components: {},

@@ -2342,7 +2342,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "baby_lcey") {
+            } else if (["baby_lcey","critical_linyi"].includes(this.sheetInfo.sheetType)) {
               if (GetLength(text) > 20) {
                 result.push(text);
                 text = allDoc[i];
@@ -2400,7 +2400,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "ultrasound_fs" || this.sheetInfo.sheetType === "baby_tj") {
+            } else if (["ultrasound_fs","baby_tj","baby_whhk","insulin_whhk","labor_whhk","intravenous_whhk"].includes(this.sheetInfo.sheetType)) {
               if (GetLength(text) > 30) {
                 result.push(text);
                 text = allDoc[i];
@@ -2430,6 +2430,13 @@ export default {
               }
             }else if (this.sheetInfo.sheetType == "nursing_qhwy") {
               if (GetLength(text) > 50) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            }else if (["neonatology_whhk"].includes(this.sheetInfo.sheetType)) {
+              if (GetLength(text) > 28) {
                 result.push(text);
                 text = allDoc[i];
               } else {

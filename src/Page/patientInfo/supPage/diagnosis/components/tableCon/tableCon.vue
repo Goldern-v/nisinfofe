@@ -138,6 +138,9 @@ export default {
 
         let page = document.createElement("div");
         page.className = "containter";
+        if(['qhwy'].includes(this.HOSPITAL_ID)){
+          page.style="height:1700px"
+        }
         page.appendChild(header.cloneNode(true));
         page.appendChild(elTable);
 
@@ -150,20 +153,35 @@ export default {
       printRowsArr.forEach((row, index) => {
         pageH += allRowH[index];
         newTbody.appendChild(row);
-        if (pageH + otherH >= 1000) {
-          if (pageH + otherH > 1000) {
-            newTbody.removeChild(row);
+        if(['qhwy'].includes(this.HOSPITAL_ID)){
+          if (pageH + otherH >= 2000) {
+            if (pageH + otherH > 2000) {
+             newTbody.removeChild(row);
+            }
+            addPage();
+            newTbody = document.createElement("tbody");
+            if (pageH + otherH > 2000) {
+             newTbody.appendChild(row);
+             pageH = allRowH[index];
+            } else {
+             pageH = 0;
+           }
           }
-          addPage();
-          newTbody = document.createElement("tbody");
-          if (pageH + otherH > 1000) {
-            newTbody.appendChild(row);
-            pageH = allRowH[index];
-          } else {
-            pageH = 0;
+         }else{
+          if (pageH + otherH >= 1000) {
+            if (pageH + otherH > 1000) {
+              newTbody.removeChild(row);
+            }
+            addPage();
+            newTbody = document.createElement("tbody");
+            if (pageH + otherH > 1000) {
+             newTbody.appendChild(row);
+             pageH = allRowH[index];
+            } else {
+             pageH = 0;
+            }
           }
         }
-
         if (index == printRowsArr.length - 1) {
           addPage();
         }

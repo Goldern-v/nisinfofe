@@ -314,11 +314,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "190px",
       background: "transparent",
     },
     textarea: {
-      width: 180
+      width: 190
     },
     event: function (e, td) {
       console.log(e.keyCode);

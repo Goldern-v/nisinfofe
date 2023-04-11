@@ -1,7 +1,8 @@
 <template>
   <div class="cardiac_intervent-info-contain">
     <!-- {{relObj}} -->
-    <table>
+    <span>1.患者相关检查指标</span>
+    <table style="width: 50%;">
       <colgroup>
         <col width="15%">
         <col width="20%">
@@ -9,8 +10,36 @@
         <col width="30%">
       </colgroup>
       <tr>
-        <td>入院日期：</td>
-        <td colspan="2" style="text-align: left;">
+        <td style="line-height: 30px;">项目</td>
+        <td style="line-height: 30px;">FBGmmol/L</td>
+        <td style="line-height: 30px;"> PBGmmol/L</td>
+        <td style="line-height: 30px;">HbA1C%</td>
+      </tr>
+      <tr>
+        <td style="line-height: 30px;">入院时</td>
+        <td style="line-height: 30px;">  </td>
+        <td style="line-height: 30px;">  </td>
+        <td style="line-height: 30px;"> </td>
+      </tr>
+    </table>
+   <span style="margin-top: 5px"> 2.安装及更换胰岛素泵记录表（由当班责任护士观察并打“√”）</span>
+    <table style="margin-top: 5px">
+      <colgroup>
+        <col width="20%">
+        <col width="20%">
+        <col width="20%">
+        <col width="20%">
+        <col width="20%">
+      </colgroup>
+      <tr>
+        <td>日期/时间</td>
+        <td>机型编号</td>
+        <td>消毒液</td>
+        <td>部位</td>
+        <td>签名</td>
+        </tr>
+        <tr>
+        <td style="text-align: left;">
           <!-- <input
             type="text"
             class="bottom-line"
@@ -20,20 +49,56 @@
           /> -->
           <span style="margin-left: 5px">{{ patientInfo.admissionDate | toymd }}</span>
         </td>
+        <td> <input
+                  type="text"
+                  class="bottom-line"
+                  style="width: 20px; height: 12px"
+                  v-model="relObj.sysA"
+                  :data-value="relObj.sysA"
+                /></td>
         <td>
           <div flex>
             <span flex="cross:center">
-              <span>入院方式：</span>
               <label>
                 <input
                   type="radio"
-                  :data-value="relObj.zqss"
-                  v-model="relObj.zqss"
+                  :data-value="relObj.jiujing"
+                  v-model="relObj.jiujing"
                   value="1"
-                  :ischecked="relObj.zqss == 1"
-                  @click="toNull(relObj, 'zqss', '1')"
+                  :ischecked="relObj.jiujing == 1"
+                  @click="toNull(relObj, 'jiujing', '1')"
                 />
-                <span>门诊</span>
+                <span>酒精 </span>
+              </label>
+            </span>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.aerd"
+                  v-model="relObj.aerd"
+                  value="2"
+                  :ischecked="relObj.aerd == 2"
+                  @click="toNull(relObj, 'aerd', '2')"
+                />
+                <span>安尔碘</span>
+              </label>
+            </span>
+          </div>
+        </td>
+        <td>
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zsf"
+                  v-model="relObj.zsf"
+                  value="1"
+                  :ischecked="relObj.zsf == 1"
+                  @click="toNull(relObj, 'zsf', '1')"
+                />
+                <span>左上腹 </span>
               </label>
             </span>
             <span flex="cross:center">
@@ -46,196 +111,371 @@
                   :ischecked="relObj.zqss == 2"
                   @click="toNull(relObj, 'zqss', '2')"
                 />
-                <span>急诊</span>
+                <span>左上腹</span>
               </label>
             </span>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-          <div>
-            <span>诊断：</span>
-            <input
-              type="text"
-              class="bottom-line"
-              style="width: 500px; text-align: left"
-              :data-value="relObj.zd"
-              v-model="relObj.zd"
-            />
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="1"
+                  :ischecked="relObj.zqss == 1"
+                  @click="toNull(relObj, 'zqss', '1')"
+                />
+                <span>右上腹 </span>
+              </label>
+            </span>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="2"
+                  :ischecked="relObj.zqss == 2"
+                  @click="toNull(relObj, 'zqss', '2')"
+                />
+                <span>右上腹</span>
+              </label>
+            </span>
           </div>
         </td>
         <td>
-          <div flex>
-            <span flex="cross:center">
-              <span>婚姻状况：</span>
-              <label>
-                <input
-                  type="radio"
-                  :data-value="relObj.hyzk"
-                  v-model="relObj.hyzk"
-                  value="1"
-                  :ischecked="relObj.hyzk == 1"
-                  @click="toNull(relObj, 'hyzk', '1')"
-                />
-                <span>未婚</span>
-              </label>
-            </span>
-            <span flex="cross:center">
-              <label>
-                <input
-                  type="radio"
-                  :data-value="relObj.hyzk"
-                  v-model="relObj.hyzk"
-                  value="2"
-                  :ischecked="relObj.hyzk == 2"
-                  @click="toNull(relObj, 'hyzk', '2')"
-                />
-                <span>已婚</span>
-              </label>
-            </span>
-          </div>
+
         </td>
       </tr>
       <tr>
-        <td colspan="4">
-          <div flex>
-            <span>生命体征：</span>
-            <span flex="cross:center">
-              <span>
-                <span style="position: relative;top:1px">T</span>
-                <input
-                  type="text"
-                  class="bottom-line"
-                  style="width: 50px; height: 12px"
-                  v-model="relObj.T"
-                  :data-value="relObj.T"
-                />
-                <span>℃ &nbsp;</span>
-              </span>
-            </span>
-            <span flex="cross:center">
-              <span>
-                <span style="position: relative;top:1px">P</span>
-                <input
-                  type="text"
-                  class="bottom-line"
-                  style="width: 50px; height: 12px"
-                  v-model="relObj.P"
-                  :data-value="relObj.P"
-                />
-                <span>次/分 &nbsp;</span>
-              </span>
-            </span>
-            <span flex="cross:center">
-              <span>
-                <span style="position: relative;top:1px">R</span>
-                <input
-                  type="text"
-                  class="bottom-line"
-                  style="width: 50px; height: 12px"
-                  v-model="relObj.R"
-                  :data-value="relObj.R"
-                />
-                <span>次/分 &nbsp;</span>
-              </span>
-            </span>
-            <span flex="cross:center">
-              <span>
-                <span style="position: relative;top:1px">BP</span>
-                <input
-                  type="text"
-                  class="bottom-line"
-                  style="width: 60px; height: 12px"
-                  v-model="relObj.BP"
-                  :data-value="relObj.BP"
-                />
-                <span>mmHg </span>
-              </span>
-            </span>
-          </div>
+        <td style="text-align: left;">
+          <!-- <input
+            type="text"
+            class="bottom-line"
+            style="text-align: left; width: 90%"
+            :data-value="relObj.ryrq"
+            v-model="relObj.ryrq"
+          /> -->
+          <span style="margin-left: 5px">{{ patientInfo.admissionDate | toymd }}</span>
         </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <div flex>
-            <span>生育史：</span>
-            <span flex="cross:center">
-              <span>
-                <span style="position: relative;top:1px">G</span>
-                <input
-                  type="text"
-                  class="bottom-line"
-                  style="width: 20px; height: 12px"
-                  v-model="relObj.sysG"
-                  :data-value="relObj.sysG"
-                />
-                <span> &nbsp;</span>
-              </span>
-            </span>
-            <span flex="cross:center">
-              <span>
-                <span style="position: relative;top:1px">P</span>
-                <input
-                  type="text"
-                  class="bottom-line"
-                  style="width: 20px; height: 12px"
-                  v-model="relObj.sysP"
-                  :data-value="relObj.sysP"
-                />
-                <span> &nbsp;</span>
-              </span>
-            </span>
-            <span flex="cross:center">
-              <span>
-                <span style="position: relative;top:1px">A</span>
-                <input
+        <td> <input
                   type="text"
                   class="bottom-line"
                   style="width: 20px; height: 12px"
                   v-model="relObj.sysA"
                   :data-value="relObj.sysA"
+                /></td>
+        <td>
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="1"
+                  :ischecked="relObj.zqss == 1"
+                  @click="toNull(relObj, 'zqss', '1')"
                 />
-                <span>&nbsp;</span>
-              </span>
+                <span>酒精 </span>
+              </label>
             </span>
             <span flex="cross:center">
-              <span>
-                <span style="position: relative;top:1px">L</span>
+              <label>
                 <input
-                  type="text"
-                  class="bottom-line"
-                  style="width:20px; height: 12px"
-                  v-model="relObj.sysL"
-                  :data-value="relObj.sysL"
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="2"
+                  :ischecked="relObj.zqss == 2"
+                  @click="toNull(relObj, 'zqss', '2')"
                 />
-              </span>
+                <span>安尔碘</span>
+              </label>
             </span>
           </div>
         </td>
         <td>
-          <div>
-            <span>过敏史：</span>
-            <input
-              type="text"
-              class="bottom-line"
-              style="width: 75%; text-align: left"
-              :data-value="relObj.gms"
-              v-model="relObj.gms"
-            />
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="1"
+                  :ischecked="relObj.zqss == 1"
+                  @click="toNull(relObj, 'zqss', '1')"
+                />
+                <span>左上腹 </span>
+              </label>
+            </span>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="2"
+                  :ischecked="relObj.zqss == 2"
+                  @click="toNull(relObj, 'zqss', '2')"
+                />
+                <span>左上腹</span>
+              </label>
+            </span>
+          </div>
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="1"
+                  :ischecked="relObj.zqss == 1"
+                  @click="toNull(relObj, 'zqss', '1')"
+                />
+                <span>右上腹 </span>
+              </label>
+            </span>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="2"
+                  :ischecked="relObj.zqss == 2"
+                  @click="toNull(relObj, 'zqss', '2')"
+                />
+                <span>右上腹</span>
+              </label>
+            </span>
           </div>
         </td>
         <td>
-          <div>
-            <span>既往史：</span>
-            <input
-              type="text"
-              class="bottom-line"
-              style="width: 74%; text-align: left"
-              :data-value="relObj.jws"
-              v-model="relObj.jws"
-            />
+
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: left;">
+          <!-- <input
+            type="text"
+            class="bottom-line"
+            style="text-align: left; width: 90%"
+            :data-value="relObj.ryrq"
+            v-model="relObj.ryrq"
+          /> -->
+          <span style="margin-left: 5px">{{ patientInfo.admissionDate | toymd }}</span>
+        </td>
+        <td> <input
+                  type="text"
+                  class="bottom-line"
+                  style="width: 20px; height: 12px"
+                  v-model="relObj.sysA"
+                  :data-value="relObj.sysA"
+                /></td>
+        <td>
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="1"
+                  :ischecked="relObj.zqss == 1"
+                  @click="toNull(relObj, 'zqss', '1')"
+                />
+                <span>酒精 </span>
+              </label>
+            </span>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="2"
+                  :ischecked="relObj.zqss == 2"
+                  @click="toNull(relObj, 'zqss', '2')"
+                />
+                <span>安尔碘</span>
+              </label>
+            </span>
           </div>
+        </td>
+        <td>
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="1"
+                  :ischecked="relObj.zqss == 1"
+                  @click="toNull(relObj, 'zqss', '1')"
+                />
+                <span>左上腹 </span>
+              </label>
+            </span>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="2"
+                  :ischecked="relObj.zqss == 2"
+                  @click="toNull(relObj, 'zqss', '2')"
+                />
+                <span>左上腹</span>
+              </label>
+            </span>
+          </div>
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="1"
+                  :ischecked="relObj.zqss == 1"
+                  @click="toNull(relObj, 'zqss', '1')"
+                />
+                <span>右上腹 </span>
+              </label>
+            </span>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="2"
+                  :ischecked="relObj.zqss == 2"
+                  @click="toNull(relObj, 'zqss', '2')"
+                />
+                <span>右上腹</span>
+              </label>
+            </span>
+          </div>
+        </td>
+        <td>
+
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: left;">
+          <!-- <input
+            type="text"
+            class="bottom-line"
+            style="text-align: left; width: 90%"
+            :data-value="relObj.ryrq"
+            v-model="relObj.ryrq"
+          /> -->
+          <span style="margin-left: 5px">{{ patientInfo.admissionDate | toymd }}</span>
+        </td>
+        <td> <input
+                  type="text"
+                  class="bottom-line"
+                  style="width: 20px; height: 12px"
+                  v-model="relObj.sysA"
+                  :data-value="relObj.sysA"
+                /></td>
+        <td>
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="1"
+                  :ischecked="relObj.zqss == 1"
+                  @click="toNull(relObj, 'zqss', '1')"
+                />
+                <span>酒精 </span>
+              </label>
+            </span>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="2"
+                  :ischecked="relObj.zqss == 2"
+                  @click="toNull(relObj, 'zqss', '2')"
+                />
+                <span>安尔碘</span>
+              </label>
+            </span>
+          </div>
+        </td>
+        <td>
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="1"
+                  :ischecked="relObj.zqss == 1"
+                  @click="toNull(relObj, 'zqss', '1')"
+                />
+                <span>左上腹 </span>
+              </label>
+            </span>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="2"
+                  :ischecked="relObj.zqss == 2"
+                  @click="toNull(relObj, 'zqss', '2')"
+                />
+                <span>左上腹</span>
+              </label>
+            </span>
+          </div>
+          <div flex>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="1"
+                  :ischecked="relObj.zqss == 1"
+                  @click="toNull(relObj, 'zqss', '1')"
+                />
+                <span>右上腹 </span>
+              </label>
+            </span>
+            <span flex="cross:center">
+              <label>
+                <input
+                  type="radio"
+                  :data-value="relObj.zqss"
+                  v-model="relObj.zqss"
+                  value="2"
+                  :ischecked="relObj.zqss == 2"
+                  @click="toNull(relObj, 'zqss', '2')"
+                />
+                <span>右上腹</span>
+              </label>
+            </span>
+          </div>
+        </td>
+        <td>
+
         </td>
       </tr>
     </table>
@@ -399,7 +639,7 @@ export default {
         border: 1px solid #000;
         margin: 0;
         padding: 1px;
-        line-height: 28px;
+        line-height: 16px;
         // height: 28px;//需保留否则td内div没有内容
 
       }

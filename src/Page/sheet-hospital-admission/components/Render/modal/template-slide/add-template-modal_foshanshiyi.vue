@@ -137,7 +137,7 @@ export default {
       });
     },
     open(item) {
-      console.log(item,'item')
+      // console.log(item,'item')
       this.$refs.modal.open();
       this.getDeptLists()
       // this.getData();

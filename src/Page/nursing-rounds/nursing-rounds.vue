@@ -226,12 +226,13 @@ export default {
       this.query.pageIndex = newPage;
       this.onLoad();
     },
-    onLoad() {
+    onLoad(ifOnload) {
       if (!this.deptCode) return;
+      if(!this.query.bedLabel.trim() && ifOnload!=='onload') return 
       this.pageLoadng = true;
       this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
-        getNursingVisitLc(this.query).then(res => {
+      getNursingVisitLc(this.query).then(res => {
           if (['lyxrm', 'whsl', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
             let child = [],
               tableData = [];
@@ -325,8 +326,9 @@ export default {
     openViewModal() {
       this.$refs.authorityModal.open(this.deptCode);
     },
-    onLoadAll() {
+    onLoadAll(ifOnload) {
       if (!this.deptCode) return;
+      if(!this.query.bedLabel.trim() && ifOnload!=='onload') return 
       this.pageLoadng = true;
       this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
@@ -427,8 +429,8 @@ export default {
     }
   },
   created() {
-    this.onLoad();
-    this.onLoadAll();
+    this.onLoad('onload');
+    this.onLoadAll('onload');
     this.getNursingClass();
   },
   watch: {

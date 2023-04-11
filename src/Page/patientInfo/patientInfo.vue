@@ -1,7 +1,7 @@
 <template>
-  <div :class="{ hj:  ['hj','sdlj','fuyou'].includes(HOSPITAL_ID) }">
+  <div :class="{ hj:  ['hj','sdlj','fuyou'].includes(HOSPITAL_ID) }" >
     <component :is="witchLeft" v-if="inited"/>
-    <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
+    <div class="right-part" :style="[{ marginLeft: openLeft ? '200px' : '0' },...heightFun()]">
       <component :is="switchCompt()" v-if="inited" />
       <router-view v-if="inited"></router-view>
     </div>
@@ -99,6 +99,12 @@ export default {
     this.getPatientData();
   },
   methods: {
+    heightFun(){
+      if(['/admissionPageAdult2','/admissionPageChild2'].includes(this.$route.path)) return [
+        {'height': '100vh',},
+        {'overflow': 'hidden'}
+      ]
+    },
     // openNewFormBoxClean(box){
     //   this.$refs.openNewFormModal.open(box)
     // },

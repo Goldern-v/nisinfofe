@@ -110,6 +110,17 @@ export const getVitalSignListByDate = (query = {
 }) => {
   return axios.post(`${apiPath}vitalSign/list`, query);
 };
+
+//佛山市一保存上周的自定义项目
+export const copySetting = (query = {
+  patientId: '',
+  visitId: '',
+  wardCode: '',
+  recordDate: ''
+}) => {
+  return axios.post(`${apiPath}vitalSign/fieldSetting/copySetting`, query);
+};
+
 /** 获取最新10条体征信息 */
 export const getLastList = (patientId, visitId) => {
   return axios.get(`${apiPath}vitalSign/lastList/${patientId}/${visitId}`);

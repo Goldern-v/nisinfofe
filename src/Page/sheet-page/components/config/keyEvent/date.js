@@ -105,9 +105,12 @@ export function click_date(e, td, tr) {
   const input = e.target
   setTimeout(()=>{
     input.focus()
-    if((input.selectionStart==0&&input.selectionEnd==0)||(input.selectionStart==5&&input.selectionEnd==5))
-    input.setSelectionRange(0, 2)
-    })
+    if((input.selectionStart==0&&input.selectionEnd==0)
+       ||(input.selectionStart==5&&input.selectionEnd==5)
+       ||['huadu'].includes(process.env.HOSPITAL_ID)){
+      input.setSelectionRange(0, 2)
+    }
+  })
 }
 
 export function click_date_year(e, td) {

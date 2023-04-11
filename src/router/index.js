@@ -79,6 +79,8 @@ const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
 const shiftWorkGdtj = () => import("@/Page/shift-work-gdtj/shift-work.vue");
 const shiftWorkDetailGdtj = () => import("@/Page/shift-work-gdtj/shift-work-detail.vue");
+const shiftWorkGdtjNew = () => import("@/Page/shift-work-gdtj-new/shift-work.vue");
+const shiftWorkDetailGdtjNew = () => import("@/Page/shift-work-gdtj-new/shift-work-detail.vue");
 const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
 const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
 const shiftWorkWhsl = () => import("@/Page/shift-work-whsl/shift-work.vue");
@@ -844,7 +846,8 @@ const router = new Router({
             case 'lyyz':
               return shiftWorkLiaocheng
             case 'gdtj':
-              return shiftWorkGdtj;
+              // return shiftWorkGdtj;
+              return shiftWorkGdtjNew;
             case 'beihairenyi':
             case 'zhzxy':
             case 'nfyksdyy':
@@ -888,7 +891,8 @@ const router = new Router({
               case 'nfyksdyy':
                 return shiftWorkDetailBh
               case 'gdtj':
-                return  shiftWorkDetailGdtj
+                // return  shiftWorkDetailGdtj
+                return  shiftWorkDetailGdtjNew
               case 'fqfybjy':
                 return shiftWorkDetailFq
               case 'wujing':
@@ -1070,6 +1074,22 @@ const router = new Router({
         {
           path: "/record",
           component: record
+        },
+        {
+          name: "admissionPageAdult2",
+          path: "/admissionPageAdult2",
+          meta: {
+            formCode: 'E2332'
+          },
+          component: sheetAdmissionPageAdult
+        },
+        {
+          name: "admissionPageChild2",
+          meta: {
+            formCode: 'E2333'
+          },
+          path: "/admissionPageChild2",
+          component: sheetHospitalAdmissionPage
         },
         {
           path: "/doctorEmr",

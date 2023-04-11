@@ -51,14 +51,14 @@
             </div>
             <h1 class="name" v-html="logoName" v-if="!['dglb'].includes(this.HOSPITAL_ID)"></h1>
           </div>
-          <div :style="[{overflow:['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)?'hidden':''},translate300COM,translateTypeCOM]">
-            <div class="nanfangCa-Box" v-if="['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)">
+          <div :style="[{overflow:['nanfangzhongxiyi','guizhou'].includes(HOSPITAL_ID)?'hidden':''},translate300COM,translateTypeCOM]">
+            <div class="nanfangCa-Box" v-if="['nanfangzhongxiyi','guizhou'].includes(HOSPITAL_ID)">
               <div class="nanfangCa-choseline"><div class="translateType"></div></div>
               <div class="nanfangCa-con" @click="(e)=>changeLoginType(false,e)">密码登录</div>
               <div class="nanfangCa-con" @click="(e)=>changeLoginType(true,e)">ca扫码登录</div>
             </div>
-            <div class="tranSlate-300" :class="{'nanfangCa-loginBox':['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)}">
-              <div :class="{'nanfangCa-Boxx':['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)}">
+            <div class="tranSlate-300" :class="{'nanfangCa-loginBox':['nanfangzhongxiyi','guizhou'].includes(HOSPITAL_ID)}">
+              <div :class="{'nanfangCa-Boxx':['nanfangzhongxiyi','guizhou'].includes(HOSPITAL_ID)}">
                 <div class="input-con">
                   <input type="text" :disabled="caLoginFlag" placeholder="用户名" v-model="account" />
                   <img src="../../common/images/account.png" height="14" width="14" />
@@ -122,7 +122,7 @@
                   {{ !ajax ? "证书登录" : "登录中..." }}
                 </button>
               </div>
-              <div class="nanfangCa-Boxx" v-if="['nanfangzhongxiyi勿删','guizhou'].includes(HOSPITAL_ID)">
+              <div class="nanfangCa-Boxx" v-if="['nanfangzhongxiyi','guizhou'].includes(HOSPITAL_ID)">
                 <img alt="" :src="'data:text/html;base64,'+qrCodeBase64"  />
               </div>
             </div>
@@ -534,7 +534,8 @@ export default {
       // 是否需要md5加密
       isMd5: false,
       qrCodeIdentity:"",
-      nanfangTime:0
+      nanfangTime:0,
+      fuyouEnd:{}
     };
   },
   methods: {
@@ -652,6 +653,7 @@ export default {
         .then((res) => {
           //登录后停止轮询
           clearInterval(loginTimer);
+          
           if (ifCA) {
             localStorage["caUser"] = this.account;
           }
@@ -667,12 +669,21 @@ export default {
           );
           let regOnlyLetterNum = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,}$/; //大于8位必须包含大写、小写和数字-北海人医
           if(['fuyou'].includes(this.HOSPITAL_ID)){
+            this.fuyouEnd = {res,type}
+            Cookies.set(
+              "NURSING_USER",
+              `${res.data.data.user.id}##${res.data.data.authToken}`,
+              {
+                path: "/",
+              }
+            );
             getDictItem({
               dictCode: 'propertiesConfig',
               itemCode: 'isCaSign',
             }).then(res=>{
               if (res.data.code === '200') {
                 localStorage["fuyouUseCaSign"] = (res.data.data === 'true')
+                return window.openFuyouCaSignModal(true);
               }
             })
           }
@@ -713,11 +724,9 @@ export default {
           }
           if(['zzwy','whhk'].includes(this.HOSPITAL_ID)){
             this.loginSucceedZZwy(res, type);
-          }else{
+          }else if(!['fuyou'].includes(this.HOSPITAL_ID)){
             this.loginSucceed(res, type);
           }
-          
-          
         })
         .catch((res) => {
           this.ajax = false;
@@ -753,7 +762,7 @@ export default {
       localStorage["adminNurse"] = res.data.data.adminNurse;
       Cookies.remove("NURSING_USER");
       //清除江门妇幼ca
-      if(!['guizhou'].includes(this.HOSPITAL_ID)) localStorage.removeItem("fuyouCaData");
+      if(!['guizhou','fuyou'].includes(this.HOSPITAL_ID)) localStorage.removeItem("fuyouCaData");
       Cookies.set(
         "NURSING_USER",
         `${res.data.data.user.id}##${res.data.data.authToken}`,
@@ -923,7 +932,7 @@ export default {
         console.error(e);
       }
     }
-    if(['nanfangzhongxiyi勿删','guizhou'].includes(this.HOSPITAL_ID)){
+    if(['nanfangzhongxiyi','guizhou'].includes(this.HOSPITAL_ID)){
         clearInterval(nanfanImgtimer);
         nanfanImgtimer = setInterval(() => {
           this.nanfangTime = ++this.nanfangTime
@@ -956,6 +965,12 @@ export default {
           }
         });
       }, 1500);
+    }
+    if(["fuyou"].includes(this.HOSPITAL_ID)){
+      this.bus.$on("fuyouLoginSuccess",()=>{
+        const {res,type} = this.fuyouEnd
+        this.loginSucceed(res,type)
+      })
     }
   },
   mounted() {
@@ -1091,7 +1106,7 @@ export default {
         if(newVal){
           if(newVal==1 || newVal%120==0){
             getRandomQrCode().then(getRandomQrCodeRes=>{
-              if(['nanfangzhongxiyi勿删'].includes(this.HOSPITAL_ID)){
+              if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
                 this.qrCodeBase64 = getRandomQrCodeRes.data.data.qrCodeBase64
                 this.qrCodeIdentity = getRandomQrCodeRes.data.data.qrCodeIdentity
               }else{
