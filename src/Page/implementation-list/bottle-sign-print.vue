@@ -157,6 +157,27 @@
               >打印全部</el-button
             >
           </template>
+          <template v-if="['whsl'].includes(HOSPITAL_ID)">
+            <span> &nbsp;&nbsp;&nbsp;</span>
+              <el-button
+              size="small"
+              @click="fn('3*5')"
+              :disabled="status == '已执行'"
+              >3*5</el-button
+            >
+            <el-button
+              size="small"
+              @click="fn('5*8')"
+              :disabled="status == '已执行'"
+              >6*8</el-button
+            >
+            <el-button
+              size="small"
+              @click="onPrintAll"
+              :disabled="status == '已执行'"
+              >打印全部</el-button
+            >
+          </template>
           <template v-else>
             <el-button
               size="small"
@@ -337,6 +358,7 @@ import NewPrintModalSdlj from "./components/common/newPrintModalSdlj";
 import NewPrintModalFsxt from "./components/common/newPrintModalFsxt";
 import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm";
 import NewPrintModalWhfk from "./components/common/newPrintModalWhfk";
+import NewPrintModalWhhk from "./components/common/newPrintModalWhhk";
 import NewPrintModalWujing from "./components/common/newPrintModalWujing";
 import NewPrintModalYtll from "./components/common/newPrintModalYtll";
 import NewPrintModalZhzxy from "./components/common/newPrintModalZhzxy";
@@ -481,8 +503,8 @@ export default {
         'stmz',
       ].includes(this.HOSPITAL_ID),
       // 静默打印
-      hasSilentPrintHos: false,
-      // hasSilentPrintHos: ["whsl"].includes(this.HOSPITAL_ID),
+      // hasSilentPrintHos: false,
+      hasSilentPrintHos: ["whsl"].includes(this.HOSPITAL_ID),
       typeOptions: hisMatch({
         map: {
           whfk: [
@@ -669,8 +691,8 @@ export default {
       );
       this.query.endDate = moment(this.endDate).format("YYYY-MM-DD HH:mm:ss");
       this.query.executeDate = this.query.executeDate
-        ? moment(this.query.executeDate).format("YYYY-MM-DD")
-        : moment().format("YYYY-MM-DD");
+        ? moment(this.query.executeDate).format("YYYY-MM-DD HH:mm")
+        : moment().format("YYYY-MM-DD HH:mm");
       if (this.multiBed) {
         this.query.bedLabel = this.bedLabels.join(",") || "*";
       } else {
@@ -734,11 +756,51 @@ export default {
       this.onLoad();
     },
     // 打印
+    async fn(val){
+    this.newModalSize = val
+    this.PBonPrint()
+  },
     async onPrint() {
       this.selectedData = this.$refs.plTable.selectedData;
       if ((this.selectedData || []).length <= 0)
         return this.$message("未选择勾选打印条目");
       if (this.hasNewPrintHos) return await this.newOnPrint();
+      if (this.hasSilentPrintHos) return this.onSilentPrint();
+      this.isShowModal = false;
+      this.src = ``;
+      this.printNum = 0;
+
+      this.query.executeDate = this.query.executeDate
+        ? moment(this.query.executeDate).format("YYYY-MM-DD")
+        : "";
+
+      let url = "";
+      this.selectedData.map((item, index) => {
+        let targetIndex = this.selectedData.findIndex(
+          (e) => e.orderNo == item.orderNo
+        );
+        if (targetIndex == index) {
+          console.log(`${item.patientId}|${item.visitId}|${item.orderNo};`);
+          url += `${item.patientId}|${item.visitId}|${item.orderNo};`;
+        }
+      });
+      this.Uuid = new Date().getTime() + parseInt(Math.random() * 10000);
+      this.showPintModal = true;
+      webExecutePrint({
+        content: `${this.Uuid};${this.empNo};${this.query.executeDate};${url}`,
+        uuid: this.Uuid,
+      }).then((res) => {
+        this.src = `/crNursing/asset/${res.data.data.printExecuteUrl}`;
+        setTimeout(() => {
+          this.showPintModal = false;
+          this.isShowModal = true;
+        }, 4000); // 武警上传有延迟，后续优化了的话可以把定时器删掉
+      });
+    },
+    async PBonPrint() {
+      this.selectedData = this.$refs.plTable.selectedData;
+      if ((this.selectedData || []).length <= 0)
+        return this.$message("未选择勾选打印条目");
       if (this.hasSilentPrintHos) return this.onSilentPrint();
       this.isShowModal = false;
       this.src = ``;
@@ -996,59 +1058,59 @@ export default {
     },
     // 静默打印
     async onSilentPrint() {
-      await this.getPrintData();
-      document.getElementById("new-print-box").style.display = "block";
-      this.$nextTick(() => {
-        const LODOP = getLodop();
-        const cssblock = this.getCssBlock();
-        if (LODOP) {
-          var strBodyStyle = `<style>
-          @page{
-            ${this.printM}
-          }
-          body{
-            ${this.printScaleText}
-          }
-          .break-page {
-            page-break-after: always;
-          }
-          ${cssblock}
-          </style>`; //设置打印样式
-          var strFormHtml =
-            strBodyStyle +
-            "<body>" +
-            document.getElementById("new-print-box").innerHTML +
-            "</body>"; //获取打印内容
-          LODOP.PRINT_INIT(""); //初始化
-          // 指定打印机
-          this.specifyPrinter(LODOP);
-          const [h, w] = this.newModalSize.split("*");
-          LODOP.SET_PRINT_PAGESIZE(1, w * 100, h * 100, "");
-          // LODOP.SET_PRINT_PAGESIZE(0, 0, 0, "A4"); //设置横向
-          // LODOP.SET_PRINT_PAGESIZE(3, 0, 0, "CreateCustomPage"); //设置横向
-          LODOP.ADD_PRINT_HTM("0%", "0%", "100%", "100%", strFormHtml); //设置打印内容
-          LODOP.SET_PREVIEW_WINDOW(2, 0, 0, 800, 600, ""); //设置预览窗口模式和大小
-          LODOP.PREVIEW();
-          // 直接打印
-          // LODOP.PRINT();
-        }
-        document.getElementById("new-print-box").style.display = "none";
-        this.onLoad();
-      });
-      // let codeList = this.$_.uniqBy(
-      //   this.selectedData.map((item) => `${item.patientId}|${item.visitId}|${item.orderNo}`)
-      // );
-      // this.src = ``;
+      // await this.getPrintData();
+      // document.getElementById("new-print-box").style.display = "block";
+      // this.$nextTick(() => {
+      //   const LODOP = getLodop();
+      //   const cssblock = this.getCssBlock();
+      //   if (LODOP) {
+      //     var strBodyStyle = `<style>
+      //     @page{
+      //       ${this.printM}
+      //     }
+      //     body{
+      //       ${this.printScaleText}
+      //     }
+      //     .break-page {
+      //       page-break-after: always;
+      //     }
+      //     ${cssblock}
+      //     </style>`; //设置打印样式
+      //     var strFormHtml =
+      //       strBodyStyle +
+      //       "<body>" +
+      //       document.getElementById("new-print-box").innerHTML +
+      //       "</body>"; //获取打印内容
+      //     LODOP.PRINT_INIT(""); //初始化
+      //     // 指定打印机
+      //     this.specifyPrinter(LODOP);
+      //     const [h, w] = this.newModalSize.split("*");
+      //     LODOP.SET_PRINT_PAGESIZE(1, w * 100, h * 100, "");
+      //     // LODOP.SET_PRINT_PAGESIZE(0, 0, 0, "A4"); //设置横向
+      //     // LODOP.SET_PRINT_PAGESIZE(3, 0, 0, "CreateCustomPage"); //设置横向
+      //     LODOP.ADD_PRINT_HTM("0%", "0%", "100%", "100%", strFormHtml); //设置打印内容
+      //     LODOP.SET_PREVIEW_WINDOW(2, 0, 0, 800, 600, ""); //设置预览窗口模式和大小
+      //     LODOP.PREVIEW();
+      //     // 直接打印
+      //     // LODOP.PRINT();
+      //   }
+      //   document.getElementById("new-print-box").style.display = "none";
+      //   this.onLoad();
+      // });
+      let codeList = this.$_.uniqBy(
+        this.selectedData.map((item) => `${item.patientId}|${item.visitId}|${item.orderNo}|${this.query.executeDate}`)
+      );
+      this.src = ``;
 
-      // const date = this.startDate
-      //   ? moment(this.startDate).format("YYYY-MM-DD")
-      //   : "";
+      const date = this.startDate
+        ? moment(this.startDate).format("YYYY-MM-DD")
+        : "";
 
-      // let params = `${new Date().getTime() + parseInt(Math.random() * 10000)};${this.empNo};${date};${this.newModalSize.split('*').reverse().join('x')};${codeList.join(';')}`;
-      // console.log('test-params', params)
-      // let a = document.createElement('a')
-      // a.href = `openPrintExe://${params}`
-      // a.click()
+      let params = `${new Date().getTime() + parseInt(Math.random() * 10000)};${this.empNo};${this.newModalSize.split('*').reverse().join('x')};${codeList.join(';')}`;
+      console.log('test-params', params)
+      let a = document.createElement('a')
+      a.href = `openPrintExe://${params}`
+      a.click()
     },
     // 获取打印区域的样式
     getCssBlock() {
@@ -1105,10 +1167,11 @@ export default {
         // case "zhzxy":
         case "925":
           return "NewPrintModalLyxrm";
-        case "whhk":
         case "whfk":
         case "whsl":
           return "NewPrintModalWhfk";
+        case "whhk":
+          return "NewPrintModalWhhk";  
         case "wujing":
           return "NewPrintModalWujing";
         case "ytll":
@@ -1125,10 +1188,11 @@ export default {
     sizeList() {
       switch (this.HOSPITAL_ID) {
         case "lyxrm":
-        case "whhk":
         case "925":
         case "stmz":
           return ["70*80", "3*7"];
+        case "whhk":  
+         return ["8*7"];
         case "zhzxy":
           return ["7*7", "2*5", '7*5'];
         // case 'whsl':
@@ -1155,7 +1219,7 @@ export default {
       //   // return "transform: scale(0.8);transform-origin: 0 0 0;";
       // }
       if (
-        ["70*80", "6*8", "5*8", "7*7", '7*5'].includes(this.newModalSize) ||
+        ["70*80", "6*8", "5*8", "7*7", '7*5','8*7'].includes(this.newModalSize) ||
         ["whfk"].includes(this.HOSPITAL_ID)
       ){
         return "";
@@ -1248,6 +1312,7 @@ export default {
     NewPrintModalFsxt,
     NewPrintModalLyxrm,
     NewPrintModalWhfk,
+    NewPrintModalWhhk,
     NewPrintModalWujing,
     NewPrintModalYtll,
     NewPrintModalZhzxy,
