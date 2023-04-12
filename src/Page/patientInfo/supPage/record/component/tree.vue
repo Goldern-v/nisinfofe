@@ -426,7 +426,7 @@ export default {
     async nodeClick(data, node) {
       let isChange = localStorage.getItem(DATA_CHANGE)
       isChange = isChange ? JSON.parse(isChange) : false
-      if (isChange && node.level == 2 && '925' == this.HOSPITAL_ID) {
+      if (isChange && node.level == 2 && ['925','nfyksdyy'].includes(this.HOSPITAL_ID)) {
       // if (node.level == 2) {
         const comfirm = await this.$confirm(
           "入院评估单还未保存，是否需要离开页面?",

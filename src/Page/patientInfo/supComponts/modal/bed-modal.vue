@@ -915,6 +915,7 @@ export default {
       isPrint: false,
       isZhzxy: ["zhzxy"].includes(this.HOSPITAL_ID),
       isDglb: ["dglb"].includes(this.HOSPITAL_ID),
+      isWhhk: ["whhk"].includes(this.HOSPITAL_ID),
     };
   },
   computed: {
@@ -1184,7 +1185,11 @@ export default {
               el.style.boxSizing = "border-box";
               el.style.border = "2px solid #000";
               el.style.marginLeft = "50mm";
-            } else {
+            } else if (this.isWhhk) {
+              el.style.boxSizing = "border-box";
+              el.style.margin="0"
+              el.style.transform="translate(0px, 10mm) scale(1, 1.18)"
+            }else {
               el.style.marginLeft = "194mm";
             }
           },
