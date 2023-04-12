@@ -337,6 +337,7 @@ import NewPrintModalSdlj from "./components/common/newPrintModalSdlj";
 import NewPrintModalFsxt from "./components/common/newPrintModalFsxt";
 import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm";
 import NewPrintModalWhfk from "./components/common/newPrintModalWhfk";
+import NewPrintModalWhhk from "./components/common/newPrintModalWhhk";
 import NewPrintModalWujing from "./components/common/newPrintModalWujing";
 import NewPrintModalYtll from "./components/common/newPrintModalYtll";
 import NewPrintModalZhzxy from "./components/common/newPrintModalZhzxy";
@@ -1105,10 +1106,11 @@ export default {
         // case "zhzxy":
         case "925":
           return "NewPrintModalLyxrm";
-        case "whhk":
         case "whfk":
         case "whsl":
           return "NewPrintModalWhfk";
+        case "whhk":
+          return "NewPrintModalWhhk";  
         case "wujing":
           return "NewPrintModalWujing";
         case "ytll":
@@ -1125,10 +1127,11 @@ export default {
     sizeList() {
       switch (this.HOSPITAL_ID) {
         case "lyxrm":
-        case "whhk":
         case "925":
         case "stmz":
           return ["70*80", "3*7"];
+        case "whhk":  
+         return ["8*7"];
         case "zhzxy":
           return ["7*7", "2*5", '7*5'];
         // case 'whsl':
@@ -1155,7 +1158,7 @@ export default {
       //   // return "transform: scale(0.8);transform-origin: 0 0 0;";
       // }
       if (
-        ["70*80", "6*8", "5*8", "7*7", '7*5'].includes(this.newModalSize) ||
+        ["70*80", "6*8", "5*8", "7*7", '7*5','8*7'].includes(this.newModalSize) ||
         ["whfk"].includes(this.HOSPITAL_ID)
       ){
         return "";
@@ -1248,6 +1251,7 @@ export default {
     NewPrintModalFsxt,
     NewPrintModalLyxrm,
     NewPrintModalWhfk,
+    NewPrintModalWhhk,
     NewPrintModalWujing,
     NewPrintModalYtll,
     NewPrintModalZhzxy,

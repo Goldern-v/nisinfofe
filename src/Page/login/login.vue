@@ -722,7 +722,7 @@ export default {
               return this.$router.push("/resetpassword");
             }
           }
-          if(['zzwy','whhk'].includes(this.HOSPITAL_ID)){
+          if(['zzwy','whhk1'].includes(this.HOSPITAL_ID)){
             this.loginSucceedZZwy(res, type);
           }else if(!['fuyou'].includes(this.HOSPITAL_ID)){
             this.loginSucceed(res, type);
