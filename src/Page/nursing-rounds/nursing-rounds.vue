@@ -20,6 +20,13 @@
             :key="nursingClass.code"
           ></el-option>
         </el-select>
+        <el-checkbox
+          style="margin-left: 15px"
+          v-if="HOSPITAL_ID == 'whhk'"
+          label="今日无需巡视"
+          v-model="notVisit"
+          @change="onFilteVisitChange"
+        ></el-checkbox>
         <div style="flex: 1"></div>
         <el-button
           size="small"
@@ -216,9 +223,16 @@ export default {
       allNursingClass: [],
       allTableData: [],
       showPrint: this.HOSPITAL_ID === 'sdlj',
+      notVisit: true,
+      filterTableData: [],
     };
   },
   methods: {
+    onFilteVisitChange() {
+      this.tableData = this.filterTableData.filter(item => {
+        return item.notVisitFlag === this.notVisit;
+      })
+    },
     handleSizeChange(newSize) {
       this.query.pageSize = newSize;
     },
@@ -228,7 +242,7 @@ export default {
     },
     onLoad(ifOnload) {
       if (!this.deptCode) return;
-      if(!this.query.bedLabel.trim() && ifOnload!=='onload') return 
+      if(!this.query.bedLabel.trim() && ifOnload!=='onload') return
       this.pageLoadng = true;
       this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
@@ -280,7 +294,10 @@ export default {
             //   item.child = item.child ? item.child : [{ ...item }];
             // });
             this.tableData = [...tableData];
-
+            this.filterTableData = [...tableData];
+            if (this.HOSPITAL_ID === 'whhk') {
+              this.tableData = [...tableData].filter(item => item.notVisitFlag === this.notVisit);
+            }
             if (
               this.$refs.plTable.$children &&
               this.$refs.plTable.$children[0] &&
@@ -328,7 +345,7 @@ export default {
     },
     onLoadAll(ifOnload) {
       if (!this.deptCode) return;
-      if(!this.query.bedLabel.trim() && ifOnload!=='onload') return 
+      if(!this.query.bedLabel.trim() && ifOnload!=='onload') return
       this.pageLoadng = true;
       this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
