@@ -659,6 +659,13 @@ export default {
             type: "bed",
           });
       }
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        list.push({
+          name: "体温过高",
+          num: this.isFever.length,
+          type: "state",
+        })
+      }
       process.env.hasGroupHos && list.splice(1,0,{
         name: "默认管床",
         num: this.mrgc.length,
@@ -1046,6 +1053,7 @@ export default {
           }
           break;
         case "发热":
+        case "体温过高":
           {
             this.$parent.bedList = this.isFever;
           }

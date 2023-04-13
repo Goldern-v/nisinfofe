@@ -56,7 +56,7 @@
         <el-button size="mini" v-if="needCaLogin" @click="logoutFuYouCaSign">证书退出</el-button>
       </div>
     </div>
-    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', '925' ,'gdtj', 'stmz','nfyksdyy','qhwy'].includes(HOSPITAL_ID)">
+    <div v-if="['liaocheng','foshanrenyi','fsxt','lyxrm','beihairenyi', 'whhk', '925' ,'gdtj', 'stmz','nfyksdyy','qhwy','whsl'].includes(HOSPITAL_ID)">
       <div class="boxShadow" @click="onPrint">
         <div class="qrcode" ref="qrcodeContainer"></div>
       </div>
@@ -204,7 +204,7 @@
 }
 
 .user-info-main{
-  max-height: 90vh; 
+  max-height: 90vh;
   overflow-y: auto;
   top: 50px;
 }
@@ -395,7 +395,6 @@ export default {
           { name: " TB", value: Math.pow(10, 12) },
         ];
         unit.filter((u, i) => {
-          // console.log('size/u.value',i,size/u.value,u.name)
           let s = Math.floor(size / u.value);
           let n = (size / u.value).toFixed(2);
           if (s < 1000 && s > 0) {
@@ -403,7 +402,6 @@ export default {
             return u.name;
           }
         });
-        // console.log('getFileSizeWithUnit',size,result)
         return result || size;
       }
       return size;
@@ -480,12 +478,12 @@ export default {
             .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
             .replace("&&&", "");
           }
-          
+
           this.ca_name = usrInfo.retVal.substring(
             0,
             usrInfo.retVal.indexOf("||")
           );
-          
+
           SignedData(this.strUserCertID, "123213", (retValObj) => {
             this.ca_isLogin = !!retValObj.retVal;
             window.ca_isLogin = this.ca_isLogin;
@@ -532,9 +530,11 @@ export default {
     //二维码
     qrcode() {
       //非聊城不执行
-      if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk', '925', 'stmz','nfyksdyy','qhwy'].includes(this.HOSPITAL_ID )) return false;
+      if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk', '925', 'stmz','nfyksdyy','qhwy','whsl'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi','fsxt','lyxrm','925','beihairenyi', 'whhk', 'stmz','nfyksdyy','qhwy'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
+      if(['foshanrenyi','fsxt','lyxrm','925','beihairenyi', 'whhk', 'stmz','nfyksdyy','qhwy','whsl'].includes(this.HOSPITAL_ID )){
+        titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))
+      }
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
