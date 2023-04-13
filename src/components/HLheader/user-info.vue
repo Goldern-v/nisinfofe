@@ -395,7 +395,6 @@ export default {
           { name: " TB", value: Math.pow(10, 12) },
         ];
         unit.filter((u, i) => {
-          // console.log('size/u.value',i,size/u.value,u.name)
           let s = Math.floor(size / u.value);
           let n = (size / u.value).toFixed(2);
           if (s < 1000 && s > 0) {
@@ -403,7 +402,6 @@ export default {
             return u.name;
           }
         });
-        // console.log('getFileSizeWithUnit',size,result)
         return result || size;
       }
       return size;
@@ -534,7 +532,9 @@ export default {
       //非聊城不执行
       if(!['liaocheng','fsxt','lyxrm','beihairenyi', 'whhk', '925', 'stmz','nfyksdyy','qhwy','whsl'].includes(this.HOSPITAL_ID )) return false;
       let titleObject = this.userName + " " + this.passWord;
-      ['foshanrenyi','fsxt','lyxrm','925','beihairenyi', 'whhk', 'stmz','nfyksdyy','qhwy','whsl'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
+      if(['foshanrenyi','fsxt','lyxrm','925','beihairenyi', 'whhk', 'stmz','nfyksdyy','qhwy','whsl'].includes(this.HOSPITAL_ID )){
+        titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))
+      }
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
