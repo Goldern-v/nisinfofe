@@ -193,7 +193,7 @@ export default {
         rowspan: "1"
       },
       {
-        name: '吸氧',
+        name: '吸氧<br />升/分',
         style: {},
         colspan: "1",
         rowspan: "3",
