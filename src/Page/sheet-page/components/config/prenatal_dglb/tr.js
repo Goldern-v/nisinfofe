@@ -12,7 +12,8 @@ import {
   event_date,
   event_time,
   click_date,
-  click_time
+  click_time,
+  click_cancel
 } from "../keyEvent/date";
 
 let UC = ["无","不规则",`30"`, `35"`,`40"`,`45"`] // 宫缩持续
@@ -45,9 +46,9 @@ export default [
     event: keyf1,
     name: "T",
     next: "℃",
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 30
     },
   },
   {
@@ -56,7 +57,7 @@ export default [
     event: keyf1,
     name: "P",
     next: "次/min",
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 30
     },
@@ -67,7 +68,7 @@ export default [
     event: keyf1,
     name: "HR",
     next: "次/min",
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 30
     },
@@ -78,7 +79,7 @@ export default [
     event: keyf1,
     name: "R",
     next: "次/min",
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 30
     },
@@ -95,7 +96,7 @@ export default [
     },
     name: "BP",
     next: "mmHg",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 43
     },
@@ -110,7 +111,7 @@ export default [
     },
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 40
+      width: 30
     },
   },
   {
@@ -121,7 +122,7 @@ export default [
     next: "%",
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -131,14 +132,11 @@ export default [
     name: "入量内容",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 62
+      width: 45
     },
     autoComplete: {
       data: ['饮水','输液','静脉泵入','静注','口服','输血','肌注','鼻饲']
     },
-    style: {
-      textAlign: "left",
-    }
   },
   {
     key: "foodSize", // 入量（单位ml）
@@ -158,14 +156,11 @@ export default [
     name: "出量内容",
     change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 62
+      width: 45
     },
     autoComplete: {
       data: ['盆腔引流','肝下引流','胃管','尿管','膈下引流','脾窝引流','腹腔引流','胸腔引流','尿量','肠造口','呕吐物','大便','伤口皮下引流球','胃造瘘管','空肠造瘘','肛管引流','温氏孔引流管','胸腔闭式引流管','肾造瘘管','膀胱造瘘','肾周引流','输尿管导','伤口引流']
     },
-    style: {
-      textAlign: "left",
-    }
   },
   {
     key: "dischargeSize", //出量（单位ml）
@@ -173,7 +168,7 @@ export default [
     event: keyf1,
     name: "出量大小",
     next: "ml",
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 25
     },
@@ -186,7 +181,7 @@ export default [
     // autoComplete: {
     //   data: 出量颜色
     // },
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 25
     },
@@ -203,9 +198,9 @@ export default [
     autoComplete: {
       data: ['LOA','LOT','LOP','ROA','ROT','ROP','LMA','RMA','LSA','RSA','LScA','RScA','LScp','RScp','横位']
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 30
     },
   },
 
@@ -215,9 +210,9 @@ export default [
     event: keyf1,
     name: "胎心",
     next: "次/min",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -226,10 +221,14 @@ export default [
     event: keyf1,
     name: "无",
     next: "",
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 43
+    // change: (e, td) => limitChange(e, td, 4),
+    // textarea: {
+    //   width: 43
+    // },
+    style: {
+      width: '20px'
     },
+    click: click_cancel
   },
   {
     key: "fieldEleven", 
@@ -240,9 +239,9 @@ export default [
     autoComplete: {
       data: ['无','偶有','不规则','弱','中','强']
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -251,9 +250,9 @@ export default [
     event: keyf1,
     name: "持续",
     next: "s",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 30
     },
     autoComplete: {
       data: UC
@@ -265,9 +264,9 @@ export default [
     event: keyf1,
     name: "间歇",
     next: "min",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 30
     },
     autoComplete: {
       data: UC_pause
@@ -279,9 +278,9 @@ export default [
     event: keyf1,
     name: "胎动",
     next: "次/h",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -290,9 +289,9 @@ export default [
     event: keyf1,
     name: "宫颈扩张",
     next: "cm",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 30
     },
     autoComplete: {
       data: uterine_neck
@@ -304,9 +303,9 @@ export default [
     event: keyf1,
     name: "先露高低",
     next: "cm",
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 30
     },
     autoComplete: {
       data: high_low
@@ -321,36 +320,36 @@ export default [
     autoComplete: {
       data: ['已破','未破']
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 30
     },
   },
-  {
-    key: "fieldEighteen", 
-    value: "",
-    event: keyf1,
-    name: "宫颈疼痛评分",
-    next: "",
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 43
-    },
-  },
-  {
-    key: "fieldNineteen", 
-    value: "",
-    event: keyf1,
-    name: "非药物减痛方法",
-    next: "",
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 43
-    },
-    autoComplete: {
-      data: non_drug
-    },
-  },
+  // {
+  //   key: "fieldEighteen", 
+  //   value: "",
+  //   event: keyf1,
+  //   name: "宫颈疼痛评分",
+  //   next: "",
+  //   change: (e, td) => limitChange(e, td, 4),
+  //   textarea: {
+  //     width: 43
+  //   },
+  // },
+  // {
+  //   key: "fieldNineteen", 
+  //   value: "",
+  //   event: keyf1,
+  //   name: "非药物减痛方法",
+  //   next: "",
+  //   change: (e, td) => limitChange(e, td, 4),
+  //   textarea: {
+  //     width: 43
+  //   },
+  //   autoComplete: {
+  //     data: non_drug
+  //   },
+  // },
   {
     key: "fieldTwenty", 
     value: "",
@@ -360,9 +359,9 @@ export default [
     autoComplete: {
       data: ['不充盈','充盈','空虚']
     },
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 30
     },
   },
   {
@@ -376,7 +375,7 @@ export default [
     },
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
-      width: 43
+      width: 20
     },
   },
   {
@@ -389,7 +388,7 @@ export default [
     },
   },
   {
-    key: "fieldTwentyThree", //标题1
+    key: "fieldTwentyThree", //标题2
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
