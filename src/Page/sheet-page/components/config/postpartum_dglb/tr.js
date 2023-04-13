@@ -19,7 +19,7 @@ import info from "../sheetInfo";
 const zgssList = ['良好','乏力'];
 const gdgdList = ['U+1', 'U+2', 'U+3', 'U=0', 'U-1', 'U-2', 'U-3', 'U-4'];
 const rfqkList = ['无肿胀','乳房肿胀','乳头疼痛','乳管堵塞','乳房感染','乳头血性分泌物'];
-const mrqkList = ['少', '中等', '多'];
+const mrqkList = ['正常', '乳汁过多', '泌乳不足'];
 const xtlist = ['+', '-']
 const skqkList = ['红肿', '渗液', '水肿', '(-)', '会阴(-)'];
 const 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
@@ -63,7 +63,18 @@ export default [
     event: keyf1,
     name: "脉搏",
     next: "次/分",
-    change: (e, td) => limitChange(e, td, 3),
+    change: (e, td) => limitChange(e, td, 6),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "fieldThirteen", //心率 没有字段
+    value: "",
+    event: keyf1,
+    name: "心率",
+    next: "次/分",
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 30
     },
@@ -97,7 +108,7 @@ export default [
     },
   },
   {
-    key: "expand2", //血压
+    key: "spo2", //SPO2
     value: "",
     event: keyf1,
     name: "SPO2",
@@ -121,17 +132,17 @@ export default [
     },
   },
 
-  {
-    key: "fieldThree", //阴道出血mL
-    value: "",
-    event: keyf1,
-    name: "阴道出血",
-    next: "mL",
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
-    },
-  },
+  // {
+  //   key: "fieldThree", //阴道出血mL
+  //   value: "",
+  //   event: keyf1,
+  //   name: "阴道出血",
+  //   next: "mL",
+  //   change: (e, td) => limitChange(e, td, 4),
+  //   textarea: {
+  //     width: 35
+  //   },
+  // },
   {
     key: "fieldSix", //子宫收缩
     value: "",
@@ -160,9 +171,9 @@ export default [
     key: "fieldEight", //乳房情况
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 30
+      width: 60
     },
     autoComplete: {
       data: rfqkList
@@ -181,18 +192,18 @@ export default [
     },
   },
 
-  {
-    key: "fieldEleven", //指导挤奶
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-    autoComplete: {
-      data: zdjnList
-    },
-  },
+  // {
+  //   key: "fieldEleven", //指导挤奶
+  //   value: "",
+  //   event: keyf1,
+  //   change: (e, td) => limitChange(e, td, 4),
+  //   textarea: {
+  //     width: 30
+  //   },
+  //   autoComplete: {
+  //     data: zdjnList
+  //   },
+  // },
   {
     key: "dressing", //腹部切口敷料
     value: "",
@@ -202,7 +213,7 @@ export default [
       width: 48
     },
     autoComplete: {
-      data: ['干洁', '渗液']
+      data: ['干洁', '渗血', '渗液']
     },
   },
   {
@@ -214,18 +225,31 @@ export default [
       width: 48
     },
     autoComplete: {
-      data: ['（—）', '红肿', '水肿']
+      data: ['正常','水肿', '红肿', '渗血', '渗液', '裂伤']
     },
   },
+  // {
+  //   key: "exhaust", //肛门排气/肠鸣音<br /> (次/分)
+  //   value: "",
+  //   event: keyf1,
+  //   change: (e, td) => limitChange(e, td, 4),
+  //   textarea: {
+  //     width: 48
+  //   },
+
+  // },
   {
-    key: "exhaust", //肛门排气/肠鸣音<br /> (次/分)
+    key: "fieldFourteen", // 膀胱充盈度
     value: "",
     event: keyf1,
+    name: '膀胱充盈度',
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 48
     },
-
+    autoComplete: {
+      data: ['空虚','轻度充盈', '中度充盈', '重度充盈', '不充盈', '裂伤']
+    },
   },
   {
     key: "food", // 入量内容
@@ -239,9 +263,6 @@ export default [
     autoComplete: {
       data: 入量名称
     },
-    style: {
-      textAlign: "left",
-    }
   },
   {
     key: "foodSize", // 入量（单位ml）
@@ -266,9 +287,6 @@ export default [
     autoComplete: {
       data: 出量名称
     },
-    style: {
-      textAlign: "left",
-    }
   },
   {
     key: "dischargeSize", //出量（单位ml）
@@ -298,25 +316,18 @@ export default [
     }
   },
   {
-    key: "fieldTwelve", //标题1
+    key: "fieldFifteen", // 吸氧
     value: "",
+    name: "吸氧",
+    next: "升/分",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 30
     },
   },
   {
-    key: "armValue", //空白
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 30
-    },
-  },
-  {
-    key: "expand", //空白
+    key: "fieldSeventeen", // 膝反射
     value: "",
     name: "膝反射",
     autoComplete: {
@@ -328,6 +339,25 @@ export default [
       width: 30
     },
   },
+  {
+    key: "fieldTwelve", //标题1
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  {
+    key: "armValue", // 标题2
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+  },
+  
   {
     key: "description", //特殊情况记录
     value: "",
@@ -372,16 +402,16 @@ export default [
   { hidden:true, key:'multiSign', value:''}
 ];
 
-export function getListData() {
-  let list = [,
-    "花都:神经外科护理记录单:出量名称"
-  ];
-  multiDictInfo(list).then(res => {
-    setList(出量名称, list[0], data);
-  });
-}
+// export function getListData() {
+//   let list = [,
+//     "花都:神经外科护理记录单:出量名称"
+//   ];
+//   multiDictInfo(list).then(res => {
+//     setList(出量名称, list[0], data);
+//   });
+// }
 
-getListData();
+// getListData();
 /**
  *
  * @param {*} list 原数组

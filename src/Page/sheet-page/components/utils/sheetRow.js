@@ -113,8 +113,6 @@ export function getRowNum(index) {
     } else {
       return 34;
     }
-  } else if ( sheetInfo.sheetType === 'prenatal_dglb' ) {
-    return 25
   } else {
     return 17;
   }

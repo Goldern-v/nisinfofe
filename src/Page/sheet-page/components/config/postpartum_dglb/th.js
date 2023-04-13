@@ -38,6 +38,14 @@ export default {
       },
       {
         name: `
+        心率<br/>次/分
+        `,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
         呼吸<br/>次/分
         `,
         style: {},
@@ -65,15 +73,13 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
-      {
-        name: `
-        阴道出血<br/>ml
-        `,
-        colspan: "1",
-        rowspan: "3",
-      },
-
-
+      // {
+      //   name: `
+      //   阴道出血<br/>ml
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3",
+      // },
       {
         name: `子宫收缩`,
         style: {},
@@ -122,25 +128,25 @@ export default {
           maxWidth: "30px"
         }
       },
-      {
-        name: `指导挤奶`,
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-        canSet: true,
-        key: "fieldEleven",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        }
-      },
+      // {
+      //   name: `指导挤奶`,
+      //   style: {},
+      //   colspan: "1",
+      //   rowspan: "3",
+      //   canSet: true,
+      //   key: "fieldEleven",
+      //   style: {
+      //     minWidth: "30px",
+      //     maxWidth: "30px"
+      //   }
+      // },
       {
         name: `腹部切口敷料`,
         style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldEleven1",
+        key: "dressing",
         style: {
           minWidth: "30px",
           maxWidth: "30px"
@@ -152,19 +158,19 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldEleven2",
+        key: "perineal",
         style: {
           minWidth: "40px",
           maxWidth: "40px"
         }
       },
       {
-        name: `肛门排气/肠鸣音<br /> (次/分)`,
+        name: `膀胱充<br />盈度`,
         style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldEleven3",
+        key: "fieldFourteen",
         style: {
           minWidth: "50px",
           maxWidth: "50px"
@@ -187,6 +193,30 @@ export default {
         rowspan: "1"
       },
       {
+        name: '吸氧',
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: 'fieldFifteen',
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        }
+      },
+      {
+        name: '膝反射',
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldSeventeen",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        }
+      },
+      {
         name: `标题1`,
         style: {},
         colspan: "1",
@@ -199,24 +229,12 @@ export default {
         }
       },
       {
-        name: ``,
+        name: `标题2`,
         style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve2",
-        style: {
-          minWidth: "30px",
-          maxWidth: "30px"
-        }
-      },
-      {
-        name: '膝反射',
-        style: {},
-        colspan: "1",
-        rowspan: "3",
-        canSet: true,
-        key: "field13",
+        key: "armValue",
         style: {
           minWidth: "30px",
           maxWidth: "30px"
