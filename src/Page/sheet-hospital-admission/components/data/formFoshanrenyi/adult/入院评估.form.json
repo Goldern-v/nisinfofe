@@ -2071,9 +2071,15 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "tasks": "禁食",
-              "tasks_special": true
+              "tasks_special": true,
+              "tasks": [
+                {
+                  "show": [
+                    "禁食"
+                  ]
+                }
+              ],
+              "class": null
             },
             {
               "name": "I2332044",
@@ -2082,9 +2088,7 @@
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "tasks": "禁食",
-              "tasks_special": true
+              "class": null
             },
             {
               "name": "I2332044",
@@ -2093,9 +2097,7 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "tasks": "禁食",
-              "tasks_special": true
+              "class": null
             },
             {
               "name": "I2332044",
@@ -2104,9 +2106,7 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "tasks": "禁食",
-              "tasks_special": true
+              "class": null
             },
             {
               "name": "I2332044",
@@ -2118,12 +2118,11 @@
               "class": null,
               "tasks": [
                 {
-                  "show": [
+                  "clean": [
                     "禁食"
                   ]
                 }
-              ],
-              "tasks_special": true
+              ]
             },
             {
               "name": "I2332044",
@@ -2131,8 +2130,6 @@
               "title": "特殊治疗饮食：",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
-              "tasks": "禁食",
-              "tasks_special": true,
               "class": null,
               "children": [
                 {
@@ -2155,8 +2152,6 @@
               "name": "I2332044",
               "type": "checkbox",
               "title": "其他：",
-              "tasks": "禁食",
-              "tasks_special": true,
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "class": null,
@@ -2932,7 +2927,7 @@
         {
           "name": "I2332058",
           "type": "",
-          "title": "颜色",
+          "title": "尿液颜色",
           "titleStyle": "width:72px!important",
           "class": null,
           "boxStyle": "height:auto!important; display: flex",
@@ -3900,7 +3895,7 @@
         {
           "name": "I2332076",
           "type": "",
-          "title": "颜色",
+          "title": "尿液颜色",
           "titleStyle": "width:72px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
@@ -4157,7 +4152,7 @@
       "name": "I2332082",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "性质",
+      "title": "大便性质",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -4172,7 +4167,7 @@
         {
           "name": "I2332082",
           "type": "",
-          "title": "性质",
+          "title": "大便性质",
           "titleStyle": "width:72px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
@@ -4248,7 +4243,7 @@
         {
           "name": "I2332083",
           "type": "",
-          "title": "颜色",
+          "title": "大便颜色",
           "titleStyle": "width:72px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
@@ -4577,6 +4572,7 @@
       "type": "formGroupTitle",
       "level": "1",
       "title": "10.体型",
+      "useWarm":true,
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -4588,7 +4584,7 @@
       "name": "I2332091",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "9. 成人体型",
+      "title": "10. 体型",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -4643,10 +4639,22 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "11.心理状态",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "I2332245",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "9. 成人体型",
+      "title": "11.心理状态",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -4657,18 +4665,19 @@
       "boxStyle": "height:auto!important",
       "classes": null,
       "readOnly": null,
+      "hiddenTips": true,
       "children": [
         {
           "name": "I2332245",
           "type": "",
-          "title": "心理状态",
+          "title": "",
           "titleStyle": "width:72px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
           "hiddenTips": true,
-          "children": [
+          "children":[
             {
               "name": "I2332245",
               "type": "checkbox",
@@ -5235,26 +5244,7 @@
               ]
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "I2332248",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "妇科",
-      "parentKey": "",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "titleStyle": "margin-top: 7px;",
-      "boxStyle": "height:auto!important",
-      "classes": null,
-      "readOnly": null,
-      "children": [
+        },
         {
           "name": "I2332248",
           "type": "",
@@ -7378,7 +7368,7 @@
           "type": "select",
           "title": "自理能力",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:70px!important",
           "inputStyle": "width:300px!important",
           "class": null,
           "options": [
@@ -7437,7 +7427,7 @@
           "name": "S2332157",
           "type": "select",
           "title": "营养风险筛查",
-          "titleStyle": "width:92px!important",
+          "titleStyle": "width:102px!important",
           "inputStyle": "width:300px!important",
           "inputWidth": "266px",
           "options": [
@@ -7475,7 +7465,7 @@
           "type": "select",
           "title": "跌倒风险",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:70px!important",
           "inputStyle": "width:300px!important",
           "class": null,
           "options": [
@@ -7527,7 +7517,7 @@
           "type": "select",
           "title": "血栓评估",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:70px!important",
           "inputStyle": "width:300px!important",
           "class": null,
           "options": [
@@ -7648,7 +7638,7 @@
           "type": "select",
           "title": "疼痛评估",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:70px!important",
           "inputStyle": "width:300px!important",
           "class": null,
           "options": [
@@ -7687,7 +7677,7 @@
           "type": "select",
           "title": "压疮评估",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:70px!important",
           "inputStyle": "width:300px!important",
           "options": [
             "无",
@@ -7752,7 +7742,7 @@
           "type": "select",
           "title": "认知筛查",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:70px!important",
           "inputStyle": "width:300px!important",
           "class": null,
           "options": [
@@ -7791,7 +7781,7 @@
           "type": "select",
           "title": "化疗风险",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:70px!important",
           "inputStyle": "width:300px!important",
           "class": null,
           "options": [

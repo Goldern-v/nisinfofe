@@ -1385,7 +1385,7 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": false
         },
         {
           "name": "I2333042",
@@ -1398,7 +1398,7 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": false
         },
         {
           "name": "I2333043",
@@ -1418,7 +1418,7 @@
           "type": "input",
           "title": "R",
           "suffixDesc": "次/min",
-          "titleStyle": "width:15px!important",
+          "titleStyle": "width:45px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "55px",
           "style": null,
