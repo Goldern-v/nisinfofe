@@ -1,17 +1,33 @@
 <template>
   <div>
-    <div class="item-con" @click="addTemplateAtDoc">
-      <div class="title">{{data.title}}</div>
-      <div class="desc">{{data.content}}</div>
-      <div class="tool-box" flex="cross:center">
-        <el-tooltip content="编辑" placement="bottom" effect="dark">
-          <i class="iconfont icon-hulijiludan" @click.stop="toEdit(data)"></i>
-        </el-tooltip>
-        <el-tooltip content="删除" placement="bottom" effect="dark">
-          <i class="iconfont icon-shanchuzhenghang" @click.stop="toDel"></i>
-        </el-tooltip>
+    <template v-if="!['foshanrenyi'].includes(this.HOSPITAL_ID)">
+      <div class="item-con" @click="addTemplateAtDoc">
+        <div class="title">{{data.title}}</div>
+        <div class="desc">{{data.content}}</div>
+        <div class="tool-box" flex="cross:center">
+          <el-tooltip content="编辑" placement="bottom" effect="dark">
+            <i class="iconfont icon-hulijiludan" @click.stop="toEdit(data)"></i>
+          </el-tooltip>
+          <el-tooltip content="删除" placement="bottom" effect="dark">
+            <i class="iconfont icon-shanchuzhenghang" @click.stop="toDel"></i>
+          </el-tooltip>
+        </div>
       </div>
-    </div>
+    </template>
+    <template v-else>
+      <div class="item-con" @dblclick="addTemplateAtDoc">
+        <div class="title">{{data.title}}</div>
+        <div class="desc">{{data.content}}</div>
+        <div class="tool-box" flex="cross:center">
+          <el-tooltip content="编辑" placement="bottom" effect="dark">
+            <i class="iconfont icon-hulijiludan" @click.stop="toEdit(data)"></i>
+          </el-tooltip>
+          <el-tooltip content="删除" placement="bottom" effect="dark">
+            <i class="iconfont icon-shanchuzhenghang" @click.stop="toDel"></i>
+          </el-tooltip>
+        </div>
+      </div>
+    </template>
     <div class="line"></div>
   </div>
 </template>

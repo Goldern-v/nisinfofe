@@ -83,7 +83,7 @@
           "name": "I2333001",
           "type": "",
           "title": "入院方式",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
@@ -92,7 +92,7 @@
           "children": [
             {
               "name": "I2333001",
-              "type": "checkbox",
+              "type": "radio",
               "title": "抱送",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -101,7 +101,7 @@
             },
             {
               "name": "I2333001",
-              "type": "checkbox",
+              "type": "radio",
               "title": "步行",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -110,7 +110,7 @@
             },
             {
               "name": "I2333001",
-              "type": "checkbox",
+              "type": "radio",
               "title": "扶行",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -119,7 +119,7 @@
             },
             {
               "name": "I2333001",
-              "type": "checkbox",
+              "type": "radio",
               "title": "轮椅",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -128,7 +128,7 @@
             },
             {
               "name": "I2333001",
-              "type": "checkbox",
+              "type": "radio",
               "title": "平车",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -137,7 +137,7 @@
             },
             {
               "name": "I2333001",
-              "type": "checkbox",
+              "type": "radio",
               "title": "转运温箱",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -146,7 +146,7 @@
             },
             {
               "name": "I2333001",
-              "type": "checkbox",
+              "type": "radio",
               "title": "其他：",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -157,7 +157,7 @@
               "name": "I2333002",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important",
               "inputWidth": "100%",
               "suffixDesc": "",
@@ -191,7 +191,7 @@
           "name": "I2333003",
           "type": "",
           "title": "入院带入物品",
-          "titleStyle": "width:94px!important",
+          "titleStyle": "width:104px!important",
           "class": null,
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
@@ -292,7 +292,7 @@
                   "name": "I2333004",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:80px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important",
                   "inputWidth": "300px",
                   "suffixDesc": "",
@@ -328,7 +328,7 @@
           "name": "I2333005",
           "type": "input",
           "title": "医疗费用支付方式",
-          "titleStyle": "width:125px!important",
+          "titleStyle": "width:145px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
           "style": null,
@@ -371,7 +371,7 @@
           "name": "I2333006",
           "type": "",
           "title": "资料来源",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
@@ -427,7 +427,7 @@
               "name": "I2333007",
               "type": "input",
               "title": "",
-              "titleStyle": "width:125px!important",
+              "titleStyle": "width:145px!important",
               "inputStyle": "width:100%!important",
               "inputWidth": "100%",
               "style": null,
@@ -471,7 +471,7 @@
           "name": "I2333008",
           "type": "",
           "title": "",
-          "titleStyle": "width: 62px!important",
+          "titleStyle": "width: 72px!important",
           "class": null,
           "children": [
             {
@@ -550,9 +550,9 @@
               "name": "I2333009",
               "type": "input",
               "title": "第",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-              "inputWidth": "80px",
+              "inputWidth": "90px",
               "suffixDesc": "孕，第",
               "prefixDesc": "第",
               "style": null,
@@ -565,9 +565,9 @@
               "name": "I2333010",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-              "inputWidth": "80px",
+              "inputWidth": "90px",
               "suffixDesc": "产，  胎龄",
               "style": null,
               "class": null,
@@ -579,9 +579,9 @@
               "name": "I2333011",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-              "inputWidth": "80px",
+              "inputWidth": "90px",
               "suffixDesc": "周",
               "style": null,
               "class": null,
@@ -595,7 +595,7 @@
           "name": "I2333012",
           "type": "",
           "title": "分娩方式",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -654,7 +654,7 @@
               "name": "I2333013",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
               "inputWidth": "100%",
               "suffixDesc": "",
@@ -670,7 +670,7 @@
           "name": "I2333014",
           "type": "",
           "title": "羊水",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -713,9 +713,9 @@
                   "name": "I2333015",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:80px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80px",
+                  "inputWidth": "90px",
                   "suffixDesc": "度，",
                   "style": null,
                   "class": null,
@@ -745,7 +745,7 @@
                   "name": "I2333016",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:80px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "100%",
                   "suffixDesc": "",
@@ -782,7 +782,7 @@
                   "name": "I2333018",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:94px!important",
+                  "titleStyle": "width:104px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "60px",
                   "suffixDesc": "分，5min",
@@ -796,7 +796,7 @@
                   "name": "I2333019",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:80px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "60px",
                   "suffixDesc": "分，10min",
@@ -810,7 +810,7 @@
                   "name": "I2333020",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:80px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "60px",
                   "suffixDesc": "分",
@@ -842,7 +842,7 @@
                   "name": "I2333021",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:80px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "100%",
                   "suffixDesc": "",
@@ -860,7 +860,7 @@
           "name": "I2333022",
           "type": "",
           "title": "预防接种",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -897,7 +897,7 @@
           "name": "I2333023",
           "type": "",
           "title": "新生儿筛查",
-          "titleStyle": "width:80px!important",
+          "titleStyle": "width:90px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -940,7 +940,7 @@
               "name": "I2333024",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
               "inputWidth": "100%",
               "suffixDesc": "",
@@ -956,7 +956,7 @@
           "name": "I2333025",
           "type": "",
           "title": "外貌",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -1004,7 +1004,7 @@
           "name": "I2333026",
           "type": "",
           "title": "既往史",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -1087,7 +1087,7 @@
               "name": "I2333029",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
               "inputWidth": "100%",
               "suffixDesc": "",
@@ -1103,7 +1103,7 @@
           "name": "I2333030",
           "type": "",
           "title": "家族史",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -1138,7 +1138,7 @@
               "name": "I2333031",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
               "inputWidth": "100%",
               "suffixDesc": "",
@@ -1154,7 +1154,7 @@
           "name": "I2333032",
           "type": "",
           "title": "过敏史",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -1197,7 +1197,7 @@
                   "name": "I2333035",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:80px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "388px",
                   "suffixDesc": "",
@@ -1231,7 +1231,7 @@
           "name": "I2333036",
           "type": "input",
           "title": "过敏表现",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "inputStyle": "width:100%!important; margin: 5px 5px 5px 0px",
           "inputWidth": "100%",
           "suffixDesc": "",
@@ -1272,7 +1272,7 @@
               "name": "I2333039",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
               "inputWidth": "100%",
               "suffixDesc": "",
@@ -1362,8 +1362,7 @@
         "15%",
         "15%",
         "15%",
-        "15%",
-        "15%"
+        "30%"
       ],
       "title": "1.生命体征",
       "message": "",
@@ -1434,12 +1433,31 @@
           "suffixDesc": "mmHG",
           "titleStyle": "width:30px!important",
           "inputStyle": "width:100%!important",
-          "inputWidth": "65px",
+          "inputWidth": "100px",
           "style": null,
           "class": null,
           "readOnly": null,
           "hiddenTips": true
-        },
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 6,
+      "colWidth": [
+        "15%"
+      ],
+      "title": "1.生命体征",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "boxStyle": "padding-left: 0px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
         {
           "name": "I2333046",
           "type": "input",
@@ -1635,6 +1653,15 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
+            },
+            {
+              "name": "I2333048",
+              "type": "checkbox",
+              "title": "正常",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
             }
           ]
         }
@@ -1671,7 +1698,7 @@
           "name": "I2333049",
           "type": "",
           "title": "",
-          "titleStyle": "width: 62px!important",
+          "titleStyle": "width: 72px!important",
           "class": null,
           "readOnly": null,
           "hiddenTips": true,
@@ -1758,7 +1785,7 @@
           "name": "I2333051",
           "type": "",
           "title": "种类",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
@@ -1854,7 +1881,7 @@
                   "name": "I2333050",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:80px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important",
                   "inputWidth": "230px",
                   "suffixDesc": "",
@@ -1879,7 +1906,7 @@
                   "name": "I2333052",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:80px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important",
                   "inputWidth": "230px",
                   "suffixDesc": "",
@@ -1897,7 +1924,7 @@
           "name": "I2333053",
           "type": "",
           "title": "进食方式",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
@@ -1981,7 +2008,7 @@
           "name": "I2333058",
           "type": "",
           "title": "食欲",
-          "titleStyle": "width: 62px!important",
+          "titleStyle": "width: 72px!important",
           "class": null,
           "readOnly": null,
           "hiddenTips": true,
@@ -2036,7 +2063,7 @@
           "name": "I2333059",
           "type": "",
           "title": "吸吮力",
-          "titleStyle": "width: 62px!important",
+          "titleStyle": "width: 72px!important",
           "class": null,
           "readOnly": null,
           "hiddenTips": true,
@@ -2148,6 +2175,15 @@
             {
               "name": "I2333060",
               "type": "radio",
+              "title": "幼儿",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333060",
+              "type": "radio",
               "title": "儿童：(",
               "elementStyle": "margin: 3px 5px 0 0;",
               "elementClass": "el-radio_fs",
@@ -2194,7 +2230,7 @@
               "name": "I2333062",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important",
               "inputWidth": "100%",
               "suffixDesc": ")",
@@ -2239,7 +2275,7 @@
           "name": "I2333063",
           "type": "",
           "title": "患者",
-          "titleStyle": "width: 62px!important",
+          "titleStyle": "width: 72px!important",
           "class": "",
           "readOnly": null,
           "hiddenTips": true,
@@ -2258,6 +2294,15 @@
               "name": "I2333063",
               "type": "radio",
               "title": "婴儿",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333063",
+              "type": "radio",
+              "title": "幼儿",
               "elementStyle": "margin: 3px 5px 0 0;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -2321,7 +2366,7 @@
               "name": "I2333065",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important",
               "inputWidth": "100%",
               "suffixDesc": "",
@@ -2335,7 +2380,7 @@
           "name": "I2333066",
           "type": "",
           "title": "家属",
-          "titleStyle": "width: 62px!important",
+          "titleStyle": "width: 72px!important",
           "class": "",
           "readOnly": null,
           "hiddenTips": true,
@@ -2390,7 +2435,7 @@
               "name": "I2333067",
               "type": "input",
               "title": "",
-              "titleStyle": "width:80px!important",
+              "titleStyle": "width:90px!important",
               "inputStyle": "width:100%!important",
               "inputWidth": "100%",
               "suffixDesc": "",
@@ -2447,7 +2492,7 @@
           "name": "I2333068",
           "type": "",
           "title": "完整性",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": null,
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -3285,7 +3330,7 @@
           "name": "I2333073",
           "type": "",
           "title": "颜色",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -3332,6 +3377,34 @@
               "name": "I2333073",
               "type": "checkbox",
               "title": "黄染",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333222",
+              "type": "radio",
+              "prefix":"（",
+              "title": "轻",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333222",
+              "type": "radio",
+              "title": "中",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333222",
+              "type": "radio",
+              "title": "重）",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -3400,7 +3473,7 @@
           "name": "I2333075",
           "type": "",
           "title": "水肿",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -3491,7 +3564,7 @@
           "name": "I2333079",
           "type": "",
           "title": "硬肿",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -3535,7 +3608,7 @@
           "name": "I2333081",
           "type": "",
           "title": "温度",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -3606,7 +3679,7 @@
           "name": "I2333083",
           "type": "",
           "title": "弹性",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -4116,7 +4189,7 @@
                   "title": "",
                   "style": null,
                   "suffixDesc": "级",
-                  "titleStyle": "width:60px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:175px!important",
                   "inputWidth": "68px",
                   "class": null,
@@ -4139,7 +4212,7 @@
                   "title": "",
                   "style": null,
                   "suffixDesc": "级",
-                  "titleStyle": "width:60px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:175px!important",
                   "inputWidth": "68px",
                   "class": null,
@@ -4162,7 +4235,7 @@
                   "title": "",
                   "style": null,
                   "suffixDesc": "级",
-                  "titleStyle": "width:60px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:175px!important",
                   "inputWidth": "68px",
                   "class": null,
@@ -4185,7 +4258,7 @@
                   "title": "",
                   "style": null,
                   "suffixDesc": "级",
-                  "titleStyle": "width:60px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:175px!important",
                   "inputWidth": "68px",
                   "class": null,
@@ -4202,7 +4275,7 @@
       "type": "formGroupTitle",
       "level": "1",
       "title": "6、畸形",
-      "titleStyle": "width:62px!important",
+      "titleStyle": "width:82px!important",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -4230,7 +4303,7 @@
           "name": "I2333097",
           "type": "",
           "title": "",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -4459,7 +4532,7 @@
           "name": "I2333100",
           "type": "",
           "title": "瞳孔大小：左",
-          "titleStyle": "width: 92px!important",
+          "titleStyle": "width: 102px!important",
           "class": "radio_input",
           "labelLeft": true,
           "readOnly": null,
@@ -4543,7 +4616,7 @@
           "name": "I2333104",
           "type": "",
           "title": "对光反射",
-          "titleStyle": "width: 62px!important",
+          "titleStyle": "width: 72px!important",
           "class": "radio_input",
           "labelLeft": true,
           "readOnly": null,
@@ -4602,7 +4675,7 @@
           "name": "I2333105",
           "type": "",
           "title": "瞳孔大小：左",
-          "titleStyle": "width: 92px!important",
+          "titleStyle": "width: 102px!important",
           "class": "radio_input",
           "labelLeft": true,
           "readOnly": null,
@@ -4686,7 +4759,7 @@
           "name": "I2333109",
           "type": "",
           "title": "对光反射",
-          "titleStyle": "width: 62px!important",
+          "titleStyle": "width: 72px!important",
           "class": "radio_input",
           "labelLeft": true,
           "readOnly": null,
@@ -4725,7 +4798,7 @@
           "name": "I2333110",
           "type": "select",
           "title": "GCS评分",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "inputStyle": "width:100%!important",
           "labelLeft": true,
           "readOnly": null,
@@ -4780,7 +4853,7 @@
           "name": "I2333114",
           "type": "",
           "title": "头颅",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -4799,8 +4872,17 @@
             {
               "name": "I2333114",
               "type": "checkbox",
+              "title": "异常",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333114",
+              "type": "checkbox",
               "title": "产瘤",
-              "elementStyle": "margin: 8px 0px 0 0px;",
+              "elementStyle": "margin: 5px 0px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null,
@@ -4863,7 +4945,7 @@
               "name": "I2333114",
               "type": "checkbox",
               "title": "血肿",
-              "elementStyle": "margin: 8px 0px 0 9px;",
+              "elementStyle": "margin: 5px 0px 0 9px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null,
@@ -4928,7 +5010,7 @@
           "name": "I2333123",
           "type": "",
           "title": "前囟",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5016,7 +5098,7 @@
           "name": "I2333124",
           "type": "",
           "title": "胸部：外观",
-          "titleStyle": "width:78px!important",
+          "titleStyle": "width:88px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5065,7 +5147,7 @@
           "name": "I2333125",
           "type": "",
           "title": "呼吸运动",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5171,7 +5253,7 @@
           "name": "I2333127",
           "type": "",
           "title": "呼吸道症状",
-          "titleStyle": "width:72px!important",
+          "titleStyle": "width:82px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5296,7 +5378,7 @@
           "name": "I2333130",
           "type": "",
           "title": "心律",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5327,7 +5409,7 @@
           "name": "I2333131",
           "type": "",
           "title": "心音",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5427,7 +5509,7 @@
           "name": "I2333133",
           "type": "",
           "title": "胃肠道症状",
-          "titleStyle": "width:72px!important",
+          "titleStyle": "width:82px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5553,7 +5635,7 @@
           "name": "I2333139",
           "type": "",
           "title": "腹部",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5641,7 +5723,7 @@
           "name": "I2333141",
           "type": "",
           "title": "脐部",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5766,10 +5848,10 @@
           "name": "I2333144",
           "type": "",
           "title": "排便",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
+          "elementsStyle": "margin-top:8px;display:flex",
           "labelLeft": true,
           "hiddenTips": true,
           "children": [
@@ -5780,7 +5862,15 @@
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "大便性质大便颜色",
+                    "大便性质大便颜色"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2333144",
@@ -5789,7 +5879,46 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "show": [
+                    "大便性质大便颜色",
+                    "大便性质大便颜色"
+                  ]
+                }
+              ],
+              "children": [
+                
+              ]
+            },
+            {
+              "name": "I2333224",
+              "type": "input",
+              "title": "",
+              "titleStyle": "",
+              "elementStyle":"margin: 8px 0px 0 0px;",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "60px",
+              "suffixDesc": "次/",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
+            },
+            {
+              "name": "I2333225",
+              "type": "input",
+              "title": "",
+              "titleStyle": "",
+              "inputStyle": "width:100%!important",
+              "elementStyle":"margin: 8px 0px 0 0px;",
+              "inputWidth": "60px",
+              "suffixDesc": "天",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
             },
             {
               "name": "I2333144",
@@ -5799,6 +5928,14 @@
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null,
+              "tasks": [
+                {
+                  "show": [
+                    "大便性质大便颜色",
+                    "大便性质大便颜色"
+                  ]
+                }
+              ],
               "children": [
                 {
                   "name": "I2333145",
@@ -5836,6 +5973,14 @@
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null,
+              "tasks": [
+                {
+                  "show": [
+                    "大便性质大便颜色",
+                    "大便性质大便颜色"
+                  ]
+                }
+              ],
               "children": [
                 {
                   "name": "I2333147",
@@ -5860,6 +6005,14 @@
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null,
+              "tasks": [
+                {
+                  "show": [
+                    "大便性质大便颜色",
+                    "大便性质大便颜色"
+                  ]
+                }
+              ],
               "children": [
                 {
                   "name": "I2333148",
@@ -5874,14 +6027,64 @@
                   "hiddenTips": true
                 }
               ]
+            },
+            {
+              "name": "I2333144",
+              "type": "checkbox",
+              "title": "其他:",
+              "elementStyle": "margin: 8px 0px 0 8px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "show": [
+                    "大便性质大便颜色",
+                    "大便性质大便颜色"
+                  ]
+                }
+              ],
+              "children": [
+                {
+                  "name": "I2333226",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width: 129px;",
+                  "inputStyle": "width:100%!important",
+                  "inputWidth": "100%",
+                  "style": null,
+                  "class": null,
+                  "readOnly": null,
+                  "hiddenTips": true
+                }
+              ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "I2333133",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "大便性质大便颜色",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
         {
-          "name": "I2333149",
+          "name": "I2333144",
           "type": "",
+          "parentKey":"I2333144",
           "title": "大便性质",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5936,10 +6139,11 @@
           ]
         },
         {
-          "name": "I2333150",
+          "name": "I2333144",
           "type": "",
+          "parentKey":"I2333144",
           "title": "大便颜色",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5999,14 +6203,63 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
+            },
+            {
+              "name": "I2333150",
+              "type": "checkbox",
+              "title": "墨绿色",
+              "elementStyle": "margin: 8px 0px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333150",
+              "type": "checkbox",
+              "title": "其他",
+              "elementStyle": "margin: 8px 0px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333223",
+              "type": "input",
+              "title": "",
+              "titleStyle": "",
+              "inputStyle": "width:100%!important",
+              "elementStyle":"width: 180px;display: inline-block;",
+              "inputWidth": "100%",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "I2333133",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
         {
           "name": "I2333151",
           "type": "",
           "title": "肛门",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -6037,7 +6290,7 @@
           "name": "I2333152",
           "type": "",
           "title": "肛周皮肤",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -6137,7 +6390,7 @@
           "name": "I2333154",
           "type": "",
           "title": "排尿",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -6160,22 +6413,7 @@
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
-              "class": null,
-              "children": [
-                {
-                  "name": "I2333155",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width: 129px;",
-                  "inputStyle": "width:100%!important",
-                  "inputWidth": "60px",
-                  "suffixDesc": "次/天（量）",
-                  "style": null,
-                  "class": null,
-                  "readOnly": null,
-                  "hiddenTips": true
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2333154",
@@ -6338,7 +6576,7 @@
           "name": "I2333161",
           "type": "",
           "title": "尿液颜色",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -6410,7 +6648,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "六、风险评估",
+      "title": "六、护理评估",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -6437,7 +6675,7 @@
           "type": "select",
           "title": "营养风险筛查",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:90px!important",
           "inputStyle": "width:270px!important",
           "class": null,
           "options": [
@@ -6504,7 +6742,7 @@
           "type": "select",
           "title": "跌倒风险",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:90px!important",
           "inputStyle": "width:270px!important",
           "class": null,
           "options": [
@@ -6543,7 +6781,7 @@
           "type": "select",
           "title": "血栓评估",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:90px!important",
           "inputStyle": "width:270px!important",
           "class": null,
           "options": [
@@ -6641,13 +6879,14 @@
           "type": "select",
           "title": "疼痛评估",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:90px!important",
           "inputStyle": "width:270px!important",
           "class": null,
           "options": [
             "无",
             "儿童疼痛评估及护理措施",
-            "PICU术后疼痛的FLACC评分量表"
+            "PICU术后疼痛的FLACC评分量表",
+            "新生儿术后疼痛评分（CRIES）"
           ],
           "rule": [
             {
@@ -6701,6 +6940,24 @@
             },
             {
               "relationForm": {
+                "openKey": "新生儿术后疼痛评分（CRIES）",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "E0573",
+                  "showSignBtn": true,
+                  "title": "佛山人医新生儿术后疼痛评分（CRIES）",
+                  "formUrl": "佛山人医新生儿术后疼痛评分（CRIES）.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "I2333177",
+                    "prefix": "新生儿术后疼痛评分（CRIES）:",
+                    "suffix": "分"
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
                 "openKey": "PICU术后疼痛的FLACC评分量表",
                 "cleanKey": "无",
                 "params": {
@@ -6739,7 +6996,7 @@
           "type": "select",
           "title": "压疮评估",
           "style": null,
-          "titleStyle": "width:60px!important",
+          "titleStyle": "width:90px!important",
           "inputStyle": "width:270px!important",
           "options": [
             "无",
@@ -6841,7 +7098,7 @@
           "type": "mark",
           "label": "基础护理：",
           "elementStyle": "",
-          "labelWidth": "80px",
+          "labelWidth": "90px",
           "textAlign": "left",
           "lineFeedFize": "45",
           "rows": "4",
@@ -6875,7 +7132,7 @@
           "label": "专科护理：",
           "style": "",
           "elementStyle": "",
-          "labelWidth": "80px",
+          "labelWidth": "90px",
           "textAlign": "left",
           "lineFeedFize": "45",
           "rows": "4",
@@ -7067,7 +7324,7 @@
           "name": "I2333189",
           "type": "select",
           "title": "入院宣教",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "style": null,
@@ -7078,7 +7335,7 @@
           "type": "select",
           "title": "住院告知",
           "style": null,
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "inputStyle": "width:270px!important",
           "class": null,
           "options": [
@@ -7184,7 +7441,7 @@
           "name": "I2333192",
           "type": "",
           "title": "方法",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": null,
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
@@ -7257,7 +7514,7 @@
           "name": "I2333193",
           "type": "",
           "title": "接受能力",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:82px!important",
           "class": null,
           "boxStyle": "height:auto!important",
           "children": [
@@ -7361,7 +7618,7 @@
           "name": "signerName",
           "type": "input",
           "title": "责任护士签名",
-          "titleStyle": "width:80px!important",
+          "titleStyle": "width:90px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "suffixDesc": "",
@@ -7384,7 +7641,7 @@
           "name": "auditorName",
           "type": "input",
           "title": "审核人签名",
-          "titleStyle": "width:80px!important",
+          "titleStyle": "width:90px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "suffixDesc": "",
