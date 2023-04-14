@@ -126,7 +126,9 @@ export default {
         }
         this.inited = true;
         this.query = res.data.data;
-        Object.assign(this.$route.query, this.query);
+        if(this.$route.path !== '/previousHistory/nursingPreview'){
+          Object.assign(this.$route.query, this.query);
+        }
         // getPatientInfo
         window.app.$store.commit(
           "upCurrentPatientObj",

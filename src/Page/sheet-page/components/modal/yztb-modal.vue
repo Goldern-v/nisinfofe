@@ -266,7 +266,6 @@ export default {
   methods: {
     ...mapMutations(["upOpenModalFromSpecial", "upEvalData"]),
     open(yzcb,patientInfo) {
-      console.log(yzcb,"yzcb")
       this.patientInfo = patientInfo.patientId?patientInfo:{}
       this.yzcb = yzcb?yzcb:()=>{}
       // this.formlist = baseParams;
@@ -419,7 +418,6 @@ export default {
     tableDatalist(){
       let tableDatalist = [],tableDatalist2=[]
       if(this.yizhuTypeItem==="" && this.executeType===""){
-        console.log(this.tableData,"tableDatalist")
         return this.tableData
       }else {
         if(this.yizhuTypeItem){
@@ -432,7 +430,6 @@ export default {
             if(item.orderClass===this.executeType) tableDatalist2.push(item)
           })
         }
-        console.log(tableDatalist,"tableDatalist")
         return tableDatalist2
       }
     },
