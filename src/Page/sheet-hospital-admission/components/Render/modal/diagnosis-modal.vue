@@ -4,7 +4,7 @@
       <div>
         <template v-if="!['lyxrm', 'stmz'].includes(HOSPITAL_ID)">
           <div class="title" style="margin-bottom: 5px">本次评估内容同步至：</div>
-          <el-checkbox label="护理记录单" v-model="tongbuzhi"></el-checkbox>
+          <el-checkbox v-if="!['foshanrenyi'].includes(HOSPITAL_ID)" label="护理记录单" v-model="tongbuzhi"></el-checkbox>
           <el-checkbox label="三测单" v-model="tongbuzhi"></el-checkbox>
           <el-checkbox label="ISBAR交班志" disabled v-model="tongbuzhi"></el-checkbox>
           <div style="height: 20px"></div>

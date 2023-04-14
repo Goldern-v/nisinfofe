@@ -4,6 +4,7 @@
     :style="obj.elementsStyle"
     :class="obj.elementsClass"
     class="input-element"
+    :ref="'inputElements'+obj.title"
   >
     <!-- 页面正文 -->
 

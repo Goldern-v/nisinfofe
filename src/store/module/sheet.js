@@ -19,6 +19,7 @@ export default {
       endPageIndex:null
     },
     pageIndexs:1,
+    openWritTreeLeft: false //评估单-护理文书tree-侧边栏
   },
   mutations: {
     upPatientInfo(state, val) {
@@ -32,6 +33,9 @@ export default {
     },
     upOpenSheetLeft(state) {
       state.openSheetLeft = !state.openSheetLeft
+    },
+    upWritTreeLeft(state) {
+      state.openWritTreeLeft = !state.openWritTreeLeft
     },
     upSheetPageFullpage(state, val) {
       state.fullpage = val

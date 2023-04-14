@@ -956,6 +956,11 @@ export default {
                     // console.log( 'cmd disabled',disabled)
                     continue;
                   }
+                  if(element.$parent.obj.controlNameVal && element.$parent.obj.controlName){
+                    let controlVal = element.$parent.obj.controlNameVal
+                    let endval = window.formObj.model[element.$parent.obj.controlName]
+                    if(endval === controlVal) continue
+                  }
                   name = element.$parent.obj.name;
                   title = element.$parent.obj.title;
                   parentName = element.$parent.obj.parentName
