@@ -185,8 +185,6 @@
       </span>
       </div>
     </div>
-    
-    <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
   </div>
 </template>
 
@@ -196,6 +194,8 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import bus from "vue-happy-bus";
 import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
+import changeMajorRadio from '@/Page/sheet-page/components/modal/changeMajorRadio.vue'
+import changetrunBerRadio from '@/Page/sheet-page/components/modal/changetrunBerRadio.vue'
 export default {
   props: {
     patientInfo: Object,
@@ -295,7 +295,7 @@ export default {
     }
   },
   destroyed() {},
-  components: { crDatePicker }
+  components: { crDatePicker, changeMajorRadio, changetrunBerRadio}
 };
 </script>
 

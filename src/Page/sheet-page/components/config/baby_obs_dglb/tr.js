@@ -9,7 +9,8 @@ import {
   event_date,
   event_time,
   click_date,
-  click_time
+  click_time,
+  click_cancel
 } from "../keyEvent/date";
 
 
@@ -51,26 +52,29 @@ export default [
     textarea: {
       width: 60
     },
+    autoComplete: {
+      data: ['人工', '母乳']
+    }
   },
   {
     key: "fieldThree", // 早吸吮
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 8),
     name: "早吸吮",
-    textarea: {
-      width: 60
+    style: {
+      width: '40px'
     },
+    click: click_cancel
   },
   {
     key: "fieldFour", //早接触
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 10),
     name: "早接触",
-    textarea: {
-      width: 60
+    style: {
+      width: '40px'
     },
+    click: click_cancel
   },
   {
     key: "fieldFive", //吸吮力
@@ -80,6 +84,9 @@ export default [
     textarea: {
       width: 60
     },
+    autoComplete: {
+      data: ['好', '一般', '差']
+    }
   },
   {
     key: "fieldSix", //呕吐
@@ -90,6 +97,9 @@ export default [
     textarea: {
       width: 60
     },
+    autoComplete: {
+      data: ['无', '有', '间中有']
+    }
   },
   {
     key: "fieldSeven", //皮肤颜色
@@ -100,6 +110,9 @@ export default [
     textarea: {
       width: 60
     },
+    autoComplete: {
+      data: ['红润', '轻度黄染', '中度黄染', '重度黄染']
+    }
   },
   {
     key: "fieldEight", //脐部情况
@@ -110,6 +123,9 @@ export default [
     textarea: {
       width: 60
     },
+    autoComplete: {
+      data: ['干洁', '潮湿']
+    }
   },
   {
     key: "fieldNine", //大便次数

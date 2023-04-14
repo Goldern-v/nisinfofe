@@ -135,8 +135,8 @@ const currentTargetUrl = (() => {
     /** 武警广东省总队医院 */
     case "wujing":
       // return 'http://14.18.101.182:9094' // crph3675 crph
-      return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
-      // return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
+      // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
+      return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.20.187:8080" // 杨鑫本地
       // return "http://218.13.87.27:9094"
       // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式  crph3675 crph
@@ -273,8 +273,8 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.1.90:22550'//信铭
       return 'http://192.168.3.187:9091'
 
-    case 'dglb':
-      return 'http://http://10.51.7.22:9094'
+    // case 'dglb':
+    //   return 'http://http://10.51.7.22:9094'
 
     /** 默认公司本地内网厚街测试环境 */
     default:
