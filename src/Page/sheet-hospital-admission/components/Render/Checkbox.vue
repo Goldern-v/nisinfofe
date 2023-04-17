@@ -252,10 +252,11 @@ export default {
             correlationID: "I2333114"
           },
           {
-            id: 'I2333073',
+            id: 'I2333227',
             value: '黄染',
             correlationID: "I2333222",
-            hiddenRadio:true
+            hiddenRadio:true,
+            valDefault:","
           },
           {
             id: 'I2333154',
@@ -282,7 +283,7 @@ export default {
 
           obj.forEach(item => {
             // input类型
-            if(!this.formObj.model[item.id]) return
+            if(!this.formObj.model[item.id] && !item.valDefault) return
             
             if (item.inp) {
               let inp = this.$root.$refs[this.formCode][item.correlationID]
@@ -297,6 +298,7 @@ export default {
               hiddeninputBox.parentElement.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
             }else if(item.hiddenRadio){
               let hiddenRadioArr = this.$root.$refs[this.formCode][item.correlationID]
+              console.log(hiddenRadioArr,this.$root.$refs[this.formCode])
               Object.keys(hiddenRadioArr).forEach(radio=>{
                 hiddenRadioArr[radio].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "inline-block"
               })

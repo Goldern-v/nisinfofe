@@ -1313,9 +1313,9 @@
         {
           "name": "I2332029",
           "type": "input",
-          "title": "HR",
+          "labelTitle": "HR",
           "suffixDesc": "次/min",
-          "titleStyle": "width:75px!important",
+          "titleStyle": "width:35px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "55px",
           "style": null,
@@ -2071,15 +2071,14 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "tasks_special": true,
+              "class": null,
               "tasks": [
                 {
                   "show": [
-                    "禁食"
+                    "禁食啊"
                   ]
                 }
-              ],
-              "class": null
+              ]
             },
             {
               "name": "I2332044",
@@ -2088,7 +2087,14 @@
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "show": [
+                    "禁食啊"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332044",
@@ -2097,7 +2103,14 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "show": [
+                    "禁食啊"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332044",
@@ -2106,7 +2119,14 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null
+              "class": null,
+              "tasks": [
+                {
+                  "show": [
+                    "禁食啊"
+                  ]
+                }
+              ]
             },
             {
               "name": "I2332044",
@@ -2119,7 +2139,7 @@
               "tasks": [
                 {
                   "clean": [
-                    "禁食"
+                    "禁食啊"
                   ]
                 }
               ]
@@ -2131,6 +2151,13 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "class": null,
+              "tasks": [
+                {
+                  "show": [
+                    "禁食啊"
+                  ]
+                }
+              ],
               "children": [
                 {
                   "name": "I2332045",
@@ -2155,6 +2182,13 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "class": null,
+              "tasks": [
+                {
+                  "show": [
+                    "禁食啊"
+                  ]
+                }
+              ],
               "children": [
                 {
                   "name": "I2332046",
@@ -2180,7 +2214,7 @@
       "name": "I2332047",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "禁食",
+      "title": "禁食啊",
       "parentKey": "I2332044",
       "message": "",
       "require": "false",
@@ -3019,13 +3053,11 @@
     {
       "name": "",
       "type": "formGroupColBox",
-      "col": 3,
+      "col": 1,
       "colWidth": [
-        "33%",
-        "33%",
-        "33%"
+       "100%"
       ],
-      "title": "水肿",
+      "title": "水肿:",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -3036,45 +3068,88 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2332060",
-          "type": "input",
-          "title": "水肿：部位",
-          "titleStyle": "width: 111px",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "100%",
+          "name": "I2332235",
+          "type": "",
+          "title": "水肿",
+          "titleStyle": "width:82px!important",
+          "class": null,
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px;display: flex",
           "labelLeft": true,
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "hiddenTips": true
-        },
-        {
-          "name": "I2332061",
-          "type": "select",
-          "title": "程度",
-          "titleStyle": "width: 91px",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "100%",
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "hiddenTips": true,
-          "controlNameVal":"无",
-          "controlName":"I2332060"
-        },
-        {
-          "name": "I2332062",
-          "type": "select",
-          "title": "性质",
-          "titleStyle": "width: 91px",
-          "inputStyle": "width:100%!important",
-          "inputWidth": "100%",
-          "style": null,
-          "class": null,
-          "readOnly": null,
-          "controlNameVal":"无",
-          "controlName":"I2332060",
-          "hiddenTips": true
+          "readOnly":false,
+          "hiddenTips": false,
+          "children":[
+            {
+              "name": "I2332060",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
+            },
+            {
+              "name": "I2332060",
+              "type": "radio",
+              "title": "有：",
+              "elementStyle": "margin: 8px 0px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true
+            },
+            {
+              "name": "I2332250",
+              "type": "input",
+              "title": "部位：",
+              "prefix":"部位:",
+              "elementStyle":"width:200px!important;display: inline-block;",
+              "titleStyle": "width: 91px",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "100%",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true,
+              "controlNameVal":"有：",
+              "controlName":"I2332060"
+            },
+            {
+              "name": "I2332061",
+              "type": "select",
+              "title": "程度",
+              "label":"程度:",
+              "elementStyle":"width:200px!important;display: inline-block;vertical-align: bottom;",
+              "titleStyle": "width: 91px",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "100%",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "hiddenTips": true,
+              "controlNameVal":"有：",
+              "controlName":"I2332060"
+            },
+            {
+              "name": "I2332062",
+              "type": "select",
+              "title": "性质",
+              "label":"性质:",
+              "elementStyle":"width:200px!important;display: inline-block;vertical-align: bottom;",
+              "titleStyle": "width: 91px",
+              "inputStyle": "width:100%!important",
+              "inputWidth": "100%",
+              "style": null,
+              "class": null,
+              "readOnly": null,
+              "controlNameVal":"有：",
+              "controlName":"I2332060",
+              "hiddenTips": true
+            }
+          ]
         }
       ]
     },
@@ -3158,6 +3233,8 @@
               "style": null,
               "class": null,
               "readOnly": null,
+              "controlNameVal":"无",
+              "controlName":"I2332235",
               "hiddenTips": true
             }
           ]
@@ -3901,7 +3978,7 @@
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
-          "hiddenTips": true,
+          "hiddenTips": false,
           "children": [
             {
               "name": "I2332076",
@@ -4152,7 +4229,7 @@
       "name": "I2332082",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "大便性质",
+      "title": "便便性质",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -4173,7 +4250,6 @@
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
-          "hiddenTips": true,
           "children": [
             {
               "name": "I2332082",
@@ -4249,7 +4325,7 @@
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
-          "hiddenTips": true,
+          "hiddenTips": false,
           "children": [
             {
               "name": "I2332083",
@@ -4903,345 +4979,6 @@
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs",
               "class": null
-            }
-          ]
-        },
-        {
-          "name": "I2332095",
-          "type": "",
-          "title": "性史",
-          "titleStyle": "width:72px!important",
-          "class": "",
-          "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332095",
-              "type": "radio",
-              "title": "未婚，有性史",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332067",
-              "type": "radio",
-              "title": "未婚，无性史",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332095",
-              "type": "radio",
-              "title": "已婚，有性史",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332095",
-              "type": "radio",
-              "title": "已婚，无性史",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            }
-          ]
-        },
-        {
-          "name": "I2332096",
-          "type": "",
-          "title": "避孕方法",
-          "titleStyle": "width:72px!important",
-          "class": "",
-          "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332096",
-              "type": "checkbox",
-              "title": "无",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332096",
-              "type": "checkbox",
-              "title": "药物",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332096",
-              "type": "checkbox",
-              "title": "上环",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332096",
-              "type": "checkbox",
-              "title": "结扎",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332096",
-              "type": "checkbox",
-              "title": "避孕套",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332096",
-              "type": "checkbox",
-              "title": "安全期",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332096",
-              "type": "checkbox",
-              "title": "其他：",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332097",
-              "type": "input",
-              "title": "",
-              "titleStyle": "width:90px!important",
-              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-              "inputWidth": "100%",
-              "suffixDesc": "",
-              "style": null,
-              "class": null,
-              "labelLeft": true,
-              "hiddenTips": true,
-              "readOnly": null
-            }
-          ]
-        },
-        {
-          "name": "I2332098",
-          "type": "",
-          "title": "腹痛",
-          "titleStyle": "width:72px!important",
-          "class": "",
-          "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332098",
-              "type": "radio",
-              "title": "无",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332098",
-              "type": "radio",
-              "title": "有",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            }
-          ]
-        },
-        {
-          "name": "I2332099",
-          "type": "formGroupColBox",
-          "title": "部位",
-          "titleStyle": "width:72px!important",
-          "class": "",
-          "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332099",
-              "type": "radio",
-              "title": "下腹部",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332099",
-              "type": "radio",
-              "title": "其他：",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332100",
-              "type": "input",
-              "title": "",
-              "titleStyle": "width:90px!important",
-              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-              "inputWidth": "100%",
-              "suffixDesc": "",
-              "style": null,
-              "class": null,
-              "labelLeft": true,
-              "hiddenTips": true,
-              "readOnly": null
-            }
-          ]
-        },
-        {
-          "name": "I2332101",
-          "type": "",
-          "title": "阴道流血",
-          "titleStyle": "width:72px!important",
-          "class": "",
-          "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332101",
-              "type": "radio",
-              "title": "无",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332101",
-              "type": "radio",
-              "title": "有：",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332231",
-              "type": "radio",
-              "title": "少许",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332231",
-              "type": "radio",
-              "title": "月经量",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332231",
-              "type": "radio",
-              "title": "多于月经量",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            }
-          ]
-        },
-        {
-          "name": "I2332102",
-          "type": "",
-          "title": "阴道异物分泌物",
-          "titleStyle": "width:120px!important",
-          "class": "radio_input",
-          "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332102",
-              "type": "radio",
-              "title": "无",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332102",
-              "type": "radio",
-              "title": "有：",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332232",
-              "type": "radio",
-              "title": "血性",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "class": null
-            },
-            {
-              "name": "I2332232",
-              "type": "radio",
-              "title": "水样、量：",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
-              "class": null,
-              "children": [
-                {
-                  "name": "I2332103",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:90px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "80%",
-                  "suffixDesc": "ml",
-                  "suffixclass": "suffixClass",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
-            },
-            {
-              "name": "I2332232",
-              "type": "radio",
-              "title": "其他：",
-              "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs itemRadio",
-              "class": null,
-              "children": [
-                {
-                  "name": "I2332104",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:90px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "100%",
-                  "suffixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
             }
           ]
         },

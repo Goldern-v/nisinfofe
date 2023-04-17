@@ -1358,10 +1358,10 @@
       "type": "formGroupColBox",
       "col": 6,
       "colWidth": [
-        "10%",
-        "15%",
-        "15%",
-        "15%",
+        "18%",
+        "18%",
+        "18%",
+        "18%",
         "30%"
       ],
       "title": "1.生命体征",
@@ -1392,7 +1392,7 @@
           "type": "input",
           "title": "P",
           "suffixDesc": "次/min",
-          "titleStyle": "width:45px!important",
+          "titleStyle": "width:15px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "55px",
           "style": null,
@@ -1411,7 +1411,7 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": false
         },
         {
           "name": "I2333044",
@@ -1603,6 +1603,15 @@
             {
               "name": "I2333048",
               "type": "checkbox",
+              "title": "正常",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333048",
+              "type": "checkbox",
               "title": "响亮",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1649,15 +1658,6 @@
               "name": "I2333048",
               "type": "checkbox",
               "title": "一般",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2333048",
-              "type": "checkbox",
-              "title": "正常",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -3374,7 +3374,7 @@
               "class": null
             },
             {
-              "name": "I2333073",
+              "name": "I2333227",
               "type": "checkbox",
               "title": "黄染",
               "elementStyle": "margin: 8px 5px 0 8px;",
