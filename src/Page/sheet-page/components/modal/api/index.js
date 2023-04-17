@@ -58,9 +58,9 @@ export const weihaiVitalSignPost = ( params ) => {
     `${apiPath}/record/internal_eval_weihai/vitalSignPost`,qs.stringify({...params}) );
 };
 
-/* 获取转科  /form/common/adtExchangeModifyLog/{patientId}/{visitId}/{formId}*/
-export function adtExchange(params){
-  return axios.get(`${apiPath}form/common/adtExchangeModifyLog/${params.patientId}/${params.visitId}/${params.formId}`)
+/* 获取转科  nurseLog/getNurseExchangeWard/{patientId}/{visitId}*/
+export function getNurseExchangeWard(params){
+  return axios.get(`${apiPath}nurseLog/getNurseExchangeWard/${params.patientId}/${params.visitId}`)
 }
 /* 获取转病区  /form/common/listNurseAdtHD/{patientId}/{visitId}/{formId}*/
 export function wardExchange(params){
@@ -71,10 +71,10 @@ export function bedExchange(params){
   return axios.get(`${apiPath}form/common/bedExchangeModifyLog/${params.patientId}/${params.visitId}/${params.formId}`)
 }
 /**
- * 保存转床号/form/common/updateInfo
+ * 保存转科 /recordBlock/updateInfo
  * @param {*} params
  * @returns
  */
 export const updateCommonInfo = (data)=> {
-  return axios.post(`${apiPath}form/common/updateInfo` , data)
+  return axios.post(`${apiPath}record/block/updateInfo` , data)
 }
