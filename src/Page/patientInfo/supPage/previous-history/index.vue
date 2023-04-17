@@ -40,7 +40,7 @@ export default {
   created() {
     this.query = this.$route.query;
     let { origin } = window.location
-    this.url = `${origin}/nursingPreview?patientId=${this.$route.query.patientId}&visitId=${this.$route.query.visitId}&nursingPreviewIsShow=1`
+    this.url = `${origin}/crNursing/nursingPreview?patientId=${this.$route.query.patientId}&visitId=${this.$route.query.visitId}&nursingPreviewIsShow=1`
   },
   computed: {
     query: {
@@ -51,7 +51,7 @@ export default {
       set() {}
     },
     iframeHeight(){
-      return this.wih - 210 + 'px'
+      return this.wih - 160 + 'px'
     }
   },
   methods: {
@@ -59,8 +59,7 @@ export default {
       this.url = '';
       this.visitIdValue = value;
       let { origin } = window.location
-      this.url = `${origin}/nursingPreview?patientId=${this.query.patientId}&visitId=${value}&nursingPreviewIsShow=1`
-      console.log(this.url);
+      this.url = `${origin}/crNursing/nursingPreview?patientId=${this.query.patientId}&visitId=${value}&nursingPreviewIsShow=1`
     }
   }
 };

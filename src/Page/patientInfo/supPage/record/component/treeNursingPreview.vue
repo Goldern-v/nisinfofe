@@ -60,6 +60,7 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .body {
   overflow-y: auto;
+  overflow-x:hidden;
   .title {
     cursor: pointer;
     height: 37px;
@@ -227,7 +228,7 @@ export default {
     height() {
       // 南医三嘉禾展示高度单独处理
       if (this.$route.path == "/nursingPreview") {
-        return `${this.wih - 40}px`;
+        return `${this.wih - 180}px`;
       }
       if (this.$route.path == "/formPage") {
         return `${this.wih - 120}px`;
