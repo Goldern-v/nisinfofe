@@ -1056,7 +1056,11 @@ export default {
           console.log(err)
         })
       }
+     // 清理CA和U盾登录相关操作
       localStorage.removeItem('whhkSignTye')
+      localStorage.removeItem('whhkCaOrUsbSignIn')
+      window.openSignModal = window.commonSignModal
+      
       localStorage.removeItem('signDataId')
       logout(Cookies.get("NURSING_USER"));
       Cookies.remove("password");

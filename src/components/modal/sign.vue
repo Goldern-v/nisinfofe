@@ -65,7 +65,7 @@
       </div>
     </span>
     <span v-else-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID) && nanfangCa"></span>
-    <span v-else-if="(['zzwy','whhk'].includes(HOSPITAL_ID))">
+    <span v-else-if="(['zzwy'].includes(HOSPITAL_ID))">
       <div v-show="zzwyNoHasCaSign">
         <p for class="name-title">{{ '请输入口令' }}</p>
         <div ref="passwordInput">

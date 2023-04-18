@@ -725,14 +725,14 @@
       </span>
     </div>
     <span v-if="sheetInfo.model != 'print'">
-      <div v-if="['whhk'].includes(HOSPITAL_ID)">
-    <whhkSignModal ref="signModal"></whhkSignModal>
-   <whhkSignModal ref="delsignModal" title="删除签名需签名者确认"></whhkSignModal>
-   </div>
-   <div v-else>
-    <signModal ref="signModal"></signModal>
-    <signModal ref="delsignModal" title="删除签名需签名者确认"></signModal>
-   </div>
+      <div v-if="['whhk'].includes(HOSPITAL_ID) && whhkCaOrUsbSignIn">
+        <whhkSignModal ref="signModal"></whhkSignModal>
+        <whhkSignModal ref="delsignModal" title="删除签名需签名者确认"></whhkSignModal>
+      </div>
+      <div v-else>
+        <signModal ref="signModal"></signModal>
+        <signModal ref="delsignModal" title="删除签名需签名者确认"></signModal>
+      </div>
     </span>
   </div>
 </template>
@@ -1009,8 +1009,10 @@ export default {
     },
     splitSave(){
       return process.env.splitSave
+    },
+    whhkCaOrUsbSignIn(){
+      return window.localStorage.getItem("whhkCaOrUsbSignIn")?JSON.parse(window.localStorage.getItem("whhkCaOrUsbSignIn")):null
     }
-
   },
   methods: {
     customCallBack(e,tr,x,y,index){
