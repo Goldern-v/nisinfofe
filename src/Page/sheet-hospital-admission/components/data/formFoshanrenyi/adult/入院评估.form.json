@@ -2912,7 +2912,7 @@
         {
           "name": "I2332058",
           "type": "",
-          "title": "尿液颜色",
+          "title": "颜色",
           "titleStyle": "width:72px!important",
           "class": null,
           "boxStyle": "height:auto!important; display: flex",
