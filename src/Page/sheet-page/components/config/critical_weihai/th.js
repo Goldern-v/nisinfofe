@@ -7,22 +7,10 @@ export default {
   th: {
     top: [
       {
-        name: '日期',
-        style: {
-          minWidth: '35px',
-          maxWidth: '35px',
-        },
-        colspan: '1',
-        rowspan: '3'
-      },
-      {
-        name: '时间',
-        style: {
-          minWidth: '35px',
-          maxWidth: '35px',
-        },
-        colspan: '1',
-        rowspan: '3'
+        name: '',
+        colspan: "2",
+        rowspan: "1",
+        key:'recordYear'
       },
       {
         name: '基础护理',
@@ -36,12 +24,12 @@ export default {
       },
       {
         name: '其他',
-        colspan: '6',
+        colspan: '2',
         rowspan: '1'
       },
       {
         name: '用药情况',
-        colspan: '3',
+        colspan: '4',
         rowspan: '1',
       },
       {
@@ -49,7 +37,7 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: '175px',
+          minWidth: '250px',
         },
       },
       {
@@ -59,6 +47,24 @@ export default {
       }
     ],
     mid: [
+      {
+        name: '日期',
+        style: {
+          minWidth: '35px',
+          maxWidth: '35px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '时间',
+        style: {
+          minWidth: '35px',
+          maxWidth: '35px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
       {
         name: `
           口腔护理/会阴护理
@@ -202,50 +208,50 @@ export default {
           minWidth: '30px',
         },
       },
-      {
-        name: `自定义标题1`,
-        canSet:true,
-        key:"customTitle1",
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        },
-      },
-      {
-        name: `自定义标题2`,
-        canSet:true,
-        key:"customTitle2",
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        },
-      },
-      {
-        name: `自定义标题3`,
-        canSet:true,
-        key:"customTitle3",
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        },
-      },
-      {
-        name: `自定义标题4`,
-        canSet:true,
-        key:"customTitle4",
-        colspan: '1',
-        rowspan: '2',
-        style: {
-          minWidth: "32px",
-          maxWidth: "32px"
-        },
-      },
+      // {
+      //   name: `自定义标题1`,
+      //   canSet:true,
+      //   key:"customTitle1",
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: "32px",
+      //     maxWidth: "32px"
+      //   },
+      // },
+      // {
+      //   name: `自定义标题2`,
+      //   canSet:true,
+      //   key:"customTitle2",
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: "32px",
+      //     maxWidth: "32px"
+      //   },
+      // },
+      // {
+      //   name: `自定义标题3`,
+      //   canSet:true,
+      //   key:"customTitle3",
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: "32px",
+      //     maxWidth: "32px"
+      //   },
+      // },
+      // {
+      //   name: `自定义标题4`,
+      //   canSet:true,
+      //   key:"customTitle4",
+      //   colspan: '1',
+      //   rowspan: '2',
+      //   style: {
+      //     minWidth: "32px",
+      //     maxWidth: "32px"
+      //   },
+      // },
       {
         name: `
         输液/注射用药
@@ -255,7 +261,7 @@ export default {
       },
       {
         name: `
-        用量(ml)
+        用量<br/>(ml)
           `,
         colspan: '1',
         rowspan: '2',
@@ -263,6 +269,13 @@ export default {
       {
         name: `
         口服/鼻饲用药
+          `,
+        colspan: '1',
+        rowspan: '2',
+      },
+      {
+        name: `
+        用量<br/>(ml)
           `,
         colspan: '1',
         rowspan: '2',
