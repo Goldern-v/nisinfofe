@@ -396,6 +396,8 @@ const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-fo
 const medicalCheck = () => import("@/Page/patientInfo/supPage/medical-check/index.vue")
 // 患者个人护理巡视
 const patientNursingRound = () => import("@/Page/patientInfo/supPage/patient-nursing-rounds/nursing-rounds.vue")
+// 佛山人医-既往护理病历
+const previousHistory = () => import("@/Page/patientInfo/supPage/previous-history/index.vue")
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
@@ -720,10 +722,6 @@ const router = new Router({
           component: videoListSetting
         }]
       },
-      // {
-      //   path: "/inBox",
-      //   component: inBox
-      // },
       {
         path: "/bed",
         component: bed
@@ -741,10 +739,6 @@ const router = new Router({
         },
         ]
       },
-      // {
-      //   path: "/log",
-      //   component: log
-      // },
       {
         path: "/healthEdu",
         component: healthEdu,
@@ -1003,37 +997,6 @@ const router = new Router({
         }
         ]
       },
-      // {
-      //   path: "/mailDetails/:id",
-      //   component: mailDetails
-      // },
-      // {
-      //   path: "/lesion",
-      //   component: lesion,
-      //   redirect: "/lesion/bed",
-      //   children: [
-      //     {
-      //       path: "task",
-      //       component: task,
-      //       name: "今日任务",
-      //       alias: "今日任务"
-      //     },
-      //     {
-      //       path: "shift",
-      //       component: shift
-      //     },
-      //     {
-      //       path: "implementation",
-      //       component: implementation
-      //     },
-      //     {
-      //       path: "/wait-bed",
-      //       component: resolve => {
-      //         require(["../Page/lesion/supPage/log/wait-bed.vue"], resolve);
-      //       }
-      //     }
-      //   ]
-      // },
       {
         path: "/patientInfo",
         component: patientInfo,
@@ -1045,15 +1008,6 @@ const router = new Router({
         {
           path: "/advice",
           component: advice
-
-          // component: (() => {
-          //   switch(HOSPITAL_ID) {
-          //     case '925':
-          //       return () => import('@/Page/patientInfo/supPage/advice_925/advice')
-          //     default:
-          //       return advice
-          //   }
-          // })()
         },
         {
           path: "/inspect",
@@ -1061,7 +1015,6 @@ const router = new Router({
         },
         {
           path: "/test",
-          // component: test
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
@@ -1114,18 +1067,10 @@ const router = new Router({
           path: "/otherPage",
           component: otherPage
         },
-        // {
-        //   path: "/home1",
-        //   component: home1
-        // },
         {
           path: "/diagnosis",
           component: diagnosis
         },
-        // {
-        //   path: "/diganosisDetails/:id",
-        //   component: diganosisDetails
-        // },
         {
           path: "/consultation",
           component: consultation,
@@ -1343,7 +1288,13 @@ const router = new Router({
             component: getImplementation(),
             name: "执行单",
             alias: "执行单"
-          }
+          },
+        {
+          path: "/previousHistory",
+          component: previousHistory,
+          name: '既往护理病历',
+          alias: "既往护理病历",
+        }
         ]
       },
       {

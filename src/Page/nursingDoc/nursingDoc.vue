@@ -29,79 +29,13 @@ export default {
       }else{
         url = this.$route.query;
       }
-      console.log(window.app,'window.app')
       var token =
         (window.app && window.app.$getCookie("NURSING_USER").split("##")[1]) ||
         url.token;
       if (!token) {
-        // this.HOSPITAL_ID == 'fuyou' ? this.toLogin2() : this.toLogin();
         await this.toLogin2()
       }else {
         await this.getPage(url);
-        // let type,
-        //   patientId = url.patientId,
-        //   visitId = url.visitId || "all";
-        // let isError=false;
-        // if((!url.patientId || !url.visitId) && url.expand1){
-        //       const newData= await this.getPatientIdAndVisitId(url.expand1);
-        //       (newData.res) && ({patientId,visitId}=newData.res);
-        //       (!newData.res) && (isError=true);
-        //       console.log(newData)
-        //        console.log("ssssnewData")
-        // }
-        // if(isError) return false;
-        // //return false
-        // switch (url.viewType) {
-        //   case "nursingPreview":
-        //     {
-        //       type = "nursingPreview";
-        //     }
-        //     break;
-        //   case "doc":
-        //     {
-        //       type = "record";
-        //     }
-        //     break;
-        //   case "record":
-        //     {
-        //       type = "sheet";
-        //     }
-        //     break;
-        //   case "doctorEmr":
-        //     {
-        //       type = "doctorEmr";
-        //     }
-        //     break;
-        //   case "inspect":
-        //     {
-        //       type = "inspect";
-        //     }
-        //     break;
-        //   case "test":
-        //     {
-        //       type = "test";
-        //     }
-        //     break;
-        //   case "temperature":
-        //     {
-        //       type = "temperature";
-        //     }
-        //     break;
-        //   default: {
-        //     type = "record";
-        //   }
-        // }
-
-        // if (type == "nursingPreview") {
-        //   this.$router.push(`/nursingPreview?patientId=${patientId}&visitId=${visitId}&nursingPreviewIsShow=1`);
-        // } else {
-        //   this.$router.push(
-        //     `/showPatientDetails/${type}?patientId=` +
-        //       patientId +
-        //       "&visitId=" +
-        //       visitId
-        //   );
-        // }
       }
     },
     //UrlDecode解码
@@ -231,15 +165,11 @@ export default {
       let isError=false;
       if((!url.patientId || !url.visitId) && url.expand1){
         const newData= await this.getPatientIdAndVisitId(url.expand1);
-        // (newData.res) && ({patientId,visitId}=newData.res);
         if(newData.res){
           newUrl.patientId = newData.res.patientId
           newUrl.visitId = newData.res.visitId
-          console.log('newUrl',newUrl);
         }
         (!newData.res) && (isError=true);
-        console.log('newData',newData)
-        // console.log("ssssnewData")
       }
       if(isError) return false;
       console.log('url',newUrl);

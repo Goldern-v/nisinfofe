@@ -3,7 +3,7 @@
 -->
 <template>
   <div>
-    <el-dialog title="科室选择" :visible.sync="dialogTableVisible" @close="close" >
+    <el-dialog title="科室选择" :visible.sync="dialogTableVisible" :before-close="close" top="40%" :append-to-body="true">
       <el-table
         ref="multipleTable"
         :data="tableData"
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { adtExchange, updateCommonInfo} from "./api/index";
+import { getNurseExchangeWard, updateCommonInfo} from "./api/index";
 export default {
   props: {
     // 打开弹框
@@ -55,8 +55,8 @@ export default {
     },
     async handelsuccus(){
       let data ={
-         adtLogList:[this.tableData[this.radioIdx]],
-        ...this.majorData,
+        ...this.tableData[this.radioIdx],
+        id:this.majorData.id
       }
       let res = await updateCommonInfo(data)
       if(res.data.code == 200 ){
@@ -81,9 +81,16 @@ export default {
    async dialogTableVisibleTrue(value){
       this.dialogTableVisible= value
       if(value){
-        const data =  await adtExchange(this.majorData)
+        const data =  await getNurseExchangeWard(this.majorData)
         if(data.data.code >= 200 && data.data.code < 300){
-           this.tableData = data.data.data
+          this.tableData = []
+          for(let key in data.data.data){
+            this.tableData .push({
+              deptName:key,
+              deptCode:data.data.data[key],
+              selected:false
+            })
+          }
            this.tableData.map((item,idx) =>{
              if(item.selected){
                this.radioIdx = idx;
@@ -104,5 +111,8 @@ export default {
   border: 1px solid #bfcbd9;
   line-height: 40px;
   text-align: center;
+}
+/deep/ .el-dialog--small {
+    width: 20% !important;
 }
 </style>

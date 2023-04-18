@@ -12,7 +12,7 @@
               justify="center"
               align="middle"
             >
-              <img src="../../common/images/logo_whhk.png" />
+              <img src="../../common/images/logo_whhk.jpg" />
               <span>{{
                 HOSPITAL_ID == "hj"
                   ? "百辰源智慧护理信息系统"

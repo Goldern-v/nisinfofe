@@ -107,7 +107,7 @@ function leftTopBottomRight(e, bind) {
 }
 
 function onFocusToAutoComplete(e, bind, cb) {
-  let { autoComplete, x, y, z, td, tr, splice } = bind;
+  let { autoComplete, x, y, z, td, tr, splice,isSearch } = bind;
   let scrollTop = document.querySelector(".sheetTable-contain").scrollTop;
   let scrollLeft = document.querySelector(".sheetTable-contain").scrollLeft;
   let xy = offset(e.target);
@@ -144,8 +144,9 @@ function onFocusToAutoComplete(e, bind, cb) {
     window.openAutoComplete({
       style: {
         top: `${xy.top - scrollTop - window.scrollY + 30}px`,
-        left: `${xy.left - scrollLeft - window.scrollX}px`,
-        addWidth: `${xy.width}px`
+        left: isSearch ? `${xy.left- xy.width}px`: `${xy.left - scrollLeft - window.scrollX}px`,
+        addWidth: `${xy.width}px`,
+        width: isSearch ? `${xy.width}px` : '120px'
       },
       data: autoCompleteData,
       callback: function (data) {

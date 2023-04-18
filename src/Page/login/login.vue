@@ -1027,7 +1027,7 @@ export default {
         case "fsxt":
           return require("../../common/images/logo_fsxt.png");
         case "whhk":
-          return require("../../common/images/logo_whhk.png");
+          return require("../../common/images/logo_whhk.jpg");
         case "qhwy":
           return require("../../common/images/logo_qhwy.png");
         case "925":

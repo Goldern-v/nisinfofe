@@ -17,7 +17,6 @@
         :max-height="250"
         @row-click="(row)=>rowClick(row)"
       >
-<!--        <el-table-column type="selection" width="55"> </el-table-column>-->
         <el-table-column width="40">
           <template slot-scope="scope">
             <el-radio :label="scope.$index" v-model="radioIdx" @change.native="handlerSelect(scope.$index)"></el-radio>

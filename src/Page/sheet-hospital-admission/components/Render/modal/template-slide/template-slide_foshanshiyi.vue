@@ -289,7 +289,9 @@ export default {
       selectWidth: 100,
       refName: "",
       deptENName: keyNameMap[this.deptName] || "neurology",
-      deptValue: localStorage.user && JSON.parse(localStorage.user).deptCode,
+      deptValue: ['foshanrenyi'].includes(this.HOSPITAL_ID) ? 
+                  localStorage.selectDeptValue :
+                  localStorage.user && JSON.parse(localStorage.user).deptCode,
       user: localStorage.user && JSON.parse(localStorage.user),
       filterDatas: [],
       allSelectedTypeList: [],
@@ -364,6 +366,10 @@ export default {
         this.refName = refName
         return
       }
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        this.selectedClasss = "科室"
+        this.deptValue = localStorage.selectDeptValue
+      } 
       this.geFromCode()
       this.getDeptLists()
       this.listType()
@@ -388,7 +394,7 @@ export default {
     },
     close() {
       this.show = false;
-      this.deptValue = ''
+      // this.deptValue = ''
       this.selectedType = "all"
       this.selectedClasss = "全部"
     },
