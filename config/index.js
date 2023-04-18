@@ -275,7 +275,7 @@ const currentTargetUrl = (() => {
       return 'http://192.168.3.187:9091'
 
     case 'dglb':
-      return 'http://http://10.51.7.22:9094'
+      return 'http://192.168.1.54:9866'
 
     /** 默认公司本地内网厚街测试环境 */
     default:

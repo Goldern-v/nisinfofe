@@ -253,6 +253,7 @@ import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/
 import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_oxytocin_sdlj from "./components/sheetTable-oxytocin_sdlj/sheetTable";
+import sheetTable_oxytocinck_dglb from "./components/sheetTable_oxytocinck_dglb/sheetTable";
 import sheetTable_insulin_pump_sdry from "./components/sheetTable-insulin_pump_sdry/sheetTable";
 import sheetTable_oxytocin_sdry from "./components/sheetTable-oxytocin_sdry/sheetTable";
 import sheetTable_oxytocin_dglb from "./components/sheetTable-oxytocin_dglb/sheetTable";
@@ -427,7 +428,10 @@ export default {
         return sheetTable_oxytocin_hl;
       } else if (sheetInfo.sheetType == "oxytocin_sdlj") {
         return sheetTable_oxytocin_sdlj;
-      } else if (sheetInfo.sheetType == "oxytocin_sdry") {
+      } else if (sheetInfo.sheetType == "oxytocinck_dglb") {
+        return sheetTable_oxytocinck_dglb;
+      }
+      else if (sheetInfo.sheetType == "oxytocin_sdry") {
         return sheetTable_oxytocin_sdry;
       } else if (sheetInfo.sheetType == "insulin_pump_sdry") {
         return sheetTable_insulin_pump_sdry;
