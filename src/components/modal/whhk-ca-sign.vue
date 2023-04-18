@@ -1,5 +1,5 @@
 <template>
-  <!-- 签名确认 -->
+  <!-- 登录的时候。ca和U盾签名确认。可以暂不认证 -->
   <sweet-modal
     ref="modal"
     size="small"
@@ -39,12 +39,12 @@
     </el-tabs>
       <div slot="button">
         <div v-show="activeName=='first'">
-          <el-button class="modal-btn" @click.stop="close">取消</el-button>
+          <el-button class="modal-btn" @click.stop="close">暂不认证</el-button>
           <el-button class="modal-btn" type="primary" @dblclick.stop="post" @click.stop="getAuthorizeApi" v-if="authoState=='0'">确认</el-button>
           <el-button class="modal-btn" type="primary" @dblclick.stop="post" @click.stop="getAuthorizeApi" v-if="authoState=='2'">刷新二维码</el-button>
         </div>
         <div v-show="activeName=='second'">
-          <el-button class="modal-btn" @click.stop="close">取消</el-button>
+          <el-button class="modal-btn" @click.stop="close">暂不认证</el-button>
           <el-button class="modal-btn" type="primary" @dblclick.stop="post" @click.stop="accountLogin">确认</el-button>
         </div>
       </div>
@@ -194,15 +194,15 @@ export default {
       (isStart) && (this.getAuthorizeApi(),this.getWebSocket());//执行ca验证
     },
     close(fuyouIfclose = false) {
-    //   if(this.fuyouIfCanClose){
-    //     fuyouIfclose = true
-    //   }
-    //   if(fuyouIfclose ===true){
+      if(this.fuyouIfCanClose){
+        fuyouIfclose = true
+      }
+      if(fuyouIfclose ===true){
         this.clearIntervalItem();
         this.$refs.modal.close()
         this.bus.$emit("updateFuyouCaData")
-    //   }
-      
+        window.openSignModal = window.commonSignModal
+      }
     },
     //启动倒数定时器
     startSetIntervalItem(){
@@ -266,7 +266,7 @@ export default {
       // }
      },
 
-    /**证书认证 */
+    /**U盾 证书认证 */
     accountLogin(){
       
       if(this.username=='' || this.password==''){
@@ -287,13 +287,15 @@ export default {
             if (retValObj.retVal) {
               	this.$message.success("登录成功");
               	this.callback && this.callback();
-			  	this.$router.push("/");
-          		this.close()
-				// 清楚这个定时器websocket
-				this.clearIntervalItem()
+			         	this.$router.push("/");
+             		this.close()
+				        // 清除这个定时器websocket
+			         	this.clearIntervalItem()
+                // U盾登录触发
+                window.openSignModal = window.openWhhkSignModal
+			          window.localStorage.setItem("whhkCaOrUsbSignIn",true);
             } else {
               $loginVerifyPINCallBack(retValObj);
-              // this.$message.error("验证失败");
             }
           },
           ctx
@@ -366,7 +368,10 @@ export default {
               this.getSignPhoto()
               //local保存
               let {data} = res.data.data
-			  window.localStorage.setItem("fuyouCaData",JSON.stringify(data));
+			        window.localStorage.setItem("fuyouCaData",JSON.stringify(data));
+              //CA登录触发 
+              window.openSignModal = window.openWhhkSignModal
+              window.localStorage.setItem("whhkCaOrUsbSignIn",true);
               this.bus.$emit("updateFuyouCaData")
               //清除轮询定时器
               clearInterval(this.setIntervalApi)
@@ -393,7 +398,7 @@ export default {
       })
     },
     getSignPhoto(){
-      //   要换成这个
+       // 发送接口告诉后端CA登录进入。后端把签名地址替换
       axios.get(`${apiPath}manufactor/whhk/queryImage/${JSON.parse(localStorage.getItem("user")).empNo}`).then(res=>{
 
       }).catch(err=>{

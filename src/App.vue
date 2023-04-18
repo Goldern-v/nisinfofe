@@ -118,6 +118,8 @@ export default {
   },
   mounted() {
     window.openSignModal = this.$refs.signModal.open;
+     // 存起。处理武汉汉口CA、U盾签名弹窗和默认账号密码输入弹窗操作
+    window.commonSignModal = this.$refs.signModal.open;
     window.openWhhkSignModal = this.$refs.whhkSignModal.open;
     window.openTestDiagnosisModal = this.$refs.testDiagnosis.open;
     window.openInfoDiagnosisModal = this.$refs.InfoDiagnosis.open;

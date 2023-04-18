@@ -722,7 +722,8 @@ export default {
               return this.$router.push("/resetpassword");
             }
           }
-          if(['zzwy','whhk'].includes(this.HOSPITAL_ID)){
+          // 汉口流程改为登录工号跳转首页。CA签名和U盾可以暂不认证
+          if(['zzwy'].includes(this.HOSPITAL_ID)){
             this.loginSucceedZZwy(res, type);
           }else if(!['fuyou'].includes(this.HOSPITAL_ID)){
             this.loginSucceed(res, type);
@@ -792,6 +793,11 @@ export default {
           window.openFuyouCaSignModal(true);
         } else if (["hj"].includes(this.HOSPITAL_ID)) {
           window.openHjCaSignModal();
+        }else if (["whhk"].includes(this.HOSPITAL_ID)) {
+          // 防止各种操作。签名框没有初始原来的账号密码框。
+          window.openSignModal = window.commonSignModal
+          // 登录进入首页后。弹窗进行CA和U盾认证。
+          window.openWhhkCaSignModal(true);
         }else if(["guizhou"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
           window.openHjCaSignModal();
         }
@@ -837,9 +843,6 @@ export default {
       switch (this.HOSPITAL_ID) {
         case 'zzwy':
           window.openZzwyCaSignModal(true);
-          break;
-        case 'whhk':
-          window.openWhhkCaSignModal(true);
           break;
         default:
           break;
