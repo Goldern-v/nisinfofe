@@ -1894,7 +1894,6 @@ function switchSheetType(type) {
   }
   return schema;
 }
-// le y = ''
 
 function switchNodeTime(type){
   let customColumn;
