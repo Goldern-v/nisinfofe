@@ -1,6 +1,6 @@
 
 <template>
-  <div class="title-box" v-if="obj">
+  <div class="title-box" :hospital="hospital" v-if="obj">
     <!-- <draggable v-model="obj"
     ghost-class="ghost-box"
     :group="{ name: 'people', pull: 'clone', put: 'clone' }"
@@ -53,7 +53,11 @@ export default {
       drag: false
     };
   },
-  computed: {},
+  computed: {
+    hospital(){
+      return this.HOSPITAL_ID
+    }
+  },
   watch: {},
   mounted() {},
   created() {},
@@ -85,7 +89,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style lang="scss" scoped>
 div {
   font-family: sim;
 }
@@ -106,6 +110,15 @@ h4 {
   /* padding: 10px 30px; */
   padding: 10px 20px 50px 30px;
   /* padding-bottom: 50px; */
+  &[hospital='foshanrenyi']{
+    font-family:"宋体" !important;
+    /deep/ span,.el-checkbox__label{
+      font-size:14px !important;
+    }
+    /deep/ .group-title-box{
+      font-size:16px !important;
+    }
+  }
 }
 
 .header-box {

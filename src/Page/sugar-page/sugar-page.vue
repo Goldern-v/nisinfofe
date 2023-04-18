@@ -141,7 +141,7 @@ export default {
         南方医科大学顺德医院:'bloodSugarNfyksdyy',
         佛山市第一人民医院:'bloodSugarFoShanRenYi',
         珠海市中西医结合医院:'bloodSugarZhuHaiZhongXiYi',
-        武汉汉口医院:'bloodSugarZhuHaiZhongXiYi',
+        武汉市汉口医院:'bloodSugarZhuHaiZhongXiYi',
         广东同江医院:'bloodSugarGdtj',
         // 佛山市顺德区龙江医院: 'bloodSugarSdlj'
       };

@@ -1,12 +1,11 @@
 <template>
   <div>
     <div class="body" :style="{ height: height }" v-loading="treeLoading">
-      <div class="record-box">
+      <div class="record-box" v-if="handelQuery() == 'record'">
         <div
           class="title"
           style="cursor: pointer"
           @click="setItemShow('one')"
-          v-if="handelQuery() == 'record'"
         >
           护理文书
         </div>
@@ -45,7 +44,7 @@
           <span class="name">体温单</span>
         </div>
       </div>
-      <div v-if="showBloodSugar.includes(HOSPITAL_ID)">
+      <div v-if="handelQuery() == 'nursingPreview' && showBloodSugar.includes(HOSPITAL_ID) ">
         <div @click="setItemShow('four')" class="title">血糖</div>
         <div
           v-if="isShowObj.four"

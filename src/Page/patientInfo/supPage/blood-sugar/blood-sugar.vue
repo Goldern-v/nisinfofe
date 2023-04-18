@@ -116,6 +116,7 @@
             <span>床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <span v-if="HOSPITAL_ID == 'liaocheng'">病案号：{{ patientInfo.inpNo }}</span>
+            <span v-else-if="HOSPITAL_ID == 'whsl'">病案号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
             <span v-else-if="HOSPITAL_ID == 'huadu'">住院号：{{ patientInfo.patientId }}</span>
             <span v-else>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->

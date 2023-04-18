@@ -3,7 +3,7 @@
     <component :is="witchLeft" v-if="inited"/>
     <div class="right-part" :style="[{ marginLeft: openLeft ? '200px' : '0' },...heightFun()]">
       <component :is="switchCompt()" v-if="inited" />
-      <router-view v-if="inited"></router-view>
+      <router-view v-if="inited" :style="{marginLeft: treeOpenLeft && isRouter ? '-274px' : '0'}"></router-view>
     </div>
   </div>
 </template>
@@ -73,6 +73,7 @@ export default {
       refresh: false,
       inited: false,
       query: {},
+      isRouter: false, // 路由为 /record 为true
     };
   },
   computed: {
@@ -89,6 +90,17 @@ export default {
     openLeft() {
       return this.$store.state.common.openLeft;
     },
+    treeOpenLeft() {
+      return this.$store.state.sheet.openWritTreeLeft;
+    },
+  },
+  watch: {
+    $route: {
+      handler(val, oldValue) {
+        this.isRouter = val.path === '/record'
+      },
+      deep: true
+    }
   },
   created() {
     // 修改高度
@@ -126,7 +138,9 @@ export default {
         }
         this.inited = true;
         this.query = res.data.data;
-        Object.assign(this.$route.query, this.query);
+        if(this.$route.path !== '/previousHistory/nursingPreview'){
+          Object.assign(this.$route.query, this.query);
+        }
         // getPatientInfo
         window.app.$store.commit(
           "upCurrentPatientObj",
@@ -175,6 +189,9 @@ export default {
     },
   },
   mounted() {
+    // 解决在护理评估单页面强制刷新出现问题
+    this.isRouter = this.$route.path === '/record'
+    
     try {
       document.getElementById("hl-nav-con").style.display = "none";
     } catch (e) {}

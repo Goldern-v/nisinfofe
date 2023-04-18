@@ -1,6 +1,6 @@
 
 <template>
-  <span style="display:flex; align-items:center;" class="input-box">
+  <span :ref="refName2" style="display:flex; align-items:center;" class="input-box">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
@@ -87,6 +87,7 @@ export default {
       isShowDownList: false,
       readOnly: false,
       bus: bus(this),
+      refName2: 'selectInputBox' + this.obj.name + this.obj.title
     };
   },
   computed: {
@@ -125,7 +126,9 @@ export default {
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       this.$root.$refs[this.formCode][refName] = this.$refs[refName];
     }
-
+    if (this.$refs[this.refName2]) {
+      this.$root.$refs[this.formCode][this.refName2] = this.$refs[this.refName2];
+    }
     //vue-happy-bus添加修改inputvalue方法
     this.bus.$on(`updateValue${this.obj.name}`,()=>{
       this.inputValue = this.formObj.model[this.obj.name]
