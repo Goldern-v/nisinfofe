@@ -793,6 +793,7 @@ export default {
     hasFiexHeader: Boolean,
     isInPatientDetails: Boolean,
     listData: Array,
+    specialLis: Array,
   },
   mixins: [common],
   data() {
@@ -3092,8 +3093,8 @@ export default {
     },
     // 特殊情况输入内容搜索显示内容
     onSearch(e, data){
-      if(!e.target.value) return
-      let list = ['+/+','+/-','+/±','-/+','-/-','-/±','±/+']
+      let list = this.specialLis
+      if(e.target.value === '') { list = []}
       list = list.filter(item => item.indexOf(e.target.value) != -1)
       data = {...data, autoComplete:{data: list}, isSearch:true}
       if (sheetInfo.model == "print") return;

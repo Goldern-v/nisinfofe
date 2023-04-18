@@ -61,6 +61,7 @@
               :isInPatientDetails="false"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
+              :specialLis="specialList"
               @onModalChange="onModalChange"
             ></component>
           </div>
@@ -289,6 +290,7 @@ import {
   markList,
   splitRecordBlock,
   findListByBlockId,
+  list
 } from "@/api/sheet.js";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -337,6 +339,7 @@ export default {
       bedAndDeptChange: {},
       foshanshiyiIFca:false,//佛山key状态
       listData: [],
+      specialList: [],
       toSingleTempArr: [
         "huadu",
         "liaocheng",
@@ -583,6 +586,7 @@ export default {
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
+        list('全部',this.patientInfo.wardCode),
       ]
       // 佛山市一 获取自定义标题数据
       if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
@@ -651,6 +655,10 @@ export default {
           };
         }
         sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
+
+        // 获取到特殊情况列表内容
+        let specialList = res[3].data.data.list;
+        this.specialList = specialList.map(item=> item.content)
         this.$nextTick(async () => {
         await initSheetPage(titleData, bodyData, markData, this.listData);
       //加载表单
