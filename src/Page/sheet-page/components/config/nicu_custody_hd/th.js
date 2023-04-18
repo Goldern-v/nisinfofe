@@ -102,13 +102,6 @@ export default {
         colspan: '1',
         rowspan: '3'
       },
-      // {
-      //   name: `
-      //   肌<br/>张<br/>力
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '3'
-      // },
       {
         name: `
         吸<br/>吮<br/>力
@@ -141,20 +134,12 @@ export default {
           maxWidth: "25px"
         },
       },
-      // {
-      //   name: `
-      //   瞳孔<br/>（对光反射）
-      //   `,
-      //   style: {},
-      //   colspan: '2',
-      //   rowspan: '1'
-      // },
       {
         name: `
         入量
         `,
         style: {},
-        colspan: '4',
+        colspan: '2',
         rowspan: '1'
       },
       {
@@ -162,7 +147,7 @@ export default {
         出量
         `,
         style: {},
-        colspan: '6',
+        colspan: '3',
         rowspan: '1'
       },
       {
@@ -224,37 +209,9 @@ export default {
       },
     ],
     mid: [
-      // {
-      //   name: `
-      //   左<br/>(mm)
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2'
-      // },
-      // {
-      //   name: `
-      //   右<br/>(mm)
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2'
-      // },
       {
         name: `
         名<br/>称
-        `,
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: `
-        静<br/>脉<br/>(ml)
-        `,
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: `
-        进<br/>食
         `,
         colspan: '1',
         rowspan: '2'
@@ -268,52 +225,24 @@ export default {
       },
       {
         name: `
-        大<br/>便<br/>颜<br/>色
+        名<br/>称
         `,
         colspan: '1',
         rowspan: '2'
       },
       {
         name: `
-        大<br/>便<br/>(g)
+        量<br/>(ml)
         `,
         colspan: '1',
         rowspan: '2'
       },
       {
         name: `
-        小<br/>便<br/>颜<br/>色
+        颜<br/>色
         `,
         colspan: '1',
         rowspan: '2'
-      },
-      {
-        name: `
-        小<br/>便<br/>(ml)
-        `,
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: `
-        抽<br/>血<br/>(ml)
-        `,
-        colspan: '1',
-        rowspan: '2'
-      },
-      // {
-      //   name: `
-      //   胃<br/>肠<br/>引<br/>流<br/>(ml)
-      //   `,
-      //   colspan: '1',
-      //   rowspan: '2'
-      // },
-      {
-        name: ``,
-        colspan: '1',
-        rowspan: '2',
-        canSet: true,
-        key: "outPutCustomization1",
       },
       {
         name: `方<br/>式`,

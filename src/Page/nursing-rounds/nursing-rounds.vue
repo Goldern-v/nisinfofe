@@ -223,7 +223,7 @@ export default {
       allNursingClass: [],
       allTableData: [],
       showPrint: this.HOSPITAL_ID === 'sdlj',
-      notVisit: true,
+      notVisit: false,
       filterTableData: [],
     };
   },

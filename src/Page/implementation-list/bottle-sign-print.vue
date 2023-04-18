@@ -5,7 +5,6 @@
         <h3>瓶签打印</h3>
         <div>
           <span class="label">执行开始时间</span>
-          <!-- <span class="label">执行日期:</span> -->
           <el-date-picker
             type="datetime"
             format="yyyy-MM-dd HH:mm:ss"
@@ -242,113 +241,7 @@
     </div>
   </div>
 </template>
-<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.main-contain {
-  margin: 10px 10px 0px 10px;
-}
 
-.head-con {
-  min-height: 42px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-
-  h3 {
-    font-size: 18px;
-    line-height: 20px;
-  }
-
-  .label {
-    font-size: 13px;
-    margin-left: 8px;
-    // margin-right: 5px;
-  }
-
-  >>> .el-tag {
-    height: 20px;
-    line-height: 20px;
-  }
-}
-
-.select-btn-list {
-  height: 30px;
-  padding-top: 2px;
-  background: #fff;
-  padding: 0 16px;
-
-  >>>.el-radio__input {
-    position: relative;
-    top: 1px;
-  }
-
-  >>>.el-radio__label {
-    color: #333;
-    font-size: 12px;
-    position: relative;
-    top: 2px;
-  }
-}
-
-.print-modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  > div {
-    width: 480px;
-    height: 134px;
-    background-color: #fff;
-    text-align: center;
-    padding: 0 37px;
-
-    p {
-      font-size: 14px;
-      color: #666666;
-      line-height: 22px;
-    }
-
-    img {
-      width: 45px;
-      height: 36px;
-      margin-top: 29px;
-      margin-bottom: 14px;
-    }
-
-    >>> .el-progress {
-      margin-top: 47px;
-      margin-bottom: 30px;
-    }
-  }
-}
-
-.new-print-box {
-  // overflow: hidden;
-  .break-page {
-    page-break-after: always;
-  }
-  .size-75 {
-    width: 69mm;
-    height: 50mm;
-    position: relative;
-  }
-}
-
-// @media print {
-//   .new-print-box--small {
-//     transform: scale(0.5);
-//     transform-origin: 0 0 0;
-//     overflow: hidden;
-//   }
-// }
-</style>
 <script>
 import modal from "./modal/modal";
 import dTable from "./components/table/bottle-sign-print-table";
@@ -869,6 +762,11 @@ export default {
       this.selectedData = this.$_.flattenDeep(this.pagedTable);
       await this.newOnPrint();
     },
+    // 威海PB打印全部 暂无pb支持全部的参数格式，待处理
+    async PBonPrintAll() {
+      this.selectedData = this.$_.flattenDeep(this.pagedTable);
+      await this.newOnPrint();
+    },
     // 打印当前页
     async currentPagePrint() {
       console.log(this.pagedTable[this.page.pageIndex-1])
@@ -1058,45 +956,6 @@ export default {
     },
     // 静默打印
     async onSilentPrint() {
-      // await this.getPrintData();
-      // document.getElementById("new-print-box").style.display = "block";
-      // this.$nextTick(() => {
-      //   const LODOP = getLodop();
-      //   const cssblock = this.getCssBlock();
-      //   if (LODOP) {
-      //     var strBodyStyle = `<style>
-      //     @page{
-      //       ${this.printM}
-      //     }
-      //     body{
-      //       ${this.printScaleText}
-      //     }
-      //     .break-page {
-      //       page-break-after: always;
-      //     }
-      //     ${cssblock}
-      //     </style>`; //设置打印样式
-      //     var strFormHtml =
-      //       strBodyStyle +
-      //       "<body>" +
-      //       document.getElementById("new-print-box").innerHTML +
-      //       "</body>"; //获取打印内容
-      //     LODOP.PRINT_INIT(""); //初始化
-      //     // 指定打印机
-      //     this.specifyPrinter(LODOP);
-      //     const [h, w] = this.newModalSize.split("*");
-      //     LODOP.SET_PRINT_PAGESIZE(1, w * 100, h * 100, "");
-      //     // LODOP.SET_PRINT_PAGESIZE(0, 0, 0, "A4"); //设置横向
-      //     // LODOP.SET_PRINT_PAGESIZE(3, 0, 0, "CreateCustomPage"); //设置横向
-      //     LODOP.ADD_PRINT_HTM("0%", "0%", "100%", "100%", strFormHtml); //设置打印内容
-      //     LODOP.SET_PREVIEW_WINDOW(2, 0, 0, 800, 600, ""); //设置预览窗口模式和大小
-      //     LODOP.PREVIEW();
-      //     // 直接打印
-      //     // LODOP.PRINT();
-      //   }
-      //   document.getElementById("new-print-box").style.display = "none";
-      //   this.onLoad();
-      // });
       let codeList = this.$_.uniqBy(
         this.selectedData.map((item) => `${item.patientId}|${item.visitId}|${item.orderNo}|${this.query.executeDate}`)
       );
@@ -1171,7 +1030,7 @@ export default {
         case "whsl":
           return "NewPrintModalWhfk";
         case "whhk":
-          return "NewPrintModalWhhk";  
+          return "NewPrintModalWhhk";
         case "wujing":
           return "NewPrintModalWujing";
         case "ytll":
@@ -1191,7 +1050,7 @@ export default {
         case "925":
         case "stmz":
           return ["70*80", "3*7"];
-        case "whhk":  
+        case "whhk":
          return ["8*7"];
         case "zhzxy":
           return ["7*7", "2*5", '7*5'];
@@ -1213,11 +1072,6 @@ export default {
     },
     // 打印缩放的尺寸
     printScaleText() {
-      // if ((this.HOSPITAL_ID === "925"||this.HOSPITAL_ID === "lyxrm") && this.newModalSize === "70*80"){
-      //   return "transform: scale(0.8);transform-origin: 0 0 0;";
-      // } else if ((this.HOSPITAL_ID === "gdtj") && this.newModalSize === "6*8"){
-      //   // return "transform: scale(0.8);transform-origin: 0 0 0;";
-      // }
       if (
         ["70*80", "6*8", "5*8", "7*7", '7*5','8*7'].includes(this.newModalSize) ||
         ["whfk"].includes(this.HOSPITAL_ID)
@@ -1320,3 +1174,100 @@ export default {
   },
 };
 </script>
+<style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.main-contain {
+  margin: 10px 10px 0px 10px;
+}
+
+.head-con {
+  min-height: 42px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+
+  h3 {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .label {
+    font-size: 13px;
+    margin-left: 8px;
+  }
+
+  >>> .el-tag {
+    height: 20px;
+    line-height: 20px;
+  }
+}
+
+.select-btn-list {
+  height: 30px;
+  padding-top: 2px;
+  background: #fff;
+  padding: 0 16px;
+
+  >>>.el-radio__input {
+    position: relative;
+    top: 1px;
+  }
+
+  >>>.el-radio__label {
+    color: #333;
+    font-size: 12px;
+    position: relative;
+    top: 2px;
+  }
+}
+
+.print-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > div {
+    width: 480px;
+    height: 134px;
+    background-color: #fff;
+    text-align: center;
+    padding: 0 37px;
+
+    p {
+      font-size: 14px;
+      color: #666666;
+      line-height: 22px;
+    }
+
+    img {
+      width: 45px;
+      height: 36px;
+      margin-top: 29px;
+      margin-bottom: 14px;
+    }
+
+    >>> .el-progress {
+      margin-top: 47px;
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.new-print-box {
+  .break-page {
+    page-break-after: always;
+  }
+  .size-75 {
+    width: 69mm;
+    height: 50mm;
+    position: relative;
+  }
+}
+</style>

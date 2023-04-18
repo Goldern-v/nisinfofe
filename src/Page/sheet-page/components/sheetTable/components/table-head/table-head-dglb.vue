@@ -91,8 +91,9 @@
       <span>
           预产期：
           <crDatePicker
+            type="time"
             v-model="sheetInfo.relObj['contractionTime']"
-            :width="140"
+            :width="100"
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
         </span>

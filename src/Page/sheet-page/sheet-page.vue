@@ -98,6 +98,16 @@
     <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
     <!-- 电子病例弹窗 -->
     <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt','dglb','nfyksdyy'].includes(HOSPITAL_ID)" />
+    <changeMajorRadio
+      :dialogTableVisibleTrue="dialogDeptNameVisible"
+      :majorData="{
+        patientId:  patientInfo.patientId,
+        visitId: patientInfo.visitId,
+        id: sheetInfo.selectBlock.id
+      }"
+      @TableVisible="(val) => dialogDeptNameVisible = val"
+      @savedata="(val) => {val &&  getSheetData()}"
+    ></changeMajorRadio>
   </div>
 </template>
 
@@ -305,6 +315,7 @@ import {GetUserList,verifyNewCaSign} from '../../api/caCardApi'
 import testSheet from './testSheet.json'
 //解锁
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
+import changeMajorRadio from '@/Page/sheet-page/components/modal/changeMajorRadio.vue'
 
 export default {
   mixins: [common],
@@ -314,6 +325,7 @@ export default {
         bedList: [],
       },
       patientListLoading: false,
+      dialogDeptNameVisible: false,
       pageLoading: false,
       tableLoading: false,
       bus: bus(this),
@@ -991,6 +1003,7 @@ export default {
         }
       }
     );
+    this.bus.$on('handleDeptNameChoose',(val)=>{this.dialogDeptNameVisible = val})
     this.bus.$on("refreshSheetPage", () => {
       this.getSheetData()
     });
@@ -1361,7 +1374,8 @@ export default {
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,
-    sheetTable_prenatal_ytll
+    sheetTable_prenatal_ytll,
+    changeMajorRadio
   },
 };
 </script>

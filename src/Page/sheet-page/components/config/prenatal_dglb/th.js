@@ -8,7 +8,7 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1500px"
+    width: "1150px"
   },
   th: {
     top: [
@@ -242,20 +242,20 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
-      {
-        name: `
-        宫颈<br />疼痛<br />评分
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        非药<br />物减<br />痛方法
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
+      // {
+      //   name: `
+      //   宫颈<br />疼痛<br />评分
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3"
+      // },
+      // {
+      //   name: `
+      //   非药<br />物减<br />痛方法
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3"
+      // },
       {
         name: `
         膀胱<br />充盈度
@@ -276,7 +276,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldTwentyTwo",
         style: {
           minWidth: "30px",
           maxWidth: "30px"
@@ -288,7 +288,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve2",
+        key: "fieldTwentyThree",
         style: {
           minWidth: "30px",
           maxWidth: "30px"
@@ -342,8 +342,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "65px",
-          maxWidth: "65px"
+          minWidth: "45px",
+          maxWidth: "45px"
         },
       },
       {
@@ -356,8 +356,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "65px",
-          maxWidth: "65px"
+          minWidth: "45px",
+          maxWidth: "45px"
         },
       },
       {
@@ -379,8 +379,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "20px",
+          maxWidth: "20px"
         },
       },
       {

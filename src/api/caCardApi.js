@@ -216,7 +216,7 @@ function verifyNewCaSign(SigndataObj,verifySignObj) {
 // 南方中西医ca签名相关接口
 function getCertificate(userUid) {
   return axios.get(`${apiPath}caSignNfzxy/getCertificate`,{params:{
-    userUid
+    userUid:JSON.parse(localStorage.getItem("user")).signSn
   }})
 }
 function getAccessToken(params) {

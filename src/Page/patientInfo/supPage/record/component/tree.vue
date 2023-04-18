@@ -61,7 +61,7 @@
       />
     </div>
 
-    <div
+    <!-- <div
       v-if="hisLeftList.includes(HOSPITAL_ID)"
       @click="showBtn"
       :class="[isActive ? 'active' : 'button']"
@@ -75,6 +75,24 @@
       <i
         class="iconfont icon-xianshi"
         v-show="isActive"
+        style="margin-left: -2px"
+      ></i>
+    </div> -->
+    <!-- 原来武警有的这个功能收起有点问题 领导说不做医院控制 功能提出要做是花都医院 -->
+    <div
+      class="flag-con"
+      :style="{ top: flagTop }"
+      flex="main:center cross:center"
+      @click="toOpenLeft"
+    >
+      <i
+        class="iconfont icon-yincang"
+        v-show="!openLeft"
+        style="margin-left: -1px"
+      ></i>
+      <i
+        class="iconfont icon-xianshi"
+        v-show="openLeft"
         style="margin-left: -2px"
       ></i>
     </div>
@@ -151,6 +169,25 @@
       font-size: 12px;
       position: absolute;
       top: 30px;
+    }
+  }
+  
+  .flag-con {
+    width: 10px;
+    height: 73px;
+    position: absolute;
+    right: -11px;
+    top: 100px;
+    z-index: 10;
+    background-image: url('../../../../../common/images/patient/隐藏框.png');
+    cursor: pointer;
+
+    &:hover {
+      color: #5CC6A1;
+    }
+
+    i {
+      font-size: 12px;
     }
   }
 }
@@ -331,7 +368,7 @@ export default {
       isShow: true, //护理文书菜单列是否展示
       isActive: false, //是否点击收起图标
       isPersonage: false, //是否为个人详情打开
-      hisLeftList: ["wujing"], //是否要开放左侧收缩功能医院
+      hisLeftList: ["wujing", 'huadu'], //是否要开放左侧收缩功能医院
       batchAuditDialog: false, // 批量审核表单弹框
       batchAuditForms: {}, // 批量审核节点数据
       lockHospitalList:['huadu'],//配置了评估单锁定功能的医院
@@ -351,6 +388,9 @@ export default {
         return `${this.wih - 180}px`;
       }
     },
+    openLeft() {
+      return this.$store.state.sheet.openWritTreeLeft;
+    },
   },
   watch: {
     "$route.params"() {
@@ -361,6 +401,9 @@ export default {
     },
   },
   methods: {
+    toOpenLeft() {
+      this.$store.commit("upWritTreeLeft", !this.openLeft);
+    },
     showBtn() {
       this.isShow = !this.isShow;
       this.isActive = !this.isActive;

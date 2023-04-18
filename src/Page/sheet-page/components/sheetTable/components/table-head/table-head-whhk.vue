@@ -1,7 +1,7 @@
 <template>
   <div class="header-con">
     <div class="his-name hospital-whhk">
-      <img src="../../../../../../common/images/logo_whhk.png"/>
+      <img src="../../../../../../common/images/logo_whhk.jpg"/>
       <span>{{ HOSPITAL_NAME }}</span>
     </div>
     <div class="title">{{ patientInfo.recordName }}</div>

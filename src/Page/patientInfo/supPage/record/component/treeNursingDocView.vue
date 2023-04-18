@@ -89,7 +89,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .body {
-  y-overflow: auto;
+  overflow-y: auto;
   .title {
     cursor: pointer;
     height: 37px;

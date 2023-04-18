@@ -26,6 +26,8 @@ let 基础护理 = ['①','②','③','④','⑤','⑥','⑦']
 let 名称=['输液','PICC冲管液','冷沉淀','新鲜血浆','悬浮红细胞','白蛋白','人免疫球蛋白','血小板','洗涤红细胞']
 let 便颜色=['黄绿色','黄色','淡黄色','墨绿色','暗红色','鲜红色','淡红色','茶褐色']
 let 口鼻腔=['WL','WT','YL','YWL','YT','YWT','B','BL','+','++','+++']
+let ruList = []
+let chuList = []
 
 export default [
   {
@@ -45,9 +47,9 @@ export default [
     name: "台/箱温度",
     next: "℃",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -56,20 +58,20 @@ export default [
     name: "体温",
     next: "℃",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
-    key: "heartRate", //心率
+    key: "pulse", //心率
     value: "",
     name: "心率",
     next: "次/分",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -78,9 +80,9 @@ export default [
     name: "呼吸",
     next: "次/分",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -91,7 +93,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
 
@@ -101,9 +103,9 @@ export default [
     name: "Spo2",
     next: "%",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -111,9 +113,9 @@ export default [
     value: "",
     name: "反应",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
     autoComplete: {
       data: 反应
@@ -124,9 +126,9 @@ export default [
     value: "",
     name: "哭声",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
     autoComplete: {
       data: 哭声
@@ -137,27 +139,14 @@ export default [
     value: "",
     name: "脐部",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
     autoComplete: {
       data: 脐部
     },
   },
-  // {
-  //   key: "tension", //肌张力
-  //   value: "",
-  //   name: "肌张力",
-  //   event: keyf1,
-  //   change: (e, td) => limitChange(e, td, 4),
-  //   textarea: {
-  //     width: 35
-  //   },
-  //   autoComplete: {
-  //     data: 肌张力
-  //   },
-  // },
   {
     key: "sucking", //吸吮力
     value: "",
@@ -165,7 +154,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
     autoComplete: {
       data: 吸吮力
@@ -178,7 +167,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
     autoComplete: {
       data: 体位
@@ -200,172 +189,71 @@ export default [
     name: "微量血糖",
     next: "mmol/L",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 45
-    },
-  },
-  // {
-  //   key: "pupilLeft", //瞳孔对光反射左
-  //   value: "",
-  //   name: "瞳孔（对光反射）左",
-  //   next: "mm",
-  //   event: keyf1,
-  //   change: (e, td) => limitChange(e, td, 6),
-  //   textarea: {
-  //     width: 40
-  //   },
-  //   splice:'/',
-  //   autoComplete: {
-  //     data: 瞳孔
-  //   },
-  // },
-  // {
-  //   key: "pupilRight", //瞳孔对光反射右
-  //   value: "",
-  //   name: "瞳孔（对光反射）右",
-  //   next: "mm",
-  //   event: keyf1,
-  //   change: (e, td) => limitChange(e, td, 6),
-  //   textarea: {
-  //     width: 40
-  //   },
-  //   splice:'/',
-  //   autoComplete: {
-  //     data: 瞳孔
-  //   },
-  // },
-  {
-    key: "inputName", //名称
-    value: "",
-    name: "名称",
-    next: "ml",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 55
-    },
-    autoComplete: {
-      data: 名称
-    },
-  },
-  {
-    key: "vein", //静脉
-    value: "",
-    name: "静脉",
-    next: "ml",
-    event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 45
     },
-    // autoComplete: {
-    //   data: 静脉
-    // },
   },
   {
-    key: "eat", //进食
+    key: "food", // 入量名称
     value: "",
-    name: "进食",
+    name: "入量名称",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 10),
     textarea: {
-      width: 55
+      width: 65
     },
     autoComplete: {
-      data: 进食
+      data: ruList
     },
   },
   {
-    key: "quantity", //量
+    key: "foodSize", // 量
     value: "",
-    name: "入量量",
+    name: "入量",
     next: "ml",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
-    key: "poopColor", //大便颜色
+    key: "discharge", //出量名称
     value: "",
-    name: "大便颜色",
+    name: "出量名称",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    textarea: {
+      width: 65
+    },
+    autoComplete: {
+      data: chuList
+    },
+  },
+  {
+    key: "dischargeSize", // 量
+    value: "",
+    name: "出量",
+    next: "ml",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 8),
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "color", // 颜色
+    value: "",
+    name: "颜色",
     next: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
       width: 45
     },
     autoComplete: {
       data: 便颜色
-    },
-  },
-  {
-    key: "poop", //大便
-    value: "",
-    name: "大便",
-    next: "g",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "peeColor", //小便颜色
-    value: "",
-    name: "小便颜色",
-    next: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 45
-    },
-    autoComplete: {
-      data: 便颜色
-    },
-  },
-  {
-    key: "pee", //小便
-    value: "",
-    name: "小便",
-    next: "ml",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
-    },
-  },
-  {
-    key: "exsanguinate", //抽血
-    value: "",
-    name: "抽血",
-    next: "ml",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
-    },
-  },
-  // {
-  //   key: "drainage", //胃肠引流
-  //   value: "",
-  //   name: "胃肠引流",
-  //   next: "ml",
-  //   event: keyf1,
-  //   change: (e, td) => limitChange(e, td, 4),
-  //   textarea: {
-  //     width: 35
-  //   },
-  // },
-  {
-    key: "outPutCustomization1", //自定义1
-    value: "",
-    event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
-    textarea: {
-      width: 35
     },
   },
   {
@@ -375,7 +263,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
-      width: 55
+      width: 65
     },
     autoComplete: {
       data: 用氧方式
@@ -387,9 +275,9 @@ export default [
     name: "流量",
     next: "L/分",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -398,9 +286,9 @@ export default [
     name: "氧浓度",
     next: "%",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 35
+      width: 45
     },
   },
   {
@@ -446,12 +334,12 @@ export default [
     },
   },
   {
-    key: "custom1", //自定义2
+    key: "custom1", //自定义1
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 16),
     textarea: {
-      width: 35
+      width: 100
     },
   },
   {
@@ -562,3 +450,20 @@ export default [
     value: true
   }
 ];
+
+export function getListData() {
+  listItem("record:nicu_custody_hd:入量名称", info.sheetType).then(res => {
+    ruList.splice(0, ruList.length);
+    for (let item of res.data.data) {
+      ruList.push(item.name);
+    }
+  });
+  listItem("record:nicu_custody_hd:出量名称", info.sheetType).then(res => {
+    chuList.splice(0, chuList.length);
+    for (let item of res.data.data) {
+      chuList.push(item.name);
+    }
+  });
+}
+
+getListData();
