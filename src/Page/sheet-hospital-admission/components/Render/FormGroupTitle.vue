@@ -7,7 +7,7 @@
          :style='obj.style'
          :class='obj.class|| obj.level&&obj.level==="1"?"group-title-box":"group-sub-title-box"'
     >{{ obj.title }}
-    <template v-if="obj.title==='9.成人体型'">
+    <template v-if="obj.useWarm">
       <el-tooltip class="item" effect="light" placement="top">
       <div slot="content">
         <span>

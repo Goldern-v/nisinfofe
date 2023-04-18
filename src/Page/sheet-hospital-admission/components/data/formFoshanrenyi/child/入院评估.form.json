@@ -52,7 +52,7 @@
           "name": "I311007",
           "type": "input",
           "title": "入院诊断",
-          "titleStyle": "width:68px!important",
+          "titleStyle": "width:78px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
           "style": null,
@@ -1358,10 +1358,10 @@
       "type": "formGroupColBox",
       "col": 6,
       "colWidth": [
-        "10%",
-        "15%",
-        "15%",
-        "15%",
+        "18%",
+        "18%",
+        "18%",
+        "18%",
         "30%"
       ],
       "title": "1.生命体征",
@@ -1385,20 +1385,20 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": false
         },
         {
           "name": "I2333042",
           "type": "input",
           "title": "P",
           "suffixDesc": "次/min",
-          "titleStyle": "width:45px!important",
+          "titleStyle": "width:15px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "55px",
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": false
         },
         {
           "name": "I2333043",
@@ -1411,14 +1411,14 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": false
         },
         {
           "name": "I2333044",
           "type": "input",
           "title": "R",
           "suffixDesc": "次/min",
-          "titleStyle": "width:15px!important",
+          "titleStyle": "width:45px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "55px",
           "style": null,
@@ -1603,6 +1603,15 @@
             {
               "name": "I2333048",
               "type": "checkbox",
+              "title": "正常",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333048",
+              "type": "checkbox",
               "title": "响亮",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -1649,15 +1658,6 @@
               "name": "I2333048",
               "type": "checkbox",
               "title": "一般",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2333048",
-              "type": "checkbox",
-              "title": "正常",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -3374,7 +3374,7 @@
               "class": null
             },
             {
-              "name": "I2333073",
+              "name": "I2333227",
               "type": "checkbox",
               "title": "黄染",
               "elementStyle": "margin: 8px 5px 0 8px;",
@@ -4376,7 +4376,7 @@
           "name": "I2333099",
           "type": "",
           "title": "意识/神志",
-          "titleStyle": "width: 75px!important",
+          "titleStyle": "width: 85px!important",
           "class": null,
           "labelLeft": true,
           "readOnly": null,
@@ -5253,7 +5253,7 @@
           "name": "I2333127",
           "type": "",
           "title": "呼吸道症状",
-          "titleStyle": "width:82px!important",
+          "titleStyle": "width:92px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5509,7 +5509,7 @@
           "name": "I2333133",
           "type": "",
           "title": "胃肠道症状",
-          "titleStyle": "width:82px!important",
+          "titleStyle": "width:92px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -6675,7 +6675,7 @@
           "type": "select",
           "title": "营养风险筛查",
           "style": null,
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:100px!important",
           "inputStyle": "width:270px!important",
           "class": null,
           "options": [
@@ -7159,7 +7159,7 @@
           "name": "I2333186",
           "type": "",
           "title": "患者安全",
-          "titleStyle": "width:65px!important",
+          "titleStyle": "width:75px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "inputStyle": "margin-top:8px",
@@ -7618,7 +7618,7 @@
           "name": "signerName",
           "type": "input",
           "title": "责任护士签名",
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:100px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "suffixDesc": "",
@@ -7641,7 +7641,7 @@
           "name": "auditorName",
           "type": "input",
           "title": "审核人签名",
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:100px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "suffixDesc": "",

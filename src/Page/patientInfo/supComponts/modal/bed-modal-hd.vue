@@ -166,8 +166,8 @@
         <div class="bed-card-vert-con">
           <div :class="{ huaduStyle: ['huadu'].includes(HOSPITAL_ID) }">
             <div class="top">
-              <span  v-if="!['dglb'].includes(HOSPITAL_ID)">科室：{{ query.wardName }}</span>
-              <span  v-if="['dglb'].includes(HOSPITAL_ID)">科室：{{ query.deptName }}</span>
+              <span  v-if="isDglb">科室：{{ query.deptName }}</span>
+              <span  v-else>科室：{{ query.wardName }}</span>
               <span
                 v-if="!['zhzxy', 'whhk'].includes(HOSPITAL_ID)"
                 :style="{
@@ -204,7 +204,7 @@
                 <span>{{ query.name }}</span>
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
-                <span>住院号：{{ 'dglb' === HOSPITAL_ID ? query.inpNo : query.patientId }}</span>
+                <span>住院号：{{ isDglb ? query.inpNo : query.patientId }}</span>
               </div>
               <div v-if="!['whhk'].includes(HOSPITAL_ID)">
                 <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
@@ -393,15 +393,15 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span  v-if="!['dglb'].includes(HOSPITAL_ID)">科室：{{ query.wardName }}</span>
-            <span  v-if="['dglb'].includes(HOSPITAL_ID)">科室：{{ query.deptName }}</span>
+            <span  v-if="isDglb">科室：{{ query.deptName }}</span>
+            <span  v-else>科室：{{ query.wardName }}</span>
           </div>
           <div>
             <div>
               <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
                 >床位：{{ query.bedLabel }}</span
               >
-              <span>住院号：{{ 'dglb' === HOSPITAL_ID ? query.inpNo : query.patientId }}</span>
+              <span v-if="!isDglb">住院号：{{ query.patientId }}</span>
             </div>
             <div>
               <span>{{ query.name }}</span>
@@ -416,9 +416,10 @@
           </div>
           <img
             class="qr-code"
-            :class="{ hasRemark: hasRemark }"
+            :class="[{ hasRemark: hasRemark }, {'abs-img': this.isDglb}]"
             :src="qrCode"
           />
+          <span :class="{'abs-text': this.isDglb}">{{ query.inpNo }}</span>
         </div>
       </div>
       <div slot="button">
@@ -642,6 +643,17 @@
       margin-top: -56px;
       height: 112px;
       width: 112px;
+      &.abs-img {
+        top: 42% !important;
+      }
+    }
+    .abs-text {
+      position: absolute;
+      right: 42px;
+      top: 82%;
+      display: block
+      width: 112px;
+      text-align: center
     }
   }
 }
@@ -965,6 +977,7 @@ export default {
       allergy_gdtj: "", //自定义过敏信息
       lianxiPhone_whhk: "",
       aField1: "",
+      isDglb: 'dglb' === this.HOSPITAL_ID,
     };
   },
   computed: {
@@ -1120,7 +1133,7 @@ export default {
             default: `
               .bed-card-warpper {
                 box-shadow: none !important;
-                transform: ${'dglb' === this.HOSPITAL_ID ? 'rotate(90deg) translateY(-105%) translateX(25%);' : 'rotate(90deg) translateY(-120%) translateX(25%);'}
+                transform: ${this.isDglb ? 'rotate(90deg) translateY(-105%) translateX(25%);' : 'rotate(90deg) translateY(-120%) translateX(25%);'}
                 transform-origin: 0 0;
               }
               .bed-card-vert-con {

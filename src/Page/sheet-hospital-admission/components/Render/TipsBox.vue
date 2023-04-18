@@ -63,7 +63,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$refs[this.refName]) {
+    if (this.obj.name && this.obj.title && this.$refs[this.refName]) {
       this.$root.$refs[this.formCode][this.refName] = this.$refs[this.refName];
     }
     // console.log('TipsBoxMounted',this.$refs,this.$root.$refs)

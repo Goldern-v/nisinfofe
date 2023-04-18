@@ -345,6 +345,24 @@ export default {
               inp: true,
               correlationID: "I2332104"
             },
+            {
+              id: 'I2332060',
+              value: '有：',
+              hiddenInputBox: true,
+              correlationID: "I2332250部位："
+            },
+            {
+              id: 'I2332060',
+              value: '有：',
+              hiddenSelectBox: true,
+              correlationID: "I2332062性质"
+            },
+            {
+              id: 'I2332060',
+              value: '有：',
+              hiddenSelectBox: true,
+              correlationID: "I2332061程度"
+            },
           ]
         }
         
@@ -355,7 +373,6 @@ export default {
             if(!this.formObj.model[item.id]) return
 
             if (item.inp) {
-              
               let inp = this.$root.$refs[this.formCode][item.correlationID]
               inp.$el.style = this.formObj.model[item.id] !== item.value ? "display: none" : "display: inlink-block"
               if (item.prefixId) document.getElementById(item.prefixId).style = this.formObj.model[item.id] !== item.value ? "display: none" : "display: inlink-block"
@@ -363,9 +380,17 @@ export default {
             }else if(item.hiddenformGroupColBox){
               let formGroupColBox = this.$root.$refs[this.formCode]['formGroupColBox' + item.correlationID]
               formGroupColBox.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "block"
-            } else if(item.hiddentipsBox){
+            }else if(item.hiddentipsBox){
               let hiddentipsBox = this.$root.$refs[this.formCode]['tipsBox' + item.correlationID]
+              console.log(hiddentipsBox,'hiddentipsBox')
               hiddentipsBox.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "block"
+            } else if(item.hiddenInputBox){
+              let hiddenInputBox = this.$root.$refs[this.formCode]['inputBox' + item.correlationID]
+              hiddenInputBox.parentNode.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
+            } else if(item.hiddenSelectBox){
+              let hiddenSelectBox = this.$root.$refs[this.formCode]['selectInputBox' + item.correlationID]
+              console.log()
+              hiddenSelectBox.parentNode.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
             } else {
               let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
               if (elArr.length > 0) {

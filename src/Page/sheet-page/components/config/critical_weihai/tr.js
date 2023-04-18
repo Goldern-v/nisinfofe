@@ -14,6 +14,10 @@ import {
 const color= ['鲜红色', '暗红色', '淡红色', '淡黄色', '深黄色', '黄绿色', '黄褐色', '黑色', '无色'];
 const stoolColorOption= ['鲜红色', '暗红色',  '黄色',  '褐色', '黑色','陶土样'];
 export default [{
+  key: "recordDate",
+  value: "",
+  hidden:true
+},{
   key: "recordMonth", //日期
   value: "",
   event: event_date,
@@ -178,59 +182,59 @@ export default [{
     data:stoolColorOption
   },
 },
-{
-  key: "customTitle1",
-  value: "",
-  event: keyf1,
-  name: "自定义标题1",
-  next: "",
-  textarea: {
-    width: 32
-  },
-  autoComplete: {
-    data:color
-  }
-},
-{
-  key: "customTitle2",
-  value: "",
-  event: keyf1,
-  name: "自定义标题2",
-  next: "",
-  textarea: {
-    width: 32
-  },
-  autoComplete: {
-    data:color
-  }
-},
-{
-  key: "customTitle3",
-  value: "",
-  event: keyf1,
-  name: "自定义标题3",
-  next: "",
-  textarea: {
-    width: 32
-  },
-  autoComplete: {
-    data:color
-  }
+// {
+//   key: "customTitle1",
+//   value: "",
+//   event: keyf1,
+//   name: "自定义标题1",
+//   next: "",
+//   textarea: {
+//     width: 32
+//   },
+//   autoComplete: {
+//     data:color
+//   }
+// },
+// {
+//   key: "customTitle2",
+//   value: "",
+//   event: keyf1,
+//   name: "自定义标题2",
+//   next: "",
+//   textarea: {
+//     width: 32
+//   },
+//   autoComplete: {
+//     data:color
+//   }
+// },
+// {
+//   key: "customTitle3",
+//   value: "",
+//   event: keyf1,
+//   name: "自定义标题3",
+//   next: "",
+//   textarea: {
+//     width: 32
+//   },
+//   autoComplete: {
+//     data:color
+//   }
 
-},
-{
-  key: "customTitle4",
-  value: "",
-  event: keyf1,
-  name: "自定义标题4",
-  next: "",
-  textarea: {
-    width: 32
-  },
-  autoComplete: {
-    data:color
-  }
-},
+// },
+// {
+//   key: "customTitle4",
+//   value: "",
+//   event: keyf1,
+//   name: "自定义标题4",
+//   next: "",
+//   textarea: {
+//     width: 32
+//   },
+//   autoComplete: {
+//     data:color
+//   }
+// },
 {
   key: "infusion",
   value: "",
@@ -238,7 +242,7 @@ export default [{
   name: "输液/注射用药",
   next: "",
   textarea: {
-    width:150
+    width:180
   },
 },
 {
@@ -258,10 +262,19 @@ export default [{
   name: "口服/鼻饲用药",
   next: "",
   textarea: {
-    width: 150
+    width: 180
   },
 },
-
+{
+  key: "customTitle4",
+  value: "",
+  event: keyf1,
+  name: "用量(ml)",
+  next: "",
+  textarea: {
+    width: 32
+  },
+},
 {
   key: "description", //备注
   value: "",
@@ -271,11 +284,11 @@ export default [{
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "170px",
+    width: "250px",
     background: "transparent"
   },
   textarea: {
-    width: 150
+    width: 250
   },
   event: function (e, td) {
     console.log(e.keyCode);
