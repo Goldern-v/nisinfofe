@@ -226,7 +226,7 @@
           "name": "I311007",
           "type": "input",
           "title": "入院诊断",
-          "titleStyle": "width:68px!important",
+          "titleStyle": "width:78px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
           "style": null,
@@ -340,7 +340,7 @@
           "name": "I2332007",
           "type": "input",
           "title": "国籍",
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:100px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "95%",
           "style": null,
@@ -353,7 +353,7 @@
           "name": "I2332008",
           "type": "input",
           "title": "民族",
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:100px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "95%",
           "style": null,
@@ -366,7 +366,7 @@
           "name": "I2332009",
           "type": "input",
           "title": "职业",
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:100px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "95%",
           "style": null,
@@ -379,7 +379,7 @@
           "name": "I2332010",
           "type": "input",
           "title": "婚姻状态",
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:100px!important",
           "inputStyle": "width:100%!important",
           "inputWidth": "95%",
           "style": null,
@@ -697,7 +697,7 @@
           "title": "嗜好：吸烟",
           "postTitle": "吸烟频率",
           "postText": "(支/天)",
-          "titleStyle": "width:92px!important",
+          "titleStyle": "width:102px!important",
           "inputStyle": "width:100%!important",
           "labelLeft": true,
           "hiddenTips": true,
@@ -2071,14 +2071,7 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "tasks": [
-                {
-                  "show": [
-                    "禁食啊"
-                  ]
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2332044",
@@ -2087,14 +2080,7 @@
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "tasks": [
-                {
-                  "show": [
-                    "禁食啊"
-                  ]
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2332044",
@@ -2103,14 +2089,7 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "tasks": [
-                {
-                  "show": [
-                    "禁食啊"
-                  ]
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2332044",
@@ -2119,14 +2098,7 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "tasks": [
-                {
-                  "show": [
-                    "禁食啊"
-                  ]
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2332044",
@@ -2135,14 +2107,7 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "禁食啊"
-                  ]
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2332044",
@@ -2151,13 +2116,6 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "class": null,
-              "tasks": [
-                {
-                  "show": [
-                    "禁食啊"
-                  ]
-                }
-              ],
               "children": [
                 {
                   "name": "I2332045",
@@ -2182,13 +2140,6 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "class": null,
-              "tasks": [
-                {
-                  "show": [
-                    "禁食啊"
-                  ]
-                }
-              ],
               "children": [
                 {
                   "name": "I2332046",
@@ -3186,7 +3137,7 @@
           "name": "I2332235",
           "type": "",
           "title": "留置引流管",
-          "titleStyle": "width:82px!important",
+          "titleStyle": "width:92px!important",
           "class": null,
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -3262,7 +3213,7 @@
           "name": "I2332237",
           "type": "",
           "title": "中心静脉导管",
-          "titleStyle": "width:102px!important",
+          "titleStyle": "width:112px!important",
           "class": null,
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -4542,7 +4493,7 @@
           "name": "I2332086",
           "type": "",
           "title": "肌力部位及分级",
-          "titleStyle": "width:120px!important",
+          "titleStyle": "width:130px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5268,7 +5219,7 @@
           "name": "I2332102",
           "type": "",
           "title": "阴道异物分泌物",
-          "titleStyle": "width:120px!important",
+          "titleStyle": "width:130px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5425,7 +5376,7 @@
           "name": "I2332107",
           "type": "",
           "title": "既往分娩方式",
-          "titleStyle": "width:102px!important",
+          "titleStyle": "width:112px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -5501,7 +5452,7 @@
           "name": "I2332109",
           "type": "",
           "title": "末次月经",
-          "titleStyle": "width:63px!important",
+          "titleStyle": "width:73px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -6172,7 +6123,7 @@
           "name": "I2332128",
           "type": "",
           "title": "母乳喂养知识",
-          "titleStyle": "width:92px!important",
+          "titleStyle": "width:112px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -6531,7 +6482,7 @@
           "name": "I2332137",
           "type": "",
           "title": "耳朵堵塞感",
-          "titleStyle": "width:72px!important",
+          "titleStyle": "width:92px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -7647,7 +7598,7 @@
           "name": "I2332183",
           "type": "",
           "title": "患者安全",
-          "titleStyle": "width:65px!important",
+          "titleStyle": "width:75px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "inputStyle": "margin-top:8px",
@@ -7850,24 +7801,6 @@
             },
             {
               "relationForm": {
-                "openKey": "ICU住院告知",
-                "params": {
-                  "formCode": "FSSY_G0004",
-                  "showSignBtn": true,
-                  "title": "佛山市第一人民医院重症医学科（ICU）住院告知",
-                  "formUrl": "佛山市第一人民医院重症医学科（ICU）住院告知.html",
-                  "callbackInfo": {
-                    "needScore": false,
-                    "defaultName": true,
-                    "code": "I2332192",
-                    "prefix": "ICU住院告知, 已完成",
-                    "suffix": ""
-                  }
-                }
-              }
-            },
-            {
-              "relationForm": {
                 "openKey": "EICU住院告知",
                 "params": {
                   "formCode": "FSSY_E0002",
@@ -7879,6 +7812,24 @@
                     "defaultName": true,
                     "code": "I2332192",
                     "prefix": "EICU住院告知, 已完成",
+                    "suffix": ""
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "ICU住院告知",
+                "params": {
+                  "formCode": "FSSY_G0004",
+                  "showSignBtn": true,
+                  "title": "佛山市第一人民医院重症医学科（ICU）住院告知",
+                  "formUrl": "佛山市第一人民医院重症医学科（ICU）住院告知.html",
+                  "callbackInfo": {
+                    "needScore": false,
+                    "defaultName": true,
+                    "code": "I2332192",
+                    "prefix": "ICU住院告知, 已完成",
                     "suffix": ""
                   }
                 }
@@ -8104,7 +8055,7 @@
           "name": "signerName",
           "type": "input",
           "title": "责任护士签名",
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:100px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "suffixDesc": "",
@@ -8127,7 +8078,7 @@
           "name": "auditorName",
           "type": "input",
           "title": "审核人签名",
-          "titleStyle": "width:90px!important",
+          "titleStyle": "width:100px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
           "suffixDesc": "",

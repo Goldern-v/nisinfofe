@@ -194,7 +194,7 @@ export default {
             },
             {
               id: 'I2332067',
-              value: '异常：',
+              value: ['异常：'],
               hiddenformGroupColBox: true,
               correlationID: "排尿留置导管"
             },
@@ -212,9 +212,16 @@ export default {
             },
             {
               id: 'I2332067',
-              value: '异常：',
+              value: ['异常：'],
               hiddenformGroupColBox: true,
               correlationID: "排尿造瘘"
+            },
+            {
+              id: 'I2332044',
+              value: ['普食','软食','半流质','流质','特殊治疗饮食：','其他：'],
+              hiddenImportantVal:"禁食",
+              hiddenformGroupColBox: true,
+              correlationID: "禁食啊"
             },
           ]
         } else {
@@ -292,13 +299,15 @@ export default {
 
             }else if(item.hiddenformGroupColBox){
               let formGroupColBox = this.$root.$refs[this.formCode]['formGroupColBox' + item.correlationID]
-              formGroupColBox.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "block"
+              let end = item.value.find(val=>this.formObj.model[item.id].includes(val))
+              if(item.hiddenImportantVal){
+                formGroupColBox.style.display = this.formObj.model[item.id].includes(item.hiddenImportantVal) ? "none" : "block"
+              }else formGroupColBox.style.display = !end ? "none" : "block"
             }else if(item.hiddeninputBox){
               let hiddeninputBox = this.$root.$refs[this.formCode]['inputBox' + item.correlationID]
               hiddeninputBox.parentElement.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
             }else if(item.hiddenRadio){
               let hiddenRadioArr = this.$root.$refs[this.formCode][item.correlationID]
-              console.log(hiddenRadioArr,this.$root.$refs[this.formCode])
               Object.keys(hiddenRadioArr).forEach(radio=>{
                 hiddenRadioArr[radio].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "inline-block"
               })

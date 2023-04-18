@@ -1151,9 +1151,11 @@ export default {
           sign: true,
           evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
         };
+        let showDate = true
         if (config && config.type && config.type === "audit") {
           signType = { audit: true };
           titleModal = "审核护士签名";
+          showDate = false
         }
         this.useCaData()
         window.openSignModal(
@@ -1234,7 +1236,7 @@ export default {
               });
           },
           titleModal,
-          true,undefined,  undefined, undefined, undefined ,undefined,undefined,
+          showDate,undefined,  undefined, undefined, undefined ,undefined,undefined,
           SigndataObj,verifySignObj
         );
       }

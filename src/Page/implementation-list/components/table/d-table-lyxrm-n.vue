@@ -496,45 +496,13 @@ export default {
       return val ? moment(val).format("YYYY-MM-DD HH:mm") : "";
     },
     handleStatus(val) {
-      if (process.env.HOSPITAL_ID == 'whsl') {
-        return {
-          '0': '未执行',
-          '1': '执行中',
-          '2': '暂停',
-          '4': '已执行'
-        }[val + ''] || ''
-      }
-      let allStatus = [
-        {
-          id: "",
-          name: "全部",
-        },
-        {
-          id: 0,
-          name: "未执行",
-        },
-        {
-          id: 1,
-          name: "执行中",
-        },
-        {
-          id: 2,
-          name: "已执行",
-        },
-        {
-          id: 3,
-          name: "继续输液",
-        },
-        {
-          id: 4,
-          name: "已完成",
-        },
-      ];
-      let status = parseInt(val);
-      if (val == 5) return "";
-      return typeof status == "number"
-        ? allStatus[status + 1] && allStatus[status + 1].name
-        : val;
+      return {
+        '0': '未执行',
+        '1': '执行中',
+        '2': '已结束',
+        '3': '暂停',
+        '9': '作废',
+      }[val + ''] || ''
     },
   },
   computed: {
