@@ -1,11 +1,12 @@
 <template>
   <div>
+    <!-- <FormTags v-if="hasTagsView"/> -->
     <div class="content">
       <div class="left-part" id="left">
-        <tree ref="tree" :filterObj="filterObj"></tree>
+        <tree ref="tree" :filterObj="filterObj" :hasTagsView="hasTagsView"></tree>
       </div>
       <div :class="[HOSPITAL_ID=='wujing' ?'right-part-wujing' : 'right-part']" id="right" style="z-index:1">
-        <rightPart :filterObj="filterObj"></rightPart>
+        <rightPart :filterObj="filterObj" :hasTagsView="hasTagsView"></rightPart>
       </div>
     </div>
   </div>
@@ -36,6 +37,7 @@ import tree from "./component/tree";
 import rightPart from "./component/right-part/right-part.vue";
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import bus from "vue-happy-bus";
+import FormTags from './component/form-tags/index.vue';
 export default {
   props: {
     filterObj: Object
@@ -45,6 +47,16 @@ export default {
       lockHospitalList:['huadu'],//配置了表单锁定的医院
       bus: bus(this),
     };
+  },
+  computed: {
+    hasTagsView() {
+      // return ['nfyksdyy', 'whhk'].includes(this.HOSPITAL_ID)
+      return false;
+    },
+    // 标签高度
+    tagsViewHeight() {
+      return this.hasTagsView ? 35 : 0
+    },
   },
   mounted(){
     //挂载。让嵌套的iframe可以调用
@@ -85,7 +97,8 @@ export default {
   },
   components: {
     tree,
-    rightPart
+    rightPart,
+    FormTags
   },
   // beforeRouteLeave: (to, from, next) => {
   //   const isSave = localStorage.getItem('isSave')
