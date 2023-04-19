@@ -146,7 +146,7 @@ function onFocusToAutoComplete(e, bind, cb) {
         top: `${xy.top - scrollTop - window.scrollY + 30}px`,
         left: isSearch ? `${xy.left- xy.width}px`: `${xy.left - scrollLeft - window.scrollX}px`,
         addWidth: `${xy.width}px`,
-        width: isSearch ? `${xy.width}px` : '120px'
+        width: isSearch ? `${xy.width}px !important` : '120px'
       },
       data: autoCompleteData,
       callback: function (data) {
