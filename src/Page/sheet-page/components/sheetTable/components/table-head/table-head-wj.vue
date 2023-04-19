@@ -131,7 +131,7 @@
           {{ patientInfo.age }}
         </div>
       </span>
-      <span>
+      <span @click="handleDeptNameChoose">
         科室：
         <div class="bottom-line" style="min-width: 80px">
           {{ patientInfo.deptName }}
@@ -194,8 +194,6 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import bus from "vue-happy-bus";
 import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
-import changeMajorRadio from '@/Page/sheet-page/components/modal/changeMajorRadio.vue'
-import changetrunBerRadio from '@/Page/sheet-page/components/modal/changetrunBerRadio.vue'
 export default {
   props: {
     patientInfo: Object,
@@ -204,7 +202,7 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo,
+      sheetInfo
     };
   },
   computed: {
@@ -240,9 +238,12 @@ export default {
       arr.push(text)
       text = ''
       return arr
-    }
+    },
   },
   methods: {
+    handleDeptNameChoose(){
+      this.bus.$emit('handleDeptNameChoose',true)
+    },
     GetLength(str) {
       var realLength = 0,
         len = str.length,
@@ -295,7 +296,7 @@ export default {
     }
   },
   destroyed() {},
-  components: { crDatePicker, changeMajorRadio, changetrunBerRadio}
+  components: { crDatePicker}
 };
 </script>
 

@@ -80,7 +80,7 @@ export default {
         青海省第五人民医院: 'QhwyHeader',
         威海市立医院: 'WhslHeader',
         珠海市中西医结合医院: 'ZhzxyHeader',
-        武汉汉口医院: 'WhhkHeader',
+        武汉市汉口医院: 'WhhkHeader',
         南方医科大学顺德医院: 'nfyksdyyHeader',
         中国人民解放军联勤保障部队第九二五医院: 'JiuerWuHeader',
         东莞市寮步医院: 'dglbHeader'

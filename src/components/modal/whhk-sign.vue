@@ -1,5 +1,5 @@
 <template>
-  <!-- 签名确认 -->
+   <!--表单签名弹窗。 签名确认 -->
   <sweet-modal
     ref="modalName"
     size="small"

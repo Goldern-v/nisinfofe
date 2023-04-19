@@ -34,7 +34,7 @@
 
     <!-- 页面信息 -->
     <div v-if="formObj && formObj.model" ref="mainPage" class="cover-page">
-      <div :style="formObj.pageSetting.style || '' " class="main-page" :class="{lock: lock}">
+      <div :style="formObj.pageSetting.style || '' " class="main-page" :hospitalLock="hospital" :class="{lock: lock}">
         <span
           class="update-message-page"
           v-if="formObj.formSetting.updateInfo"
@@ -132,7 +132,11 @@ export default {
       bus: bus(this),
     };
   },
-  computed: {},
+  computed: {
+    hospital(){
+      return this.HOSPITAL_ID !== "foshanrenyi"
+    }
+  },
   watch: {
     // 动态更新
     source: {
@@ -331,13 +335,17 @@ export default {
   left: calc(50% - 500px); */
   &.lock {
     pointer-events: none;
-    /deep/ input,
-    /deep/ .el-checkbox__inner {
+    /deep/ input {
       background: #f5f7faff !important;
     }
 
     /deep/ .el-checkbox__inner::after {
       border-color: black !important;
+    }
+  }
+  &.lock[hospitalLock='true'] {
+    /deep/ .el-checkbox__inner {
+      background: #f5f7faff !important;
     }
   }
   /* /deep/ .el-input-group__append {

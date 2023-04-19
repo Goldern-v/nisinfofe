@@ -135,8 +135,8 @@ const currentTargetUrl = (() => {
     /** 武警广东省总队医院 */
     case "wujing":
       // return 'http://14.18.101.182:9094' // crph3675 crph
-      // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
-      return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
+      return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
+      // return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.20.187:8080" // 杨鑫本地
       // return "http://218.13.87.27:9094"
       // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式  crph3675 crph
@@ -166,8 +166,8 @@ const currentTargetUrl = (() => {
       // return "http://192.168.103.16:9091" //
       // return "http://192.168.103.16:9091" //
       // return "http://218.13.87.27:9094" //
-      return "http://192.168.20.136:8080" //测试
-      // return "http://192.168.1.54:9883" //测试
+      // return "http://192.168.20.136:8080" //测试
+      return "http://192.168.1.54:9883" //测试
       // return "https://info.cr-health.com:20215"
 
     // 福清妇幼保健院
@@ -216,16 +216,16 @@ const currentTargetUrl = (() => {
 
     //珠海中西医
     case 'zhzxy':
-      // return "http://192.168.1.54:9883" //珠海中西医测试
+      return "http://192.168.1.54:9883" //珠海中西医测试
     // return "http://218.13.87.27:9094"
-      return "http://183.234.20.149:19094"//正式
+    //   return "http://183.234.20.149:19094"//正式
       // return "http://192.168.20.20:9092"//正式
       // return "https://info.cr-health.com:20217"
 
     // 青海五院
     case 'qhwy':
-      // return 'http://223.220.175.6:50014/'
-      return 'http://192.168.1.54:9883'
+      return 'http://223.220.175.6:50014/'
+      // return 'http://192.168.1.54:9883'
 
     // 临沂沂州
     case 'lyyz':
@@ -252,7 +252,8 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9883'
       // return 'http://119.97.229.206:9094'
     case 'dglb':
-      return 'http://192.168.1.54:9866'
+      // return 'http://192.168.1.54:9866'
+          return  'http://219.131.142.78:9094'
 
     // 威海市立
     case 'whsl':
@@ -273,8 +274,8 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.1.90:22550'//信铭
       return 'http://192.168.3.187:9091'
 
-    // case 'dglb':
-    //   return 'http://http://10.51.7.22:9094'
+    case 'dglb':
+      return 'http://192.168.1.54:9866'
 
     /** 默认公司本地内网厚街测试环境 */
     default:
