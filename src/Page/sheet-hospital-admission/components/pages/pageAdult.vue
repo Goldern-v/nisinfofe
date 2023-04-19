@@ -155,9 +155,16 @@ export default {
       this.loading = true;
       // 主表结构
       let file = null
-      file = JSON.parse(
+      if (this.HOSPITAL_ID === 'nfyksdyy'){
+        file = JSON.parse(
+        JSON.stringify(require("../data/formNfyksdyy/adult/入院评估.form.json"))
+      )
+      } else{
+        file = JSON.parse(
         JSON.stringify(require("../data/formFoshanrenyi/adult/入院评估.form.json"))
       )
+      }
+
 
       let title = "";
       try {
@@ -170,7 +177,11 @@ export default {
       );
       // 主表下拉框选项字典表
       let dictionary = null
-      dictionary = JSON.parse(JSON.stringify(require("../data/formFoshanrenyi/adult/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+      if (this.HOSPITAL_ID === 'nfyksdyy') {
+         dictionary = JSON.parse(JSON.stringify(require("../data/formNfyksdyy/adult/formDictionary/入院评估.dictionary.nfyksdyy.json")))
+      } else{
+        dictionary = JSON.parse(JSON.stringify(require("../data/formFoshanrenyi/adult/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+      }
       //
       file.dictionary = dictionary;
       //
@@ -183,7 +194,7 @@ export default {
       /** 自动获取弹窗配置 */
       let contexts = null
       // 这里require.context 方法中的路径如果换成变量形式就会报错。读取不到
-      contexts = require.context('../data/formFoshanrenyi/adult/formDialog', true, /\.json$/);
+      // contexts = require.context('../data/formFoshanrenyi/adult/formDialog', true, /\.json$/);
     //   if (this.HOSPITAL_ID === 'liaocheng') {
     //     contexts = require.context('../data/formDialogLiaoc', true, /\.json$/);
     //   } else if (['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
@@ -194,11 +205,12 @@ export default {
     //     contexts = require.context('../data/foshanrenyi/formDialog', true, /\.json$/);
     //   } else if (this.HOSPITAL_ID === 'lyyz') {
     //     contexts = require.context('../data/formDialogLyyz', true, /\.json$/);
-    //   } else if (this.HOSPITAL_ID === 'nfyksdyy') {
-    //     contexts = require.context('../data/formDialogNfyksdyy', true, /\.json$/);
-    //   } else {
-    //     contexts = require.context('../data/formDialog', true, /\.json$/);
-    //   }
+      // } else
+     if (this.HOSPITAL_ID === 'nfyksdyy') {
+        contexts = require.context('../data/formNfyksdyy/adult/formDialog', true, /\.json$/);
+      } else {
+        contexts = require.context('../data/formFoshanrenyi/adult/formDialog', true, /\.json$/);
+      }
       contexts.keys().forEach((context, b, c, d) => {
         let djson = contexts(context);
         // console.log(djson, context, '弹出框key')

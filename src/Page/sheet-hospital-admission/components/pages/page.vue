@@ -127,7 +127,7 @@ export default {
     });
 
     // 加载loading状态显示
-    this.bus.$on("setHosptialAdmissionLoading",config =>this.setHosptialAdmissionLoading(config) ) 
+    this.bus.$on("setHosptialAdmissionLoading",config =>this.setHosptialAdmissionLoading(config) )
     this.initial();
     this.loading = false;
   },
@@ -162,13 +162,17 @@ export default {
         )
       } else if(this.HOSPITAL_ID === 'liaocheng'){
         JSON.stringify(require("../data/foshanrenyi/入院评估.form.foshanrenyi.json"))
-      } else if (['lyxrm', 'qhwy', 'lyyz', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      } else if (['lyxrm', 'qhwy', 'lyyz', 'stmz'].includes(this.HOSPITAL_ID)) {
         file = JSON.parse(
           JSON.stringify(require(`../data/入院评估.form.${this.HOSPITAL_ID}.json`))
         )
       } else if(this.HOSPITAL_ID === 'foshanrenyi'){
         file = JSON.parse(
           JSON.stringify(require("../data/formFoshanrenyi/child/入院评估.form.json"))
+        )
+      } else if(this.HOSPITAL_ID === 'nfyksdyy'){
+        file = JSON.parse(
+          JSON.stringify(require("../data/formNfyksdyy/child/入院评估.form.json"))
         )
       } else {
         file = JSON.parse(
@@ -192,7 +196,11 @@ export default {
         // dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
         dictionary = JSON.parse(JSON.stringify(require("../data/formFoshanrenyi/child/formDictionary/入院评估.dictionary.foshanrenyi.json")))
 
-      } else if (['lyxrm', 'qhwy','lyyz', 'stmz', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      } else if (this.HOSPITAL_ID === 'nfyksdyy') {
+        // dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+        dictionary = JSON.parse(JSON.stringify(require("../data/formNfyksdyy/child/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+
+      } else if (['lyxrm', 'qhwy','lyyz', 'stmz'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require(`../data/formDictionary/入院评估.dictionary.${this.HOSPITAL_ID}.json`)))
       } else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.json")))
@@ -219,11 +227,16 @@ export default {
         // contexts = require.context('../data/foshanrenyi/formDialog', true, /\.json$/);
         contexts = require.context('../data/formFoshanrenyi/child/formDialog', true, /\.json$/);
 
+      } else if (this.HOSPITAL_ID === 'nfyksdyy') {
+        contexts = require.context('../data/formNfyksdyy/child/formDialog', true, /\.json$/);
+
       } else if (this.HOSPITAL_ID === 'lyyz') {
         contexts = require.context('../data/formDialogLyyz', true, /\.json$/);
-      } else if (this.HOSPITAL_ID === 'nfyksdyy') {
-        contexts = require.context('../data/formDialogNfyksdyy', true, /\.json$/);
-      } else {
+      }
+      // else if (this.HOSPITAL_ID === 'nfyksdyy') {
+      //   contexts = require.context('../data/formDialogNfyksdyy', true, /\.json$/);
+      // }
+      else {
         contexts = require.context('../data/formDialog', true, /\.json$/);
       }
       contexts.keys().forEach((context, b, c, d) => {
@@ -241,10 +254,10 @@ export default {
             'stmz':'formSchemesLyxrm',
             'qhwy':'formSchemesQhwy',
             'lyyz':'formSchemesLyyz',
-            'nfyksdyy':'formSchemesNfyksdyy',
+            // 'nfyksdyy':'formSchemesNfyksdyy',
           }
           let schemesJson = null
-          if (['liaocheng', 'lyxrm', 'qhwy', 'lyyz', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+          if (['liaocheng', 'lyxrm', 'qhwy', 'lyyz', 'stmz'].includes(this.HOSPITAL_ID)) {
             schemesJson = require(`../data/${hospitalSchemes[this.HOSPITAL_ID]}/${fromName}.txt.json`)
           } else {
             schemesJson = require(`../data/formSchemes/${fromName}.txt.json`)
@@ -472,7 +485,7 @@ export default {
                         if (value.includes(c)) {
                           this.$root.$refs[this.formCode][key][c].runTasks(true);
                         }
-                        
+
                       }
                     } catch (error) {
                       console.log(
