@@ -331,7 +331,7 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
   sheetInfo.masterInfo = bodyData;// 主表信息
   listData=listDataList
   try {
-    if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
+    if (['foshanrenyi','fsxt', 'gdtj'].includes(process.env.HOSPITAL_ID)) {
       titleList = titleData.FieldSetting
       customOptions = titleData.Options
     } else {
