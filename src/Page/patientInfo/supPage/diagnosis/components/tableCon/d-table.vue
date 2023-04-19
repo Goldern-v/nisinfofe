@@ -45,8 +45,10 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="beginTime" label="开始时间" width="95" align="center"></el-table-column>
-        <el-table-column prop="endTime" label="停止时间" width="95" align="center"></el-table-column>
+        <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
+        <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
+        <el-table-column prop="endTime" label="停止时间" width="90" align="center"></el-table-column>
+        <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="operatorName" label="停止人" width="90" align="center"></el-table-column>
         <el-table-column
           prop="evalType"
           label="护理评价"
@@ -145,7 +147,9 @@
           </template>
         </el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
+        <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="90" align="center"></el-table-column>
+        <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="operatorName" label="停止人" width="90" align="center"></el-table-column>
         <el-table-column
           prop="evalType"
           label="护理评价"
