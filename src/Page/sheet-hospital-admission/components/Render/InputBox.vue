@@ -1,7 +1,7 @@
 
 <template>
   <span
-    :style="(obj.label||obj.suffixDesc || alertMessage || obj.marginLeft || obj.prefix) && {display: 'flex', alignItems: 'center', margin:'0 0 5px 0', marginLeft: obj.marginLeft}"
+    :style="[(obj.label||obj.suffixDesc || alertMessage || obj.marginLeft || obj.prefix) && {display: 'flex', alignItems: 'center', margin:'0 0 5px 0', marginLeft: obj.marginLeft},obj.outSpanStyle]"
     :ref="refName"
   >
   <!-- 警报icon -->
