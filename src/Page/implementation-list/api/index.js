@@ -105,7 +105,7 @@ export function addRecord(obj) {
   if (HOSPITAL_ID == "lingcheng" || HOSPITAL_ID == "foshanrenyi") {
     return axios.post(`${apiPath}procedure/his`, obj);
   } else if (
-    ["whfk", "lyxrm", "ytll", "whhk", "925", "zhzxy", 'stmz'].includes(HOSPITAL_ID)
+    ["whfk", "lyxrm", "ytll", "whhk", "925", "zhzxy", 'stmz','nfyksdyy'].includes(HOSPITAL_ID)
   ) {
     return axios.post(
       `${apiPath}procedure/webExecute/getOrderExecuteSupplementary`,
@@ -118,6 +118,10 @@ export function addRecord(obj) {
 /** 新版补执行 by临邑 */
 export function updateOrderExecutePc(obj) {
   return axios.post(`${apiPath}procedure/webExecute/updateOrderExecutePc`, obj);
+}
+
+export function orderExecute(obj) {
+  return axios.post(`${apiPath}/hisSdryExecute/orderExecute`, obj);
 }
 
 export function syncExecuteByWardCode(obj) {
