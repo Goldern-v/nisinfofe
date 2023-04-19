@@ -176,7 +176,7 @@ export default {
         松桃苗族自治县人民医院:"topPartLYXRM",
         临沂沂州医院: "topPartLyyz",
         佛山市顺德区龙江医院:"topPartSdlj",
-        武汉汉口医院: 'topPartWhhk',
+        武汉市汉口医院: 'topPartWhhk',
         青海省第五人民医院:'topPartQhwy',
         中国人民解放军联勤保障部队第九二五医院: 'topPartGuiZhou',
         珠海市中西医结合医院: 'topPartZhzxy',
@@ -191,7 +191,7 @@ export default {
   mounted() {
     // 解决在护理评估单页面强制刷新出现问题
     this.isRouter = this.$route.path === '/record'
-    
+
     try {
       document.getElementById("hl-nav-con").style.display = "none";
     } catch (e) {}

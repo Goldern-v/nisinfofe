@@ -1128,7 +1128,7 @@ export default {
     },
     async onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
-      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry') {
+      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry'|| this.sheetInfo.sheetType == 'orthopaedic_sdry') {
         let confirmRes = '';
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           confirmRes = await this.$confirm(

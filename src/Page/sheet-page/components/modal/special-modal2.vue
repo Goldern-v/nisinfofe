@@ -32,7 +32,8 @@
                 recordDate != '' &&
                 HOSPITAL_ID != 'huadu' &&
                 HOSPITAL_ID != 'wujing'&&
-                HOSPITAL_ID != 'gdtj'
+                HOSPITAL_ID != 'gdtj' &&
+                HOSPITAL_ID != 'nfyksdyy'
               "
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
@@ -46,7 +47,8 @@
                 recordDate != '' &&
                 HOSPITAL_ID != 'huadu' &&
                 HOSPITAL_ID != 'wujing'&&
-                HOSPITAL_ID != 'gdtj'
+                HOSPITAL_ID != 'gdtj' &&
+                HOSPITAL_ID != 'nfyksdyy'
               "
               v-model="staticObj.recordHour"
               @keyup="timeKey($event, staticObj, 'recordHour')"
@@ -846,7 +848,7 @@
             ></el-input>
           </el-tab-pane>
         </el-tabs>
-        <div class="symbols-btn" v-if="['foshanrenyi'].includes(HOSPITAL_ID) && activeTab == '3'">
+        <div class="symbols-btn" v-if="['foshanrenyi','nfyksdyy'].includes(HOSPITAL_ID) && activeTab == '3'">
           <el-button class="modal-btn" type="primary" @click="openSpecialSymbols">特殊符号</el-button>
         </div>
       </div>
@@ -1745,7 +1747,7 @@ export default {
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ""
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll','925'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll','925','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         const firstDate = record[0].find((item) => item.key == "recordDate")
         const itemListTime = config.recordDate || firstDate.value
           record[0].find((item) => item.key == "recordDate").value
@@ -2635,6 +2637,7 @@ export default {
       //打开编辑特殊记录的弹框
       switch(this.HOSPITAL_ID){
         case "foshanrenyi":
+        case "nfyksdyy":
       this.$refs.templateSlideFsry.open();
         break;
         default:

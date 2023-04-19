@@ -62,7 +62,8 @@
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
     </el-input>
-    <span class="muban" @click="openTemplateModal">+模板</span>
+    <span v-if ="HOSPITAL_ID === 'nfyksdyy'" class="muban" @click="openTemplateModal"></span>
+    <span v-else class="muban" @click="openTemplateModal">+模板</span>
   </span>
 </template>
 
@@ -526,7 +527,7 @@ export default {
       return uuid_;
     },
     openTemplateModal() {
-      if (this.HOSPITAL_ID === 'foshanrenyi')
+      if (this.HOSPITAL_ID === 'foshanrenyi'||this.HOSPITAL_ID === 'nfyksdyy')
       {
         this.$root.$refs.templateSlideFoshanshiyi.open(this.obj.name);
 

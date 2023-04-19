@@ -172,7 +172,7 @@ export default {
     },
     getData() {
        //特殊情况,开启权限分类医院名
-      const isDeptList=["liaocheng","wujing","huadu","foshanrenyi"]
+      const isDeptList=["liaocheng","wujing","huadu","foshanrenyi","nfyksdyy"]
       if(isDeptList.includes(this.HOSPITAL_ID)){
         typeListByDept(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
         this.typeList = res.data.data[this.templateType].map(item => {
