@@ -168,6 +168,7 @@ import doctorEmr from "@/components/doctorEmr";
 export default {
   props: {
     filterObj: Object,
+    hasTagsView: Boolean,
   },
   mixins: [comomMixin],
   data() {
@@ -286,17 +287,21 @@ export default {
     },
   },
   computed: {
+    // 标签高度
+    tagsViewHeight() {
+      return this.hasTagsView ? 35 : 0
+    },
     fullPageRecord() {
       return this.$store.state.record.fullPageRecord;
     },
     height() {
       // let offset = this.showConToolBar ? 0 : 40;
       if (this.$route.path == "/formPage" || this.filterObj) {
-        return `${this.wih - 80}px`;
+        return `${this.wih - 80 - this.tagsViewHeight}px`;
       } else if (this.$route.path.includes("nursingTemperature")) {
-        return `${this.wih}px`;
+        return `${this.wih - this.tagsViewHeight}px`;
       } else {
-        return `${this.wih - 140 }px`;
+        return `${this.wih - 140 - this.tagsViewHeight}px`;
       }
     },
 
