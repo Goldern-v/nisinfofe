@@ -64,6 +64,7 @@ export default {
         case "lyxrm":
         case "liaocheng":
         case "stmz":
+        case "whhk":
           this.getUrl();
           break;
         case "nanfangzhongxiyi":
@@ -92,7 +93,8 @@ export default {
     //获取url
     getUrl(){
       const currentPatient=window.app.$store.state.patient.currentPatient;//patientId
-      getPatient360View(currentPatient.patientId).then(res=>{
+      console.log('currentPatient', currentPatient)
+      getPatient360View(currentPatient.patientId, currentPatient.visitId).then(res=>{
         try {
           this.fileUrl=res.data.data.url;
         } catch (error) {

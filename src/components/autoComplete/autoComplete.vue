@@ -1,64 +1,83 @@
 <template>
-  <div class="bg"
-    v-show="show"
-    @click.stop="closeSelf"
-  >
+  <div class="bg" v-show="show" @click.stop="closeSelf">
     <div
-    id="CrAutocomplete"
-    class="el-autocomplete-suggestion"
-    style="transform-origin: center top 0px; z-index: 2045; width: 120px; position: fixed;"
-    :style="style"
-    ref="autoBox"
-  >
-  <!-- 下拉框显示序号+内容 -->
-  <div id="scrollbar-width" class="el-scrollbar" v-if="data[0] && typeof (data[0]) == 'object'">
+      id="CrAutocomplete"
+      class="el-autocomplete-suggestion"
+      style="transform-origin: center top 0px; z-index: 2045; width: 120px; position: fixed;"
+      :style="style"
+      ref="autoBox"
+    >
+      <!-- 下拉框显示序号+内容 -->
       <div
-        class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        id="scrollbar-width"
+        class="el-scrollbar"
+        v-if="data[0] && typeof data[0] == 'object'"
       >
-        <ul class="el-scrollbar__view el-autocomplete-suggestion__list" style="position: relative;">
-          <li
-            class
-            @click.stop="post(item.value, index)"
-            v-for="(item, index) in data"
-            :key="item.value"
-            :class="{autoSelected: index == selectIndex}"
-          >{{item.name}}</li>
-        </ul>
+        <div
+          class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-autocomplete-suggestion__list"
+            style="position: relative;"
+          >
+            <li
+              class
+              @click.stop="post(item.value, index)"
+              v-for="(item, index) in data"
+              :key="item.value"
+              :class="{ autoSelected: index == selectIndex }"
+            >
+              {{ item.name }}
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <!-- 下拉框只显示序号 -->
-    <div class="el-scrollbar" v-else>
+      <!-- 下拉框只显示序号 -->
+      <div class="el-scrollbar" v-else>
+        <div
+          class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-autocomplete-suggestion__list"
+            style="position: relative;"
+          >
+            <li
+              class
+              @click.stop="post(item, index)"
+              v-for="(item, index) in data"
+              :key="item"
+              :class="{ autoSelected: index == selectIndex }"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+      </div>
       <div
-        class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        class="el-scrollbar child-scrollBar"
+        v-if="childData && childData.length"
       >
-        <ul class="el-scrollbar__view el-autocomplete-suggestion__list" style="position: relative;">
-          <li
-            class
-            @click.stop="post(item,index)"
-            v-for="(item, index) in data"
-            :key="item"
-            :class="{autoSelected: index == selectIndex}"
-          >{{item}}</li>
-        </ul>
+        <div
+          class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-autocomplete-suggestion__list"
+            style="position: relative;"
+          >
+            <li
+              class
+              @click.stop="post(item)"
+              v-for="(item, index) in childData"
+              :key="item"
+              :class="{ autoSelected: index == selectIndex }"
+            >
+              {{ item }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="el-scrollbar child-scrollBar" v-if="childData && childData.length">
-      <div
-        class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
-      >
-        <ul class="el-scrollbar__view el-autocomplete-suggestion__list" style="position: relative;">
-          <li
-            class
-            @click.stop="post(item)"
-            v-for="(item, index) in childData"
-            :key="item"
-            :class="{autoSelected: index == selectIndex}"
-          >{{item}}</li>
-        </ul>
-      </div>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -94,11 +113,10 @@
 	-o-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
-
 </style>
 
 <script>
-import sheetInfo from '@/Page/sheet-page/components/config/sheetInfo/index.js'
+import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
 export default {
   data() {
     return {
@@ -108,37 +126,42 @@ export default {
       callback: "",
       selectIndex: 0,
       id: "",
-      childData: [],//子下拉组件
-      options: '',//父子数据（父子下拉同时显示数据）
-      parentVal: '',//当前父下拉
-      splice:'',
-      config:""
+      childData: [], //子下拉组件
+      options: "", //父子数据（父子下拉同时显示数据）
+      parentVal: "", //当前父下拉
+      splice: "",
+      config: ""
     };
   },
   methods: {
-    closeSelf(){
-      this.show = false
+    closeSelf() {
+      this.show = false;
     },
     open(config) {
-      this.config = config
+      this.config = config;
       this.style = config.style;
       this.callback = config.callback;
-      this.splice = config.td&&config.td.splice
+      this.splice = config.td && config.td.splice;
 
       this.options = [];
       this.childData = [];
-      this.parentVal = '';
+      this.parentVal = "";
 
       // 下拉选项有子选项/后一个选项依赖于前一个td的选择
-      if(process.env.HOSPITAL_ID == 'weixian' && config && config.data && config.data.constructor == Object){
-        if(config.data['childOptions']){
-          this.options = config.data['option'];
+      if (
+        process.env.HOSPITAL_ID == "weixian" &&
+        config &&
+        config.data &&
+        config.data.constructor == Object
+      ) {
+        if (config.data["childOptions"]) {
+          this.options = config.data["option"];
           let parentArr = [];
           parentArr = this.options.map(item => {
             return item.key;
           });
           this.data = [...parentArr];
-        }else {
+        } else {
           // 出量名称和出量性质
           let arr = [];
 
@@ -155,36 +178,46 @@ export default {
               arr.push(key);
             }
           }
-          let aa=
           this.data = [...arr];
         }
-      }else {
-        if(process.env.HOSPITAL_ID == 'sdlj' && sheetInfo.sheetType == "craniocerebral_sdlj"){
-            if(["consciousness",'reflectionLeft','reflectionRight'].includes(config.td.key)){
+      } else {
+        if (
+          process.env.HOSPITAL_ID == "sdlj" &&
+          sheetInfo.sheetType == "craniocerebral_sdlj"
+        ) {
+          if (
+            ["consciousness", "reflectionLeft", "reflectionRight"].includes(
+              config.td.key
+            )
+          ) {
             this.data = config.data.data || [];
-    }else this.data = config.data || [];
-  }else this.data = config.data || [];
-     }
+          } else this.data = config.data || [];
+        } else this.data = config.data || [];
+      }
       if (this.data && this.data.length >= 1) {
         this.show = true;
-      }else {
+      } else {
         this.show = false;
       }
 
       (this.selectIndex = this.data.length), (this.id = config.id);
       this.$nextTick(() => {
         let offset = this.$refs.autoBox.getBoundingClientRect();
-        let left
-        if(this.style.addWidth){
-          left = (Number(this.style.left.split('px')[0]) + Number(this.style.addWidth.split('px')[0])) + 3 + 'px';
-        }else{
-          left = Number(this.style.left.split("px")[0] - offset.width - 3) + "px";
+        let left;
+        if (this.style.addWidth) {
+          left =
+            Number(this.style.left.split("px")[0]) +
+            Number(this.style.addWidth.split("px")[0]) +
+            3 +
+            "px";
+        } else {
+          left =
+            Number(this.style.left.split("px")[0] - offset.width - 3) + "px";
         }
         if (window.innerHeight - offset.bottom < 10) {
-          // this.style = Object.assign({}, this.style, {bottom: Number(this.style.top.split('px')[0] + 40) + 'px', top: 'auto'})
           let top =
             Number(this.style.top.split("px")[0] - offset.height - 40) + "px";
-          this.style = Object.assign({}, this.style, { top,left });
+          this.style = Object.assign({}, this.style, { top, left });
         }
         this.style = Object.assign({}, this.style, { left });
       });
@@ -195,29 +228,35 @@ export default {
       } catch (e) {}
     },
     close(id) {
-      if(this.childData && this.childData.length && this.id == id){
+      if (this.childData && this.childData.length && this.id == id) {
         let timeId = setTimeout(() => {
           clearTimeout(timeId);
-          if(this.childData && this.childData.length){
+          if (this.childData && this.childData.length) {
             this.show = false;
           }
         }, 2000);
-      }else if (this.id == id) {
+      } else if (this.id == id) {
         this.show = false;
       }
     },
     post(item) {
-      if(process.env.HOSPITAL_ID == 'sdlj'){
-        if(sheetInfo.sheetType == "craniocerebral_sdlj"){
-          if(["consciousness",'reflectionLeft','reflectionRight'].includes(this.config.td.key)){
-            item = this.config.data.dataVal[this.config.data.data.indexOf(item)]
-    }
-  }
-}
+      if (process.env.HOSPITAL_ID == "sdlj") {
+        if (sheetInfo.sheetType == "craniocerebral_sdlj") {
+          if (
+            ["consciousness", "reflectionLeft", "reflectionRight"].includes(
+              this.config.td.key
+            )
+          ) {
+            item = this.config.data.dataVal[
+              this.config.data.data.indexOf(item)
+            ];
+          }
+        }
+      }
       let flag = true;
-      if(this.options && this.options.length){
+      if (this.options && this.options.length) {
         this.options.map(opt => {
-          if(opt.key == item && opt.children){
+          if (opt.key == item && opt.children) {
             this.childData = opt.children || [];
             this.parentVal = item;
             this.show = true;
@@ -225,11 +264,15 @@ export default {
           }
         });
       }
-      if(flag){
-        if(process.env.HOSPITAL_ID == 'sdlj' && sheetInfo.sheetType == "orthopaedic_sdlj" && this.splice == '&'){
+      if (flag) {
+        if (
+          process.env.HOSPITAL_ID == "sdlj" &&
+          sheetInfo.sheetType == "orthopaedic_sdlj" &&
+          this.splice == "&"
+        ) {
           item = item;
-        }else{
-          item = this.parentVal?item + '(' + this.parentVal + ')': item;
+        } else {
+          item = this.parentVal ? item + "(" + this.parentVal + ")" : item;
         }
         this.callback(item);
         this.show = this.splice;

@@ -12,7 +12,7 @@ import { logout } from "@/api/login";
 import {
     MessageBox
 } from "element-ui";
-// 统一处理token发送
+// 统一处理token发送 
 
 let CaSignurl = ""
 let verifyUserObj = {}
@@ -37,7 +37,7 @@ axios.interceptors.request.use((config) => {
     'identityCheck', 'getPasswordRule','updatePassword',
     'AllUkeyList','SOF_ExportUserCert','genRandom','SOF_ValidateCert_Text',
     'GetUserList','SOF_VerifySignedData',"SOF_Login","SOF_SignData","verifyUser","SOF_GetRetryCount", 'getDictItem',
-    'getQrCodeStatus','getRandomQrCode','getAccessToken','oauth','caLogin'
+    'getQrCodeStatus','getRandomQrCode','caSignHoujie/getAccessToken','oauth','caLogin','endAutoSign'
 ]
 
     for (let i = 0; i < whiteList.length; i++) {

@@ -176,7 +176,7 @@ export function cleanDataOnly() {
     // nowX可以看上面注解，估计所有医院用x都有bug(无论有多少页数据，只能第一页的数据进行判断，返回isDisabed)。但是不敢动，医院反正有问题就可替换nowX
     // canModify false可以修改，true禁止修改
     // 签名后不能修改，要取消修改才能修改
-    if (sheetType == "common_xg" || ['beihairenyi'].includes(process.env.HOSPITAL_ID)) {
+    if (sheetType == "common_xg" || ['beihairenyi', 'whsl'].includes(process.env.HOSPITAL_ID)) {
       if (td && listData[nowX]) {
         return !listData[nowX].canModify;
       }

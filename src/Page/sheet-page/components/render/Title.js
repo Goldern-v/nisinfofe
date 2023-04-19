@@ -1903,6 +1903,12 @@ export default function Title(
       JSON.stringify(require("../config/oxytocin_sdlj/th").default)
     );
   }
+    case "oxytocinck_dglb": {
+      // 东莞寮步-催产素静脉点滴观察单(产科)--新
+      Th = JSON.parse(
+          JSON.stringify(require("../config/oxytocinck_dglb/th").default)
+      );
+    }
   break;
   case "oxytocin_dglb": {
     // 东莞寮步-催产素静脉点滴观察单

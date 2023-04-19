@@ -1110,7 +1110,6 @@ export default {
        * 护记加载完成后isDone会转为true 所有用循环半秒去查询一次 如果完成了 再走打印界面
       */
         this.checkSheetRender = setInterval(() => {
-          console.log('正在查询户籍是否完成', sheetInfo.isDone)
           if (sheetInfo.isDone) {
             clearInterval(this.checkSheetRender)
             this.checkSheetRender = null
@@ -1252,6 +1251,7 @@ export default {
               resolve(res)
             } catch (error) {}
           });
+
         });
       }
       })
@@ -1507,7 +1507,6 @@ export default {
                   this.sheetInfo.selectBlock = this.sheetBlockList[index]
                 }
               } catch (e) {
-                console.log(e);
               }
           }
           this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
@@ -1700,7 +1699,6 @@ export default {
     switchPage() {
       const curSheetType = this.sheetInfo.sheetType
       if (!['common_wj', 'generalcare_wj'].includes(curSheetType)) return this.defSwitch()
-      console.log('test-1')
       // 主页
       if (curSheetType === 'common_wj') {
         this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode = 'generalcare_wj'
@@ -1865,7 +1863,6 @@ export default {
     this.bus.$on("getBlockList", () => {
       this.getBlockList();
     });
-
     document.onkeydown = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = true;
@@ -1876,6 +1873,8 @@ export default {
         this.sheetInfo.downControl = false;
       }
     };
+    this.getBlockList();
+
   },
   mounted() {
     if( this.HOSPITAL_ID === 'whfk' && this.sheetInfo.selectBlock.patientId){

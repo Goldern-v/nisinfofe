@@ -2,12 +2,12 @@
 <template>
   <div class="contain">
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight}">
-      <div class="left-part">
+      <div class="left-part" :style="{ left: openLeft ? '0' : '-201px' }">
         <!-- <patientList :data="data.bedList" :isSelectPatient="isSelectPatient" v-loading="patientListLoading"></patientList> -->
 
         <patientList toName="formPage" :callFunction="isSelectPatient" />
       </div>
-      <div class="right-part" :style="{marginLeft: openLeft?'200px':'0'}">
+      <div class="right-part" :style="{marginLeft: treeOpenLeft ? '-274px' : (openLeft ? '200px' : '0')}">
         <record></record>
       </div>
     </div>
@@ -43,6 +43,7 @@
       left: 0;
       top: 0;
       bottom: 0;
+      z-index: 1
     }
 
     .right-part {
@@ -85,6 +86,9 @@ export default {
     },
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
+    },
+    treeOpenLeft() {
+      return this.$store.state.sheet.openWritTreeLeft;
     },
   },
   methods: {

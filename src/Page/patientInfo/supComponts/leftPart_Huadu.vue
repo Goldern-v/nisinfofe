@@ -85,6 +85,13 @@
           <div
             class="print-btn"
             flex="cross:center main:center"
+            @click="openBedPrint3()"
+            v-if="HOSPITAL_ID == 'huadu'"
+          >打印床头卡3
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
             @click="openWristPrint('wrist')"
           >
             成人腕带打印
@@ -143,6 +150,7 @@
     <bedModalWx ref="bedModalWx"></bedModalWx>
     <bedModalLc ref="bedModalLc"></bedModalLc>
     <bedModalHd ref="bedModalHd"></bedModalHd>
+    <bedModalHd3 ref="bedModalHd3"></bedModalHd3>
     <bedModalZsq ref="bedModalZsq"></bedModalZsq>
     <bedModalBh ref="bedModalBh"></bedModalBh>
     <bedModalQz ref="bedModalQz"></bedModalQz>
@@ -295,7 +303,7 @@ import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
 import { previewArchive } from "./modal/api/index";
 import InpatientRegis from "@/components/Inpatient-registration/index";
-
+import bedModalHd3 from './modal/bed-modal-hd-3.vue';
 export default {
   data() {
     return {
@@ -340,6 +348,9 @@ export default {
       } else {
         this.$refs.bedModal.open();
       }
+    },
+    openBedPrint3() {
+      this.$refs.bedModalHd3.open();
     },
     // 腕带打印
     openWristPrint(printMode) {
@@ -405,7 +416,8 @@ export default {
     InpatientRegis,
     bedModalZsq,
     bedModalBh,
-    bedModalQz
+    bedModalQz,
+    bedModalHd3
   }
 };
 </script>

@@ -61,6 +61,7 @@
               :isInPatientDetails="false"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
+              :specialLis="specialList"
               @onModalChange="onModalChange"
             ></component>
           </div>
@@ -98,6 +99,16 @@
     <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
     <!-- 电子病例弹窗 -->
     <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt','dglb','nfyksdyy'].includes(HOSPITAL_ID)" />
+    <changeMajorRadio
+      :dialogTableVisibleTrue="dialogDeptNameVisible"
+      :majorData="{
+        patientId:  patientInfo.patientId,
+        visitId: patientInfo.visitId,
+        id: sheetInfo.selectBlock.id
+      }"
+      @TableVisible="(val) => dialogDeptNameVisible = val"
+      @savedata="(val) => {val &&  getSheetData()}"
+    ></changeMajorRadio>
   </div>
 </template>
 
@@ -253,6 +264,7 @@ import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/
 import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_oxytocin_sdlj from "./components/sheetTable-oxytocin_sdlj/sheetTable";
+import sheetTable_oxytocinck_dglb from "./components/sheetTable_oxytocinck_dglb/sheetTable";
 import sheetTable_insulin_pump_sdry from "./components/sheetTable-insulin_pump_sdry/sheetTable";
 import sheetTable_oxytocin_sdry from "./components/sheetTable-oxytocin_sdry/sheetTable";
 import sheetTable_oxytocin_dglb from "./components/sheetTable-oxytocin_dglb/sheetTable";
@@ -279,6 +291,7 @@ import {
   markList,
   splitRecordBlock,
   findListByBlockId,
+  list
 } from "@/api/sheet.js";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -304,6 +317,7 @@ import {GetUserList,verifyNewCaSign} from '../../api/caCardApi'
 import testSheet from './testSheet.json'
 //解锁
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
+import changeMajorRadio from '@/Page/sheet-page/components/modal/changeMajorRadio.vue'
 
 export default {
   mixins: [common],
@@ -313,6 +327,7 @@ export default {
         bedList: [],
       },
       patientListLoading: false,
+      dialogDeptNameVisible: false,
       pageLoading: false,
       tableLoading: false,
       bus: bus(this),
@@ -325,6 +340,7 @@ export default {
       bedAndDeptChange: {},
       foshanshiyiIFca:false,//佛山key状态
       listData: [],
+      specialList: [],
       toSingleTempArr: [
         "huadu",
         "liaocheng",
@@ -427,7 +443,10 @@ export default {
         return sheetTable_oxytocin_hl;
       } else if (sheetInfo.sheetType == "oxytocin_sdlj") {
         return sheetTable_oxytocin_sdlj;
-      } else if (sheetInfo.sheetType == "oxytocin_sdry") {
+      } else if (sheetInfo.sheetType == "oxytocinck_dglb") {
+        return sheetTable_oxytocinck_dglb;
+      }
+      else if (sheetInfo.sheetType == "oxytocin_sdry") {
         return sheetTable_oxytocin_sdry;
       } else if (sheetInfo.sheetType == "insulin_pump_sdry") {
         return sheetTable_insulin_pump_sdry;
@@ -571,6 +590,7 @@ export default {
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
+        list('全部',this.patientInfo.wardCode),
       ]
       // 佛山市一 获取自定义标题数据
       if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
@@ -639,6 +659,10 @@ export default {
           };
         }
         sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
+
+        // 获取到特殊情况列表内容
+        let specialList = res[3].data.data.list;
+        this.specialList = specialList.map(item=> item.content)
         this.$nextTick(async () => {
         await initSheetPage(titleData, bodyData, markData, this.listData);
       //加载表单
@@ -987,6 +1011,7 @@ export default {
         }
       }
     );
+    this.bus.$on('handleDeptNameChoose',(val)=>{this.dialogDeptNameVisible = val})
     this.bus.$on("refreshSheetPage", () => {
       this.getSheetData()
     });
@@ -1357,7 +1382,8 @@ export default {
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,
-    sheetTable_prenatal_ytll
+    sheetTable_prenatal_ytll,
+    changeMajorRadio
   },
 };
 </script>
