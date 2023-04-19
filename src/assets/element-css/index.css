@@ -464,7 +464,7 @@
 }
 
 .el-dialog--small {
-  width: 50%
+  width: 70%
 }
 
 .el-dialog--large {
@@ -8889,7 +8889,7 @@
   color: rgb(68, 158, 127);
   outline: 0
 }
- 
+
 .el-button--success {
   color: #fff;
   background-color: #67c23a;

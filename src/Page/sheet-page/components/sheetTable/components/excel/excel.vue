@@ -796,6 +796,7 @@ export default {
     hasFiexHeader: Boolean,
     isInPatientDetails: Boolean,
     listData: Array,
+    specialLis: Array,
   },
   mixins: [common],
   data() {
@@ -1131,7 +1132,7 @@ export default {
     },
     async onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
-      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry') {
+      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry'|| this.sheetInfo.sheetType == 'orthopaedic_sdry') {
         let confirmRes = '';
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           confirmRes = await this.$confirm(
@@ -3098,8 +3099,8 @@ export default {
     },
     // 特殊情况输入内容搜索显示内容
     onSearch(e, data){
-      if(!e.target.value) return
-      let list = ['+/+','+/-','+/±','-/+','-/-','-/±','±/+']
+      let list = this.specialLis
+      if(e.target.value === '') { list = []}
       list = list.filter(item => item.indexOf(e.target.value) != -1)
       data = {...data, autoComplete:{data: list}, isSearch:true}
       if (sheetInfo.model == "print") return;

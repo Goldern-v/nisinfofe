@@ -354,6 +354,7 @@ import { DATA_CHANGE } from '@/utils/localStorage'
 export default {
   props: {
     filterObj: Object,
+    hasTagsView: Boolean,
   },
   mixins: [commonMixin],
   data() {
@@ -375,6 +376,10 @@ export default {
     };
   },
   computed: {
+    // 标签高度
+    tagsViewHeight() {
+      return this.hasTagsView ? 35 : 0
+    },
     wih() {
       return this.$store.state.common.wih;
     },
@@ -383,9 +388,9 @@ export default {
     },
     height() {
       if (this.$route.path == "/formPage" || this.filterObj) {
-        return `${this.wih - 120}px`;
+        return `${this.wih - 120 - this.tagsViewHeight}px`;
       } else {
-        return `${this.wih - 180}px`;
+        return `${this.wih - 180 - this.tagsViewHeight}px`;
       }
     },
     openLeft() {
@@ -865,6 +870,7 @@ export default {
       }
     },
     getTreeData() {
+      console.log('filterObj', this.filterObj)
       this.treeLoading = true;
       Promise.all([
         groupList(this.$route.query.patientId, this.$route.query.visitId),
@@ -1026,7 +1032,7 @@ export default {
           } else {
             this.regions = list_1;
           }
-
+          console.log('regions', this.regions)
           // if (
           //   this.HOSPITAL_ID == "hj" &&
           //   window.location.href.includes("showPatientDetails")

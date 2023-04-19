@@ -1,0 +1,241 @@
+{
+    "I2332015": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        },
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "y"
+        }
+    ],
+    "I2332017": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "yinjiuw"
+        },
+        {
+            "code": "有   ml/天",
+            "name": "有   ml/天",
+            "pinyin": "yinjiuy"
+        },
+        {
+            "code": "嗜酒",
+            "name": "嗜酒",
+            "pinyin": "shijiu"
+        }
+    ],
+    "I2332021": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "shoushuw"
+        },
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "shoushuy"
+        }
+    ],
+    "I2332039": [
+        {
+            "code": "是",
+            "name": "是",
+            "pinyin": "s"
+        },
+        {
+            "code": "否",
+            "name": "否",
+            "pinyin": "f"
+        }
+    ],
+    "I2332048": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
+        },
+        {
+            "code": "吞咽障碍",
+            "name": "吞咽障碍",
+            "pinyin": "tykn"
+        },
+        {
+            "code": "饮水试验",
+            "name": "饮水试验",
+            "pinyin": "yssy"
+        }
+    ],
+    "I2332061": [
+        {
+            "code": "轻",
+            "name": "轻",
+            "pinyin": "q"
+        },
+        {
+            "code": "中",
+            "name": "中",
+            "pinyin": "zhong"
+        },
+        {
+            "code": "重",
+            "name": "重",
+            "pinyin": "z"
+        }
+    ],
+    "I2332062": [
+        {
+            "code": "凹陷性",
+            "name": "凹陷性",
+            "pinyin": "t"
+        },
+        {
+            "code": "非凹陷性",
+            "name": "非凹陷性",
+            "pinyin": "o"
+        }
+    ],
+    "I2332087": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ],
+    "I2332088": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ],
+    "I2332089": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ],
+    "I2332090": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ],
+    "I2332094": [
+        {
+            "code": "已完成",
+            "name": "已完成",
+            "pinyin": "ywc"
+        },
+        {
+            "code": "未完成",
+            "name": "未完成",
+            "pinyin": "wwc"
+        }
+    ]
+}

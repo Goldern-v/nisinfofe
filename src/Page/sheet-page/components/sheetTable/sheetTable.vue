@@ -27,6 +27,7 @@
         :hasFiexHeader="true"
         :isInPatientDetails="isInPatientDetails"
         :listData="listData"
+        :specialLis="specialLis"
         @onModalChange="(e,tr,x,y,index)=>$emit('onModalChange',e,tr,x,y,index)"
       ></excel>
     </div>
@@ -109,7 +110,7 @@
 
   .bottom-line {
     display: inline-block;
-    border-bottom: 1px solid #000;
+    // border-bottom: 1px solid #000;
     padding: 2px 0 2px 2px;
   }
 
@@ -175,7 +176,8 @@ export default {
     scrollX: Number,
     isInPatientDetails: Boolean,
     bedAndDeptChange: Object,
-    listData: Array
+    listData: Array,
+    specialLis: Array
   },
   mixins: [common],
   data() {

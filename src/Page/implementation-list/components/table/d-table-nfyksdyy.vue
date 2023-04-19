@@ -238,7 +238,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="nurseMemo" label="护士备注" v-if="HOSPITAL_ID !== 'whsl'" min-width="200px">
+      <u-table-column prop="nurseMemo" label="护士备注" v-if="HOSPITAL_ID !== 'nfyksdyy'" min-width="200px">
         <template slot-scope="scope">
           <div v-show="scope.row.rowType == 1 || !scope.row.rowType">
             {{ scope.row.nurseMemo }}
@@ -278,7 +278,7 @@
               "
               >时间选择</el-button
             >
-            <el-button type="text" v-if="HOSPITAL_ID !== 'beihairenyi'" @click="handleRemarks(scope.row)"
+            <el-button type="text" v-if="HOSPITAL_ID !== 'beihairenyi'&&HOSPITAL_ID !== 'nfyksdyy'" @click="handleRemarks(scope.row)"
               >备注</el-button
             >
             <!-- <el-button
@@ -696,7 +696,7 @@ export default {
       }
       if (row.row.executeFlag == 4) {
         return "green";
-      } else if (row.row.executeFlag == 3) {
+      } else if (row.row.executeFlag == 1) {
         return "pink";
       }
       return ''
