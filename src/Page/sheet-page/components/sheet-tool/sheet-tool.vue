@@ -226,7 +226,23 @@
         @click.stop="openSelectTmp"
         v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
       >
-        <div class="text-con">设为模板</div>
+        <div class="text-con">科室模板</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="openTemplateSlider"
+        v-if="!isSingleTem && !isDeputy && isShow()"
+      >
+        <div class="text-con">特殊情况模板</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="openTitleTemplateSlide"
+        v-if="!isSingleTem && !isDeputy && isShow()"
+      >
+        <div class="text-con">自定义标题模板</div>
       </div>
     </template>
       <div
@@ -580,6 +596,9 @@
         !$route.path.includes('Baby_sheetPage') "></demonstarationLevca> -->
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
+    <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
+    <titleTemplateSlideFS ref="titleTemplateSlideFS"></titleTemplateSlideFS>
+    <templateSlide ref="templateSlide"></templateSlide>
     <tztbModal ref="tztbModal"></tztbModal>
     <rltbModal ref="rltbModal" :blockId="blockId"></rltbModal>
     <selectPageModal ref="tmpModal" @setAsTemplate="setAsTemplate"></selectPageModal>
@@ -617,6 +636,9 @@
 <script>
 import bus from "vue-happy-bus";
 import $ from "jquery";
+import templateSlide from "@/Page/sheet-page/components/modal/template-slide.vue";
+import templateSlideFSRY from "@/Page/sheet-page/components/modal/template-slide-fsry.vue";
+import titleTemplateSlideFS from "@/Page/sheet-page/components/modal/title-template-slide-fssy";
 import setPageModal from "../modal/setPage-modal.vue";
 import searchPageByDateModal from "@/Page/sheet-page/components/modal/searchPageByDate-modal.vue";
 import sheetModel, { cleanData, cleanDataOnly } from "../../sheet.js";
@@ -1512,6 +1534,21 @@ export default {
         return this.$message.info("无自定义表头，无法设置为模板");
       }
     },
+     openTemplateSlider() {
+      //打开编辑特殊记录的弹框
+      switch(this.HOSPITAL_ID){
+        case "nfyksdyy":
+      this.$refs.templateSlide.open();
+        break;
+      }
+    },
+    openTitleTemplateSlide() {
+      if (['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+        this.$refs.titleTemplateSlideFS.open();
+        return
+      }
+      this.$refs.titleTemplateSlide.open();
+    },
     // 设为模板
     async setAsTemplate(selectPage) {
       //设置模板 需要把开头的
@@ -1536,6 +1573,9 @@ export default {
     },
     createTemperature() {
       this.$refs.newFormModal.open();
+    },
+    openSpecialSymbols() {
+      this.$refs.templateSlide.open();
     },
     delSheet() {
       if (!this.sheetInfo.selectBlock.id)
@@ -1914,12 +1954,15 @@ export default {
     rltbModal,
     moveContext,
     patientInfoModal,
+    templateSlide,
+    templateSlideFSRY,
     patientInfo,
     temperatureHD,
     RltbNfzxyModal,
     demonstarationLevca,
     selectPageModal,
     searchPageByDateModal,
+    titleTemplateSlideFS
 
   },
 };

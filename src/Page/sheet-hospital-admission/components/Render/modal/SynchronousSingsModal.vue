@@ -50,6 +50,20 @@
           property="bloodPressure"
           label="血压（BP）"
         ></el-table-column>
+        <template v-if="['nfyksdyy'].includes(HOSPITAL_ID)">
+          <el-table-column
+          property="heartRate"
+          label="心率（HR）"
+        ></el-table-column>
+        <el-table-column
+          property="height"
+          label="身高"
+        ></el-table-column>
+        <el-table-column
+          property="weight"
+          label="体重"
+        ></el-table-column>
+        </template>
       </el-table>
     </el-dialog>
 </template>

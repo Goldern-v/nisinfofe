@@ -44,9 +44,23 @@
         住院号:
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.inpNo}}</div>
       </span>
-      <span>
+      <!-- <span>
         诊断:
         <div  class="bottom-line" style="min-width: 163px">{{patientInfo.diagnosis}}</div>
+      </span> -->
+      <span v-if="!diagnosisList.includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+        诊断：
+        <div
+          class="bottom-line"
+          style="
+            width: 163px;
+            height: 11px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          "
+        >
+          {{ diagnosis }}
+        </div>
       </span>
       <!-- <span>
         ID号:
@@ -104,9 +118,23 @@
         住院号:
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
-      <span>
+      <!-- <span>
         诊断:
         <div  class="bottom-line" style="min-width: 480px">{{patientInfo.diagnosis}}</div>
+      </span> -->
+      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+        诊断：
+        <div
+          class="bottom-line"
+          style="
+            width: 480px;
+            height: 11px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          "
+        >
+          {{ diagnosis }}
+        </div>
       </span>
       <!-- <span>
         ID号:
@@ -196,7 +224,26 @@ export default {
           return sheetInfo.relObj.age || this.patientInfo.age;
         }
       }
-    }
+    },
+    diagnosis() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        this.patientInfo.diagnosis
+      );
+    },
   },
   methods: {
     updateBirthDay() {
@@ -208,6 +255,17 @@ export default {
         },
         this.patientInfo.birthday,
         "修改出生日期"
+      );
+    },
+    updateDiagnosis(key, label, autoText) {
+      window.openSetTextModal(
+        (text) => {
+          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          this.$message.success(`修改诊断成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.diagnosis,
+        `修改诊断`
       );
     },
     updateTetxInfo(key, label, autoText) {
@@ -222,7 +280,6 @@ export default {
         `修改${label}`
       );
     },
-
     async onFocusToAutoComplete(e) {
       function offset(ele) {
         let { top, left } = ele.getBoundingClientRect();
