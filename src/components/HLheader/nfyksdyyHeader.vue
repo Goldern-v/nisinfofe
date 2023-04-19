@@ -1015,12 +1015,12 @@ export default {
     },
     isActivePage() {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
-      if (this.$route.path == "/board") return true;
-      if (this.$route.path == "/infuse") return true;
+      // if (this.$route.path == "/board") return true;
+      // if (this.$route.path == "/infuse") return true;
       if (this.$route.path == "/badEvent") return true;
-      if (this.$route.path == "/healthEdu") return true;
-      if (this.$route.path == "/nursingRounds") return true;
-      if (this.$route.path == "/allCatheter") return true;
+      // if (this.$route.path == "/healthEdu") return true;
+      // if (this.$route.path == "/nursingRounds") return true;
+      // if (this.$route.path == "/allCatheter") return true;
       if (this.$route.path == "/workloadSatistics") return true;
       if (this.$route.path == "/badEvent") return true;
       if (this.$route.path == "/inpatientReport") return true;
