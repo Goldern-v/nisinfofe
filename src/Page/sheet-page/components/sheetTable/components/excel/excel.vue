@@ -654,7 +654,10 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' || sheetInfo.sheetType == 'cardiology_tj'"
+        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' || 
+          sheetInfo.sheetType == 'cardiology_tj' || 
+          sheetInfo.sheetType == 'critical_new_lc'
+        "
           >质控护士签名：</span
         >
         <span v-else-if=" sheetInfo.sheetType == 'critical_new_weihai'"
@@ -865,7 +868,8 @@ export default {
         'baby_dglb',
         'baby_obs_dglb',
         'cardiology_tj',
-        'cardiac_therapy_tj'
+        'cardiac_therapy_tj',
+        'critical_new_lc'
       ],
       // 需要双签名的记录单code
       multiSignArr: [
