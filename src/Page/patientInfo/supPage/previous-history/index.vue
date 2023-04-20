@@ -8,7 +8,7 @@
         @change="handleVisit"
       >
         <el-option
-          v-for="(item, index) in $route.query.visitId"
+          v-for="(item, index) in list"
           :key="index"
           :label="index + 1"
           :value="index + 1"
@@ -33,7 +33,8 @@ export default {
   props: {},
   data() {
     return {
-      visitIdValue: this.$route.query.visitId,
+      visitIdValue: parseInt(this.$route.query.visitId),
+      list: parseInt(this.$route.query.visitId),
       url:"",
     };
   },

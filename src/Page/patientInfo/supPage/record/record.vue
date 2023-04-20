@@ -1,9 +1,20 @@
 <template>
   <div>
-    <!-- <FormTags v-if="hasTagsView"/> -->
+    <FormTags
+      v-if="hasTagsView"
+      :tagsList="tagsList"
+      @closeTag="handleCloseTag"
+      :currentTag="currentTag"
+      @updateCurrentTag="updateCurrentTag"
+    />
     <div class="content">
       <div class="left-part" id="left">
-        <tree ref="tree" :filterObj="filterObj" :hasTagsView="hasTagsView"></tree>
+        <tree
+          ref="tree"
+          :filterObj="filterObj"
+          :hasTagsView="hasTagsView"
+          @openFormTag="onMountTag"
+        ></tree>
       </div>
       <div :class="[HOSPITAL_ID=='wujing' ?'right-part-wujing' : 'right-part']" id="right" style="z-index:1">
         <rightPart :filterObj="filterObj" :hasTagsView="hasTagsView"></rightPart>
@@ -46,16 +57,21 @@ export default {
     return {
       lockHospitalList:['huadu'],//配置了表单锁定的医院
       bus: bus(this),
+      tagsList: [],
+      currentTag: null,
     };
   },
   computed: {
     hasTagsView() {
-      // return ['nfyksdyy', 'whhk'].includes(this.HOSPITAL_ID)
+      // return ['nfyksdyy'].includes(this.HOSPITAL_ID) && !!this.tagsList.length;
       return false;
     },
     // 标签高度
     tagsViewHeight() {
       return this.hasTagsView ? 35 : 0
+    },
+    patientInfo() {
+      return this.$store.state.patient.currentPatient;
     },
   },
   mounted(){
@@ -64,6 +80,13 @@ export default {
   },
   beforeDestroy () {
     this.bus.$off("handleBatchAudit");
+  },
+  watch: {
+    patientInfo: {
+      handler(val) {
+        this.onClearTagsList()
+      }, deep: true
+    },
   },
   methods:{
     async destroyUnlock(){
@@ -90,6 +113,33 @@ export default {
           localStorage.setItem('lockForm','')
         })
      }
+    },
+    // 添加表单标签
+    onMountTag(form) {
+      this.currentTag = form
+      const tagIndex = this.tagsList.findIndex(tag => tag.id === form.id);
+      if (tagIndex === -1) {
+        this.tagsList.push(form);
+      }
+    },
+    updateCurrentTag(tag) {
+      this.currentTag = tag;
+    },
+    handleCloseTag(tag, reopen) {
+      const tagIndex = this.tagsList.findIndex(t => t.id === tag.id);
+      if (tagIndex !== -1) {
+        this.tagsList.splice(tagIndex, 1);
+      }
+      const lastTag = this.tagsList[this.tagsList.length - 1]
+      // 打开最后一张表单
+      if (reopen) {
+        this.bus.$emit("openAssessmentBox", lastTag);
+      }
+      this.currentTag = lastTag || null;
+    },
+    onClearTagsList() {
+      // console.log('onClearTagsList')
+      this.tagsList = [];
     }
   },
   created() {
