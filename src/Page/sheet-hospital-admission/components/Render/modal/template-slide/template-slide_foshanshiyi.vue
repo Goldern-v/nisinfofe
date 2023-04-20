@@ -284,8 +284,8 @@ export default {
       selectedTab: "1",
       listMap: [],
       typeList: {},
-      selectedType: "all", // 类别
-      selectedClasss: "全部",
+      selectedType: ['foshanrenyi'].includes(this.HOSPITAL_ID) ? "":"all", // 类别
+      selectedClasss: ['foshanrenyi'].includes(this.HOSPITAL_ID) ?"科室": "全部" ,
       selectWidth: 100,
       refName: "",
       deptENName: keyNameMap[this.deptName] || "neurology",
@@ -368,12 +368,20 @@ export default {
       }
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
         this.selectedClasss = "科室"
+        this.selectedType = ""
         this.deptValue = localStorage.selectDeptValue
       } 
       this.geFromCode()
       this.getDeptLists()
-      this.listType()
-      this.getData();
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        this.getData(this.deptValue)
+        this.listType(this.deptValue,this.selectedType)
+        // this.listType('000000', this.selectedType, '000000')
+      }else{
+        this.listType()
+        this.getData();
+      }
+      
       if (this.show) {
         if (this.refName == refName) {
           this.show = false;
@@ -396,7 +404,7 @@ export default {
       this.show = false;
       // this.deptValue = ''
       this.selectedType = "all"
-      this.selectedClasss = "全部"
+      if(!['foshanrenyi'].includes(this.HOSPITAL_ID)) this.selectedClasss = "全部"
     },
     changeTab(tab) {
       this.selectedTab = tab;
@@ -405,9 +413,11 @@ export default {
     listType(wardCode = 'all', groupName = 'all', moduleCode = 'all') {
       getlist(wardCode, groupName, moduleCode).then(res => {
         if (res.data.code === '200') {
-          this.listMap = res.data.data
-          this.filterDatas = res.data.data
-
+          console.log("kjinlaile ")
+          // this.listMap = res.data.data
+          // this.filterDatas = res.data.data
+          this.$set(this,"listMap",res.data.data)
+          this.$set(this,"filterDatas",res.data.data)
         }
       });
     },

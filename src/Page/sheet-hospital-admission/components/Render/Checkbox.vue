@@ -276,42 +276,51 @@ export default {
             
             if (item.inp) {
               let inp = this.$root.$refs[this.formCode][item.correlationID]
-              inp.$parent.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: flex;align-items: center;"
-              if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block;align-items: center;"
-
+              if(this.formObj.model[item.id]){
+                inp.$parent.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: flex;align-items: center;"
+                if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block;align-items: center;"
+              }
             }else if(item.hiddenformGroupColBox){
-              let formGroupColBox = this.$root.$refs[this.formCode]['formGroupColBox' + item.correlationID]
-              let end = item.value.find(val=>this.formObj.model[item.id].includes(val))
-              if(item.hiddenImportantVal){
-                formGroupColBox.style.display = this.formObj.model[item.id].includes(item.hiddenImportantVal) ? "none" : "block"
-              }else formGroupColBox.style.display = !end ? "none" : "block"
+              if(this.formObj.model[item.id]){
+                let formGroupColBox = this.$root.$refs[this.formCode]['formGroupColBox' + item.correlationID]
+                let end = item.value.find(val=>this.formObj.model[item.id].includes(val))
+                if(item.hiddenImportantVal){
+                  formGroupColBox.style.display = this.formObj.model[item.id].includes(item.hiddenImportantVal) ? "none" : "block"
+                }else formGroupColBox.style.display = !end ? "none" : "block"
+              }
             }else if(item.hiddeninputBox){
-              let hiddeninputBox = this.$root.$refs[this.formCode]['inputBox' + item.correlationID]
-              hiddeninputBox.parentElement.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
+              if(this.formObj.model[item.id]){
+                let hiddeninputBox = this.$root.$refs[this.formCode]['inputBox' + item.correlationID]
+                hiddeninputBox.parentElement.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
+              }
             }else if(item.hiddenRadio){
-              let hiddenRadioArr = this.$root.$refs[this.formCode][item.correlationID]
-              Object.keys(hiddenRadioArr).forEach(radio=>{
-                hiddenRadioArr[radio].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "inline-block"
-              })
-            }else if(item.hiddenCheckBox){
-              let hiddenCheckBox = this.$root.$refs[this.formCode][item.correlationID]
-              Object.keys(hiddenCheckBox).forEach(checkbox=>{
-                if(!item.excludeVal.includes((checkbox))){
-                  hiddenCheckBox[checkbox].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "flex"
-                }
-              })
-            }else {
-              let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
-              if (elArr.length > 0) {
-                elArr.forEach(it => {
-                  
-                  it.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
-                  if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+              if(this.formObj.model[item.id]){
+                let hiddenRadioArr = this.$root.$refs[this.formCode][item.correlationID]
+                Object.keys(hiddenRadioArr).forEach(radio=>{
+                  hiddenRadioArr[radio].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "inline-block"
                 })
               }
-              
+            }else if(item.hiddenCheckBox){
+              if(this.formObj.model[item.id]){
+                let hiddenCheckBox = this.$root.$refs[this.formCode][item.correlationID]
+                Object.keys(hiddenCheckBox).forEach(checkbox=>{
+                  if(!item.excludeVal.includes((checkbox))){
+                    hiddenCheckBox[checkbox].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "flex"
+                  }
+                })
+              }
+            }else {
+              if(this.formObj.model[item.id]){
+                let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
+                if (elArr.length > 0) {
+                  elArr.forEach(it => {
+                    
+                    it.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+                    if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+                  })
+                }
+              }
             }
-            
           })
         }
       }

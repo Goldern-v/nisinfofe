@@ -771,7 +771,6 @@ export default {
       this.bus.$emit("refreshImg");
     },
     onModalChange(e,tr,x,y,index){
-      console.log("onModalChange-in",e,tr,x,y,index)
       // 改变当前行状态,如果数据变化 就拿到当行的数据
       tr[`isChange`] = true
       // // 获取recordDate的下标
