@@ -183,6 +183,29 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="painScore"
+            label="疼痛"
+            align="center"
+            v-if="['qhwy'].includes(HOSPITAL_ID)"
+            min-width="80"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.painScore"
+                class="painScore"
+                :readonly="isReadonly(scope.row.recordDate)"
+                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                :class="className"
+                type="number"
+                min="0"
+                @mousewheel="(e) => {e.preventDefault();}"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="breath"
             label="呼吸"
             min-width=""
@@ -488,6 +511,17 @@
             <template slot-scope="scope">
               <el-input v-model="scope.row.pulse"></el-input>
             </template>
+          </el-table-column>
+          <el-table-column
+            prop="painScore"
+            label="疼痛"
+            align="center"
+            v-if="['qhwy'].includes(HOSPITAL_ID)"
+            min-width="80"
+          >
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.painScore"></el-input>
+          </template>
           </el-table-column>
           <el-table-column
             prop="breath"

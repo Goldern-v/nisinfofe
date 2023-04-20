@@ -60,7 +60,7 @@
       <!-- 关联表单弹窗 -->
       <RelationFormModal/>
       <!-- 电子病例弹窗 -->
-      <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','dglb'].includes(HOSPITAL_ID)" />
+      <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','dglb','nfyksdyy'].includes(HOSPITAL_ID)" />
 
     </div>
   </div>

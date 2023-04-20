@@ -364,6 +364,28 @@ export default {
               correlationID: "I2332061程度"
             },
           ]
+        }else{
+          obj = [
+            {
+              id: 'I2333075',
+              value: '有：',
+              inp: true,
+              prefixId: "I2333078",
+              correlationID: "I2333076"
+            },
+            {
+              id: 'I2333075',
+              value: '有：',
+              correlationID: "I2333077",
+              prefixId: "I2333077"
+            },
+            {
+              id: 'I2333075',
+              value: '有：',
+              correlationID: "I2333078",
+              prefixId: "I2333078"
+            },
+          ]
         }
         
         if (obj.length > 0) {

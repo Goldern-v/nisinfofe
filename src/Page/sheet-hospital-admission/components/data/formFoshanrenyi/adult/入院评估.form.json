@@ -7448,10 +7448,10 @@
                   "title": "佛山人医认知筛查量表（Mini-cog量表）",
                   "formUrl": "佛山人医认知筛查量表（Mini-cog量表）.html",
                   "callbackInfo": {
-                    "needScore": true,
+                    "needScore": false,
+                    "defaultName": true,
                     "code": "S2332172",
-                    "prefix": "认知筛查量表（Mini-cog量表）:",
-                    "suffix": "分"
+                    "prefix": "认知筛查量表（Mini-cog量表）"
                   }
                 }
               }

@@ -227,25 +227,7 @@ export default {
         } else {
           obj = [
             // 是儿童模块
-          {
-            id: 'I2333075',
-            value: '有：',
-            inp: true,
-            prefixId: "I2333078",
-            correlationID: "I2333076"
-          },
-          {
-            id: 'I2333075',
-            value: '有：',
-            correlationID: "I2333077",
-            prefixId: "I2333077"
-          },
-          {
-            id: 'I2333075',
-            value: '有：',
-            correlationID: "I2333078",
-            prefixId: "I2333078"
-          },
+          
           {
             id: 'I2333154',
             value: '异常：',

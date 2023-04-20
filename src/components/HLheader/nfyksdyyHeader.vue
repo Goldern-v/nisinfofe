@@ -101,10 +101,17 @@
                 <i class="iconfont icon-hulijiludan"></i>护理评估单
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                 <el-dropdown-item :class="{active: $route.path == '/sheetHospitalAdmission'}">
+                 <!-- <el-dropdown-item :class="{active: $route.path == '/sheetHospitalAdmission'}">
                   <router-link to="/sheetHospitalAdmission" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="sheetHospitalAdmission"></i> 一体化入院评估
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item> -->
+                 <el-dropdown-item :class="{active: $route.path == '/admissionPageAdult'}">
+                  <router-link to="/admissionPageAdult" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="sheetHospitalAdmission"></i> 入院评估(成人)
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -1008,12 +1015,12 @@ export default {
     },
     isActivePage() {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
-      if (this.$route.path == "/board") return true;
-      if (this.$route.path == "/infuse") return true;
+      // if (this.$route.path == "/board") return true;
+      // if (this.$route.path == "/infuse") return true;
       if (this.$route.path == "/badEvent") return true;
-      if (this.$route.path == "/healthEdu") return true;
-      if (this.$route.path == "/nursingRounds") return true;
-      if (this.$route.path == "/allCatheter") return true;
+      // if (this.$route.path == "/healthEdu") return true;
+      // if (this.$route.path == "/nursingRounds") return true;
+      // if (this.$route.path == "/allCatheter") return true;
       if (this.$route.path == "/workloadSatistics") return true;
       if (this.$route.path == "/badEvent") return true;
       if (this.$route.path == "/inpatientReport") return true;
@@ -1050,7 +1057,7 @@ export default {
   },
   methods: {
     userInfoOpen(){
-      if(['foshanrenyi'].includes(this.HOSPITAL_ID)) this.$refs.userInfo.getCaStatus()
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID)) this.$refs.userInfo.getCaStatus()
     },
     handleCommand(command) {
       switch (command) {

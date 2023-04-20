@@ -39,7 +39,7 @@
                 :key="'td'+cindex+col"
                 v-bind="obj.children[n+(col-1)].tdProps"
               >
-              
+
                 <TipsBox :obj="obj.children[n+(col-1)]" :formObj="formObj">
                   <div
                     class="box-td"
@@ -243,7 +243,7 @@ export default {
     // height: 28px;
     align-items: center;
   .left-td
-    width: 100%
+    width: 13%
     text-align: left
     font-size: 12px;
     .XRadiobox-items

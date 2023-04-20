@@ -70,7 +70,7 @@
     <previewEvalModal ref="previewEvalModal"></previewEvalModal>
     <SynchronousModal :dialogTableVisible.sync="dialogTableVisible" @leftTablelist="leftTablelist"></SynchronousModal>
     <doctorEmr
-      v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
+      v-if="['foshanrenyi','nfyksdyy'].includes(HOSPITAL_ID)"
     />
   </div>
 </template>
@@ -211,6 +211,7 @@ import dayjs from "dayjs";
 import qs from "qs";
 import doctorEmr from "@/components/doctorEmr";
 import { adult_notCheckFill, child_notCheckFill } from "@/Page/sheet-hospital-admission/components/data/formFoshanrenyi/notCheckFill"
+import { adult_notCheckFill2, child_notCheckFill2 } from "@/Page/sheet-hospital-admission/components/data/formNfyksdyy/notCheckFill"
 import {
   createForm,
   save,
@@ -259,7 +260,7 @@ export default {
       user: JSON.parse(localStorage.user),
       selectList: [],
       pageArea: "",
-      formCode: this.HOSPITAL_ID === 'foshanrenyi' ? this.formCodeFy : 'E0001',
+      formCode: (this.HOSPITAL_ID === 'foshanrenyi'||this.HOSPITAL_ID === 'nfyksdyy') ? this.formCodeFy : 'E0001',
       formId: "",
       // sheetModel,
       // sheetInfo,
@@ -356,17 +357,16 @@ export default {
             if (!selectBlock.id) return true;
           },
         },
-        ...this.HOSPITAL_ID !== 'foshanrenyi' ?
         {
           label: "同步HIS+默认值",
-          style: "min-width:100px",
+          style: this.HOSPITAL_ID !== 'foshanrenyi' ? "min-width:100px" : "display:none",
           onClick: (e) => {
             this.fillDefaultValue();
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
           },
-        } : {},
+        },
         // {
         //   label: "同步HIS+默认值",
         //   style: "min-width:100px",
@@ -821,7 +821,13 @@ export default {
         else
           notCheckFill = child_notCheckFill
       }
-
+ if (this.HOSPITAL_ID === 'nfyksdyy') {
+        // 成人
+        if (this.formCode === 'E2332')
+          notCheckFill = adult_notCheckFill2
+        else
+          notCheckFill = child_notCheckFill2
+      }
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
           let find = notCheckFill.find((item) => item === key)
@@ -1380,7 +1386,7 @@ export default {
       this.dialogTableVisible = false;
 
       // 佛一体征同步
-      if (this.HOSPITAL_ID == 'foshanrenyi') {
+      if (this.HOSPITAL_ID == 'foshanrenyi'||this.HOSPITAL_ID == 'nfyksdyy') {
         // 成人
         if (this.formCode === "E2332") {
 
@@ -1487,7 +1493,7 @@ export default {
       this.$router.push(route);
     },
     formCodeFy: function (newVal) {
-      this.formCode = this.HOSPITAL_ID === 'foshanrenyi' ? newVal : 'E0001'
+      this.formCode = this.HOSPITAL_ID === 'nfyksdyy' ? newVal : 'E0001'
     },
   },
   components: {

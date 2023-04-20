@@ -726,6 +726,26 @@ export default {
         next();
       }
     },
+    checkChange(cb,todo){
+      let end = this.filterSheetModel.find(model=>{
+        return model.data.bodyModel.find(tr=>{
+          return tr.isChange
+        })
+      })
+      if(!end){
+        todo && todo() 
+      }else{
+        this.$confirm("存在未保存数据，您是否要保存", "提示", {
+            confirmButtonText: "保存",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+          .then((res) => {
+            cb && cb()
+            todo && todo() 
+          });
+      }
+    },
     getHomePage(isFirst) {
       getHomePage(this.patientInfo.patientId, this.patientInfo.visitId).then(
         (res) => {
@@ -751,6 +771,7 @@ export default {
       this.bus.$emit("refreshImg");
     },
     onModalChange(e,tr,x,y,index){
+      console.log("onModalChange-in",e,tr,x,y,index)
       // 改变当前行状态,如果数据变化 就拿到当行的数据
       tr[`isChange`] = true
       // // 获取recordDate的下标
@@ -1222,6 +1243,9 @@ export default {
     });
     this.bus.$on("openEvalModel", (tr, td) => {
       this.$refs.evalModel.open();
+    });
+    this.bus.$on("checkChange", (cb,todo)=>{
+      this.checkChange(cb,todo)
     });
     this.bus.$on("openEvalModelPaging", (tr, td) => {
       this.$refs.evalModelPaging.open();

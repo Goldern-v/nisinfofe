@@ -5,10 +5,10 @@
       <el-select
         v-model="visitIdValue"
         placeholder="请选择历次就诊数"
-        @change="handleVisit(2)"
+        @change="handleVisit"
       >
         <el-option
-          v-for="(item, index) in query.visitId"
+          v-for="(item, index) in list"
           :key="index"
           :label="index + 1"
           :value="index + 1"
@@ -33,23 +33,16 @@ export default {
   props: {},
   data() {
     return {
-      visitIdValue: this.$route.query.visitId,
+      visitIdValue: parseInt(this.$route.query.visitId),
+      list: parseInt(this.$route.query.visitId),
       url:"",
     };
   },
   created() {
-    this.query = this.$route.query;
     let { origin } = window.location
     this.url = `${origin}/crNursing/nursingPreview?patientId=${this.$route.query.patientId}&visitId=${this.$route.query.visitId}&nursingPreviewIsShow=1`
   },
   computed: {
-    query: {
-      get() {
-        let query = this.$route.query;
-        return query;
-      },
-      set() {}
-    },
     iframeHeight(){
       return this.wih - 160 + 'px'
     }
@@ -59,7 +52,7 @@ export default {
       this.url = '';
       this.visitIdValue = value;
       let { origin } = window.location
-      this.url = `${origin}/crNursing/nursingPreview?patientId=${this.query.patientId}&visitId=${value}&nursingPreviewIsShow=1`
+      this.url = `${origin}/crNursing/nursingPreview?patientId=${this.$route.query.patientId}&visitId=${value}&nursingPreviewIsShow=1`
     }
   }
 };

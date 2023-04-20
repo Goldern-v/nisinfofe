@@ -654,7 +654,10 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' || sheetInfo.sheetType == 'cardiology_tj'"
+        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' || 
+          sheetInfo.sheetType == 'cardiology_tj' || 
+          sheetInfo.sheetType == 'critical_new_lc'
+        "
           >质控护士签名：</span
         >
         <span v-else-if=" sheetInfo.sheetType == 'critical_new_weihai'"
@@ -866,7 +869,8 @@ export default {
         'baby_dglb',
         'baby_obs_dglb',
         'cardiology_tj',
-        'cardiac_therapy_tj'
+        'cardiac_therapy_tj',
+        'critical_new_lc'
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -1128,7 +1132,7 @@ export default {
     },
     async onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
-      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry') {
+      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry'|| this.sheetInfo.sheetType == 'orthopaedic_sdry') {
         let confirmRes = '';
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           confirmRes = await this.$confirm(
