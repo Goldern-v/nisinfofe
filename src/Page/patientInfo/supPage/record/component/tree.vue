@@ -37,6 +37,7 @@
         <el-tree
           v-loading="treeLoading"
           v-if="ifTree"
+          ref="formTree"
           class="record-tree"
           :data="regions"
           highlight-current
@@ -171,7 +172,7 @@
       top: 30px;
     }
   }
-  
+
   .flag-con {
     width: 10px;
     height: 73px;
@@ -472,6 +473,7 @@ export default {
       };
     },
     async nodeClick(data, node) {
+      console.log('nodeClick', data, node)
       let isChange = localStorage.getItem(DATA_CHANGE)
       isChange = isChange ? JSON.parse(isChange) : false
       if (isChange && node.level == 2 && ['925','nfyksdyy'].includes(this.HOSPITAL_ID)) {
@@ -520,6 +522,21 @@ export default {
          localStorage.setItem("lockForm",'')
         }
         if (node.parent.label != "记录单") {
+          this.$emit('openFormTag', Object.assign({}, getFormConfig(node.data.formName), {
+            id: node.data.form_id,
+            formCode: node.parent.data.formCode,
+            showCurve: node.parent.data.showCurve,
+            creator: node.parent.data.creator,
+            listPrint: node.parent.data.listPrint,
+            nooForm: node.parent.data.nooForm,
+            pageUrl: node.parent.data.pageUrl,
+            pageItem: data.pageTitle,
+            status: data.status,
+            missionId: data.missionId,
+            pageIndex: node.data.pageIndex,
+            evalDate: node.data.label.slice(0, 16),
+            node,
+          }))
           this.bus.$emit(
             "openAssessmentBox",
             Object.assign({}, getFormConfig(node.data.formName), {
@@ -870,7 +887,6 @@ export default {
       }
     },
     getTreeData() {
-      console.log('filterObj', this.filterObj)
       this.treeLoading = true;
       Promise.all([
         groupList(this.$route.query.patientId, this.$route.query.visitId),
@@ -1032,7 +1048,6 @@ export default {
           } else {
             this.regions = list_1;
           }
-          console.log('regions', this.regions)
           // if (
           //   this.HOSPITAL_ID == "hj" &&
           //   window.location.href.includes("showPatientDetails")
@@ -1137,6 +1152,18 @@ export default {
         }
       });
     },
+    // 点击标签高亮对应树节点
+    onHighlightTreeNode(form) {
+      // 设置当前高亮树节点
+      this.$nextTick(() => {
+        // 1.x版本的el-tree没有 setCurrentKey 方法，使用 store.setCurrentNode 方法
+        this.$refs.formTree.store.setCurrentNode(form.node);
+        // 未展开
+        if (!form.node.expanded) {
+          form.node.parent.expand();
+        }
+      })
+    }
   },
   created() {
     if(!this.$route.name){
@@ -1157,6 +1184,7 @@ export default {
         callback(this.regions);
       }
     });
+    this.bus.$on('highlightTreeNode', this.onHighlightTreeNode);
   },
   components: {
     SweetModal,

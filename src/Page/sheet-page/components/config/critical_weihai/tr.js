@@ -266,7 +266,7 @@ export default [{
   },
 },
 {
-  key: "customTitle4",
+  key: "consumption2",
   value: "",
   event: keyf1,
   name: "用量(ml)",

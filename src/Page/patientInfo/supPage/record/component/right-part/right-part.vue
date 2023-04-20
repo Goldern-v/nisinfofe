@@ -27,6 +27,7 @@
         <assessment_v2
             v-show="!showConToolBar && showType"
             ref="assessmentV2"
+            :tagsViewHeight="tagsViewHeight"
         />
         <div
             v-show="showType == ''"
