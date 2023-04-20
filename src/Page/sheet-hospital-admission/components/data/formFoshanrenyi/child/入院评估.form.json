@@ -2248,7 +2248,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "6、心理状况：患者",
+      "title": "6、心理状况",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -3482,7 +3482,7 @@
           "children": [
             {
               "name": "I2333075",
-              "type": "checkbox",
+              "type": "radio",
               "title": "无",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -3491,7 +3491,7 @@
             },
             {
               "name": "I2333075",
-              "type": "checkbox",
+              "type": "radio",
               "title": "有：",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",
@@ -3501,11 +3501,12 @@
                 {
                   "name": "I2333076",
                   "type": "input",
+                  "outSpanStyle":{"width":"100%"},
                   "title": "",
                   "titleStyle": "width: 62px",
-                  "inputStyle": "width:500px !important",
+                  "style": "width:500px !important",
                   "inputWidth": "500px",
-                  "style": null,
+                  "elementStyle":"margin-right: 50px;width:500px",
                   "class": null,
                   "readOnly": null
                 }
@@ -3514,7 +3515,7 @@
             {
               "name": "I2333077",
               "prefix": "程度：",
-              "type": "checkbox",
+              "type": "radio",
               "title": "轻",
               "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -3523,7 +3524,7 @@
             },
             {
               "name": "I2333077",
-              "type": "checkbox",
+              "type": "radio",
               "title": "中",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -3532,7 +3533,7 @@
             },
             {
               "name": "I2333077",
-              "type": "checkbox",
+              "type": "radio",
               "title": "重",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -3542,7 +3543,7 @@
             {
               "name": "I2333078",
               "prefix": "性质：",
-              "type": "checkbox",
+              "type": "radio",
               "title": "凹陷性",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -3551,7 +3552,7 @@
             },
             {
               "name": "I2333078",
-              "type": "checkbox",
+              "type": "radio",
               "title": "非凹陷性",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -3573,7 +3574,7 @@
           "children": [
             {
               "name": "I2333079",
-              "type": "checkbox",
+              "type": "radio",
               "title": "无",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -3582,7 +3583,7 @@
             },
             {
               "name": "I2333079",
-              "type": "checkbox",
+              "type": "radio",
               "title": "有：部位",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -3789,7 +3790,7 @@
           "children": [
             {
               "name": "I2333085",
-              "type": "checkbox",
+              "type": "radio",
               "title": "无",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -3798,7 +3799,7 @@
             },
             {
               "name": "I2333085",
-              "type": "checkbox",
+              "type": "radio",
               "title": "有：",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4862,7 +4863,7 @@
           "children": [
             {
               "name": "I2333114",
-              "type": "checkbox",
+              "type": "radio",
               "title": "正常",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -4871,7 +4872,7 @@
             },
             {
               "name": "I2333114",
-              "type": "checkbox",
+              "type": "radio",
               "title": "异常",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",

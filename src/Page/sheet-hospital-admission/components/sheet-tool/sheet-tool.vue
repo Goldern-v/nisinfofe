@@ -357,17 +357,16 @@ export default {
             if (!selectBlock.id) return true;
           },
         },
-        ...this.HOSPITAL_ID !== 'foshanrenyi' ?
         {
           label: "同步HIS+默认值",
-          style: "min-width:100px",
+          style: this.HOSPITAL_ID !== 'foshanrenyi' ? "min-width:100px" : "display:none",
           onClick: (e) => {
             this.fillDefaultValue();
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
           },
-        } : {},
+        },
         // {
         //   label: "同步HIS+默认值",
         //   style: "min-width:100px",

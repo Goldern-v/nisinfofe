@@ -268,6 +268,7 @@ module.exports = {
     ABOUT_INFO: '"关于宸瑞普惠"',
     title: '"智慧护理信息系统"',
     ENABLE_BLUETOOTH_SIGN: false,
+    splitSave:true,
     hasFollow:true
   },
   '925': {
