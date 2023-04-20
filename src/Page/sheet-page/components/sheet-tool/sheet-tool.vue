@@ -524,7 +524,7 @@
           <div
             class="right-btn"
             flex="cross:center main:center"
-            @click="emit('openEvalModel')"
+            @click="pgtbModel"
             v-if="!isSingleTem_LCEY && !isDeputy && HOSPITAL_ID != 'foshanrenyi'"
           >
           <div class="text-con">
@@ -1025,6 +1025,12 @@ export default {
           break;
         case "guizhou":
           this.bus.$emit("openGuizhouModal");
+          break;
+        case "nfyksdyy":{
+          this.bus.$emit("checkChange",()=>{
+            this.bus.$emit('saveSheetPage', 'noSaveSign')
+          },()=>{this.bus.$emit("openHJModal")})
+        }
           break;
         default:
           this.bus.$emit("openHJModal");
@@ -1647,7 +1653,18 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      this.$refs.tztbModal.open();
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID)){
+        this.bus.$emit("checkChange",()=>{
+          this.bus.$emit('saveSheetPage', 'noSaveSign')
+        },()=>{this.$refs.tztbModal.open()})
+      }else this.$refs.tztbModal.open();
+    },
+    pgtbModel(){
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID)){
+        this.bus.$emit("checkChange",()=>{
+          this.bus.$emit('saveSheetPage', 'noSaveSign')
+        },()=>{this.emit('openEvalModel')})
+      }else this.emit('openEvalModel')
     },
     openZxdtbModal() {
       if (this.readOnly) {
@@ -1665,8 +1682,12 @@ export default {
       } else {
         this.titleName = "执行单同步";
       }
-
-      this.$refs.zxdtbModal.open();
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID)){
+        this.bus.$emit("checkChange",()=>{
+          this.bus.$emit('saveSheetPage', 'noSaveSign')
+        },()=>{this.$refs.zxdtbModal.open()})
+      }else this.$refs.zxdtbModal.open();
+      
     },
     openRltbModal() {
       if (this.readOnly) {
