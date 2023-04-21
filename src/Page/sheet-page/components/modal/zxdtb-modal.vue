@@ -166,6 +166,7 @@
             type="selection"
             width="50"
             align="center"
+            :selectable="isSelectable"
           ></el-table-column>
           <el-table-column
             prop="recordDate"
@@ -768,6 +769,10 @@ export default {
           return sum
         }, '')
       })
+    },
+    isSelectable(row, index) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      return this.HOSPITAL_ID !== 'whsl' || (user && user.deptCode !== row.wardCode);
     }
   },
   computed: {
