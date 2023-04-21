@@ -32,7 +32,7 @@
           height="350"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="40" align="center"></el-table-column>
+          <el-table-column type="selection" width="40" align="center" :selectable="isSelectable"></el-table-column>
           <el-table-column prop="recordDate" label="日期" min-width="90px" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.recordDate.split(' ')[0] }}</span>
@@ -194,6 +194,10 @@ export default {
           return relPulse || heartRate || ""
         }
       }
+    },
+    isSelectable(row, index) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      return this.HOSPITAL_ID !== 'whsl' || (user && user.deptCode !== row.wardCode);
     }
   },
   computed: {
