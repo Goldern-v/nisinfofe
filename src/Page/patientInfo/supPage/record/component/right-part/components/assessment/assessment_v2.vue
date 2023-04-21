@@ -108,10 +108,10 @@ import {
 import common from "@/common/mixin/common.mixin.js";
 import qs from "qs";
 
-export
-default {
+export default {
   name: "assessment_v2",
   mixins: [common],
+  props: { tagsViewHeight: Number },
   data() {
     return {
       bus: BusFactory(this),
@@ -1704,11 +1704,11 @@ default {
         this.$route.path.includes("showPatientDetails") ||
         this.$route.path.includes("nursingPreview")
       ) {
-        return this.wih - 0 - this.offsetHeight;
+        return this.wih - 0 - this.offsetHeight - (this.tagsViewHeight || 0);
       } else if (this.$route.path.includes("nursingTemperature")) {
-        return this.wih;
+        return this.wih - (this.tagsViewHeight || 0);
       } else {
-        return this.wih - 60 - this.offsetHeight;
+        return this.wih - 60 - this.offsetHeight - (this.tagsViewHeight || 0);
       }
       // return this.wih - this.offsetHeight;
     },

@@ -3,14 +3,18 @@
     <div ref="scrollRef" class="tags-view-wrapper" @wheel.prevent="onScrollX">
       <span
         v-for="(tag, index) in tagsList"
-        :key="index + tag.formCode"
+        :key="index + 'tag'"
         :class="isActive(tag) ? 'active' : ''"
         class="tags-view-item"
         tag="span"
         @click="onOpenTagForm(tag)"
       >
-        {{ formatTagName(tag) }}
-        <span class="el-icon-close" @click.prevent.stop="onCloseTag(tag)"></span>
+        {{ tag.recordName }}
+        <span
+          v-if="tagsList && tagsList.length > 1"
+          class="el-icon-close"
+          @click.prevent.stop="onCloseTag(tag)"
+        ></span>
       </span>
     </div>
   </div>
@@ -36,11 +40,8 @@ export default {
     }
   },
   methods: {
-    formatTagName(tag) {
-      return tag.pageUrl.replace('.html', '') + ' ' + tag.evalDate;
-    },
     isActive(item) {
-      return this.selectedTag && item.id === this.selectedTag.id;
+      return this.selectedTag && item.id === this.selectedTag.id
     },
     onScrollX(e) {
       // console.log(e)
@@ -53,24 +54,18 @@ export default {
     // 打开评估单
     onOpenTagForm(tag) {
       this.selectedTag = tag;
-      this.$emit('updateCurrentTag', tag);
-      this.bus.$emit("openAssessmentBox", tag);
-      this.bus.$emit('highlightTreeNode', tag);
+      this.$emit('switchSheet', tag);
     },
     // 关闭标签
     onCloseTag(tag) {
-      this.$emit('closeTag', tag, tag.id === this.selectedTag.id);
+      this.$emit('closeSheet', tag);
     }
   },
   watch: {
     currentTag: {
       handler(val) {
-        if (!this.selectedTag || (val && val.id !== this.selectedTag.id)) {
-          this.onOpenTagForm(val)
-        }
-        // this.selectedTag = val;
-      },
-      deep: true
+        this.onOpenTagForm(val);
+      }, deep: true
     }
   }
 }
@@ -83,6 +78,8 @@ export default {
     background: #fff;
     border-bottom: 1px solid #d8dce5;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+    position: relative;
+    z-index: 10;
     .tags-view-wrapper {
       position: relative;
       width: 100%;

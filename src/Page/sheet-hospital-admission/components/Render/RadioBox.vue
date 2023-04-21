@@ -404,14 +404,12 @@ export default {
               formGroupColBox.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "block"
             }else if(item.hiddentipsBox){
               let hiddentipsBox = this.$root.$refs[this.formCode]['tipsBox' + item.correlationID]
-              console.log(hiddentipsBox,'hiddentipsBox')
               hiddentipsBox.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "block"
             } else if(item.hiddenInputBox){
               let hiddenInputBox = this.$root.$refs[this.formCode]['inputBox' + item.correlationID]
               hiddenInputBox.parentNode.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
             } else if(item.hiddenSelectBox){
               let hiddenSelectBox = this.$root.$refs[this.formCode]['selectInputBox' + item.correlationID]
-              console.log()
               hiddenSelectBox.parentNode.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
             } else {
               let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])

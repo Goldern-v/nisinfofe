@@ -14,6 +14,9 @@
           :isLoad='isLoad'
           :sheetTitleData="sheetTitleData"
           :maxPage="Number(sheetInfo.endPage)"
+          @mountSheetTag="onMountSheetTag"
+          :sheetTagInfo="sheetTagInfo"
+          @sheetDelete="onSheetClose"
         ></sheetTool>
       </div>
     </div>
@@ -41,6 +44,13 @@
         v-loading="tableLoading"
         element-loading-text="拼命加载中"
       >
+        <SheetTags
+          v-if="hasSheetTags"
+          :tagsList="sheetTagsList"
+          :currentTag="currentTag"
+          @switchSheet="onSheetSwitch"
+          @closeSheet="onSheetClose"
+        />
         <div
           class="sheetTable-contain"
           ref="scrollCon"
@@ -63,6 +73,7 @@
               :listData="listData"
               :specialLis="specialList"
               @onModalChange="onModalChange"
+              :sheetTagsHeight="sheetTagsHeight"
             ></component>
           </div>
           <div
@@ -318,6 +329,7 @@ import testSheet from './testSheet.json'
 //解锁
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import changeMajorRadio from '@/Page/sheet-page/components/modal/changeMajorRadio.vue'
+import SheetTags from './components/sheet-tags/index.vue';
 
 export default {
   mixins: [common],
@@ -355,9 +367,21 @@ export default {
       isLock:false,
       isLoad:false,  //如果主页数据多接口就返回慢，在数据没回来之前切换了副页，副页的数据会被后回来的主页数据覆盖。
       sheetTitleData: {}, // 自定义表头数据
+      sheetTagsList: [], // 标签数据
+      currentTag: null, // 当前选中标签
+      sheetTagInfo: null,
     };
   },
   computed: {
+    // 显示标签
+    hasSheetTags() {
+      // return ['nfyksdyy', 'whsl'].includes(this.HOSPITAL_ID) && !!this.sheetTagsList.length;
+      return false;
+    },
+    // 标签高度
+    sheetTagsHeight() {
+      return this.hasSheetTags ? 35 : 0;
+    },
     containHeight() {
       if (this.fullpage) {
         return this.wih - 44 + "px";
@@ -464,6 +488,31 @@ export default {
     },
   },
   methods: {
+    // 添加护记标签
+    onMountSheetTag(sheet) {
+      this.currentTag = sheet;
+      const tagIndex = this.sheetTagsList.findIndex(tag => tag.id === sheet.id);
+      if (tagIndex === -1) {
+        this.sheetTagsList.push(sheet);
+      }
+    },
+    // 标签切换护记
+    onSheetSwitch(sheet) {
+      if (sheet && sheet.id !== this.currentTag.id) {
+        this.currentTag = sheet;
+      }
+      this.sheetTagInfo = sheet;
+    },
+    // 标签关闭护记
+    onSheetClose(sheet) {
+      const sheetIndex = this.sheetTagsList.findIndex(tag => tag.id === sheet.id);
+      if (sheetIndex !== -1) {
+        this.sheetTagsList.splice(sheetIndex, 1);
+      }
+      const lastTag = this.sheetTagsList[this.sheetTagsList.length - 1]
+      // 重新打开
+      this.onSheetSwitch(lastTag);
+    },
     isFirst(tr, x, y, bodyModel) {
       let recordDate = tr.find((item) => item.key == "recordDate").value;
       let recordSource = tr.find((item) => item.key == "recordSource").value;
@@ -771,7 +820,6 @@ export default {
       this.bus.$emit("refreshImg");
     },
     onModalChange(e,tr,x,y,index){
-      console.log("onModalChange-in",e,tr,x,y,index)
       // 改变当前行状态,如果数据变化 就拿到当行的数据
       tr[`isChange`] = true
       // // 获取recordDate的下标
@@ -1292,6 +1340,8 @@ export default {
     patientInfo(val) {
       this.bus.$emit("refreshImg");
       // this.$store.commit("upPatientInfo", val);
+      this.sheetTagsList = [];
+      this.currentTag = null;
     },
     deptCode(val) {
       if (val) {
@@ -1411,7 +1461,8 @@ export default {
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,
     sheetTable_prenatal_ytll,
-    changeMajorRadio
+    changeMajorRadio,
+    SheetTags
   },
 };
 </script>

@@ -13,6 +13,9 @@
           :isLoad='isLoad'
           :sheetTitleData="sheetTitleData"
           :maxPage="Number(sheetInfo.endPage)"
+          @mountSheetTag="onMountSheetTag"
+          :sheetTagInfo="sheetTagInfo"
+          @sheetDelete="onSheetClose"
         ></sheetTool>
       </div>
     </div>
@@ -22,6 +25,13 @@
       :style="{ height: containHeight }"
     >
       <div class="right-part" v-loading="tableLoading"  element-loading-text="拼命加载中">
+        <SheetTags
+          v-if="hasSheetTags"
+          :tagsList="sheetTagsList"
+          :currentTag="currentTag"
+          @switchSheet="onSheetSwitch"
+          @closeSheet="onSheetClose"
+        />
         <div class="sheetTable-contain" ref="scrollCon" @scroll="onScroll">
           <div ref="sheetTableContain">
             <component
@@ -38,6 +48,7 @@
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
               @onModalChange="onModalChange"
+              :sheetTagsHeight="sheetTagsHeight"
             ></component>
           </div>
           <div
@@ -255,6 +266,7 @@ import { sheetScrollBottom } from "@/Page/sheet-page/components/utils/scrollBott
 import { patients } from "@/api/lesion";
 import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
 import {GetUserList,verifyNewCaSign} from '../../../../api/caCardApi'//护记CA签名的方法
+import SheetTags from '@/Page/sheet-page/components/sheet-tags/index.vue';
 export default {
   mixins: [common],
   data() {
@@ -282,9 +294,21 @@ export default {
       isLock:false,
       isLoad:false,
       sheetTitleData: {}, // 自定义表头数据
+      sheetTagsList: [], // 标签数据
+      currentTag: null, // 当前选中标签
+      sheetTagInfo: null,
     };
   },
   computed: {
+    // 显示标签
+    hasSheetTags() {
+      // return ['nfyksdyy', 'whsl'].includes(this.HOSPITAL_ID) && !!this.sheetTagsList.length;
+      return false;
+    },
+    // 标签高度
+    sheetTagsHeight() {
+      return this.hasSheetTags ? 35 : 0;
+    },
     containHeight() {
       if (this.fullpage) {
         return this.wih - 100 + "px";
@@ -377,6 +401,31 @@ export default {
     }
   },
   methods: {
+    // 添加护记标签
+    onMountSheetTag(sheet) {
+      this.currentTag = sheet;
+      const tagIndex = this.sheetTagsList.findIndex(tag => tag.id === sheet.id);
+      if (tagIndex === -1) {
+        this.sheetTagsList.push(sheet);
+      }
+    },
+    // 标签切换护记
+    onSheetSwitch(sheet) {
+      if (sheet && sheet.id !== this.currentTag.id) {
+        this.currentTag = sheet;
+      }
+      this.sheetTagInfo = sheet;
+    },
+    // 标签关闭护记
+    onSheetClose(sheet) {
+      const sheetIndex = this.sheetTagsList.findIndex(tag => tag.id === sheet.id);
+      if (sheetIndex !== -1) {
+        this.sheetTagsList.splice(sheetIndex, 1);
+      }
+      const lastTag = this.sheetTagsList[this.sheetTagsList.length - 1]
+      // 重新打开
+      this.onSheetSwitch(lastTag);
+    },
     addSheetPage() {
       if (this.patientInfo.name) {
         this.bus.$emit("openNewSheetModal");
@@ -1189,7 +1238,8 @@ export default {
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,
-    sheetTable_prenatal_ytll
+    sheetTable_prenatal_ytll,
+    SheetTags
   }
 };
 </script>

@@ -9,9 +9,9 @@
       </div>
       <div class="time-type-button" v-if="HOSPITAL_ID=='liaocheng'|| HOSPITAL_ID=='nfyksdyy'">
         <el-button-group>
-          <el-button :class="[active=='today1'?'active-btn':'']" @click="initTime('today')">白班小结</el-button>
-          <el-button :class="[active=='today2'?'active-btn':'']" @click="initTime('today1')">P班小结</el-button>
-          <el-button :class="[active=='yesterday1'?'active-btn':'']" @click="initTime('yesterday')">24小时小结</el-button>
+          <el-button :class="[active=='today1'?'active-btn':'']" @click="initTime('today1')">白班小结</el-button>
+          <el-button :class="[active=='today2'?'active-btn':'']" @click="initTime('today2')">P班小结</el-button>
+          <el-button :class="[active=='yesterday1'?'active-btn':'']" @click="initTime('yesterday1')">24小时小结</el-button>
         </el-button-group>
       </div>
       <!-- 北海 -->

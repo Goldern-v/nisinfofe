@@ -19,7 +19,7 @@ let 出量颜色 = ['黄色', '鲜红色', '暗红色', '墨绿色', '浓茶色'
 // 医院反应下拉会无反应。bug这边复现不了，可能是发请求拿数据是卡住。所以数据写死
 let 入量名称=['饮水','输液','静脉泵入','静注','口服','输血','肌注','鼻饲']
 let 出量名称=['盆腔引流管','肝下引流管','胃管','尿管','膈下引流管','脾窝引流管','腹腔引流管','胸腔引流管','尿量','肠造口','呕吐物','大便','伤口皮下引流球','胃造瘘管','空肠造瘘管','肛管引流管','温氏孔引流管','胸腔闭式引流管','肾造瘘管','膀胱造瘘管','肾周引流管','输尿管导管','伤口引流管']
-
+let 对光名称=['灵敏','消失','迟钝']
 export default [
   {
     key: "recordDate", //年份
@@ -178,7 +178,7 @@ export default [
     },
   },
   {
-    key: "reflectionMm", 
+    key: "reflectionMm",
     value: "",
     event: keyf1,
     name: "mm",
@@ -191,7 +191,7 @@ export default [
     }
   },
   {
-    key: "reflection", 
+    key: "reflection",
     value: "",
     event: keyf1,
     name: "对光反射",
@@ -199,12 +199,15 @@ export default [
     textarea: {
       width: 35
     },
+    autoComplete: {
+      data: 对光名称
+    },
     style: {
       textAlign: "left",
     }
   },
   {
-    key: "pain", 
+    key: "pain",
     value: "",
     event: keyf1,
     name: "疼痛评分",
@@ -276,7 +279,7 @@ export default [
       textAlign: "left",
     }
   },
- 
+
   {
     key: "description", //特殊情况记录
     value: "",
