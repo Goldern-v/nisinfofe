@@ -234,7 +234,7 @@ export default [
     change: (e, td) => limitChange(e, td, 6)
   },
   {
-    key: "fieldThirteen",
+    key: "fieldEleven",
     event: keyf1,
     value: "",
     next: "",
@@ -243,7 +243,7 @@ export default [
     change: (e, td) => limitChange(e, td, 6)
   },
   {
-    key: "fieldFourteen",
+    key: "fieldFifteen",
     event: keyf1,
     value: "",
     next: "",
