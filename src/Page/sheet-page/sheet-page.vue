@@ -733,7 +733,7 @@ export default {
         })
       })
       if(!end){
-        todo && todo() 
+        todo && todo()
       }else{
         this.$confirm("存在未保存数据，您是否要保存", "提示", {
             confirmButtonText: "保存",
@@ -742,7 +742,7 @@ export default {
           })
           .then((res) => {
             cb && cb()
-            todo && todo() 
+            todo && todo()
           });
       }
     },
@@ -968,6 +968,10 @@ export default {
           decodeAyncVisttedData.uShield = this.foshanshiyiIFca ? '1' : '0'
           const pageIndexs = this.$store.state.sheet.pageIndexs
           decodeAyncVisttedData.pageIndex = pageIndexs
+          // // 925医院，护理等级保存，之前页面没有保存的护理等级保存
+          // if(['925'].includes(HOSPITAL_ID)){
+          //   console.log(filterSheetModel, decodeAyncVisttedData.relObj, '--------------------------->')
+          // }
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,
