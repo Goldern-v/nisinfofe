@@ -4,7 +4,7 @@
       class="modal">
       <div class="bed-card-wrapper" v-loading="modalLoading" ref="printCon">
         <div class="container">
-          <div style="line-height: 28px;margin-top:5px;font-size: 30px">床 位 卡</div>
+          <div style="line-height: 28px;margin-top:24px;font-size: 30px">床 位 卡</div>
           <div class="bed-card-con" flex :class="{ remarkCon: formData.remarkPrint }">
           <div style="flex: 1;" flex-box="1" flex="dir:top main:justify">
             <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
@@ -57,8 +57,8 @@
 }
 .container{
   margin: 20px;
-  width: 511px;
-  height: 335px;
+  width: 465px;
+  height: 300px;
   padding: 5px 8px;
   box-sizing: border-box;
   position: relative;
@@ -71,7 +71,7 @@
   // &.remarkCon
   .qr-code {
     position: absolute;
-    top:15%;
+    top:20%;
     /*left: -5px;*/
     width: 50%;
     height:80%;
