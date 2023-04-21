@@ -29,6 +29,7 @@
         :listData="listData"
         :specialLis="specialLis"
         @onModalChange="(e,tr,x,y,index)=>$emit('onModalChange',e,tr,x,y,index)"
+        :sheetTagsHeight="sheetTagsHeight"
       ></excel>
     </div>
   </div>
@@ -177,7 +178,8 @@ export default {
     isInPatientDetails: Boolean,
     bedAndDeptChange: Object,
     listData: Array,
-    specialLis: Array
+    specialLis: Array,
+    sheetTagsHeight: Number,
   },
   mixins: [common],
   data() {

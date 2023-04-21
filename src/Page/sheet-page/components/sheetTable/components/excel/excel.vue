@@ -7,7 +7,7 @@
   >
     <table
       class="sheet-table table-fixed-th no-print"
-      :style="{ width: fiexHeaderWidth}"
+      :style="{ width: fiexHeaderWidth, top: `${fixedTop}px` }"
       :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl}"
       ref="tableHead"
       v-if="hasFiexHeader"
@@ -654,8 +654,8 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' || 
-          sheetInfo.sheetType == 'cardiology_tj' || 
+        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' ||
+          sheetInfo.sheetType == 'cardiology_tj' ||
           sheetInfo.sheetType == 'critical_new_lc'
         "
           >质控护士签名：</span
@@ -797,6 +797,7 @@ export default {
     isInPatientDetails: Boolean,
     listData: Array,
     specialLis: Array,
+    sheetTagsHeight: Number,
   },
   mixins: [common],
   data() {
@@ -1016,7 +1017,10 @@ export default {
     },
     whhkCaOrUsbSignIn(){
       return window.localStorage.getItem("whhkCaOrUsbSignIn")?JSON.parse(window.localStorage.getItem("whhkCaOrUsbSignIn")):null
-    }
+    },
+    fixedTop() {
+      return (this.isInPatientDetails ? 45 : 56) + (this.sheetTagsHeight || 0)
+    },
   },
   methods: {
     customCallBack(e,tr,x,y,index){
@@ -3119,7 +3123,7 @@ export default {
       if (!this.hasFiexHeader) return;
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       if (
-        top < (this.isInPatientDetails ? 90 : 100) &&
+        top < (this.isInPatientDetails ? (this.sheetTagsHeight || 0) + 90 : 100) &&
         bottom > (this.isInPatientDetails ? 170 : 180)
       ) {
         this.isFixed = true;
