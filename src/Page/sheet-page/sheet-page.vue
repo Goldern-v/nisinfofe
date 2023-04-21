@@ -1016,6 +1016,10 @@ export default {
           decodeAyncVisttedData.uShield = this.foshanshiyiIFca ? '1' : '0'
           const pageIndexs = this.$store.state.sheet.pageIndexs
           decodeAyncVisttedData.pageIndex = pageIndexs
+          // // 925医院，护理等级保存，之前页面没有保存的护理等级保存
+          // if(['925'].includes(HOSPITAL_ID)){
+          //   console.log(filterSheetModel, decodeAyncVisttedData.relObj, '--------------------------->')
+          // }
           saveBody(
             this.patientInfo.patientId,
             this.patientInfo.visitId,
