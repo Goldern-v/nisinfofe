@@ -64,7 +64,8 @@ export default {
   computed: {
     hasTagsView() {
       // return ['nfyksdyy'].includes(this.HOSPITAL_ID) && !!this.tagsList.length;
-      return !!this.tagsList.length;
+      // return !!this.tagsList.length;
+      return false;
     },
     // 标签高度
     tagsViewHeight() {

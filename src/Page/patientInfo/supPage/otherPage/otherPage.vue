@@ -1,5 +1,5 @@
 <template>
-  <div class="content" :class="{'doctor-emr-hd':getOther()}">
+  <div class="content" :class="{'doctor-emr-hd':getOther(), 'content-4-whhk': HOSPITAL_ID === 'whhk'}">
     <div class="right-part">
       <right-part></right-part>
     </div>
@@ -35,6 +35,12 @@ export default {
 }
 .doctor-emr-hd {
    .right-part {
+    margin-left: 0;
+  }
+}
+.content-4-whhk {
+  margin: 20px 0px 0px 20px;
+  .right-part {
     margin-left: 0;
   }
 }

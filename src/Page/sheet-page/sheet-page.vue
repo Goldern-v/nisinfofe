@@ -376,7 +376,8 @@ export default {
     // 显示标签
     hasSheetTags() {
       // return ['nfyksdyy', 'whsl'].includes(this.HOSPITAL_ID) && !!this.sheetTagsList.length;
-      return !!this.sheetTagsList.length;
+      // return !!this.sheetTagsList.length;
+      return false;
     },
     // 标签高度
     sheetTagsHeight() {
