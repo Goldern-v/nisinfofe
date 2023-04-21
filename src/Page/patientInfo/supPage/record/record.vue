@@ -63,8 +63,8 @@ export default {
   },
   computed: {
     hasTagsView() {
-      // return ['nfyksdyy'].includes(this.HOSPITAL_ID) && !!this.tagsList.length;
-      return false;
+      return ['nfyksdyy'].includes(this.HOSPITAL_ID) && !!this.tagsList.length;
+      // return false;
     },
     // 标签高度
     tagsViewHeight() {
@@ -116,6 +116,7 @@ export default {
     },
     // 添加表单标签
     onMountTag(form) {
+      if (!this.hasTagsView) return;
       this.currentTag = form
       const tagIndex = this.tagsList.findIndex(tag => tag.id === form.id);
       if (tagIndex === -1) {
@@ -123,17 +124,26 @@ export default {
       }
     },
     updateCurrentTag(tag) {
-      this.currentTag = tag;
+      if (!this.currentTag || (tag && tag.id !== this.currentTag.id)) {
+        this.currentTag = tag;
+      }
     },
     handleCloseTag(tag, reopen) {
-      const tagIndex = this.tagsList.findIndex(t => t.id === tag.id);
+      if (!this.tagsList.length || !this.hasTagsView) return;
+      const tagIndex = this.tagsList.findIndex(t => t.id == tag.id);
       if (tagIndex !== -1) {
         this.tagsList.splice(tagIndex, 1);
       }
       const lastTag = this.tagsList[this.tagsList.length - 1]
       // 打开最后一张表单
-      if (reopen) {
+      if (reopen && lastTag) {
         this.bus.$emit("openAssessmentBox", lastTag);
+      }
+      if (!lastTag) {
+        // 关闭评估单
+        this.bus.$emit('closeAssessment')
+        // 取消高亮
+        this.bus.$emit('highlightTreeNode', null);
       }
       this.currentTag = lastTag || null;
     },
@@ -144,6 +154,7 @@ export default {
   },
   created() {
     this.$store.commit("closeFullPageRecord");
+    this.bus.$on('formTagClose', this.handleCloseTag);
   },
   components: {
     tree,

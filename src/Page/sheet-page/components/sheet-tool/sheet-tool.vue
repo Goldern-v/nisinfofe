@@ -699,6 +699,10 @@ export default {
     // 最大页数
     maxPage: {
       type: Number | String,
+    },
+    sheetTagInfo: {
+      type: Object,
+      default: () => null
     }
   },
   data() {
@@ -1591,6 +1595,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
+        this.$emit('sheetDelete', this.sheetInfo.selectBlock)
         blockDelete(this.sheetInfo.selectBlock.id).then((res) => {
           this.$message({
             type: "success",
@@ -1631,6 +1636,10 @@ export default {
     changeSelectBlock(item) {
       localStorage.setItem('sheetPageScrollValue',null)
       //原本写在选择器里 现在搬到watch离监听调用
+      // 添加护记头部标签
+      if (item && typeof item !== 'boolean') {
+        this.$emit('mountSheetTag', item);
+      }
     },
     /** pdf打印 */
     toPdfPrint() {
@@ -1687,7 +1696,7 @@ export default {
           this.bus.$emit('saveSheetPage', 'noSaveSign')
         },()=>{this.$refs.zxdtbModal.open()})
       }else this.$refs.zxdtbModal.open();
-      
+
     },
     openRltbModal() {
       if (this.readOnly) {
@@ -1913,6 +1922,13 @@ export default {
     this.checkSheetRender = null
   },
   watch: {
+    sheetTagInfo: {
+      handler(val) {
+        if (val) {
+          this.sheetInfo.selectBlock = val
+        }
+      }, deep: true
+    },
     "sheetInfo.selectBlock":{
       deep:true,
       handler(val) {

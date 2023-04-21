@@ -473,7 +473,6 @@ export default {
       };
     },
     async nodeClick(data, node) {
-      console.log('nodeClick', data, node)
       let isChange = localStorage.getItem(DATA_CHANGE)
       isChange = isChange ? JSON.parse(isChange) : false
       if (isChange && node.level == 2 && ['925','nfyksdyy'].includes(this.HOSPITAL_ID)) {
@@ -1156,11 +1155,13 @@ export default {
     onHighlightTreeNode(form) {
       // 设置当前高亮树节点
       this.$nextTick(() => {
-        // 1.x版本的el-tree没有 setCurrentKey 方法，使用 store.setCurrentNode 方法
-        this.$refs.formTree.store.setCurrentNode(form.node);
-        // 未展开
-        if (!form.node.expanded) {
-          form.node.parent.expand();
+        if (form && form.node) {
+          // 1.x版本的el-tree没有 setCurrentKey 方法，使用 store.setCurrentNode 方法
+          this.$refs.formTree && this.$refs.formTree.store.setCurrentNode(form.node || null);
+          // 未展开
+          if (!form.node.expanded) {
+            form.node.parent.expand();
+          }
         }
       })
     }
