@@ -233,22 +233,22 @@
         >
           <div class="text-con">科室模板</div>
         </div>
-        <div
-            class="item-box"
-            flex="cross:center main:center"
-            @click.stop="openTemplateSlider"
-            v-if="!isSingleTem && !isDeputy && isShow()"
-        >
-          <div class="text-con">特殊情况模板</div>
-        </div>
-        <div
-            class="item-box"
-            flex="cross:center main:center"
-            @click.stop="openTitleTemplateSlide"
-            v-if="!isSingleTem && !isDeputy && isShow()"
-        >
-          <div class="text-con">自定义标题模板</div>
-        </div>
+<!--        <div-->
+<!--            class="item-box"-->
+<!--            flex="cross:center main:center"-->
+<!--            @click.stop="openTemplateSlider"-->
+<!--            v-if="!isSingleTem && !isDeputy && isShow()"-->
+<!--        >-->
+<!--          <div class="text-con">特殊情况模板</div>-->
+<!--        </div>-->
+<!--        <div-->
+<!--            class="item-box"-->
+<!--            flex="cross:center main:center"-->
+<!--            @click.stop="openTitleTemplateSlide"-->
+<!--            v-if="!isSingleTem && !isDeputy && isShow()"-->
+<!--        >-->
+<!--          <div class="text-con">自定义标题模板</div>-->
+<!--        </div>-->
       </template>
     <template v-else>
       <div
