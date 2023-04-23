@@ -702,8 +702,6 @@ export default {
   },
   mounted() {
     this.isEdit = JSON.parse(localStorage.user) && !this.$route.path.includes('patient') ? true : false;
-
-    console.log(this.selectedData, "ddddddddddddd");
   },
   components: {
     editModal,
