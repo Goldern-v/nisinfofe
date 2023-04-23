@@ -4,6 +4,15 @@
       <div flex="cross:center">
         <span class="label">护理计划日期：</span>
         <el-date-picker
+          v-if="hospitalType"
+          v-model="searchDateFY"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期">
+        </el-date-picker>
+        <el-date-picker
+          v-else
           v-model="searchDate"
           type="date"
           placeholder="选择日期"
@@ -135,12 +144,14 @@ export default {
     return {
       sheetInfo,
       searchDate: "",
+      searchDateFY: [], //江门妇幼时间查询条件
       tableData: [],
       selectedItem: null,
       bus: bus(this),
       formList: {},
       filterData: [],
-      newType: ['lyxrm','huadu', 'whhk', 'stmz','foshanrenyi'].includes(this.HOSPITAL_ID)
+      newType: ['lyxrm','huadu', 'whhk', 'stmz','foshanrenyi','fuyou'].includes(this.HOSPITAL_ID),
+      hospitalType:['fuyou'].includes(this.HOSPITAL_ID),
     };
   },
   methods: {
@@ -151,6 +162,7 @@ export default {
       }
       this.selectedItem = null;
       this.searchDate = moment().format("YYYY-MM-DD");
+      this.searchDateFY = [moment().startOf('months').format('YYYY-MM-DD'), new Date()];
       await this.getData();
       this.$refs.modal.open();
     },
@@ -175,7 +187,6 @@ export default {
             planFormId: res.data.data[0].id,
           })
           if (res1.data.code == 200) {
-            console.log(res1.data.data.page.list);
              this.tableData = res1.data.data.page.list || []
              this.tableData = this.tableData.map(v => {
               if (this.testRep(v.diagMeasures, v.measuresName) || this.testRep(v.diagTarget, v.targetsName)) {
@@ -215,10 +226,17 @@ export default {
     },
     /**查询 */
     handleSearch() {
-      if (!this.searchDate) return (this.filterData = this.tableData)
-      this.filterData = this.tableData.filter(v => {
-        return v.beginTime.indexOf(moment(this.searchDate).format('YYYY-MM-DD')) > -1
-      })
+      if(this.hospitalType){
+        if (!this.searchDateFY) return (this.filterData = this.tableData)
+        this.filterData = this.tableData.filter(v => {
+          return moment(this.searchDateFY[0]).valueOf() <= moment(v.beginTime).valueOf() && moment(this.searchDateFY[1]).valueOf() >= moment(v.beginTime).valueOf()
+        })
+      }else{
+        if (!this.searchDate) return (this.filterData = this.tableData)
+        this.filterData = this.tableData.filter(v => {
+          return v.beginTime.indexOf(moment(this.searchDate).format('YYYY-MM-DD')) > -1
+        })
+      }
     }
   },
   computed: {

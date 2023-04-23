@@ -1348,7 +1348,6 @@ export default {
       return this.sheetInfo.sheetType === "common_gzry";
     },
     showDiagnosisBtn() {
-      console.log('this.activeTab === "3"',this.activeTab === "3")
       switch (process.env.HOSPITAL_ID) {
         case "guizhou":
           return this.commonFormGZ && this.activeTab === "3";
@@ -1653,7 +1652,6 @@ export default {
       this.$refs.zkModalZhzxy.close();
     },
     open(config) {
-      console.log(config,'hasopen')
       setTimeout(() => {
         window.closeAutoCompleteNoId();
       }, 300);
