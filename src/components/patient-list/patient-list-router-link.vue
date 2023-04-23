@@ -3,6 +3,7 @@
     class="patient-list-part"
 
     v-loading="patientListLoading"
+    :style="{ paddingTop: hasPatientGroup ? '80px' : '45px' }"
   >
     <div class="search-box" v-if="!isRefresh">
       <el-input
@@ -10,6 +11,21 @@
         icon="search"
         v-model="searchWord"
       ></el-input>
+      <el-select
+        size="small"
+        v-model="patientGroup"
+        placeholder="病人分组"
+        clearable
+        v-if="hasPatientGroup"
+        style="margin-top: 8px"
+      >
+        <el-option
+          v-for="opt in patientGroup4Expand3"
+          :key="opt.value"
+          :label="opt.name"
+          :value="opt.value">
+        </el-option>
+      </el-select>
     </div>
     <div class="search-box" v-else>
       <el-input
@@ -334,6 +350,7 @@ export default {
       // isAutoSelected:['lyyz', 'foshanrenyi','fsxt','wujing'].includes(this.HOSPITAL_ID),
       levelColor:{},
       isRefresh: ['whsl'].includes(this.HOSPITAL_ID)&&location.href.includes('newSingleTemperatureChart'),
+      patientGroup: '', // 病人分组
     };
   },
   methods: {
@@ -538,6 +555,9 @@ export default {
           JSON.parse(JSON.stringify(putSortList))
         );
       } catch (error) {}
+      if (this.hasPatientGroup && this.patientGroup) {
+        return putSortList.filter(item => item.expand3 === this.patientGroup);
+      }
       return putSortList;
     },
     openLeft() {
@@ -557,6 +577,21 @@ export default {
     },
     groupBedList(){
       return this.baseBedList.filter(item=>item.focus)
+    },
+    hasPatientGroup() {
+      return ['nfyksdyy'].includes(this.HOSPITAL_ID);
+    },
+    // 病人分组（expand3字段）
+    patientGroup4Expand3() {
+      const result = Array.from(
+        new Set(this.bedList.map(item => item.expand3))
+      ).map(item => {
+        return {
+          name: item ? `分组${item}` : '无',
+          value: item
+        }
+      })
+      return result
     },
   },
   watch: {

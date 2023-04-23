@@ -1736,7 +1736,7 @@ export default {
       localStorage.setItem('sheetPageScrollValue',null)
       //原本写在选择器里 现在搬到watch离监听调用
       // 添加护记头部标签
-      if (item && typeof item !== 'boolean') {
+      if (item && typeof item !== 'boolean' && item.id) {
         this.$emit('mountSheetTag', item);
       }
     },
