@@ -7,7 +7,7 @@
           :key="key"
         >
          <!-- v-if="!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (item.boardConfigures && item.boardConfigures.length == 0)))" -->
-          <template  v-if="!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (!otherHisList.includes(HOSPITAL_ID) && item.boardConfigures && item.boardConfigures.length == 0)))">
+          <template  v-if="['nfyksdyy'].includes(HOSPITAL_ID) && item.customItem ? item.customItem : !(item.showOrHide && !item.configureValue && (!item.boardConfigures || (!otherHisList.includes(HOSPITAL_ID) && item.boardConfigures && item.boardConfigures.length == 0)))">
             <lineBox :dataKey="`${item.name}`" :keyStyle="keyStyle" v-if="item.customItem">
               <span slot="value-con">
                 <div class="save-con">
@@ -64,7 +64,7 @@
     </boxBase>
     <configModal ref="configModal"></configModal>
     <infoModal ref="infoModal"></infoModal>
-    <editBlockModal ref="editBlockModal"></editBlockModal>  
+    <editBlockModal ref="editBlockModal"></editBlockModal>
     <left1PrintModal ref="left1PrintModal"></left1PrintModal>
   </div>
 </template>
@@ -144,7 +144,7 @@ export default {
     // 贵州-打印 谢岗-打印
     openPrintModal() {
       let data = this.whiteBoardDtos.filter(item => {
-        if (!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (item.boardConfigures && item.boardConfigures.length == 0)))) 
+        if (!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (item.boardConfigures && item.boardConfigures.length == 0))))
           return item
       })
       this.$refs.left1PrintModal.getPrintData(data);
@@ -173,10 +173,10 @@ export default {
           this._whiteBoardDtos = JSON.parse(
             JSON.stringify(res.data.data[0].whiteBoardDtos)
           );
+          console.log( this.whiteBoardDtos, 'dddddddddddddddddddddd');
         }
         this.boardConfigures = res.data.data[0].boardConfigures;
         this.pageLoading = false;
-        console.log(this.whiteBoardDtos)
       });
     },
     showRow(key) {
