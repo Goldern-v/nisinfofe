@@ -1,12 +1,13 @@
 <template>
-  <div class="tags-view-container">
+  <div class="tags-view-container" ref="tagsViewRef">
     <div ref="scrollRef" class="tags-view-wrapper" @wheel.prevent="onScrollX">
       <span
         v-for="(tag, index) in tagsList"
+        :id="tag.id"
+        ref="tag"
         :key="index + tag.formCode"
         :class="isActive(tag) ? 'active' : ''"
         class="tags-view-item"
-        tag="span"
         @click="onOpenTagForm(tag)"
       >
         {{ formatTagName(tag) }}
@@ -35,6 +36,9 @@ export default {
       selectedTag: this.currentTag,
     }
   },
+  computed: {
+
+  },
   methods: {
     formatTagName(tag) {
       return tag.pageUrl.replace('.html', '') + ' ' + tag.evalDate;
@@ -60,13 +64,62 @@ export default {
     // 关闭标签
     onCloseTag(tag) {
       this.$emit('closeTag', tag, tag.id === this.selectedTag.id);
+    },
+    // 移动到选中标签
+    moveToCurrentTag(currentTag) {
+      if (currentTag) {
+        this.$nextTick(() => {
+          const tags = this.$refs.tag;
+          for (const tag of tags) {
+            if (tag.id == currentTag.id) {
+              this.scrollToTag(tag);
+            }
+          }
+        })
+      }
+    },
+    scrollToTag(currentTag) {
+      const $container = this.$refs.tagsViewRef;
+      const $scrollWrapper = this.$refs.scrollRef;
+      const $containerWidth = $container.offsetWidth;
+      const tagList = this.$refs.tag;
+      let firstTag = null;
+      let lastTag = null;
+      if (tagList.length > 0) {
+        firstTag = tagList[0];
+        lastTag = tagList[tagList.length - 1];
+      }
+      if (firstTag === currentTag) {
+        $scrollWrapper.scrollLeft = 0;
+      } else if (lastTag == currentTag) {
+        $scrollWrapper.scrollLeft = $scrollWrapper.scrollWidth - $containerWidth;
+      } else {
+        const currentIndex = tagList.findIndex(item => item === currentTag);
+        // 方法一
+        // tagList[currentIndex].scrollIntoView();
+        // 方法二
+        const preTag = tagList[currentIndex - 1];
+        const nextTag = tagList[currentIndex + 1];
+        const tagAndTagSpacing = 5;
+        // 下下一个tag头部的左偏移量
+        const afterNextOffsetLeft = nextTag.offsetLeft + nextTag.offsetWidth + tagAndTagSpacing;
+        // 上上一个tag尾部的左偏移量
+        const beforePreOffsetLeft = preTag.offsetLeft - tagAndTagSpacing;
+        if (afterNextOffsetLeft > $scrollWrapper.scrollLeft + $containerWidth) {
+          // 滚动距离 = 下下一个tag头部的左偏移量 - 容器宽度
+          $scrollWrapper.scrollLeft = afterNextOffsetLeft - $containerWidth;
+        } else if (beforePreOffsetLeft < $scrollWrapper.scrollLeft) {
+          $scrollWrapper.scrollLeft = beforePreOffsetLeft;
+        }
+      }
     }
   },
   watch: {
     currentTag: {
       handler(val) {
         if (!this.selectedTag || (val && val.id !== this.selectedTag.id)) {
-          this.onOpenTagForm(val)
+          this.onOpenTagForm(val);
+          this.moveToCurrentTag(val);
         }
         // this.selectedTag = val;
       },

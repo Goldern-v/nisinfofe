@@ -9,17 +9,16 @@
           <div style="flex: 1;" flex-box="1" flex="dir:top main:justify">
             <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
           </div>
-          <div style="flex: 1;margin-left: 100px" >
+          <div style="flex: 1;margin-left: 25px;margin-bottom: 50px" >
             <div flex="cross:center;" class="title-bed">
-              <div>
-                <span style="font-size: 26px;margin:0;">床号：</span>
-                <input type="text" style="font-size: 26px;border: none;" class="title-bed__1" :value="query.bedLabel + '床'" />
-              </div>
               <div>
                 <span style="font-size: 20px;margin:0">病区：</span>
                 {{ query.wardName }}
               </div>
-
+              <div>
+                <span style="font-size: 26px;margin:0;">床号：</span>
+                <input type="text" style="font-size: 26px;border: none;" class="title-bed__1" :value="query.bedLabel + '床'" />
+              </div>
             </div>
           </div>
         </div>

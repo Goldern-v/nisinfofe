@@ -63,8 +63,8 @@ export default {
   },
   computed: {
     hasTagsView() {
-      return ['nfyksdyy'].includes(this.HOSPITAL_ID) && !!this.tagsList.length;
-      // return false;
+      // return ['nfyksdyy'].includes(this.HOSPITAL_ID) && !!this.tagsList.length;
+      return !!this.tagsList.length;
     },
     // 标签高度
     tagsViewHeight() {
@@ -116,7 +116,6 @@ export default {
     },
     // 添加表单标签
     onMountTag(form) {
-      if (!this.hasTagsView) return;
       this.currentTag = form
       const tagIndex = this.tagsList.findIndex(tag => tag.id === form.id);
       if (tagIndex === -1) {

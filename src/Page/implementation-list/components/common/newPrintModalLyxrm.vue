@@ -60,10 +60,10 @@
           style="
             display: block;
             margin-bottom:2px;
-            font-size:15px
+            font-size:12px
             "
         >{{item}}
-          <span  style="font-size:15px">{{currentBottle.dosageDosageUnits[index]}}</span>
+          <span  style="font-size:12px">{{currentBottle.dosageDosageUnits[index]}}</span>
         </div>
       </div>
       <div class="new-print-modal__tip">
