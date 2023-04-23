@@ -15,7 +15,7 @@ export default {
       {
         name: '',
         style: {},
-        colspan: "2", 
+        colspan: "2",
         rowspan: "1",
         key:'recordYear'
       },
@@ -272,7 +272,6 @@ export default {
       },
       {
         name: `自定义1`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -284,7 +283,6 @@ export default {
       },
       {
         name: `自定义2`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -322,20 +320,20 @@ export default {
       //   `,
       //   colspan: "1",
       //   rowspan: "3",
-     
+
       // }
     ],
     mid: [
-      { 
-        name: `日期`, 
+      {
+        name: `日期`,
         colspan: "1",
-        rowspan: "2" 
-        
+        rowspan: "2"
+
       },
-      { 
+      {
         name: `时间`,
-        colspan: "1", 
-        rowspan: "2" 
+        colspan: "1",
+        rowspan: "2"
       },
       {
         name: "内容",
@@ -415,4 +413,4 @@ export default {
 
     ]
   }
-}; 
+};

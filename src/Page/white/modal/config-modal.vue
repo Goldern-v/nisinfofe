@@ -190,7 +190,7 @@ export default {
         configure: "",
         sortValue: "",
         configureType: "2",
-        showOrHide: false,
+        showOrHide: true,
         customItem: true
       });
     },
