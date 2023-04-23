@@ -111,7 +111,7 @@
 
   .bottom-line {
     display: inline-block;
-    // border-bottom: 1px solid #000;
+    border-bottom: 1px solid #000;
     padding: 2px 0 2px 2px;
   }
 
