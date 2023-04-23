@@ -452,6 +452,9 @@ input.bottom-line {
   align-items: center;
   font-size:14px;
 }
+.bottom-line{
+  border-bottom: none;
+}
 input[type='checkbox'] {
   -webkit-appearance: none;
   vertical-align: text-top;
