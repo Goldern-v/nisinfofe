@@ -159,6 +159,7 @@
           :height="modalHeight"
           @selection-change="handleSelectionChange"
           @select="handleSelect"
+          :row-class-name = "objectSpanMethod"
           @row-click="handleRowClick"
           :row-style="styleByrecordSync"
         >
@@ -176,7 +177,10 @@
             align="center"
           >
             <template slot-scope="scope">
-              <span v-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
+              <span v-if="['lyxrm'].includes(HOSPITAL_ID)">{{
+                scope.row.recordDate.split(" ")[0]
+              }}</span>
+              <span v-else-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
                 scope.row.recordDate.split(" ")[0]
               }}</span>
               <masked-input
@@ -220,7 +224,10 @@
             align="center"
           >
             <template slot-scope="scope">
-              <span v-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
+              <span v-if="['lyxrm'].includes(HOSPITAL_ID)">{{
+                scope.row.recordDate.split(" ")[1]
+              }}</span>
+              <span v-else-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
                 scope.row.recordDate.split(" ")[1]
               }}</span>
               <!-- <el-input v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst" :value="scope.row.recordDate.split(' ')[1]" @input="(value)=>changeRecordDate(scope.row,'Hour',value)"></el-input> -->
@@ -370,6 +377,9 @@
   >>>.el-table .cell, >>>.el-table th > div {
     padding: 0 5px;
   }
+  >>>.el-table__row.noselect td.el-table-column--selection > .cell{
+    display:none
+  }
 }
 </style>
 <script>
@@ -424,7 +434,7 @@ export default {
         : "",
       repeatIndicator: "",
       instructions:'',//入量名称
-      identicalGroupSelect: ["wujing"],
+      identicalGroupSelect: ["wujing",'lyxrm'],
       repeatIndicatorList: [
         {
           id: "",
@@ -737,13 +747,20 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
+    objectSpanMethod(row, index ){
+      if(index ==0) return ""
+      if(this.tableDatalist[index-1].orderNo === this.tableDatalist[index].orderNo ){
+        return "noselect"
+      }else return ""
+    },
     // 同组选中
     handleSelect(selection, row) {
       if (!this.identicalGroupSelect.includes(this.HOSPITAL_ID)) return;
       let isAdd = selection.includes(row);
       this.tableData
         .filter((item) => {
-          return item.barcode === row.barcode;
+          if(!['lyxrm'].includes(this.HOSPITAL_ID)) return item.barcode === row.barcode;
+          else return item.orderNo === row.orderNo;
         })
         .map((item) => {
           this.$refs["zxdtb-table"].toggleRowSelection(item, isAdd);
@@ -782,13 +799,26 @@ export default {
     tableDatalist(){
       let tableDatalist = []
       if(this.yizhuTypeItem==="" || !this.showAdvice){
-        return this.tableData
+        tableDatalist = this.tableData
       }else{
         this.tableData.map(item=>{
           if(item.repeatIndicator===this.yizhuTypeItem) tableDatalist.push(item)
         })
-        return tableDatalist
       }
+      if(['lyxrm'].includes(this.HOSPITAL_ID)){
+        const map = {}
+        tableDatalist.forEach(obj => {
+          const { orderNo } = obj;
+          if(map[orderNo]){
+              map[orderNo].push(obj);
+          }else{
+              map[orderNo] = [obj]
+          }
+        });
+        let result = []
+        Object.keys(map).forEach(item=>result = [...result,...map[item]])
+        return result
+      }else return tableDatalist
     },
     patientInfo() {
       if (this.sheetInfo.selectBlock) {
