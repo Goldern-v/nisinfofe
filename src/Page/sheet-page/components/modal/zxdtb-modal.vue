@@ -159,7 +159,6 @@
           :height="modalHeight"
           @selection-change="handleSelectionChange"
           @select="handleSelect"
-          :row-class-name = "objectSpanMethod"
           @row-click="handleRowClick"
           :row-style="styleByrecordSync"
         >
@@ -747,12 +746,6 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    objectSpanMethod(row, index ){
-      if(index ==0) return ""
-      if(this.tableDatalist[index-1].orderNo === this.tableDatalist[index].orderNo ){
-        return "noselect"
-      }else return ""
-    },
     // 同组选中
     handleSelect(selection, row) {
       if (!this.identicalGroupSelect.includes(this.HOSPITAL_ID)) return;
@@ -805,20 +798,7 @@ export default {
           if(item.repeatIndicator===this.yizhuTypeItem) tableDatalist.push(item)
         })
       }
-      if(['lyxrm'].includes(this.HOSPITAL_ID)){
-        const map = {}
-        tableDatalist.forEach(obj => {
-          const { orderNo } = obj;
-          if(map[orderNo]){
-              map[orderNo].push(obj);
-          }else{
-              map[orderNo] = [obj]
-          }
-        });
-        let result = []
-        Object.keys(map).forEach(item=>result = [...result,...map[item]])
-        return result
-      }else return tableDatalist
+      return tableDatalist
     },
     patientInfo() {
       if (this.sheetInfo.selectBlock) {
