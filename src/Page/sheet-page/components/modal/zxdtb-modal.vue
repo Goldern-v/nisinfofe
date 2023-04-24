@@ -771,8 +771,7 @@ export default {
       })
     },
     isSelectable(row, index) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      return this.HOSPITAL_ID !== 'whsl' || (user && user.deptCode === row.wardCode);
+      return this.HOSPITAL_ID !== 'whsl' || this.patientInfo.deptCode === row.wardCode;
     }
   },
   computed: {
