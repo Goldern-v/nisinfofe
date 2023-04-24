@@ -36,9 +36,16 @@
         年龄:
         <div class="bottom-line" style="min-width: 40px">{{patientInfo.age}}</div>
       </span>
-      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+      <!-- <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号:
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+      </span> -->
+      <span>
+          床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.bedLabel }}
+          <!-- {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }} -->
+        </div>
       </span>
       <span>
         住院号:
@@ -82,82 +89,93 @@
       </span> -->
      </div>
     </div>
-  <div v-else>
-    <div class="info-con">
-     <span>
-        科室:
-        <div class="bottom-line" style="min-width: 400px">{{patientInfo.realDeptName}}</div>
-      </span>
+    <div v-else>
+      <div class="info-con">
       <span>
-        病区:
-        <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
-      </span>
-      </div>
-    <div class="info-con" >
-      <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
-        姓名:
-        <div class="bottom-line" style="min-width: 65px">{{patientInfo.patientName}}</div>
-      </span>
-      <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
-        性别:
-        <div class="bottom-line" style="min-width: 30px">{{patientInfo.sex}}</div>
-      </span>
-      <!-- <span @click="updateNeonatology2Age" v-if="sheetInfo.sheetType == 'neonatology2'">
-        年龄:
-        <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
-      </span> -->
-      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
-        年龄:
-        <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
-      </span>
-      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
-        床号:
-        <div class="bottom-line" style="min-width: 90px">{{patientInfo.bedLabel}}</div>
-      </span>
-      <span>
-        住院号:
-        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
-      </span>
-      <!-- <span>
-        诊断:
-        <div  class="bottom-line" style="min-width: 480px">{{patientInfo.diagnosis}}</div>
-      </span> -->
-      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
-        诊断：
-        <div
-          class="bottom-line"
-          style="
-            width: 480px;
-            height: 11px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          "
-        >
-          {{ diagnosis }}
+          科室:
+          <div class="bottom-line" style="min-width: 400px">{{patientInfo.realDeptName}}</div>
+        </span>
+        <span>
+          病区:
+          <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
+        </span>
         </div>
-      </span>
-      <!-- <span>
-        ID号:
-        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
-      </span> -->
-      <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
-        温箱编号:
-        <input
-          class="bottom-line"
-          style="width: 30px"
-          @focus="onFocusToAutoComplete($event)"
-          @blur="onBlurToAutoComplete"
-          v-model="relObj.wxNo"
-        />
-      </span>-->
-      <!-- <span>
-        入院日期:
-        {{patientInfo.admissionDate | toymd}}
-      </span> -->
-     </div>
-  </div>
+      <div class="info-con" >
+        <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
+          姓名:
+          <div class="bottom-line" style="min-width: 65px">{{patientInfo.patientName}}</div>
+        </span>
+        <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
+          性别:
+          <div class="bottom-line" style="min-width: 30px">{{patientInfo.sex}}</div>
+        </span>
+        <!-- <span @click="updateNeonatology2Age" v-if="sheetInfo.sheetType == 'neonatology2'">
+          年龄:
+          <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
+        </span> -->
+        <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
+          年龄:
+          <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
+        </span>
+        <span v-if="['orthopaedic_sdry', 'oxytocin_sdry', 'insulin_pump_sdry'].includes(sheetInfo.sheetType)">
+          床号：
+          <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+            {{ patientInfo.bedLabel }}
+            <!-- {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }} -->
+          </div>
+        </span>
+        <span v-else @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+          床号:
+          <div class="bottom-line" style="min-width: 90px">{{patientInfo.bedLabel}}</div>
+        </span>
+        <span>{{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}</span>
+        <span>
+          住院号:
+          <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+        </span>
+        
+        <!-- <span>
+          诊断:
+          <div  class="bottom-line" style="min-width: 480px">{{patientInfo.diagnosis}}</div>
+        </span> -->
+        <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+          诊断：
+          <div
+            class="bottom-line"
+            style="
+              width: 480px;
+              height: 11px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            "
+          >
+            {{ diagnosis }}
+          </div>
+        </span>
+        <!-- <span>
+          ID号:
+          <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
+        </span> -->
+        <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
+          温箱编号:
+          <input
+            class="bottom-line"
+            style="width: 30px"
+            @focus="onFocusToAutoComplete($event)"
+            @blur="onBlurToAutoComplete"
+            v-model="relObj.wxNo"
+          />
+        </span>-->
+        <!-- <span>
+          入院日期:
+          {{patientInfo.admissionDate | toymd}}
+        </span> -->
+      </div>
+    </div>
     <!-- <span>入院日期:{{$route.query.admissionDate}}</span> -->
+    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
   </div>
+  
 </template>
 
 <script>
@@ -169,6 +187,7 @@ import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
 import bedRecordModal from "../../../modal/bedRecord-modal";
 import { saveBody }  from  "@/api/sheet.js"
+
 export default {
   props: {
     patientInfo: Object,
@@ -346,8 +365,8 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      // 把当前页护记的页码存入,用于每一页床号的自定义
-      this.$refs.bedRecordModal.open('',this.index);
+      //修改床号同步都每一页
+      this.$refs.bedRecordModal.open('', "-1");
     },
     updateBirthDay() {
       window.openSetAuditDateModal(
