@@ -1,121 +1,139 @@
 <template>
   <div>
     <div class="main-contain">
-      <div class="head-con">
-        <span class="label" style="margin-left: 0">执行日期:</span>
+      <div ref="scrollRef" class="head-con" @wheel.prevent="onScrollX">
+        <div class="head-left">
+          <span class="label" style="margin-left: 0">执行日期:</span>
+          <el-date-picker
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择入院起始时间"
+            size="small"
+            v-model="startDate"
+            style="width:160px"
+          ></el-date-picker>
+          &nbsp;--&nbsp;
+          <el-date-picker
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择终止时间"
+            size="small"
+            v-model="endDate"
+            style="width:160px"
+          ></el-date-picker>
 
-        <el-date-picker
-          type="datetime"
-          format="yyyy-MM-dd HH:mm:ss"
-          placeholder="选择入院起始时间"
-          size="small"
-          v-model="startDate"
-          style="width:160px"
-        ></el-date-picker>
-        &nbsp;--&nbsp;
-        <el-date-picker
-          type="datetime"
-          format="yyyy-MM-dd HH:mm:ss"
-          placeholder="选择终止时间"
-          size="small"
-          v-model="endDate"
-          style="width:160px"
-        ></el-date-picker>
-
-        <span class="label">长/临:</span>
-        <el-row class="select-btn-list" type="flex" align="middle">
-          <el-radio-group v-model="repeatIndicator">
-            <el-radio class="radio" label>全部</el-radio>
-            <el-radio class="radio" label="1">长嘱</el-radio>
-            <el-radio class="radio" label="0">临嘱</el-radio>
-            <!-- <el-radio class="radio" label="2">单药处方</el-radio> -->
-          </el-radio-group>
-        </el-row>
-        <span class="label">状态:</span>
-        <el-select
-          v-model="status"
-          placeholder="请选择"
-          size="small"
-          style="width:90px"
-          v-if="HOSPITAL_ID !='whsl'"
-        >
-          <el-option
-            :label="item.name"
-            :value="item.id"
-            v-for="item in statusList"
-            :key="item.id"
-          ></el-option>
-        </el-select>
-        <el-select
-          v-model="status"
-          placeholder="请选择"
-          size="small"
-          style="width:90px"
-          v-if="HOSPITAL_ID =='whsl'"
-        >
-          <el-option
-            :label="item.name"
-            :value="item.id"
-            v-for="item in whslstatusList"
-            :key="item.id"
-          ></el-option>
-        </el-select>
-        <span class="label">类型:</span>
-<!--        @change="handleChangeType"-->
-        <el-select
-          v-model="type"
-          placeholder="请选择"
-          size="small"
-          style="width:180px">
-          <el-option
-            :label="typeItem.name"
-            :value="typeItem.value"
-            v-for="typeItem in allType"
-            :key="typeItem.id"
-          ></el-option>
-        </el-select>
-        <span class="label" >核对状态:</span>
-        <el-select
-          v-model="dispenseFlag"
-          placeholder="请选择"
-          size="small"
-          style="width:80px"
-        >
-          <el-option
-            :label="v.name"
-            :value="v.value"
-            v-for="v in dispenseFlagList"
-            :key="v.value"
-          ></el-option>
-        </el-select>
-        <div style="flex: 1"></div>
-        <el-input
-          size="small"
-          style="width: 100px;margin-right: 15px;"
-          placeholder="输入病人姓名进行搜索"
-          v-model="patientName"
-        ></el-input>
-        <el-input
-          size="small"
-          style="width: 75px;margin-right: 15px;"
-          placeholder="输入床号进行搜索"
-          v-model="bedLabel"
-        ></el-input>
-        <el-input
-          type="text"
-          auto-complete="off"
-          size="small"
-          style="width: 75px;margin-right: 15px;"
-          placeholder="输入途径进行搜索"
-          v-model="administration"
-        ></el-input>
-        <el-input style="width: 0px; padding: 0px; height: 0px; overflow: hidden;" />
-        <el-button size="small" type="primary" @click="postReason">同步</el-button>
-        <el-button size="small" type="primary" @click="search">查询</el-button>
+          <span class="label">长/临:</span>
+          <el-row class="select-btn-list" type="flex" align="middle" style="width: 180px">
+            <el-radio-group v-model="repeatIndicator">
+              <el-radio class="radio" label>全部</el-radio>
+              <el-radio class="radio" label="1">长嘱</el-radio>
+              <el-radio class="radio" label="0">临嘱</el-radio>
+              <!-- <el-radio class="radio" label="2">单药处方</el-radio> -->
+            </el-radio-group>
+          </el-row>
+          <span class="label">状态:</span>
+          <el-select
+            v-model="status"
+            placeholder="请选择"
+            size="small"
+            style="width:90px"
+            v-if="HOSPITAL_ID !='whsl'"
+          >
+            <el-option
+              :label="item.name"
+              :value="item.id"
+              v-for="item in statusList"
+              :key="item.id"
+            ></el-option>
+          </el-select>
+          <el-select
+            v-model="status"
+            placeholder="请选择"
+            size="small"
+            style="width:90px"
+            v-if="HOSPITAL_ID =='whsl'"
+          >
+            <el-option
+              :label="item.name"
+              :value="item.id"
+              v-for="item in whslstatusList"
+              :key="item.id"
+            ></el-option>
+          </el-select>
+          <span class="label">类型:</span>
+  <!--        @change="handleChangeType"-->
+          <el-select
+            v-model="type"
+            placeholder="请选择"
+            size="small"
+            style="width:180px">
+            <el-option
+              :label="typeItem.name"
+              :value="typeItem.value"
+              v-for="typeItem in allType"
+              :key="typeItem.id"
+            ></el-option>
+          </el-select>
+          <span class="label">病人分组:</span>
+          <el-select
+            v-model="patientGroup"
+            placeholder="请选择"
+            size="small"
+            style="width: 90px"
+            clearable
+          >
+            <el-option
+              v-for="item in patientGroup4Expand3"
+              :key="item.value"
+              :label="item.name"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+          <span class="label" >核对状态:</span>
+          <el-select
+            v-model="dispenseFlag"
+            placeholder="请选择"
+            size="small"
+            style="width:80px"
+          >
+            <el-option
+              :label="v.name"
+              :value="v.value"
+              v-for="v in dispenseFlagList"
+              :key="v.value"
+            ></el-option>
+          </el-select>
+          <div style="flex: 1"></div>
+          <el-input
+            size="small"
+            style="width: 100px;margin-right: 15px;"
+            placeholder="输入病人姓名进行搜索"
+            v-model="patientName"
+          ></el-input>
+          <el-input
+            size="small"
+            style="width: 75px;margin-right: 15px;"
+            placeholder="输入床号进行搜索"
+            v-model="bedLabel"
+          ></el-input>
+          <el-input
+            type="text"
+            auto-complete="off"
+            size="small"
+            style="width: 75px;margin-right: 15px;"
+            placeholder="输入途径进行搜索"
+            v-model="administration"
+          ></el-input>
+        </div>
+        <div class="head-right">
+          <el-input style="width: 0px; padding: 0px; height: 0px; overflow: hidden;" />
+          <el-button size="small" type="primary" @click="postReason">同步</el-button>
+          <el-button size="small" type="primary" @click="search">查询</el-button>
+        </div>
       </div>
 
       <dTable
-        :tableData="tableData"
+        :tableData="tableDataWithFilter"
         :currentType="type"
         :pageLoading="pageLoading"
         ref="plTable"
@@ -229,7 +247,25 @@
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-
+  overflow: auto;
+  position: relative;
+  padding-right: 114px;
+  .head-left {
+    flex: 1;
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    align-items: center;
+    /* overflow: auto; */
+    position: relative;
+  }
+  .head-right {
+    display: flex;
+    position: fixed;
+    right: 10px;
+    background-color: #f2f2f2;
+    padding: 2px;
+  }
   .label {
     font-size: 13px;
     margin-left: 15px;
@@ -272,6 +308,7 @@ import { getExecuteWithWardCodeLyxrm, syncExecuteByWardCode} from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
+
 export default {
   mixins: [common],
   data() {
@@ -391,9 +428,39 @@ export default {
           name: '已核对'
         },
       ],
+      patientGroup: '', // 病人分组
     };
   },
+  computed: {
+    // 病人分组过滤后的table
+    tableDataWithFilter() {
+      if (this.patientGroup) {
+        return this.tableData.filter(item => item.expand3 === this.patientGroup);
+      } else  {
+        return this.tableData;
+      }
+    },
+    // 病人分组（expand3字段）
+    patientGroup4Expand3() {
+      const result = Array.from(
+        new Set(this.tableData.map(item => item.expand3))
+      ).map(item => {
+        return {
+          name: item ? `分组${item}` : '无',
+          value: item
+        }
+      })
+      return result
+    },
+  },
   methods: {
+    onScrollX(e) {
+      const deltaX = -e.wheelDelta || e.deltaY + 40 || e.detail;
+      const scrollRef = this.$refs.scrollRef;
+      if (scrollRef) {
+        scrollRef.scrollLeft = scrollRef.scrollLeft + deltaX / 4
+      }
+    },
     handleSizeChange(newSize) {
       this.page.pageNum = newSize;
     },

@@ -2,8 +2,8 @@
   <div class="contain" :class="{fullpage}" v-loading="pageLoading" element-loading-text="正在保存">
     <div class="body-con" id="sheet_body_con" :style="{height: containHeight,overflow:'hidden'}">
       <div class="left-part" v-if="isAllCathterPage" >
-        <div class="head-con" flex>
-          <div class="dept-select-con"></div>
+        <div class="head-con" flex :style="{ height: hasPatientGroup ? '75px' : '41px' }">
+          <div class="dept-select-con" :style="{ height: hasPatientGroup ? '75px' : '41px' }"></div>
         </div>
         <follow-list :data="data.bedList" @selectPatient="onChangePatient_self" v-if="hasFollowList">
           <template  slot-scope="{ scope }">
@@ -18,7 +18,12 @@
             />
           </template>
         </follow-list>
-        <patientList :data="data.bedList"  v-loading="patientListLoading" @onChangePatient="onChangePatient_self"></patientList>
+        <patientList
+          :data="data.bedList"
+          v-loading="patientListLoading"
+          @onChangePatient="onChangePatient_self"
+          :hasPatientGroup="hasPatientGroup"
+        ></patientList>
       </div>
       <div class="right-part" v-loading="tableLoading" :class="{noAllpage:!isAllCathterPage}">
         <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
@@ -231,6 +236,9 @@ export default {
     hasFollowList(){
       return process.env.hasFollow
     },
+    hasPatientGroup() {
+      return ['nfyksdyy'].includes(this.HOSPITAL_ID);
+    }
   },
   methods: {
     // 更新导管数据

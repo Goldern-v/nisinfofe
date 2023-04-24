@@ -73,6 +73,28 @@
           <i class="icon-shoucang iconfont"></i>
           <span>{{ item.name }}（{{ item.num }}）</span>
         </div>
+
+        <div
+          class="s-item"
+          flex="cross:center"
+          v-if="item.type == 'select'"
+          :class="{ active: selectName == item.name }"
+        >
+          <el-select
+            size="mini"
+            v-model="paitentGroup"
+            placeholder="病人分组"
+            @change="onPatientGroupChange"
+            clearable
+          >
+            <el-option
+              v-for="opt in item.option"
+              :key="opt.value"
+              :label="opt.name"
+              :value="opt.value">
+            </el-option>
+          </el-select>
+        </div>
       </div>
 
       <button
@@ -335,6 +357,7 @@ export default {
       ifCanAsyncPatient:true,
       getThrottleTime,
       // hasGroupHos:['fuyou'] // 需要根据白板进行分组显示的医院
+      paitentGroup: '',
     };
   },
   computed: {
@@ -666,6 +689,13 @@ export default {
           type: "state",
         })
       }
+      if (['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+        list.splice(4, 0, {
+          name: "病人分组",
+          type: 'select',
+          option: this.patientGroup4Expand3,
+        })
+      }
       process.env.hasGroupHos && list.splice(1,0,{
         name: "默认管床",
         num: this.mrgc.length,
@@ -743,6 +773,21 @@ export default {
     tubingShedding(){
       return this.bedList.filter((item)=> item.tubingShedding == "1")
     },
+    // 病人分组（expand3字段）
+    patientGroup4Expand3() {
+      const result = Array.from(
+        new Set(this.bedList.map(item => item.expand3))
+      ).map(item => {
+        return {
+          name: item ? `分组${item}` : '无',
+          value: item
+        }
+      })
+      return result
+    },
+    bedList4PatientGroup() {
+      return this.bedList.filter(item => item.expand3 === this.paitentGroup);
+    }
   },
   methods: {
     async getData() {
@@ -809,6 +854,13 @@ export default {
         this.selectName = "全部床位";
       } else {
         this.selectName = name;
+      }
+    },
+    onPatientGroupChange(value) {
+      if (value) {
+        this.$parent.bedList = this.bedList4PatientGroup;
+      } else {
+        this.$parent.bedList = this.allBed;
       }
     },
     getLevelList(level) {
