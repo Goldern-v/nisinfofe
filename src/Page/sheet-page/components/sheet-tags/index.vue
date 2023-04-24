@@ -53,7 +53,7 @@ export default {
         scrollRef.scrollLeft = scrollRef.scrollLeft + deltaX / 4
       }
     },
-    // 打开评估单
+    // 打开护记单
     onOpenTagForm(tag) {
       this.selectedTag = tag;
       this.$emit('switchSheet', tag);
