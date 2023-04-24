@@ -179,7 +179,7 @@ export default {
     isDisabled(row) {
       const user = JSON.parse(localStorage.getItem("user"));
       // 患者科室 === 当前记录科室(禁用)
-      return this.HOSPITAL_ID === 'whsl' && (user && user.deptCode === row.wardCode);
+      return this.HOSPITAL_ID === 'whsl' && (user && user.deptCode !== row.wardCode);
     },
     changeEvalDate(){
       var date = new Date(this.value1)
