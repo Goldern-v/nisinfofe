@@ -1,7 +1,7 @@
 <template>
   <div>
     <sweet-modal ref="modal" :modalWidth="bedModalWidth" title="转床记录">
-      <div flex="cross:center">
+      <div flex="cross:center" v-if="HOSPITAL_ID !== 'nfyksdyy'">
         <span class="label">床号：</span>
         <div class="box">{{firstBedRecord}}</div><i class="el-icon-d-arrow-right p-20"></i>
         <div class="box">{{secondBedRecord}}</div><i class="el-icon-d-arrow-right p-20"></i>
@@ -16,6 +16,7 @@
           style="width: 100%"
           height="350"
           @select="handleSelectionChange"
+          @select-all="selectAll"
         >
           <el-table-column type="selection"  min-width="50px" align="center"></el-table-column>
           <el-table-column prop="logDateTime" label="日期" min-width="125px" align="center">
@@ -104,20 +105,20 @@ export default {
       secondBedRecord:"",
       thirdBedRecord:"",
       bedLabel:"",
-      bedModalWidth:450,
-      activeIndex:'',//护记当前的页码，用于保存患者信息的relObj
+      bedModalWidth: 450,
+      activeIndex: '-1',//护记当前的页码，用于保存患者信息的relObj 默认父级不传index的时候就是默认修改床号同步同步至每一页
       oneBedHospital:['huadu','fsxt'],
     };
   },
   methods: {
     open(baseParams,index) {
+
       this.formlist = baseParams
       if (!this.patientInfo.patientId && !baseParams.patientId) {
         return this.$message.warning("请选择一名患者");
       }
       // 护记当前的页码。杏坛需求，床号每一页不一样，存在relObj里面
       if(index>=0){
-        console.log('index',index)
         this.activeIndex=index
       }
       this.searchDate = moment().format("YYYY-MM-DD");
@@ -141,7 +142,7 @@ export default {
           this.close();
           this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
           sheetInfo.relObj[`PageIndex_bedLabel_${this.activeIndex}`] = res.data.data.bedLabel;
-          this.bus.$emit("saveSheetPage", false);  
+          this.bus.$emit("saveSheetPage", false); 
         });
       }else{
         updateBlockInfo({
@@ -149,7 +150,7 @@ export default {
           visitId:this.patientInfo.visitId || this.formlist.visitId,
           id:this.sheetInfo.selectBlock.id,
           bedLogList:this.tableData,
-          bedLabel: this.bedLabel,
+          // bedLabel: this.bedLabel, // 都不用传这个 后端根据传的数组bedLogList的作处理selected
         }).then(res => {
           this.$message.success("保存成功");
           this.close();
@@ -191,6 +192,14 @@ export default {
           this.bedLabel = this.firstBedRecord
         }
       });
+    },
+    selectAll(selection) {
+      if (selection.length > 0) {
+        this.tableData.forEach(e => e.selected = true);
+      } else {
+        this.tableData.forEach(e => e.selected = false)
+      }
+      
     },
     handleSelectionChange(val,row) {
       row.selected = !row.selected

@@ -176,7 +176,10 @@
             align="center"
           >
             <template slot-scope="scope">
-              <span v-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
+              <span v-if="['lyxrm'].includes(HOSPITAL_ID)">{{
+                scope.row.recordDate.split(" ")[0]
+              }}</span>
+              <span v-else-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
                 scope.row.recordDate.split(" ")[0]
               }}</span>
               <masked-input
@@ -220,7 +223,10 @@
             align="center"
           >
             <template slot-scope="scope">
-              <span v-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
+              <span v-if="['lyxrm'].includes(HOSPITAL_ID)">{{
+                scope.row.recordDate.split(" ")[1]
+              }}</span>
+              <span v-else-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
                 scope.row.recordDate.split(" ")[1]
               }}</span>
               <!-- <el-input v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst" :value="scope.row.recordDate.split(' ')[1]" @input="(value)=>changeRecordDate(scope.row,'Hour',value)"></el-input> -->
@@ -370,6 +376,9 @@
   >>>.el-table .cell, >>>.el-table th > div {
     padding: 0 5px;
   }
+  >>>.el-table__row.noselect td.el-table-column--selection > .cell{
+    display:none
+  }
 }
 </style>
 <script>
@@ -424,7 +433,7 @@ export default {
         : "",
       repeatIndicator: "",
       instructions:'',//入量名称
-      identicalGroupSelect: ["wujing"],
+      identicalGroupSelect: ["wujing",'lyxrm'],
       repeatIndicatorList: [
         {
           id: "",
@@ -743,7 +752,8 @@ export default {
       let isAdd = selection.includes(row);
       this.tableData
         .filter((item) => {
-          return item.barcode === row.barcode;
+          if(!['lyxrm'].includes(this.HOSPITAL_ID)) return item.barcode === row.barcode;
+          else return item.orderNo === row.orderNo;
         })
         .map((item) => {
           this.$refs["zxdtb-table"].toggleRowSelection(item, isAdd);
@@ -771,8 +781,7 @@ export default {
       })
     },
     isSelectable(row, index) {
-      const user = JSON.parse(localStorage.getItem("user"));
-      return this.HOSPITAL_ID !== 'whsl' || (user && user.deptCode !== row.wardCode);
+      return this.HOSPITAL_ID !== 'whsl' || this.patientInfo.deptCode === row.wardCode;
     }
   },
   computed: {
@@ -782,13 +791,13 @@ export default {
     tableDatalist(){
       let tableDatalist = []
       if(this.yizhuTypeItem==="" || !this.showAdvice){
-        return this.tableData
+        tableDatalist = this.tableData
       }else{
         this.tableData.map(item=>{
           if(item.repeatIndicator===this.yizhuTypeItem) tableDatalist.push(item)
         })
-        return tableDatalist
       }
+      return tableDatalist
     },
     patientInfo() {
       if (this.sheetInfo.selectBlock) {

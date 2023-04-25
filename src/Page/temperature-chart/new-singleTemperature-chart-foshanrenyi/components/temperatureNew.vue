@@ -81,7 +81,9 @@ export default {
           // return "http://localhost:8080"
           return "http://192.168.103.17:9091"
         case 'nfyksdyy':
-          return "http://192.168.0.200:9091"
+          return "http://192.168.0.200:9091" // 医院内网
+          // return "http://59.38.110.189:9092" // 医院外网
+          // return "http://localhost:8080" // 本地
         default:
           break;
       }

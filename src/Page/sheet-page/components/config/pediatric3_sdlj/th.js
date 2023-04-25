@@ -14,12 +14,14 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1250px"
+      width: "1370px"
     },
     th: {
         top:
             [
-                {"name":"","colspan":"2","rowspan":"1","key":"recordYear"},
+                // {"name":"","colspan":"2","rowspan":"1","key":"recordYear"},
+                {"name":"日期","colspan":"1","rowspan":"3","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"时间","colspan":"1","rowspan":"3","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"体温<br/>℃","colspan":"1","rowspan":"3"},
                 {"name":"心率<br/>次/分","colspan":"1","rowspan":"3"},
                 {"name":"呼吸<br/>次/分","colspan":"1","rowspan":"3"},
@@ -32,18 +34,20 @@ export default {
                 {"name":"皮肤颜色","colspan":"1","rowspan":"3","canSet":true,"key":"skinColor"},
                 {"name":"皮肤弹性","colspan":"1","rowspan":"3","canSet":true,"key":"customItem1"},
                 {"name":"皮疹位置","colspan":"1","rowspan":"3","canSet":true,"key":"customItem2"},
+                {"name":"性质程度","colspan":"1","rowspan":"3","canSet":true,"key":"extent"},
+                {"name":"产瘤、头部血肿位置","colspan":"1","rowspan":"3","canSet":true,"key":"position"},
+                {"name":"呕吐物性质","colspan":"1","rowspan":"3","canSet":true,"key":"vomit"},
                 {"name":"电子血糖mmol/L","colspan":"1","rowspan":"3","canSet":true,"key":"customItem3"},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"customItem4"},
                 {"name":"护<br/>理<br/>措<br/>施","colspan":"1","rowspan":"3"},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
-                {"name":"审核<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
+                {"name":"上级<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}
             ]
         ,
         mid:
             [
-                {"name":"日期","colspan":"1","rowspan":"2","style":{"minWidth":"35px","maxWidth":"35px"}},
-                {"name":"时间","colspan":"1","rowspan":"2","style":{"minWidth":"35px","maxWidth":"35px"}},
+
                 {"name":"好","colspan":"1","rowspan":"2"},
                 {"name":"激<br/>惹","colspan":"1","rowspan":"2"},
                 {"name":"差","colspan":"1","rowspan":"2"},

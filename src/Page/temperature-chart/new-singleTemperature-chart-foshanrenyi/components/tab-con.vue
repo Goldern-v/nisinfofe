@@ -1172,12 +1172,14 @@ export default {
     },
     /* 录入体温单 */
     async saveVitalSign(value) {
+      console.log('value', value)
       let obj = Object.values(value);
       let recordDate =
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
         "  " +
         this.query.entryTime;
       let saveFlagArr = [];
+      let temperatureError = false;
       obj.map((item) => {
         item.recordDate = recordDate;
         switch (item.vitalSigns) {
@@ -1201,7 +1203,17 @@ export default {
             saveFlagArr.push(false);
           }
         }
+        if (
+          ['体温', '口温', '肛温', '耳温'].includes(item.vitalSigns) &&
+          item.vitalValue && (item.vitalValue < 35 || item.vitalValue > 42)
+        ) {
+          temperatureError = true;
+        }
       });
+      // 顺德医院体温数据限制
+      if (temperatureError && ['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+        return this.$message.error("体温/口温/肛温/耳温数据范围限制35~42");
+      }
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
         timeStr: this.query.entryTime,

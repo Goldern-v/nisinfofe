@@ -19,6 +19,7 @@
     display none
   .inPrint
     display block
+    height: 29px
 @media print
   #sugarPagePrint
     .sugr-page

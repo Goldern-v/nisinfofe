@@ -15,10 +15,10 @@ import {
 } from "../keyEvent/date";
 import info from "../sheetInfo";
 
-const zgssList = ['软', '硬', '中'];
+const zgssList = ['良好', '乏力'];
 const gdgdList = ['U+1', 'U+2', 'U+3', 'U=0', 'U-1', 'U-2', 'U-3', 'U-4'];
-const rfqkList = ['(-)', '硬'];
-const mrqkList = ['少', '中等', '多'];
+const rfqkList = ['无肿胀', '乳房肿胀','乳头疼痛','乳管堵塞','乳房感染','乳头血性分泌物'];
+const mrqkList = ['正常', '泌乳不足', '乳汁过多'];
 const skqkList = ['红肿', '渗液', '水肿', '(-)', '会阴(-)'];
 const 意识 = ['清醒', '浅昏迷', '深昏迷', '模糊', '嗜睡', '昏睡', '谵妄'];
 const zdjnList = ['✓'];
@@ -187,7 +187,7 @@ export default [
       width: 48
     },
     autoComplete: {
-      data: ['干洁', '渗液']
+      data: ['干洁', '渗液','渗血']
     },
   },
   {
@@ -199,7 +199,7 @@ export default [
       width: 48
     },
     autoComplete: {
-      data: ['（—）', '红肿', '水肿']
+      data: ['正常', '红肿', '水肿','渗血','渗液','裂伤']
     },
   },
   {
@@ -289,6 +289,18 @@ export default [
     change: (e, td) => limitChange(e, td, 4),
     textarea: {
       width: 30
+    },
+  },
+  {
+    key: "armValue3", //标题1
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: {
+      width: 30
+    },
+    autoComplete: {
+      data: ['空虚', '轻度充盈', '中度充盈','重度充盈']
     },
   },
   {
