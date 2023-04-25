@@ -530,6 +530,29 @@ export default {
       if(process.env.HOSPITAL_ID === 'zhzxy'){
          return   this.saveZhzxy()
       }
+      let strSignData = JSON.stringify({
+          measureStr: this.measureStr,
+          targetStr: this.targetStr,
+          factorStr: this.factorStr||''
+        })
+        let SigndataObj = {
+          Patient_ID:this.$route.query.patientId,
+          Visit_ID:this.$route.query.visitId,
+          Document_Title:"",
+          Document_ID:!this.$route.path.includes('newSingleTemperatureChart') ? model.selectedBlock.wardCode : this.$store.state.sheet.patientInfo.wardCode,
+          Section_ID:!this.$route.path.includes('newSingleTemperatureChart') ? model.selectedBlock.wardCode : this.$store.state.sheet.patientInfo.wardCode,
+          strSignData: strSignData,
+        };
+
+        let verifySignObj = {
+          patientId:this.$route.query.patientId,
+          visitId:this.$route.query.visitId,
+          formName:"",
+          formCode:!this.$route.path.includes('newSingleTemperatureChart') ? model.selectedBlock.wardCode : this.$store.state.sheet.patientInfo.wardCode,
+          instanceId:!this.$route.path.includes('newSingleTemperatureChart') ? model.selectedBlock.wardCode : this.$store.state.sheet.patientInfo.wardCode,
+          recordId:"",
+          signData:strSignData,
+        }
         window.openSignModal((password, empNo) => {
         let obj = {
           creator: password,
@@ -575,7 +598,7 @@ export default {
                 target:""
       });
           });
-      });
+      },undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
     },
     openSlideRight() {
       this.openSlideCon({
