@@ -120,7 +120,7 @@ export default {
         canSet: false,
       },
       {"name":"","colspan":"1","rowspan":"3", canSet: true, key: "customItem1","style":{"minWidth":"45px","maxWidth":"45px"}},
-      {"name":"","colspan":"1","rowspan":"3", canSet: true, key: "customItem2","style":{"minWidth":"45px","maxWidth":"45px"}},
+      // {"name":"","colspan":"1","rowspan":"3", canSet: true, key: "customItem2","style":{"minWidth":"45px","maxWidth":"45px"}},
 
       {
         name: `特殊情况记录`,
