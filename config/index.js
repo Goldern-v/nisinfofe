@@ -87,10 +87,10 @@ const currentTargetUrl = (() => {
 
     /** 江门妇幼 */
     case "fuyou":
-      return "http://218.14.180.38:9094" // 江门妇幼正式
+      // return "http://218.14.180.38:9094" // 江门妇幼正式
           // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
       // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
-      // return "http://192.168.3.153:8080" // 本地
+      return "http://192.168.3.154:8080" // 本地
 
 
     /** 中山七 */
@@ -249,8 +249,8 @@ const currentTargetUrl = (() => {
 
     //武汉汉口
     case 'whhk':
-      return 'http://192.168.1.54:9883'
-      // return 'http://119.97.229.206:9094'
+      // return 'http://192.168.1.54:9883'
+      return 'http://119.97.229.206:9094'
     case 'dglb':
       // return 'http://192.168.1.54:9866'
           return  'http://219.131.142.78:9094'

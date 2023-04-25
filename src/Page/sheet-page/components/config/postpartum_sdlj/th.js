@@ -8,20 +8,20 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1230px"
+    width: "1260px"
   },
   th: {
     top: [
-      { 
-        name: `日期`, 
+      {
+        name: `日期`,
         colspan: "1",
-        rowspan: "3" 
-        
+        rowspan: "3"
+
       },
-      { 
+      {
         name: `时间`,
-        colspan: "1", 
-        rowspan: "3" 
+        colspan: "1",
+        rowspan: "3"
       },
       {
         name: `
@@ -72,7 +72,6 @@ export default {
 
       {
         name: `子宫收缩`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -84,7 +83,6 @@ export default {
       },
       {
         name: `宫底高度<br/>(U=<br/>FB)`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -96,7 +94,6 @@ export default {
       },
       {
         name: `乳房情况`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -108,7 +105,6 @@ export default {
       },
       {
         name: `泌乳情况`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -120,7 +116,6 @@ export default {
       },
       {
         name: `指导挤奶`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -132,7 +127,6 @@ export default {
       },
       {
         name: `腹部切口敷料`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -144,7 +138,6 @@ export default {
       },
       {
         name: `会阴伤口`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -156,7 +149,6 @@ export default {
       },
       {
         name: `肛门排气/肠鸣音<br /> (次/分)`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -184,7 +176,6 @@ export default {
       },
       {
         name: `标题1`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -195,8 +186,17 @@ export default {
         }
       },
       {
+        name: '膀胱充盈度',
+        colspan: "1",
+        rowspan: "3",
+        key: "armValue3",
+        style: {
+          minWidth: "30px",
+          maxWidth: "30px"
+        }
+      },
+      {
         name: ``,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -208,7 +208,6 @@ export default {
       },
       {
         name: '',
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -242,11 +241,11 @@ export default {
       },
       {
         name: `
-        上级护士签名
+        上级签名
         `,
         colspan: "1",
         rowspan: "3",
-     
+
       }
     ],
     mid: [
@@ -292,4 +291,4 @@ export default {
 
     ]
   }
-}; 
+};

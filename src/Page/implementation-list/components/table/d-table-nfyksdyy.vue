@@ -520,8 +520,8 @@ export default {
     pageLoading: Boolean,
     tableH: Number,
     currentType: {
-      type: Array,
-      default: () => ([])
+      type: String,
+      default: () => ""
     },
   },
   mixins: [commonMixin],

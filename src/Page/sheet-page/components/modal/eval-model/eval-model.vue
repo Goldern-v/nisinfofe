@@ -146,12 +146,13 @@
 <script>
 import moment from "moment";
 import { getListAssessment, signBlock, saveEvalDesc } from "./api";
-// import sheetInfo from "../../config/sheetInfo";
+import sheetInfo from "../../config/sheetInfo";
 import bus from "vue-happy-bus";
 import { mapMutations, mapState } from 'vuex';
 export default {
   data() {
     return {
+      sheetInfo,
       bus: bus(this),
       startData: "",
       endData: "",
@@ -165,10 +166,13 @@ export default {
   },
   computed: {
     ...mapState({
-      openModalFromSpecial: state => state.sheet.openModalFromSpecial
+      openModalFromSpecial: state => state.sheet.openModalFromSpecial,
     }),
     aaa() {
       moment(this.value11).format("YYYY-MM-DD");
+    },
+    patientInfo() {
+      return this.sheetInfo.selectBlock || {};
     }
   },
   watch: {
@@ -177,9 +181,9 @@ export default {
   methods: {
     ...mapMutations(['upOpenModalFromSpecial', 'upEvalData']),
     isDisabled(row) {
-      const user = JSON.parse(localStorage.getItem("user"));
+      // const user = JSON.parse(localStorage.getItem("user"));
       // 患者科室 === 当前记录科室(禁用)
-      return this.HOSPITAL_ID === 'whsl' && (user && user.deptCode === row.wardCode);
+      return this.HOSPITAL_ID === 'whsl' && this.patientInfo.deptCode !== row.wardCode;
     },
     changeEvalDate(){
       var date = new Date(this.value1)

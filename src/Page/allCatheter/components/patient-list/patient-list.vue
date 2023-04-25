@@ -1,6 +1,23 @@
 <template>
   <div class="patient-list-part">
-    <el-input placeholder="床号/姓名" icon="search" class="search-box" v-model="searchWord"></el-input>
+    <div class="search-box">
+      <el-input placeholder="床号/姓名" icon="search" v-model="searchWord"></el-input>
+      <el-select
+        size="small"
+        v-model="patientGroup"
+        placeholder="病人分组"
+        clearable
+        v-if="hasPatientGroup"
+        style="margin-top: 8px"
+      >
+        <el-option
+          v-for="opt in patientGroup4Expand3"
+          :key="opt.value"
+          :label="opt.name"
+          :value="opt.value">
+        </el-option>
+      </el-select>
+    </div>
     <div class="patient-list-contain">
       <div
         class="patient-box"
@@ -52,7 +69,7 @@
     font-size 13px
     border-radius 3px
     margin 1px 0
-    position relative 
+    position relative
     .img
       height 30px
       width 30px
@@ -78,12 +95,12 @@
     margin-bottom 5px
   >>>.el-input__inner
     height 28px
-    outline none  
+    outline none
     padding-left 10px
-    background #fff    
+    background #fff
     border-radius 4px
     font-size 12px !important
-    color #333   
+    color #333
 .cathter-icon
   width: 20px;
   height: 20px;
@@ -97,11 +114,13 @@
 <script>
 export default {
   props: {
-    data: Array
+    data: Array,
+    hasPatientGroup: Boolean,
   },
   data() {
     return {
-      searchWord: ""
+      searchWord: "",
+      patientGroup: "",
     };
   },
   methods: {
@@ -115,12 +134,29 @@ export default {
   },
   computed: {
     list() {
-      let renderList = this.data.filter(item => item.bedLabel.indexOf(this.searchWord) > -1 ||item.name.indexOf(this.searchWord) > -1 )
+      let renderList = this.data.filter(
+        item => item.bedLabel.indexOf(this.searchWord) > -1 || item.name.indexOf(this.searchWord) > -1
+      )
+      if (this.patientGroup && this.hasPatientGroup) {
+        renderList = renderList.filter(item => item.expand3 === this.patientGroup);
+      }
       return this.HOSPITAL_ID=='whfk'?renderList
       .sort((item1,item2)=> item1.bedLabel - item2.bedLabel)
       :
       renderList
-    }
+    },
+    // 病人分组（expand3字段）
+    patientGroup4Expand3() {
+      const result = Array.from(
+        new Set(this.data.map(item => item.expand3))
+      ).map(item => {
+        return {
+          name: item ? `分组${item}` : '无',
+          value: item
+        }
+      })
+      return result
+    },
   },
   created() {
     this.$store.commit("upPatientInfo", {});

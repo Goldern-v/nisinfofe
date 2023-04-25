@@ -201,8 +201,8 @@
         @mouseout="closeMarkTip"
         :recordId="tr.find((item) => item.key == 'id').value"
       >
+      <template v-for="(td, x) in tr">
         <td
-          v-for="(td, x) in tr"
           :key="td.key"
           :dataKey="td.key"
           :dataName="td.name"
@@ -523,7 +523,7 @@
               {{tr.identificationUsage}}
             </div>
         </td>
-        <span v-show="false" v-else>{{ td.key }}: {{ td.value }}</span>
+      </template>
       </tr>
     </table>
 
@@ -1664,7 +1664,7 @@ export default {
                 signData:JSON.stringify(strSignData)
                 }
             }
-            this.$refs.signModal.open((password, empNo) => {
+            window.openSignModal((password, empNo) => {
 
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
@@ -1978,7 +1978,7 @@ export default {
                   formCode:sheetInfo.sheetType,// -- 表单ID
                 };
               }
-          this.$refs.signModal.open((password, empNo) => {
+            window.openSignModal((password, empNo) => {
             let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;

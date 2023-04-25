@@ -3,6 +3,7 @@
     class="patient-list-part"
 
     v-loading="patientListLoading"
+    :style="{ paddingTop: hasPatientGroup ? '80px' : '45px' }"
   >
     <div class="search-box" v-if="!isRefresh">
       <el-input
@@ -10,6 +11,21 @@
         icon="search"
         v-model="searchWord"
       ></el-input>
+      <el-select
+        size="small"
+        v-model="patientGroup"
+        placeholder="病人分组"
+        clearable
+        v-if="hasPatientGroup"
+        style="margin-top: 8px"
+      >
+        <el-option
+          v-for="opt in patientGroup4Expand3"
+          :key="opt.value"
+          :label="opt.name"
+          :value="opt.value">
+        </el-option>
+      </el-select>
     </div>
     <div class="search-box" v-else>
       <el-input
@@ -292,7 +308,6 @@
 </style>
 <script>
 import common from "@/common/mixin/common.mixin.js";
-
 import { listItem } from "@/api/common.js";
 import { patients } from "@/api/lesion";
 import {getPatientInfo} from "@/api/common"
@@ -328,12 +343,9 @@ export default {
       isGroup:false ,// 是否选中管床
       makePatient:'',// 贵州护理巡视表的点击患者
       lockHospitalList:['huadu'],//有锁定功能的医院
-      // 进入页面是否自动选择第一个患者
-      // isAutoSelect: ['lyxrm', 'foshanrenyi','lyyz','fsxt','wujing'].includes(this.HOSPITAL_ID),
-      // 切换模块回来时能拿到之前的数据
-      // isAutoSelected:['lyyz', 'foshanrenyi','fsxt','wujing'].includes(this.HOSPITAL_ID),
       levelColor:{},
       isRefresh: ['whsl'].includes(this.HOSPITAL_ID)&&location.href.includes('newSingleTemperatureChart'),
+      patientGroup: '', // 病人分组
     };
   },
   methods: {
@@ -359,12 +371,6 @@ export default {
         patients(this.deptCode,config).then((res) => {
           let {data:{data}} = res
           let bedData = data.filter(item=>item.patientId)
-          // if(process.env.hasGroupHos){
-          //   let isGroup = bedData.every(item=>item.focus == false) // 如果未进行分组，默认显示全部
-          //   this.bedList = isGroup?bedData:bedData.filter(item=>item.focus);
-          // }else{
-          //   this.bedList = bedData;
-          // }
           this.baseBedList = bedData
           this.bedList = bedData;
           this.hasGroupHos && this.groupBedList.length && (this.isGroup = true)
@@ -375,16 +381,6 @@ export default {
     },
     selectPatient(patient) {
       this.selectPatientId = patient.patientId;
-      // console.log(
-      //   "selectPatient",
-      //   patient,
-      //   patient.name,
-      //   patient.patientId,
-      //   patient.visitId,
-      //   patient.formId,
-      //   this.$route.path,
-      //   this.$route, 88888
-      // );
       if (this.callFunction) {
         this.$route.query.patientId = patient.patientId;
         this.$route.query.visitId = patient.visitId;
@@ -392,7 +388,6 @@ export default {
         patient.formId = this.$route.params.formId || "";
         //
         this.$store.commit("upCurrentPatientObj", patient);
-        // console.log(this.$store.getters.getCurrentPatient(),'this.$store.getters.getCurrentPatient();');
         this.$store.commit("upWardCode", patient.wardCode || "");
         this.$store.commit("upWardName", patient.wardName || "");
         //patient 参数 true是否要滚动到最后一页
@@ -428,7 +423,6 @@ export default {
         let res = await getPatientInfo(patientId,visitId)
         p = res.data.data
       }
-       console.log(p,'p',currentPatient);
       if (p) {
         if(currentPatient){
           p = {...currentPatient,...p}
@@ -445,15 +439,11 @@ export default {
     },
     /**初始自动选择第一个患者 by临邑 */
     selectFirstPatient() {
-      // if (!this.isAutoSelect) return
-      // if (this.sortList.length === 0) return this.$router.push('/sheetPage')
-      console.log('this.curSheetPatient',this.curSheetPatient.name);
       let item = this.sortList[0]
       if (this.curSheetPatient.patientId) {
         item = this.curSheetPatient
         this.makePatient = this.curSheetPatient.bedLabel
         this.selectPatient(item)
-        // this.bus.$emit('initSheetPageSize')
       }
       this.$router.replace({
         name: this.toName,
@@ -538,6 +528,9 @@ export default {
           JSON.parse(JSON.stringify(putSortList))
         );
       } catch (error) {}
+      if (this.hasPatientGroup && this.patientGroup) {
+        return putSortList.filter(item => item.expand3 === this.patientGroup);
+      }
       return putSortList;
     },
     openLeft() {
@@ -557,6 +550,21 @@ export default {
     },
     groupBedList(){
       return this.baseBedList.filter(item=>item.focus)
+    },
+    hasPatientGroup() {
+      return ['nfyksdyy'].includes(this.HOSPITAL_ID);
+    },
+    // 病人分组（expand3字段）
+    patientGroup4Expand3() {
+      const result = Array.from(
+        new Set(this.bedList.map(item => item.expand3))
+      ).map(item => {
+        return {
+          name: item ? `分组${item}` : '无',
+          value: item
+        }
+      })
+      return result
     },
   },
   watch: {
@@ -600,7 +608,6 @@ export default {
     }
   },
   created(){
-    console.log(this.isRefresh,['whsl'].includes(this.HOSPITAL_ID),location.href.includes('newSingleTemperatureChart'))
     if (this.deptCode) {
       this.getDate();
     }

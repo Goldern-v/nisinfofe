@@ -1,11 +1,32 @@
 <template>
-  <div class="patient-list-part" :style="{ left: openLeft ? '0' : '-201px' }">
+  <div
+    class="patient-list-part"
+    :style="{
+      left: openLeft ? '0' : '-201px',
+      paddingTop: hasPatientGroup ? '80px' : '45px'
+    }"
+  >
     <div class="search-box">
       <el-input
         placeholder="床号/姓名"
         icon="search"
         v-model="searchWord"
       ></el-input>
+      <el-select
+        size="small"
+        v-model="patientGroup"
+        placeholder="病人分组"
+        clearable
+        v-if="hasPatientGroup"
+        style="margin-top: 8px"
+      >
+        <el-option
+          v-for="opt in patientGroup4Expand3"
+          :key="opt.value"
+          :label="opt.name"
+          :value="opt.value">
+        </el-option>
+      </el-select>
     </div>
     <div class="left-wapper">
       <follow-list
@@ -283,7 +304,8 @@ export default {
       imageGirl: require("./images/女婴.png"),
       imageMan: require("./images/男.png"),
       imageWomen: require("./images/女.png"),
-      noClearnCurrentPatient:['guizhou'] // 不需要清空当前选中患者的医院
+      noClearnCurrentPatient:['guizhou'], // 不需要清空当前选中患者的医院
+      patientGroup: '', // 病人分组
     };
   },
   methods: {
@@ -427,6 +449,9 @@ export default {
           JSON.parse(JSON.stringify(putSortList))
         );
       } catch (error) {}
+      if (this.hasPatientGroup && this.patientGroup) {
+        return putSortList.filter(item => item.expand3 === this.patientGroup);
+      }
       return putSortList;
     },
     openLeft() {
@@ -440,6 +465,21 @@ export default {
     },
     hasFollowList(){
       return process.env.hasFollow
+    },
+    hasPatientGroup() {
+      return ['nfyksdyy'].includes(this.HOSPITAL_ID);
+    },
+    // 病人分组（expand3字段）
+    patientGroup4Expand3() {
+      const result = Array.from(
+        new Set(this.data.map(item => item.expand3))
+      ).map(item => {
+        return {
+          name: item ? `分组${item}` : '无',
+          value: item
+        }
+      })
+      return result;
     },
   },
   watch: {

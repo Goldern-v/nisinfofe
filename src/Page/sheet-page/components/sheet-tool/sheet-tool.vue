@@ -233,22 +233,22 @@
         >
           <div class="text-con">科室模板</div>
         </div>
-        <div
-            class="item-box"
-            flex="cross:center main:center"
-            @click.stop="openTemplateSlider"
-            v-if="!isSingleTem && !isDeputy && isShow()"
-        >
-          <div class="text-con">特殊情况模板</div>
-        </div>
-        <div
-            class="item-box"
-            flex="cross:center main:center"
-            @click.stop="openTitleTemplateSlide"
-            v-if="!isSingleTem && !isDeputy && isShow()"
-        >
-          <div class="text-con">自定义标题模板</div>
-        </div>
+<!--        <div-->
+<!--            class="item-box"-->
+<!--            flex="cross:center main:center"-->
+<!--            @click.stop="openTemplateSlider"-->
+<!--            v-if="!isSingleTem && !isDeputy && isShow()"-->
+<!--        >-->
+<!--          <div class="text-con">特殊情况模板</div>-->
+<!--        </div>-->
+<!--        <div-->
+<!--            class="item-box"-->
+<!--            flex="cross:center main:center"-->
+<!--            @click.stop="openTitleTemplateSlide"-->
+<!--            v-if="!isSingleTem && !isDeputy && isShow()"-->
+<!--        >-->
+<!--          <div class="text-con">自定义标题模板</div>-->
+<!--        </div>-->
       </template>
     <template v-else>
       <div
@@ -1736,7 +1736,7 @@ export default {
       localStorage.setItem('sheetPageScrollValue',null)
       //原本写在选择器里 现在搬到watch离监听调用
       // 添加护记头部标签
-      if (item && typeof item !== 'boolean') {
+      if (item && typeof item !== 'boolean' && item.id) {
         this.$emit('mountSheetTag', item);
       }
     },

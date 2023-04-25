@@ -186,7 +186,7 @@ import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
 import bedRecordModal from "../../../modal/bedRecord-modal";
-import { saveBody }  from  "@/api/sheet.js"
+import { saveBody, queryDianosisList }  from  "@/api/sheet.js"
 
 export default {
   props: {
@@ -242,20 +242,24 @@ export default {
     },
     diagnosis() {
       /** 最接近的index */
-      let realIndex = 0;
-      let keys = Object.keys(sheetInfo.relObj || {});
-      for (let i = 0; i < keys.length; i++) {
-        let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
-        if (keyIndex !== undefined) {
-          if (this.index >= keyIndex) {
-            if (this.index - keyIndex <= this.index - realIndex) {
-              realIndex = keyIndex;
-            }
-          }
-        }
-      }
+      // let realIndex = 0;
+      // let keys = Object.keys(sheetInfo.relObj || {});
+      // for (let i = 0; i < keys.length; i++) {
+      //   let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
+      //   if (keyIndex !== undefined) {
+      //     if (this.index >= keyIndex) {
+      //       if (this.index - keyIndex <= this.index - realIndex) {
+      //         realIndex = keyIndex;
+      //       }
+      //     }
+      //   }
+      // }
+      // return (
+      //   (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+      //   this.patientInfo.diagnosis
+      // );
       return (
-        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${this.index}`] ||
         this.patientInfo.diagnosis
       );
     },
@@ -423,6 +427,22 @@ export default {
         `修改诊断`
       );
     },
+    async setDiagnosis() {
+      if (!this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]) {
+        try {
+          const res = await queryDianosisList({
+            patientId: this.patientInfo.patientId,
+            visitId: this.patientInfo.visitId,
+          })
+          const data = res.data.data || [];
+          if (data.length) {
+            this.$set(this.sheetInfo.relObj, `PageIndex_diagnosis_${this.index}`, data[0].diagnosisDesc);
+          }
+        } catch (error) {
+          throw new Error(error);
+        }
+      }
+    }
   },
   filters: {
     toymd(val) {
@@ -441,9 +461,15 @@ export default {
   components: {
     bedRecordModal,
   },
-  created(){
+  async created(){
     if(this.index!=0){
       this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo.relObj[`${this.index}pregnantWeeks`]?this.sheetInfo.relObj[`${this.index}pregnantWeeks`]: this.sheetInfo.relObj[`${this.index-1}pregnantWeeks`]
+    }
+    this.setDiagnosis();
+  },
+  watch: {
+    'patientInfo.patientId'() {
+      this.setDiagnosis();
     }
   }
 };
@@ -471,8 +497,12 @@ input.bottom-line {
   align-items: center;
   font-size:14px;
 }
+.bottom-line{
+  border-bottom: none;
+}
 input[type='checkbox'] {
   -webkit-appearance: none;
+  appearance: none;
   vertical-align: text-top;
   width: 14px;
   height: 14px;
