@@ -205,7 +205,7 @@
                   </template>
                   <div
                     :class="
-                      index.includes('自定义') ||
+                      (index.includes('自定义') && !isDglbProduction()) ||
                       index.includes('注释') ||
                       index.includes('体温复测')
                         ? 'rowItem_noShow'
@@ -923,6 +923,10 @@ async mounted() {
         }
       });
     },
+    isDglbProduction() {
+      return process.env.NODE_ENV === 'production' && this.HOSPITAL_ID === 'dglb';
+      // return this.HOSPITAL_ID === 'dglb';
+    },
     /* 获取字典表，整理某一行的同步信息 */
     async getVitalList() {
       let wardCode = this.patientInfo.wardCode;
@@ -949,7 +953,9 @@ async mounted() {
             default:
               break;
           }
-          if (item.signType==='custom'||item.vitalSign.includes("自定义")) {
+          if (this.isDglbProduction() && ['41', '42'].includes(item.vitalCode)) {
+            otherDic[item.vitalSign] = item.vitalCode;
+          } else if (item.signType==='custom'||item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
               patientId: this.patientInfo.patientId,
@@ -961,6 +967,7 @@ async mounted() {
             this.fieldList = { ...obj };
           }
         });
+        console.log('otherDic', otherDic)
         this.multiDictList = { ...data };
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };

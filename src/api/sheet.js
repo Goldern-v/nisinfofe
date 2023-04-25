@@ -187,3 +187,8 @@ export function list(groupName='全部',wardCode,hospitalId) {
   if(recordCode&&groupName&&wardCode)
     return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode})
  }
+
+// nurseDiagnosis/getList
+export const queryDianosisList = ({ patientId, visitId } = params) => {
+  return axios.post(`${apiPath}nurseDiagnosis/getList`, { patientId, visitId });
+}
