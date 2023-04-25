@@ -1664,7 +1664,7 @@ export default {
                 signData:JSON.stringify(strSignData)
                 }
             }
-            this.$refs.signModal.open((password, empNo) => {
+            window.openSignModal((password, empNo) => {
 
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
@@ -1978,7 +1978,7 @@ export default {
                   formCode:sheetInfo.sheetType,// -- 表单ID
                 };
               }
-          this.$refs.signModal.open((password, empNo) => {
+            window.openSignModal((password, empNo) => {
             let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;

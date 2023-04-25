@@ -356,10 +356,11 @@ export default {
                 this.close(true)
               }, 5000);
             }else if(res.data.data.jobStatus=='FINISH'){
-              this.$message({
-                type: "success",
-                message: res.data.data.message
-              });
+              // this.$message({
+              //   type: "success",
+              //   message: res.data.data.message
+              // });
+              this.$message.success("登入成功");
               // 就是成功
               this.$router.push("/");
               this.close()
@@ -380,7 +381,7 @@ export default {
                 clearInterval(this.setIntervalItem)
                 this.setIntervalItem=null;
                 this.authoState='0'
-                this.close(true)
+                // this.close(true)
               }, 1000);
             }
         //   }

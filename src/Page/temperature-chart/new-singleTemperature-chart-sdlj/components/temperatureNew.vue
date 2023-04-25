@@ -91,6 +91,7 @@ export default {
       return "http://192.168.1.37:9091"
     case 'dglb':
       return "http://10.51.7.22:9091"
+      // return "http://219.131.142.78:9094"
     default:
       break;
   }

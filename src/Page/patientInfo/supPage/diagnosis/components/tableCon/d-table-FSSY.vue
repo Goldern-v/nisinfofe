@@ -395,6 +395,7 @@ export default {
     },
     del(row) {
       // if (!this.verify()) return;
+      model.selectedRow = row;
      let strSignData = ""
      if(row.measuresName.length>0) row.measuresName.forEach(item=>{
       strSignData += item.measureDetail+'/n'
@@ -418,7 +419,6 @@ export default {
         recordId:"",
         signData:strSignData,
       }
-      model.selectedRow = row;
       window.openSignModal((password, empNo) => {
         console.log(password);
         nursingDiagsDel(password, empNo, model.selectedRow.id).then(res => {
