@@ -37,7 +37,7 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date, 
+    event: event_date,
     click: click_date
   },
   {
@@ -272,7 +272,7 @@ export default [
     next: "ml",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 40
     },
   },
   {
@@ -296,7 +296,7 @@ export default [
     next: "ml",
     change: (e, td) => limitChange(e, td, 3),
     textarea: {
-      width: 25
+      width: 40
     },
   },
   {
@@ -357,7 +357,7 @@ export default [
       width: 30
     },
   },
-  
+
   {
     key: "description", //特殊情况记录
     value: "",
