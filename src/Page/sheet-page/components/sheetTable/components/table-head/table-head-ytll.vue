@@ -156,8 +156,8 @@
       </span>
     </div>
     <div class="info-con">
-      <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll', 'babymilk_ytll', 'oxytocin_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)">
-        入院诊断：
+      <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll', 'babymilk_ytll', 'oxytocin_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+        诊断：
         <div
           class="bottom-line"
           style="
@@ -291,11 +291,11 @@ export default {
       window.openSetTextModal(
         (text) => {
           sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
-          this.$message.success(`修改入院诊断成功`);
+          this.$message.success(`修改诊断成功`);
           this.bus.$emit("saveSheetPage", false);
         },
         this.diagnosis,
-        `修改入院诊断`
+        `修改诊断`
       );
     },
     updateDiagops(key, label, autoText) {
