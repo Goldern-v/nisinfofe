@@ -5,6 +5,7 @@
       v-loading="pageLoading"
       :element-loading-text="pageLoadingText"
       ref="iframeLoadingV2"
+      @click="onAnthenPerm"
     >
       <iframe
         :style="{ height: iframeHeight + 'px' }"
@@ -13,6 +14,7 @@
         v-if="url"
         :src="url"
         @load="onload"
+        v-authen="authenPerm"
         ref="iframeV2"
       ></iframe>
     </div>
@@ -130,6 +132,7 @@ export default {
       marklist: [],
       handleMarklist: [],
       onlyView: false,
+      authenPerm: true,
     };
   },
   created() {
@@ -137,6 +140,9 @@ export default {
     this.bus.$on("closeAssessmentV2", () => {
       this.url = "";
     });
+    this.bus.$on("savaParamsPerm",(data)=>{
+      this.authenPerm = data
+    })
     this.bus.$on("openAssessmentV2", this.openUrl);
     this.bus.$on("openNewFormBoxV2", this.openNewFormBox);
     this.bus.$on("openMessageBoxV2", this.openMessageBox);
@@ -227,7 +233,22 @@ export default {
     // this.$refs["iframeLoadingV2"]["openyztbModal"] = this.openyztbModal;
     this.$root.$refs["iframeLoadingV2"] = this.$refs["iframeLoadingV2"];
   },
+  directives:{
+    authen:{
+      bind(el, binding){
+        if(!binding.value){
+          el.style.pointerEvents = 'none'
+          window.app.$root.$refs.iframeLoadingV2.style.cursor = 'no-drop'
+        }
+      }
+    }
+  },
   methods: {
+    onAnthenPerm(e){
+      if(!this.authenPerm) {
+       this.$message.warning('抱歉！您当前权限不能修改，只能查看！');
+      }
+    },
     openNewFormBox(box) {
       this.$refs.openFormModal.open(box);
     },

@@ -161,7 +161,7 @@
       </tr>
       <tr
         class="body-con"
-        @dblclick="openEditModal(tr, data, $event)"
+        @dblclick="openEditModal(tr, data, $event,y)"
         v-for="(tr, y) in data.bodyModel"
         :id ="`row_${y}`"
         :class="[
@@ -177,7 +177,8 @@
               tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
-            redBottom:['wujing'].includes(HOSPITAL_ID)&&redBottom(tr,y) // 待性能优化
+            redBottom:['wujing'].includes(HOSPITAL_ID)&&redBottom(tr,y), // 待性能优化
+            isCanModify: onCanModify(y),
           },
           tr.find((item) => {
             return item.key == 'markObj';
@@ -247,6 +248,7 @@
             :value="tr.find((item) => item.key == 'yearBreak').value"
             :data-value="tr.find((item) => item.key == 'yearBreak').value"
             :style="[td.style, { height: '12px' }]"
+            :class="{readonly: onCanModify(y)}"
             v-if="
               td.key === 'recordMonth' &&
               tr.find((item) => item.key == 'yearBreak').value
@@ -255,7 +257,7 @@
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
-            :class="{ noClick: td.signDisabled }"
+            :class="{ noClick: td.signDisabled ,readonly: onCanModify(y) }"
             @click.stop="
               toSign(tr, y, data.bodyModel, showSign(tr), $event, td)
             "
@@ -306,12 +308,13 @@
           <div
             v-else-if="td.key == 'audit'"
             class="sign-text"
-            :class="{ noClick: td.signDisabled }"
+            :class="{ noClick: td.signDisabled ,readonly: onCanModify(y)}"
             @click.stop="toAudit(tr, y, data.bodyModel, showAudit(tr), $event)"
             v-html="showAudit(tr)"
+
           ></div>
           <!-- 第一个签名的位置 -->
-          <div v-else-if="td.key == 'signerNo'" class="sign-img">
+          <div v-else-if="td.key == 'signerNo'" class="sign-img" :class="{readonly: onCanModify(y)}">
             <img
               v-if="tr.find((item) => item.key == 'auditorNo').value"
               :src="`/crNursing/api/file/signImage/${
@@ -384,6 +387,7 @@
             placeholder=""
             size="small"
             class="access-select"
+            :class="{readonly: onCanModify(y)}"
             autocomplete="off"
             :remote-method="remoteMethod"
             @visible-change="td.autoComplete && getOptionsData(td, tr, $event)"
@@ -401,6 +405,7 @@
               towLine: isOverText(td),
               maxHeight56: sheetInfo.sheetType == 'additional_count_hd',
               maxHeight40: sheetInfo.sheetType == 'cardiology_lcey',
+              readonly: onCanModify(y)
             }"
             :readonly="tr.isRead"
             :disabled="td.isDisabed"
@@ -485,6 +490,7 @@
             :disabled="td.isDisabed"
             v-model="td.value"
             :data-value="td.value"
+            :class="{ readonly: onCanModify(y)}"
             :position="`${x},${y},${index}`"
             @input="(e)=>splitSave && $emit('onModalChange',e,tr,x,y,index)"
             :style="[
@@ -1034,6 +1040,10 @@ export default {
               }).value == '5' && this.data.bodyModel[y+1] && this.data.bodyModel[y+1].find((item) => {
                 return item.key == 'recordSource';
               }).value != '5'
+    },
+    // 护士职称权限判断处理
+    onCanModify(y){
+      return !(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData[y] && this.listData[y].canModify)
     },
     // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
     getCompleteArr(tr, td) {
@@ -2706,9 +2716,9 @@ export default {
       e.preventDefault();
       window.openContextMenu({ style, data });
     },
-    openEditModal(tr, data, e) {
+    openEditModal(tr, data, e, y) {
       // 花都副页关闭编辑框
-      if(this.sheetInfo.sheetType=='additional_count_hd'  || this.sheetInfo.sheetType=='inout_ytll'){
+      if(this.sheetInfo.sheetType=='additional_count_hd'  || this.sheetInfo.sheetType=='inout_ytll' || this.onCanModify(y)){
         return
       }
       this.isOpenEditModal = true;
