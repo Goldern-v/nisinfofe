@@ -132,8 +132,7 @@ export const defaultFS_adult = {
   I2332149: '无',
   I2332094: "已完成",
   I2332026: "无",
-  I2332091: "正力型（匀称型）",
-  I2332188: "讲解",
+  I2332091:process.env.HOSPITAL_ID=='foshanrenyi' &&  "正力型（匀称型）",
   I2332189: "能接受",
   I2332102: "无",
   I2332093: "末次月经：",
@@ -155,7 +154,8 @@ export const defaultFS_adult = {
   S2332169:"无",
   I2332098:"无",
   S2332172:"无",
-  I2332230:"无"
+  I2332230:"无",
+  I2332188:process.env.HOSPITAL_ID=='nfyksdyy' && "住院须知,财物保管,作息时间,订餐,介绍主管医生,病房设施的使用",
 }
 
 export const defaultFS_child = {

@@ -1043,7 +1043,9 @@ export default {
     },
     // 护士职称权限判断处理
     onCanModify(y){
-      return !(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData[y] && this.listData[y].canModify)
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData[y]){
+        return this.listData[y].canModify == false
+      }
     },
     // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
     getCompleteArr(tr, td) {

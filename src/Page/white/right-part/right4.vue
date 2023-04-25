@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="HOSPITAL_ID !=='nfyksdyy'">
     <boxBase title="今日护士排班" :icon="require('../images/今日护士排班.png')">
       <el-button v-if="['fsxt'].includes(HOSPITAL_ID)" slot="head-btn" size="small" class="head-btn" @click="handleSync">同步</el-button>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-if="HOSPITAL_ID=='huadu'">

@@ -56,8 +56,8 @@
 }
 .container{
   margin: 20px;
-  width: 465px;
-  height: 300px;
+  width: 400px;
+  height: 280px;
   padding: 5px 8px;
   box-sizing: border-box;
   position: relative;
@@ -73,7 +73,7 @@
     top:20%;
     /*left: -5px;*/
     width: 50%;
-    height:80%;
+    height:72%;
 
     &.hasRemark {
       width: 96px;
@@ -172,7 +172,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: 100%;
+  height: 77%;
   .title-bed__1 {
     width: 80px;
     font-size: 18px;
