@@ -8,18 +8,18 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1230px"
+    width: "1260px"
   },
   th: {
     top: [
       {
         name: '',
         style: {},
-        colspan: "2", 
+        colspan: "2",
         rowspan: "1",
         key:'recordYear'
       },
-     
+
       {
         name: `
         体温<br/>℃
@@ -82,7 +82,6 @@ export default {
       // },
       {
         name: `子宫收缩`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -94,7 +93,6 @@ export default {
       },
       {
         name: `宫底高度<br/>(U=<br/>FB)`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -106,7 +104,6 @@ export default {
       },
       {
         name: `乳房情况`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -118,7 +115,6 @@ export default {
       },
       {
         name: `泌乳情况`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -142,7 +138,6 @@ export default {
       // },
       {
         name: `腹部切口敷料`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -154,7 +149,6 @@ export default {
       },
       {
         name: `会阴伤口`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -166,7 +160,6 @@ export default {
       },
       {
         name: `膀胱充<br />盈度`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -194,7 +187,6 @@ export default {
       },
       {
         name: '吸氧<br />升/分',
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -206,7 +198,6 @@ export default {
       },
       {
         name: '膝反射',
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -218,7 +209,6 @@ export default {
       },
       {
         name: `标题1`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -230,7 +220,6 @@ export default {
       },
       {
         name: `标题2`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -268,32 +257,18 @@ export default {
       //   `,
       //   colspan: "1",
       //   rowspan: "3",
-     
+
       // }
     ],
     mid: [
-      { 
-        name: `日期`, 
+      {
+        name: `日期`,
         colspan: "1",
-        rowspan: "2" 
-        
+        rowspan: "2"
+
       },
-      { 
+      {
         name: `时间`,
-        colspan: "1", 
-        rowspan: "2" 
-      },
-      {
-        name: "内容",
-        colspan: "1",
-        rowspan: "2",
-        style: {
-          minWidth: "65px",
-          maxWidth: "65px"
-        },
-      },
-      {
-        name: "量<br/>ml",
         colspan: "1",
         rowspan: "2"
       },
@@ -309,7 +284,29 @@ export default {
       {
         name: "量<br/>ml",
         colspan: "1",
-        rowspan: "2"
+        rowspan: "2",
+        style: {
+          minWidth: "35px",
+          maxWidth: "35px"
+        },
+      },
+      {
+        name: "内容",
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "65px",
+          maxWidth: "65px"
+        },
+      },
+      {
+        name: "量<br/>ml",
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "35px",
+          maxWidth: "35px"
+        },
       },
       {
         name: "颜色",
@@ -325,4 +322,4 @@ export default {
 
     ]
   }
-}; 
+};
