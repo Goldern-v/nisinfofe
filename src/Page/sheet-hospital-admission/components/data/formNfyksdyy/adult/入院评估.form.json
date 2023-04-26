@@ -5736,6 +5736,8 @@
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "inputStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
           "children": [
             {
               "name": "I2332181",
@@ -5945,6 +5947,8 @@
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "inputStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
           "children": [
             {
               "name": "I2332182",
@@ -6185,12 +6189,11 @@
       "classes": "",
       "readOnly": ""
     },
-
     {
       "name": "I2332188",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "八、入院健康教育",
+      "title": "入院健康教育",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -6210,12 +6213,14 @@
           "class": null,
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
           "children": [
             {
               "name": "I2332188",
               "type": "checkbox",
               "title": "住院须知",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 0;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -6224,7 +6229,7 @@
               "name": "I2332188",
               "type": "checkbox",
               "title": "财物保管",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 0;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -6233,7 +6238,7 @@
               "name": "I2332188",
               "type": "checkbox",
               "title": "作息时间",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 0;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -6242,7 +6247,7 @@
               "name": "I2332188",
               "type": "checkbox",
               "title": "订餐",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 0;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -6250,8 +6255,8 @@
             {
               "name": "I2332188",
               "type": "checkbox",
-              "title": "介绍主管医生 ",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "title": "介绍主管医生",
+              "elementStyle": "margin: 8px 0px 0 0;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -6259,8 +6264,8 @@
             {
               "name": "I2332188",
               "type": "checkbox",
-              "title": "病房设施的使用 ",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "title": "病房设施的使用",
+              "elementStyle": "margin: 8px 0px 0 0;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -6415,7 +6420,9 @@
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": null,
-          "class": null
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true
         },
         {
           "name": "auditorName",
@@ -6426,6 +6433,8 @@
           "inputWidth": "160px",
           "suffixDesc": "",
           "style": "cursor: pointer!important",
+          "labelLeft": true,
+          "hiddenTips": true,
           "class": null
         }
       ]
