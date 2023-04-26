@@ -108,7 +108,7 @@
                     <span style="color: red;">{{"推车登录请勾选!"}}</span>
                   </div>
                   <button
-                    v-if="!caLoginFlag"
+                    v-if=" HOSPITAL_ID==='whsl'?false :  !caLoginFlag"
                     style="background-color: #fff; float: right; border: 0"
                     @click="toReset()"
                   >
@@ -653,7 +653,7 @@ export default {
         .then((res) => {
           //登录后停止轮询
           clearInterval(loginTimer);
-          
+
           if (ifCA) {
             localStorage["caUser"] = this.account;
           }
@@ -851,7 +851,7 @@ export default {
       this.$store.commit("upDeptCode", "");
       localStorage.selectDeptValue = "";
       this.$store.commit("upDeptName", "");
-      
+
     },
     toReset() {
       this.$router.push("/resetPassword");
