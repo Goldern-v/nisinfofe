@@ -33,7 +33,8 @@
                 HOSPITAL_ID != 'huadu' &&
                 HOSPITAL_ID != 'wujing'&&
                 HOSPITAL_ID != 'gdtj' &&
-                HOSPITAL_ID != 'nfyksdyy'
+                HOSPITAL_ID != 'nfyksdyy' &&
+                HOSPITAL_ID != 'whsl'
               "
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
@@ -48,7 +49,8 @@
                 HOSPITAL_ID != 'huadu' &&
                 HOSPITAL_ID != 'wujing'&&
                 HOSPITAL_ID != 'gdtj' &&
-                HOSPITAL_ID != 'nfyksdyy'
+                HOSPITAL_ID != 'nfyksdyy' &&
+                HOSPITAL_ID != 'whsl'
               "
               v-model="staticObj.recordHour"
               @keyup="timeKey($event, staticObj, 'recordHour')"

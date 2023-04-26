@@ -5,13 +5,13 @@
     <div
         v-if="sheetInfo.sheetType == 'prenatal_sdlj'"
         style="font-size: 13px; margin-top: -5px">
-      备注 非药物阵痛方法：A-分娩球、B-自由体位待产、C-分娩操、D-豆袋热敷、E-导乐分娩、F-分娩镇痛仪、G-其他_（可填写保存）
+      备注 非药物阵痛方法：A-分娩球、B-自由体位待产、C-分娩操、D-豆袋热敷、E-导乐分娩、F-分娩镇痛仪、G-其他<input class="bottomInput" type="text" v-model="sheetInfo.relObj.remark" :data-value="sheetInfo.relObj.remark"/>（可填写保存）
       膀胱充盈度：H-空虚、I-轻度充盈、J-中度充盈、K-重度充盈
     </div>
     <div
         v-if="sheetInfo.sheetType == 'pediatric3_sdlj'"
         style="font-size: 13px; margin-top: -5px">
-      备注 皮疹位置：H-头面部、N-颈部、U-上肢、L-下肢、O-腋下、T-胸腹、B-背部、S-阴囊、C-肛周、W-全身；性质程度:S-散在、M-多发、II-密集、P-表面脓点皮肤未破损、B-表面破损、U-表面溃疡；产瘤、头部血肿位置：L-左、R-右、T-头颅、F-顶额部；呕吐物性质：A白色、B黄色、C绿色、D咖啡色、E其他_（可填写）
+      备注 皮疹位置：H-头面部、N-颈部、U-上肢、L-下肢、O-腋下、T-胸腹、B-背部、S-阴囊、C-肛周、W-全身；性质程度:S-散在、M-多发、II-密集、P-表面脓点皮肤未破损、B-表面破损、U-表面溃疡；产瘤、头部血肿位置：L-左、R-右、T-头颅、F-顶额部；呕吐物性质：A白色、B黄色、C绿色、D咖啡色、E其他<input class="bottomInput" type="text" v-model="sheetInfo.relObj.remark" :data-value="sheetInfo.relObj.remark"/>（可填写）
     </div>
 
     <div
