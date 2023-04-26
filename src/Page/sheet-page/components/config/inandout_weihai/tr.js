@@ -38,7 +38,7 @@ export default [{
     key: "food", //入量-项目
     value: "",
     event: keyf1,
-    // name: "入量项目"
+    name: "入量项目",
     autoComplete: {
       data: food
     },
@@ -54,6 +54,7 @@ export default [{
     key: "discharge", //出量 - 项目
     value: "",
     event: keyf1,
+    name: "出量项目",
     autoComplete: {
       data: chulian
     },
