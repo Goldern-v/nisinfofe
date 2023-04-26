@@ -171,7 +171,7 @@ export default {
       if (
         this.wid.formObj &&
         this.wid.formObj.model &&
-        !this.wid.formObj.model.ward_name && this.HOSPITAL_ID != "guizhou"
+        !this.wid.formObj.model.ward_name && !["guizhou", '925'].includes(this.HOSPITAL_ID)
       ) {
         window.messageBox.show("请选择科室", "error", 3000);
         return;
