@@ -74,7 +74,7 @@
         ID号：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
       </span> -->
-      <span v-if="['critical_new_weihai', 'internal_eval_weihai', 'inandout_weihai','baby_weihai'].includes(sheetInfo.sheetType)">
+      <span v-if="['critical_new_weihai', 'internal_eval_weihai', 'inandout_weihai','baby_weihai', 'critical_weihai'].includes(sheetInfo.sheetType)">
         入院日期：
         {{patientInfo.admissionDate | toymd}}
       </span>
@@ -89,9 +89,9 @@
         kg
       </span>
     </div>
-    <!-- <div class="info-con">
+    <div class="info-con" v-if="['critical_weihai'].includes(sheetInfo.sheetType)">
       <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -174,6 +174,9 @@ export default {
       );
     },
     updateTetxInfo(key, label, autoText) {
+      if (this.sheetInfo.sheetType === 'critical_weihai') {
+        return;
+      }
       window.openSetTextModal(
         text => {
           updateSheetHeadInfo({ [key]: text }).then(res => {
