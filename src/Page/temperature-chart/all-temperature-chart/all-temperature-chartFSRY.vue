@@ -183,6 +183,28 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="breath"
+            label="呼吸"
+            min-width=""
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.breath"
+                :class="className"
+                :readonly="isReadonly(scope.row.recordDate)"
+                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                class="breath"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.breath" class="breath" /> -->
+              <!-- <el-input v-model="scope.row.breath"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="painScore"
             label="疼痛"
             align="center"
@@ -203,28 +225,6 @@
                 @keyup="handleKeyUp"
                 @click="toRow"
               />
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="breath"
-            label="呼吸"
-            min-width=""
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.breath"
-                :class="className"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
-                class="breath"
-                type="text"
-                @keyup="handleKeyUp"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.breath" class="breath" /> -->
-              <!-- <el-input v-model="scope.row.breath"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
