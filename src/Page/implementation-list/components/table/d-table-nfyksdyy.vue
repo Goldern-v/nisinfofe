@@ -81,7 +81,49 @@
 
       <u-table-column prop="dosage" label="剂量" min-width="60px" align="right">
       </u-table-column>
+<u-table-column label="操作" min-width="200px" v-if="HOSPITAL_ID !== 'whsl'" align="center">
+        <template slot-scope="scope">
+          <div v-show="scope.row.executeDateTime">
+            <el-button
+              type="text"
+              @click="backTracking(scope.row)"
+              v-if="
+                isEdit &&
+                scope.row.executeDateTime &&
+                scope.row.executeFlag != 4
+              "
+              >补执行</el-button
+            >
+            <el-button
+            type="text"
+            @click="editTime(scope.row)"
 
+            v-if="
+              isEdit &&
+              HOSPITAL_ID == '925' && scope.row.executeFlag > 0
+            "
+            >修改</el-button
+          >
+            <el-button
+              type="text"
+              @click="editTime(scope.row)"
+              v-if="
+                isTimeSelect &&
+                scope.row.executeFlag === 4
+              "
+              >时间选择</el-button
+            >
+            <el-button type="text" v-if="HOSPITAL_ID !== 'beihairenyi'&&HOSPITAL_ID !== 'nfyksdyy'" @click="handleRemarks(scope.row)"
+              >备注</el-button
+            >
+            <!-- <el-button
+            type="text"
+            @click="cancelOrderExecute(item)"
+            >取消</el-button
+          > -->
+          </div>
+        </template>
+      </u-table-column>
       <u-table-column prop="dosageUnits" label="单位" min-width="50px">
       </u-table-column>
 
@@ -242,50 +284,6 @@
         <template slot-scope="scope">
           <div v-show="scope.row.rowType == 1 || !scope.row.rowType">
             {{ scope.row.nurseMemo }}
-          </div>
-        </template>
-      </u-table-column>
-
-      <u-table-column label="操作" min-width="200px" v-if="HOSPITAL_ID !== 'whsl'" align="center">
-        <template slot-scope="scope">
-          <div v-show="scope.row.executeDateTime">
-            <el-button
-              type="text"
-              @click="backTracking(scope.row)"
-              v-if="
-                isEdit &&
-                scope.row.executeDateTime &&
-                scope.row.executeFlag != 4
-              "
-              >补执行</el-button
-            >
-            <el-button
-            type="text"
-            @click="editTime(scope.row)"
-
-            v-if="
-              isEdit &&
-              HOSPITAL_ID == '925' && scope.row.executeFlag > 0
-            "
-            >修改</el-button
-          >
-            <el-button
-              type="text"
-              @click="editTime(scope.row)"
-              v-if="
-                isTimeSelect &&
-                scope.row.executeFlag === 4
-              "
-              >时间选择</el-button
-            >
-            <el-button type="text" v-if="HOSPITAL_ID !== 'beihairenyi'&&HOSPITAL_ID !== 'nfyksdyy'" @click="handleRemarks(scope.row)"
-              >备注</el-button
-            >
-            <!-- <el-button
-            type="text"
-            @click="cancelOrderExecute(item)"
-            >取消</el-button
-          > -->
           </div>
         </template>
       </u-table-column>

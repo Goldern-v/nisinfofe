@@ -377,6 +377,7 @@ export default {
   },
   methods: {
     initTime() {
+      console.log(this.data.restTime);
       let allSeconds = Number(this.data.restTime * 60)
       let hours = Math.floor(allSeconds/3600)
       let minutes = Math.floor((allSeconds/60) - (hours*60))

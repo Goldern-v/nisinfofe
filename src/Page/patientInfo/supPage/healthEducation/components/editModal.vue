@@ -35,7 +35,7 @@
             </el-option>
           </el-select>
         </ElFormItem>
-        <ElFormItem prop="date" label="教育时间：" v-if="modalStatus && HOSPITAL_ID=='hj'">
+        <ElFormItem prop="date" label="教育时间：" v-if="modalStatus &&['nfyksdyy','hj'].includes(HOSPITAL_ID)">
           <el-date-picker
             popper-class="picker-dropdown"
             v-model="date"
@@ -319,7 +319,7 @@ export default {
     },
     // 处理保存入参
     setParams() {
-      
+
       let date = dayjs(new Date()).format("MM-DD HH:mm");
       let itemData = this.options.filter(
         item => item.missionId === this.form.state
@@ -343,7 +343,7 @@ export default {
         lc签名: this.curEmpNo
       };
       pageParam = this.HOSPITAL_ID === 'whhk' ? {...pageParam, 宣教情况: this.form.remarks} : {...pageParam, 备注: this.form.remarks}
-      
+
       let queryInfo = this.$route.query;
       let data = {
         blockId: this.blockId,

@@ -196,7 +196,7 @@ export default {
       }
     },
     getDetail(data) {
-      if(!['hengli','wujing'].this.HOSPITAL_ID) return 
+      if(!['hengli','wujing'].includes(this.HOSPITAL_ID)) return
       this.pageLoading = true;
       let barCode = data.barCode;
       if(this.HOSPITAL_ID=='hengli'||this.HOSPITAL_ID=='wujing'){
