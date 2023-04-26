@@ -255,7 +255,8 @@ export default {
       templates: [], //事件模板
       user: localStorage.getItem("user")
         ? JSON.parse(localStorage.getItem("user"))
-        : {}
+        : {},
+      isGZ: ["guizhou", '925'].includes(this.HOSPITAL_ID)
     };
   },
   mounted() {
@@ -299,7 +300,7 @@ export default {
   created() {},
   computed: {
     currentTable() {
-      return this.HOSPITAL_ID == "guizhou" ? EventTableGuizhou : EventTable;
+      return this.isGZ ? EventTableGuizhou : EventTable;
     },
     eventTypeOptions() {
       let arr = this.templates.map((item) => {
@@ -376,7 +377,7 @@ export default {
     async loadEventData() {
       this.pageLoadng = true;
       let query;
-      if (this.HOSPITAL_ID == "guizhou") {
+      if (this.isGZ) {
         query = {
           happenedDeptCode: this.selectedDeptValue,
           beginDate: this.dateBegin
@@ -459,30 +460,6 @@ export default {
           );
         }
       });
-      // apis.getAllNursingUnit("type=2").then(res => {
-      //   if (res.data && res.data.code == 200) {
-      //     let allDepartmentsList = res.data.data.map(item => {
-      //       if(item.deptCode && item.deptCode.trim){
-      //         item.deptCode = item.deptCode.trim();
-      //       }
-      //       return item;
-      //     });
-      //     // 护理部权限才可以查看所有科室
-      //     if(this.user && (this.user.roleManageCode == 'QCR0001' || this.user.roleManageCodeList.find(code => code == 'QCR0001'))){
-      //       this.allDepartmentsList = allDepartmentsList;
-      //     }else {
-      //       this.allDepartmentsList = [allDepartmentsList.find(item => item.deptCode == this.deptCode)]
-      //     }
-      //     // 把获取到的科室存起来
-      //     if (allDepartmentsList && allDepartmentsList.length > 0) {
-      //       sessionStorage.setItem(
-      //         "allDepartmentsList",
-      //         JSON.stringify(allDepartmentsList)
-      //       );
-      //     }
-      //     console.log(this.allDepartmentsList);
-      //   }
-      // });
     },
     handleSizeChange(newSize) {
       this.page.pageIndex = 1;
@@ -503,27 +480,16 @@ export default {
     },
     // 获取所有事件状态
     getEventStatus() {
-      // if (
-      //   (this.isDev || window.location.host == "192.168.1.54:9875") &&
-      //   this.HOSPITAL_ID == "guizhou"
-      // ) {
-        this.eventStatusOptions = [
-          { code: "", name: "全部" },
-          { code: "0", name: "已暂存" },
-          { code: "1", name: "已填写提交" },
-          { code: "2", name: "片区护士长已处理" },
-          { code: "3", name: "护理部已处理" },
-          { code: "4", name: "病区已整改" },
-          { code: "5", name: "片区护士长已填写巡查意见" },
-          { code: "6", name: "护理部已确认" }
-        ];
-        // return;
-      // }
-      // let list = ["badEvent_status"];
-      // multiDictInfo(list).then((res) => {
-      //   let arr = res.data.data.badEvent_status;
-      //   this.eventStatusOptions = [{ code: "", name: "全部" }, ...arr];
-      // });
+      this.eventStatusOptions = [
+        { code: "", name: "全部" },
+        { code: "0", name: "已暂存" },
+        { code: "1", name: "已填写提交" },
+        { code: "2", name: "片区护士长已处理" },
+        { code: "3", name: "护理部已处理" },
+        { code: "4", name: "病区已整改" },
+        { code: "5", name: "片区护士长已填写巡查意见" },
+        { code: "6", name: "护理部已确认" }
+      ];
     }
   }
 };

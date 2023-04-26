@@ -38,6 +38,24 @@
           v-model="searchWord"
         ></el-input>
       </div>
+      <div v-if="HOSPITAL_ID==='nfyksdyy'">
+      <span class="label">病人分组:</span>
+          <el-select
+            v-model="patientGroup"
+            placeholder="请选择"
+            @change="tableDataWithFilter"
+            size="small"
+            style="width: 90px"
+            clearable
+          >
+            <el-option
+              v-for="item in patientGroup4Expand3"
+              :key="item.value"
+              :label="item.name"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+          </div>
       <div class="filterButton">
         <span>时间筛选关</span>
         <el-switch v-model="query.startFiltering"> </el-switch>
@@ -183,6 +201,28 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="breath"
+            label="呼吸"
+            min-width=""
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.breath"
+                :class="className"
+                :readonly="isReadonly(scope.row.recordDate)"
+                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                class="breath"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+              <!-- <input v-model="scope.row.breath" class="breath" /> -->
+              <!-- <el-input v-model="scope.row.breath"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="painScore"
             label="疼痛"
             align="center"
@@ -203,28 +243,6 @@
                 @keyup="handleKeyUp"
                 @click="toRow"
               />
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="breath"
-            label="呼吸"
-            min-width=""
-            align="center"
-          >
-            <template slot-scope="scope">
-              <input
-                v-model="scope.row.breath"
-                :class="className"
-                :readonly="isReadonly(scope.row.recordDate)"
-                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
-                class="breath"
-                type="text"
-                @keyup="handleKeyUp"
-                @keydown="handleKeyDown"
-                @click="toRow"
-              />
-              <!-- <input v-model="scope.row.breath" class="breath" /> -->
-              <!-- <el-input v-model="scope.row.breath"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
@@ -992,7 +1010,8 @@ export default {
       patientsInfoData: [],
       searchWord: "",
       pageLoadng: true,
-      admitted: "所有患者"
+      admitted: "所有患者",
+      patientGroup: '', // 病人分组
     };
   },
   computed: {
@@ -1012,6 +1031,8 @@ export default {
               }
             })
           })
+        } else if (this.patientGroup) {
+           return this.patientsInfoData.filter(item => item.expand3 === this.patientGroup);
         } else {
           let searchWord = new RegExp(this.searchWord, 'i')
           data = this.patientsInfoData.filter((item) => {
@@ -1028,7 +1049,18 @@ export default {
         });
       },
       set(value) {}
-    }
+    },
+    patientGroup4Expand3() {
+      const result = Array.from(
+        new Set(this.patientsInfoData.map(item => item.expand3))
+      ).map(item => {
+        return {
+          name: item ? `分组${item}` : '无',
+          value: item
+        }
+      })
+      return result
+    },
   },
   mounted() {
     this.query.wardCode = this.deptCode;
