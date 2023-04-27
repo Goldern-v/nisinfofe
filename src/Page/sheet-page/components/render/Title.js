@@ -2324,6 +2324,13 @@ export default function Title(
     );
   }
   break;
+  case "postpartum_yz": {
+    // 产后术后观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_yz/th").default)
+    );
+  }
+  break;
   case "inout_ytll": {
     // 烟台玲珑 - 出入量记录单
     Th = JSON.parse(

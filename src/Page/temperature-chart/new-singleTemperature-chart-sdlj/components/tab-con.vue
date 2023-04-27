@@ -205,7 +205,7 @@
                   </template>
                   <div
                     :class="
-                      (index.includes('自定义') && !isDglbProduction()) ||
+                      index.includes('自定义') ||
                       index.includes('注释') ||
                       index.includes('体温复测')
                         ? 'rowItem_noShow'
@@ -953,9 +953,7 @@ async mounted() {
             default:
               break;
           }
-          if (this.isDglbProduction() && ['41', '42'].includes(item.vitalCode)) {
-            otherDic[item.vitalSign] = item.vitalCode;
-          } else if (item.signType==='custom'||item.vitalSign.includes("自定义")) {
+          if (item.signType==='custom'||item.vitalSign.includes("自定义")) {
             obj[item.vitalCode] = {
               fieldCn: item.vitalSign,
               patientId: this.patientInfo.patientId,

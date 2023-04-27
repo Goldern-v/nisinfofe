@@ -1776,10 +1776,15 @@ function switchSheetType(type) {
       }
       break;
     case "icu_yz": {
-        // 临沂沂州--内科重症医学科
-        schema = require("../config/icu_yz/tr.js").default;
+      // 临沂沂州--内科重症医学科
+      schema = require("../config/icu_yz/tr.js").default;
     }
-        break;
+      break;
+    case "postpartum_yz": {
+      // 临沂沂州--产后术后观察表
+      schema = require("../config/postpartum_yz/tr.js").default;
+    }
+      break;
     case "inout_ytll": {
       // 烟台玲珑 - 出入量记录单
       schema = require("../config/inout_ytll/tr.js").default;
