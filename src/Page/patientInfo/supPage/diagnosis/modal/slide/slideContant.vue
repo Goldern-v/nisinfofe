@@ -442,6 +442,7 @@ export default {
       this.show = false;
       this.evalFormList = []
       this.evalForm = ''
+      this.status = '0'
     },
     changeEvalForm(value) {
       const form = this.evalFormList.find(item => item.formCode === value);

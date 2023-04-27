@@ -192,7 +192,7 @@
         </el-table-column>
          <el-table-column label="护理等级" width="70" header-align="center" prop="nursingClass">
         </el-table-column>
-        <el-table-column prop="diagName" label="护理诊断" width="120" header-align="center"></el-table-column>
+        <el-table-column prop="diagName" label="护理诊断" width="80" header-align="center"></el-table-column>
         <el-table-column label="护理措施计划" width="150" header-align="center">
           <template slot-scope="scope">
             <!-- <div v-for="(item, index) in scope.row.measuresName" :key="index">
