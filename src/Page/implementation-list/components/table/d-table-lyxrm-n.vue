@@ -503,7 +503,7 @@ export default {
           '2': '暂停',
           '4': '已执行'
         }[val + ''] || ''
-      }else if(this.HOSPITAL_ID == 'qhwy'){
+      }else if(process.env.HOSPITAL_ID == 'qhwy'){
           return {
           '0': '未执行',
           '1': '执行中',
