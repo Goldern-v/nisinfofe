@@ -164,7 +164,13 @@ export default {
         this.user = user
         rememberAccount = user.empNo
         ppp = user.maps.userKey
-      }else{
+      }else if(['whsl'].includes(this.HOSPITAL_ID) && localStorage.getItem("sso")){
+        let user = JSON.parse(localStorage.getItem("user"))
+        this.user = user
+        rememberAccount = user.empNo
+        ppp = user.maps.userKey
+      }
+      else{
         rememberAccount = localStorage.getItem("rememberAccount");
         ppp = localStorage.getItem("ppp");
       }

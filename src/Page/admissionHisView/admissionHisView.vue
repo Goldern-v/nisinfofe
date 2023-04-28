@@ -34,6 +34,7 @@ beforeRouteEnter(to,from,next){
                 user.token = res.data.data.authToken;
                 window.app.authToken = res.data.data.authToken;
                 localStorage.setItem("user",JSON.stringify(res.data.data.user))
+                localStorage.setItem("sso",true)
                 this.setUser(res.data.data.user || {})
                 Cookies.set(
                     "NURSING_USER",
