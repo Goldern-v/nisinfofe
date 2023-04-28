@@ -292,6 +292,7 @@ export const saveVitalSign = (data,hospitalId) => {
       data
     );
   }
+
   let d = {
     blockId: sheetInfo.selectBlock.id,
     list: data
@@ -301,6 +302,13 @@ export const saveVitalSign = (data,hospitalId) => {
     d
   );
 };
+// whsl 重症
+export  const saveVitalSignWhsl =(data)=>{
+    return axios.post(
+        `${apiPath}record/block/ordersExecuteWeiHai/save`,
+        data
+    );
+}
 // 保存需要同步的数据
 export const saveSyncRecord = (params) => {
   return axios.post(`${apiPath}form/common/saveSyncRecord`, params)

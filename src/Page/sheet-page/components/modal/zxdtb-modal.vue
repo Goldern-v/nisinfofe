@@ -394,7 +394,7 @@ import {
   getOrdersExecuteLc,
   getOrdersExecuteFsry,
   getOrdersExecuteWhfk,
-  saveSyncRecord,
+  saveSyncRecord, saveVitalSignWhsl,
 } from "../../api/index";
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
@@ -555,13 +555,22 @@ export default {
         }
         await saveSyncRecord(params)
       }
-      saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
-        this.$message.success("保存成功");
-        this.close();
-         //涉及到数据保存更改的 ，就调取initSheetPageSize初始化页码 然后重新拿值
-         this.bus.$emit("initSheetPageSize");
-        // this.bus.$emit("refreshSheetPage");
-      });
+      if(this.HOSPITAL_ID === 'whsl' && this.sheetInfo.sheetType ==='critical_weihai'){
+        let newTemArr=temArr.map((item)=>{
+          return {...item,executeType:this.executeType,recordCodes:["critical_weihai"]}
+        })
+        saveVitalSignWhsl(newTemArr).then((res) => {
+          this.$message.success("保存成功");
+        });
+      }else{
+        saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
+          this.$message.success("保存成功");
+        });
+      }
+      this.close();
+      //涉及到数据保存更改的 ，就调取initSheetPageSize初始化页码 然后重新拿值
+      this.bus.$emit("initSheetPageSize");
+      // this.bus.$emit("refreshSheetPage");
       this.bus.$emit("refreshSheetPageOne", this.multipleSelection);
     },
     styleByrecordSync(row,indx){

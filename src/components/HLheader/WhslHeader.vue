@@ -1114,6 +1114,7 @@ export default {
       Cookies.remove("hasGreet");
       Cookies.remove("token");
       Cookies.remove("user");
+      Cookies.remove("sso");
       Cookies.remove("NURSING_USER", { path: "/" });
       this.$router.push("/login");
       this.$store.commit("upDeptCode", "");

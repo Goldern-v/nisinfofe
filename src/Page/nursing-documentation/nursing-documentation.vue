@@ -319,7 +319,8 @@ export default {
         'nfyksdyy',
         'liaocheng',
         '925',
-        'qhwy'
+        'qhwy',
+        'whhk'
       ].includes(this.HOSPITAL_ID);
     },
     //是否为新出院数据

@@ -535,6 +535,10 @@ export default {
       if(['foshanrenyi','fsxt','lyxrm','925','beihairenyi', 'whhk', 'stmz','nfyksdyy','qhwy','whsl'].includes(this.HOSPITAL_ID )){
         titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))
       }
+      if(localStorage.getItem('sso') && this.HOSPITAL_ID == 'whsl'){
+        let user = JSON.parse(localStorage.getItem("user"))
+        titleObject=this.getBase(JSON.stringify({user:user.empNo,auth: user.maps.userKey}))
+      }
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
@@ -607,6 +611,7 @@ export default {
       handler(newVal, oldVal) {
         this.user = newVal
         this.getSignImg()
+        this.qrcode()
       },
       immediate:true,
       deep:true
