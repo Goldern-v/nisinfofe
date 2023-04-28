@@ -161,7 +161,7 @@
       </tr>
       <tr
         class="body-con"
-        @dblclick="openEditModal(tr, data, $event,y)"
+        @dblclick="openEditModal(tr, data, $event,y,index)"
         v-for="(tr, y) in data.bodyModel"
         :id ="`row_${y}`"
         :class="[
@@ -178,7 +178,7 @@
                 return item.key == 'recordSource';
               }).value == '5',
             redBottom:['wujing'].includes(HOSPITAL_ID)&&redBottom(tr,y), // 待性能优化
-            isCanModify: onCanModify(y),
+            isCanModify: onCanModify(data.bodyModel,index, y),
           },
           tr.find((item) => {
             return item.key == 'markObj';
@@ -248,7 +248,7 @@
             :value="tr.find((item) => item.key == 'yearBreak').value"
             :data-value="tr.find((item) => item.key == 'yearBreak').value"
             :style="[td.style, { height: '12px' }]"
-            :class="{readonly: onCanModify(y)}"
+            :class="{readonly: onCanModify(data.bodyModel,index, y)}"
             v-if="
               td.key === 'recordMonth' &&
               tr.find((item) => item.key == 'yearBreak').value
@@ -257,7 +257,7 @@
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
-            :class="{ noClick: td.signDisabled ,readonly: onCanModify(y) }"
+            :class="{ noClick: td.signDisabled ,readonly: onCanModify(data.bodyModel,index, y) }"
             @click.stop="
               toSign(tr, y, data.bodyModel, showSign(tr), $event, td)
             "
@@ -308,13 +308,13 @@
           <div
             v-else-if="td.key == 'audit'"
             class="sign-text"
-            :class="{ noClick: td.signDisabled ,readonly: onCanModify(y)}"
+            :class="{ noClick: td.signDisabled ,readonly: onCanModify(data.bodyModel,index, y)}"
             @click.stop="toAudit(tr, y, data.bodyModel, showAudit(tr), $event)"
             v-html="showAudit(tr)"
 
           ></div>
           <!-- 第一个签名的位置 -->
-          <div v-else-if="td.key == 'signerNo'" class="sign-img" :class="{readonly: onCanModify(y)}">
+          <div v-else-if="td.key == 'signerNo'" class="sign-img" :class="{readonly: onCanModify(data.bodyModel,index, y)}">
             <img
               v-if="tr.find((item) => item.key == 'auditorNo').value"
               :src="`/crNursing/api/file/signImage/${
@@ -387,7 +387,7 @@
             placeholder=""
             size="small"
             class="access-select"
-            :class="{readonly: onCanModify(y)}"
+            :class="{readonly: onCanModify(data.bodyModel,index, y)}"
             autocomplete="off"
             :remote-method="remoteMethod"
             @visible-change="td.autoComplete && getOptionsData(td, tr, $event)"
@@ -405,7 +405,7 @@
               towLine: isOverText(td),
               maxHeight56: sheetInfo.sheetType == 'additional_count_hd',
               maxHeight40: sheetInfo.sheetType == 'cardiology_lcey',
-              readonly: onCanModify(y)
+              readonly: onCanModify(data.bodyModel,index, y)
             }"
             :readonly="tr.isRead"
             :disabled="td.isDisabed"
@@ -490,7 +490,7 @@
             :disabled="td.isDisabed"
             v-model="td.value"
             :data-value="td.value"
-            :class="{ readonly: onCanModify(y)}"
+            :class="{ readonly: onCanModify(data.bodyModel,index, y)}"
             :position="`${x},${y},${index}`"
             @input="(e)=>splitSave && $emit('onModalChange',e,tr,x,y,index)"
             :style="[
@@ -1042,9 +1042,11 @@ export default {
               }).value != '5'
     },
     // 护士职称权限判断处理
-    onCanModify(y){
-      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData[y]){
-        return this.listData[y].canModify == false
+    onCanModify(data, index, y){
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData[ y + (index* data.length)]){
+        return this.listData[ y + (index* data.length)].canModify == false
+      }else{
+        return false
       }
     },
     // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
@@ -2718,9 +2720,9 @@ export default {
       e.preventDefault();
       window.openContextMenu({ style, data });
     },
-    openEditModal(tr, data, e, y) {
+    openEditModal(tr, data, e, y,index) {
       // 花都副页关闭编辑框
-      if(this.sheetInfo.sheetType=='additional_count_hd'  || this.sheetInfo.sheetType=='inout_ytll' || this.onCanModify(y)){
+      if(this.sheetInfo.sheetType=='additional_count_hd'  || this.sheetInfo.sheetType=='inout_ytll' || this.onCanModify(data.bodyModel,index,y)){
         return
       }
       this.isOpenEditModal = true;

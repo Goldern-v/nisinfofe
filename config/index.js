@@ -251,6 +251,7 @@ const currentTargetUrl = (() => {
     case 'whhk':
       // return 'http://192.168.1.54:9883'
       return 'http://119.97.229.206:9094'
+      // return 'http://119.97.229.206:9094'
     case 'dglb':
       // return 'http://192.168.1.54:9866'
           return  'http://219.131.142.78:9094'
@@ -269,8 +270,8 @@ const currentTargetUrl = (() => {
     case 'nfyksdyy':
       // return 'http://192.168.5.127:9091'
           // return 'http://192.168.1.54:9901'  //
-          // return  'http://59.38.110.189:9092'
-          return  'http://192.168.3.228:8080'
+          return  'http://59.38.110.189:9092'
+          // return  'http://192.168.3.228:8080'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭
       return 'http://192.168.3.187:9091'
