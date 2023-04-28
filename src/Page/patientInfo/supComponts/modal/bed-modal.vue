@@ -134,7 +134,7 @@
                   flex-box="1"
                   class="bottom-line"
                   :style="{
-                    'font-size': '24px',
+                    'font-size':  isWhhk? '19px':'24px',
                     'text-align': isZhzxy ? 'center' : '',
                   }"
                   v-model="formData.diet"
