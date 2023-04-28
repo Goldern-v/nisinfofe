@@ -32,10 +32,10 @@
         <button @click="() => { this.bus.$emit('dateChangeEvent', 'next') }">
           下一日
         </button>
-        <el-button-group :style="rightButton()" v-if="['nfyksdyy'].includes(HOSPITAL_ID)">
-          <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '0'))" :disabled="!isDisable">同步入院</el-button>
-          <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '1'))" :disabled="!isDisable">同步出院</el-button>
-        </el-button-group>
+<!--        <el-button-group :style="rightButton()" v-if="['nfyksdyy'].includes(HOSPITAL_ID)">-->
+<!--          <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '0'))" :disabled="!isDisable">同步入院</el-button>-->
+<!--          <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '1'))" :disabled="!isDisable">同步出院</el-button>-->
+<!--        </el-button-group>-->
       </div>
       <moveContext :id="'detailChatBox'" :titlex="'曲详情线'" class="detailChatBox">
         <div class="button-context">
