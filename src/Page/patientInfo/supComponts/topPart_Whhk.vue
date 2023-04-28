@@ -168,8 +168,8 @@
         <div class="nav-item">手术</div>
       </router-link>-->
       <!-- <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
-        <div class="nav-item">会诊</div>
-      </router-link>-->
+        <div class="nav-item">会诊</div> -->
+      <!-- </router-link> -->
       <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>-->

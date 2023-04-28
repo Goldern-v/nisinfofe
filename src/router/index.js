@@ -831,6 +831,7 @@ const router = new Router({
         component: (() => {
           switch (HOSPITAL_ID) {
             case 'lingcheng':
+            case 'whhk':
               return shiftWorkLc
             case 'huadu':
               return ISBARshiftWorkHd
@@ -870,6 +871,7 @@ const router = new Router({
           component: (() => {
             switch (HOSPITAL_ID) {
               case 'lingcheng':
+              case 'whhk':
                 return shiftWorkDetailLc
               case 'huadu':
                 return ISBARshiftWorkDetailHd
