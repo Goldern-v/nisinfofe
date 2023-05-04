@@ -58,7 +58,7 @@
                 :data-label="item.label"
                 :type="item.type"
                 :name="item.name"
-                :ischecked="formatData.data.formData[item.name].includes(item.label)"
+                :ischecked="formatData.data.formData[item.name] && formatData.data.formData[item.name].includes(item.label)"
                 :multiplechoice="item.multiplechoice"
                 :value="item.label"
                 v-model="formatData.data.formData[item.name]"

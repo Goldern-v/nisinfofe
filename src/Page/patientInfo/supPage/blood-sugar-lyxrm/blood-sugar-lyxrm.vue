@@ -176,7 +176,7 @@
         </div>
       </div>
     </div>
-    <div class="chart-con" v-if="isChart">
+  <div class="chart-con" v-if="isChart">
       <sugarChart
         ref="sugarChartModal"
         :lineData="hisPatSugarList"
