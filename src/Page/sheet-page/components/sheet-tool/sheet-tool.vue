@@ -250,6 +250,84 @@
 <!--          <div class="text-con">自定义标题模板</div>-->
 <!--        </div>-->
       </template>
+      <template v-else-if="HOSPITAL_ID == 'sdlj'">
+        <div
+            class="item-box"
+            v-show="limitAddPage"
+            flex="cross:center main:center"
+            @click="emit('addSheetPage')"
+        >
+          <div class="text-con">添加新页</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click="toSave"
+        >
+          <div class="text-con" flex="cross:center">保存</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click="openStaticModal"
+            v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
+        >
+          <div class="text-con">出入量统计</div>
+        </div>
+        <div
+            v-if="showSetCreatePage()"
+            class="item-box"
+            flex="cross:center main:center"
+            @click="setPage"
+            style="width:90px"
+        >
+          <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click="toPrint"
+            v-if="
+          (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
+          ['guizhou', '925'].includes(HOSPITAL_ID)
+        "
+        >
+          <div class="text-con">打印预览</div>
+        </div>
+        <div
+            v-if="!isDeputy"
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="toPdfPrint"
+            v-show="isDev && isShow()"
+        >
+          <div class="text-con">批量打印</div>
+        </div>
+        <div
+            v-if="!isDeputy"
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="delSheet"
+        >
+          <div class="text-con">删除整单</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="createSheet"
+            v-if="!isSingleTem && !isDeputy && isShow()"
+        >
+          <div class="text-con">新建记录单</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="openSelectTmp"
+            v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
+        >
+          <div class="text-con">科室模板</div>
+        </div>
+      </template>
     <template v-else>
       <div
         class="item-box"

@@ -4,7 +4,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "890px"
+    width: "845px"
   },
   th: {
     top: [
@@ -117,11 +117,8 @@ export default {
         },
         colspan: '1',
         rowspan: '3',
-        canSet: false,
       },
-      {"name":"","colspan":"1","rowspan":"3", canSet: true, key: "customItem1","style":{"minWidth":"45px","maxWidth":"45px"}},
-      // {"name":"","colspan":"1","rowspan":"3", canSet: true, key: "customItem2","style":{"minWidth":"45px","maxWidth":"45px"}},
-
+      {name:"",colspan:"1",rowspan:"3", canSet: true, key: "customItem1",style:{minWidth:"45px",maxWidth:"45px"}},
       {
         name: `特殊情况记录`,
         style: {
@@ -136,7 +133,7 @@ export default {
         `,
         style: {
           minWidth: '46px',
-          // maxWidth: '72px',
+          maxWidth: '72px',
         },
         colspan: '1',
         rowspan: '3'
@@ -150,7 +147,8 @@ export default {
       //     // maxWidth: '72px',
       //   },
       //   colspan: '1',
-      //   rowspan: '3'
+      //   rowspan: '3',
+      //   hidden:true
       // }
     ],
     mid: [

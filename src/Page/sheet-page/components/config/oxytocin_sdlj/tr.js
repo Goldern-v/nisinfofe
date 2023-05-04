@@ -31,13 +31,13 @@ export default [
     event: event_time
   },
   {
-    key: "temperature", //催产素浓度
+    key: "temperature", //体温
     value: "",
     name: "体温",
     event: keyf1
   },
   {
-    key: "sph", //催产素浓度
+    key: "sph", //脉搏
     value: "",
     name: "脉搏",
     event: keyf1
@@ -48,6 +48,7 @@ export default [
     name: "呼吸",
     event: keyf1
   },
+
   {
     key: "fieldOne", //催产素浓度
     value: "",
@@ -55,9 +56,9 @@ export default [
     event: keyf1
   },
   {
-    key: "fieldTwo", //滴速
+    key: "fieldTwo", //滴数
     value: "",
-    name: "滴速",
+    name: "滴数",
     event: keyf1
   }, {
     key: "fieldThree", //宫缩
@@ -123,9 +124,7 @@ export default [
       width: 36
     }
   },
-  { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
-  // { key: 'customItem2', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
-
+  { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   {
     key: "description", //特殊情况记录
     value: "",
