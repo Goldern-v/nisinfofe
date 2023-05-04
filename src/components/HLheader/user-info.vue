@@ -535,7 +535,8 @@ export default {
       if(['foshanrenyi','fsxt','lyxrm','925','beihairenyi', 'whhk', 'stmz','nfyksdyy','qhwy','whsl'].includes(this.HOSPITAL_ID )){
         titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))
       }
-      if(localStorage.getItem('sso') && this.HOSPITAL_ID == 'whsl'){
+      console.log("localStorage.getItem('sso')===",localStorage.getItem('sso'))
+      if(localStorage.getItem('sso')=='sso' && this.HOSPITAL_ID == 'whsl'){
         let user = JSON.parse(localStorage.getItem("user"))
         titleObject=this.getBase(JSON.stringify({user:user.empNo,auth: user.maps.userKey}))
       }
