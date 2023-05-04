@@ -1470,6 +1470,7 @@ function switchSheetType(type) {
       // 顺德龙江-催产素静脉点滴观察单
       schema = require("../config/oxytocin_sdlj/tr.js").default;
     }
+    break;
     case "oxytocinck_dglb": {
       // 东莞寮步-催产素静脉点滴观察单(产科)--新
       schema = require("../config/oxytocinck_dglb/tr.js").default;

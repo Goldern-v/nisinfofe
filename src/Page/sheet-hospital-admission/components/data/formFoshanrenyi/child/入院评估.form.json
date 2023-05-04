@@ -1960,6 +1960,7 @@
           "labelLeft": true,
           "readOnly": null,
           "hiddenTips": true,
+          "formCodeArr":["E0385"],
           "rule": [
             {
               "relationForm": {
@@ -4808,6 +4809,7 @@
             "GCS评分",
             "无"
           ],
+          "formCodeArr":["E0390"],
           "rule": [
             {
               "relationForm": {
@@ -6684,6 +6686,7 @@
             "营养风险筛查表一（初筛）",
             "PICU营养异常风险评估单"
           ],
+          "formCodeArr":["E0391","E0590"],
           "rule": [
             {
               "relationForm": {
@@ -6750,6 +6753,7 @@
             "无",
             "有，儿科跌倒（坠床）护理单"
           ],
+          "formCodeArr":["E0581"],
           "rule": [
             {
               "relationForm": {
@@ -6792,6 +6796,7 @@
             "Autar深静脉血栓形成风险评估表",
             "血栓风险评估（Padua评估量表）"
           ],
+          "formCodeArr":["FSSY_E2335","E0592","E0363","FSSY_E0010"],
           "rule": [
             {
               "relationForm": {
@@ -6889,6 +6894,7 @@
             "PICU术后疼痛的FLACC评分量表",
             "新生儿术后疼痛评分（CRIES）"
           ],
+          "formCodeArr":["E1822","E0573","E0585"],
           "rule": [
             {
               "relationForm": {
@@ -7004,6 +7010,7 @@
             "Braden压疮危险评估及护理记录单"
           ],
           "class": null,
+          "formCodeArr":["E0364"],
           "rule": [
             {
               "relationForm": {
@@ -7339,12 +7346,14 @@
           "titleStyle": "width:82px!important",
           "inputStyle": "width:270px!important",
           "class": null,
+          "formCodeArr":["E2234","E2066","FSSY_G0002"],
           "options": [
             "无",
             "新生儿科（NICU）住院告知书",
             "PICU住院告知",
             "住院告知（新）"
           ],
+          "formCodeArr":["E2234","E2066","FSSY_G0002"],
           "rule": [
             {
               "relationForm": {

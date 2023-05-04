@@ -1814,6 +1814,7 @@
             "GCS评分",
             "无"
           ],
+          "formCodeArr":["E0390"],
           "rule": [
             {
               "relationForm": {
@@ -2234,6 +2235,7 @@
           "labelLeft": true,
           "readOnly": null,
           "hiddenTips": true,
+          "formCodeArr":["E0385"],
           "rule": [
             {
               "relationForm": {
@@ -7063,6 +7065,7 @@
             "完全自理",
             "ADL量表(Barthel 指数)"
           ],
+          "formCodeArr":["E0362"],
           "rule": [
             {
               "relationForm": {
@@ -7122,6 +7125,7 @@
             "无",
             "有"
           ],
+          "formCodeArr":["E0391"],
           "rule": [
             {
               "relationForm": {
@@ -7161,6 +7165,7 @@
             "跌倒护理单 ",
             "产科跌倒护理单"
           ],
+          "formCodeArr":["E0367"],
           "rule": [
             {
               "relationForm": {
@@ -7216,6 +7221,7 @@
             "Autar深静脉血栓形成风险评估表",
             "血栓风险评估（Padua评估量表）"
           ],
+          "formCodeArr":["E1246","E0592","E1889","E0363","FSSY_E0010"],
           "rule": [
             {
               "relationForm": {
@@ -7329,6 +7335,7 @@
           "titleStyle": "width:70px!important",
           "inputStyle": "width:300px!important",
           "class": null,
+          "formCodeArr":["E0384"],
           "options": [
             "无",
             "疼痛护理单"
@@ -7372,6 +7379,7 @@
             "Braden压疮危险评估及护理记录单"
           ],
           "class": null,
+          "formCodeArr":["E0364"],
           "rule": [
             {
               "relationForm": {
@@ -7437,6 +7445,7 @@
             "无",
             "有，认知筛查量表（Mini-cog量表）"
           ],
+          "formCodeArr":["E0379"],
           "rule": [
             {
               "relationForm": {
@@ -7476,6 +7485,7 @@
             "无",
             "化疗致恶心呕吐（CINV）风险评估单"
           ],
+          "formCodeArr":["E0373"],
           "rule": [
             {
               "relationForm": {
@@ -7780,6 +7790,7 @@
             "ICU住院告知",
             "核医学科住院告知"
           ],
+          "formCodeArr":["FSSY_G0001","FSSY_E0002","FSSY_G0004","G1539"],
           "rule": [
             {
               "relationForm": {

@@ -136,6 +136,7 @@ import excel from "../../components/sheetTable/components/excel/excel";
 import bus from "vue-happy-bus";
 import sheetInfo from "../config/sheetInfo/index.js";
 import $ from "jquery";
+import {data} from "./components/headCon/formatData";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin";
 import headCon from "./components/headCon/headCon";
@@ -153,14 +154,28 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
+      patientInfo:{}
     };
   },
+  watch:{
+    "sheetInfo.masterInfo.patientId":{
+      handler(val,oldVal){
+        if(val !== oldVal){
+          data.initEveryFormData(this.sheetInfo.masterInfo.relObj);
+          this.patientInfo = this.sheetInfo.masterInfo || {}
+          // this.$set(this,'patientInfo',val||{})
+        } 
+      },
+      immediate: true,
+      deep:true
+    }
+  },
   computed: {
-    patientInfo() {
-      // return this.sheet.patientInfo
-      return this.sheetInfo.masterInfo || {};
-    },
+    // patientInfo() {
+    //   // return this.sheet.patientInfo
+    //   // return this.sheetInfo.masterInfo || {};
+    // },
     /** 只读模式 */
     readOnly() {
       if(this.HOSPITAL_ID == "fuyou"){

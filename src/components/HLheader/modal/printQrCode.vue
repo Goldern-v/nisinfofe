@@ -164,7 +164,7 @@ export default {
         this.user = user
         rememberAccount = user.empNo
         ppp = user.maps.userKey
-      }else if(['whsl'].includes(this.HOSPITAL_ID) && localStorage.getItem("sso")){
+      }else if(['whsl'].includes(this.HOSPITAL_ID) && localStorage.getItem("sso")=='sso'){
         let user = JSON.parse(localStorage.getItem("user"))
         this.user = user
         rememberAccount = user.empNo
@@ -174,6 +174,7 @@ export default {
         rememberAccount = localStorage.getItem("rememberAccount");
         ppp = localStorage.getItem("ppp");
       }
+      console.log("localStorage.getItem('sso')===",localStorage.getItem('sso'))
       this.userName = rememberAccount;
       this.passWord = ppp;
     }
