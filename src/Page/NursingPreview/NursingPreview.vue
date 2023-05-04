@@ -209,7 +209,6 @@ export default {
         case "whfk":
           return temperatureWHFK;
         case "lyxrm":
-        case "whhk":
         case "stmz":
           return temperatureLYXRM;
         case "sdlj":
@@ -228,6 +227,7 @@ export default {
         case "whsl":
           return temperatureWHSL;
         case "lyyz":
+        case "whhk":
           return temperatureLYYZ;
         case "gdtj":
           return temperatureGDTJ;
