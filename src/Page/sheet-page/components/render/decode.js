@@ -94,53 +94,51 @@ function decode(ayncVisitedData) {
         tr.pageIndex = pageIndex;
         result.push(tr)
         // 当前行数修改后，当前页相同时间，当前修改行之前相同时间于当前行数时间一同发起请求。
-          for (let i = 0; i < index; i++) {
-            if(!recordDate) return
-            isChangePreRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,[])
-          }
-          //  // 当前行数修改后，当前页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
-          for (let i = +index + 1; i < bodyModel.length; i++) {
-            isChangeLastRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,[])
-          }
-          // 当前行数修改后，当前页的前一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
-          for (let i = 0; i < pageIndex; i++) {
-            const prevPage = data[i].bodyModel;
-            for (let prevIndex = 0; prevIndex < prevPage.length; prevIndex++) {
-              // prevRecord = simplifyPrev(prevIndex,prevPage,ischangeMonth,ischangeHour,[])
-              const changeDate = prevPage[prevIndex].find(item => item.key === 'recordDate').value;
-              const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
-              if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour ) {
-                let setTr = {}
-                for (const option of prevPage[prevIndex]) {
-                  setTr[option.key] = option.value;
-                }
-                prevRecord.push(setTr);
+        for (let i = 0; i < index; i++) {
+          isChangePreRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangePreRecord)
+        }
+        //  // 当前行数修改后，当前页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
+        for (let i = +index + 1; i < bodyModel.length; i++) {
+          isChangeLastRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangeLastRecord)
+        }
+        // 当前行数修改后，当前页的前一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
+        for (let i = 0; i < pageIndex; i++) {
+          const prevPage = data[i].bodyModel;
+          for (let prevIndex = 0; prevIndex < prevPage.length; prevIndex++) {
+            const changeDate = prevPage[prevIndex].find(item => item.key === 'recordDate').value;
+            const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+            if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour ) {
+              let setTr = {}
+              for (const option of prevPage[prevIndex]) {
+                setTr[option.key] = option.value;
               }
+              prevRecord.push(setTr);
             }
           }
-          // 当前行数修改后，当前页的后一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
-          for (let i = pageIndex + 1; i < data.length; i++) {
-            const lastPage = data[i].bodyModel;
-            for (let lastIndex = 0; lastIndex < lastPage.length; lastIndex++) {
-              const changeDate = lastPage[lastIndex].find(item => item.key === 'recordDate').value;
-              const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
-              if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour ) {
-                let setTr = {}
-                for (const option of lastPage[lastIndex]) {
-                  setTr[option.key] = option.value;
-                }
-                lastRecord.push(setTr);
+        }
+        // 当前行数修改后，当前页的后一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
+        for (let i = pageIndex + 1; i < data.length; i++) {
+          const lastPage = data[i].bodyModel;
+          for (let lastIndex = 0; lastIndex < lastPage.length; lastIndex++) {
+            const changeDate = lastPage[lastIndex].find(item => item.key === 'recordDate').value;
+            const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+            if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour ) {
+              let setTr = {}
+              for (const option of lastPage[lastIndex]) {
+                setTr[option.key] = option.value;
               }
+              lastRecord.push(setTr);
             }
           }
+        }
       }
     }
 
   }
-  console.log('result',result,'prevRecord:',prevRecord,'isChangePreRecord:',isChangePreRecord,'isChangeLastRecord',isChangeLastRecord,'lastRecord',lastRecord);
+  // console.log('result',result,'prevRecord:',prevRecord,'isChangePreRecord:',isChangePreRecord,'isChangeLastRecord',isChangeLastRecord,'lastRecord',lastRecord);
 
-  // allData = [...allData, ...prevRecord, ...isChangePreRecord, ...result, ...isChangeLastRecord, ...lastRecord];
-  allData = [...allData, ...result];
+  allData = [...allData, ...prevRecord, ...isChangePreRecord, ...result, ...isChangeLastRecord, ...lastRecord];
+  // allData = [...allData, ...result];
 
   // 贵州-同步护理巡视内容到特殊情况
   if (['guizhou', '925'].includes(process.env.HOSPITAL_ID) && ayncVisitedData) {
