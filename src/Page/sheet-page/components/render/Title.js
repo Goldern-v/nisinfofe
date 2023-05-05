@@ -2289,6 +2289,13 @@ export default function Title(
     );
   }
   break;
+  case "general_item_weihai": {
+    // 威海市立 - 护理一般项目监测记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general_item_weihai/th.js").default)
+    );
+  }
+  break;
   case "baby_yz": {
     // 临沂沂州 - 新生儿护理记录单
     Th = JSON.parse(

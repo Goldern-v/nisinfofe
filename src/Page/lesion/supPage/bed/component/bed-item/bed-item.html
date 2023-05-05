@@ -159,6 +159,10 @@
           <div class="key">费用合计：</div>
           <div class="value">{{ data.totalCosts }}</div>
         </div>
+        <div flex="" class="table-line" v-if="['wujing'].includes(HOSPITAL_ID)">
+          <div class="key">单位地址：</div>
+          <div class="value">{{ data.companyAddress }}</div>
+        </div>
 
       </div>
 
