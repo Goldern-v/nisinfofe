@@ -126,6 +126,7 @@ export default {
       this.$refs.modal.open();
     },
     close() {
+      this.$emit('closeBedshow')
       this.$refs.modal.close();
     },
     post() {

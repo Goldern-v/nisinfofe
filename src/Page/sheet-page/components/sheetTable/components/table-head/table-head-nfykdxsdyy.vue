@@ -173,7 +173,7 @@
       </div>
     </div>
     <!-- <span>入院日期:{{$route.query.admissionDate}}</span> -->
-    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
+    <bedRecordModal v-if="bedShow" @closeBedshow="closeBedshow" ref="bedRecordModal"></bedRecordModal>
   </div>
   
 </template>
@@ -198,6 +198,7 @@ export default {
     return {
       bus: bus(this),
       sheetInfo,
+      bedShow:false,
       //不需要入院日期的表单
       admissionDateList: [
         'blood_tj',
@@ -340,6 +341,9 @@ export default {
     },
   },
   methods: {
+    closeBedshow(){
+      this.bedShow = false
+    },
     updateTetxInfo(key, label, autoText) {
       window.openSetTextModal(
         text => {
@@ -370,7 +374,10 @@ export default {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
       //修改床号同步都每一页
-      this.$refs.bedRecordModal.open('', "-1");
+      this.bedShow = true
+      setTimeout(()=>{
+        this.$refs.bedRecordModal.open('', "-1");
+      },0)
     },
     updateBirthDay() {
       window.openSetAuditDateModal(

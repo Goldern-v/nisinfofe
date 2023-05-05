@@ -1043,7 +1043,7 @@ export default {
     },
     // 护士职称权限判断处理
     onCanModify(data, index, y){
-      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData[ y + (index* data.length)]){
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && y && index && this.listData[ y + (index* data.length)]){
         return this.listData[ y + (index* data.length)].canModify == false
       }else{
         return false

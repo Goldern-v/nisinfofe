@@ -116,7 +116,7 @@ export default {
     // 获取各医院的血糖单
     getBloodSugar() {
       switch (process.env.HOSPITAL_ID) {
-        case "nfyksd":
+        case "nfyksdyy":
         return bloodSugarNfyksdyy;
         default:
           return bloodSugarlyxrm;
