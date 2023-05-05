@@ -315,8 +315,8 @@ const nursingTemperaturejmfy = () => import("@/Page/NursingTemperatureJMFY/Nursi
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue"); //做跳转登录去 /nursingPreview /nursingDoc
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
-const statisticalReport = () =>
-  import("@/Page/statistical-report/statistical-report.vue"); //危重症病例统计表
+// const statisticalReport = () =>
+//   import("@/Page/statistical-report/statistical-report.vue"); //危重症病例统计表
 const implementationReport = () =>
   import("@/Page/implementation-report/implementation-report.vue"); //执行单报表
 const bedRecord = () =>
@@ -1681,11 +1681,11 @@ const router = new Router({
         component: cognitiveStatistic,
         name: "住院病人认知情况统计表"
       },
-      {
-        path: "/statisticalReport",
-        component: statisticalReport,
-        name: "危重症病例统计表"
-      },
+      // {
+      //   path: "/statisticalReport",
+      //   component: statisticalReport,
+      //   name: "危重症病例统计表"
+      // },
       {
         path: "/implementationReport",
         component: implementationReport,
