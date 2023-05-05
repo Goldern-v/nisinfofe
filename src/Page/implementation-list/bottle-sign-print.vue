@@ -491,7 +491,7 @@ export default {
         this.HOSPITAL_ID
       ),
       // 能否打印全部
-      showPrintAll: ["sdlj", "gdtj", "fsxt", "ytll"].includes(this.HOSPITAL_ID),
+      showPrintAll: ["sdlj", "gdtj", "fsxt", "ytll",'whhk'].includes(this.HOSPITAL_ID),
     };
   },
   mounted() {
