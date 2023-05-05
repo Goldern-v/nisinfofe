@@ -1756,6 +1756,11 @@ function switchSheetType(type) {
       schema = require("../config/critical_weihai/tr.js").default;
     }
     break;
+    case "general_item_weihai": {
+      // 威海市立 - 护理一般项目监测记录单
+      schema = require("../config/general_item_weihai/tr.js").default;
+    }
+    break;
     case "baby_yz": {
       // 临沂沂州 - 新生儿护理记录单
       schema = require("../config/baby_yz/tr.js").default;
