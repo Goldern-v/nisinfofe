@@ -136,9 +136,11 @@ function decode(ayncVisitedData) {
 
   }
   // console.log('result',result,'prevRecord:',prevRecord,'isChangePreRecord:',isChangePreRecord,'isChangeLastRecord',isChangeLastRecord,'lastRecord',lastRecord);
-
-  allData = [...allData, ...prevRecord, ...isChangePreRecord, ...result, ...isChangeLastRecord, ...lastRecord];
-  // allData = [...allData, ...result];
+  if(['925'].includes(process.env.HOSPITAL_ID)){
+    allData = [...allData, ...prevRecord, ...isChangePreRecord, ...result, ...isChangeLastRecord, ...lastRecord];
+  }else{
+    allData = [...allData, ...result];
+  }
 
   // 贵州-同步护理巡视内容到特殊情况
   if (['guizhou', '925'].includes(process.env.HOSPITAL_ID) && ayncVisitedData) {
