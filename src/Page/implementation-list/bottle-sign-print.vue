@@ -365,7 +365,7 @@ export default {
       },
       multiItemType: ["输液"],
       // 是否医嘱分类使用多选
-      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl","ytll", 'stmz','qhwy'].includes(
+      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl","ytll", 'stmz','qhwy','wujing'].includes(
         this.HOSPITAL_ID
       ),
       selectedData: [], //选中打印执行单条数
