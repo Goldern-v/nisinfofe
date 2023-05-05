@@ -1021,7 +1021,7 @@ export default {
         case "wujing":
           return require("../../common/images/logo_wujing.png");
         case "foshanrenyi":
-          return require("../../common/images/logo_foshanrenyi.png");
+          return require("../../common/images/logo_foshanrenyi_new.png");
         case "lyxrm":
           return require("../../common/images/logo_lyxrm.png");
         case "fsxt":
