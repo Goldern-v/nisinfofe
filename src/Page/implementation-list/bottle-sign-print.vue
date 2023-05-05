@@ -444,6 +444,7 @@ export default {
             { label: "雾化" },
             { label: "皮试" },
             { label: "治疗" },
+            { label: "泵入" },
             { label: "理疗" },
             { label: "护理" },
             { label: "外用" },

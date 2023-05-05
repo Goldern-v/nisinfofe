@@ -2,7 +2,12 @@
   <div class="contain" v-loading="pageLoading" :style="{'min-height':containHeight}">
     <div ref="Contain">
       <div v-show="!isChart" class="blood-sugar-con">
-        <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
+        <div
+          class="sugr-page"
+          v-for="(item, index) in listMap"
+          :key="index"
+          :class="index !== listMap.length - 1 ? 'break-pages' : ''"
+        >
           <!-- <img class="his-logo"
           src="../../../../common/images/his-logo/厚街医徽.png" />-->
           <div class="title">{{HOSPITAL_NAME_SPACE}}</div>

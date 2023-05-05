@@ -6,7 +6,12 @@
   >
     <div ref="Contain" @mousewheel="(e) => onScroll(e)">
       <div v-show="!isChart" class="blood-sugar-con">
-        <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
+        <div
+          class="sugr-page"
+          v-for="(item, index) in listMap"
+          :key="index"
+          :class="index !== listMap.length - 1 ? 'break-pages' : ''"
+        >
 
 
            <div class="title">
@@ -15,7 +20,7 @@
 
 
 
-          <div class="sup-title"style="border-bottom: 1px solid #000;">
+          <div class="sup-title" style="border-bottom: 1px solid #000;">
             血糖记录单
           </div>
 
