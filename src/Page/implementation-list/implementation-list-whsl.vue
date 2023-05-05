@@ -12,7 +12,7 @@
           v-model="startDate"
           style="width:160px"
         ></el-date-picker>
-        &nbsp;--&nbsp; 
+        &nbsp;--&nbsp;
         <el-date-picker
           type="datetime"
           format="yyyy-MM-dd HH:mm:ss"
@@ -124,7 +124,7 @@
         :pageLoading="pageLoading"
         ref="plTable"
       ></dTable>
-     
+
       <!-- <div class="pagination-con" flex="main:justify cross:center">
         <pagination
           :pageIndex="page.pageIndex"
@@ -381,10 +381,10 @@ export default {
         //   name: "非摆药机",
         //   value: "非摆药机"
         // },
-        // {
-        //   name: "泵入",
-        //   value: "泵入"
-        // },
+        {
+          name: "泵入",
+          value: "泵入"
+        },
         {
           name: "护理",
           value: "护理"
@@ -579,7 +579,7 @@ export default {
         this.type = ['全部']
       }
     },
-    async onPrint() { 
+    async onPrint() {
       this.isprint=true;
       this.$nextTick(async () => {
         await print(this.$refs.whslprintable, {
@@ -601,7 +601,7 @@ export default {
           }
           .whslprintable  .table th  .cell  {
             border: 1px solid #000 !important;
-           
+
           }
           td {
             border: 1px solid #000 !important;
