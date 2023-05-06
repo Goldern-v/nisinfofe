@@ -228,7 +228,6 @@ export default {
   },
   watch: {
     'patientInfo.patientId'(val) {
-      console.log('watch', this.newPatientInfo, this.sheetInfo.selectBlock.id)
       if (!this.newPatientInfo[`nurseLevel_${this.sheetInfo.selectBlock.id}`]) {
         info(this.patientInfo.patientId, this.patientInfo.visitId).then(res => {
           this.$set(sheetInfo.relObj, 'nurseLevel', res.data.data.nursingClass)
