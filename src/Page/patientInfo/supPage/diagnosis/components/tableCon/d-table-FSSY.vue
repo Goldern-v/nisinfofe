@@ -73,9 +73,9 @@
             <el-input v-model="scope.row.skinNursing" type="textarea" autosize></el-input>
           </template>
         </el-table-column>
-         <el-table-column prop="tracheaNursingCode" label="气管护理"  width="100" header-align="center">
+         <el-table-column prop="tracheaNursingCodes" label="气管护理"  width="100" header-align="center">
           <template slot-scope="scope">
-            <el-select v-model="scope.row.tracheaNursingCode" placeholder="">
+            <el-select v-model="scope.row.tracheaNursingCodes" multiple placeholder="">
               <el-option
                 v-for="item in tracheaOptions"
                 :key="item.value"
@@ -85,9 +85,9 @@
             </el-select>
           </template>
         </el-table-column>
-         <el-table-column prop="securityNursingCode" label="安全护理"  width="100" header-align="center">
+         <el-table-column prop="securityNursingCodes" label="安全护理"  width="100" header-align="center">
           <template slot-scope="scope">
-            <el-select v-model="scope.row.securityNursingCode" placeholder="">
+            <el-select v-model="scope.row.securityNursingCodes" multiple placeholder="">
               <el-option
                 v-for="item in securityOptions"
                 :key="item.value"
@@ -97,9 +97,9 @@
             </el-select>
           </template>
         </el-table-column>
-         <el-table-column prop="dietaryGuidanceType" label="饮食指导"  width="100" header-align="center">
+         <el-table-column prop="dietaryGuidanceTypes" label="饮食指导"  width="100" header-align="center">
           <template slot-scope="scope">
-            <el-select v-model="scope.row.dietaryGuidanceType" placeholder="">
+            <el-select v-model="scope.row.dietaryGuidanceTypes" multiple placeholder="">
               <el-option
                 v-for="item in dietaryOptions"
                 :key="item.value"
@@ -226,9 +226,9 @@
          <el-table-column prop="catheterNursing" label="导管护理"  width="80" header-align="center"></el-table-column>
          <el-table-column prop="positionNursing" label="体位护理"  width="80" header-align="center"></el-table-column>
          <el-table-column prop="skinNursing" label="皮肤护理"  width="80" header-align="center"></el-table-column>
-         <el-table-column prop="tracheaNursingCode" label="气管护理"  width="80" header-align="center"></el-table-column>
-         <el-table-column prop="securityNursingCode" label="安全护理"  width="80" header-align="center"></el-table-column>
-         <el-table-column prop="dietaryGuidanceType" label="饮食指导"  width="80" header-align="center"></el-table-column>
+         <el-table-column prop="tracheaNursingCodes" :formatter='tracheaFormatter' label="气管护理"  width="80" header-align="center"></el-table-column>
+         <el-table-column prop="securityNursingCodes" :formatter='securityFormatter' label="安全护理"  width="80" header-align="center"></el-table-column>
+         <el-table-column prop="dietaryGuidanceTypes" :formatter='dietaryFormatter' label="饮食指导"  width="80" header-align="center"></el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="85" align="center"></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="85" align="center"></el-table-column>
         <el-table-column
@@ -297,9 +297,20 @@ export default {
         {label:'糖尿病饮食',value:'糖尿病饮食'},
         {label:'其他',value:'其他'},
       ],
+      test: []
     };
   },
+  
   methods: {
+    tracheaFormatter(row) {
+      return row.tracheaNursingCodes.join(', ') 
+    },
+    securityFormatter(row) {
+      return row.securityNursingCodes.join(', ')
+    },
+    dietaryFormatter(row) {
+      return row.dietaryGuidanceTypes.join(', ') 
+    },
     onSignOrCancel(row){
       window.openSignModal((password,username)=>{
         this.diagnosisLoading = true
@@ -330,8 +341,36 @@ export default {
       // }
     },
     save(row) {
-     window.openSignModal((password, empNo) => {
-        console.log(row.diagTarget,row.diagMeasures);
+      // 后端新增加的字段 用多选数组形式 佛一需求
+      // 气管护理：tracheaNursingCodes
+      // 安全护理：securityNursingCodes  
+      // 饮食指导：dietaryGuidanceTypes
+      model.selectedRow = row;
+      let strSignData = JSON.stringify({
+        measureStr: row.measuresName.length ?row.measuresName :row.diagMeasures,
+        targetStr: row.targetsName.length ? row.targetsName : row.diagTarget,
+        factorStr: row.diagFactor,
+      })
+      let SigndataObj = {
+        Patient_ID:this.$route.query.patientId,
+        Visit_ID:this.$route.query.visitId,
+        Document_Title:"",
+        Document_ID:model.selectedRow.diagCode,
+        Section_ID:model.selectedRow.diagCode,
+        strSignData: strSignData,
+        
+      };
+
+      let verifySignObj = {
+        patientId:this.$route.query.patientId,
+        visitId:this.$route.query.visitId,
+        formName:"",
+        formCode:model.selectedRow.diagCode,
+        instanceId:row.id,
+        recordId:"",
+        signData:strSignData,
+      }
+      window.openSignModal((password, empNo) => {
         let obj = {
           creator: password,
           empNo,
@@ -349,9 +388,9 @@ export default {
           catheterNursing:row.catheterNursing,
           positionNursing:row.positionNursing,
           skinNursing:row.skinNursing,
-          tracheaNursingCode:row.tracheaNursingCode,
-          securityNursingCode:row.securityNursingCode,
-          dietaryGuidanceType:row.dietaryGuidanceType,
+          tracheaNursingCodes:row.tracheaNursingCodes,
+          securityNursingCodes:row.securityNursingCodes,
+          dietaryGuidanceTypes:row.dietaryGuidanceTypes,
           wardCode: model.selectedBlock.wardCode,
           beginTime: moment(row.beginTime).format("YYYY-MM-DD HH:mm")
         };
@@ -361,7 +400,7 @@ export default {
           // this.close();
           model.refreshTable();
         });
-      });
+      }, undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
     },
     edit(row) {
       // if (!this.verify()) return;
@@ -375,9 +414,9 @@ export default {
         catheterNursing:row.catheterNursing,
         positionNursing:row.positionNursing,
         skinNursing:row.skinNursing,
-        tracheaNursingCode:row.tracheaNursingCode,
-        securityNursingCode:row.securityNursingCode,
-        dietaryGuidanceType:row.dietaryGuidanceType,
+        tracheaNursingCodes:row.tracheaNursingCodes,
+        securityNursingCodes:row.securityNursingCodes,
+        dietaryGuidanceTypes:row.dietaryGuidanceTypes,
       });
       this.openSlideContant({
         id: model.selectedRow.id,
@@ -388,9 +427,9 @@ export default {
         catheterNursing:row.catheterNursing,
         positionNursing:row.positionNursing,
         skinNursing:row.skinNursing,
-        tracheaNursingCode:row.tracheaNursingCode,
-        securityNursingCode:row.securityNursingCode,
-        dietaryGuidanceType:row.dietaryGuidanceType,
+        tracheaNursingCodes:row.tracheaNursingCodes,
+        securityNursingCodes:row.securityNursingCodes,
+        dietaryGuidanceTypes:row.dietaryGuidanceTypes,
       })
     },
     del(row) {
@@ -420,7 +459,6 @@ export default {
         signData:strSignData,
       }
       window.openSignModal((password, empNo) => {
-        console.log(password);
         nursingDiagsDel(password, empNo, model.selectedRow.id).then(res => {
           this.$message.success("删除成功");
           model.refreshTable();

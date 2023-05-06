@@ -578,9 +578,9 @@ export default {
           obj.catheterNursing=this.data.catheterNursing?this.data.catheterNursing : '';
           obj.positionNursing=this.data.positionNursing?this.data.positionNursing : '';
           obj.skinNursing=this.data.skinNursing?this.data.skinNursing : '';
-          obj.tracheaNursingCode=this.data.tracheaNursingCode?this.data.tracheaNursingCode : '';
-          obj.securityNursingCode=this.data.securityNursingCode?this.data.securityNursingCode : '';
-          obj.dietaryGuidanceType=this.data.dietaryGuidanceType?this.data.dietaryGuidanceType : '';
+          obj.tracheaNursingCodes=this.data.tracheaNursingCodes?this.data.tracheaNursingCodes : [];
+          obj.securityNursingCodes=this.data.securityNursingCodes?this.data.securityNursingCodes : [];
+          obj.dietaryGuidanceTypes=this.data.dietaryGuidanceTypes?this.data.dietaryGuidanceTypes : [];
         }
         let promise =
           this.status === "0"
