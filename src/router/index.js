@@ -1550,7 +1550,6 @@ const router = new Router({
             case 'guizhou':
             case 'zhzxy':
             case 'nanfangzhongxiyi':
-            case '925':
             case 'gdtj':
             case 'nfyksdyy':
               return nursingMakeListGuizhou
@@ -1559,7 +1558,7 @@ const router = new Router({
           }
         })(),
         name: "护理巡视",
-        children:['guizhou', 'nanfangzhongxiyi','zhzxy', '925','gdtj','nfyksdyy'].includes(HOSPITAL_ID)?[
+        children:['guizhou', 'nanfangzhongxiyi','zhzxy','gdtj','nfyksdyy'].includes(HOSPITAL_ID)?[
           {
             path: "/nursingMakeItem",
             name: "nursingMakeItem",
