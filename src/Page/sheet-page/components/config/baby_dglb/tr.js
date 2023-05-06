@@ -188,7 +188,7 @@ export default [
     name: "喂养种类",
     change: (e, td) => limitChange(e, td, 6),
     autoComplete: {
-      data: ['母乳','代乳品','水','禁食']
+      data: ['母乳','代乳品','水','禁食','配方奶','早产奶']
     },
     textarea: {
       width: 40
