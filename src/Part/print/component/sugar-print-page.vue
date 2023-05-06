@@ -15,6 +15,8 @@
     // page-break-after always
     min-height 1000px
     // background red
+  .break-pages
+    page-break-after always
   .noPrint
     display none
   .inPrint

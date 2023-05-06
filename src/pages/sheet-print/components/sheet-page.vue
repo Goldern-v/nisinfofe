@@ -214,14 +214,16 @@ export default {
                   let dataValue = $(el)
                     .find("input")
                     .val();
-                  let resultValue = `<span>${formatSub(
-                    formatSub(formatSub(dataValue))
-                  )}</span>`;
-                  if (dataValue.indexOf("^") > -1) {
-                    $(el)
-                      .empty()
-                      .append(resultValue);
-                  }
+                    if(dataValue){
+                      let resultValue = `<span>${formatSub(
+                        formatSub(formatSub(dataValue))
+                      )}</span>`;
+                      if (dataValue.indexOf("^") > -1) {
+                        $(el)
+                          .empty()
+                          .append(resultValue);
+                      }
+                    }
                 });
               }catch(err){
                 console.log(err);

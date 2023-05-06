@@ -365,7 +365,7 @@ export default {
       },
       multiItemType: ["输液"],
       // 是否医嘱分类使用多选
-      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl","ytll", 'stmz','qhwy'].includes(
+      showMultiItemType: ["lyxrm", "whhk", "zhzxy", "925","whsl","ytll", 'stmz','qhwy','wujing'].includes(
         this.HOSPITAL_ID
       ),
       selectedData: [], //选中打印执行单条数
@@ -444,6 +444,7 @@ export default {
             { label: "雾化" },
             { label: "皮试" },
             { label: "治疗" },
+            { label: "泵入" },
             { label: "理疗" },
             { label: "护理" },
             { label: "外用" },
@@ -491,7 +492,7 @@ export default {
         this.HOSPITAL_ID
       ),
       // 能否打印全部
-      showPrintAll: ["sdlj", "gdtj", "fsxt", "ytll"].includes(this.HOSPITAL_ID),
+      showPrintAll: ["sdlj", "gdtj", "fsxt", "ytll",'whhk'].includes(this.HOSPITAL_ID),
     };
   },
   mounted() {

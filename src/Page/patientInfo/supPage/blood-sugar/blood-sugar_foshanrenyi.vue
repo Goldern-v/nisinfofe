@@ -6,7 +6,12 @@
   >
     <div ref="Contain" @mousewheel="e => onScroll(e)">
       <div v-show="!isChart" class="blood-sugar-con">
-        <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
+        <div
+          class="sugr-page"
+          v-for="(item, index) in listMap"
+          :key="index"
+          :class="index !== listMap.length - 1 ? 'break-pages' : ''"
+        >
           <div class="title">{{ HOSPITAL_NAME_SPACE }}</div>
           <div class="sup-title">血糖记录单</div>
           <p flex="main:justify" class="info" v-if="isPreviewUserInfo">

@@ -520,6 +520,24 @@
                           </router-link>
                         </el-dropdown-item>
                       </template>
+                      <!-- <template>
+                        <el-dropdown-item
+                          :class="{
+                            active: $route.path == '/cognitiveStatistic'
+                          }"
+                        >
+                          <router-link to="/statisticalReport" tag="span">
+                            <el-row
+                              class="menu-item"
+                              type="flex"
+                              align="middle"
+                            >
+                              <i class="cognitiveStatistic"></i
+                              >危重症病例统计表
+                            </el-row>
+                          </router-link>
+                        </el-dropdown-item>
+                      </template> -->
                     </el-dropdown-menu>
                   </el-dropdown>
                 </el-dropdown-item>
