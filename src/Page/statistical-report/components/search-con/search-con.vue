@@ -17,28 +17,8 @@
         ></el-option>
       </el-select>
     </div>
-    <div class="search-box">
-      <div class="title">出入院</div>
-      <div class="select-box" flex="cross:stretch">
-        <div
-          class="select-item"
-          flex="cross:center main:center"
-          flex-box="1"
-          style="border-right: 1px solid #C2CBD2"
-        >
-          <el-radio class="radio" v-model="data.status" label="1" size="small"
-            >在院</el-radio
-          >
-        </div>
-        <div class="select-item" flex="cross:center main:center" flex-box="1">
-          <el-radio class="radio" v-model="data.status" label="2" size="small"
-            >出院</el-radio
-          >
-        </div>
-      </div>
-    </div>
     <div class="search-box" v-if="data.status == 1">
-      <div class="title">入院起始日期</div>
+      <div class="title">起始日期</div>
       <el-date-picker
         v-model="data.admissionDate[0]"
         type="date"
@@ -47,30 +27,12 @@
       ></el-date-picker>
     </div>
     <div class="search-box" v-if="data.status == 1">
-      <div class="title">入院结束日期</div>
+      <div class="title">结束日期</div>
       <el-date-picker
         v-model="data.admissionDate[1]"
         type="date"
         format="yyyy-MM-dd"
         placeholder="选择入院结束时间"
-      ></el-date-picker>
-    </div>
-    <div class="search-box" v-if="data.status == 2">
-      <div class="title">出院起始时间</div>
-      <el-date-picker
-        v-model="data.dischargeDate[0]"
-        type="date"
-        format="yyyy-MM-dd"
-        placeholder="选择出院起始时间"
-      ></el-date-picker>
-    </div>
-    <div class="search-box" v-if="data.status == 2">
-      <div class="title">出院结束时间</div>
-      <el-date-picker
-        v-model="data.dischargeDate[1]"
-        type="date"
-        format="yyyy-MM-dd"
-        placeholder="选择出院结束时间"
       ></el-date-picker>
     </div>
     <div class="search-box">

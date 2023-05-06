@@ -14,140 +14,15 @@
         min-width="50px"
         type="index"
       ></el-table-column>
-
       <el-table-column
-        prop="admissionDeptName"
-        label="科室"
-        min-width="150px"
+        v-for="(item, index) in columnObj"
+        :key="index.type"
+        :label="item.label"
+        :min-width="item.width"
+        :type="item.type"
       ></el-table-column>
 
-      <el-table-column
-        prop="name"
-        label="姓名"
-        min-width="80px"
-      ></el-table-column>
 
-      <el-table-column
-        prop="patientId"
-        label="病人ID"
-        min-width="100px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="inpNo"
-        label="住院号"
-        min-width="80px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="sex"
-        label="性别"
-        min-width="60px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="age"
-        label="年龄"
-        min-width="90px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="educationLevel"
-        label="受教育程度"
-        min-width="120px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="mmseScore"
-        label="MMSE得分"
-        min-width="90px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="admissionDateTime"
-        label="入院日期"
-        min-width="120px"
-      ></el-table-column>
-
-      <el-table-column
-        prop="dischargeDateTime"
-        label="出院日期"
-        min-width="120px"
-      ></el-table-column>
-
-      <el-table-column
-        prop="diagnosis"
-        label="诊断"
-        min-width="200px"
-      ></el-table-column>
-
-      <el-table-column
-        prop="operName"
-        label="手术名称"
-        min-width="120px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="doctor"
-        label="主管医生"
-        min-width="80px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="phone"
-        label="现电话"
-        min-width="120px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop=""
-        label="随诊期限"
-        min-width="90px"
-      ></el-table-column>
-
-      <el-table-column
-        prop="companyPhone"
-        label="单位电话"
-        min-width="100px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="contactPhone"
-        label="联系人电话"
-        min-width="100px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="contactName"
-        label="联系人"
-        min-width="90px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="idNo"
-        label="身份证号"
-        min-width="120px"
-        align="center"
-      ></el-table-column>
-
-      <el-table-column
-        prop="address"
-        label="户口地址"
-        min-width="100px"
-        align="center"
-      ></el-table-column>
     </el-table>
   </div>
 </template>
@@ -191,6 +66,7 @@
 <script>
 import { info } from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
+import { columnObj } from './tableObject.js'
 import qs from "qs";
 export default {
   props: {
@@ -200,7 +76,8 @@ export default {
   mixins: [commonMixin],
   data() {
     return {
-      msg: "hello vue"
+      msg: "hello vue",
+      columnObj,
     };
   },
   methods: {

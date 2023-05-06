@@ -1,12 +1,12 @@
 <template lang="pug">
   div
-    p(class="title") 住院病人认知情况统计表
+    p(class="title") 危重症病例统计表
     .main-contain
       dTable(:tableData="tableData" :pageLoadng="pageLoadng" ref="area" )
       .head-con(flex="main:justify cross:center")
         pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
-      
+
     .search-con
       searchCon(ref="searchCon" :tableData="tableData" @print="onPrint")
 </template>
@@ -110,42 +110,13 @@ export default {
     getData() {
       let data = this.$refs.searchCon.data;
       let obj = {};
-      if (data.deptValue) {
-        obj.deptCode = data.deptValue;
-      }
-      if (data.status) {
-        obj.type = data.status == 1 ? "在院" : "出院";
-      }
-      if (data.name) {
-        obj.name = data.name;
-      }
-      if (data.patientId) {
-        obj.patientId = data.patientId;
-      }
-      if (data.inpNo) {
-        obj.inpNo = data.inpNo;
-      }
-      if (data.bedLabel) {
-        obj.bedLabel = data.bedLabel;
-      }
-      if (data.admissionDate[0] && data.status == 1) {
-        obj.startDate = new Date(data.admissionDate[0]).Format("yyyy-MM-dd");
-      }
-      if (data.admissionDate[1] && data.status == 1) {
-        obj.endDate = new Date(data.admissionDate[1]).Format("yyyy-MM-dd");
-      }
-      if (data.dischargeDate[0] && data.status == 2) {
-        obj.startDate = new Date(data.dischargeDate[0]).Format("yyyy-MM-dd");
-      }
-      if (data.dischargeDate[1] && data.status == 2) {
-        obj.endDate = new Date(data.dischargeDate[1]).Format("yyyy-MM-dd");
+      obj = { ...data,type: data.status == 1 ? "在院" : "出院",
+      startDate: data.admissionDate[0] && data.status == 1 ? new Date(data.admissionDate[0]).Format("yyyy-MM-dd"): data.dischargeDate[0] && data.status == 2 ? new Date(data.dischargeDate[0]).Format("yyyy-MM-dd"): '',
+      endDate: data.admissionDate[1] && data.status == 1 ? new Date(data.admissionDate[1]).Format("yyyy-MM-dd"): data.dischargeDate[1] && data.status == 2 ? new Date(data.dischargeDate[1]).Format("yyyy-MM-dd"): ''
       }
       this.pageLoadng = true;
       getList(obj).then(res => {
         this.tableData = res.data.data;
-        // this.page.total = res.data.data.page
-        //   ? parseInt(res.data.data.page) * this.page.pageNum
-        //   : 0;
         this.pageLoadng = false;
       });
     },
