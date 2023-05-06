@@ -692,6 +692,14 @@ export default {
      this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
+    // 首次录入体温单，时间显示入院时间
+    this.bus.$on("neverWrite", (value) => {
+      if (!value) {
+        const admissionDate = this.patientInfo.admissionDate;
+        this.query.entryDate = moment(admissionDate).format("YYYY-MM-DD");
+        this.query.entryTime = moment(admissionDate).format("HH:mm");
+      }
+    });
   },
   computed: {
     isBaby(){

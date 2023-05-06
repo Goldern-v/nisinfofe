@@ -242,11 +242,11 @@ export default {
     },
     onLoad(ifOnload) {
       if (!this.deptCode) return;
-      if(!this.query.bedLabel.trim() && ifOnload!=='onload') return
+      // if(!this.query.bedLabel.trim() && ifOnload!=='onload') return
       this.pageLoadng = true;
       this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
-      getNursingVisitLc(this.query).then(res => {
+      getNursingVisitLc({...this.query,bedLabel:this.query.bedLabel.trim()}).then(res => {
           if (['lyxrm', 'whsl', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
             let child = [],
               tableData = [];
@@ -331,6 +331,7 @@ export default {
       this.query.pageIndex = 1;
       this.onLoad();
       this.onLoadAll();
+      console.log(1)
     },
     getNursingClass() {
       let list = ["nurse_nursing_class"];
@@ -345,11 +346,11 @@ export default {
     },
     onLoadAll(ifOnload) {
       if (!this.deptCode) return;
-      if(!this.query.bedLabel.trim() && ifOnload!=='onload') return
+      // if(!this.query.bedLabel.trim() && ifOnload!=='onload') return
       this.pageLoadng = true;
       this.query.deptCode = this.deptCode;
       (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
-        getNursingVisitLc({...this.query, pageSize: 9999}).then(res => {
+        getNursingVisitLc({...this.query,bedLabel: this.query.bedLabel.trim(), pageSize: 9999}).then(res => {
           if (['lyxrm', 'whsl', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
             let child = [],
               tableData = [];

@@ -769,6 +769,12 @@ export default {
               min-width: 100px !important;
               max-width: 100px !important;
            }
+           @media print {
+            #sheetPagePrint td {
+              line-height: 36px !important;
+            }
+           
+          }
         `
       );
     }

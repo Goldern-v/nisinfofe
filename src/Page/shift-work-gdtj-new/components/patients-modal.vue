@@ -61,6 +61,7 @@
       <div class="left">
         <ElCheckbox :disabled="!patients" :value="patients.length === selectedItems.length" @change="onCheckAll">全部</ElCheckbox>
         <ElCheckbox :disabled="!groups['新']" :value="isAllCheck('新')" @change="onCheckStatus($event, '新')">新入</ElCheckbox>
+        <ElCheckbox :disabled="!groups['出院']" :value="isAllCheck('出院')" @change="onCheckStatus($event, '出院')">出院</ElCheckbox>
         <ElCheckbox :disabled="!groups['转入']" :value="isAllCheck('转入')" @change="onCheckStatus($event, '转入')">转入</ElCheckbox>
         <ElCheckbox :disabled="!groups['今手']" :value="isAllCheck('今手')" @change="onCheckStatus($event, '今手')">今手</ElCheckbox>
         <ElCheckbox :disabled="!groups['明手']" :value="isAllCheck('明手')" @change="onCheckStatus($event, '明手')">明手</ElCheckbox>
@@ -112,6 +113,9 @@
         this.close()
       },
       onConfirm () {
+        if(['gdtj'].includes(this.HOSPITAL_ID)){
+          return this.$emit('save', true,this.selectedItems)
+        }
         this.$emit('confirm', this.selectedItems)
       },
       async loadPatients (deptCode, date, id) {
@@ -124,7 +128,7 @@
         }))
 
         const groups = groupBy(patients, 'patientType')
-        const status = ['新', '转入', '今手', '明手', '明出', '病重', '病危']
+        const status = ['新','出院' ,'转入', '今手', '明手', '明出', '病重', '病危']
 
         this.patients = patients.filter((p) => !this.selectedKeys.includes(p.key))
 
@@ -137,8 +141,8 @@
           const {'转出': arr1 = [], '出院': arr2 = []} = groups
           groups['已出院\已转出'] = [...arr1, ...arr2]
 
-          delete groups['转出']
-          delete groups['出院']
+          // delete groups['转出']
+          // delete groups['出院']
         }
 
         if (groups['新'] || groups['新入']) {
@@ -156,7 +160,7 @@
       isAllCheck (status) {
         const all = this.groups[status] || []
         const selected = this.selectedItems.filter((p) => p.patientStatus.split('、').includes(status))
-
+        console.log(status,all,selected,this.selectedItems,'isAllCheck')
         return all.length && all.length === selected.length
       },
       onCheckChange (e, item) {
