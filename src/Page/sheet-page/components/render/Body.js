@@ -410,6 +410,11 @@ function switchSheetType(type) {
       schema = require("../config/prenatal_dglb/tr.js").default;
     }
       break;
+    case "postpartum2_dglb": {
+      // 东莞寮步-产后产房观察表
+      schema = require("../config/postpartum2_dglb/tr.js").default;
+    }
+      break;
     case "baby_dglb": {
       // 东莞寮步-护理记录单（新生儿科）
       schema = require("../config/baby_dglb/tr.js").default;
