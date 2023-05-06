@@ -254,8 +254,9 @@ const currentTargetUrl = (() => {
       return 'http://119.97.229.206:9094'
       // return 'http://119.97.229.206:9094'
     case 'dglb':
+        return 'http://192.168.3.176:9091'
       // return 'http://192.168.1.54:9866'
-          return  'http://219.131.142.78:9094'
+      //     return  'http://219.131.142.78:9094'
 
     // 威海市立
     case 'whsl':
