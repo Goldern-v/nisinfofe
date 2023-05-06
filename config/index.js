@@ -135,8 +135,8 @@ const currentTargetUrl = (() => {
     /** 武警广东省总队医院 */
     case "wujing":
       // return 'http://14.18.101.182:9094' // crph3675 crph
-      return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
-      // return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
+      // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
+      return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.20.187:8080" // 杨鑫本地
       // return "http://218.13.87.27:9094"
       // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式  crph3675 crph
@@ -167,8 +167,8 @@ const currentTargetUrl = (() => {
       // return "http://192.168.103.16:9091" //
       // return "http://218.13.87.27:9094" //
       // return "http://192.168.20.136:8080" //测试
-      // return "http://192.168.1.54:9883" //测试
-      return "http://192.168.3.154:8080" // 本地
+      return "http://192.168.1.54:9883" //测试
+      // return "http://192.168.3.154:8080" // 本地
       // return "https://info.cr-health.com:20215"
 
     // 福清妇幼保健院
@@ -242,10 +242,10 @@ const currentTargetUrl = (() => {
 
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
-      return 'http://192.168.1.54:9866'
+      // return 'http://192.168.1.54:9866'
       // return 'http://218.13.87.27:9094'
       // return 'http://120.24.240.231:19097'
-      // return 'http://192.168.3.226:8080'
+      return 'http://192.168.3.154:8080'
       // return 'http://192.168.3.191:9091'
 
     //武汉汉口
@@ -386,7 +386,24 @@ module.exports = {
                 // target: "http://120.197.141.41:9091", //东莞
                 // target: "http://120.197.141.41:9094", //东莞正式库的测试
 
-                target: "http://120.25.105.45:9864", //测试
+                target: "http://59.38.110.189:9092", //测试
+                // target: "http://192.168.1.20:8964", // 内网测试cno
+                // target: "http://dev.cr-health.com:4453", // 外网测试
+                // target: 'http://192.168.1.88:8062', // 内网兆彬IP测试
+                // target: 'http://10.35.9.115:8085', // 厚街内网俊涛ip测试
+                // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
+
+                changeOrigin: false,
+                pathRewrite: {
+                    // crNursing 东莞厚街护理系统 路径
+                    "http://localhost:4892/crNursing/sheet-print": "http://127.0.0.1:5500/dist/nfyk/sheet-print.html" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+                }
+            },
+            "/crNursing/static": {
+                // target: "http://120.197.141.41:9091", //东莞
+                // target: "http://120.197.141.41:9094", //东莞正式库的测试
+
+                target: "http://127.0.0.1:5500", //测试
                 // target: "http://192.168.1.20:8964", // 内网测试cno
                 // target: "http://dev.cr-health.com:4453", // 外网测试
                 // target: 'http://192.168.1.88:8062', // 内网兆彬IP测试
@@ -396,7 +413,7 @@ module.exports = {
                 changeOrigin: true,
                 pathRewrite: {
                     // crNursing 东莞厚街护理系统 路径
-                    "^/crNursing/sheet-print": "/crNursing/sheet-print" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+                    "^/crNursing/static": "http://127.0.0.1:5500/dist/nfyk/static" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
                 }
             },
             "/stylesheets": {

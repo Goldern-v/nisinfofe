@@ -35,6 +35,28 @@
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
     </div>
+    <div class="info-con" flex="main:justify" v-else-if="sheetInfo.sheetType === 'general_item_weihai'">
+      <span>
+        科别：
+        <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+      </span>
+      <span>
+        姓名：
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
+      </span>
+      <span>
+        病案号：
+        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+      </span>
+      <span>
+        年龄：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
+      </span>
+      <span>
+        床号：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+      </span>
+    </div>
 
     <div class="info-con" flex="main:justify" v-else>
       <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">

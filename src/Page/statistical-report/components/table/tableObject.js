@@ -1,0 +1,38 @@
+export const columnObj = [
+    {
+        type:'admissionDeptName',
+        width:'150px',
+        label:'id号'
+    },
+    {
+        type:'admissionDeptName',
+        width:'150px',
+        label:'姓名'
+    },
+    {
+        type:'admissionDeptName',
+        width:'150px',
+        label:'诊断'
+    },
+    {
+        type:'admissionDeptName',
+        width:'150px',
+        label:'入院日期'
+    },
+    {
+        type:'admissionDeptName',
+        width:'150px',
+        label:'出院日期'
+    },
+    {
+        type:'admissionDeptName',
+        width:'150px',
+        label:'告病重日期'
+    },
+    {
+        type:'admissionDeptName',
+        width:'150px',
+        label:'一级护理日期'
+    },
+]
+

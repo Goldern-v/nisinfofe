@@ -308,13 +308,6 @@ export default {
           sortable: true
 				},
         {
-					key: 'intensiveCare',
-					title: '重症监护',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
 					key: 'inDanger',
 					title: '病危（重）',
           align: 'center',
@@ -363,13 +356,13 @@ export default {
 					width: 120,
           sortable: true
 				},
-        {
-					key: 'inHospitalAssess',
-					title: '住院评估',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
+        // {
+				// 	key: 'inHospitalAssess',
+				// 	title: '住院评估',
+        //   align: 'center',
+				// 	width: 120,
+        //   sortable: true
+				// },
         {
 					key: 'riskAssess',
 					title: '风险评估',
@@ -507,7 +500,7 @@ export default {
     },
     // 图表数据
     chartData() {
-      let arr = [ ...this.otherColumns]
+      let arr = [...(this.HOSPITAL_ID === 'foshanrenyi' ? this.otherColumns_foshanrenyi : this.otherColumns)]
       if (this.tableData.length > 0) {
         this.tableData.map(item => {
           arr.map(v => {

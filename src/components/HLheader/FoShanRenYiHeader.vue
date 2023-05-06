@@ -13,7 +13,7 @@
               align="middle"
             >
               <img
-                src="../../common/images/logo_foshanrenyi.png"
+                src="../../common/images/logo_foshanrenyi_new.png"
                 height="63"
                 width="63"
               />
