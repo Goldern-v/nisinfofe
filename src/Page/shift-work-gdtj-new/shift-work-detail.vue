@@ -13,7 +13,7 @@
         v-if="!$store.state.shiftRecords.isLock"
       >删除行</Button>
       <!-- <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button> -->
-      <Button :disabled="isEmpty || allSigned"  @click="onSave(true)" v-if="!$store.state.shiftRecords.isLock">保存</Button>
+      <Button :disabled="isEmpty || allSigned"  @click="onSave3(true)" v-if="!$store.state.shiftRecords.isLock">保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove" v-if="!$store.state.shiftRecords.isLock">删除交班志</Button>
@@ -890,7 +890,7 @@ export default {
       } else {
         this.$refs.table.addRow(data);
       }
-      this.onSave(true);
+      this.onSave2(true);
       this.$refs.patientModal.close();
       // this.modified = true
     },
@@ -931,6 +931,41 @@ export default {
       const shiftWithWardcodes = [this.shiftWithWardcodes]
 
       await apis.updateShiftRecord({
+        changeShiftTimes: changeShiftTime,
+        changeShiftPatients,
+        shiftWithWardcodes
+      });
+
+      this.load();
+      if (tip) {
+        this.$message.success("保存成功");
+      }
+      if(['gdtj'].includes(this.HOSPITAL_ID)){
+        this.$refs.patientsModal.close();
+      }
+    },
+    async onSave3(tip,patients) {
+      const deptCode = this.deptCode;
+      const changeShiftTime = this.record;
+      const shiftWithWardcodes = [this.shiftWithWardcodes]
+
+      await apis.updateShiftRecord({
+        changeShiftTimes: changeShiftTime,
+        shiftWithWardcodes
+      });
+
+      this.load();
+      if (tip) {
+        this.$message.success("保存成功");
+      }
+    },
+    async onSave2(tip,patients) {
+      const deptCode = this.deptCode;
+      const changeShiftTime = this.record;
+      let changeShiftPatients = [this.$refs.table.selectedRow].filter(p => p.name || p.id).map((p, i) => ({ ...p, sortValue: i + 1 }));
+      const shiftWithWardcodes = [this.shiftWithWardcodes]
+
+      await apis.savePatient({
         changeShiftTimes: changeShiftTime,
         changeShiftPatients,
         shiftWithWardcodes
