@@ -82,7 +82,7 @@ export function getRowNum(index) {
     return 35
   } else if (sheetInfo.sheetType === 'intravenous_sdlj'|| sheetInfo.sheetType === 'criticaldisease_xt' || sheetInfo.sheetType === 'cardiovascular_xt' ) {
     return 20
-  } else if ( sheetInfo.sheetType === 'access_fk'||sheetInfo.sheetType === 'cardiac_lcey' || sheetInfo.sheetType == 'postpartum_yz') {
+  } else if ( sheetInfo.sheetType === 'access_fk'||sheetInfo.sheetType === 'cardiac_lcey' || sheetInfo.sheetType == 'postpartum_yz' || sheetInfo.sheetType == 'general_item_weihai') {
     return 28
   } else if (sheetInfo.sheetType === 'mechanical_sdlj'||sheetInfo.sheetType === 'custody_yz') {
     return 33
