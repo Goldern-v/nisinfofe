@@ -2,28 +2,38 @@
   <div
     :style="sizeStyle"
     class="new-print-modal"
-		:class="{'new-print-modal--s': !isLargeType,'pageBreak':isLargeType, 'new-print-modal--s1': !isLargeType && 'whsl' === HOSPITAL_ID}"
+		:class="{
+      'new-print-modal--s': !isLargeType,
+      'pageBreak':isLargeType,
+      'new-print-modal--s1': !isLargeType && 'whsl' === HOSPITAL_ID,
+    }"
   >
     <div class="new-modal-top">
       <div class="new-modal-top-right">
-        <div class="new-modal-top-right-top">
+        <div class="new-modal-top-right-top" :class="{ 'whsl-large-qc': whslLarge }">
           <img :src="currentBottle.qcSrc || ''" />
         </div>
       </div>
       <div class="new-modal-top-left">
-        <div class="new-modal-top-left-first"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}">
+        <div
+          class="new-modal-top-left-first"
+          :class="{
+            'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID),
+            'whsl-left-first': whslLarge,
+          }"
+        >
           <div>{{ currentBottle.name }}</div>
           <div>
             {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
           </div>
         </div>
-        <div class="new-modal-top-left-second">
+        <div class="new-modal-top-left-second" :class="{ 'whsl-left-second': whslLarge }">
           <div style="text-indent: 5px">{{ isLargeType?currentBottle.deptName:currentBottle.patientId }}</div>
           <div>{{ isLargeType?(currentBottle.patientId || ""):currentBottle.deptName }}</div>
           <div>{{ currentBottle.sex || "" }}</div>
           <div>{{ currentBottle.age }}</div>
         </div>
-        <div class="new-modal-top-left-second">
+        <div class="new-modal-top-left-second" :class="{ 'whsl-left-second': whslLarge }">
           <div v-if="HOSPITAL_ID == 'whsl'" style="text-indent: 5px">
             {{ currentBottle.executeDate.substr(0, 16) }}
           </div>
@@ -36,7 +46,7 @@
         </div>
       </div>
     </div>
-    <div class="new-modal-bottom" :style="modalBStyle">
+    <div class="new-modal-bottom" :style="modalBStyle" :class="{ 'whsl-large-bottom': whslLarge }">
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
@@ -45,7 +55,7 @@
           {{ item }}
         </div>
     </div>
-    <div class="new-modal-bottom-second">
+    <div class="new-modal-bottom-second" :class="{ 'whsl-large-bottom-sec': whslLarge }">
       <div style="width: 20%">频次途径</div>
       <div style="flex: 1">{{ currentBottle.frequency }}</div>
       <div v-if="HOSPITAL_ID == 'whsl'">{{ currentBottle.freqDetail }}</div>
@@ -88,6 +98,11 @@
         div + div {
           margin-left: 8px;
         }
+        &.whsl-left-first {
+          & > div {
+            font-size: 20px;
+          }
+        }
       }
       .new-modal-top-left-second {
         line-height: 20px;
@@ -99,6 +114,11 @@
         padding-right: 8px;
         &:last-child {
           border-bottom: 0;
+        }
+        &.whsl-left-second {
+          & > div {
+            font-size: 12px;
+          }
         }
       }
     }
@@ -113,6 +133,11 @@
           width: 100%;
           height: 64px;
           object-fit: cover;
+        }
+        &.whsl-large-qc {
+          img {
+            height: 58px;
+          }
         }
       }
       .new-modal-top-right-bottom {
@@ -134,6 +159,11 @@
         line-height: 18px;
         font-size: 15px;
       }
+    &.whsl-large-bottom {
+      div {
+        font-size: 13px;
+      }
+    }
   }
   .new-modal-bottom-second {
     width: 100%;
@@ -148,6 +178,11 @@
     }
     div:nth-of-type(2n) {
       text-indent: 5px;
+    }
+    &.whsl-large-bottom-sec {
+      div {
+        font-size: 12px;
+      }
     }
   }
   &.new-print-modal--s {
@@ -233,7 +268,7 @@
         padding-left: 4px;
         height: 35px !important;
       }
-     
+
       .new-modal-top-left-second {
         height: 25px !important;
         div {
@@ -334,6 +369,9 @@ export default {
         return { height: '100px' }
       }
       return {}
+    },
+    whslLarge() {
+      return ['whsl'].includes(this.HOSPITAL_ID) && this.newModalSize == '6*8';
     }
   },
   filters: {

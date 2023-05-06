@@ -239,7 +239,7 @@
         </div>
       </div>
     </div>
-    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm" />
+    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm" @save="onSave"/>
     <PatientModal
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
@@ -922,12 +922,12 @@ export default {
         (this.record.specialSituation || "") + item.content;
       this.modified = true;
     },
-    async onSave(tip) {
+    async onSave(tip,patients) {
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
-      const changeShiftPatients = this.patients
-        .filter(p => p.name || p.id)
-        .map((p, i) => ({ ...p, sortValue: i + 1 }));
+      let changeShiftPatients = []
+      if(['gdtj'].includes(this.HOSPITAL_ID)) changeShiftPatients = patients
+      else changeShiftPatients = this.patients.filter(p => p.name || p.id).map((p, i) => ({ ...p, sortValue: i + 1 }));
       const shiftWithWardcodes = [this.shiftWithWardcodes]
 
       await apis.updateShiftRecord({
@@ -939,6 +939,9 @@ export default {
       this.load();
       if (tip) {
         this.$message.success("保存成功");
+      }
+      if(['gdtj'].includes(this.HOSPITAL_ID)){
+        this.$refs.patientsModal.close();
       }
     },
     onSignModalOpen(type) {
