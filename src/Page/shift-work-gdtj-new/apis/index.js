@@ -106,6 +106,9 @@ export function createShiftRecord(
 export function updateShiftRecord(data) {
   return axios.post(`${apiPath}changeShiftMaster/saveContent`, data);
 }
+export function savePatient(data) {
+  return axios.post(`${apiPath}changeShiftMaster/savePatient`, data);
+}
 
 // 删除交班志行
 export function removeShiftRecordRow(changeShiftTimeId,sortValue) {

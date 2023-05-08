@@ -183,17 +183,17 @@
         @row-click="selectedRow"
         :row-class-name="tableRowClassName"
       >
-        <el-table-column label="序号" width="35" align="center">
+        <el-table-column label="序号" width="30" align="center">
           <template slot-scope="scope">
             {{
             scope.row.index
             }}
           </template>
         </el-table-column>
-         <el-table-column label="护理等级" width="70" header-align="center" prop="nursingClass">
+         <el-table-column label="护理等级" width="60" header-align="center" prop="nursingClass">
         </el-table-column>
-        <el-table-column prop="diagName" label="护理诊断" width="80" header-align="center"></el-table-column>
-        <el-table-column label="护理措施计划" width="150" header-align="center">
+        <el-table-column prop="diagName" label="护理诊断" width="70" header-align="center"></el-table-column>
+        <el-table-column label="护理措施计划" width="100" header-align="center">
           <template slot-scope="scope">
             <!-- <div v-for="(item, index) in scope.row.measuresName" :key="index">
               <p>{{item && item.measureDetail}}</p>
@@ -206,7 +206,7 @@
               <div v-if="!scope.row.measuresName.length" v-html="scope.row.diagMeasures&&scope.row.diagMeasures.replace(/\n/g,'<br><br>')"></div>
           </template>
         </el-table-column>
-        <el-table-column label="护理目标" width="70" header-align="center">
+        <el-table-column label="护理目标" width="60" header-align="center">
           <template slot-scope="scope">
             <!-- <span v-for="(item, index) in scope.row.targetsName" :key="index">
               {{
@@ -223,23 +223,23 @@
             </div>
           </template>
         </el-table-column>
-         <el-table-column prop="catheterNursing" label="导管护理"  width="80" header-align="center"></el-table-column>
-         <el-table-column prop="positionNursing" label="体位护理"  width="80" header-align="center"></el-table-column>
-         <el-table-column prop="skinNursing" label="皮肤护理"  width="80" header-align="center"></el-table-column>
-         <el-table-column prop="tracheaNursingCodes" :formatter='tracheaFormatter' label="气管护理"  width="80" header-align="center"></el-table-column>
-         <el-table-column prop="securityNursingCodes" :formatter='securityFormatter' label="安全护理"  width="80" header-align="center"></el-table-column>
-         <el-table-column prop="dietaryGuidanceTypes" :formatter='dietaryFormatter' label="饮食指导"  width="80" header-align="center"></el-table-column>
-        <el-table-column prop="beginTime" label="开始时间" width="85" align="center"></el-table-column>
-        <el-table-column prop="endTime" label="停止时间" width="85" align="center"></el-table-column>
+         <el-table-column prop="catheterNursing" label="导管护理"  width="60" header-align="center"></el-table-column>
+         <el-table-column prop="positionNursing" label="体位护理"  width="60" header-align="center"></el-table-column>
+         <el-table-column prop="skinNursing" label="皮肤护理"  width="60" header-align="center"></el-table-column>
+         <el-table-column prop="tracheaNursingCodes" :formatter='tracheaFormatter' label="气管护理"  width="70" header-align="center"></el-table-column>
+         <el-table-column prop="securityNursingCodes" :formatter='securityFormatter' label="安全护理"  width="70" header-align="center"></el-table-column>
+         <el-table-column prop="dietaryGuidanceTypes" :formatter='dietaryFormatter' label="饮食指导"  width="70" header-align="center"></el-table-column>
+        <el-table-column prop="beginTime" label="开始时间" width="75" align="center"></el-table-column>
+        <el-table-column prop="endTime" label="停止时间" width="75" align="center"></el-table-column>
         <el-table-column
           prop="evalType"
           label="护理评价"
-          width="100"
+          width="70"
           header-align="center"
           align="center"
         ></el-table-column>
-        <el-table-column prop="evalContent" label="评价说明" width="130" header-align="center"></el-table-column>
-        <el-table-column label="护士签名" width="65" header-align="center" >
+        <el-table-column prop="evalContent" label="评价说明" width="70" header-align="center"></el-table-column>
+        <el-table-column label="护士签名" width="60" header-align="center" >
           <template slot-scope="scope">
             <!-- <img class="signer-img" v-if="scope.row.operatorName" :src="`/crNursing/api/file/signImage/${scope.row.operatorName}?${token}`" alt=""> -->
             {{scope.row.operatorName}}
