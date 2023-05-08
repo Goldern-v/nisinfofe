@@ -4,35 +4,35 @@
       <div class="title">护理单元</div>
       <el-select
         placeholder="请选择"
-        v-model="data.deptValue"
+        v-model="data.deptCode"
         filterable
-        @change="changeDept(data.deptValue)"
+        @change="changeDept(data.deptCode)"
       >
-        <el-option :value="0" label="全部"></el-option>
+        <el-option value="" label="全部"></el-option>
         <el-option
-          v-for="item in data.deptList"
+          v-for="item in deptList"
           :key="item.code"
           :label="item.name"
           :value="item.code"
         ></el-option>
       </el-select>
     </div>
-    <div class="search-box" v-if="data.status == 1">
+    <div class="search-box">
       <div class="title">起始日期</div>
       <el-date-picker
-        v-model="data.admissionDate[0]"
+        v-model="data.startDate"
         type="date"
         format="yyyy-MM-dd"
-        placeholder="选择入院起始时间"
+        placeholder="选择起始时间"
       ></el-date-picker>
     </div>
-    <div class="search-box" v-if="data.status == 1">
+    <div class="search-box">
       <div class="title">结束日期</div>
       <el-date-picker
-        v-model="data.admissionDate[1]"
+        v-model="data.endDate"
         type="date"
         format="yyyy-MM-dd"
-        placeholder="选择入院结束时间"
+        placeholder="选择结束时间"
       ></el-date-picker>
     </div>
     <div class="search-box">
@@ -72,7 +72,7 @@
     <div
       class="exportExcel-btn"
       flex="cross:center main:center"
-      @click="exportExcel"
+      @click="handleExport"
       v-touch-ripple
     >
       导出
@@ -153,9 +153,6 @@
 </style>
 <script>
 import { nursingUnit } from "@/api/lesion";
-import { nursingUnitAll } from "@/api/common";
-import { exportExcel } from "../../api/patientStatistics";
-import { fileDownload } from "@/utils/fileExport.js";
 import moment from "moment";
 export default {
   props: {
@@ -164,16 +161,15 @@ export default {
   data() {
     return {
       printing: false,
+      deptList: [],
       data: {
-        deptValue: "",
-        deptList: [],
-        status: "1",
+        deptCode: "",
+        startDate:moment( moment().subtract(1, 'month').format('YYYY-MM-DD')),
+        endDate:moment(),
+        patientId: "",
         name: "",
         bedLabel: "",
         inpNo: "",
-        patientId: "",
-        admissionDate: [moment().subtract(30, "days"), new Date()],
-        dischargeDate: [moment().subtract(30, "days"), new Date()]
       }
     };
   },
@@ -186,16 +182,14 @@ export default {
     deptCode() {}
   },
   created() {
-    let getNursingUnit =
-      this.HOSPITAL_ID == "hj" ? nursingUnitAll : nursingUnit;
-    getNursingUnit()
+    nursingUnit()
       .then(res => {
-        this.data.deptList = res.data.data.deptList;
-        this.data.deptValue =
+        this.deptList = res.data.data.deptList;
+        this.data.deptCode =
           this.$store.state.lesion.deptCode ||
           res.data.data.defaultDept ||
           res.data.data.deptList[0].code;
-        this.$store.commit("upDeptCode", this.data.deptValue);
+        this.$store.commit("upDeptCode", this.data.deptCode);
       })
       .then(() => {
         this.$parent.getData();
@@ -212,22 +206,8 @@ export default {
     onPrint() {
       this.$emit("print", this.printing);
     },
-    exportExcel() {
-      let obj = {
-        deptCode: this.data.deptValue,
-        type: this.data.status == 1 ? "在院" : "出院",
-        startDate:
-          status == "1"
-            ? moment(this.data.admissionDate[0]).format("YYYY-MM-DD HH:mm:ss")
-            : moment(this.aaa).format("YYYY-MM-DD HH:mm:ss"),
-        endDate:
-          status == "1"
-            ? moment(this.data.admissionDate[1]).format("YYYY-MM-DD HH:mm:ss")
-            : moment(this.data.dischargeDate[1]).format("YYYY-MM-DD HH:mm:ss")
-      };
-      exportExcel(obj).then(res => {
-        fileDownload(res);
-      });
+    handleExport() {
+      this.$parent.getexportExcel();
     }
   },
   components: {}
