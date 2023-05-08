@@ -99,6 +99,24 @@
           病区:
           <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
         </span>
+        <!-- <span>
+         特殊情况：
+        <input
+          style="width: 200px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
+        />
+        </span>-->
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
+          过敏史：
+          <input
+          style="width: 35px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
+        />
+        </span>
         </div>
       <div class="info-con" >
         <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
@@ -128,12 +146,12 @@
           床号:
           <div class="bottom-line" style="min-width: 90px">{{patientInfo.bedLabel}}</div>
         </span>
-        <span>{{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}</span>
+        <!-- <span>{{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}</span> -->
         <span>
           住院号:
           <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
         </span>
-        
+
         <!-- <span>
           诊断:
           <div  class="bottom-line" style="min-width: 480px">{{patientInfo.diagnosis}}</div>
@@ -152,30 +170,44 @@
             {{ diagnosis }}
           </div>
         </span>
-        <!-- <span>
-          ID号:
-          <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
-        </span> -->
-        <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
-          温箱编号:
-          <input
-            class="bottom-line"
-            style="width: 30px"
-            @focus="onFocusToAutoComplete($event)"
-            @blur="onBlurToAutoComplete"
-            v-model="relObj.wxNo"
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
+        孕产史：孕
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['pregnantTimes']"
+          v-model="sheetInfo.relObj['pregnantTimes']"
+        />产
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['parity']"
+          v-model="sheetInfo.relObj['parity']"
+        />
+        孕
+        <input
+          style="width: 35px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
+        />
+        周
+      </span>
+      <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
+        破膜时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
           />
-        </span>-->
-        <!-- <span>
-          入院日期:
-          {{patientInfo.admissionDate | toymd}}
-        </span> -->
+      </span>
+
       </div>
     </div>
-    <!-- <span>入院日期:{{$route.query.admissionDate}}</span> -->
     <bedRecordModal v-if="bedShow" @closeBedshow="closeBedshow" ref="bedRecordModal"></bedRecordModal>
   </div>
-  
+
 </template>
 
 <script>
@@ -185,6 +217,7 @@ import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
+import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
 import bedRecordModal from "../../../modal/bedRecord-modal";
 import { saveBody, queryDianosisList }  from  "@/api/sheet.js"
 
@@ -467,6 +500,7 @@ export default {
   },
   components: {
     bedRecordModal,
+    crDatePicker,
   },
   async created(){
     if(this.index!=0){

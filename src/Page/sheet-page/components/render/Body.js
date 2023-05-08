@@ -1616,6 +1616,11 @@ function switchSheetType(type) {
       schema = require("../config/prenataldelivery2_tj/tr.js").default;
     }
       break;
+      case "prenatal_sdry": {
+        // 顺德人医 - 产前护理记录
+         schema = require("../config/prenatal_sdry/tr.js").default;
+       }
+         break;
     case "postpartum2_tj": {
       // 广东同江 - 产后护理记录单
       schema = require("../config/postpartum2_tj/tr.js").default;
