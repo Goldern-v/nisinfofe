@@ -189,7 +189,7 @@
 }
 
 .sheetTable-contain {
-  height: 100%;
+  height: calc( 100% - 35px);
   background: #DFDFDF;
   overflow: auto;
   z-index: 3;
