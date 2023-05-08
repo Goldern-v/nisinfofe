@@ -53,7 +53,7 @@ export default [
       data: []
     },
     textarea: {
-      width: 36
+      width: 120
     }
   },
   {
