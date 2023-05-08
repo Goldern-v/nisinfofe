@@ -24,18 +24,18 @@
       </div>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else-if="HOSPITAL_ID =='nfyksdyy'">
         <div flex="cross:center">
-          <div class="label">值班医生：</div>
-          <input flex-box="1" v-model="data.mainClassDoctor" @blur="update" />
+          <div class="label"><input style="width: 65px;border: none;padding-left: 0" v-model="data.customization1" @blur="update" /><span v-if="data.customization1">:</span></div>
+          <input flex-box="1" v-model="data.mainClassDoctor"  />
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
-          <div class="label">副班医生：</div>
-          <input flex-box="1" v-model="data.onDutyDoctor" @blur="update" />
+          <div class="label"><input style="width: 65px;border: none;padding-left: 0" v-model="data.customization2" @blur="update" /><span v-if="data.customization2">:</span></div>
+          <input flex-box="1" v-model="data.onDutyDoctor"  />
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
-          <div class="label">门诊医生</div>
-          <input flex-box="1" v-model="data.secondTierDoctor" @blur="update" />
+          <div class="label"><input style="width: 65px;border: none;padding-left: 0" v-model="data.customization3" @blur="update" /><span v-if="data.customization3">:</span></div>
+          <input flex-box="1" v-model="data.secondTierDoctor"  />
         </div>
         <div style="height: 15px"></div>
 
