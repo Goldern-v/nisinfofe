@@ -19,10 +19,8 @@
         :key="index.type"
         :label="item.label"
         :min-width="item.width"
-        :type="item.type"
+        :prop="item.type"
       ></el-table-column>
-
-
     </el-table>
   </div>
 </template>

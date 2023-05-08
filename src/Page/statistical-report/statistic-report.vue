@@ -4,7 +4,7 @@
     .main-contain
       dTable(:tableData="tableData" :pageLoadng="pageLoadng" ref="area" )
       .head-con(flex="main:justify cross:center")
-        pagination(:pageIndex="page.pageIndex" :size="page.pageNum" :total="page.total" @sizeChange="handleSizeChange"
+        pagination(:size="page.pageSize" :pageIndex="page.pageIndex" :total="page.pageCount" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
 
     .search-con
@@ -83,8 +83,10 @@
 import searchCon from "./components/search-con/search-con";
 import dTable from "./components/table/d-table";
 import pagination from "./components/common/pagination";
-import { getList } from "./api/patientStatistics";
+import { getList, exportExcel} from "./api/patientStatistics";
 import print from "printing";
+import moment from "moment";
+import { fileDownload } from "@/utils/fileExport.js";
 export default {
   data() {
     return {
@@ -93,30 +95,31 @@ export default {
       tableData: [],
       pageLoadng: false,
       page: {
+        pageSize: 20,
         pageIndex: 1,
-        pageNum: 20,
-        total: 0
+        pageCount: 0
       }
     };
   },
   methods: {
     handleSizeChange(newSize) {
-      this.page.pageNum = newSize;
+      this.page.pageSize = newSize;
     },
     handleCurrentChange(newPage) {
       this.page.pageIndex = newPage;
       this.getData();
     },
     getData() {
-      let data = this.$refs.searchCon.data;
-      let obj = {};
-      obj = { ...data,type: data.status == 1 ? "在院" : "出院",
-      startDate: data.admissionDate[0] && data.status == 1 ? new Date(data.admissionDate[0]).Format("yyyy-MM-dd"): data.dischargeDate[0] && data.status == 2 ? new Date(data.dischargeDate[0]).Format("yyyy-MM-dd"): '',
-      endDate: data.admissionDate[1] && data.status == 1 ? new Date(data.admissionDate[1]).Format("yyyy-MM-dd"): data.dischargeDate[1] && data.status == 2 ? new Date(data.dischargeDate[1]).Format("yyyy-MM-dd"): ''
-      }
+      let data = {...this.$refs.searchCon.data, ...this.page,
+      startDate: this.$refs.searchCon.data.startDate && moment(this.$refs.searchCon.data.startDate).format("YYYY-MM-DD HH:mm:ss"),
+      endDate: this.$refs.searchCon.data.endDate && moment(this.$refs.searchCon.data.endDate).format("YYYY-MM-DD HH:mm:ss")
+      };
       this.pageLoadng = true;
-      getList(obj).then(res => {
-        this.tableData = res.data.data;
+      getList(data).then(res => {
+        this.tableData = res.data.data.list;
+        this.page.pageSize = res.data.data.pageSize
+        this.page.pageIndex = res.data.data.pageIndex
+        this.page.pageCount = res.data.data.pageCount
         this.pageLoadng = false;
       });
     },
@@ -139,6 +142,15 @@ export default {
       });
 
       this.printing = val;
+    },
+    getexportExcel() {
+      let data = {...this.$refs.searchCon.data, ...this.page,
+      startDate: this.$refs.searchCon.data.startDate && moment(this.$refs.searchCon.data.startDate).format("YYYY-MM-DD HH:mm:ss"),
+      endDate: this.$refs.searchCon.data.endDate && moment(this.$refs.searchCon.data.endDate).format("YYYY-MM-DD HH:mm:ss")
+      };
+      exportExcel(data).then(res => {
+        fileDownload(res);
+      });
     }
   },
   components: {
