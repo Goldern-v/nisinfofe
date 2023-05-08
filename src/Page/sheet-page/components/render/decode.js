@@ -95,11 +95,30 @@ function decode(ayncVisitedData) {
         result.push(tr)
         // 当前行数修改后，当前页相同时间，当前修改行之前相同时间于当前行数时间一同发起请求。
         for (let i = 0; i < index; i++) {
-          isChangePreRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangePreRecord)
+          const changeDate = bodyModel[i].find(item => item.key === 'recordDate').value;
+          const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+          if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour && !bodyModel[i].isChange && !bodyModel[i].isChange &&  !(bodyModel[i][recordDateIndex] && bodyModel[i][recordDateIndex].value && changeArr.includes(bodyModel[i][recordDateIndex].value))) {
+            let setTr = {}
+            for (const option of bodyModel[i]) {
+              setTr[option.key] = option.value;
+            }
+            isChangePreRecord.push(setTr);
+          }
+          // isChangePreRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangePreRecord)
         }
         //  // 当前行数修改后，当前页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
         for (let i = +index + 1; i < bodyModel.length; i++) {
-          isChangeLastRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangeLastRecord)
+          const changeDate = bodyModel[i].find(item => item.key === 'recordDate').value;
+          const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+          // console.log(i, changeDate,changeMonth === ischangeMonth , changeHour === ischangeHour,!bodyModel[i].isChange)
+          if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour && !bodyModel[i].isChange &&  !(bodyModel[i][recordDateIndex] && bodyModel[i][recordDateIndex].value && changeArr.includes(bodyModel[i][recordDateIndex].value))) {
+            let setTr = {}
+            for (const option of bodyModel[i]) {
+              setTr[option.key] = option.value;
+            }
+            isChangeLastRecord.push(setTr);
+          }
+          // isChangeLastRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangeLastRecord)
         }
         // 当前行数修改后，当前页的前一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
         for (let i = 0; i < pageIndex; i++) {
@@ -135,7 +154,6 @@ function decode(ayncVisitedData) {
     }
 
   }
-  // console.log('result',result,'prevRecord:',prevRecord,'isChangePreRecord:',isChangePreRecord,'isChangeLastRecord',isChangeLastRecord,'lastRecord',lastRecord);
   // if(['925'].includes(process.env.HOSPITAL_ID)){
   //   allData = [...allData, ...prevRecord, ...isChangePreRecord, ...result, ...isChangeLastRecord, ...lastRecord];
   // }else{
@@ -228,7 +246,7 @@ function decode(ayncVisitedData) {
 function simplifySet(index,bodyModel, month, hour, setRecord) {
     const changeDate = bodyModel[index].find(item => item.key === 'recordDate').value;
     const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
-    if (changeDate && changeMonth === month && changeHour === hour && !bodyModel[index].isChange) {
+    if (changeDate && changeMonth === month && changeHour === hour && !(bodyModel[index].isChange)) {
       let setTr = {}
       for (const option of bodyModel[index]) {
         setTr[option.key] = option.value;

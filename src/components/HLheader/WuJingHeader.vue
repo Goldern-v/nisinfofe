@@ -502,7 +502,7 @@
                       <i class="birthCertificate"></i>统计查询
                     </el-row>
                     <el-dropdown-menu slot="dropdown">
-                      <template>
+                      <!-- <template>
                         <el-dropdown-item
                           :class="{
                             active: $route.path == '/cognitiveStatistic'
@@ -519,8 +519,8 @@
                             </el-row>
                           </router-link>
                         </el-dropdown-item>
-                      </template>
-                      <!-- <template>
+                      </template> -->
+                      <template>
                         <el-dropdown-item
                           :class="{
                             active: $route.path == '/cognitiveStatistic'
@@ -537,7 +537,7 @@
                             </el-row>
                           </router-link>
                         </el-dropdown-item>
-                      </template> -->
+                      </template>
                     </el-dropdown-menu>
                   </el-dropdown>
                 </el-dropdown-item>

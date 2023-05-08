@@ -434,6 +434,7 @@ export default {
       repeatIndicator: "",
       instructions:'',//入量名称
       identicalGroupSelect: ["wujing",'lyxrm'],
+      identicalGroupSelectuseISfirst: ["wujing"],
       repeatIndicatorList: [
         {
           id: "",
@@ -526,7 +527,7 @@ export default {
         });
         temArr = filterList;
       }
-      if (this.identicalGroupSelect.includes(this.HOSPITAL_ID)) {
+      if (this.identicalGroupSelectuseISfirst.includes(this.HOSPITAL_ID)) {
         let firstTime = "";
         temArr.map((item) => {
           item.isFirst && (firstTime = item.recordDate);

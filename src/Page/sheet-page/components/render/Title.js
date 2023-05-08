@@ -417,6 +417,13 @@ export default function Title(
     );
   }
   break;
+    case "postpartum2_dglb": {
+      // 东莞寮步-产后产房观察表
+      Th = JSON.parse(
+          JSON.stringify(require("../config/postpartum2_dglb/th").default)
+      );
+    }
+      break;
   case "baby_dglb": {
     // 东莞寮步-护理记录单（新生儿科）
     Th = JSON.parse(
@@ -2083,6 +2090,13 @@ export default function Title(
     // 广东同江 - 产前护理记录
     Th = JSON.parse(
       JSON.stringify(require("../config/prenataldelivery2_tj/th.js").default)
+    );
+  }
+  break;
+  case "prenatal_sdry": {
+    // 顺德人医 - 产前护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_sdry/th.js").default)
     );
   }
   break;
