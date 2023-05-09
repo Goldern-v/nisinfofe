@@ -95,22 +95,52 @@ function decode(ayncVisitedData) {
         result.push(tr)
         // 当前行数修改后，当前页相同时间，当前修改行之前相同时间于当前行数时间一同发起请求。
         for (let i = 0; i < index; i++) {
-          isChangePreRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangePreRecord)
+          const changeDate = bodyModel[i].find(item => item.key === 'recordDate').value;
+          const [changeYear, changeMonth, changeHour] = [moment(changeDate).format('YYYY'), moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+          if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour && !bodyModel[i].isChange && !bodyModel[i].isChange &&  !(bodyModel[i][recordDateIndex] && bodyModel[i][recordDateIndex].value && changeArr.includes(bodyModel[i][recordDateIndex].value))) {
+            let setTr = {}
+            for (const option of bodyModel[i]) {
+              if(option.key == 'recordYear'){
+                setTr[option.key] = changeYear;
+              }else{
+                setTr[option.key] = option.value;
+              }
+            }
+            isChangePreRecord.push(setTr);
+          }
+          // isChangePreRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangePreRecord)
         }
         //  // 当前行数修改后，当前页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
         for (let i = +index + 1; i < bodyModel.length; i++) {
-          isChangeLastRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangeLastRecord)
+          const changeDate = bodyModel[i].find(item => item.key === 'recordDate').value;
+          const [changeYear, changeMonth, changeHour] = [moment(changeDate).format('YYYY'), moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+          if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour && !bodyModel[i].isChange &&  !(bodyModel[i][recordDateIndex] && bodyModel[i][recordDateIndex].value && changeArr.includes(bodyModel[i][recordDateIndex].value))) {
+            let setTr = {}
+            for (const option of bodyModel[i]) {
+              if(option.key == 'recordYear'){
+                setTr[option.key] = changeYear;
+              }else{
+                setTr[option.key] = option.value;
+              }
+            }
+            isChangeLastRecord.push(setTr);
+          }
+          // isChangeLastRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangeLastRecord)
         }
         // 当前行数修改后，当前页的前一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
         for (let i = 0; i < pageIndex; i++) {
           const prevPage = data[i].bodyModel;
           for (let prevIndex = 0; prevIndex < prevPage.length; prevIndex++) {
             const changeDate = prevPage[prevIndex].find(item => item.key === 'recordDate').value;
-            const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
-            if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour ) {
+            const [changeYear,changeMonth, changeHour] = [moment(changeDate).format('YYYY'), moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+            if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour && !prevPage[prevIndex].isChange &&  !(prevPage[prevIndex][recordDateIndex] && prevPage[prevIndex][recordDateIndex].value && changeArr.includes(prevPage[prevIndex][recordDateIndex].value))) {
               let setTr = {}
               for (const option of prevPage[prevIndex]) {
-                setTr[option.key] = option.value;
+                if(option.key == 'recordYear'){
+                  setTr[option.key] = changeYear;
+                }else{
+                  setTr[option.key] = option.value;
+                }
               }
               prevRecord.push(setTr);
             }
@@ -121,11 +151,15 @@ function decode(ayncVisitedData) {
           const lastPage = data[i].bodyModel;
           for (let lastIndex = 0; lastIndex < lastPage.length; lastIndex++) {
             const changeDate = lastPage[lastIndex].find(item => item.key === 'recordDate').value;
-            const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
-            if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour ) {
+            const [changeYear, changeMonth, changeHour] = [moment(changeDate).format('YYYY'), moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+            if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour && !lastPage[lastIndex].isChange &&  !(lastPage[lastIndex][recordDateIndex] && lastPage[lastIndex][recordDateIndex].value && changeArr.includes(lastPage[lastIndex][recordDateIndex].value))) {
               let setTr = {}
               for (const option of lastPage[lastIndex]) {
-                setTr[option.key] = option.value;
+                if(option.key == 'recordYear'){
+                  setTr[option.key] = changeYear;
+                }else{
+                  setTr[option.key] = option.value;
+                }
               }
               lastRecord.push(setTr);
             }
@@ -135,12 +169,18 @@ function decode(ayncVisitedData) {
     }
 
   }
-  // console.log('result',result,'prevRecord:',prevRecord,'isChangePreRecord:',isChangePreRecord,'isChangeLastRecord',isChangeLastRecord,'lastRecord',lastRecord);
-  // if(['925'].includes(process.env.HOSPITAL_ID)){
-  //   allData = [...allData, ...prevRecord, ...isChangePreRecord, ...result, ...isChangeLastRecord, ...lastRecord];
-  // }else{
+  console.log('prevRecord:',prevRecord, 'isChangePreRecord:',isChangePreRecord,'isChangeLastRecord:',isChangeLastRecord,'lastRecord',lastRecord);
+  console.log('result:',result);
+   // 因为跨页的时候，在下一页改掉和上一页相同时间，上一页的recordYear为空
+   if(!result[0]['recordYear']){
+     result[0]['recordYear'] = moment(result[0]['recordDate']).format('YYYY')
+   }
+  //  医院开启了修改单条数据出现顺序保存错乱，做了处理，后续有问题可以看一下这里的逻辑，代码写的很烂，如有优化可以进行优化。sorry了
+  if(['925','guizhou','nfyksdyy','huadu','foshanrenyi'].includes(process.env.HOSPITAL_ID)){
+    allData = [...allData, ...prevRecord, ...isChangePreRecord, ...result, ...isChangeLastRecord, ...lastRecord];
+  }else{
     allData = [...allData, ...result];
-  // }
+  }
 
   // 贵州-同步护理巡视内容到特殊情况
   if (['guizhou', '925'].includes(process.env.HOSPITAL_ID) && ayncVisitedData) {
@@ -228,7 +268,7 @@ function decode(ayncVisitedData) {
 function simplifySet(index,bodyModel, month, hour, setRecord) {
     const changeDate = bodyModel[index].find(item => item.key === 'recordDate').value;
     const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
-    if (changeDate && changeMonth === month && changeHour === hour && !bodyModel[index].isChange) {
+    if (changeDate && changeMonth === month && changeHour === hour && !(bodyModel[index].isChange)) {
       let setTr = {}
       for (const option of bodyModel[index]) {
         setTr[option.key] = option.value;

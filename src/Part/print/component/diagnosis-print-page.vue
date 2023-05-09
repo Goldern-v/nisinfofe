@@ -213,9 +213,15 @@ export default {
       addCSS(
         window,
         `
-         @media print {
-            #diagnosisPagePrint .iframe > div:nth-of-type(2n) {
-              transform: rotate(-180px) !important;
+        #diagnosisPagePrint .containter  {
+          width: 1300px !important;
+        }
+        @media print {
+          #diagnosisPagePrint .containter  {
+            width: 1300px !important;
+          }
+          #diagnosisPagePrint .iframe > div:nth-of-type(2n) {
+            transform: rotate(-180px) !important;
           }
         }
         `

@@ -89,6 +89,7 @@ export default {
         this.tableData.map((item, index) => {
           item.index = `P${index + 1}`;
         });
+        this.tableData = JSON.parse(JSON.stringify(this.tableData))
         this.tableLoading = false;
       });
     },

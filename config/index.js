@@ -87,10 +87,10 @@ const currentTargetUrl = (() => {
 
     /** 江门妇幼 */
     case "fuyou":
-      // return "http://218.14.180.38:9094" // 江门妇幼正式
-          // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
+      return "http://218.14.180.38:9094" // 江门妇幼正式
+      //     return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
       // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
-      return "http://192.168.3.154:8080" // 本地
+      // return "http://192.168.3.154:8080" // 本地
 
 
     /** 中山七 */
@@ -137,7 +137,7 @@ const currentTargetUrl = (() => {
       // return 'http://14.18.101.182:9094' // crph3675 crph
       // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
       return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
-      // return "http://192.168.20.187:8080" // 杨鑫本地
+      // return "http://192.168.3.154:8080" // 杨鑫本地
       // return "http://218.13.87.27:9094"
       // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式  crph3675 crph
 
@@ -245,7 +245,7 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.1.54:9866'
       // return 'http://218.13.87.27:9094'
       // return 'http://120.24.240.231:19097'
-      return 'http://192.168.3.154:8080'
+      return 'http://192.168.3.228:8080'
       // return 'http://192.168.3.191:9091'
 
     //武汉汉口
@@ -254,6 +254,7 @@ const currentTargetUrl = (() => {
       return 'http://119.97.229.206:9094'
       // return 'http://119.97.229.206:9094'
     case 'dglb':
+        // return 'http://192.168.3.176:9091'
       // return 'http://192.168.1.54:9866'
           return  'http://219.131.142.78:9094'
 
@@ -269,9 +270,9 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.20.20:9092'
     //
     case 'nfyksdyy':
-      // return 'http://192.168.5.127:9091'
+      return 'http://192.168.5.127:9091'
           // return 'http://192.168.1.54:9901'  //
-          return  'http://59.38.110.189:9092'
+          // return  'http://59.38.110.189:9092'
           // return  'http://192.168.3.228:8080'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭

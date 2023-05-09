@@ -113,6 +113,9 @@
         this.close()
       },
       onConfirm () {
+        if(['gdtj'].includes(this.HOSPITAL_ID)){
+          return this.$emit('save', true,this.selectedItems)
+        }
         this.$emit('confirm', this.selectedItems)
       },
       async loadPatients (deptCode, date, id) {

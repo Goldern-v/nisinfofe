@@ -152,7 +152,8 @@
       <span>
         入院时间：
         <div class="bottom-line" style="min-width: 80px">
-          {{ patientInfo.admissionDate | toymd }}
+          <!-- {{ patientInfo.admissionDate | toymd }} -->
+          {{ newPatientInfo[`admissionDate_${index}_${sheetInfo.selectBlock.id}`] | toymd }}
         </div>
       </span>
       <!-- {{index}} {{relObj}} -->
@@ -190,7 +191,7 @@
 
 <script>
 import moment from "moment";
-import { updateSheetHeadInfo } from "../../../../api/index";
+import { updateSheetHeadInfo , getNurseAdtLog } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import bus from "vue-happy-bus";
 import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
@@ -202,7 +203,8 @@ export default {
   data() {
     return {
       bus: bus(this),
-      sheetInfo
+      sheetInfo,
+      ischangemajor:false,
     };
   },
   computed: {
@@ -239,6 +241,28 @@ export default {
       text = ''
       return arr
     },
+    newPatientInfo() {
+      /*  每页独立入院时间功能 */
+      this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`] = this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`] ? this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`] : this.patientInfo.admissionDate
+      let admissionDate = this.patientInfo.admissionDate
+      let nowadmissionDate = this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`]
+      if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index - 1}`]){
+        // 除了第一页，其他页数。先拿admissionDate，如果上一页也有时间那就拿就拿上一页的
+        admissionDate = this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index-1}`]
+      }
+      return {
+        ...this.patientInfo,
+        [`admissionDate_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowadmissionDate ? nowadmissionDate : admissionDate,
+      }
+    }
+  },
+  created(){
+    this.getChangeMajor();
+    /* 添加新页，转科后入院时间需要改变成转科时间*/
+    this.bus.$on("initSheetPageSize", (istrue) => {
+     this.ischangemajor = istrue;
+    });
+
   },
   methods: {
     handleDeptNameChoose(){
@@ -288,11 +312,25 @@ export default {
         this.diagnosis,
         `修改诊断`
       );
+    },
+    /* 获取转科记录 */
+    async getChangeMajor(){
+      const {data:{data}} = await getNurseAdtLog(this.patientInfo.patientId, this.patientInfo.visitId)
+      if (!this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`]) {
+        this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`] = data.length && data[data.length-1].inDateTime
+      }
     }
   },
   filters: {
     toymd(val) {
       return moment(val).format("YYYY-MM-DD");
+    }
+  },
+  watch:{
+    ischangemajor(newValue){
+      if(newValue) {
+        this.getChangeMajor()
+      }
     }
   },
   destroyed() {},
