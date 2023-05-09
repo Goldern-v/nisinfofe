@@ -124,9 +124,9 @@ const currentTargetUrl = (() => {
       // return "http://10.207.40.24:9091" // 贵州测试
       // return "http://info.cr-health.com:20111" // 公司-厚街测试-外网
       // return "http://192.168.1.54:9867"
-      // return "http://192.168.20.77:8080"
+      return 'http://192.168.3.228:8080'
       // return "http://192.168.3.153:8080"
-      return "http://ydys.gz5055.com:9093" //GZsr@bcy!2021#.
+      // return "http://ydys.gz5055.com:9093" //GZsr@bcy!2021#.
     /** 山南市人民医院 */
     case "shannan":
       // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
@@ -270,7 +270,7 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.20.20:9092'
     //
     case 'nfyksdyy':
-      return 'http://192.168.5.127:9091'
+      return 'http://192.168.3.154:8080'
           // return 'http://192.168.1.54:9901'  //
           // return  'http://59.38.110.189:9092'
           // return  'http://192.168.3.228:8080'
