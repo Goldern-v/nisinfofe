@@ -270,7 +270,7 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.20.20:9092'
     //
     case 'nfyksdyy':
-      return 'http://192.168.5.127:9091'
+      return 'http://192.168.3.154:8080'
           // return 'http://192.168.1.54:9901'  //
           // return  'http://59.38.110.189:9092'
           // return  'http://192.168.3.228:8080'

@@ -103,6 +103,11 @@ export default {
       this.pageLoading = true;
       queryByDeptCode(this.deptCode).then(res => {
         this.deptInfo = res.data.data;
+        if(this.HOSPITAL_ID ==='nfyksdyy'){
+          if(!res.data.data.customization1)this.deptInfo.customization1 ='值班医生'
+          if(!res.data.data.customization2)this.deptInfo.customization2 ='副班医生'
+          if(!res.data.data.customization3)this.deptInfo.customization3 ='门诊医生'
+        }
         if(this.deptInfo.message&&this.deptInfo.message!==''){
           this.deptInfo.message = this.deptInfo.message.replace(/<br\/>/g, "\n");
         }
