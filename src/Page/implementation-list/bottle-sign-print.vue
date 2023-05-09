@@ -250,6 +250,7 @@ import NewPrintModal from "./components/common/newPrintModal";
 import NewPrintModalSdlj from "./components/common/newPrintModalSdlj";
 import NewPrintModalFsxt from "./components/common/newPrintModalFsxt";
 import NewPrintModalLyxrm from "./components/common/newPrintModalLyxrm";
+import NewPrintModal925 from "./components/common/NewPrintModal925";
 import NewPrintModalWhfk from "./components/common/newPrintModalWhfk";
 import NewPrintModalWhhk from "./components/common/newPrintModalWhhk";
 import NewPrintModalWujing from "./components/common/newPrintModalWujing";
@@ -1025,8 +1026,9 @@ export default {
         case "lyxrm":
         case "stmz":
         // case "zhzxy":
-        case "925":
           return "NewPrintModalLyxrm";
+        case "925":
+          return "NewPrintModal925";
         case "whfk":
         case "whsl":
           return "NewPrintModalWhfk";
@@ -1166,6 +1168,7 @@ export default {
     NewPrintModalSdlj,
     NewPrintModalFsxt,
     NewPrintModalLyxrm,
+    NewPrintModal925,
     NewPrintModalWhfk,
     NewPrintModalWhhk,
     NewPrintModalWujing,
