@@ -279,7 +279,13 @@
           </div>
         </template>
       </u-table-column>
-
+      <u-table-column prop="cancelReason" label="不执行的原因"   v-if="HOSPITAL_ID == 'nfyksdyy'" min-width="200px">
+        <template slot-scope="scope">
+          <div>
+            {{ scope.row.cancelReason }}
+          </div>
+        </template>
+      </u-table-column>
       <u-table-column prop="nurseMemo" label="护士备注" v-if="HOSPITAL_ID !== 'nfyksdyy'" min-width="200px">
         <template slot-scope="scope">
           <div v-show="scope.row.rowType == 1 || !scope.row.rowType">

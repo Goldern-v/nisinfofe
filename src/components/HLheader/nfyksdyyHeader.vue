@@ -703,8 +703,9 @@
 .nav-item {
   height: 60px;
   padding: 0 10px;
-  font-size: 14px;
-  color: #687179;
+  font-size: 15px;
+  color: #000;
+  font-weight: bold;
   // font-weight: 700;
   letter-spacing: 0;
   cursor: pointer;

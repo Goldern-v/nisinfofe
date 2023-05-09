@@ -173,7 +173,7 @@ export default [
     change: (e, td) => limitChange(e, td, 2)
   },
   {
-    key: "fieldThree",
+    key: "colorTraits",
     event: keyf1,
     value: "",
     autoComplete: { data: yanse },
@@ -302,32 +302,37 @@ export default [
   },
 
   {
-    key: "oxygenInhalation",
+    key: "painEval",
     event: keyf1,
     value: "",
-    next: "升/分",
-    name: "吸氧",
+    next: "",
+    name: "宫缩疼痛评分",
     textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 2)
   },
   {
+    key: "analgesic", //标题1
+    value: "",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "非药物镇痛方法",
+    textarea: {
+      width: 40
+    }
+  },
+  {
+    key: "bladderFilling", //标题2
+    value: "",
+    event: keyf1,
+    next: "",
+    name: "膀胱充盈度",
+    textarea: {
+      width: 40
+    }
+  },
+  {
     key: "armValue", //标题1
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 40
-    }
-  },
-  {
-    key: "armValue2", //标题2
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 40
-    }
-  },
-  {
-    key: "armValue3", //标题3
     value: "",
     event: keyf1,
     textarea: {
@@ -357,7 +362,7 @@ export default [
   },
   { key: "sign", value: "" }, //单签
   // { key: "sign2", value: "" },//双签
-  { key: "audit", value: "" }, //审核签名
+  // { key: "audit", value: "" }, //审核签名
   { hidden: true, key: "id", value: "" },
   { hidden: true, key: "signerName", value: "" },
   { hidden: true, key: "signerName2", value: "" },
