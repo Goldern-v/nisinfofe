@@ -33,7 +33,7 @@
 
         <right3 :data="deptInfo" :isSave="isSave"></right3>
         <div style="height: 20px"></div>
-        <right4 :data="deptInfo" :isSave="isSave"></right4>
+        <right4 :data="deptInfo" :isSave="isSave" v-if="HOSPITAL_ID !=='nfyksdyy'"></right4>
         <div style="height: 20px"></div>
         <right5 :data="deptInfo" ref="right5"></right5>
       </div>
@@ -93,7 +93,7 @@ export default {
     }
     if(this.deptCode && this.HOSPITAL_ID === 'fuyou'){
       this.bus.$emit("indexGetAllBed");
-    } 
+    }
   },
   created() {
     this.bus.$on("indexGetAllData", this.getData);
@@ -103,6 +103,11 @@ export default {
       this.pageLoading = true;
       queryByDeptCode(this.deptCode).then(res => {
         this.deptInfo = res.data.data;
+        if(this.HOSPITAL_ID ==='nfyksdyy'){
+          if(!res.data.data.customization1)this.deptInfo.customization1 ='值班医生'
+          if(!res.data.data.customization2)this.deptInfo.customization2 ='副班医生'
+          if(!res.data.data.customization3)this.deptInfo.customization3 ='门诊医生'
+        }
         if(this.deptInfo.message&&this.deptInfo.message!==''){
           this.deptInfo.message = this.deptInfo.message.replace(/<br\/>/g, "\n");
         }

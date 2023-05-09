@@ -1427,7 +1427,32 @@ export default {
       }
     },
     toCopyRow(index) {
-      let row = JSON.parse(JSON.stringify(this.sheetInfo.copyRow));
+      function isObject(value) {
+        const valueType = typeof value
+        return (value !== null) && (valueType === "object" || valueType === "function")
+      }
+
+      function deepClone(originValue) {
+        // 判断如果是函数类型, 那么直接使用同一个函数
+        if (typeof originValue === "function") {
+          return originValue
+        }
+
+        // 判断传入的originValue是否是一个对象类型
+        if (!isObject(originValue)) {
+          return originValue
+        }
+
+        // 判断传入的对象是数组, 还是对象
+        const newObject = Array.isArray(originValue) ? []: {}
+        for (const key in originValue) {
+          newObject[key] = deepClone(originValue[key])
+        }
+
+        return newObject
+      }
+      // let row = JSON.parse(JSON.stringify(this.sheetInfo.copyRow));
+      let row = deepClone(this.sheetInfo.copyRow)
       this.data.bodyModel.splice(index, 1, row);
     },
     delRow(index) {

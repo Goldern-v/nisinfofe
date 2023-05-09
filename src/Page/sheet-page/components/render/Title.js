@@ -2093,6 +2093,13 @@ export default function Title(
     );
   }
   break;
+  case "prenatal_sdry": {
+    // 顺德人医 - 产前护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_sdry/th.js").default)
+    );
+  }
+  break;
   case "postpartum2_tj": {
     // 广东同江 - 产后护理记录单
     Th = JSON.parse(
