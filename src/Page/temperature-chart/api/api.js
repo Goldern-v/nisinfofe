@@ -129,3 +129,13 @@ export const getLastList = (patientId, visitId) => {
 export const getViSigsByReDate = (data) => {
   return axios.post(`${apiPath}vitalSign/getByRecordDate`, data);
 };
+
+// 获取单人体温单列表(7天)
+export const getTemperatureList = (data) => {
+  return axios.post(`${apiPath}record/bodyTemperatureLocal/getTemperatureList`, data);
+}
+
+// 保存单人体温单列表
+export const saveTemperatureList = (data) => {
+  return axios.post(`${apiPath}record/bodyTemperatureLocal/saveTemperatureList`, data);
+}
