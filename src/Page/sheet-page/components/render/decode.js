@@ -172,7 +172,7 @@ function decode(ayncVisitedData) {
   console.log('prevRecord:',prevRecord, 'isChangePreRecord:',isChangePreRecord,'isChangeLastRecord:',isChangeLastRecord,'lastRecord',lastRecord);
   console.log('result:',result);
    // 因为跨页的时候，在下一页改掉和上一页相同时间，上一页的recordYear为空
-   if(!result[0]['recordYear']){
+   if(result.length && !result[0]['recordYear']){
      result[0]['recordYear'] = moment(result[0]['recordDate']).format('YYYY')
    }
   //  医院开启了修改单条数据出现顺序保存错乱，做了处理，后续有问题可以看一下这里的逻辑，代码写的很烂，如有优化可以进行优化。sorry了
