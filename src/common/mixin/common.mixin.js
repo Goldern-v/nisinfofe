@@ -70,7 +70,7 @@ export default {
     token() {
       let token;
       try {
-        if ($params.token) {
+        if ($params.token && !['guizhou'].includes(process.env.HOSPITAL_ID)) {
           token = $params.token;
         } else {
           let newToken = "";

@@ -5,7 +5,7 @@
     <div ref="Contain" @mousewheel="(e) => onScroll(e)">
       <nullBg ></nullBg>
       <div class="addBtn">
-        <whiteButton text="添加血氧记录" @click="onAddTable"/>
+        <whiteButton text="添加血糖记录" @click="onAddTable"/>
     </div>
     </div>
   </div>
@@ -32,7 +32,7 @@ import nullBg from "@/components/null/null-bg.vue";
 export default {
   data() {
     return {
-      
+
     };
   },
   methods: {
@@ -41,7 +41,7 @@ export default {
         this.$emit('onAddTableModal');
       else
         this.$message.warning("请先选择一名患者");
-    } 
+    }
   },
   components: {
     whiteButton,

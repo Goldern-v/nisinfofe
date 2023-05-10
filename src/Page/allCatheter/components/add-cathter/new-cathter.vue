@@ -47,9 +47,19 @@
           <span class="item-title" v-if="HOSPITAL_ID === 'whsl'"
             >预计更换时间:</span
           >
-          <span class="item-title" v-else>更换时间:</span>
+          <span class="item-title" v-else>计划更换时间:</span>
           <el-date-picker
             v-model="expecteReplaceTime"
+            type="datetime"
+            placeholder="选择日期时间"
+          >
+          </el-date-picker>
+          <!-- <span class="star">*</span> -->
+        </div>
+        <div class="modal-item" style="margin-bottom:10px;">
+          <span class="item-title">计划拔除时间:</span>
+          <el-date-picker
+            v-model="expectExtubationTime"
             type="datetime"
             placeholder="选择日期时间"
           >
@@ -167,6 +177,7 @@ export default {
       type: "",
       intubationTime: moment().format("YYYY-MM-DD HH:mm:ss"), //当前时间
       expecteReplaceTime: "",
+      expectExtubationTime: "",
       options: [
         {
           value: "本院",
@@ -207,6 +218,7 @@ export default {
         replaceTime: this.expecteReplaceTime
           ? moment(this.expecteReplaceTime).format("YYYY-MM-DD HH:mm:ss")
           : "",
+        expectExtubationTime: this.expectExtubationTime ? moment(this.expecteReplaceTime).format("YYYY-MM-DD HH:mm:ss") : '',
         formTitle: this.formTitle ? this.formTitle : this.newCathterType.name,
         catheterSource: this.catheterSource
       })

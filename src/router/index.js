@@ -82,7 +82,9 @@ const shiftWorkDetailGdtj = () => import("@/Page/shift-work-gdtj/shift-work-deta
 const shiftWorkGdtjNew = () => import("@/Page/shift-work-gdtj-new/shift-work.vue");
 const shiftWorkDetailGdtjNew = () => import("@/Page/shift-work-gdtj-new/shift-work-detail.vue");
 const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
+const shiftWorkWhhk = () => import("@/Page/shift-work-whhk/shift-work.vue");
 const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
+const shiftWorkDetailWhhk = () => import("@/Page/shift-work-whhk/shift-work-detail.vue");
 const shiftWorkWhsl = () => import("@/Page/shift-work-whsl/shift-work.vue");
 const shiftWorkDetailWhsl = () => import("@/Page/shift-work-whsl/shift-work-detail.vue");
 const shiftWorkDetailSdlj = () => import("@/Page/shift-work-lj/shift-work-detail.vue");
@@ -833,7 +835,6 @@ const router = new Router({
         component: (() => {
           switch (HOSPITAL_ID) {
             case 'lingcheng':
-            case 'whhk':
               return shiftWorkLc
             case 'huadu':
               return ISBARshiftWorkHd
@@ -863,6 +864,8 @@ const router = new Router({
               return shiftWorkSdlj
             case 'fsxt':
               return shiftWorkFsxt
+            case 'whhk':
+              return shiftWorkWhhk
             default:
               return shiftWork
           }
@@ -873,7 +876,6 @@ const router = new Router({
           component: (() => {
             switch (HOSPITAL_ID) {
               case 'lingcheng':
-              case 'whhk':
                 return shiftWorkDetailLc
               case 'huadu':
                 return ISBARshiftWorkDetailHd
@@ -903,6 +905,8 @@ const router = new Router({
                 return shiftWorkDetailSdlj
               case 'fsxt':
                 return shiftWorkDetailFsxt
+              case 'whhk': 
+                return shiftWorkDetailWhhk
               default:
                 return shiftWorkDetail
             }
