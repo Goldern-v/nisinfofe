@@ -1731,6 +1731,16 @@ function switchSheetType(type) {
       schema = require("../config/baby_weihai/tr.js").default;
     }
     break;
+    case "baby_sdry": {
+      // 顺德人医 - 爱婴区新生儿
+      schema = require("../config/baby_sdry/tr.js").default;
+    }
+    break;
+    case "postpartum_sdry": {
+      // 顺德人医 - 产后护理记录
+      schema = require("../config/postpartum_sdry/tr.js").default;
+    }
+    break;
     case "critical_new_weihai": {
       // 威海市立 - 病重（病危）患者护理记录单（新）
       schema = require("../config/critical_new_weihai/tr.js").default;

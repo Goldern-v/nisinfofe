@@ -133,6 +133,7 @@ export default {
           return "A班："
         case "fsxt":
           case "925":
+            case "hj":
           return "A班："
         default:
           return "P班："

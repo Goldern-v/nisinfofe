@@ -55,7 +55,7 @@
         诊断:
         <div  class="bottom-line" style="min-width: 163px">{{patientInfo.diagnosis}}</div>
       </span> -->
-      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)" v-if="!diagnosisList.includes(sheetInfo.sheetType)">
         诊断：
         <div
           class="bottom-line"
@@ -99,26 +99,30 @@
           病区:
           <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
         </span>
-        <!-- <span>
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry' ||
+               sheetInfo.sheetType=='postpartum_sdry' ||
+                sheetInfo.sheetType=='baby_sdry'">
          特殊情况：
         <input
           style="width: 200px;font-size:13px;text-align: center;"
           class="bottom-line"
-          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
-          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          :data-value="sheetInfo.relObj.tsqk"
+          v-model="sheetInfo.relObj.tsqk"
         />
-        </span>-->
-        <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
+        </span>
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry' ||
+               sheetInfo.sheetType=='postpartum_sdry' ||
+                sheetInfo.sheetType=='baby_sdry'">
           过敏史：
           <input
-          style="width: 35px;font-size:13px;text-align: center;"
+          style="width: 130px;font-size:13px;text-align: center;"
           class="bottom-line"
-          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
-          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          :data-value="sheetInfo.relObj.guomishi"
+          v-model="sheetInfo.relObj.guomishi"
         />
         </span>
         </div>
-      <div class="info-con" >
+      <div class="boxLine">
         <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
           姓名:
           <div class="bottom-line" style="min-width: 65px">{{patientInfo.patientName}}</div>
@@ -156,12 +160,12 @@
           诊断:
           <div  class="bottom-line" style="min-width: 480px">{{patientInfo.diagnosis}}</div>
         </span> -->
-        <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+        <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)" v-if="!diagnosisList.includes(sheetInfo.sheetType)">
           诊断：
           <div
             class="bottom-line"
             style="
-              width: 480px;
+              width: 239px;
               height: 11px;
               text-overflow: ellipsis;
               white-space: nowrap;
@@ -193,6 +197,7 @@
         />
         周
       </span>
+
       <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
         破膜时间：
           <crDatePicker
@@ -202,6 +207,16 @@
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
       </span>
+
+        分娩方式：
+       <customSelectCanRepeat
+        v-if="sheetInfo.sheetType=='prenatal_sdry'"
+          :options="options"
+          multiple
+          @onSelect="(val) => setRelValue(`${index}options`, val)"
+        >
+          <input :data-value="sheetInfo.relObj[`${index}options`]" v-model="sheetInfo.relObj[`${index}options`]" style="width:160px;">
+        </customSelectCanRepeat>
 
       </div>
     </div>
@@ -218,6 +233,7 @@ import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
 import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
+import customSelectCanRepeat from '@/components/customSelectCanRepeat/CustomSelectCanRepeat.vue'
 import bedRecordModal from "../../../modal/bedRecord-modal";
 import { saveBody, queryDianosisList }  from  "@/api/sheet.js"
 
@@ -232,18 +248,35 @@ export default {
       bus: bus(this),
       sheetInfo,
       bedShow:false,
+      options: [{
+          value: '顺产',
+          name: '顺产'
+        }, {
+          value: '吸引产',
+          name: '吸引产'
+        }, {
+          value: '剖宫产',
+          name: '剖宫产'
+        }, {
+          value: '钳产',
+          name: '钳产'
+        }, {
+          value: '臀助产',
+          name: '臀助产'
+        }, {
+          value: '臀牵引',
+          name: '臀牵引'
+        }],
       //不需要入院日期的表单
       admissionDateList: [
         'blood_tj',
         'generalnursing_tj'
       ],
-      //不需要诊断的表单
+      //不需要诊断的表单postpartum_sdry  baby_sdry    prenatal_sdry
       diagnosisList: [
-        'postpartum2_tj',
-        'prenataldelivery2_tj',
-        'pediatric3_tj',
-        'baby_tj',
-        'blood_tj'
+        'prenatal_sdry',
+        'postpartum_sdry',
+        'baby_sdry'
       ],
     };
   },
@@ -402,6 +435,9 @@ export default {
         `修改${label}`
       );
     },
+    setRelValue(code, val) {
+      this.$set(this.sheetInfo.relObj, code, val)
+    },
     openBedRecordModal(){
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
@@ -501,6 +537,7 @@ export default {
   components: {
     bedRecordModal,
     crDatePicker,
+    customSelectCanRepeat,
   },
   async created(){
     if(this.index!=0){
