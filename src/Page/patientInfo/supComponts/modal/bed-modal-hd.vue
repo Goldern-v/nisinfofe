@@ -166,8 +166,8 @@
         <div class="bed-card-vert-con">
           <div :class="{ huaduStyle: ['huadu'].includes(HOSPITAL_ID) }">
             <div class="top">
-              <span  v-if="!['dglb'].includes(HOSPITAL_ID)">科室：{{ query.wardName }}</span>
-              <span  v-if="['dglb'].includes(HOSPITAL_ID)">科室：{{ query.deptName }}</span>
+              <span  v-if="isDglb">科室：{{ query.deptName }}</span>
+              <span  v-else>科室：{{ query.wardName }}</span>
               <span
                 v-if="!['zhzxy', 'whhk'].includes(HOSPITAL_ID)"
                 :style="{
@@ -204,7 +204,7 @@
                 <span>{{ query.name }}</span>
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
-                <span>住院号：{{ 'dglb' === HOSPITAL_ID ? query.inpNo : query.patientId }}</span>
+                <span>住院号：{{ isDglb ? query.inpNo : query.patientId }}</span>
               </div>
               <div v-if="!['whhk'].includes(HOSPITAL_ID)">
                 <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
@@ -393,15 +393,15 @@
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span  v-if="!['dglb'].includes(HOSPITAL_ID)">科室：{{ query.wardName }}</span>
-            <span  v-if="['dglb'].includes(HOSPITAL_ID)">科室：{{ query.deptName }}</span>
+            <span  v-if="isDglb">科室：{{ query.deptName }}</span>
+            <span  v-else>科室：{{ query.wardName }}</span>
           </div>
           <div>
             <div>
               <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
                 >床位：{{ query.bedLabel }}</span
               >
-              <span>住院号：{{ 'dglb' === HOSPITAL_ID ? query.inpNo : query.patientId }}</span>
+              <span v-if="!isDglb">住院号：{{ query.patientId }}</span>
             </div>
             <div>
               <span>{{ query.name }}</span>
@@ -416,9 +416,10 @@
           </div>
           <img
             class="qr-code"
-            :class="{ hasRemark: hasRemark }"
+            :class="[{ hasRemark: hasRemark }, {'abs-img': this.isDglb}]"
             :src="qrCode"
           />
+          <span :class="{'abs-text': this.isDglb}">{{ query.inpNo }}</span>
         </div>
       </div>
       <div slot="button">
@@ -623,20 +624,36 @@
 
   &.children-wrist {
     width: 10cm;
-    height: 3cm;
+    height: 3.3cm;
     box-sizing: border-box;
 
     .bed-card-vert-con {
-      transform: scale(0.8) translateX(-2.1cm) translateY(-0.7cm);
+      transform-origin: 0 0;
+      transform: scale(0.82) translateX(-6px) translateY(-9px);
+      width: 121%;
+    }
+    span {
+      font-size: 21px;
     }
 
     .qr-code {
       position: absolute;
-      right: 75px !important;
-      top: 55% !important;
+      right: 42px !important;
+      top: 50% !important;
       margin-top: -56px;
       height: 112px;
       width: 112px;
+      &.abs-img {
+        top: 42% !important;
+      }
+    }
+    .abs-text {
+      position: absolute;
+      right: 42px;
+      top: 82%;
+      display: block
+      width: 112px;
+      text-align: center
     }
   }
 }
@@ -960,6 +977,8 @@ export default {
       allergy_gdtj: "", //自定义过敏信息
       lianxiPhone_whhk: "",
       aField1: "",
+      isDglb: 'dglb' === this.HOSPITAL_ID,
+      isWhhk: 'whhk' === this.HOSPITAL_ID,
     };
   },
   computed: {
@@ -1111,11 +1130,12 @@ export default {
       this.$nextTick(() => {
         this.post();
         if (this.printMode == "wrist") {
+          const translateStr= this.isWhhk ? 'rotate(90deg) translateY(-120%) translateX(40%);' : 'rotate(90deg) translateY(-120%) translateX(25%);'
           let styleSheet = {
             default: `
               .bed-card-warpper {
                 box-shadow: none !important;
-                transform: ${'dglb' === this.HOSPITAL_ID ? 'rotate(90deg) translateY(-105%) translateX(25%);' : 'rotate(90deg) translateY(-120%) translateX(25%);'}
+                transform: ${this.isDglb ? 'rotate(90deg) translateY(-105%) translateX(25%);' : translateStr}
                 transform-origin: 0 0;
               }
               .bed-card-vert-con {
@@ -1198,6 +1218,7 @@ export default {
             css: styleSheet[this.HOSPITAL_ID] || styleSheet.default,
           });
         } else if (this.printMode == "wrist-children") {
+          const translateXCM= this.isWhhk ? '4.8' :'3'
           printing(this.$refs.printCon4, {
             direction: "vertical",
             injectGlobalCss: true,
@@ -1205,7 +1226,7 @@ export default {
             css: `
               .bed-card-warpper {
               box-shadow: none !important;
-              transform: rotate(90deg) translateY(-3.5cm) translateX(3cm);
+              transform: rotate(90deg) translateY(-3.5cm) translateX(${translateXCM}cm);
               transform-origin: 0 0;
               }
               @page {

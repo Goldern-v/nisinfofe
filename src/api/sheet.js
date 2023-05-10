@@ -178,3 +178,17 @@ export const addNewPageTitleOptions = (params) => {
   params.blockId = sheetInfo.selectBlock.id;
   return axios.post(`${apiPath}record/titleTempalate/addNewPageTitleOptions`, params)
 }
+
+/**
+ * 获取特殊情况全部列表
+ */
+export function list(groupName='全部',wardCode,hospitalId) {
+  let recordCode = sheetInfo.sheetType
+  if(recordCode&&groupName&&wardCode)
+    return axios.post(`${apiPath}record/desc/list`, {recordCode, groupName ,wardCode})
+ }
+
+// nurseDiagnosis/getList
+export const queryDianosisList = ({ patientId, visitId } = params) => {
+  return axios.post(`${apiPath}nurseDiagnosis/getList`, { patientId, visitId });
+}

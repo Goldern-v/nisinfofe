@@ -79,8 +79,12 @@ const shiftWorkLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work.
 const shiftWorkDetailLiaocheng = () => import("@/Page/shift-work-liaocheng/shift-work-detail.vue");
 const shiftWorkGdtj = () => import("@/Page/shift-work-gdtj/shift-work.vue");
 const shiftWorkDetailGdtj = () => import("@/Page/shift-work-gdtj/shift-work-detail.vue");
+const shiftWorkGdtjNew = () => import("@/Page/shift-work-gdtj-new/shift-work.vue");
+const shiftWorkDetailGdtjNew = () => import("@/Page/shift-work-gdtj-new/shift-work-detail.vue");
 const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
+const shiftWorkWhhk = () => import("@/Page/shift-work-whhk/shift-work.vue");
 const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
+const shiftWorkDetailWhhk = () => import("@/Page/shift-work-whhk/shift-work-detail.vue");
 const shiftWorkWhsl = () => import("@/Page/shift-work-whsl/shift-work.vue");
 const shiftWorkDetailWhsl = () => import("@/Page/shift-work-whsl/shift-work-detail.vue");
 const shiftWorkDetailSdlj = () => import("@/Page/shift-work-lj/shift-work-detail.vue");
@@ -313,6 +317,8 @@ const nursingTemperaturejmfy = () => import("@/Page/NursingTemperatureJMFY/Nursi
 const nursingDoc = () => import("@/Page/nursingDoc/nursingDoc.vue"); //做跳转登录去 /nursingPreview /nursingDoc
 const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
+const statisticalReport = () =>
+  import("@/Page/statistical-report/statistic-report.vue"); //危重症病例统计表
 const implementationReport = () =>
   import("@/Page/implementation-report/implementation-report.vue"); //执行单报表
 const bedRecord = () =>
@@ -394,6 +400,8 @@ const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-fo
 const medicalCheck = () => import("@/Page/patientInfo/supPage/medical-check/index.vue")
 // 患者个人护理巡视
 const patientNursingRound = () => import("@/Page/patientInfo/supPage/patient-nursing-rounds/nursing-rounds.vue")
+// 佛山人医-既往护理病历
+const previousHistory = () => import("@/Page/patientInfo/supPage/previous-history/index.vue")
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
@@ -718,10 +726,6 @@ const router = new Router({
           component: videoListSetting
         }]
       },
-      // {
-      //   path: "/inBox",
-      //   component: inBox
-      // },
       {
         path: "/bed",
         component: bed
@@ -739,10 +743,6 @@ const router = new Router({
         },
         ]
       },
-      // {
-      //   path: "/log",
-      //   component: log
-      // },
       {
         path: "/healthEdu",
         component: healthEdu,
@@ -844,7 +844,8 @@ const router = new Router({
             case 'lyyz':
               return shiftWorkLiaocheng
             case 'gdtj':
-              return shiftWorkGdtj;
+              // return shiftWorkGdtj;
+              return shiftWorkGdtjNew;
             case 'beihairenyi':
             case 'zhzxy':
             case 'nfyksdyy':
@@ -863,6 +864,8 @@ const router = new Router({
               return shiftWorkSdlj
             case 'fsxt':
               return shiftWorkFsxt
+            case 'whhk':
+              return shiftWorkWhhk
             default:
               return shiftWork
           }
@@ -888,7 +891,8 @@ const router = new Router({
               case 'nfyksdyy':
                 return shiftWorkDetailBh
               case 'gdtj':
-                return  shiftWorkDetailGdtj
+                // return  shiftWorkDetailGdtj
+                return  shiftWorkDetailGdtjNew
               case 'fqfybjy':
                 return shiftWorkDetailFq
               case 'wujing':
@@ -901,6 +905,8 @@ const router = new Router({
                 return shiftWorkDetailSdlj
               case 'fsxt':
                 return shiftWorkDetailFsxt
+              case 'whhk': 
+                return shiftWorkDetailWhhk
               default:
                 return shiftWorkDetail
             }
@@ -999,37 +1005,6 @@ const router = new Router({
         }
         ]
       },
-      // {
-      //   path: "/mailDetails/:id",
-      //   component: mailDetails
-      // },
-      // {
-      //   path: "/lesion",
-      //   component: lesion,
-      //   redirect: "/lesion/bed",
-      //   children: [
-      //     {
-      //       path: "task",
-      //       component: task,
-      //       name: "今日任务",
-      //       alias: "今日任务"
-      //     },
-      //     {
-      //       path: "shift",
-      //       component: shift
-      //     },
-      //     {
-      //       path: "implementation",
-      //       component: implementation
-      //     },
-      //     {
-      //       path: "/wait-bed",
-      //       component: resolve => {
-      //         require(["../Page/lesion/supPage/log/wait-bed.vue"], resolve);
-      //       }
-      //     }
-      //   ]
-      // },
       {
         path: "/patientInfo",
         component: patientInfo,
@@ -1041,15 +1016,6 @@ const router = new Router({
         {
           path: "/advice",
           component: advice
-
-          // component: (() => {
-          //   switch(HOSPITAL_ID) {
-          //     case '925':
-          //       return () => import('@/Page/patientInfo/supPage/advice_925/advice')
-          //     default:
-          //       return advice
-          //   }
-          // })()
         },
         {
           path: "/inspect",
@@ -1057,7 +1023,6 @@ const router = new Router({
         },
         {
           path: "/test",
-          // component: test
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
@@ -1070,6 +1035,22 @@ const router = new Router({
         {
           path: "/record",
           component: record
+        },
+        {
+          name: "admissionPageAdult2",
+          path: "/admissionPageAdult2",
+          meta: {
+            formCode: 'E2332'
+          },
+          component: sheetAdmissionPageAdult
+        },
+        {
+          name: "admissionPageChild2",
+          meta: {
+            formCode: 'E2333'
+          },
+          path: "/admissionPageChild2",
+          component: sheetHospitalAdmissionPage
         },
         {
           path: "/doctorEmr",
@@ -1094,18 +1075,10 @@ const router = new Router({
           path: "/otherPage",
           component: otherPage
         },
-        // {
-        //   path: "/home1",
-        //   component: home1
-        // },
         {
           path: "/diagnosis",
           component: diagnosis
         },
-        // {
-        //   path: "/diganosisDetails/:id",
-        //   component: diganosisDetails
-        // },
         {
           path: "/consultation",
           component: consultation,
@@ -1323,7 +1296,13 @@ const router = new Router({
             component: getImplementation(),
             name: "执行单",
             alias: "执行单"
-          }
+          },
+        {
+          path: "/previousHistory",
+          component: previousHistory,
+          name: '既往护理病历',
+          alias: "既往护理病历",
+        }
         ]
       },
       {
@@ -1575,7 +1554,6 @@ const router = new Router({
             case 'guizhou':
             case 'zhzxy':
             case 'nanfangzhongxiyi':
-            case '925':
             case 'gdtj':
             case 'nfyksdyy':
               return nursingMakeListGuizhou
@@ -1584,7 +1562,7 @@ const router = new Router({
           }
         })(),
         name: "护理巡视",
-        children:['guizhou', 'nanfangzhongxiyi','zhzxy', '925','gdtj','nfyksdyy'].includes(HOSPITAL_ID)?[
+        children:['guizhou', 'nanfangzhongxiyi','zhzxy','gdtj','nfyksdyy'].includes(HOSPITAL_ID)?[
           {
             path: "/nursingMakeItem",
             name: "nursingMakeItem",
@@ -1705,6 +1683,11 @@ const router = new Router({
         path: "/cognitiveStatistic",
         component: cognitiveStatistic,
         name: "住院病人认知情况统计表"
+      },
+      {
+        path: "/statisticalReport",
+        component: statisticalReport,
+        name: "危重症病例统计表"
       },
       {
         path: "/implementationReport",

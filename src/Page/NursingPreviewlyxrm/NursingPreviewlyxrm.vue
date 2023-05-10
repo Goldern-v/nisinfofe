@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="content NursingPreview">
+    <div class="content NursingPreview" :class="hospital">
         <component :is="otherComponent" v-if="otherComponent"></component>
       </div>
   </div>
@@ -54,6 +54,17 @@
 }
 
 .content {
+  &.nfyksdyy{
+    >>> .sugr-page{
+      box-shadow:none ;
+      height: 1350px ;
+      padding-top:0 ;
+      margin-top:0;
+    }
+    >>> .blood-sugar-table.table-box td{
+      height: 41px;
+    }
+  }
   .left-part {
     float: left;
     width: 240px;
@@ -72,6 +83,8 @@
 </style>
 <script>
 import bloodSugarlyxrm from "@/Page/patientInfo/supPage/blood-sugar-lyxrm/blood-sugar-lyxrm.vue"; //血糖
+import bloodSugarNfyksdyy from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_nfyksdyy_guidang";
+
 
 import { getPatientInfo } from "@/api/common.js";
 import { getPatientForm } from "@/Page/patientInfo/supPage/blood-sugar-sdlj/api/index.js"; //获取患者存在表单id
@@ -80,7 +93,7 @@ export default {
   data() {
     return {
       bus: bus(this),
-      otherComponent: bloodSugarlyxrm,
+      otherComponent: this.getBloodSugar(),
       isBloodSugarSdlj: false //顺德龙江血糖单类型
     };
   },
@@ -114,11 +127,10 @@ export default {
     // 获取各医院的血糖单
     getBloodSugar() {
       switch (process.env.HOSPITAL_ID) {
-        case "lyxrm":
-        case "stmz":
-        return bloodSugarlyxrm;
+        case "nfyksdyy":
+        return bloodSugarNfyksdyy;
         default:
-          return bloodSugar;
+          return bloodSugarlyxrm;
       }
     },
 
@@ -138,8 +150,13 @@ export default {
       });
     }
   },
+  computed:{
+    hospital(){
+      return process.env.HOSPITAL_ID
+    }
+  },
   components: {
-
+    bloodSugarNfyksdyy,
     bloodSugarlyxrm,
   }
 };

@@ -20,7 +20,7 @@ import ShanNanHeader from "@/components/HLheader/ShanNanHeader"; // 山南市人
 import BeiHaiRenYiHeader from "@/components/HLheader/BeiHaiRenYiHeader"; // 北海人医
 import FQFYHeader from "@/components/HLheader/FQFYHeader"; // 福清妇幼
 import GuiZhouShengRenMingHeader from "@/components/HLheader/GuiZhouShengRenMing"; // 贵州省人民
-import JiuerWuHeader from "@/components/HLheader/JiuerWuHeader"; // 贵州省人民
+import JiuerWuHeader from "@/components/HLheader/JiuerWuHeader"; // 925
 import QuZhouXianHeader from "@/components/HLheader/QuZhouXianHeader.vue"; // 曲周县医院
 import FoShanRenYiHeader from "@/components/HLheader/FoShanRenYiHeader.vue"; // 佛山市第一人民医院
 import FSXTHeader from "@/components/HLheader/FSXTHeader.vue"; // 南方医科大学顺德医院附属杏坛医院
@@ -80,7 +80,7 @@ export default {
         青海省第五人民医院: 'QhwyHeader',
         威海市立医院: 'WhslHeader',
         珠海市中西医结合医院: 'ZhzxyHeader',
-        武汉汉口医院: 'WhhkHeader',
+        武汉市汉口医院: 'WhhkHeader',
         南方医科大学顺德医院: 'nfyksdyyHeader',
         中国人民解放军联勤保障部队第九二五医院: 'JiuerWuHeader',
         东莞市寮步医院: 'dglbHeader'

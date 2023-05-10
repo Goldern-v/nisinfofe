@@ -20,7 +20,10 @@
         </span>
       </div>
       <div class="new-print-modal__text">
-        <span class="bigger">{{ currentBottle.name }}</span>
+        <div style="margin-top:4px">
+          <span class="bigger">{{ currentBottle.name }}</span>
+          <div style="margin-left: 8px;font-size:16px">{{ currentBottle.patientId }}</div>
+        </div>
         <span>{{ currentBottle.age }}</span>
         <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
       </div>
@@ -148,6 +151,7 @@
     }
   }
   .new-print-modal__content {
+    margin-top: 4px;
     /* flex: 1; */
     td {
       border: 1px solid #000;

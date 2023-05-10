@@ -24,9 +24,10 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-
-const yishi = ["清醒", "嗜睡", "浅昏迷", "深昏迷"];
-const yanse = [{name: '①血性液', value: '血性液'},{name: '②淡红色液体', value: '淡红色液体'},{name: '③暗红色液', value: '暗红色液'},{name: '④黄色液', value: '黄色液'},{name: '⑤淡黄色液', value: '淡黄色液'},{name: '⑥深黄色液', value: '深黄色液'}];
+const yishi = ["清醒", "嗜睡", "浅昏迷", "深昏迷", "模糊", "昏睡", "谵妄","痴呆","药眠"]
+const yanse = [{name: '①血性液', value: '血性液'},{name: '②淡红色液', value: '淡红色液'},{name: '③暗红色液', value: '暗红色液'},{name: '④黄色液', value: '黄色液'},{name: '⑤淡黄色液', value: '淡黄色液'},{name: '⑥深黄色液', value: '深黄色液'}];
+const ruliang = ["饮水","进食","鼻饲","输血","输液","静注"]
+const chuliang = ["尿液","大便","引流液","呕吐物","胃液","恶露"]
 
 export default [
   { hidden: true, key: "recordDate", value: "" },
@@ -60,7 +61,7 @@ export default [
     change: (e, td) => limitChange(e, td, 4)
   },
   {
-    key: "breath",
+    key: "heartRate",
     event: keyf1,
     value: "",
     next: "次/分",
@@ -69,7 +70,7 @@ export default [
     change: (e, td) => limitChange(e, td, 4)
   },
   {
-    key: "bloodPressure",
+    key: "breath",
     event: keyf1,
     value: "",
     next: "次/分",
@@ -101,6 +102,7 @@ export default [
     value: "",
     next: "",
     name: "入量内容",
+    autoComplete: { data: ruliang },
     textarea: { width: 55 },
     change: (e, td) => limitChange(e, td, 8)
   },
@@ -120,6 +122,7 @@ export default [
     next: "ml",
     name: "出量内容",
     textarea: { width: 55 },
+    autoComplete: { data: chuliang },
     change: (e, td) => limitChange(e, td, 8)
   },
   {
@@ -164,8 +167,8 @@ export default [
     value: "",
     next: "mm",
     name: "瞳孔大小左",
-    textarea: { width: 25 },
-    change: (e, td) => limitChange(e, td, 4)
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "fieldSeven",
@@ -173,8 +176,8 @@ export default [
     value: "",
     next: "mm",
     name: "瞳孔大小右",
-    textarea: { width: 25 },
-    change: (e, td) => limitChange(e, td, 4)
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "fieldEight",
@@ -182,8 +185,8 @@ export default [
     value: "",
     next: "",
     name: "",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 4)
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "fieldNine",
@@ -191,8 +194,8 @@ export default [
     value: "",
     next: "",
     name: "",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 4)
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "fieldTen",
@@ -200,8 +203,8 @@ export default [
     value: "",
     next: "",
     name: "",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 4)
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "fieldTwelve",
@@ -209,26 +212,8 @@ export default [
     value: "",
     next: "",
     name: "",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 4)
-  },
-  {
-    key: "fieldOne",
-    event: keyf1,
-    value: "",
-    next: "",
-    name: "",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 4)
-  },
-  {
-    key: "fieldTow",
-    event: keyf1,
-    value: "",
-    next: "",
-    name: "",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 4)
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "fieldThirteen",
@@ -236,8 +221,8 @@ export default [
     value: "",
     next: "",
     name: "",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 4)
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "fieldFourteen",
@@ -245,8 +230,26 @@ export default [
     value: "",
     next: "",
     name: "",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 4)
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
+  },
+  {
+    key: "fieldEleven",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "",
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
+  },
+  {
+    key: "fieldFifteen",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "",
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "description", //特殊情况记录

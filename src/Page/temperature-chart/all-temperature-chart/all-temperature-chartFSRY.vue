@@ -38,6 +38,24 @@
           v-model="searchWord"
         ></el-input>
       </div>
+      <div v-if="HOSPITAL_ID==='nfyksdyy'">
+      <span class="label">病人分组:</span>
+          <el-select
+            v-model="patientGroup"
+            placeholder="请选择"
+            @change="tableDataWithFilter"
+            size="small"
+            style="width: 90px"
+            clearable
+          >
+            <el-option
+              v-for="item in patientGroup4Expand3"
+              :key="item.value"
+              :label="item.name"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+          </div>
       <div class="filterButton">
         <span>时间筛选关</span>
         <el-switch v-model="query.startFiltering"> </el-switch>
@@ -48,6 +66,7 @@
           <el-radio-button label="所有患者"></el-radio-button>
           <el-radio-button label="一周体重"></el-radio-button>
           <el-radio-button label="三天未大便"></el-radio-button>
+          <el-radio-button label="发热患者" v-if="HOSPITAL_ID==='nfyksdyy'"></el-radio-button>
         </el-radio-group>
       </div>
       <el-button @click="saveAllTemperture">保存</el-button>
@@ -201,6 +220,29 @@
               />
               <!-- <input v-model="scope.row.breath" class="breath" /> -->
               <!-- <el-input v-model="scope.row.breath"></el-input> -->
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="painScore"
+            label="疼痛"
+            align="center"
+            v-if="['qhwy'].includes(HOSPITAL_ID)"
+            min-width="80"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.painScore"
+                class="painScore"
+                :readonly="isReadonly(scope.row.recordDate)"
+                :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
+                :class="className"
+                type="number"
+                min="0"
+                @mousewheel="(e) => {e.preventDefault();}"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
             </template>
           </el-table-column>
           <el-table-column
@@ -487,6 +529,17 @@
             <template slot-scope="scope">
               <el-input v-model="scope.row.pulse"></el-input>
             </template>
+          </el-table-column>
+          <el-table-column
+            prop="painScore"
+            label="疼痛"
+            align="center"
+            v-if="['qhwy'].includes(HOSPITAL_ID)"
+            min-width="80"
+          >
+          <template slot-scope="scope">
+            <el-input v-model="scope.row.painScore"></el-input>
+          </template>
           </el-table-column>
           <el-table-column
             prop="breath"
@@ -957,7 +1010,8 @@ export default {
       patientsInfoData: [],
       searchWord: "",
       pageLoadng: true,
-      admitted: "所有患者"
+      admitted: "所有患者",
+      patientGroup: '', // 病人分组
     };
   },
   computed: {
@@ -977,6 +1031,8 @@ export default {
               }
             })
           })
+        } else if (this.patientGroup) {
+           return this.patientsInfoData.filter(item => item.expand3 === this.patientGroup);
         } else {
           let searchWord = new RegExp(this.searchWord, 'i')
           data = this.patientsInfoData.filter((item) => {
@@ -989,17 +1045,22 @@ export default {
           });
         }
         return data.filter(item => {
-          return this.admitted === "所有患者"
-            ? item.patientId
-            : this.admitted === "一周体重"
-              ?
-              item.noWeightFlag == 1
-              :
-              item.notDefecateFlag == 1;
+          return {'所有患者':item.patientId,'一周体重':item.noWeightFlag == 1,'三天未大便':item.notDefecateFlag == 1,'发热患者':item.temperatureFlag==1}[this.admitted]
         });
       },
       set(value) {}
-    }
+    },
+    patientGroup4Expand3() {
+      const result = Array.from(
+        new Set(this.patientsInfoData.map(item => item.expand3))
+      ).map(item => {
+        return {
+          name: item ? `分组${item}` : '无',
+          value: item
+        }
+      })
+      return result
+    },
   },
   mounted() {
     this.query.wardCode = this.deptCode;

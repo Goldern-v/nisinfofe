@@ -1,21 +1,29 @@
 <template>
-  <div :class="fileJSON ? 'pages':'no-page'" ref="sheetPage">
-    <div
-      v-if="isShowLoadingLayout"
-      class="mask-layout"
-      v-loading="loading"
-      :element-loading-text="loadingText"
-    ></div>
-    <div :style="isShow?'display:block':'display:none'">
-      <RenderForm ref="renderForm" :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="locker"/>
+  <div class="adult-Container" >
+    <div v-if="route" class="tool-con" flex-box="1">
+      <sheetTool :formCodeFy='formCode' ref="sheetHospitalAdmissionTool"></sheetTool>
     </div>
-    <div :style="isShow?'display:none':'display:block;backgroud:white;'">
-      <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
-        <img src="./image/分组.png" alt/>
-        <aside>{{ message }}</aside>
+    <div :class="[route&&'sheetTable-contain']">
+      <div :class="fileJSON ? 'pages':'no-page'" ref="sheetPage">
+        <div
+          v-if="isShowLoadingLayout"
+          class="mask-layout"
+          v-loading="loading"
+          :element-loading-text="loadingText"
+        ></div>
+        <div :style="isShow?'display:block':'display:none'">
+          <RenderForm ref="renderForm" :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="locker"/>
+        </div>
+        <div :style="isShow?'display:none':'display:block;backgroud:white;'">
+          <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
+            <img src="./image/分组.png" alt/>
+            <aside>{{ message }}</aside>
+          </div>
+        </div>
+        <!-- <div class="container"></div> -->
       </div>
     </div>
-    <!-- <div class="container"></div> -->
+
   </div>
 </template>
 
@@ -23,6 +31,7 @@
 import RenderForm from "@/Page/sheet-hospital-admission/components/Render/main.vue";
 import { getOldFormCode } from "@/Page/sheet-hospital-admission/components/Render/common.js";
 import BusFactory from "vue-happy-bus";
+import sheetTool from "@/Page/sheet-hospital-admission/components/sheet-tool/sheet-tool.vue";
 import common from "@/common/mixin/common.mixin.js";
 import { getPatientInfo } from '../../api'
 
@@ -30,7 +39,8 @@ export default {
   name: "page",
   mixins: [common],
   components: {
-    RenderForm
+    RenderForm,
+    sheetTool
   },
   data() {
     return {
@@ -42,12 +52,12 @@ export default {
       isShowLoadingLayout: true,
       message: "请选择左侧患者~",
       status: 0,
+      formCode: this.HOSPITAL_ID === 'foshanrenyi' ? 'E2333' : 'E0001',
       lock: false
     };
   },
   mounted() {
     if (!this.$root.$refs[this.formCode]) {
-      console.log("检查填写222222222")
       this.$root.$refs[this.formCode] = [];
     }
 
@@ -60,6 +70,14 @@ export default {
       this.$refs.renderForm.updateSheet();
       this.loading = false;
     });
+    if(this.route){
+      this.$nextTick(()=>{
+        this.bus.$emit("setHosptialAdmissionLoading", true);
+        this.bus.$emit("setIsNewForm", false);
+        this.bus.$emit("getHEvalBlockList", this.$route.query);
+        this.$store.commit("upPatientInfo", this.$route.query);
+      })
+    }
   },
   watch: {
     loading(newVal, oldVal) {
@@ -83,16 +101,20 @@ export default {
     }
   },
   computed: {
+    route(){
+      return this.$route.path === '/admissionPageChild2'
+    },
     locker() {
       return this.lock;
     },
-    formCode() {
-      try {
-        return window.formObj.formSetting.formInfo.formCode;
-      } catch (error) {
-      }
-      return "E0001";
-    }
+    // 在data写判断 浚威其他说这样子他的其他业务拿不到对应code值（佛一医院需求）
+    // formCode() {
+    //   try {
+    //     return window.formObj.formSetting.formInfo.formCode;
+    //   } catch (error) {
+    //   }
+    //   return "E0001";
+    // }
   },
   created() {
     this.bus.$on("openHosptialAdmissionForm", this.openForm);
@@ -104,7 +126,12 @@ export default {
     });
 
     // 加载loading状态显示
-    this.bus.$on("setHosptialAdmissionLoading", config => {
+    this.bus.$on("setHosptialAdmissionLoading",config =>this.setHosptialAdmissionLoading(config) )
+    this.initial();
+    this.loading = false;
+  },
+  methods: {
+    setHosptialAdmissionLoading(config){
       if (typeof config === "object") {
         if (config.hasOwnProperty("status")) {
           this.loading = config.status;
@@ -121,12 +148,7 @@ export default {
         this.loading = config;
         this.loadingText = "数据载入中...";
       }
-    });
-
-    this.initial();
-    this.loading = false;
-  },
-  methods: {
+    },
     // 初始化话表内容渲染
     initial(patient = null, isDevMode = false) {
       this.loading = true;
@@ -138,13 +160,17 @@ export default {
         )
       } else if(this.HOSPITAL_ID === 'liaocheng'){
         JSON.stringify(require("../data/foshanrenyi/入院评估.form.foshanrenyi.json"))
-      } else if (['lyxrm', 'qhwy', 'lyyz', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      } else if (['lyxrm', 'qhwy', 'lyyz', 'stmz'].includes(this.HOSPITAL_ID)) {
         file = JSON.parse(
           JSON.stringify(require(`../data/入院评估.form.${this.HOSPITAL_ID}.json`))
         )
       } else if(this.HOSPITAL_ID === 'foshanrenyi'){
         file = JSON.parse(
           JSON.stringify(require("../data/formFoshanrenyi/child/入院评估.form.json"))
+        )
+      } else if(this.HOSPITAL_ID === 'nfyksdyy'){
+        file = JSON.parse(
+          JSON.stringify(require("../data/formNfyksdyy/child/入院评估.form.json"))
         )
       } else {
         file = JSON.parse(
@@ -168,7 +194,11 @@ export default {
         // dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
         dictionary = JSON.parse(JSON.stringify(require("../data/formFoshanrenyi/child/formDictionary/入院评估.dictionary.foshanrenyi.json")))
 
-      } else if (['lyxrm', 'qhwy','lyyz', 'stmz', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      } else if (this.HOSPITAL_ID === 'nfyksdyy') {
+        // dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+        dictionary = JSON.parse(JSON.stringify(require("../data/formNfyksdyy/child/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+
+      } else if (['lyxrm', 'qhwy','lyyz', 'stmz'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require(`../data/formDictionary/入院评估.dictionary.${this.HOSPITAL_ID}.json`)))
       } else {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.json")))
@@ -195,11 +225,16 @@ export default {
         // contexts = require.context('../data/foshanrenyi/formDialog', true, /\.json$/);
         contexts = require.context('../data/formFoshanrenyi/child/formDialog', true, /\.json$/);
 
+      } else if (this.HOSPITAL_ID === 'nfyksdyy') {
+        contexts = require.context('../data/formNfyksdyy/child/formDialog', true, /\.json$/);
+
       } else if (this.HOSPITAL_ID === 'lyyz') {
         contexts = require.context('../data/formDialogLyyz', true, /\.json$/);
-      } else if (this.HOSPITAL_ID === 'nfyksdyy') {
-        contexts = require.context('../data/formDialogNfyksdyy', true, /\.json$/);
-      } else {
+      }
+      // else if (this.HOSPITAL_ID === 'nfyksdyy') {
+      //   contexts = require.context('../data/formDialogNfyksdyy', true, /\.json$/);
+      // }
+      else {
         contexts = require.context('../data/formDialog', true, /\.json$/);
       }
       contexts.keys().forEach((context, b, c, d) => {
@@ -217,10 +252,10 @@ export default {
             'stmz':'formSchemesLyxrm',
             'qhwy':'formSchemesQhwy',
             'lyyz':'formSchemesLyyz',
-            'nfyksdyy':'formSchemesNfyksdyy',
+            // 'nfyksdyy':'formSchemesNfyksdyy',
           }
           let schemesJson = null
-          if (['liaocheng', 'lyxrm', 'qhwy', 'lyyz', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+          if (['liaocheng', 'lyxrm', 'qhwy', 'lyyz', 'stmz'].includes(this.HOSPITAL_ID)) {
             schemesJson = require(`../data/${hospitalSchemes[this.HOSPITAL_ID]}/${fromName}.txt.json`)
           } else {
             schemesJson = require(`../data/formSchemes/${fromName}.txt.json`)
@@ -448,7 +483,7 @@ export default {
                         if (value.includes(c)) {
                           this.$root.$refs[this.formCode][key][c].runTasks(true);
                         }
-                        
+
                       }
                     } catch (error) {
                       console.log(
@@ -494,6 +529,17 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.adult-Container{
+  height: calc(100% - 50px);
+}
+.sheetTable-contain
+  height: calc(100% - 41px);
+  background #DFDFDF
+  overflow auto
+  padding 15px 5px 0 15px
+  box-sizing border-box
+  margin 0 auto 20px
+  position relative
 .pages
   width: 100%;
 

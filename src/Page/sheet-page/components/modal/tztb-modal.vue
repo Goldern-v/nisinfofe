@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="['guizhou','foshanrenyi', '925'].includes(HOSPITAL_ID)?850:720" title="体征同步">
+    <sweet-modal ref="modal" :modalWidth="['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID)?850:720" title="体征同步">
       <div flex="cross:center">
         <span class="label">体征日期：</span>
         <masked-input
@@ -32,7 +32,7 @@
           height="350"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="40" align="center"></el-table-column>
+          <el-table-column type="selection" width="40" align="center" :selectable="isSelectable"></el-table-column>
           <el-table-column prop="recordDate" label="日期" min-width="90px" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.recordDate.split(' ')[0] }}</span>
@@ -44,9 +44,9 @@
             </template>
           </el-table-column>
           <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
-          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="!['guizhou','foshanrenyi', '925'].includes(HOSPITAL_ID)"></el-table-column>
-          <el-table-column prop="pulse" label="脉搏(次/min)" min-width="110px" align="center" v-if="['guizhou','foshanrenyi', '925'].includes(HOSPITAL_ID)"></el-table-column>
-          <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="['guizhou','foshanrenyi', '925'].includes(HOSPITAL_ID)"></el-table-column>
+          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="!['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID)"></el-table-column>
+          <el-table-column prop="pulse" label="脉搏(次/min)" min-width="110px" align="center" v-if="['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID)"></el-table-column>
+          <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID)"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="bloodPressure" label="血压(mmHg)" min-width="110px" align="center"></el-table-column>
         </el-table>
@@ -194,6 +194,9 @@ export default {
           return relPulse || heartRate || ""
         }
       }
+    },
+    isSelectable(row, index) {
+      return this.HOSPITAL_ID !== 'whsl' || this.patientInfo.deptCode === row.wardCode;
     }
   },
   computed: {

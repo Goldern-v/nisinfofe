@@ -923,6 +923,10 @@ async mounted() {
         }
       });
     },
+    isDglbProduction() {
+      return process.env.NODE_ENV === 'production' && this.HOSPITAL_ID === 'dglb';
+      // return this.HOSPITAL_ID === 'dglb';
+    },
     /* 获取字典表，整理某一行的同步信息 */
     async getVitalList() {
       let wardCode = this.patientInfo.wardCode;
@@ -961,6 +965,7 @@ async mounted() {
             this.fieldList = { ...obj };
           }
         });
+        console.log('otherDic', otherDic)
         this.multiDictList = { ...data };
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };

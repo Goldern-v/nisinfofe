@@ -1,6 +1,6 @@
 import { listItem } from "../../../api/recordDesc";
 import { multiDictInfo } from "../../../api/index";
-import { keyf1 } from "../keyEvent/f1.js";
+import {keyf1, limitChange} from "../keyEvent/f1.js";
 import { event_date, event_time, click_date } from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
@@ -29,35 +29,36 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time
-  }, 
+  },
   {
-    key: "temperature", //催产素浓度
+    key: "temperature", //体温
     value: "",
     name: "体温",
     event: keyf1
-  }, 
+  },
   {
-    key: "sph", //催产素浓度
+    key: "sph", //脉搏
     value: "",
     name: "脉搏",
     event: keyf1
-  }, 
+  },
   {
     key: "breath", //催产素浓度
     value: "",
     name: "呼吸",
     event: keyf1
-  }, 
+  },
+
   {
     key: "fieldOne", //催产素浓度
     value: "",
     name: "催产素浓度",
     event: keyf1
-  }, 
+  },
   {
-    key: "fieldTwo", //滴速
+    key: "fieldTwo", //滴数
     value: "",
-    name: "滴速",
+    name: "滴数",
     event: keyf1
   }, {
     key: "fieldThree", //宫缩
@@ -122,7 +123,9 @@ export default [
     textarea: {
       width: 36
     }
-  }, {
+  },
+  { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {

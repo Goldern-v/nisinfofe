@@ -204,7 +204,7 @@ export default {
     },
     //成功后返回表单id和evalscore
     successCallback(data){
-
+      console.log(data,'successCallback-default')
       //表单id返回formCode值
       this.formObj.model[this.formCode] = data.master.id;
       if(this.callbackInfo.code && data.master.evalScore) {

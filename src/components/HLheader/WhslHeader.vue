@@ -231,11 +231,11 @@
                 <i class="iconfont icon-allCatheter"></i> 统计查询
               </el-row>
             </router-link>
-            <router-link to="/board" tag="span">
+            <!-- <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
-            </router-link>
+            </router-link> -->
             <!-- <el-dropdown
               menu-align="start"
               :class="{
@@ -1114,6 +1114,7 @@ export default {
       Cookies.remove("hasGreet");
       Cookies.remove("token");
       Cookies.remove("user");
+      Cookies.remove("sso");
       Cookies.remove("NURSING_USER", { path: "/" });
       this.$router.push("/login");
       this.$store.commit("upDeptCode", "");

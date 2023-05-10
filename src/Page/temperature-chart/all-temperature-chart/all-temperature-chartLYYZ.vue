@@ -303,7 +303,6 @@
               />
             </template>
           </el-table-column>
-
           <el-table-column
             prop="dischargeSize"
             label="出量"
@@ -315,6 +314,101 @@
                 v-model="scope.row.dischargeSize"
                 :class="className"
                 class="dischargeSize"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
+            v-if="HOSPITAL_ID === 'whhk'"
+            prop="fieldTwo"
+            label="口温"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.fieldTwo"
+                :class="className"
+                class="fieldTwo"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+           <el-table-column
+            v-if="HOSPITAL_ID === 'whhk'"
+            prop="fieldOne"
+            label="肛温"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.fieldOne"
+                :class="className"
+                class="fieldOne"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+           <el-table-column
+            v-if="HOSPITAL_ID === 'whhk'"
+            prop="earTemperature"
+            label="耳温"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.earTemperature"
+                :class="className"
+                class="earTemperature"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+           <el-table-column
+            v-if="HOSPITAL_ID === 'whhk'"
+            prop="fieldThree"
+            label="尿量"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.fieldThree"
+                :class="className"
+                class="fieldThree"
+                type="text"
+                @keyup="handleKeyUp"
+                @keydown="handleKeyDown"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+           <el-table-column
+            v-if="HOSPITAL_ID === 'whhk'"
+            prop="skinTest"
+            label="皮试"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.skinTest"
+                :class="className"
+                class="skinTest"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
@@ -500,6 +594,61 @@
           >
             <template slot-scope="scope">
               <el-input v-model="scope.row.dischargeSize"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="fieldTwo"
+            v-if="HOSPITAL_ID === 'whhk'"
+            label="口温"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.fieldTwo"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="fieldOne"
+            v-if="HOSPITAL_ID === 'whhk'"
+            label="肛温"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.fieldOne"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="earTemperature"
+            v-if="HOSPITAL_ID === 'whhk'"
+            label="耳温"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.earTemperature"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="fieldThree"
+            v-if="HOSPITAL_ID === 'whhk'"
+            label="尿量"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.fieldThree"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="skinTest"
+            v-if="HOSPITAL_ID === 'whhk'"
+            label="皮试"
+            min-width="60"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.skinTest"></el-input>
             </template>
           </el-table-column>
 
@@ -774,39 +923,90 @@ export default {
               if (this.getHours() > 20 && this.getHours() <= 23) {
                 return "23";
               }
+            case "whhk":
+              if (this.getHours() >= 0 && this.getHours() <= 4) {
+                return "02";
+              }
+              if (this.getHours() > 4 && this.getHours() <= 8) {
+                return "06";
+              }
+              if (this.getHours() > 8 && this.getHours() <= 12) {
+                return "10";
+              }
+              if (this.getHours() > 12 && this.getHours() <= 16) {
+                return "14";
+              }
+              if (this.getHours() > 16 && this.getHours() <= 20) {
+                return "18";
+              }
+              if (this.getHours() > 20 && this.getHours() <= 23) {
+                return "22";
+              }
             default:
               return "08";
           }
         })(), //录入时间
       },
 
-      timesOdd: [
-        {
-          id: 0,
-          value: "03",
-        },
-        {
-          id: 1,
-          value: "07",
-        },
-        {
-          id: 2,
-          value: "11",
-        },
-        {
-          id: 3,
-          value: "15",
-        },
-        {
-          id: 4,
-          value: "19",
-        },
-        {
-          id: 5,
-          value: "23",
-        },
-      ],
+      timesOdd: (()=>{
+        switch (this.HOSPITAL_ID) {
+          case "whhk":
+            return [
+              {
+                id: 0,
+                value: "02",
+              },
+              {
+                id: 1,
+                value: "06",
+              },
+              {
+                id: 2,
+                value: "10",
+              },
+              {
+                id: 3,
+                value: "14",
+              },
+              {
+                id: 4,
+                value: "18",
+              },
+              {
+                id: 5,
+                value: "22",
+              },
+            ]
+          default:
+              return [
+              {
+                id: 0,
+                value: "03",
+              },
+              {
+                id: 1,
+                value: "07",
+              },
+              {
+                id: 2,
+                value: "11",
+              },
+              {
+                id: 3,
+                value: "15",
+              },
+              {
+                id: 4,
+                value: "19",
+              },
+              {
+                id: 5,
+                value: "23",
+              },
+            ];
+        }
 
+      })(),
       patientsInfoData: [],
       searchWord: "",
       admitted: "所有患者",
@@ -919,6 +1119,11 @@ export default {
         description: "",
         discharge: "",
         dischargeSize: "",
+        fieldTwo: "",
+        fieldOne: "",
+        earTemperature: "",
+        fieldThree: "",
+        skinTest: "",
         empNo: "",
         food: "",
         foodSize: "",
@@ -1027,6 +1232,7 @@ export default {
       }
     },
     toRow(e) {
+      console.log("handleKeyUp", e)
       let rowIndex = e.path[3].rowIndex;
       var trs = e.path[4].getElementsByTagName("tr");
       for (let i = 0; i < trs.length; i++) {
@@ -1038,6 +1244,7 @@ export default {
       }
     },
     handleKeyUp(e) {
+      
       let rowIndex = e.path[3].rowIndex;
       var trs = e.path[4].getElementsByTagName("tr");
       for (let i = 0; i < trs.length; i++) {

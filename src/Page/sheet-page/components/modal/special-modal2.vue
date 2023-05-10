@@ -32,7 +32,9 @@
                 recordDate != '' &&
                 HOSPITAL_ID != 'huadu' &&
                 HOSPITAL_ID != 'wujing'&&
-                HOSPITAL_ID != 'gdtj'
+                HOSPITAL_ID != 'gdtj' &&
+                HOSPITAL_ID != 'nfyksdyy' &&
+                HOSPITAL_ID != 'whsl'
               "
               v-model="staticObj.recordMonth"
               @keyup="dateKey($event, staticObj, 'recordMonth')"
@@ -46,7 +48,9 @@
                 recordDate != '' &&
                 HOSPITAL_ID != 'huadu' &&
                 HOSPITAL_ID != 'wujing'&&
-                HOSPITAL_ID != 'gdtj'
+                HOSPITAL_ID != 'gdtj' &&
+                HOSPITAL_ID != 'nfyksdyy' &&
+                HOSPITAL_ID != 'whsl'
               "
               v-model="staticObj.recordHour"
               @keyup="timeKey($event, staticObj, 'recordHour')"
@@ -846,7 +850,7 @@
             ></el-input>
           </el-tab-pane>
         </el-tabs>
-        <div class="symbols-btn" v-if="['foshanrenyi'].includes(HOSPITAL_ID) && activeTab == '3'">
+        <div class="symbols-btn" v-if="['foshanrenyi','nfyksdyy'].includes(HOSPITAL_ID) && activeTab == '3'">
           <el-button class="modal-btn" type="primary" @click="openSpecialSymbols">特殊符号</el-button>
         </div>
       </div>
@@ -1346,7 +1350,6 @@ export default {
       return this.sheetInfo.sheetType === "common_gzry";
     },
     showDiagnosisBtn() {
-      console.log('this.activeTab === "3"',this.activeTab === "3")
       switch (process.env.HOSPITAL_ID) {
         case "guizhou":
           return this.commonFormGZ && this.activeTab === "3";
@@ -1651,7 +1654,6 @@ export default {
       this.$refs.zkModalZhzxy.close();
     },
     open(config) {
-      console.log(config,'hasopen')
       setTimeout(() => {
         window.closeAutoCompleteNoId();
       }, 300);
@@ -1745,7 +1747,7 @@ export default {
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ""
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll','925'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll','925','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         const firstDate = record[0].find((item) => item.key == "recordDate")
         const itemListTime = config.recordDate || firstDate.value
           record[0].find((item) => item.key == "recordDate").value
@@ -2342,7 +2344,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "baby_lcey") {
+            } else if (["baby_lcey","critical_linyi"].includes(this.sheetInfo.sheetType)) {
               if (GetLength(text) > 20) {
                 result.push(text);
                 text = allDoc[i];
@@ -2400,7 +2402,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (this.sheetInfo.sheetType === "ultrasound_fs" || this.sheetInfo.sheetType === "baby_tj") {
+            } else if (["ultrasound_fs","baby_tj","baby_whhk","insulin_whhk","labor_whhk","intravenous_whhk"].includes(this.sheetInfo.sheetType)) {
               if (GetLength(text) > 30) {
                 result.push(text);
                 text = allDoc[i];
@@ -2430,6 +2432,13 @@ export default {
               }
             }else if (this.sheetInfo.sheetType == "nursing_qhwy") {
               if (GetLength(text) > 50) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            }else if (["neonatology_whhk"].includes(this.sheetInfo.sheetType)) {
+              if (GetLength(text) > 28) {
                 result.push(text);
                 text = allDoc[i];
               } else {
@@ -2596,7 +2605,13 @@ export default {
             (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true);
         }
       }
-
+      // 删减特殊情况超页(11页-10页);
+      if (result.length < this.record.length) {
+        const diff = this.record.length - result.length;
+        for (let i = 0; i < diff; i++) {
+          process.env.splitSave && (this.record[i + result.length].isChange = true);
+        }
+      }
       if (
         (this.HOSPITAL_ID === "huadu" &&
           sheetInfo.sheetType !== "body_temperature_Hd") ||
@@ -2622,6 +2637,7 @@ export default {
       //打开编辑特殊记录的弹框
       switch(this.HOSPITAL_ID){
         case "foshanrenyi":
+        case "nfyksdyy":
       this.$refs.templateSlideFsry.open();
         break;
         default:

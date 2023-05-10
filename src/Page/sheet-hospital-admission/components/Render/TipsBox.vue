@@ -1,6 +1,6 @@
 
 <template>
-  <div>
+  <div :ref="refName">
     <!-- 开发模式 -->
     <div class="tips-box" v-if="mode==='development'">
       <!-- <hr> -->
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       TipsBoxValue: [],
-      refName: ""
+      refName: 'tipsBox' + this.obj.name + this.obj.title
       // mode: this.getMode()
     };
   },
@@ -63,10 +63,7 @@ export default {
     }
   },
   mounted() {
-    let type = this.obj.type || "";
-    this.refName =
-      this.obj.name + type.toUpperCase() + (this.obj.title || this.obj.label);
-    if (this.$refs[this.refName]) {
+    if (this.obj.name && this.obj.title && this.$refs[this.refName]) {
       this.$root.$refs[this.formCode][this.refName] = this.$refs[this.refName];
     }
     // console.log('TipsBoxMounted',this.$refs,this.$root.$refs)

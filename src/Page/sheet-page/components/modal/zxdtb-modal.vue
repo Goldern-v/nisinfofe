@@ -166,6 +166,7 @@
             type="selection"
             width="50"
             align="center"
+            :selectable="isSelectable"
           ></el-table-column>
           <el-table-column
             prop="recordDate"
@@ -175,7 +176,10 @@
             align="center"
           >
             <template slot-scope="scope">
-              <span v-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
+              <span v-if="['lyxrm'].includes(HOSPITAL_ID)">{{
+                scope.row.recordDate.split(" ")[0]
+              }}</span>
+              <span v-else-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
                 scope.row.recordDate.split(" ")[0]
               }}</span>
               <masked-input
@@ -219,7 +223,10 @@
             align="center"
           >
             <template slot-scope="scope">
-              <span v-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
+              <span v-if="['lyxrm'].includes(HOSPITAL_ID)">{{
+                scope.row.recordDate.split(" ")[1]
+              }}</span>
+              <span v-else-if="!identicalGroupSelect.includes(HOSPITAL_ID)">{{
                 scope.row.recordDate.split(" ")[1]
               }}</span>
               <!-- <el-input v-if="(identicalGroupSelect.includes(HOSPITAL_ID))&&scope.row.isFirst" :value="scope.row.recordDate.split(' ')[1]" @input="(value)=>changeRecordDate(scope.row,'Hour',value)"></el-input> -->
@@ -369,6 +376,9 @@
   >>>.el-table .cell, >>>.el-table th > div {
     padding: 0 5px;
   }
+  >>>.el-table__row.noselect td.el-table-column--selection > .cell{
+    display:none
+  }
 }
 </style>
 <script>
@@ -384,7 +394,7 @@ import {
   getOrdersExecuteLc,
   getOrdersExecuteFsry,
   getOrdersExecuteWhfk,
-  saveSyncRecord,
+  saveSyncRecord, saveVitalSignWhsl,
 } from "../../api/index";
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
@@ -423,7 +433,8 @@ export default {
         : "",
       repeatIndicator: "",
       instructions:'',//入量名称
-      identicalGroupSelect: ["wujing"],
+      identicalGroupSelect: ["wujing",'lyxrm'],
+      identicalGroupSelectuseISfirst: ["wujing"],
       repeatIndicatorList: [
         {
           id: "",
@@ -516,7 +527,7 @@ export default {
         });
         temArr = filterList;
       }
-      if (this.identicalGroupSelect.includes(this.HOSPITAL_ID)) {
+      if (this.identicalGroupSelectuseISfirst.includes(this.HOSPITAL_ID)) {
         let firstTime = "";
         temArr.map((item) => {
           item.isFirst && (firstTime = item.recordDate);
@@ -545,13 +556,22 @@ export default {
         }
         await saveSyncRecord(params)
       }
-      saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
-        this.$message.success("保存成功");
-        this.close();
-         //涉及到数据保存更改的 ，就调取initSheetPageSize初始化页码 然后重新拿值
-         this.bus.$emit("initSheetPageSize");
-        // this.bus.$emit("refreshSheetPage");
-      });
+      if(this.HOSPITAL_ID === 'whsl' && this.sheetInfo.sheetType ==='critical_weihai'){
+        let newTemArr=temArr.map((item)=>{
+          return {...item,executeType:this.executeType,recordCodes:["critical_weihai"]}
+        })
+        saveVitalSignWhsl(newTemArr).then((res) => {
+          this.$message.success("保存成功");
+        });
+      }else{
+        saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
+          this.$message.success("保存成功");
+        });
+      }
+      this.close();
+      //涉及到数据保存更改的 ，就调取initSheetPageSize初始化页码 然后重新拿值
+      this.bus.$emit("initSheetPageSize");
+      // this.bus.$emit("refreshSheetPage");
       this.bus.$emit("refreshSheetPageOne", this.multipleSelection);
     },
     styleByrecordSync(row,indx){
@@ -742,7 +762,8 @@ export default {
       let isAdd = selection.includes(row);
       this.tableData
         .filter((item) => {
-          return item.barcode === row.barcode;
+          if(!['lyxrm'].includes(this.HOSPITAL_ID)) return item.barcode === row.barcode;
+          else return item.orderNo === row.orderNo;
         })
         .map((item) => {
           this.$refs["zxdtb-table"].toggleRowSelection(item, isAdd);
@@ -768,6 +789,9 @@ export default {
           return sum
         }, '')
       })
+    },
+    isSelectable(row, index) {
+      return this.HOSPITAL_ID !== 'whsl' || this.patientInfo.deptCode === row.wardCode;
     }
   },
   computed: {
@@ -777,13 +801,13 @@ export default {
     tableDatalist(){
       let tableDatalist = []
       if(this.yizhuTypeItem==="" || !this.showAdvice){
-        return this.tableData
+        tableDatalist = this.tableData
       }else{
         this.tableData.map(item=>{
           if(item.repeatIndicator===this.yizhuTypeItem) tableDatalist.push(item)
         })
-        return tableDatalist
       }
+      return tableDatalist
     },
     patientInfo() {
       if (this.sheetInfo.selectBlock) {

@@ -123,6 +123,29 @@ export default {
       this.$refs.modal.close();
     },
     post() {
+      let strSignData = ""
+      if(model.selectedRow.measuresName.length>0) model.selectedRow.measuresName.forEach(item=>{
+          strSignData += item.measureDetail+'/n'
+        })
+      else strSignData = model.selectedRow.diagMeasures
+      let SigndataObj = {
+        Patient_ID:this.$route.query.patientId,
+        Visit_ID:this.$route.query.visitId,
+        Document_Title:"",
+        Document_ID:model.selectedRow.diagCode,
+        Section_ID:model.selectedRow.diagCode,
+        strSignData: strSignData,
+      };
+
+       let verifySignObj = {
+        patientId:this.$route.query.patientId,
+        visitId:this.$route.query.visitId,
+        formName:"",
+        formCode:model.selectedRow.diagCode,
+        instanceId:model.selectedRow.id,
+        recordId:"",
+        signData:strSignData,
+      }
       window.openSignModal((password, username) => {
         nursingDiagsStop(
           password,
@@ -139,7 +162,7 @@ export default {
           model.refreshTable();
           this.close();
         });
-      });
+      },undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
     }
   },
   mounted() {},

@@ -1,15 +1,14 @@
 import axios from '@/api/axios'
 import { apiPath } from '@/api/apiConfig'
-import qs from 'qs'
 
 // 保存不良事件
 export function save (data) {
   return axios.post(`${apiPath}badEvent/save`,data)
 }
-
+const isGZ = ["guizhou", '925'].includes(process.env.HOSPITAL_ID)
 // 根据事件id删除不良事件
 export function del (id) {
-  if(process.env.HOSPITAL_ID == 'guizhou'){
+  if(isGZ){
     return axios.post(`${apiPath}form/badEventMaster/master/delete`,{id})
   }
   return axios.get(`${apiPath}badEvent/deleteBadEventById/${id}`)
@@ -22,7 +21,7 @@ export function getEvent (id) {
 
 // 根据护理单元获取不良事件列表
 export function getEventList (data) {
-  if(process.env.HOSPITAL_ID == 'guizhou'){
+  if(isGZ){
     return axios.post(`${apiPath}form/badEventMaster/master/getPage`, data)
   }
   return axios.post(`${apiPath}badEvent/findBadEventList`, data)

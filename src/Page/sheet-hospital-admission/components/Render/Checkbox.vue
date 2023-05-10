@@ -191,34 +191,61 @@ export default {
               value: '异常：',
               inp: true,
               correlationID: "I2332070"
-            }
+            },
+            {
+              id: 'I2332067',
+              value: ['异常：'],
+              hiddenformGroupColBox: true,
+              correlationID: "排尿留置导管"
+            },
+            {
+              id: 'I2332237',
+              value: 'CVC',
+              hiddeninputBox: true,
+              correlationID: "I2332238CVCINPUT"
+            },
+            {
+              id: 'I2332237',
+              value: 'PICC',
+              hiddeninputBox: true,
+              correlationID: "I2332239PICCINPUT"
+            },
+            {
+              id: 'I2332067',
+              value: ['异常：'],
+              hiddenformGroupColBox: true,
+              correlationID: "排尿造瘘"
+            },
+            {
+              id: 'I2332044',
+              value: ['普食','软食','半流质','流质','特殊治疗饮食：','其他：'],
+              hiddenImportantVal:"禁食",
+              hiddenformGroupColBox: true,
+              correlationID: "禁食啊"
+            },
           ]
         } else {
           obj = [
             // 是儿童模块
-          {
-            id: 'I2333075',
-            value: '有：',
-            inp: true,
-            prefixId: "I2333078",
-            correlationID: "I2333076"
-          },
-          {
-            id: 'I2333075',
-            value: '有：',
-            correlationID: "I2333077",
-            prefixId: "I2333077"
-          },
-          {
-            id: 'I2333075',
-            value: '有：',
-            correlationID: "I2333078",
-            prefixId: "I2333078"
-          },
+          
           {
             id: 'I2333154',
             value: '异常：',
             correlationID: "I2333156",
+          },
+          {
+            id: 'I2333114',
+            hiddenCheckBox:true,
+            excludeVal:["异常",'正常'],
+            value: '异常',
+            correlationID: "I2333114"
+          },
+          {
+            id: 'I2333227',
+            value: '黄染',
+            correlationID: "I2333222",
+            hiddenRadio:true,
+            valDefault:","
           },
           {
             id: 'I2333154',
@@ -245,26 +272,55 @@ export default {
 
           obj.forEach(item => {
             // input类型
-            if(!this.formObj.model[item.id]) return
+            if(!this.formObj.model[item.id] && !item.valDefault) return
             
             if (item.inp) {
               let inp = this.$root.$refs[this.formCode][item.correlationID]
-              inp.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
-              if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
-
-            } else {
-              
-              let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
-              if (elArr.length > 0) {
-                elArr.forEach(it => {
-                  
-                  it.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
-                  if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+              if(this.formObj.model[item.id]){
+                inp.$parent.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: flex;align-items: center;"
+                if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block;align-items: center;"
+              }
+            }else if(item.hiddenformGroupColBox){
+              if(this.formObj.model[item.id]){
+                let formGroupColBox = this.$root.$refs[this.formCode]['formGroupColBox' + item.correlationID]
+                let end = item.value.find(val=>this.formObj.model[item.id].includes(val))
+                if(item.hiddenImportantVal){
+                  formGroupColBox.style.display = this.formObj.model[item.id].includes(item.hiddenImportantVal) ? "none" : "block"
+                }else formGroupColBox.style.display = !end ? "none" : "block"
+              }
+            }else if(item.hiddeninputBox){
+              if(this.formObj.model[item.id]){
+                let hiddeninputBox = this.$root.$refs[this.formCode]['inputBox' + item.correlationID]
+                hiddeninputBox.parentElement.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
+              }
+            }else if(item.hiddenRadio){
+              if(this.formObj.model[item.id]){
+                let hiddenRadioArr = this.$root.$refs[this.formCode][item.correlationID]
+                Object.keys(hiddenRadioArr).forEach(radio=>{
+                  hiddenRadioArr[radio].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "inline-block"
                 })
               }
-              
+            }else if(item.hiddenCheckBox){
+              if(this.formObj.model[item.id]){
+                let hiddenCheckBox = this.$root.$refs[this.formCode][item.correlationID]
+                Object.keys(hiddenCheckBox).forEach(checkbox=>{
+                  if(!item.excludeVal.includes((checkbox))){
+                    hiddenCheckBox[checkbox].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "flex"
+                  }
+                })
+              }
+            }else {
+              if(this.formObj.model[item.id]){
+                let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
+                if (elArr.length > 0) {
+                  elArr.forEach(it => {
+                    
+                    it.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+                    if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+                  })
+                }
+              }
             }
-            
           })
         }
       }

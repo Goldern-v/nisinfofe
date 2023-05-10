@@ -93,6 +93,15 @@ export default [
     change: (e, td) => limitChange(e, td, 10),
   },
   {
+    key: "cardiac", // 胎心
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 60
+    },
+    change: (e, td) => limitChange(e, td, 10),
+  },
+  {
     key: "fieldThree", // 浓度
     value: "",
     event: keyf1,

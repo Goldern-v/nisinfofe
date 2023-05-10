@@ -46,15 +46,15 @@
       >
         <div class="nav-item">病历</div>
       </router-link>
-      <router-link
-        :to="{
-          path: '/sheetNursingOrder',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">护嘱单</div>
-      </router-link>
+<!--      <router-link-->
+<!--        :to="{-->
+<!--          path: '/sheetNursingOrder',-->
+<!--          query: { patientId: query.patientId, visitId: query.visitId }-->
+<!--        }"-->
+<!--        tag="span"-->
+<!--      >-->
+<!--        <div class="nav-item">护嘱单</div>-->
+<!--      </router-link>-->
       <router-link
         :to="{
           path: '/sheet',
@@ -168,8 +168,8 @@
         <div class="nav-item">手术</div>
       </router-link>-->
       <!-- <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
-        <div class="nav-item">会诊</div>
-      </router-link>-->
+        <div class="nav-item">会诊</div> -->
+      <!-- </router-link> -->
       <!-- <router-link :to="{path:'/recordSheet', query:$route.query}" tag="span">
         <div class="nav-item">护理记录单</div>
       </router-link>-->
@@ -185,12 +185,12 @@
        <router-link :to="{path:'/consultation', query:$route.query}" tag="span">
         <div class="nav-item">会诊</div>
       </router-link>
-      <!-- <router-link
+      <router-link
         :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
-        <div class="nav-item">患者360</div>
-      </router-link> -->
+        <div class="nav-item">360</div>
+      </router-link>
     </div>
     <div style="height: 50px"></div>
   </div>

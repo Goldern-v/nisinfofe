@@ -14,6 +14,9 @@
           :isLoad='isLoad'
           :sheetTitleData="sheetTitleData"
           :maxPage="Number(sheetInfo.endPage)"
+          @mountSheetTag="onMountSheetTag"
+          :sheetTagInfo="sheetTagInfo"
+          @sheetDelete="onSheetClose"
         ></sheetTool>
       </div>
     </div>
@@ -41,6 +44,13 @@
         v-loading="tableLoading"
         element-loading-text="拼命加载中"
       >
+        <SheetTags
+          v-if="hasSheetTags"
+          :tagsList="sheetTagsList"
+          :currentTag="currentTag"
+          @switchSheet="onSheetSwitch"
+          @closeSheet="onSheetClose"
+        />
         <div
           class="sheetTable-contain"
           ref="scrollCon"
@@ -61,7 +71,9 @@
               :isInPatientDetails="false"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
+              :specialLis="specialList"
               @onModalChange="onModalChange"
+              :sheetTagsHeight="sheetTagsHeight"
             ></component>
           </div>
           <div
@@ -98,6 +110,16 @@
     <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
     <!-- 电子病例弹窗 -->
     <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt','dglb','nfyksdyy'].includes(HOSPITAL_ID)" />
+    <changeMajorRadio
+      :dialogTableVisibleTrue="dialogDeptNameVisible"
+      :majorData="{
+        patientId:  patientInfo.patientId,
+        visitId: patientInfo.visitId,
+        id: sheetInfo.selectBlock.id
+      }"
+      @TableVisible="(val) => dialogDeptNameVisible = val"
+      @savedata="(val) => {val &&  getSheetData()}"
+    ></changeMajorRadio>
   </div>
 </template>
 
@@ -167,7 +189,7 @@
 }
 
 .sheetTable-contain {
-  height: 100%;
+  height: calc( 100% - 35px);
   background: #DFDFDF;
   overflow: auto;
   z-index: 3;
@@ -253,6 +275,9 @@ import sheetTable_nicu_custody_jm from "./components/sheetTable-nicu_custody_jm/
 import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/sheetTable";
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_oxytocin_sdlj from "./components/sheetTable-oxytocin_sdlj/sheetTable";
+import sheetTable_oxytocinck_dglb from "./components/sheetTable_oxytocinck_dglb/sheetTable";
+import sheetTable_insulin_pump_sdry from "./components/sheetTable-insulin_pump_sdry/sheetTable";
+import sheetTable_oxytocin_sdry from "./components/sheetTable-oxytocin_sdry/sheetTable";
 import sheetTable_oxytocin_dglb from "./components/sheetTable-oxytocin_dglb/sheetTable";
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
@@ -277,6 +302,7 @@ import {
   markList,
   splitRecordBlock,
   findListByBlockId,
+  list
 } from "@/api/sheet.js";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -302,6 +328,8 @@ import {GetUserList,verifyNewCaSign} from '../../api/caCardApi'
 import testSheet from './testSheet.json'
 //解锁
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
+import changeMajorRadio from '@/Page/sheet-page/components/modal/changeMajorRadio.vue'
+import SheetTags from './components/sheet-tags/index.vue';
 
 export default {
   mixins: [common],
@@ -311,6 +339,7 @@ export default {
         bedList: [],
       },
       patientListLoading: false,
+      dialogDeptNameVisible: false,
       pageLoading: false,
       tableLoading: false,
       bus: bus(this),
@@ -323,6 +352,7 @@ export default {
       bedAndDeptChange: {},
       foshanshiyiIFca:false,//佛山key状态
       listData: [],
+      specialList: [],
       toSingleTempArr: [
         "huadu",
         "liaocheng",
@@ -337,9 +367,21 @@ export default {
       isLock:false,
       isLoad:false,  //如果主页数据多接口就返回慢，在数据没回来之前切换了副页，副页的数据会被后回来的主页数据覆盖。
       sheetTitleData: {}, // 自定义表头数据
+      sheetTagsList: [], // 标签数据
+      currentTag: null, // 当前选中标签
+      sheetTagInfo: null,
     };
   },
   computed: {
+    // 显示标签
+    hasSheetTags() {
+      // return ['nfyksdyy', 'whsl'].includes(this.HOSPITAL_ID) && !!this.sheetTagsList.length;
+      return !!this.sheetTagsList.length;
+    },
+    // 标签高度
+    sheetTagsHeight() {
+      return this.hasSheetTags ? 35 : 0;
+    },
     containHeight() {
       if (this.fullpage) {
         return this.wih - 44 + "px";
@@ -365,7 +407,7 @@ export default {
       return resultModel;
     },
     sheetTable() {
-      console.log("sheetInfo.sheetType",sheetInfo,sheetInfo.sheetType)
+      // console.log("sheetInfo.sheetType",sheetInfo,sheetInfo.sheetType)
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
         //  return sheetTablePost_partum;
@@ -425,6 +467,13 @@ export default {
         return sheetTable_oxytocin_hl;
       } else if (sheetInfo.sheetType == "oxytocin_sdlj") {
         return sheetTable_oxytocin_sdlj;
+      } else if (sheetInfo.sheetType == "oxytocinck_dglb") {
+        return sheetTable_oxytocinck_dglb;
+      }
+      else if (sheetInfo.sheetType == "oxytocin_sdry") {
+        return sheetTable_oxytocin_sdry;
+      } else if (sheetInfo.sheetType == "insulin_pump_sdry") {
+        return sheetTable_insulin_pump_sdry;
       } else if (sheetInfo.sheetType == "oxytocin_dglb") {
         return sheetTable_oxytocin_dglb;
       } else if (sheetInfo.sheetType == "dressing_count_hl") {
@@ -439,6 +488,31 @@ export default {
     },
   },
   methods: {
+    // 添加护记标签
+    onMountSheetTag(sheet) {
+      this.currentTag = sheet;
+      const tagIndex = this.sheetTagsList.findIndex(tag => tag.id === sheet.id);
+      if (tagIndex === -1) {
+        this.sheetTagsList.push(sheet);
+      }
+    },
+    // 标签切换护记
+    onSheetSwitch(sheet) {
+      if (sheet && sheet.id !== this.currentTag.id) {
+        this.currentTag = sheet;
+      }
+      this.sheetTagInfo = sheet;
+    },
+    // 标签关闭护记
+    onSheetClose(sheet) {
+      const sheetIndex = this.sheetTagsList.findIndex(tag => tag.id === sheet.id);
+      if (sheetIndex !== -1) {
+        this.sheetTagsList.splice(sheetIndex, 1);
+      }
+      const lastTag = this.sheetTagsList[this.sheetTagsList.length - 1]
+      // 重新打开
+      this.onSheetSwitch(lastTag);
+    },
     isFirst(tr, x, y, bodyModel) {
       let recordDate = tr.find((item) => item.key == "recordDate").value;
       let recordSource = tr.find((item) => item.key == "recordSource").value;
@@ -565,6 +639,7 @@ export default {
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
+        list('全部',this.patientInfo.wardCode),
       ]
       // 佛山市一 获取自定义标题数据
       if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
@@ -633,6 +708,10 @@ export default {
           };
         }
         sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
+
+        // 获取到特殊情况列表内容
+        let specialList = res[3].data.data.list;
+        this.specialList = specialList.map(item=> item.content)
         this.$nextTick(async () => {
         await initSheetPage(titleData, bodyData, markData, this.listData);
       //加载表单
@@ -694,6 +773,26 @@ export default {
           });
       } else {
         next();
+      }
+    },
+    checkChange(cb,todo){
+      let end = this.filterSheetModel.find(model=>{
+        return model.data.bodyModel.find(tr=>{
+          return tr.isChange
+        })
+      })
+      if(!end){
+        todo && todo()
+      }else{
+        this.$confirm("存在未保存数据，您是否要保存", "提示", {
+            confirmButtonText: "保存",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+          .then((res) => {
+            cb && cb()
+            todo && todo()
+          });
       }
     },
     getHomePage(isFirst) {
@@ -883,7 +982,7 @@ export default {
               return data
             })
           }
-          console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
+          // console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
           if(this.HOSPITAL_ID == 'wujing'){
             let trueRecordTimes = []
             //因为相同记录跨页日期时间会一样，这时候去判断记录会判断为同一条记录 ，所以要先根据记录日期去重
@@ -894,7 +993,7 @@ export default {
               }
             })
             let newLen = new Set(trueRecordTimes).size
-            console.log('newLen',newLen,trueRecordTimes)
+            // console.log('newLen',newLen,trueRecordTimes)
             if(trueRecordTimes.length>newLen){
               this.$notify.warning({
                 title: "提示",
@@ -981,8 +1080,8 @@ export default {
         }
       }
     );
+    this.bus.$on('handleDeptNameChoose',(val)=>{this.dialogDeptNameVisible = val})
     this.bus.$on("refreshSheetPage", () => {
-
       this.getSheetData()
     });
     //保存前做签名校验
@@ -1193,6 +1292,9 @@ export default {
     this.bus.$on("openEvalModel", (tr, td) => {
       this.$refs.evalModel.open();
     });
+    this.bus.$on("checkChange", (cb,todo)=>{
+      this.checkChange(cb,todo)
+    });
     this.bus.$on("openEvalModelPaging", (tr, td) => {
       this.$refs.evalModelPaging.open();
     });
@@ -1202,6 +1304,7 @@ export default {
     this.bus.$on("setSheetTableLoading", (state = false) => {
       this.tableLoading = state;
     });
+    this.getSheetData()
     this.bus.$on("splitSheet", (tr, td) => {
       this.$refs.signModal2.open((password, empNo) => {
         let recordDate = tr.find((item) => item.key == "recordDate").value;
@@ -1233,6 +1336,8 @@ export default {
     patientInfo(val) {
       this.bus.$emit("refreshImg");
       // this.$store.commit("upPatientInfo", val);
+      this.sheetTagsList = [];
+      this.currentTag = null;
     },
     deptCode(val) {
       if (val) {
@@ -1345,11 +1450,15 @@ export default {
     doctorEmr,
     sheetTable_oxytocin_hl,
     sheetTable_oxytocin_sdlj,
+    sheetTable_insulin_pump_sdry,
+    sheetTable_oxytocin_sdry,
     sheetTable_oxytocin_dglb,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,
-    sheetTable_prenatal_ytll
+    sheetTable_prenatal_ytll,
+    changeMajorRadio,
+    SheetTags
   },
 };
 </script>

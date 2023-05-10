@@ -185,7 +185,7 @@ export default {
   created() {
     let route = this.$route
     this.formCode = (route.meta && route.meta.formCode) || ''
-    this.pathRouter =  this.HOSPITAL_ID === 'foshanrenyi' ? route.name : 'sheetHospitalAdmissionPage'
+    this.pathRouter =  (this.HOSPITAL_ID === 'foshanrenyi'||this.HOSPITAL_ID === 'nfyksdyy')? route.name : 'sheetHospitalAdmissionPage'
     if(this.isAdmissionHisView){
       // console.log('this.$route',this.$route);
       // console.log('this.data.bedList',this.data.bedList);

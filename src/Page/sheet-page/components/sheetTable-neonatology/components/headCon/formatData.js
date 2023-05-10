@@ -175,7 +175,10 @@ export let data = (function() {
         });
       }
       return dm;
-    }
+    },
+    initEveryFormData(formData){
+      this.formData = formData
+    },
   };
 })();
 
@@ -183,7 +186,6 @@ export let data = (function() {
 data.initFormData(tables, {});
 // console.log("循环处理", data.initFormData(tables, {}));
 // console.log("前后台交互数据包", tables, data.getFormData(), formData);
-
 export default {
   tables,
   // recordsHead,

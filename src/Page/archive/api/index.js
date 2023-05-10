@@ -8,6 +8,16 @@ export function getArchiveList(data) {
     `${apiPath}print/archive/list`, data
   );
 }
+export function uploadBatch(data) {
+  return axios.post(
+    `${apiPath}print/archive/uploadBatch`, data
+  );
+}
+export function genDocBatch(data) {
+  return axios.post(
+    `${apiPath}print/archive/genDocBatch`, data
+  );
+}
 
 //  生成归档文件
 export function generateArchive(patientId, visitId) {

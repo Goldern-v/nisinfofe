@@ -1,0 +1,38 @@
+export const columnObj = [
+    {
+        type:'patientId',
+        width:'150px',
+        label:'id号'
+    },
+    {
+        type:'name',
+        width:'150px',
+        label:'姓名'
+    },
+    {
+        type:'diagnosis',
+        width:'150px',
+        label:'诊断'
+    },
+    {
+        type:'admissionDateTime',
+        width:'150px',
+        label:'入院日期'
+    },
+    {
+        type:'dischargeDateTime',
+        width:'150px',
+        label:'出院日期'
+    },
+    {
+        type:'criticallyIllDate',
+        width:'150px',
+        label:'告病重日期'
+    },
+    {
+        type:'firstClassNursingDate',
+        width:'150px',
+        label:'一级护理日期'
+    },
+]
+

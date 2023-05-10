@@ -410,6 +410,11 @@ function switchSheetType(type) {
       schema = require("../config/prenatal_dglb/tr.js").default;
     }
       break;
+    case "postpartum2_dglb": {
+      // 东莞寮步-产后产房观察表
+      schema = require("../config/postpartum2_dglb/tr.js").default;
+    }
+      break;
     case "baby_dglb": {
       // 东莞寮步-护理记录单（新生儿科）
       schema = require("../config/baby_dglb/tr.js").default;
@@ -1417,27 +1422,27 @@ function switchSheetType(type) {
     }
     break;
     case "orthopaedic_sdry": {
-      // 顺德龙江 - 护理记录单（骨科）
+      //顺德人医 - 护理记录单（骨科）
       schema = require("../config/orthopaedic_sdry/tr.js").default;
     }
     break;
     case "magnesiumsulphate_sdry": {
-      // 顺德"硫酸镁注射液静脉滴注观察记录单"
+      // 顺德人医"硫酸镁注射液静脉滴注观察记录单"
       schema = require("../config/magnesiumsulphate_sdry/tr.js").default;
     }
     break;
     case "oxytocin_sdry": {
-      // 顺德,"催产素静脉点滴观察表",
+      // 顺德人医,"催产素静脉点滴观察表",
       schema = require("../config/oxytocin_sdry/tr.js").default;
     }
     break;
     case "insulin_pump_sdry": {
-      // 顺德,"胰岛素泵观察记录表",
+      // 顺德人医,"胰岛素泵观察记录表",
       schema = require("../config/insulin_pump_sdry/tr.js").default;
     }
     break;
     case "contraction_inhibitor_sdry": {
-      // 顺德龙江 - 护理记录单（骨科）
+      // 顺德人医 - 护理记录单（骨科）
       schema = require("../config/contraction_inhibitor_sdry/tr.js").default;
     }
     break;
@@ -1469,6 +1474,11 @@ function switchSheetType(type) {
     case "oxytocin_sdlj": {
       // 顺德龙江-催产素静脉点滴观察单
       schema = require("../config/oxytocin_sdlj/tr.js").default;
+    }
+    break;
+    case "oxytocinck_dglb": {
+      // 东莞寮步-催产素静脉点滴观察单(产科)--新
+      schema = require("../config/oxytocinck_dglb/tr.js").default;
     }
       break;
       case "oxytocin_dglb": {
@@ -1606,6 +1616,11 @@ function switchSheetType(type) {
       schema = require("../config/prenataldelivery2_tj/tr.js").default;
     }
       break;
+      case "prenatal_sdry": {
+        // 顺德人医 - 产前护理记录
+         schema = require("../config/prenatal_sdry/tr.js").default;
+       }
+         break;
     case "postpartum2_tj": {
       // 广东同江 - 产后护理记录单
       schema = require("../config/postpartum2_tj/tr.js").default;
@@ -1751,6 +1766,11 @@ function switchSheetType(type) {
       schema = require("../config/critical_weihai/tr.js").default;
     }
     break;
+    case "general_item_weihai": {
+      // 威海市立 - 护理一般项目监测记录单
+      schema = require("../config/general_item_weihai/tr.js").default;
+    }
+    break;
     case "baby_yz": {
       // 临沂沂州 - 新生儿护理记录单
       schema = require("../config/baby_yz/tr.js").default;
@@ -1772,10 +1792,15 @@ function switchSheetType(type) {
       }
       break;
     case "icu_yz": {
-        // 临沂沂州--内科重症医学科
-        schema = require("../config/icu_yz/tr.js").default;
+      // 临沂沂州--内科重症医学科
+      schema = require("../config/icu_yz/tr.js").default;
     }
-        break;
+      break;
+    case "postpartum_yz": {
+      // 临沂沂州--产后术后观察表
+      schema = require("../config/postpartum_yz/tr.js").default;
+    }
+      break;
     case "inout_ytll": {
       // 烟台玲珑 - 出入量记录单
       schema = require("../config/inout_ytll/tr.js").default;
@@ -1894,7 +1919,6 @@ function switchSheetType(type) {
   }
   return schema;
 }
-// le y = ''
 
 function switchNodeTime(type){
   let customColumn;

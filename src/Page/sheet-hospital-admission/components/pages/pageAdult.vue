@@ -1,27 +1,35 @@
 <template>
-  <div :class="fileJSON ? 'pages':'no-page'" ref="sheetPage">
-    <div
-      v-if="isShowLoadingLayout"
-      class="mask-layout"
-      v-loading="loading"
-      :element-loading-text="loadingText"
-    ></div>
-    <div :style="isShow?'display:block':'display:none'">
-      <RenderForm ref="renderForm" :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="locker"/>
+  <div class="adult-Container">
+    <div v-if="route" class="tool-con" flex-box="1">
+      <sheetTool :formCodeFy='formCode' ref="sheetHospitalAdmissionTool"></sheetTool>
     </div>
-    <div :style="isShow?'display:none':'display:block;backgroud:white;'">
-      <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
-        <img src="./image/分组.png" alt/>
-        <aside>{{ message }}</aside>
+    <div :class="[route&&'sheetTable-contain']">
+      <div :class="fileJSON ? 'pages':'no-page'" ref="sheetPage">
+        <div
+          v-if="isShowLoadingLayout"
+          class="mask-layout"
+          v-loading="loading"
+          :element-loading-text="loadingText"
+        ></div>
+        <div :style="isShow?'display:block':'display:none'">
+          <RenderForm ref="renderForm" :sourceObj="fileJSON" :updateFunc="updateFunc" :lock="locker"/>
+        </div>
+        <div :style="isShow?'display:none':'display:block;backgroud:white;'">
+          <div class="null-img" @click="message=='新建评估单'&&bus.$emit('createHEvalForm')">
+            <img src="./image/分组.png" alt/>
+            <aside>{{ message }}</aside>
+          </div>
+        </div>
+        <!-- <div class="container"></div> -->
       </div>
     </div>
-    <!-- <div class="container"></div> -->
   </div>
 </template>
 
 <script>
 import RenderForm from "@/Page/sheet-hospital-admission/components/Render/main.vue";
 import { getOldFormCode } from "@/Page/sheet-hospital-admission/components/Render/common.js";
+import sheetTool from "@/Page/sheet-hospital-admission/components/sheet-tool/sheet-tool.vue";
 import BusFactory from "vue-happy-bus";
 import common from "@/common/mixin/common.mixin.js";
 import { getPatientInfo } from '../../api'
@@ -30,7 +38,8 @@ export default {
   name: "page",
   mixins: [common],
   components: {
-    RenderForm
+    RenderForm,
+    sheetTool
   },
   data() {
     return {
@@ -60,6 +69,15 @@ export default {
       this.$refs.renderForm.updateSheet();
       this.loading = false;
     });
+    if(this.route){
+      this.$nextTick(()=>{
+        console.log("djw-mounted-init")
+        this.bus.$emit("setHosptialAdmissionLoading", true);
+        this.bus.$emit("setIsNewForm", false);
+        this.bus.$emit("getHEvalBlockList", this.$route.query);
+        this.$store.commit("upPatientInfo", this.$route.query);
+      })
+    }
   },
   watch: {
     loading(newVal, oldVal) {
@@ -86,7 +104,9 @@ export default {
     locker() {
       return this.lock;
     },
-    
+    route(){
+      return this.$route.path === '/admissionPageAdult2'
+    },
     // formCode() {
     //   try {
     //     console.log(this.formObj, this.formObj.formSetting, 'code值查询问题')
@@ -106,7 +126,13 @@ export default {
     });
 
     // 加载loading状态显示
-    this.bus.$on("setHosptialAdmissionLoading", config => {
+    this.bus.$on("setHosptialAdmissionLoading", config =>this.setHosptialAdmissionLoading(config) );
+    this.initial();
+    this.loading = false;
+  },
+  methods: {
+    setHosptialAdmissionLoading(config){
+      console.log("setHosptialAdmissionLoading",config)
       if (typeof config === "object") {
         if (config.hasOwnProperty("status")) {
           this.loading = config.status;
@@ -123,20 +149,22 @@ export default {
         this.loading = config;
         this.loadingText = "数据载入中...";
       }
-    });
-
-    this.initial();
-    this.loading = false;
-  },
-  methods: {
+    },
     // 初始化话表内容渲染
     initial(patient = null, isDevMode = false) {
       this.loading = true;
       // 主表结构
       let file = null
-      file = JSON.parse(
+      if (this.HOSPITAL_ID === 'nfyksdyy'){
+        file = JSON.parse(
+        JSON.stringify(require("../data/formNfyksdyy/adult/入院评估.form.json"))
+      )
+      } else{
+        file = JSON.parse(
         JSON.stringify(require("../data/formFoshanrenyi/adult/入院评估.form.json"))
       )
+      }
+
 
       let title = "";
       try {
@@ -149,7 +177,11 @@ export default {
       );
       // 主表下拉框选项字典表
       let dictionary = null
-      dictionary = JSON.parse(JSON.stringify(require("../data/formFoshanrenyi/adult/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+      if (this.HOSPITAL_ID === 'nfyksdyy') {
+         dictionary = JSON.parse(JSON.stringify(require("../data/formNfyksdyy/adult/formDictionary/入院评估.dictionary.nfyksdyy.json")))
+      } else{
+        dictionary = JSON.parse(JSON.stringify(require("../data/formFoshanrenyi/adult/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+      }
       //
       file.dictionary = dictionary;
       //
@@ -162,7 +194,7 @@ export default {
       /** 自动获取弹窗配置 */
       let contexts = null
       // 这里require.context 方法中的路径如果换成变量形式就会报错。读取不到
-      contexts = require.context('../data/formFoshanrenyi/adult/formDialog', true, /\.json$/);
+      // contexts = require.context('../data/formFoshanrenyi/adult/formDialog', true, /\.json$/);
     //   if (this.HOSPITAL_ID === 'liaocheng') {
     //     contexts = require.context('../data/formDialogLiaoc', true, /\.json$/);
     //   } else if (['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
@@ -173,11 +205,12 @@ export default {
     //     contexts = require.context('../data/foshanrenyi/formDialog', true, /\.json$/);
     //   } else if (this.HOSPITAL_ID === 'lyyz') {
     //     contexts = require.context('../data/formDialogLyyz', true, /\.json$/);
-    //   } else if (this.HOSPITAL_ID === 'nfyksdyy') {
-    //     contexts = require.context('../data/formDialogNfyksdyy', true, /\.json$/);
-    //   } else {
-    //     contexts = require.context('../data/formDialog', true, /\.json$/);
-    //   }
+      // } else
+     if (this.HOSPITAL_ID === 'nfyksdyy') {
+        contexts = require.context('../data/formNfyksdyy/adult/formDialog', true, /\.json$/);
+      } else {
+        contexts = require.context('../data/formFoshanrenyi/adult/formDialog', true, /\.json$/);
+      }
       contexts.keys().forEach((context, b, c, d) => {
         let djson = contexts(context);
         // console.log(djson, context, '弹出框key')
@@ -473,6 +506,17 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.adult-Container{
+  height: calc(100% - 50px);
+}
+.sheetTable-contain
+  height: calc(100% - 41px);
+  background #DFDFDF
+  overflow auto
+  padding 15px 5px 0 15px
+  box-sizing border-box
+  margin 0 auto 20px
+  position relative
 .pages
   width: 100%;
 

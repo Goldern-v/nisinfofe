@@ -4,7 +4,8 @@
       <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
-        <el-button type="primary" @click="openDetailChat()">曲线详情</el-button>
+        <el-button v-if="['foshanrenyi'].includes(HOSPITAL_ID)" type="primary" @click="openDetailChat()">曲线详情</el-button>
+        <el-button v-else type="primary" @click="openSignList()">体征列表</el-button>
       </el-button-group>
       <!-- <div class="print-btn tool-btn" @click="typeIn()">录入</div> -->
       <div :class="rightSheet === true ? 'pagination' : 'paginationRight'" v-show="!isPrintAll">
@@ -32,10 +33,10 @@
         <button @click="() => { this.bus.$emit('dateChangeEvent', 'next') }">
           下一日
         </button>
-        <el-button-group :style="rightButton()" v-if="['nfyksdyy'].includes(HOSPITAL_ID)">
-          <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '0'))" :disabled="!isDisable">同步入院</el-button>
-          <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '1'))" :disabled="!isDisable">同步出院</el-button>
-        </el-button-group>
+<!--        <el-button-group :style="rightButton()" v-if="['nfyksdyy'].includes(HOSPITAL_ID)">-->
+<!--          <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '0'))" :disabled="!isDisable">同步入院</el-button>-->
+<!--          <el-button size="small" type="pxrimary" @click="syncInAndOutHospital((type = '1'))" :disabled="!isDisable">同步出院</el-button>-->
+<!--        </el-button-group>-->
       </div>
       <moveContext :id="'detailChatBox'" :titlex="'曲详情线'" class="detailChatBox">
         <div class="button-context">
@@ -60,13 +61,17 @@
           class="lcIframe"></iframe>
       </div>
     </div>
+    <VitalSignList
+      ref="vitalSignRef"
+      :patientInfo="patientInfo"
+    />
   </div>
 </template>
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
-
+import VitalSignList from "@/Page/temperature-chart/commonCompen/VitalSignList.vue";
 import moment from "moment";
 import bus from "vue-happy-bus";
 export default {
@@ -81,7 +86,9 @@ export default {
           // return "http://localhost:8080"
           return "http://192.168.103.17:9091"
         case 'nfyksdyy':
-          return "http://192.168.0.200:9091"
+          return "http://192.168.0.200:9091" // 医院内网
+          // return "http://59.38.110.189:9092" // 医院外网
+          // return "http://localhost:8080" // 本地
         default:
           break;
       }
@@ -103,6 +110,7 @@ export default {
       isPrintAll: false,
       visibled: false,
       printAllPath: "",
+      queryDate: moment().format('YYYY-MM-DD'),
       intranetUrl:
         `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
       // `${baseUrl}/#/` /* 医院正式环境内网 导致跨域 */,
@@ -111,6 +119,15 @@ export default {
     };
   },
   methods: {
+    openSignList() {
+      const params = {
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        wardCode: this.patientInfo.wardCode,
+        recordDate: this.queryDate
+      }
+      this.$refs.vitalSignRef.open(params);
+    },
     onPrint() {
       this.isPrintAll = false;
       setTimeout(() => {
@@ -301,6 +318,7 @@ export default {
     this.getHeight();
     this.bus.$on("dateChangePage", (value) => {
       value = moment(value).format("YYYY-MM-DD");
+      this.queryDate = value;
       this.$refs.pdfCon.contentWindow.postMessage(
         { type: "dateChangePage", value },
         this.intranetUrl /* 内网 */
@@ -335,6 +353,7 @@ export default {
   components: {
     nullBg,
     moveContext,
+    VitalSignList,
   },
 };
 </script>
@@ -350,7 +369,16 @@ export default {
   box-shadow: -2px 0 7px -1px black; // 左边阴影;
   background: #fff;
 }
-
+/deep/ .el-dialog {
+  top: 50%!important;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/deep/ .el-dialog__footer {
+  text-align: center !important;
+  background: #f9fafa;
+  border-top: 1px solid #ddd;
+}
 .detailChat {
   width: 100%;
   height: 400px;

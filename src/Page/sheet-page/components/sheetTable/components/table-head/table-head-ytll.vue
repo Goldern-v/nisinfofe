@@ -35,16 +35,9 @@
           {{ patientInfo.realDeptName }}
         </div>
       </span>
-      <!-- <span>
-        床号：
-        <div class="bottom-line" style="min-width: 50px">
-          {{ patientInfo.bedLabel }}
-        </div>
-      </span> -->
       <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          <!-- {{ patientInfo.bedLabel }} -->
           {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
         </div>
       </span>
@@ -101,12 +94,6 @@
           {{ patientInfo.inpNo }}
         </div>
       </span>
-      <!-- <span v-if="sheetInfo.sheetType === 'neonatal_care_jm'">
-        入院日期：
-        <div class="bottom-line" style="min-width: 150px">
-          {{ patientInfo.admissionDate }}
-        </div>
-      </span> -->
     </div>
     <div class="info-con" flex="main:justify" v-else-if="['babymilk_ytll'].includes(sheetInfo.sheetType)">
        <span>
@@ -161,81 +148,16 @@
           {{ patientInfo.age }}
         </div>
       </span>
-      <!-- <span v-if="sheetInfo.sheetType === 'cardiology_fs'">
-        病区：
-        <div class="bottom-line" style="min-width: 70px">
-          {{ patientInfo.deptName }}
-        </div>
-      </span> -->
       <span>
         住院号：
         <div class="bottom-line" style="min-width: 80px">
           {{ patientInfo.inpNo }}
         </div>
       </span>
-      <!-- <span v-if="sheetInfo.sheetType === 'neonatal_care_jm'">
-        入院日期：
-        <div class="bottom-line" style="min-width: 150px">
-          {{ patientInfo.admissionDate }}
-        </div>
-      </span> -->
     </div>
-    <!-- <div class="info-con"  v-if="sheetInfo.sheetType == 'laborobservation_fs'">
-      <span>
-        临产时间：
-          <crDatePicker
-            :data-value="sheetInfo.relObj.laborTime"
-            v-model="sheetInfo.relObj.laborTime"
-            :width="140"
-            style="border:none;border-bottom:1px solid #000;height:22px"
-          />
-      </span>
-      <span>
-        宫口全开时间：
-          <crDatePicker
-            :data-value="sheetInfo.relObj.laborTime"
-            v-model="sheetInfo.relObj.laborTime"
-            :width="140"
-            style="border:none;border-bottom:1px solid #000;height:22px"
-          />
-      </span>
-      <span>
-        娩出时间：
-          <crDatePicker
-            :data-value="sheetInfo.relObj.deliveryTime1"
-            v-model="sheetInfo.relObj.deliveryTime1"
-            :width="140"
-            style="border:none;border-bottom:1px solid #000;height:22px"
-          />/
-          <crDatePicker
-            :data-value="sheetInfo.relObj.deliveryTime2"
-            v-model="sheetInfo.relObj.deliveryTime2"
-            :width="140"
-            style="border:none;border-bottom:1px solid #000;height:22px"
-          />/
-          <crDatePicker
-            :data-value="sheetInfo.relObj.deliveryTime3"
-            v-model="sheetInfo.relObj.deliveryTime3"
-            :width="140"
-            style="border:none;border-bottom:1px solid #000;height:22px"
-          />
-      </span>
-    </div> -->
-    <!-- <div class="info-con info-con_select"  v-if="sheetInfo.sheetType == 'laborobservation_fs'">
-      <span style="display:flex;">
-        娩出方式：
-        <customSelectCanRepeat
-          :options="options"
-          multiple
-          @onSelect="(val) => setRelValue('deliveryMOde', val)"
-        >
-          <input type="text" v-model="sheetInfo.relObj.deliveryMOde" style="width:250px;">
-        </customSelectCanRepeat>
-      </span>
-    </div> -->
     <div class="info-con">
-      <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll', 'babymilk_ytll', 'oxytocin_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)">
-        入院诊断：
+      <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll', 'babymilk_ytll', 'oxytocin_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+        诊断：
         <div
           class="bottom-line"
           style="
@@ -248,35 +170,7 @@
           {{ diagnosis }}
         </div>
       </span>
-
     </div>
-    <!-- <div class="info-con">
-      <span v-if="sheetInfo.sheetType == 'ipacu_fs'"
-        @click="updateDiagops('ops', '手术', patientInfo.relObj.ops)"
-      >
-        手术：
-        <div
-          class="bottom-line"
-          style="
-            min-width: 1100px;
-            min-height: 13px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          "
-        >
-          {{ sheetInfo.relObj[`PageIndex_diagops_${index}`] }}
-        </div>
-      </span>
-
-    </div>
-    <div class="info-con">
-      <span v-if="sheetInfo.sheetType == 'ultrasound_fs'">
-        <span>治疗日期：</span>
-        <input v-model="sheetInfo.relObj.zlrq"/>
-        <span>&nbsp;治疗时间：</span>
-        <input v-model="sheetInfo.relObj.zlsj"/>
-      </span>
-    </div> -->
     <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
   </div>
 </template>
@@ -385,23 +279,23 @@ export default {
     setRelValue(code, val) {
       this.$set(this.sheetInfo.relObj, code, val)
     },
+    // 转床记录弹窗事件
     openBedRecordModal(){
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
       // 把当前页护记的页码存入,用于每一页床号的自定义
       this.$refs.bedRecordModal.open('', this.index);
-      // this.$refs.bedRecordModal.open();
     },
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
         (text) => {
           sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
-          this.$message.success(`修改入院诊断成功`);
+          this.$message.success(`修改诊断成功`);
           this.bus.$emit("saveSheetPage", false);
         },
         this.diagnosis,
-        `修改入院诊断`
+        `修改诊断`
       );
     },
     updateDiagops(key, label, autoText) {

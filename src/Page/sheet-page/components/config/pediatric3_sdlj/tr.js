@@ -32,7 +32,10 @@ import {
 } from "../keyEvent/date";
 
 let measureList=[{name:"A预防窒息",value:"A"},{name:"B预防坠床",value:"B"},{name:"C预防烫伤",value:"C"},{name:"D指导外用药",value:"D"},{name:"E指导口药服用",value:"E"},{name:"F喂养护理",value:"F"},{name:"G其他",value:"G"},]
-
+const pzwzList =['H-头面部','N-颈部','U-上肢','L-下肢','O-腋下','T-胸腹','B-背部','S-阴囊','C-肛周','W-全身']
+const xzcdList =['S-散在','M-多发','I-密集','P-表面脓点皮肤未破损','B-表面破损','U-表面溃疡']
+const clList=['L-左','R-右','T-头颅','F-顶额部']
+const otwzList =['A白色','B黄色','C绿色','D咖啡色','E其他']
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -55,9 +58,12 @@ export default [
   { key: 'bleeding', event: keyf1, value: '', next: '', name: '渗血', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'drainage', event: keyf1, value: '', next: '', name: '渗液', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 2) },
   { key: 'bloodSugar', event: keyf1, value: '', next: '', name: 'SpO2', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'skinColor', event: keyf1, value: '', next: '', name: '皮肤颜色', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'customItem2', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'skinColor', event: keyf1, value: '', next: '', name: '皮肤颜色', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) ,autoComplete: {data:['红润','发绀','苍白','轻度黄染','中度黄染','重度黄染']}},
+  { key: 'customItem1', event: keyf1, value: '', next: '', name: '皮肤弹性', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4),autoComplete: {data:['好','一般','差']} },
+  { key: 'customItem2', event: keyf1, value: '', next: '', name: '皮疹位置', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) ,autoComplete: {data:pzwzList}},
+  { key: 'extent', event: keyf1, value: '', next: '', name: '性质程度', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4),autoComplete: {data:xzcdList} },
+  { key: 'position', event: keyf1, value: '', next: '', name: '产瘤、头部血肿位置', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4),autoComplete: {data:clList} },
+  { key: 'vomit', event: keyf1, value: '', next: '', name: '呕吐物性质', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4),autoComplete: {data:otwzList} },
   { key: 'customItem3', event: keyf1, value: '', next: '', name: '', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'customItem4', event: keyf1, value: '', next: '', name: '', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'nursingMeasures', event: keyf1, value: '', next: '', name: '护理措施', autoComplete: { data: measureList },splice:true, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 3) },

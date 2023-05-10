@@ -90,9 +90,12 @@
       </span>
       <span>
           预产期：
+<!--          <span  v-if="$route.path.includes('print')"   style="border:none;border-bottom:1px solid #000;height:22px">x:{{sheetInfo.relObj['contractionTime']}}</span>-->
           <crDatePicker
+            type="time"
             v-model="sheetInfo.relObj['contractionTime']"
-            :width="140"
+            :width="100"
+            :data-value="sheetInfo.relObj['contractionTime']"
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
         </span>

@@ -22,9 +22,12 @@ function decode(ayncVisitedData) {
       }
     })
   })
-
   let allData = [];
   let result = [];
+  let prevRecord = [];
+  let lastRecord = [];
+  let isChangePreRecord = [];
+  let isChangeLastRecord = [];
   for (let pageIndex = 0; pageIndex < data.length; pageIndex++) {
     let bodyModel = data[pageIndex].bodyModel;
     /**
@@ -41,57 +44,143 @@ function decode(ayncVisitedData) {
     let firstRecordDate = ''
     for (let index in bodyModel) {
       // 一定要做这个优化速度需求，被逼无奈，轻喷
+      // isChange意思是当前行的修改，splitSava：是否全部页的数据一起传参，
+      // changeArr: 修改的每行中的recordDate的数据会添加进去。
       if (bodyModel.hasOwnProperty(index) && (!process.env.splitSave || bodyModel[index].isChange || (bodyModel[index][recordDateIndex] && bodyModel[index][recordDateIndex].value && changeArr.includes(bodyModel[index][recordDateIndex].value)))) {
         let tr = {};
         const recordDate = bodyModel[index].find((item)=>item.key == "recordDate");
+        const recordYear = bodyModel[index].find(item => item.key == "recordYear").value
+        let itemRecordYear = recordYear ? recordYear : moment().format("YYYY");
+        const month = bodyModel[index].find(item => item.key == "recordMonth").value
+        const hour = bodyModel[index].find(item => item.key == "recordHour").value
+        const ischangeMonth = month ? month : moment(recordDate.value).format('MM-DD')
+        const ischangeHour = hour ? hour : moment(recordDate.value).format('HH:mm')
+
         for (let option of bodyModel[index]) {
           tr[option.key] = option.value;
-          if(recordDate && recordDate.value) {
-            tr[`recordDate`] = recordDate.value
-          }else{
-            let itemRecordYear = bodyModel[index].find(
-              item => item.key == "recordYear"
-            ).value
-              ? bodyModel[index].find(item => item.key == "recordYear").value
-              : moment().format("YYYY");
-            const month = bodyModel[index].find(item => item.key == "recordMonth").value
-            const hour = bodyModel[index].find(item => item.key == "recordHour").value
-            if (itemRecordYear && month && hour) {
-              firstRecordDate = itemRecordYear + "-" + month + " " + hour
-            }
-            if (firstRecordDate) {
-              bodyModel[index].find(item => item.key == "recordDate").value = firstRecordDate
-            } else {
-              if(month && hour){
-                bodyModel[index].find(item => item.key == "recordDate").value =`${itemRecordYear}-${month} ${hour}`
+        }
+        // 当前行直接修改，想要保存和上一行时间一样保存
+        if(recordDate && recordDate.value) {
+          tr[`recordDate`] = recordDate.value
+        }else{
+          if (itemRecordYear && month && hour) {
+            firstRecordDate = itemRecordYear + "-" + month + " " + hour
+          }
+          if (firstRecordDate) {
+            bodyModel[index].find(item => item.key == "recordDate").value = firstRecordDate
+          } else {
+            if(month && hour){
+              bodyModel[index].find(item => item.key == "recordDate").value =`${itemRecordYear}-${month} ${hour}`
+            }else{
+              let i = index
+              if(i==0){
+                bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${moment().format("MM-DD")} ${hour}`
               }else{
-                let i = index
-                if(i==0){
-                  bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${moment().format("MM-DD")} ${hour}`
-                }else{
-                  while(i--) {
-                    const lastRecordMonth = bodyModel[i].find(item => item.key == "recordMonth").value
-                    if (lastRecordMonth) {
-                      if(bodyModel[index].find(item => item.key == "recordHour").value){
-                        bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
-                        bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
-                      }
-                      break;
+                while(i--) {
+                  const lastRecordMonth = bodyModel[i].find(item => item.key == "recordMonth").value
+                  if (lastRecordMonth) {
+                    if(bodyModel[index].find(item => item.key == "recordHour").value){
+                      bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
+                      bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
                     }
+                    break;
                   }
                 }
-
               }
+
             }
           }
         }
         tr.pageIndex = pageIndex;
         result.push(tr)
+        // 当前行数修改后，当前页相同时间，当前修改行之前相同时间于当前行数时间一同发起请求。
+        for (let i = 0; i < index; i++) {
+          const changeDate = bodyModel[i].find(item => item.key === 'recordDate').value;
+          const [changeYear, changeMonth, changeHour] = [moment(changeDate).format('YYYY'), moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+          if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour && !bodyModel[i].isChange && !bodyModel[i].isChange &&  !(bodyModel[i][recordDateIndex] && bodyModel[i][recordDateIndex].value && changeArr.includes(bodyModel[i][recordDateIndex].value))) {
+            let setTr = {}
+            for (const option of bodyModel[i]) {
+              if(option.key == 'recordYear'){
+                setTr[option.key] = changeYear;
+              }else{
+                setTr[option.key] = option.value;
+              }
+            }
+            isChangePreRecord.push(setTr);
+          }
+          // isChangePreRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangePreRecord)
+        }
+        //  // 当前行数修改后，当前页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
+        for (let i = +index + 1; i < bodyModel.length; i++) {
+          const changeDate = bodyModel[i].find(item => item.key === 'recordDate').value;
+          const [changeYear, changeMonth, changeHour] = [moment(changeDate).format('YYYY'), moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+          if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour && !bodyModel[i].isChange &&  !(bodyModel[i][recordDateIndex] && bodyModel[i][recordDateIndex].value && changeArr.includes(bodyModel[i][recordDateIndex].value))) {
+            let setTr = {}
+            for (const option of bodyModel[i]) {
+              if(option.key == 'recordYear'){
+                setTr[option.key] = changeYear;
+              }else{
+                setTr[option.key] = option.value;
+              }
+            }
+            isChangeLastRecord.push(setTr);
+          }
+          // isChangeLastRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangeLastRecord)
+        }
+        // 当前行数修改后，当前页的前一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
+        for (let i = 0; i < pageIndex; i++) {
+          const prevPage = data[i].bodyModel;
+          for (let prevIndex = 0; prevIndex < prevPage.length; prevIndex++) {
+            const changeDate = prevPage[prevIndex].find(item => item.key === 'recordDate').value;
+            const [changeYear,changeMonth, changeHour] = [moment(changeDate).format('YYYY'), moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+            if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour && !prevPage[prevIndex].isChange &&  !(prevPage[prevIndex][recordDateIndex] && prevPage[prevIndex][recordDateIndex].value && changeArr.includes(prevPage[prevIndex][recordDateIndex].value))) {
+              let setTr = {}
+              for (const option of prevPage[prevIndex]) {
+                if(option.key == 'recordYear'){
+                  setTr[option.key] = changeYear;
+                }else{
+                  setTr[option.key] = option.value;
+                }
+              }
+              prevRecord.push(setTr);
+            }
+          }
+        }
+        // 当前行数修改后，当前页的后一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
+        for (let i = pageIndex + 1; i < data.length; i++) {
+          const lastPage = data[i].bodyModel;
+          for (let lastIndex = 0; lastIndex < lastPage.length; lastIndex++) {
+            const changeDate = lastPage[lastIndex].find(item => item.key === 'recordDate').value;
+            const [changeYear, changeMonth, changeHour] = [moment(changeDate).format('YYYY'), moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+            if (changeDate && changeMonth === ischangeMonth && changeHour === ischangeHour && !lastPage[lastIndex].isChange &&  !(lastPage[lastIndex][recordDateIndex] && lastPage[lastIndex][recordDateIndex].value && changeArr.includes(lastPage[lastIndex][recordDateIndex].value))) {
+              let setTr = {}
+              for (const option of lastPage[lastIndex]) {
+                if(option.key == 'recordYear'){
+                  setTr[option.key] = changeYear;
+                }else{
+                  setTr[option.key] = option.value;
+                }
+              }
+              lastRecord.push(setTr);
+            }
+          }
+        }
       }
     }
 
   }
-    allData = [...allData,...result];
+  console.log('prevRecord:',prevRecord, 'isChangePreRecord:',isChangePreRecord,'isChangeLastRecord:',isChangeLastRecord,'lastRecord',lastRecord);
+  console.log('result:',result);
+   // 因为跨页的时候，在下一页改掉和上一页相同时间，上一页的recordYear为空
+   if(result.length && !result[0]['recordYear']){
+     result[0]['recordYear'] = moment(result[0]['recordDate']).format('YYYY')
+   }
+  //  医院开启了修改单条数据出现顺序保存错乱，做了处理，后续有问题可以看一下这里的逻辑，代码写的很烂，如有优化可以进行优化。sorry了
+  if(['925','guizhou','nfyksdyy','huadu','foshanrenyi'].includes(process.env.HOSPITAL_ID)){
+    allData = [...allData, ...prevRecord, ...isChangePreRecord, ...result, ...isChangeLastRecord, ...lastRecord];
+  }else{
+    allData = [...allData, ...result];
+  }
 
   // 贵州-同步护理巡视内容到特殊情况
   if (['guizhou', '925'].includes(process.env.HOSPITAL_ID) && ayncVisitedData) {
@@ -149,6 +238,7 @@ function decode(ayncVisitedData) {
     process.env.HOSPITAL_ID == "925"||
     process.env.HOSPITAL_ID == "stmz"||
     process.env.HOSPITAL_ID == "lyyz"||
+    process.env.HOSPITAL_ID == "nfyksdyy"||
     process.env.HOSPITAL_ID == "dglb"
   ) {
     auditorMapData.auditorMap = sheetInfo.auditorMap;
@@ -167,5 +257,38 @@ function decode(ayncVisitedData) {
     ...auditorMapData
   };
 }
+/**
+ * 当前页，同一时间添加发送：
+ @param index 当前页条数
+ @param bodyModel 当前页对象
+ @param month 当前行修改月日时间
+ @param hour 当前行修改时分时间
+ @param setRecord 接收数组
+*/
+function simplifySet(index,bodyModel, month, hour, setRecord) {
+    const changeDate = bodyModel[index].find(item => item.key === 'recordDate').value;
+    const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+    if (changeDate && changeMonth === month && changeHour === hour && !(bodyModel[index].isChange)) {
+      let setTr = {}
+      for (const option of bodyModel[index]) {
+        setTr[option.key] = option.value;
+      }
+      setRecord.push(setTr);
+    }
+    return setRecord
+}
+function simplifyPrev(index,bodyModel, month, hour, setRecord,) {
+    const changeDate = bodyModel[index].find(item => item.key === 'recordDate').value;
+    const [changeMonth, changeHour] = [moment(changeDate).format('MM-DD'), moment(changeDate).format('HH:mm')]
+    if (changeDate && changeMonth === month && changeHour === hour ) {
+      let setTr = {}
+      for (const option of bodyModel[index]) {
+        setTr[option.key] = option.value;
+      }
+      setRecord.push(setTr);
+    }
+    return setRecord
+}
+
 
 export default decode;

@@ -151,6 +151,183 @@
     </template>
     <template v-else-if="isGeneralCareWj">
     </template>
+      <template v-else-if="HOSPITAL_ID == 'dglb'">
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click="openStaticModal"
+            v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
+        >
+          <div class="text-con">出入量统计</div>
+        </div>
+        <div
+            v-if="showSetCreatePage()"
+            class="item-box"
+            flex="cross:center main:center"
+            @click="setPage"
+            style="width:90px"
+        >
+          <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click="toPrint"
+            v-if="
+          (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
+          ['guizhou', '925'].includes(HOSPITAL_ID)
+        "
+        >
+          <div class="text-con">打印预览</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click="toSave"
+        >
+          <div class="text-con" flex="cross:center">保存</div>
+        </div>
+        <div
+            v-if="!isDeputy"
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="delSheet"
+        >
+          <div class="text-con">删除整单</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="createSheet"
+            v-if="!isSingleTem && !isDeputy && isShow()"
+        >
+          <div class="text-con">新建记录单</div>
+        </div>
+        <div
+            class="item-box"
+            v-show="limitAddPage"
+            flex="cross:center main:center"
+            @click="emit('addSheetPage')"
+        >
+          <div class="text-con">添加新页</div>
+        </div>
+
+
+
+        <div
+            v-if="!isDeputy"
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="toPdfPrint"
+            v-show="isDev && isShow()"
+        >
+          <div class="text-con">批量打印</div>
+        </div>
+
+
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="openSelectTmp"
+            v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
+        >
+          <div class="text-con">科室模板</div>
+        </div>
+<!--        <div-->
+<!--            class="item-box"-->
+<!--            flex="cross:center main:center"-->
+<!--            @click.stop="openTemplateSlider"-->
+<!--            v-if="!isSingleTem && !isDeputy && isShow()"-->
+<!--        >-->
+<!--          <div class="text-con">特殊情况模板</div>-->
+<!--        </div>-->
+<!--        <div-->
+<!--            class="item-box"-->
+<!--            flex="cross:center main:center"-->
+<!--            @click.stop="openTitleTemplateSlide"-->
+<!--            v-if="!isSingleTem && !isDeputy && isShow()"-->
+<!--        >-->
+<!--          <div class="text-con">自定义标题模板</div>-->
+<!--        </div>-->
+      </template>
+      <template v-else-if="HOSPITAL_ID == 'sdlj'">
+        <div
+            class="item-box"
+            v-show="limitAddPage"
+            flex="cross:center main:center"
+            @click="emit('addSheetPage')"
+        >
+          <div class="text-con">添加新页</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click="toSave"
+        >
+          <div class="text-con" flex="cross:center">保存</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click="openStaticModal"
+            v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
+        >
+          <div class="text-con">出入量统计</div>
+        </div>
+        <div
+            v-if="showSetCreatePage()"
+            class="item-box"
+            flex="cross:center main:center"
+            @click="setPage"
+            style="width:90px"
+        >
+          <div class="text-con">设置起始页({{ sheetInfo.sheetStartPage }})</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click="toPrint"
+            v-if="
+          (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
+          ['guizhou', '925'].includes(HOSPITAL_ID)
+        "
+        >
+          <div class="text-con">打印预览</div>
+        </div>
+        <div
+            v-if="!isDeputy"
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="toPdfPrint"
+            v-show="isDev && isShow()"
+        >
+          <div class="text-con">批量打印</div>
+        </div>
+        <div
+            v-if="!isDeputy"
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="delSheet"
+        >
+          <div class="text-con">删除整单</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="createSheet"
+            v-if="!isSingleTem && !isDeputy && isShow()"
+        >
+          <div class="text-con">新建记录单</div>
+        </div>
+        <div
+            class="item-box"
+            flex="cross:center main:center"
+            @click.stop="openSelectTmp"
+            v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
+        >
+          <div class="text-con">科室模板</div>
+        </div>
+      </template>
     <template v-else>
       <div
         class="item-box"
@@ -226,7 +403,23 @@
         @click.stop="openSelectTmp"
         v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
       >
-        <div class="text-con">设为模板</div>
+        <div class="text-con">科室模板</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="openTemplateSlider"
+        v-if="!isSingleTem && !isDeputy && isShow()"
+      >
+        <div class="text-con">特殊情况模板</div>
+      </div>
+      <div
+        class="item-box"
+        flex="cross:center main:center"
+        @click.stop="openTitleTemplateSlide"
+        v-if="!isSingleTem && !isDeputy && isShow()"
+      >
+        <div class="text-con">自定义标题模板</div>
       </div>
     </template>
       <div
@@ -508,7 +701,7 @@
           <div
             class="right-btn"
             flex="cross:center main:center"
-            @click="emit('openEvalModel')"
+            @click="pgtbModel"
             v-if="!isSingleTem_LCEY && !isDeputy && HOSPITAL_ID != 'foshanrenyi'"
           >
           <div class="text-con">
@@ -580,6 +773,9 @@
         !$route.path.includes('Baby_sheetPage') "></demonstarationLevca> -->
     <newFormModal ref="newFormModal"></newFormModal>
     <setTitleModal ref="setTitleModal"></setTitleModal>
+    <templateSlideFSRY ref="templateSlideFsry"></templateSlideFSRY>
+    <titleTemplateSlideFS ref="titleTemplateSlideFS"></titleTemplateSlideFS>
+    <templateSlide ref="templateSlide"></templateSlide>
     <tztbModal ref="tztbModal"></tztbModal>
     <rltbModal ref="rltbModal" :blockId="blockId"></rltbModal>
     <selectPageModal ref="tmpModal" @setAsTemplate="setAsTemplate"></selectPageModal>
@@ -617,6 +813,9 @@
 <script>
 import bus from "vue-happy-bus";
 import $ from "jquery";
+import templateSlide from "@/Page/sheet-page/components/modal/template-slide.vue";
+import templateSlideFSRY from "@/Page/sheet-page/components/modal/template-slide-fsry.vue";
+import titleTemplateSlideFS from "@/Page/sheet-page/components/modal/title-template-slide-fssy";
 import setPageModal from "../modal/setPage-modal.vue";
 import searchPageByDateModal from "@/Page/sheet-page/components/modal/searchPageByDate-modal.vue";
 import sheetModel, { cleanData, cleanDataOnly } from "../../sheet.js";
@@ -677,6 +876,10 @@ export default {
     // 最大页数
     maxPage: {
       type: Number | String,
+    },
+    sheetTagInfo: {
+      type: Object,
+      default: () => null
     }
   },
   data() {
@@ -1004,6 +1207,12 @@ export default {
         case "guizhou":
           this.bus.$emit("openGuizhouModal");
           break;
+        case "nfyksdyy":{
+          this.bus.$emit("checkChange",()=>{
+            this.bus.$emit('saveSheetPage', 'noSaveSign')
+          },()=>{this.bus.$emit("openHJModal")})
+        }
+          break;
         default:
           this.bus.$emit("openHJModal");
           break;
@@ -1088,7 +1297,6 @@ export default {
        * 护记加载完成后isDone会转为true 所有用循环半秒去查询一次 如果完成了 再走打印界面
       */
         this.checkSheetRender = setInterval(() => {
-          console.log('正在查询户籍是否完成', sheetInfo.isDone)
           if (sheetInfo.isDone) {
             clearInterval(this.checkSheetRender)
             this.checkSheetRender = null
@@ -1230,6 +1438,7 @@ export default {
               resolve(res)
             } catch (error) {}
           });
+
         });
       }
       })
@@ -1485,7 +1694,6 @@ export default {
                   this.sheetInfo.selectBlock = this.sheetBlockList[index]
                 }
               } catch (e) {
-                console.log(e);
               }
           }
           this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
@@ -1513,6 +1721,21 @@ export default {
         return this.$message.info("无自定义表头，无法设置为模板");
       }
     },
+     openTemplateSlider() {
+      //打开编辑特殊记录的弹框
+      switch(this.HOSPITAL_ID){
+        case "nfyksdyy":
+      this.$refs.templateSlide.open();
+        break;
+      }
+    },
+    openTitleTemplateSlide() {
+      if (['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+        this.$refs.titleTemplateSlideFS.open();
+        return
+      }
+      this.$refs.titleTemplateSlide.open();
+    },
     // 设为模板
     async setAsTemplate(selectPage) {
       //设置模板 需要把开头的
@@ -1538,6 +1761,9 @@ export default {
     createTemperature() {
       this.$refs.newFormModal.open();
     },
+    openSpecialSymbols() {
+      this.$refs.templateSlide.open();
+    },
     delSheet() {
       if (!this.sheetInfo.selectBlock.id)
         return this.$message.warning("还没有选择护理记录单");
@@ -1546,6 +1772,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
+        this.$emit('sheetDelete', this.sheetInfo.selectBlock)
         blockDelete(this.sheetInfo.selectBlock.id).then((res) => {
           this.$message({
             type: "success",
@@ -1586,6 +1813,10 @@ export default {
     changeSelectBlock(item) {
       localStorage.setItem('sheetPageScrollValue',null)
       //原本写在选择器里 现在搬到watch离监听调用
+      // 添加护记头部标签
+      if (item && typeof item !== 'boolean' && item.id) {
+        this.$emit('mountSheetTag', item);
+      }
     },
     /** pdf打印 */
     toPdfPrint() {
@@ -1608,7 +1839,18 @@ export default {
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-      this.$refs.tztbModal.open();
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID)){
+        this.bus.$emit("checkChange",()=>{
+          this.bus.$emit('saveSheetPage', 'noSaveSign')
+        },()=>{this.$refs.tztbModal.open()})
+      }else this.$refs.tztbModal.open();
+    },
+    pgtbModel(){
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID)){
+        this.bus.$emit("checkChange",()=>{
+          this.bus.$emit('saveSheetPage', 'noSaveSign')
+        },()=>{this.emit('openEvalModel')})
+      }else this.emit('openEvalModel')
     },
     openZxdtbModal() {
       if (this.readOnly) {
@@ -1626,8 +1868,12 @@ export default {
       } else {
         this.titleName = "执行单同步";
       }
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID)){
+        this.bus.$emit("checkChange",()=>{
+          this.bus.$emit('saveSheetPage', 'noSaveSign')
+        },()=>{this.$refs.zxdtbModal.open()})
+      }else this.$refs.zxdtbModal.open();
 
-      this.$refs.zxdtbModal.open();
     },
     openRltbModal() {
       if (this.readOnly) {
@@ -1660,7 +1906,6 @@ export default {
     switchPage() {
       const curSheetType = this.sheetInfo.sheetType
       if (!['common_wj', 'generalcare_wj'].includes(curSheetType)) return this.defSwitch()
-      console.log('test-1')
       // 主页
       if (curSheetType === 'common_wj') {
         this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode = 'generalcare_wj'
@@ -1825,7 +2070,6 @@ export default {
     this.bus.$on("getBlockList", () => {
       this.getBlockList();
     });
-
     document.onkeydown = (e) => {
       if (e.keyCode == 91 || e.keyCode == 17) {
         this.sheetInfo.downControl = true;
@@ -1836,6 +2080,8 @@ export default {
         this.sheetInfo.downControl = false;
       }
     };
+    this.getBlockList();
+
   },
   mounted() {
     if( this.HOSPITAL_ID === 'whfk' && this.sheetInfo.selectBlock.patientId){
@@ -1853,6 +2099,13 @@ export default {
     this.checkSheetRender = null
   },
   watch: {
+    sheetTagInfo: {
+      handler(val) {
+        if (val) {
+          this.sheetInfo.selectBlock = val
+        }
+      }, deep: true
+    },
     "sheetInfo.selectBlock":{
       deep:true,
       handler(val) {
@@ -1915,12 +2168,15 @@ export default {
     rltbModal,
     moveContext,
     patientInfoModal,
+    templateSlide,
+    templateSlideFSRY,
     patientInfo,
     temperatureHD,
     RltbNfzxyModal,
     demonstarationLevca,
     selectPageModal,
     searchPageByDateModal,
+    titleTemplateSlideFS
 
   },
 };

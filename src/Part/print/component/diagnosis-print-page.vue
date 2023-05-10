@@ -104,10 +104,9 @@
       box-sizing: border-box;
 
     }
-    .iframe > div:nth-of-type(2n) {
-      transform: rotate(180deg);
-
-    }
+    // .iframe > div:nth-of-type(2n) {
+    //   transform: rotate(180deg);
+    // }
   }
 }
 
@@ -135,9 +134,20 @@ export default {
   created() {},
   mounted() {
     let sheetTableWidth = document.querySelector("div.containter").offsetWidth;
+
     $("#app").css({
       minWidth: sheetTableWidth + "px"
     });
+    addCSS(
+      window,
+      `
+      @media print {
+          .iframe > div:nth-of-type(2n) {
+            transform: rotate(180px) !important;
+        }
+      }
+      `
+    );
     if (sheetTableWidth > 1000) {
       printDir("h");
       addCSS(
@@ -184,6 +194,36 @@ export default {
          height: auto !important;
          }
        }
+        `
+      );
+    }
+    if (this.HOSPITAL_ID == "qhwy") {
+      addCSS(
+        window,
+        `
+         @media print {
+         .containter  {
+          height: 1100px !important;
+         }
+       }
+        `
+      );
+    }
+    if (this.HOSPITAL_ID == "foshanrenyi") {
+      addCSS(
+        window,
+        `
+        #diagnosisPagePrint .containter  {
+          width: 1300px !important;
+        }
+        @media print {
+          #diagnosisPagePrint .containter  {
+            width: 1300px !important;
+          }
+          #diagnosisPagePrint .iframe > div:nth-of-type(2n) {
+            transform: rotate(-180px) !important;
+          }
+        }
         `
       );
     }

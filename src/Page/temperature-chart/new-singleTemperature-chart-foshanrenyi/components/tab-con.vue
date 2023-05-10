@@ -315,6 +315,13 @@
               <el-collapse-item name="fieldList">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
+                  <el-button
+                    type="primary"
+                    v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
+                    class="copy-btn"
+                    @click.stop="copyLastBox"
+                    >复制</el-button
+                  >
                   <i class="header-icon el-icon-info"></i>
                 </template>
                 <div class="fieldList">
@@ -480,6 +487,7 @@ import nullBg from "../../../../components/null/null-bg";
 import { validForm } from "../../validForm/validForm";
 import {
   getVitalSignListByDate,
+  copySetting,
   getmultiDict,
   getfieldList,
   savefieldTitleNew,
@@ -532,6 +540,7 @@ export default {
       activeNames: ["biometric", "otherBiometric", "notes", "fieldList"],
       checkItem: [
         "腋温",
+        "体温",
         "脉搏",
         "心率",
         "口温",
@@ -600,14 +609,29 @@ export default {
         this.getList();
         this.bus.$emit("dateChangePage", this.query.entryDate);
         }
+        this.bus.$emit("watchQueryDate", this.query);
       },
       deep: true,
     },
     patientInfo() {
+      this.bus.$emit("watchQueryDate", this.query);
       this.isUpdate = false;
     },
   },
   methods: {
+    copyLastBox(){
+      copySetting(
+        {visitId:  this.patientInfo.visitId,
+        patientId:  this.patientInfo.patientId,
+        wardCode: this.patientInfo.wardCode,
+        recordDate: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD")}
+      ).then(res=>{
+        res.data.data.list.map((item) => {
+          if (this.vitalSignObj[item.vitalCode])
+          this.fieldList[item.vitalCode] = item;
+        });
+      })
+    },
     handleChange(val) {
       // console.log(val);
     },
@@ -655,6 +679,7 @@ export default {
     setValid(trage, val) {
       switch (trage) {
         case "腋温":
+        case "体温":
         case "肛温":
         case "口温":
         case "物理降温":
@@ -991,6 +1016,8 @@ export default {
         let otherDic = [];
         let data = [];
         let obj = [];
+        let baseDictMap = {};
+        let otherDictMap = {};
         res.data.data.map((item, index) => {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
@@ -1001,10 +1028,12 @@ export default {
             case "base":
             if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
+              baseDictMap[item.vitalCode] = item.vitalSign;
               break;
             case "other":
             if(!["表顶注释","表底注释"].includes(item.vitalSign))
               otherDic[item.vitalSign] = item.vitalCode;
+              otherDictMap[item.vitalCode] = item.vitalSign;
               break;
             default:
               break;
@@ -1025,6 +1054,11 @@ export default {
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
         this.init();
+        this.bus.$emit('getMultiDict', {
+          baseDictMap,
+          otherDictMap,
+          customDictMap: this.fieldList,
+        });
       });
     },
     async rightMouseDown(e, dateTime, recordPerson) {
@@ -1123,18 +1157,23 @@ export default {
             let voildStr = text.trim();
             if (checkValueStr.includes(text)) {
               this.$message.error(`修改${label}失败!已存在${text}项目`);
-            } else if (
+            } else  (
               voildStr == null ||
               voildStr == "" ||
               voildStr == undefined
-            ) {
-              this.$message.error(`修改${label}失败!请输入自定义内容`);
-            } else {
+            ); {
+              // this.$message.error(`修改${label}失败!请输入自定义内容`);
               savefieldTitleNew(data).then((res) => {
                 this.fieldList[index].fieldCn = text;
                 this.$message.success(`修改${label}成功`);
               });
             }
+            // else {
+            //   savefieldTitleNew(data).then((res) => {
+            //     this.fieldList[index].fieldCn = text;
+            //     this.$message.success(`修改${label}成功`);
+            //   });
+            // }
             // this.getList();
           },
           autotext,
@@ -1150,6 +1189,7 @@ export default {
         "  " +
         this.query.entryTime;
       let saveFlagArr = [];
+      let temperatureError = false;
       obj.map((item) => {
         item.recordDate = recordDate;
         switch (item.vitalSigns) {
@@ -1173,7 +1213,17 @@ export default {
             saveFlagArr.push(false);
           }
         }
+        if (
+          ['体温', '口温', '肛温', '耳温'].includes(item.vitalSigns) &&
+          item.vitalValue && (item.vitalValue < 35 || item.vitalValue > 42)
+        ) {
+          temperatureError = true;
+        }
       });
+      // 顺德医院体温数据限制
+      if (temperatureError && ['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+        return this.$message.error("体温/口温/肛温/耳温数据范围限制35~42");
+      }
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
         timeStr: this.query.entryTime,
@@ -1382,7 +1432,12 @@ export default {
   .fieldList {
     border-radius: 7px 0px 0px 7px;
   }
-
+  .copy-btn{
+    transform: scale(.8);
+    position: relative;
+    right: 20px;
+    top: -5px;
+  }
   .save-btn {
     position: relative;
     left: 30%;

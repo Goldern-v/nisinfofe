@@ -1,0 +1,99 @@
+[
+  {
+    "title": "吸烟",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "30%",
+      "70%"
+    ],
+    "name": "I2332016",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "吸烟频率",
+    "showTitle": true,
+    "suffixDesc": "(支/天)",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332016",
+        "type": "input",
+        "title": "吸烟频率",
+        "suffixDesc": "(支/天)",
+        "inputWidth": "auto!important",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "嗜酒",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "30%",
+      "70%"
+    ],
+    "name": "I2332018",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "嗜酒频率",
+    "showTitle": true,
+    "suffixDesc": "(ml/天)",
+    "keys": "",
+    "inputWidth": "auto!important",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332018",
+        "type": "input",
+        "title": "嗜酒频率",
+        "suffixDesc": "(ml/天)",
+        "inputWidth": "auto!important",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "手术史",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I2332022",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "手术史",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332022",
+        "type": "input",
+        "inputType": "textarea",
+        "title": "手术史",
+        "style": "width:100%",
+        "tdStyle": "width:100%",
+        "elementStyle": "width:100%",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  }
+]

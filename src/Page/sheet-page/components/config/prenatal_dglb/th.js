@@ -8,14 +8,14 @@ export default {
   // 科室的名称 关节骨科
   deptType: "",
   style: {
-    width: "1500px"
+    width: "1175px"
   },
   th: {
     top: [
       {
         name: '',
         style: {},
-        colspan: "2", 
+        colspan: "2",
         rowspan: "1",
         key:'recordYear'
       },
@@ -242,20 +242,20 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
-      {
-        name: `
-        宫颈<br />疼痛<br />评分
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
-        非药<br />物减<br />痛方法
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
+      // {
+      //   name: `
+      //   宫颈<br />疼痛<br />评分
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3"
+      // },
+      // {
+      //   name: `
+      //   非药<br />物减<br />痛方法
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3"
+      // },
       {
         name: `
         膀胱<br />充盈度
@@ -272,11 +272,10 @@ export default {
       },
       {
         name: `自定义1`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve",
+        key: "fieldTwentyTwo",
         style: {
           minWidth: "30px",
           maxWidth: "30px"
@@ -284,11 +283,10 @@ export default {
       },
       {
         name: `自定义2`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
-        key: "fieldTwelve2",
+        key: "fieldTwentyThree",
         style: {
           minWidth: "30px",
           maxWidth: "30px"
@@ -322,28 +320,28 @@ export default {
       //   `,
       //   colspan: "1",
       //   rowspan: "3",
-     
+
       // }
     ],
     mid: [
-      { 
-        name: `日期`, 
+      {
+        name: `日期`,
         colspan: "1",
-        rowspan: "2" 
-        
+        rowspan: "2"
+
       },
-      { 
+      {
         name: `时间`,
-        colspan: "1", 
-        rowspan: "2" 
+        colspan: "1",
+        rowspan: "2"
       },
       {
         name: "内容",
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "65px",
-          maxWidth: "65px"
+          minWidth: "45px",
+          maxWidth: "45px"
         },
       },
       {
@@ -356,8 +354,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "65px",
-          maxWidth: "65px"
+          minWidth: "45px",
+          maxWidth: "45px"
         },
       },
       {
@@ -379,8 +377,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "20px",
+          maxWidth: "20px"
         },
       },
       {
@@ -406,8 +404,8 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px",
-          maxWidth: "28px"
+          minWidth: "50px",
+          maxWidth: "50px"
         },
       },
     ],
@@ -415,4 +413,4 @@ export default {
 
     ]
   }
-}; 
+};

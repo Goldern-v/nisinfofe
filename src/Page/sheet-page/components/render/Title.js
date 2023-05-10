@@ -417,6 +417,13 @@ export default function Title(
     );
   }
   break;
+    case "postpartum2_dglb": {
+      // 东莞寮步-产后产房观察表
+      Th = JSON.parse(
+          JSON.stringify(require("../config/postpartum2_dglb/th").default)
+      );
+    }
+      break;
   case "baby_dglb": {
     // 东莞寮步-护理记录单（新生儿科）
     Th = JSON.parse(
@@ -1904,6 +1911,13 @@ export default function Title(
     );
   }
   break;
+    case "oxytocinck_dglb": {
+      // 东莞寮步-催产素静脉点滴观察单(产科)--新
+      Th = JSON.parse(
+          JSON.stringify(require("../config/oxytocinck_dglb/th").default)
+      );
+    }
+  break;
   case "oxytocin_dglb": {
     // 东莞寮步-催产素静脉点滴观察单
     Th = JSON.parse(
@@ -2076,6 +2090,13 @@ export default function Title(
     // 广东同江 - 产前护理记录
     Th = JSON.parse(
       JSON.stringify(require("../config/prenataldelivery2_tj/th.js").default)
+    );
+  }
+  break;
+  case "prenatal_sdry": {
+    // 顺德人医 - 产前护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/prenatal_sdry/th.js").default)
     );
   }
   break;
@@ -2282,6 +2303,13 @@ export default function Title(
     );
   }
   break;
+  case "general_item_weihai": {
+    // 威海市立 - 护理一般项目监测记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/general_item_weihai/th.js").default)
+    );
+  }
+  break;
   case "baby_yz": {
     // 临沂沂州 - 新生儿护理记录单
     Th = JSON.parse(
@@ -2314,6 +2342,13 @@ export default function Title(
     // 内科重症医学科
     Th = JSON.parse(
       JSON.stringify(require("../config/icu_yz/th").default)
+    );
+  }
+  break;
+  case "postpartum_yz": {
+    // 产后术后观察表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_yz/th").default)
     );
   }
   break;

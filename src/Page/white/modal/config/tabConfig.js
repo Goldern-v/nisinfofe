@@ -40,7 +40,7 @@ let white_board_add_expand = [];
 /** 白板额外内容1 */
 let white_board_orders_add_expand = [];
 
-let ifChoseFlag 
+let ifChoseFlag
 
 (async function getSelectData() {
   let selectList = [
@@ -116,8 +116,9 @@ export default [
     tabKey: "2",
     itemConfig: [
       new CheckBox("是否显示", "show", 70),
-      new Input("项目名称", "configure", 150),
-      new Input("大屏顺序", "sortValue", 70)
+      new CheckBox("无数据隐藏", "showOrHide", 100 , window.ifChoseFlag && 'showOrHideAll'),
+      new Input("项目名称", "configure", 150+ addWidth()),
+      new Input("大屏顺序", "sortValue", 70),
     ]
   }
 ];

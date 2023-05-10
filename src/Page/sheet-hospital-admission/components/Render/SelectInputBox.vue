@@ -1,6 +1,6 @@
 
 <template>
-  <span style="display:flex; align-items:center;" class="input-box">
+  <span :ref="refName2" style="display:flex; align-items:center;" class="input-box">
     <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
@@ -55,6 +55,7 @@ import vue from "vue";
 import uuid from "node-uuid";
 import { setTimeout } from "timers";
 import bus from "vue-happy-bus";
+import {入院默认值, defaultFS_adult, defaultFS_child} from '@/Page/sheet-hospital-admission/components/data/defalutValue/入院评估.js'
 // import autoComplete from "./autoComplete.vue"
 
 export default {
@@ -87,6 +88,7 @@ export default {
       isShowDownList: false,
       readOnly: false,
       bus: bus(this),
+      refName2: 'selectInputBox' + this.obj.name + this.obj.title
     };
   },
   computed: {
@@ -113,8 +115,22 @@ export default {
       this.isShowDownList = false;
       // return valueNew;
     },
-    'formObj.model.id'(newValue){
-      this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
+    'formObj.model'(newValue){
+      // this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
+      let flag = false
+      if(this.obj.formCodeArr){
+        this.obj.formCodeArr.forEach(item=>{
+          if(this.formObj.model[item]) flag = true 
+        })
+        if(this.obj.name==="S2332163"){
+          console.log(flag,'flag')
+        }
+        if(!flag){
+          let defaultObj =  (process.env.HOSPITAL_ID === 'foshanrenyi'||process.env.HOSPITAL_ID === 'nfyksdyy') ? (this.formCode === 'E2332' ? defaultFS_adult : defaultFS_child) : 入院默认值
+          this.inputValue= defaultObj[this.obj.name] || ""
+          this.formObj.model[this.obj.name] = defaultObj[this.obj.name] || ""
+        } 
+      }else this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
     }
   },
   mounted() {
@@ -125,7 +141,9 @@ export default {
       this.$refs[refName]["checkValueRule"] = this.checkValueRule;
       this.$root.$refs[this.formCode][refName] = this.$refs[refName];
     }
-
+    if (this.$refs[this.refName2]) {
+      this.$root.$refs[this.formCode][this.refName2] = this.$refs[this.refName2];
+    }
     //vue-happy-bus添加修改inputvalue方法
     this.bus.$on(`updateValue${this.obj.name}`,()=>{
       this.inputValue = this.formObj.model[this.obj.name]

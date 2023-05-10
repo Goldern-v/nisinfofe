@@ -105,7 +105,7 @@ export function addRecord(obj) {
   if (HOSPITAL_ID == "lingcheng" || HOSPITAL_ID == "foshanrenyi") {
     return axios.post(`${apiPath}procedure/his`, obj);
   } else if (
-    ["whfk", "lyxrm", "ytll", "whhk", "925", "zhzxy", 'stmz'].includes(HOSPITAL_ID)
+    ["whfk", "lyxrm", "ytll", "whhk", "925", "zhzxy", 'stmz','nfyksdyy'].includes(HOSPITAL_ID)
   ) {
     return axios.post(
       `${apiPath}procedure/webExecute/getOrderExecuteSupplementary`,
@@ -118,6 +118,10 @@ export function addRecord(obj) {
 /** 新版补执行 by临邑 */
 export function updateOrderExecutePc(obj) {
   return axios.post(`${apiPath}procedure/webExecute/updateOrderExecutePc`, obj);
+}
+
+export function orderExecute(obj) {
+  return axios.post(`${apiPath}/hisSdryExecute/orderExecute`, obj);
 }
 
 export function syncExecuteByWardCode(obj) {
@@ -150,10 +154,18 @@ export function updateExecuteTime(obj) {
 // 网页端：医嘱查询，执行单打印用
 export function getPrintExecuteWithWardcode(obj) {
   // getPatientOrdersWithWardCode
-  return axios.post(
-    `${apiPath}procedure/webExecute/webGetOrdersExecutePrint`,
-    obj
-  );
+  switch(HOSPITAL_ID){
+    case "gdtj":
+      return axios.post(
+        `${apiPath}procedure/webExecute/webGetOrdersExecutePrintForTongJiang`,
+        obj
+      );
+    default:
+      return axios.post(
+        `${apiPath}procedure/webExecute/webGetOrdersExecutePrint`,
+        obj
+      );
+  }
   // return axios.post(
   //     `${apiPath}procedure/webExecute/webGetOrdersPrint`,
   //     obj

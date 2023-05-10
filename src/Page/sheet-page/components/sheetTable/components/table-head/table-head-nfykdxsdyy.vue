@@ -36,17 +36,38 @@
         年龄:
         <div class="bottom-line" style="min-width: 40px">{{patientInfo.age}}</div>
       </span>
-      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+      <!-- <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号:
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+      </span> -->
+      <span>
+          床号：
+        <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+          {{ patientInfo.bedLabel }}
+          <!-- {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }} -->
+        </div>
       </span>
       <span>
         住院号:
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.inpNo}}</div>
       </span>
-      <span>
+      <!-- <span>
         诊断:
         <div  class="bottom-line" style="min-width: 163px">{{patientInfo.diagnosis}}</div>
+      </span> -->
+      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+        诊断：
+        <div
+          class="bottom-line"
+          style="
+            width: 163px;
+            height: 11px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          "
+        >
+          {{ diagnosis }}
+        </div>
       </span>
       <!-- <span>
         ID号:
@@ -68,147 +89,293 @@
       </span> -->
      </div>
     </div>
-  <div v-else>
-    <div class="info-con">
-     <span>
-        科室:
-        <div class="bottom-line" style="min-width: 400px">{{patientInfo.realDeptName}}</div>
-      </span>
+    <div v-else>
+      <div class="info-con">
       <span>
-        病区:
-        <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
-      </span>
-      </div>
-    <div class="info-con" >
-      <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
-        姓名:
-        <div class="bottom-line" style="min-width: 65px">{{patientInfo.patientName}}</div>
-      </span>
-      <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
-        性别:
-        <div class="bottom-line" style="min-width: 30px">{{patientInfo.sex}}</div>
-      </span>
-      <!-- <span @click="updateNeonatology2Age" v-if="sheetInfo.sheetType == 'neonatology2'">
-        年龄:
-        <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
-      </span> -->
-      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
-        年龄:
-        <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
-      </span>
-      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
-        床号:
-        <div class="bottom-line" style="min-width: 90px">{{patientInfo.bedLabel}}</div>
-      </span>
-      <span>
-        住院号:
-        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
-      </span>
-      <span>
-        诊断:
-        <div  class="bottom-line" style="min-width: 480px">{{patientInfo.diagnosis}}</div>
-      </span>
-      <!-- <span>
-        ID号:
-        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
-      </span> -->
-      <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
-        温箱编号:
+          科室:
+          <div class="bottom-line" style="min-width: 400px">{{patientInfo.realDeptName}}</div>
+        </span>
+        <span>
+          病区:
+          <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
+        </span>
+        <!-- <span>
+         特殊情况：
         <input
+          style="width: 200px;font-size:13px;text-align: center;"
           class="bottom-line"
-          style="width: 30px"
-          @focus="onFocusToAutoComplete($event)"
-          @blur="onBlurToAutoComplete"
-          v-model="relObj.wxNo"
+          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
         />
-      </span>-->
-      <!-- <span>
-        入院日期:
-        {{patientInfo.admissionDate | toymd}}
-      </span> -->
-     </div>
+        </span>-->
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
+          过敏史：
+          <input
+          style="width: 35px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
+        />
+        </span>
+        </div>
+      <div class="info-con" >
+        <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
+          姓名:
+          <div class="bottom-line" style="min-width: 65px">{{patientInfo.patientName}}</div>
+        </span>
+        <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
+          性别:
+          <div class="bottom-line" style="min-width: 30px">{{patientInfo.sex}}</div>
+        </span>
+        <!-- <span @click="updateNeonatology2Age" v-if="sheetInfo.sheetType == 'neonatology2'">
+          年龄:
+          <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
+        </span> -->
+        <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
+          年龄:
+          <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
+        </span>
+        <span v-if="['orthopaedic_sdry', 'oxytocin_sdry', 'insulin_pump_sdry'].includes(sheetInfo.sheetType)">
+          床号：
+          <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+            {{ patientInfo.bedLabel }}
+            <!-- {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }} -->
+          </div>
+        </span>
+        <span v-else @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+          床号:
+          <div class="bottom-line" style="min-width: 90px">{{patientInfo.bedLabel}}</div>
+        </span>
+        <!-- <span>{{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}</span> -->
+        <span>
+          住院号:
+          <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+        </span>
+
+        <!-- <span>
+          诊断:
+          <div  class="bottom-line" style="min-width: 480px">{{patientInfo.diagnosis}}</div>
+        </span> -->
+        <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+          诊断：
+          <div
+            class="bottom-line"
+            style="
+              width: 480px;
+              height: 11px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            "
+          >
+            {{ diagnosis }}
+          </div>
+        </span>
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
+        孕产史：孕
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['pregnantTimes']"
+          v-model="sheetInfo.relObj['pregnantTimes']"
+        />产
+        <input
+          style="width: 20px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj['parity']"
+          v-model="sheetInfo.relObj['parity']"
+        />
+        孕
+        <input
+          style="width: 35px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
+        />
+        周
+      </span>
+      <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
+        破膜时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+      </span>
+
+      </div>
+    </div>
+    <bedRecordModal v-if="bedShow" @closeBedshow="closeBedshow" ref="bedRecordModal"></bedRecordModal>
   </div>
-    <!-- <span>入院日期:{{$route.query.admissionDate}}</span> -->
-  </div>
+
 </template>
 
 <script>
 import moment from "moment";
-import { updateSheetHeadInfo } from "../../../../api/index";
+import { updateSheetHeadInfo,getDeliveryInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
+import bus from "vue-happy-bus";
+import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
+import bedRecordModal from "../../../modal/bedRecord-modal";
+import { saveBody, queryDianosisList }  from  "@/api/sheet.js"
+
 export default {
   props: {
     patientInfo: Object,
-    index: Number
+    index: Number,
+    bedAndDeptChange: Object,
   },
   data() {
     return {
-      sheetInfo
-      // relObj: {
-      //   wxNo: ""
-      // }
+      bus: bus(this),
+      sheetInfo,
+      bedShow:false,
+      //不需要入院日期的表单
+      admissionDateList: [
+        'blood_tj',
+        'generalnursing_tj'
+      ],
+      //不需要诊断的表单
+      diagnosisList: [
+        'postpartum2_tj',
+        'prenataldelivery2_tj',
+        'pediatric3_tj',
+        'baby_tj',
+        'blood_tj'
+      ],
     };
   },
+  mounted() {},
   computed: {
-    neonatology2Age() {
-      if (this.index == 0) {
-        return sheetInfo.relObj.age || this.patientInfo.age;
-      } else {
-        let real_birthday;
-        let now_time = moment(
-          sheetData[this.index].bodyModel[0].find(
-            item => item.key == "recordDate"
-          ).value
-        );
-        if (!now_time.valueOf())
-          return sheetInfo.relObj.age || this.patientInfo.age;
-        /** 推导实际出生日期 */
-        if (sheetInfo.relObj.age.indexOf("小时") > -1) {
-          let h = Number(sheetInfo.relObj.age.replace("小时", ""));
-          real_birthday = moment(
-            sheetData[0].bodyModel[0].find(item => item.key == "recordDate")
-              .value
-          ).subtract(h, "h");
+    ...{
 
-          let diff = now_time.diff(real_birthday, "d");
-          if (diff == 0) {
-            return now_time.diff(real_birthday, "h") + "小时";
-          } else {
-            return diff + "天";
-          }
-        } else if (sheetInfo.relObj.age.indexOf("天") > -1) {
-          let d = Number(sheetInfo.relObj.age.replace("天", ""));
-          real_birthday = moment(
-            sheetData[0].bodyModel[0].find(item => item.key == "recordDate")
-              .value
-          ).subtract(d, "d");
-          let diff = now_time.diff(real_birthday, "d");
-          if (sheetInfo.relObj.age.indexOf("月") > -1) {
-            let arr = sheetInfo.relObj.age.split("月");
-            let d = parseInt(arr[1]);
-            return arr[0] + "月" + (d + diff) + "天";
-          } else {
-            return diff + "天";
-          }
-        } else {
-          return sheetInfo.relObj.age || this.patientInfo.age;
+
+      'checkedbzc':{
+        get(){
+          return this.sheetInfo.relObj[`bzc`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`bzc`] = nVal ? "true" : "false"
+        },
+      },
+      newPatientInfo() {
+        /*  每页独立床号功能 */
+        let beforeBed = this.patientInfo.bedLabel
+        let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]
+        if (this.index != 0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]) {
+          // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
+          beforeBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]
+        }
+        return {
+          ...this.patientInfo,
+          [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
         }
       }
-    }
+    },
+    diagnosis() {
+      /** 最接近的index */
+      // let realIndex = 0;
+      // let keys = Object.keys(sheetInfo.relObj || {});
+      // for (let i = 0; i < keys.length; i++) {
+      //   let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
+      //   if (keyIndex !== undefined) {
+      //     if (this.index >= keyIndex) {
+      //       if (this.index - keyIndex <= this.index - realIndex) {
+      //         realIndex = keyIndex;
+      //       }
+      //     }
+      //   }
+      // }
+      // return (
+      //   (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+      //   this.patientInfo.diagnosis
+      // );
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${this.index}`] ||
+        this.patientInfo.diagnosis
+      );
+    },
+    childbirth() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_childbirth_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_childbirth_${realIndex}`] ||
+        this.patientInfo.childbirth
+      );
+    },
+    birthday() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("PageIndex_birthday_");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_birthday_${realIndex}`]
+      );
+    },
+    laborTime() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("laborTime");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`laborTime`] ||
+        (this.patientInfo.laborTime == undefined ? '/' : this.patientInfo.laborTime )
+      );
+    },
+    deliveryTime() {
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("deliveryTime");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`deliveryTime`] ||
+        (this.patientInfo.deliveryTime == undefined ?'/':this.patientInfo.deliveryTime)
+      );
+    },
   },
   methods: {
-    updateBirthDay() {
-      window.openSetAuditDateModal(
-        date => {
-          updateSheetHeadInfo({ birthday: date }).then(res => {
-            this.patientInfo.birthday = res.data.data.birthday;
-          });
-        },
-        this.patientInfo.birthday,
-        "修改出生日期"
-      );
+    closeBedshow(){
+      this.bedShow = false
     },
     updateTetxInfo(key, label, autoText) {
       window.openSetTextModal(
@@ -222,103 +389,199 @@ export default {
         `修改${label}`
       );
     },
-
-    async onFocusToAutoComplete(e) {
-      function offset(ele) {
-        let { top, left } = ele.getBoundingClientRect();
-        return {
-          left: left,
-          top: top
-        };
+    // 修改时间方法
+    updateTime(key, label, autoText) {
+      window.openSetAuditDateModal(
+        (text) => {
+          updateSheetHeadInfo({ [key]: text }).then(res => {
+            this.patientInfo[key] = res.data.data[key];
+            this.$message.success(`修改${label}成功`);
+          });
+        },
+        autoText,
+        `修改${label}`
+      );
+    },
+    openBedRecordModal(){
+      if (this.readOnly) {
+        return this.$message.warning("你无权操作此护记，仅供查阅");
       }
-
-      let obj = this.relObj;
-      let key = "wxNo";
-      let res = await listItem("温箱编号");
-      let autoComplete = res.data.data.map(item => item.name);
-      // let { autoComplete, obj, key } = bind;
-      let xy = offset(e.target);
-
-      console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
-
-      setTimeout(() => {
-        window.openAutoComplete({
-          style: {
-            top: `${xy.top + 40}px`,
-            left: `${xy.left}px`
-          },
-          data: autoComplete,
-          callback: function(data) {
-            if (data) {
-              if (obj[key]) {
-                obj[key] = data;
-              } else {
-                obj[key] = data;
-              }
-            }
-          },
-          id: `bedModal`
-        });
-      });
+      //修改床号同步都每一页
+      this.bedShow = true
+      setTimeout(()=>{
+        this.$refs.bedRecordModal.open('', "-1");
+      },0)
     },
-    onBlurToAutoComplete(e, bind) {
-      setTimeout(() => {
-        window.closeAutoComplete(`bedModal`);
-      }, 400);
+    updateBirthDay() {
+      window.openSetAuditDateModal(
+        (text) => {
+          sheetInfo.relObj[`PageIndex_birthday_${this.index}`] = text;
+          this.$message.success(`修改出生日期成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.birthday,
+        "修改出生日期"
+      );
     },
-    updateNeonatology2Age() {
-      if (this.index !== 0) {
-        this.$message.warning("请修改第一页护记的年龄，后续页的年龄会动态计算");
-      } else {
-        window.openSetTextModal(
-          text => {
-            sheetInfo.relObj.age = text;
-            sheetInfo.relObj = { ...sheetInfo.relObj };
-            this.$message.success(`修改年龄成功`);
-          },
-          sheetInfo.relObj.age,
-          `修改年龄`
-        );
+    updateChildbirth() {
+      window.openSetAuditDateModal(
+        (text) => {
+          sheetInfo.relObj[`PageIndex_childbirth_${this.index}`] = text;
+          this.$message.success(`修改分娩时间成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.childbirth,
+        `修改分娩时间`
+      );
+    },
+    updateLaborTime() {
+      window.openSetAuditDateModal(
+        (text) => {
+          sheetInfo.relObj[`laborTime`] = text;
+          this.$message.success(`修改产程开始时间成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.laborTime,
+        `修改产程开始时间`
+      );
+    },
+    updateDeliveryTime() {
+      window.openSetAuditDateModal(
+        (text) => {
+          sheetInfo.relObj[`deliveryTime`] = text;
+          this.$message.success(`修改胎儿娩出时间成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.deliveryTime,
+        `修改胎儿娩出时间`
+      );
+    },
+    updateDiagnosis(key, label, autoText) {
+      window.openSetTextModal(
+        (text) => {
+          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          this.$message.success(`修改诊断成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.diagnosis,
+        `修改诊断`
+      );
+    },
+    async setDiagnosis() {
+      if (!this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]) {
+        try {
+          const res = await queryDianosisList({
+            patientId: this.patientInfo.patientId,
+            visitId: this.patientInfo.visitId,
+          })
+          const data = res.data.data || [];
+          if (data.length) {
+            this.$set(this.sheetInfo.relObj, `PageIndex_diagnosis_${this.index}`, data[0].diagnosisDesc);
+          }
+        } catch (error) {
+          throw new Error(error);
+        }
       }
     }
   },
   filters: {
     toymd(val) {
-      if (process.env.HOSPITAL_ID == "weixian") {
-        return moment(val).format("YYYY-MM-DD");
-      } else {
-        return moment(val).format("YYYY年MM月");
+      if(val){
+        return moment(val).format("YYYY年MM月DD日");
+      }
+    },
+    YMDHM(val) {
+      if(val){
+        console.log(moment(val).format())
+        return moment(val).format("YYYY年MM月DD日HH时mm分");
       }
     }
+
   },
-  created() {
-    if (!sheetInfo.relObj.age) {
-      sheetInfo.relObj.age = this.patientInfo.age;
+  components: {
+    bedRecordModal,
+    crDatePicker,
+  },
+  async created(){
+    if(this.index!=0){
+      this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo.relObj[`${this.index}pregnantWeeks`]?this.sheetInfo.relObj[`${this.index}pregnantWeeks`]: this.sheetInfo.relObj[`${this.index-1}pregnantWeeks`]
     }
+    this.setDiagnosis();
   },
   watch: {
-    // relObj: {
-    //   deep: true,
-    //   handler() {
-    //     sheetInfo.relObj = this.relObj;
-    //   }
-    // }
-  },
-  components: {}
+    'patientInfo.patientId'() {
+      this.setDiagnosis();
+    }
+  }
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 input.bottom-line {
   border-top: 0;
   border-left: 0;
-  // border-bottom: 1px solid #000;
   border-right: 0;
   outline: none;
+  height: 12px;
 }
-.bottom-line {
-    display: inline-block;
-    // border-bottom: 1px solid #000;
-    padding: 2px 0 2px 2px;
-  }
+.ml-1000 {
+  margin-left: 850px;
+}
+.info-con_new{
+  display: flex;
+  justify-content: center;
+}
+.boxLine {
+  height: 30px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size:14px;
+}
+.bottom-line{
+  border-bottom: none;
+}
+input[type='checkbox'] {
+  -webkit-appearance: none;
+  appearance: none;
+  vertical-align: text-top;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #000;
+  border-radius: 0px;
+  outline: none;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+input[type='checkbox']:checked {
+  font-size: 10;
+  position: relative;
+}
+
+input[type='checkbox']:checked:before {
+  content: '';
+  width: 8px;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 7px;
+  left: -2px;
+  border-top: 2px solid blue;
+}
+
+input[type='checkbox']:checked:after {
+  content: '';
+  width: 14px;
+  transform: rotate(-50deg) translateY(-50%) translateX(50%);
+  position: absolute;
+  border-top: 2px solid blue;
+  top: 10px;
+  left: -2px;
+}
+input {
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  text-align: center;
+}
 </style>

@@ -95,7 +95,6 @@
     padding 0 8px
 .auto-input
   width 100%
-  height 100%
   border 0
   outline 0
 .selectRow,.selectRow *
@@ -191,7 +190,7 @@ export default {
         configure: "",
         sortValue: "",
         configureType: "2",
-        showOrHide: false,
+        showOrHide: true,
         customItem: true
       });
     },

@@ -6,7 +6,12 @@
   >
     <div ref="Contain" @mousewheel="(e) => onScroll(e)">
       <div v-show="!isChart" class="blood-sugar-con">
-        <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
+        <div
+          class="sugr-page"
+          v-for="(item, index) in listMap"
+          :key="index"
+          :class="index !== listMap.length - 1 ? 'break-pages' : ''"
+        >
           <!-- <img class="his-logo"
           src="../../../../common/images/his-logo/厚街医徽.png" />-->
           <div class="header" v-if="HOSPITAL_ID === 'ytll'">
@@ -116,6 +121,7 @@
             <span>床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <span v-if="HOSPITAL_ID == 'liaocheng'">病案号：{{ patientInfo.inpNo }}</span>
+            <span v-else-if="HOSPITAL_ID == 'whsl'">病案号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
             <span v-else-if="HOSPITAL_ID == 'huadu'">住院号：{{ patientInfo.patientId }}</span>
             <span v-else>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
             <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
@@ -399,7 +405,7 @@
 >>> .el-select-dropdown__empty {
   min-width: 562px;
 }
->>>.el-select .el-input .el-input__icon {
+>>>.el-select:not(.icon-center) .el-input .el-input__icon {
   top: 63%;
 }
 

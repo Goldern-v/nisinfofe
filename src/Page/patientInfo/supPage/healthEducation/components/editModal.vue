@@ -35,7 +35,7 @@
             </el-option>
           </el-select>
         </ElFormItem>
-        <ElFormItem prop="date" label="教育时间：" v-if="modalStatus && HOSPITAL_ID=='hj'">
+        <ElFormItem prop="date" label="教育时间：" v-if="modalStatus &&['nfyksdyy','hj'].includes(HOSPITAL_ID)">
           <el-date-picker
             popper-class="picker-dropdown"
             v-model="date"
@@ -76,7 +76,7 @@
             />
           </ElSelect>
         </ElFormItem>
-        <ElFormItem prop="remarks" label="备注：">
+        <ElFormItem prop="remarks" :label='HOSPITAL_ID === "whhk" ? "宣教情况：" : "备注："' v-if="HOSPITAL_ID !== 'qhwy'">
           <ElInput v-model="form.remarks" />
         </ElFormItem>
         <!-- <ElFormItem prop="signature" label="签名：">
@@ -193,7 +193,7 @@ export default {
           ? "3"
           : "1";
         this.form.assessment = assessment ? assessment.value : "";
-        this.form.remarks = form["备注"] || "";
+        this.form.remarks = form[this.HOSPITAL_ID === "whhk" ? "宣教情况" : "备注"] || "";
         this.form.signature = form["签名"] || "";
       } else {
         this.modalStatus = false;
@@ -319,7 +319,7 @@ export default {
     },
     // 处理保存入参
     setParams() {
-      
+
       let date = dayjs(new Date()).format("MM-DD HH:mm");
       let itemData = this.options.filter(
         item => item.missionId === this.form.state
@@ -339,10 +339,11 @@ export default {
         教育对象: object,
         教育方法: method,
         教育评估: assessment,
-        备注: this.form.remarks,
         签名: this.curEmpName,
         lc签名: this.curEmpNo
       };
+      pageParam = this.HOSPITAL_ID === 'whhk' ? {...pageParam, 宣教情况: this.form.remarks} : {...pageParam, 备注: this.form.remarks}
+
       let queryInfo = this.$route.query;
       let data = {
         blockId: this.blockId,

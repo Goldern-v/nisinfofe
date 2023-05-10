@@ -5,7 +5,7 @@ export default function mergeDefaultValue(
   foshanrenyiCode = 'E2332',
   defaultArr = [入院默认值, 吞咽]
 ) {
-  defaultArr = [ process.env.HOSPITAL_ID === 'foshanrenyi' ? (foshanrenyiCode === 'E2332' ? defaultFS_adult : defaultFS_child) : 入院默认值, 吞咽]
+  defaultArr = [ (process.env.HOSPITAL_ID === 'foshanrenyi'||process.env.HOSPITAL_ID === 'nfyksdyy') ? (foshanrenyiCode === 'E2332' ? defaultFS_adult : defaultFS_child) : 入院默认值, 吞咽]
   // console.log(defaultArr, '默认值设置')
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) {
@@ -32,7 +32,7 @@ export let setDefaultValue = function(
   foshanrenyiCode = 'E2332',
   defaultArr = [入院默认值]
 ){
-  defaultArr = [ process.env.HOSPITAL_ID === 'foshanrenyi' ? (foshanrenyiCode === 'E2332' ? defaultFS_adult : defaultFS_child) : 入院默认值]
+  defaultArr = [ (process.env.HOSPITAL_ID === 'foshanrenyi'||process.env.HOSPITAL_ID === 'nfyksdyy') ? (foshanrenyiCode === 'E2332' ? defaultFS_adult : defaultFS_child) : 入院默认值]
   defaultArr.forEach(item => {
     for (let key in item) {
       if (item[key] && !obj[key]) {

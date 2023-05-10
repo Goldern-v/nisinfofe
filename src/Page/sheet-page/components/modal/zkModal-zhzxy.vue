@@ -18,7 +18,7 @@
                     <div class="item-box marginRight10" v-for="(oneitem,oneindex) in item.codeARR" :key="index +'qeq' +oneindex">
                         {{oneitem.showXiaolei?oneitem.showXiaolei + ":":""}}
                         <template v-if="!oneitem.type">
-                            <span>{{oneitem.name1}}:</span>  
+                            <span>{{oneitem.name1}}:</span>
                             <el-select @change="select(item.label)" style="width:100px" v-model="code[oneitem.code]" placeholder="请选择">
                                 <el-option
                                 v-for="(optionitem,optionindex) in oneitem.option"
@@ -84,10 +84,10 @@ mounted(){
 
 },
 computed:{
-    
+
 },
 watch:{
-    
+
 },
 methods: {
     addList(item,index){
@@ -153,14 +153,13 @@ methods: {
     },
     init(shuxingarr){
         let obj = {},shuxingArrKeys = shuxingarr?shuxingarr.map(item=>item.key) : []
-        console.log(shuxingArrKeys,"shuxingArrKeys")
         this.strARR.forEach(item=>{
             // item.str = ""
             item.codeARR && item.codeARR.forEach(item2=>{
                 if(shuxingArrKeys.includes(item2.code)){
                     if(item2.type==="checkbox"){
                         let keyobj = shuxingarr.find(keyItem=>keyItem.key==item2.code)
-                        obj[item2.code] = keyobj.value.split(",") 
+                        obj[item2.code] = keyobj.value.split(",")
                     }else{
                         let keyobj = shuxingarr.find(keyItem=>keyItem.key==item2.code)
                         obj[item2.code] = keyobj.value.replace(/cmH2O|mm|umol\/L/,"")
@@ -171,7 +170,6 @@ methods: {
                 }
             })
         })
-        console.log(obj,"code")
         this.code =obj
     },
     select(label){
@@ -179,7 +177,7 @@ methods: {
     //         if(item.label===label){
     //             let str = ""
     //             item.codeARR.forEach((prev,index)=>{
-    //                 // input模板字符串渲染  
+    //                 // input模板字符串渲染
     //                 if(prev.strOtherType == 1){
     //                     console.log("input在输入，正拼成字符串11",label)
     //                     if(this.code[prev.code]) str += (str===""?(label +(prev.xiaolei?prev.xiaolei:"") + (label || prev.xiaolei?":":"")):"") + prev.name1+":"+this.code[prev.code] + (prev.name2?prev.name2:"") + ";"
@@ -206,7 +204,7 @@ methods: {
                 let str = ""
                 item.str = ""
                 item.codeARR && item.codeARR.forEach((prev,index)=>{
-                    // input模板字符串渲染  
+                    // input模板字符串渲染
                     if(prev.strOtherType == 1){
                         console.log("input在输入，正拼成字符串11",prev.xiaolei)
                         if(this.code[prev.code]) str += (str===""?((item.label?item.label:"") +(prev.xiaolei?prev.xiaolei:"") + (item.label || prev.xiaolei?":":"")):"") + prev.name1+":"+this.code[prev.code] + (prev.name2?prev.name2:"") + ";"
@@ -258,7 +256,7 @@ methods: {
         this.init(shuxingArr)
         this.show = true;
     },
-    close() {   
+    close() {
       this.show = false;
     },
     addzModal(){

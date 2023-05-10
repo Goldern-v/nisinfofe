@@ -176,7 +176,7 @@ export function cleanDataOnly() {
     // nowX可以看上面注解，估计所有医院用x都有bug(无论有多少页数据，只能第一页的数据进行判断，返回isDisabed)。但是不敢动，医院反正有问题就可替换nowX
     // canModify false可以修改，true禁止修改
     // 签名后不能修改，要取消修改才能修改
-    if (sheetType == "common_xg" || ['beihairenyi'].includes(process.env.HOSPITAL_ID)) {
+    if (sheetType == "common_xg" || ['beihairenyi', 'whsl'].includes(process.env.HOSPITAL_ID)) {
       if (td && listData[nowX]) {
         return !listData[nowX].canModify;
       }
@@ -331,10 +331,18 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
   sheetInfo.masterInfo = bodyData;// 主表信息
   listData=listDataList
   try {
-    if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
+    if (['foshanrenyi','fsxt','gdtj'].includes(process.env.HOSPITAL_ID)) {
       titleList = titleData.FieldSetting
       customOptions = titleData.Options
-    } else {
+    }else if(['nfyksdyy'].includes(process.env.HOSPITAL_ID) && window.location.href.indexOf('sheet-print')==-1){
+      /* 
+        用了自定义标题（有下拉） 护记归档打印，会报错 Cannot read properties of undefined (reading 'filter')
+        因为归档数据不走sheet.vue和sheet-page.vue两个页面，接口拿的是普通自定义标题的接口，返回数据形式不一样，
+        所以自定义标题数据应该是else的形式（用url的sheet-print来判断是否归档打印）
+      */
+      titleList = titleData.FieldSetting
+      customOptions = titleData.Options
+    }else {
       titleList = titleData.list;
     }
     //bodyList是后端传回来的接口数据

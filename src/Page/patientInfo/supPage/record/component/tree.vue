@@ -37,6 +37,7 @@
         <el-tree
           v-loading="treeLoading"
           v-if="ifTree"
+          ref="formTree"
           class="record-tree"
           :data="regions"
           highlight-current
@@ -61,7 +62,7 @@
       />
     </div>
 
-    <div
+    <!-- <div
       v-if="hisLeftList.includes(HOSPITAL_ID)"
       @click="showBtn"
       :class="[isActive ? 'active' : 'button']"
@@ -75,6 +76,24 @@
       <i
         class="iconfont icon-xianshi"
         v-show="isActive"
+        style="margin-left: -2px"
+      ></i>
+    </div> -->
+    <!-- 原来武警有的这个功能收起有点问题 领导说不做医院控制 功能提出要做是花都医院 -->
+    <div
+      class="flag-con"
+      :style="{ top: flagTop }"
+      flex="main:center cross:center"
+      @click="toOpenLeft"
+    >
+      <i
+        class="iconfont icon-yincang"
+        v-show="!openLeft"
+        style="margin-left: -1px"
+      ></i>
+      <i
+        class="iconfont icon-xianshi"
+        v-show="openLeft"
         style="margin-left: -2px"
       ></i>
     </div>
@@ -151,6 +170,25 @@
       font-size: 12px;
       position: absolute;
       top: 30px;
+    }
+  }
+
+  .flag-con {
+    width: 10px;
+    height: 73px;
+    position: absolute;
+    right: -11px;
+    top: 100px;
+    z-index: 10;
+    background-image: url('../../../../../common/images/patient/隐藏框.png');
+    cursor: pointer;
+
+    &:hover {
+      color: #5CC6A1;
+    }
+
+    i {
+      font-size: 12px;
     }
   }
 }
@@ -317,6 +355,7 @@ import { DATA_CHANGE } from '@/utils/localStorage'
 export default {
   props: {
     filterObj: Object,
+    hasTagsView: Boolean,
   },
   mixins: [commonMixin],
   data() {
@@ -331,13 +370,17 @@ export default {
       isShow: true, //护理文书菜单列是否展示
       isActive: false, //是否点击收起图标
       isPersonage: false, //是否为个人详情打开
-      hisLeftList: ["wujing"], //是否要开放左侧收缩功能医院
+      hisLeftList: ["wujing", 'huadu'], //是否要开放左侧收缩功能医院
       batchAuditDialog: false, // 批量审核表单弹框
       batchAuditForms: {}, // 批量审核节点数据
       lockHospitalList:['huadu'],//配置了评估单锁定功能的医院
     };
   },
   computed: {
+    // 标签高度
+    tagsViewHeight() {
+      return this.hasTagsView ? 35 : 0
+    },
     wih() {
       return this.$store.state.common.wih;
     },
@@ -346,10 +389,13 @@ export default {
     },
     height() {
       if (this.$route.path == "/formPage" || this.filterObj) {
-        return `${this.wih - 120}px`;
+        return `${this.wih - 120 - this.tagsViewHeight}px`;
       } else {
-        return `${this.wih - 180}px`;
+        return `${this.wih - 180 - this.tagsViewHeight}px`;
       }
+    },
+    openLeft() {
+      return this.$store.state.sheet.openWritTreeLeft;
     },
   },
   watch: {
@@ -361,6 +407,9 @@ export default {
     },
   },
   methods: {
+    toOpenLeft() {
+      this.$store.commit("upWritTreeLeft", !this.openLeft);
+    },
     showBtn() {
       this.isShow = !this.isShow;
       this.isActive = !this.isActive;
@@ -426,7 +475,7 @@ export default {
     async nodeClick(data, node) {
       let isChange = localStorage.getItem(DATA_CHANGE)
       isChange = isChange ? JSON.parse(isChange) : false
-      if (isChange && node.level == 2 && '925' == this.HOSPITAL_ID) {
+      if (isChange && node.level == 2 && ['925','nfyksdyy'].includes(this.HOSPITAL_ID)) {
       // if (node.level == 2) {
         const comfirm = await this.$confirm(
           "入院评估单还未保存，是否需要离开页面?",
@@ -472,6 +521,21 @@ export default {
          localStorage.setItem("lockForm",'')
         }
         if (node.parent.label != "记录单") {
+          this.$emit('openFormTag', Object.assign({}, getFormConfig(node.data.formName), {
+            id: node.data.form_id,
+            formCode: node.parent.data.formCode,
+            showCurve: node.parent.data.showCurve,
+            creator: node.parent.data.creator,
+            listPrint: node.parent.data.listPrint,
+            nooForm: node.parent.data.nooForm,
+            pageUrl: node.parent.data.pageUrl,
+            pageItem: data.pageTitle,
+            status: data.status,
+            missionId: data.missionId,
+            pageIndex: node.data.pageIndex,
+            evalDate: node.data.label.slice(0, 16),
+            node,
+          }))
           this.bus.$emit(
             "openAssessmentBox",
             Object.assign({}, getFormConfig(node.data.formName), {
@@ -983,7 +1047,6 @@ export default {
           } else {
             this.regions = list_1;
           }
-
           // if (
           //   this.HOSPITAL_ID == "hj" &&
           //   window.location.href.includes("showPatientDetails")
@@ -1088,6 +1151,20 @@ export default {
         }
       });
     },
+    // 点击标签高亮对应树节点
+    onHighlightTreeNode(form) {
+      // 设置当前高亮树节点
+      this.$nextTick(() => {
+        if (form && form.node) {
+          // 1.x版本的el-tree没有 setCurrentKey 方法，使用 store.setCurrentNode 方法
+          this.$refs.formTree && this.$refs.formTree.store.setCurrentNode(form.node || null);
+          // 未展开
+          if (!form.node.expanded) {
+            form.node.parent.expand();
+          }
+        }
+      })
+    }
   },
   created() {
     if(!this.$route.name){
@@ -1108,6 +1185,7 @@ export default {
         callback(this.regions);
       }
     });
+    this.bus.$on('highlightTreeNode', this.onHighlightTreeNode);
   },
   components: {
     SweetModal,

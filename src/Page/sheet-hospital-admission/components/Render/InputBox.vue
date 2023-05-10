@@ -1,7 +1,8 @@
 
 <template>
   <span
-    :style="(obj.label||obj.suffixDesc || alertMessage || obj.marginLeft || obj.prefix) && {display: 'flex', alignItems: 'center', margin:'0 0 5px 0', marginLeft: obj.marginLeft}"
+    :style="[(obj.label||obj.suffixDesc || alertMessage || obj.marginLeft || obj.prefix) && {display: 'flex', alignItems: 'center', margin:'0 0 5px 0', marginLeft: obj.marginLeft},obj.outSpanStyle]"
+    :ref="refName"
   >
   <!-- 警报icon -->
     <div
@@ -124,6 +125,8 @@ export default {
       alertImg: require("@/assets/img/预警@2x.png"),
       alertActivated: false,
       currentRule: {},
+      refName: 'inputBox' + this.obj.name + this.obj.title
+      
     };
   },
   computed: {
@@ -170,6 +173,10 @@ export default {
     }
   },
   mounted() {
+    if (this.$refs[this.refName]) {
+      this.$root.$refs[this.formCode][this.refName] = this.$refs[this.refName];
+    }
+
     let refName = this.obj.name;
     if (!this.$root.$refs[this.formCode]) {
       this.$root.$refs[this.formCode] = new Array();

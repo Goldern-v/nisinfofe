@@ -5,12 +5,9 @@
       readonly: sheetInfo.sheetType === 'generalcare_wj'
     }"
   >
-    <!-- <div>
-      <img :src="dataURL" alt :style="{width: fiexHeaderWidth}">
-    </div>-->
     <table
       class="sheet-table table-fixed-th no-print"
-      :style="{ width: fiexHeaderWidth}"
+      :style="{ width: fiexHeaderWidth, top: `${fixedTop}px` }"
       :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl}"
       ref="tableHead"
       v-if="hasFiexHeader"
@@ -164,7 +161,7 @@
       </tr>
       <tr
         class="body-con"
-        @dblclick="openEditModal(tr, data, $event)"
+        @dblclick="openEditModal(tr, data, $event,y,index)"
         v-for="(tr, y) in data.bodyModel"
         :id ="`row_${y}`"
         :class="[
@@ -180,7 +177,8 @@
               tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
-            redBottom:['wujing'].includes(HOSPITAL_ID)&&redBottom(tr,y) // 待性能优化
+            redBottom:['wujing'].includes(HOSPITAL_ID)&&redBottom(tr,y), // 待性能优化
+            isCanModify: onCanModify(data.bodyModel,index, y),
           },
           tr.find((item) => {
             return item.key == 'markObj';
@@ -204,8 +202,8 @@
         @mouseout="closeMarkTip"
         :recordId="tr.find((item) => item.key == 'id').value"
       >
+      <template v-for="(td, x) in tr">
         <td
-          v-for="(td, x) in tr"
           :key="td.key"
           :dataKey="td.key"
           :dataName="td.name"
@@ -250,6 +248,7 @@
             :value="tr.find((item) => item.key == 'yearBreak').value"
             :data-value="tr.find((item) => item.key == 'yearBreak').value"
             :style="[td.style, { height: '12px' }]"
+            :class="{readonly: onCanModify(data.bodyModel,index, y)}"
             v-if="
               td.key === 'recordMonth' &&
               tr.find((item) => item.key == 'yearBreak').value
@@ -258,7 +257,7 @@
           <div
             v-if="td.key == 'sign'"
             class="sign-text"
-            :class="{ noClick: td.signDisabled }"
+            :class="{ noClick: td.signDisabled ,readonly: onCanModify(data.bodyModel,index, y) }"
             @click.stop="
               toSign(tr, y, data.bodyModel, showSign(tr), $event, td)
             "
@@ -309,12 +308,13 @@
           <div
             v-else-if="td.key == 'audit'"
             class="sign-text"
-            :class="{ noClick: td.signDisabled }"
+            :class="{ noClick: td.signDisabled ,readonly: onCanModify(data.bodyModel,index, y)}"
             @click.stop="toAudit(tr, y, data.bodyModel, showAudit(tr), $event)"
             v-html="showAudit(tr)"
+
           ></div>
           <!-- 第一个签名的位置 -->
-          <div v-else-if="td.key == 'signerNo'" class="sign-img">
+          <div v-else-if="td.key == 'signerNo'" class="sign-img" :class="{readonly: onCanModify(data.bodyModel,index, y)}">
             <img
               v-if="tr.find((item) => item.key == 'auditorNo').value"
               :src="`/crNursing/api/file/signImage/${
@@ -348,7 +348,6 @@
                   sheetInfo.sheetType === 'postpartum_hd' ||
                   sheetInfo.sheetType === 'neurosurgery_hd' ||
                   sheetInfo.sheetType === 'wait_delivery_hd' ||
-                  sheetInfo.sheetType === 'wait_delivery_zhzxy' ||
                   sheetInfo.sheetType === 'neonatology_hd' ||
                   sheetInfo.sheetType === 'neonatology2_hd' ||
                   sheetInfo.sheetType === 'prenatal_hd' ||
@@ -380,9 +379,6 @@
               alt
             />
           </div>
-          <!-- <div v-else-if="td.key == 'auditorNo'" class="sign-img">
-            <img v-if="td.value" :src="`/crNursing/api/file/signImage/${td.value}?${token}`" alt>
-          </div>-->
           <el-select
             v-else-if="td.type == 'select' && ['guizhou', '925'].includes(HOSPITAL_ID)"
             v-model="td.value"
@@ -391,6 +387,7 @@
             placeholder=""
             size="small"
             class="access-select"
+            :class="{readonly: onCanModify(data.bodyModel,index, y)}"
             autocomplete="off"
             :remote-method="remoteMethod"
             @visible-change="td.autoComplete && getOptionsData(td, tr, $event)"
@@ -408,6 +405,7 @@
               towLine: isOverText(td),
               maxHeight56: sheetInfo.sheetType == 'additional_count_hd',
               maxHeight40: sheetInfo.sheetType == 'cardiology_lcey',
+              readonly: onCanModify(data.bodyModel,index, y)
             }"
             :readonly="tr.isRead"
             :disabled="td.isDisabed"
@@ -446,6 +444,7 @@
                   tr,
                   splice: td.splice,
                 });
+                td.key == 'description' && ['nfyksdyy'].includes(HOSPITAL_ID) && onSearch($event, {x, y ,z:index, td, tr});
             "
             @focus="
               td.autoComplete &&
@@ -470,7 +469,6 @@
                 td.click &&
                 td.click($event, td)
             "
-            class="11111"
           ></textarea>
           <!-- 护理记录单特殊情况特殊记录单独处理 -->
           <!-- 武警 护理记录单特殊情况单独处理，可以加粗 -->
@@ -492,6 +490,7 @@
             :disabled="td.isDisabed"
             v-model="td.value"
             :data-value="td.value"
+            :class="{ readonly: onCanModify(data.bodyModel,index, y)}"
             :position="`${x},${y},${index}`"
             @input="(e)=>splitSave && $emit('onModalChange',e,tr,x,y,index)"
             :style="[
@@ -530,7 +529,7 @@
               {{tr.identificationUsage}}
             </div>
         </td>
-        <span v-show="false" v-else>{{ td.key }}: {{ td.value }}</span>
+      </template>
       </tr>
     </table>
 
@@ -574,7 +573,6 @@
       class="table-footer"
       v-if="sheetInfo.sheetType != 'intervention_cure_hd'"
     >
-      <!-- <span v-if="sheetInfo.sheetType == 'common_hl'" class="zg-name"> -->
       <span v-if="doubleSignArr.includes(sheetInfo.sheetType)" class="zg-name">
         <span>主管护士：</span>
         <span class="sign-img-con" @click="sign2">
@@ -662,7 +660,10 @@
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span
         >
-        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' || sheetInfo.sheetType == 'cardiology_tj'"
+        <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' ||
+          sheetInfo.sheetType == 'cardiology_tj' ||
+          sheetInfo.sheetType == 'critical_new_lc'
+        "
           >质控护士签名：</span
         >
         <span v-else-if=" sheetInfo.sheetType == 'critical_new_weihai'"
@@ -712,7 +713,6 @@
             </div>
           </div>
         </span>
-        <!-- &nbsp;&nbsp;&nbsp; -->
         <div
           style="margin-right:50px">
         </div>
@@ -731,18 +731,17 @@
           <span> <strong>审核时间：</strong> </span>
           <span>{{ auditorTime }}</span>
         </div>
-        <!-- &nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
       </span>
-      <!-- / {{Math.max(sheetMaxPage,(length + sheetStartPage - 1))}}  -->
-      <!-- <span class="sh-name">审核人：
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      </span>-->
     </div>
     <span v-if="sheetInfo.model != 'print'">
-      <signModal ref="signModal"></signModal>
-      <signModal ref="delsignModal" title="删除签名需签名者确认"></signModal>
+      <div v-if="['whhk'].includes(HOSPITAL_ID) && whhkCaOrUsbSignIn">
+        <whhkSignModal ref="signModal"></whhkSignModal>
+        <whhkSignModal ref="delsignModal" title="删除签名需签名者确认"></whhkSignModal>
+      </div>
+      <div v-else>
+        <signModal ref="signModal"></signModal>
+        <signModal ref="delsignModal" title="删除签名需签名者确认"></signModal>
+      </div>
     </span>
   </div>
 </template>
@@ -764,6 +763,7 @@ import {
   findListByBlockId,
 } from "@/api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
+import whhkSignModal from "@/components/modal/whhk-sign.vue";
 import { Tr } from "../../../render/Body.js";
 import {
   offset,
@@ -802,6 +802,8 @@ export default {
     hasFiexHeader: Boolean,
     isInPatientDetails: Boolean,
     listData: Array,
+    specialLis: Array,
+    sheetTagsHeight: Number,
   },
   mixins: [common],
   data() {
@@ -823,7 +825,6 @@ export default {
         'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
-        // "wait_delivery_zhzxy",
         "neurosurgery_hd",
         "neonatology_hd",
         "neonatology2_hd",
@@ -875,7 +876,8 @@ export default {
         'baby_dglb',
         'baby_obs_dglb',
         'cardiology_tj',
-        'cardiac_therapy_tj'
+        'cardiac_therapy_tj',
+        'critical_new_lc'
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -885,7 +887,6 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
-        "wait_delivery_zhzxy", // 珠海中西医_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
@@ -1019,8 +1020,13 @@ export default {
     },
     splitSave(){
       return process.env.splitSave
-    }
-
+    },
+    whhkCaOrUsbSignIn(){
+      return window.localStorage.getItem("whhkCaOrUsbSignIn")?JSON.parse(window.localStorage.getItem("whhkCaOrUsbSignIn")):null
+    },
+    fixedTop() {
+      return (this.isInPatientDetails ? 45 : 56) + (this.sheetTagsHeight || 0)
+    },
   },
   methods: {
     customCallBack(e,tr,x,y,index){
@@ -1034,6 +1040,14 @@ export default {
               }).value == '5' && this.data.bodyModel[y+1] && this.data.bodyModel[y+1].find((item) => {
                 return item.key == 'recordSource';
               }).value != '5'
+    },
+    // 护士职称权限判断处理
+    onCanModify(data, index, y){
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && y && index && this.listData[ y + (index* data.length)]){
+        return this.listData[ y + (index* data.length)].canModify == false
+      }else{
+        return false
+      }
     },
     // 贵州需求：下拉选项二级联动，可输入可选择，附带智能检索
     getCompleteArr(tr, td) {
@@ -1091,9 +1105,6 @@ export default {
 
       return year;
     },
-    show(td) {
-      console.log(td);
-    },
     /* 花都个别护记的出入量统计：增加红线与上一行做区分 */
     getBorderClass(index) {
       // const redTopSheet_hd = [
@@ -1135,12 +1146,11 @@ export default {
             onFocusToAutoComplete(e, bind, () => this.customCallBack(e, bind.tr, bind.x, bind.y, bind.index)); //下拉框延迟
           }
         }, 300);
-        // onFocusToAutoComplete(e, bind);
       }
     },
     async onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
-      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry') {
+      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry'|| this.sheetInfo.sheetType == 'orthopaedic_sdry') {
         let confirmRes = '';
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           confirmRes = await this.$confirm(
@@ -1255,10 +1265,8 @@ export default {
       }
     },
     setTitle(item,item2) {
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy'].includes(this.HOSPITAL_ID)) {
-        // if (item2.fromAddPage) {
-        //   return
-        // }
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy','whhk'].includes(this.HOSPITAL_ID)) {
+
         this.setTitleFS(item)
         return
       }
@@ -1419,7 +1427,32 @@ export default {
       }
     },
     toCopyRow(index) {
-      let row = JSON.parse(JSON.stringify(this.sheetInfo.copyRow));
+      function isObject(value) {
+        const valueType = typeof value
+        return (value !== null) && (valueType === "object" || valueType === "function")
+      }
+
+      function deepClone(originValue) {
+        // 判断如果是函数类型, 那么直接使用同一个函数
+        if (typeof originValue === "function") {
+          return originValue
+        }
+
+        // 判断传入的originValue是否是一个对象类型
+        if (!isObject(originValue)) {
+          return originValue
+        }
+
+        // 判断传入的对象是数组, 还是对象
+        const newObject = Array.isArray(originValue) ? []: {}
+        for (const key in originValue) {
+          newObject[key] = deepClone(originValue[key])
+        }
+
+        return newObject
+      }
+      // let row = JSON.parse(JSON.stringify(this.sheetInfo.copyRow));
+      let row = deepClone(this.sheetInfo.copyRow)
       this.data.bodyModel.splice(index, 1, row);
     },
     delRow(index) {
@@ -1670,7 +1703,7 @@ export default {
                 signData:JSON.stringify(strSignData)
                 }
             }
-            this.$refs.signModal.open((password, empNo) => {
+            window.openSignModal((password, empNo) => {
 
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
@@ -1984,7 +2017,7 @@ export default {
                   formCode:sheetInfo.sheetType,// -- 表单ID
                 };
               }
-          this.$refs.signModal.open((password, empNo) => {
+            window.openSignModal((password, empNo) => {
             let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
@@ -2110,7 +2143,7 @@ export default {
         return item.key == "signerName";
       }).value;
       if (status == "1" || status == "2") {
-        if (["weixian","foshanrenyi","nanfangzhongxiyi",'zhzxy','zzwy'].includes(this.HOSPITAL_ID)) {
+        if (["weixian","foshanrenyi","nanfangzhongxiyi",'zhzxy','zzwy','whhk'].includes(this.HOSPITAL_ID)) {
           return trArr.find((item) => item.key == "signerNo").value
             ? `<img
               width="50"
@@ -2147,7 +2180,7 @@ export default {
       }).value;
         // console.log("koaosdad",auditorName)
       if (status == "2" && sign) {
-        if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zzwy") {
+        if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zzwy" || this.HOSPITAL_ID == "whhk") {
           return  `<img
               width="50"
               height="100%"
@@ -2318,7 +2351,10 @@ export default {
                 ) {
                   obj = { value: "" };
                 }
-                return Object.assign({}, item, obj);
+                if(this.HOSPITAL_ID==="qhwy"){
+                  obj={...obj,isDisabed:false}
+                }
+                return Object.assign({},item, obj);
               });
           },
         },
@@ -2709,9 +2745,9 @@ export default {
       e.preventDefault();
       window.openContextMenu({ style, data });
     },
-    openEditModal(tr, data, e) {
+    openEditModal(tr, data, e, y,index) {
       // 花都副页关闭编辑框
-      if(this.sheetInfo.sheetType=='additional_count_hd'  || this.sheetInfo.sheetType=='inout_ytll'){
+      if(this.sheetInfo.sheetType=='additional_count_hd'  || this.sheetInfo.sheetType=='inout_ytll' || this.onCanModify(data.bodyModel,index,y)){
         return
       }
       this.isOpenEditModal = true;
@@ -3104,13 +3140,29 @@ export default {
       );
       this.accessOptionData[td.name] = [...this.accessOptionList];
     },
+    // 特殊情况输入内容搜索显示内容
+    onSearch(e, data){
+      let list = this.specialLis
+      if(e.target.value === '') { list = []}
+      list = list.filter(item => item.indexOf(e.target.value) != -1)
+      data = {...data, autoComplete:{data: list}, isSearch:true}
+      if (sheetInfo.model == "print") return;
+      if (!this.sheetInfo.downControl) {
+        setTimeout(() => {
+          if(!this.isOpenEditModal){
+            //自定义标题没有输入事件  所以当有医院配置 保存按需（修改记录）来传给后端后 需要调用这个事件
+            onFocusToAutoComplete(e, data, () => this.customCallBack(e, data.tr, data.x, data.y, data.index)); //下拉框延迟
+          }
+        }, 300);
+      }
+    }
   },
   watch: {
     scrollY() {
       if (!this.hasFiexHeader) return;
       let { top, bottom, left, right } = this.$refs.table.getBoundingClientRect();
       if (
-        top < (this.isInPatientDetails ? 90 : 100) &&
+        top < (this.isInPatientDetails ? (this.sheetTagsHeight || 0) + 90 : 100) &&
         bottom > (this.isInPatientDetails ? 170 : 180)
       ) {
         this.isFixed = true;
@@ -3149,6 +3201,7 @@ export default {
   },
   components: {
     signModal,
+    whhkSignModal,
     bottomRemark,
   },
 };

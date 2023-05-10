@@ -27,7 +27,7 @@
           <span class="name">护理记录单</span>
         </div>
       </div>
-      <div>
+      <div v-if="!hiddenTemperature.includes(HOSPITAL_ID)">
         <div @click="setItemShow('three')" class="title">体温单</div>
         <div v-if="isShowObj.three" @click="showForm('temperature')" class='fromCss'>
           <img src='@/common/images/record/文件.png' class="img"/>
@@ -59,7 +59,8 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .body {
-  y-overflow: auto;
+  overflow-y: auto;
+  overflow-x:hidden;
   .title {
     cursor: pointer;
     height: 37px;
@@ -215,8 +216,9 @@ export default {
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
-      showBloodSugar:['guizhou','hengli','huadu','whfk', 'beihairenyi', 'nanfangzhongxiyi', 'sdlj' , 'foshanrenyi', 'fsxt', 'zhzxy', 'lyyz','whsl','ytll'], // 是否开放血糖模块
+      showBloodSugar:['guizhou','hengli','huadu','whfk', 'beihairenyi', 'nanfangzhongxiyi', 'sdlj' , 'foshanrenyi', 'fsxt', 'zhzxy', 'lyyz','whsl','ytll','dglb','whhk'], // 是否开放血糖模块
       showBloodOxygen:['whfk'] ,// 是否开放血氧模块
+      hiddenTemperature: ['whsl'], // 隐藏体温单模块
       timer:null
     };
   },
@@ -227,7 +229,7 @@ export default {
     height() {
       // 南医三嘉禾展示高度单独处理
       if (this.$route.path == "/nursingPreview") {
-        return `${this.wih - 40}px`;
+        return `${this.wih - 180}px`;
       }
       if (this.$route.path == "/formPage") {
         return `${this.wih - 120}px`;

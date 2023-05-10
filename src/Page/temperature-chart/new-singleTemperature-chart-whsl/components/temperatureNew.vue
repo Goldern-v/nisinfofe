@@ -94,7 +94,8 @@ export default {
       isPrintAll: false, //是否打印所有
       intranetUrl:
         // "http://localhost:8080/#/" /* 本地自测环境 导致跨域 */,
-      "http://10.108.4.43:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+      "http://10.108.4.43:9091/temperature/#/" /* 医院正式环境内网 导致跨域 --打包专用 */,
+      // "http://221.2.154.22:19091/temperature/#/" /* 医院外网 */,
       printAllUrl:
         "http://10.108.4.43:9091/temperature/#/printAll" /* 医院正式环境内网 */,
     };
@@ -237,8 +238,9 @@ export default {
           case "clickDateTime":
             this.getDataFromPage(e.data.value)
             break;
-
-
+          case "isFirst":
+            this.bus.$emit('neverWrite', e.data.value);
+            break;
           default:
             break;
         }

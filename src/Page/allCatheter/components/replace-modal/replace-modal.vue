@@ -2,7 +2,7 @@
     <div class="del-modal">
         <div class="cathter-replace-bg" @click="cancel"></div>
         <div class="contont">
-            <div class="contont-title">修改更换时间</div>
+            <div class="contont-title">修改计划更换时间</div>
             <div class="username">
                 <div style="width:100px;">预计留置时间：</div>
                 <el-date-picker

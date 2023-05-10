@@ -28,7 +28,14 @@
             <!-- <input class="date" type="text" name="" id="" :value="data['教育时间']"> -->
           </td>
           <!-- 宣教内容 -->
-          <td :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, data)">
+          <td v-if="HOSPITAL_ID !== 'qhwy'" :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, data)">
+            <span>{{data['宣教内容']}}</span>
+          </td>
+          <td class="remark" v-if="HOSPITAL_ID === 'qhwy'">
+            <span class="remark-span">{{data['宣教类型']}}</span>
+          </td>
+          <!-- 宣教内容 -->
+          <td :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, data)" v-if="HOSPITAL_ID === 'qhwy'">
             <span>{{data['宣教内容']}}</span>
           </td>
           <!-- 教育对象 -->
@@ -44,13 +51,13 @@
             <span class="is-radio" v-if="data['教育评估'] === q">√</span>
           </td>
           <!-- 备注 -->
-          <td class="remark contentLeft">
-            <span class="remark-span">{{data['备注']}}</span>
+          <td class="remark contentLeft" v-if="HOSPITAL_ID !== 'qhwy'">
+            <span class="remark-span">{{data[`${HOSPITAL_ID === 'whhk' ? '宣教情况' : '备注'}`]}}</span>
           </td>
           <!-- 签名 -->
-          <td v-if="['lingcheng','guizhou','foshanrenyi'].includes(HOSPITAL_ID)" class="specialTd">
+          <td v-if="['lingcheng','guizhou','foshanrenyi','qhwy'].includes(HOSPITAL_ID)" class="specialTd">
             <img
-              v-if="HOSPITAL_ID=='lingcheng' || HOSPITAL_ID=='foshanrenyi'"
+              v-if="['lingcheng','foshanrenyi','qhwy'].includes(HOSPITAL_ID)"
               v-show="data['lc签名']"
               class="img"
               :src="`/crNursing/api/file/signImage/${data['lc签名']}?${token}`"
@@ -118,11 +125,18 @@ export default {
       theadData: [
         [
           { rowspan: 2, text: "教育时间", width: 80 },
-          { rowspan: 2, text: "宣教内容", width: 160 },
-          { colspan: 2, text: "教育对象" },
-          { colspan: 4, text: "教育方法" },
-          { colspan: 3, text: "教育评估" },
-          { rowspan: 2, text: "备注", width: 90 },
+          this.HOSPITAL_ID === 'qhwy' ?{ rowspan: 2, text: "宣教类型", width: 90 }:{ rowspan: 2, text: "宣教内容", width: 160 },
+          ...this.HOSPITAL_ID === 'qhwy' ? [
+            { rowspan: 2, text: "宣教内容", width: 160 },
+            { colspan: 2, text: "教育对象" },
+            { colspan: 4, text: "教育方法" },
+            { colspan: 3, text: "教育评估" },
+          ] : [
+            { colspan: 2, text: "教育对象" },
+            { colspan: 4, text: "教育方法" },
+            { colspan: 3, text: "教育评估" },
+            { rowspan: 2, text: `${this.HOSPITAL_ID === 'whhk' ? '宣教情况' : '备注'}`, width: 90 },
+          ],
           { rowspan: 2, text: "签名", width: 60 }
         ],
         [
@@ -175,10 +189,12 @@ export default {
         array.push({
           教育时间: "",
           宣教内容: "",
+          宣教类型: "",
           教育对象: "",
           教育方法: "",
           教育评估: "",
           备注: "",
+          宣教情况: "",
           签名: ""
         });
       }
@@ -198,6 +214,7 @@ export default {
         let studyTime = pageParam.教育时间 ? pageParam.教育时间 : creatDateStr;
         this.$set(this.tableData, index, pageParam);
         this.$set(this.tableData[index], "宣教内容", item.instance.title);
+        this.$set(this.tableData[index], "宣教类型", item.instance.type);
         this.$set(this.tableData[index], "教育时间", studyTime);
         this.$set(this.tableData[index], "item", item.instance);
       });

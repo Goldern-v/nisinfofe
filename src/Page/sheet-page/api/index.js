@@ -222,6 +222,11 @@ export const updateSheetHeadInfo = (obj = {}) => {
   return axios.post(`${apiPath}record/block/updateInfo`, obj);
 };
 
+// 获取患者转科记录
+export const getNurseAdtLog = (patientId, visitId) => {
+  return axios.get(`${apiPath}nurseLog/getNurseAdtLog/${patientId}/${visitId}`);
+};
+
 // 获取his患者体征
 export const getVitalSign = (patientId, visitId, recordDate,itemType,repeatIndicator,id,hospitalId,instructions) => {
   if(hospitalId=="wujing"){
@@ -292,6 +297,7 @@ export const saveVitalSign = (data,hospitalId) => {
       data
     );
   }
+
   let d = {
     blockId: sheetInfo.selectBlock.id,
     list: data
@@ -301,6 +307,13 @@ export const saveVitalSign = (data,hospitalId) => {
     d
   );
 };
+// whsl 重症
+export  const saveVitalSignWhsl =(data)=>{
+    return axios.post(
+        `${apiPath}record/block/ordersExecuteWeiHai/save`,
+        data
+    );
+}
 // 保存需要同步的数据
 export const saveSyncRecord = (params) => {
   return axios.post(`${apiPath}form/common/saveSyncRecord`, params)

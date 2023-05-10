@@ -13,7 +13,7 @@
               align="middle"
             >
               <img
-                src="../../common/images/logo_foshanrenyi.png"
+                src="../../common/images/logo_foshanrenyi_new.png"
                 height="63"
                 width="63"
               />
@@ -70,7 +70,7 @@
                 <el-dropdown-item :class="{active: $route.path == '/admissionPageAdult'}">
                   <router-link to="/admissionPageAdult" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
-                      <i class="sheetHospitalAdmission"></i> 入院评估(成人)
+                      <i class="sheetHospitalAdmission"></i> 入院评估
                     </el-row>
                   </router-link>
                 </el-dropdown-item>

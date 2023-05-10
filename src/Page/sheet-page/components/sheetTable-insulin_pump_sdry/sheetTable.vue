@@ -12,89 +12,71 @@
         alt
       /> -->
       <div class="header-con">
-        <div class="logo"><img src="@/common/images/ytll-logo/logo.png" /></div>
-        <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
-        <div class="title">{{ patientInfo.recordName }}</div>
-        <div
-          class="info-con"
-          flex="main:justify"
-          :style="!isFirst && { paddingBottom: 0 }"
-        >
-          <!-- <span>
-            科室
-            <div class="bottom-line" style="min-width: 60px">
-              {{ patientInfo.deptName }}
-            </div>
-          </span> -->
-          <span>
-            姓名:
-            <div
-              class="bottom-line"
-              style="min-width: 60px"
-              @click="
-                updateTetxInfo(
-                  'patientName',
-                  '病人姓名',
-                  patientInfo.patientName
-                )
-              "
-            >
-              {{ patientInfo.patientName }}
-            </div>
-          </span>
-          <span>
-            床号：
-            <div  class="bottom-line" style="min-width: 60px">
-              {{ patientInfo.bedLabel }}
-            </div>
-          </span>
-          <span>
-            年龄:
-            <div class="bottom-line" style="min-width: 60px">
-              {{ patientInfo.age }}
-            </div>
-          </span>
-          <!-- <span>
-            性别:
-            <div class="bottom-line" style="min-width: 30px">
-              {{ patientInfo.sex }}
-            </div>
-          </span> -->
-          <span>
-            住院号:
-            <div class="bottom-line" style="min-width: 50px">
-              {{ patientInfo.inpNo }}
-            </div>
-          </span>
-          <!-- <span style="cursor: pointer;">
-            手术日期:
-            <masked-input
-              type="text"
-              class="bottom-line"
-              style="width: 100px;"
-              :showMask="false"
-              v-model="relObj.ssrq"
-              :data-value="relObj.ssrq"
-              :mask="
-                () => [
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  '年',
-                  /\d/,
-                  /\d/,
-                  '月',
-                  /\d/,
-                  /\d/,
-                  '日'
-                ]
-              "
-              :guide="true"
-              placeholderChar=" "
-            ></masked-input>
-          </span> -->
-        </div>
+        <div class="his-name">
+      <img src='./images/hospital-name.png'
+         height="60"
+          width="300"/>
+
+    </div>
+    <div class="title">{{patientInfo.recordName}}</div>
+        <div class="info-con">
+     <span>
+        科室:
+        <div class="bottom-line" style="min-width: 266px">{{patientInfo.realDeptName}}</div>
+      </span>
+      <span>
+        病区:
+        <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
+      </span>
+      </div>
+    <div class="info-con" >
+      <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
+        姓名:
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
+      </span>
+      <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
+        性别:
+        <div class="bottom-line" style="min-width: 35px">{{patientInfo.sex}}</div>
+      </span>
+      <!-- <span @click="updateNeonatology2Age" v-if="sheetInfo.sheetType == 'neonatology2'">
+        年龄:
+        <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
+      </span> -->
+      <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
+        年龄:
+        <div class="bottom-line" style="min-width: 40px">{{patientInfo.age}}</div>
+      </span>
+      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+        床号:
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+      </span>
+      <span>
+        住院号:
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.inpNo}}</div>
+      </span>
+      <span>
+        诊断:
+        <div  class="bottom-line" style="min-width: 163px">{{patientInfo.diagnosis}}</div>
+      </span>
+      <!-- <span>
+        ID号:
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
+      </span> -->
+      <!-- <span v-if="sheetInfo.sheetType == 'neonatology2'">
+        温箱编号:
+        <input
+          class="bottom-line"
+          style="width: 30px"
+          @focus="onFocusToAutoComplete($event)"
+          @blur="onBlurToAutoComplete"
+          v-model="relObj.wxNo"
+        />
+      </span>-->
+      <!-- <span>
+        入院日期:
+        {{patientInfo.admissionDate | toymd}}
+      </span> -->
+     </div>
       </div>
       <infoTable v-if="isFirst" :patientInfo='patientInfo'></infoTable>
       <excel
@@ -263,7 +245,7 @@
       text-align: center;
     }
   }
-  
+
 }
 </style>
 <script>

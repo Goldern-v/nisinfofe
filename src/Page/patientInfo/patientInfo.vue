@@ -1,9 +1,9 @@
 <template>
-  <div :class="{ hj:  ['hj','sdlj','fuyou'].includes(HOSPITAL_ID) }">
+  <div :class="{ hj:  ['hj','sdlj','fuyou'].includes(HOSPITAL_ID) }" >
     <component :is="witchLeft" v-if="inited"/>
-    <div class="right-part" :style="{ marginLeft: openLeft ? '200px' : '0' }">
+    <div class="right-part" :style="[{ marginLeft: openLeft ? '200px' : '0' },...heightFun()]">
       <component :is="switchCompt()" v-if="inited" />
-      <router-view v-if="inited"></router-view>
+      <router-view v-if="inited" :style="{marginLeft: treeOpenLeft && isRouter ? '-274px' : '0'}"></router-view>
     </div>
   </div>
 </template>
@@ -73,6 +73,7 @@ export default {
       refresh: false,
       inited: false,
       query: {},
+      isRouter: false, // 路由为 /record 为true
     };
   },
   computed: {
@@ -89,6 +90,17 @@ export default {
     openLeft() {
       return this.$store.state.common.openLeft;
     },
+    treeOpenLeft() {
+      return this.$store.state.sheet.openWritTreeLeft;
+    },
+  },
+  watch: {
+    $route: {
+      handler(val, oldValue) {
+        this.isRouter = val.path === '/record'
+      },
+      deep: true
+    }
   },
   created() {
     // 修改高度
@@ -99,6 +111,12 @@ export default {
     this.getPatientData();
   },
   methods: {
+    heightFun(){
+      if(['/admissionPageAdult2','/admissionPageChild2'].includes(this.$route.path)) return [
+        {'height': '100vh',},
+        {'overflow': 'hidden'}
+      ]
+    },
     // openNewFormBoxClean(box){
     //   this.$refs.openNewFormModal.open(box)
     // },
@@ -120,7 +138,9 @@ export default {
         }
         this.inited = true;
         this.query = res.data.data;
-        Object.assign(this.$route.query, this.query);
+        if(this.$route.path !== '/previousHistory/nursingPreview'){
+          Object.assign(this.$route.query, this.query);
+        }
         // getPatientInfo
         window.app.$store.commit(
           "upCurrentPatientObj",
@@ -156,7 +176,7 @@ export default {
         松桃苗族自治县人民医院:"topPartLYXRM",
         临沂沂州医院: "topPartLyyz",
         佛山市顺德区龙江医院:"topPartSdlj",
-        武汉汉口医院: 'topPartWhhk',
+        武汉市汉口医院: 'topPartWhhk',
         青海省第五人民医院:'topPartQhwy',
         中国人民解放军联勤保障部队第九二五医院: 'topPartGuiZhou',
         珠海市中西医结合医院: 'topPartZhzxy',
@@ -169,6 +189,9 @@ export default {
     },
   },
   mounted() {
+    // 解决在护理评估单页面强制刷新出现问题
+    this.isRouter = this.$route.path === '/record'
+
     try {
       document.getElementById("hl-nav-con").style.display = "none";
     } catch (e) {}

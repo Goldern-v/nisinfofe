@@ -104,14 +104,6 @@ export default {
         colspan: "1",
         rowspan: "2",
         canSet: true,
-        key: "fieldTwelve",
-        style: { minWidth: "40px", maxWidth: "40px" }
-      },
-      {
-        name: "",
-        colspan: "1",
-        rowspan: "2",
-        canSet: true,
         key: "fieldThirteen",
         style: { minWidth: "40px", maxWidth: "40px" }
       },
@@ -121,6 +113,14 @@ export default {
         rowspan: "2",
         canSet: true,
         key: "fieldFourteen",
+        style: { minWidth: "40px", maxWidth: "40px" }
+      },
+      {
+        name: "",
+        colspan: "1",
+        rowspan: "2",
+        canSet: true,
+        key: "fieldFifteen",
         style: { minWidth: "40px", maxWidth: "40px" }
       },
       {

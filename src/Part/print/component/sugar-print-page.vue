@@ -15,10 +15,13 @@
     // page-break-after always
     min-height 1000px
     // background red
+  .break-pages
+    page-break-after always
   .noPrint
     display none
   .inPrint
     display block
+    height: 29px
 @media print
   #sugarPagePrint
     .sugr-page

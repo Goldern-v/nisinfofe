@@ -136,7 +136,7 @@ export default {
     qrcode() {
       let titleObject = this.userName + " " + this.passWord;
       this.$refs.qrcodeContainer.innerHTML && (this.$refs.qrcodeContainer.innerHTML = "");
-      ['foshanrenyi','fsxt','','lyxrm','beihairenyi', 'whhk', 'stmz','qhwy','925'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
+      ['foshanrenyi','fsxt','','lyxrm','beihairenyi', 'whhk', 'stmz','qhwy','925','whsl','nfyksdyy'].includes(this.HOSPITAL_ID ) && (titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord})));
       let qrcode = new QRCode(this.$refs.qrcodeContainer, {
         // width: this.cmpx,// 二维码的宽
         // height: this.cmpx,// 二维码的高
@@ -164,10 +164,17 @@ export default {
         this.user = user
         rememberAccount = user.empNo
         ppp = user.maps.userKey
-      }else{
+      }else if(['whsl'].includes(this.HOSPITAL_ID) && localStorage.getItem("sso")=='sso'){
+        let user = JSON.parse(localStorage.getItem("user"))
+        this.user = user
+        rememberAccount = user.empNo
+        ppp = user.maps.userKey
+      }
+      else{
         rememberAccount = localStorage.getItem("rememberAccount");
         ppp = localStorage.getItem("ppp");
       }
+      console.log("localStorage.getItem('sso')===",localStorage.getItem('sso'))
       this.userName = rememberAccount;
       this.passWord = ppp;
     }

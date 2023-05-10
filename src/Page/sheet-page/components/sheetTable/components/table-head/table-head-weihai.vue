@@ -35,6 +35,28 @@
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
       </span>
     </div>
+    <div class="info-con" flex="main:justify" v-else-if="sheetInfo.sheetType === 'general_item_weihai'">
+      <span>
+        科别：
+        <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+      </span>
+      <span>
+        姓名：
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
+      </span>
+      <span>
+        病案号：
+        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+      </span>
+      <span>
+        年龄：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
+      </span>
+      <span>
+        床号：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+      </span>
+    </div>
 
     <div class="info-con" flex="main:justify" v-else>
       <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
@@ -74,7 +96,7 @@
         ID号：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
       </span> -->
-      <span v-if="['critical_new_weihai', 'internal_eval_weihai', 'inandout_weihai','baby_weihai'].includes(sheetInfo.sheetType)">
+      <span v-if="['critical_new_weihai', 'internal_eval_weihai', 'inandout_weihai','baby_weihai', 'critical_weihai'].includes(sheetInfo.sheetType)">
         入院日期：
         {{patientInfo.admissionDate | toymd}}
       </span>
@@ -89,9 +111,9 @@
         kg
       </span>
     </div>
-    <!-- <div class="info-con">
+    <div class="info-con" v-if="['critical_weihai'].includes(sheetInfo.sheetType)">
       <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -174,6 +196,9 @@ export default {
       );
     },
     updateTetxInfo(key, label, autoText) {
+      if (this.sheetInfo.sheetType === 'critical_weihai') {
+        return;
+      }
       window.openSetTextModal(
         text => {
           updateSheetHeadInfo({ [key]: text }).then(res => {

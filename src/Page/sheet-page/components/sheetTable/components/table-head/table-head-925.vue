@@ -151,7 +151,7 @@ export default {
       return this.$route.query || {}
     },
     nurseLevel(){
-      console.log("sheetInfo.relObj ",sheetInfo.relObj,'this.query',this.query['nursingClass'])
+      // console.log("sheetInfo.relObj ",sheetInfo.relObj,'this.query',this.query['nursingClass'])
       return (sheetInfo.relObj || {})['nurseLevel'] || this.query['nursingClass'] || ''
     },
     newPatientInfo(){
@@ -228,7 +228,6 @@ export default {
   },
   watch: {
     'patientInfo.patientId'(val) {
-      console.log('watch', this.newPatientInfo, this.sheetInfo.selectBlock.id)
       if (!this.newPatientInfo[`nurseLevel_${this.sheetInfo.selectBlock.id}`]) {
         info(this.patientInfo.patientId, this.patientInfo.visitId).then(res => {
           this.$set(sheetInfo.relObj, 'nurseLevel', res.data.data.nursingClass)

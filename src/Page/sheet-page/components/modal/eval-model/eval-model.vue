@@ -79,6 +79,7 @@
                       v-for="(item,index) in tableData"
                       :key="index"
                       @click="clickTr(item,$event)"
+                      :class="isDisabled(item) ? 'unselectable' : ''"
                     >
                       <td v-if="item.syncToRecord">已导入</td>
                       <td v-else-if="item.evalDate" style="color:#FF0000">未导入</td>
@@ -145,12 +146,13 @@
 <script>
 import moment from "moment";
 import { getListAssessment, signBlock, saveEvalDesc } from "./api";
-// import sheetInfo from "../../config/sheetInfo";
+import sheetInfo from "../../config/sheetInfo";
 import bus from "vue-happy-bus";
 import { mapMutations, mapState } from 'vuex';
 export default {
   data() {
     return {
+      sheetInfo,
       bus: bus(this),
       startData: "",
       endData: "",
@@ -164,10 +166,13 @@ export default {
   },
   computed: {
     ...mapState({
-      openModalFromSpecial: state => state.sheet.openModalFromSpecial
+      openModalFromSpecial: state => state.sheet.openModalFromSpecial,
     }),
     aaa() {
       moment(this.value11).format("YYYY-MM-DD");
+    },
+    patientInfo() {
+      return this.sheetInfo.selectBlock || {};
     }
   },
   watch: {
@@ -175,6 +180,11 @@ export default {
   },
   methods: {
     ...mapMutations(['upOpenModalFromSpecial', 'upEvalData']),
+    isDisabled(row) {
+      // const user = JSON.parse(localStorage.getItem("user"));
+      // 患者科室 === 当前记录科室(禁用)
+      return this.HOSPITAL_ID === 'whsl' && this.patientInfo.deptCode !== row.wardCode;
+    },
     changeEvalDate(){
       var date = new Date(this.value1)
       if(this.rowData.evalDate){
@@ -217,8 +227,11 @@ export default {
       });
     },
     clickTr(rowData, event) {
+      if (this.isDisabled(rowData)) {
+        return;
+      }
       if(this.editTimeHosipital.includes(this.HOSPITAL_ID)){
-        const user=JSON.parse(localStorage.getItem("user"))
+        const user = JSON.parse(localStorage.getItem("user"))
         this.rowData = {...rowData}
         if(this.HOSPITAL_ID==='liaocheng'){
             this.rowData.creatorName=user.empName
@@ -362,6 +375,11 @@ export default {
           width 517px
           padding-bottom 10px
           cursor pointer
+          .unselectable {
+            cursor not-allowed
+            background-color: #eeeeee
+            color #777
+          }
           tr::selection
             background-color #FBF7B0
           td

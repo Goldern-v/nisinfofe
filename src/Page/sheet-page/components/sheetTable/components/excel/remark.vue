@@ -3,6 +3,18 @@
     3、肢体：关节僵硬A、挛缩B、足下垂C、肿胀D肩痛E、肩关节半脱位F                          3、瞳孔形状：不规则A、术后改变B<template>
   <div class="bottomRemark">
     <div
+        v-if="sheetInfo.sheetType == 'prenatal_sdlj'"
+        style="font-size: 13px; margin-top: -5px">
+      备注 非药物阵痛方法：A-分娩球、B-自由体位待产、C-分娩操、D-豆袋热敷、E-导乐分娩、F-分娩镇痛仪、G-其他<input class="bottomInput" type="text" v-model="sheetInfo.relObj.remark" :data-value="sheetInfo.relObj.remark"/>（可填写保存）
+      膀胱充盈度：H-空虚、I-轻度充盈、J-中度充盈、K-重度充盈
+    </div>
+    <div
+        v-if="sheetInfo.sheetType == 'pediatric3_sdlj'"
+        style="font-size: 13px; margin-top: -5px">
+      备注 皮疹位置：H-头面部、N-颈部、U-上肢、L-下肢、O-腋下、T-胸腹、B-背部、S-阴囊、C-肛周、W-全身；性质程度:S-散在、M-多发、II-密集、P-表面脓点皮肤未破损、B-表面破损、U-表面溃疡；产瘤、头部血肿位置：L-左、R-右、T-头颅、F-顶额部；呕吐物性质：A白色、B黄色、C绿色、D咖啡色、E其他<input class="bottomInput" type="text" v-model="sheetInfo.relObj.remark" :data-value="sheetInfo.relObj.remark"/>（可填写）
+    </div>
+
+    <div
       v-if="sheetInfo.sheetType == 'neonatology2'"
       style="font-size: 13px; margin-top: -5px"
     >
@@ -631,9 +643,9 @@
     <div v-if="sheetInfo.sheetType == 'nurse_jew'||sheetInfo.sheetType == 'danger_nurse_jew'">
       备注：意识/神志清醒√、嗜睡/意识模糊+、昏睡++、浅昏迷+++、深昏迷++++；瞳孔对光反射：灵敏√、迟钝+、消失++；护理记录单横线上填一般或者危重。
     </div>
-    <div v-if="sheetInfo.sheetType == 'orthopaedic_sdry'">
+    <!-- <div v-if="sheetInfo.sheetType == 'orthopaedic_sdry'">
       注:意识:清醒√ 嗜睡+  浅昏迷++  深昏迷+++; 瞳孔对光反射：灵敏+  迟钝±  消失 - ; 颜色性状:①血性液②淡红色液体③暗红色液④黄色液⑤淡黄色液⑥深黄色液
-    </div>
+    </div> -->
     <!-- 广东同江 - 新生儿护理记录单 -->
     <div v-if="sheetInfo.sheetType == 'baby_tj'">
       注：1、意识选择：清醒	嗜睡+ 浅昏迷++ 深昏迷+++；&nbsp;2、体位：左侧：L，右侧：R，平卧：S；&nbsp;3、反应：以“好”、“激惹”、“一般”、“差”表示；&nbsp;4、哭声：以“响亮”、“微弱”表示；<br/>
@@ -831,72 +843,72 @@
     <!-- 漳州五院 - 护理记录单 -->
     <div v-if="sheetInfo.sheetType == 'record_new_zzwy'">
       备注：神志：√清醒 - 嗜睡 土昏睡 +浅昏迷 廿中昏迷 卅深昏迷 △麻醉未醒 &nbsp;
-      面容：A正常 B贫血C发绀  D急性 E慢性 F痛苦 &nbsp;      
+      面容：A正常 B贫血C发绀  D急性 E慢性 F痛苦 &nbsp;
       瞳孔对光反应：√灵敏 +迟钝 -消失 &nbsp;
       切口情况：A干燥 B渗血 C渗液	&nbsp;
       血运：A红润 B苍白 C紫绀	<br/>
       感觉：A.正常 B.麻木 C.未恢复 &nbsp;
       吸氧气方式：A鼻导管 B面罩 C无创呼吸机 D有创呼吸机&nbsp;
       管路：①尿管 ②胸腔引流管 ③胃管 ④腹腔引流管 ⑤深静脉置管 ⑥胸腔闭式引流管 ⑦胃肠减压管 ⑧空肠管	&nbsp;
-      心电图示：S窦性 AF房额 VF室颤 PM起搏 PVC室早PAC 
+      心电图示：S窦性 AF房额 VF室颤 PM起搏 PVC室早PAC
     </div>
     <!-- 漳州五院 - 护理记录单（新生儿） -->
     <div v-if="sheetInfo.sheetType == 'baby_new_zzwy'">
-      备注：哭声：A.婉转  B.尚婉转  C.差  D.欠婉转&nbsp;               
-      反应: A.可  B.尚可  C.欠佳 &nbsp;                
-      肌张力: A.高  B.低  C.正常 &nbsp;          
-      皮肤: A.正常  B黄  C微黄&nbsp; 
-      面色：A.红  B.微红  C.苍白  D.稍苍白  E.紫绀  F.黄  G.微黄  H.欠红润  &nbsp;                        
-      神志: A.清醒  B.嗜睡  C.腾胧  D.浅昏迷  E.中昏迷  P.深昏迷  G.麻醉未醒  &nbsp;   
-      脐部：A.干燥  B.渗血  C.渗液&nbsp;                         
-      吸氧方式：A.面罩  B.头罩  C.鼻导管&nbsp; 
+      备注：哭声：A.婉转  B.尚婉转  C.差  D.欠婉转&nbsp;
+      反应: A.可  B.尚可  C.欠佳 &nbsp;
+      肌张力: A.高  B.低  C.正常 &nbsp;
+      皮肤: A.正常  B黄  C微黄&nbsp;
+      面色：A.红  B.微红  C.苍白  D.稍苍白  E.紫绀  F.黄  G.微黄  H.欠红润  &nbsp;
+      神志: A.清醒  B.嗜睡  C.腾胧  D.浅昏迷  E.中昏迷  P.深昏迷  G.麻醉未醒  &nbsp;
+      脐部：A.干燥  B.渗血  C.渗液&nbsp;
+      吸氧方式：A.面罩  B.头罩  C.鼻导管&nbsp;
     </div>
     <!-- 漳州五院 - 护理记录单（妇科） -->
     <div v-if="sheetInfo.sheetType == 'gynecology_new_zzwy'">
-      备注：神志：√清醒 - 嗜睡 土 昏睡 + 浅昏迷 廿 中昏迷 卅 深昏迷 △ 麻醉未醒&nbsp;             
-      面容：A正常 B贫血 C发绀  D急性 E慢性 F痛苦 &nbsp;                  
-      瞳孔对光反应：√灵敏 +迟钝 -消失&nbsp; 
-      颜色：A红润 B苍白 C紫绀 &nbsp;            
-      温度：A温 B湿冷 &nbsp;         
-      吸氧气方式：A鼻导管 B面罩 C无创呼吸机 D有创呼吸机  &nbsp;    
-      通畅：√通 ×阻塞&nbsp;     
-      镇痛泵：√运行通畅 ×停止使用（拔除）&nbsp; 
-      管路：①留置尿管 ②腹壁引流管 ③腹腔引流管 ④盆腔引流管 ⑤胃管 &nbsp;     
-      心电图示：S窦性 AF房额 VF室颤 PM起搏 PVC室早PAC &nbsp;          
-      膝反射：√存在 - 消失 土 迟钝&nbsp; 
+      备注：神志：√清醒 - 嗜睡 土 昏睡 + 浅昏迷 廿 中昏迷 卅 深昏迷 △ 麻醉未醒&nbsp;
+      面容：A正常 B贫血 C发绀  D急性 E慢性 F痛苦 &nbsp;
+      瞳孔对光反应：√灵敏 +迟钝 -消失&nbsp;
+      颜色：A红润 B苍白 C紫绀 &nbsp;
+      温度：A温 B湿冷 &nbsp;
+      吸氧气方式：A鼻导管 B面罩 C无创呼吸机 D有创呼吸机  &nbsp;
+      通畅：√通 ×阻塞&nbsp;
+      镇痛泵：√运行通畅 ×停止使用（拔除）&nbsp;
+      管路：①留置尿管 ②腹壁引流管 ③腹腔引流管 ④盆腔引流管 ⑤胃管 &nbsp;
+      心电图示：S窦性 AF房额 VF室颤 PM起搏 PVC室早PAC &nbsp;
+      膝反射：√存在 - 消失 土 迟钝&nbsp;
     </div>
     <!-- 漳州五院 - 护理记录单（产科） -->
     <div v-if="sheetInfo.sheetType == 'obstetrics_new_zzwy'">
-      备注：神志：√清醒 - 嗜睡 土 昏睡 + 浅昏迷 廿 中昏迷 卅 深昏迷 △ 麻醉未醒 &nbsp;            
-      面容：A正常 B贫血 C发绀  D急性 E慢性 F痛苦 &nbsp;                  
-      瞳孔对光反应：√灵敏 +迟钝 -消失&nbsp; 
-      颜色：A红润 B苍白 C紫绀&nbsp;             
-      温度：A温 B湿冷&nbsp;         
-      吸氧气方式：A鼻导管 B面罩 C无创呼吸机 D有创呼吸机&nbsp;        
-      通畅：√通 ×阻塞&nbsp;     
-      镇痛泵：√运行通畅 ×停止使用（拔除）&nbsp; 
-      管路：①留置尿管 ②腹壁引流管 ③腹腔引流管 ④盆腔引流管 ⑤胃管&nbsp; 
-      心电图示：S窦性 AF房额 VF室颤 PM起搏 PVC室早PAC &nbsp;         
-      膝反射：√存在 - 消失 土 迟钝&nbsp; 
+      备注：神志：√清醒 - 嗜睡 土 昏睡 + 浅昏迷 廿 中昏迷 卅 深昏迷 △ 麻醉未醒 &nbsp;
+      面容：A正常 B贫血 C发绀  D急性 E慢性 F痛苦 &nbsp;
+      瞳孔对光反应：√灵敏 +迟钝 -消失&nbsp;
+      颜色：A红润 B苍白 C紫绀&nbsp;
+      温度：A温 B湿冷&nbsp;
+      吸氧气方式：A鼻导管 B面罩 C无创呼吸机 D有创呼吸机&nbsp;
+      通畅：√通 ×阻塞&nbsp;
+      镇痛泵：√运行通畅 ×停止使用（拔除）&nbsp;
+      管路：①留置尿管 ②腹壁引流管 ③腹腔引流管 ④盆腔引流管 ⑤胃管&nbsp;
+      心电图示：S窦性 AF房额 VF室颤 PM起搏 PVC室早PAC &nbsp;
+      膝反射：√存在 - 消失 土 迟钝&nbsp;
     </div>
     <!-- 漳州五院 - 护理记录单（ICU） -->
     <div v-if="sheetInfo.sheetType == 'record_icu_zzwy'">
-      备注：神志：√清醒 - 嗜睡 土昏睡 +浅昏迷 廿中昏迷 卅深昏迷 △麻醉未醒 &nbsp;              
-      瞳孔对光反应：√灵敏 +迟钝 -消失 &nbsp;     
-      约束：√执行约束 +安全有效 &nbsp; 
-      基础护理：A口腔护理 B会阴护理 C翻身拍背 D肢体功能锻炼	 &nbsp; 
-      吸氧气方式：A鼻导管 B面罩 C无创呼吸机 D有创呼吸机 E高流量 &nbsp; 
-      管路：①尿管 ②胸腔引流管 ③胃管 ④腹腔引流管 ⑤深静脉置管 ⑥胸腔闭式引流管 ⑦胃肠减压管 ⑧空肠管	 &nbsp; 
-      心电图示：S窦性 AF房额 VF室颤 PM起搏 PVC室早PAC   &nbsp; 
+      备注：神志：√清醒 - 嗜睡 土昏睡 +浅昏迷 廿中昏迷 卅深昏迷 △麻醉未醒 &nbsp;
+      瞳孔对光反应：√灵敏 +迟钝 -消失 &nbsp;
+      约束：√执行约束 +安全有效 &nbsp;
+      基础护理：A口腔护理 B会阴护理 C翻身拍背 D肢体功能锻炼	 &nbsp;
+      吸氧气方式：A鼻导管 B面罩 C无创呼吸机 D有创呼吸机 E高流量 &nbsp;
+      管路：①尿管 ②胸腔引流管 ③胃管 ④腹腔引流管 ⑤深静脉置管 ⑥胸腔闭式引流管 ⑦胃肠减压管 ⑧空肠管	 &nbsp;
+      心电图示：S窦性 AF房额 VF室颤 PM起搏 PVC室早PAC   &nbsp;
     </div>
     <!-- 漳州五院 - 护理记录单（儿科） -->
     <div v-if="sheetInfo.sheetType == 'pediatrics_new_zzwy'">
-      备注：神志：A.清醒 B.嗜睡 C.朦胧 D.浅昏迷 E.中昏迷 F.深昏迷 G.麻醉未醒&nbsp;              
-      面色: A.微红 B.苍白 C.稍苍白 D.紫 E.黄染 &nbsp;                       
-      反应: A.灵敏 B.迟钝 C.消失&nbsp; 
-      吸氧方式: A.鼻导管 B.头罩 C.面罩&nbsp;                                               
-      血运: A.温 B.湿冷&nbsp;                                               
-      感觉: A.正常 B.麻木 C.未恢复&nbsp; 
+      备注：神志：A.清醒 B.嗜睡 C.朦胧 D.浅昏迷 E.中昏迷 F.深昏迷 G.麻醉未醒&nbsp;
+      面色: A.微红 B.苍白 C.稍苍白 D.紫 E.黄染 &nbsp;
+      反应: A.灵敏 B.迟钝 C.消失&nbsp;
+      吸氧方式: A.鼻导管 B.头罩 C.面罩&nbsp;
+      血运: A.温 B.湿冷&nbsp;
+      感觉: A.正常 B.麻木 C.未恢复&nbsp;
     </div>
   </div>
 </template>

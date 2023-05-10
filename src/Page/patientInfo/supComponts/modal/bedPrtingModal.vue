@@ -3,24 +3,25 @@
     <sweet-modal ref="modal" :modalWidth="isZhzxy ? 770 : 600" title="编辑床位卡" :enable-mobile-fullscreen="false"
       class="modal">
       <div class="bed-card-wrapper" v-loading="modalLoading" ref="printCon">
-        <div class="bed-card-con" flex :class="{ remarkCon: formData.remarkPrint }">
-
+        <div class="container">
+          <div style="line-height: 28px;margin-top:24px;font-size: 30px">床 位 卡</div>
+          <div class="bed-card-con" flex :class="{ remarkCon: formData.remarkPrint }">
           <div style="flex: 1;" flex-box="1" flex="dir:top main:justify">
             <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
           </div>
-          <div style="flex: 1">
+          <div style="flex: 1;margin-left: 25px;margin-bottom: 50px" >
             <div flex="cross:center;" class="title-bed">
-              <div>
-                <span style="font-size: 26px;margin:0;">床号：</span>
-                <input type="text" style="font-size: 26px;border: none;" class="title-bed__1" :value="query.bedLabel + '床'" />
-              </div>
               <div>
                 <span style="font-size: 20px;margin:0">病区：</span>
                 {{ query.wardName }}
               </div>
-
+              <div>
+                <span style="font-size: 26px;margin:0;">床号：</span>
+                <input type="text" style="font-size: 26px;border: none;" class="title-bed__1" :value="query.bedLabel + '床'" />
+              </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
 
@@ -53,25 +54,26 @@
     font-weight: bold;
   }
 }
-
-.bed-card-con {
+.container{
   margin: 20px;
-  width: 511px;
-  height: 335px;
+  width: 400px;
+  height: 280px;
   padding: 5px 8px;
   box-sizing: border-box;
-  border-right: 5px solid #fff;
   position: relative;
   border: 1px solid #000;
-  display: flex
+}
+.bed-card-con {
+  display: flex;
+  height:300px;
 
   // &.remarkCon
   .qr-code {
     position: absolute;
-    top:10%;
-    left: -5px;
+    top:20%;
+    /*left: -5px;*/
     width: 50%;
-    height:80%;
+    height:72%;
 
     &.hasRemark {
       width: 96px;
@@ -170,9 +172,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: 100%;
+  height: 77%;
   .title-bed__1 {
-    width: 150px;
+    width: 80px;
     font-size: 18px;
     padding-left: 5px;
     line-height: 24px;

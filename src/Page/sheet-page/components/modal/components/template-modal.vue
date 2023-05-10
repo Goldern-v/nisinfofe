@@ -174,7 +174,7 @@ export default {
     },
     listconHeight() {
       let str = ""
-      if (this.HOSPITAL_ID === 'liaocheng' || this.HOSPITAL_ID === 'wujing' || this.HOSPITAL_ID === 'huadu' || this.HOSPITAL_ID === 'foshanrenyi') {
+      if (this.HOSPITAL_ID === 'liaocheng' || this.HOSPITAL_ID === 'wujing' || this.HOSPITAL_ID === 'huadu' || this.HOSPITAL_ID === 'foshanrenyi'|| this.HOSPITAL_ID === 'nfyksdyy') {
         str = 'height: calc(100vh - 246px)'
       }
       return str

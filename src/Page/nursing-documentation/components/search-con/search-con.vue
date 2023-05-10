@@ -91,7 +91,7 @@
           v-model="data.dateTime[0]"
           type="date"
           format="yyyy-MM-dd"
-          placeholder="选择出院起始时间"
+          placeholder="选择转科起始时间"
         ></el-date-picker>
       </div>
       <div class="search-box" v-if="data.status == 3 && isPatients">
@@ -100,7 +100,7 @@
           v-model="data.dateTime[1]"
           type="date"
           format="yyyy-MM-dd"
-          placeholder="选择出院结束时间"
+          placeholder="选择转科结束时间"
         ></el-date-picker>
       </div>
     </div>
@@ -258,7 +258,7 @@
     </div>
     <div
       class="search-btn2"
-      v-if="data.status === '2' && ['liaocheng', 'ytll','foshanrenyi','gdtj', 'lyyz','zhzxy','dglb','nfyksdyy'].includes(HOSPITAL_ID)"
+      v-if="data.status === '2' && ['liaocheng', 'fsxt','ytll','foshanrenyi','gdtj', 'lyyz','zhzxy','dglb','nfyksdyy'].includes(HOSPITAL_ID)"
       @click="throttleSyncDischargedPatient"
       v-touch-ripple
       >同步出院患者</div
@@ -419,7 +419,8 @@ export default {
         'nfyksdyy',
         'liaocheng',
         '925',
-        'qhwy'
+        'qhwy',
+        'whhk'
       ].includes(this.HOSPITAL_ID);
     },
   },

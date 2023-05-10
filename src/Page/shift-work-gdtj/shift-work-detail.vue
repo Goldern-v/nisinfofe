@@ -303,14 +303,6 @@
                 手术：
                 <b>{{record.operationTotal || 0}}</b>人
               </span>
-              <span v-if="HOSPITAL_ID == 'zhzxy'">
-                死亡：
-                <b>{{record.patientDead || 0}}</b>人
-              </span>
-              <span v-if="HOSPITAL_ID == 'zhzxy'">
-                分娩：
-                <b>{{record.patientNewBorn || 0}}</b>人
-              </span>
               <span>
                 交班日期：
                 <b>{{record.changeShiftDate}}</b>
@@ -904,7 +896,7 @@ export default {
           let min=10
           const {data:{data}}=await apis.unLockTime()
           if(data!=='his_form_data_lock_timeout'){
-            min=+data 
+            min=+data
             this.$store.commit("changeSetupTime",min)
        }
       }
@@ -944,7 +936,7 @@ export default {
             },1000)
             this.$store.commit("changeCountDownId",countDownTimeId)
           }
-          
+
           // 没有锁定成功进入。把ID存入VUEX解锁用
           this.$store.commit("changeShiftRecordID",id)
           // 存入进入的时间

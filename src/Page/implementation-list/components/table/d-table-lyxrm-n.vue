@@ -503,6 +503,14 @@ export default {
           '2': '暂停',
           '4': '已执行'
         }[val + ''] || ''
+      }else if(process.env.HOSPITAL_ID == 'qhwy'){
+          return {
+          '0': '未执行',
+          '1': '执行中',
+          '2': '已结束',
+          '3': '暂停',
+          '9': '作废',
+        }[val + ''] || ''
       }
       let allStatus = [
         {

@@ -39,7 +39,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "60px"
+          minWidth: "40px"
         }
       },
       {
@@ -47,7 +47,7 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "60px"
+          minWidth: "40px"
         }
       },
       {

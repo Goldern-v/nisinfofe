@@ -183,6 +183,9 @@ export default {
           {key: "明日出院",length: this.isTommorowDischarge.length},
         )
       }
+      if (this.HOSPITAL_ID === 'lyyz') {
+        arr = arr.filter(item => item.key !== '已有压疮')
+      }
       return arr;
     }
   },

@@ -6,7 +6,7 @@
       :title="modalTitle"
       :enable-mobile-fullscreen="false"
     >
-      <div style="margin-bottom: 20px" v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='wujing'||HOSPITAL_ID==='huadu'||HOSPITAL_ID==='foshanrenyi'">
+      <div style="margin-bottom: 20px" v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='wujing'||HOSPITAL_ID==='huadu'||HOSPITAL_ID==='foshanrenyi'||HOSPITAL_ID==='nfyksdyy'">
         <span for class="title" style="margin-right: 10px">模板分类：</span>
         <el-radio v-model="templateType" label="dept">科室</el-radio>
         <el-radio v-model="templateType" label="common">公共</el-radio>
@@ -155,7 +155,7 @@ export default {
     },
     post() {
       //特殊情况,保存开启权限分类医院名
-      const isDeptList=["liaocheng","wujing","huadu","foshanrenyi"]
+      const isDeptList=["liaocheng","wujing","huadu","foshanrenyi","nfyksdyy"]
       const user=JSON.parse(localStorage.getItem("user"))
       if(isDeptList.includes(this.HOSPITAL_ID)){
         const wardCode=this.templateType==='dept'?localStorage.wardCode:""
@@ -213,7 +213,7 @@ export default {
     },
     getData() {
        //特殊情况,开启权限分类医院名
-      const isDeptList=["liaocheng","wujing","huadu","foshanrenyi"]
+      const isDeptList=["liaocheng","wujing","huadu","foshanrenyi","nfyksdyy"]
       if(isDeptList.includes(this.HOSPITAL_ID)){
         typeListByDept(localStorage.wardCode,this.HOSPITAL_ID).then(res => {
         this.typeList = res.data.data[this.templateType].map(item => {

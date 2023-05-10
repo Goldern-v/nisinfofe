@@ -47,154 +47,6 @@
     {
       "name": "",
       "type": "formGroupColBox",
-      "col": 6,
-      "colWidth": [
-        "140px",
-        "80px",
-        "80px",
-        "210px",
-        "80px",
-        "100px"
-      ],
-      "title": "一、一般资料",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "patientName",
-          "type": "input",
-          "title": "姓名",
-          "suffixDesc": "",
-          "placeholder": "",
-          "titleStyle": "width:90px!important",
-          "inputStyle": "width:90%!important",
-          "style": null,
-          "elementStyle": "width:99%;",
-          "class": null,
-          "readOnly": true,
-          "disabled": true
-        },
-        {
-          "name": "age",
-          "type": "input",
-          "labelTitle": "年龄",
-          "suffixDesc": "",
-          "placeholder": "",
-          "titleStyle": "width:40px!important",
-          "inputStyle": "width:60px!important",
-          "style": null,
-          "elementStyle": "width:95%;",
-          "class": null,
-          "readOnly": true,
-          "disabled": true
-        },
-        {
-          "name": "sex",
-          "type": "input",
-          "labelTitle": "性别",
-          "suffixDesc": "",
-          "placeholder": "",
-          "titleStyle": "width:40px!important",
-          "inputStyle": "width:50px!important",
-          "style": "padding:0;",
-          "class": null,
-          "readOnly": true,
-          "disabled": true,
-          "props": {
-            "style": "color:red;"
-          }
-        },
-        {
-          "name": "wardName",
-          "type": "input",
-          "labelTitle": "科室",
-          "suffixDesc": "",
-          "placeholder": "",
-          "titleStyle": "width:40px!important",
-          "inputStyle": "width:90%!important",
-          "elementStyle": "width:99%;",
-          "style": "color:red!important",
-          "class": null,
-          "readOnly": true,
-          "disabled": true,
-          "props": {
-            "style": "color: red!important;"
-          }
-        },
-        {
-          "name": "bedLabel",
-          "type": "input",
-          "labelTitle": "床号",
-          "suffixDesc": "",
-          "placeholder": "",
-          "titleStyle": "width:40px!important",
-          "inputStyle": "width:50px!important",
-          "style": null,
-          "class": null,
-          "readOnly": true,
-          "disabled": true
-        },
-        {
-          "name": "inpNo",
-          "type": "input",
-          "labelTitle": "住院号",
-          "suffixDesc": "",
-          "placeholder": "",
-          "titleStyle": "width:75px!important",
-          "inputStyle": "width:90%!important",
-          "style": null,
-          "class": null,
-          "readOnly": true,
-          "disabled": true
-        },
-        {
-          "name": "admissionDate",
-          "type": "input",
-          "labelTitle": "入院日期",
-          "suffixDesc": "",
-          "placeholder": "",
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:100%!important",
-          "style": "width:99%",
-          "elementStyle": "width:192px",
-          "class": null,
-          "readOnly": false,
-          "disabled": false,
-          "labelLeft": true,
-          "hiddenTips": true,
-          "tdProps": {
-            "colspan": "2"
-          }
-        },
-        {
-          "name": "I001001",
-          "type": "input",
-          "title": "入院诊断",
-          "suffixDesc": "",
-          "placeholder": "",
-          "style": "width:100%",
-          "titleStyle": "width:72px!important;padding-left:0px;",
-          "inputStyle": "width:100%!important",
-          "elementStyle": "width:100%",
-          "inputWidth": "100%",
-          "class": null,
-          "labelLeft": true,
-          "hiddenTips": true,
-          "tdProps": {
-            "colspan": "4"
-          }
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupColBox",
       "col": 3,
       "colWidth": [
         "32%",
@@ -1223,33 +1075,6 @@
           ]
         },
         {
-          "name": "I001108",
-          "type": "select",
-          "title": "药物依赖/吸毒",
-          "postTitle": "药物名称",
-          "titleStyle": "width:92px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "148px",
-          "style": null,
-          "class": null,
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": "无",
-                "title": "药物名称（药物依赖/吸毒）",
-                "parentName": "I001108",
-                "type": "dependent"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        },
-
-        {
           "name": "I001112",
           "type": "select",
           "title": "家族史",
@@ -1367,7 +1192,7 @@
           "rule": [
             {
               "dialog": {
-                "openKey": "其他",
+                "openKey": "有",
                 "cleanKey": [
                   "无",
                   "青霉素",
@@ -1471,8 +1296,6 @@
             }
           ]
         },
-
-
         {
           "name": "I001140",
           "type": "select",
@@ -1481,7 +1304,18 @@
           "inputStyle": "width:300px!important",
           "inputWidth": "180px",
           "style": null,
-          "class": null
+          "class": null,
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "异常",
+                "cleanKey": [],
+                "title": "视力异常",
+                "parentName": "I001140",
+                "type": "dependent"
+              }
+            }
+          ]
         },
         {
           "name": "I001141",
@@ -1508,9 +1342,37 @@
               "style": "color:red"
             }
           ]
+        },
+        {
+          "name": "I001975",
+          "type": "select",
+          "title": "沟通能力",
+          "multiplechoice": true,
+          "style": null,
+          "titleStyle": "width:60px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "180px",
+          "class": null,
+          "options": [
+            "正常",
+            "言语含糊",
+            "沟通障碍",
+            "失语",
+            "方言",
+            "其他"
+          ],
+          "rule": [
+            {
+              "dialog": {
+                "openKey": "其他",
+                "cleanKey": [],
+                "title": "其他情况",
+                "parentName": "I001975",
+                "type": "dependent"
+              }
+            }
+          ]
         }
-
-
       ]
     },
     {
@@ -1550,13 +1412,6 @@
         }
       ]
     },
-
-
-
-
-
-
-
     {
       "name": "",
       "type": "formGroupHR",
@@ -1839,6 +1694,24 @@
               }
             },
             {
+              "dialog": {
+                "openKey": "压疮",
+                "cleanKey": [],
+                "title": "压疮情况",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
+              "dialog": {
+                "openKey": "破损",
+                "cleanKey": [],
+                "title": "破损情况",
+                "parentName": "I001254",
+                "type": "dependent"
+              }
+            },
+            {
               "equal": "有",
               "style": "color:red"
             }
@@ -1947,53 +1820,6 @@
           ]
         }
 
-      ]
-    },
-    {
-      "name": "I001260",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "五、皮肤",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "classes": null,
-      "readOnly": true,
-      "children": [
-        {
-          "name": "I001260",
-          "type": "select",
-          "title": "压力性损伤",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
-          "class": null,
-          "options": [
-            "无",
-            "有"
-          ],
-          "rule": [
-            {
-              "dialog": {
-                "openKey": "有",
-                "cleanKey": "无",
-                "title": "预防住院患者压力性损伤护理清单",
-                "default": "预防住院患者压力性损伤护理清单",
-                "type": "independent",
-                "parentName": "S0627",
-                "showHead": "true"
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ]
-        }
       ]
     },
     {
@@ -2580,6 +2406,24 @@
           "tdProps": {
             "colspan": "1"
           }
+        },
+        {
+          "name": "I001984",
+          "type": "input",
+          "title": "手术",
+          "suffixDesc": "",
+          "placeholder": "",
+          "style": "width:100%",
+          "titleStyle": "width:72px!important;text-align: right;",
+          "inputStyle": "width:100%!important",
+          "elementStyle": "width:100%",
+          "inputWidth": "100%",
+          "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
+          "tdProps": {
+            "colspan": "2"
+          }
         }
       ]
     },
@@ -2775,7 +2619,7 @@
           "children": [
             {
               "name": "I001884",
-              "type": "radio",
+              "type": "checkbox",
               "title": "无",
               "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
@@ -2784,7 +2628,7 @@
             },
             {
               "name": "I001884",
-              "type": "radio",
+              "type": "checkbox",
               "title": "有",
               "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
@@ -2793,7 +2637,7 @@
             },
             {
               "name": "I001884",
-              "type": "radio",
+              "type": "checkbox",
               "title": "出院用药指导",
               "elementStyle": "margin: 8px 5px 0 0;",
               "elementClass": "el-radio",
@@ -2911,31 +2755,8 @@
           "style": "cursor: pointer!important",
           "class": null,
           "readOnly": true
-        },
-        {
-          "name": "auditTime",
-          "type": "input",
-          "title": "审核时间",
-          "titleStyle": "width:70px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "suffixDesc": "",
-          "style": null,
-          "class": null,
-          "readOnly": true
-        },
-        {
-          "name": "auditorName",
-          "type": "input",
-          "title": "审核人签名",
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:270px!important",
-          "inputWidth": "160px",
-          "suffixDesc": "",
-          "style": "cursor: pointer!important",
-          "class": null,
-          "readOnly": true
         }
+       
       ]
     }
   ],

@@ -5,7 +5,7 @@
     size="small"
     :title="title1 || title"
     :overlay-theme="overlayTheme"
-    style="z-index: 10002"
+    style="z-index: 10004"
     class="signModal"
   >
     <div v-show="message && message.length > 0" class="message-box">
@@ -274,7 +274,6 @@ export default {
   methods: {
     showSignBtn(){
       if(this.hasQrCaSignHos.includes(this.HOSPITAL_ID)){
-      // if(['fuyou'].includes(this.HOSPITAL_ID)){
         return this.isCaSign
       }else{
         return false
@@ -507,7 +506,7 @@ export default {
           });
           return this.btnLoading = false
         }
-         if(['nanfangzhongxiyi勿删'].includes(this.HOSPITAL_ID)){
+         if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
           const nanFangcaToken = localStorage["nanFangcaToken"] || ""
           const nanFangcaLogin = localStorage["nanFangcaLogin"] || ""
           nanfnagCaSign(this.username,this.password,this.verifySignObj,nanFangcaToken,nanFangcaLogin).then(res1=>{

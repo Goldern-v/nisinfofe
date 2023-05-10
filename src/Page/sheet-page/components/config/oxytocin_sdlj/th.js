@@ -1,19 +1,21 @@
+import {keyf1, limitChange} from '@/Page/sheet-page/components/config/keyEvent/f1'
+
 export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "800px"
+    width: "845px"
   },
   th: {
     top: [
       {
         name: '',
         style: {},
-        colspan: "2", 
+        colspan: "2",
         rowspan: "1",
         key:'recordYear'
       },
-     
+
       {
         name: '体温<br/>（℃）',
         style: {
@@ -115,8 +117,9 @@ export default {
         },
         colspan: '1',
         rowspan: '3',
-        canSet: false,
-      },{
+      },
+      {name:"",colspan:"1",rowspan:"3", canSet: true, key: "customItem1",style:{minWidth:"45px",maxWidth:"45px"}},
+      {
         name: `特殊情况记录`,
         style: {
           minWidth: '153px',
@@ -130,7 +133,7 @@ export default {
         `,
         style: {
           minWidth: '46px',
-          // maxWidth: '72px',
+          maxWidth: '72px',
         },
         colspan: '1',
         rowspan: '3'
@@ -144,7 +147,8 @@ export default {
       //     // maxWidth: '72px',
       //   },
       //   colspan: '1',
-      //   rowspan: '3'
+      //   rowspan: '3',
+      //   hidden:true
       // }
     ],
     mid: [

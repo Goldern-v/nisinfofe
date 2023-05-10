@@ -502,7 +502,7 @@
                       <i class="birthCertificate"></i>统计查询
                     </el-row>
                     <el-dropdown-menu slot="dropdown">
-                      <template>
+                      <!-- <template>
                         <el-dropdown-item
                           :class="{
                             active: $route.path == '/cognitiveStatistic'
@@ -516,6 +516,24 @@
                             >
                               <i class="cognitiveStatistic"></i
                               >住院病人认知情况统计表
+                            </el-row>
+                          </router-link>
+                        </el-dropdown-item>
+                      </template> -->
+                      <template>
+                        <el-dropdown-item
+                          :class="{
+                            active: $route.path == '/cognitiveStatistic'
+                          }"
+                        >
+                          <router-link to="/statisticalReport" tag="span">
+                            <el-row
+                              class="menu-item"
+                              type="flex"
+                              align="middle"
+                            >
+                              <i class="cognitiveStatistic"></i
+                              >危重症病例统计表
                             </el-row>
                           </router-link>
                         </el-dropdown-item>

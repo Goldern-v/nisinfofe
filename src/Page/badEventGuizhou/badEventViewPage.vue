@@ -56,7 +56,7 @@
             >保存</Button
           >
           <Button
-          v-if="HOSPITAL_ID == 'guizhou' ? itemDataMap.B0002061 != '2' :true"
+            v-if="isGZ ? itemDataMap.B0002061 != '2' :true"
             class="btn"
             :disabled="badEventLoad || isDisabled"
             @click="saveEdit"
@@ -66,27 +66,27 @@
             class="btn"
             :disabled="badEventLoad || isDisabled"
             @click="deleteEdit"
-            v-if="HOSPITAL_ID != 'guizhou'"
+            v-if="!isGZ"
             >删除</Button
           >
           <Button
             class="btn"
             :disabled="badEventLoad || isDisabled3"
             @click="revoke"
-            v-if="HOSPITAL_ID != 'guizhou'"
+            v-if="!isGZ"
             >撤销</Button
           >
           <Button
             class="green-btn btn"
             :disabled="badEventLoad || isDisabled2"
             @click="uploadEdit"
-            v-if="HOSPITAL_ID == 'guizhou' ? itemDataMap.B0002061 != '2' :true"
+            v-if="isGZ ? itemDataMap.B0002061 != '2' :true"
             >上报</Button
           >
         </div>
         <div class="track-area">
           <div class="viewbar-right-title">事件轨迹：</div>
-          <div class="trackEvents" v-if="HOSPITAL_ID == 'guizhou' ? itemDataMap.B0002061 != '2' :true">
+          <div class="trackEvents" v-if="isGZ ? itemDataMap.B0002061 != '2' :true">
             <el-steps
               class="viewbar-right-steps"
               :active="stepStatus"
@@ -423,6 +423,8 @@ export default {
       currentNodeCode: "", //当前审核节点
       itemDataMap:{}, //表单数据
       stepNext: {}, // 下一步
+      // 是否贵州
+      isGZ: ["guizhou", '925'].includes(this.HOSPITAL_ID)
     };
   },
   computed: {
@@ -469,7 +471,7 @@ export default {
         let nextIdx = handlenodeDto.indexOf(stepCurrent) + 1
         this.stepNext = handlenodeDto[nextIdx] || {}
       }
-      if (this.HOSPITAL_ID == "guizhou") {
+      if (this.isGZ) {
         this.updateUI(handlenodeDto);
         return;
       }
@@ -503,8 +505,7 @@ export default {
           if (
             (this.HOSPITAL_ID == "nys" &&
               (host == "info.cr-health.com:20201" ||
-                host == "192.168.1.54:8062")) ||
-            this.HOSPITAL_ID == "guizhou"
+                host == "192.168.1.54:8062")) || this.isGZ
           ) {
             formHTMLName += ".html";
           }
@@ -543,7 +544,7 @@ export default {
     updateUI(stream) {
       let isFlag = false,
         nextStatusObj;
-      if (this.HOSPITAL_ID == "guizhou") {
+      if (this.isGZ) {
         this.steps = stream.map((item, index) => {
           let operatorName = "",
             operateDate = "",
@@ -586,7 +587,7 @@ export default {
           let operatorName = "",
             operateDate = "",
             status = "";
-          if (this.HOSPITAL_ID == "guizhou") {
+          if (this.isGZ) {
             operatorName = item.handlerName || "未完成";
             operateDate = item.handleTime
               ? moment(item.handleTime).format("YYYY-MM-DD HH:mm")
@@ -722,7 +723,7 @@ export default {
       }
     },
     uploadEdit() {
-      if (this.HOSPITAL_ID == "guizhou") {
+      if (this.isGZ) {
         this.wid.CRForm.controller.aduitForm(
           this.$router,
           this.stepNext.nodeCode || ''
@@ -734,30 +735,6 @@ export default {
         this.$router,
         false
       );
-
-      // if (this.wid) {
-      //   this.$confirm(
-      //   `是否要匿名上报?`,
-      //   "提示",
-      //   {
-      //     confirmButtonText: "是",
-      //     cancelButtonText: "否",
-      //     type: "info"
-      //   }
-      // ).then(() => {
-      //   this.wid.CRForm.controller.aduitForm(
-      //     this.$route.params.status,
-      //     this.$router,
-      //     true
-      //   );
-      // }).catch(() => {
-      //   this.wid.CRForm.controller.aduitForm(
-      //     this.$route.params.status,
-      //     this.$router,
-      //     false
-      //   );
-      // });
-      // }
     },
     // 撤销上报
     revoke() {

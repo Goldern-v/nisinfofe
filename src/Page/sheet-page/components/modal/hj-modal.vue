@@ -1,10 +1,17 @@
 <template>
-  <div>
+  <div
     <sweet-modal ref="modal" :modalWidth="500" title="出入量统计">
       <div class="time-type-button" v-if="HOSPITAL_ID=='liaocheng'">
         <el-button-group>
           <el-button :class="[active=='today'?'active-btn':'']" @click="initTime('today')">白班小结</el-button>
           <el-button :class="[active=='yesterday'?'active-btn':'']" @click="initTime('yesterday')">24小时小结</el-button>
+        </el-button-group>
+      </div>
+      <div class="time-type-button" v-if="HOSPITAL_ID=='liaocheng'|| HOSPITAL_ID=='nfyksdyy'">
+        <el-button-group>
+          <el-button :class="[active=='today1'?'active-btn':'']" @click="initTime('today1')">白班小结</el-button>
+          <el-button :class="[active=='today2'?'active-btn':'']" @click="initTime('today2')">P班小结</el-button>
+          <el-button :class="[active=='yesterday1'?'active-btn':'']" @click="initTime('yesterday1')">24小时小结</el-button>
         </el-button-group>
       </div>
       <!-- 北海 -->
@@ -114,7 +121,10 @@ export default {
       this.active = type
       let timeObject = {
         'today':[moment().format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 17:00")],
-        'yesterday':[moment().subtract(1,'days').format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 07:00")]
+        'yesterday':[moment().subtract(1,'days').format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 07:00")],
+        'today1':[moment().format("YYYY-MM-DD 07:01"),moment().format("YYYY-MM-DD 15:00")],
+        'today2':[moment().format("YYYY-MM-DD 15:01"),moment().format("YYYY-MM-DD 23:00")],
+        'yesterday1':[moment().subtract(1,'days').format("YYYY-MM-DD 07:01"),moment().format("YYYY-MM-DD 07:00")]
       }
       this.date = timeObject[type]
     },

@@ -1,12 +1,11 @@
 <template>
   <div>
     <div class="body" :style="{ height: height }" v-loading="treeLoading">
-      <div class="record-box">
+      <div class="record-box" v-if="handelQuery() == 'record'">
         <div
           class="title"
           style="cursor: pointer"
           @click="setItemShow('one')"
-          v-if="handelQuery() == 'record'"
         >
           护理文书
         </div>
@@ -45,7 +44,7 @@
           <span class="name">体温单</span>
         </div>
       </div>
-      <div v-if="showBloodSugar.includes(HOSPITAL_ID)">
+      <div v-if="(handelQuery() == 'nursingPreview' && showSheetorSugat.includes(HOSPITAL_ID)) || showBloodSugar.includes(HOSPITAL_ID) ">
         <div @click="setItemShow('four')" class="title">血糖</div>
         <div
           v-if="isShowObj.four"
@@ -254,7 +253,6 @@ export default {
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
       showBloodSugar: [
-        "guizhou",
         "hengli",
         "huadu",
         "whfk",
@@ -265,6 +263,8 @@ export default {
         "fsxt",
         'lyxrm'
       ], // 是否开放血糖模块
+      // 需要护理和血糖分开
+      showSheetorSugat:[ "guizhou",],
       showBloodOxygen: ["whfk"], // 是否开放血氧模块
       timer: null,
       showAddRecord: ['whsl'].includes(this.HOSPITAL_ID)

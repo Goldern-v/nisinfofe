@@ -134,7 +134,7 @@
                   flex-box="1"
                   class="bottom-line"
                   :style="{
-                    'font-size': '24px',
+                    'font-size':  isWhhk? '19px':'24px',
                     'text-align': isZhzxy ? 'center' : '',
                   }"
                   v-model="formData.diet"
@@ -915,6 +915,7 @@ export default {
       isPrint: false,
       isZhzxy: ["zhzxy"].includes(this.HOSPITAL_ID),
       isDglb: ["dglb"].includes(this.HOSPITAL_ID),
+      isWhhk: ["whhk"].includes(this.HOSPITAL_ID),
     };
   },
   computed: {
@@ -1060,6 +1061,7 @@ export default {
           break;
         case "lyxrm":
         case "stmz":
+        case "gdtj":
           qr_png_value = "P" + this.query.patientId;
           break;
         case "whhk":
@@ -1100,10 +1102,10 @@ export default {
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
       let showqrCodeNum = "";
-      if (["zhzxy"].includes(this.HOSPITAL_ID)) {
+      if (["zhzxy",'gdtj'].includes(this.HOSPITAL_ID)) {
         showqrCodeNum = this.query.patientId;
       }
-      this.qrCodeNum = ["zhzxy"].includes(this.HOSPITAL_ID)
+      this.qrCodeNum = ["zhzxy",'gdtj'].includes(this.HOSPITAL_ID)
         ? showqrCodeNum
         : qr_png_value;
     },
@@ -1183,7 +1185,11 @@ export default {
               el.style.boxSizing = "border-box";
               el.style.border = "2px solid #000";
               el.style.marginLeft = "50mm";
-            } else {
+            } else if (this.isWhhk) {
+              el.style.boxSizing = "border-box";
+              el.style.margin="0"
+              el.style.transform="translate(0px, 10mm) scale(1, 1.18)"
+            }else {
               el.style.marginLeft = "194mm";
             }
           },
