@@ -1834,6 +1834,13 @@ export default function Title(
     );
   }
   break;
+    case "postpartum2_sdry": {
+      // 顺德人医 - 产后产房观察记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/postpartum2_sdry/th.js").default)
+      );
+    }
+      break;
   case "magnesiumsulphate_sdry": {
     // 顺德"硫酸镁注射液静脉滴注观察记录单
     Th = JSON.parse(
@@ -2100,6 +2107,13 @@ export default function Title(
     );
   }
   break;
+    case "baby2_sdry": {
+      // 顺德人医 - 护理记录单（儿科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/baby2_sdry/th.js").default)
+      );
+    }
+      break;
   case "postpartum2_tj": {
     // 广东同江 - 产后护理记录单
     Th = JSON.parse(

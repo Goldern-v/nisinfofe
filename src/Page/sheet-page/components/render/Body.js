@@ -1426,6 +1426,11 @@ function switchSheetType(type) {
       schema = require("../config/orthopaedic_sdry/tr.js").default;
     }
     break;
+    case "postpartum2_sdry": {
+      //顺德人医 - 产后产房观察记录单
+      schema = require("../config/postpartum2_sdry/tr.js").default;
+    }
+      break;
     case "magnesiumsulphate_sdry": {
       // 顺德人医"硫酸镁注射液静脉滴注观察记录单"
       schema = require("../config/magnesiumsulphate_sdry/tr.js").default;
@@ -1621,6 +1626,11 @@ function switchSheetType(type) {
          schema = require("../config/prenatal_sdry/tr.js").default;
        }
          break;
+    case "baby2_sdry": {
+      // 顺德人医 - 护理记录单（儿科）
+      schema = require("../config/baby2_sdry/tr.js").default;
+    }
+      break;
     case "postpartum2_tj": {
       // 广东同江 - 产后护理记录单
       schema = require("../config/postpartum2_tj/tr.js").default;
