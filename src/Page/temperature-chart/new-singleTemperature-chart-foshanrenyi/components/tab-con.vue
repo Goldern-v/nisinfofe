@@ -609,10 +609,12 @@ export default {
         this.getList();
         this.bus.$emit("dateChangePage", this.query.entryDate);
         }
+        this.bus.$emit("watchQueryDate", this.query);
       },
       deep: true,
     },
     patientInfo() {
+      this.bus.$emit("watchQueryDate", this.query);
       this.isUpdate = false;
     },
   },
@@ -1014,6 +1016,8 @@ export default {
         let otherDic = [];
         let data = [];
         let obj = [];
+        let baseDictMap = {};
+        let otherDictMap = {};
         res.data.data.map((item, index) => {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
@@ -1024,10 +1028,12 @@ export default {
             case "base":
             if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
+              baseDictMap[item.vitalCode] = item.vitalSign;
               break;
             case "other":
             if(!["表顶注释","表底注释"].includes(item.vitalSign))
               otherDic[item.vitalSign] = item.vitalCode;
+              otherDictMap[item.vitalCode] = item.vitalSign;
               break;
             default:
               break;
@@ -1048,6 +1054,11 @@ export default {
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
         this.init();
+        this.bus.$emit('getMultiDict', {
+          baseDictMap,
+          otherDictMap,
+          customDictMap: this.fieldList,
+        });
       });
     },
     async rightMouseDown(e, dateTime, recordPerson) {
@@ -1172,7 +1183,6 @@ export default {
     },
     /* 录入体温单 */
     async saveVitalSign(value) {
-      console.log('value', value)
       let obj = Object.values(value);
       let recordDate =
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +

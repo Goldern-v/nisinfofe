@@ -1,6 +1,7 @@
 <template>
   <div>
     <boxBase title="值班医生" :icon="require('../images/值班医生.png')">
+      <span slot="head-tool" @click.stop="saveData">保存</span>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" :class="{'body-con-hd':HOSPITAL_ID=='huadu'}" v-if="HOSPITAL_ID=='huadu'">
         <div flex="cross:center">
           <div class="label">值班医生：</div>
@@ -24,18 +25,18 @@
       </div>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else-if="HOSPITAL_ID =='nfyksdyy'">
         <div flex="cross:center">
-          <div class="label">值班医生：</div>
-          <input flex-box="1" v-model="data.mainClassDoctor" @blur="update" />
+          <div class="label"><input style="width: 65px;border: none;padding-left: 0;color: #0000FF" v-model="data.customization1" />:</div>
+          <input flex-box="1" v-model="data.mainClassDoctor"  />
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
-          <div class="label">副班医生：</div>
-          <input flex-box="1" v-model="data.onDutyDoctor" @blur="update" />
+          <div class="label"><input style="width: 65px;border: none;padding-left: 0;color: #0000FF" v-model="data.customization2"  />:</div>
+          <input flex-box="1" v-model="data.onDutyDoctor"  />
         </div>
         <div style="height: 15px"></div>
         <div flex="cross:center">
-          <div class="label">门诊医生</div>
-          <input flex-box="1" v-model="data.secondTierDoctor" @blur="update" />
+          <div class="label"><input style="width: 65px;border: none;padding-left: 0;color: #0000FF" v-model="data.customization3"/>:</div>
+          <input flex-box="1" v-model="data.secondTierDoctor"  />
         </div>
         <div style="height: 15px"></div>
 
@@ -201,6 +202,8 @@ export default {
   },
   created() {
     this.bus.$on("indexGetAllData", this.getData);
+
+
   },
   methods: {
     getData() {
@@ -209,7 +212,14 @@ export default {
         this.list = res.data.data.nurseDept;
         this.pageLoading = false;
       });
+    },
+    saveData() {
+      this.update().then(res => {
+        this.$message.success("保存成功");
+        this.isSave = true;
+      });
     }
+
   },
   components: {
     boxBase

@@ -10,7 +10,7 @@ export function getList(data) {
 
 export function exportExcel(obj) {
   return axios.post(
-      `${apiPath}patientStatistics/exportExcel`,
+      `${apiPath}patientCriticallyIll/exportExcel`,
       obj, {
       responseType: "blob"
   }

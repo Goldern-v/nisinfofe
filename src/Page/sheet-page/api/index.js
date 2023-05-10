@@ -222,6 +222,11 @@ export const updateSheetHeadInfo = (obj = {}) => {
   return axios.post(`${apiPath}record/block/updateInfo`, obj);
 };
 
+// 获取患者转科记录
+export const getNurseAdtLog = (patientId, visitId) => {
+  return axios.get(`${apiPath}nurseLog/getNurseAdtLog/${patientId}/${visitId}`);
+};
+
 // 获取his患者体征
 export const getVitalSign = (patientId, visitId, recordDate,itemType,repeatIndicator,id,hospitalId,instructions) => {
   if(hospitalId=="wujing"){

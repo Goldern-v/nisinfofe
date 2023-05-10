@@ -4,7 +4,7 @@
     .main-contain
       dTable(:tableData="tableData" :pageLoadng="pageLoadng" ref="area" )
       .head-con(flex="main:justify cross:center")
-        pagination(:size="page.pageSize" :pageIndex="page.pageIndex" @sizeChange="handleSizeChange"
+        pagination(:size="page.pageSize" :pageIndex="page.pageIndex" :total="page.pageCount" @sizeChange="handleSizeChange"
         @currentChange="handleCurrentChange")
 
     .search-con
@@ -148,7 +148,7 @@ export default {
       startDate: this.$refs.searchCon.data.startDate && moment(this.$refs.searchCon.data.startDate).format("YYYY-MM-DD HH:mm:ss"),
       endDate: this.$refs.searchCon.data.endDate && moment(this.$refs.searchCon.data.endDate).format("YYYY-MM-DD HH:mm:ss")
       };
-      exportExcel(obj).then(res => {
+      exportExcel(data).then(res => {
         fileDownload(res);
       });
     }
