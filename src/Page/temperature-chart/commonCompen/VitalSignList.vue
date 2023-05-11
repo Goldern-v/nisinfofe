@@ -5,6 +5,7 @@
     :close-on-click-modal="false"
     @close="close"
     :append-to-body="false"
+    modalClass="vital-list-modal"
   >
     <div class="modal-table" :style="{ height: `${height}px` }">
       <div class="table__header-wrapper" ref="headerRef">
@@ -251,6 +252,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  /deep/.el-dialog__wrapper {
+    z-index: 10001!important;
+  }
   .modal-table {
     height: 450px;
     width: 100%;
