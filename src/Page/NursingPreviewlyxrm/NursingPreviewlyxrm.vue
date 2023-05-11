@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="content NursingPreview">
+    <div class="content NursingPreview" :class="hospital">
         <component :is="otherComponent" v-if="otherComponent"></component>
       </div>
   </div>
@@ -54,6 +54,17 @@
 }
 
 .content {
+  &.nfyksdyy{
+    >>> .sugr-page{
+      box-shadow:none ;
+      height: 1350px ;
+      padding-top:0 ;
+      margin-top:0;
+    }
+    >>> .blood-sugar-table.table-box td{
+      height: 41px;
+    }
+  }
   .left-part {
     float: left;
     width: 240px;
@@ -137,6 +148,11 @@ export default {
         patientInfo.wardCode = data.wardCode;
         this.$store.commit("upPatientInfo", patientInfo);
       });
+    }
+  },
+  computed:{
+    hospital(){
+      return process.env.HOSPITAL_ID
     }
   },
   components: {

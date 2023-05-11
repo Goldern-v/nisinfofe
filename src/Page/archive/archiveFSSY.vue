@@ -48,6 +48,8 @@
           <el-input v-model="query.inpNo" placeholder="请输入患者住院号"   size="small" style="width:190px"/>
         </template>
         <button @click.stop="search">查询</button>
+        <button v-if="['zhzxy'].includes(HOSPITAL_ID)" @click.stop="allArchive">批量归档</button>
+        <button v-if="['zhzxy'].includes(HOSPITAL_ID)" @click.stop="allturnPDF">批量转pdf</button>
       </div>
       <div
         class="filterItem"
@@ -318,6 +320,8 @@ var moment = require("moment"); //使用时间插件
 import Cookie from "js-cookie";
 import {
   getArchiveList,
+  uploadBatch,
+  genDocBatch,
   generateArchive,
   previewArchive,
   uploadFileArchive,
@@ -434,6 +438,48 @@ export default {
       this.query.pageIndex = 1;
       this.query.pageSize = 20;
       this.getArchiveList();
+    },
+    allArchive(){
+      let params = {
+        pageSize:"",
+        pageIndex:"",
+        dischargeDateBegin:moment(
+          this.query.dischargeDateBegin
+        ).format("YYYY-MM-DD"),
+        dischargeDateEnd:moment(this.query.dischargeDateEnd).format("YYYY-MM-DD"),
+        wardCode:this.deptCode,
+        showStatus:"",
+        patientName:"",
+        inpNo:""
+      }
+      uploadBatch(params).then(res=>{
+        this.$message({
+          type: "success",
+          message: "正在批量归档，请稍等"
+        });
+        this.getArchiveList()
+      })
+    },
+    allturnPDF(){
+      let params = {
+        pageSize:"",
+        pageIndex:"",
+        dischargeDateBegin:moment(
+          this.query.dischargeDateBegin
+        ).format("YYYY-MM-DD"),
+        dischargeDateEnd:moment(this.query.dischargeDateEnd).format("YYYY-MM-DD"),
+        wardCode:this.deptCode,
+        showStatus:"",
+        patientName:"",
+        inpNo:""
+      }
+      genDocBatch(params).then(res=>{
+        this.$message({
+          type: "success",
+          message: "正在批量转pdf，请稍等"
+        });
+        this.getArchiveList()
+      })
     },
     //科室患者归档列表
     getArchiveList() {
