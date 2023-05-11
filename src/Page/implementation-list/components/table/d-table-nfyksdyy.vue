@@ -537,6 +537,8 @@ export default {
       // 时间选择权限：护长
       isTimeSelect: this.HOSPITAL_ID === 'beihairenyi' && this.isRoleManage,
       typeReason: "", //补执行的原因填写
+      tableScrollTop: 0,
+      timer: null
     };
   },
   filters: {
@@ -601,6 +603,9 @@ export default {
     // 是否输液
     isInfusion() {
       return this.currentType.includes('输液') || this.currentType.includes('全部')
+    },
+    tableBodyWrapper() {
+      return this.$refs.uTable.$refs.singleTable.$refs.bodyWrapper;
     }
   },
   watch: {
@@ -610,7 +615,15 @@ export default {
           this.$refs.uTable.doLayout();
         })
       }
-    }
+    },
+    tableData() {
+      if (this.tableScrollTop) {
+        this.timer = setTimeout(() => {
+          this.$refs.uTable.$refs.singleTable.$refs.bodyWrapper.scrollTop = this.tableScrollTop;
+          this.tableScrollTop = 0;
+        }, 1000)
+      }
+    },
   },
   components: {
     editModal,
@@ -689,6 +702,9 @@ export default {
           fn(data).then((res) => {
             this.$message.success("补录成功");
             this.bus.$emit("loadImplementationList");
+            if (this.tableBodyWrapper) {
+              this.tableScrollTop = this.tableBodyWrapper.scrollTop;
+            }
           });
         })
         .catch(() => {});
@@ -750,6 +766,9 @@ export default {
       ? // && JSON.parse(localStorage.user).post == "护长"
         true
       : false;
+  },
+  beforeDestroy() {
+    clearTimeout(this.timer);
   }
 }
 </script>
