@@ -443,13 +443,10 @@ export default {
     },
     // 腕带打印
     openWristPrint(printMode) {
-      if (
-        ["huadu", "liaocheng", "zhzxy", "whhk", "dglb"].includes(
-          this.HOSPITAL_ID
-        )
-      ) {
+      if (["huadu", "liaocheng", "zhzxy", "whhk",'dglb'].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalHd.open(printMode);
-      } else if (this.HOSPITAL_ID == "zhongshanqi") {
+      }
+      else if (this.HOSPITAL_ID == "zhongshanqi") {
         this.$refs.bedModalZsq.open(printMode);
       } else if (this.HOSPITAL_ID == "beihairenyi") {
         this.$refs.bedModalBh.open(printMode);
@@ -531,7 +528,7 @@ export default {
     bedModalstmz,
     bedModalGDTJ,
     bedModalWhsl,
-    bedPrtingModal
+    bedPrtingModal,
   },
 };
 </script>

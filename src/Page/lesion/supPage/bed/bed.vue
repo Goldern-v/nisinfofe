@@ -48,6 +48,7 @@
         :list="bedList"
       ></printView>
       <printHdModal ref="bedModalHd"></printHdModal>
+      <bedModal ref="bedModal"></bedModal>
     </div>
 
     <div class="advice-tips" v-show="!loading">
@@ -216,6 +217,8 @@ import printHdModal from "./component/prints/modals.vue";
 import common from "@/common/mixin/common.mixin.js";
 import printsModal from "./component/bed-item-hd/prints-model.vue";
 import printView from "./component/prints/prints-view.vue";
+import bedModal from "@/Page/patientInfo/supComponts/modal/bed-modal.vue";
+
 import qs from "qs";
 export default {
   mixins: [common],
@@ -260,7 +263,7 @@ export default {
         case "qhwy":
         case "gdtj":
         case "ytll":
-       
+
         case "whsl":
         case "zhzxy":
         case "whhk":
@@ -347,11 +350,18 @@ export default {
       this.pmodalShow = false;
     },
     surePrints(selectValue) {
-      console.log(this.$refs.bedModalHd);
+      // console.log(this.$refs.bedModalHd);
       this.$refs.bedModalHd.open(this.printMode, selectValue);
+      return
+      if(this.HOSPITAL_ID == 'dglb'){
+        this.$refs.bedModalLb.open(this.printMode, selectValue);
+      }else{
+      }
     },
+
+
     toPrints(printMode) {
-      this.printMode = printMode; 
+      this.printMode = printMode;
       this.pBtnShow = false;
       this.pmodalShow = true;
     },
@@ -361,7 +371,7 @@ export default {
       }
       this.$refs.printmodal.$el.style.top = event.clientY - 50 + "px";
       this.$refs.printmodal.$el.style.left = event.clientX + "px";
-      
+
       this.pBtnShow = true;
     },
     handleClick(tab, event) {
@@ -483,6 +493,7 @@ export default {
     printsModal,
     printView,
     printHdModal,
+    bedModal
   },
 };
 </script>
