@@ -10,11 +10,11 @@
     <!-- {{sheetInfo.relObj}} -->
     <div v-if="sheetInfo.sheetType === 'contraction_inhibitor_sdry'||sheetInfo.sheetType === 'magnesiumsulphate_sdry'">
     <div class="info-con">
-     <span>
+     <span  >
         科室:
         <div class="bottom-line" style="min-width: 266px">{{patientInfo.realDeptName}}</div>
       </span>
-      <span>
+      <span >
         病区:
         <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
       </span>
@@ -55,7 +55,7 @@
         诊断:
         <div  class="bottom-line" style="min-width: 163px">{{patientInfo.diagnosis}}</div>
       </span> -->
-      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)" v-if="!diagnosisList.includes(sheetInfo.sheetType)">
         诊断：
         <div
           class="bottom-line"
@@ -69,6 +69,8 @@
           {{ diagnosis }}
         </div>
       </span>
+
+
       <!-- <span>
         ID号:
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
@@ -90,8 +92,8 @@
      </div>
     </div>
     <div v-else>
-      <div class="info-con">
-      <span>
+      <div class="info-con"  v-if="sheetInfo.sheetType !=='postpartum2_sdry'">
+        <span>
           科室:
           <div class="bottom-line" style="min-width: 400px">{{patientInfo.realDeptName}}</div>
         </span>
@@ -99,31 +101,35 @@
           病区:
           <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
         </span>
-        <!-- <span>
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry' ||
+               sheetInfo.sheetType=='postpartum_sdry' ||
+                sheetInfo.sheetType=='baby_sdry'">
          特殊情况：
         <input
           style="width: 200px;font-size:13px;text-align: center;"
           class="bottom-line"
-          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
-          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          :data-value="sheetInfo.relObj.tsqk"
+          v-model="sheetInfo.relObj.tsqk"
         />
-        </span>-->
-        <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
+        </span>
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry' ||
+               sheetInfo.sheetType=='postpartum_sdry' ||
+                sheetInfo.sheetType=='baby_sdry'">
           过敏史：
           <input
-          style="width: 35px;font-size:13px;text-align: center;"
+          style="width: 130px;font-size:13px;text-align: center;"
           class="bottom-line"
-          :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
-          v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
+          :data-value="sheetInfo.relObj.guomishi"
+          v-model="sheetInfo.relObj.guomishi"
         />
         </span>
         </div>
-      <div class="info-con" >
+      <div class="boxLine">
         <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
           姓名:
           <div class="bottom-line" style="min-width: 65px">{{patientInfo.patientName}}</div>
         </span>
-        <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
+        <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)"  v-if="sheetInfo.sheetType !=='postpartum2_sdry'">
           性别:
           <div class="bottom-line" style="min-width: 30px">{{patientInfo.sex}}</div>
         </span>
@@ -137,7 +143,8 @@
         </span>
         <span v-if="['orthopaedic_sdry', 'oxytocin_sdry', 'insulin_pump_sdry'].includes(sheetInfo.sheetType)">
           床号：
-          <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
+
+          <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal" >
             {{ patientInfo.bedLabel }}
             <!-- {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }} -->
           </div>
@@ -156,12 +163,12 @@
           诊断:
           <div  class="bottom-line" style="min-width: 480px">{{patientInfo.diagnosis}}</div>
         </span> -->
-        <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+        <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)" v-if="!diagnosisList.includes(sheetInfo.sheetType)">
           诊断：
           <div
             class="bottom-line"
             style="
-              width: 480px;
+              width: 239px;
               height: 11px;
               text-overflow: ellipsis;
               white-space: nowrap;
@@ -170,6 +177,37 @@
             {{ diagnosis }}
           </div>
         </span>
+        <!-- 顺德人医产后产房观察记录单 -->
+        <span  v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
+          分娩时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+        </span>
+
+            <span  v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
+          胎盘娩出时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+        </span>
+        <span  v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
+          会阴情况：
+          <input
+          style="width: 100px;font-size:13px;text-align: center;"
+          class="bottom-hava-line"
+          :data-value="sheetInfo.relObj[`${index}perinealCondition`]"
+          v-model="sheetInfo.relObj[`${index}perinealCondition`]"
+        />
+        </span>
+
+
         <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
         孕产史：孕
         <input
@@ -193,7 +231,8 @@
         />
         周
       </span>
-      <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
+
+      <span  v-if="sheetInfo.sheetType=='prenatal_sdry'  ">
         破膜时间：
           <crDatePicker
             :data-value="sheetInfo.relObj.laborTime"
@@ -202,6 +241,16 @@
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
       </span>
+
+        分娩方式：
+       <customSelectCanRepeat
+        v-if="sheetInfo.sheetType=='prenatal_sdry' || 'postpartum2_sdry'"
+          :options="options"
+          multiple
+          @onSelect="(val) => setRelValue(`${index}options`, val)"
+        >
+          <input :data-value="sheetInfo.relObj[`${index}options`]" v-model="sheetInfo.relObj[`${index}options`]" style="width:160px;">
+        </customSelectCanRepeat>
 
       </div>
     </div>
@@ -218,6 +267,7 @@ import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
 import bus from "vue-happy-bus";
 import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
+import customSelectCanRepeat from '@/components/customSelectCanRepeat/CustomSelectCanRepeat.vue'
 import bedRecordModal from "../../../modal/bedRecord-modal";
 import { saveBody, queryDianosisList }  from  "@/api/sheet.js"
 
@@ -232,19 +282,41 @@ export default {
       bus: bus(this),
       sheetInfo,
       bedShow:false,
+      options: [{
+          value: '顺产',
+          name: '顺产'
+        }, {
+          value: '吸引产',
+          name: '吸引产'
+        }, {
+          value: '剖宫产',
+          name: '剖宫产'
+        }, {
+          value: '钳产',
+          name: '钳产'
+        }, {
+          value: '臀助产',
+          name: '臀助产'
+        }, {
+          value: '臀牵引',
+          name: '臀牵引'
+        }],
       //不需要入院日期的表单
       admissionDateList: [
         'blood_tj',
         'generalnursing_tj'
       ],
-      //不需要诊断的表单
+      //不需要诊断的表单postpartum_sdry  baby_sdry    prenatal_sdry
       diagnosisList: [
-        'postpartum2_tj',
-        'prenataldelivery2_tj',
-        'pediatric3_tj',
-        'baby_tj',
-        'blood_tj'
+        'prenatal_sdry',
+        'postpartum_sdry',
+        'baby_sdry',
+        'postpartum2_sdry'
       ],
+      // 不需要显示科室的表单
+      // realDeptNameList:[
+      //   postpartum2_sdry
+      // ],
     };
   },
   mounted() {},
@@ -402,6 +474,9 @@ export default {
         `修改${label}`
       );
     },
+    setRelValue(code, val) {
+      this.$set(this.sheetInfo.relObj, code, val)
+    },
     openBedRecordModal(){
       if (this.readOnly) {
         return this.$message.warning("你无权操作此护记，仅供查阅");
@@ -501,6 +576,7 @@ export default {
   components: {
     bedRecordModal,
     crDatePicker,
+    customSelectCanRepeat,
   },
   async created(){
     if(this.index!=0){
@@ -540,6 +616,9 @@ input.bottom-line {
 }
 .bottom-line{
   border-bottom: none;
+}
+.bottom-hava-line{
+   border-bottom: 1px solid #000;
 }
 input[type='checkbox'] {
   -webkit-appearance: none;

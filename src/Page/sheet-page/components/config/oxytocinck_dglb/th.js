@@ -46,8 +46,8 @@ export default {
         血压<br>mmHg
         `,
         style: {
-          minWidth: '120px',
-          maxWidth: '140px'
+          minWidth: '60px',
+          maxWidth: '60px'
         },
         colspan: '1',
         rowspan: '3',
@@ -72,8 +72,8 @@ export default {
       },{
         name: `宫缩<br>min`,
         style: {
-          minWidth: '40px',
-          maxWidth: '40px'
+          minWidth: '90px',
+          maxWidth: '90px'
         },
         colspan: '1',
         rowspan: '3'

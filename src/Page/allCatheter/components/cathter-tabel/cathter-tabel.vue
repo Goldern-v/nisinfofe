@@ -11,12 +11,24 @@
                         <div :style="{width:'140px'}">置管来源：{{tableInfo.catheterSource}}</div>
                     </div>
                     <div class="up-cathter">
-                        <div style="cursor:pointer;" v-show="!!tableInfo.replaceTime" @dblclick="changeReplaceTime">更换时间：{{tableInfo.replaceTime}}</div>
-                        <div style="cursor:pointer;" v-show="!tableInfo.replaceTime" @dblclick="changeReplaceTime">更换时间：未确定</div>
+                        <div style="cursor:pointer;" v-show="!!tableInfo.replaceTime" @dblclick="changeReplaceTime">计划更换时间：{{tableInfo.replaceTime}}</div>
+                        <div style="cursor:pointer;" v-show="!tableInfo.replaceTime" @dblclick="changeReplaceTime">计划更换时间：未确定</div>
                         <div v-show="replaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
                         <div v-show="!['unShow','outTime','unSet','today'].includes(replaceDays)" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：{{replaceDays}}天</div>
                         <div v-show="replaceDays=='today'" :style="{color:tableInfo.catheterStatus==1?'red':''}">今天拔管</div>
-                        <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div>
+                        <!-- <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div> -->
+                    </div>
+                    <div class="up-cathter">
+                        <div style="cursor:pointer;" v-show="!!tableInfo.expectExtubationTime" @dblclick="removeTime">计划拔除时间：{{tableInfo.expectExtubationTime}}</div>
+                        <div style="cursor:pointer;" v-show="!tableInfo.expectExtubationTime" @dblclick="removeTime">计划拔除时间：未确定</div>
+                        <div v-show="ExtReplaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
+                        <div v-show="!['unShow', 'outTime','unSet','today'].includes(ExtReplaceDays)" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：{{ExtReplaceDays}}天</div>
+                        <div v-show="ExtReplaceDays =='today'" :style="{color:tableInfo.catheterStatus==1?'red':''}">今天拔管</div>
+                        <!-- <div v-show="ExtReplaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div> -->
+                    </div>
+                    <div class="up-cathter">
+                        <div v-show="!tableInfo.extubationTime">实际拔管时间：未拔除</div>
+                        <div v-show="tableInfo.extubationTime">实际拔管时间：{{tableInfo.extubationTime}}</div>
                     </div>
                 </div>
                 <div class="tool-btns">
@@ -25,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <div class="withe-part" style="height:110px;"></div>
+        <div class="withe-part" style="height:175px;"></div>
         <el-table
             id="table-box"
             :data="tabelData"
@@ -100,6 +112,7 @@
         <div style="line-height:40px;text-align:center">第{{pageNum||1}}页</div>
         <delModal v-if="isDel" @closeModal='closeModal' @delRow='delRow' :modalTitle="modalTitle" :modalContont="modalContont"></delModal>
         <repModal v-if="showChangeRt" :replaceTime='tableInfo.replaceTime' @closeRepModal='closeRepModal' @changeRepFn='changeRepFn'></repModal>
+        <removeModal v-if="showRemoveStatus" :replaceTime='tableInfo.expectExtubationTime' @closeRepModal='removeClose' @changeRepFn='removeChangeRepFn'></removeModal>
     </div>
 </template>
 <style lang='scss' scoped>
@@ -247,6 +260,7 @@ import {
 } from '@/Page/allCatheter/api/catheter'
 import delModal from '@/Page/allCatheter/components/del-row-modal/del-row-modal.vue'
 import repModal from '@/Page/allCatheter/components/replace-modal/replace-modal.vue'
+import removeModal from '@/Page/allCatheter/components/replace-modal/replace-modal.vue'
 export default {
 props: {
     tabelConfig:{
@@ -276,6 +290,7 @@ return {
     modalContont:'',
     contentWidth:"auto",
     tableHtml:null,
+    showRemoveStatus: false,
 };
 },
 methods: {
@@ -331,11 +346,26 @@ methods: {
             this.$emit('updateTableConfig',config)
         })
     },
+    removeChangeRepFn(val){
+        let obj = JSON.parse(JSON.stringify(this.tableInfo))
+        obj.expectExtubationTime = val
+        updateInfo(obj,this.tableInfo.code).then(res=>{
+            let config = res.data.data
+            this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
+            this.$emit('updateTableConfig',config)
+        })
+    },
     changeReplaceTime(){
         this.showChangeRt = true
     },
+    removeTime(){
+        this.showRemoveStatus = true
+    },
     closeRepModal(){
         this.showChangeRt = false
+    },
+    removeClose(){
+        this.showRemoveStatus = false
     },
     initDT(type,row){
         if(type=='date'&&!row.recordMonth){
@@ -453,6 +483,7 @@ components: {
     delModal,
     repModal,
     MDMasked,
+    removeModal
 },
 computed:{
     intubationDays(){
@@ -466,6 +497,22 @@ computed:{
         let m2 = moment()
         let day = m1.diff(m2,'day') + 1
         // console.log(day);
+        if(m1.format('YYYY-MM-DD')===m2.format('YYYY-MM-DD')){
+            return 'today'
+        }else if(day<=0){
+            return 'outTime'
+        }else if(day){
+            return day
+        }else{
+            return 'unSet'
+        }
+    },
+    ExtReplaceDays(){
+        if(this.tableInfo.extubationTime)return 'unShow'
+        let m1 = moment(this.tableInfo.expectExtubationTime)
+        let m2 = moment()
+        let day = m1.diff(m2,'day') + 1
+        console.log(m1, m2, this.tableInfo.expectExtubationTime, 6666666);
         if(m1.format('YYYY-MM-DD')===m2.format('YYYY-MM-DD')){
             return 'today'
         }else if(day<=0){
