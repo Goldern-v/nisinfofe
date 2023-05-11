@@ -57,7 +57,7 @@ export default {
       },
       {
         name: `
-        血<br/>氧<br/>饱<br/>和<br/>度
+        血<br/>氧<br/>饱<br/>和<br/>度%
         `,
         colspan: "1",
         rowspan: "3"
