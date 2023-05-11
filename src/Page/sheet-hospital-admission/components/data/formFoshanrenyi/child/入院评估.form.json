@@ -4527,7 +4527,6 @@
       "classes": null,
       "readOnly": null,
       "labelLeft": true,
-      "readOnly": null,
       "hiddenTips": true,
       "children": [
         {
@@ -4670,7 +4669,6 @@
       "classes": null,
       "readOnly": null,
       "labelLeft": true,
-      "readOnly": null,
       "hiddenTips": true,
       "children": [
         {
@@ -5892,7 +5890,7 @@
                 }
               ],
               "children": [
-                
+
               ]
             },
             {
@@ -7346,33 +7344,14 @@
           "titleStyle": "width:82px!important",
           "inputStyle": "width:270px!important",
           "class": null,
-          "formCodeArr":["E2234","E2066","FSSY_G0002"],
           "options": [
             "无",
             "新生儿科（NICU）住院告知书",
             "PICU住院告知",
             "住院告知（新）"
           ],
-          "formCodeArr":["E2234","E2066","FSSY_G0002"],
+          "formCodeArr":["E2066","FSSY_G0002","FSSY_G0001"],
           "rule": [
-            {
-              "relationForm": {
-                "openKey": "住院告知",
-                "params": {
-                  "formCode": "E2234",
-                  "showSignBtn": true,
-                  "title": "佛山人医住院告知（改）",
-                  "formUrl": "佛山人医住院告知（改）.html",
-                  "callbackInfo": {
-                    "needScore": false,
-                    "defaultName": true,
-                    "code": "I2333190",
-                    "prefix": "住院告知, 已完成",
-                    "suffix": ""
-                  }
-                }
-              }
-            },
             {
               "relationForm": {
                 "openKey": "新生儿科（NICU）住院告知书",
