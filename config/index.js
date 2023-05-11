@@ -42,9 +42,9 @@ const currentTargetUrl = (() => {
     /** 厚街 */
     case "hj":
       // return "http://120.197.141.41:9091" //厚街正式
-      return "http://120.197.141.41:9094" //东莞正式库的测试
+      // return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
-    // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+    return "http://192.168.1.54:9866" // 公司-厚街测试-内网
       // return "http://192.168.20.83:8080" // 彬哥本地
       // return "http://192.168.3.191:9091"//锦泳本地
 
@@ -178,8 +178,8 @@ const currentTargetUrl = (() => {
 
       // 佛山杏坛
     case 'fsxt':
-      // return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@23nr
-      return "http://192.168.1.54:9883" // 测试
+       return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@23nr
+      // return "http://192.168.1.54:9883" // 测试
 
     //阳春
     case 'yangchunzhongyi':
@@ -270,10 +270,12 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.20.20:9092'
     //
     case 'nfyksdyy':
-      return 'http://192.168.3.154:8080'
+      // return 'http://192.168.3.154:8080'
           // return 'http://192.168.1.54:9901'  //
           // return  'http://59.38.110.189:9092'
           // return  'http://192.168.3.228:8080'
+      return 'http://192.168.5.127:9091'
+      // return  'https://info.cr-health.com:20215'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭
       return 'http://192.168.3.187:9091'

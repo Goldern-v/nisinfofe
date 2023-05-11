@@ -29,8 +29,8 @@
         />
         <div class="login-con">
           <div>
-            <div class="logo-con">
-              <img :src="logoUrl" />
+            <div :class="Ishospital ? 'logo-con-hj' : 'logo-con'">
+              <img :src="logoUrl"/>
             </div>
             <h1 class="name" v-html="logoName"></h1>
           </div>
@@ -234,6 +234,16 @@
 .logo-con {
   // height: 63px;
   width: 100px;
+  margin: 24px auto 19px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.logo-con-hj {
+  height: 63px;
+  width: 63px;
   margin: 24px auto 19px;
 
   img {
@@ -455,7 +465,8 @@ export default {
       permit: {},
       isNewPsd: false,
       isRePsd: false,
-      reg: {}
+      reg: {},
+      Ishospital:['hj'].includes(this.HOSPITAL_ID)
     };
   },
   computed: {
@@ -525,8 +536,6 @@ export default {
     if(['sdlj','hengli'].includes(this.HOSPITAL_ID)){
       this.reg = {
         flag: true,
-        // rule: "^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z~!@#$%^&*._?]+$)(?![a-z0-9]+$)(?![a-z~!@#$%^&*._?]+$)(?![0-9~!@#$%^&*._?]+$)[a-zA-Z0-9~!@#$%^&*._?]{8,}$",
-        // rule: "^(?![A-Za-z0-9]+$)(?![a-z0-9\\W]+$)(?![A-Za-z\\W]+$)(?![A-Z0-9\\W]+$)[a-zA-Z0-9\\W]{8,}$",
         rule:"^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$",
         ruleMsg: "字母大写，字母小写，特殊字符，数字四组中两种以上的随机组合,且长度不能少于8位"
       }
@@ -553,7 +562,6 @@ export default {
         if (!valid || !(this.isRePsd && this.isNewPsd)) return false;
         console.log(this.form);
         updatePassword(this.form).then((res) => {
-          console.log(res)
           if (res.data.code == 200) {
             this.$message({
               message: res.data.desc

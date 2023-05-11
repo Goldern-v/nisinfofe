@@ -161,6 +161,7 @@ export default {
     getDataFromPage(dateTime) {
       this.bus.$emit("getDataFromPage", dateTime);
     },
+    // 体温单曲线显示方法
     async openDetailChat() {
       await this.$store.commit("newDialogVisible", true);
       let value = this.currentPage;
