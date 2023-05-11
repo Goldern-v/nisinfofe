@@ -25,7 +25,7 @@
           :picker-options="pickerOptions"
           @input="handleQuery({endTime: $event})"/>
       </div>
-      <div class="search-con__ctx__item">
+      <!-- <div class="search-con__ctx__item">
         维度：
         <ElSelect
           style="width: 90px;"
@@ -59,9 +59,9 @@
               :value="val.value"
             />
           </ElSelect>
-        </div>
+        </div> -->
         <div class="search-con__ctx__item">
-          科室：
+          申请科室：
           <ElSelect
             style="width: 150px;"
             size="small"
@@ -72,8 +72,20 @@
             <ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
           </ElSelect>
         </div>
-      </template>
-      <div class="search-con__ctx__item" v-else>
+        <div class="search-con__ctx__item">
+          受邀科室：
+          <ElSelect
+            style="width: 150px;"
+            size="small"
+            :value="formData.wardCode"
+            @input="handleQuery({wardCode: $event})"
+            filterable
+          >
+            <ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
+          </ElSelect>
+        </div>
+      <!-- </template> -->
+      <!-- <div class="search-con__ctx__item" v-else>
         <ElInput
           style="width: 140px;margin-left: 12px"
           size="small"
@@ -83,7 +95,7 @@
           icon="search"
         >
         </ElInput>
-      </div>
+      </div> -->
       <slot :formData="formData" :handleQuery="handleQuery"/>
     </div>
     <div class="search-con__btn">

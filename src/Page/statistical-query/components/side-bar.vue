@@ -16,13 +16,18 @@ export default {
     return {
       actIndex: '',
       bars: [
-        {
-          name: "statisticalWorkload",
-          meta: {
-            title: '工作量统计',
-            img: require("../images/workload.png"),
-          },
-        },
+        ...hisMatch({
+          map: {
+            zhzxy: [],
+            other: [{
+              name: "statisticalWorkload",
+              meta: {
+                title: '工作量统计',
+                img: require("../images/workload.png"),
+              },
+            }]
+          }
+        }),
         ...hisMatch({
           map: {
             zhzxy: [

@@ -84,7 +84,7 @@ export default {
     };
   },
   mounted() {
-    this.formData.beginTime = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')
+    this.formData.beginTime = moment().subtract(1, 'weeks').startOf('day').format('YYYY-MM-DD HH:mm:ss')
     // 当天23点59分59秒的时间格式
     this.formData.endTime = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')
     this.getDepList()
