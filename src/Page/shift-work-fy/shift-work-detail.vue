@@ -200,10 +200,10 @@
     />
     <SpecialCasePanel ref="specialCasePanel" @apply-template="onSpecialCasePanelApply" />
     <SignModal ref="signModal" />
-    <SelectPatientModal 
-      v-if="isSelectPatient" 
-      :dialogVisible="isSelectPatient" 
-      @setIsSelectPatient="setIsSelectPatient" 
+    <SelectPatientModal
+      v-if="isSelectPatient"
+      :dialogVisible="isSelectPatient"
+      @setIsSelectPatient="setIsSelectPatient"
       :treeData="patients"
       @setPrintList="setPrintList"
     />
@@ -613,7 +613,7 @@ export default {
               selectedRow["proposal"] = data["proposal"];
               selectedRow["cure"] = data["cure"]
               selectedRow["diet"] = data["diet"]
-              await this.onSave();
+              // await this.onSave();
             }
           },
           {
