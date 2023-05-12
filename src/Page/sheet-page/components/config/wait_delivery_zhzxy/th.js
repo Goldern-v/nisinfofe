@@ -152,17 +152,6 @@ export default {
       },
       {
         name: `
-        特殊情况记录
-        `,
-        style: {
-          minWidth: "153px",
-          maxWidth: "153px"
-        },
-        colspan: "1",
-        rowspan: "3"
-      },
-      {
-        name: `
         宫底<br/>高度 (cm) 
         `,
         style: {
@@ -179,6 +168,17 @@ export default {
         style: {
           minWidth: "45px",
           maxWidth: "45px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        特殊情况记录
+        `,
+        style: {
+          minWidth: "153px",
+          maxWidth: "153px"
         },
         colspan: "1",
         rowspan: "3"

@@ -213,6 +213,26 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
   },
   {
+    key: "heightFundus", //催产素浓度<br/>（U/500ml）
+    value: "",
+    name: "宫底高度",
+    next: "",
+    event: keyf1,
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "cervicalThickness", //催产素浓度<br/>（U/500ml）
+    value: "",
+    name: "宫颈厚度",
+    next: "",
+    event: keyf1,
+    textarea: {
+      width: 45
+    },
+  },
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -234,26 +254,6 @@ export default [
       }
       keyf1(e, td);
     }
-  },
-  {
-    key: "heightFundus", //催产素浓度<br/>（U/500ml）
-    value: "",
-    name: "宫底高度",
-    next: "",
-    event: keyf1,
-    textarea: {
-      width: 45
-    },
-  },
-  {
-    key: "cervicalThickness", //催产素浓度<br/>（U/500ml）
-    value: "",
-    name: "宫颈厚度",
-    next: "",
-    event: keyf1,
-    textarea: {
-      width: 45
-    },
   },
   {
     key: "sign",
