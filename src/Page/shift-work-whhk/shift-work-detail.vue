@@ -36,7 +36,6 @@
             :fixedTh="fixedTh"
             data-print-style="height: auto;"
             :shiftWithWardcodes='shiftWithWardcodes'
-            :editable="!allSigned"
             :get-context-menu="getContextMenu"
             v-model="patients"
             @dblclick="onDblClickRow"

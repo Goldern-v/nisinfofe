@@ -1859,7 +1859,7 @@
       "readOnly": ""
     },
     {
-      "name": "I2332041",
+      "name": "I2332045",
       "type": "formGroupColBox",
       "col": 1,
       "title": "一般健康状况",
@@ -1875,7 +1875,7 @@
       "readOnly": null,
       "children": [
         {
-          "name": "I2332041",
+          "name": "I2332045",
           "type": "",
           "title": "",
           "titleStyle": "width:62px!important",
@@ -1886,8 +1886,8 @@
           "hiddenTips": true,
           "children": [
             {
-              "name": "I2332041",
-              "type": "checkbox",
+              "name": "I2332045",
+              "type": "radio",
               "title": "无",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -1895,8 +1895,8 @@
               "class": null
             },
             {
-              "name": "I2332041",
-              "type": "checkbox",
+              "name": "I2332045",
+              "type": "radio",
               "title": "有",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -1905,7 +1905,7 @@
             },
 
             {
-              "name": "I2332041",
+              "name": "I2332045",
               "type": "checkbox",
               "title": "疼痛部位",
               "elementStyle": "margin: 8px 5px 0 8px;",
@@ -2484,7 +2484,7 @@
             },
             {
               "name": "I2332044",
-              "type": "radio",
+              "type": "checkbox",
               "title": "禁食",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -2495,7 +2495,7 @@
             },
             {
               "name": "I2332044",
-              "type": "radio",
+              "type": "checkbox",
               "title": "其他：",
               "tasks": "禁食",
               "tasks_special": true,
@@ -2563,16 +2563,7 @@
                 {
                   "name": "I2332047",
                   "type": "checkbox",
-                  "title": "经管进食",
-                  "elementStyle": "margin: 8px 0px 0 0px;",
-                  "elementClass": "el-radio_fs itemRadio",
-                  "style": null,
-                  "class": null
-                },
-                {
-                  "name": "I2332044",
-                  "type": "checkbox",
-                  "title": "鼻饲 (置管日期",
+                  "title": "经管进食 (置管日期",
                   "elementStyle": "margin: 8px 5px 0 0px;",
                   "elementClass": "el-radio_fs itemRadio",
                   "class": null,
@@ -2607,7 +2598,7 @@
                       "readOnly": null
                     },
                     {
-                      "name": "I2332047",
+                      "name": "I2332048",
                       "type": "checkbox",
                       "title": "鼻胃管",
                       "elementStyle": "margin: 8px 5px 0 8px;",
@@ -2620,7 +2611,7 @@
               ]
             },
             {
-              "name": "I2332047",
+              "name": "I2332048",
               "type": "checkbox",
               "title": "鼻肠管",
               "elementStyle": "margin: 8px 5px 0 8px;",
@@ -2629,7 +2620,7 @@
               "class": null
             },
             {
-              "name": "I2332047",
+              "name": "I2332048",
               "type": "checkbox",
               "title": "胃造瘘管",
               "elementStyle": "margin: 8px 5px 0 8px;",
@@ -2638,7 +2629,7 @@
               "class": null
             },
             {
-              "name": "I2332047",
+              "name": "I2332048",
               "type": "checkbox",
               "title": "空肠造瘘管",
               "elementStyle": "margin: 8px 5px 0 8px;",
@@ -2647,7 +2638,7 @@
               "class": null
             },
             {
-              "name": "I2332047",
+              "name": "I2332048",
               "type": "checkbox",
               "title": "其他",
               "elementStyle": "margin: 8px 5px 0 8px;",
@@ -2656,7 +2647,7 @@
               "class": null,
               "children": [
                 {
-                  "name": "xxxx",
+                  "name": "I2332049",
                   "type": "input",
                   "title": "",
                   "titleStyle": "width:80px!important",
@@ -4518,7 +4509,7 @@
           "children": [
             {
               "name": "I2332211",
-              "type": "checkbox",
+              "type": "radio",
               "title": "无",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4527,7 +4518,7 @@
             },
             {
               "name": "I2332211",
-              "type": "checkbox",
+              "type": "radio",
               "title": "有",
               "elementStyle": "margin: 8px 0px 0 0px;",
               "elementClass": "el-radio_fs",
@@ -4537,7 +4528,7 @@
           ]
         },
         {
-          "name": "I2332211",
+          "name": "I2332247",
           "type": "",
           "title": "",
           "titleStyle": "width:62px!important",

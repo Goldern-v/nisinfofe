@@ -241,17 +241,17 @@
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
       </span>
-
+<template v-if="sheetInfo.sheetType=='prenatal_sdry' || 'postpartum2_sdry'">
         分娩方式：
        <customSelectCanRepeat
-        v-if="sheetInfo.sheetType=='prenatal_sdry' || 'postpartum2_sdry'"
+
           :options="options"
           multiple
           @onSelect="(val) => setRelValue(`${index}options`, val)"
         >
           <input :data-value="sheetInfo.relObj[`${index}options`]" v-model="sheetInfo.relObj[`${index}options`]" style="width:160px;">
         </customSelectCanRepeat>
-
+</template>
       </div>
     </div>
     <bedRecordModal v-if="bedShow" @closeBedshow="closeBedshow" ref="bedRecordModal"></bedRecordModal>

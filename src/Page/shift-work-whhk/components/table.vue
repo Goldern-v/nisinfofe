@@ -111,7 +111,7 @@
                 class="textarea"
                 type="textarea"
                 v-model="row[col.prop]"
-                :disabled="!editable"
+                :readonly="!row[col.editable]"
                 @change="onInputChange($event, row[col.prop], col.prop, rowIndex, colIndex)"
                 @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
               />
@@ -162,9 +162,9 @@ export default {
     getContextMenu: {
       type: Function
     },
-    editable: {
-      type: Boolean
-    },
+    // editable: {
+    //   type: Boolean
+    // },
     shiftWithWardcodes: {
       type: Object
     }
