@@ -236,6 +236,26 @@ export default [
     }
   },
   {
+    key: "heightFundus", //催产素浓度<br/>（U/500ml）
+    value: "",
+    name: "宫底高度",
+    next: "",
+    event: keyf1,
+    textarea: {
+      width: 45
+    },
+  },
+  {
+    key: "cervicalThickness", //催产素浓度<br/>（U/500ml）
+    value: "",
+    name: "宫颈厚度",
+    next: "",
+    event: keyf1,
+    textarea: {
+      width: 45
+    },
+  },
+  {
     key: "sign",
     value: ""
   },

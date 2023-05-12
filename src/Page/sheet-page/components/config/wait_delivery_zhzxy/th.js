@@ -163,6 +163,28 @@ export default {
       },
       {
         name: `
+        宫底<br/>高度 (cm) 
+        `,
+        style: {
+          minWidth: "45px",
+          maxWidth: "45px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        宫颈<br/>厚度 
+        `,
+        style: {
+          minWidth: "45px",
+          maxWidth: "45px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
         护士签名
         `,
         colspan: "1",
