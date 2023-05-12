@@ -885,11 +885,11 @@ export default {
         return this.$message.error("已存在该患者");
       }
 
-      if (selectedRow) {
-        this.$refs.table.updateRow(data);
-      } else {
-        this.$refs.table.addRow(data);
-      }
+      // if (selectedRow) {
+      //   this.$refs.table.updateRow(data);
+      // } else {
+      //   this.$refs.table.addRow(data);
+      // }
       this.onSave2(true);
       this.$refs.patientModal.close();
       // this.modified = true

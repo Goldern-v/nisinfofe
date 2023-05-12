@@ -1,12 +1,12 @@
 <template>
   <SidePanel ref="panel">
-    <div slot="title">{{modalData.title}}模板</div>
+    <div slot="title">患者ISBAR模版</div>
     <div class="container">
       <ElTabs class="tabs" v-model="tab" type="card">
-        <ElTabPane :label="item.name" :name="String(index+1)" v-for="(item,index) in modalData.tabs" :key="item.name"></ElTabPane>
-        <!-- <ElTabPane label="白班" name="1"></ElTabPane>
-        <ElTabPane label="小夜" name="2"></ElTabPane>
-        <ElTabPane label="大夜" name="3"></ElTabPane> -->
+        <ElTabPane label="主诉" name="1"></ElTabPane>
+        <ElTabPane label="背景" name="2"></ElTabPane>
+        <ElTabPane label="评估" name="3"></ElTabPane>
+        <ElTabPane label="建议" name="4"></ElTabPane>
       </ElTabs>
       <div class="search-bar">
         <input class="input" type="text" v-model="title" placeholder="请输入你要查找的模板关键字" />
@@ -26,7 +26,7 @@
     <div slot="footer">
       <PrimaryButton @click="onTemplateModalOpen">新建模板</PrimaryButton>
     </div>
-    <TemplateModal patient ref="templateModal" :tab="tab" :modalData="modalData.tabs" @confirm="onTemplateModalConfirm" />
+    <TemplateModal patient ref="templateModal" :tab="tab" @confirm="onTemplateModalConfirm" />
   </SidePanel>
 </template>
 
@@ -42,31 +42,25 @@ import TemplateItem from "./template-item";
 
 export default {
   mixins: [common],
-   props: {
-    modalData: {
-      type: Object,
-      default: () => {}
-    }
-  },
   data: () => ({
     visible: false,
     tab: "1",
     title: "",
-    list: [],
+    list: []
   }),
   computed: {
     filteredlist() {
       const title = this.title.trim();
-      return this.list.filter((item) => {
+      return this.list.filter(item => {
         return item.title.includes(title) || item.content.includes(title);
       });
-    },
+    }
   },
   watch: {
     tab(tab) {
       this.load();
       this.$emit("tab-change", tab);
-    },
+    }
   },
   methods: {
     async load() {
@@ -108,19 +102,19 @@ export default {
       await this.$confirm("确定删除该模板？", "提示", {
         confirmButtonText: "删除",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       });
       await apis.removeTemplate(item.id);
       this.load();
-    },
+    }
   },
   components: {
     SidePanel,
     WhiteButton,
     PrimaryButton,
     TemplateModal,
-    TemplateItem,
-  },
+    TemplateItem
+  }
 };
 </script>
 
