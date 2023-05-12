@@ -1130,7 +1130,7 @@ export default {
       this.$nextTick(() => {
         this.post();
         if (this.printMode == "wrist") {
-          const translateStr= this.isWhhk ? 'rotate(90deg) translateY(-120%) translateX(40%);' : 'rotate(90deg) translateY(-120%) translateX(25%);'
+          const translateStr= this.isWhhk ? 'rotate(90deg) translateY(-110%) translateX(45%);' : 'rotate(90deg) translateY(-120%) translateX(25%);'
           let styleSheet = {
             default: `
               .bed-card-warpper {
@@ -1218,7 +1218,8 @@ export default {
             css: styleSheet[this.HOSPITAL_ID] || styleSheet.default,
           });
         } else if (this.printMode == "wrist-children") {
-          const translateXCM= this.isWhhk ? '4.8' :'3'
+          const translateXCM= this.isWhhk ? '5.5' :'3'
+          const translateYCM= this.isWhhk ? '-3.6' :'-3.5'
           printing(this.$refs.printCon4, {
             direction: "vertical",
             injectGlobalCss: true,
@@ -1226,7 +1227,7 @@ export default {
             css: `
               .bed-card-warpper {
               box-shadow: none !important;
-              transform: rotate(90deg) translateY(-3.5cm) translateX(${translateXCM}cm);
+              transform: rotate(90deg) translateY(${translateYCM}cm) translateX(${translateXCM}cm);
               transform-origin: 0 0;
               }
               @page {
