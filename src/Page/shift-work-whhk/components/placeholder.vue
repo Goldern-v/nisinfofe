@@ -10,66 +10,59 @@
 </template>
 
 <script>
-export default {
-  props: {
-    icon: String,
-    size: String,
-    black: Boolean,
-    showAdd: {
-      type: Boolean,
-      default: true
-    }
-  },
-  data: () => ({}),
-  methods: {
-    onAdd() {
-      this.$emit("click");
+  export default {
+    props: {
+      icon: String,
+      size: String,
+      black: Boolean,
+      showAdd: {
+        type: Boolean,
+        default: true
+      }
+    },
+    data: () => ({}),
+    methods: {
+      onAdd () {
+        this.$emit('click')
+      }
     }
   }
-};
 </script>
 
 <style lang="stylus" scoped>
-.placeholder {
-  position: relative;
-  min-height: 350px;
-  height: 100%;
-  font-size: 16px;
+  .placeholder
+    position relative
+    min-height 160px
+    height 100%
+    font-size 16px
 
-  &.small {
-    font-size: 14px;
+    &.small
+      font-size 14px
 
-    .add-btn {
-      padding: 15px 0;
-    }
-  }
+      .add-btn
+        padding 15px 0
 
-  &.black {
-    background: #dfdfdf;
-  }
+    &.black
+      background #dfdfdf
 
-  .add-btn {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    padding: 25px 0;
-    color: #687179;
-    width: 195px;
-    background: #fff;
-    border: 1px solid #adb4ba;
-    text-align: center;
-    cursor: pointer;
-    transform: translate(-50%, -50%);
+    .add-btn
+      position absolute
+      left 50%
+      top 50%
+      padding 25px 0
+      color #687179
+      width 195px
+      background #fff
+      border 1px solid #adb4ba
+      text-align center
+      cursor pointer
+      transform translate(-50%, -50%)
 
-    &:hover {
-      background: #fafafa;
-    }
+      &:hover
+        background #fafafa
 
-    .add-btn-icon {
-      margin-bottom: 15px;
-      font-size: 30px;
-      color: #C2CBD2;
-    }
-  }
-}
+      .add-btn-icon
+        margin-bottom 15px
+        font-size 30px
+        color #C2CBD2
 </style>

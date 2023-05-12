@@ -8,17 +8,16 @@ export function listDepartment(parentCode) {
 }
 
 //根据科室和日期查找对应得交班志列表（左侧）
-export function listShiftRecord(deptCode, startDate, endDate) {
+export function listShiftRecord(deptCode, startDate, endDate,shiftType=1) {
   return axios.get(
-    `${apiPath}changeShiftLcTime/list/${deptCode}/${startDate}/${endDate}`
+    `${apiPath}changeShiftMaster/list/${deptCode}/${startDate}/${endDate}/${shiftType}`
   );
 }
 
 // 按ID查找对应得交班详情
-export function getShiftRecord(id) {
-  return axios.get(`${apiPath}changeShiftLcTime/getById/${id}`);
+export function getShiftRecord(id,shiftTypeId = 1) {
+  return axios.get(`${apiPath}changeShiftBHMaster/getById/${id}/${shiftTypeId}`);
 }
-
 // "changeShiftTime": {
 //   "id": 24834,
 //   "deptCode": "051101", --科室编码
@@ -74,31 +73,47 @@ export function getShiftRecord(id) {
 //   "dataHash": "64c7528944a5e62f26ee128d217d84ad"
 //   }]
 
+
+// 入参：
+// {
+// "deptCode":"1A010999",
+// "changeShiftDate":"2021-04-14",
+// "shiftTypeId":"1"        --模板类型，这个有接口返回的
+// }
 // 创建交班志
 export function createShiftRecord(
   deptCode,
   changeShiftDate,
-  copyChangeShift = false
+  shiftTypeId = 1
 ) {
-  return axios.post(`${apiPath}changeShiftLcTime/save`, {
+  return axios.post(`${apiPath}changeShiftMaster/save`, {
     deptCode,
-    changeShiftDate
+    changeShiftDate,
+    shiftTypeId
   });
+}
+// 查询患者内容
+export function getShiftPatient(data) {
+  return axios.get(`${apiPath}changeShiftMaster/getPatient/${data.id}/${data.patientId}/${data.visitId}`);
 }
 
 // 更新交班志
 export function updateShiftRecord(data) {
-  return axios.post(`${apiPath}changeShiftLcPatientList/saveOrUpdate`, data);
+  return axios.post(`${apiPath}changeShiftBHMaster/saveContent`, data);
 }
 
 // 删除交班志行
-export function removeShiftRecordRow(rowId) {
-  return axios.get(`${apiPath}changeShiftLcPatientList/delete/${rowId}`);
+export function removeShiftRecordRow(changeShiftTimeId,sortValue) {
+  return axios.get(`${apiPath}changeShiftMaster/deleteContent/${changeShiftTimeId}/${sortValue}`);
+}
+// 保存单个患者信息
+export function savePatient(data) {
+  return axios.post(`${apiPath}changeShiftMaster/savePatient`, data);
 }
 
 // 删除交班志
 export function removeShiftRecord(id, empNo, password) {
-  return axios.post(`${apiPath}changeShiftLcTime/delById`, {
+  return axios.post(`${apiPath}changeShiftMaster/delById`, {
     id,
     empNo,
     password
@@ -107,7 +122,7 @@ export function removeShiftRecord(id, empNo, password) {
 
 // 更新交班签名 autographNameType 类型 A\N\check
 export function signShiftRecord(id, autographNameType, empNo, password) {
-  return axios.post(`${apiPath}changeShiftLcTime/updateAutographName`, {
+  return axios.post(`${apiPath}changeShiftMaster/updateAutographName`, {
     id,
     autographNameType,
     empNo,
@@ -118,7 +133,7 @@ export function signShiftRecord(id, autographNameType, empNo, password) {
 // 取消交班签名 sign 类型 A\N\check
 export function delSignShiftRecord(id, empNo, password, sign, sourceEmpNo) {
   return axios.post(
-    `${apiPath}changeShiftLcTime/deleteAutographName
+    `${apiPath}changeShiftMaster/updateAutographNamePost
     `,
     {
       id,
@@ -131,9 +146,9 @@ export function delSignShiftRecord(id, empNo, password, sign, sourceEmpNo) {
 }
 
 // 根据床号和科室编码和交班日期查找对应得患者信息
-export function getPatient(deptCode, bedLabel, date) {
+export function getPatient(deptCode, bedLabel, date,shiftTypeId = 1) {
   return axios.get(
-    `${apiPath}changeShiftLcPatientList/findByBedLabel/${deptCode}/${bedLabel}/${date}`
+    `${apiPath}changeShiftMaster/findByBedLabel/${deptCode}/${bedLabel}/${date}/${shiftTypeId}`
   );
 }
 
@@ -168,16 +183,16 @@ export function listType(deptCode) {
 }
 
 // 获取患者列表
-export function listPatients(deptCode, date, id) {
+export function listPatients(deptCode, date, id,shiftTypeId = 1) {
   return axios.get(
-    `${apiPath}changeShiftPatientList/getShiftPatientALL/${deptCode}/${date}/${id}`
+    `${apiPath}changeShiftMaster/getShiftPatientALL/${deptCode}/${date}/${id}/${shiftTypeId}`
   );
 }
 
 // *******内科重症监护护理单元*******
 // 删除交班志
 export function removeShiftRecordICU(id, empNo, password) {
-  return axios.post(`${apiPath}changeShiftLcTimeICU/delById`, {
+  return axios.post(`${apiPath}changeShiftMaster/delById`, {
     id,
     empNo,
     password
@@ -187,7 +202,7 @@ export function removeShiftRecordICU(id, empNo, password) {
 // 取消交班签名 sign 类型 A\N\check
 export function delSignShiftRecordICU(id, empNo, password, sign, sourceEmpNo) {
   return axios.post(
-    `${apiPath}changeShiftLcTimeICU/deleteAutographName
+    `${apiPath}changeShiftMaster/deleteAutographName
     `,
     {
       id,
@@ -201,7 +216,7 @@ export function delSignShiftRecordICU(id, empNo, password, sign, sourceEmpNo) {
 
 // 更新交班签名 autographNameType 类型 A\N\check
 export function signShiftRecordICU(id, autographNameType, empNo, password) {
-  return axios.post(`${apiPath}changeShiftLcTimeICU/updateAutographName`, {
+  return axios.post(`${apiPath}changeShiftMaster/updateAutographName`, {
     id,
     autographNameType,
     empNo,
@@ -215,7 +230,7 @@ export function createShiftRecordICU(
   changeShiftDate,
   copyChangeShift = false
 ) {
-  return axios.post(`${apiPath}changeShiftLcTimeICU/save`, {
+  return axios.post(`${apiPath}changeShiftMaster/save`, {
     deptCode,
     changeShiftDate
   });
@@ -223,17 +238,17 @@ export function createShiftRecordICU(
 
 // 按ID查找对应得交班详情
 export function getShiftRecordICU(id) {
-  return axios.get(`${apiPath}changeShiftLcTimeICU/getById/${id}`);
+  return axios.get(`${apiPath}changeShiftMaster/getById/${id}`);
 }
 
 // 打印，按时间范围查找对应的交接班
 export function getMulShiftRecordICU(deptCode, startDate, endDate) {
   return axios.get(
-    `${apiPath}changeShiftLcTimeICU/list/${deptCode}/${startDate}/${endDate}`
+    `${apiPath}changeShiftMaster/list/${deptCode}/${startDate}/${endDate}`
   );
 }
 
 // 更新交班志
 export function updateShiftRecordICU(data) {
-  return axios.post(`${apiPath}changeShiftLcTimeICU/update`, data);
+  return axios.post(`${apiPath}changeShiftMaster/update`, data);
 }

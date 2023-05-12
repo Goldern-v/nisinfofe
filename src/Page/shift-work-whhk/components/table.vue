@@ -1,67 +1,98 @@
 <template>
   <div>
-    <table class="table fixed-th" :style="{width: theadW + 'px'}" v-if="fixedTh">
+    <table class="table2 fixed-th"  v-if="fixedTh">
       <colgroup>
-        <col v-for="col of realColumns" :key="col.prop ? col.label+col.prop : col.label" :width="col.width">
+        <col width="50px"/>
+        <col width="80px"/>
+        <col width="150px"/>
+        <template v-for="i in 3">
+          <col v-for="col in 9" :key="i + 'col' + col" />
+        </template>
       </colgroup>
-      <thead>
-        <tr v-for="(row,index) in tileColumns" :key="index">
-          <th v-for="col of row" :key="col.prop ? col.label+col.prop : col.label" :colspan="col.colspan || getColSpan(col)" :rowspan="col.rowspan">
-             <div flex="cross:center" class="cell " v-if="col.tileColumns && col.tileColumns.length" style="display: block;">
-               <div v-for="(item,itemIndex) in col.tileColumns" :key="item.prop ? item.prop + item.label : item.label" class="cell-item">
-                 <span v-html="item.label"></span>
-                  <div style="flex: 1;">
-                    <el-input
-                    v-model="record[item.prop]"
-                    v-if="item.editable"
-                  />
-                  </div>
-                  <span v-html="item.suffix"></span>
-                   <br v-if="(itemIndex+1)%3 ==0"/>
-                  </div>
-            </div>
-            <div class="cell" v-html="col.label" v-else-if="!col.showInput" />
-            <div class="cell" v-else-if="col.render" v-html="col.render(row)"></div>
-            <div class="cell" v-else-if="col.editable">
-              <el-input
-                v-model="record[col.prop]"
-              />
-            </div>
-          </th>
-        </tr>
-      </thead>
+      <tr v-for="(trItem, trIndex) in tableConfig" :key="'tr' + trIndex">
+        <template v-if="trIndex === 0">
+          <td colspan="3">班次</td>
+        </template>
+        <template v-if="trIndex === 1">
+          <td colspan="3" rowspan="7" class="svg-td">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+              <line x1="0" y1="0" x2="50" y2="100%" />
+              <line x1="0" y1="0" x2="130" y2="100%" />
+              <line x1="0" y1="0" x2="279" y2="100%" />
+            </svg>
+            <span style="left: 5px; top: 80%">床号</span>
+            <span style="left: 60px; top: 80%">姓名</span>
+            <span style="left: 130px; top: 80%">诊断</span>
+            <span style="left: 130px; top: 30%">情况</span>
+          </td>
+        </template>
+        <td 
+          v-for="(tdItem, tdIndex) in trItem" 
+          :key="trIndex + '-' + tdIndex"
+          :colspan="tdItem.colspan || 1"
+          :style="{ width: tdItem.width + 'px' }"
+        >
+          <template v-if="tdItem.name">
+            {{ tdItem.name }}
+          </template>
+          <template v-else>
+            <input v-if="tdItem.type === 'A'" v-model="shiftWithWardcodes.A[tdItem.code]"/>
+            <input v-else-if="tdItem.type === 'P'" v-model="shiftWithWardcodes.P[tdItem.code]"/>
+            <input v-else v-model="shiftWithWardcodes.N[tdItem.code]"/>
+          </template>
+        </td>
+      </tr>
+    </table>
+
+    <table class="table2">
+      <colgroup>
+        <col width="50px"/>
+        <col width="80px"/>
+        <col width="150px"/>
+        <template v-for="i in 3">
+          <col v-for="col in 9" :key="i + 'col' + col" />
+        </template>
+      </colgroup>
+      <tr v-for="(trItem, trIndex) in tableConfig" :key="'tr' + trIndex">
+        <template v-if="trIndex === 0">
+          <td colspan="3">班次</td>
+        </template>
+        <template v-if="trIndex === 1">
+          <td colspan="3" rowspan="7" class="svg-td">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+              <line x1="0" y1="0" x2="50" y2="100%" />
+              <line x1="0" y1="0" x2="130" y2="100%" />
+              <line x1="0" y1="0" x2="279" y2="100%" />
+            </svg>
+            <span style="left: 5px; top: 80%">床号</span>
+            <span style="left: 60px; top: 80%">姓名</span>
+            <span style="left: 130px; top: 80%">诊断</span>
+            <span style="left: 130px; top: 30%">情况</span>
+          </td>
+        </template>
+        <td 
+          v-for="(tdItem, tdIndex) in trItem" 
+          :key="trIndex + '-' + tdIndex"
+          :colspan="tdItem.colspan || 1"
+          :style="{ width: tdItem.width + 'px' }"
+        >
+          <template v-if="tdItem.name">
+            {{ tdItem.name }}
+          </template>
+          <template v-else>
+            <input v-if="tdItem.type === 'A'" v-model="shiftWithWardcodes.A[tdItem.code]"/>
+            <input v-else-if="tdItem.type === 'P'" v-model="shiftWithWardcodes.P[tdItem.code]"/>
+            <input v-else v-model="shiftWithWardcodes.N[tdItem.code]"/>
+          </template>
+        </td>
+      </tr>
     </table>
     <table class="table" ref="table">
-       <colgroup>
-        <col v-for="col of realColumns" :key="col.prop ? col.label+col.prop : col.label" :width="col.width">
+      <colgroup>
+        <col v-for="col of bodyColumns" :key="col.label" :width="col.width">
       </colgroup>
-      <thead>
-        <tr v-for="(row,index) in tileColumns" :key="index">
-          <th v-for="col of row" :key="col.prop ? col.label+col.prop : col.label" :colspan="col.colspan || getColSpan(col)" :rowspan="col.rowspan">
-             <div flex="cross:center" class="cell " v-if="col.type == 'inline-block' && col.tileColumns && col.tileColumns.length" style="display: block;">
-               <div v-for="(item,itemIndex) in col.tileColumns" :key="item.prop ? item.prop + item.label : item.label" class="cell-item">
-                 <span v-html="item.label"></span>
-                  <div style="flex: 1;">
-                    <el-input
-                    v-model="record[item.prop]"
-                    v-if="item.editable"
-                  />
-                  </div>
-                  <span v-html="item.suffix"></span>
-                   <br v-if="(itemIndex+1)%3 ==0"/>
-                  </div>
-            </div>
-            <div class="cell" v-html="col.label" v-else-if="!col.showInput" />
-            <div class="cell" v-else-if="col.render" v-html="col.render(row)"></div>
-            <div class="cell" v-else-if="col.editable">
-              <el-input
-                v-model="record[col.prop]"
-              />
-            </div>
-          </th>
-        </tr>
-      </thead>
-      <tbody v-if="!isprint">
+      
+      <tbody>
         <tr
           v-for="(row, rowIndex) of data"
           :class="[{selected: row === selectedRow}]"
@@ -69,15 +100,12 @@
           @click="onClick(rowIndex)"
         >
           <td
-            v-for="(col, colIndex) of realColumns"
-            :key="col.prop ? col.label+col.prop : col.label"
+            v-for="(col, colIndex) of bodyColumns"
+            :key="col.label"
             :style="{'text-align': col.align || 'left'}"
             @dblclick="onDblClick({row, rowIndex, col, colIndex})"
-            @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
-            :colspan="col.colspan"
           >
-            <div class="cell" v-if="col.render" v-html="col.render(row)"/>
-            <label v-else-if="col.editable">
+            <label>
               <el-input
                 autosize
                 class="textarea"
@@ -86,47 +114,11 @@
                 :disabled="!editable"
                 @change="onInputChange($event, row[col.prop], col.prop, rowIndex, colIndex)"
                 @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
-                :name="col.prop"
               />
             </label>
-            <div class="cell" v-else>{{row[col.prop]}}</div>
           </td>
         </tr>
-        <slot></slot>
-      </tbody>
-      <!--陵城 打印 -->
-      <tbody v-else>
-        <tr
-          v-for="(row, rowIndex) of isPrintData"
-          :class="[{selected: row === selectedRow}]"
-          :key="row.id + '' + rowIndex"
-          @click="onClick(rowIndex)"
-        >
-          <td
-            v-for="(col, colIndex) of realColumns"
-            :key="col.prop ? col.label+col.prop : col.label"
-            :style="{'text-align': col.align || 'left'}"
-            @dblclick="onDblClick({row, rowIndex, col, colIndex})"
-            @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
-            :colspan="col.colspan"
-          >
-            <div class="cell" v-if="col.render" v-html="col.render(row)"/>
-            <label v-else-if="col.editable">
-              <el-input
-                autosize
-                class="textarea"
-                type="textarea"
-                v-model="row[col.prop]"
-                :disabled="!editable"
-                @change="onInputChange($event, row[col.prop], col.prop, rowIndex, colIndex)"
-                @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
-                :name="col.prop"
-              />
-            </label>
-            <div class="cell" v-else>{{row[col.prop]}}</div>
-          </td>
-        </tr>
-        <slot></slot>
+        <!-- <slot></slot> -->
       </tbody>
     </table>
   </div>
@@ -134,6 +126,10 @@
 
 
 <script>
+import {
+  tableConfig,
+  bodyColumns
+} from './config'
 export default {
   model: {
     prop: "data",
@@ -155,14 +151,10 @@ export default {
      * }]
      * }
      */
-    columns: {
-      type: Array,
-      default: () => []
-    },
-    theadW: {
-      type: Number,
-      default: 1860
-    },
+    // columns: {
+    //   type: Array,
+    //   default: () => []
+    // },
     data: {
       type: Array,
       default: () => []
@@ -173,134 +165,29 @@ export default {
     editable: {
       type: Boolean
     },
-    record: {
+    shiftWithWardcodes: {
       type: Object
-    },
-    isprint: {
-      type: Boolean,
-      default: () => false
     }
   },
-  data: () => ({
-    selectedRow: null,
-    selectedRowIndex: -1,
-    selectedCol: null,
-    // isPrintData: []
-  }),
-  computed: {
-    isMultiCol() {
-      for (let col of this.columns) {
-        if (col.columns && col.columns.length > 0) {
-          return true;
-        }
-      }
-      return false;
-    },
-    tileColumns(){
-      let arr = [],newArr = [];
-      this.columns.map(item=>{
-        if(!item.isHide){
-          arr.push(item);
-        }
-        // 针对聊城二院交班志的处理
-        // if(item.type == 'block' && item.tileColumns && item.tileColumns.constructor == Array){
-        //   item.tileColumns.map(row =>{
-        //     newArr.push(row);
-        //     if(row[0].addRow){
-        //       newArr.push(row.map(item=>{
-        //         return {
-        //           ...item,
-        //           showInput: true
-        //         }
-        //       }))
-        //     }
-        //   })
-        // }
-      })
-      newArr.unshift(arr);
-      return newArr;
-    },
-    realColumns() {
-      let columns = [];
-      if(this.columns && this.columns[0] && this.columns[0].constructor == Array){
-        for (const col of this.columns[0]) {
-          if (col.columns && col.columns.length) {
-            columns = columns.concat(col.columns);
-          } else {
-            columns.push(col);
-          }
-        }
-      }else {
-        for (const col of this.columns) {
-          if (col.columns && col.columns.length && !col.isHid) {
-            columns = columns.concat(col.columns);
-          } else if(!col.isHide){
-            columns.push(col);
-          }
-        }
-      }
-      return columns;
-    },
-    isPrintData() {
-      let newData = JSON.parse(JSON.stringify(this.data))
-      let arr = newData.map((item, index) => {
-        return this.beyondPage(newData, item, 430, index)
-      })
-      return arr
+  data() {
+    return {
+      selectedRow: null,
+      selectedRowIndex: -1,
+      selectedCol: null,
+      tableConfig,
+      bodyColumns
     }
+  },
+  computed: {
   },
   methods: {
-    // 获取字符串中英文字母和数字
-    getLetterNum(str) {
-      let num = 0
-      let letter = str.match(/[0-9a-zA-Z]/g)
-      for (let i in letter) {
-        num++
-      }
-      return num
-    },
-
-    // newData: 遍历数组, data: 数组里的每一个对象， len: 截取字符串 index：数组下标
-    beyondPage(newData, data, len, index) {
-      let str1 = 0
-      let str2 = 0
-      let remark2_str1 = 0
-      let remark2_str2 = 0
-      let remark3_str1 = 0
-      let remark3_str2 = 0
-      if (data.remark1 && data.remark1.length > len) {
-        let letterNum = this.getLetterNum(data.remark1.substring(0, len))
-        str1 = data.remark1.substring(0, len + letterNum)
-        str2 = data.remark1.substring(len + letterNum, data.remark1.length)
-      }
-      if (data.remark2 && data.remark2.length > len) {
-        let letterNum = this.getLetterNum(data.remark1.substring(0, len))
-        remark2_str1 = data.remark2.substring(0, len + letterNum)
-        remark2_str2 = data.remark2.substring(len + letterNum, data.remark2.length)
-      }
-      if (data.remark3 && data.remark3.length > len) {
-        let letterNum = this.getLetterNum(data.remark1.substring(0, len))
-        remark3_str1 = data.remark3.substring(0, len + letterNum)
-        remark3_str2 = data.remark3.substring(len + letterNum, data.remark3.length)
-      }
-
-      Object.assign(data, {...data, remark1: str1 ? str1 : data.remark1, remark2: remark2_str1 ? remark2_str1 : data.remark2, remark3: remark3_str1 ? remark3_str1 : data.remark3})
-      if (str1 || str2 || remark2_str1 || remark2_str2 || remark3_str1 || remark3_str2) {
-        let obj = {}
-        Object.assign(obj, {bedLabel: data.bedLabel, name: data.name, remark1: str2 ? str2 : '', remark2: remark2_str2 ? remark2_str2 : '',  remark3: remark3_str2 ? remark3_str2 : ''})
-        newData.splice(index + 1, 0, obj)
-      }
-      return data
-    },
-    getColSpan(col) {
-      return (col.columns && col.columns.constructor == Array ? col.columns[0].length : (col.columns && col.columns.length)) || 1;
-    },
     onClick(rowIndex) {
       this.selectRow(rowIndex);
     },
     onDblClick(data) {
       this.$emit("dblclick", data);
     },
+    // 右击的事件操作屏蔽（俺们没有话语权 医院到时候要不要另一回事 方法保留不删）
     async onContextMenu(e, rowIndex, col) {
       this.select(rowIndex, col);
 
@@ -405,27 +292,22 @@ export default {
       text-align center
       word-break keep-all
       white-space nowrap
-      min-width 40px
+    tr:nth-child(1)
+      td
+        border-top none
 
     tbody tr
-      &:nth-child(2n)
-        background #f4f2f5
+      // &:nth-child(2n)
+      //   background #f4f2f5
 
       &:hover
-        background #e6e6e6
+        background #efefef
 
       &.selected
         background #FFF8B1
 
-    // .cell
-    //   padding 2px 4px
-    .cell-item
-      display inline-flex
-      width 33.3%
-      float left
-      align-items center
-      padding 0 5px
-      box-sizing border-box
+    .cell
+      padding 6px 4px
 
     label
       display flex
@@ -451,21 +333,63 @@ export default {
       overflow-y hidden
       text-align inherit
       cursor auto !important
-      overflow: hidden;
 
       &:disabled
         color black
         background none
-   >>>.el-input
-    .el-input__inner
-      background-color transparent
-      border none
-      height 100%
-      padding 3px 0
-      text-align center
-.fixed-th
-  position fixed
-  top 102px
-  width 1040px
-  z-index 1
+</style>
+
+<style lang="scss" scoped>
+  .table2 {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background: #fff;
+    tr {
+      td {
+        border: 1px solid #000;
+        margin: 0;
+        padding: 1px;
+        height: 16px;
+        line-height: 16px;
+        &.svg-td {
+          position: relative;
+          span {
+            position: absolute;
+          }
+          svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            line {
+              stroke: #3f3f3f;
+              stroke-width: 1;
+            }
+          }
+        }
+      }
+    }
+    input {
+      width: 100%;
+      height: unset;
+      color: #333;
+      text-align: center;
+      border: none;
+      outline: none;
+      font-size:14px;
+      padding: 0;
+      // border-bottom: 1px solid black;
+      &.border {
+        border-bottom: 1px solid black;
+      }
+    }
+  }
+  .fixed-th {
+    position: fixed;
+    top: 102px;
+    width: 1040px;
+    z-index: 1;
+  }
 </style>
