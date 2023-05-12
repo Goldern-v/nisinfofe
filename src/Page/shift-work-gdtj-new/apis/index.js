@@ -155,6 +155,11 @@ export function getPatient(deptCode, bedLabel, date,shiftTypeId = 1) {
     `${apiPath}changeShiftMaster/findByBedLabel/${deptCode}/${bedLabel}/${date}/${shiftTypeId}`
   );
 }
+export function shiftgetPatient(id,patientId,visitId) {
+  return axios.get(
+    `${apiPath}changeShiftMaster/getPatient/${id}/${patientId}/${visitId}`
+  );
+}
 
 // 查询模板列表
 export function listTemplate(deptCode, type, templateType, title) {
