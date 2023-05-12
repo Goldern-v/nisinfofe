@@ -797,7 +797,7 @@ export default {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 10002;
+  z-index: 10001;
   font-size: 14px;
   -webkit-font-smoothing: antialiased; // Theming
   background: rgba(#000, 0.5);

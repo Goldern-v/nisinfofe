@@ -27,6 +27,13 @@ body
 // 确认弹窗背景
 .v-modal
   z-index 10001 !important
+/**
+  不要用v-modal去修改，v-modal是elementui源码里加的
+  源码中可以在el-dialog标签传递一个modalClass自定义笼罩层类名
+  例如 <el-dialog modalClass="test-modal"></el-dialog>
+*/
+.vital-list-modal
+  z-index 10000 !important
 .el-message-box__wrapper
   z-index 10002 !important
 // 时间选择器bug 层级
