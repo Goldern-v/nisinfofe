@@ -16,3 +16,7 @@ export function exportExc(params) {
     }
   )
 }
+// 会诊统计
+export const queryConsultation = (params) => {
+  return axios.post(`${apiPath}statisticalQuery/getPage`, params)
+}

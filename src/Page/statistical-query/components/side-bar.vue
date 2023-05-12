@@ -16,37 +16,58 @@ export default {
     return {
       actIndex: '',
       bars: [
-        {
-          name: "statisticalWorkload",
-          meta: {
-            title: '工作量统计',
-            img: require("../images/workload.png"),
-          },
-        },
-        {
-          name: "statisticalExitAdmission",
-          meta: {
-            title: '出入院统计',
-            img: require("../images/exit-adm.png"),
-          },
-        },
-        {
-          name: "statisticalOperation",
-          meta: {
-            title: '手术统计',
-            img: require("../images/operate.png"),
-          },
-        },
-        {
-          name: "statisticalNursingLv",
-          meta: {
-            title: '护理级别统计',
-            img: require("../images/lv.png"),
-          },
-        },
+        ...hisMatch({
+          map: {
+            zhzxy: [],
+            other: [{
+              name: "statisticalWorkload",
+              meta: {
+                title: '工作量统计',
+                img: require("../images/workload.png"),
+              },
+            }]
+          }
+        }),
+        ...hisMatch({
+          map: {
+            zhzxy: [
+              {
+                name: "statisticalConsultation",
+                meta: {
+                  title: '会诊统计',
+                  img: require("../images/exit-adm.png"),
+                },
+              }
+            ],
+            other: [
+              {
+                name: "statisticalExitAdmission",
+                meta: {
+                  title: '出入院统计',
+                  img: require("../images/exit-adm.png"),
+                },
+              },
+              {
+                name: "statisticalOperation",
+                meta: {
+                  title: '手术统计',
+                  img: require("../images/operate.png"),
+                },
+              },
+              {
+                name: "statisticalNursingLv",
+                meta: {
+                  title: '护理级别统计',
+                  img: require("../images/lv.png"),
+                },
+              },
+            ]
+          }
+        }),
         ...hisMatch({
           map: {
             gdtj: [],
+            zhzxy: [],
             other: [
               {
                 name: "statisticalVTE",
