@@ -4,6 +4,6 @@ export const themeNameList = [
 ]
 
 export const typeList = [
-  { name: '会诊科室', value: 1 },
+  { name: '受邀科室', value: 1 },
   { name: '申请科室', value: 2 },
 ]

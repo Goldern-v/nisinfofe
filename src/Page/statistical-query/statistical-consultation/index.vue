@@ -72,7 +72,7 @@ export default {
         endTime: '',
         wardCode: '',
         empNo: '',
-        themeName: 0,
+        themeName: '病区会诊统计',
         type: 1,
       },
       pageIndex: 1,
@@ -117,12 +117,11 @@ export default {
       this.getData()
     },
     async getData() {
-      const themeNames = ['病区会诊统计', '护士会诊统计']
       try {
         this.loading = true;
         const formData = {
           ...this.formData,
-          themeName: themeNames[this.formData.themeName],
+          themeName: this.formData.themeName,
           beginTime: this.formData.beginTime.split(' ')[0],
           endTime: this.formData.endTime.split(' ')[0],
           pageIndex: this.pageIndex,
@@ -130,8 +129,8 @@ export default {
         }
         const res = await queryConsultation(formData)
         const { list, totalCount } = res.data.data
-        // this.tableData = list.length || []
-        this.tableData = mockData.list || []
+        this.tableData = list || [];
+        // this.tableData = mockData.list || []
         this.total = totalCount || 0
 
         this.loading = false
