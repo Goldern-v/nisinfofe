@@ -111,7 +111,7 @@
                 class="textarea"
                 type="textarea"
                 v-model="row[col.prop]"
-                :readonly="row[col.editable]"
+                :readonly="!row[col.editable]"
                 @change="onInputChange($event, row[col.prop], col.prop, rowIndex, colIndex)"
                 @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
               />
