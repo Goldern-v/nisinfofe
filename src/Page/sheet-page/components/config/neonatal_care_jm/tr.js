@@ -73,6 +73,10 @@ export default [
   name: "呼吸",
   next: "次/分",
   event: keyf1,
+  change: (e, td) => limitChange(e, td, 4),
+  textarea: {
+    width: 60
+  }
 },
 {
   key: "bloodPressure", //血压(mmHg)

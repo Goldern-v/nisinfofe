@@ -868,7 +868,7 @@ export default {
     uncompileStr(code) {
       return CryptoJS.AES.decrypt(code, SecretKey).toString(CryptoJS.enc.Utf8);
     },
-    // 获取校验规则
+    // 获取校验规则, 当flag为true，设置这个东西要到后台系统update_password_strength_check（是否开启修改密码规则校验）取值：true/false, password_rule（密码正则规则）取值：正则表达式
     getPasswordRule() {
       passwordRule().then((res) => {
         if (res.data.code == 200) {
@@ -876,12 +876,7 @@ export default {
         }
       });
     },
-    // 设置正则规则
-    setHospitalReg() {
-      if (this.HOSPITAL_ID === "guizhou") {
-        this.getPasswordRule();
-      }
-    },
+
     setIsMd5() {
       getDictItem({
         dictCode: 'propertiesConfig',
@@ -973,7 +968,7 @@ export default {
     }
   },
   mounted() {
-    this.setHospitalReg();
+    this.getPasswordRule();
     this.setIsMd5()
     /**清除锁屏的本地存储相关 */
     if (localStorage.screenLock) localStorage.removeItem("screenLock");

@@ -179,6 +179,94 @@
           />
         </div>
       </div>
+      <div
+          class="bed-card-warpper wrist-strap-print children-wrist"
+          ref="printCon4"
+          v-for="(item,index) in list"
+          :key="item.patientId"
+          v-show="printMode == 'wrist-children'"
+
+      >
+        <div class="bed-card-vert-con">
+          <div class="top">
+            <span  v-if="isDglb">科室：{{ item.deptName }}</span>
+            <span  v-else>科室：{{ item.wardName }}</span>
+          </div>
+          <div>
+            <div>
+              <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
+              >床位：{{ item.bedLabel }}</span
+              >
+              <span v-if="!isDglb">住院号：{{ item.patientId }}</span>
+            </div>
+            <div>
+              <span>{{ item.name }}</span>
+              <span>{{ item.sex }}</span>
+              <span>{{ item.age }}</span>
+            </div>
+          </div>
+          <div>
+            <div>
+              <span>入院日期：{{ item.admissionDate | ymdhm }}</span>
+            </div>
+          </div>
+          <img
+              class="qr-code"
+              :class="[{ hasRemark: hasRemark }, {'abs-img':isDglb}]"
+              :src="qrCode[index]"
+          />
+<!--          <img-->
+<!--              class="qr-code"-->
+<!--              :class="[{ hasRemark: hasRemark }, {'abs-img': this.isDglb}]"-->
+<!--              :src="qrCode"-->
+<!--          />-->
+          <span :class="{'abs-text':isDglb}">{{ item.inpNo }}</span>
+        </div>
+      </div>
+<!--      *寮步--新生儿批量床头卡*-->
+      <div class="bed-card-wrapper"
+           v-for="(item,index) in list"
+           :key="item.patientId+item.bedLabel"
+           ref="printCon5"
+           v-show="printMode=='bady'">
+        <div class="bed-modal-ctx">
+          <div>床&nbsp;&nbsp;&nbsp;&nbsp;号：{{ item.bedLabel }}</div>
+          <div>住&nbsp;院&nbsp;号：{{ item.inpNo }}</div>
+          <div>产妇姓名：{{ item.expand1||'' }}</div>
+          <div>宝宝性别：{{ item.sex }}</div>
+          <div class="pos-a">
+            <div>{{ item.formData.weight ? item.formData.weight + 'g' : ' ' }}</div>
+            <div>{{ moment(item.birthday).format('YYYY-MM-DD') }}</div>
+          </div>
+        </div>
+      </div>
+<!--      寮步--批量床头卡-->
+      <div
+          ref="printCon6" v-show="printMode=='aldult'"
+          class="bed-card-wrapper"  v-for="(item,index) in list"
+           :key="item.patientId+item.age">
+        <div class="bed-modal-ctx-aldult">
+        <div>床号：{{ item.bedLabel }}</div>
+        <div>姓名：{{ item.name }}</div>
+        <div>住院号：{{ item.inpNo }}</div>
+        <div>性别：{{ item.sex }}</div>
+        <div>年龄：{{ item.age }}</div>
+        <div class="flex">
+          过敏史：
+          <input
+              type="text"
+              class="bottom-line"
+              v-model="item.expand3"
+              @input="onIptGms(index)"
+          />
+        </div>
+        <div>主管医生：{{ item.formData.mainDoctors }}
+        </div>
+        <div>入院日期：{{ moment(item.admissionDate).format('YYYY-MM-DD')}}</div>
+        <img class="qr-code" :src="qrCode[index]" />
+      </div>
+      </div>
+
       <div slot="button">
         <!-- <span
           style="position: absolute; left: 10px; padding-top: 4px"
@@ -353,6 +441,40 @@
       margin-left: 15px;
     }
    }
+&.children-wrist {
+   width: 10cm;
+   height: 3.3cm;
+   box-sizing: border-box;
+
+.bed-card-vert-con {
+  transform-origin: 0 0;
+  transform: scale(0.82) translateX(-6px) translateY(-9px);
+  width: 121%;
+}
+span {
+  font-size: 21px;
+}
+
+.qr-code {
+  position: absolute;
+  right: 42px !important;
+  top: 50% !important;
+  margin-top: -56px;
+  height: 112px;
+  width: 112px;
+&.abs-img {
+   top: 42% !important;
+ }
+}
+.abs-text {
+  position: absolute;
+  right: 42px;
+  top: 82%;
+  display: block
+  width: 112px;
+  text-align: center
+}
+}
 }
 
 .bed-card-con {
@@ -585,6 +707,89 @@ label {
   .nextpage{
     margin-bottom:281px;
   }
+  .bed-card-wrapper{
+    box-shadow: 0px 5px 10px 0 rgba(0,0,0,0.5);
+    display: inline-block;
+    font-size: 16px;
+
+  .bed-modal-ctx {
+    background: #fff;
+  position: relative;
+  /* page-break-after: always; */
+  width: 110mm;
+  height: 69mm;
+  padding: 15px;
+  box-sizing: border-box;
+  text-align: left;
+  border: 2px solid #fff;
+  margin-bottom:5px;
+
+
+* {
+  font-size: 36px;
+  line-height: 56px;
+  font-family: 'SimHei', 'Microsoft Yahei' !important;
+  font-weight: bold;
+}
+
+.bottom-line {
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+}
+
+.pos-a {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+> div {
+  font-size: 18px;
+  line-height: 28px;
+}
+}
+}
+.bed-modal-ctx-aldult{
+  background-color: #ffffff;
+  position: relative;
+  width: 150mm;
+  height: 215mm;
+  padding: 15px;
+  box-sizing: border-box;
+  text-align: left;
+margin-bottom:5px;
+
+* {
+  font-size: 40px;
+  line-height: 49px;
+  font-family: 'SimHei', 'Microsoft Yahei' !important;
+  font-weight: bold;
+}
+>div {
+  padding: 23px 0;
+}
+.bottom-line {
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+}
+.flex {
+  display: flex;
+  white-space: nowrap;
+.bottom-line {
+  flex: 1;
+  width: 0px;
+}
+}
+.qr-code {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 5px;
+  width: 150px;
+  height: auto;
+}
+}
+  }
 </style>
 
 <script>
@@ -592,7 +797,6 @@ import {
   getEntity,
   saveBed
 } from "@/Page/patientInfo/supComponts/modal/api/index.js";
-import print from "./tool/print";
 import printing from "printing";
 var qr = require("qr-image");
 // var JsBarcode = require("jsbarcode");
@@ -600,6 +804,14 @@ import moment from "moment";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
 export default {
+  props: {
+    // 过敏史
+    guominshi: {
+      type: String,
+      default: '',
+    },
+
+  },
   data() {
     return {
       moment,
@@ -641,7 +853,8 @@ export default {
           drugGms: "",
         }
       ],
-      remarkPrint: true
+      remarkPrint: true,
+      isDglb: 'dglb' === this.HOSPITAL_ID,
     };
   },
   computed: {
@@ -650,9 +863,12 @@ export default {
     // },
     hasRemark() {
       return this.remarkPrint
-    }
+    },
   },
   methods: {
+    onIptGms(index) {
+      this.$set(this.list,index,this.list[index])
+    },
      init() {
       this.list.map(async (item,index)=>{
         item.formData = {
@@ -716,6 +932,7 @@ export default {
       this.list = list;
       this.init();
       this.printMode = printMode;
+      console.log("this.printMode===",this.printMode)
       this.list.forEach(async(item,index)=>{
         let qr_png_value = item.patientId + "|" + item.visitId;
         let qr_png = qr.imageSync(qr_png_value, { type: "png" });
@@ -735,8 +952,12 @@ export default {
       })
       if (this.printMode == "wrist") {
         this.title = "腕带打印";
+      }else if(this.printMode == "wrist-children") {
+        this.title = "儿童腕带打印";
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
+      } else if (this.printMode == "bady") {
+        this.title = "打印新生儿床头卡";
       } else {
         this.title = "编辑床头卡";
       }
@@ -823,7 +1044,62 @@ export default {
           }
           `
           });
-        } else {
+        } else if (this.printMode == "aldult") {
+          printing(this.$refs.printCon6, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+              .bed-card-wrapper {
+            box-shadow: none !important;
+              }
+.bed-modal-ctx-aldult{
+border:2px solid #000 ;
+margin-left:15%;
+margin-bottom:15mm !important;
+margin-top:30mm !important;
+}
+
+          @page {
+                 padding-top: 40px !important;
+          }
+            `,
+          });
+        }
+        else if (this.printMode == "wrist-children") {
+          printing(this.$refs.printCon4, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+              .bed-card-warpper {
+              box-shadow: none !important;
+              // transform: rotate(90deg) translateY(-3.5cm) translateX(3cm);
+              transform-origin: 0 0;
+              }
+              @page {
+                margin: 0;
+              }
+            `,
+          });
+        }  else if (this.printMode == "bady") {
+          /*寮步--新生儿床头卡*/
+          printing(this.$refs.printCon5, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+              .bed-card-warpper {
+              box-shadow: none !important;
+              transform: rotate(90deg) translateY(-3.5cm) translateX(3cm);
+              transform-origin: 0 0;
+              }
+              @page {
+                margin: 0;
+              }
+            `,
+          });
+        }  else {
           printing(this.$refs.printCon, {
             direction: "horizontal",
             injectGlobalCss: true,

@@ -528,6 +528,7 @@ const router = new Router({
         case 'fuyou':
         case 'beihairenyi':
         case 'guizhou':
+        case 'hj':
           // 新版修改密码
           return newResetPassword
         default:
@@ -905,7 +906,7 @@ const router = new Router({
                 return shiftWorkDetailSdlj
               case 'fsxt':
                 return shiftWorkDetailFsxt
-              case 'whhk': 
+              case 'whhk':
                 return shiftWorkDetailWhhk
               default:
                 return shiftWorkDetail
