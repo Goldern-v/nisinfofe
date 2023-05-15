@@ -205,6 +205,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
         name: `
@@ -212,6 +216,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
         name: "心率<br/>次/分",
