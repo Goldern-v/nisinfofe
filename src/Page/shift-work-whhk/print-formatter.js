@@ -1,13 +1,15 @@
 export default function(win) {
   const root = win.document.body.children[0];
 
-  root.setAttribute("style", "width: 1080px;");
+  root.setAttribute("style", "width: 1040px;");
 
   const header = root.querySelector(".head");
   const footer = root.querySelector(".foot");
+  console.log(footer, 666666)
 
-  const table = root.querySelector("table");
-  const tbody = table.children[2];
+  const table_title = root.querySelectorAll("table")[0];
+  const table = root.querySelectorAll("table")[1];
+  const tbody = table.children[1];
   const trs = tbody.querySelectorAll("tr");
 
   let patients = Array.prototype.slice.call(trs, 0); // 病人列表
@@ -25,11 +27,12 @@ export default function(win) {
 
     if (!page || page.offsetHeight + h > 700) {
       newTable = table.cloneNode(true);
-      newTableBody = newTable.children[2];
+      newTableBody = newTable.children[1];
       newTableBody.innerHTML = "";
 
       page = document.createElement("div");
       page.appendChild(header.cloneNode(true));
+      page.appendChild(table_title.cloneNode(true));
       page.appendChild(newTable);
       page.appendChild(footer.cloneNode(true));
 

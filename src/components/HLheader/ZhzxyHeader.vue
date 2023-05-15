@@ -322,7 +322,7 @@
                 <i class="iconfont icon-hulijiludan"></i>其他
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <!-- <el-dropdown-item
+                <el-dropdown-item
                   :class="{ active: $route.path == '/board' }"
                 >
                   <router-link to="/statisticalQuery" tag="span">
@@ -330,7 +330,7 @@
                       <i class="birthCertificate"></i> 统计查询
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
+                </el-dropdown-item>
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/infuse' }"
                 >

@@ -22,7 +22,7 @@
       <div class="new-print-modal__text">
         <div style="margin-top:4px">
           <span class="bigger">{{ currentBottle.name }}</span>
-          <div style="margin-left: 8px;font-size:16px">{{ currentBottle.patientId }}</div>
+          <div style="margin-left: 8px;font-size:16px" v-if="['gdtj'].includes(HOSPITAL_ID)">{{ currentBottle.patientId }}</div>
         </div>
         <span>{{ currentBottle.age }}</span>
         <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>

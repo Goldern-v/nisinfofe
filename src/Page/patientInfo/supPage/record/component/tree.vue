@@ -580,12 +580,16 @@ export default {
 
       let fileHasSave = node.data.status == 0;
       let fileHasSign = node.data.status == 1;
+      let fileHasAudit = node.data.status == 2;
       let icon;
       let box;
 
       let formNoSign = node.data.formTreeRemindType == "0"; // 无签名
       let formSign = node.data.formTreeRemindType == "1"; // 责任（多人签名）
       let formAudit = node.data.formTreeRemindType == "2"; // 责任 + 审核
+
+      let isNoicon = node.data.status && (node.data.formTreeRemindType ==  node.data.status)
+      console.log('fileHasSave',fileHasSave,'fileHasSign',fileHasSign,'formNoSign',formNoSign,'formSign',formSign,'formAudit',formAudit);
       // 花都特殊处理
       if (
         this.HOSPITAL_ID == "huadu" ||
@@ -593,7 +597,8 @@ export default {
         this.HOSPITAL_ID == "zhongshanqi" ||
         this.HOSPITAL_ID == "foshanrenyi" ||
         this.HOSPITAL_ID == "weixian" ||
-        this.HOSPITAL_ID == "zzwy"
+        this.HOSPITAL_ID == "zzwy" ||
+        this.HOSPITAL_ID === "hj"
       ) {
         // 文件夹
         // 责任 + 审核的情况
@@ -623,12 +628,24 @@ export default {
             } // 未签名
             else if (hasSign) {
               box = fileboxGreen;
+              if(['E1671','E1670','E0136'].includes(data.formCode) && this.HOSPITAL_ID === "hj"){
+              /*儿童的跌倒单特殊处理，护士签名后不显示绿点*/
+              /*成人的跌倒单特殊处理，护士签名后不显示绿点*/
+              /*躁动-镇静评分（RASS）单特殊处理，护士签名后不显示绿点*/
+                box = filebox;
+              }
             } // 责任 + 审核的情况 责任签名
             else if (fileHasSave) {
               icon = fileiconRed;
             } // 未签名
             else if (fileHasSign) {
               icon = fileiconGreen;
+              if(( data.formName=='东莞厚街 Morse跌倒评估及护理记录'||data.formName=='躁动-镇静评分（RASS）'||data.formName=='东莞厚街儿童跌倒、坠床护理单' && this.HOSPITAL_ID === "hj")){
+                /*儿童的跌倒单特殊处理，护士签名后不显示绿点*/
+                /*成人的跌倒单特殊处理，护士签名后不显示绿点*/
+                /*躁动-镇静评分（RASS）单特殊处理，护士签名后不显示绿点*/
+                icon = fileicon;
+              }
             } //责任签名
             else {
               box = filebox;
@@ -681,12 +698,6 @@ export default {
           box = fileboxRed;
         } else if (hasSign) {
           box = fileboxGreen;
-          if(this.HOSPITAL_ID === "hj"&&['E1671','E1670','E0136'].includes(data.formCode)){
-            /*儿童的跌倒单特殊处理，护士签名后不显示绿点*/
-            /*成人的跌倒单特殊处理，护士签名后不显示绿点*/
-            /*躁动-镇静评分（RASS）单特殊处理，护士签名后不显示绿点*/
-            box = filebox;
-          }
         }
         else {
           box = filebox;
@@ -696,12 +707,6 @@ export default {
           icon = fileiconRed;
         } else if (fileHasSign) {
           icon = fileiconGreen;
-          if(( data.formName=='东莞厚街 Morse跌倒评估及护理记录'||data.formName=='躁动-镇静评分（RASS）'||data.formName=='东莞厚街儿童跌倒、坠床护理单')&&this.HOSPITAL_ID === "hj"){
-            /*儿童的跌倒单特殊处理，护士签名后不显示绿点*/
-            /*成人的跌倒单特殊处理，护士签名后不显示绿点*/
-            /*躁动-镇静评分（RASS）单特殊处理，护士签名后不显示绿点*/
-            icon = fileicon;
-          }
         } else {
           icon = fileicon;
         }
@@ -997,9 +1002,6 @@ export default {
             };
           };
 
-          // if (res[1].data.data.length > 0) {
-          //   list_1.push(list_2(res[1].data.data));
-          // }
           let list_3 = [];
           switch (this.HOSPITAL_ID) {
             case "hj":
@@ -1047,16 +1049,6 @@ export default {
           } else {
             this.regions = list_1;
           }
-          // if (
-          //   this.HOSPITAL_ID == "hj" &&
-          //   window.location.href.includes("showPatientDetails")
-          // ) {
-          //   let obj = this.regions.find(item => {
-          //     return item.formCode == "E0064";
-          //   });
-          //   this.regions = [obj];
-          // }
-
           if (this.HOSPITAL_ID == "hj") {
             this.isTransferToWard();
           }

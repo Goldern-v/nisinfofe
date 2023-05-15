@@ -196,7 +196,7 @@
                   <span>性别：{{ query.sex }}</span>
                 </div>
                 <div>
-                  <span>床号：{{ query.bedLabel }}</span>
+                  <span>床号：{{ query.inpNo }}</span>
                   <span>住院号：{{ query.patientId }}</span>
                 </div>
               </div>
@@ -401,7 +401,7 @@
               <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
                 >床位：{{ query.bedLabel }}</span
               >
-              <span v-if="!isDglb">住院号：{{ query.patientId }}</span>
+              <span v-if="!isDglb">住院号：{{ isWhhk ? query.inpNo : query.patientId }}</span>
             </div>
             <div>
               <span>{{ query.name }}</span>
@@ -419,7 +419,7 @@
             :class="[{ hasRemark: hasRemark }, {'abs-img': this.isDglb}]"
             :src="qrCode"
           />
-          <span :class="{'abs-text': this.isDglb}">{{ query.inpNo }}</span>
+          <span :class="{'abs-text': this.isDglb}" v-if="!isWhhk">{{ query.inpNo }}</span>
         </div>
       </div>
       <div slot="button">
@@ -1130,7 +1130,7 @@ export default {
       this.$nextTick(() => {
         this.post();
         if (this.printMode == "wrist") {
-          const translateStr= this.isWhhk ? 'rotate(90deg) translateY(-120%) translateX(40%);' : 'rotate(90deg) translateY(-120%) translateX(25%);'
+          const translateStr= this.isWhhk ? 'rotate(90deg) translateY(-110%) translateX(45%);' : 'rotate(90deg) translateY(-120%) translateX(25%);'
           let styleSheet = {
             default: `
               .bed-card-warpper {
@@ -1218,7 +1218,8 @@ export default {
             css: styleSheet[this.HOSPITAL_ID] || styleSheet.default,
           });
         } else if (this.printMode == "wrist-children") {
-          const translateXCM= this.isWhhk ? '4.8' :'3'
+          const translateXCM= this.isWhhk ? '5.5' :'3'
+          const translateYCM= this.isWhhk ? '-3.6' :'-3.5'
           printing(this.$refs.printCon4, {
             direction: "vertical",
             injectGlobalCss: true,
@@ -1226,7 +1227,7 @@ export default {
             css: `
               .bed-card-warpper {
               box-shadow: none !important;
-              transform: rotate(90deg) translateY(-3.5cm) translateX(${translateXCM}cm);
+              transform: rotate(90deg) translateY(${translateYCM}cm) translateX(${translateXCM}cm);
               transform-origin: 0 0;
               }
               @page {

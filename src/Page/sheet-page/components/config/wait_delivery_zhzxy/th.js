@@ -152,6 +152,28 @@ export default {
       },
       {
         name: `
+        宫底<br/>高度 (cm) 
+        `,
+        style: {
+          minWidth: "45px",
+          maxWidth: "45px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
+        宫颈<br/>厚度 
+        `,
+        style: {
+          minWidth: "45px",
+          maxWidth: "45px"
+        },
+        colspan: "1",
+        rowspan: "3"
+      },
+      {
+        name: `
         特殊情况记录
         `,
         style: {
@@ -183,6 +205,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
         name: `
@@ -190,6 +216,10 @@ export default {
         `,
         colspan: "1",
         rowspan: "2",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
         name: "心率<br/>次/分",
