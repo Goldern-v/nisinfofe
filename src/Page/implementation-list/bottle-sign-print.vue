@@ -494,6 +494,7 @@ export default {
       ),
       // 能否打印全部
       showPrintAll: ["sdlj", "gdtj", "fsxt", "ytll",'whhk'].includes(this.HOSPITAL_ID),
+      cutPrintHospital:this.cutPrint()
     };
   },
   mounted() {
@@ -508,6 +509,18 @@ export default {
     this.cleanPrintStatusRoundTime();
   },
   methods: {
+    cutPrint(){
+      switch(this.HOSPITAL_ID){
+          case "925":
+          return {
+            maxLength:24,
+            maxLine:5,
+            usenewModalSize:"70*80"
+          };
+          default :
+          return ""
+        }
+    },
     handleChangeType(value) {
       if (this.multiItemType.length === 2 && this.multiItemType.includes('全部')) {
         this.multiItemType.shift()
@@ -953,6 +966,33 @@ export default {
         barCodeList.map((item) => {
           sortArr.push(printObj[item]);
         });
+      }
+      // 通过最大行数和每行限字数往下放药品
+      if(this.cutPrintHospital && this.cutPrintHospital.usenewModalSize && this.cutPrintHospital.usenewModalSize===this.newModalSize){
+        sortArr.forEach((sort)=>{
+          sort.forEach((item)=>{
+            //确定瓶签每行打印的时候需要的字
+            if(["925"].includes(this.HOSPITAL_ID)) item.holdorderText = item.orderText +  (item.dosage || "") + (item.dosageUnits || "")
+          })
+        })
+        for(let i=0;i<sortArr.length;i++){
+          let num = 0
+          for(let j=0;j<sortArr[i].length;j++){
+            if(sortArr[i][j].holdorderText.length<=this.cutPrintHospital.maxLength) num++
+            else num +=2
+            if(num===this.cutPrintHospital.maxLine){
+              let reduceARR =  sortArr[i].splice(j+1)
+              reduceARR.length>0 && sortArr.splice(i+1,0,[])
+              reduceARR.length>0 && sortArr[i+1].splice(0,0,...reduceARR)
+              break
+            }else if(num>this.cutPrintHospital.maxLine){
+              let reduceARR =   sortArr[i].splice(j)
+              reduceARR.length>0 && sortArr.splice(i+1,0,[])
+              reduceARR.length>0 && sortArr[i+1].splice(0,0,...reduceARR)
+              break
+            }
+          }
+        }
       }
       this.printObj = sortArr;
     },

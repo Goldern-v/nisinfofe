@@ -196,7 +196,7 @@
                   <span>性别：{{ query.sex }}</span>
                 </div>
                 <div>
-                  <span>床号：{{ query.bedLabel }}</span>
+                  <span>床号：{{ query.inpNo }}</span>
                   <span>住院号：{{ query.patientId }}</span>
                 </div>
               </div>
@@ -401,7 +401,7 @@
               <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
                 >床位：{{ query.bedLabel }}</span
               >
-              <span v-if="!isDglb">住院号：{{ query.patientId }}</span>
+              <span v-if="!isDglb">住院号：{{ isWhhk ? query.inpNo : query.patientId }}</span>
             </div>
             <div>
               <span>{{ query.name }}</span>
@@ -419,7 +419,7 @@
             :class="[{ hasRemark: hasRemark }, {'abs-img': this.isDglb}]"
             :src="qrCode"
           />
-          <span :class="{'abs-text': this.isDglb}">{{ query.inpNo }}</span>
+          <span :class="{'abs-text': this.isDglb}" v-if="!isWhhk">{{ query.inpNo }}</span>
         </div>
       </div>
       <div slot="button">

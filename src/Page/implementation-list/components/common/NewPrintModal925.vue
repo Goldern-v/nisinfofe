@@ -4,7 +4,7 @@
     id="lyxrm-print-modal"
     :style="{
       width: `${newModalSize == '70*80' || newModalSize == '7*7' ? '7' : '14'}cm`,
-      height: `${newModalSize == '70*80' ? '6' : newModalSize == '7*7' ? '7' : '5.3'}cm`
+      height: `${newModalSize == '70*80' ? '6.2' : newModalSize == '7*7' ? '7' : '5.3'}cm`
     }"
   >
     <!-- 小瓶签一张纸需要打印3条数据数据间要留白 -->
@@ -16,8 +16,8 @@
     >
       <div class="new-print-modal__title"  :class="{is925}">
         <span>{{currentBottle.printFlag ? '补' : ''}}</span>
-        <span class="center">{{ hospitalName }}</span>
-        <span>{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
+        <span class="center" style="margin-right: 20px;">{{ hospitalName }}</span>
+        <span class="repeatIndicator">{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
       </div>
       <div class="new-print-modal__second">
         <div class="flex">
@@ -43,7 +43,6 @@
           :key="index"
           style="
             display: block;
-            margin-bottom:2px;
             font-size:12px
             "
         >{{item}}
@@ -150,6 +149,7 @@
     font-size: 12px;
     margin: 2px 0 4px;
     flex-shrink: 0;
+    position: relative;
     .center{
       margin-right: 10px;
     }
@@ -157,6 +157,13 @@
       * {
         margin: 0px;
       }
+    }
+    .repeatIndicator{
+      width: 20px;
+      text-align:right;
+      position: absolute;
+      right: 0;
+      top: 0;
     }
   }
 
@@ -225,8 +232,10 @@
     }
   }
   .new-print-modal__content {
-    max-height: 110px;
-    flex: 1;
+    max-height: 71px;
+    min-height:71px;
+    // flex: 1;
+
     div {
       /* white-space: pre-wrap; */
       display: flex;
