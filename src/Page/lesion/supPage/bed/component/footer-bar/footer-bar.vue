@@ -127,7 +127,7 @@ export default {
         this.HOSPITAL_ID == "huadu" ||
         this.HOSPITAL_ID == "liaocheng" ||
         this.HOSPITAL_ID == "ytll" ||
-        ['lyyz','qhwy'].includes(this.HOSPITAL_ID)
+        ['lyyz','qhwy', 'whsl'].includes(this.HOSPITAL_ID)
       ) {
         arr.push({
           key: "发热",

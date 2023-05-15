@@ -309,7 +309,7 @@
 import dTable from "@/Page/implementation-list/components/table/d-table-whsl";
 import pagination from "@/Page/implementation-list/components/common/pagination";
 import dTablePrint from "@/Page/implementation-list/components/table/d-table-whsl-print";
-import { getExecuteWithWardCodeLyxrm } from "./api/index";
+import { getOrdersExecuteWithPatinetId } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -457,22 +457,20 @@ export default {
       if (!this.deptCode) return;
       this.pageLoading = true;
       let obj = {
-        wardCode: this.deptCode, //护理单元代码
+        patientId: this.$route.query.patientId,// --患者id
+        visitId: this.$route.query.visitId, // --住院次数
         startDate:moment(this.startDate).format('YYYY-MM-DD HH:mm:ss'),
         endDate:moment(this.endDate).format('YYYY-MM-DD HH:mm:ss'),
-        // executeDateTime: moment(this.startDate).format("YYYY-MM-DD "), //执行单预计执行时间
+        // executeDateTime: moment(this.startDate).format("YYYY-MM-DD"), // --预计执行时间
         repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
         executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
         executeType:
           this.type.length > 0 ? this.type.join(",") : "全部", //执行单类型:输液,口服、治疗、雾化、注射
-        bedLabel: this.bedLabel, //床号
-        patientName: this.patientName, //患者姓名
-        administration: this.administration, // //途径
-        dispenseFlag: this.dispenseFlag,
+        administration: this.administration // //途径
       };
-      console.log('this.$route.query', this.$route.query)
+      // console.log('this.$route.query', this.$route.query)
       obj.bedLabel =this.$route.query.bedLabel ;
-      getExecuteWithWardCodeLyxrm(obj).then(res => {
+      getOrdersExecuteWithPatinetId(obj).then(res => {
         // let children = [],
         //   child = [],
         //   tableData = [];
