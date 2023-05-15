@@ -420,13 +420,14 @@ export default {
       });
     },
     SignImgId() {
-      return JSON.parse(localStorage.user).empNo;
+      return (this.HOSPITAL_ID == 'hj'&&window.localStorage.getItem("fuyouCaData")) ? JSON.parse(window.localStorage.getItem("fuyouCaData")).signatureImg: JSON.parse(localStorage.user).empNo;
     },
     getSignImg() {
       this.$nextTick(() => {
         let signature = this.SignImgId();
         if (signature) {
-          this.signature = `/crNursing/api/file/signImage/${signature}?${this.token}`;
+          // :src="'data:text/html;base64,'+ewmBaseData"
+          this.signature =(this.HOSPITAL_ID == 'hj'&& window.localStorage.getItem("fuyouCaData")) ?`data:text/html;base64,${signature}` :`/crNursing/api/file/signImage/${signature}?${this.token}`;
         } else {
           this.signature = "";
         }
@@ -535,7 +536,6 @@ export default {
       if(['foshanrenyi','fsxt','lyxrm','925','beihairenyi', 'whhk', 'stmz','nfyksdyy','qhwy','whsl'].includes(this.HOSPITAL_ID )){
         titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))
       }
-      console.log("localStorage.getItem('sso')===",localStorage.getItem('sso'))
       if(localStorage.getItem('sso')=='sso' && this.HOSPITAL_ID == 'whsl'){
         let user = JSON.parse(localStorage.getItem("user"))
         titleObject=this.getBase(JSON.stringify({user:user.empNo,auth: user.maps.userKey}))
@@ -579,6 +579,10 @@ export default {
     this.bus.$on("updateFuyouCaData", () => {
       this.initFuyouCaData();
     });
+    /*监听厚街ca登录后更换签名*/
+    this.bus.$on('updateHjSign',()=>{
+      this.getSignImg()
+    })
     // let HOSPITAL_ENABLE_LIST = ["威县人民医院"]
     console.log(
       "process.env.ENABLE_BLUETOOTH_SIGN",
