@@ -276,6 +276,11 @@ export default {
         "critical_new_lcey",//聊城_病重（危）患者护理记录单(带瞳孔）
         "critical2_lcey",//聊城_病重（危）患者护理记录单
         "critical_lcey",//聊城_病重（病危）患者护理记录单（带瞳孔）
+      ],
+      heightAdjuthd:[
+        'postpartum_hd',
+        'wait_delivery_hd',
+        'prenatal_hd'
       ]
     };
   },
@@ -511,6 +516,24 @@ export default {
             display:none !important;
           }
           @media print {
+            #sheetPagePrint .contant{
+              margin-top:-20px;!important;
+            }
+          }
+        `
+      );
+    }
+    if (
+      (this.HOSPITAL_ID === "huadu") &&
+      this.heightAdjuthd.includes(this.sheetInfo.sheetType)
+    ) {
+      addCSS(
+        window,
+        `
+          @media print {
+            .body-con{
+              height: 37px !important;
+            }
             #sheetPagePrint .contant{
               margin-top:-20px;!important;
             }
@@ -773,7 +796,7 @@ export default {
             #sheetPagePrint td {
               line-height: 36px !important;
             }
-           
+
           }
         `
       );

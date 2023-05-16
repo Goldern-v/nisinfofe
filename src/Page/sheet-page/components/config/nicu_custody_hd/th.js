@@ -118,7 +118,7 @@ export default {
       },
       {
         name: `
-        回<br/>抽<br/>胃<br/>管
+        回<br/>抽<br/>胃<br/>液
         `,
         colspan: '1',
         rowspan: '3'
