@@ -15,8 +15,8 @@
     <div class="info-box2"  v-else-if="authoState==='2'">二维码已过期</div>
     <div style="height: 20px"></div>
     <div slot="button">
-      <el-button class="modal-btn" @click.stop="close">暂不认证11</el-button>
-      <el-button class="modal-btn" type="primary" @dblclick.stop="post" @click.stop="getAuthorizeApi" v-if="authoState=='0'">ca认证22</el-button>
+      <el-button class="modal-btn" @click.stop="close">暂不认证</el-button>
+      <el-button class="modal-btn" type="primary" @dblclick.stop="post" @click.stop="getAuthorizeApi" v-if="authoState=='0'">ca认证</el-button>
       <el-button class="modal-btn" type="primary" @dblclick.stop="post" @click.stop="getAuthorizeApi" v-if="authoState=='2'">刷新二维码</el-button>
       <el-button class="modal-btn" type="primary" @dblclick.stop="post" @click.stop="getTrustUserInfoApi" v-if="authoState=='1'">授权认证</el-button>
     </div>
@@ -288,7 +288,6 @@ export default {
             let {data} = res.data.data
             window.localStorage.setItem("fuyouCaData",JSON.stringify(data));
             this.bus.$emit("updateFuyouCaData")
-            this.bus.$emit('updateHjSign')
             //清除轮询定时器
             clearInterval(this.setIntervalApi)
             this.setIntervalApi=null;

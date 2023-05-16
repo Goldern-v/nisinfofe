@@ -17,33 +17,34 @@
         >
           <span class="label">执行单日期：</span>
           <el-date-picker
-            v-model="longDate"
+            v-model="searchDate"
             type="daterange"
             size="small"
             placeholder="选择日期范围"
           >
           </el-date-picker>
         </div>
+        <!-- 医嘱类型 -->
         <div
           v-if="showAdvice"
           style="margin-left: 20px"
         >
           <span class="label">医嘱类型：</span>
           <el-select
-            v-model="executeType"
+            v-model="yizhuTypeItem"
             placeholder="请选择"
             size="small"
             style="width: 150px"
           >
             <el-option
-              :label="typeItem.label"
-              :value="typeItem.label"
-              v-for="typeItem in yizhuTyoe"
-              :key="typeItem.label"
+              :label="typeItem.name"
+              :value="typeItem.id"
+              v-for="typeItem in yizhuType"
+              :key="typeItem.name"
             ></el-option>
           </el-select>
         </div>
-
+        <!-- 类型 -->
         <div
           v-if="
             [
@@ -61,7 +62,7 @@
         >
           <span class="label">类型：</span>
           <el-select
-            v-model="yizhuTypeItem"
+            v-model="executeType"
             placeholder="请选择"
             size="small"
             style="width: 150px"
@@ -83,7 +84,7 @@
       <div class="table-con">
         <el-table
           ref="zxdtb-table"
-          :data="tableDatalist"
+          :data="tableData"
           border
           height="350"
           @selection-change="handleSelectionChange"
@@ -145,17 +146,11 @@
             min-width="110px"
             align="center"
           ></el-table-column>
-          <!-- <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
-          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center"></el-table-column>
-          <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
-          <el-table-column prop="bloodPressure" label="血压(mmHg)" min-width="110px" align="center"></el-table-column> -->
         </el-table>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post"
-          >确定</el-button
-        >
+        <el-button class="modal-btn" type="primary" @click="post">确定</el-button>
       </div>
     </sweet-modal>
   </div>
@@ -199,20 +194,10 @@
 <script>
 import whiteButton from "@/components/button/white-button";
 import moment from "moment";
-import {
-  getVitalSign,
-  saveVitalSign,
-  ordersExecuteList,
-  nurseBloodList,
-  getOrdersExecuteWx,
-  getOrdersExecuteLc,
-  getOrdersExecuteFsry,
-  getOrdersExecuteWhfk,
-} from "../../api/index";
-import {orders} from '@/api/patientInfo.js'
+import {orders,ordersByCondition,getExecuteType} from '@/api/patientInfo.js'
 import sheetInfo from "../config/sheetInfo/index";
 import bus from "vue-happy-bus";
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, } from "vuex";
 export default {
   props: {
     blockId: {
@@ -221,7 +206,7 @@ export default {
     },
     title: {
       type: String,
-      value: "执行单同步",
+      value: "医嘱同步",
     },
     modalWidth: {
       type: Number,
@@ -231,19 +216,20 @@ export default {
   data() {
     return {
       sheetInfo,
-      searchDate: "",
-      longDate: [moment(), moment()],
+      searchDate: [moment().subtract(1, 'weeks'), moment()],
       tableData: [],
       multipleSelection: [],
       bus: bus(this),
       formlist: {},
-      yizhuTypeItem:["输液"],
-      executeType: ["liaocheng", "lyxrm", "whhk", 'stmz','qhwy'].includes(this.HOSPITAL_ID)
-        ? "输液"
-        : "",
+      yizhuTypeItem:"",
+      executeType: "",
       repeatIndicator: "",
       identicalGroupSelect: ["wujing", 'gdtj'],
-      repeatIndicatorList: [
+      yzcb:()=>{},
+      patientInfo:{},
+      // 是否显示医嘱类型
+      showAdvice: ['foshanrenyi'].includes(this.HOSPITAL_ID),
+      yizhuType:[ 
         {
           id: "",
           name: "全部",
@@ -257,22 +243,34 @@ export default {
           name: "临时",
         },
       ],
-      yzcb:()=>{},
-      patientInfo:{},
-      // 是否显示医嘱类型
-      showAdvice: ['foshanrenyi'].includes(this.HOSPITAL_ID),
+      allType:[
+        {
+            id: "",
+            name: "全部",
+        },
+      ]
     };
   },
   methods: {
     ...mapMutations(["upOpenModalFromSpecial", "upEvalData"]),
     open(yzcb,patientInfo) {
+      // 获取类型
+      if(this.allType.length<2){
+        getExecuteType().then((res)=>{
+        const resData=res.data.data
+        if(resData.length!=0){
+          resData.map((item)=>{
+             this.allType.push(
+              {
+                id:item.executePrefix,
+                name:item.executePrefix
+              })
+          })
+        }
+       })
+      }
       this.patientInfo = patientInfo.patientId?patientInfo:{}
       this.yzcb = yzcb?yzcb:()=>{}
-      // this.formlist = baseParams;
-      // if (!this.patientInfo.patientId && !baseParams.patientId) {
-      //   return this.$message.warning("请选择一名患者");
-      // }
-      this.searchDate = moment().format("YYYY-MM-DD");
       this.getData();
       this.$refs.modal.open();
     },
@@ -280,104 +278,34 @@ export default {
       this.$refs.modal.close();
     },
     post() {
-      console.log(temArr,"temArr")
       let temArr = this.multipleSelection,str="";
         if (this.multipleSelection.length == 0) return this.$message.warning("请选择一条数据");
         temArr.map((item,index)=>{
           str +=index==temArr.length-1?item.orderText:item.orderText+','
         })
         this.yzcb(str)
-        // let text = this.formatData().join('\n')
-        // this.upEvalData(text)
-        // this.upOpenModalFromSpecial(false)
         this.close()
-      // if (
-      //   this.multipleSelection.length != 0 &&
-      //   // 执行单同步保存，记得去api文件saveVitalSign这个接口添加医院名字！！！！
-      //   [
-      //     "fuyou",
-      //     "wujing",
-      //     'gdtj',
-      //     "quzhou",
-      //     "weixian",
-      //     "liaocheng",
-      //     "foshanrenyi",
-      //     "whfk",
-      //     "lyxrm",
-      //     "whhk",
-      //     '925'
-      //   ].includes(this.HOSPITAL_ID)
-      // ) {
-      //   this.multipleSelection.map((item, index) => {
-      //     if (item.pulse) {
-      //       let strArr = item.pulse.split("/");
-      //       if (strArr[0] && strArr[1]) {
-      //       } else {
-      //         temArr[index].pulse = strArr[0] || strArr[1];
-      //       }
-      //     }
-      //   });
-      // }
-      // if (this.sheetInfo.sheetType === "access_lcey") {
-      //   let filterList = JSON.parse(JSON.stringify(temArr));
-      //   filterList.map((item, index) => {
-      //     filterList[index].orderText = item.orderText + item.dosage;
-      //     if (item.dosage.includes("g")) {
-      //       filterList[index].dosage = "";
-      //     }
-      //   });
-      //   temArr = filterList;
-      // }
-      // if (this.identicalGroupSelect.includes(this.HOSPITAL_ID)) {
-      //   let firstTime = "";
-      //   temArr.map((item) => {
-      //     item.isFirst && (firstTime = item.recordDate);
-      //     !item.isFirst && (item.recordDate = firstTime);
-      //   });
-      // }
-      /**【武警】保存前将入量内容food中'\b'后的数据进行删除*/
-      // if (["wujing",'gdtj'].includes(this.HOSPITAL_ID)) {
-      //   temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
-      //     item.food = item.food.split("\b")[0];
-      //     return item;
-      //   });
-      // }
-      // if (["foshanrenyi", "lyxrm", "whhk", '925'].includes(this.HOSPITAL_ID)) {
-      //   temArr = JSON.parse(JSON.stringify(temArr)).map((item) => {
-      //     item.foodSize = item.dosage;
-      //     return item;
-      //   });
-      // }
-      // saveVitalSign(temArr, this.HOSPITAL_ID).then((res) => {
-      //   this.$message.success("保存成功");
-      //   this.close();
-      //   this.bus.$emit("refreshSheetPage");
-      // });
-      // this.bus.$emit("refreshSheetPageOne", this.multipleSelection);
     },
     getData() {
-        let startDate = this.longDate[0]
-          ? moment(this.longDate[0]).format("YYYY-MM-DD")
-          : "";
-        let endDate = this.longDate[1]
-          ? moment(this.longDate[1]).format("YYYY-MM-DD")
-          : "";
-          orders(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
-            console.log("orders",res)
-            this.tableData = res.data.data;
-          })
-        // getOrdersExecuteFsry({
-        //   patientId: this.patientInfo.patientId || this.formlist.patientId,
-        //   visitId: this.patientInfo.visitId || this.formlist.visitId,
-        //   startDate,
-        //   endDate,
-        //   executeType: this.executeType,
-        // }).then((res) => {
-        //   this.tableData = res.data.data.list;
-        // });
+        const getDataObj={
+          patientId:this.patientInfo.patientId,
+          visitId:this.patientInfo.visitId,
+          orderText:"",//关键字查询,有需要可加
+          startDate:this.searchDate[0]
+           ? moment(this.searchDate[0]).format("YYYY-MM-DD 00:00:00")
+           : "",
+          endDate : this.searchDate[1]
+           ? moment(this.searchDate[1]).format("YYYY-MM-DD 00:00:00")
+           : "",
+          executeType:this.executeType,//执行单类型
+          repeatIndicator:this.yizhuTypeItem,//医嘱类型 传空为全部 "0":临时；"1":长期
+        }
+         ordersByCondition(getDataObj).then(res=>{
+          console.log('新版接口',res)
+          this.tableData = res.data.data;
+         })
     },
     handleSelectionChange(val) {
-      console.log(val,"handleSelectionChange")
       this.multipleSelection = val;
     },
     // 同组选中
@@ -415,79 +343,6 @@ export default {
     }
   },
   computed: {
-    tableDatalist(){
-      let tableDatalist = [],tableDatalist2=[]
-      if(this.yizhuTypeItem==="" && this.executeType===""){
-        return this.tableData
-      }else {
-        if(this.yizhuTypeItem){
-          this.tableData.map(item=>{
-            if(item.repeatIndicator===this.yizhuTypeItem) tableDatalist.push(item)
-          })
-        }else tableDatalist = [...this.tableData]
-        if(this.executeType){
-          tableDatalist.map(item=>{
-            if(item.orderClass===this.executeType) tableDatalist2.push(item)
-          })
-        }
-        return tableDatalist2
-      }
-    },
-    yizhuTyoe(){
-      return [
-        { label: "输液" },
-        { label: "注射" },
-        { label: "口服" },
-        { label: "雾化" },
-        { label: "皮试" },
-        { label: "治疗" },
-        { label: "理疗" },
-        { label: "护理" },
-        { label: "外用" },
-        { label: "化验" },
-        { label: "其他" },
-      ]
-    },
-    allType() {
-        return [
-          {
-            id: "",
-            name: "全部",
-          },
-          {
-            id: "药品",
-            name: "药品",
-          },
-          {
-            id: "检查",
-            name: "检查",
-          },
-          {
-            id: "检验",
-            name: "检验",
-          },
-          {
-            id: "所属床位收费项目",
-            name: "所属床位收费项目",
-          },
-          {
-            id: "卫材",
-            name: "卫材",
-          },
-          {
-            id: "医疗",
-            name: "医疗",
-          },
-          {
-            id: "手术",
-            name: "手术",
-          },
-          {
-            id: "护理",
-            name: "护理",
-          },
-        ];
-    },
   },
   components: {
     whiteButton,

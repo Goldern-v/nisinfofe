@@ -420,14 +420,13 @@ export default {
       });
     },
     SignImgId() {
-      return (this.HOSPITAL_ID == 'hj'&&window.localStorage.getItem("fuyouCaData")) ? JSON.parse(window.localStorage.getItem("fuyouCaData")).signatureImg: JSON.parse(localStorage.user).empNo;
+      return JSON.parse(localStorage.user).empNo
     },
     getSignImg() {
       this.$nextTick(() => {
         let signature = this.SignImgId();
         if (signature) {
-          // :src="'data:text/html;base64,'+ewmBaseData"
-          this.signature =(this.HOSPITAL_ID == 'hj'&& window.localStorage.getItem("fuyouCaData")) ?`data:text/html;base64,${signature}` :`/crNursing/api/file/signImage/${signature}?${this.token}`;
+          this.signature =`/crNursing/api/file/signImage/${signature}?${this.token}`
         } else {
           this.signature = "";
         }
@@ -579,10 +578,6 @@ export default {
     this.bus.$on("updateFuyouCaData", () => {
       this.initFuyouCaData();
     });
-    /*监听厚街ca登录后更换签名*/
-    this.bus.$on('updateHjSign',()=>{
-      this.getSignImg()
-    })
     // let HOSPITAL_ENABLE_LIST = ["威县人民医院"]
     console.log(
       "process.env.ENABLE_BLUETOOTH_SIGN",
