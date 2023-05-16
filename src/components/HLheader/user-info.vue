@@ -420,13 +420,13 @@ export default {
       });
     },
     SignImgId() {
-      return JSON.parse(localStorage.user).empNo;
+      return JSON.parse(localStorage.user).empNo
     },
     getSignImg() {
       this.$nextTick(() => {
         let signature = this.SignImgId();
         if (signature) {
-          this.signature = `/crNursing/api/file/signImage/${signature}?${this.token}`;
+          this.signature =`/crNursing/api/file/signImage/${signature}?${this.token}`
         } else {
           this.signature = "";
         }
@@ -535,7 +535,6 @@ export default {
       if(['foshanrenyi','fsxt','lyxrm','925','beihairenyi', 'whhk', 'stmz','nfyksdyy','qhwy','whsl'].includes(this.HOSPITAL_ID )){
         titleObject=this.getBase(JSON.stringify({user:this.userName,auth: this.passWord}))
       }
-      console.log("localStorage.getItem('sso')===",localStorage.getItem('sso'))
       if(localStorage.getItem('sso')=='sso' && this.HOSPITAL_ID == 'whsl'){
         let user = JSON.parse(localStorage.getItem("user"))
         titleObject=this.getBase(JSON.stringify({user:user.empNo,auth: user.maps.userKey}))
