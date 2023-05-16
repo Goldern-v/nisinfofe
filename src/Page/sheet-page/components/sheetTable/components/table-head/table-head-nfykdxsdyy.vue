@@ -236,7 +236,7 @@
         周
       </span>
 
-    <template v-if="sheetInfo.sheetType=='prenatal_sdry'||sheetInfo.sheetType=='postpartum2_sdry'" >
+    <template v-if="sheetInfo.sheetType=='prenatal_sdry'" >
      <span>&nbsp;&nbsp;引产(</span>
       <input
           style="width: 20px;font-size:13px;text-align: center;"
@@ -248,6 +248,18 @@
         分娩方式：</span>
        <customSelectCanRepeat
 
+          :options="options"
+          @onSelect="(val) => setRelValue(`${index}options`, val)"
+        >
+          <input :data-value="sheetInfo.relObj[`${index}options`]" v-model="sheetInfo.relObj[`${index}options`]" style="width:160px;">
+        </customSelectCanRepeat>
+    </template>
+
+    <!-- 顺德人医产后产房表头处理 -->
+    <template v-if="sheetInfo.sheetType=='postpartum2_sdry'" >
+     <span>
+        分娩方式：</span>
+       <customSelectCanRepeat
           :options="options"
           @onSelect="(val) => setRelValue(`${index}options`, val)"
         >
