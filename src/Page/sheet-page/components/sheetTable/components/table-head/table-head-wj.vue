@@ -327,11 +327,11 @@ export default {
     }
   },
   watch:{
-    ischangemajor(newValue){
-      if(newValue) {
-        this.getChangeMajor()
-      }
-    }
+    // ischangemajor(newValue){
+    //   if(newValue) {
+    //     this.getChangeMajor()
+    //   }
+    // }
   },
   destroyed() {},
   components: { crDatePicker}

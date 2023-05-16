@@ -41,10 +41,10 @@ const currentTargetUrl = (() => {
   switch (HOSPITAL_ID) {
     /** 厚街 */
     case "hj":
-      // return "http://120.197.141.41:9091" //厚街正式
+      return "http://120.197.141.41:9091" //厚街正式
       // return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
-    return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+    // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
       // return "http://192.168.20.83:8080" // 彬哥本地
       // return "http://192.168.3.191:9091"//锦泳本地
 
@@ -134,9 +134,9 @@ const currentTargetUrl = (() => {
 
     /** 武警广东省总队医院 */
     case "wujing":
-      // return 'http://14.18.101.182:9094' // crph3675 crph
+      return 'http://14.18.101.182:9094' // crph3675 crph
       // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
-      return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
+      // return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.3.154:8080" // 杨鑫本地
       // return "http://218.13.87.27:9094"
       // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式  crph3675 crph

@@ -114,7 +114,7 @@ function decode(ayncVisitedData) {
 
   }
   // console.log('prevRecord:',prevRecord, 'isChangePreRecord:',isChangePreRecord,'isChangeLastRecord:',isChangeLastRecord,'lastRecord',lastRecord);
-  console.log('result:',result);
+  // console.log('result:',result);
    // 因为跨页的时候，在下一页改掉和上一页相同时间，上一页的recordYear为空
    if(result.length && !result[0]['recordYear']){
      result[0]['recordYear'] = moment(result[0]['recordDate']).format('YYYY')

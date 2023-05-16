@@ -622,9 +622,10 @@ export default {
     "sheetInfo.relObj":{
       handler(newValue, oldValue) {
         for(let key in newValue){
-          if (this.index != 0 && !this.sheetInfo.relObj[`PageIndex_${key.split('PageIndex_')[1].split('_')[0]}_${this.index - 1}`]) {
+          let indexKey = key.split('PageIndex_')[1].split('_')[0];
+          if (this.index != 0 && this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index - 1}`]) {
             // 除了第一页，其他页数，如果上一页也值那就拿就拿上一页的
-            this.sheetInfo.relObj[`PageIndex_${key.split('PageIndex_')[1].split('_')[0]}_${this.index}`] = this.sheetInfo.relObj[`PageIndex_${key.split('PageIndex_')[1].split('_')[0]}_${this.index - 1}`]
+            this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index}`] = this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index - 1}`]
           }
         }
 
