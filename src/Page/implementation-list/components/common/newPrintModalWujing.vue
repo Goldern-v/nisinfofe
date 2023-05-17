@@ -225,7 +225,7 @@
       overflow: hidden;
       height: calc(100% - 50px);
       min-height: calc(100% - 50px);
-      max-height: calc(100% - 20px);
+      max-height: calc(100% - 40px);
       font-size: 14px;
       div {
         display: flex;

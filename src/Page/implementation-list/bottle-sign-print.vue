@@ -198,7 +198,7 @@
               size="small"
               @click="onPrint"
               :disabled="status == '已执行'"
-              >打印{{ showPrintAll && HOSPITAL_ID !== 'zhzxy' ? "此页" : "" }}</el-button
+              >打印{{ showPrintAll && !['zhzxy','whhk'].includes(HOSPITAL_ID) ? "此页" : "" }}</el-button
             >
             <el-button
               size="small"
@@ -238,7 +238,7 @@
         <div
           :class="[
             {
-              'break-page':bottleCardIndex % 2 == 1 &&
+              'break-page':bottleCardIndex % 2 == 1  &&
                 newModalSize == '3*7' || newModalSize === '5*8',
               'size-75': newModalSize === '7*5'
             },

@@ -15,15 +15,15 @@
       <div class="table__header-wrapper" ref="headerRef">
         <table class="table__header">
           <colgroup>
+<!--            <col width="38px"/>-->
             <col width="38px"/>
             <col width="38px"/>
-            <col width="38px"/>
-            <col v-for="i in colLength" :key="'th' + i" width="37px"/>
+            <col v-for="i in colLength" :key="'th' + i" :width="['3','31'].includes(i)?'50':'37px'"/>
             <col v-if="hasScroll" width="7px"/>
           </colgroup>
           <thead>
             <tr>
-              <th rowspan="2"></th>
+<!--              <th rowspan="2"></th>-->
               <th rowspan="2">日期</th>
               <th rowspan="2">时间</th>
               <th :colspan="baseDictKey.length">生命体征</th>
@@ -54,43 +54,51 @@
         </table>
       </div>
       <div ref="bodyRef" class="table__body-wrapper" :style="{ height: `${tableBodyHeight}px` }">
-        <table v-if="tableData && tableData.length" class="table__body">
+        <table v-if="tableData && tableData.length" class="table__body" id="table__body">
           <colgroup>
+<!--            <col width="38px"/>-->
             <col width="38px"/>
             <col width="38px"/>
-            <col width="38px"/>
-            <col v-for="i in colLength" :key="'td' + i" width="37px"/>
+            <col v-for="i in colLength" :key="'td' + i" :width="['3','31'].includes(i)?'50':'37px'"/>
           </colgroup>
           <tbody>
-            <tr v-for="(item, index) in tableData" :key="'tr' + index" v-if="!item.isShow">
-              <td><el-checkbox v-model="item.checked"></el-checkbox></td>
+            <tr
+                :class="{ 'selected': isSelected(index) }" @click="selectRow(index)"
+                v-for="(item, index) in tableData" :key="'tr' + index" v-if="!item.isShow" >
               <td>{{ item.recordMonth }}</td>
               <td>{{ item.recordHour }}</td>
               <td
                 v-for="(key, tdIndex) in [...baseDictKey, ...otherDictKey, ...customDictKey]"
                 :key="key + '-' + tdIndex"
                 :ref="`td${index}-${tdIndex}`"
-              >
-
+                :style="{width:['3','31'].includes(key)?'50px':'37px'}">
 <!--表顶，表底-->
-                <div class="el-select" v-if="key =='3'">
-                  <div class="el-select-input">
-                    <input type="text"  v-model="item.vitals[key]" placeholder="" @click="item.expand1 = !item.expand1 ">
-                  </div>
-                  <ul v-if="item.expand1"
-                      class="el-select-dropdown" >
-                    <li v-for="itemLi in topRemarkObj" :key="itemLi+'c'" @click="item.expand1 = !item.expand1 ;item.vitals[key] =itemLi ">{{itemLi}}</li>
-                  </ul>
-                </div>
-                <div class="el-select" v-else-if="key =='31'">
-                  <div class="el-select-input">
-                    <input type="text"  v-model="item.vitals[key]" placeholder="" @click="item.expand2 = !item.expand2 ">
-                  </div>
-                  <ul v-if="item.expand2"
-                      class="el-select-dropdown" >
-                    <li v-for="itemLi in bottomRemarkObj" :key="itemLi+'c'" @click="item.expand2 = !item.expand2 ;item.vitals[key] =itemLi ">{{itemLi}}</li>
-                  </ul>
-                </div>
+              <el-select
+                  v-if="key =='3'"
+                  size="medium"
+                  v-model="item.vitals[key]"
+                  placeholder=""
+                  clearable>
+                <el-option
+                    v-for="opt in topRemarkObj"
+                    :key="opt"
+                    :label="opt"
+                    :value="opt">
+                </el-option>
+              </el-select>
+                <el-select
+                    v-else-if="key =='31'"
+                    size="medium"
+                    v-model="item.vitals[key]"
+                    placeholder=""
+                    clearable>
+                  <el-option
+                      v-for="opt in bottomRemarkObj"
+                      :key="opt"
+                      :label="opt"
+                      :value="opt">
+                  </el-option>
+                </el-select>
                 <textarea
                     v-else
                     @blur="handleChangeValue($event,key)"
@@ -134,6 +142,7 @@ export default {
       otherDictMap: {},
       customDictMap: {},
       tableData: [],
+      selected:null,
       patient: {
         patientId: '',
         visitId: '',
@@ -146,7 +155,8 @@ export default {
       patientGroup4Expand3:[{name:'1',value:1}],
       setVitalSignObj:{},
       topRemarkObj:{},
-      bottomRemarkObj:{}
+      bottomRemarkObj:{},
+      selectedRow: null
     }
   },
   mounted() {
@@ -154,7 +164,6 @@ export default {
       this.baseDictMap = data.baseDictMap;
       this.otherDictMap = data.otherDictMap;
       this.customDictMap = data.customDictMap;
-      console.log("data===",data)
     })
     this.bus.$on('watchQueryDate', (query) => {
       this.query.entryDate = query.entryDate;
@@ -171,6 +180,21 @@ export default {
     this.bus.$on('bottomRemark',(value)=>{
       this.bottomRemarkObj =value
     })
+    // document.addEventListener('click', (event)=> {
+    //   let selectContainer = document.querySelector('.vital-list-modal');
+    //   // let selectOptions = selectContainer.querySelector('.el-select-dropdown');
+    //   if (event.target.closest('.el-select-dropdown') !== selectContainer) {
+    //     // 如果点击事件发生在下拉菜单以外的区域
+    //     this.tableData = this.tableData.map((item)=>{
+    //       item.expand2 = false ;
+    //       item.expand1 =false;
+    //       return item
+    //     })
+    //   } else {
+    //     // 如果点击事件发生在下拉菜单触发器上
+    //   }
+    // });
+
   },
   computed: {
     baseDictKey() {
@@ -183,15 +207,12 @@ export default {
       return Object.keys(this.customDictMap);
     },
     colLength() {
-      return Object.keys(this.baseDictMap).length + Object.keys(this.otherDictMap).length + Object.keys(this.customDictMap).length;
-    },
-    bodyWrapper() {
-      return this.$refs.bodyRef;
+      return [...Object.keys(this.baseDictMap),...Object.keys(this.otherDictMap),...Object.keys(this.customDictMap)];
     },
     hasScroll() {
       const { bodyRef } = this.$refs;
       return bodyRef ? bodyRef.scrollHeight > bodyRef.clientHeight : false;
-    }
+    },
   },
   watch: {
     tableData() {
@@ -202,6 +223,12 @@ export default {
     }
   },
   methods: {
+    selectRow(index) {
+      this.selectedRow = index;
+    },
+    isSelected(index) {
+      return this.selectedRow === index;
+    },
     handleAddRow(){
       const myArray =[...this.baseDictKey, ...this.otherDictKey, ...this.customDictKey];
       const myObject = {};
@@ -218,10 +245,15 @@ export default {
       })
     },
     handleRemove(){
-      this.tableData = this.tableData.map((item)=>{
-        item.isShow =item.checked
-        return item
-      })
+      if(this.selectedRow){
+        this.tableData =this.tableData.map((item,key)=>{
+          if(this.selectedRow == key){
+            item.isShow = true
+            item.vitals ={}
+          }
+          return item
+        })
+      }
     },
     handleChangeValue(event,key){
      Object.values(this.setVitalSignObj).map((item)=>{
@@ -249,6 +281,7 @@ export default {
               expand1:false, //表顶
               expand2:false, //表底
               checked:false,
+              isShow:false,
               recordMonth: moment(item.recordDate).format('MM-DD'),
               recordHour: moment(item.recordDate).format('HH:mm'),
             }
@@ -294,7 +327,8 @@ export default {
         // 需要把数据更新后传递进行保存
         await saveTemperatureList(params);
         this.signListShow = false;
-        this.bus.$emit('refreshSave')
+        this.bus.$emit('refreshVitalSignList')
+        this.bus.$emit('refreshImg')
       } catch (error) {
         console.log(error);
       }
@@ -349,6 +383,17 @@ export default {
   /deep/ .el-dialog--small {
     width: 80% !important;
   }
+  /deep/.el-select .el-input__inner{
+    padding: 0 !important;
+    font-size: 12px !important;
+    text-align: center;
+
+  }
+  /deep/.el-select .el-input .el-input__icon {
+    display: none;
+  }
+  /deep/.el-input__inner {
+  }
   .modal-table {
     height: 450px;
     width: 100%;
@@ -367,6 +412,9 @@ export default {
       overflow: auto;
       .table__body {
         border-left: 1px solid #444444;
+  .selected {
+    background-color: #FFF8B1 !important;
+  }
       }
     }
   }

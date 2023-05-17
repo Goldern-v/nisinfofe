@@ -126,7 +126,7 @@ export default {
       alertActivated: false,
       currentRule: {},
       refName: 'inputBox' + this.obj.name + this.obj.title
-      
+
     };
   },
   computed: {
@@ -248,7 +248,7 @@ export default {
   methods: {
     reactiveRows(key, maxLength, minRows, maxRows) {
       if (this.formObj.model[key]) {
-        let number = this.formObj.model[key].replace(/[^0-9]/ig,""); 
+        let number = this.formObj.model[key].replace(/[^0-9]/ig,"");
         let word = this.formObj.model[key].replace(/[^a-z]+/ig,"");
         let char = this.formObj.model[key].split('').filter(i => i == ',').join('')
         let curLength = (this.formObj.model[key].length - number.length - word.length - char.length) + ((number.length + word.length + char.length) / 2)
@@ -381,6 +381,30 @@ export default {
                 result ? result.toFixed(2) : ""
                 );
                 this.formObj.model[r.result] = result ? result.toFixed(2) : "";
+                if (r.relate && r.relateRule) {
+                  const relateItem = r.relateRule.find(rl => {
+                    if (!rl.min && rl.max) {
+                      return result <= rl.max;
+                    } else if (rl.min && rl.max) {
+                      return result >= rl.min && result <= rl.max;
+                    } else if (rl.min && !rl.max) {
+                      return result >= rl.min;
+                    }
+                  })
+                  if (relateItem) {
+                    const relateRef = this.$root.$refs[this.formCode][r.relate]
+                    for (const key in relateRef) {
+                      if (
+                        typeof relateRef[key] === 'object' &&
+                        relateRef[key].$el.children[0].classList.contains('is-checked')
+                      ) {
+                        relateRef[key].$el.children[0].classList.remove('is-checked');
+                      }
+                    }
+                    relateRef[relateItem.value].$el.children[0].classList.add('is-checked');
+                    this.formObj.model[r.relate] = relateItem.value || "";
+                  }
+                }
               }
 
             }

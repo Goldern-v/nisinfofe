@@ -8,7 +8,7 @@
       @updateCurrentTag="updateCurrentTag"
     />
     <div class="content">
-      <div class="left-part" id="left">
+      <div class="left-part" id="left" :style="treeOpenLeft ? 'width: 0': 'width: 260px'">
         <tree
           ref="tree"
           :filterObj="filterObj"
@@ -16,7 +16,7 @@
           @openFormTag="onMountTag"
         ></tree>
       </div>
-      <div :class="[HOSPITAL_ID=='wujing' ?'right-part-wujing' : 'right-part']" id="right" style="z-index:1">
+      <div :style="treeOpenLeft ? 'margin-left: 0': 'margin-left: 260px'" :class="[HOSPITAL_ID=='wujing' ?'right-part-wujing' : 'right-part']" id="right" style="z-index:1">
         <rightPart :filterObj="filterObj" :hasTagsView="hasTagsView"></rightPart>
       </div>
     </div>
@@ -73,11 +73,15 @@ export default {
     patientInfo() {
       return this.$store.state.patient.currentPatient;
     },
+    treeOpenLeft() {
+      return this.$store.state.sheet.openWritTreeLeft;
+    },
   },
   mounted(){
     //挂载。让嵌套的iframe可以调用
     this.bus.$on("handleBatchAudit",(e,formCode)=>this.$refs.tree.handleBatchAudit(e,formCode))
   },
+
   beforeDestroy () {
     this.bus.$off("handleBatchAudit");
   },

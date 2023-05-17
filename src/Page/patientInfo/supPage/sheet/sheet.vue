@@ -677,12 +677,12 @@ export default {
       let hourIndex = tr.findIndex(item=>item.key == "recordHour")
       let monthValue = ''
       let hourValue = ''
-      if(preRow && (preRow[monthIndex].value || preRow[dateIndex].value || preRow[hourIndex].value)){
+      if(preRow && (preRow[monthIndex].value || preRow[dateIndex].value || preRow[hourIndex].value) && !['nfyksdyy'].includes(this.HOSPITAL_ID)){
         monthValue = preRow[monthIndex].value || moment(preRow[dateIndex].value.split(' ')[0]).format('MM-DD')
         hourValue = preRow[hourIndex].value || preRow[dateIndex].value.split(' ')[1]
       } else {
         monthValue = moment().format('MM-DD')
-        hourValue= moment().format('HH:ss')
+        hourValue= moment().format('HH:mm')
       }
       ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
       ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
