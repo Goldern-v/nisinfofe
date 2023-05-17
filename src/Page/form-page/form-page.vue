@@ -7,7 +7,7 @@
 
         <patientList toName="formPage" :callFunction="isSelectPatient" />
       </div>
-      <div class="right-part" :style="{marginLeft: treeOpenLeft ? '-274px' : (openLeft ? '200px' : '0')}">
+      <div class="right-part" :style="{marginLeft: openLeft ? '200px' : '0'}">
         <record></record>
       </div>
     </div>
@@ -86,9 +86,6 @@ export default {
     },
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
-    },
-    treeOpenLeft() {
-      return this.$store.state.sheet.openWritTreeLeft;
     },
   },
   methods: {
