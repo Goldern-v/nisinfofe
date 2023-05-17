@@ -136,7 +136,7 @@ export default {
       this.clearIntervalItem();
       this.$refs.modal.close();
       this.bus.$emit("updateFuyouCaData")
-      
+
     },
     //启动倒数定时器
     startSetIntervalItem(){

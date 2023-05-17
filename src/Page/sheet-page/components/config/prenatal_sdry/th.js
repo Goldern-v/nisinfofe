@@ -40,17 +40,7 @@ export default {
                 {"name":"宫缩疼痛评分","colspan":"1","rowspan":"3"},
                 {"name":"非药物镇痛方法","colspan":"1","rowspan":"3"},
                 {"name":"膀胱充盈度","colspan":"1","rowspan":"3"},
-                {
-                    "name": `标题1`,
-                    "colspan": '1',
-                    "rowspan": '3',
-                    "canSet": true,
-                    "key": 'fieldOne',
-                    "style": {
-                      "minWidth": '37px',
-                      "maxWidth": '37px',
-                    }
-                  },
+                {"name": "", "colspan": '1',"rowspan": '3',"canSet": true,"key": 'armValue',"style": {"minWidth": '37px',"maxWidth": '37px',}},
 
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"210px","maxWidth":"210px"}},
                 {"name":"护士<br/>签名","colspan":"1","rowspan":"3","style":{"minWidth":"75px","maxWidth":"75px"}},

@@ -109,7 +109,7 @@
     background: #F7FAFA;
     padding: 0 13px;
     border-bottom: 1px solid #EAEEF1;
-
+    overflow: hidden;
     .title {
       font-size: 13px;
       color: #333333;
@@ -589,7 +589,6 @@ export default {
       let formAudit = node.data.formTreeRemindType == "2"; // 责任 + 审核
 
       let isNoicon = node.data.status && (node.data.formTreeRemindType ==  node.data.status)
-      console.log('fileHasSave',fileHasSave,'fileHasSign',fileHasSign,'formNoSign',formNoSign,'formSign',formSign,'formAudit',formAudit);
       // 花都特殊处理
       if (
         this.HOSPITAL_ID == "huadu" ||

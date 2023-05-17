@@ -292,7 +292,7 @@ label
     text-align: left;
     width: 500px;
     height: auto;
-    padding-left: 100px;
+    padding-left: 50px;
     border: none;
     height: 70px;
     display: flex;

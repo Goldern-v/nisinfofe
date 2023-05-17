@@ -584,6 +584,10 @@ export default {
     this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
+    this.bus.$on('refreshSave',()=>{
+      this.getVitalList()
+      this.getList();
+    })
     //时间监听
     this.bus.$on("dateChangeEvent", (type) => {
       switch (type) {
@@ -789,6 +793,7 @@ export default {
       }
 
       this.vitalSignObj = { ...obj };
+      this.bus.$emit('setVitalSignObj',this.vitalSignObj)
     },
     async getList() {
       /* 初始化 */
@@ -974,6 +979,7 @@ export default {
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
+      console.log("orgin==",orgin)
       return orgin;
     },
     handlePopRefresh(target) {
@@ -1059,6 +1065,14 @@ export default {
           otherDictMap,
           customDictMap: this.fieldList,
         });
+        this.bus.$emit('topRemark',this.getFilterSelections(
+            this.totalDictInfo['表顶注释'].options,
+            this.vitalSignObj[this.multiDictList['表顶注释']].vitalValue
+        ))
+        this.bus.$emit('bottomRemark',this.getFilterSelections(
+            this.totalDictInfo['表底注释'].options,
+            this.vitalSignObj[this.multiDictList['表底注释']].vitalValue
+        ))
       });
     },
     async rightMouseDown(e, dateTime, recordPerson) {

@@ -51,7 +51,7 @@
           <div>
             <div class="his-name">广州市花都区人民医院</div>
             <div class="title">NICU监护单</div>
-          </div> 
+          </div>
           <div class="tableHeaderRight1">
             <div class="box">
               <div class="box-item">
@@ -59,8 +59,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 70px;"
-                  v-model="sheetInfo.relObj['wg1']"
-                  :data-value="sheetInfo.relObj['wg1']"
+                  v-model="sheetInfo.relObj[`PageIndex_wg1_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_wg1_${index}`]"
                 />号胃管
               </div>
               <!-- <div class="box-item">
@@ -74,14 +74,14 @@
               </div> -->
               <div class="box-item">PICC(1.9Fr)</div>
               <div class="box-item">脐静脉管</div>
-              <div class="box-item">动脉静脉管</div>
+              <div class="box-item">脐动脉管</div>
               <div class="box-item">
                 <input
                   type="textarea"
                   class="bottomInput"
                   style="width: 105px;"
-                  v-model="sheetInfo.relObj['g1']"
-                  :data-value="sheetInfo.relObj['g1']"
+                  v-model="sheetInfo.relObj[`PageIndex_g1_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_g1_${index}`]"
                 />
               </div>
               <div class="box-item">
@@ -89,8 +89,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 105px;"
-                  v-model="sheetInfo.relObj['g2']"
-                  :data-value="sheetInfo.relObj['g2']"
+                  v-model="sheetInfo.relObj[`PageIndex_g2_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_g2_${index}`]"
                 />
               </div>
             </div>
@@ -101,9 +101,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq1')"
-                  v-model="sheetInfo.relObj['zgrq1']"
-                  :data-value="sheetInfo.relObj['zgrq1']"
+                  @click="(e)=>timePicker(e,`PageIndex_zgrq1_${index}`)"
+                  v-model="sheetInfo.relObj[`PageIndex_zgrq1_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_zgrq1_${index}`]"
                 />
               </div>
               <div class="box-item">
@@ -112,9 +112,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq2')"
-                  v-model="sheetInfo.relObj['zgrq2']"
-                  :data-value="sheetInfo.relObj['zgrq2']"
+                  @click="(e)=>timePicker(e,`PageIndex_zgrq2_${index}`)"
+                  v-model="sheetInfo.relObj[`PageIndex_zgrq2_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_zgrq2_${index}`]"
                 />
               </div>
               <div class="box-item">
@@ -123,9 +123,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq3')"
-                  v-model="sheetInfo.relObj['zgrq3']"
-                  :data-value="sheetInfo.relObj['zgrq3']"
+                  @click="(e)=>timePicker(e,`PageIndex_zgrq3_${index}`)"
+                  v-model="sheetInfo.relObj[`PageIndex_zgrq3_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_zgrq3_${index}`]"
                 />
               </div>
               <div class="box-item">
@@ -134,9 +134,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq4')"
-                  v-model="sheetInfo.relObj['zgrq4']"
-                  :data-value="sheetInfo.relObj['zgrq4']"
+                  @click="(e)=>timePicker(e,`PageIndex_zgrq4_${index}`)"
+                  v-model="sheetInfo.relObj[`PageIndex_zgrq4_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_zgrq4_${index}`]"
                 />
               </div>
               <div class="box-item">
@@ -145,9 +145,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq5')"
-                  v-model="sheetInfo.relObj['zgrq5']"
-                  :data-value="sheetInfo.relObj['zgrq5']"
+                  @click="(e)=>timePicker(e,`PageIndex_zgrq5_${index}`)"
+                  v-model="sheetInfo.relObj[`PageIndex_zgrq5_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_zgrq5_${index}`]"
                 />
               </div>
               <div class="box-item">
@@ -156,9 +156,9 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 90px;"
-                  @click="(e)=>timePicker(e,'zgrq6')"
-                  v-model="sheetInfo.relObj['zgrq6']"
-                  :data-value="sheetInfo.relObj['zgrq6']"
+                  @click="(e)=>timePicker(e,`PageIndex_zgrq6_${index}`)"
+                  v-model="sheetInfo.relObj[`PageIndex_zgrq6_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_zgrq6_${index}`]"
                 />
               </div>
             </div>
@@ -169,8 +169,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
-                  v-model="sheetInfo.relObj['crsd']"
-                  :data-value="sheetInfo.relObj['crsd']"
+                  v-model="sheetInfo.relObj[`PageIndex_crsd_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_crsd_${index}`]"
                 />cm
               </div>
               <div class="box-item">
@@ -179,8 +179,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
-                  v-model="sheetInfo.relObj['snzs']"
-                  :data-value="sheetInfo.relObj['snzs']"
+                  v-model="sheetInfo.relObj[`PageIndex_snzs_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_snzs_${index}`]"
                 />cm
               </div>
               <div class="box-item">
@@ -189,8 +189,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
-                  v-model="sheetInfo.relObj['wlcd1']"
-                  :data-value="sheetInfo.relObj['wlcd1']"
+                  v-model="sheetInfo.relObj[`PageIndex_wlcd1_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_wlcd1_${index}`]"
                 />cm
               </div>
               <div class="box-item">
@@ -199,8 +199,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
-                  v-model="sheetInfo.relObj['wlcd2']"
-                  :data-value="sheetInfo.relObj['wlcd2']"
+                  v-model="sheetInfo.relObj[`PageIndex_wlcd2_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_wlcd2_${index}`]"
                 />cm
               </div>
               <div class="box-item">
@@ -209,8 +209,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 50px;"
-                  v-model="sheetInfo.relObj['crsd1']"
-                  :data-value="sheetInfo.relObj['crsd1']"
+                  v-model="sheetInfo.relObj[`PageIndex_crsd1_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_crsd1_${index}`]"
                 />cm
               </div>
               <div class="box-item">
@@ -218,8 +218,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 123px;"
-                  v-model="sheetInfo.relObj['crsd2']"
-                  :data-value="sheetInfo.relObj['crsd2']"
+                  v-model="sheetInfo.relObj[`PageIndex_crsd2_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_crsd2_${index}`]"
                 />
               </div>
             </div>
@@ -232,8 +232,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 200px;"
-                  v-model="sheetInfo.relObj['wxfzqy']"
-                  :data-value="sheetInfo.relObj['wxfzqy']"
+                  v-model="sheetInfo.relObj[`PageIndex_wxfzqy_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_wxfzqy_${index}`]"
                 />
               </div>
             </div>
@@ -244,8 +244,8 @@
                   type="textarea"
                   class="bottomInput"
                   style="width: 120px;"
-                  v-model="sheetInfo.relObj['wxxh']"
-                  :data-value="sheetInfo.relObj['wxxh']"
+                  v-model="sheetInfo.relObj[`PageIndex_wxxh_${index}`]"
+                  :data-value="sheetInfo.relObj[`PageIndex_wxxh_${index}`]"
                 />
               </div>
             </div>
@@ -294,7 +294,7 @@
     resize: none;
     cursor: pointer;
     outline:none;
-    overflow:hidden; 
+    overflow:hidden;
     resize:none;
     width: 98%;
     height: 55px;
@@ -302,7 +302,7 @@
   }
   .boxRight {
     flex: 1;
-    margin-right: 5px; 
+    margin-right: 5px;
   }
   input[type='checkbox'] {
     -webkit-appearance: none;
@@ -488,7 +488,7 @@
       outline: none;
     }
   }
-  
+
 
   .bottomCon {
     position: relative;
@@ -574,6 +574,7 @@ export default {
       sheetInfo,
       checked:"false",
       deliveryMode: [],
+      newInfo:{},
       createTime:
         (sheetInfo.relObj && sheetInfo.relObj.createTime) ||
         sheetInfo.selectBlock.createTime
@@ -587,8 +588,8 @@ export default {
       if (this.sheetInfo.relObj[item]) return
       e.currentTarget.value = moment().format("YYYY-MM-DD")
       this.sheetInfo.relObj[item] = moment().format("YYYY-MM-DD")
-      console.log(this.sheetInfo.relObj);
-    }
+    },
+
   },
   computed: {
     patientInfo() {
@@ -597,23 +598,45 @@ export default {
     /** 只读模式 */
     readOnly() {
       if (
-        this.HOSPITAL_ID == "huadu" 
+        this.HOSPITAL_ID == "huadu"
       ) {
         return false;
       }
     },
+    // newPatientInfo() {
+    //   let relObjArr = ["wg1", "g1", "g2", "zgrq1", "zgrq2", "zgrq3", "zgrq4", "zgrq5", "zgrq6", "crsd","snzs", "wlcd1", "wlcd2", "crsd1", "wxfzqy", "wxxh"];
+    //   for (let i = 0; i <= relObjArr.length-1; i++){
+    //     let nowItem = this.sheetInfo.relObj[`PageIndex_${relObjArr[i]}_${this.index}`]
+
+    //     this.newInfo = {...this.newInfo,[`${relObjArr[i]}_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowItem}
+    //   }
+    //   return this.newInfo
+    // }
   },
   filters: {
     toymd(val) {
       return val ? moment(val).format("YYYY年MM月DD日") : "";
     }
   },
-  created() {
-    
+  watch:{
+    "sheetInfo.relObj":{
+      handler(newValue, oldValue) {
+        for(let key in newValue){
+          let indexKey = key.split('PageIndex_')[1].split('_')[0];
+          if (this.index != 0 && this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index - 1}`]) {
+            // 除了第一页，其他页数，如果上一页也值那就拿就拿上一页的
+            this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index}`] = this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index - 1}`]
+          }
+        }
+
+      },
+      deep: true,
+      immediate:true,
+    }
   },
+  created() {},
   update() {},
-  mounted() {
-  },
+  mounted() {},
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
     bedRecordModal,
