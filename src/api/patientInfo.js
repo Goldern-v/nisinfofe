@@ -14,6 +14,13 @@ function orders(patientId, visitId) {
   }
   return axios.get(`${apiPath}patient/orders/${patientId}/${visitId}`);
 }
+
+// 带条件查询患者医嘱
+function ordersByCondition(data) {
+  return  axios.post(`${apiPath}patient/getPatientOrders`, data);
+}
+
+
 // 是否有查询功能医嘱列表（北海）
 function newOrders(patientId, visitId, orderText) {
   // return axios.get(`${apiPath}patient/orders/${patientId}/${visitId}/${orderText}`)
@@ -228,6 +235,12 @@ export const getPaperWork = (patientId, visitId) => {
 export function ordersPage(query) {
   return axios.post(`${apiPath}patient/ordersByTimePage`,query)
 }
+// 获取执行单类型
+function getExecuteType() {
+  console.log('hjm发请求')
+  return axios.post(`${apiPath}procedure/pdaExecute/type`)
+}
+
 export {
   info,
   orders,
@@ -252,5 +265,7 @@ export {
   picNum,
   newOrders,
   collectAssessmentForm,
-  unCollectAssessmentForm
+  unCollectAssessmentForm,
+  ordersByCondition,
+  getExecuteType
 };

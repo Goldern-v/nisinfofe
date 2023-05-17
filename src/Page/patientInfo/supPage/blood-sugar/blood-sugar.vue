@@ -243,7 +243,8 @@
           @click="hisDisabled()&&openSetPageModal(listMap.length)"
           :disabled="isPreview"
         ></whiteButton>
-        <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()" :disabled="isPreview"></whiteButton>
+        <whiteButton v-if="HOSPITAL_ID === 'whsl'" text="打印预览" @click="toPrint()"></whiteButton>
+        <whiteButton v-else text="打印预览" @click="hisDisabled()&&toPrint()" :disabled="isPreview"></whiteButton>
         <whiteButton
           :text="!isChart ? '查看曲线' : HOSPITAL_ID=='guizhou'?'返回':'查看表格'"
           @click="openChart"

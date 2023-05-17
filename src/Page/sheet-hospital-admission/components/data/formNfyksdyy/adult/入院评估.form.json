@@ -1574,7 +1574,6 @@
       "classes": null,
       "readOnly": null,
       "labelLeft": true,
-      "readOnly": null,
       "hiddenTips": true,
       "children": [
         {
@@ -1717,7 +1716,6 @@
       "classes": null,
       "readOnly": null,
       "labelLeft": true,
-      "readOnly": null,
       "hiddenTips": true,
       "children": [
         {
@@ -2717,7 +2715,17 @@
               "height": "I100009",
               "weight": "I100010",
               "weight2": "I1001883",
-              "result": "I100011"
+              "result": "I100011",
+              "relate": "I233204",
+              "relateRule": [{
+                "min": null, "max": 18.4999, "value": "体重过低（<18.5）"
+              }, {
+                "min": 18.5, "max": 23.9, "value": "体重正常（18.5-23.9）"
+              }, {
+                "min": 24, "max": 26.9, "value": "超重（24-26.9）"
+              }, {
+                "min": 27, "max": null, "value": "肥胖（≧27）"
+              }]
             }
           ]
         },
@@ -2739,7 +2747,17 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
-              "result": "I100011"
+              "result": "I100011",
+              "relate": "I233204",
+              "relateRule": [{
+                "min": null, "max": 18.4999, "value": "体重过低（<18.5）"
+              }, {
+                "min": 18.5, "max": 23.9, "value": "体重正常（18.5-23.9）"
+              }, {
+                "min": 24, "max": 26.9, "value": "超重（24-26.9）"
+              }, {
+                "min": 27, "max": null, "value": "肥胖（≧27）"
+              }]
             }
           ]
         },
@@ -2762,7 +2780,17 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
-              "result": "I100011"
+              "result": "I100011",
+              "relate": "I233204",
+              "relateRule": [{
+                "min": null, "max": 18.4999, "value": "体重过低（<18.5）"
+              }, {
+                "min": 18.5, "max": 23.9, "value": "体重正常（18.5-23.9）"
+              }, {
+                "min": 24, "max": 26.9, "value": "超重（24-26.9）"
+              }, {
+                "min": 27, "max": null, "value": "肥胖（≧27）"
+              }]
             }
           ]
         }

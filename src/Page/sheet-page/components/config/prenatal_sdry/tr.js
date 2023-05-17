@@ -335,9 +335,12 @@ export default [
     key: "armValue", //标题1
     value: "",
     event: keyf1,
+    next: "",
+    name: "",
     textarea: {
       width: 40
-    }
+    },
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "description", //特殊情况记录
