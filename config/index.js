@@ -41,10 +41,10 @@ const currentTargetUrl = (() => {
   switch (HOSPITAL_ID) {
     /** 厚街 */
     case "hj":
-      // return "http://120.197.141.41:9091" //厚街正式
+      return "http://120.197.141.41:9091" //厚街正式
       // return "http://120.197.141.41:9094" //东莞正式库的测试
     // return "https://info.cr-health.com:20203" // 公司-厚街测试-外网
-    return "http://192.168.1.54:9866" // 公司-厚街测试-内网
+    // return "http://192.168.1.54:9866" // 公司-厚街测试-内网
       // return "http://192.168.20.83:8080" // 彬哥本地
       // return "http://192.168.3.191:9091"//锦泳本地
 
@@ -66,9 +66,9 @@ const currentTargetUrl = (() => {
 
     /** 花都 */
     case "huadu":
-      // return "http://120.238.239.27:9094" //花都正式
+      return "http://120.238.239.27:9094" //花都正式
       // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
-      return "http://192.168.1.54:9883" //公司-花都测试-内网
+      // return "http://192.168.1.54:9883" //公司-花都测试-内网
       // return "http://192.168.20.112:8080" //公司-花都测试-内网
 
     /** 贵州医科大正式 */
@@ -134,9 +134,9 @@ const currentTargetUrl = (() => {
 
     /** 武警广东省总队医院 */
     case "wujing":
-      // return 'http://14.18.101.182:9094' // crph3675 crph
+      return 'http://14.18.101.182:9094' // crph3675 crph
       // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
-      return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
+      // return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.3.154:8080" // 杨鑫本地
       // return "http://218.13.87.27:9094"
       // return "https://info.cr-health.com:20809" // 公司-武警广东省总队医院正式  crph3675 crph
@@ -250,8 +250,8 @@ const currentTargetUrl = (() => {
 
     //武汉汉口
     case 'whhk':
-      return 'http://192.168.1.54:9883'
-      // return 'http://119.97.229.206:9094'
+      // return 'http://192.168.1.54:9883'
+      return 'http://119.97.229.206:9094'
       // return 'http://119.97.229.206:9094'
     case 'dglb':
         return 'http://192.168.3.176:9091'
@@ -272,7 +272,7 @@ const currentTargetUrl = (() => {
     case 'nfyksdyy':
       // return 'http://192.168.3.154:8080'
           // return 'http://192.168.1.54:9901'  //
-          return  'http://59.38.110.189:9092'
+          // return  'http://59.38.110.189:9092'
           // return  'http://192.168.3.228:8080'
       return 'http://192.168.5.127:9091'
       // return  'https://info.cr-health.com:20215'

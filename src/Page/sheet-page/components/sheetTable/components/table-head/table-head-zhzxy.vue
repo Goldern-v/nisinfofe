@@ -21,7 +21,7 @@
         <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
       </span>
 
-      <span>
+      <span  @click="handleDeptNameChoose">
         科室：
         <div class="bottom-line" style="min-width: 120px">{{patientInfo.realDeptName}}</div>
       </span>
@@ -88,6 +88,7 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
+import bus from "vue-happy-bus";
 export default {
   props: {
     patientInfo: Object,
@@ -95,7 +96,8 @@ export default {
   },
   data() {
     return {
-      sheetInfo
+      sheetInfo,
+      bus: bus(this),
       // relObj: {
       //   wxNo: ""
       // }
@@ -166,6 +168,9 @@ export default {
     }
   },
   methods: {
+    handleDeptNameChoose(){
+      this.bus.$emit('handleDeptNameChoose',true)
+    },
     updateBirthDay() {
       window.openSetAuditDateModal(
         date => {

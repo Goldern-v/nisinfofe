@@ -74,30 +74,46 @@
             :trigger-on-focus="true"
             @select="() => {}"
           />
-          <span class="label">床号:</span>
-          <el-select
-            v-if="multiBed"
-            v-model="bedLabels"
-            :filterable="HOSPITAL_ID === 'whsl'"
-            placeholder="请选择"
-            size="small"
-            :style="HOSPITAL_ID == 'ytll' ? 'width:220px' : 'width:130px'"
-            multiple
-            @change="search"
-          >
-            <el-option
-              v-for="(v, i) in bedList"
-              :key="i"
-              :label="v"
-              :value="v"
-            />
-          </el-select>
-          <el-input
-            v-else
-            size="small"
-            style="width: 80px"
-            v-model="bedLabel"
-          ></el-input>
+          <span v-if="HOSPITAL_ID == 'wujing'">
+            <span class="label">起始床号:</span>
+            <el-input
+              size="small"
+              style="width: 80px"
+              v-model="bedLabel"
+            ></el-input>
+            <span class="label">结束床号:</span>
+            <el-input
+              size="small"
+              style="width: 80px"
+              v-model="bedLabelEnd"
+            ></el-input>
+          </span>
+          <span v-else>
+            <span class="label">床号:</span>
+            <el-select
+              v-if="multiBed"
+              v-model="bedLabels"
+              :filterable="HOSPITAL_ID === 'whsl'"
+              placeholder="请选择"
+              size="small"
+              :style="HOSPITAL_ID == 'ytll' ? 'width:220px' : 'width:130px'"
+              multiple
+              @change="search"
+            >
+              <el-option
+                v-for="(v, i) in bedList"
+                :key="i"
+                :label="v"
+                :value="v"
+              />
+            </el-select>
+            <el-input
+              v-else
+              size="small"
+              style="width: 80px"
+              v-model="bedLabel"
+            ></el-input>
+          </span>
           <span class="label" v-if="hasNewPrintHos || hasSilentPrintHos"
             >瓶签大小:</span
           >
@@ -182,7 +198,7 @@
               size="small"
               @click="onPrint"
               :disabled="status == '已执行'"
-              >打印{{ showPrintAll && HOSPITAL_ID !== 'zhzxy' ? "此页" : "" }}</el-button
+              >打印{{ showPrintAll && !['zhzxy','whhk'].includes(HOSPITAL_ID) ? "此页" : "" }}</el-button
             >
             <el-button
               size="small"
@@ -327,6 +343,7 @@ export default {
       type: "",
       status: "",
       bedLabel: "",
+      bedLabelEnd: "",
       /**途径 */
       administration: "",
       pathList: [
@@ -355,6 +372,7 @@ export default {
           : "输液", //医嘱类别，输液、雾化
         executeDate: moment().format("YYYY-MM-DD"), //执行日期
         bedLabel: "", //床位号，如果查全部传*"
+        bedLabelEnd: "",
         repeatIndicator: ["whfk"].includes(this.HOSPITAL_ID) ? 0 : 9,
         //医嘱类型，长期传1，临时传0，全部传9
         reprintFlag: ["lyxrm", "whhk", "zhzxy", "925", 'stmz','qhwy'].includes(
@@ -579,6 +597,7 @@ export default {
         ? moment(this.query.executeDate).format("YYYY-MM-DD")
         : moment().format("YYYY-MM-DD");
       this.query.bedLabel = this.bedLabel ? this.bedLabel : "*";
+      this.query.bedLabelEnd = this.bedLabelEnd ? this.bedLabelEnd : "*";
       getOrder(this.query).then(
         (res) => {
           this.ifCanSync = true;
@@ -605,6 +624,7 @@ export default {
         this.query.bedLabel = this.bedLabels.join(",") || "*";
       } else {
         this.query.bedLabel = this.bedLabel ? this.bedLabel : "*";
+        this.query.bedLabelEnd = this.bedLabelEnd ? this.bedLabelEnd : "*";
       }
       if (this.showMultiItemType) {
         this.query.itemType = this.multiItemType.join(",");
