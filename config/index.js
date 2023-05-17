@@ -250,8 +250,8 @@ const currentTargetUrl = (() => {
 
     //武汉汉口
     case 'whhk':
-      return 'http://192.168.1.54:9883'
-      // return 'http://119.97.229.206:9094'
+      // return 'http://192.168.1.54:9883'
+      return 'http://119.97.229.206:9094'
       // return 'http://119.97.229.206:9094'
     case 'dglb':
         return 'http://192.168.3.176:9091'
@@ -272,7 +272,7 @@ const currentTargetUrl = (() => {
     case 'nfyksdyy':
       // return 'http://192.168.3.154:8080'
           // return 'http://192.168.1.54:9901'  //
-          return  'http://59.38.110.189:9092'
+          // return  'http://59.38.110.189:9092'
           // return  'http://192.168.3.228:8080'
       return 'http://192.168.5.127:9091'
       // return  'https://info.cr-health.com:20215'

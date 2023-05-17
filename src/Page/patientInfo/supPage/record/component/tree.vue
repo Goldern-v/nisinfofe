@@ -109,7 +109,7 @@
     background: #F7FAFA;
     padding: 0 13px;
     border-bottom: 1px solid #EAEEF1;
-
+    overflow: hidden;
     .title {
       font-size: 13px;
       color: #333333;

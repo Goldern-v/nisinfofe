@@ -28,6 +28,7 @@ class Select extends Text {
     super(...p);
     this.type = "select";
     this.dataList = p[3];
+    this.multiple = p[4] || false;
   }
 }
 
@@ -78,6 +79,10 @@ let ifChoseFlag
 
 function addWidth(){
   if(process.env.HOSPITAL_ID=='zhzxy') return 20
+  else return 0;
+}
+const hasMultiple = () => {
+  return ['nfyksdyy'].includes(process.env.HOSPITAL_ID);
 }
 export default [
   {
@@ -91,7 +96,7 @@ export default [
       new CheckBox("患者换行", "verticalShow", 70 + addWidth(),window.ifChoseFlag && "verticalShowAll"),
       new CheckBox("显示床号", "bedLabelShow", 70 + addWidth(),window.ifChoseFlag && "bedLabelShowAll"),
       new CheckBox("显示姓名", "nameShow", 70 + addWidth(), window.ifChoseFlag && "nameShowAll"),
-      new Select("额外显示", "addExpand", 130, white_board_add_expand),
+      new Select("额外显示", "addExpand", 130, white_board_add_expand, hasMultiple()),
       new Select("内容排序", "sortContent", 100, white_board_add_expand)
     ]
   },
@@ -106,7 +111,7 @@ export default [
       new CheckBox("患者换行", "verticalShow", 70 + addWidth(), window.ifChoseFlag && "verticalShowAll"),
       new CheckBox("显示床号", "bedLabelShow", 70 + addWidth(), window.ifChoseFlag && "bedLabelShowAll"),
       new CheckBox("显示姓名", "nameShow", 70 + addWidth(), window.ifChoseFlag && "nameShowAll"),
-      new Select("额外显示", "addExpand", 130, white_board_orders_add_expand),
+      new Select("额外显示", "addExpand", 130, white_board_orders_add_expand, hasMultiple()),
       new Select("医嘱类型", "orderTypeShow", 80, white_board_order_type),
       new Select("内容排序", "sortContent", 100, white_board_sort_content)
     ]

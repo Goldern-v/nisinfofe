@@ -196,8 +196,8 @@
                   <span>性别：{{ query.sex }}</span>
                 </div>
                 <div>
-                  <span>床号：{{ query.inpNo }}</span>
-                  <span>住院号：{{ query.patientId }}</span>
+                  <span>床号：{{ query.bedLabel }}</span>
+                  <span>住院号：{{ query.inpNo }}</span>
                 </div>
               </div>
               <div v-else>

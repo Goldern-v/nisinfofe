@@ -41,7 +41,35 @@
                   <input type="text" class="auto-input" v-model="b[c.dataKey]" center>
                 </template>
                 <template v-if="c.type === 'select'">
-                  <el-select v-model="b[c.dataKey]" placeholder="请选择" size="mini">
+                  <el-select
+                     v-if="c.multiple"
+                    v-model="b[c.dataKey]"
+                    placeholder="请选择"
+                    size="mini"
+                    :multiple="c.multiple"
+                    @input="(val) => onSelectChange(b, c.dataKey, val)"
+                  >
+                    <el-checkbox-group v-model="b[c.dataKey]">
+                      <el-option
+                        v-for="l in c.dataList"
+                        :key="l.code"
+                        :label="l.name"
+                        :value="l.code"
+                      >
+                        <el-checkbox
+                          style="pointer-events: none"
+                          :label="l.code"
+                        > {{ l.name }}
+                        </el-checkbox>
+                      </el-option>
+                    </el-checkbox-group>
+                  </el-select>
+                  <el-select
+                    v-else
+                    v-model="b[c.dataKey]"
+                    placeholder="请选择"
+                    size="mini"
+                  >
                     <el-option
                       v-for="l in c.dataList"
                       :key="l.code"
@@ -127,7 +155,6 @@
 import { saveBoardConfigure, deleteBoardConfigure } from "../api/index.js";
 import common from "@/common/mixin/common.mixin.js";
 import {choseAllParams} from "../modal/config/tabConfig.js";
-
 export default {
   mixins: [common],
   data() {
@@ -152,6 +179,14 @@ export default {
     }
   },
   methods: {
+    onSelectChange(item, key, value) {
+      this.$set(item, key, value);
+      const index = this.boardConfigureList.findIndex(v => v.id === item.id);
+      if (index !== -1) {
+        this.$set(this.boardConfigureList, index, { ...item, addExpand: item.addExpand.join('/') });
+        this.$forceUpdate();
+      }
+    },
     changeAll(dataKey,tabKey){
       this.choseAllParamsObj[dataKey+tabKey] = !this.choseAllParamsObj[dataKey+tabKey]
       this.boardConfigureList.forEach(item=>{
@@ -179,6 +214,14 @@ export default {
             return item[params.replace("All",'')]===false
           })
           this.choseAllParamsObj[params+configureType]=!flag
+        })
+      }
+      if (this.HOSPITAL_ID === 'nfyksdyy') {
+        filterArr = filterArr.map(item => {
+          return {
+            ...item,
+            addExpand: item.addExpand ? item.addExpand.split('/') : []
+          }
         })
       }
       return filterArr
@@ -227,3 +270,25 @@ export default {
   components: {}
 };
 </script>
+
+<style lang="scss" scoped>
+  /deep/ .el-select {
+    width: 100%!important;
+    & .el-select__tags {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    & input {
+      height: 24px!important;
+    }
+    .el-tag {
+      height: 20px!important;
+      line-height: 18px!important;
+      padding: 0 6px;
+      & .el-icon-close {
+        display: none!important;
+      }
+    }
+  }
+</style>
