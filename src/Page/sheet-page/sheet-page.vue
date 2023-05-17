@@ -304,6 +304,7 @@ import {
   findListByBlockId,
   list
 } from "@/api/sheet.js";
+import { nanfnagCaSign} from "@/api/caCardApi";
 import sheetInfo from "./components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
 import delPageModal from "./components/modal/del-page.vue";
@@ -330,6 +331,7 @@ import testSheet from './testSheet.json'
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import changeMajorRadio from '@/Page/sheet-page/components/modal/changeMajorRadio.vue'
 import SheetTags from './components/sheet-tags/index.vue';
+import qs from 'qs'
 
 export default {
   mixins: [common],
@@ -806,6 +808,32 @@ export default {
         }
       );
     },
+    saveBody(decodeAyncVisttedData){
+      saveBody(
+        this.patientInfo.patientId,
+        this.patientInfo.visitId,
+        decodeAyncVisttedData
+      ).then(async (res) => {
+          if(res.data.code == 200){
+            this.bus.$emit('initSheetPageSize')
+            this.$nextTick(()=>{
+              this.pageLoading = false;
+              this.$notify.success({
+              title: "提示",
+              message: "保存成功",
+              duration: 1000,
+            });
+            })
+          }
+        })
+        .catch((err) => {
+          this.pageLoading = false;
+          if (err.data.code == '300') {
+            this.bus.$emit('initSheetPageSize')
+            this.pageLoading = false;
+          }
+        });
+    },
     onScroll(e) {
       if (sheetInfo.sheetType && sheetInfo.sheetType.indexOf("_wx") > -1) {
       } else {
@@ -945,7 +973,7 @@ export default {
     });
     this.bus.$on(
       "saveSheetPage",
-      (isInitSheetPageSize = true, ayncVisitedData) => {
+      async (isInitSheetPageSize = true, ayncVisitedData) => {
         if(this.HOSPITAL_ID == 'liaocheng' && this.sheetInfo.sheetType == 'access_lcey'){
           let data =  decode(ayncVisitedData)
           let isAccess = data.list.find((item=>{
@@ -1016,30 +1044,26 @@ export default {
           decodeAyncVisttedData.uShield = this.foshanshiyiIFca ? '1' : '0'
           const pageIndexs = this.$store.state.sheet.pageIndexs
           decodeAyncVisttedData.pageIndex = pageIndexs
-          saveBody(
-            this.patientInfo.patientId,
-            this.patientInfo.visitId,
-            decodeAyncVisttedData
-          ).then(async (res) => {
-              if(res.data.code == 200){
-                this.bus.$emit('initSheetPageSize')
-                this.$nextTick(()=>{
-                  this.pageLoading = false;
-                  this.$notify.success({
-                  title: "提示",
-                  message: "保存成功",
-                  duration: 1000,
-                });
-                })
-              }
+          const nanFangcaLogin = localStorage["nanFangcaLogin"] || ""
+          if(['nfyksdyy'].includes(this.HOSPITAL_ID) && nanFangcaLogin){
+            const nanFangcaToken = localStorage["nanFangcaToken"] || ""
+            let userName = JSON.parse(localStorage.user).empNo
+            console.log(decodeAyncVisttedData,'decodeAyncVisttedData')
+            let p7SignObj = decodeAyncVisttedData.list.length>0?(decodeAyncVisttedData.list[decodeAyncVisttedData.list.length-1]):{}
+            let verifySignObj = {
+              patientId:this.patientInfo.patientId,
+              visitId:this.patientInfo.visitId,
+              formName:"",
+              formCode:"record",
+              instanceId:this.sheetInfo.selectBlock.id,
+              recordId:"",
+              signData:JSON.stringify(p7SignObj),
+            }
+            nanfnagCaSign(userName,'',verifySignObj,nanFangcaToken,nanFangcaLogin).then(sdRes=>{
+              this.saveBody(decodeAyncVisttedData)
             })
-            .catch((err) => {
-              this.pageLoading = false;
-              if (err.data.code == '300') {
-                this.bus.$emit('initSheetPageSize')
-                this.pageLoading = false;
-              }
-            });
+          }else this.saveBody(decodeAyncVisttedData)
+          
         };
 
         let reverseList = [...decode().list].reverse();
