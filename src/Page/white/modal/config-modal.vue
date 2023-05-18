@@ -42,12 +42,11 @@
                 </template>
                 <template v-if="c.type === 'select'">
                   <el-select
-                     v-if="c.multiple"
+                    v-if="c.multiple"
                     v-model="b[c.dataKey]"
                     placeholder="请选择"
                     size="mini"
-                    :multiple="c.multiple"
-                    @input="(val) => onSelectChange(b, c.dataKey, val)"
+                    multiple
                   >
                     <el-checkbox-group v-model="b[c.dataKey]">
                       <el-option
@@ -179,14 +178,6 @@ export default {
     }
   },
   methods: {
-    onSelectChange(item, key, value) {
-      this.$set(item, key, value);
-      const index = this.boardConfigureList.findIndex(v => v.id === item.id);
-      if (index !== -1) {
-        this.$set(this.boardConfigureList, index, { ...item, addExpand: item.addExpand.join('/') });
-        this.$forceUpdate();
-      }
-    },
     changeAll(dataKey,tabKey){
       this.choseAllParamsObj[dataKey+tabKey] = !this.choseAllParamsObj[dataKey+tabKey]
       this.boardConfigureList.forEach(item=>{
@@ -216,12 +207,13 @@ export default {
           this.choseAllParamsObj[params+configureType]=!flag
         })
       }
+      // 多选转数组，'a/b' => ['a', 'b']
       if (this.HOSPITAL_ID === 'nfyksdyy') {
         filterArr = filterArr.map(item => {
-          return {
-            ...item,
-            addExpand: item.addExpand ? item.addExpand.split('/') : []
+          if (typeof item.addExpand == 'string') {
+            item.addExpand = item.addExpand ? item.addExpand.split('/') : []
           }
+          return item;
         })
       }
       return filterArr
@@ -238,8 +230,18 @@ export default {
       });
     },
     post() {
+      let boardConfigureList = this.boardConfigureList;
+      // 处理多选，['a', 'b'] => 'a/b'
+      if (this.HOSPITAL_ID == 'nfyksdyy') {
+        boardConfigureList = this.boardConfigureList.map(item => {
+          return {
+            ...item,
+            addExpand: item.addExpand && item.addExpand.length ? item.addExpand.join('/') : ''
+          };
+        })
+      }
       saveBoardConfigure({
-        boardConfigures: this.boardConfigureList,
+        boardConfigures: boardConfigureList,
         deptCode: this.deptCode
       }).then(res => {
         this.$message.success("配置修改成功");
