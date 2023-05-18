@@ -979,6 +979,7 @@ export default {
       aField1: "",
       isDglb: 'dglb' === this.HOSPITAL_ID,
       isWhhk: 'whhk' === this.HOSPITAL_ID,
+      isZhzxy: 'zhzxy' === this.HOSPITAL_ID,
     };
   },
   computed: {
@@ -1218,7 +1219,7 @@ export default {
             css: styleSheet[this.HOSPITAL_ID] || styleSheet.default,
           });
         } else if (this.printMode == "wrist-children") {
-          const translateXCM= this.isWhhk ? '5.5' :'3'
+          const translateXCM= this.isWhhk ? '5.5' :this.isZhzxy?'4':'3'
           const translateYCM= this.isWhhk ? '-3.6' :'-3.5'
           printing(this.$refs.printCon4, {
             direction: "vertical",
