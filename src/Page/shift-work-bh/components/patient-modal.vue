@@ -34,6 +34,13 @@
       <a v-if="!isSignedN" class="action" @click="onPanelOpen">+ 模板</a>
     </div>
     <div class="content">
+      <el-button
+        v-if="(tab == '2' || tab == '4') && hasSyncRecord"
+        type="primary"
+        @click="onSyncRecord()"
+        :disabled="isSignedN"
+      >同步护记
+      </el-button>
       <ElTabs class="tabs" v-model="tab" type="card" @input="onTabChange">
         <ElTabPane label="S现状" name="1">
           <div class="label">主要症状</div>
@@ -65,7 +72,6 @@
 
   import * as apis from '../apis'
   import Button from './button'
-
   const defaultForm = {
     name:'',
     bedLabel:'',
@@ -81,7 +87,8 @@
   export default {
     mixins: [common],
     props: {
-      date: String
+      date: String,
+      syncRecord: Object,
     },
     data: () => ({
       tab: '',
@@ -89,6 +96,23 @@
       isSignedN: false,
       form: {...defaultForm}
     }),
+    computed: {
+      hasSyncRecord() {
+        return ['nfyksdyy'].includes(this.HOSPITAL_ID);
+      }
+    },
+    watch: {
+      syncRecord: {
+        handler(val) {
+          if (val.background) {
+            this.form.background = this.form.background + val.background;
+          }
+          if (val.proposal) {
+            this.form.proposal = this.form.proposal + val.proposal;
+          }
+        }, deep: true
+      }
+    },
     methods: {
       open (tab, form, autoFocus, isSignedN) {
         this.tab = tab || '1'
@@ -111,6 +135,7 @@
       },
       changeTab (tab = '1') {
         this.tab = tab
+        this.$emit('onTab', tab);
       },
       applyTemplate (tab, item) {
         if (tab === '1') {
@@ -157,6 +182,9 @@
         } else {
           this.$message.error('找不到该患者')
         }
+      },
+      onSyncRecord() {
+        this.$emit('sync-open', this.form);
       }
     },
     components: {
@@ -214,7 +242,12 @@
 
   .content
     height 325px
-
+    position relative
+    >>>.el-button
+      position absolute
+      right 0px
+      top 3px
+      z-index 1
     .label
       margin 10px 0
 

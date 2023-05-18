@@ -13,7 +13,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1330px"
+    width: "1360px"
   },
   th: {
     top: [
@@ -142,6 +142,12 @@ export default {
       {name: "特殊情况记录",colspan: "1",rowspan: "2",style: { minWidth: "240px", maxWidth: "240px" }},
       {
         name: "护士签名",
+        colspan: "1",
+        rowspan: "2",
+        style: { minWidth: "50px", maxWidth: "50px" }
+      },
+      {
+        name: "查房签名",
         colspan: "1",
         rowspan: "2",
         style: { minWidth: "50px", maxWidth: "50px" }
