@@ -70,7 +70,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `宫缩<br>min`,
+        name: `宫缩`,
         style: {
           minWidth: '90px',
           maxWidth: '90px'
@@ -78,7 +78,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `宫缩<br>强度<br>s`,
+        name: `宫缩<br>强度<br>`,
         style: {
           minWidth: '44px',
           maxWidth: '44px'
