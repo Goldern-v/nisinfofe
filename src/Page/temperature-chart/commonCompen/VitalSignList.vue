@@ -15,7 +15,7 @@
       <div class="table__header-wrapper" ref="headerRef">
         <table class="table__header">
           <colgroup>
-            <col width="38px"/>
+<!--            <col width="38px"/>-->
             <col width="38px"/>
             <col width="38px"/>
             <col v-for="i in colLength" :key="'th' + i" :width="['3','31'].includes(i)?'50':'37px'"/>
@@ -23,7 +23,7 @@
           </colgroup>
           <thead>
             <tr>
-              <th rowspan="2"></th>
+<!--              <th rowspan="2"></th>-->
               <th rowspan="2">日期</th>
               <th rowspan="2">时间</th>
               <th :colspan="baseDictKey.length">生命体征</th>
@@ -56,16 +56,15 @@
       <div ref="bodyRef" class="table__body-wrapper" :style="{ height: `${tableBodyHeight}px` }">
         <table v-if="tableData && tableData.length" class="table__body" id="table__body">
           <colgroup>
-            <col width="38px"/>
+<!--            <col width="38px"/>-->
             <col width="38px"/>
             <col width="38px"/>
             <col v-for="i in colLength" :key="'td' + i" :width="['3','31'].includes(i)?'50':'37px'"/>
           </colgroup>
           <tbody>
             <tr
-                :class="[{selected: selected === item}]"
-                v-for="(item, index) in tableData" :key="'tr' + index" v-if="!item.isShow" @click="handleRow(item,index)">
-              <td><el-checkbox v-model="item.checked" @change="handleCheck(item,index)"></el-checkbox></td>
+                :class="{ 'selected': isSelected(index) }" @click="selectRow(index)"
+                v-for="(item, index) in tableData" :key="'tr' + index" v-if="!item.isShow" >
               <td>{{ item.recordMonth }}</td>
               <td>{{ item.recordHour }}</td>
               <td
@@ -156,7 +155,8 @@ export default {
       patientGroup4Expand3:[{name:'1',value:1}],
       setVitalSignObj:{},
       topRemarkObj:{},
-      bottomRemarkObj:{}
+      bottomRemarkObj:{},
+      selectedRow: null
     }
   },
   mounted() {
@@ -209,13 +209,10 @@ export default {
     colLength() {
       return [...Object.keys(this.baseDictMap),...Object.keys(this.otherDictMap),...Object.keys(this.customDictMap)];
     },
-    bodyWrapper() {
-      return this.$refs.bodyRef;
-    },
     hasScroll() {
       const { bodyRef } = this.$refs;
       return bodyRef ? bodyRef.scrollHeight > bodyRef.clientHeight : false;
-    }
+    },
   },
   watch: {
     tableData() {
@@ -226,15 +223,11 @@ export default {
     }
   },
   methods: {
-    handleRow(item,index){
-      this.tableData = this.tableData.map((item,key)=>{
-        if(index == key){item.checked =!item.checked}
-        return item
-      })
-      this.selected =item
+    selectRow(index) {
+      this.selectedRow = index;
     },
-    handleCheck(item,index){
-
+    isSelected(index) {
+      return this.selectedRow === index;
     },
     handleAddRow(){
       const myArray =[...this.baseDictKey, ...this.otherDictKey, ...this.customDictKey];
@@ -252,10 +245,15 @@ export default {
       })
     },
     handleRemove(){
-      this.tableData = this.tableData.map((item)=>{
-        item.isShow =item.checked
-        return item
-      })
+      if(this.selectedRow){
+        this.tableData =this.tableData.map((item,key)=>{
+          if(this.selectedRow == key){
+            item.isShow = true
+            item.vitals ={}
+          }
+          return item
+        })
+      }
     },
     handleChangeValue(event,key){
      Object.values(this.setVitalSignObj).map((item)=>{
@@ -283,6 +281,7 @@ export default {
               expand1:false, //表顶
               expand2:false, //表底
               checked:false,
+              isShow:false,
               recordMonth: moment(item.recordDate).format('MM-DD'),
               recordHour: moment(item.recordDate).format('HH:mm'),
             }

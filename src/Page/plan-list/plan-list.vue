@@ -28,9 +28,10 @@
           <nullBg v-else text="暂无数据～"></nullBg>
           <slideCon ref="slideCon"></slideCon>
           <!-- <slideConRight ref="slideConRight"></slideConRight> -->
-          <slideContant ref="slideContant"></slideContant>
-          <slideConRightGuizhou ref="slideConRightGuizhou"></slideConRightGuizhou>
-          <slideConRightLiaoCheng ref="slideConRightLiaoCheng"></slideConRightLiaoCheng>
+          <slideContant :is="isslideContant()" ref="slideContant"></slideContant>
+          <!-- <slideConRightGuizhou ref="slideConRightGuizhou"></slideConRightGuizhou> -->
+          <slideConRight :is="slideConRight()" ref="slideConRight"></slideConRight>
+          <!-- <slideConRightLiaoCheng ref="slideConRightLiaoCheng"></slideConRightLiaoCheng> -->
         </div>
       </div>
     </div>
@@ -123,7 +124,10 @@ import tableCon from "@/Page/patientInfo/supPage/diagnosis/components/tableCon/t
 import slideCon from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideCon";
 // import slideConRight from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideConRight";
 import slideContant from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideContant.vue"
+import slideContantQHWY from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideContantQHWY.vue"
+
 import slideConRightGuizhou from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
+import slideConRightQHWY from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideRightQHWY.vue";
 import slideConRightLiaoCheng from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideRightLiaoCheng.vue";
 import { model } from "@/Page/patientInfo/supPage/diagnosis/diagnosisViewModel";
 
@@ -136,11 +140,7 @@ export default {
   provide() {
     return {
       openSlideCon: item => {
-        if(['liaocheng'].includes(this.HOSPITAL_ID)){
-          this.$refs.slideConRightLiaoCheng.open(item)
-        }else{
-          this.$refs.slideConRightGuizhou.open(item)
-        }
+          this.$refs.slideConRight.open(item)
       },
       // openSlideConRight: item => this.$refs.slideConRight.open(item),
       openSlideContant: item => this.$refs.slideContant.open(item)
@@ -205,6 +205,20 @@ export default {
     }
   },
   methods: {
+    slideConRight(){
+      if(['liaocheng'].includes(this.HOSPITAL_ID)){
+        return slideConRightLiaoCheng
+      }else if(['qhwy'].includes(this.HOSPITAL_ID)){
+        return slideConRightQHWY
+      }else{
+        return slideConRightGuizhou
+      }
+    },
+    isslideContant(){
+      if(['qhwy'].includes(this.HOSPITAL_ID)){
+        return slideContantQHWY
+      }else return slideContant
+    },
     getDate() {
       if (this.deptCode) {
         this.patientListLoading = true;
@@ -272,8 +286,10 @@ export default {
     tableCon,
     patientList,
     slideConRightGuizhou,
+    slideConRightQHWY,
     slideConRightLiaoCheng,
-    slideContant
+    slideContant,
+    slideContantQHWY,
   }
 };
 </script>
