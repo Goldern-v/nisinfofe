@@ -274,7 +274,7 @@ export default [
   },
   { key: "sign", value: "" }, //单签
   // { key: "sign2", value: "" },//双签
-  // { key: "audit", value: "" },//审核签名
+  { key: "audit", value: "" },//审核签名
   { hidden: true, key: "id", value: "" },
   { hidden: true, key: "signerName", value: "" },
   { hidden: true, key: "signerName2", value: "" },

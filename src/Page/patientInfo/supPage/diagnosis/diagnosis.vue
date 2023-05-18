@@ -4,9 +4,10 @@
     <tableCon v-if="model.selectedBlockId"></tableCon>
     <nullBg text="暂无数据～" v-else></nullBg>
     <slideCon ref="slideCon"></slideCon>
-    <slideContant ref="slideContant"></slideContant>
-    <slideConRightGuizhou ref="slideConRightGuizhou"></slideConRightGuizhou>
-    <slideConRightLiaoCheng ref="slideConRightLiaoCheng"></slideConRightLiaoCheng>
+    <slideContant :is="isslideContant()" ref="slideContant"></slideContant>
+    <slideConRight :is="slideConRight()" ref="slideConRight"></slideConRight>
+    <!-- <slideConRightQHWY ref="slideConRightQHWY"></slideConRightQHWY> -->
+    <!-- <slideConRightLiaoCheng ref="slideConRightLiaoCheng"></slideConRightLiaoCheng> -->
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -20,8 +21,10 @@ import tool from "./components/tool/tool";
 import tableCon from "./components/tableCon/tableCon";
 import slideCon from "./modal/slide/slideCon";
 import slideConRightGuizhou from "./modal/slide/slideRightGuizhou.vue";
+import slideConRightQHWY from "./modal/slide/slideRightQHWY.vue";
 import slideConRightLiaoCheng from "./modal/slide/slideRightLiaoCheng.vue";
 import slideContant from "./modal/slide/slideContant.vue"
+import slideContantQHWY from "./modal/slide/slideContantQHWY.vue"
 import { model } from "./diagnosisViewModel";
 import { getPlanFormListByPV } from "./api";
 import common from "@/common/mixin/common.mixin";
@@ -30,11 +33,7 @@ export default {
   provide() {
     return {
       openSlideCon: item => {
-        if(['liaocheng'].includes(this.HOSPITAL_ID)){
-          this.$refs.slideConRightLiaoCheng.open(item)
-        }else{
-          this.$refs.slideConRightGuizhou.open(item)
-        }
+        this.$refs.slideConRight.open(item)
       },
       openSlideContant: item => this.$refs.slideContant.open(item)
     };
@@ -61,6 +60,20 @@ export default {
     }
   },
   methods: {
+    slideConRight(){
+      if(['liaocheng'].includes(this.HOSPITAL_ID)){
+        return slideConRightLiaoCheng
+      }else if(['qhwy'].includes(this.HOSPITAL_ID)){
+        return slideConRightQHWY
+      }else{
+        return slideConRightGuizhou
+      }
+    },
+    isslideContant(){
+      if(['qhwy'].includes(this.HOSPITAL_ID)){
+        return slideContantQHWY
+      }else return slideContant
+    },
     refreshBlock() {
       getPlanFormListByPV(
         this.$route.query.patientId,
@@ -95,8 +108,10 @@ export default {
     tool,
     slideCon,
     slideConRightGuizhou,
+    slideConRightQHWY,
     slideConRightLiaoCheng,
     slideContant,
+    slideContantQHWY,
     tableCon
   }
 };
