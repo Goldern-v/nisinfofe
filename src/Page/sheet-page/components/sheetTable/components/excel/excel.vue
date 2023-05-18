@@ -1682,7 +1682,7 @@ export default {
                 };
               }
             let p7SignObj = {}
-            if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+            if(['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)){
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1772,7 +1772,7 @@ export default {
                 });
                 this.bus.$emit("saveSheetPage", true);
               });
-            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:this.HOSPITAL_ID=="zhzxy"?trObj:null,undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
+            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:this.HOSPITAL_ID=="zhzxy"?trObj:null,undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
           }
         };
         let reverseList = [...decode().list].reverse();
@@ -1847,7 +1847,7 @@ export default {
                     signData:JSON.stringify(strSignData),
                   }
         }
-        if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+        if(['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)){
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;

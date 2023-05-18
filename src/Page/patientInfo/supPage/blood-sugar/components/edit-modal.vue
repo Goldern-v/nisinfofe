@@ -331,7 +331,6 @@ export default {
       this.curEmpName = this.userInfo.empName;
       this.curEmpNo = this.userInfo.empNo;
       this.$refs.modal.open();
-
       let defaultSugarItem = "微机血糖";
       if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
         defaultSugarItem = this.typeList ? this.typeList[0].vitalSign : "凌晨";
@@ -406,6 +405,9 @@ export default {
       }
       if (form && this.HOSPITAL_ID == 'foshanrenyi') {
         this.form.expand1 = form.expand1 || ''
+        this.$nextTick(()=>{
+          this.form.recordTime= new Date(form.recordDate || new Date())
+        })
       }
     },
     close() {

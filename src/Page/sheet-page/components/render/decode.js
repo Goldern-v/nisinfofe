@@ -9,6 +9,7 @@ function decode(ayncVisitedData) {
   let recordDateIndex = -1
   let recordMonthIndex = -1
   let recordHourIndex = -1
+  let isHospital = ['925','guizhou','nfyksdyy','huadu','foshanrenyi'].includes(process.env.HOSPITAL_ID)
   data.map((page,pageIndex)=>{
     if(pageIndex == 0){
       recordDateIndex = page.bodyModel[0].findIndex(col=>col.key==='recordDate')
@@ -93,34 +94,34 @@ function decode(ayncVisitedData) {
         }
         tr.pageIndex = pageIndex;
         result.push(tr)
-        // 当前行数修改后，当前页相同时间，当前修改行之前相同时间于当前行数时间一同发起请求。
-        for (let i = 0; i < index; i++) {
-          isChangePreRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangePreRecord, recordDateIndex,changeArr)
-        }
-        //  // 当前行数修改后，当前页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
-        for (let i = +index + 1; i < bodyModel.length; i++) {
-          isChangeLastRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangeLastRecord, recordDateIndex,changeArr)
-        }
-        // 当前行数修改后，当前页的前一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
-        for (let i = 0; i < pageIndex; i++) {
-          prevRecord = simplifyPrev(data, i, prevRecord, ischangeMonth, ischangeHour, recordDateIndex, changeArr)
-        }
-        // 当前行数修改后，当前页的后一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
-        for (let i = pageIndex + 1; i < data.length; i++) {
-          lastRecord = simplifyPrev(data, i, lastRecord, ischangeMonth, ischangeHour, recordDateIndex, changeArr)
+        if(isHospital) {
+          // 当前行数修改后，当前页相同时间，当前修改行之前相同时间于当前行数时间一同发起请求。
+          for (let i = 0; i < index; i++) {
+            isChangePreRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangePreRecord, recordDateIndex,changeArr)
+          }
+          //  // 当前行数修改后，当前页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
+          for (let i = +index + 1; i < bodyModel.length; i++) {
+            isChangeLastRecord = simplifySet(i,bodyModel,ischangeMonth,ischangeHour,isChangeLastRecord, recordDateIndex,changeArr)
+          }
+          // 当前行数修改后，当前页的前一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
+          for (let i = 0; i < pageIndex; i++) {
+            prevRecord = simplifyPrev(data, i, prevRecord, ischangeMonth, ischangeHour, recordDateIndex, changeArr)
+          }
+          // 当前行数修改后，当前页的后一页相同时间，当前修改行之后相同时间于当前行数时间一同发起请求。
+          for (let i = pageIndex + 1; i < data.length; i++) {
+            lastRecord = simplifyPrev(data, i, lastRecord, ischangeMonth, ischangeHour, recordDateIndex, changeArr)
+          }
         }
       }
     }
 
   }
-  // console.log('prevRecord:',prevRecord, 'isChangePreRecord:',isChangePreRecord,'isChangeLastRecord:',isChangeLastRecord,'lastRecord',lastRecord);
-  // console.log('result:',result);
    // 因为跨页的时候，在下一页改掉和上一页相同时间，上一页的recordYear为空
    if(result.length && !result[0]['recordYear']){
      result[0]['recordYear'] = moment(result[0]['recordDate']).format('YYYY')
    }
   //  医院开启了修改单条数据出现顺序保存错乱，做了处理，后续有问题可以看一下这里的逻辑，代码写的很烂，如有优化可以进行优化。sorry了
-  if(['925','guizhou','nfyksdyy','huadu','foshanrenyi'].includes(process.env.HOSPITAL_ID)){
+  if(isHospital){
     allData = [...allData, ...prevRecord, ...isChangePreRecord, ...result, ...isChangeLastRecord, ...lastRecord];
   }else{
     allData = [...allData, ...result];

@@ -238,7 +238,7 @@
         <div
           :class="[
             {
-              'break-page':bottleCardIndex % 2 == 1 &&
+              'break-page':bottleCardIndex % 2 == 1  &&
                 newModalSize == '3*7' || newModalSize === '5*8',
               'size-75': newModalSize === '7*5'
             },
