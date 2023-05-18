@@ -286,7 +286,7 @@ export default [
   { hidden: true, key: "monthHour", value: "" },
   { hidden: false, key: "signerNo", value: "" }, //单签
   { hidden: true, key: "signerNo2", value: "" }, //双签
-  { hidden: true, key: "auditorNo", value: "" }, //审核签名
+  { hidden: false, key: "auditorNo", value: "" }, //审核签名
   { hidden: true, key: "auditorName", value: "" },
   { hidden: true, key: "empNo", value: "" },
   { hidden: true, key: "multiSign", value: "" }

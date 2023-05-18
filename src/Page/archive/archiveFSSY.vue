@@ -48,8 +48,8 @@
           <el-input v-model="query.inpNo" placeholder="请输入患者住院号"   size="small" style="width:190px"/>
         </template>
         <button @click.stop="search">查询</button>
-        <button v-if="['zhzxy'].includes(HOSPITAL_ID)" @click.stop="allArchive">批量归档</button>
-        <button v-if="['zhzxy'].includes(HOSPITAL_ID)" @click.stop="allturnPDF">批量转pdf</button>
+        <button @click.stop="allArchive">批量归档</button>
+        <button @click.stop="allturnPDF">批量转pdf</button>
       </div>
       <div
         class="filterItem"
