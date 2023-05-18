@@ -786,6 +786,9 @@ export default {
              min-width: 100px !important;
               max-width: 100px !important;
           }
+          img{
+            transform: scale(0.8);
+          }
           @media print {
             #sheetPagePrint .contant{
               margin-top:-20px;!important;
