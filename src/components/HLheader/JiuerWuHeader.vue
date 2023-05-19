@@ -196,34 +196,34 @@
                     <i class="badEvent"></i>不良事件
                   </el-row>
                 </router-link>
-              </el-dropdown-item>
-              <el-dropdown-item
-                :class="{ active: $route.path == '/wardManagement' }"
-              >
-                <router-link  to="/wardManagement" tag="span">
-                  <el-row class="menu-item" type="flex" align="middle"
-                    ><i class="nursingDocumentation"></i> 病房管理
-                  </el-row>
-                </router-link>
-              </el-dropdown-item>
-              <el-dropdown-item
-                :class="{ active: $route.path == '/nursingRounds' }"
-              >
-                <router-link  to="/nursingRounds" tag="span">
-                  <el-row class="menu-item" type="flex" align="middle"
-                    ><i class="nursingDocumentation"></i> 护理巡视
-                  </el-row>
-                </router-link>
-              </el-dropdown-item>
-              <el-dropdown-item
-                :class="{ active: $route.path == '/statisticalQuery' }"
-              >
-                <router-link to="/statisticalQuery" tag="span">
-                  <el-row class="menu-item" type="flex" align="middle">
-                    <i class="birthCertificate"></i>统计查询
-                  </el-row>
-                </router-link>
-              </el-dropdown-item>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/wardManagement' }"
+                >
+                  <router-link  to="/wardManagement" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                      ><i class="nursingDocumentation"></i> 病房管理
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/nursingRounds' }"
+                >
+                  <router-link  to="/nursingRounds" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                      ><i class="nursingDocumentation"></i> 护理巡视
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/statisticalQuery' }"
+                >
+                  <router-link to="/statisticalQuery" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i>统计查询
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <el-dropdown-item
                   :class="{ active: $route.path == '/birthCertificate' }"
                   v-if="deptCode.match('051102')"
@@ -234,6 +234,15 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item
+                :class="{ active: $route.path == '/criticalValue' }"
+              >
+                <router-link to="/criticalValue" tag="span">
+                  <el-row class="menu-item" type="flex" align="middle">
+                    <i class="nursingDocumentation"></i>危急值
+                  </el-row>
+                </router-link>
+              </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>
@@ -703,6 +712,7 @@ export default {
       if (this.$route.path == "/healthEducationList") return true;
       if (this.$route.path == "/dcList") return true;
       if (this.$route.path == "/cognitiveStatistic") return true;
+      if (this.$route.path == "/criticalValue") return true;
     },
     isActiveStatisticPage() {
       if (this.$route.path == "/cognitiveStatistic") return true;

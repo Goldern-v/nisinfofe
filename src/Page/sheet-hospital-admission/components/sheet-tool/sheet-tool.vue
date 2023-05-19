@@ -57,6 +57,7 @@
 
       <div style="width: 5px"></div>
       <div
+        v-if="HOSPITAL_ID !== 'foshanrenyi'"
         class="item-box"
         flex="cross:center main:center"
         :class="{ disabled: selectBlock.status != '2' }"
@@ -396,7 +397,7 @@ export default {
           },
           getDisabled(selectBlock) {
             if (!selectBlock.id) return true;
-            if (selectBlock.status != "1") return true;
+            // if (selectBlock.status != "1") return true;
           },
         },
       ],

@@ -155,3 +155,8 @@ export const saveSysPasswordSet = (params) => {
 export const getDictItem = (params) => {
   return axios.get(`${apiPath}dict/common/getDictItem?${qs.stringify(params)}`)
 }
+
+// 危急值模块 查询列表接口
+export const getCriticalValue = (params) => {
+  return axios.post(`${apiPath}criticalValue/getPage`, params)
+}

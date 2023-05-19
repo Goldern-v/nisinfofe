@@ -175,6 +175,16 @@
       > -->
         <div class="nav-item"  v-if="HOSPITAL_ID !== '925'" @click="openOtherPage">患者360</div>
       <!-- </router-link> -->
+      <router-link
+        v-if="HOSPITAL_ID === '925'"
+        :to="{
+          path: '/operation',
+          query: { patientId: query.patientId, visitId: query.visitId },
+        }"
+        tag="span"
+      >
+        <div class="nav-item">手术</div>
+      </router-link>
     </div>
     <div style="height: 50px"></div>
   </div>
