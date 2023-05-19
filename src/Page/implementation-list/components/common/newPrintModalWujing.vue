@@ -59,7 +59,7 @@
     <div
       v-if="newModalSize == '5*8'"
       class="new-print-modal"
-      style="width: 8cm; height: 4.8cm"
+      style="width: 7.92cm; height: 4.8cm"
     >
       <div class="new-modal-top">
         <div class="new-modal-top-left">
@@ -218,14 +218,12 @@
     flex-direction: column;
     font-weight: 800;
     width: 100%;
-    height: calc(100% - 50px);
+    height: calc(4.971cm - 50px);
     box-sizing: border-box;
     line-height: 16px;
     .new-modal-bottom-first {
       overflow: hidden;
-      height: calc(100% - 50px);
-      min-height: calc(100% - 50px);
-      max-height: calc(100% - 20px);
+      height: calc(4.971cm - 100px);
       font-size: 14px;
       div {
         display: flex;

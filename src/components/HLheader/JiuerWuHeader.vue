@@ -161,7 +161,11 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
-
+            <router-link to="/allCatheter" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 导管
+              </el-row>
+            </router-link>
             <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档

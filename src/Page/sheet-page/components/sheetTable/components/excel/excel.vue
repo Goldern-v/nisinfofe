@@ -1516,13 +1516,13 @@ export default {
       return [allList, currIndex];
     },
     toSign(trArr, index, bodyModel, showSign, e, td) {
-      	if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
-			GetUserList().then(res=>{
-				if (res.data.length == 0) {
-					localStorage.removeItem("caUser")
-				}
-			})
-		}
+      if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        GetUserList().then(res=>{
+          if (res.data.length == 0) {
+            localStorage.removeItem("caUser")
+          }
+        })
+      }
       this.sheetInfo.downControl = e.ctrlKey;
       if (this.sheetInfo.downControl) return;
       if (this.sheetInfo.selectRow.length) {
@@ -1682,7 +1682,7 @@ export default {
                 };
               }
             let p7SignObj = {}
-            if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+            if(['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)){
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1772,7 +1772,10 @@ export default {
                 });
                 this.bus.$emit("saveSheetPage", true);
               });
-            },'',null,false,'',['guizhou', '925'].includes(this.HOSPITAL_ID)?{}:this.HOSPITAL_ID=="zhzxy"?trObj:null,undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
+            },'',null,false,'',
+            ['guizhou', '925'].includes(this.HOSPITAL_ID)?{}
+            :['hj',"zhzxy"].includes(this.HOSPITAL_ID)?trObj:null,
+            undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
           }
         };
         let reverseList = [...decode().list].reverse();
@@ -1809,14 +1812,14 @@ export default {
         }
       } else {
         // 删除签名
-        let SigndataObj = {}, verifySignObj={}
-        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        let SigndataObj = {}, verifySignObj={}, strSignDataOBJ = {}
+        if(['foshanrenyi','hj'].includes(this.HOSPITAL_ID)){
           let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ =
+            strSignDataOBJ = 
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1838,16 +1841,16 @@ export default {
               strSignData: JSON.stringify(strSignData),
             };
             verifySignObj = {
-                    patientId:this.patientInfo.patientId,
-                    visitId:this.patientInfo.visitId,
-                    formName:this.$parent.patientInfo.recordName,
-                    formCode:sheetInfo.sheetType,
-                    instanceId:this.$parent.patientInfo.id,
-                    recordId:strSignData.id,
-                    signData:JSON.stringify(strSignData),
-                  }
+              patientId:this.patientInfo.patientId,
+              visitId:this.patientInfo.visitId,
+              formName:this.$parent.patientInfo.recordName,
+              formCode:sheetInfo.sheetType,
+              instanceId:this.$parent.patientInfo.id,
+              recordId:strSignData.id,
+              signData:JSON.stringify(strSignData),
+            }
         }
-        if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+        if(['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)){
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1893,7 +1896,10 @@ export default {
             }).then((res) => {
               this.bus.$emit("saveSheetPage", true);
             });
-          },'',null,false,'',['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:null,undefined,undefined,undefined,SigndataObj,verifySignObj);
+          },'',null,false,'',
+          ['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:
+          ['hj'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
+          undefined,undefined,undefined,SigndataObj,verifySignObj);
       }
     },
     toAudit(trArr, index, bodyModel, showAudit, e) {
@@ -2077,19 +2083,21 @@ export default {
                 this.bus.$emit("saveSheetPage", true);
               }
             );
-          },['guizhou', '925'].includes(this.HOSPITAL_ID)?"":null,"",undefined,undefined,this.HOSPITAL_ID=="zhzxy"?trObj:undefined,undefined,undefined,undefined,undefined,parmas);
-
+          },['guizhou', '925'].includes(this.HOSPITAL_ID)?"":null,"",
+          undefined,undefined,
+          ["zhzxy",'hj'].includes(this.HOSPITAL_ID)?trObj:undefined,
+          undefined,undefined,undefined,undefined,parmas);
         }
       } else {
         // 删除签名
-        let SigndataObj = {}, verifySignObj={}
-        if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+        let SigndataObj = {}, verifySignObj={},strSignDataOBJ = {}
+        if(['foshanrenyi','hj'].includes(this.HOSPITAL_ID)){
           let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            let strSignDataOBJ =
+            strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -2138,8 +2146,10 @@ export default {
               });
             this.bus.$emit("saveSheetPage", true);
           });
-        },'',null,false,'',['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{
-        }:null,null,null,null,SigndataObj,verifySignObj);
+        },'',null,false,'',
+        ['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:
+        ['hj'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
+        null,null,null,SigndataObj,verifySignObj);
       }
     },
     // 展示签名状态

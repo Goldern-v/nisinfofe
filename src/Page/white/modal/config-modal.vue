@@ -41,7 +41,34 @@
                   <input type="text" class="auto-input" v-model="b[c.dataKey]" center>
                 </template>
                 <template v-if="c.type === 'select'">
-                  <el-select v-model="b[c.dataKey]" placeholder="请选择" size="mini">
+                  <el-select
+                    v-if="c.multiple"
+                    v-model="b[c.dataKey]"
+                    placeholder="请选择"
+                    size="mini"
+                    multiple
+                  >
+                    <el-checkbox-group v-model="b[c.dataKey]">
+                      <el-option
+                        v-for="l in c.dataList"
+                        :key="l.code"
+                        :label="l.name"
+                        :value="l.code"
+                      >
+                        <el-checkbox
+                          style="pointer-events: none"
+                          :label="l.code"
+                        > {{ l.name }}
+                        </el-checkbox>
+                      </el-option>
+                    </el-checkbox-group>
+                  </el-select>
+                  <el-select
+                    v-else
+                    v-model="b[c.dataKey]"
+                    placeholder="请选择"
+                    size="mini"
+                  >
                     <el-option
                       v-for="l in c.dataList"
                       :key="l.code"
@@ -127,7 +154,6 @@
 import { saveBoardConfigure, deleteBoardConfigure } from "../api/index.js";
 import common from "@/common/mixin/common.mixin.js";
 import {choseAllParams} from "../modal/config/tabConfig.js";
-
 export default {
   mixins: [common],
   data() {
@@ -181,6 +207,15 @@ export default {
           this.choseAllParamsObj[params+configureType]=!flag
         })
       }
+      // 多选转数组，'a/b' => ['a', 'b']
+      if (this.HOSPITAL_ID === 'nfyksdyy') {
+        filterArr = filterArr.map(item => {
+          if (typeof item.addExpand == 'string') {
+            item.addExpand = item.addExpand ? item.addExpand.split('/') : []
+          }
+          return item;
+        })
+      }
       return filterArr
     },
     addRow() {
@@ -195,8 +230,18 @@ export default {
       });
     },
     post() {
+      let boardConfigureList = this.boardConfigureList;
+      // 处理多选，['a', 'b'] => 'a/b'
+      if (this.HOSPITAL_ID == 'nfyksdyy') {
+        boardConfigureList = this.boardConfigureList.map(item => {
+          return {
+            ...item,
+            addExpand: item.addExpand && item.addExpand.length ? item.addExpand.join('/') : ''
+          };
+        })
+      }
       saveBoardConfigure({
-        boardConfigures: this.boardConfigureList,
+        boardConfigures: boardConfigureList,
         deptCode: this.deptCode
       }).then(res => {
         this.$message.success("配置修改成功");
@@ -227,3 +272,25 @@ export default {
   components: {}
 };
 </script>
+
+<style lang="scss" scoped>
+  /deep/ .el-select {
+    width: 100%!important;
+    & .el-select__tags {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    & input {
+      height: 24px!important;
+    }
+    .el-tag {
+      height: 20px!important;
+      line-height: 18px!important;
+      padding: 0 6px;
+      & .el-icon-close {
+        display: none!important;
+      }
+    }
+  }
+</style>

@@ -766,6 +766,37 @@ export default {
         `
       )
     }
+    if (this.HOSPITAL_ID === "nfyksdyy") {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='查房签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='上级<br/>签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='上级签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='上级护士签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='护士<br>签名']{
+             min-width: 100px !important;
+              max-width: 100px !important;
+          }
+          img{
+            transform: scale(0.8);
+          }
+          @media print {
+            #sheetPagePrint .contant{
+              margin-top:-20px;!important;
+            }
+          }
+        `
+      )
+    }
     // 如果双签可以这里加。打印的时候签名二合一。签名列拉宽
     if (
       (sheetInfo.sheetType == "generalnursing_tj")

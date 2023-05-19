@@ -45,7 +45,7 @@
         <el-input
           size="small"
           type="text"
-          :disabled="['nanfangzhongxiyi'].includes(HOSPITAL_ID) && nanfangCa"
+          :disabled="['nanfangzhongxiyi','nfyksdyy'].includes(HOSPITAL_ID) && nanfangCa"
           placeholder="输入用户名或者工号"
           v-model="username"
           :readonly="['foshanrenyi','weixian','zzwy'].includes(HOSPITAL_ID)"
@@ -64,7 +64,7 @@
         ></el-input>
       </div>
     </span>
-    <span v-else-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID) && nanfangCa"></span>
+    <span v-else-if="['nanfangzhongxiyi','nfyksdyy'].includes(HOSPITAL_ID) && nanfangCa"></span>
     <span v-else-if="(['zzwy'].includes(HOSPITAL_ID))">
       <div v-show="zzwyNoHasCaSign">
         <p for class="name-title">{{ '请输入口令' }}</p>
@@ -375,16 +375,16 @@ export default {
         if(this.HOSPITAL_ID=="foshanrenyi"){
           this.verifySignObj = verifySignObj
           this.SigndataObj = SigndataObj
-        }else if(['nanfangzhongxiyi','zhzxy'].includes(this.HOSPITAL_ID)){
+        }else if(['nanfangzhongxiyi','zhzxy','nfyksdyy'].includes(this.HOSPITAL_ID)){
           this.verifySignObj = verifySignObj
         }
+        if(['nfyksdyy'].includes(this.HOSPITAL_ID) && !this.nanfangCa){
+          this.pw = true
+        }else this.pw = false;
       this.showDate = showDate;
       // this.showMessage = showMessage;
       this.message = message;
       this.password = "";
-      this.pw = false;
-
-
 
       this.$refs.modalName.open();
       if (!['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
@@ -506,7 +506,7 @@ export default {
           });
           return this.btnLoading = false
         }
-         if(['nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+         if(['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)){
           const nanFangcaToken = localStorage["nanFangcaToken"] || ""
           const nanFangcaLogin = localStorage["nanFangcaLogin"] || ""
           nanfnagCaSign(this.username,this.password,this.verifySignObj,nanFangcaToken,nanFangcaLogin).then(res1=>{

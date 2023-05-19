@@ -211,7 +211,7 @@
   //   .el-select
   //     width: 84%;
 .list-con
-  height calc(100vh - 145px)
+  height calc(100vh - 280px)
   overflow auto
 .listMap-title
   font-size: 14px;
@@ -289,7 +289,7 @@ export default {
       selectWidth: 100,
       refName: "",
       deptENName: keyNameMap[this.deptName] || "neurology",
-      deptValue: ['foshanrenyi'].includes(this.HOSPITAL_ID) ? 
+      deptValue: ['foshanrenyi'].includes(this.HOSPITAL_ID) ?
                   localStorage.selectDeptValue :
                   localStorage.user && JSON.parse(localStorage.user).deptCode,
       user: localStorage.user && JSON.parse(localStorage.user),
@@ -370,7 +370,7 @@ export default {
         this.selectedClasss = "科室"
         this.selectedType = ""
         this.deptValue = localStorage.selectDeptValue
-      } 
+      }
       this.geFromCode()
       this.getDeptLists()
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
@@ -381,7 +381,7 @@ export default {
         this.listType()
         this.getData();
       }
-      
+
       if (this.show) {
         if (this.refName == refName) {
           this.show = false;

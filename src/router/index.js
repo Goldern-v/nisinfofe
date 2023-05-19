@@ -1188,6 +1188,7 @@ const router = new Router({
               case 'whhk':
               case 'nfyksdyy':
               case "stmz":
+              case "925":
                 return allCatheter
               default:
                 return catheter

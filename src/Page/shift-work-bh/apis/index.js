@@ -244,3 +244,9 @@ export function getMulShiftRecordICU(deptCode, startDate, endDate) {
 export function updateShiftRecordICU(data) {
   return axios.post(`${apiPath}changeShiftMaster/update`, data);
 }
+
+
+// 同步护记
+export const getRecordData = (patientId, visitId, recordDate) => {
+  return axios.get(`${apiPath}changeShiftMaster/getRecordData/${patientId}/${visitId}/${recordDate}`);
+}

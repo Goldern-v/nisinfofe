@@ -101,7 +101,7 @@ export function click_date(e, td, tr) {
     td.value = moment().format("MM-DD");
     tr.isChange = true
   }
-  if(['guizhou','nanfangzhongxiyi'].includes(process.env.HOSPITAL_ID)) return
+  if(['guizhou','nanfangzhongxiyi', 'nfyksdyy'].includes(process.env.HOSPITAL_ID)) return
   const input = e.target
   setTimeout(()=>{
     input.focus()
@@ -130,7 +130,7 @@ export function click_time(e, td, tr) {
     td.value = moment().format("HH:mm");
     tr.isChange = true
   }
-  if(['guizhou'].includes(process.env.HOSPITAL_ID)) return
+  if(['guizhou', 'nfyksdyy'].includes(process.env.HOSPITAL_ID)) return
   const input = e.target
   setTimeout(()=>{
   input.focus()
