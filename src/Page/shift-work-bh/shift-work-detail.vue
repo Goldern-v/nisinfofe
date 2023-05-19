@@ -172,6 +172,9 @@
       @panel-open="onPatientPanelOpen"
       @panel-close="onPatientPanelClose"
       @tab-change="onPatientModalTabChange"
+      @sync-open="onSyncModalOpen"
+      @onTab="onTabChange"
+      :syncRecord="syncRecord"
     />
     <PatientPanel
       ref="patientPanel"
@@ -180,6 +183,11 @@
     />
     <SpecialCasePanel ref="specialCasePanel" @apply-template="onSpecialCasePanelApply" />
     <SignModal ref="signModal" />
+    <!-- 系统层级乱套了，无奈，只能放到这里，勿喷 -->
+    <SyncRecord
+      ref="syncRecordRef"
+      @on-select="onRecordSelect"
+    />
   </div>
 </template>
 
@@ -202,6 +210,7 @@ import SpecialCaseModal from "./components/special-case-modal";
 import SpecialCasePanel from "./components/special-case-panel";
 import SignModal from "./components/sign-modal";
 import $ from "jquery";
+import SyncRecord from './components/SyncRecord.vue';
 const defaultPatient = {
   name: "",
   bedLabel: "",
@@ -341,7 +350,12 @@ export default {
         }
       ],
       fixedTh: false,
-      currentClass: "白班"
+      currentClass: "白班",
+      panelTab: '1',
+      syncRecord: {
+        background: '',
+        proposal: '',
+      }
     };
   },
   computed: {
@@ -398,6 +412,19 @@ export default {
     });
   },
   methods: {
+    onRecordSelect(value) {
+      if (this.panelTab == '2') {
+        this.syncRecord.background = value;
+      } else if (this.panelTab == '4') {
+        this.syncRecord.proposal = value;
+      }
+    },
+    onSyncModalOpen(data) {
+      this.$refs.syncRecordRef.open(data);
+    },
+    onTabChange(tab) {
+      this.panelTab = tab;
+    },
     changeShiftWithWardcodes(index,key,value){
       this.shiftWithWardcodes[index][key]=value
     },
@@ -691,6 +718,7 @@ export default {
         proposal: "4"
       };
       const tab = tabMap[col.prop] || "1";
+      this.panelTab = tab;
       this.$refs.patientModal.open(
         tab,
         { ...row },
@@ -753,6 +781,7 @@ export default {
     },
     onPatientPanelClose() {
       this.$refs.patientPanel.close();
+      this.syncRecord = { background: '', proposal: '' };
     },
     onPatientPanelTabChange(tab) {
       this.$refs.patientModal.changeTab(tab);
@@ -1002,7 +1031,8 @@ export default {
     PatientPanel,
     SpecialCaseModal,
     SpecialCasePanel,
-    SignModal
+    SignModal,
+    SyncRecord
   }
 };
 </script>

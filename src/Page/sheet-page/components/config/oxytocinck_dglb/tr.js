@@ -86,7 +86,10 @@ export default [
     key: "fieldFour", //宫缩强度
     value: "",
     name: "宫缩强度",
-    event: keyf1
+    event: keyf1,
+    autoComplete: {
+      data: ['弱', '中', '强']
+    }
   }, {
     key: "fieldFive", //胎方位
     value: "",
