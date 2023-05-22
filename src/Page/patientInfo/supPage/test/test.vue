@@ -139,7 +139,7 @@
     data() {
       return {
         list: [],
-        rightData: '',
+        rightData: {},
         tableHeaderInfo:{},
         loading:true,
         foshanRenyiChoseIndex:0,
@@ -193,7 +193,11 @@
           })
           this.toRight(this.rightData[this.foshanRenyiChoseItoRightndex])
         }else{
-          this.toRight(this.list[0])
+          if (this.$route.query.id) {
+            this.rightData['testNo'] = this.$route.query.id || ''
+            this.toRight(this.rightData)
+          } else 
+            this.toRight(this.list[0])
         }
       })
     },

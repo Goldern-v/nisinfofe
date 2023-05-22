@@ -90,6 +90,11 @@ export default {
     this.getDepList()
     this.handleQuery()
   },
+  computed: {
+    defaultDept() {
+      return window.localStorage.getItem('selectDeptValue');
+    }
+  },
   methods: {
     async getDepList() {
       try {
@@ -113,12 +118,16 @@ export default {
 
     },
     handleQuery(obj = {}) {
+      console.log('obj', obj)
       this.formData = { ...this.formData, ...obj }
       this.getData()
     },
     async getData() {
       try {
         this.loading = true;
+        if (!this.formData.wardCode) {
+          this.formData.wardCode = window.localStorage.getItem('selectDeptValue');
+        }
         const formData = {
           ...this.formData,
           themeName: this.formData.themeName,
