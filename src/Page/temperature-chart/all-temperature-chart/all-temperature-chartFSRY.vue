@@ -149,7 +149,7 @@
                 }"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -197,7 +197,7 @@
                 @mousewheel="(e) => {e.preventDefault();}"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -217,7 +217,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
               <!-- <input v-model="scope.row.breath" class="breath" /> -->
               <!-- <el-input v-model="scope.row.breath"></el-input> -->
@@ -262,7 +262,7 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
               <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
@@ -328,7 +328,7 @@
                   type="text"
                   @keydown="handleKeyDown"
                   @keyup="handleKeyUp"
-                  @click="toRow"
+                  @click="(e) => toRow(e, scope.row.admissionDate)"
                 />
               </el-popover>
             </template>
@@ -354,7 +354,7 @@
                 "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -374,7 +374,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -394,7 +394,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -414,7 +414,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -434,7 +434,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -459,7 +459,7 @@
                 "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -1313,7 +1313,10 @@ export default {
         }
       }
     },
-    toRow(e) {
+    toRow(e, admissionDate) {
+      if (this.isEarlyAdmission(admissionDate)) {
+        return this.$message.warning('录入时间早于入院时间');
+      }
       let rowIndex =
         e.target.className.includes("stoolNum") ||
         e.target.className.includes("nursingEvent")
