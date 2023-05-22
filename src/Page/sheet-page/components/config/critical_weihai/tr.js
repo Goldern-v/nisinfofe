@@ -244,6 +244,7 @@ export default [{
   textarea: {
     width:180
   },
+  style: {textAlign:"left"}
 },
 {
   key: "consumption",
@@ -264,6 +265,7 @@ export default [{
   textarea: {
     width: 180
   },
+  style: {textAlign:"left"}
 },
 {
   key: "consumption2",

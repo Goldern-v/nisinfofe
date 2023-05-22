@@ -52,7 +52,7 @@ export default {
         rowspan: '2'
       },
       {
-        name: '心率/<br/>脉搏',
+        name: '脉搏/<br/>心率',
         style: {
           minWidth: '40px',
           maxWidth: '40px',
