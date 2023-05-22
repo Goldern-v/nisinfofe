@@ -466,8 +466,9 @@ const getImplementation = () => {
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
     case 'sdlj':
-    case 'gdtj':
       return implementationListWujing
+    case 'gdtj':
+      return () => import("@/Page/implementation-list/implementation-list-gdtj.vue")
     case 'whfk':
       return implementationListWhfk
     case 'ytll':
