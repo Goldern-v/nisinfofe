@@ -859,6 +859,13 @@ export default {
                 });
                 })
             }
+            if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+              GetUserList().then(res=>{
+                if (res.data.length == 0) {
+                  this.$message.warning('记录已保存未签名，请检查证书插口')
+                }
+              })
+            }
           })
           .catch(() => {
             this.pageLoading = false;
