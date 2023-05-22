@@ -343,6 +343,13 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 查房登记表
               </el-row>
             </router-link>
+
+            <router-link to="/statisticalQuery" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 统计查询
+              </el-row>
+            </router-link>
+
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
@@ -493,7 +500,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item>
+                <!-- <el-dropdown-item>
                   <el-dropdown
                     class="menuSecond-item"
                     :class="{ 'router-link-active': isActiveStatisticPage }"
@@ -501,7 +508,7 @@
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>统计查询
                     </el-row>
-                    <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-menu slot="dropdown"> -->
                       <!-- <template>
                         <el-dropdown-item
                           :class="{
@@ -520,7 +527,7 @@
                           </router-link>
                         </el-dropdown-item>
                       </template> -->
-                      <template>
+                      <!-- <template>
                         <el-dropdown-item
                           :class="{
                             active: $route.path == '/cognitiveStatistic'
@@ -540,7 +547,7 @@
                       </template>
                     </el-dropdown-menu>
                   </el-dropdown>
-                </el-dropdown-item>
+                </el-dropdown-item>  -->
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>
