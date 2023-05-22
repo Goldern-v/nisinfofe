@@ -43,7 +43,7 @@
           <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`" :title="scope.row.orderText">{{scope.row.orderText }}</div>
         </template>
       </u-table-column>
-      <u-table-column prop="expand4" label="静配标识" min-width="120px" align="center">
+      <u-table-column prop="expand4" label="静配标识" min-width="120px" align="center" v-if="[ 'whsl'].includes(HOSPITAL_ID)">
         <template slot-scope="scope">
           <!-- <span :title="scope.row.expand4 ">{{scope.row.expand4 }}</span> -->
           <!-- {{ scope.row.expand4}} -->
