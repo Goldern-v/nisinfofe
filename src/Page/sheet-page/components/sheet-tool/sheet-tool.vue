@@ -341,7 +341,7 @@
       <div
         class="item-box"
         @click="onPrintPdf"
-        v-if="['wujing', 'whsl'].includes(HOSPITAL_ID)"
+        v-if="['wujing'].includes(HOSPITAL_ID)"
       >
         <div class="text-con">打印</div>
       </div>
