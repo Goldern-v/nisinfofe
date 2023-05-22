@@ -347,6 +347,7 @@ import advice from "@/Page/patientInfo/supPage/advice/advice";
 import adviceGuizhou from "@/Page/patientInfo/supPage/advice_guizhou/advice";
 import inspect from "@/Page/patientInfo/supPage/inspect/inspect";
 import test from "@/Page/patientInfo/supPage/test/test";
+import operation from "@/Page/patientInfo/supPage/operation";
 import doctorEmr from "@/Page/patientInfo/supPage/doctorEmr/doctorEmr"; //病历
 import doctorEmrLyyz from "@/Page/patientInfo/supPage/medical-record/index.vue"
 import cost from "@/Page/patientInfo/supPage/cost/cost";
@@ -438,6 +439,7 @@ const statisticalExitAdmission = () => import("@/Page/statistical-query/statisti
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
 const StatisticalConsultation = () => import("@/Page/statistical-query/statistical-consultation/index.vue")
 const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
+const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 // 执行单路由
@@ -564,6 +566,11 @@ const router = new Router({
       path: "test",
       component: test,
       name: "检验"
+    },
+    {
+      path: "operation",
+      component: operation,
+      name: "手术"
     },
     {
       path: "temperature",
@@ -1021,6 +1028,10 @@ const router = new Router({
         {
           path: "/inspect",
           component: inspect
+        },
+        {
+          path: "/operation",
+          component: operation
         },
         {
           path: "/test",
@@ -1854,6 +1865,11 @@ const router = new Router({
             component: StatisticalConsultation,
           },
         ]
+      },
+      {
+        path: "/criticalValue",
+        name: "criticalValue",
+        component: CriticalValue
       },
     ]
   },
