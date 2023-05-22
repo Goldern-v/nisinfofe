@@ -874,10 +874,9 @@ export default {
             if (!this.info.id) {
               return this.$message.warning("打印前请先保存");
             } else {
+              /* ${qs.stringify(Object.assign({}, this.info, this.$route.query))} 会导致重复调用引起对象循环引用 后边有问题再研究 */
               return window.open(
-                `/crNursing/print/growth?${qs.stringify(
-                  Object.assign({}, this.info, this.$route.query)
-                )}`
+                  `/crNursing/print/growth?${qs.stringify(this.$route.query)}`
               );
             }
           }

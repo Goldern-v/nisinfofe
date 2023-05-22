@@ -58,6 +58,8 @@
           />
         </template>
         <button @click.stop="search">查询</button>
+        <button @click.stop="allArchive">批量归档</button>
+        <button @click.stop="allturnPDF">批量转pdf</button>
       </div>
       <div
         class="filterItem"
@@ -374,6 +376,48 @@ export default {
     };
   },
   methods: {
+    allArchive(){
+      let params = {
+        pageSize:"",
+        pageIndex:"",
+        dischargeDateBegin:moment(
+          this.query.dischargeDateBegin
+        ).format("YYYY-MM-DD"),
+        dischargeDateEnd:moment(this.query.dischargeDateEnd).format("YYYY-MM-DD"),
+        wardCode:this.deptCode,
+        showStatus:"",
+        patientName:"",
+        inpNo:""
+      }
+      uploadBatch(params).then(res=>{
+        this.$message({
+          type: "success",
+          message: "正在批量归档，请稍等"
+        });
+        this.getArchiveList()
+      })
+    },
+    allturnPDF(){
+      let params = {
+        pageSize:"",
+        pageIndex:"",
+        dischargeDateBegin:moment(
+          this.query.dischargeDateBegin
+        ).format("YYYY-MM-DD"),
+        dischargeDateEnd:moment(this.query.dischargeDateEnd).format("YYYY-MM-DD"),
+        wardCode:this.deptCode,
+        showStatus:"",
+        patientName:"",
+        inpNo:""
+      }
+      genDocBatch(params).then(res=>{
+        this.$message({
+          type: "success",
+          message: "正在批量转pdf，请稍等"
+        });
+        this.getArchiveList()
+      })
+    },
     close() {
       this.$refs["preview-modal"].close();
     },

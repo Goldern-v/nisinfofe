@@ -270,7 +270,22 @@ export default {
       }
     },
   },
-  watch: {},
+  watch: {
+    "sheetInfo.relObj":{
+      handler(newValue, oldValue) {
+        for(let key in newValue){
+          let newKey = key.split('_')[0];
+          if (this.index != 0 && this.sheetInfo.relObj[`${newKey}_${this.index - 1}`] && !this.sheetInfo.relObj[`${newKey}_${this.index}`]) {
+            // 除了第一页，其他页数，如果上一页有值并且当前页没有值，那就拿就拿上一页的
+            this.sheetInfo.relObj[`${newKey}_${this.index}`] = this.sheetInfo.relObj[`${newKey}_${this.index - 1}`]
+          }
+        }
+
+      },
+      deep: true,
+      immediate:true,
+    }
+  },
   components: {
     bedRecordModal,
   },
