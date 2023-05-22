@@ -239,7 +239,8 @@ const currentTargetUrl = (() => {
 
     // 广东同江医院
     case 'gdtj':
-      return 'http://218.204.204.90:9095' // 正式
+      // return 'http://218.204.204.90:9095' // 正式
+      return 'http://183.234.20.149:19094' // 
       // return 'http://192.168.1.54:9892'
 
     // 中国人民解放军联勤保障部队第九二五医院
@@ -263,11 +264,11 @@ const currentTargetUrl = (() => {
     // 威海市立
     case 'whsl':
       // return 'http://192.168.1.54:9866'
-      return 'http://120.24.240.231:19097'
+      // return 'http://120.24.240.231:19097'
       // return 'https://info.cr-health.com:20217'
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
       // return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
-      // return ' http://221.2.154.22:19094/'
+      return ' http://221.2.154.22:19094/'
       // return 'http://192.168.1.54:9896'
       // return 'http://192.168.20.20:9092'
     //

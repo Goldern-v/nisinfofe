@@ -1089,7 +1089,7 @@ export default {
     handleKeyDown(e) {
       if (this.handleKeyCode.includes(e.keyCode)) {
         this.colClass = e.target.className;
-        let rowIndex = e.path[3].rowIndex;
+        console.log(e.keyCode);
         //回车保存
         if (e.keyCode === 13) {
           this.debounceSave();
