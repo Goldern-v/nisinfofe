@@ -1268,7 +1268,15 @@ export default {
       //     }
       //   }
       // });
-
+      let formData = {
+        id:this.record.id,
+        name:"ISBAR交班记录卡",
+        code:"shiftWork",
+        sex:"",
+        formTitle:"ISBAR交班记录卡",
+        age:0,
+        patientName:"ISBAR交班记录卡"
+      }
       window.openSignModal(async (password, username) => {
         await apis.signShiftRecord(this.record.id, type, username, password);
 
@@ -1279,7 +1287,7 @@ export default {
         if (type === "N") {
           this.reloadSideList();
         }
-      });
+      },undefined,undefined,undefined,undefined,formData);
     },
     onDelSignModalOpen(type, sourceEmpNo) {
       // this.$refs.signModal.open({
@@ -1299,7 +1307,15 @@ export default {
       //     this.reloadSideList();
       //   }
       // });
-
+        let formData = {
+          id:this.record.id,
+          name:"ISBAR交班记录卡",
+          code:"shiftWork",
+          sex:"",
+          formTitle:"ISBAR交班记录卡",
+          age:0,
+          patientName:"ISBAR交班记录卡"
+        }
       window.openSignModal(async (password, username) => {
         await apis.delSignShiftRecord(
           this.record.id,
@@ -1313,7 +1329,7 @@ export default {
         this.$refs.signModal.close();
         this.$message.success("已取消签名");
         this.reloadSideList();
-      });
+      },"取消签名",undefined,undefined,undefined,formData);
     },
     async onRemove() {
       // this.$refs.signModal.open({

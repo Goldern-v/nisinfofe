@@ -1322,6 +1322,13 @@ export default function Title(
     );
   }
   break;
+  case "brainobservation2_zxy": {
+    //  南方中西医 - 脑科观察记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/brainobservation2_zxy/th").default)
+    );
+  }
+  break;
   case "recordicu1_zxy": {
     //  南方中西医 - 重症监护病房护理记录单(表一)
     Th = JSON.parse(
@@ -2538,6 +2545,13 @@ export default function Title(
     // 武汉汉口 - 护理记录单（二）
     Th = JSON.parse(
       JSON.stringify(require("../config/two_whhk/th").default)
+    );
+  }
+  break;
+  case "record_common_zjhj": {
+    // 湛江海军医院 - 护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/record_common_zjhj/th").default)
     );
   }
   break;
