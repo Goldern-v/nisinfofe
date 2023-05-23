@@ -3189,6 +3189,9 @@ export default {
       }
       this.fiexHeaderWidth =
       this.$refs.table && this.$refs.table.offsetWidth + "px";
+      const tableHead = this.$refs.tableHead
+      // 临邑护记横向滚动时表头跟着滚动
+      tableHead && (tableHead.style.left = left + 'px')
     },
     scrollX(val) {
       if (!this.hasFiexHeader) return;

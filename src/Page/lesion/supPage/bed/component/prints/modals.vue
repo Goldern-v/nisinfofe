@@ -125,20 +125,30 @@
           :key="item.patientId"
           :class="[(index+1)%10==0?'nextpage':'',[1,2,3,4,5].includes((index+1)%10)?'firstpage':'']"
         >
-          <span>床号：</span>
+          <!-- <span>床号：</span> -->
+
           <p>{{ item.bedLabel + "床" }}</p>
-          <span>姓名：</span>
+          <!-- <span>姓名：</span> -->
           <p>{{ item.name }}</p>
-          <span><span style="display:inline-block;width:54px;">性别：</span><span style="font-size:20px;display:inline-block;width:30px;">{{ item.sex }}</span></span>
-          <span>年龄：</span>
+          <!-- <span>
+            <span style="display:inline-block;width:54px;">性别：</span>
+            <span style="font-size:20px;display:inline-block;width:30px;">
+              {{ item.sex + '性' }}</span>
+            </span> -->
+            <p>{{ item.sex + '性' }}</p>
+          <!-- <span>年龄：</span> -->
           <p>{{ item.age }}</p>
-          <span>住院号：</span>
-          <p class="patientId">{{ item.patientId }}</p>
-          <img
-            class="qr-code  wrist-qrcode"
+          <!-- <span>住院号：</span> -->
+          <span>入院日期：</span>
+          <p style="font-size: 17px;">{{ item.admissionDate | ymdhm }}</p>
+          <!-- <p class="patientId">{{ item.patientId }}</p> -->
+            <img
+            class=" wrist-qrcode"
             :class="{ hasRemark: hasRemark }"
             :src="qrCode[index]"
+            style=" width: 55px;position: relative;top: -12px;left: 13px;"
           />
+          <span><p >{{ item.patientId }}</p></span>
         </div>
       </div>
       <div

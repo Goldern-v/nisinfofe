@@ -3,41 +3,43 @@
     class="patient-list-part"
 
     v-loading="patientListLoading"
-    :style="{ paddingTop: hasPatientGroup ? '80px' : '45px' }"
+    :style="{ paddingTop: hasPatientGroup ? '80px' : '45px', width }"
   >
-    <div class="search-box" v-if="!isRefresh">
-      <el-input
-        placeholder="床号/姓名"
-        icon="search"
-        v-model="searchWord"
-      ></el-input>
-      <el-select
-        size="small"
-        v-model="patientGroup"
-        placeholder="病人分组"
-        clearable
-        v-if="hasPatientGroup"
-        style="margin-top: 8px"
-      >
-        <el-option
-          v-for="opt in patientGroup4Expand3"
-          :key="opt.value"
-          :label="opt.name"
-          :value="opt.value">
-        </el-option>
-      </el-select>
-    </div>
-    <div class="search-box" v-else>
-      <el-input
-        placeholder="床号/姓名"
-        icon="search"
-        style="width:100px"
-        v-model="searchWord"
-      ></el-input>
-      <el-button type="primary" style="padding: 5px 15px;margin-left: 7px;height: 28px;" size="mini" @click="getDate()">刷新</el-button>
-    </div>
+    <template v-if="!collapse">
+      <div class="search-box" v-if="!isRefresh">
+        <el-input
+          placeholder="床号/姓名"
+          icon="search"
+          v-model="searchWord"
+        ></el-input>
+        <el-select
+          size="small"
+          v-model="patientGroup"
+          placeholder="病人分组"
+          clearable
+          v-if="hasPatientGroup"
+          style="margin-top: 8px"
+        >
+          <el-option
+            v-for="opt in patientGroup4Expand3"
+            :key="opt.value"
+            :label="opt.name"
+            :value="opt.value">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="search-box" v-else>
+        <el-input
+          placeholder="床号/姓名"
+          icon="search"
+          style="width:100px"
+          v-model="searchWord"
+        ></el-input>
+        <el-button type="primary" style="padding: 5px 15px;margin-left: 7px;height: 28px;" size="mini" @click="getDate()">刷新</el-button>
+      </div>
+    </template>
     <div class="left-wapper">
-     <follow-list :data="sortList" @selectPatient="selectPatient" v-if="hasFollowList">
+     <follow-list :data="sortList" @selectPatient="selectPatient" v-if="hasFollowList && !collapse">
        <template  slot-scope="{ scope }">
          <span
             class="point-box"
@@ -57,7 +59,7 @@
         <el-button :type="isGroup?'primary':''" @click="isGroup = true">默认管床</el-button>
         <el-button :type="!isGroup?'primary':''" @click="isGroup = false">全部床位</el-button>
       </el-button-group>
-      <div class="patient-list-contain">
+      <div class="patient-list-contain" :style="{ padding: !collapse ? '' : '0' }">
         <router-link
           class="patient-box"
           flex="cross:center"
@@ -321,6 +323,8 @@ export default {
     data: Array,
     toName: String,
     callFunction: Function,
+    width: String,
+    collapse: Boolean,
   },
   mixins: [common],
   data() {

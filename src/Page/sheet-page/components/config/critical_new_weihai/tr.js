@@ -72,7 +72,7 @@ export default [{
     key: "pulse", //心率脉搏
     value: "",
     event: keyf1,
-    name: "心率/脉搏",
+    name: "脉搏/心率",
     next: "次/分"
   },
   {

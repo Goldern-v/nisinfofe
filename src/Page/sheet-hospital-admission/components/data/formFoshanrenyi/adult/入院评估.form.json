@@ -1532,7 +1532,6 @@
       "classes": null,
       "readOnly": null,
       "labelLeft": true,
-      "readOnly": null,
       "hiddenTips": true,
       "children": [
         {
@@ -1675,7 +1674,6 @@
       "classes": null,
       "readOnly": null,
       "labelLeft": true,
-      "readOnly": null,
       "hiddenTips": true,
       "children": [
         {
@@ -6612,7 +6610,6 @@
           "type": "",
           "title": "眼睑下垂",
           "titleStyle": "width:72px!important",
-          "class": "",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -7383,13 +7380,13 @@
           "rule": [
             {
               "relationForm": {
-                "openKey": "Braden压疮危险评估及护理记录单",
+                "openKey": "Braden压疮危险评估及护理记录单（新）",
                 "cleanKey": "无",
                 "params": {
                   "formCode": "E0364",
                   "showSignBtn": true,
-                  "title": "佛山人医Braden压疮危险评估及护理记录单",
-                  "formUrl": "佛山人医Braden压疮危险评估及护理记录单.html",
+                  "title": "佛山人医Braden压疮危险评估及护理记录单（新）",
+                  "formUrl": "佛山人医Braden压疮危险评估及护理记录单（新）.html",
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332169",

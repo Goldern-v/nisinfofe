@@ -194,6 +194,7 @@
                 <div>
                   <span>姓名：{{ query.name }}</span>
                   <span>性别：{{ query.sex }}</span>
+                  <span>年龄：{{ query.age }}</span>
                 </div>
                 <div>
                   <span>床号：{{ query.bedLabel }}</span>

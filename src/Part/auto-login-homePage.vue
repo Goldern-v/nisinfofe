@@ -21,14 +21,8 @@ export default {
       loading: true
     };
   },
-  mounted() {
-    let autoLogin_token = this.$route.query.autoLogin_token;
-    let patientId = this.$route.query.patientId;
-    let visitId = this.$route.query.visitId;
-    const isLogin = !!(JSON.parse(localStorage.getItem('user')||'').empNo)
-    if(!isLogin){
-      autoLogin(autoLogin_token).then(res => {
-      // 存下token 和用户信息 Auth-Token-Nursing
+  methods:{
+    todo(res){
       let user = res.data.data.user;
       user.token = res.data.data.authToken;
       localStorage["user"] = JSON.stringify(res.data.data.user);
@@ -46,6 +40,42 @@ export default {
       this.$store.commit("upDeptCode", "");
       localStorage.selectDeptValue = "";
       this.$store.commit("upDeptName", "");
+    }
+  },
+  mounted() {
+    let autoLogin_token = this.$route.query.autoLogin_token;
+    let patientId = this.$route.query.patientId;
+    let visitId = this.$route.query.visitId;
+    const isLogin = !!(JSON.parse(localStorage.getItem('user')||'').empNo)
+    if(!isLogin){
+      autoLogin(autoLogin_token).then(res => {
+        if(res.data.code =='402'){
+        this.$confirm(res.data.data.expireDesc, "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+        .then(() => {
+          this.todo(res)
+        })
+        .catch(()=>{
+          this.todo(res)
+        })
+        }else if(res.data.code==='403'){
+          this.$confirm(res.data.desc, "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+          .then(() => {
+            this.$router.go(-1)
+          })
+          .catch(()=>{
+            this.$router.go(-1)
+          })
+        }else this.todo(res)
+      // 存下token 和用户信息 Auth-Token-Nursing
+      
     }).catch(e => {
       this.$message.error("自动登录失败，请手动登录！");
       this.$router.replace('/login')

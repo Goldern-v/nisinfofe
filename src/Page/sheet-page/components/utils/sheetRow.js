@@ -52,10 +52,11 @@ export function getRowNum(index) {
     sheetInfo.sheetType == "critical_lc" ||
     sheetInfo.sheetType == "critical_new_linyi" ||
     sheetInfo.sheetType == 'critical_new_weihai' ||
+    sheetInfo.sheetType == 'critical_weihai' ||
     sheetInfo.sheetType == "critical_new_lc" ||
     sheetInfo.sheetType === 'babyarea_fs'||
     sheetInfo.sheetType == "icu_yz" ||
-    sheetInfo.sheetType === 'intravenous_whhk' || 
+    sheetInfo.sheetType === 'intravenous_whhk' ||
     sheetInfo.sheetType === 'oxytocin_ytll' ||
     sheetInfo.sheetType === 'record_new_zzwy' ||
     sheetInfo.sheetType === 'pediatrics_new_zzwy' ||
