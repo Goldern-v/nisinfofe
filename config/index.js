@@ -113,7 +113,7 @@ const currentTargetUrl = (() => {
       // return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
       // return 'http://192.168.1.27:9092'  //华渊本地
       // return 'http://192.168.20.62:8080'
-          return 'http://192.168.1.54:9901'
+          return 'http://192.168.1.54:9866'
 
     /** 贵州省人民医院 */
     case "guizhou":
@@ -282,6 +282,9 @@ const currentTargetUrl = (() => {
 
     case 'dglb':
       return 'http://192.168.1.54:9866'
+
+    case 'zjhj':
+      return 'http://192.168.1.54:9866'  // 湛江海军医院 这个医院就先做表单 基本版本搬哪一个还没有确定
 
     /** 默认公司本地内网厚街测试环境 */
     default:

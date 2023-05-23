@@ -51,7 +51,65 @@
       </span>
       </div>
     </div>
-    <div v-else-if="sheetInfo.sheetType === 'brainobservation_zxy'|| sheetInfo.sheetType === 'encephalopathy_zxy'">
+    <div v-else-if="['brainobservation2_zxy',].includes(sheetInfo.sheetType)">
+      <div class="info-con" flex="main:justify">
+        <span>
+          科室：
+          <div class="bottom-line" style="min-width: 120px">
+            {{ patientInfo.deptName }}
+          </div>
+        </span>
+        <span>
+          姓名：
+          <div class="bottom-line" style="min-width: 70px">
+            {{ patientInfo.patientName }}
+          </div>
+        </span>
+        <span>
+          性别：
+          <div class="bottom-line" style="min-width: 50px">
+            {{ patientInfo.sex }}
+          </div>
+        </span>
+        <span>
+          年龄：
+          <div class="bottom-line" style="min-width: 50px">
+            {{ patientInfo.age }}
+          </div>
+        </span>
+        <span>
+          床号：
+          <div class="bottom-line" style="min-width: 50px">
+            {{ patientInfo.bedLabel }}
+          </div>
+        </span>
+        <span>
+          住院号：
+          <div class="bottom-line" style="min-width: 80px">
+            {{ patientInfo.inpNo }}
+          </div>
+        </span>
+        <span>
+          入院日期：
+          <div class="bottom-line" style="min-width: 80px">
+            {{ patientInfo.admissionDate | toyHm }}
+          </div>
+        </span>
+      </div>
+      <div class="info-con" flex="main:justify">
+        <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+          诊断：
+          <div
+            class="bottom-line"
+            style="min-width: 200px;max-width: 1000px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+          >
+            {{ diagnosis }}
+          </div>
+        </span>
+        
+      </div>
+    </div>
+    <div v-else-if="['encephalopathy_zxy', 'brainobservation_zxy'].includes(sheetInfo.sheetType)">
       <div class="info-con" flex="main:justify">
         <span>
           科室：
