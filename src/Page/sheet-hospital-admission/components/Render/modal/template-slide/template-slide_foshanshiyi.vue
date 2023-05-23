@@ -115,7 +115,14 @@
           </div>
           <div class="list-con">
             <div v-for="(item, key) in filterDatas" :key="key">
-              <templateItem :data="item" :filterData='filterDatas' :key="item.id" :refName="refName"></templateItem>
+              <templateItem 
+              :data="item" 
+              :filterData='filterDatas' 
+              :key="item.id" 
+              :refName="refName" 
+              :isEditor="isEditor"
+              :editorCallback="editorCallback"
+              ></templateItem>
             </div>
           </div>
           <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
@@ -299,6 +306,8 @@ export default {
       deptList: [], // 科室
       formCodeList: [], // 表单数组
       formCode: 'all', // 表单code
+      isEditor:false , //是否编辑器进入
+      editorCallback:()=>{}//编辑器进入得回调
     };
   },
   methods: {
@@ -361,7 +370,11 @@ export default {
         this.listType('000000', this.selectedType, '000000')
       }
     },
-    open(refName, only = true) {
+    open(refName, only = true, isEditor = false ,cb=()=>{}) {
+      if(isEditor){
+        this.isEditor=true
+        this.editorCallback=cb
+      }
       if (!only) {
         this.refName = refName
         return
@@ -376,7 +389,6 @@ export default {
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
         this.getData(this.deptValue)
         this.listType(this.deptValue,this.selectedType)
-        // this.listType('000000', this.selectedType, '000000')
       }else{
         this.listType()
         this.getData();

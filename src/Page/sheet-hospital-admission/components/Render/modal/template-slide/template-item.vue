@@ -81,7 +81,9 @@ export default {
     filterData: {
       type: Array,
       default: []
-    }
+    },
+    isEditor:Boolean,
+    editorCallback:Function
   },
   data() {
     return {
@@ -102,7 +104,12 @@ export default {
       return this.filterData.filter(item => item.id !== this.data.id)
     },
     addTemplateAtDoc() {
-      if (this.HOSPITAL_ID === 'foshanrenyi') {
+      // 判断是一体化评估进入还是编辑器一体化评估进入
+      if(this.isEditor){
+        // 编辑器进入，点击当前的数据this.data.content去做拼接
+        this.editorCallback(this.data.content)
+      }else{
+       if (this.HOSPITAL_ID === 'foshanrenyi') {
         let markObj = []
         // 成人模板
         if (this.formCode === 'E2332') {
@@ -158,6 +165,7 @@ export default {
         this.$root.$refs[this.formCode][
           this.refName
         ].$parent.inputValue += this.data.content;
+      }
       }
     },
     toEdit() {
