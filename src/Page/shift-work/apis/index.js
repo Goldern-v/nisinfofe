@@ -102,25 +102,14 @@ export function signShiftRecord(id, autographNameType, empNo, password) {
 }
 
 // 取消交班签名
-export function delSignShiftRecord(id, empNo, password, type, sourceEmpNo) {
+export function delSignShiftRecord(id, empNo, password, sign, sourceEmpNo) {
   console.log("jinlaisd-ad");
-  if(HOSPITAL_ID==='guizhou'){
+  if(['guizhou','hj'].includes(HOSPITAL_ID)){
     return axios.post(
-      `${apiPath}changeShiftTime/updateAutographNamePost/`,{id,empNo,password,type,sourceEmpNo}
+      `${apiPath}changeShiftTime/updateAutographNamePost/`,{id,empNo,password,sign,sourceEmpNo}
     );
-  }else if(HOSPITAL_ID==='hj'){
-    return axios.post(
-      `${apiPath}changeShiftTime/updateAutographName`,
-      {
-      sourceEmpNo,
-      id,
-      type,
-      empNo,
-      password
-    });
-  }
-  return axios.get(
-    `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${type}/${sourceEmpNo}
+  }else return axios.get(
+    `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${sign}/${sourceEmpNo}
     `
   );
 }
