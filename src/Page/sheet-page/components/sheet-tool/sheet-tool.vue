@@ -805,6 +805,7 @@ import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue"
 import { getPatientInfo } from "@/api/common.js";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import PreviewPDF from './modal/preview-pdf.vue';
+import moment from 'moment'
 const isWJ = 'wujing' === process.env.HOSPITAL_ID
 
 export default {
@@ -1179,9 +1180,20 @@ export default {
           },()=>{this.bus.$emit("openHJModal")})
         }
           break;
-        default:
-          this.bus.$emit("openHJModal");
-          break;
+        default: {
+          if (this.sheetInfo.sheetType === 'inandout_weihai') {
+            let y = moment()
+              .subtract(1, "days")
+              .format("YYYY-MM-DD");
+            let t = moment().format("YYYY-MM-DD");
+            let yt = y + " 07:00";
+            let tt = t + " 07:00";
+            this.bus.$emit('postWhsl', [yt, tt]);
+          } else {
+            this.bus.$emit("openHJModal");
+          }
+        }
+        break;
       }
     },
     /* 打开体温曲线页面 */
