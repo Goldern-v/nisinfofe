@@ -5,41 +5,44 @@
     v-loading="pageLoading"
     element-loading-text="正在保存"
   >
-    <div class="head-con" flex>
-      <div class="dept-select-con"></div>
-      <div class="tool-con" flex-box="1">
-        <sheetTool
-          ref="sheetTool"
-          :isLock='isLock'
-          :isLoad='isLoad'
-          :sheetTitleData="sheetTitleData"
-          :maxPage="Number(sheetInfo.endPage)"
-          @mountSheetTag="onMountSheetTag"
-          :sheetTagInfo="sheetTagInfo"
-          @sheetDelete="onSheetClose"
-        ></sheetTool>
-      </div>
+    <div class="left-part" :style="{ width: leftPartWidth }" >
+
+      <patientList
+        :width="leftPartWidth"
+        :toName="
+          toSingleTempArr.includes(HOSPITAL_ID) &&
+          $route.path.includes('singleTemperatureChart')
+            ? 'singleTemperatureChart'
+            : 'sheetPage'
+        "
+        :callFunction="isSelectPatient"
+        :collapse="!openLeft"
+      />
     </div>
+
     <div
       class="body-con"
       id="sheet_body_con"
-      :style="{ height: containHeight }"
+      :style="{ height: containHeight, width: `calc(100% - ${leftPartWidth})` }"
     >
-      <div class="left-part" :style="{ left: openLeft ? '0' : '-201px' }" >
-
-        <patientList
-          :toName="
-            toSingleTempArr.includes(HOSPITAL_ID) &&
-            $route.path.includes('singleTemperatureChart')
-              ? 'singleTemperatureChart'
-              : 'sheetPage'
-          "
-          :callFunction="isSelectPatient"
-        />
+      <div class="head-con">
+      <!-- <div class="dept-select-con"></div> -->
+        <div class="tool-con">
+          <sheetTool
+            ref="sheetTool"
+            :isLock='isLock'
+            :isLoad='isLoad'
+            :sheetTitleData="sheetTitleData"
+            :maxPage="Number(sheetInfo.endPage)"
+            @mountSheetTag="onMountSheetTag"
+            :sheetTagInfo="sheetTagInfo"
+            @sheetDelete="onSheetClose"
+          ></sheetTool>
+        </div>
       </div>
+        <!-- :style="{ marginLeft: openLeft ? '200px' : '0' }" -->
       <div
         class="right-part"
-        :style="{ marginLeft: openLeft ? '200px' : '0' }"
         :class="{ wxHighLightBg: HOSPITAL_ID == 'weixian' }"
         v-loading="tableLoading"
         element-loading-text="拼命加载中"
@@ -131,7 +134,7 @@
   background: #fff;
   border: 1px solid #CBD5DD;
   border-radius: 2px;
-
+  display: flex;
   &.fullpage {
     position: fixed !important;
     z-index: 10000;
@@ -145,21 +148,20 @@
   .head-con {
     height: 41px;
   }
-
+  .left-part {
+    height: calc(100vh - 60px);
+    width: 199px;
+    // position: absolute;
+    // left: 0;
+    // top: -40px;
+    // bottom: 0;
+    z-index: 5;
+  }
   .body-con {
     position: relative;
 
-    .left-part {
-      width: 199px;
-      position: absolute;
-      left: 0;
-      top: -40px;
-      bottom: 0;
-      z-index: 5;
-    }
-
     .right-part {
-      margin-left: 199px;
+      // margin-left: 199px;
       height: 100%;
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
@@ -374,7 +376,15 @@ export default {
       sheetTagInfo: null,
     };
   },
+  mounted() {
+    this.$nextTick(()=>{
+      document.body.style.overflowY =  'hidden'
+    })
+  },
   computed: {
+    leftPartWidth() {
+      return this.openLeft ? '199px' : '0px';
+    },
     // 显示标签
     hasSheetTags() {
       // return ['nfyksdyy', 'whsl'].includes(this.HOSPITAL_ID) && !!this.sheetTagsList.length;
@@ -825,6 +835,13 @@ export default {
             });
             })
           }
+          if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+            GetUserList().then(res=>{
+              if (res.data.length == 0) {
+                this.$message.warning('记录已保存未签名，请检查证书插口')
+              }
+            })
+          }
         })
         .catch((err) => {
           this.pageLoading = false;
@@ -1063,7 +1080,7 @@ export default {
               this.saveBody(decodeAyncVisttedData)
             })
           }else this.saveBody(decodeAyncVisttedData)
-          
+
         };
 
         let reverseList = [...decode().list].reverse();

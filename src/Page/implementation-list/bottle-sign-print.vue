@@ -114,6 +114,33 @@
               v-model="bedLabel"
             ></el-input>
           </span>
+          <!-- <span class="label">静配标识:</span>
+          <el-select
+            v-model="query.expand4"
+            placeholder="请选择"
+            size="small"
+            style="width: 80px"
+          >
+            <el-option
+              v-for="(optionItem, optionIndex) in thumpOptions1"
+              :key="optionIndex"
+              :label="optionItem.label"
+              :value="optionItem.value"
+            ></el-option>
+          </el-select> -->
+          <span v-if="HOSPITAL_ID == 'whsl'">
+          <span class="label">静配标识:</span>
+          <el-select
+            v-model="query.staticMatchingFlag"
+            placeholder="请选择"
+            size="small"
+            style="width: 80px"
+          >
+            <el-option label="全部" :value="''"></el-option>
+            <el-option label="是" :value="1"></el-option>
+            <el-option label="否" :value="0"></el-option>
+          </el-select>
+          </span>
           <span class="label" v-if="hasNewPrintHos || hasSilentPrintHos"
             >瓶签大小:</span
           >
@@ -332,7 +359,7 @@ export default {
       page: {
         pageIndex: 1,
         // pageNum: 20,
-        pageNum: this.HOSPITAL_ID == "lyxrm" ? 100 : 40,
+        pageNum:[ "lyxrm","whsl"].includes(this.HOSPITAL_ID) ? 100 : 40,
         total: 0,
       },
       // startDate: moment().format("YYYY-MM-DD"),
@@ -373,13 +400,10 @@ export default {
         executeDate: moment().format("YYYY-MM-DD"), //执行日期
         bedLabel: "", //床位号，如果查全部传*"
         bedLabelEnd: "",
+        staticMatchingFlag: '', //
         repeatIndicator: ["whfk"].includes(this.HOSPITAL_ID) ? 0 : 9,
         //医嘱类型，长期传1，临时传0，全部传9
-        reprintFlag: ["lyxrm", "whhk", "zhzxy", "925", 'stmz','qhwy'].includes(
-          this.HOSPITAL_ID
-        )
-          ? 9
-          : 0, //是否重打，1=是，0=否
+        reprintFlag: ["lyxrm", "whhk", "zhzxy", "925", 'stmz','qhwy'].includes(this.HOSPITAL_ID)? 9 : 0, //是否重打，1=是，0=否
         administration: "",
       },
       multiItemType: ["输液"],

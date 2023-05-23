@@ -285,7 +285,7 @@ export default {
     return !!flag
     },
     open(callback, title, showDate = false, isHengliNursingForm, message = "",formData,type,doctorTure,sheetType,SigndataObj,verifySignObj) {//formData为表单数据
-      // console.log(callback, title, showDate, isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj,"open")
+      console.log(callback, title, showDate, isHengliNursingForm, message,formData,type,doctorTure,sheetType,SigndataObj,verifySignObj,"open")
 
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
        GetUserList().then(res=>{

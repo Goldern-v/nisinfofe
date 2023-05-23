@@ -120,16 +120,16 @@ export default {
       let flag = false
       if(this.obj.formCodeArr){
         this.obj.formCodeArr.forEach(item=>{
-          if(this.formObj.model[item]) flag = true 
+          if(this.formObj.model[item]) flag = true
         })
         if(this.obj.name==="S2332163"){
           console.log(flag,'flag')
         }
-        if(!flag){
+        if(!flag && !this.formObj.model[this.obj.name]){
           let defaultObj =  (process.env.HOSPITAL_ID === 'foshanrenyi'||process.env.HOSPITAL_ID === 'nfyksdyy') ? (this.formCode === 'E2332' ? defaultFS_adult : defaultFS_child) : 入院默认值
           this.inputValue= defaultObj[this.obj.name] || ""
           this.formObj.model[this.obj.name] = defaultObj[this.obj.name] || ""
-        } 
+        }
       }else this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
     }
   },

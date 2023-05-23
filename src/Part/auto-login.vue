@@ -21,11 +21,8 @@ export default {
       loading: true
     };
   },
-  mounted() {
-    let autoLogin_token = this.$route.query.autoLogin_token;
-    // let token = this.$route.query.token;
-    autoLogin(autoLogin_token).then(res => {
-      // 存下token 和用户信息 Auth-Token-Nursing
+  methods:{
+    todo(res){
       let user = res.data.data.user;
       user.token = res.data.data.authToken;
       localStorage["user"] = JSON.stringify(res.data.data.user);
@@ -43,6 +40,38 @@ export default {
       this.$store.commit("upDeptCode", "");
       localStorage.selectDeptValue = "";
       this.$store.commit("upDeptName", "");
+    }
+  },
+  mounted() {
+    let autoLogin_token = this.$route.query.autoLogin_token;
+    // let token = this.$route.query.token;
+    autoLogin(autoLogin_token).then(res => {
+      // 存下token 和用户信息 Auth-Token-Nursing
+      if(res.data.code =='402'){
+        this.$confirm(res.data.data.expireDesc, "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+        .then(() => {
+          this.todo(res)
+        })
+        .catch(()=>{
+          this.todo(res)
+        })
+      }else if(res.data.code==='403'){
+        this.$confirm(res.data.desc, "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+        .then(() => {
+          this.$router.go(-1)
+        })
+        .catch(()=>{
+          this.$router.go(-1)
+        })
+      }else this.todo(res)
     }).catch(e => {
       if (!['whfk'].includes(this.HOSPITAL_ID)) return
       this.$router.replace('/login')

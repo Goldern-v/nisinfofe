@@ -4,6 +4,7 @@ import qs from 'qs'
 import {
     apiPath
 } from './apiConfig'
+import md5 from "md5";
 
 // 上班时间
 function working() {
@@ -82,6 +83,15 @@ function  updatePassword(data) {
     return axios.post(`${apiPath}updatePassword`,data)
 }
 
+// 新版重置密码（带正则，入参密码已做md5加密）
+function  updatePasswordMd5(data) {
+    data.oldPswd = md5(data.oldPswd);
+    data.newPswd = md5(data.newPswd);
+    data.rePswd = md5(data.rePswd);
+    return axios.post(`${apiPath}updatePasswordMd5`,data)
+}
+
+
 export {
     working,
     clockIn,
@@ -93,5 +103,6 @@ export {
     changePassword,
     changePassword_hx,
     passwordRule,
-    updatePassword
+    updatePassword,
+    updatePasswordMd5
 }

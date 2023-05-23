@@ -364,3 +364,14 @@ export function getPrintRecord(params, formType, formCode) {
 export function detailData(patientId) {
   return axios.get(`${apiPath}patient/getPatientInfo/${patientId}`)
 }
+
+
+// 获取护记pdf
+export const getSheetPdf = (recordCode, blockId) => {
+  return axios.get(`${apiPath}record/${recordCode}/printPdfAndView`, { params: { blockId } })
+}
+
+
+export const getDictItemValueList = (dictCode, itemCode) => {
+  return axios.post(`${apiPath}/dict/common/getDictItemValueList`, { dictCode, itemCode });
+}

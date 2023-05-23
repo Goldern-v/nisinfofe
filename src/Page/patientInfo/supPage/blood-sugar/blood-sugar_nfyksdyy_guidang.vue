@@ -15,12 +15,12 @@
 
 
 
-          <div class="sup-title"style="border-bottom: 1px solid #000;">
+          <div class="sup-title" style = "border-bottom: 1px solid #000;">
             血糖记录单
           </div>
 
           <div class="info" style="margin-top: 0px">
-            <span>病人姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
+            <span>姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
             <span style="margin-left: 20px;">性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span style="margin-left: 20px;">年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
             <span style="margin-left: 20px;">床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>

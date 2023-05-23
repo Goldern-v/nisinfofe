@@ -140,7 +140,7 @@ axios.interceptors.response.use((res) => {
                     type: 'error',
                 });
             }else if(CaSignurl=="getQrCodeStatus" || data.desc=="qrCodeIdentity不能为空"){
-                console.log("djw-ada")
+                //不执行操作
             }else{
                 window.app.$message({
                     showClose: true,
