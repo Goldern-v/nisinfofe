@@ -81,7 +81,7 @@ export function removeShiftRecord(id, empNo, password) {
 
 // 更新交班签名
 export function signShiftRecord(id, autographNameType, empNo, password) {
-  if(['xiegang','weixian'].includes(HOSPITAL_ID)){
+  if(['xiegang','weixian','hj'].includes(HOSPITAL_ID)){
     return axios.post(
       `${apiPath}changeShiftTime/updateAutographName`,{
         id,
@@ -90,30 +90,34 @@ export function signShiftRecord(id, autographNameType, empNo, password) {
         password,
       }
     )
-  }
-  if(HOSPITAL_ID==='guizhou'){
+  }else if(HOSPITAL_ID==='guizhou'){
     return axios.post(
       `${apiPath}changeShiftTime/updateAutographName`, {
         id, empNo, password
       }
     );
-  }
-  return axios.get(
+  }else return axios.get(
     `${apiPath}changeShiftTime/updateAutographName/${id}/${autographNameType}/${empNo}/${password}`
   );
 }
 
 // 取消交班签名
 export function delSignShiftRecord(id, empNo, password, type, sourceEmpNo) {
+  console.log("jinlaisd-ad");
   if(HOSPITAL_ID==='guizhou'){
     return axios.post(
       `${apiPath}changeShiftTime/updateAutographNamePost/`,{id,empNo,password,type,sourceEmpNo}
     );
   }else if(HOSPITAL_ID==='hj'){
     return axios.post(
-      `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${type}/${sourceEmpNo}
-      `
-    );
+      `${apiPath}changeShiftTime/updateAutographName`,
+      {
+      sourceEmpNo,
+      id,
+      type,
+      empNo,
+      password
+    });
   }
   return axios.get(
     `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${type}/${sourceEmpNo}
