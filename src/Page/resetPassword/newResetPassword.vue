@@ -405,7 +405,7 @@ a {
 </style>
 
 <script>
-import { updatePassword, passwordRule } from "@/api/index.js";
+import { updatePassword, updatePasswordMd5, passwordRule } from "@/api/index.js";
 import { getSysPasswordSet } from "@/api/common";
 
 export default {
@@ -560,8 +560,13 @@ export default {
     reset() {
       this.$refs["ruleFormRef"].validate((valid) => {
         if (!valid || !(this.isRePsd && this.isNewPsd)) return false;
-        console.log(this.form);
-        updatePassword(this.form).then((res) => {
+        let updatePasswordWay;
+        if (this.HOSPITAL_ID === "guizhou") {
+          updatePasswordWay = updatePasswordMd5(JSON.parse(JSON.stringify(this.form)));
+        } else {
+          updatePasswordWay = updatePassword(this.form);
+        }
+        updatePasswordWay.then((res) => {
           if (res.data.code == 200) {
             this.$message({
               message: res.data.desc

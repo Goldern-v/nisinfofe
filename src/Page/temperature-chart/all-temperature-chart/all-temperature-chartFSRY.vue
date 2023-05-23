@@ -80,6 +80,7 @@
           border
           v-loading="pageLoadng"
           cell-mouse-enter
+          highlight-current-row
         >
           <el-table-column
             v-if="levelColorHis.includes(HOSPITAL_ID)"
@@ -140,7 +141,7 @@
                 v-model="scope.row.temperature"
                 :class="className"
                 class="temperature"
-                :readonly="isReadonly(scope.row.recordDate)"
+                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="number"
                 @input="(e)=>{
@@ -148,7 +149,7 @@
                 }"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -188,7 +189,7 @@
               <input
                 v-model="scope.row.pulse"
                 class="pulse"
-                :readonly="isReadonly(scope.row.recordDate)"
+                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 :class="className"
                 type="number"
@@ -196,7 +197,7 @@
                 @mousewheel="(e) => {e.preventDefault();}"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -210,13 +211,13 @@
               <input
                 v-model="scope.row.breath"
                 :class="className"
-                :readonly="isReadonly(scope.row.recordDate)"
+                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 class="breath"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
               <!-- <input v-model="scope.row.breath" class="breath" /> -->
               <!-- <el-input v-model="scope.row.breath"></el-input> -->
@@ -255,13 +256,13 @@
               <input
                 v-model="scope.row.bloodPressure"
                 :class="className"
-                :readonly="isReadonly(scope.row.recordDate)"
+                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 class="bloodPressure"
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
               <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
@@ -302,7 +303,7 @@
                     shitOption &&
                     shitOption.length > 0 &&
                     !isReadonly(scope.row.recordDate)
-                  )
+                  ) || isEarlyAdmission(scope.row.admissionDate)
                 "
               >
                 <div
@@ -321,13 +322,13 @@
                   slot="reference"
                   v-model="scope.row.stoolNum"
                   :class="className"
-                  :readonly="isReadonly(scope.row.recordDate)"
+                  :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
                   :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                   class="stoolNum"
                   type="text"
                   @keydown="handleKeyDown"
                   @keyup="handleKeyUp"
-                  @click="toRow"
+                  @click="(e) => toRow(e, scope.row.admissionDate)"
                 />
               </el-popover>
             </template>
@@ -344,7 +345,7 @@
                 :class="className"
                 class="heartRate"
                 type="number"
-                :readonly="isReadonly(scope.row.recordDate)"
+                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 @mousewheel="
                   (e) => {
@@ -353,7 +354,7 @@
                 "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -368,12 +369,12 @@
                 v-model="scope.row.fieldThree"
                 :class="className"
                 class="fieldThree"
-                :readonly="isReadonly(scope.row.recordDate)"
+                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -388,12 +389,12 @@
                 v-model="scope.row.foodSize"
                 :class="className"
                 class="foodSize"
-                :readonly="isReadonly(scope.row.recordDate)"
+                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -408,12 +409,12 @@
                 v-model="scope.row.dischargeSize"
                 :class="className"
                 class="dischargeSize"
-                :readonly="isReadonly(scope.row.recordDate)"
+                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -428,12 +429,12 @@
                 v-model="scope.row.curWeight"
                 :class="className"
                 class="curWeight"
-                :readonly="isReadonly(scope.row.recordDate)"
+                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -450,6 +451,7 @@
                 :class="className"
                 class="painScore"
                 type="number"
+                :readonly="isEarlyAdmission(scope.row.admissionDate)"
                 @mousewheel="
                   (e) => {
                     e.preventDefault();
@@ -457,7 +459,7 @@
                 "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                @click="(e) => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -764,7 +766,9 @@
       height: 100%;
     }
   }
-
+  >>>.current-row .td {
+    background-color: green!important;
+  }
   .all-temperature-chart-print {
     /* visibility: hidden; */
     position: absolute;
@@ -1095,6 +1099,20 @@ export default {
           };
       }
     },
+    // 比入院时间早
+    isEarlyAdmission(admissionDate) {
+      if (!['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+        return false;
+      }
+      const [date, _, time] = admissionDate ? admissionDate.split(" ") : [];
+      const curDateTime = `${moment(this.query.entryDate).format('YYYY-MM-DD')} ${this.query.entryTime}:00:00`;
+      if (date && time) {
+        const addmissionDateTime = `${date} ${time}`;
+        return moment(addmissionDateTime).diff(moment(curDateTime)) > 0;
+      } else {
+        return false;
+      }
+    },
     //费整点的患者数据只允许查看不许修改
     isReadonly(recordDate) {
       recordDate = moment(recordDate).format("YYYY-MM-DD HH:mm:ss");
@@ -1295,7 +1313,10 @@ export default {
         }
       }
     },
-    toRow(e) {
+    toRow(e, admissionDate) {
+      if (this.isEarlyAdmission(admissionDate)) {
+        return this.$message.warning('录入时间早于入院时间');
+      }
       let rowIndex =
         e.target.className.includes("stoolNum") ||
         e.target.className.includes("nursingEvent")
@@ -1307,7 +1328,6 @@ export default {
           ? e.path[5]
           : e.path[4];
       var trs = tableElement.getElementsByClassName("el-table__row");
-
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
           trs[i].style.backgroundColor = "green";
