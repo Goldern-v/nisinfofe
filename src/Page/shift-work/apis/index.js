@@ -109,6 +109,11 @@ export function delSignShiftRecord(id, empNo, password, type, sourceEmpNo) {
     return axios.post(
       `${apiPath}changeShiftTime/updateAutographNamePost/`,{id,empNo,password,type,sourceEmpNo}
     );
+  }else if(HOSPITAL_ID==='hj'){
+    return axios.post(
+      `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${type}/${sourceEmpNo}
+      `
+    );
   }
   return axios.get(
     `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${type}/${sourceEmpNo}
