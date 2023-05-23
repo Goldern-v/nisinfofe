@@ -240,7 +240,7 @@ const currentTargetUrl = (() => {
     // 广东同江医院
     case 'gdtj':
       // return 'http://218.204.204.90:9095' // 正式
-      return 'http://183.234.20.149:19094' // 
+      return 'http://183.234.20.149:19094' //
       // return 'http://192.168.1.54:9892'
 
     // 中国人民解放军联勤保障部队第九二五医院
@@ -257,9 +257,9 @@ const currentTargetUrl = (() => {
       return 'http://119.97.229.206:9094'
       // return 'http://119.97.229.206:9094'
     case 'dglb':
-        return 'http://192.168.3.176:9091'
+        // return 'http://192.168.3.176:9091'
       // return 'http://192.168.1.54:9866'
-      //     return  'http://219.131.142.78:9094'
+           return  'http://219.131.142.78:9094'
 
     // 威海市立
     case 'whsl':
