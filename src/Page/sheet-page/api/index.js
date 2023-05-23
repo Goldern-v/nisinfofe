@@ -370,3 +370,8 @@ export function detailData(patientId) {
 export const getSheetPdf = (recordCode, blockId) => {
   return axios.get(`${apiPath}record/${recordCode}/printPdfAndView`, { params: { blockId } })
 }
+
+
+export const getDictItemValueList = (dictCode, itemCode) => {
+  return axios.post(`${apiPath}/dict/common/getDictItemValueList`, { dictCode, itemCode });
+}

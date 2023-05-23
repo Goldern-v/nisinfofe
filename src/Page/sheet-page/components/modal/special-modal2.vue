@@ -102,6 +102,12 @@
             >
               检查报告
             </el-button>
+            <el-button
+              v-if="['whsl'].includes(HOSPITAL_ID)"
+              size="mini"
+              @click="openModal('diagnosisModalRef')"
+              >同步护理计划</el-button
+            >
           </div>
           <div class="modal-btn-box" v-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID)">
             <el-button
@@ -880,7 +886,7 @@
 
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'fuyou','whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'fuyou','whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi', 'whsl'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
