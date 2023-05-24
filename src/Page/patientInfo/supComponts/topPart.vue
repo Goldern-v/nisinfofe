@@ -279,7 +279,7 @@
         <div class="nav-item">执行记录</div>
       </router-link>
       <router-link
-        v-if="HOSPITAL_ID === 'whsl'"
+        v-if="['whsl','nfyksdyy'].includes(HOSPITAL_ID)"
         :to="{
           path: '/implementationPerson',
           query: {

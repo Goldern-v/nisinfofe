@@ -286,7 +286,8 @@ export default {
     temperatureWHSL,
     temperatureGDTJ,
     temperatureZHZXY,
-    temperatureYTLL
+    temperatureYTLL,
+    bloodSugarNfyksyyy
   }
 };
 </script>
