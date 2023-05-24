@@ -30,6 +30,13 @@ export default {
         }),
         ...hisMatch({
           map: {
+            wujing: [{
+              name: "statisticalReport",
+              meta: {
+                title: '危重症病例统计表',
+                img: require("../images/workload.png"),
+              },
+            }],
             zhzxy: [
               {
                 name: "statisticalConsultation",
@@ -68,6 +75,7 @@ export default {
           map: {
             gdtj: [],
             zhzxy: [],
+            wujing: [],
             other: [
               {
                 name: "statisticalVTE",

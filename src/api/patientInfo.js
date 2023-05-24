@@ -20,6 +20,16 @@ function ordersByCondition(data) {
   return  axios.post(`${apiPath}patient/getPatientOrders`, data);
 }
 
+// 手术模块 手术列表
+function operationList(patientId, visitId) {
+  return axios.get(`${apiPath}operation/getOperationWithPatientId/${patientId}/${visitId}`);
+}
+
+// 手术模块 手术患者信息
+function operationResult(params) {
+  return axios.post(`${apiPath}operation/getOperationList`, params);
+}
+
 
 // 是否有查询功能医嘱列表（北海）
 function newOrders(patientId, visitId, orderText) {
@@ -267,5 +277,7 @@ export {
   collectAssessmentForm,
   unCollectAssessmentForm,
   ordersByCondition,
-  getExecuteType
+  getExecuteType,
+  operationList,
+  operationResult
 };

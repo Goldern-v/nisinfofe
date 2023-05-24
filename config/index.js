@@ -108,12 +108,12 @@ const currentTargetUrl = (() => {
 
     /** 南方中西医 */
     case "nanfangzhongxiyi":
-      // return "http://218.107.37.134:9091" // 南方中西医正式
-      // return "http://192.168.1.54:9876" // 公司-南方中西医测试-内网
+      return "http://218.107.37.134:9091" // 南方中西医正式
+      // return "http://192.168.1.54:9883" // 公司-南方中西医测试-内网
       // return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
       // return 'http://192.168.1.27:9092'  //华渊本地
       // return 'http://192.168.20.62:8080'
-          return 'http://192.168.1.54:9901'
+          // return 'http://192.168.1.54:9901'
 
     /** 贵州省人民医院 */
     case "guizhou":
@@ -134,8 +134,10 @@ const currentTargetUrl = (() => {
 
     /** 武警广东省总队医院 */
     case "wujing":
-      return 'http://14.18.101.182:9094' // crph3675 crph
+      // return 'http://14.18.101.182:9094' // crph3675 crph
       // return "http://120.24.240.231:8751" // 公司-武警广东省总队医院正式,更新了端口
+      // return "http://192.168.1.54:9883" //测试
+      return "http://192.168.3.176:9091" //测试
       // return "http://192.168.1.54:9869" // 公司-武警广东省总队医院测试-内网
       // return "http://192.168.3.154:8080" // 杨鑫本地
       // return "http://218.13.87.27:9094"
@@ -217,9 +219,9 @@ const currentTargetUrl = (() => {
 
     //珠海中西医
     case 'zhzxy':
-      return "http://192.168.1.54:9883" //珠海中西医测试
+      // return "http://192.168.1.54:9883" //珠海中西医测试
     // return "http://218.13.87.27:9094"
-    //   return "http://183.234.20.149:19094"//正式
+      return "http://183.234.20.149:19094"//正式
       // return "http://192.168.20.20:9092"//正式
       // return "https://info.cr-health.com:20217"
 
@@ -237,7 +239,8 @@ const currentTargetUrl = (() => {
 
     // 广东同江医院
     case 'gdtj':
-      return 'http://218.204.204.90:9095' // 正式
+      // return 'http://218.204.204.90:9095' // 正式
+      return 'http://183.234.20.149:19094' //
       // return 'http://192.168.1.54:9892'
 
     // 中国人民解放军联勤保障部队第九二五医院
@@ -254,27 +257,27 @@ const currentTargetUrl = (() => {
       return 'http://119.97.229.206:9094'
       // return 'http://119.97.229.206:9094'
     case 'dglb':
-        return 'http://192.168.3.176:9091'
+        // return 'http://192.168.3.176:9091'
       // return 'http://192.168.1.54:9866'
-      //     return  'http://219.131.142.78:9094'
+           return  'http://219.131.142.78:9094'
 
     // 威海市立
     case 'whsl':
       // return 'http://192.168.1.54:9866'
-      return 'http://120.24.240.231:19097'
+      // return 'http://120.24.240.231:19097'
       // return 'https://info.cr-health.com:20217'
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
       // return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
-      // return ' http://221.2.154.22:19094/'
+      return ' http://221.2.154.22:19094/'
       // return 'http://192.168.1.54:9896'
       // return 'http://192.168.20.20:9092'
     //
     case 'nfyksdyy':
       // return 'http://192.168.3.154:8080'
           // return 'http://192.168.1.54:9901'  //
-          // return  'http://59.38.110.189:9092'
+          return  'http://59.38.110.189:9092'
           // return  'http://192.168.3.228:8080'
-      // return 'http://192.168.5.127:9091'
+      return 'http://192.168.5.127:9091'
       // return  'https://info.cr-health.com:20215'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭
@@ -282,6 +285,9 @@ const currentTargetUrl = (() => {
 
     case 'dglb':
       return 'http://192.168.1.54:9866'
+
+    case 'zjhj':
+      return 'http://192.168.1.54:9866'  // 湛江海军医院 这个医院就先做表单 基本版本搬哪一个还没有确定
 
     /** 默认公司本地内网厚街测试环境 */
     default:

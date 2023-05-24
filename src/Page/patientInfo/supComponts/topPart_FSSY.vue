@@ -20,12 +20,15 @@
         }"
         tag="span"
       >
-        <div class="nav-item">首页</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">首页</div>
       </router-link>
       <el-dropdown
         menu-align="start"
         class="nav-item"
-        :class="{ 'router-link-active': isNursing }"
+        :class="{
+          'router-link-active': isNursing,
+          'padding-8': smallGap
+        }"
       >
         <el-row type="flex" align="middle">
           护理文书
@@ -83,7 +86,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理记录单</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">护理记录单</div>
       </router-link>
       <router-link
         :to="{
@@ -92,7 +95,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">体温单</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">体温单</div>
       </router-link>
       <router-link
         :to="{
@@ -101,7 +104,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">血糖</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">血糖</div>
       </router-link>
       <router-link
         :to="{
@@ -110,7 +113,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">护理计划</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">护理计划</div>
       </router-link>
       <router-link
         :to="{
@@ -119,7 +122,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">健康教育单</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">健康教育单</div>
       </router-link>
       <router-link
         :to="{
@@ -128,7 +131,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">医嘱</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">医嘱</div>
       </router-link>
       <router-link
         :to="{
@@ -137,7 +140,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">病历</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">病历</div>
       </router-link>
       <router-link
         :to="{
@@ -146,7 +149,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">检查</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">检查</div>
       </router-link>
       <router-link
         :to="{
@@ -155,7 +158,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">检验</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">检验</div>
       </router-link>
       <router-link
         :to="{
@@ -164,7 +167,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">费用信息</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">费用信息</div>
       </router-link>
       <router-link
         :to="{
@@ -173,7 +176,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">基本信息</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">基本信息</div>
       </router-link>
       <router-link
         :to="{
@@ -181,8 +184,9 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
+        v-if="!['foshanrenyi'].includes(HOSPITAL_ID)"
       >
-        <div class="nav-item">护嘱单</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">护嘱单</div>
       </router-link>
       <router-link
         :to="{
@@ -195,10 +199,14 @@
         }"
         tag="span"
       >
-        <div class="nav-item">执行记录</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">执行记录</div>
       </router-link>
-      <div class="nav-item" @click="openOtherPage('360')">360视图</div>
-      <div class="nav-item" @click="openOtherPage('新嘉和')">新嘉和</div>
+      <div class="nav-item" :class="{ 'padding-8': smallGap }" @click="openOtherPage('360')">
+        360视图
+      </div>
+      <div class="nav-item" :class="{ 'padding-8': smallGap }" @click="openOtherPage('新嘉和')">
+        新嘉和
+      </div>
       <router-link
         :to="{
           path: '/previousHistory',
@@ -210,7 +218,7 @@
         }"
         tag="span"
       >
-        <div class="nav-item">既往护理病历</div>
+        <div class="nav-item" :class="{ 'padding-8': smallGap }">既往护理病历</div>
       </router-link>
     </div>
     <div style="height: 50px"></div>
@@ -242,6 +250,9 @@ export default {
       return (
         path.includes("sheetHospitalAdmission") || path.includes("formPage")
       );
+    },
+    smallGap() {
+      return ['foshanrenyi'].includes(this.HOSPITAL_ID)
     }
   },
   components: {},
@@ -346,6 +357,9 @@ export default {
   letter-spacing: 0.26px;
   float: left;
   cursor: pointer;
+  &.padding-8 {
+    padding: 0 8px;
+  }
 }
 
 .router-link-active {

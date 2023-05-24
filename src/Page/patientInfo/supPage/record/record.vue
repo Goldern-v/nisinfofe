@@ -20,6 +20,10 @@
         <rightPart :filterObj="filterObj" :hasTagsView="hasTagsView"></rightPart>
       </div>
     </div>
+     <!-- 模板 -->
+    <!-- <templateSlide v-if="HOSPITAL_ID !== 'foshanrenyi' && HOSPITAL_ID !== 'nfyksdyy'" ref="templateSlide" /> -->
+    <!-- 一体化评估模板拿佛医的 -->
+    <templateSlideFoshanshiyi  ref="templateSlideFoshanshiyi" />
   </div>
 </template>
 
@@ -49,6 +53,8 @@ import rightPart from "./component/right-part/right-part.vue";
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import bus from "vue-happy-bus";
 import FormTags from './component/form-tags/index.vue';
+import templateSlide from "@/Page/sheet-hospital-admission/components/Render/modal/template-slide/template-slide.vue";
+import templateSlideFoshanshiyi from '@/Page/sheet-hospital-admission/components/Render/modal/template-slide/template-slide_foshanshiyi.vue'
 export default {
   props: {
     filterObj: Object
@@ -84,6 +90,7 @@ export default {
 
   beforeDestroy () {
     this.bus.$off("handleBatchAudit");
+    this.bus.$off("openTemplateModal");
   },
   watch: {
     patientInfo: {
@@ -153,16 +160,31 @@ export default {
     onClearTagsList() {
       // console.log('onClearTagsList')
       this.tagsList = [];
-    }
+    },
+    openTemplateModal(field,cb) {
+      // if (this.HOSPITAL_ID === 'foshanrenyi'||this.HOSPITAL_ID === 'nfyksdyy')
+      // { 
+      //   this.$refs.templateSlideFoshanshiyi.open(field,true,true,cb);
+      // } else {
+      //   this.$refs.templateSlide.open(field,true,true,cb);
+      // }
+      // 暂时全部使用佛医的模板
+      this.$refs.templateSlideFoshanshiyi.open(field,true,true,cb);
+    },
   },
   created() {
     this.$store.commit("closeFullPageRecord");
     this.bus.$on('formTagClose', this.handleCloseTag);
+    this.bus.$on("openTemplateModal", (field,cb) => {
+      this.openTemplateModal(field,cb);
+    });
   },
   components: {
     tree,
     rightPart,
-    FormTags
+    FormTags,
+    templateSlide,
+    templateSlideFoshanshiyi
   },
   // beforeRouteLeave: (to, from, next) => {
   //   const isSave = localStorage.getItem('isSave')

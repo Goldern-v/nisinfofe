@@ -43,7 +43,13 @@
           <div :class="scope.row.rowType && `rowType-${scope.row.rowType}`" :title="scope.row.orderText">{{scope.row.orderText }}</div>
         </template>
       </u-table-column>
-
+      <u-table-column prop="expand4" label="静配标识" min-width="120px" align="center" v-if="[ 'whsl'].includes(HOSPITAL_ID)">
+        <template slot-scope="scope">
+          <!-- <span :title="scope.row.expand4 ">{{scope.row.expand4 }}</span> -->
+          <!-- {{ scope.row.expand4}} -->
+          <span :title="scope.row.expand4 == '20010404' ? '是': '否'">{{ scope.row.expand4 == '20010404' ? '是': '否' }}</span>
+        </template>
+      </u-table-column>
       <u-table-column prop="dosage" label="单次用量" min-width="80px" align="center">
         <template slot-scope="scope">
           <span :title="scope.row.dosage ">{{scope.row.dosage }}</span>

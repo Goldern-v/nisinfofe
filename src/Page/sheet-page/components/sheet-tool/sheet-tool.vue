@@ -1,10 +1,14 @@
 <template>
   <div>
-    <div class="tool-contain" flex="cross:center" :class="{'hidden-left': isGeneralCareWj}">
+    <div
+      ref="toolbarRef"
+      class="tool-contain"
+      :class="{'hidden-left': isGeneralCareWj}"
+      @wheel.prevent="onScrollX"
+    >
     <template  v-if="HOSPITAL_ID == 'whfk'">
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="createSheet"
         v-if="!isSingleTem && !isDeputy && isShow()"
       >
@@ -12,7 +16,6 @@
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click="openStaticModal"
         v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
       >
@@ -21,7 +24,6 @@
       <div
         v-if="showSetCreatePage()"
         class="item-box"
-        flex="cross:center main:center"
         @click="setPage"
         style="width: 110px"
       >
@@ -29,7 +31,6 @@
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click="toPrint"
         v-if="
           (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
@@ -41,7 +42,6 @@
       <div
         v-if="!isDeputy"
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="toPdfPrint"
         v-show="isDev && isShow()"
       >
@@ -50,14 +50,12 @@
       <div
         v-if="!isDeputy"
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="delSheet"
       >
         <div class="text-con">删除整单</div>
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click="emit('addSheetPage')"
         v-show="limitAddPage"
       >
@@ -65,16 +63,14 @@
       </div>
        <div
         class="item-box"
-        flex="cross:center main:center"
         @click="toSave"
       >
-        <div class="text-con" flex="cross:center">保存</div>
+        <div class="text-con">保存</div>
       </div>
     </template>
     <template v-else-if="HOSPITAL_ID == 'huadu'">
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click="emit('addSheetPage')"
         v-if="!isLock"
         v-show="limitAddPage"
@@ -83,16 +79,14 @@
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click="toSave"
         v-if="!isLock"
       >
-        <div class="text-con" flex="cross:center">保存</div>
+        <div class="text-con">保存</div>
       </div>
       <template  v-if="!isLock">
         <div
         class="item-box"
-        flex="cross:center main:center"
         @click="openStaticModal"
         v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
          >
@@ -103,7 +97,6 @@
         <div
         v-if="showSetCreatePage()"
         class="item-box"
-        flex="cross:center main:center"
         @click="setPage"
         style="width: 110px"
          >
@@ -112,7 +105,6 @@
       </template>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click="toPrint"
         v-if="
           (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
@@ -124,7 +116,6 @@
       <div
         v-if="!isDeputy"
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="toPdfPrint"
         v-show="isDev && isShow() && !showPrintAll"
       >
@@ -134,7 +125,6 @@
         <div
         v-if="!isDeputy"
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="delSheet"
         >
           <div class="text-con">删除整单</div>
@@ -142,7 +132,6 @@
       </template>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="createSheet"
         v-if="!isSingleTem && !isDeputy && isShow()"
       >
@@ -154,7 +143,6 @@
       <template v-else-if="HOSPITAL_ID == 'dglb'">
         <div
             class="item-box"
-            flex="cross:center main:center"
             @click="openStaticModal"
             v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
         >
@@ -163,7 +151,6 @@
         <div
             v-if="showSetCreatePage()"
             class="item-box"
-            flex="cross:center main:center"
             @click="setPage"
             style="width:90px"
         >
@@ -171,7 +158,6 @@
         </div>
         <div
             class="item-box"
-            flex="cross:center main:center"
             @click="toPrint"
             v-if="
           (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
@@ -182,22 +168,19 @@
         </div>
         <div
             class="item-box"
-            flex="cross:center main:center"
             @click="toSave"
         >
-          <div class="text-con" flex="cross:center">保存</div>
+          <div class="text-con">保存</div>
         </div>
         <div
             v-if="!isDeputy"
             class="item-box"
-            flex="cross:center main:center"
             @click.stop="delSheet"
         >
           <div class="text-con">删除整单</div>
         </div>
         <div
             class="item-box"
-            flex="cross:center main:center"
             @click.stop="createSheet"
             v-if="!isSingleTem && !isDeputy && isShow()"
         >
@@ -206,7 +189,6 @@
         <div
             class="item-box"
             v-show="limitAddPage"
-            flex="cross:center main:center"
             @click="emit('addSheetPage')"
         >
           <div class="text-con">添加新页</div>
@@ -217,7 +199,6 @@
         <div
             v-if="!isDeputy"
             class="item-box"
-            flex="cross:center main:center"
             @click.stop="toPdfPrint"
             v-show="isDev && isShow()"
         >
@@ -227,7 +208,6 @@
 
         <div
             class="item-box"
-            flex="cross:center main:center"
             @click.stop="openSelectTmp"
             v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
         >
@@ -254,21 +234,18 @@
         <div
             class="item-box"
             v-show="limitAddPage"
-            flex="cross:center main:center"
             @click="emit('addSheetPage')"
         >
           <div class="text-con">添加新页</div>
         </div>
         <div
             class="item-box"
-            flex="cross:center main:center"
             @click="toSave"
         >
-          <div class="text-con" flex="cross:center">保存</div>
+          <div class="text-con">保存</div>
         </div>
         <div
             class="item-box"
-            flex="cross:center main:center"
             @click="openStaticModal"
             v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
         >
@@ -277,7 +254,6 @@
         <div
             v-if="showSetCreatePage()"
             class="item-box"
-            flex="cross:center main:center"
             @click="setPage"
             style="width:90px"
         >
@@ -285,7 +261,6 @@
         </div>
         <div
             class="item-box"
-            flex="cross:center main:center"
             @click="toPrint"
             v-if="
           (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
@@ -297,7 +272,6 @@
         <div
             v-if="!isDeputy"
             class="item-box"
-            flex="cross:center main:center"
             @click.stop="toPdfPrint"
             v-show="isDev && isShow()"
         >
@@ -306,14 +280,12 @@
         <div
             v-if="!isDeputy"
             class="item-box"
-            flex="cross:center main:center"
             @click.stop="delSheet"
         >
           <div class="text-con">删除整单</div>
         </div>
         <div
             class="item-box"
-            flex="cross:center main:center"
             @click.stop="createSheet"
             v-if="!isSingleTem && !isDeputy && isShow()"
         >
@@ -321,7 +293,6 @@
         </div>
         <div
             class="item-box"
-            flex="cross:center main:center"
             @click.stop="openSelectTmp"
             v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
         >
@@ -332,21 +303,18 @@
       <div
         class="item-box"
         v-show="limitAddPage"
-        flex="cross:center main:center"
         @click="emit('addSheetPage')"
       >
         <div class="text-con">添加新页</div>
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click="toSave"
       >
-        <div class="text-con" flex="cross:center">保存</div>
+        <div class="text-con">保存</div>
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click="openStaticModal"
         v-if="showCrl && !isDeputy && !isSingleTem_LCEY && !isSingleTem_GZRY"
       >
@@ -355,7 +323,6 @@
       <div
         v-if="showSetCreatePage()"
         class="item-box"
-        flex="cross:center main:center"
         @click="setPage"
         style="width:90px"
       >
@@ -363,7 +330,6 @@
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click="toPrint"
         v-if="
           (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
@@ -373,9 +339,15 @@
         <div class="text-con">打印预览</div>
       </div>
       <div
+        class="item-box"
+        @click="onPrintPdf"
+        v-if="['wujing'].includes(HOSPITAL_ID)"
+      >
+        <div class="text-con">打印</div>
+      </div>
+      <div
         v-if="!isDeputy"
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="toPdfPrint"
         v-show="isDev && isShow()"
       >
@@ -384,14 +356,12 @@
       <div
         v-if="!isDeputy"
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="delSheet"
       >
         <div class="text-con">删除整单</div>
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="createSheet"
         v-if="!isSingleTem && !isDeputy && isShow()"
       >
@@ -399,7 +369,6 @@
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="openSelectTmp"
         v-if="!isSingleTem && !isDeputy && isShow() && showSetAsTemplate()"
       >
@@ -407,7 +376,6 @@
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="openTemplateSlider"
         v-if="!isSingleTem && !isDeputy && isShow()"
       >
@@ -415,7 +383,6 @@
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="openTitleTemplateSlide"
         v-if="!isSingleTem && !isDeputy && isShow()"
       >
@@ -424,7 +391,6 @@
     </template>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click="openStaticModal"
         v-if="['guizhou', '925'].includes(HOSPITAL_ID) && isDeputy"
       >
@@ -432,7 +398,6 @@
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="syncVisitWithData"
         v-if="['guizhou', '925'].includes(HOSPITAL_ID)"
       >
@@ -443,7 +408,6 @@
         :class="[hisDocPreview('main') ? 'right-btn' : 'item-box']"
         :id="[hisDocPreview('main') ? 'is-deputy-btn' : '']"
         style="background: antiquewhite"
-        flex="cross:center main:center"
         @click.stop="backMainForm"
         v-if="isDeputy && isLoad"
       >
@@ -455,7 +419,6 @@
         :class="[hisDocPreview('deputy') ? 'right-btn' : 'item-box']"
         :id="[hisDocPreview('deputy') ? 'is-deputy-btn' : '']"
         style="background: antiquewhite"
-        flex="cross:center main:center"
         @click.stop="addDeputyForm"
         v-if="sheetInfo.selectBlock && sheetInfo.selectBlock.additionalCode"
       >
@@ -465,7 +428,6 @@
       </div>
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="openChart"
         v-if="
           (HOSPITAL_ID === 'huadu' ||
@@ -479,7 +441,6 @@
       <!--北海的婴儿录入体温曲线-->
       <div
         class="item-box"
-        flex="cross:center main:center"
         @click.stop="openBabyChat()"
         v-if="
           HOSPITAL_ID === 'beihairenyi' &&
@@ -612,8 +573,7 @@
       <!-- 江门妇幼,佛山市一第三方地址提供需要页码选择显示 -->
       <div
         class="item-box"
-        :style="{width:'80px',display:'flex !important'}"
-        flex="cross:center main:center"
+        :style="{width:'80px',display:'flex !important', overflow: 'hidden'}"
         v-if="!isDeputy"
       >
         <el-autocomplete
@@ -627,7 +587,6 @@
       </div>
       <div
       class="searchPageByDate"
-      flex="cross:center main:center"
       @click="searchPageByDateModal"
       v-if="!isGeneralCareWj"
       >
@@ -650,7 +609,6 @@
       <div
         class="item-box"
         style="width: 30px"
-        flex="cross:center main:center"
         @click="openEMR"
         v-if='HOSPITAL_ID == "beihairenyi"'
       >
@@ -661,7 +619,6 @@
       <div style="width: 5px"></div>
       <div
         class="right-btn"
-        flex="cross:center main:center"
         @click="openRltbModal"
         v-if="['guizhou', '925'].includes(HOSPITAL_ID)  && isDeputy"
       >
@@ -672,7 +629,6 @@
       </div>
       <div
         class="right-btn"
-        flex="cross:center main:center"
         @click="openRltbModal"
         v-if="showRltbN"
       >
@@ -688,7 +644,6 @@
            <!-- 分页获取评估同步 -->
           <div
           class="right-btn"
-          flex="cross:center main:center"
           @click="emit('openEvalModelPaging')"
         >
           <div class="text-con">
@@ -700,7 +655,6 @@
         <template v-else>
           <div
             class="right-btn"
-            flex="cross:center main:center"
             @click="pgtbModel"
             v-if="!isSingleTem_LCEY && !isDeputy && HOSPITAL_ID != 'foshanrenyi'"
           >
@@ -715,7 +669,6 @@
       <template  v-if="!isLock">
         <div
           class="right-btn"
-          flex="cross:center main:center"
           @click.stop="openTztbModal"
           v-if="!isSingleTem_LCEY && !isDeputy"
          >
@@ -736,7 +689,6 @@
       <div style="width: 5px"></div>
       <div
         class="right-btn"
-        flex="cross:center main:center"
         @click.stop="openZxdtbModal"
         v-if="
            ['wujing', 'quzhou', 'weixian', 'liaocheng', 'whfk', 'whhk', 'gdtj', 'lyxrm', 'stmz', 'lyyz','ytll','whsl', 'nfyksdyy'].includes(HOSPITAL_ID)
@@ -749,7 +701,6 @@
       </div>
       <div
         class="right-btn"
-        flex="cross:center main:center"
         @click.stop="openZxdtbModal"
         v-if="['guizhou', '925'].includes(HOSPITAL_ID) && sheetInfo.sheetType === 'common_gzry'"
       >
@@ -806,6 +757,9 @@
     >
       <temperatureHD :queryTem="patientInfo"></temperatureHD>
     </moveContext>
+    <PreviewPDF
+      ref="previewModal"
+    ></PreviewPDF>
     <!-- </sweet-modal> -->
   </div>
 </template>
@@ -850,6 +804,8 @@ import demonstarationLevca from "./demonstaration-levca.vue"
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 import { getPatientInfo } from "@/api/common.js";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
+import PreviewPDF from './modal/preview-pdf.vue';
+import moment from 'moment'
 const isWJ = 'wujing' === process.env.HOSPITAL_ID
 
 export default {
@@ -914,6 +870,17 @@ export default {
     };
   },
   methods: {
+    onScrollX(e) {
+      // console.log(e)
+      const deltaX = -e.wheelDelta || e.deltaY + 40 || e.detail;
+      const scrollRef = this.$refs.toolbarRef;
+      if (scrollRef) {
+        scrollRef.scrollLeft = scrollRef.scrollLeft + deltaX / 4
+      }
+    },
+    onPrintPdf() {
+      this.$refs.previewModal.open(this.sheetInfo);
+    },
     pageNumberChange(){
       //每次跳转 按键或者选择页码调整 都要清空sheetPageScrollValue，这样子就会跳转到最后一页
       localStorage.setItem('sheetPageScrollValue',null)
@@ -1213,9 +1180,20 @@ export default {
           },()=>{this.bus.$emit("openHJModal")})
         }
           break;
-        default:
-          this.bus.$emit("openHJModal");
-          break;
+        default: {
+          if (this.sheetInfo.sheetType === 'inandout_weihai') {
+            let y = moment()
+              .subtract(1, "days")
+              .format("YYYY-MM-DD");
+            let t = moment().format("YYYY-MM-DD");
+            let yt = y + " 07:00";
+            let tt = t + " 07:00";
+            this.bus.$emit('postWhsl', [yt, tt]);
+          } else {
+            this.bus.$emit("openHJModal");
+          }
+        }
+        break;
       }
     },
     /* 打开体温曲线页面 */
@@ -2176,7 +2154,8 @@ export default {
     demonstarationLevca,
     selectPageModal,
     searchPageByDateModal,
-    titleTemplateSlideFS
+    titleTemplateSlideFS,
+    PreviewPDF
 
   },
 };
@@ -2361,10 +2340,19 @@ export default {
   pointer-events: auto !important;
 }
 .tool-contain {
+  display: flex;
+  align-items: center;
   z-index: 4 !important;
+  overflow-x: hidden;
+  white-space: nowrap;
+  overflow-y: hidden;
   &.hidden-left {
     width: 120%;
     overflow-x: hidden;
+  }
+  &:hover {
+    overflow-x: auto; // 防止 overlay 不兼容
+    overflow-x: overlay; // 滚动条不占高度
   }
 }
 
@@ -2381,5 +2369,6 @@ export default {
 .searchPageByDate {
   padding:0 0 0 3px;
   color:#606467;
+  white-space: nowrap;
 }
 </style>

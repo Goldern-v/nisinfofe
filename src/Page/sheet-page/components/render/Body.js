@@ -1062,6 +1062,11 @@ function switchSheetType(type) {
       schema = require("../config/brainobservation_zxy/tr.js").default;
     }
       break;
+    case "brainobservation2_zxy": {
+      // 南方中西医 - 脑科观察记录
+      schema = require("../config/brainobservation2_zxy/tr.js").default;
+    }
+      break;
     case "recordicu1_zxy": {
       // 南方中西医 - 重症监护病房护理记录单(表一)
       schema = require("../config/recordicu1_zxy/tr.js").default;
@@ -1934,6 +1939,11 @@ function switchSheetType(type) {
     case "record_new_zzwy": {
       // 漳州五院 - 护理记录单
       schema = require("../config/record_new_zzwy/tr.js").default;
+    }
+      break;
+    case "record_common_zjhj": {
+      // 湛江海军医院 - 护理记录单
+      schema = require("../config/record_common_zjhj/tr.js").default;
     }
       break;
   }
