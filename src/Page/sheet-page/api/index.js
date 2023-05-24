@@ -370,3 +370,8 @@ export function detailData(patientId) {
 export const getSheetPdf = (recordCode, blockId) => {
   return axios.get(`${apiPath}record/${recordCode}/printPdfAndView`, { params: { blockId } })
 }
+
+// 查看留痕
+export const getLogRecordOperate = (params) => {
+  return axios.post(`${apiPath}record/internal_eval_weihai/getLogRecordOperate`, params)
+}
