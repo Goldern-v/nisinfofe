@@ -66,7 +66,7 @@ export default {
           name: "age",
           value: "",
           title: "年龄",
-          postText: `(${this.ageLevel})`
+          postText:`${this.HOSPITAL_ID !=='nfyksdyy'?`(${this.ageLevel})`:''}`
         },
         {
           name: "wardName",
@@ -78,7 +78,7 @@ export default {
           value: "",
           title: "床号"
         },
-        ...this.HOSPITAL_ID === 'foshanrenyi' && 
+        ...this.HOSPITAL_ID === 'foshanrenyi' &&
         {
           name: "visitId",
           value: "",
@@ -108,7 +108,7 @@ export default {
     formHeads2() {
       let patient = this.$store.getters.getCurrentPatient();
       let ret = [
-        this.HOSPITAL_ID === 'qhwy' && 
+        this.HOSPITAL_ID === 'qhwy' &&
         {
           name: "diagnosis",
           value: "",

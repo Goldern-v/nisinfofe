@@ -53,7 +53,7 @@ export default [
       data: []
     },
     textarea: {
-      width: 60
+      width: 50
     }
   },
   {
@@ -75,6 +75,9 @@ export default [
     autoComplete: {
       data: UC
     },
+    input:{
+      width:100
+    }
     // event: function (e, td) {
     //   if (e.keyCode == 32) {
     //     e.target.value += "/";

@@ -122,13 +122,12 @@ export default {
     },
     runTasks(init = false) {
       this.abnormalClick()
-
       if (!this.obj.tasks) return
-        
+
         if (this.HOSPITAL_ID === 'foshanrenyi') {
-          let arr = ['破损部位', '溃疡部位', '瘢痕部位', '水疱部位', '硬结部位', '瘀斑部位', '出血点部位', '湿疹部位', 
+          let arr = ['破损部位', '溃疡部位', '瘢痕部位', '水疱部位', '硬结部位', '瘀斑部位', '出血点部位', '湿疹部位',
           '斑疹部位', '丘疹部位', '汗疱疹部位', '脓疱疹部位', '糜烂部位', '皲裂部位', '抓痕部位', '其他部位']
-          
+
           arr.forEach(item => {
             let value = this.formObj.model['I2333068'] || this.formObj.model['I2332052'] || ''
             let newArr = value.split(',').map(it => it + '部位')
@@ -170,15 +169,15 @@ export default {
               }
             }
           });
-        } 
+        }
       } catch (error) {
         console.log("tasks:error", error, this.obj);
       }
     },
     // 点击异常的时候显示异常
     abnormalClick () {
+      let obj = []
       if (this.HOSPITAL_ID === 'foshanrenyi' && !this.obj.tasks) {
-        let obj = []
         if (this.formCode === 'E2332') {
           obj = [
             {
@@ -227,7 +226,7 @@ export default {
         } else {
           obj = [
             // 是儿童模块
-          
+
           {
             id: 'I2333154',
             value: '异常：',
@@ -268,67 +267,97 @@ export default {
           },
           ]
         }
-        if (obj.length > 0) {
+      }
+      if(this.HOSPITAL_ID === 'nfyksdyy' && !this.obj.tasks){
+        obj=[
 
-          obj.forEach(item => {
-            // input类型
-            if(!this.formObj.model[item.id] && !item.valDefault) return
-            
-            if (item.inp) {
-              let inp = this.$root.$refs[this.formCode][item.correlationID]
-              if(this.formObj.model[item.id]){
-                inp.$parent.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: flex;align-items: center;"
-                if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block;align-items: center;"
-              }
-            }else if(item.hiddenformGroupColBox){
-              if(this.formObj.model[item.id]){
-                let formGroupColBox = this.$root.$refs[this.formCode]['formGroupColBox' + item.correlationID]
-                let end = item.value.find(val=>this.formObj.model[item.id].includes(val))
-                if(item.hiddenImportantVal){
-                  formGroupColBox.style.display = this.formObj.model[item.id].includes(item.hiddenImportantVal) ? "none" : "block"
-                }else formGroupColBox.style.display = !end ? "none" : "block"
-              }
-            }else if(item.hiddeninputBox){
-              if(this.formObj.model[item.id]){
-                let hiddeninputBox = this.$root.$refs[this.formCode]['inputBox' + item.correlationID]
-                hiddeninputBox.parentElement.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
-              }
-            }else if(item.hiddenRadio){
-              if(this.formObj.model[item.id]){
-                let hiddenRadioArr = this.$root.$refs[this.formCode][item.correlationID]
-                Object.keys(hiddenRadioArr).forEach(radio=>{
-                  hiddenRadioArr[radio].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "inline-block"
-                })
-              }
-            }else if(item.hiddenCheckBox){
-              if(this.formObj.model[item.id]){
-                let hiddenCheckBox = this.$root.$refs[this.formCode][item.correlationID]
-                Object.keys(hiddenCheckBox).forEach(checkbox=>{
-                  if(!item.excludeVal.includes((checkbox))){
-                    hiddenCheckBox[checkbox].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "flex"
-                  }
-                })
-              }
-            }else {
-              if(this.formObj.model[item.id]){
-                let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
-                if (elArr.length > 0) {
-                  elArr.forEach(it => {
-                    
-                    it.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
-                    if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
-                  })
+          {
+            id: 'I2332067',
+            value: '异常:',
+            correlationID: "I2332069"
+          },
+          {
+            id: 'I2332067',
+            value: '异常:',
+            inp: true,
+            correlationID: "I2332070"
+          },
+          {
+            id: 'I2332067',
+            value: ['异常:'],
+            hiddenformGroupColBox: true,
+            correlationID: "排尿留置导管"
+          },
+          {
+            id: 'I2332067',
+            value: ['异常:'],
+            hiddenformGroupColBox: true,
+            correlationID: "排尿造瘘"
+          },
+          {
+            id: 'I2332045',
+            value: '无',
+            correlationID: "I2332042"
+          },
+        ]
+      }
+      if (obj.length > 0) {
+        obj.forEach(item => {
+          // input类型
+          if(!this.formObj.model[item.id] && !item.valDefault) return
+
+          if (item.inp) {
+            let inp = this.$root.$refs[this.formCode][item.correlationID]
+            if(this.formObj.model[item.id]){
+              inp.$parent.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: flex;align-items: center;"
+              if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block;align-items: center;"
+            }
+          }else if(item.hiddenformGroupColBox){
+            if(this.formObj.model[item.id]){
+              let formGroupColBox = this.$root.$refs[this.formCode]['formGroupColBox' + item.correlationID]
+              let end = item.value.find(val=>this.formObj.model[item.id].includes(val))
+              if(item.hiddenImportantVal){
+                formGroupColBox.style.display = this.formObj.model[item.id].includes(item.hiddenImportantVal) ? "none" : "block"
+              }else formGroupColBox.style.display = !end ? "none" : "block"
+            }
+          }else if(item.hiddeninputBox){
+            if(this.formObj.model[item.id]){
+              let hiddeninputBox = this.$root.$refs[this.formCode]['inputBox' + item.correlationID]
+              hiddeninputBox.parentElement.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
+            }
+          }else if(item.hiddenRadio){
+            if(this.formObj.model[item.id]){
+              let hiddenRadioArr = this.$root.$refs[this.formCode][item.correlationID]
+              Object.keys(hiddenRadioArr).forEach(radio=>{
+                hiddenRadioArr[radio].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "inline-block"
+              })
+            }
+          }else if(item.hiddenCheckBox){
+            if(this.formObj.model[item.id]){
+              let hiddenCheckBox = this.$root.$refs[this.formCode][item.correlationID]
+              Object.keys(hiddenCheckBox).forEach(checkbox=>{
+                if(!item.excludeVal.includes((checkbox))){
+                  hiddenCheckBox[checkbox].$parent.$el.parentNode.style.display = !this.formObj.model[item.id].includes(item.value) ? "none" : "flex"
                 }
+              })
+            }
+          }else {
+            if(this.formObj.model[item.id]){
+              let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
+              if (elArr.length > 0) {
+                elArr.forEach(it => {
+                  it.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+                  if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
+                })
               }
             }
-          })
-        }
+          }
+        })
       }
     },
     runTasksClick(code) {
       this.abnormalClick()
-
-      if (this.HOSPITAL_ID !== 'foshanrenyi') return;
+      // if (this.HOSPITAL_ID !== 'foshanrenyi') return;
       if (!this.obj.tasks) return
       let checked = !this.$root.$refs[this.formCode][this.obj.name][this.obj.title].isChecked
       try {
@@ -361,7 +390,7 @@ export default {
               }
             }
           });
-        } 
+        }
       } catch (error) {
         console.log("tasks:error", error, this.obj);
       }
@@ -523,7 +552,7 @@ export default {
       }
       this.runTasksClick(code);
     }
-    
+
   }
 };
 </script>
