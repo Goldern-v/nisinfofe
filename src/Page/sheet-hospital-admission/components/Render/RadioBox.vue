@@ -207,9 +207,7 @@ export default {
       if (this.formObj.selectedItems) {
         this.formObj.selectedItems.map(item => {
           if(this.formObj.formSetting && this.formObj.formSetting.formInfo.formCode == 'E0616'){
-            console.log(this.formObj.model["I616001"],"this.formObj")
           score =  (this.formObj.model["I616001"]?this.formObj.model["I616001"]:"_")+"+"+(this.formObj.model["I616002"]?this.formObj.model["I616002"]:"_")+"+"+(this.formObj.model["I616003"]?this.formObj.model["I616003"]:"_")
-
           return score
           }else{
             score += ~~item.score;
@@ -226,7 +224,6 @@ export default {
           let textResult = this.$root.$refs[this.formCode][
             "evalDesc"
             ].checkValueRule(score);
-          console.log("evalDesc-textResult", textResult);
           this.formObj.model["evalDesc"] = textResult + "";
           this.$root.$refs[this.formCode]["evalDesc"].setCurrentValue(
             textResult
@@ -268,9 +265,8 @@ export default {
 
     },
     runTasks(init = false) {
-
+      let obj = []
       if (this.HOSPITAL_ID === 'foshanrenyi' && !this.obj.tasks) {
-        let obj = []
         // 成人
         if (this.formCode === "E2332") {
           obj = [
@@ -387,9 +383,17 @@ export default {
             },
           ]
         }
-        
+        // if(this.HOSPITAL_ID === 'nfyksdyy' && !this.obj.tasks){
+        //   obj=[
+        //     {
+        //       id: 'I2332045',
+        //       value: '有',
+        //       hiddenInputBox: true,
+        //       correlationID: "I2332042疼痛部位"
+        //     },
+        //   ]
+        // }
         if (obj.length > 0) {
-
           obj.forEach(item => {
             // input类型
             if(!this.formObj.model[item.id]) return
@@ -419,7 +423,7 @@ export default {
                   if (item.prefixId) document.getElementById(item.prefixId).style = this.formObj.model[item.id] !== item.value ? "display: none" : "display: inlink-block"
                 })
               }
-              
+
             }
           })
         }
@@ -448,7 +452,6 @@ export default {
             .isChecked
         ) {
           // this.obj.tasks.checked.clean
-          
           try {
             this.obj.tasks.map(task => {
               // let clean = task.clean
@@ -457,7 +460,7 @@ export default {
               // })
               if (task.clean) {
                 if (task.clean.constructor == Array) {
-                  
+
                   task.clean.map(c => {
                     if (this.$root.$refs[this.formCode]["formGroupColBox" + c]) {
                       this.$root.$refs[this.formCode]["formGroupColBox" + c].hidden = true;
@@ -486,7 +489,6 @@ export default {
                 }
               }
             });
-            // console.log('tasks:',this.obj.tasks)
           } catch (error) {
             console.log("tasks:error", error, this.obj);
           }
@@ -494,7 +496,6 @@ export default {
       }
 
       if (init && this.obj.showName) {
-        console.log(init, this.obj.showName)
         if (this.obj.showName !== this.obj.title.trim()){
           this.$root.$refs[this.formCode][
           "formGroupColBox" + this.obj.showName

@@ -55,7 +55,9 @@
           </span>
         </div>
       </div>
-      <headCon v-if="isFirst"></headCon>
+      <!-- <headCon v-if="isFirst"></headCon> -->
+      <headCon ></headCon>
+
       <excel
           :data="data"
           :index="index"
