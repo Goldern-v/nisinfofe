@@ -45,7 +45,7 @@ export default {
         console.log('getPDfUrl', res);
         const url = res.data.data;
         if (url) {
-          this.preview.url = `${apiPath}${url}`;
+          this.preview.url = `${apiPath.replace('/api', '')}${url}`;
         }
         this.pageLoading = false;
       } catch (error) {
