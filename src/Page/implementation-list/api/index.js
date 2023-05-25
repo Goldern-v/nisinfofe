@@ -255,3 +255,11 @@ export function exportWardExecuteList(params) {
     `${apiPath}procedure/webExecute/exportWardExecuteList`, params, { responseType: "blob" }
   )
 }
+/**
+ * 获取医嘱分类
+ * @returns
+ */
+export function getPdaExecuteTypeApi() {
+  return axios.post(
+    `${apiPath}procedure/pdaExecute/type`)
+}
