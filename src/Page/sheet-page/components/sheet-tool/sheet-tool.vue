@@ -391,7 +391,7 @@
       <div
         class="item-box"
         @click="lookMark"
-        v-if='blockId'
+        v-if='blockId && HOSPITAL_ID === "nfyksdyy"'
       >
         <div class="text-con">痕迹</div>
       </div>
