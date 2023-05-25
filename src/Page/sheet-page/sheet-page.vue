@@ -1062,7 +1062,7 @@ export default {
           const pageIndexs = this.$store.state.sheet.pageIndexs
           decodeAyncVisttedData.pageIndex = pageIndexs
           const nanFangcaLogin = localStorage["nanFangcaLogin"] || ""
-          if(['nfyksdyy'].includes(this.HOSPITAL_ID) && nanFangcaLogin){
+          if([].includes(this.HOSPITAL_ID) && nanFangcaLogin){
             const nanFangcaToken = localStorage["nanFangcaToken"] || ""
             let userName = JSON.parse(localStorage.user).empNo
             console.log(decodeAyncVisttedData,'decodeAyncVisttedData')
