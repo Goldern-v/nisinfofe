@@ -245,7 +245,7 @@ const currentTargetUrl = (() => {
 
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
-      return 'http://192.168.1.54:9866'
+      return 'http://218.204.204.90:9095'
       // return 'http://218.13.87.27:9094'
       // return 'http://120.24.240.231:19097'
       // return 'http://192.168.3.154:8080'
@@ -274,8 +274,8 @@ const currentTargetUrl = (() => {
     //
     case 'nfyksdyy':
       // return 'http://192.168.3.154:8080'
-          return 'http://59.38.110.189:9092'  //
-          // return  'http://59.38.110.189:9092'
+          // return 'http://192.168.1.54:9901'  //
+          return  'http://59.38.110.189:9092'
           // return  'http://192.168.3.228:8080'
       // return 'http://192.168.5.127:9091'
       // return  'https://info.cr-health.com:20215'
