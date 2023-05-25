@@ -217,7 +217,7 @@ export default {
     });
     this.bus.$on("openAssessmentBox", (data) => {
       console.log("openAssessmentBox", data);
-      if(data.formCode==="form_growth" && HOSPITAL_ID == 'hj'){
+      if(data.formCode==="form_growth" && this.HOSPITAL_ID == 'hj'){
         this.$route.query.id = data.id;
         this.$route.query.formType = "eval"
         this.$route.query.formCode = "growth"
