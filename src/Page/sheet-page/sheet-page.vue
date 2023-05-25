@@ -835,6 +835,13 @@ export default {
             });
             })
           }
+          if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
+            GetUserList().then(res=>{
+              if (res.data.length == 0) {
+                this.$message.warning('记录已保存未签名，请检查证书插口')
+              }
+            })
+          }
         })
         .catch((err) => {
           this.pageLoading = false;
@@ -1055,7 +1062,7 @@ export default {
           const pageIndexs = this.$store.state.sheet.pageIndexs
           decodeAyncVisttedData.pageIndex = pageIndexs
           const nanFangcaLogin = localStorage["nanFangcaLogin"] || ""
-          if(['nfyksdyy'].includes(this.HOSPITAL_ID) && nanFangcaLogin){
+          if([].includes(this.HOSPITAL_ID) && nanFangcaLogin){
             const nanFangcaToken = localStorage["nanFangcaToken"] || ""
             let userName = JSON.parse(localStorage.user).empNo
             console.log(decodeAyncVisttedData,'decodeAyncVisttedData')

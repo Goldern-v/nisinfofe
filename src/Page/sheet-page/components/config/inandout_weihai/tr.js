@@ -7,6 +7,9 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
+import {
+  getDictItemValueList
+} from "../../../api/index";
 // le event = ''
 
 let xzList = ['棕黄粘稠', '墨绿粘稠', '淡黄澄清', '淡红血性', '鲜红血性', '暗红血性', '白色浑浊', '草绿浑浊']
@@ -15,11 +18,11 @@ let chulian = ['小便', '造口', '出汗量', '呕吐', '痰量', '胃肠减�
   '右下腹引流','右中腹引流','左盆引流','右盆引流','左胸引流','右胸引流',
   '皮下引流','肛管引流','负压引流','肛壁引流','脾窝引流','肝上引流',
   '肝下引流','文氏孔引流','左肾造瘘引流','右肾造瘘引流','胆囊引流',
-  '髓前引流','T管引流','膈下引流','十二指肠旁沟引流','十二指肠旁沟引流','股腹后引流',
+  '髓前引流','T管引流','膈下引流','十二指肠旁沟引流','股腹后引流',
   '颈前引流量', '胸壁引流量', '腋窝引流量', '左胸壁引流量', '左腋窝引流量', '右胸壁引流量', '右腋窝引流量', '尿量', '切口引流量', '心包积液',
   '超滤量', '左胸腔闭式引流', '左胸腔引流', '右胸腔闭式引流', '右胸腔引流', '纵膈引流'
 ]
-const food = ['静滴','静推','肌注皮下','肠内营养','鼻饲','胃造瘘入','水','米油','鸡蛋清','米粥','烂面条','片汤','疙瘩汤']
+let food = ['静滴','静推','肌注皮下','肠内营养','鼻饲','胃造瘘入','水','米油','鸡蛋清','米粥','烂面条','片汤','疙瘩汤']
 
 // le i = ''
 export default [{
@@ -205,3 +208,36 @@ export default [{
     value: false
   }
 ];
+export function getListData() {
+  let list = [
+    "record:inandout_weihai:in",
+    "record:inandout_weihai:out",
+  ];
+  const deptCode = localStorage.getItem("selectDeptValue");
+  const promiseList = [];
+  for (let i = 0; i < list.length; i++) {
+    promiseList.push(getDictItemValueList(list[i], deptCode));
+  }
+  Promise.all(promiseList).then(([r1, r2]) => {
+    console.log('r1:', r1.data.data);
+    console.log('r2:', r2.data.data);
+    setList(food, r1.data.data);
+    setList(chulian, r2.data.data);
+    // food    = r1.data.data || food;
+    // chulian = r2.data.data || chulian;
+  });
+}
+
+getListData();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, data) {
+  list.splice(0, list.length);
+  for (let item of data) {
+    list.push(item);
+  }
+}

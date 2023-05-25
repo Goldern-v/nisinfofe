@@ -153,6 +153,9 @@
               <span class="label">病情等级:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('重')"
                   :class="{ active: formData.registCare.includes('重') }"
@@ -163,6 +166,9 @@
                   "
                 />
                 <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('危')"
                   :class="{ active: formData.registCare.includes('危') }"
@@ -173,6 +179,9 @@
                   "
                 />
                 <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('普')"
                   :class="{ active: formData.registCare.includes('普') }"
@@ -188,6 +197,9 @@
               <span class="label">护理级别:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('特')"
                   :class="{ active: formData.registCare.includes('特') }"
@@ -198,6 +210,9 @@
                   "
                 />
                 <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('一')"
                   :class="{ active: formData.registCare.includes('一') }"
@@ -208,6 +223,9 @@
                   "
                 />
                 <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('二')"
                   :class="{ active: formData.registCare.includes('二') }"
@@ -218,6 +236,9 @@
                   "
                 />
                 <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('三')"
                   :class="{ active: formData.registCare.includes('三') }"
@@ -236,7 +257,7 @@
                 flex="cross:center"
                 class="input-item"
               >
-                <span class="label">主管医生:</span>
+                <span class="label" >主管医生:</span>
                 <!-- <el-autocomplete v-model="formData.mainDoctors"
                                  :fetch-suggestions="querySearchAsyncDoc"
                                  class="auto-input"
@@ -247,12 +268,25 @@
                   type="text"
                   nowidth
                   :style="{
-                    'font-size': '24px',
+                    'font-size': '18px',
                     'text-align': isZhzxy ? 'center' : '',
                   }"
                   flex-box="1"
                   class="bottom-line"
                   v-model="formData.mainDoctors"
+                />
+                <span class="label" v-if="['whhk'].includes(HOSPITAL_ID)">科主任:</span>
+                <input
+                v-if="['whhk'].includes(HOSPITAL_ID)"
+                  type="text"
+                  nowidth
+                  :style="{
+                    'font-size': '18px',
+                    'text-align': isZhzxy ? 'center' : '',
+                  }"
+                  flex-box="1"
+                  class="bottom-line"
+                  v-model="formData.aField2"
                 />
               </div>
               <div
@@ -262,24 +296,32 @@
                 class="input-item"
               >
                 <span class="label">责任护士:</span>
-                <!-- <el-autocomplete v-model="formData.dutyNurses"
-                                 :fetch-suggestions="querySearchAsyncNur"
-                                 class="auto-input"
-                                 flex-box="1"
-                                 disabled
-                ></el-autocomplete>-->
                 <input
                   type="text"
                   nowidth
                   flex-box="1"
                   class="bottom-line"
                   :style="{
-                    'font-size': '24px',
+                    'font-size': '18px',
                     'text-align': isZhzxy ? 'center' : '',
                   }"
                   v-model="formData.dutyNurses"
                 />
+                <span class="label" v-if="['whhk'].includes(HOSPITAL_ID)">护士长:</span>
+                <input
+                v-if="['whhk'].includes(HOSPITAL_ID)"
+                  type="text"
+                  nowidth
+                  flex-box="1"
+                  class="bottom-line"
+                  :style="{
+                    'font-size': '18px',
+                    'text-align': isZhzxy ? 'center' : '',
+                  }"
+                  v-model="formData.aField3"
+                />
               </div>
+
             </div>
             <div
               v-if="isZhzxy"
@@ -847,6 +889,8 @@ export default {
         dutyNurses: "",
         remark: "",
         remarkPrint: true,
+        aField2:"",//科主任
+        aField3:""//护士长
       },
       ysList: [],
       wenxintishi: [
@@ -947,6 +991,8 @@ export default {
         mainDoctors: "",
         dutyNurses: "",
         remark: "",
+        aField2:"",//科主任
+        aField3:""//护士长
       };
       getEntity(this.query.patientId, this.query.visitId).then((res) => {
         let resData = res.data.data;
@@ -960,6 +1006,8 @@ export default {
           dutyNurses: resData.dutyNurses || "",
           remark: diagnosis,
           remarkPrint: resData.remarkPrint,
+          aField2:resData.aField2,//科主任
+          aField3:resData.aField3//护士长
         };
         if (this.isZhzxy) {
           this.formData = {
@@ -1105,7 +1153,10 @@ export default {
       if (["zhzxy",'gdtj'].includes(this.HOSPITAL_ID)) {
         showqrCodeNum = this.query.patientId;
       }
-      this.qrCodeNum = ["zhzxy",'gdtj'].includes(this.HOSPITAL_ID)
+      if (['whhk'].includes(this.HOSPITAL_ID)) {
+        showqrCodeNum = this.query.inpNo;
+      }
+      this.qrCodeNum = ["zhzxy",'gdtj','whhk'].includes(this.HOSPITAL_ID)
         ? showqrCodeNum
         : qr_png_value;
     },
@@ -1130,6 +1181,8 @@ export default {
       data.mainDoctors = this.formData.mainDoctors;
       data.dutyNurses = this.formData.dutyNurses;
       data.remarkPrint = this.formData.remarkPrint;
+      data.aField2 = this.formData.aField2; //科主任
+      data.aField3 = this.formData.aField3;//护士长
       data.remark = this.formData.remark.slice(0, 24);
       if (this.isZhzxy) {
         data.aField1 = this.formData.aField1;

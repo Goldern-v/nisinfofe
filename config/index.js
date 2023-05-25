@@ -257,9 +257,9 @@ const currentTargetUrl = (() => {
       return 'http://119.97.229.206:9094'
       // return 'http://119.97.229.206:9094'
     case 'dglb':
-        return 'http://192.168.3.176:9091'
+        // return 'http://192.168.3.176:9091'
       // return 'http://192.168.1.54:9866'
-      //     return  'http://219.131.142.78:9094'
+           return  'http://219.131.142.78:9094'
 
     // 威海市立
     case 'whsl':
@@ -285,6 +285,9 @@ const currentTargetUrl = (() => {
 
     case 'dglb':
       return 'http://192.168.1.54:9866'
+
+    case 'zjhj':
+      return 'http://192.168.1.54:9866'  // 湛江海军医院 这个医院就先做表单 基本版本搬哪一个还没有确定
 
     /** 默认公司本地内网厚街测试环境 */
     default:

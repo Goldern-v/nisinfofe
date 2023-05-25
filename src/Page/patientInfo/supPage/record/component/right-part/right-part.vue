@@ -53,7 +53,7 @@
           <!-- 患者资料 -->
           <patientInfo
             :notNurseRecordList="true"
-            v-if="this.$route.query.patientId && (['lingcheng', 'lyxrm', 'xiegang', 'whhk', 'stmz'].includes(HOSPITAL_ID))"
+            v-if="this.$route.query.patientId && (['lingcheng', 'lyxrm', 'xiegang', 'whhk', 'stmz', 'whsl'].includes(HOSPITAL_ID))"
           ></patientInfo>
         </div>
       </div>

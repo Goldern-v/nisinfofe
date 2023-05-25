@@ -116,6 +116,9 @@ export default {
       isCounting:false, //计算的时候做节流,
     };
   },
+  mounted() {
+    this.bus.$on('postWhsl', this.post);
+  },
   methods: {
     initTime(type){
       this.active = type
@@ -159,7 +162,7 @@ export default {
     close() {
       this.$refs.modal.close();
     },
-    post() {
+    post(dateArr) {
       //添加节流
       if (this.isCounting) return
       this.isCounting=true
@@ -170,8 +173,8 @@ export default {
         // this.bus.$emit("saveSheetPage");
         // setTimeout(() => {
         let date = this.date;
-        let startTime = this.date[0];
-        let endTime = this.date[1];
+        let startTime = dateArr ? dateArr[0] : this.date[0];
+        let endTime = dateArr ? dateArr[1] : this.date[1];
         if(this.HOSPITAL_ID==="fuyou"){
         // el-date-picker的value-format不生效
           startTime=moment(startTime).format("YYYY-MM-DD HH:mm")

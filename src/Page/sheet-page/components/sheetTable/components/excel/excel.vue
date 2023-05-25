@@ -1682,7 +1682,7 @@ export default {
                 };
               }
             let p7SignObj = {}
-            if(['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)){
+            if(['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)){
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1775,7 +1775,7 @@ export default {
             },'',null,false,'',
             ['guizhou', '925'].includes(this.HOSPITAL_ID)?{}
             :['hj',"zhzxy"].includes(this.HOSPITAL_ID)?trObj:null,
-            undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
+            undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
           }
         };
         let reverseList = [...decode().list].reverse();
@@ -1819,7 +1819,7 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            strSignDataOBJ = 
+            strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1850,7 +1850,7 @@ export default {
               signData:JSON.stringify(strSignData),
             }
         }
-        if(['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)){
+        if(['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)){
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;

@@ -1763,6 +1763,11 @@ const router = new Router({
         },
         children: [
           {
+            path: "statisticalReport",
+            component: statisticalReport,
+            name: "statisticalReport",
+          },
+          {
             path: "statisticalOperation",
             name: "statisticalOperation",
             meta: {
