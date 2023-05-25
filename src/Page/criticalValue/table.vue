@@ -280,7 +280,7 @@ export default {
         patientName: this.search,
         type: this.type,
         beginTime: moment(this.time[0]).format('YYYY-MM-DD') + ' 00:00:00' || "",
-        endTime: moment(this.time[1]).format('YYYY-MM-DD') + ' 00:00:00' || "",
+        endTime: moment(this.time[1]).format('YYYY-MM-DD') + ' 23:59:59' || "",
         pageIndex: this.query.pageIndex,
         pageSize: this.query.pageSize,
         wardCode: this.wardCode || localStorage.getItem('selectDeptValue')
