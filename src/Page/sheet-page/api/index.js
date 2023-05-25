@@ -375,3 +375,8 @@ export const getSheetPdf = (recordCode, blockId) => {
 export const getDictItemValueList = (dictCode, itemCode) => {
   return axios.post(`${apiPath}/dict/common/getDictItemValueList`, { dictCode, itemCode });
 }
+
+// 查看留痕
+export const getLogRecordOperate = (params) => {
+  return axios.post(`${apiPath}record/internal_eval_weihai/getLogRecordOperate`, params)
+}

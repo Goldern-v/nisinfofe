@@ -388,6 +388,13 @@
       >
         <div class="text-con">自定义标题模板</div>
       </div>
+      <div
+        class="item-box"
+        @click="lookMark"
+        v-if='blockId && HOSPITAL_ID === "nfyksdyy"'
+      >
+        <div class="text-con">痕迹</div>
+      </div>
     </template>
       <div
         class="item-box"
@@ -761,6 +768,7 @@
       ref="previewModal"
     ></PreviewPDF>
     <!-- </sweet-modal> -->
+    <MarkModal ref='markModal' :blockId="blockId"></MarkModal>
   </div>
 </template>
 
@@ -805,6 +813,7 @@ import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue"
 import { getPatientInfo } from "@/api/common.js";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import PreviewPDF from './modal/preview-pdf.vue';
+import MarkModal from './modal/mark-modal.vue';
 import moment from 'moment'
 const isWJ = 'wujing' === process.env.HOSPITAL_ID
 
@@ -870,6 +879,10 @@ export default {
     };
   },
   methods: {
+    lookMark() {
+      this.$refs.markModal.markVisible = true;
+      this.$refs.markModal.getLogRecordOperate();
+    },
     onScrollX(e) {
       // console.log(e)
       const deltaX = -e.wheelDelta || e.deltaY + 40 || e.detail;
@@ -2155,8 +2168,8 @@ export default {
     selectPageModal,
     searchPageByDateModal,
     titleTemplateSlideFS,
-    PreviewPDF
-
+    PreviewPDF,
+    MarkModal
   },
 };
 </script>
