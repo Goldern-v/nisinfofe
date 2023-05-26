@@ -36,17 +36,24 @@
       </div>
     </div>
     <div class="new-modal-bottom" :style="modalBStyle">
-        <div
+        <!-- <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
+        > -->
+        <!-- {{ item }}  -->
+        <div
+          v-for="(item, index) in this.itemObj"
+          :key="index"
         >
-          {{ item }}
+          {{ item.orderText }} {{ item.dosage }} {{ item.dosageUnits }}
         </div>
     </div>
     <div class="new-modal-bottom-second">
       <div style="width: 20%">频次途径</div>
       <div style="flex: 1">{{ currentBottle.frequency }}</div>
-      <div v-if="HOSPITAL_ID == 'whsl'">{{ currentBottle.freqDetail }}</div>
+      <!-- <div v-if="HOSPITAL_ID == 'whsl'">{{ currentBottle.freqDetail }}</div> -->
+      <div v-if="['whsl','whhk'].includes(HOSPITAL_ID)">{{ currentBottle.freqDetail }}</div>
+
     </div>
   </div>
 </template>
@@ -218,7 +225,7 @@ const DRUG_TYPES = {
   1: "普通",
   2: "高危",
   3: "自备",
-}; 
+};
 export default {
   props: {
     itemObj: { type: Array, default: () => [] },

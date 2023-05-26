@@ -103,7 +103,6 @@ export function signShiftRecord(id, autographNameType, empNo, password) {
 
 // 取消交班签名
 export function delSignShiftRecord(id, empNo, password, sign, sourceEmpNo) {
-  console.log("jinlaisd-ad");
   if(['guizhou','hj'].includes(HOSPITAL_ID)){
     return axios.post(
       `${apiPath}changeShiftTime/updateAutographNamePost/`,{id,empNo,password,sign,sourceEmpNo}
