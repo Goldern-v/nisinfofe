@@ -736,7 +736,7 @@ export default {
           data: { diags: diags },
         },
       } = res;
-      if (diags) {
+      if (diags.length > 0 && this.HOSPITAL_ID !=='nfyksdyy') {
         let diagsArray = diags.map((d) => {
           return d;
         });
