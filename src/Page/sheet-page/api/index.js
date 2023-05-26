@@ -377,6 +377,6 @@ export const getDictItemValueList = (dictCode, itemCode) => {
 }
 
 // 查看留痕
-export const getLogRecordOperate = (params) => {
-  return axios.post(`${apiPath}record/internal_eval_weihai/getLogRecordOperate`, params)
+export const getLogRecordOperate = (sheetType, params) => {
+  return axios.post(`${apiPath}record/${sheetType}/getLogRecordOperate`, params)
 }

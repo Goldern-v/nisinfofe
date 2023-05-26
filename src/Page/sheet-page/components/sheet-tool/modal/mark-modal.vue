@@ -33,7 +33,9 @@
         style="width: 100%"
         :row-class-name="tableRowClassName"
       >
-        <el-table-column type="index" width="50" align='center'></el-table-column>
+        <el-table-column type="index" fixed width="50" align='center'></el-table-column>
+        <el-table-column prop='operate_time' fixed label='操作时间'  minWidth="150" align='center'></el-table-column>
+        <el-table-column prop='operate_name' fixed label='操作人' align='center'></el-table-column>
         <el-table-column
           v-for="(item, index) in tableColumn"
           :key="index"
@@ -68,6 +70,10 @@ export default {
     blockId: {
       type: Number,
       value: 0,
+    },
+    sheetType: {
+      type: String,
+      defaultValue: '',
     },
   },
   data() {
@@ -129,15 +135,6 @@ export default {
           align: 'left'
         },
         {
-          fieldNameTitle: "操作人",
-          fieldName: "operate_name",
-        },
-        {
-          fieldNameTitle: "操作时间",
-          fieldName: "operate_time",
-          width: "120",
-        },
-        {
           fieldNameTitle: "操作类型",
           fieldName: "operate_type",
         },
@@ -176,7 +173,7 @@ export default {
         empName: this.empName
       }
       try {
-        let { data: { data } } = await getLogRecordOperate(params)
+        let { data: { data } } = await getLogRecordOperate(this.sheetType, params)
         this.tableColumn = (data.title && data.title.length > 0 ) ? data.title.concat(this.defaultColumn) : []
         this.markData = data.log || []
         this.query.total = data.totalCount

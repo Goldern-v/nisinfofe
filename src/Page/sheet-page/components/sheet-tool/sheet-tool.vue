@@ -768,7 +768,7 @@
       ref="previewModal"
     ></PreviewPDF> -->
     <!-- </sweet-modal> -->
-    <MarkModal ref='markModal' :blockId="blockId"></MarkModal>
+    <MarkModal ref='markModal' :sheetType='sheetInfo.sheetType' :blockId="blockId"></MarkModal>
   </div>
 </template>
 
