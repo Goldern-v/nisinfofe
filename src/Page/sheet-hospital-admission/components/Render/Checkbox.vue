@@ -295,10 +295,17 @@ export default {
             correlationID: "排尿造瘘"
           },
           {
-            id: 'I2332045',
-            value: '无',
-            correlationID: "I2332042"
+            id: 'I2332044',
+            value: ['普食','软食','半流质','流质','特殊治疗饮食：','其他:'],
+            hiddenImportantVal:"禁食",
+            hiddenformGroupColBox: true,
+            correlationID: "禁食啊"
           },
+          // {
+          //   id: 'I2332045',
+          //   value: '无',
+          //   correlationID: "I2332042"
+          // },
         ]
       }
       if (obj.length > 0) {
@@ -344,8 +351,10 @@ export default {
           }else {
             if(this.formObj.model[item.id]){
               let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
+              console.log('elArr===',this.$root.$refs[this.formCode],[item.correlationID],elArr)
               if (elArr.length > 0) {
                 elArr.forEach(it => {
+                  console.log('it.$el===',it.$el)
                   it.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
                   if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
                 })
