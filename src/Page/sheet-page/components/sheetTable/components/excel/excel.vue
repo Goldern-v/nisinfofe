@@ -1051,8 +1051,8 @@ export default {
     },
     // 护士职称权限判断处理
     onCanModify(data, index, y){
-      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && y && index && this.listData[ y + (index* data.length)]){
-        return this.listData[ y + (index* data.length)].canModify == false
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData[ y + (index* data.length)]){
+        return this.listData[ y + (index* data.length)].canModify ? false : true;
       }else{
         return false
       }
@@ -1682,7 +1682,7 @@ export default {
                 };
               }
             let p7SignObj = {}
-            if(['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)){
+            if(['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)){
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1775,7 +1775,7 @@ export default {
             },'',null,false,'',
             ['guizhou', '925'].includes(this.HOSPITAL_ID)?{}
             :['hj',"zhzxy"].includes(this.HOSPITAL_ID)?trObj:null,
-            undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
+            undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
           }
         };
         let reverseList = [...decode().list].reverse();
@@ -1819,7 +1819,7 @@ export default {
               trObj[trArr[i].key] = trArr[i].value;
             }
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
-            strSignDataOBJ = 
+            strSignDataOBJ =
                 Object.assign({}, trObj, {
                   recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
                   recordHour: this.getPrev(currIndex, allList, "recordHour"),
@@ -1850,7 +1850,7 @@ export default {
               signData:JSON.stringify(strSignData),
             }
         }
-        if(['nanfangzhongxiyi','nfyksdyy'].includes(this.HOSPITAL_ID)){
+        if(['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)){
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -2286,12 +2286,15 @@ export default {
         return false;
       }
     },
-    isRead(tr) {
+    isRead(tr,y) {
       if (
         this.HOSPITAL_ID == "huadu" &&
         sheetInfo.sheetType === "body_temperature_Hd"
       ) {
         return false;
+      }
+      if(this.HOSPITAL_ID == "nfyksdyy"){
+        return this.onCanModify(this.data.bodyModel, this.index, y)
       }
       let status = tr.find((item) => item.key == "status").value;
       let empNo = tr.find((item) => item.key == "empNo").value;
@@ -2402,7 +2405,7 @@ export default {
             let id = row.find((item) => {
               return item.key == "id";
             }).value;
-            let isRead = this.isRead(row);
+            let isRead = this.isRead(row,index);
             // 佛山人医签名修改与删除比较严格。
             if(this.HOSPITAL_ID == "foshanrenyi"){
               // 根据之前判断的isRead

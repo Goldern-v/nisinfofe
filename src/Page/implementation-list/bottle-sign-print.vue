@@ -556,7 +556,7 @@ export default {
           case "925":
           return {
             maxLength:24,
-            maxLine:5,
+            maxLine:16,
             usenewModalSize:"70*80"
           };
           default :

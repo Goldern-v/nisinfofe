@@ -736,7 +736,7 @@ export default {
           data: { diags: diags },
         },
       } = res;
-      if (diags) {
+      if (diags.length > 0 && this.HOSPITAL_ID !=='nfyksdyy') {
         let diagsArray = diags.map((d) => {
           return d;
         });
@@ -1494,7 +1494,7 @@ export default {
       this.$router.push(route);
     },
     formCodeFy: function (newVal) {
-      this.formCode = this.HOSPITAL_ID === 'nfyksdyy' ? newVal : 'E0001'
+      this.formCode = [ "nfyksdyy","foshanrenyi"].includes(this.HOSPITAL_ID) ? newVal : 'E0001'
     },
   },
   components: {

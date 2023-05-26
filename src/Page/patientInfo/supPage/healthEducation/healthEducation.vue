@@ -41,7 +41,7 @@
           <div class="title" style="border-bottom: 1px solid #000;">住院患者健康教育评估及实施记录单</div>
            <div v-if='HOSPITAL_ID == "nfyksdyy"'>
             <div class="sdyyinfo">
-            <span>病人姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
+            <span>姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
             <span style="margin-left: 20px;">性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span style="margin-left: 20px;">年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
             <span style="margin-left: 20px;">床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>

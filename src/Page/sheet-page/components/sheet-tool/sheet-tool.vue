@@ -388,6 +388,13 @@
       >
         <div class="text-con">自定义标题模板</div>
       </div>
+      <div
+        class="item-box"
+        @click="lookMark"
+        v-if='blockId && HOSPITAL_ID === "nfyksdyy"'
+      >
+        <div class="text-con">痕迹</div>
+      </div>
     </template>
       <div
         class="item-box"
@@ -757,10 +764,11 @@
     >
       <temperatureHD :queryTem="patientInfo"></temperatureHD>
     </moveContext>
-    <PreviewPDF
+    <!-- <PreviewPDF
       ref="previewModal"
-    ></PreviewPDF>
+    ></PreviewPDF> -->
     <!-- </sweet-modal> -->
+    <MarkModal ref='markModal' :sheetType='sheetInfo.sheetType' :blockId="blockId"></MarkModal>
   </div>
 </template>
 
@@ -804,8 +812,10 @@ import demonstarationLevca from "./demonstaration-levca.vue"
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 import { getPatientInfo } from "@/api/common.js";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
-import PreviewPDF from './modal/preview-pdf.vue';
+// import PreviewPDF from './modal/preview-pdf.vue';
+import MarkModal from './modal/mark-modal.vue';
 import moment from 'moment'
+import qs from 'qs';
 const isWJ = 'wujing' === process.env.HOSPITAL_ID
 
 export default {
@@ -870,6 +880,10 @@ export default {
     };
   },
   methods: {
+    lookMark() {
+      this.$refs.markModal.markVisible = true;
+      this.$refs.markModal.getLogRecordOperate();
+    },
     onScrollX(e) {
       // console.log(e)
       const deltaX = -e.wheelDelta || e.deltaY + 40 || e.detail;
@@ -879,7 +893,13 @@ export default {
       }
     },
     onPrintPdf() {
-      this.$refs.previewModal.open(this.sheetInfo);
+      const {
+        "App-Token-Nursing": appToken,
+        "Auth-Token-Nursing": token
+      } = qs.parse(this.token);
+      const url = `/crNursing/sheet-print?id=${this.blockId}&startPageIndex=${this.firstPage}&endPageIndex=${this.maxPage}&Auth-Token-Nursing=${token}&App-Token-Nursing=${appToken}&appToken=${appToken}&token=${token}`;
+      window.open(url);
+      // this.$refs.previewModal.open(this.sheetInfo);
     },
     pageNumberChange(){
       //每次跳转 按键或者选择页码调整 都要清空sheetPageScrollValue，这样子就会跳转到最后一页
@@ -2155,8 +2175,8 @@ export default {
     selectPageModal,
     searchPageByDateModal,
     titleTemplateSlideFS,
-    PreviewPDF
-
+    // PreviewPDF,
+    MarkModal
   },
 };
 </script>
