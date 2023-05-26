@@ -101,7 +101,7 @@
           科室:
           <div class="bottom-line" style="min-width: 331px">{{patientInfo.realDeptName}}</div>
         </span>
-        <span>
+        <span style="margin-left: 4px;">
           病区:
           <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
         </span>
