@@ -438,6 +438,7 @@ const statisticalBreath = () => import("@/Page/statistical-query/statistical-bre
 const statisticalExitAdmission = () => import("@/Page/statistical-query/statistical-exitAdmission/index.vue")
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
 const StatisticalConsultation = () => import("@/Page/statistical-query/statistical-consultation/index.vue")
+const StatisticalConsultationZhzxy = () => import("@/Page/statistical-query/statistical-consultation-zhzxy/index.vue")
 const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
 const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 Vue.use(Router);
@@ -1868,7 +1869,14 @@ const router = new Router({
             meta: {
               title: '会诊统计'
             },
-            component: StatisticalConsultation,
+            component: (()=>{
+              switch (HOSPITAL_ID) {
+                case 'zhzxy':
+                  return StatisticalConsultationZhzxy
+                default:
+                  return StatisticalConsultation;
+              }
+            })(),
           },
         ]
       },

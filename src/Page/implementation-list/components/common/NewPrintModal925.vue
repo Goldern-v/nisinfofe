@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="flex">
-          <div>{{ `ID号:${currentBottle.patientId || ""}` }}</div>
+          <div>{{ `住院号:${currentBottle.patientId || ""}` }}</div>
           <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
         </div>
         <div class="flex">
@@ -37,12 +37,13 @@
           <div>{{ `年龄:${currentBottle.age}` }}</div>
         </div>
       </div>
-      <div class="new-print-modal__content" :class="{is925}">
+      <div class="new-print-modal__content" :class="{is925}" v-if="HOSPITAL_ID == '925'">
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
           style="
             display: block;
+            margin-bottom:2px;
             font-size:12px
             "
         >{{item}}
@@ -50,12 +51,11 @@
         </div>
       </div>
       <div class="new-print-modal__tip">
-        <div>医生说明:{{freqDetail}}</div>
         <div class="warm-icon">
           <img v-for="v in currentBottle.tipIcons" :key="v" :src="warmUrl(v)">
         </div>
       </div>
-      <div  style="position:relative">
+      <div  style="position:relative;font-size:8px;line-height: 12px;">
         <div>
           <p style="padding:0 5px">
             途径:{{ currentBottle.administration }}
@@ -63,6 +63,7 @@
           <p style="padding:0 5px">
             频率:{{ `${currentBottle.frequency}${currentBottle.groupNo ? `(${currentBottle.groupNo})`: ''}` }}
           </p>
+          <p style="padding:0 5px">医生说明:{{freqDetail}}</p>
           <p style="padding:0 5px">执行时间:{{ currentBottle.executeDate.substr(0, 16) }}</p>
         </div>
         <div class="qc-box" style="position:absolute;bottom: -8px;left:70%">
@@ -172,11 +173,13 @@
     flex-wrap: wrap;
     flex-shrink: 0;
     align-items: flex-end; */
-    height: 56px;
+    font-size: 12px;
+    line-height: 12px;
+    height: 48px;
     @extend .bb;
     .flex {
       display: flex;
-      height: 18px;
+      height: 16px;
       div {
         flex: 3;
         white-space: nowrap;
@@ -185,14 +188,14 @@
         flex: 2;
       }
       >div>span {
-        font-size: 16px;
+        font-size: 15px;
         line-height: 16px;
         display: inline-block;
         font-weight: 900;
         white-space: nowrap;
       }
       &:first-child {
-        height: 20px;
+        height: 18px;
       }
     }
     div {
@@ -208,7 +211,7 @@
       line-height: 24px;
     } */
     >div:nth-child(2)>span {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 900;
       /* text-shadow: 1px 0px #000,-1px 0px #000,0px 1px #000,0px -1px #000,; */
     }
@@ -232,9 +235,9 @@
     }
   }
   .new-print-modal__content {
-    max-height: 71px;
-    min-height:71px;
-    // flex: 1;
+    max-height: 125px;
+    min-height:125px;
+    flex: 1;
 
     div {
       /* white-space: pre-wrap; */

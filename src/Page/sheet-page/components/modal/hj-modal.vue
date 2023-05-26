@@ -63,7 +63,7 @@
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post">计算</el-button>
+        <el-button class="modal-btn" type="primary" @click="post()">计算</el-button>
       </div>
     </sweet-modal>
   </div>
@@ -163,6 +163,7 @@ export default {
       this.$refs.modal.close();
     },
     post(dateArr) {
+      console.log('post', dateArr);
       //添加节流
       if (this.isCounting) return
       this.isCounting=true

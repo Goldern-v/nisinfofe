@@ -99,7 +99,7 @@
         </span>
         <span v-if="sheetInfo.sheetType !=='prenatal_sdry'">
           科室:
-          <div class="bottom-line" style="min-width: 400px">{{patientInfo.realDeptName}}</div>
+          <div class="bottom-line" style="min-width: 331px">{{patientInfo.realDeptName}}</div>
         </span>
         <span>
           病区:

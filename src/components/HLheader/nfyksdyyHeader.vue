@@ -98,7 +98,7 @@
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>护理评估单
+                <i class="iconfont icon-hulijiludan"></i>护理文书
               </el-row>
               <el-dropdown-menu slot="dropdown">
                  <!-- <el-dropdown-item :class="{active: $route.path == '/sheetHospitalAdmission'}">
@@ -108,13 +108,21 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-                 <el-dropdown-item :class="{active: $route.path == '/admissionPageAdult'}">
+                <el-dropdown-item :class="{active: $route.path == '/admissionPageAdult'}">
                   <router-link to="/admissionPageAdult" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="sheetHospitalAdmission"></i> 入院评估(成人)
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/sheetPage'}">
+                <router-link to="/sheetPage" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i> 护理记录单
+              </el-row>
+            </router-link>
+            </el-dropdown-item>
+
                  <el-dropdown-item :class="{active: $route.path == '/formPage'}">
                   <router-link to="/formPage" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -122,6 +130,26 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/sugarPage'}">
+            <router-link to="/sugarPage" tag="span">
+              <el-row class="menu-item" type="flex" align="middle"><i class="bloodSugar"></i>血糖</el-row>
+            </router-link>
+            </el-dropdown-item>
+            <el-dropdown-item :class="{active: $route.path == '/healthEdu'}">
+            <router-link to="/healthEdu" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                <i class="healthEdu"></i>健康教育单
+              </el-row>
+            </router-link>
+            </el-dropdown-item>
+            <el-dropdown-item :class="{active: $route.path == '/planList'}">
+            <router-link to="/planList" tag="span">
+              <el-row class="menu-item" type="flex" align="middle"
+                >
+                <i class="sheetHospitalAdmission"></i>护理计划单</el-row
+              >
+            </router-link>
+            </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
 
@@ -131,12 +159,12 @@
                     </el-row>
                   </router-link> -->
 
-             <router-link to="/planList" tag="span">
+             <!-- <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理计划单</el-row
               >
-            </router-link>
-            <router-link to="/sheetPage" tag="span">
+            </router-link> -->
+            <!-- <router-link to="/sheetPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i> 护理记录单
               </el-row>
@@ -144,7 +172,7 @@
 
             <router-link to="/sugarPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
-            </router-link>
+            </router-link> -->
             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveTemperaturePage }"
@@ -178,11 +206,11 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-             <router-link to="/healthEdu" tag="span">
+             <!-- <router-link to="/healthEdu" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="healthEdu"></i>健康教育单
               </el-row>
-            </router-link>
+            </router-link> -->
             <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档

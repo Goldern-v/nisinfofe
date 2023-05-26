@@ -167,6 +167,7 @@
           <div :class="{ huaduStyle: ['huadu'].includes(HOSPITAL_ID) }">
             <div class="top">
               <span  v-if="isDglb">科室：{{ query.deptName }}</span>
+              <span  v-else-if="['whhk'].includes(HOSPITAL_ID)" style="margin-left: 0px;">科室：{{ query.wardName }}</span>
               <span  v-else>科室：{{ query.wardName }}</span>
               <span
                 v-if="!['zhzxy', 'whhk'].includes(HOSPITAL_ID)"
@@ -190,7 +191,7 @@
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
               </div>
-              <div v-else-if="['whhk'].includes(HOSPITAL_ID)">
+              <!-- <div v-else-if="['whhk'].includes(HOSPITAL_ID)" >
                 <div>
                   <span>姓名：{{ query.name }}</span>
                   <span>性别：{{ query.sex }}</span>
@@ -198,6 +199,17 @@
                 </div>
                 <div>
                   <span>床号：{{ query.bedLabel }}</span>
+                  <span>住院号：{{ query.inpNo }}</span>
+                </div>
+              </div> -->
+              <div v-else-if="['whhk'].includes(HOSPITAL_ID)" >
+                <div >
+                  <span style="margin-left: 0px;">姓名：{{ query.name }}</span>
+                  <span>性别：{{ query.sex }}</span>
+                  <span>年龄：{{ query.age }}</span>
+                </div>
+                <div>
+                  <span  style="margin-left: 0px;">床号：{{ query.bedLabel }}</span>
                   <span>住院号：{{ query.inpNo }}</span>
                 </div>
               </div>
@@ -260,11 +272,12 @@
                   <span v-if="!(allergy1 || drugGms || allergy2)">无</span>
                 </p>
                 <div
+                  style="margin-left:0px;"
                   flex="cross:center"
                   class="input-item"
                   v-if="['whhk'].includes(HOSPITAL_ID)"
                 >
-                  <span class="label" style="margin-right: 0"
+                  <span class="label" style="margin-left:0px;"
                     >科室联系电话：</span
                   >
                   <input
@@ -283,6 +296,7 @@
             </div>
           </div>
           <img
+            style="right: 50px;"
             class="qr-code"
             :class="{ hasRemark: hasRemark }"
             :src="qrCode"
@@ -363,6 +377,7 @@
                 flex="cross:center"
                 class="input-item"
                 v-if="['whhk'].includes(HOSPITAL_ID)"
+
               >
                 <span class="label" style="margin-right: 0"
                   >科室联系电话：</span
