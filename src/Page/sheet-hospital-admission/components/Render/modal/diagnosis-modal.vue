@@ -60,20 +60,26 @@ import {
   syncVitalSign,
   nursingDiagsSaveList
 } from "../../../api/index";
+import bus from "vue-happy-bus";
 export default {
   props: {
-    formObj: Object
+    formObj: Object,
   },
   data() {
     return {
       diagnosisList: [],
       selectedList: [],
       selectedListClone: [],
-      tongbuzhi: []
+      tongbuzhi: [],
+      isEditor:false,
+      bus: bus(this),
     };
   },
   methods: {
-    open(list) {
+    open(list,isEdit=false) {
+      if(isEdit){
+        this.isEdit=true
+      }
       this.diagnosisList = list.map(item => {
         return Object.assign(item, {
           checked: false,
@@ -129,7 +135,11 @@ export default {
         });
         Promise.all(promistList).then(res => {
           this.$message.success("保存成功");
-          this.$root.$refs.diagnosisSlide.close();
+          if(this.isEdit){
+            this.bus.$emit("closeDiagnosisSlide");
+          }else{
+            this.$root.$refs.diagnosisSlide.close();
+          }
           this.close();
         });
       },"",undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
@@ -139,7 +149,12 @@ export default {
       if (item._checked) {
         this.$message.warning("你已经添加该诊断，请不要重复添加");
       } else {
-        this.$root.$refs.diagnosisSlide.open(item);
+        // 判断是否编辑器打开
+        if(this.isEdit){
+          this.bus.$emit("openDiagnosisSlide",item);
+        }else{
+          this.$root.$refs.diagnosisSlide.open(item);
+        }
       }
     }
   },
