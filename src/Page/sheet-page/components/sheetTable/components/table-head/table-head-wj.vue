@@ -257,7 +257,6 @@ export default {
     }
   },
   created(){
-    this.getChangeMajor();
     /* 添加新页，转科后入院时间需要改变成转科时间*/
     this.bus.$on("initSheetPageSize", (istrue) => {
      this.ischangemajor = istrue;
@@ -327,11 +326,11 @@ export default {
     }
   },
   watch:{
-    // ischangemajor(newValue){
-    //   if(newValue) {
-    //     this.getChangeMajor()
-    //   }
-    // }
+    ischangemajor(newValue){
+      if(newValue) {
+        this.getChangeMajor()
+      }
+    }
   },
   destroyed() {},
   components: { crDatePicker}
