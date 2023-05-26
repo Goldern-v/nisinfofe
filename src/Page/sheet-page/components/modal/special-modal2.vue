@@ -1706,6 +1706,9 @@ export default {
         // 特殊情况可以保存
         this.isRecordBan = config.canNotSave || false;
       }
+      if(this.HOSPITAL_ID == "nfyksdyy") {
+        isRead = false;
+      }
       this.isRead = isRead;
       this.table = config.table;
       this.customTitle = decoder_title(config.thead);
