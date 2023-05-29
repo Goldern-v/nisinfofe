@@ -191,6 +191,15 @@
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
         </span>
+        <span  v-if="sheetInfo.sheetType == 'postpartum_sdry'" style="margin-left:20px;">
+          分娩时间：
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px;"
+          />
+        </span>
 
             <span  v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
           胎盘娩出时间：
@@ -266,7 +275,17 @@
           <input :data-value="sheetInfo.relObj[`${index}options`]" v-model="sheetInfo.relObj[`${index}options`]" style="width:160px;">
         </customSelectCanRepeat>
     </template>
-
+    <!-- 产后护理记录单分娩方式 -->
+    <template v-if="sheetInfo.sheetType=='postpartum_sdry'" >
+     <span style="margin-left: 70px" >
+        分娩方式：</span>
+       <customSelectCanRepeat
+          :options="parturitions"
+          @onSelect="(val) => setRelValue(`${index}options`, val)"
+        >
+          <input :data-value="sheetInfo.relObj[`${index}options`]" v-model="sheetInfo.relObj[`${index}options`]" style="width:160px;">
+        </customSelectCanRepeat>
+    </template>
       <span  v-if="sheetInfo.sheetType=='prenatal_sdry'  ">
         &nbsp;&nbsp;破膜时间：
           <crDatePicker
@@ -322,6 +341,26 @@ export default {
         }, {
           value: '臀助产',
           name: '臀助产'
+        }, {
+          value: '臀牵引',
+          name: '臀牵引'
+        }],
+        // 顺德产后护理记录单分娩方式下拉选项
+      parturitions:[{
+          value: '顺产',
+          name: '顺产'
+        }, {
+          value: '剖宫产',
+          name: '剖宫产'
+        }, {
+          value: '钳产',
+          name: '钳产'
+        }, {
+          value: '负压产',
+          name: '负压产'
+        }, {
+          value: '院外分娩',
+          name: '院外分娩'
         }, {
           value: '臀牵引',
           name: '臀牵引'
