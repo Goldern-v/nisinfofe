@@ -373,7 +373,7 @@ export const getSheetPdf = (recordCode, blockId) => {
 
 
 export const getDictItemValueList = (dictCode, itemCode) => {
-  return axios.post(`${apiPath}/dict/common/getDictItemValueList`, { dictCode, itemCode });
+  return axios.post(`${apiPath}/dict/common/getDictItemValueList`, qs.stringify({ dictCode, itemCode }));
 }
 
 // 查看留痕
