@@ -377,14 +377,14 @@
       <div
         class="item-box"
         @click.stop="openTemplateSlider"
-        v-if="!isSingleTem && !isDeputy && isShow()"
+        v-if="!isSingleTem && !isDeputy && isShow() && isShowWj"
       >
         <div class="text-con">特殊情况模板</div>
       </div>
       <div
         class="item-box"
         @click.stop="openTitleTemplateSlide"
-        v-if="!isSingleTem && !isDeputy && isShow()"
+        v-if="!isSingleTem && !isDeputy && isShow() && isShowWj"
       >
         <div class="text-con">自定义标题模板</div>
       </div>
@@ -877,9 +877,13 @@ export default {
       scrollOptionNum:1,
       printRecordValue:'',
       checkSheetRender:null,//查询是否完成定时器
+      windowWidth: 0
     };
   },
   methods: {
+    getWindowWidth() {
+      this.windowWidth = window.innerWidth;
+    },
     lookMark() {
       this.$refs.markModal.markVisible = true;
       this.$refs.markModal.getLogRecordOperate();
@@ -1162,14 +1166,9 @@ export default {
     },
     //是否显示
     isShow() {
-      if (
-        this.HOSPITAL_ID === "beihairenyi" &&
-        this.$route.path.includes("Baby_sheetPage")
-      ) {
+      if (this.HOSPITAL_ID === "beihairenyi" && this.$route.path.includes("Baby_sheetPage")) {
         return false;
-      } else {
-        return true;
-      }
+      }else {return true}
     },
     showPrintAll(){
         return ['huadu'].includes('this.HOSPITAL_ID')&&(!this.$route.path.includes("singleTemperatureChart")||!this.$route.path.includes("temperature"))
@@ -2046,6 +2045,9 @@ export default {
     isGeneralCareWj () {
       return this.sheetInfo.sheetType === 'generalcare_wj'
     },
+    isShowWj(){
+      return this.HOSPITAL_ID === 'wujing' && this.windowWidth > 1000
+    }
   },
   created() {
     this.bus.$on("initSheetPageSize", (isAddPageFlag) => {
@@ -2091,10 +2093,14 @@ export default {
       }
     });
     this.bus.$emit("sheetToolLoaded");
-
+    this.getWindowWidth();
+    window.addEventListener('resize', this.getWindowWidth);
   },
   destroyed(){
     this.checkSheetRender = null
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.getWindowWidth);
   },
   watch: {
     sheetTagInfo: {
