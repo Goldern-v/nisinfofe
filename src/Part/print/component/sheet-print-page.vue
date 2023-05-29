@@ -200,6 +200,9 @@
       padding-top: 80px;
       box-sizing: border-box;
     }
+    .iframe > div:last-child {
+      page-break-after: auto;
+    }
     /* 横沥所有护记头尾部空白减少 */
     .reduceGap> div{
       padding-top: 20px !important;
@@ -323,6 +326,7 @@ export default {
        ||this.HOSPITAL_ID==='stmz'
        ||this.HOSPITAL_ID==='lyyz'
         ||this.HOSPITAL_ID==='hj'
+        ||this.HOSPITAL_ID==='nfyksdyy'
        ||this.HOSPITAL_ID==='dglb'){
       printDir("h");
             addCSS(
@@ -796,6 +800,25 @@ export default {
           }
         `
       )
+      if(sheetInfo.sheetType == "orthopaedic_sdry"){
+        printDir("h");
+        addCSS(
+          window,
+          `
+            @media print {
+              #sheetPagePrint .contant{
+                margin-top:-5x;!important;
+              }
+              .body-con{
+                height: 35px !important;
+              }
+              @page{
+                padding:10px 0 0 10px;
+              }
+          }
+          `
+        )
+      }
     }
     // 如果双签可以这里加。打印的时候签名二合一。签名列拉宽
     if (

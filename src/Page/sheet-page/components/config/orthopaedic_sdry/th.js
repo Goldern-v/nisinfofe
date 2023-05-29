@@ -17,19 +17,8 @@ export default {
   },
   th: {
     top: [
+      {name:"",colspan:"2",rowspan:"1",key:"recordYear"},
 
-      {
-        name: "日期",
-        colspan: "1",
-        rowspan: "2",
-        style: { minWidth: "40px", maxWidth: "40px" }
-      },
-      {
-        name: "时间",
-        colspan: "1",
-        rowspan: "2",
-        style: { minWidth: "40px", maxWidth: "40px" }
-      },
       { name: "意识", colspan: "1", rowspan: "2" },
       { name: "T<br/>℃", colspan: "1", rowspan: "2" },
       { name: "P<br/>次/分", colspan: "1", rowspan: "2" },
@@ -154,6 +143,18 @@ export default {
       }
     ],
     mid: [
+      {
+        name: "日期",
+        colspan: "1",
+        rowspan: "2",
+        style: { minWidth: "40px", maxWidth: "40px" }
+      },
+      {
+        name: "时间",
+        colspan: "1",
+        rowspan: "2",
+        style: { minWidth: "40px", maxWidth: "40px" }
+      },
       { name: "内<br/>容", colspan: "1", rowspan: "1" },
       { name: "量<br/>ml", colspan: "1", rowspan: "1" },
       { name: "内<br/>容", colspan: "1", rowspan: "1" },

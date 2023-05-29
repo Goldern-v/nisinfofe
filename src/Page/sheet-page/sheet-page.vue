@@ -886,8 +886,10 @@ export default {
         monthValue = moment().format('MM-DD')
         hourValue= moment().format('HH:mm')
       }
-      ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
-      ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
+      if(!['nfyksdyy'].includes(this.HOSPITAL_ID)){
+        ![0,1].includes(x) && !tr[monthIndex].value && (tr[monthIndex].value = monthValue)
+        ![0,1].includes(x) && !tr[hourIndex].value && (tr[hourIndex].value = hourValue)
+      }
     },
     //去除重复记录
     deduplication(arr){
