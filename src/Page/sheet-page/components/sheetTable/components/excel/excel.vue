@@ -1179,7 +1179,7 @@ export default {
             {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
-              type: "error",
+              type: "warning",
             }
           ).catch(() => {});
           if (confirmRes !== "confirm") {
@@ -1193,7 +1193,7 @@ export default {
             {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
-              type: "error",
+              type: "warning",
             }
           ).catch(() => {});
           if (confirmRes !== "confirm") {
@@ -1211,7 +1211,7 @@ export default {
             {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
-              type: "error",
+              type: "warning",
             }
           ).catch(() => {});
           if (confirmRes !== "confirm") {
