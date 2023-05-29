@@ -134,21 +134,15 @@
         align="center"
       >
       </u-table-column>
-
-      <u-table-column
-        prop="executeDateTime"
-        label="预计执行时间"
-        min-width="130px"
+       <u-table-column
+        label="医嘱号"
+        prop="orderNo"
+        min-width="90px"
         align="center"
       >
-        <template slot-scope="scope">
-          {{ scope.row.executeDateTime | ymdhms }}
-        </template>
       </u-table-column>
-
-      <u-table-column prop="administration" label="途径" min-width="100px">
+       <u-table-column prop="administration" label="途径" min-width="100px">
       </u-table-column>
-
       <u-table-column
         prop="executeFlag"
         label="执行状态"
@@ -168,6 +162,16 @@
           </div>
         </template>
       </u-table-column>
+      <u-table-column
+        prop="executeDateTime"
+        label="预计执行时间"
+        min-width="130px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          {{ scope.row.executeDateTime | ymdhms }}
+        </template>
+      </u-table-column>
 
       <u-table-column
         prop="startNurse"
@@ -179,7 +183,36 @@
           {{ scope.row.startNurse }} {{ scope.row.realExecuteDateTime | ymdhm2 }}
         </template>
       </u-table-column>
-
+      <u-table-column
+        prop="startNurse"
+        label=" 收药人/收药时间"
+        min-width="190px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          {{ scope.row.collectNurse }} {{ scope.row.collectDateTime | ymdhm2 }}
+        </template>
+      </u-table-column>
+      <u-table-column
+        prop="baiNurse"
+        label="摆药人/摆药时间"
+        min-width="170px"
+        v-if="isInfusion &&  this.HOSPITAL_ID !== '925'"
+      >
+        <template slot-scope="scope">
+          {{ scope.row.baiNurse }} {{ scope.row.baiTime | ymdhm2 }}
+        </template>
+      </u-table-column>
+      <u-table-column
+        prop="peiNurse"
+        label="配药人/配药时间"
+        min-width="170px"
+        v-if="isInfusion &&  this.HOSPITAL_ID !== '925'"
+      >
+        <template slot-scope="scope">
+          {{ scope.row.peiNurse }} {{ scope.row.peiTime | ymdhm2 }}
+        </template>
+      </u-table-column>
       <u-table-column
         prop="heNurse"
         label="核对人/核对时间"
@@ -212,28 +245,6 @@
         min-width="70px"
         align="center"
       >
-      </u-table-column>
-
-      <u-table-column
-        prop="baiNurse"
-        label="摆药人/摆药时间"
-        min-width="170px"
-        v-if="isInfusion &&  this.HOSPITAL_ID !== '925'"
-      >
-        <template slot-scope="scope">
-          {{ scope.row.baiNurse }} {{ scope.row.baiTime | ymdhm2 }}
-        </template>
-      </u-table-column>
-
-      <u-table-column
-        prop="peiNurse"
-        label="配药人/配药时间"
-        min-width="170px"
-        v-if="isInfusion &&  this.HOSPITAL_ID !== '925'"
-      >
-        <template slot-scope="scope">
-          {{ scope.row.peiNurse }} {{ scope.row.peiTime | ymdhm2 }}
-        </template>
       </u-table-column>
 
       <!-- <u-table-column
