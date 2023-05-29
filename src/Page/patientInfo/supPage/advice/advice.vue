@@ -407,9 +407,10 @@ export default {
               item.rowType = 2;
               this.specialSymbolsHos.includes(this.HOSPITAL_ID) && (item.specialSymbols ="┃")
             }
-          } else {
-            item.rowType = 1;
           }
+          // else {
+          //   item.rowType = 1;
+          // }
         });
       }else if(this.HOSPITAL_ID==='nfyksdyy'){
         data.map((item, index, array) => {

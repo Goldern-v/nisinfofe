@@ -42,7 +42,7 @@
       </el-table-column>
       <el-table-column label="医嘱内容" min-width="150px" prop="orderText">
         <template slot-scope="scope">
-          <span :class="type(scope.row.orderStatusName)">{{
+          <span  :class="[type(scope.row.orderStatusName),scope.row.rowType && `rowType-${scope.row.rowType}`]">{{
             scope.row.orderText
           }}</span>
         </template>
@@ -226,6 +226,63 @@
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+/* * 第一条 */
+.rowType-1 {
+  position: relative;
+  padding-left: 10px;
+
+&:before {
+   content: '';
+   position: absolute;
+   width: 5px;
+   border-left: 1px solid #333;
+   border-top: 1px solid #333;
+   left: 0px;
+   top: 50%;
+   bottom: -5px;
+ }
+}
+
+.rowType-2 {
+  position: relative;
+  padding-left: 10px;
+
+&:before {
+   content: '';
+   position: absolute;
+   border-left: 1px solid #333;
+   border-top: 1px solid #333;
+   left: 0px;
+   top: -5px;
+   bottom: -5px;
+ }
+
+&:after {
+   content: '';
+   position: absolute;
+   width: 5px;
+   border-left: 1px solid #333;
+   border-top: 1px solid #333;
+   left: 0;
+   top: 50%;
+ }
+}
+
+.rowType-3 {
+  position: relative;
+  padding-left: 10px;
+
+&:before {
+   content: '';
+   position: absolute;
+   width: 5px;
+   border-left: 1px solid #333;
+   border-bottom: 1px solid #333;
+   left: 0px;
+   bottom: 50%;
+   top: -5px;
+ }
+}
 .table-text-value {
   color: #888;
 }
