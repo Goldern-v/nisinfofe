@@ -350,10 +350,10 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "210px",
+      width: "510px",
       background: "transparent"
     },
-    textarea: { width: 210},
+    textarea: { width: 510},
     event: function (e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

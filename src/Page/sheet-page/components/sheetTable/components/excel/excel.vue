@@ -2294,7 +2294,6 @@ export default {
         return false;
       }
       if(this.HOSPITAL_ID == "nfyksdyy"){
-        console.log(this.onCanModify(this.data.bodyModel, this.index, y));
         return this.onCanModify(this.data.bodyModel, this.index, y)
       }
       let status = tr.find((item) => item.key == "status").value;
@@ -2407,7 +2406,6 @@ export default {
               return item.key == "id";
             }).value;
             let isRead = this.isRead(row,index);
-            console.log(isRead,'ddddddddddddddddddddddddddddddd');
             // 佛山人医签名修改与删除比较严格。
             if(this.HOSPITAL_ID == "foshanrenyi"){
               // 根据之前判断的isRead
