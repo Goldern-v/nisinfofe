@@ -618,25 +618,33 @@ export default {
       return val ? moment(val).format("YYYY年MM月DD日") : "";
     }
   },
-  watch:{
-    "sheetInfo.relObj":{
-      handler(newValue, oldValue) {
-        for(let key in newValue){
-          let indexKey = key.split('PageIndex_')[1].split('_')[0];
-          if (this.index != 0 && this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index - 1}`]) {
-            // 除了第一页，其他页数，如果上一页也值那就拿就拿上一页的
-            this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index}`] = this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index - 1}`]
-          }
+  created() {
+    if (this.index != 0) {
+      for(let key in this.sheetInfo.relObj){
+        let indexKey = key.includes('PageIndex_') && key.split('PageIndex_')[1].split('_')[0];
+        if (indexKey && this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index - 1}`]) {
+          // 除了第一页，其他页数，如果上一页也值那就拿就拿上一页的
+          this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index}`] = this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index - 1}`]
         }
-
-      },
-      deep: true,
-      immediate:true,
+      }
     }
   },
-  created() {},
-  update() {},
-  mounted() {},
+  watch:{
+    // "sheetInfo.relObj":{
+    //   handler(newValue, oldValue) {
+    //     for(let key in newValue){
+    //       let indexKey = key.split('PageIndex_')[1].split('_')[0];
+    //       if (this.index != 0 && this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index - 1}`]) {
+    //         // 除了第一页，其他页数，如果上一页也值那就拿就拿上一页的
+    //         this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index}`] = this.sheetInfo.relObj[`PageIndex_${indexKey}_${this.index - 1}`]
+    //       }
+    //     }
+
+    //   },
+    //   deep: true,
+    //   immediate:true,
+    // }
+  },
   destroyed() {} /* fix vue-happy-bus bug */,
   components: {
     bedRecordModal,
