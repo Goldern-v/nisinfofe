@@ -64,6 +64,16 @@
               :value="optionItem.value || optionItem.label"
             ></el-option>
           </el-select>
+          <template v-if="['whsl'].includes(HOSPITAL_ID)">
+          <span class="label">今日医嘱</span>
+            <el-switch
+              v-model="query.todayFlag"
+              on-color="#4bb08d"
+              :on-value="1"
+              @change="search"
+              :off-value="0">
+            </el-switch>
+          </template>
           <span class="label" v-if="showAdministration">途径:</span>
           <el-autocomplete
             v-if="showAdministration"
@@ -405,6 +415,7 @@ export default {
         //医嘱类型，长期传1，临时传0，全部传9
         reprintFlag: ["lyxrm", "whhk", "zhzxy", "925", 'stmz','qhwy'].includes(this.HOSPITAL_ID)? 9 : 0, //是否重打，1=是，0=否
         administration: "",
+        todayFlag:0
       },
       multiItemType: ["输液"],
       // 是否医嘱分类使用多选
