@@ -120,8 +120,8 @@ export default {
       },{
         name: `特殊情况记录`,
         style: {
-          minWidth: '153px',
-          maxWidth: '153px',
+          minWidth: '140px',
+          maxWidth: '140px',
         },
         colspan: '1',
         rowspan: '3'
