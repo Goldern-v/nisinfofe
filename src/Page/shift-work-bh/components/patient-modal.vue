@@ -114,9 +114,11 @@
       }
     },
     methods: {
-      open (tab, form, autoFocus, isSignedN) {
+      async open (tab, form, autoFocus, isSignedN) {
+        const id = this.$route.params.id;
+        const {data: {data}} = await apis.shiftgetPatient(id, form.patientId, form.visitId)
         this.tab = tab || '1'
-        this.form = {...defaultForm, ...form}
+        this.form = {...defaultForm, ...data[0]}
         this.bedLabelDisabled = !!form
         this.isSignedN = !!isSignedN
         this.$refs.modal.open()
