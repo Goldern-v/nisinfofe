@@ -118,7 +118,7 @@
                 <el-dropdown-item :class="{active: $route.path == '/sheetPage'}">
                 <router-link to="/sheetPage" tag="span">
               <el-row class="menu-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i> 护理记录单
+                <i class="sheetHospitalEval"></i> 护理记录单
               </el-row>
             </router-link>
             </el-dropdown-item>

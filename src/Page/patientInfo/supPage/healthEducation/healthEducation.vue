@@ -450,6 +450,11 @@ export default {
       justify-content: space-between;
       font-size: 13px; // 小四
     }
+    .nfsd-img{
+    text-align: center;
+    width:300px;
+    height:60px;
+  }
     .sdyyinfo {
       margin-top: 5px;
       margin-bottom: 5px;
