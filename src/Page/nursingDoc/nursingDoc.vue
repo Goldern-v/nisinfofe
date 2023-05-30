@@ -125,14 +125,23 @@ export default {
         sign: url.sign
       };
       let isLogin=true; //是否登录成功
+      const clearLocalStorage = () => {
+        return new Promise((resolve) => {
+          localStorage.removeItem("user")
+          localStorage.removeItem("adminNurse")
+          resolve();
+        });
+      };
       await checkLogin(data)//登录
         .then(res => {
           // 存下token 和用户信息 Auth-Token-Nursing
           if (res.data.data) {
             let user = res.data.data.user;
             user.token = res.data.data.authToken;
-            localStorage["user"] = JSON.stringify(res.data.data.user);
-            localStorage["adminNurse"] = res.data.data.adminNurse;
+            clearLocalStorage().then(() => {
+              localStorage["user"] = JSON.stringify(res.data.data.user);
+              localStorage["adminNurse"] = res.data.data.adminNurse;
+            });
             Cookies.remove("NURSING_USER");
             Cookies.set(
               "NURSING_USER",
@@ -155,6 +164,7 @@ export default {
           isLogin=false;
           console.dir(err);
         });
+      // 清除本地的localStorage，并等待清除完成后再设置新的用户信息
         //跳转页面
         (isLogin) && (await this.getPage(url));
     },

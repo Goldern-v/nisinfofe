@@ -155,6 +155,16 @@
             flex="cross:center main:center"
             @click="openWristPrint('wrist-children')"
             v-if="
+              ['xiegang'].includes(HOSPITAL_ID)
+            "
+          >
+            新生儿腕带打印
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openWristPrint('wrist-children')"
+            v-if="
               ['beihairenyi', 'zhzxy', 'lyyz', 'dglb','925','stmz','whhk'].includes(HOSPITAL_ID)
             "
           >
