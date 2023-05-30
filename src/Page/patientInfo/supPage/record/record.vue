@@ -24,6 +24,10 @@
     <!-- <templateSlide v-if="HOSPITAL_ID !== 'foshanrenyi' && HOSPITAL_ID !== 'nfyksdyy'" ref="templateSlide" /> -->
     <!-- 一体化评估模板拿佛医的 -->
     <templateSlideFoshanshiyi  ref="templateSlideFoshanshiyi" />
+    <!-- 诊断右侧弹窗 -->
+    <diagnosisSlide ref="diagnosisSlide" :formObj="formObj"/>
+    <!-- 诊断弹窗 --> 
+    <diagnosisModal ref="diagnosisModal" :formObj="formObj"/>
   </div>
 </template>
 
@@ -55,6 +59,8 @@ import bus from "vue-happy-bus";
 import FormTags from './component/form-tags/index.vue';
 import templateSlide from "@/Page/sheet-hospital-admission/components/Render/modal/template-slide/template-slide.vue";
 import templateSlideFoshanshiyi from '@/Page/sheet-hospital-admission/components/Render/modal/template-slide/template-slide_foshanshiyi.vue'
+import diagnosisSlide from "@/Page/sheet-hospital-eval/components/Render/modal/diagnosisSlide.vue";
+import diagnosisModal from "@/Page/sheet-hospital-admission/components/Render/modal/diagnosis-modal.vue";
 export default {
   props: {
     filterObj: Object
@@ -65,6 +71,7 @@ export default {
       bus: bus(this),
       tagsList: [],
       currentTag: null,
+      formObj:{}
     };
   },
   computed: {
@@ -91,6 +98,9 @@ export default {
   beforeDestroy () {
     this.bus.$off("handleBatchAudit");
     this.bus.$off("openTemplateModal");
+    this.bus.$off("openDiagnosisModal");
+    this.bus.$off("openDiagnosisSlide");
+    this.bus.$off("closeDiagnosisSlide");
   },
   watch: {
     patientInfo: {
@@ -171,6 +181,19 @@ export default {
       // 暂时全部使用佛医的模板
       this.$refs.templateSlideFoshanshiyi.open(field,true,true,cb);
     },
+    openDiagnosisModal(res){
+      let {
+        data: {
+          data: { diags: diags },
+        },
+      } = res;
+      if (diags && diags.length>0) {
+        let diagsArray = diags.map((d) => {
+          return d;
+        });
+        this.$refs.diagnosisModal.open(diagsArray,true);
+      }
+    },
   },
   created() {
     this.$store.commit("closeFullPageRecord");
@@ -178,13 +201,24 @@ export default {
     this.bus.$on("openTemplateModal", (field,cb) => {
       this.openTemplateModal(field,cb);
     });
+    this.bus.$on("openDiagnosisModal", (resData) => {
+      this.openDiagnosisModal(resData);
+    });
+    this.bus.$on("openDiagnosisSlide", (item,obj) => {
+      this.$refs.diagnosisSlide.open(item, obj)
+    });
+    this.bus.$on("closeDiagnosisSlide", () => {
+      this.$refs.diagnosisSlide.close()
+    });
   },
   components: {
     tree,
     rightPart,
     FormTags,
     templateSlide,
-    templateSlideFoshanshiyi
+    templateSlideFoshanshiyi,
+    diagnosisSlide,
+    diagnosisModal
   },
   // beforeRouteLeave: (to, from, next) => {
   //   const isSave = localStorage.getItem('isSave')

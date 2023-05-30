@@ -174,11 +174,11 @@ export default [
     key: "food", //项目
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 14),
     name: "项目",
     next: '',
     textarea: {
-      width: 35
+      width: 85
     },
   },
   {
@@ -196,11 +196,11 @@ export default [
     key: "discharge", //项目
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 14),
     name: "项目",
     next: '',
     textarea: {
-      width: 35
+      width: 85
     },
   },
   {

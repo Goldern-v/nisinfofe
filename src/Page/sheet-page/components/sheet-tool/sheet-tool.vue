@@ -377,14 +377,14 @@
       <div
         class="item-box"
         @click.stop="openTemplateSlider"
-        v-if="!isSingleTem && !isDeputy && isShow()"
+        v-if="!isSingleTem && !isDeputy && isShow() && isShowWj"
       >
         <div class="text-con">特殊情况模板</div>
       </div>
       <div
         class="item-box"
         @click.stop="openTitleTemplateSlide"
-        v-if="!isSingleTem && !isDeputy && isShow()"
+        v-if="!isSingleTem && !isDeputy && isShow() && isShowWj"
       >
         <div class="text-con">自定义标题模板</div>
       </div>
@@ -764,11 +764,11 @@
     >
       <temperatureHD :queryTem="patientInfo"></temperatureHD>
     </moveContext>
-    <PreviewPDF
+    <!-- <PreviewPDF
       ref="previewModal"
-    ></PreviewPDF>
+    ></PreviewPDF> -->
     <!-- </sweet-modal> -->
-    <MarkModal ref='markModal' :blockId="blockId"></MarkModal>
+    <MarkModal ref='markModal' :sheetType='sheetInfo.sheetType' :blockId="blockId"></MarkModal>
   </div>
 </template>
 
@@ -812,9 +812,10 @@ import demonstarationLevca from "./demonstaration-levca.vue"
 import moveContext from "@/Page/temperature-chart/commonCompen/removableBox.vue";
 import { getPatientInfo } from "@/api/common.js";
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
-import PreviewPDF from './modal/preview-pdf.vue';
+// import PreviewPDF from './modal/preview-pdf.vue';
 import MarkModal from './modal/mark-modal.vue';
 import moment from 'moment'
+import qs from 'qs';
 const isWJ = 'wujing' === process.env.HOSPITAL_ID
 
 export default {
@@ -876,9 +877,13 @@ export default {
       scrollOptionNum:1,
       printRecordValue:'',
       checkSheetRender:null,//查询是否完成定时器
+      windowWidth: 0
     };
   },
   methods: {
+    getWindowWidth() {
+      this.windowWidth = window.innerWidth;
+    },
     lookMark() {
       this.$refs.markModal.markVisible = true;
       this.$refs.markModal.getLogRecordOperate();
@@ -892,7 +897,13 @@ export default {
       }
     },
     onPrintPdf() {
-      this.$refs.previewModal.open(this.sheetInfo);
+      const {
+        "App-Token-Nursing": appToken,
+        "Auth-Token-Nursing": token
+      } = qs.parse(this.token);
+      const url = `/crNursing/sheet-print?id=${this.blockId}&startPageIndex=${this.firstPage}&endPageIndex=${this.maxPage}&Auth-Token-Nursing=${token}&App-Token-Nursing=${appToken}&appToken=${appToken}&token=${token}`;
+      window.open(url);
+      // this.$refs.previewModal.open(this.sheetInfo);
     },
     pageNumberChange(){
       //每次跳转 按键或者选择页码调整 都要清空sheetPageScrollValue，这样子就会跳转到最后一页
@@ -1155,14 +1166,9 @@ export default {
     },
     //是否显示
     isShow() {
-      if (
-        this.HOSPITAL_ID === "beihairenyi" &&
-        this.$route.path.includes("Baby_sheetPage")
-      ) {
+      if (this.HOSPITAL_ID === "beihairenyi" && this.$route.path.includes("Baby_sheetPage")) {
         return false;
-      } else {
-        return true;
-      }
+      }else {return true}
     },
     showPrintAll(){
         return ['huadu'].includes('this.HOSPITAL_ID')&&(!this.$route.path.includes("singleTemperatureChart")||!this.$route.path.includes("temperature"))
@@ -2039,6 +2045,9 @@ export default {
     isGeneralCareWj () {
       return this.sheetInfo.sheetType === 'generalcare_wj'
     },
+    isShowWj(){
+      return this.HOSPITAL_ID === 'wujing' && this.windowWidth > 1000
+    }
   },
   created() {
     this.bus.$on("initSheetPageSize", (isAddPageFlag) => {
@@ -2084,10 +2093,14 @@ export default {
       }
     });
     this.bus.$emit("sheetToolLoaded");
-
+    this.getWindowWidth();
+    window.addEventListener('resize', this.getWindowWidth);
   },
   destroyed(){
     this.checkSheetRender = null
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.getWindowWidth);
   },
   watch: {
     sheetTagInfo: {
@@ -2168,7 +2181,7 @@ export default {
     selectPageModal,
     searchPageByDateModal,
     titleTemplateSlideFS,
-    PreviewPDF,
+    // PreviewPDF,
     MarkModal
   },
 };

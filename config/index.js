@@ -239,7 +239,7 @@ const currentTargetUrl = (() => {
 
     // 广东同江医院
     case 'gdtj':
-      // return 'http://218.204.204.90:9095' // 正式
+      // return 'http://218.204.204.90:9095' // 正式·
       return 'http://183.234.20.149:19094' //
       // return 'http://192.168.1.54:9892'
 
@@ -275,9 +275,9 @@ const currentTargetUrl = (() => {
     case 'nfyksdyy':
       // return 'http://192.168.3.154:8080'
           // return 'http://192.168.1.54:9901'  //
-          return  'http://59.38.110.189:9092'
+          // return  'http://59.38.110.189:9092'
           // return  'http://192.168.3.228:8080'
-      // return 'http://192.168.5.127:9091'
+      return 'http://192.168.5.127:9091'
       // return  'https://info.cr-health.com:20215'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭

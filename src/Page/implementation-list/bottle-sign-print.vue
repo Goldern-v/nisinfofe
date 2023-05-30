@@ -547,7 +547,8 @@ export default {
       ),
       // 能否打印全部
       showPrintAll: ["sdlj", "gdtj", "fsxt", "ytll",'whhk'].includes(this.HOSPITAL_ID),
-      cutPrintHospital:this.cutPrint()
+      cutPrintHospital:this.cutPrint(),
+      barcodes: [],
     };
   },
   mounted() {
@@ -708,6 +709,7 @@ export default {
           return item;
         });
         this.tableData = tableData;
+        console.log("table", tableData);
         this.pageDate();
         this.pageLoading = false;
       });
@@ -725,6 +727,17 @@ export default {
   },
     async onPrint() {
       this.selectedData = this.$refs.plTable.selectedData;
+      // 处理打印
+      this.selectedData = this.selectedData.filter(item => {
+        if (this.barcodes.includes(item.barcode) || (item.rowType !== undefined && item.rowType != 1)) {
+          return false;
+        } else {
+          this.barcodes.push(item.barcode);
+          return true;
+        }
+      });
+      this.barcodes = [];
+
       if ((this.selectedData || []).length <= 0)
         return this.$message("未选择勾选打印条目");
       if (this.hasNewPrintHos) return await this.newOnPrint();

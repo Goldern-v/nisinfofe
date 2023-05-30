@@ -1460,7 +1460,6 @@ export default {
     openNewDiagnosis(diagnose) {
       this.$refs.newDiagnosisModal.open();
       let endStr = ""
-      console.log(diagnose,'diagnose')
       if(diagnose.name==='体温' || diagnose.name==='T'){
         const {value} = diagnose
         endStr = Number(value)<35?'过低':Number(value)>37.5?'过高':""
@@ -1575,7 +1574,6 @@ export default {
       });
     },
    async checkValue(td){
-    console.log("djw-testat")
       if (sheetInfo.model == "print") return;
       if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry') {
         let confirmRes = '';
@@ -1705,6 +1703,9 @@ export default {
       if (this.HOSPITAL_ID == "foshanrenyi") {
         // 特殊情况可以保存
         this.isRecordBan = config.canNotSave || false;
+      }
+      if(this.HOSPITAL_ID == "nfyksdyy") {
+        isRead = false;
       }
       this.isRead = isRead;
       this.table = config.table;
@@ -2554,17 +2555,6 @@ export default {
       }
       for (let i = 0; i < result.length; i++) {
         if (i == 0) {
-          // 合并数据
-          console.log(
-            "mergeTr",
-            this.record[0],
-            this.staticObj,
-            this.fixedList
-          );
-          console.log(
-            "mergeTr2",
-            mergeTr(this.record[0], this.staticObj, this.fixedList)
-          );
           // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
           if (this.sheetInfo.sheetType === 'common_gzry') {
             const fieldOne = this.fixedList.fieldOne

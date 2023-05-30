@@ -10,8 +10,19 @@
           z-index: 0;
         "
       ></div>
-      <div class="user-box">
-        <div class="user-head" v-if="HOSPITAL_ID !== 'liaocheng'">
+      <div class="user-box" :class="{'has-logo': HOSPITAL_ID == 'guizhou'}">
+        <div v-if="HOSPITAL_ID == 'guizhou'" class="hospital--logo">
+          <img
+            src="@/common/images/logo_guizhou_new.png"
+            height="42"
+            width="200"
+          />
+        </div>
+        <div
+          class="user-head"
+          :class="{'guizhou-head': HOSPITAL_ID == 'guizhou'}"
+          v-if="HOSPITAL_ID !== 'liaocheng'"
+        >
           <img
             src="../../../common/images/card/默认头像.png"
             height="72"
@@ -270,6 +281,13 @@
   background-image: url('../../../common/images/patient/患者背景.png');
   box-sizing: cover;
 }
+.has-logo {
+  height: 300px;
+  background-size: cover;
+}
+.hospital--logo {
+  margin: 5px 0px;
+}
 
 .user-head {
   width: 62px;
@@ -278,7 +296,9 @@
   border-radius: 50%;
   border: 1px solid #FCFCFC;
   overflow: hidden;
-
+  &.guizhou-head {
+    margin: 18px auto;
+  }
   img {
     width: 100%;
     height: 100%;

@@ -295,7 +295,9 @@ const newSingleTemperatureChartLYXRM = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-lyxrm/new-singleTemperature-chart.vue");//临邑新版体温单单人录入
 const newSingleTemperatureChartLYYZ= () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-lyyz/new-singleTemperature-chart.vue");//临邑新版体温单单人录入
-  const newSingleTemperatureChartWHSL = () =>
+const newSingleTemperatureChartWHHK = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-whhk/new-singleTemperature-chart.vue");//武汉汉口新版体温单单人录入
+const newSingleTemperatureChartWHSL = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-whsl/new-singleTemperature-chart.vue");//威海市立新版体温单单人录入
 const newSingleTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-sdlj/new-singleTemperature-chart.vue");//顺德龙江新版体温单单人录入
@@ -1679,9 +1681,10 @@ const router = new Router({
             case "liaocheng":
               return newSingleTemperatureChartLiaoCheng;
             case "lyyz":
-            case 'whhk':
             case 'zzwy':
               return newSingleTemperatureChartLYYZ;
+            case 'whhk':
+              return newSingleTemperatureChartWHHK;
             case "gdtj":
               return newSingleTemperatureChartGDTJ
             case "zhzxy":
