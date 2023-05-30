@@ -21,5 +21,5 @@ export function decodeRelObj(obj) {
       }
     }
   }
-  return obj;
+  return {...obj};
 }
