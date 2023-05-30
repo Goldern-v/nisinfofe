@@ -75,9 +75,11 @@ export default [
     autoComplete: {
       data: UC
     },
-    input:{
-      width:100
+    // input:{
+    style: {
+      width: '115px'
     }
+    // }
     // event: function (e, td) {
     //   if (e.keyCode == 32) {
     //     e.target.value += "/";
@@ -134,7 +136,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "153px",
+      width: "140px",
       background: "transparent"
     },
     event: function (e, td) {

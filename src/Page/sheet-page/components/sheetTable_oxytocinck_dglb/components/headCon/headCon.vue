@@ -10,7 +10,12 @@
 <!--      </div>-->
       <div class="group">
         静滴催产素指征：
-        <input type="text"  v-model="params.oxytocinDropScore" v-autoComplete="{dataList: oxytocinDropScoreList, obj:params, key: 'oxytocinDropScore'}">
+        <input
+          type="text"
+          v-model="params.oxytocinDropScore"
+          :data-value="params.oxytocinDropScore"
+          v-autoComplete="{dataList: oxytocinDropScoreList, obj:params, key: 'oxytocinDropScore'}"
+        >
       </div>
     </div>
   </div>
