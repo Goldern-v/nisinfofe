@@ -1556,6 +1556,40 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
+            },
+            {
+              "name": "I2333047",
+              "type": "checkbox",
+              "title": "差",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2333047",
+              "type": "checkbox",
+              "title": "其他",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null,
+              "children": [
+                {
+                  "name": "I2333230",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important",
+                  "inputWidth": "400px",
+                  "suffixDesc": "",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
             }
           ]
         }
@@ -2122,7 +2156,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "5、语音表达",
+      "title": "5、语言表达",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -2746,7 +2780,6 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null,
-              "tasks": "其他部位",
               "tasks": [
                 {
                   "show": "其他部位"
@@ -4881,6 +4914,29 @@
             },
             {
               "name": "I2333114",
+              "type": "radio",
+              "title": "其他",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null,
+              "children": [
+                {
+                  "name": "I2333231",
+                  "type": "input",
+                  "outSpanStyle":{"width":"100%"},
+                  "title": "",
+                  "titleStyle": "width: 62px",
+                  "style": "width:500px !important",
+                  "inputWidth": "500px",
+                  "elementStyle":"width:500px",
+                  "class": null,
+                  "readOnly": null
+                }
+              ]
+            },
+            {
+              "name": "I2333114",
               "type": "checkbox",
               "title": "产瘤",
               "elementStyle": "margin: 5px 0px 0 0px;",
@@ -6261,7 +6317,7 @@
           "type": "",
           "title": "肛门",
           "titleStyle": "width:82px!important",
-          "class": "",
+          "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -6284,6 +6340,29 @@
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
+            },
+            {
+              "name": "I2333151",
+              "type": "checkbox",
+              "title": "其他",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
+              "class": null,
+              "children": [
+                {
+                  "name": "I2333232",
+                  "type": "input",
+                  "outSpanStyle":{"width":"100%"},
+                  "title": "",
+                  "titleStyle": "width: 62px",
+                  "style": "width:500px !important",
+                  "inputWidth": "500px",
+                  "elementStyle":"width:500px",
+                  "class": null,
+                  "readOnly": null
+                }
+              ]
             }
           ]
         },

@@ -235,7 +235,7 @@ export default {
           {
             id: 'I2333114',
             hiddenCheckBox:true,
-            excludeVal:["异常",'正常'],
+            excludeVal:["异常",'正常', '其他'],
             value: '异常',
             correlationID: "I2333114"
           },

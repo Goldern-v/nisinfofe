@@ -177,6 +177,9 @@
               tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
+            borderThickening: ['whhk'].includes(HOSPITAL_ID)&&tr.find((item) => {
+                return item.key == 'recordSource';
+              }).value == '5',
             redBottom:['wujing'].includes(HOSPITAL_ID)&&redBottom(tr,y), // 待性能优化
             isCanModify: onCanModify(data.bodyModel,index, y),
           },

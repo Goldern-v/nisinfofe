@@ -14,6 +14,7 @@ import {
 
 const jkjyList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧']
 const hlcsList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩']
+let ysList = []
 export default [
   {
     key: "recordMonth", //日期
@@ -31,12 +32,13 @@ export default [
     key: "consciousness", //意识
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 6),
     name: "意识",
     next: "",
     textarea: {
-      width: 35
+      width: 40
     },
+    autoComplete: { data: ysList },
   },
   {
     key: "temperature", //T
@@ -174,11 +176,11 @@ export default [
     key: "food", //项目
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 14),
     name: "项目",
     next: '',
     textarea: {
-      width: 35
+      width: 85
     },
   },
   {
@@ -196,11 +198,11 @@ export default [
     key: "discharge", //项目
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 14),
     name: "项目",
     next: '',
     textarea: {
-      width: 35
+      width: 85
     },
   },
   {
@@ -404,28 +406,37 @@ export default [
   },
 ];
 
-// export function getListData4() {
-//   let list = [
-//     "花都:通用护理记录单:入量名称",
-//     "花都:通用护理记录单:出量名称",
-//   ];
-//   multiDictInfo(list).then(res => {
-//     let data = res.data.data;
-//     setList(入量名称, "花都:通用护理记录单:入量名称", data);
-//     setList(出量名称, "花都:通用护理记录单:出量名称", data);
-//   });
-// }
+export function getListData4() {
+  // listItem("入量名称", info.sheetType).then(res => {
+  //   ruList.splice(0, ruList.length);
+  //   for (let item of res.data.data) {
+  //     ruList.push(item.name);
+  //   }
+  // });
+  // listItem("出量名称", info.sheetType).then(res => {
+  //   chuList.splice(0, chuList.length);
+  //   for (let item of res.data.data) {
+  //     chuList.push(item.name);
+  //   }
+  //   chuList.push("阴道出血");
+  // });
+  let list = ["意识"];
+  multiDictInfo(list).then(res => {
+    let data = res.data.data;
+    setList(ysList, "意识", data);
+  });
+}
 
-// getListData4();
-// /**
-//  *
-//  * @param {*} list 原数组
-//  * @param {*} key 对应的key
-//  * @param {*} data 数据源
-//  */
-// function setList(list, key, data) {
-//   list.splice(0, list.length);
-//   for (let item of data[key]) {
-//     list.push(item.name);
-//   }
-// }
+getListData4();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}

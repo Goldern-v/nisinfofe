@@ -102,6 +102,29 @@
           </div>
       </div>
       </div>
+      <div
+        class="bed-card-warpper wrist-strap-print"
+        ref="printCon2"
+        v-show="printMode == 'wrist-children'"
+      >
+        <div class="bed-card-vert-con">
+
+          <div class="qr-code-img">
+            <img class="qr-code" :src="qrCode">
+            <p>{{ query.inpNo + '|' + query.visitId }}</p>
+          </div>
+          <div class="info">
+            <p>{{ query.name }}</p>
+            <p>{{ query.sex }} {{ query.birthday }}</p>
+            <p>{{ query.inpNo }}</p>
+          </div>
+          <div class="barcode-img">
+            <p style="margin-bottom:12px;">{{query.deptName + ' '+query.bedLabel}}</p>
+            <!-- <svg id="barcode"></svg> -->
+            <p>{{ query.wardName }}</p>
+          </div>
+      </div>
+      </div>
       <div slot="button">
         <span style="position: absolute; left: 10px; padding-top: 4px" v-if="printMode == 'h'">
           <span>显示诊断</span>
@@ -523,7 +546,7 @@ export default {
     },
     onPrint() {
       this.post();
-       if (this.printMode == "wrist") {
+       if (this.printMode == "wrist" || this.printMode == "wrist-children") {
         printing(this.$refs.printCon2, {
           injectGlobalCss: true,
           scanStyles: false,

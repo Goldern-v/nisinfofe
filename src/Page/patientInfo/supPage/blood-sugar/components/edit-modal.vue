@@ -150,7 +150,7 @@
       </ElFormItem>
       <ElFormItem
         label="RI剂量："
-        required
+        :required="HOSPITAL_ID !=='925'"
         v-if="
           !['zhzxy','gy','huadu','liaocheng','hengli',
           'guizhou','sdlj','whfk','foshanrenyi', 'lyyz', 'ytll','whsl','nfyksdyy'].includes(HOSPITAL_ID)
