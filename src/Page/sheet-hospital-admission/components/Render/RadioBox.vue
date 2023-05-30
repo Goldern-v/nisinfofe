@@ -381,6 +381,13 @@ export default {
               correlationID: "I2333078",
               prefixId: "I2333078"
             },
+            {
+              id: 'I2333114',
+              hiddenCheckBox: true,
+              excludeVal:["异常", '正常', '其他'],
+              value: '异常',
+              correlationID: "I2333114"
+            },
           ]
         }
         // if(this.HOSPITAL_ID === 'nfyksdyy' && !this.obj.tasks){
@@ -415,6 +422,16 @@ export default {
             } else if(item.hiddenSelectBox){
               let hiddenSelectBox = this.$root.$refs[this.formCode]['selectInputBox' + item.correlationID]
               hiddenSelectBox.parentNode.style.display = (!this.formObj.model[item.id].includes(item.value)) ? "none" : "inline-block"
+            } else if (item.hiddenCheckBox) {
+              if(this.formObj.model[item.id]){
+                let hiddenCheckBox = this.$root.$refs[this.formCode][item.correlationID]
+                Object.keys(hiddenCheckBox).forEach(checkbox=>{
+                  if(!item.excludeVal.includes((checkbox))){
+                    hiddenCheckBox[checkbox].$parent.$el.parentNode.style.display =
+                      !this.formObj.model[item.id] || !this.formObj.model[item.id].includes(item.value) ? "none" : "flex"
+                  }
+                })
+              }
             } else {
               let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
               if (elArr.length > 0) {

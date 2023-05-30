@@ -12,12 +12,7 @@
               justify="center"
               align="middle"
             >
-              <img :src="logoUrl" />
-              <span>{{
-                HOSPITAL_ID == "hj"
-                  ? "百辰源智慧护理信息系统"
-                  : "智慧护理信息系统"
-              }}</span>
+              <img src="../../common/images/logo_guizhou_new.png" />
             </el-row>
             <!-- <router-link to="/index"
                          tag="span">
@@ -351,8 +346,8 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-           
-            
+
+
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
@@ -582,9 +577,13 @@
   background: #4BB08D;
   margin-right: 11px;
 
+  // img {
+  //   width: 30px;
+  //   height: 30px;
+  // }
   img {
-    width: 30px;
-    height: 30px;
+    width: 200px;
+    height: 70%;
   }
 
   span {
