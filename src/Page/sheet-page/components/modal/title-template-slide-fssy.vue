@@ -32,7 +32,6 @@
       </div>
     </transition>
     <addTemplateModal ref="addTemplateModal"></addTemplateModal>
-    <addTemplateModalTemp ref="Temperature" v-if="isTemperature"></addTemplateModalTemp>
   </div>
 </template>
 
@@ -134,7 +133,6 @@
 import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./components/title-template-item-fssy.vue";
 import addTemplateModal from "./add-title-template-modal-fssy.vue";
-import addTemplateModalTemp from "./add-title-template-modal.vue";
 import bus from "vue-happy-bus";
 import {titleTemplateList} from "./api/index"
 import sheetInfo from "../config/sheetInfo/index.js";
@@ -155,39 +153,13 @@ export default {
   computed: {
     filterData() {
       let listMap = this.listMap;
-      let IstitleData = []
-      let titleData = []
-
-      // listMap.map((item,index)=>{
-      //   let deleteList = []
-      //   if(item.list.length <= 0){
-      //     deleteList = item.list
-      //     deleteList.map((sonItem)=>{
-      //       IstitleData.push({
-      //         groupName:sonItem.title,
-      //         id:sonItem.id,
-      //         recordCode:sonItem.recordCode,
-      //         wardCode:sonItem.wardCode,
-      //       })
-      //     })
-      //   //  listMap.splice(index,1)
-      //   }else{
-      //     item['children'] = item.list
-      //     titleData.push(item)
-      //   }
-      // })
-      // let setListData = [...IstitleData,...titleData]
-      // let filterData = setListData;
-      // console.log(filterData);
       if (!this.searchWord) return listMap
       return listMap.filter(item => {
         return item.title.indexOf(this.searchWord) > -1;
       });
-      // return filterData;
     },
     isTemperature(){
       return this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes("temperature")
-
     }
 
   },
@@ -209,13 +181,6 @@ export default {
         this.selectWidth = 101;
       }, 300);
     },
-     getRecordCode(){
-      if((this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes('temperature'))){
-        return true
-      }else{
-        return false
-      }
-    },
     close() {
       this.show = false;
     },
@@ -225,15 +190,6 @@ export default {
     async getData() {
     if (!['foshanrenyi','fsxt', 'gdtj','lyyz', 'nfyksdyy'].includes(this.HOSPITAL_ID)) return
       let deptCode = this.$store.state.lesion.deptCode
-      // let {
-      //   data: { data }
-      // } = await listItem(
-      //   "自定义标题",
-      //   //北海体温单调用护理记录单模板
-      //   this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
-      //   deptCode,
-      // );
-      // this.listMap = data;
       let opstObj = {}
       opstObj.wardCode = deptCode
       if(!opstObj.wardCode) return
@@ -242,7 +198,6 @@ export default {
         if(this.isTemperature){
           //如果是体温单界面  就只查询体温单的自定义标题
         this.listMap = res.data.data.filter((x)=>x.recordCode==="bodyTemperature")
-        console.log(this.listMap);
         }else{
         this.listMap = res.data.data.filter((x)=>x.recordCode!=="bodyTemperature")
 
@@ -250,13 +205,7 @@ export default {
       }
     },
     openAddModal() {
-      if(this.isTemperature){
-      this.$refs.Temperature.open();
-
-      }else{
       this.$refs.addTemplateModal.open();
-
-      }
     },
     addTemplateAtDoc(item) {
       this.bus.$emit("addTemplateAtDoc", item.content);
@@ -264,7 +213,6 @@ export default {
   },
   created() {
     this.getData()
-    // this.bus.$on("refreshTitleTemplate", this.getData);
   },
   mounted() {
     this.show = false
@@ -275,7 +223,6 @@ export default {
     whiteButton,
     templateItem,
     addTemplateModal,
-    addTemplateModalTemp
   }
 };
 </script>
