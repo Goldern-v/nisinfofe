@@ -269,7 +269,28 @@
               <div class="top-div">
                <span>科室：<b>{{record.patientTotal || 0}}</b></span>
                 <span>交班时间：<b>{{record.patientTotal || 0}}</b></span>
-                <span>交班日期：<b>{{record.changeShiftDate}}</b></span>
+                <div data-print-style="width: auto">
+                  <span>交班护士：</span>
+                  <span data-print-style="display: none">
+                <button
+                    v-if="record.autographNameN"
+                    @click="onDelSignModalOpen('N', record.autographEmpNoN)"
+                >{{record.autographNameN}}</button>
+                <button
+                    v-else
+                    :disabled="isEmpty"
+                    @click="onSignModalOpen('N', record.autographEmpNoN)"
+                >点击签名</button>
+              </span>
+                  <FallibleImage
+                      class="img"
+                      v-if="record.autographNameN"
+                      :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
+                      :alt="record.autographNameN"
+                      data-print-style="display: inline-block; width: 52px; height: auto;"
+                  />
+                  <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
+                </div>
               </div>
             </div>
             <div class="details">
@@ -441,188 +462,6 @@
               </td>
             </tr>
           </ExcelTable>
-          <div v-if="HOSPITAL_ID == 'gdtj'">
-            <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
-              <div data-print-style="width: auto">
-                <span>A班签名：</span>
-                <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameA">{{record.autographNameA}}</template> -->
-                <button
-                    v-if="record.autographNameA"
-                    @click="onDelSignModalOpen('A', record.autographEmpNoA)"
-                >{{record.autographNameA}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('A')">点击签名</button>
-              </span>
-                <FallibleImage
-                    class="img"
-                    v-if="record.autographNameA"
-                    :src="`/crNursing/api/file/signImage/${record.autographEmpNoA}?${token}`"
-                    :alt="record.autographNameA"
-                    data-print-style="display: inline-block; width: 52px; height: auto;"
-                />
-                <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-                <span>/</span>
-                <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameA">{{record.autographNameA}}</template> -->
-                <button
-                    v-if="record.autographNameA2"
-                    @click="onDelSignModalOpen('A2', record.autographEmpNoA2)"
-                >{{record.autographNameA2}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('A2')">点击签名</button>
-              </span>
-                <FallibleImage
-                    class="img"
-                    v-if="record.autographNameA2"
-                    :src="`/crNursing/api/file/signImage/${record.autographEmpNoA2}?${token}`"
-                    :alt="record.autographNameA2"
-                    data-print-style="display: inline-block; width: 52px; height: auto;"
-                />
-                <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-              </div>
-              <div data-print-style="width: auto" v-if="HOSPITAL_ID != 'weixian'">
-                <span>P班签名：</span>
-                <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
-                <button
-                    v-if="record.autographNameP"
-                    @click="onDelSignModalOpen('P',record.autographEmpNoP)"
-                >{{record.autographNameP}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('P')">点击签名</button>
-              </span>
-                <FallibleImage
-                    class="img"
-                    v-if="record.autographNameP"
-                    :src="`/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`"
-                    :alt="record.autographNameP"
-                    data-print-style="display: inline-block; width: 52px; height: auto;"
-                />
-                <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-                <span>/</span>
-                <span data-print-style="display: none">
-                <button
-                    v-if="record.autographNameP2"
-                    @click="onDelSignModalOpen('P2',record.autographEmpNoP)"
-                >{{record.autographNameP2}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('P2')">点击签名</button>
-              </span>
-                <FallibleImage
-                    class="img"
-                    v-if="record.autographNameP2"
-                    :src="`/crNursing/api/file/signImage/${record.autographEmpNoP2}?${token}`"
-                    :alt="record.autographNameP2"
-                    data-print-style="display: inline-block; width: 52px; height: auto;"
-                />
-                <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-              </div>
-              <div data-print-style="width: auto">
-                <span>N班签名：</span>
-                <span data-print-style="display: none">
-                <button
-                    v-if="record.autographNameN"
-                    @click="onDelSignModalOpen('N', record.autographEmpNoN)"
-                >{{record.autographNameN}}</button>
-                <button
-                    v-else
-                    :disabled="isEmpty"
-                    @click="onSignModalOpen('N', record.autographEmpNoN)"
-                >点击签名</button>
-              </span>
-                <FallibleImage
-                    class="img"
-                    v-if="record.autographNameN"
-                    :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
-                    :alt="record.autographNameN"
-                    data-print-style="display: inline-block; width: 52px; height: auto;"
-                />
-                <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-                <span>/</span>
-                <span data-print-style="display: none">
-                <button
-                    v-if="record.autographNameN2"
-                    @click="onDelSignModalOpen('N2', record.autographEmpNoN2)"
-                >{{record.autographNameN2}}</button>
-                <button
-                    v-else
-                    :disabled="isEmpty"
-                    @click="onSignModalOpen('N2', record.autographEmpNoN2)"
-                >点击签名</button>
-              </span>
-                <FallibleImage
-                    class="img"
-                    v-if="record.autographNameN2"
-                    :src="`/crNursing/api/file/signImage/${record.autographEmpNoN2}?${token}`"
-                    :alt="record.autographNameN2"
-                    data-print-style="display: inline-block; width: 52px; height: auto;"
-                />
-                <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-              </div>
-            </div>
-          </div>
-
-          <div v-else>
-            <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
-              <div data-print-style="width: auto">
-                <span>A班签名：</span>
-                <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameA">{{record.autographNameA}}</template> -->
-                <button
-                    v-if="record.autographNameA"
-                    @click="onDelSignModalOpen('A', record.autographEmpNoA)"
-                >{{record.autographNameA}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('A')">点击签名</button>
-              </span>
-                <FallibleImage
-                    class="img"
-                    v-if="record.autographNameA"
-                    :src="`/crNursing/api/file/signImage/${record.autographEmpNoA}?${token}`"
-                    :alt="record.autographNameA"
-                    data-print-style="display: inline-block; width: 52px; height: auto;"
-                />
-                <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-              </div>
-              <div data-print-style="width: auto" v-if="HOSPITAL_ID != 'weixian'">
-                <span>P班签名：</span>
-                <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
-                <button
-                    v-if="record.autographNameP"
-                    @click="onDelSignModalOpen('P',record.autographEmpNoP)"
-                >{{record.autographNameP}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('P')">点击签名</button>
-              </span>
-                <FallibleImage
-                    class="img"
-                    v-if="record.autographNameP"
-                    :src="`/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`"
-                    :alt="record.autographNameP"
-                    data-print-style="display: inline-block; width: 52px; height: auto;"
-                />
-                <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-              </div>
-              <div data-print-style="width: auto">
-                <span>N班签名：</span>
-                <span data-print-style="display: none">
-                <button
-                    v-if="record.autographNameN"
-                    @click="onDelSignModalOpen('N', record.autographEmpNoN)"
-                >{{record.autographNameN}}</button>
-                <button
-                    v-else
-                    :disabled="isEmpty"
-                    @click="onSignModalOpen('N', record.autographEmpNoN)"
-                >点击签名</button>
-              </span>
-                <FallibleImage
-                    class="img"
-                    v-if="record.autographNameN"
-                    :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
-                    :alt="record.autographNameN"
-                    data-print-style="display: inline-block; width: 52px; height: auto;"
-                />
-                <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="paper" v-else>
@@ -1924,6 +1763,26 @@ export default {
     justify-content: space-between;
     align-items: center;
     height: 30px;
+
+img, span {
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.img {
+  display: none;
+  width: 52px;
+  max-height: 25px;
+}
+
+button {
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
+  color: rgb(40, 79, 194);
+  cursor: pointer;
+}
   }
 }
 
