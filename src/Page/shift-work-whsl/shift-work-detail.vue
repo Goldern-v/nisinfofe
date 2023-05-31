@@ -245,7 +245,7 @@
         </div>
       </div>
     </div>
-    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm" />
+    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm" @save="onSave3"/>
     <PatientModal
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
@@ -873,7 +873,7 @@ export default {
       } else {
         this.$refs.table.addRow(data);
       }
-      this.onSave(true);
+      this.onSave2(true,data);
       this.$refs.patientModal.close();
       // this.modified = true
     },
@@ -913,6 +913,40 @@ export default {
         .map((p, i) => ({ ...p, sortValue: i + 1 }));
 
       await apis.updateShiftRecord({
+        changeShiftTime,
+        changeShiftPatients,
+        deptCode
+      });
+
+      this.load();
+      if (tip) {
+        this.$message.success("保存成功");
+      }
+    },
+    async onSave3(tip,patients) {
+      const deptCode = this.deptCode;
+      const changeShiftTime = this.record;
+      const changeShiftPatients = patients
+        .filter(p => p.name || p.id)
+        .map((p, i) => ({ ...p, sortValue: i + 1 }));
+
+      await apis.updateShiftRecord({
+        changeShiftTime,
+        changeShiftPatients,
+        deptCode
+      });
+
+      this.load();
+      if (tip) {
+        this.$message.success("保存成功");
+        this.$refs.patientsModal.close();
+      }
+    },
+    async onSave2(tip,data) {
+      const deptCode = this.deptCode;
+      const changeShiftTime = this.record;
+      const changeShiftPatients = [data]
+      await apis.savePatient({
         changeShiftTime,
         changeShiftPatients,
         deptCode

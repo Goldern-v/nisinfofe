@@ -53,7 +53,7 @@
                 class="textarea"
                 type="textarea"
                 v-model="row[col.prop]"
-                :disabled="!editable"
+                :disabled="true"
                 @change="onInputChange($event, row[col.prop], col.prop, rowIndex, colIndex)"
                 @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
               />
