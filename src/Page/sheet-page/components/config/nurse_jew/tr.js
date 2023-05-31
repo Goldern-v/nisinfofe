@@ -24,10 +24,10 @@ import {
     click_date
   } from "../keyEvent/date";
   export default [
-    { 
-      key: "recordDate", 
+    {
+      key: "recordDate",
       value: "",
-      hidden:true 
+      hidden:true
     },
     {
       key: "recordMonth", //日期
@@ -39,6 +39,43 @@ import {
       key: "recordHour", //时间
       value: "",
       event: event_time
+    },
+
+    {
+      key: "temperature", //体温
+      value: "",
+      event: keyf1,
+      name: '体温',
+      next: '℃',
+      textarea:{ width:32},
+      change: (e, td) => limitChange(e, td, 4)
+    },
+    {
+      key: "pulse", //脉搏
+      value: "",
+      event: keyf1,
+      name: '脉搏',
+      next: '次/分',
+      textarea:{ width:32},
+      change: (e, td) => limitChange(e, td, 4)
+    },
+    {
+      key: "breath", //呼吸
+      value: "",
+      event: keyf1,
+      name: '呼吸',
+      next: '次/分',
+      textarea:{ width:32},
+      change: (e, td) => limitChange(e, td, 4)
+    },
+    {
+      key: "bloodPressure", //血压
+      value: "",
+      event: keyf1,
+      name: '血压',
+      next: 'mmHg',
+      textarea:{ width:50},
+      change: (e, td) => limitChange(e, td, 6)
     },
     {
       key: "consciousness", //意识
@@ -87,42 +124,6 @@ import {
       autoComplete: { data: ['√','+','++']},
       textarea:{ width:32},
       change: (e, td) => limitChange(e, td, 4)
-    },
-    {
-      key: "temperature", //体温
-      value: "",
-      event: keyf1,
-      name: '体温',
-      next: '℃',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4)
-    },
-    {
-      key: "pulse", //脉搏
-      value: "",
-      event: keyf1,
-      name: '脉搏',
-      next: '次/分',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4)
-    },
-    {
-      key: "breath", //呼吸
-      value: "",
-      event: keyf1,
-      name: '呼吸',
-      next: '次/分',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4)
-    },
-    {
-      key: "bloodPressure", //血压
-      value: "",
-      event: keyf1,
-      name: '血压',
-      next: 'mmHg',
-      textarea:{ width:50},
-      change: (e, td) => limitChange(e, td, 6)
     },
     {
       key: "heart", //心率
@@ -342,4 +343,3 @@ import {
       value: false
     }
   ];
-  

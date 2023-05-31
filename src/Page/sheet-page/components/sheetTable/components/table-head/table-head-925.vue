@@ -28,7 +28,8 @@
       <span>
         床号：
         <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal">
-          {{ patientInfo.bedLabel }}
+          <!-- {{ patientInfo.bedLabel }} -->
+          {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
         </div>
       </span>
       <span>
@@ -155,11 +156,19 @@ export default {
       return (sheetInfo.relObj || {})['nurseLevel'] || this.query['nursingClass'] || ''
     },
     newPatientInfo(){
-      let nowNurseLevel=sheetInfo.relObj[`${this.index}nurseLevel`]
-      let freshlyNurseLevel = sheetInfo.relObj['freshlyNurseLevel']
+       /*  每页独立床号功能 */
+      let beforeBed = this.patientInfo.bedLabel
+      let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]
+      if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]){
+        // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
+        beforeBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index-1}`]
+      }
+      let nowNurseLevel= this.sheetInfo.relObj[`${this.index}nurseLevel`]
+      let freshlyNurseLevel = this.sheetInfo.relObj['freshlyNurseLevel']
       return {
         ...this.patientInfo,
-        [`nurseLevel_${this.index}_${this.sheetInfo.selectBlock.id}`] : nowNurseLevel ? nowNurseLevel : freshlyNurseLevel
+        [`nurseLevel_${this.index}_${this.sheetInfo.selectBlock.id}`] : nowNurseLevel ? nowNurseLevel : freshlyNurseLevel,
+        [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
       }
     }
   },
@@ -219,11 +228,17 @@ export default {
       !sheetInfo.relObj['nurseLevel']
     ){
       info(this.patientInfo.patientId,this.patientInfo.visitId).then(res=>{
-        this.$set(sheetInfo.relObj,'nurseLevel',res.data.data.nursingClass)
+        this.$set(this.sheetInfo.relObj,'nurseLevel',res.data.data.nursingClass)
       })
     }
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
+    }
+    if (!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]) {
+      this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] = this.patientInfo.bedLabel
+    }
+    if (!this.sheetInfo.relObj[`${this.index}nurseLevel`]) {
+      this.sheetInfo.relObj[`${this.index}nurseLevel`] = this.sheetInfo.relObj['freshlyNurseLevel']
     }
   },
   watch: {
