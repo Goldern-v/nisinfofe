@@ -259,6 +259,211 @@
           </div>
         </div>
       </div>
+      <div class="paper" v-else-if="'qhwy'==HOSPITAL_ID">
+        <div ref="printable" data-print-style="height: auto;">
+          <div class="head shift-paper">
+            <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
+            <h1 class="title">青海省第五人民医院</h1>
+            <h2 class="sub-title">护士交班报告</h2>
+            <div class="details">
+              <div class="top-div">
+               <span>科室：<b>{{record.patientTotal || 0}}</b></span>
+                <span>交班时间：<b>{{record.patientTotal || 0}}</b></span>
+                <div data-print-style="width: auto">
+                  <span>交班护士：</span>
+                  <span data-print-style="display: none">
+                <button
+                    v-if="record.autographNameN"
+                    @click="onDelSignModalOpen('N', record.autographEmpNoN)"
+                >{{record.autographNameN}}</button>
+                <button
+                    v-else
+                    :disabled="isEmpty"
+                    @click="onSignModalOpen('N', record.autographEmpNoN)"
+                >点击签名</button>
+              </span>
+                  <FallibleImage
+                      class="img"
+                      v-if="record.autographNameN"
+                      :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
+                      :alt="record.autographNameN"
+                      data-print-style="display: inline-block; width: 52px; height: auto;"
+                  />
+                  <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
+                </div>
+              </div>
+            </div>
+            <div class="details">
+              <span>
+               原有：<b>{{record.patientTotal || 0}}</b>人
+              </span>
+              <span>
+                新收：
+                <b>{{record.inHospitalTotal || 0}}</b>人
+              </span>
+              <span>
+                转入：
+                <b>{{record.transInTotal || 0}}</b>人
+              </span>
+              <span>
+                出院：
+                <b>{{record.outHospitalTotal || 0}}</b>人
+              </span>
+              <span>
+                转出：
+                <b>{{record.transOutTotal || 0}}</b>人
+              </span>
+              <span>
+                现有：
+                <b>{{record.nowHospitalTotal || 0}}</b>人
+              </span>
+              <span>
+                病重：
+                <b>{{record.seriousTotal || 0}}</b>人，
+              </span>
+              <span>
+                病危：
+                <b>{{record.dangerTotal || 0}}</b>人
+              </span>
+
+              <span>
+                手术：
+                <b>{{record.operationTotal || 0}}</b>人
+              </span>
+              <span>
+                分娩：
+                <b>{{record.patientDeliver || 0}}</b>人
+              </span>
+              <span>
+                新生：
+                <b>{{record.patientNewBorn || 0}}</b>人
+              </span>
+              <span>
+                死亡：
+                <b>{{record.patientDead || 0}}</b>人
+              </span>
+            </div>
+            <div class="details">
+              <span>
+               特级护理：<b>{{record.patientSuper}}</b>
+              </span>
+              <span>
+                I特级护理：
+                <b>{{record.patientClass1}}</b>
+              </span>
+              <span>
+                II特级护理：
+                <b>{{record.patientClass2}}</b>
+              </span>
+              <span>
+                III特级护理：
+                <b>{{record.patientClass3}}</b>
+              </span>
+            </div>
+            <div
+                class="details"
+                style="margin-top: 10px"
+                v-if="record.deptCode && (record.deptCode.indexOf('051102_03') > -1 || record.deptCode.indexOf('051102_04') > -1) "
+            >
+              <span>
+                <!-- 051102 051102_03 051102_04 051102_02 -->
+                <span style="color: transparent">空</span>新生儿：原有：
+                <b>{{record.babyPatintTotal || 0}}</b>人，
+              </span>
+              <span>
+                新收：
+                <b>{{record.babyInHospitalTotal || 0}}</b>人，
+              </span>
+              <span>
+                转入：
+                <b>{{record.babyTransInTotal || 0}}</b>人，
+              </span>
+              <span>
+                出院：
+                <b>{{record.babyOutHospitalTotal || 0}}</b>人，
+              </span>
+              <span>
+                转出：
+                <b>{{record.babyTransOutTotal || 0}}</b>人，
+              </span>
+              <span>
+                现有：
+                <b>{{record.babyNowHospitalTotal || 0}}</b>人，
+              </span>
+              <span>
+                病危：
+                <b>{{record.babyDangerTotal || 0}}</b>人，
+              </span>
+              <span>
+                病重：
+                <b>{{record.babySeriousTotal || 0}}</b>人，
+              </span>
+              <span>
+                手术：
+                <b>{{record.babyOperationTotal || 0}}</b>人
+              </span>
+              <span style="color: transparent">交班日期： 2019-05-15</span>
+            </div>
+          </div>
+          <ExcelTable
+              ref="table"
+              class="table"
+              :fixedTh="fixedTh"
+              data-print-style="height: auto;"
+              :columns="columns"
+              :editable="!allSigned"
+              :get-context-menu="getContextMenu"
+              v-model="patients"
+              @dblclick="onDblClickRow"
+              @input-change="onTableInputChange"
+              @input-keydown="onTableInputKeydown"
+          >
+            <tr class="empty-row" v-if="!patients.length">
+              <td colspan="7" style="padding: 0">
+                <Placeholder
+                    black
+                    size="small"
+                    data-print-style="display: none;"
+                    :show-add="!allSigned"
+                    @click="onPatientModalShow()"
+                >
+                  <i class="el-icon-plus"></i> 添加患者记录
+                </Placeholder>
+              </td>
+            </tr>
+            <tr class="normal-row">
+              <td colspan="7" class="special-case-title" data-print-style="border-bottom: none;">
+                <span class="row-title">特殊情况交接：（包括特殊复查的各种结果：如MR、CT、检验异常值等以及当班未完成治疗护理、病房安全等）</span>
+                <span
+                    class="row-action"
+                    v-if="!allSigned"
+                    @click="onSpecialCasePanelOpen"
+                    data-print-style="display: none;"
+                >特殊情况模板</span>
+              </td>
+            </tr>
+            <tr class="normal-row">
+              <td
+                  colspan="7"
+                  style="padding: 0;"
+                  data-print-style="border-top: none;"
+                  @contextmenu.stop.prevent="onContextMenu($event, record.specialSituation)"
+              >
+                <label>
+                  <el-input
+                      autosize
+                      type="textarea"
+                      class="special-case"
+                      :disabled="allSigned"
+                      v-model="record.specialSituation"
+                      @input="modified = true"
+                  />
+                </label>
+              </td>
+            </tr>
+          </ExcelTable>
+        </div>
+      </div>
       <div class="paper" v-else>
         <div ref="printable" data-print-style="height: auto;">
           <div class="head shift-paper">
@@ -1551,6 +1756,33 @@ export default {
   >span {
     flex: 1;
     white-space: nowrap;
+  }
+  .top-div{
+    display: flex;
+    flex:1;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+
+img, span {
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.img {
+  display: none;
+  width: 52px;
+  max-height: 25px;
+}
+
+button {
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
+  color: rgb(40, 79, 194);
+  cursor: pointer;
+}
   }
 }
 

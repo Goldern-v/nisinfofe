@@ -90,9 +90,12 @@
       form: {...defaultForm}
     }),
     methods: {
-      open (tab, form, autoFocus, isSignedN) {
+      async open (tab, form, autoFocus, isSignedN) {
         this.tab = tab || '1'
-        this.form = {...defaultForm, ...form}
+        const {data: {data}} = await apis.getShiftPatient(form.id)
+
+        this.form = {...defaultForm, ...data}
+        console.log( this.form,' this.form-open')
         this.bedLabelDisabled = !!form
         this.isSignedN = !!isSignedN
         this.$refs.modal.open()
