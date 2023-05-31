@@ -46,7 +46,7 @@
         </el-table-column>
         <!-- <el-table-column prop="diagTarget" label="护理目标" min-width="150px" header-align="center" >
         </el-table-column> -->
-        
+
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="90" align="center"></el-table-column>
@@ -69,8 +69,8 @@
                 style="color: blue"
                 @click="stop(scope.row)"
               >停止</div>
+<!--                v-if="scope.row.status == 1"  去掉状态判断-->
               <div
-                v-if="scope.row.status == 1"
                 class="tool-btn"
                 style="color: red"
                 @click="del(scope.row)"
