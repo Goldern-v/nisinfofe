@@ -32,7 +32,7 @@
       <div class="group">
         <span>补执行的原因：</span>
         <el-input   size="small"  style="width:200px" placeholder="请输入补执行的原因" v-model="reason"></el-input>
-     
+
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">关闭</el-button>
@@ -46,7 +46,31 @@
       :modalWidth="500"
       title="修改时间"
       class="modal-record padding-0"
-      v-if="type !='补执行'"
+      v-if="type == '补执行-sdyy'"
+    >
+       <div class="group">
+        <span>补执行的原因：</span>
+        <el-autocomplete
+          size="small"  style="width:280px"
+          v-model="reason"
+          :fetch-suggestions="querySearch"
+          placeholder="请输入内容"
+        ></el-autocomplete>
+        <!-- <el-input   size="small"  style="width:200px" placeholder="请输入补执行的原因" v-model="reason"></el-input> -->
+      </div>
+      <div slot="button">
+        <el-button class="modal-btn" @click="close">关闭</el-button>
+        <el-button class="modal-btn" type="primary" @click="postReasonSdyy"
+          >保存</el-button
+        >
+      </div>
+    </sweet-modal>
+    <sweet-modal
+      ref="newRecord"
+      :modalWidth="500"
+      title="修改时间"
+      class="modal-record padding-0"
+      v-else
     >
       <div class="group">
         <span>实际执行时间：</span>
@@ -78,7 +102,7 @@
       </div>
     </sweet-modal>
   </div>
-  
+
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -133,6 +157,7 @@ export default {
     },
     close() {
       this.$refs.newRecord.close();
+      this.reason = '';
     },
     post() {
       let data = {
@@ -179,6 +204,19 @@ export default {
         this.close();
       });
     },
+    postReasonSdyy(){
+      let data = {
+        barcode:  this.eidtRowData.barCode, //条码号
+        empNO: this.empNo, //执行人
+        type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
+        typeReason: this.reason, //补执行的原因填写
+      };
+      updateOrderExecutePc(data).then((res) => {
+        this.$message.success("补录成功");
+        this.bus.$emit("loadImplementationList");
+        this.close();
+      });
+    },
     cancelOrderExecute(item) {
       let user = JSON.parse(localStorage.getItem("user"));
       // console.log(user);
@@ -209,6 +247,28 @@ export default {
           });
       }
     },
+    querySearch(queryString, cb) {
+        let restaurants = [
+          {
+            value: '患者外出检查'
+          },
+          {
+            value: '患者抢救、补录执行信息'
+          },
+          {
+            value: '二维码不清晰，扫码失败'
+          },
+          {
+            value: '网络故障'
+          },
+        ]
+        // 过滤所填写的项
+        // let results = queryString ? restaurants.filter((restaurant) => {
+        //   return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        // }) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(restaurants);
+      },
   },
   created() {},
   mounted() {},
