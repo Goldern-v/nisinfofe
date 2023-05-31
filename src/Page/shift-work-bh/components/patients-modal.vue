@@ -112,7 +112,9 @@
         this.close()
       },
       onConfirm () {
-        this.$emit('confirm', this.selectedItems)
+        return this.$emit('save', true,this.selectedItems)
+
+        // this.$emit('confirm', this.selectedItems)
       },
       async loadPatients (deptCode, date, id) {
         const { data } = await apis.listPatients(deptCode, date, id)

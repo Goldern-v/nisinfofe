@@ -4,33 +4,35 @@
       <div class="column-right">
         <div>
           <ElDatePicker
-          id="date-picker"
-          type="date"
-          size="mini"
-          style="width: 110px; height: 28px"
-          format="yyyy-MM-dd"
-          placeholder="选择日期"
-          v-model="query.entryDate"
-          clearable
-        />
-        <el-time-picker
-          v-model="query.time"
-          size='mini'
-          style="width: 107px; margin: 0 0 5x 10px"
-          placeholder="请选择时间点">
-        </el-time-picker>
-            <el-button
-              :disabled="isDisable()"
-              class="save-btn-top"
-              :type="isUpdate ? 'warning' : 'primary'"
-              @click="saveVitalSign(vitalSignObj)"
-              >{{ isUpdate ? "更新" : "保存" }}
-              </el-button
-            >
+            id="date-picker"
+            type="date"
+            size="mini"
+            style="width: 110px; height: 28px"
+            format="yyyy-MM-dd"
+            placeholder="选择日期"
+            v-model="query.entryDate"
+            @change="dateChange"
+            clearable
+          />
+          <el-time-picker
+            v-model="query.time"
+            size='mini'
+            style="width: 98px; margin: 0 0 5px 10px"
+            placeholder="请选择时间点">
+          </el-time-picker>
+          <el-button
+            :disabled="isDisable()"
+            size="mini"
+            class="save-btn-top"
+            :type="isUpdate ? 'warning' : 'primary'"
+            @click="saveVitalSign(vitalSignObj)"
+            >{{ isUpdate ? "更新" : "保存" }}
+            </el-button
+          >
         </div>
         <div class="times">
           <el-radio-group v-model="query.entryTime" style='display: flex'>
-            <div v-for="item in timesOdd2" :key="item.id" @click="changeEntryTime(item.value)">
+            <div v-for="item in timesOdd2" :key="item.id" @click.prevent="changeEntryTime(item.value)">
             <el-radio
               size="mini"
               :label="item.value"
@@ -662,17 +664,15 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
-          this.bus.$on("getDataFromPage", (dateTime) => {
+    this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate=dateTime.slice(0,10)
-        this.query.entryTime=dateTime.slice(11,13)
+      this.query.entryTime=dateTime.slice(11,13)
     });
-
   },
-
   created() {
     window.addEventListener("resize", this.getHeight);
     this.getHeight();
-     this.bus.$on("refreshVitalSignList", () => {
+    this.bus.$on("refreshVitalSignList", () => {
       this.getList();
     });
   },
@@ -704,6 +704,13 @@ export default {
     },
   },
   methods: {
+    dateChange() {
+      if (this.query.entryTime && this.query.entryDate && !this.isUpdate) {
+        console.log('点击测试3333')
+        this.getList();
+        this.bus.$emit("dateChangePage", this.query.entryDate);
+      }
+    },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
         let baseLength = document.getElementsByClassName("pathological").length;
@@ -910,6 +917,7 @@ export default {
       this.query.entryTime = val;
       this.query.time = new Date(2016, 9, 10, val)
       if (this.query.entryTime && this.query.entryDate && !this.isUpdate) {
+        console.log('点击测试222')
         this.getList();
         this.bus.$emit("dateChangePage", this.query.entryDate);
       }
@@ -935,6 +943,7 @@ export default {
         this.updateData.entryTime = value.slice(12, 20);
       }
       if (this.query.entryTime && this.query.entryDate && !this.isUpdate) {
+        console.log('点击测试11')
         this.getList();
         this.bus.$emit("dateChangePage", this.query.entryDate);
       }
@@ -1063,8 +1072,8 @@ export default {
         }
       }
     },
-        /* 删除记录 */
-        async removeRecord(targetName, index) {
+    /* 删除记录 */
+    async removeRecord(targetName, index) {
       if (!this.isDisable()) {
         if (this.isUpdate) {
           deleteRecord({
