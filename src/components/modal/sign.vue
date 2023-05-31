@@ -669,7 +669,7 @@ export default {
         let username = ''
         if(this.caSignHasNoSignType.includes(this.HOSPITAL_ID)){
           let fileCode = res.data.data.data.fileCode
-          aduitDate = ''
+          aduitDate = ['hj'].includes(this.HOSPITAL_ID)?dayjs().format("YYYY-MM-DD HH:mm"):""
           let hjRes = await verifyData(sessionStorage.getItem('accessToken'),fileCode,parmas.userId)
           if(hjRes.data.code!=200) return this.$message({
             type:'error',
@@ -683,7 +683,7 @@ export default {
           message:res.data.desc
         })
         this.close()
-        return this.callback(pwd || localStorage.ppp, username || this.username,"",aduitDate);
+        return this.callback(pwd || localStorage.ppp, username || this.username,aduitDate);
       }).catch(error=>{
         // this.$message({
         //   type:'warning',

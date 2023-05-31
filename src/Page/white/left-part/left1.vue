@@ -173,7 +173,6 @@ export default {
           this._whiteBoardDtos = JSON.parse(
             JSON.stringify(res.data.data[0].whiteBoardDtos)
           );
-          console.log( this.whiteBoardDtos, 'dddddddddddddddddddddd');
         }
         this.boardConfigures = res.data.data[0].boardConfigures;
         this.pageLoading = false;

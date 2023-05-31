@@ -672,7 +672,7 @@ export default {
               const suffix = original.substring(selectionEnd);
 
               selectedRow[selectedCol.prop] = prefix + pasteContent + suffix;
-              this.onSave();
+              this.onSaveAll();
             }
           },
           {
@@ -716,7 +716,7 @@ export default {
               selectedRow["assessmentSituation"] = data["assessmentSituation"];
               selectedRow["proposal"] = data["proposal"];
 
-              await this.onSave();
+              await this.onSaveAll();
             }
           },
           {
@@ -725,7 +725,7 @@ export default {
             click: async () => {
               // this.modified = true
               this.$refs.table.moveRowUp();
-              await this.onSave();
+              await this.onSaveAll();
             }
           },
           {
@@ -734,7 +734,7 @@ export default {
             click: async () => {
               // this.modified = true
               this.$refs.table.moveRowDown();
-              await this.onSave();
+              await this.onSaveAll();
             }
           },
           {
@@ -803,7 +803,7 @@ export default {
             const suffix = original.substring(selectionEnd);
 
             this.record.specialSituation = prefix + pasteContent + suffix;
-            this.onSave();
+            this.onSaveAll();
           }
         });
       }
@@ -921,6 +921,23 @@ export default {
       this.record.specialSituation =
         (this.record.specialSituation || "") + item.content;
       this.modified = true;
+    },
+    async onSaveAll(tip) {
+      const deptCode = this.deptCode;
+      const changeShiftTime = this.record;
+      let changeShiftPatients = this.patients.filter(p => p.name || p.id).map((p, i) => ({ ...p, sortValue: i + 1 }));
+      const shiftWithWardcodes = [this.shiftWithWardcodes]
+
+      await apis.updateShiftRecord({
+        changeShiftTimes: changeShiftTime,
+        changeShiftPatients,
+        shiftWithWardcodes
+      });
+
+      this.load();
+      if (tip) {
+        this.$message.success("保存成功");
+      }
     },
     async onSave(tip,patients) {
       const deptCode = this.deptCode;

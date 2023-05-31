@@ -56,12 +56,12 @@ export default [
   { key: 'customValue3', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["齐","不齐","减弱", "增高","稍低","正常"]}},
 
   { key: 'formula', event: keyf1, value: '', next: 'ml', name: '配方奶', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6)},
-  { key: 'food', event: keyf1, value: '', next: '', name: '名称', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),  autoComplete:{data:["输液量","饲奶量","口服药"]}  },
+  { key: 'food', event: keyf1, value: '', next: '', name: '名称', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),  autoComplete:{data:["输液量","饲奶量","口服药", "奶量", "饲温水量", "空肠冲管液", "泵奶量", "空肠泵奶量"]}  },
   { key: 'foodSize', event: keyf1, value: 'ml', next: '', name: '入量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6)},
   { key: 'residual', event: keyf1, value: '', next: 'ml', name: '胃管抽出残余奶', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) },
 
   { key: 'discharge', event: keyf1, value: '', next: '', name: '名称', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["大便","小便","采血量", "引流液","痰液量"]} },
-  { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["1次"]} },
   { key: 'customValue4', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete:{data:["头部","左手","右手", "左足","右足", "拔针","正常","渗液", "肿胀","渗血"]}},
   { key: 'customValue5', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["开始","暂停","结束", "未完"]}},
   { key: 'customValue6', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , autoComplete:{data:["开始","暂停","结束", "∨"]} },

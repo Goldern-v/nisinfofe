@@ -6,7 +6,11 @@ import qs from "qs";
 export function listDepartment(parentCode) {
   return axios.get(`${apiPath}wardDaily/getDeptWithWardcode/${parentCode}`);
 }
-
+export function shiftgetPatient(id,patientId,visitId) {
+  return axios.get(
+    `${apiPath}changeShiftMaster/getPatient/${id}/${patientId}/${visitId}`
+  );
+}
 //根据科室和日期查找对应得交班志列表（左侧）
 export function listShiftRecord(deptCode, startDate, endDate,shiftType=1) {
   return axios.get(
@@ -97,7 +101,9 @@ export function createShiftRecord(
 export function updateShiftRecord(data) {
   return axios.post(`${apiPath}changeShiftBHMaster/saveContent`, data);
 }
-
+export function savePatient(data) {
+  return axios.post(`${apiPath}changeShiftMaster/savePatient`, data);
+}
 // 删除交班志行
 export function removeShiftRecordRow(changeShiftTimeId,sortValue) {
   return axios.get(`${apiPath}changeShiftMaster/deleteContent/${changeShiftTimeId}/${sortValue}`);
