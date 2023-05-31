@@ -262,7 +262,6 @@ export default {
     },
     newPatientInfo() {
       /*  每页独立床号功能 */
-      this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] ? this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] : this.patientInfo.bedLabel
       let beforeBed = this.patientInfo.bedLabel
       let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]
       if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]){
@@ -334,10 +333,10 @@ export default {
     },
   },
   created() {
-    console.log();
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
+
     if (!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]) {
       this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] = this.patientInfo.bedLabel
     }

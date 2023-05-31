@@ -164,7 +164,7 @@
         </div>
       </div>
     </div>
-    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm" />
+    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm"  @save="onSave4"/>
     <PatientModal
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
@@ -762,12 +762,12 @@ export default {
         return this.$message.error("已存在该患者");
       }
 
-      if (selectedRow) {
-        this.$refs.table.updateRow(data);
-      } else {
-        this.$refs.table.addRow(data);
-      }
-      this.onSave(true);
+      // if (selectedRow) {
+      //   this.$refs.table.updateRow(data);
+      // } else {
+      //   this.$refs.table.addRow(data);
+      // }
+      this.onSave2(true,data);
       this.$refs.patientModal.close();
       // this.modified = true
     },
@@ -818,6 +818,46 @@ export default {
       this.load();
       if (tip) {
         this.$message.success("保存成功");
+      }
+    },
+    async onSave2(tip,form) {
+      const deptCode = this.deptCode;
+      const changeShiftTime = this.record;
+      let changeShiftPatients = [form]
+      const [shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN] = this.shiftWithWardcodes
+      await apis.savePatient({
+        changeShiftTimes: changeShiftTime,
+        changeShiftPatients,
+        shiftWithWardcodesA:[shiftWithWardcodesA],
+        shiftWithWardcodesP:[shiftWithWardcodesP],
+        shiftWithWardcodesN:[shiftWithWardcodesN],
+      });
+
+      this.load();
+      if (tip) {
+        this.$refs.patientsModal.close();
+        this.$message.success("保存成功");
+      }
+    },
+    async onSave4(tip,patients) {
+      const deptCode = this.deptCode;
+      const changeShiftTime = this.record;
+      let changeShiftPatients = patients
+        .filter(p => p.name || p.id)
+        .map((p, i) => ({ ...p, sortValue: i + 1 }));
+      const [shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN] = this.shiftWithWardcodes
+      await apis.updateShiftRecord({
+        changeShiftTimes: changeShiftTime,
+        changeShiftPatients,
+        shiftWithWardcodesA:[shiftWithWardcodesA],
+        shiftWithWardcodesP:[shiftWithWardcodesP],
+        shiftWithWardcodesN:[shiftWithWardcodesN],
+      });
+
+      this.load();
+      if (tip) {
+        this.$message.success("保存成功");
+        this.$refs.patientsModal.close();
       }
     },
     onSignModalOpen(type) {
