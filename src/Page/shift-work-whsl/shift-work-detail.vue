@@ -23,240 +23,6 @@
         icon="el-icon-plus"
         @click="onCreateModalOpen($route.params.code)"
       >创建交班志</Placeholder>
-      <div class="paper" v-else-if="['zhzxy'].includes(HOSPITAL_ID)">
-        <div ref="printable" data-print-style="height: auto;">
-          <div class="head shift-paper">
-            <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
-            <h1 class="title">{{deptName}}</h1>
-            <h2 class="sub-title">ISBAR交班记录卡</h2>
-            <div class="details">
-              <span>
-                病区情况：原有:
-                <input type="text" v-model="record.patientTotal" />
-                人，
-              </span>
-              <span>
-                新收:
-                <input type="text" v-model="record.inHospitalTotal" />
-                人，
-              </span>
-              <span>
-                转入:
-                <input type="text" v-model="record.transInTotal" />
-                人，
-              </span>
-              <span>
-                出院:
-                <input type="text" v-model="record.outHospitalTotal" />
-                人，
-              </span>
-              <span>
-                转出:
-                <input type="text" v-model="record.transOutTotal" />
-                人，
-              </span>
-              <span>
-                现有:
-                <input type="text" v-model="record.nowHospitalTotal" />
-                人，
-              </span>
-              <span>
-                病危:
-                <input type="text" v-model="record.dangerTotal" />
-                人，
-              </span>
-              <span>
-                病重:
-                <input type="text" v-model="record.seriousTotal" />
-               人，
-              </span>
-              <span>
-                手术:
-                <input type="text" v-model="record.operationTotal" />
-                人
-              </span>
-              <span>
-                死亡:
-                <input type="text" v-model="record.patientDead" />
-                人
-              </span>
-              <span>
-                分娩:
-                <input type="text" v-model="record.patientNewBorn" />
-                人
-              </span>
-              <span>
-                交班日期:
-                <input type="text" v-model="record.changeShiftDate" />
-              </span>
-            </div>
-
-            <div
-              class="details"
-              style="margin-top: 10px"
-              v-if="record.deptCode && (record.deptCode.indexOf('051102_03') > -1 || record.deptCode.indexOf('051102_04') > -1) "
-            >
-              <span>
-                <!-- 051102 051102_03 051102_04 051102_02 -->
-                <span style="color: transparent">空</span>新生儿：原有：
-                <b>{{record.babyPatintTotal || 0}}</b>人，
-              </span>
-              <span>
-                新收：
-                <b>{{record.babyInHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转入：
-                <b>{{record.babyTransInTotal || 0}}</b>人，
-              </span>
-              <span>
-                出院：
-                <b>{{record.babyOutHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                转出：
-                <b>{{record.babyTransOutTotal || 0}}</b>人，
-              </span>
-              <span>
-                现有：
-                <b>{{record.babyNowHospitalTotal || 0}}</b>人，
-              </span>
-              <span>
-                病危：
-                <b>{{record.babyDangerTotal || 0}}</b>人，
-              </span>
-              <span>
-                病重：
-                <b>{{record.babySeriousTotal || 0}}</b>人，
-              </span>
-              <span>
-                手术：
-                <b>{{record.babyOperationTotal || 0}}</b>人
-              </span>
-              <span style="color: transparent">交班日期： 2019-05-15</span>
-            </div>
-          </div>
-          <ExcelTable
-            ref="table"
-            class="table"
-            :fixedTh="fixedTh"
-            data-print-style="height: auto;"
-            :columns="columns"
-            :editable="!allSigned"
-            :get-context-menu="getContextMenu"
-            v-model="patients"
-            @dblclick="onDblClickRow"
-            @input-change="onTableInputChange"
-            @input-keydown="onTableInputKeydown"
-          >
-            <tr class="empty-row" v-if="!patients.length">
-              <td colspan="7" style="padding: 0">
-                <Placeholder
-                  black
-                  size="small"
-                  data-print-style="display: none;"
-                  :show-add="!allSigned"
-                  @click="onPatientModalShow()"
-                >
-                  <i class="el-icon-plus"></i> 添加患者记录
-                </Placeholder>
-              </td>
-            </tr>
-            <tr class="normal-row">
-              <td colspan="7" class="special-case-title" data-print-style="border-bottom: none;">
-                <span class="row-title">特殊情况交接：（包括特殊复查的各种结果：如MR、CT、检验异常值等以及当班未完成治疗护理、病房安全等）</span>
-                <span
-                  class="row-action"
-                  v-if="!allSigned"
-                  @click="onSpecialCasePanelOpen"
-                  data-print-style="display: none;"
-                >特殊情况模板</span>
-              </td>
-            </tr>
-            <tr class="normal-row">
-              <td
-                colspan="7"
-                style="padding: 0;"
-                data-print-style="border-top: none;"
-                @contextmenu.stop.prevent="onContextMenu($event, record.specialSituation)"
-              >
-                <label>
-                  <el-input
-                    autosize
-                    type="textarea"
-                    class="special-case"
-                    :disabled="allSigned"
-                    v-model="record.specialSituation"
-                    @input="modified = true"
-                  />
-                </label>
-              </td>
-            </tr>
-          </ExcelTable>
-          <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
-            <div data-print-style="width: auto">
-              <span>A班签名：</span>
-              <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameA">{{record.autographNameA}}</template> -->
-                <button
-                  v-if="record.autographNameA"
-                  @click="onDelSignModalOpen('A', record.autographEmpNoA)"
-                >{{record.autographNameA}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('A')">点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameA"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoA}?${token}`"
-                :alt="record.autographNameA"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-            <div data-print-style="width: auto" v-if="HOSPITAL_ID != 'weixian'">
-              <span>P班签名：</span>
-              <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
-                <button
-                  v-if="record.autographNameP"
-                  @click="onDelSignModalOpen('P',record.autographEmpNoP)"
-                >{{record.autographNameP}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('P')">点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameP"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`"
-                :alt="record.autographNameP"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-            <div data-print-style="width: auto">
-              <span>N班签名：</span>
-              <span data-print-style="display: none">
-                <button
-                  v-if="record.autographNameN"
-                  @click="onDelSignModalOpen('N', record.autographEmpNoN)"
-                >{{record.autographNameN}}</button>
-                <button
-                  v-else
-                  :disabled="isEmpty"
-                  @click="onSignModalOpen('N', record.autographEmpNoN)"
-                >点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameN"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
-                :alt="record.autographNameN"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="paper" v-else>
         <div ref="printable" data-print-style="height: auto;">
           <div class="head shift-paper">
@@ -386,7 +152,7 @@
               </td>
             </tr>
             <tr class="normal-row">
-              <td colspan="7" class="special-case-title" data-print-style="border-bottom: none;">
+              <td colspan="11" class="special-case-title" data-print-style="border-bottom: none;">
                 <span class="row-title">特殊情况交接：（包括特殊复查的各种结果：如MR、CT、检验异常值等以及当班未完成治疗护理、病房安全等）</span>
                 <span
                   class="row-action"
@@ -398,7 +164,7 @@
             </tr>
             <tr class="normal-row">
               <td
-                colspan="7"
+                colspan="11"
                 style="padding: 0;"
                 data-print-style="border-top: none;"
                 @contextmenu.stop.prevent="onContextMenu($event, record.specialSituation)"
@@ -416,11 +182,10 @@
               </td>
             </tr>
           </ExcelTable>
-          <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
+          <!-- <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
             <div data-print-style="width: auto">
               <span>A班签名：</span>
               <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameA">{{record.autographNameA}}</template> -->
                 <button
                   v-if="record.autographNameA"
                   @click="onDelSignModalOpen('A', record.autographEmpNoA)"
@@ -439,7 +204,6 @@
             <div data-print-style="width: auto" v-if="HOSPITAL_ID != 'weixian'">
               <span>P班签名：</span>
               <span data-print-style="display: none">
-                <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
                 <button
                   v-if="record.autographNameP"
                   @click="onDelSignModalOpen('P',record.autographEmpNoP)"
@@ -477,7 +241,7 @@
               />
               <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -583,6 +347,12 @@ export default {
           label: "I（介绍）",
           columns: [
             {
+              label: "类型",
+              prop: "patientStatus",
+              width: "53",
+              align: "center",
+            },
+            {
               label: "床号",
               prop: "bedLabel",
               editable: true,
@@ -594,10 +364,7 @@ export default {
               prop: "name",
               width: "53",
               render: row => {
-                const status = row.patientStatus
-                  ? `(${row.patientStatus})`
-                  : "";
-                return [row.name + status, row.sex, row.age]
+                return [row.name, row.sex, row.age]
                   .filter(Boolean)
                   .join("，<br>");
               }
@@ -644,16 +411,53 @@ export default {
           ]
         },
         {
-          label: "R（建议及评价）",
+          label: "R建议",
           columns: [
             {
-              label: "交给下一班观察重点",
+              label: "交给下一班观察重点 ",
               prop: "proposal",
               editable: true,
               width: "200"
             }
           ]
-        }
+        },
+        {
+          label: "签名",
+          columns: [
+            {
+              label: "",
+              prop: "signatureEmpNo",
+              propName: "signature",
+              editable: true,
+              width: "60",
+              sign:true
+            }
+          ]
+        },
+        {
+          label: "R评价",
+          columns: [
+            {
+              label: "交给下一班观察重点",
+              prop: "assessmentSituation2",
+              editable: true,
+              width: "200"
+            }
+          ]
+        },
+        {
+          label: "签名 ",
+          columns: [
+            {
+              label: "",
+              prop: "signatureEmpNo2",
+              propName: "signature2",
+              editable: true,
+              width: "60",
+              sign:true
+            }
+          ]
+        },
       ],
       fixedTh: false
     };
@@ -1176,7 +980,6 @@ export default {
       //     this.reloadSideList();
       //   }
       // });
-
       window.openSignModal(async (password, username) => {
         await apis.delSignShiftRecord(
           this.record.id,
