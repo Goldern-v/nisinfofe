@@ -26,10 +26,10 @@ import {
     click_date
   } from "../keyEvent/date";
   export default [
-    { 
-      key: "recordDate", 
+    {
+      key: "recordDate",
       value: "",
-      hidden:true 
+      hidden:true
     },
     {
       key: "recordMonth", //日期
@@ -112,7 +112,7 @@ import {
       event: keyf1,
       name: '氧疗',
       next: 'L/分',
-      autoComplete: { data: ['√']},
+      // autoComplete: { data: ['√']},
       textarea:{ width:35},
       change: (e, td) => limitChange(e, td, 4)
     },
@@ -314,4 +314,3 @@ import {
       value: false
     }
   ];
-  
