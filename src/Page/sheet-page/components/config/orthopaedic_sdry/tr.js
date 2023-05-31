@@ -28,6 +28,9 @@ const yishi = ["清醒", "嗜睡", "浅昏迷", "深昏迷", "模糊", "昏睡",
 const yanse = [{name: '①血性液', value: '血性液'},{name: '②淡红色液', value: '淡红色液'},{name: '③暗红色液', value: '暗红色液'},{name: '④黄色液', value: '黄色液'},{name: '⑤淡黄色液', value: '淡黄色液'},{name: '⑥深黄色液', value: '深黄色液'}];
 const ruliang = ["饮水","进食","鼻饲","输血","输液","静注"]
 const chuliang = ["尿液","大便","引流液","呕吐物","胃液","恶露"]
+const Customizations = ['√', '√/', '/√', '√/√', '间有', '无', '良好', '好转', '轻度', '中度', '重度', '干洁', '渗血', '渗液', '+', '-', '±', '+/', '+', '+/','-', '-/', '-', '-/+', '-/±', '±/±', '±/', '+', '±/-']
+
+const Customizations1 = ["√"]
 
 export default [
   { hidden: true, key: "recordDate", value: "" },
@@ -165,18 +168,20 @@ export default [
     key: "fieldSix",
     event: keyf1,
     value: "",
-    next: "mm",
-    name: "瞳孔大小左",
+    next: "",
+    name: "",
     textarea: { width: 40 },
+    autoComplete: { data: Customizations },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "fieldSeven",
     event: keyf1,
     value: "",
-    next: "mm",
-    name: "瞳孔大小右",
+    next: "",
+    name: "",
     textarea: { width: 40 },
+    autoComplete: { data: Customizations },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -185,6 +190,7 @@ export default [
     value: "",
     next: "",
     name: "",
+    autoComplete: { data: Customizations },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -194,6 +200,7 @@ export default [
     value: "",
     next: "",
     name: "",
+    autoComplete: { data: Customizations },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -203,6 +210,7 @@ export default [
     value: "",
     next: "",
     name: "",
+    autoComplete: { data: Customizations },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -212,6 +220,7 @@ export default [
     value: "",
     next: "",
     name: "",
+    autoComplete: { data: Customizations },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -221,6 +230,7 @@ export default [
     value: "",
     next: "",
     name: "",
+    autoComplete: { data: Customizations },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -230,6 +240,7 @@ export default [
     value: "",
     next: "",
     name: "",
+    autoComplete: { data: Customizations },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -239,6 +250,7 @@ export default [
     value: "",
     next: "",
     name: "",
+    autoComplete: { data: Customizations },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -248,6 +260,7 @@ export default [
     value: "",
     next: "",
     name: "",
+    autoComplete: { data: Customizations },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },

@@ -51,15 +51,15 @@ export default {
       {
         key: "fieldSix",
         colspan: "1",
-          rowspan: "2",
-          canSet: true,
+        rowspan: "2",
+        canSet: true,
         name: "",
         style: { minWidth: "40px", maxWidth: "40px" }
       },
       {
         key: "fieldSeven",
         colspan: "1",
-          rowspan: "2",
+        rowspan: "2",
         name: "",
         canSet: true,
         style: { minWidth: "40px", maxWidth: "40px" }
