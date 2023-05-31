@@ -369,6 +369,7 @@ import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-whfk";
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
 import temperatureLYYZ from "@/Page/patientInfo/supPage/temperature/temperature-lyyz";
+import temperatureWHHK from "@/Page/patientInfo/supPage/temperature/temperature-whhk";
 import temperatureWHSL from "@/Page/patientInfo/supPage/temperature/temperature-whsl";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import temperatureWHYX from "@/Page/patientInfo/supPage/temperature/temperature-whyx";
@@ -619,9 +620,10 @@ const router = new Router({
           case 'fsxt':
             return temperatureFSXT
           case 'lyyz':
-          case 'whhk':
           case 'zzwy':
             return temperatureLYYZ
+          case 'whhk': 
+            return temperatureWHHK
           case 'whyx':
             return temperatureWHYX
           case 'gdtj':
@@ -1149,9 +1151,10 @@ const router = new Router({
               case 'whyx':
                 return temperatureWHYX
               case 'lyyz':
-              case 'whhk':
               case 'zzwy':
                 return temperatureLYYZ
+              case 'whhk': 
+                return temperatureWHHK
               case 'gdtj':
                   return temperatureGDTJ
               case 'zhzxy':
