@@ -218,9 +218,6 @@ export default {
     window.setTextModal = (...item) => {
       return this.$refs.setTextModal.open(...item);
     };
-    window.setTextModalNew = (...item) => {
-      return this.$refs.setTextModalNew.open(...item);
-    };
     window.closeSetTextModalNew = () => {
       this.$refs.setTextModalNew.onClose();
     };
@@ -241,7 +238,7 @@ export default {
     window.openFuyouCaSignModal = (isStart) => {
       return this.$refs.fuyouCaSignModal.open(()=>{},isStart);
     };
-    
+
     window.openHjCaSignModal = (isStart) => {
       return this.$refs.hjCaSignModal.open(()=>{},isStart);
     };
