@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':'']">
+  <div id="sheetPagePrint" style="overflow:auto" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':'']" :style="[sheetInfo.sheetType=='critical2_weihai' && {overflow:'auto'}]">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -297,9 +297,14 @@ export default {
     this.url = `${host}/sheet-page-print.html`;
   },
   mounted() {
+    console.log("this.sheetInfo.sheetType",this.sheetInfo.sheetType)
     if (document.querySelector('th[dataname="审核签名"]')) {
       $(".contant").width(Math.max($(".contant").width()));
     }
+    // if(){
+    //   document.getElementById("sheetPagePrint").style.overflow = "auto"
+    // }
+
     if (this.HOSPITAL_ID == "lingcheng") {
       let pageEle = document.querySelectorAll("div.contant");
       let arr = Array.from(pageEle);

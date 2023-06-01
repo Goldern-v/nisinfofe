@@ -59,24 +59,31 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
-.title
-  width 60px
-  font-weight bold
->>>textarea
+.title{
+   width 60px;
+  font-weight bold;
+}
+>>>textarea{
   height 100px
->>>.el-tab-pane
+}
+
+>>>.el-tab-pane{
   display: flex;
   flex-wrap: wrap;
-  .tab-list-item
+  .tab-list-item{
     display: flex;
     align-items: center;
     width: 100%;
     margin-bottom:10px;
->>>.el-tabs__item.is-active
-    color: #fff;
-    background: rgb(4 165 128);
->>>.el-tabs__item
+  }
+}
+>>>.el-tabs__item.is-active{
+  color: #fff;
+  background: rgb(4 165 128);
+}
+>>>.el-tabs__item {
     color: #666;
+}
 </style>
 
 <script>
@@ -112,7 +119,6 @@ export default {
   methods: {
     /**切换模板类型 */
     handleClick(tab, event) {
-      // console.log(tab.index == '1');
       if (tab.index == "1") {
         this.isAddList = true;
       } else {
@@ -129,7 +135,6 @@ export default {
     },
     open(item) {
       this.$refs.modal.open();
-      console.log(item);
       if (item) {
           this.titleName = item.title;
           this.isEditItem = item;
@@ -146,20 +151,12 @@ export default {
       }
     },
     getRecordCode() {
-      if (
-        this.$route.path.includes("newSingleTemperatureChart") ||
-        this.$route.path.includes("temperature")
-      ) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.$route.path.includes("newSingleTemperatureChart") || this.$route.path.includes("temperature");
     },
     close() {
       this.$refs.modal.close();
     },
     post() {
-      //体温单路由+医院名字（贵州+北海），
       //recorCode/moduleCode传体温单code值，护理记录单传护理记录单coe值，没有就传空，
       if (this.isEditItem) {
         let data = {
@@ -168,15 +165,6 @@ export default {
           list: []
         };
         this.activeName == 'second' && (data.list = this.contentList)
-        // let data = {
-        //   itemCode: this.isEditItem.code,
-        //   itemName: this.isEditItem.name,
-        //   newItemCode: this.itemCode || this.itemName,
-        //   newItemName: this.itemName,
-        //   recordCode: this.getRecordCode()?'bodyTemperature':sheetInfo.sheetType,
-        //   wardCode: this.deptCode,
-        //   deptCode: this.deptCode,
-        // };
         titleTemplateSaveOrUpdate(data).then(res => {
           this.$message.success("更新常用语模版成功");
           this.bus.$emit("refreshTitleTemplate");
@@ -215,11 +203,6 @@ export default {
       );
     }
   },
-  // created() {
-  //   this.bus.$on("openAddTitleTemplateModalFS", item => {
-  //     this.open(item);
-  //   });
-  // },
   components: {}
 };
 </script>

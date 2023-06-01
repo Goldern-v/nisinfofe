@@ -149,7 +149,51 @@
                 />
               </div>
             </div>
-            <div flex="cross:center" class="input-item">
+            <div flex="cross:center" class="input-item" v-if="['whhk'].includes(HOSPITAL_ID)"  >
+              <span class="label">病情等级:</span>
+              <div nowidth flex-box="1" flex="main:left cross:center">
+                <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
+                  class="dj-box printCare"
+                  @click="selectRegistCare('重')"
+                  :class="{ active: formData.registCare.includes('重') }"
+                  :src="
+                    formData.registCare.includes('重')
+                      ? require('./images/重汉口.png')
+                      : require('./images/重.png')
+                  "
+                />
+                <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
+                  class="dj-box printCare"
+                  @click="selectRegistCare('危')"
+                  :class="{ active: formData.registCare.includes('危') }"
+                  :src="
+                    formData.registCare.includes('危')
+                      ? require('./images/危选.png')
+                      : require('./images/危.png')
+                  "
+                />
+                <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
+                  class="dj-box printCare"
+                  @click="selectRegistCare('普')"
+                  :class="{ active: formData.registCare.includes('普') }"
+                  :src="
+                    formData.registCare.includes('普')
+                      ? require('./images/普汉口.png')
+                      : require('./images/普.png')
+                  "
+                />
+              </div>
+            </div>
+            <div flex="cross:center" class="input-item" v-else>
               <span class="label">病情等级:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
@@ -193,7 +237,65 @@
                 />
               </div>
             </div>
-            <div flex="cross:center" class="input-item">
+
+            <div flex="cross:center" class="input-item" v-if="['whhk'].includes(HOSPITAL_ID)"  >
+              <span class="label">护理级别:</span>
+              <div nowidth flex-box="1" flex="main:left cross:center">
+                <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
+                  class="dj-box printCare"
+                  @click="selectRegistCare('特')"
+                  :class="{ active: formData.registCare.includes('特') }"
+                  :src="
+                    formData.registCare.includes('特')
+                      ? require('./images/特选.png')
+                      : require('./images/特.png')
+                  "
+                />
+                <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
+                  class="dj-box printCare"
+                  @click="selectRegistCare('一')"
+                  :class="{ active: formData.registCare.includes('一') }"
+                  :src="
+                    formData.registCare.includes('一')
+                      ? require('./images/一汉口.png')
+                      : require('./images/一.png')
+                  "
+                />
+                <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
+                  class="dj-box printCare"
+                  @click="selectRegistCare('二')"
+                  :class="{ active: formData.registCare.includes('二') }"
+                  :src="
+                    formData.registCare.includes('二')
+                      ? require('./images/二汉口.png')
+                      : require('./images/二.png')
+                  "
+                />
+                <img
+                  style="max-width: 100%;
+                  max-height: 100%;
+                  image-resolution: 300dpi;"
+                  class="dj-box printCare"
+                  @click="selectRegistCare('三')"
+                  :class="{ active: formData.registCare.includes('三') }"
+                  :src="
+                    formData.registCare.includes('三')
+                      ? require('./images/三汉口.png')
+                      : require('./images/三.png')
+                  "
+                />
+              </div>
+            </div>
+            <div flex="cross:center" class="input-item" v-else>
               <span class="label">护理级别:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img

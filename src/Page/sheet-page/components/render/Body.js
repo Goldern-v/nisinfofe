@@ -1741,6 +1741,11 @@ function switchSheetType(type) {
       schema = require("../config/internal_eval_weihai/tr.js").default;
     }
     break;
+    case "critical2_weihai": {
+      // 威海市立 - 重症医学科监护记录单
+      schema = require("../config/critical2_weihai/tr.js").default;
+    }
+    break;
     case "baby_weihai": {
       // 威海市立 - 一般患者护理记录单
       schema = require("../config/baby_weihai/tr.js").default;
