@@ -250,7 +250,7 @@ export default {
     margin: 5px 0px;
     width: 100%;
     &:read-only{
-      cursor: no-drop!important;
+      // cursor: no-drop!important;
       color: black!important;
     }
     &:placeholder{
