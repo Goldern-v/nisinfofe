@@ -48,16 +48,6 @@ export default {
           rowspan: '3'
         },
         {
-          name: '意识',
-          colspan: '1',
-          rowspan: '3'
-        },
-        {
-          name: '瞳孔',
-          colspan: '4',
-          rowspan: '1'
-        },
-        {
           name: '心率<br/>次/分',
           colspan: '1',
           rowspan: '3'
@@ -71,6 +61,16 @@ export default {
           name: '血氧<br/>饱和度<br/>%',
           colspan: '1',
           rowspan: '3'
+        },
+        {
+          name: '意识',
+          colspan: '1',
+          rowspan: '3'
+        },
+        {
+          name: '瞳孔',
+          colspan: '4',
+          rowspan: '1'
         },
         {
           name: '氧疗',
