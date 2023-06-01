@@ -39,14 +39,21 @@
             @dblclick="onDblClick({row, rowIndex, col, colIndex})"
             @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
           >
-            <div class="cell" v-if="col.render" v-html="col.render(row)"/>
+            <span data-print-style="display: none" v-if="col.sign">
+              <span
+                v-if="row[col.prop]"
+                @click="onDelSignModalOpen(col.prop, row)"
+              >{{row[col.propName]}}</span>
+              <div v-else @click="onSignModalOpen(col.prop,row)" style="width:100%;height:100%"></div>
+            </span>
+            <div class="cell" v-else-if="col.render" v-html="col.render(row)"/>
             <label v-else-if="col.editable">
               <el-input
                 autosize
                 class="textarea"
                 type="textarea"
                 v-model="row[col.prop]"
-                :disabled="!editable"
+                :disabled="true"
                 @change="onInputChange($event, row[col.prop], col.prop, rowIndex, colIndex)"
                 @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
               />
@@ -62,6 +69,8 @@
 
 
 <script>
+import * as apis from "../apis";
+
 export default {
   model: {
     prop: "data",
@@ -127,6 +136,37 @@ export default {
     }
   },
   methods: {
+    onDelSignModalOpen(prop, row) {
+      let type = "1"
+      if(prop==='signatureEmpNo2') type = "2"
+      window.openSignModal(async (password, username) => {
+        await apis.delSignParentRecord(
+          row.id,
+          username,
+          password,
+          type,
+          prop
+        );
+
+        this.$parent.load();
+        this.$root.$refs.signModal.close();
+        this.$message.success("已取消签名");
+      },'取消签名');
+    },
+    onSignModalOpen(prop,row) {
+      if (!row.id) {
+        return this.$message.warning("请先添加患者后再签名");
+      }
+      let type = "1"
+      if(prop==='signatureEmpNo2') type="2"
+      window.openSignModal(async (password, username) => {
+        await apis.signParentRecord(row.id, type, username, password);
+
+        this.$parent.load();
+        this.$root.$refs.signModal.close();
+        this.$message.success("签名成功");
+      });
+    },
     getColSpan(col) {
       return (col.columns && col.columns.length) || 1;
     },

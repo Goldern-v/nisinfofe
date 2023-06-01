@@ -26,7 +26,7 @@ import {
   click_cancel
 } from "../keyEvent/date";
 
-let ysList = ["√", "+", "±", "++", "+++", "谵妄"];
+let ysList = ["清醒", "模糊", "嗜睡", "昏睡", "浅昏迷", "深昏迷", "药眠", "痴呆","谵妄"];
 let tyList = [
   "○",
   "I",
@@ -142,6 +142,7 @@ export default [
     value: "",
     next: "",
     name: "入量内容",
+    autoComplete: { data: ["输液", "饮水", "进食", "静注","肌注"] },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -160,6 +161,7 @@ export default [
     value: "",
     next: "",
     name: "出量项目",
+    autoComplete: { data: ["阴道流血", "尿液", "大便", "呕吐物"] },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -187,9 +189,9 @@ export default [
     value: "",
     next: "",
     name: "胎方位",
-    autoComplete: { data: ["LOA", "ROA", "LSA", "RSA"] },
-    textarea: { width: 50 },
-    change: (e, td) => limitChange(e, td, 8)
+    autoComplete: { data: ["不清"] },
+    textarea: { width: 30 },
+    change: (e, td) => limitChange(e, td, 4)
   },
   {
     key: "fetalHeart",
@@ -205,7 +207,7 @@ export default [
     event: keyf1,
     value: "",
     next: "次/分",
-    name: "数胎动",
+    name: "胎动/2h",
     textarea: { width: 25 },
     change: (e, td) => limitChange(e, td, 2)
   },
@@ -219,37 +221,36 @@ export default [
     textarea: { width: 25 },
     change: (e, td) => limitChange(e, td, 2)
   },
-  {
-    key: "mei",
-    event: keyf1,
-    value: "",
-    next: "",
-    name: "无",
-    click: (e, td) => click_cancel(e, td),
-    style: {
-      minWidth: "30px",
-      maxWidth: "30px"
-    }
-  },
+  // {
+  //   key: "mei",
+  //   event: keyf1,
+  //   value: "",
+  //   next: "",
+  //   name: "无",
+  //   click: (e, td) => click_cancel(e, td),
+  //   style: {
+  //     minWidth: "30px",
+  //     maxWidth: "30px"
+  //   }
+  // },
   {
     key: "persistent",
     event: keyf1,
     value: "",
     next: "秒/分",
-    name: "持续",
-    textarea: { width: 40 },
+    name: "持续/间歇",
+    textarea: { width: 60 },
     change: (e, td) => limitChange(e, td, 4)
   },
-  {
-    key: "intermission",
-    event: keyf1,
-    value: "",
-    next: "秒/分",
-    name: "间歇",
-    textarea: { width: 45 },
-    change: (e, td) => limitChange(e, td, 3),
-    autoComplete: { data: ["不规则", "偶有", "敏感"] }
-  },
+  // {
+  //   key: "intermission",
+  //   event: keyf1,
+  //   value: "",
+  //   next: "秒/分",
+  //   name: "间歇",
+  //   textarea: { width: 45 },
+  //   change: (e, td) => limitChange(e, td, 3),
+  // },
   {
     key: "strength",
     event: keyf1,
@@ -266,9 +267,9 @@ export default [
     value: "",
     next: "cm",
     name: "宫颈扩张",
-    autoComplete: { data: ["未开", "容一指"] },
+    autoComplete: { data: ["未查","未开"] },
     textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 3)
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "showHigh",
@@ -286,9 +287,9 @@ export default [
     value: "",
     next: "",
     name: "胎膜",
-    autoComplete: { data: ["已", "未"] },
+    autoComplete: { data: ["疑似破", "未", "人工破膜","自破"] },
     textarea: { width: 25 },
-    change: (e, td) => limitChange(e, td, 2)
+    change: (e, td) => limitChange(e, td, 4)
   },
   {
     key: "amnioticTraits",
@@ -296,7 +297,7 @@ export default [
     value: "",
     next: "",
     name: "羊水性状",
-    autoComplete: { data: ["清", "Ⅰ°", "Ⅱ°", "Ⅲ°", "血性"] },
+    autoComplete: { data: ["清", "Ⅰ°", "Ⅱ°", "Ⅲ°", "血性","未见"] },
     textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 2)
   },
@@ -317,6 +318,7 @@ export default [
     value: "",
     next: "",
     name: "非药物镇痛方法",
+    autoComplete: { data: ["呼吸减痛法", "自由体位", "音乐疗法", "分娩球", "陪伴", "助产指导"] },
     textarea: {
       width: 40
     }
@@ -327,6 +329,7 @@ export default [
     event: keyf1,
     next: "",
     name: "膀胱充盈度",
+    autoComplete: { data: ["空虚", "轻度充盈", "中度充盈", "重度充盈"] },
     textarea: {
       width: 40
     }
@@ -342,6 +345,39 @@ export default [
     },
     change: (e, td) => limitChange(e, td, 6)
   },
+  {
+    key: "armValue2", //标题2
+    value: "",
+    event: keyf1,
+    next: "",
+    name: "",
+    textarea: {
+      width: 40
+    },
+    change: (e, td) => limitChange(e, td, 6)
+  },
+  {
+    key: "armValue3", //标题3
+    value: "",
+    event: keyf1,
+    next: "",
+    name: "",
+    textarea: {
+      width: 40
+    },
+    change: (e, td) => limitChange(e, td, 6)
+  },
+  // {
+  //   key: "armValue4", //标题4
+  //   value: "",
+  //   event: keyf1,
+  //   next: "",
+  //   name: "",
+  //   textarea: {
+  //     width: 40
+  //   },
+  //   change: (e, td) => limitChange(e, td, 6)
+  // },
   {
     key: "description", //特殊情况记录
     value: "",
@@ -365,7 +401,7 @@ export default [
   },
   { key: "sign", value: "" }, //单签
   // { key: "sign2", value: "" },//双签
-  // { key: "audit", value: "" }, //审核签名
+  { key: "audit", value: "" }, //审核签名
   { hidden: true, key: "id", value: "" },
   { hidden: true, key: "signerName", value: "" },
   { hidden: true, key: "signerName2", value: "" },
