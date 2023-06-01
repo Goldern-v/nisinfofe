@@ -39,7 +39,7 @@
             @dblclick="onDblClick({row, rowIndex, col, colIndex})"
             @contextmenu.stop.prevent="onContextMenu($event, rowIndex, col)"
           >
-            <span data-print-style="display: none" v-if="col.sign">
+            <span v-if="col.sign">
               <span
                 v-if="row[col.prop]"
                 @click="onDelSignModalOpen(col.prop, row)"
