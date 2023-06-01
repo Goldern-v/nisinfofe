@@ -32,10 +32,10 @@ export default {
         { "name": "膀<br/>胱<br/>区", "colspan": "1", "rowspan": "3" },
         { "name": "入量", "colspan": "2", "rowspan": "1" },
         { "name": "出量(ML)", "colspan": "2", "rowspan": "1" },
-        { "name": "用药", "colspan": "4", "rowspan": "1" },
+        { "name": "用药", "colspan": "5", "rowspan": "1" },
 
 
-        { "name": "附注", "colspan": "1", "rowspan": "3", "style": { "minWidth": "510px", "maxWidth": "510px" } },
+        { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "510px", "maxWidth": "510px" } },
         { "name": "签名", "colspan": "1", "rowspan": "3", "style": { "minWidth": "75px", "maxWidth": "75px" } },
         // {"name":"带教<br/>护士","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
       ]
@@ -51,7 +51,9 @@ export default {
         { "name": "宫颈<br/>管内<br/>注射", "colspan": "1", "rowspan": "2" },
         { "name": "静<br/>注", "colspan": "1", "rowspan": "2" },
         { "name": "肌<br/>注", "colspan": "1", "rowspan": "2" },
-        { "name": "肛<br/>塞", "colspan": "1", "rowspan": "2" }
+        { "name": "肛<br/>塞", "colspan": "1", "rowspan": "2" },
+        { "name": "阴道<br/>内放<br/>置", "colspan": "1", "rowspan": "2" }
+
       ]
     ,
     bottom:

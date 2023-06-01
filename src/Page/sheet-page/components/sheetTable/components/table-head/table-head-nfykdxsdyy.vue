@@ -201,16 +201,16 @@
           />
         </span>
 
-            <span  v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
+        <span  v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
           胎盘娩出时间：
           <crDatePicker
-            :data-value="sheetInfo.relObj.laborTime"
-            v-model="sheetInfo.relObj.laborTime"
+            :data-value="sheetInfo.relObj.placentaTime"
+            v-model="sheetInfo.relObj.placentaTime"
             :width="140"
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
         </span>
-        <span  v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
+        <!-- <span  v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
           会阴情况：
           <input
           style="width: 100px;font-size:13px;text-align: center;"
@@ -218,8 +218,17 @@
           :data-value="sheetInfo.relObj[`${index}perinealCondition`]"
           v-model="sheetInfo.relObj[`${index}perinealCondition`]"
         />
-        </span>
-
+        </span> -->
+    <template v-if="sheetInfo.sheetType=='postpartum2_sdry'" >
+     <span>
+        会阴情况：</span>
+       <customSelectCanRepeat
+          :options="perineums"
+          @onSelect="(val) => setRelValue(`${index}perineums`, val)"
+        >
+          <input :data-value="sheetInfo.relObj[`${index}perineums`]" v-model="sheetInfo.relObj[`${index}perineums`]" style="width:130px;">
+        </customSelectCanRepeat>
+    </template>
 
         <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
         孕产史：孕
@@ -314,6 +323,7 @@ import crDatePicker from '@/components/cr-date-picker/cr-date-pickerV2.vue';
 import customSelectCanRepeat from '@/components/customSelectCanRepeat/CustomSelectCanRepeat.vue'
 import bedRecordModal from "../../../modal/bedRecord-modal";
 import { saveBody, queryDianosisList }  from  "@/api/sheet.js"
+import { update } from "@/Page/sheet-hospital-admission/components/Render/api/template";
 
 export default {
   props: {
@@ -364,6 +374,26 @@ export default {
         }, {
           value: '臀牵引',
           name: '臀牵引'
+        }],
+        perineums:[{
+          value:'侧剪'
+          ,name:"侧剪"
+        },
+        {
+        value:'直剪',
+        name:'直剪'
+        },{
+          value:'破裂Ⅰ',
+          name:'破裂Ⅰ'
+        },{
+          value:'破裂Ⅱ',
+          name:'破裂Ⅱ'
+        },{
+          value:'破裂Ⅲ',
+          name:'破裂Ⅲ'
+        },{
+          value:'完整',
+          name:'完整'
         }],
       //不需要入院日期的表单
       admissionDateList: [
@@ -508,6 +538,26 @@ export default {
         (this.patientInfo.deliveryTime == undefined ?'/':this.patientInfo.deliveryTime)
       );
     },
+    // 产后产房观察记录单胎盘娩出时间
+    placentaTime(){
+      /** 最接近的index */
+      let realIndex = 0;
+      let keys = Object.keys(sheetInfo.relObj || {});
+      for (let i = 0; i < keys.length; i++) {
+        let [base, keyIndex] = keys[i].split("placentaTime");
+        if (keyIndex !== undefined) {
+          if (this.index >= keyIndex) {
+            if (this.index - keyIndex <= this.index - realIndex) {
+              realIndex = keyIndex;
+            }
+          }
+        }
+      }
+      return (
+        (sheetInfo.relObj || {})[`placentaTime`] ||
+        (this.patientInfo.placentaTime == undefined ?'/':this.patientInfo.placentaTime)
+      );
+    }
   },
   methods: {
     closeBedshow(){
@@ -584,6 +634,17 @@ export default {
         `修改产程开始时间`
       );
     },
+     updatePlacentaTime(){
+      window.openSetAuditDateModal(
+        (text) => {
+          sheetInfo.relObj[`placentaTime`] = text;
+          this.$message.success(`修改胎盘娩出开始时间成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.placentaTime,
+        `修改胎盘娩出开始时间`
+      );
+     },
     updateDeliveryTime() {
       window.openSetAuditDateModal(
         (text) => {
