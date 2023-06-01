@@ -81,7 +81,7 @@
 
       <u-table-column prop="dosage" label="剂量" min-width="60px" align="right">
       </u-table-column>
-<u-table-column label="操作" min-width="200px" v-if="HOSPITAL_ID !== 'whsl'" align="center">
+      <u-table-column label="操作" min-width="200px" align="center">
         <template slot-scope="scope">
           <div v-show="scope.row.executeDateTime">
             <el-button
@@ -94,33 +94,6 @@
               "
               >补执行</el-button
             >
-            <el-button
-            type="text"
-            @click="editTime(scope.row)"
-
-            v-if="
-              isEdit &&
-              HOSPITAL_ID == '925' && scope.row.executeFlag > 0
-            "
-            >修改</el-button
-          >
-            <el-button
-              type="text"
-              @click="editTime(scope.row)"
-              v-if="
-                isTimeSelect &&
-                scope.row.executeFlag === 4
-              "
-              >时间选择</el-button
-            >
-            <el-button type="text" v-if="HOSPITAL_ID !== 'beihairenyi'&&HOSPITAL_ID !== 'nfyksdyy'" @click="handleRemarks(scope.row)"
-              >备注</el-button
-            >
-            <!-- <el-button
-            type="text"
-            @click="cancelOrderExecute(item)"
-            >取消</el-button
-          > -->
           </div>
         </template>
       </u-table-column>
@@ -197,7 +170,7 @@
         prop="baiNurse"
         label="摆药人/摆药时间"
         min-width="170px"
-        v-if="isInfusion &&  this.HOSPITAL_ID !== '925'"
+        v-if="isInfusion"
       >
         <template slot-scope="scope">
           {{ scope.row.baiNurse }} {{ scope.row.baiTime | ymdhm2 }}
@@ -207,7 +180,7 @@
         prop="peiNurse"
         label="配药人/配药时间"
         min-width="170px"
-        v-if="isInfusion &&  this.HOSPITAL_ID !== '925'"
+        v-if="isInfusion"
       >
         <template slot-scope="scope">
           {{ scope.row.peiNurse }} {{ scope.row.peiTime | ymdhm2 }}
@@ -218,23 +191,11 @@
         label="核对人/核对时间"
         min-width="190px"
         align="center"
-        v-if="HOSPITAL_ID !== 'beihairenyi'"
       >
         <template slot-scope="scope">
           {{ scope.row.heNurse }} {{ scope.row.heTime | ymdhm2 }}
         </template>
       </u-table-column>
-
-      <!-- <u-table-column
-        prop="realExecuteDateTime"
-        label="实际执行时间"
-        min-width="160px"
-        align="center"
-      >
-        <template slot-scope="scope">
-          {{ scope.row.realExecuteDateTime | ymdhm2 }}
-        </template>
-      </u-table-column> -->
 
       <u-table-column prop="speed" label="滴速" min-width="70px" align="center">
       </u-table-column>
@@ -246,19 +207,6 @@
         align="center"
       >
       </u-table-column>
-
-      <!-- <u-table-column
-        prop="heNurse"
-        label="核对人/核对时间"
-        min-width="170px"
-        v-if="isInfusion"
-      >
-        <template slot-scope="scope">
-          <span v-show="scope.row.child"
-            >{{ scope.row.heNurse }} {{ scope.row.heTime | ymdhm2 }}</span
-          >
-        </template>
-      </u-table-column> -->
 
       <u-table-column
         prop="endDateTime"
@@ -283,36 +231,18 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="typeReason" label="补执行的原因"   v-if="HOSPITAL_ID !== 'whsl'" min-width="200px">
+      <u-table-column prop="typeReason" label="补执行的原因" min-width="200px">
         <template slot-scope="scope">
           <div v-show="scope.row.rowType == 1 || !scope.row.rowType">
             {{ scope.row.typeReason }}
           </div>
         </template>
       </u-table-column>
-      <u-table-column prop="cancelReason" label="不执行的原因"   v-if="HOSPITAL_ID == 'nfyksdyy'" min-width="200px">
+      <u-table-column prop="cancelReason" label="不执行的原因"  min-width="200px">
         <template slot-scope="scope">
           <div>
             {{ scope.row.cancelReason }}
           </div>
-        </template>
-      </u-table-column>
-      <u-table-column prop="nurseMemo" label="护士备注" v-if="HOSPITAL_ID !== 'nfyksdyy'" min-width="200px">
-        <template slot-scope="scope">
-          <div v-show="scope.row.rowType == 1 || !scope.row.rowType">
-            {{ scope.row.nurseMemo }}
-          </div>
-        </template>
-      </u-table-column>
-       <u-table-column label="操作" min-width="100px" v-if="HOSPITAL_ID == 'whsl'" align="center">
-        <template slot-scope="scope">
-          <el-button type="text" @click="backTracking(scope.row)" v-if="scope.row.executeFlag==0">补录</el-button>
-          <el-button
-            type="text"
-            @click="editTime(scope.row)"
-            v-if="  isTimeSelect &&
-                scope.row.executeFlag === 4||scope.row.executeFlag > 0"
-          >修改</el-button>
         </template>
       </u-table-column>
     </u-table>
@@ -675,51 +605,29 @@ export default {
     },
     // 补录
     backTracking(item) {
-      if(this.HOSPITAL_ID == '925'){
-        this.$refs.editModal.open(item,'补执行');
-      }else{
-      this.$prompt("请输入补执行的原因", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-      })
-        .then(({ value }) => {
-          let data = {
-            barcode: item.barCode, //条码号
-            empNO: this.empNo, //执行人
-            type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
-            typeReason: value, //补执行的原因填写
-          };
-          let fn = updateOrderExecutePc
-          if (this.HOSPITAL_ID == 'beihairenyi') {
-            fn = addRecord
-            data = {
-              ...data,
-              expand3: item.expand3,   // --患者住院流水号
-              patientId: item.patientId,  // --患者id
-              executeType: item.executeType,  // --执行单类型
-              executeDateTime: item.executeDateTime
-            }
-          }
-           if (this.HOSPITAL_ID == 'whsl') {
-            fn = addRecord
-            data = [{
-              ...data,
-              visitId: item.visitId,   // --患者住院流水号
-              patientId: item.patientId,  // --患者id
-              executeType: item.executeType,  // --执行单类型
-              executeDateTime: moment().format("YYYY-MM-DD HH:mm:ss")
-            }]
-          }
-          fn(data).then((res) => {
-            this.$message.success("补录成功");
-            this.bus.$emit("loadImplementationList");
-            if (this.tableBodyWrapper) {
-              this.tableScrollTop = this.tableBodyWrapper.scrollTop;
-            }
-          });
-        })
-        .catch(() => {});
-      }
+      this.$refs.editModal.open(item,'补执行-sdyy');
+      // this.$prompt("请输入补执行的原因", "提示", {
+      //   confirmButtonText: "确定",
+      //   cancelButtonText: "取消",
+      // })
+      // .then(({ value }) => {
+      //   let data = {
+      //     barcode: item.barCode, //条码号
+      //     empNO: this.empNo, //执行人
+      //     type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
+      //     typeReason: value, //补执行的原因填写
+      //   };
+      //   let fn = updateOrderExecutePc
+      //   fn(data).then((res) => {
+      //     this.$message.success("补录成功");
+      //     this.bus.$emit("loadImplementationList");
+      //     if (this.tableBodyWrapper) {
+      //       this.tableScrollTop = this.tableBodyWrapper.scrollTop;
+      //     }
+      //   });
+      // })
+      // .catch(() => {});
+
     },
     addRowClass(row) {
       if (row.row.nurseMemo) {

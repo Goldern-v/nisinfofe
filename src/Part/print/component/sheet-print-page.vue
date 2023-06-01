@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':'']">
+  <div id="sheetPagePrint" style="overflow:auto" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':'']" :style="[sheetInfo.sheetType=='critical2_weihai' && {overflow:'auto'}]">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -297,9 +297,14 @@ export default {
     this.url = `${host}/sheet-page-print.html`;
   },
   mounted() {
+    console.log("this.sheetInfo.sheetType",this.sheetInfo.sheetType)
     if (document.querySelector('th[dataname="审核签名"]')) {
       $(".contant").width(Math.max($(".contant").width()));
     }
+    // if(){
+    //   document.getElementById("sheetPagePrint").style.overflow = "auto"
+    // }
+
     if (this.HOSPITAL_ID == "lingcheng") {
       let pageEle = document.querySelectorAll("div.contant");
       let arr = Array.from(pageEle);
@@ -346,7 +351,7 @@ export default {
     });
     console.log("this.sheetInfo.sheetType ",this.sheetInfo.sheetType )
 
-    if (sheetTableWidth > 1000 && !['ops_linyi','nicu_custody_hd'].includes(this.sheetInfo.sheetType) ) {
+    if (sheetTableWidth > 1000 && !['ops_linyi','nicu_custody_hd','critical2_weihai'].includes(this.sheetInfo.sheetType) ) {
       printDir("h");
       addCSS(
         window,
@@ -378,6 +383,23 @@ export default {
         @media print {
           .iframe > div:nth-of-type(2n) {
             height: ${sheetTableWidth * 0.74}px !important;
+          }
+        }
+        `
+      );
+    } else if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
+      addCSS(
+        window,
+        `
+        @media print {
+          @page{
+            size:A4;
+          }
+          .iframe > div:nth-of-type(n){
+            transform: rotateZ(90deg) scaleX(.9) scaleY(1.4) translateY(600px) !important;
+            margin-top: 20px !important;
+            transform-origin: center center !important;
+            height: 1620px !important;
           }
         }
         `

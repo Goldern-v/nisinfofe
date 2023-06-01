@@ -24,10 +24,10 @@ import {
     click_date
   } from "../keyEvent/date";
   export default [
-    { 
-      key: "recordDate", 
+    {
+      key: "recordDate",
       value: "",
-      hidden:true 
+      hidden:true
     },
     {
       key: "recordMonth", //日期
@@ -40,54 +40,7 @@ import {
       value: "",
       event: event_time
     },
-    {
-      key: "consciousness", //意识
-      value: "",
-      event: keyf1,
-      name: '意识',
-      next: '',
-      autoComplete: { data: ['√','+','++','+++','++++']},
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4)
-    },
-    {
-      key: "pupilSizeLeft", //左瞳孔大小
-      value: "",
-      event: keyf1,
-      name: '左瞳孔大小',
-      next: '',
-      textarea:{ width:25},
-      change: (e, td) => limitChange(e, td, 4)
-    },
-    {
-      key: "pupilSizeRight", //右瞳孔大小
-      value: "",
-      event: keyf1,
-      name: '右瞳孔大小',
-      next: '',
-      textarea:{ width:25},
-      change: (e, td) => limitChange(e, td, 4)
-    },
-    {
-      key: "pupilReflexLEFT", //左瞳孔反射
-      value: "",
-      event: keyf1,
-      name: '左瞳孔反射',
-      next: '',
-      autoComplete: { data: ['√','+','++']},
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4)
-    },
-    {
-      key: "pupilReflexRight", //右瞳孔反射
-      value: "",
-      event: keyf1,
-      name: '右瞳孔反射',
-      next: '',
-      autoComplete: { data: ['√','+','++']},
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4)
-    },
+
     {
       key: "temperature", //体温
       value: "",
@@ -151,6 +104,54 @@ import {
       next: '%',
       textarea:{ width:32},
       change: (e, td) => limitChange(e, td, 4),
+    },
+    {
+      key: "consciousness", //意识
+      value: "",
+      event: keyf1,
+      name: '意识',
+      next: '',
+      autoComplete: { data: ['√','+','++','+++','++++']},
+      textarea:{ width:32},
+      change: (e, td) => limitChange(e, td, 4)
+    },
+    {
+      key: "pupilSizeLeft", //左瞳孔大小
+      value: "",
+      event: keyf1,
+      name: '左瞳孔大小',
+      next: '',
+      textarea:{ width:25},
+      change: (e, td) => limitChange(e, td, 4)
+    },
+    {
+      key: "pupilSizeRight", //右瞳孔大小
+      value: "",
+      event: keyf1,
+      name: '右瞳孔大小',
+      next: '',
+      textarea:{ width:25},
+      change: (e, td) => limitChange(e, td, 4)
+    },
+    {
+      key: "pupilReflexLEFT", //左瞳孔反射
+      value: "",
+      event: keyf1,
+      name: '左瞳孔反射',
+      next: '',
+      autoComplete: { data: ['√','+','++']},
+      textarea:{ width:32},
+      change: (e, td) => limitChange(e, td, 4)
+    },
+    {
+      key: "pupilReflexRight", //右瞳孔反射
+      value: "",
+      event: keyf1,
+      name: '右瞳孔反射',
+      next: '',
+      autoComplete: { data: ['√','+','++']},
+      textarea:{ width:32},
+      change: (e, td) => limitChange(e, td, 4)
     },
     {
       key: "oxygenTherapy", //氧疗方式
@@ -342,4 +343,3 @@ import {
       value: false
     }
   ];
-  

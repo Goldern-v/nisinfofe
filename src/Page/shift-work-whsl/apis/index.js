@@ -61,6 +61,10 @@ export function updateShiftRecord(data) {
   return axios.post(`${apiPath}changeShiftPatientList/saveOrUpdate`, data);
 }
 
+export function savePatient(data) {
+  return axios.post(`${apiPath}changeShiftPatientList/savePatient`, data);
+}
+
 // 删除交班志行
 export function removeShiftRecordRow(rowId) {
   return axios.get(`${apiPath}changeShiftPatientList/delete/${rowId}`);
@@ -102,6 +106,12 @@ export function signShiftRecord(id, autographNameType, empNo, password) {
     `${apiPath}changeShiftTime/updateAutographName/${id}/${autographNameType}/${empNo}/${password}`
   );
 }
+export function signParentRecord(id, autographNameType, empNo, password) {
+  return axios.post(
+    `${apiPath}changeShiftPatientList/signature`,
+    {id,autographNameType,empNo,password}
+  );
+}
 
 // 取消交班签名
 export function delSignShiftRecord(id, empNo, password, type, sourceEmpNo) {
@@ -113,6 +123,14 @@ export function delSignShiftRecord(id, empNo, password, type, sourceEmpNo) {
   return axios.get(
     `${apiPath}changeShiftTime/updateAutographName/${id}/${empNo}/${password}/${type}/${sourceEmpNo}
     `
+  );
+}
+export function delSignParentRecord(id, empNo, password, autographNameType, sourceEmpNo) {
+  return axios.post(
+    `${apiPath}changeShiftPatientList/cancelSignature`,
+    {
+      id, empNo, password, autographNameType, sourceEmpNo
+    }
   );
 }
 
@@ -157,5 +175,10 @@ export function listType(deptCode) {
 export function listPatients(deptCode, date, id) {
   return axios.get(
     `${apiPath}changeShiftPatientList/getShiftPatientALL/${deptCode}/${date}/${id}`
+  );
+}
+export function getShiftPatient(id) {
+  return axios.get(
+    `${apiPath}changeShiftPatientList/getPatient/${id}`
   );
 }

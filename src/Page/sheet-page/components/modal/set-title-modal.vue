@@ -93,7 +93,10 @@ export default {
   computed: {
     ...mapState({
       deptCode: state => state.lesion.deptCode
-    })
+    }),
+    isTemperature(){
+      return this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes("temperature")
+    }
   },
   methods: {
     /**
@@ -103,10 +106,8 @@ export default {
      * optionList: 标题模板选项
      */
     open(callback, title, item, optionList) {
-      // if(optionList && optionList.children && this.HOSPITAL_ID == 'foshanrenyi'){
       if(['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)){
         this.callback = callback;
-        // this.options = optionList.children
         this.fstitle = title;
         this.getTemplateList()
         this.$refs.modalName.open();
@@ -229,7 +230,12 @@ export default {
           wardCode: this.deptCode
         })
         if (res.data.code === '200') {
-          this.templateList = res.data.data
+          if(this.isTemperature){
+            //如果是体温单界面  就只查询体温单的自定义标题
+          this.templateList = res.data.data.filter((x)=>x.recordCode==="bodyTemperature")
+          }else{
+          this.templateList = res.data.data.filter((x)=>x.recordCode!=="bodyTemperature")
+          }
         }
       } catch (e) {
       }

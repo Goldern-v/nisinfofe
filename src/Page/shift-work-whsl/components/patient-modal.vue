@@ -53,6 +53,10 @@
           <div class="label">交给下班需注意的</div>
           <ElInput type="textarea" ref="proposal" v-model="form.proposal" class="textarea" :disabled="isSignedN"/>
         </ElTabPane>
+        <ElTabPane label="R评价" name="5">
+          <div class="label">交给下班需注意的</div>
+          <ElInput type="textarea" ref="assessmentSituation2" v-model="form.assessmentSituation2" class="textarea" :disabled="isSignedN"/>
+        </ElTabPane>
       </ElTabs>
     </div>
     <ElButton slot="button" @click="onClose">取消</ElButton>
@@ -75,7 +79,8 @@
     mainComplaint: '',
     background: '',
     assessmentSituation: '',
-    proposal: ''
+    proposal: '',
+    assessmentSituation2:""
   }
 
   export default {
@@ -90,9 +95,12 @@
       form: {...defaultForm}
     }),
     methods: {
-      open (tab, form, autoFocus, isSignedN) {
+      async open (tab, form, autoFocus, isSignedN) {
         this.tab = tab || '1'
-        this.form = {...defaultForm, ...form}
+        const {data: {data}} = await apis.getShiftPatient(form.id)
+
+        this.form = {...defaultForm, ...data}
+        console.log( this.form,' this.form-open')
         this.bedLabelDisabled = !!form
         this.isSignedN = !!isSignedN
         this.$refs.modal.open()
@@ -121,6 +129,8 @@
           this.form.assessmentSituation = (this.form.assessmentSituation || '') + item.content
         } else if (tab === '4') {
           this.form.proposal = (this.form.proposal || '') + item.content
+        }else if (tab === '5') {
+          this.form.assessmentSituation2 = (this.form.assessmentSituation2 || '') + item.content
         }
       },
       onClose () {
