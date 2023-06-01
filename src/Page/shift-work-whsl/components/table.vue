@@ -145,7 +145,7 @@ export default {
           username,
           password,
           type,
-          prop
+          row[prop]
         );
 
         this.$parent.load();
