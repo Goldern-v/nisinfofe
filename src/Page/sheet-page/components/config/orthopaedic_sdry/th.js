@@ -19,39 +19,23 @@ export default {
     top: [
       {name:"",colspan:"2",rowspan:"1",key:"recordYear"},
 
-      { name: "意识", colspan: "1", rowspan: "2" },
-      { name: "T<br/>℃", colspan: "1", rowspan: "2" },
-      { name: "P<br/>次/分", colspan: "1", rowspan: "2" },
-      { name: "HR<br/>次/分", colspan: "1", rowspan: "2" },
-      { name: "R<br/>次/分", colspan: "1", rowspan: "2" },
-      { name: "BP<br/>mnHg", colspan: "1", rowspan: "2" },
+      { name: "意识", colspan: "1", rowspan: "3" },
+      { name: "T<br/>℃", colspan: "1", rowspan: "3" },
+      { name: "P<br/>次/分", colspan: "1", rowspan: "3" },
+      { name: "HR<br/>次/分", colspan: "1", rowspan: "3" },
+      { name: "R<br/>次/分", colspan: "1", rowspan: "3" },
+      { name: "BP<br/>mnHg", colspan: "1", rowspan: "3" },
       {
         name: "血<br/>氧<br/>饱<br/>和<br/>度<br/>%",
         colspan: "1",
-        rowspan: "2"
+        rowspan: "3"
       },
       { name: "入量", colspan: "2", rowspan: "1" },
       { name: "出量", colspan: "3", rowspan: "1" },
-      // {
-      //   name: "",
-      //   colspan: "1",
-      //   rowspan: "2",
-      //   canSet: true,
-      //   key: "fieldSix",
-      //   style: { minWidth: "40px", maxWidth: "40px" }
-      // },
-      // {
-      //   name: "",
-      //   colspan: "1",
-      //   rowspan: "2",
-      //   canSet: true,
-      //   key: "fieldSeven",
-      //   style: { minWidth: "40px", maxWidth: "40px" }
-      // },
       {
         key: "fieldSix",
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
         canSet: true,
         name: "",
         style: { minWidth: "40px", maxWidth: "40px" }
@@ -59,7 +43,7 @@ export default {
       {
         key: "fieldSeven",
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
         name: "",
         canSet: true,
         style: { minWidth: "40px", maxWidth: "40px" }
@@ -67,7 +51,7 @@ export default {
       {
         name: "",
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
         canSet: true,
         key: "fieldEight",
         style: { minWidth: "40px", maxWidth: "40px" }
@@ -75,7 +59,7 @@ export default {
       {
         name: "",
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
         canSet: true,
         key: "fieldNine",
         style: { minWidth: "40px", maxWidth: "40px" }
@@ -83,7 +67,7 @@ export default {
       {
         name: "",
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
         canSet: true,
         key: "fieldTen",
         style: { minWidth: "40px", maxWidth: "40px" }
@@ -91,7 +75,15 @@ export default {
       {
         name: "",
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldTwelve",
+        style: { minWidth: "40px", maxWidth: "40px" }
+      },
+      {
+        name: "",
+        colspan: "1",
+        rowspan: "3",
         canSet: true,
         key: "fieldThirteen",
         style: { minWidth: "40px", maxWidth: "40px" }
@@ -99,7 +91,7 @@ export default {
       {
         name: "",
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
         canSet: true,
         key: "fieldFourteen",
         style: { minWidth: "40px", maxWidth: "40px" }
@@ -107,38 +99,30 @@ export default {
       {
         name: "",
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldEleven",
+        style: { minWidth: "40px", maxWidth: "40px" }
+      },
+      {
+        name: "",
+        colspan: "1",
+        rowspan: "3",
         canSet: true,
         key: "fieldFifteen",
         style: { minWidth: "40px", maxWidth: "40px" }
       },
-      {
-        name: "",
-        colspan: "1",
-        rowspan: "2",
-        canSet: true,
-        key: "fieldOne",
-        style: { minWidth: "40px", maxWidth: "40px" }
-      },
-      {
-        name: "",
-        colspan: "1",
-        rowspan: "2",
-        canSet: true,
-        key: "fieldTow",
-        style: { minWidth: "40px", maxWidth: "40px" }
-      },
-      {name: "特殊情况记录",colspan: "1",rowspan: "2",style: { minWidth: "240px", maxWidth: "240px" }},
+      {name: "特殊情况记录",colspan: "1",rowspan: "3",style: { minWidth: "240px", maxWidth: "240px" }},
       {
         name: "护士签名",
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
         style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
         name: "查房签名",
         colspan: "1",
-        rowspan: "2",
+        rowspan: "3",
         style: { minWidth: "50px", maxWidth: "50px" }
       }
     ],
@@ -155,11 +139,11 @@ export default {
         rowspan: "2",
         style: { minWidth: "40px", maxWidth: "40px" }
       },
-      { name: "内<br/>容", colspan: "1", rowspan: "1" },
-      { name: "量<br/>ml", colspan: "1", rowspan: "1" },
-      { name: "内<br/>容", colspan: "1", rowspan: "1" },
-      { name: "量<br/>ml", colspan: "1", rowspan: "1" },
-      { name: "颜<br/>色<br/>性<br/>状", colspan: "1", rowspan: "1" }
+      { name: "内<br/>容", colspan: "1", rowspan: "2" },
+      { name: "量<br/>ml", colspan: "1", rowspan: "2" },
+      { name: "内<br/>容", colspan: "1", rowspan: "2" },
+      { name: "量<br/>ml", colspan: "1", rowspan: "2" },
+      { name: "颜<br/>色<br/>性<br/>状", colspan: "1", rowspan: "2" }
     ],
     bottom: []
   }
