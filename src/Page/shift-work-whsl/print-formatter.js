@@ -5,7 +5,7 @@ export default function(win) {
   root.setAttribute("style", "width: 1080px;");
 
   const header = root.querySelector(".head");
-  const footer = root.querySelector(".foot");
+  // const footer = root.querySelector(".foot");
 
   const table = root.querySelector("table");
   const tbody = table.children[2];
@@ -15,7 +15,7 @@ export default function(win) {
   let rest = Array.prototype.slice.call(trs, -2); // 特殊情况（两行）
 
   const emptyRow = document.createElement("tr");
-  emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(7);
+  emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(11);
   emptyRow.style.height = "30px";
 
   // 移除空行
@@ -53,7 +53,7 @@ export default function(win) {
       page = document.createElement("div");
       page.appendChild(header.cloneNode(true));
       page.appendChild(newTable);
-      page.appendChild(footer.cloneNode(true));
+      // page.appendChild(footer.cloneNode(true));
 
       root.appendChild(page);
     }
@@ -90,7 +90,7 @@ export default function(win) {
 
   root.removeChild(root.children[0]);
   root.removeChild(root.children[0]);
-  root.removeChild(root.children[0]);
+  // root.removeChild(root.children[0]);
 
   if (root.children.length > 1) {
     const children = Array.from(root.children);

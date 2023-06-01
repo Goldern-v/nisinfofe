@@ -210,8 +210,8 @@ export default [{
 ];
 export function getListData() {
   let list = [
-    "record:inandout_weihai:in",
-    "record:inandout_weihai:out",
+    "record:inandout_weihai:入量名称",
+    "record:inandout_weihai:出量名称",
   ];
   const deptCode = localStorage.getItem("selectDeptValue");
   const promiseList = [];
