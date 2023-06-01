@@ -2046,7 +2046,7 @@ export default {
       return this.sheetInfo.sheetType === 'generalcare_wj'
     },
     isShowWj(){
-      return this.HOSPITAL_ID === 'wujing' && this.windowWidth > 1000
+      return this.HOSPITAL_ID === 'wujing' && this.windowWidth > 1600
     }
   },
   created() {

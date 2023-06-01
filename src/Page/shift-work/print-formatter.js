@@ -1,5 +1,6 @@
 export default function(win) {
   const root = win.document.body.children[0];
+  const HOSPITAL_ID = process.env.HOSPITAL_ID;
   console.log(root);
 
   root.setAttribute("style", "width: 1080px;");
@@ -53,8 +54,9 @@ export default function(win) {
       page = document.createElement("div");
       page.appendChild(header.cloneNode(true));
       page.appendChild(newTable);
-      page.appendChild(footer.cloneNode(true));
-
+      if(HOSPITAL_ID !=='qhwy'){
+        page.appendChild(footer.cloneNode(true));
+      }
       root.appendChild(page);
     }
 
