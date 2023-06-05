@@ -93,7 +93,7 @@ export const 入院默认值 = {
   I001975:process.env.HOSPITAL_ID=='qhwy' && "正常",
   I2332188:process.env.HOSPITAL_ID=='nfyksdyy' && "住院须知,财物保管,作息时间,订餐,介绍主管医生,病房设施的使用",
   I2332189:process.env.HOSPITAL_ID=='nfyksdyy' && "大小便标本的留取方法,B超,采集血标本",
-
+  S0629: process.env.HOSPITAL_ID== 'qhwy' && "无"
 };
 
 export const defaultFS_adult = {

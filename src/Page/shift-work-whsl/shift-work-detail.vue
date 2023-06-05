@@ -425,7 +425,7 @@ export default {
           label: "签名",
           columns: [
             {
-              label: "",
+              label: " ",
               prop: "signatureEmpNo",
               propName: "signature",
               editable: true,
@@ -449,7 +449,7 @@ export default {
           label: "签名 ",
           columns: [
             {
-              label: "",
+              label: "  ",
               prop: "signatureEmpNo2",
               propName: "signature2",
               editable: true,
@@ -813,7 +813,8 @@ export default {
       const tabMap = {
         background: "2",
         assessmentSituation: "3",
-        proposal: "4"
+        proposal: "4",
+        assessmentSituation2:"5"
       };
       const tab = tabMap[col.prop] || "1";
       this.$refs.patientModal.open(

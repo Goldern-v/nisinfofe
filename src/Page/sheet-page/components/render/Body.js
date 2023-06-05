@@ -645,6 +645,11 @@ function switchSheetType(type) {
       schema = require("../config/safemetachysis_jm/tr.js").default;
     }
       break;
+    case "internalCareRecord": {
+      // 江门妇幼 - 内科护理记录单
+      schema = require("../config/internalCareRecord/tr.js").default;
+    }
+      break;
     case "body_temperature_hj": {
       // 聊城二院 - 体温单
       schema = require("../config/body_temperature_hj/tr.js").default;

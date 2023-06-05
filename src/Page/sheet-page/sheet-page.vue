@@ -59,6 +59,7 @@
           ref="scrollCon"
               id="page"
           @scroll="(e) => onScroll(e)"
+          :style="{ height: `calc(100% - ${sheetTagsHeight}px)` }"
         >
           <div ref="sheetTableContain">
             <component
@@ -191,7 +192,8 @@
 }
 
 .sheetTable-contain {
-  height: calc( 100% - 35px);
+  // height: calc( 100% - 35px);
+  height: 100%;
   background: #DFDFDF;
   overflow: auto;
   z-index: 3;

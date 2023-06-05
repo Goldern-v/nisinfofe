@@ -78,6 +78,34 @@ import {
       change: (e, td) => limitChange(e, td, 6)
     },
     {
+      key: "heart", //心率
+      value: "",
+      event: keyf1,
+      name: '心率',
+      next: '次/分',
+      textarea:{ width:32},
+      change: (e, td) => limitChange(e, td, 4)
+    },
+    {
+      key: "heartRhythm", //心律
+      value: "",
+      event: keyf1,
+      name: '心律',
+      next: '',
+      textarea:{ width:32},
+      change: (e, td) => limitChange(e, td, 4),
+      autoComplete: { data: ['齐','不齐']},
+    },
+    {
+      key: "bloodOxygen", //血氧饱和度
+      value: "",
+      event: keyf1,
+      name: '血氧饱和度',
+      next: '%',
+      textarea:{ width:32},
+      change: (e, td) => limitChange(e, td, 4),
+    },
+    {
       key: "consciousness", //意识
       value: "",
       event: keyf1,
@@ -124,34 +152,6 @@ import {
       autoComplete: { data: ['√','+','++']},
       textarea:{ width:32},
       change: (e, td) => limitChange(e, td, 4)
-    },
-    {
-      key: "heart", //心率
-      value: "",
-      event: keyf1,
-      name: '心率',
-      next: '次/分',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4)
-    },
-    {
-      key: "heartRhythm", //心律
-      value: "",
-      event: keyf1,
-      name: '心律',
-      next: '',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4),
-      autoComplete: { data: ['齐','不齐']},
-    },
-    {
-      key: "bloodOxygen", //血氧饱和度
-      value: "",
-      event: keyf1,
-      name: '血氧饱和度',
-      next: '%',
-      textarea:{ width:32},
-      change: (e, td) => limitChange(e, td, 4),
     },
     {
       key: "oxygenTherapy", //氧疗方式

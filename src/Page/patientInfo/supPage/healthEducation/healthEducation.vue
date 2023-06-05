@@ -34,7 +34,7 @@
       <div v-show="isData === 1" ref="HealthEducation" class="healthEducation health-page">
         <div v-for="(item, index) in printTableData" :key="index + 'print'">
         <!-- 表单头部信息 -->
-          <div class="health-education-head">
+          <div class="health-education-head" >
           <!-- <div class="hospital" v-if='HOSPITAL_ID == "lingcheng"'>德 州 市 陵 城 区 人 民 医 院</div> -->
           <div v-if='HOSPITAL_ID == "nfyksdyy"' class="hospital"> <img class="nfsd-img" src="./image/nfyksdyy.png"  alt="logo" /> </div>
           <div v-else class="hospital">{{HOSPITAL_NAME_SPACE}}</div>

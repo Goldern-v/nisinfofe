@@ -47,6 +47,7 @@
               :isInPatientDetails="true"
               :bedAndDeptChange="bedAndDeptChange"
               :listData="listData"
+              :specialLis="specialList"
               @onModalChange="onModalChange"
               :sheetTagsHeight="sheetTagsHeight"
             ></component>
@@ -244,7 +245,8 @@ import {
   markList,
   splitRecordBlock,
   findListByBlockId,
-  saveAndSignApi
+  saveAndSignApi,
+  list
 } from "@/api/sheet.js";
 import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
 import bus from "vue-happy-bus";
@@ -286,6 +288,7 @@ export default {
       scrollTop: 0,
       scrollY: 0,
       scrollX: 0,
+      specialList: [],
       bedAndDeptChange: {},
       foshanshiyiIFca:false,//佛山CA签名key的状态
       listData: [],
@@ -462,6 +465,7 @@ export default {
         showTitle(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         showBodyByPage(this.patientInfo.patientId, this.patientInfo.visitId,startPageIndex,endPageIndex),
         markList(this.patientInfo.patientId, this.patientInfo.visitId),
+        list('全部',this.patientInfo.wardCode),
       ]
       // 佛山市一 获取自定义标题数据
       if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
@@ -529,6 +533,9 @@ export default {
           };
         }
           sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
+        // 获取到特殊情况列表内容
+        let specialList = res[3].data.data.list;
+        this.specialList = specialList.map(item=> item.content)
         this.$nextTick(async() => {
         await initSheetPage(titleData, bodyData, markData,this.listData);
           this.sheetModelData = getData();
@@ -716,7 +723,26 @@ export default {
       }
       return newArr
     },
-
+    checkChange(cb,todo){
+      let end = this.filterSheetModel.find(model=>{
+        return model.data.bodyModel.find(tr=>{
+          return tr.isChange
+        })
+      })
+      if(!end){
+        todo && todo()
+      }else{
+        this.$confirm("存在未保存数据，您是否要保存", "提示", {
+            confirmButtonText: "保存",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+          .then((res) => {
+            cb && cb()
+            todo && todo()
+          });
+      }
+    },
   },
   created() {
     //第三方浏览界面 是路由传的患者信息 所以一开始先清空界面VUEX的信息，再提交路由的
@@ -1139,6 +1165,9 @@ export default {
     });
     this.bus.$on("ImportExamCallBack", (str) => {
       this.bus.$emit('saveSheetPage','noSaveSign')
+    });
+    this.bus.$on("checkChange", (cb,todo)=>{
+      this.checkChange(cb,todo)
     });
   },
   watch: {

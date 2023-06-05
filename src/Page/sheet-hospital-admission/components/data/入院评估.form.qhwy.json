@@ -59,7 +59,7 @@
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
-      "style": null,
+      "style": "",
       "classes": null,
       "readOnly": null,
       "children": [
@@ -67,8 +67,8 @@
           "name": "I001002",
           "type": "input",
           "title": "职业",
-          "titleStyle": "width:80px!important",
-          "inputStyle": "width:100%!important",
+          "titleStyle": "width:80px!important;",
+          "inputStyle": "width:100%!important; margin-bottom: 5px",
           "inputWidth": "90px",
           "style": null,
           "class": null,
@@ -81,7 +81,7 @@
           "type": "input",
           "title": "民族",
           "titleStyle": "width:80px!important",
-          "inputStyle": "width:100%!important",
+          "inputStyle": "width:100%!important; margin-bottom: 5px",
           "inputWidth": "90px",
           "style": null,
           "class": null,
@@ -94,7 +94,7 @@
           "type": "input",
           "title": "宗教",
           "titleStyle": "width:80px!important",
-          "inputStyle": "width:100%!important",
+          "inputStyle": "width:100%!important; margin-bottom: 5px",
           "inputWidth": "90px",
           "style": null,
           "class": null,
@@ -2098,6 +2098,41 @@
             }
           ]
         },
+        {
+          "name": "S0629",
+          "type": "select",
+          "title": "儿科跌倒风险评估",
+          "style": null,
+          "titleStyle": "width:69px!important",
+          "inputStyle": "width:400px!important",
+          "class": null,
+          "options": [
+            "无",
+            "有,住院患者跌倒/坠床危险因素评估表（儿科）"
+          ],
+          "rule": [
+            {
+              "relationForm": {
+                "openKey": "有,住院患者跌倒/坠床危险因素评估表（儿科）",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "E1867",
+                  "showSignBtn": true,
+                  "title": "青海五院住院患者跌倒坠床危险因素评估表（儿科）",
+                  "formUrl": "青海五院住院患者跌倒坠床危险因素评估表（儿科）.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "S0629",
+                    "prefix": "有,住院患者跌倒/坠床危险因素评估表(儿科):",
+                    "suffix": "分"
+                  }
+                }
+              }
+            }
+          ]
+        },
+
+
         {
 
           "rule": [

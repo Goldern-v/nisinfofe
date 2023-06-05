@@ -24,7 +24,12 @@ import {
   event_time,
   click_date,
   click_time,
-  click_cancel
+  click_cancel,
+  click_letterA,
+  click_letterB,
+  click_letterC,
+  click_letterF,
+  click_letterH
 } from "../keyEvent/date";
 
 let ysList = ["√", "+", "±", "++", "+++", "谵妄"];
@@ -152,6 +157,7 @@ export default [
     value: "",
     next: "",
     name: "子宫收缩",
+    autoComplete: { data: ["硬", "软"] },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -161,6 +167,7 @@ export default [
     value: "",
     next: "",
     name: "宫底U-fb",
+    autoComplete: { data: ["+1", "-1", "=0"] },
     textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 2)
   },
@@ -170,6 +177,7 @@ export default [
     value: "",
     next: "",
     name: "膀胱区",
+    autoComplete: { data: ["空虚", "轻度充盈", "中度轻盈","重度轻盈"] },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -180,6 +188,7 @@ export default [
     next: "",
     name: "入量项目",
     textarea: { width: 50 },
+    autoComplete: { data: ["输液", "静注", "肌注", "进食","鼻饲","饮水"] },
     change: (e, td) => limitChange(e, td, 2)
   },
   {
@@ -198,7 +207,7 @@ export default [
     value: "",
     next: "",
     name: "出量项目",
-    // autoComplete: { data: ["LOA", "ROA", "LSA", "RSA"] },
+    autoComplete: { data: ["尿", "阴道出血"] },
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 8)
   },
@@ -217,8 +226,12 @@ export default [
     value: "",
     next: "",
     name: "宫颈管内注射",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 2)
+    // textarea: { width: 30 },
+    style:{
+      minWidth:"25px",
+      maxWidth:"25px"
+    },
+    click: (e, td) => click_letterA(e, td, 2)
   },
   {
     key: "intravenous",
@@ -227,8 +240,12 @@ export default [
     next: "",
     name: "静注",
     // autoComplete: { data: ["已", "未", "部分"] },
-    textarea: { width: 25 },
-    change: (e, td) => limitChange(e, td, 2)
+    // textarea: { width: 25 },
+    style:{
+      minWidth:"25px",
+      maxWidth:"25px"
+    },
+    click: (e, td) => click_letterC(e, td, 2)
   },
   {
     key: "musclesInject",
@@ -236,7 +253,7 @@ export default [
     value: "",
     next: "",
     name: "肌注",
-    click: (e, td) => click_cancel(e, td),
+    click: (e, td) => click_letterB(e, td),
     style: {
       minWidth: "30px",
       maxWidth: "30px"
@@ -248,20 +265,28 @@ export default [
     value: "",
     next: "",
     name: "肛塞",
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 4)
+    // textarea: { width: 40 },
+    click: (e, td) => click_letterF(e, td),
+    style: {
+      minWidth: "30px",
+      maxWidth: "30px"
+    }
   },
 
-  // {
-  //   key: "strength",
-  //   event: keyf1,
-  //   value: "",
-  //   next: "",
-  //   name: "强度",
-  //   autoComplete: { data: ["弱", "中", "强"] },
-  //   textarea: { width: 30 },
-  //   change: (e, td) => limitChange(e, td, 3)
-  // },
+  {
+    key: "strength",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "阴道内放置",
+    // autoComplete: { data: ["弱", "中", "强"] },
+    // textarea: { width: 30 },
+    style:{
+      minWidth:"25px",
+      maxWidth:"25px"
+    },
+    click: (e, td) => click_letterH(e, td)
+  },
   // {
   //   key: "cervicalDilation",
   //   event: keyf1,
