@@ -746,6 +746,13 @@ export default function Title(
     );
   }
   break;
+  case "internalCareRecord": {
+    // 江门妇幼 - 内科护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/internalCareRecord/th.js").default)
+    );
+  }
+  break;
   case "body_temperature_hj": {
     // 聊城二院 - 体温单
     Th = JSON.parse(
