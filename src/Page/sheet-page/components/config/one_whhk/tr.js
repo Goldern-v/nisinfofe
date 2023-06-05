@@ -14,7 +14,13 @@ import {
 
 const jkjyList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧']
 const hlcsList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩']
-let ysList = [];
+let ysList = []; // 意识
+let ruList = []  // 入量
+let chuList = [] // 出量
+let woweiList = [] // 卧位
+let shouyaList = [] // 受压皮肤
+let fangsheList = [] // 对光反射
+
 export default [
   {
     key: "recordMonth", //日期
@@ -116,6 +122,7 @@ export default [
     textarea: {
       width: 40
     },
+    autoComplete: { data: fangsheList },
   },
   {
     key: "spo2", //SPO₂
@@ -138,6 +145,7 @@ export default [
     textarea: {
       width: 40
     },
+    autoComplete: { data: shouyaList },
   },
   {
     key: "position", //卧位
@@ -149,6 +157,7 @@ export default [
     textarea: {
       width: 40
     },
+    autoComplete: { data: woweiList },
   },
   {
     key: "intravenous", // 静脉置管自定义一
@@ -193,12 +202,13 @@ export default [
     key: "food", //项目
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 10),
     name: "项目",
     next: '',
     textarea: {
-      width: 30
+      width: 60
     },
+    autoComplete: { data: ruList },
   },
   {
     key: "foodSize", //量
@@ -215,12 +225,13 @@ export default [
     key: "discharge", //项目
     value: "",
     event: keyf1,
-    change: (e, td) => limitChange(e, td, 4),
+    change: (e, td) => limitChange(e, td, 10),
     name: "项目",
     next: '',
     textarea: {
-      width: 30
+      width: 60
     },
+    autoComplete: { data: chuList },
   },
   {
     key: "dischargeSize", //量
@@ -438,10 +449,17 @@ export function getListData4() {
   //   }
   //   chuList.push("阴道出血");
   // });
-  let list = ["意识"];
+
+  let list = ["意识", 'record:one_whhk:入量名称', 'record:one_whhk:出量名称', 
+  'record:one_whhk:卧位', 'record:one_whhk:受压皮肤', 'record:one_whhk:对光反射'];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(ysList, "意识", data);
+    setList(ruList, "record:one_whhk:入量名称", data);
+    setList(chuList, "record:one_whhk:出量名称", data);
+    setList(woweiList, "record:one_whhk:卧位", data);
+    setList(shouyaList, "record:one_whhk:受压皮肤", data);
+    setList(fangsheList, "record:one_whhk:对光反射", data);
   });
 }
 
