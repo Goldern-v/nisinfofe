@@ -144,16 +144,18 @@ export default {
       afterEndExecuteTime: moment().format("YYYY-MM-DD HH:mm"),
       bus: bus(this),
       type:'',
-      reason:''
+      reason:'',
+      callback:null
     };
   },
   methods: {
-    open(data,type) {
+    open(data,type, callback) {
       this.type = type;
       this.$refs.newRecord.open();
       this.afterStartExecuteTime = data.realExecuteDateTime;
       this.afterEndExecuteTime = data.endDateTime || data.endInfusionTime;
       this.eidtRowData = data;
+      this.callback = callback
     },
     close() {
       this.$refs.newRecord.close();
@@ -214,6 +216,7 @@ export default {
       updateOrderExecutePc(data).then((res) => {
         this.$message.success("补录成功");
         this.bus.$emit("loadImplementationList");
+        this.callback && this.callback()
         this.close();
       });
     },
