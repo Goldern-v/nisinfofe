@@ -605,7 +605,11 @@ export default {
     },
     // 补录
     backTracking(item) {
-      this.$refs.editModal.open(item,'补执行-sdyy');
+      this.$refs.editModal.open(item,'补执行-sdyy', ()=>{
+        if (this.tableBodyWrapper) {
+            this.tableScrollTop = this.tableBodyWrapper.scrollTop;
+          }
+      });
       // this.$prompt("请输入补执行的原因", "提示", {
       //   confirmButtonText: "确定",
       //   cancelButtonText: "取消",

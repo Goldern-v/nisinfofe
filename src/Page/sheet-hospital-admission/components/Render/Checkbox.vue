@@ -270,36 +270,50 @@ export default {
       }
       if(this.HOSPITAL_ID === 'nfyksdyy' && !this.obj.tasks){
         obj=[
-
-          {
-            id: 'I2332067',
-            value: '异常:',
-            correlationID: "I2332069"
-          },
-          {
-            id: 'I2332067',
-            value: '异常:',
-            inp: true,
-            correlationID: "I2332070"
-          },
-          {
-            id: 'I2332067',
-            value: ['异常:'],
-            hiddenformGroupColBox: true,
-            correlationID: "排尿留置导管"
-          },
-          {
-            id: 'I2332067',
-            value: ['异常:'],
-            hiddenformGroupColBox: true,
-            correlationID: "排尿造瘘"
-          },
           {
             id: 'I2332044',
             value: ['普食','软食','半流质','流质','特殊治疗饮食：','其他:'],
             hiddenImportantVal:"禁食",
             hiddenformGroupColBox: true,
             correlationID: "禁食啊"
+          },
+          // {
+          //   id: 'I2332067',
+          //   value: '经管进食(置管日期',
+          //   inp: true,
+          //   correlationID: "I2332049"
+          // },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            correlationID: "I2332048"
+          },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            inp: true,
+            correlationID: "I2332014"
+          },
+          // {
+          //   id: 'I2332047',
+          //   value: '经管进食',
+          //   correlationID: "I2332214"
+          // },
+          // {
+          //   id: 'I2332047',
+          //   value: '经管进食',
+          //   correlationID: "I2332215"
+          // },
+          // {
+          //   id: 'I2332047',
+          //   value: '经管进食',
+          //   correlationID: "I2332049"
+          // },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            inp: true,
+            correlationID: "I2332049"
           },
           // {
           //   id: 'I2332045',

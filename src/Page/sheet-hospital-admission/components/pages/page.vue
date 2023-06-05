@@ -191,12 +191,12 @@ export default {
       if (this.HOSPITAL_ID === 'liaocheng') {
         dictionary = JSON.parse(JSON.stringify(require("../data/formDictionary/入院评估.dictionary.liaoc.json")))
       } else if (this.HOSPITAL_ID === 'foshanrenyi') {
-        // dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+        // dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.nfyksdyy.json")))
         dictionary = JSON.parse(JSON.stringify(require("../data/formFoshanrenyi/child/formDictionary/入院评估.dictionary.foshanrenyi.json")))
 
       } else if (this.HOSPITAL_ID === 'nfyksdyy') {
-        // dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.foshanrenyi.json")))
-        dictionary = JSON.parse(JSON.stringify(require("../data/formNfyksdyy/child/formDictionary/入院评估.dictionary.foshanrenyi.json")))
+        // dictionary = JSON.parse(JSON.stringify(require("../data/foshanrenyi/formDictionary/入院评估.dictionary.nfyksdyy.json")))
+        dictionary = JSON.parse(JSON.stringify(require("../data/formNfyksdyy/child/formDictionary/入院评估.dictionary.nfyksdyy.json")))
 
       } else if (['lyxrm', 'qhwy','lyyz', 'stmz'].includes(this.HOSPITAL_ID)) {
         dictionary = JSON.parse(JSON.stringify(require(`../data/formDictionary/入院评估.dictionary.${this.HOSPITAL_ID}.json`)))
@@ -226,7 +226,8 @@ export default {
         contexts = require.context('../data/formFoshanrenyi/child/formDialog', true, /\.json$/);
 
       } else if (this.HOSPITAL_ID === 'nfyksdyy') {
-        contexts = require.context('../data/formNfyksdyy/child/formDialog', true, /\.json$/);
+        contexts = require.context('../data/formNfyksdyy/adult/formDialog', true, /\.json$/);
+        console.log("contexts===",contexts)
 
       } else if (this.HOSPITAL_ID === 'lyyz') {
         contexts = require.context('../data/formDialogLyyz', true, /\.json$/);

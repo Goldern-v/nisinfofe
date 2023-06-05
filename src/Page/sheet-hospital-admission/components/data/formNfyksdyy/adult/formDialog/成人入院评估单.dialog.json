@@ -1,5 +1,188 @@
 [
   {
+    "title": "入院方式",
+    "type": "formGroupHorizontalBox",
+    "name": "I2332003",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "入院方式说明",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332003",
+        "type": "input",
+        "title": "入院方式说明",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "资料来源",
+    "type": "formGroupHorizontalBox",
+    "name": "I2332006",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "资料来源",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332006",
+        "type": "input",
+        "title": "资料来源说明",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "既往史",
+    "type": "formGroupHorizontalBox",
+    "name": "I2332020",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "既往史",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332020",
+        "type": "input",
+        "title": "既往史其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "完整性",
+    "type": "formGroupHorizontalBox",
+    "name": "I2332052",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "完整性",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332052",
+        "type": "input",
+        "title": "完整性其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+
+  {
+    "title": "过敏史食物",
+    "type": "formGroupHorizontalBox",
+    "name": "I2332020",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "过敏史食物",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332020",
+        "type": "input",
+        "title": "过敏史食物",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "过敏史其他",
+    "type": "formGroupHorizontalBox",
+    "name": "I2332261",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "过敏史其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332261",
+        "type": "input",
+        "title": "过敏史其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "性质其他",
+    "type": "formGroupHorizontalBox",
+    "name": "I2332267",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "性质其他",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332267",
+        "type": "input",
+        "title": "性质其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
     "title": "吸烟",
     "type": "formGroupHorizontalBox",
     "colWidth": [
