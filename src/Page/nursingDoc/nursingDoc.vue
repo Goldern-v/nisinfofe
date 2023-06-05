@@ -32,12 +32,12 @@ export default {
       var token =
         (window.app && window.app.$getCookie("NURSING_USER").split("##")[1]) ||
         url.token;
-      if (!token) {
-        await this.toLogin2()
-      }else {
-        await this.getPage(url);
-      }
-      // await this.toLogin2()
+      // if (!token) {
+      //   await this.toLogin2()
+      // }else {
+      //   await this.getPage(url);
+      // }
+      await this.toLogin2()
     },
     //UrlDecode解码
     UrlDecode(zipStr){

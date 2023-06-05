@@ -240,6 +240,7 @@ export default [
     next: "秒/分",
     name: "持续/间歇",
     textarea: { width: 60 },
+    autoComplete:{data:["无","偶有","不规则"]},
     change: (e, td) => limitChange(e, td, 4)
   },
   // {
@@ -287,7 +288,7 @@ export default [
     value: "",
     next: "",
     name: "胎膜",
-    autoComplete: { data: ["疑似破", "未", "人工破膜","自破"] },
+    autoComplete: { data: [ "未", "人工破膜","自破","已"] },
     textarea: { width: 25 },
     change: (e, td) => limitChange(e, td, 4)
   },

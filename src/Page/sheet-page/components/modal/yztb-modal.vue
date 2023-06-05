@@ -2,19 +2,7 @@
   <div>
     <sweet-modal ref="modal" :modalWidth="modalWidth" :title="title">
       <div flex="cross:center">
-        <div
-          v-if="
-            [
-              'weixian',
-              'liaocheng',
-              'foshanrenyi',
-              'whfk',
-              'lyxrm',
-              'whhk',
-              '925', 'stmz','qhwy'
-            ].includes(HOSPITAL_ID)
-          "
-        >
+        <div>
           <span class="label">执行单日期：</span>
           <el-date-picker
             v-model="searchDate"
@@ -26,7 +14,6 @@
         </div>
         <!-- 医嘱类型 -->
         <div
-          v-if="showAdvice"
           style="margin-left: 20px"
         >
           <span class="label">医嘱类型：</span>
@@ -45,21 +32,7 @@
           </el-select>
         </div>
         <!-- 类型 -->
-        <div
-          v-if="
-            [
-              'quzhou',
-              'weixian',
-              'liaocheng',
-              'foshanrenyi',
-              'whfk',
-              'lyxrm',
-              'whhk',
-              '925', 'stmz','qhwy'
-            ].includes(HOSPITAL_ID)
-          "
-          style="margin-left: 20px"
-        >
+        <div style="margin-left: 20px">
           <span class="label">类型：</span>
           <el-select
             v-model="executeType"
@@ -106,20 +79,7 @@
                 {{scope.row.startDate}}~{{scope.row.stopDate}}
             </template>
           </el-table-column>
-          <template
-            v-if="
-              [
-                'quzhou',
-                'weixian',
-                'liaocheng',
-                'foshanrenyi',
-                'whfk',
-                'lyxrm',
-                'whhk',
-                '925', 'stmz','qhwy'
-              ].includes(HOSPITAL_ID)
-            "
-          >
+          <template>
             <el-table-column
               prop="orderText"
               label="医嘱内容"
@@ -227,8 +187,6 @@ export default {
       identicalGroupSelect: ["wujing", 'gdtj'],
       yzcb:()=>{},
       patientInfo:{},
-      // 是否显示医嘱类型
-      showAdvice: ['foshanrenyi'].includes(this.HOSPITAL_ID),
       yizhuType:[ 
         {
           id: "",
@@ -301,7 +259,6 @@ export default {
           repeatIndicator:this.yizhuTypeItem,//医嘱类型 传空为全部 "0":临时；"1":长期
         }
          ordersByCondition(getDataObj).then(res=>{
-          console.log('新版接口',res)
           this.tableData = res.data.data;
          })
     },
