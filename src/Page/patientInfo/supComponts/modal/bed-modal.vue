@@ -1327,7 +1327,7 @@ export default {
         print(
           ref,
           (el) => {
-            if (this.isZhzxy) {
+            if (this.isZhzxy || this.isWhhk) {
               el.style.marginTop = "17mm";
               el.style.marginLeft = "0mm";
 
@@ -1348,21 +1348,14 @@ export default {
               el.style.border = "2px solid #000";
               el.style.marginLeft = "50mm";
             } else if (this.isWhhk) {
-              // const img = document.querySelectorAll(".input-item img");
-              // console.log(img, 7777);
-              // img.forEach(item => {
-              //   item.style.width = '50px'
-              //   item.style.height = '50px'
-              // })
-              
-              el.style.boxSizing = "border-box";
-              el.style.margin="0"
-              el.style.transform="translate(0px, 10mm) scale(1, 1.18)"
+              // el.style.boxSizing = "border-box";
+              // el.style.margin="0"
+              // el.style.transform="translate(0px, 10mm) scale(1, 1.18)"
             }else {
               el.style.marginLeft = "194mm";
             }
           },
-          this.isZhzxy ? "v" : ""
+          this.isZhzxy || this.isWhhk ? "v" : ""
         );
 
         for (let i = 0; i < printCare.length; i++) {
