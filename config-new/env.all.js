@@ -309,7 +309,7 @@ module.exports = {
     title: '"智慧护理信息系统"',
     ENABLE_BLUETOOTH_SIGN: false
   },
-  "stmz": {
+  "zjhj": {
     HOSPITAL_ID: '"zjhj"',
     HOSPITAL_NAME: '"湛江海军医院"',
     HOSPITAL_NAME_SPACE: '"湛 江 海 军 医 院"',
