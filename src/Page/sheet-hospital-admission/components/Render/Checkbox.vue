@@ -278,22 +278,16 @@ export default {
             correlationID: "禁食啊"
           },
           // {
-          //   id: 'I2332067',
-          //   value: '经管进食(置管日期',
-          //   inp: true,
-          //   correlationID: "I2332049"
+          //   id: 'I2332047',
+          //   value: '经管进食',
+          //   correlationID: "I2332048"
           // },
-          {
-            id: 'I2332047',
-            value: '经管进食',
-            correlationID: "I2332048"
-          },
-          {
-            id: 'I2332047',
-            value: '经管进食',
-            inp: true,
-            correlationID: "I2332014"
-          },
+          // {
+          //   id: 'I2332047',
+          //   value: '经管进食',
+          //   inp: true,
+          //   correlationID: "I2332014"
+          // },
           // {
           //   id: 'I2332047',
           //   value: '经管进食',
@@ -309,17 +303,13 @@ export default {
           //   value: '经管进食',
           //   correlationID: "I2332049"
           // },
-          {
-            id: 'I2332047',
-            value: '经管进食',
-            inp: true,
-            correlationID: "I2332049"
-          },
           // {
-          //   id: 'I2332045',
-          //   value: '无',
-          //   correlationID: "I2332042"
+          //   id: 'I2332047',
+          //   value: '经管进食',
+          //   inp: true,
+          //   correlationID: "I2332070"
           // },
+
         ]
       }
       if (obj.length > 0) {
