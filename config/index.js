@@ -102,7 +102,6 @@ const currentTargetUrl = (() => {
     case "hengli":
       // return "http://183.63.206.194:9091" // 东莞横沥正式
       return "http://192.168.1.54:9874" // 公司-东莞横沥测试-内网
-      // return "http://192.168.20.138:8080" // 伟彬本地
       // return "http://192.168.20.250:8080" // 初升本地
       // return "http://192.168.20.93:8062"
 

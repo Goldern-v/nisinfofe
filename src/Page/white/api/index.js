@@ -188,3 +188,8 @@ export const deletePatientGroupById = (id) => {
 export const getTodayNurse = (deptCode) => {
   return axios.get(`${apiPath}whiteboardManage/deptSetting/getTodayNurse?deptCode=${deptCode}`)
 }
+
+/* 根据组号查询当日班次值班护士，每天只同步一次！ */
+export const getviewListByDeptCodeZhzxy = (deptCode,data) => {
+  return axios.post(`${apiPath}/whiteboard/patientGroup/viewListByDeptCodeZhzxy/${deptCode}`,data)
+}

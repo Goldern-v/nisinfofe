@@ -2004,6 +2004,8 @@
       ]
     },
 
+
+
     {
       "name":"I2332047",
       "type":"formGroupColBox",
@@ -2103,12 +2105,11 @@
                 }
               ]
             },
-
             {
               "name":"I2332048",
               "type":"checkbox",
               "title":"鼻胃管",
-              "elementStyle":"margin:8px 5px 0 8px;",
+              "elementStyle":"margin:px 5px 0 8px;",
               "elementClass":"el-radio_fs itemRadio",
               "style":null,
               "class":null,
@@ -2146,37 +2147,33 @@
               "readOnly":null
             },
             {
-              "name":"I2332048",
-              "type":"checkbox",
-              "title":"其他",
-              "elementStyle":"margin:8px 5px 0 8px;",
-              "elementClass":"el-radio_fs itemRadio",
-              "style":null,
-              "class":null,
-              "hiddenTips":true,
-              "readOnly":null,
+              "name":"I2332047",
+              "type": "checkbox",
+              "title": "其他",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null,
               "children":[
                 {
                   "name":"I2332049",
                   "type":"input",
-                  "title":"",
-                  "titleStyle":"width:80px!important",
-                  "inputStyle":"width:100%!important;margin:0px 5px 8px 0px",
-                  "inputWidth":"120px",
-                  "suffixDesc":"",
-                  "style":null,
-                  "class":null,
-                  "labelLeft":true,
-                  "hiddenTips":true,
-                  "readOnly":null
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "100%",
+                  "suffixDesc": "",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
                 }
               ]
             }
           ]
         }
       ]
-    }
-  ,
+    },
     {
       "name": "",
       "type": "formGroupTitle",
