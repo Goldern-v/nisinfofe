@@ -14,9 +14,9 @@
               <input v-if="HOSPITAL_ID !== 'fuyou'" flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
               <el-select
                @visible-change="update2"
-               v-else style="margin-right: 20px;flex:1" 
-               v-model="item.bedSets" 
-               multiple 
+               v-else style="margin-right: 20px;flex:1"
+               v-model="item.bedSets"
+               multiple
                allow-create
                filterable
                @remove-tag="$e=>update2(false,$e)"
@@ -30,11 +30,11 @@
               </el-select>
               <el-autocomplete v-if="HOSPITAL_ID !== 'fuyou'" flex-box="1" style="margin-right: 20px" v-model="item.dutyNurse" :fetch-suggestions="querySearch" @select="update"></el-autocomplete>
               <el-select
-               @visible-change="update2" 
-               v-else 
-               style="margin-right: 20px;flex:1" 
-               v-model="item.dutyNurses" 
-               multiple 
+               @visible-change="update2"
+               v-else
+               style="margin-right: 20px;flex:1"
+               v-model="item.dutyNurses"
+               multiple
                allow-create
                filterable
                @remove-tag="$e=>update2(false,$e)"
@@ -51,13 +51,12 @@
         </div>
         <div v-else>
           <div class="list-con"  flex="cross:center" v-for="(item, index) in computedList" :key="index">
-            <!-- <span style="width: 60px; text-align: center" v-if="HOSPITAL_ID == 'hengli'">{{index | filterHengliGroup(index)}}</span> -->
             <span style="width: 60px; text-align: center" v-if="deptCode == '042302' && index==2 && HOSPITAL_ID=='hj'">A：</span>
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==3 && HOSPITAL_ID=='hj'">A2：</span>
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==4 && HOSPITAL_ID=='hj'">A3：</span>
-            <!-- <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || HOSPITAL_ID=='huadu' || HOSPITAL_ID=='liaocheng' ? index+1 : index}}：</span> -->
+
             <span style="width: 60px; text-align: center" v-else-if="HOSPITAL_ID=='whyx'">{{index+1}}：</span>
-            <span style="width: 100px; text-align: center" v-else-if="HOSPITAL_ID=='gdtj'">
+            <span style="width: 100px; text-align: center" v-else-if="HOSPITAL_ID=='gdtj'|| HOSPITAL_ID=='zhzxy'">
               <input  style="width: 60px;margin-right: 20px" v-model="item.groupCode" @blur="update">
             </span>
             <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi'].includes(HOSPITAL_ID)? index+1 : index}}：</span>
@@ -198,10 +197,11 @@ input {
 <script>
 import boxBase from "../base/box-base.vue";
 import { userDictInfo, getAllPatient,leftBedlist } from "@/api/common";
-import { viewListByDeptCode, viewListByDeptCodeLC, updateByDeptCodeAndGroupCode,updateByDeptCodeAndGroupCodeLC, deletePatientGroupById, saveOrUpdateHL } from "../api";
+import { viewListByDeptCode, viewListByDeptCodeLC, updateByDeptCodeAndGroupCode,updateByDeptCodeAndGroupCodeLC, deletePatientGroupById, saveOrUpdateHL,getviewListByDeptCodeZhzxy } from "../api";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 import left3Modal from '../modal/letf3-modal.vue'
+import moment from 'moment'
 export default {
   mixins: [common],
   data() {
@@ -260,7 +260,27 @@ export default {
       this.bus.$on("indexGetAllBed", this.leftBedlist);
     }
   },
+  mounted(){
+    if(this.HOSPITAL_ID == 'zhzxy'){
+      this.getGroupcode()
+    }
+  },
   methods: {
+    getGroupcode(){
+      let groupsList = [];
+      this.computedList.forEach(item =>{
+        groupsList.push(item.groupCode)
+      } )
+      if(groupsList.length){
+        const groupsObj = {
+          startSendTime: moment().format("YYYY-MM-DD"),
+          groupsList
+        }
+        getviewListByDeptCodeZhzxy(this.deptCode,groupsObj).then((res)=>{
+          console.log(res);
+        })
+      }
+    },
     deletePatient() {
       this.getViewListByDeptCode()
     },
@@ -455,7 +475,7 @@ export default {
     },
     update2(val) {
       // if (this.isSave) return;
-      if(val) return 
+      if(val) return
       let data = {};
       data.deptCode = this.deptCode;
       data.patientGroups = this.controlStatus ? this.hengliOptions  : this.computedList
