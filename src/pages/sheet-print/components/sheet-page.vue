@@ -263,7 +263,7 @@ export default {
                 );
               }
 
-              if(['lyxrm','huadu', 'stmz', 'wujing'].includes(this.HOSPITAL_ID)) {
+              if(['lyxrm','huadu', 'stmz', 'wujing', 'zhzxy'].includes(this.HOSPITAL_ID)) {
                 addCSS(
                   window,
                   `
@@ -272,7 +272,7 @@ export default {
                     padding-top: 40px !important;
                     }
                     .iframe > div:nth-of-type(2n) {
-                        transform: rotate(0) !important;
+                        transform: rotate(90) !important;
                     }
                 }
                   `
