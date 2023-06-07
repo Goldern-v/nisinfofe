@@ -2864,7 +2864,9 @@
 .el-popover[x-placement^=right] {
   margin-left: 12px
 }
-
+.el-popover.popover{
+  z-index: 11111 !important;
+}
 .el-popover[x-placement^=right] .popper__arrow {
   top: 50%;
   left: -6px;

@@ -438,7 +438,7 @@ export default {
           label: "R评价",
           columns: [
             {
-              label: "交给下一班观察重点",
+              label: "观察重点评价",
               prop: "assessmentSituation2",
               editable: true,
               width: "200"

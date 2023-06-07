@@ -2795,11 +2795,17 @@ export default {
       let tab = "1";
       if (key == "description") {
         tab = "3";
+      } else if (key==="measures") {
+        tab = "4";
+      } else if (['dischargeSize','discharge','outputColor'].includes(key) && ['critical2_weihai'].includes(sheetInfo.sheetType)) {
+        tab = "5";
+      } else if (['food','foodSize'].includes(key) && ['critical2_weihai'].includes(sheetInfo.sheetType)) {
+        tab = "6";
       } else if (name || key.indexOf("field") == -1) {
         tab = "1";
       } else {
         tab = "2";
-      }
+      } 
       //佛山市一不要双击时间出弹框
       if (this.HOSPITAL_ID == "foshanrenyi" && key == "recordHour") {
         return

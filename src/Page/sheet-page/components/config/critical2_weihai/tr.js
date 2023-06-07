@@ -141,7 +141,10 @@ export default [{
     key: "food", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "入量"
+    name: "入量",
+    textarea: {
+      width: 160
+    },
   },
   {
     key: "foodSize", // SPO2（%）
@@ -153,7 +156,10 @@ export default [{
     key: "discharge", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "排出物"
+    name: "排出物",
+    textarea: {
+      width: 100
+    },
   },
   {
     key: "dischargeSize", // SPO2（%）
@@ -270,11 +276,17 @@ export default [{
     key: "measures", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "护理措施"
+    name: "护理措施",
+    textarea: {
+      width: 90
+    },
   },
   {
     key: "description", //护理记录
     value: "",
+    textarea: {
+      width: 120
+    },
     style: {
       textAlign: "left",
       position: "absolute",
@@ -322,6 +334,16 @@ export default [{
   //   key: "signerName2",
   //   value: ""
   // },
+  {
+    hidden: true,
+    key: "expand2",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "expand",
+    value: ""
+  },
   {
     hidden: true,
     key: "status",
