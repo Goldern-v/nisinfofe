@@ -1140,12 +1140,13 @@ export default {
         case "whfk":
         case "whsl":
           return "NewPrintModalWhfk";
-        case "whhk":
-          return "NewPrintModalWhhk";
+        // case "whhk":
+        //   return "NewPrintModalZhzxy";
         case "wujing":
           return "NewPrintModalWujing";
         case "ytll":
           return "NewPrintModalYtll";
+        case "whhk":
         case "zhzxy":
           return "NewPrintModalZhzxy";
         case "qhwy":

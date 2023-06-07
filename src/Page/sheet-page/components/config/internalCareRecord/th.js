@@ -28,7 +28,7 @@ export default {
           { "name": "呼吸<br />次/分", "colspan": "1", "rowspan": "3"}, 
           { "name": "血压<br />mmhg", "colspan": "1", "rowspan": "3"}, 
           { "name": "血氧饱和度<br />%", "colspan": "1", "rowspan": "3"}, 
-          { "name": "意识<br />%", "colspan": "1", "rowspan": "3"}, 
+          { "name": "意识", "colspan": "1", "rowspan": "3"}, 
           { "name": "血糖<br />mmol/L", "colspan": "1", "rowspan": "3"}, 
           { "name": "入量", "colspan": "2", "rowspan": "1"}, 
           { "name": "出量", "colspan": "2", "rowspan": "1"}, 

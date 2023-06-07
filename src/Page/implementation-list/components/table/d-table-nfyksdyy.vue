@@ -145,17 +145,6 @@
           {{ scope.row.executeDateTime | ymdhms }}
         </template>
       </u-table-column>
-
-      <u-table-column
-        prop="startNurse"
-        label="执行人/实际执行时间"
-        min-width="190px"
-        align="center"
-      >
-        <template slot-scope="scope">
-          {{ scope.row.startNurse }} {{ scope.row.realExecuteDateTime | ymdhm2 }}
-        </template>
-      </u-table-column>
       <u-table-column
         prop="startNurse"
         label=" 收药人/收药时间"
@@ -196,6 +185,19 @@
           {{ scope.row.heNurse }} {{ scope.row.heTime | ymdhm2 }}
         </template>
       </u-table-column>
+
+      <u-table-column
+        prop="startNurse"
+        label="执行人/实际执行时间"
+        min-width="190px"
+        align="center"
+      >
+        <template slot-scope="scope">
+          {{ scope.row.startNurse }} {{ scope.row.realExecuteDateTime | ymdhm2 }}
+        </template>
+      </u-table-column>
+
+
 
       <u-table-column prop="speed" label="滴速" min-width="70px" align="center">
       </u-table-column>

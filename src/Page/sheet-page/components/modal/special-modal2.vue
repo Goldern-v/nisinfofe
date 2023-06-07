@@ -835,7 +835,7 @@
               class="edit_container"
               v-if="
                 sheetInfo.selectBlock.openRichText &&
-                (HOSPITAL_ID === 'lingcheng' ||
+                (['lingcheng','nfyksdyy'].includes(HOSPITAL_ID) ||
                   sheetInfo.sheetType === 'common_wj')
               "
             >
