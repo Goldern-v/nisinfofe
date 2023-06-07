@@ -157,7 +157,55 @@
           />
         </div>
       </div>
+      <!-- 寮步样式 -->
+      <template v-if="['dglb'].includes(HOSPITAL_ID)">
       <div
+        class="bed-card-warpper wrist-strap-print"
+        ref="printCon3"
+        v-show="printMode == 'wrist'"
+      >
+        <div class="bed-card-vert-con">
+          <div>
+            <div class="top">
+              <span >科室：{{ query.deptName }}</span>
+            </div>
+            <div>
+              <div>
+                <span>{{ query.name }}</span>
+                <span>{{ query.sex }}</span>
+                <span>{{ query.age }}</span>
+                <span>{{ query.bedLabel }}床</span>
+              </div>
+              <div>
+                <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+              </div>
+              <div
+                class="allergy"
+              >
+                <p
+                  :class="[allergy1 || drugGms || allergy2 ? 'gm' : '']"
+                >
+                  过敏信息：
+                  <span v-if="allergy1">{{ allergy1 }};</span>
+                  <span v-if="drugGms">{{ drugGms }};</span>
+                  <span v-if="allergy2">{{ allergy2 }}</span>
+                  <span v-if="!(allergy1 || drugGms || allergy2)">无</span>
+                </p>
+              </div>
+            </div>
+          </div>
+             <img
+               style="right: 50px; margin-top: -65px"
+               class="qr-code"
+               :class="{ hasRemark: hasRemark }"
+               :src="qrCode"
+              />
+            <span style="position: absolute;right: 90px;top: 87px;}">{{ query.inpNo }}</span>
+        </div>
+      </div>
+      </template>
+      <template v-else>
+         <div
         class="bed-card-warpper wrist-strap-print"
         :class="{ zhzxyStyle: ['zhzxy'].includes(HOSPITAL_ID) }"
         ref="printCon3"
@@ -191,17 +239,6 @@
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
               </div>
-              <!-- <div v-else-if="['whhk'].includes(HOSPITAL_ID)" >
-                <div>
-                  <span>姓名：{{ query.name }}</span>
-                  <span>性别：{{ query.sex }}</span>
-                  <span>年龄：{{ query.age }}</span>
-                </div>
-                <div>
-                  <span>床号：{{ query.bedLabel }}</span>
-                  <span>住院号：{{ query.inpNo }}</span>
-                </div>
-              </div> -->
               <div v-else-if="['whhk'].includes(HOSPITAL_ID)" >
                 <div >
                   <span style="margin-left: 0px;">姓名：{{ query.name }}</span>
@@ -240,22 +277,6 @@
                   v-model="allergy_gdtj"
                 />
               </div>
-
-              <!-- <div flex="cross:top"
-                class="input-item"
-          v-if="['gdtj'].includes(HOSPITAL_ID)" style="width:350px;height: 60px;">
-                <span class="label">过敏信息：</span>
-          <textarea
-                  type="text"
-                  nowidth
-                  flex-box="1"
-          placeholder="20个字以内"
-                  class="bottom-line remark allergy-textarea is_hide_textarea"
-                  v-model="allergy_gdtj"
-                  :maxlength="20"
-                ></textarea>
-          <p class="bottom-line remark allergy-textarea print-page__ptext" flex-box="1" style="whiteSpace: pre-wrap;">{{allergy_gdtj}}</p>
-              </div> -->
               <div
                 class="allergy"
                 :class="{ whhkAllergy: ['whhk'].includes(HOSPITAL_ID) }"
@@ -303,6 +324,7 @@
           />
         </div>
       </div>
+      </template>
       <div
         class="bed-card-warpper wrist-strap-print fsxt-wrist-children"
         :class="{ zhzxyStyle: ['zhzxy'].includes(HOSPITAL_ID) }"

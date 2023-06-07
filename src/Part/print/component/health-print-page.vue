@@ -8,6 +8,9 @@
   padding: 0 20px;
   margin: 0;
   overflow: hidden;
+  .health-education-head {
+    padding-top: 50px !important;
+  }
   .health-page{
     margin: 0;
     page-break-after: always;
@@ -25,11 +28,11 @@
     margin:0 10mm;
   }
   #healthPrintPage {
-    .healthPrintPage {
+    .health-education-head {
       /* border: 0px!important; */
-      margin: 50px 0 0 0 !important;
+      /* margin: 50px 0 0 0 !important; */
       /* margin-top: 0 !important; */
-      padding: 0 !important;
+      padding-top: 50px !important;
       box-shadow: 0 0 0 0;
       .page-con{
         bottom: 0

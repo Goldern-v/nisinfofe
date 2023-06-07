@@ -149,7 +149,7 @@
                 />
               </div>
             </div>
-            <div flex="cross:center" class="input-item" v-if="['whhk'].includes(HOSPITAL_ID)"  >
+            <div flex="cross:center" class="input-item input-item_whhk" v-if="['whhk'].includes(HOSPITAL_ID)"  >
               <span class="label">病情等级:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
@@ -158,7 +158,7 @@
                   image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('重')"
-                  :class="{ active: formData.registCare.includes('重') }"
+                  :class="{ active: true }"
                   :src="
                     formData.registCare.includes('重')
                       ? require('./images/重汉口.png')
@@ -171,7 +171,7 @@
                   image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('危')"
-                  :class="{ active: formData.registCare.includes('危') }"
+                  :class="{ active: true }"
                   :src="
                     formData.registCare.includes('危')
                       ? require('./images/危选.png')
@@ -184,7 +184,7 @@
                   image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('普')"
-                  :class="{ active: formData.registCare.includes('普') }"
+                  :class="{ active: true }"
                   :src="
                     formData.registCare.includes('普')
                       ? require('./images/普汉口.png')
@@ -238,7 +238,7 @@
               </div>
             </div>
 
-            <div flex="cross:center" class="input-item" v-if="['whhk'].includes(HOSPITAL_ID)"  >
+            <div flex="cross:center" class="input-item input-item_whhk" v-if="['whhk'].includes(HOSPITAL_ID)"  >
               <span class="label">护理级别:</span>
               <div nowidth flex-box="1" flex="main:left cross:center">
                 <img
@@ -247,7 +247,7 @@
                   image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('特')"
-                  :class="{ active: formData.registCare.includes('特') }"
+                  :class="{ active: true }"
                   :src="
                     formData.registCare.includes('特')
                       ? require('./images/特选.png')
@@ -260,7 +260,7 @@
                   image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('一')"
-                  :class="{ active: formData.registCare.includes('一') }"
+                  :class="{ active: true }"
                   :src="
                     formData.registCare.includes('一')
                       ? require('./images/一汉口.png')
@@ -273,7 +273,7 @@
                   image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('二')"
-                  :class="{ active: formData.registCare.includes('二') }"
+                  :class="{ active: true }"
                   :src="
                     formData.registCare.includes('二')
                       ? require('./images/二汉口.png')
@@ -286,7 +286,7 @@
                   image-resolution: 300dpi;"
                   class="dj-box printCare"
                   @click="selectRegistCare('三')"
-                  :class="{ active: formData.registCare.includes('三') }"
+                  :class="{ active: true }"
                   :src="
                     formData.registCare.includes('三')
                       ? require('./images/三汉口.png')
@@ -696,6 +696,13 @@
         margin-right: 2px;
       }
     }
+  }
+}
+.input-item_whhk{
+  height: 50px;
+  img{
+    width: 50px;
+    height: 50px
   }
 }
 
@@ -1320,7 +1327,7 @@ export default {
         print(
           ref,
           (el) => {
-            if (this.isZhzxy) {
+            if (this.isZhzxy || this.isWhhk) {
               el.style.marginTop = "17mm";
               el.style.marginLeft = "0mm";
 
@@ -1341,14 +1348,14 @@ export default {
               el.style.border = "2px solid #000";
               el.style.marginLeft = "50mm";
             } else if (this.isWhhk) {
-              el.style.boxSizing = "border-box";
-              el.style.margin="0"
-              el.style.transform="translate(0px, 10mm) scale(1, 1.18)"
+              // el.style.boxSizing = "border-box";
+              // el.style.margin="0"
+              // el.style.transform="translate(0px, 10mm) scale(1, 1.18)"
             }else {
               el.style.marginLeft = "194mm";
             }
           },
-          this.isZhzxy ? "v" : ""
+          this.isZhzxy || this.isWhhk ? "v" : ""
         );
 
         for (let i = 0; i < printCare.length; i++) {

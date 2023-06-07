@@ -657,7 +657,7 @@
     </div>
    <!-- 顺德人医-产后产房观察记录单 -->
     <div v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
-     备注      A：缩宫素注射液  u   B：益母草针2ml   C：卡贝缩宫素注射液100ug   D：卡前列素氨丁三醇250ug（欣母沛)   E：卡前列素氨丁三醇250 ug(安列克)   F：米索前列醇片0.6mg   G：马来酸麦角新碱0.2mg   H：卡前列甲酯栓  mg
+     备注      A：缩宫素注射液10u   B：益母草针2ml   C：卡贝缩宫素注射液100ug   D：卡前列素氨丁三醇250ug（欣母沛)   E：卡前列素氨丁三醇250 ug(安列克)   F：米索前列醇片0.6mg   G：马来酸麦角新碱0.2mg   H：卡前列甲酯栓1mg
     </div>
     <div v-if="sheetInfo.sheetType == 'babymonitor_linyi'">
       备注：奶种类：①足月配方奶  ②早产儿配方奶  ③母乳  ④无乳糖配方奶    喂入方式：①口入  ②胃管 ③先口入后胃管

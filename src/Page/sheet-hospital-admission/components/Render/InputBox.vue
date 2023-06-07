@@ -327,7 +327,6 @@ export default {
         this.obj.rule &&
         this.obj.rule.constructor === Array
       ) {
-        // console.log("rule:", this.obj.rule);
         // 遍历规则
         this.obj.rule.map(r => {
           let [min, max] = [Number(r.min), Number(r.max)];
@@ -401,8 +400,13 @@ export default {
                         relateRef[key].$el.children[0].classList.remove('is-checked');
                       }
                     }
-                    relateRef[relateItem.value].$el.children[0].classList.add('is-checked');
+                    if( process.env.HOSPITAL_ID == "nfyksdyy" && result <= 0 ){
+                      relateRef[relateItem.value].$el.children[0].classList.remove('is-checked')
+                    }else{
+                      relateRef[relateItem.value].$el.children[0].classList.add('is-checked');
+                    }
                     this.formObj.model[r.relate] = relateItem.value || "";
+
                   }
                 }
               }
@@ -486,7 +490,6 @@ export default {
           } else if (r.split && valueNew && valueNew.indexOf(r.split) > -1) {
             if (r.maxs) {
               let arr = valueNew.split(r.split) || [];
-              // console.log(arr, "arr", r.split, "split", valueNew, "valueNew");
               if (r.maxs.length === arr.length) {
                 for (let i = 0; i < arr.length; i++) {
                   if (arr[i] && arr[i] > r.maxs[i]) {
@@ -529,8 +532,6 @@ export default {
       return textResult;
     },
     inputBlur(e) {
-      // console.log("inputBlur", e);
-      // console.log(this.formObj.model);
        setTimeout(() => {
         if (
           this.formObj.model.I618004 == "否" &&

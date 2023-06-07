@@ -669,7 +669,9 @@
           sheetInfo.sheetType == 'postpartum_sdry'||
           sheetInfo.sheetType == 'baby_sdry' ||
           sheetInfo.sheetType == 'baby2_sdry' ||
-          sheetInfo.sheetType == 'postpartum2_sdry'
+          sheetInfo.sheetType == 'postpartum2_sdry' ||
+          sheetInfo.sheetType == 'prenatal_sdry'
+
         "
           >质控护士签名：</span
         >
@@ -858,6 +860,7 @@ export default {
         'postpartum_sdry',
         'baby_sdry',
         "postpartum2_sdry",
+        "prenatal_sdry",
         "baby2_sdry",
         "internal_eval_lcey", //一般或者护理记录单
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）

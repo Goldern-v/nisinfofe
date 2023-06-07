@@ -49,6 +49,12 @@
 
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
+        <el-table-column
+          prop="creatorName"
+          label="操作人"
+          width="100"
+          align="center"
+        ></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="operatorName" label="停止人" width="90" align="center"></el-table-column>
         <el-table-column
@@ -56,6 +62,12 @@
           label="护理评价"
           min-width="80px"
           header-align="center"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="operatorName"
+          label="操作人"
+          width="100"
           align="center"
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" min-width="100px" header-align="center"></el-table-column>
@@ -150,6 +162,12 @@
         </el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
+        <el-table-column
+          prop="creatorName"
+          label="操作人"
+          width="100"
+          align="center"
+        ></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="operatorName" label="停止人" width="90" align="center"></el-table-column>
         <el-table-column
@@ -157,6 +175,12 @@
           label="护理评价"
           min-width="40px"
           header-align="center"
+          align="center"
+        ></el-table-column>
+        <el-table-column
+          prop="operatorName"
+          label="操作人"
+          width="100"
           align="center"
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" min-width="100px" header-align="center"></el-table-column>
