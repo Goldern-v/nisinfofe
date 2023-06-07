@@ -377,14 +377,14 @@
       <div
         class="item-box"
         @click.stop="openTemplateSlider"
-        v-if="!isSingleTem && !isDeputy && isShow() && isShowWj"
+        v-if='!isSingleTem && !isDeputy && isShow() && HOSPITAL_ID === "nfyksdyy"'
       >
         <div class="text-con">特殊情况模板</div>
       </div>
       <div
         class="item-box"
         @click.stop="openTitleTemplateSlide"
-        v-if="!isSingleTem && !isDeputy && isShow() && isShowWj"
+        v-if='!isSingleTem && !isDeputy && isShow() && HOSPITAL_ID === "nfyksdyy"'
       >
         <div class="text-con">自定义标题模板</div>
       </div>
