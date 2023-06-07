@@ -272,7 +272,7 @@ export default {
                     padding-top: 40px !important;
                     }
                     .iframe > div:nth-of-type(2n) {
-                        transform: rotate(90) !important;
+                        transform: rotate(0) !important;
                     }
                 }
                   `
