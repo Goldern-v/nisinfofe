@@ -446,7 +446,7 @@ export default {
         Document_Title:"",
         Document_ID:model.selectedRow.diagCode,
         Section_ID:model.selectedRow.diagCode,
-        strSignData: strSignData,
+        strSignData: strSignData || model.selectedRow.diagCode,
       };
 
        let verifySignObj = {
@@ -456,7 +456,7 @@ export default {
         formCode:model.selectedRow.diagCode,
         instanceId:row.id,
         recordId:"",
-        signData:strSignData,
+        signData:strSignData || model.selectedRow.diagCode,
       }
       window.openSignModal((password, empNo) => {
         nursingDiagsDel(password, empNo, model.selectedRow.id).then(res => {
