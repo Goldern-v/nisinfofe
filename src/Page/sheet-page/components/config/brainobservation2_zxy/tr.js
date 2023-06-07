@@ -245,7 +245,7 @@ export default [
     change: (e, td) => limitChange(e, td, 4)
   },
   {
-    key: "description",
+    key: "recumbentPosition",
     event: keyf1,
     value: "",
     next: "",
