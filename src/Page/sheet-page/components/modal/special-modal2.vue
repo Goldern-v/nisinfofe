@@ -3,7 +3,7 @@
     <sweet-modal
       ref="modal"
       @close="beforeClose"
-      :modalWidth="720"
+      :modalWidth="modalOutWidth"
       :title="title"
       :enable-mobile-fullscreen="false"
       :blocking="HOSPITAL_ID == 'liaocheng' ? true : false"
@@ -855,6 +855,173 @@
               v-model="doc"
             ></el-input>
           </el-tab-pane>
+          <el-tab-pane label="护理措施" name="4" v-if="['critical2_weihai'].includes(sheetInfo.sheetType)">
+            <el-checkbox-group v-model="measuresHaicheck">
+              <div class="measuresBox">
+                <div class="measuresLi" style="width:33.333%" :key="index + 'measure'" v-for="(measures,index) in measuresList">
+                  <el-checkbox :label="measures.name"></el-checkbox>
+                </div>
+              </div>
+            </el-checkbox-group>
+          </el-tab-pane>
+          <el-tab-pane label="出量" name="5" v-if="['critical2_weihai'].includes(sheetInfo.sheetType)">
+            <div class="title" flex="cross:center main:justify">固定项目：</div>
+            <div class="outPro firstoutPro">
+              <table v-for="(num,i) in 5" :key="i+'table'">
+                <colgroup>
+                  <col width="30%"/>
+                  <col width="30%"/>
+                  <col width="40%"/>
+                </colgroup>
+                <tr>
+                  <td>项目</td>
+                  <td>量（ml）</td>
+                  <td>颜色</td>
+                </tr>
+                <tr :key="index + 'out'" v-for="(out,index) in computedNum(i)">
+                  <td>
+                    <div>{{ out.discharge }}</div>
+                  </td>
+                  <td>
+                    <div>
+                      <el-input v-model="out.dischargeSize"></el-input>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <el-select v-model="out.outputColor" placeholder="请选择">
+                        <el-option
+                          v-for="item in colors"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="title" flex="cross:center main:justify">自定义项目：</div>
+            <div class="outPro textareaDiv">
+              <table v-for="(num,i) in 3" :key="i+'table'">
+                <colgroup>
+                  <col width="30%"/>
+                  <col width="30%"/>
+                  <col width="40%"/>
+                </colgroup>
+                <tr>
+                  <td>项目</td>
+                  <td>量（ml）</td>
+                  <td>颜色</td>
+                </tr>
+                <tr :key="index + 'out'" v-for="(out,index) in computedNum(i,'secondTable')">
+                  <td>
+                    <div>
+                      <textarea v-model="out.discharge" :rows="reactiveRows(out,'discharge',4,1,3)"></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <el-input v-model="out.dischargeSize"></el-input>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <el-select v-model="out.outputColor" placeholder="请选择">
+                        <el-option
+                          v-for="item in colors"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane label="入量" name="6" v-if="['critical2_weihai'].includes(sheetInfo.sheetType)">
+            <div class="title" flex="cross:center main:justify">PDA同步数据：</div>
+            <div class="outPro foodOne">
+              <table v-for="(num,i) in 2" :key="i+'table'">
+                <colgroup>
+                  <col width="50%"/>
+                  <col width="25%"/>
+                  <col width="25%"/>
+                </colgroup>
+                <tr>
+                  <td>项目</td>
+                  <td>量（ml）</td>
+                  <td>用法</td>
+                </tr>
+                <tr :key="index + 'out'" v-for="(out,index) in computedFood(i)">
+                  <td>
+                    <div>
+                      <textarea v-model="out.food" :rows="reactiveRows(out,'food',22,1,3)"></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <el-input v-model="out.foodSize"></el-input>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <el-select v-model="out.expand2" placeholder="请选择">
+                        <el-option
+                          v-for="item in toUseList"
+                          :key="item.usage"
+                          :label="item.usage"
+                          :value="item.usage">
+                        </el-option>
+                      </el-select>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="title" flex="cross:center main:justify">自定义项目：</div>
+            <div class="outPro foodSecond">
+              <table v-for="(num,i) in 2" :key="i+'table'">
+                <colgroup>
+                  <col width="50%"/>
+                  <col width="25%"/>
+                  <col width="25%"/>
+                </colgroup>
+                <tr>
+                  <td>项目</td>
+                  <td>量（ml）</td>
+                  <td>用法</td>
+                </tr>
+                <tr :key="index + 'out'" v-for="(out,index) in computedFood(i,'secondTable')">
+                  <td>
+                    <div>
+                      <textarea v-model="out.food" :rows="reactiveRows(out,'food',22,1,3)"></textarea>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <el-input v-model="out.foodSize"></el-input>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <el-select v-model="out.expand2" placeholder="请选择">
+                        <el-option
+                          v-for="item in toUseList"
+                          :key="item.usage"
+                          :label="item.usage"
+                          :value="item.usage">
+                        </el-option>
+                      </el-select>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </el-tab-pane>
         </el-tabs>
         <div class="symbols-btn" v-if="['foshanrenyi','nfyksdyy'].includes(HOSPITAL_ID) && activeTab == '3'">
           <el-button class="modal-btn" type="primary" @click="openSpecialSymbols">特殊符号</el-button>
@@ -1084,6 +1251,101 @@
   }
 }
 
+.measuresBox{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  .measuresLi{
+    width: 33.333%;
+    line-height: 50px;
+  }
+}
+
+.outPro{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  &.firstoutPro{
+      table{
+        width:18%;
+        &:first-of-type{
+        height:260px;
+      }
+      &:nth-of-type(2){
+        height:300px;
+      }
+      &:nth-of-type(3){
+        height:300px;
+      }
+      &:nth-of-type(4){
+        height:350px;
+      }
+      &:nth-of-type(5){
+        height:350px;
+      }
+    }
+  }
+  &.foodOne,&.foodSecond{
+    table{
+      width:48%;
+    }
+  }
+  &.textareaDiv{
+    justify-content: flex-start;
+    table{
+      width:18%;
+      &:nth-of-type(n+2){
+        margin-left: 35px;
+      } 
+      tr{
+        td{
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  table{
+    border-collapse: collapse;
+    
+    tr{
+      &:first-of-type{
+        td{
+          background:#bdc9c8;
+          text-align:center;
+          vertical-align: middle;
+          height: 22px;
+        }
+      }
+      td{
+        border: 1px solid #000;
+        color:#000;
+        vertical-align: middle;
+        >div{
+          text-align:left;
+          height:100%;
+          line-height: 22px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding-left: 5px;
+        }
+        /deep/ .el-input__inner{
+          height: 20px;
+          text-align: left;
+          border:0 !important;
+        }
+        textarea{
+          width: 100%;
+          flex: 1;
+          resize: none;
+          outline: none;
+          border:0;
+        }
+      }
+    }
+  }
+}
 .extra-box {
   position: relative;
 
@@ -1123,6 +1385,7 @@ import zkModalZhzxy from "./zkModal-zhzxy.vue";
 import sheetInfo from "../config/sheetInfo";
 import { decoder_title, decoder_record2 } from "./render/decode.js";
 import { mergeTr } from "./render/render.js";
+import { measuresList,outProject,colors,defaultFood} from "./render/measures.js";
 import { dateKey, timeKey } from "../config/keyEvent/date.js";
 import { FormToEnter } from "@/plugin/tool/FormToTab.js";
 import $ from "jquery";
@@ -1130,7 +1393,7 @@ import { quillEditor } from "vue-quill-editor"; //调用编辑器
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
-import { saveBatch, getmultiDict } from "../../api/index";
+import { saveBatch, getmultiDict,inputItemAll } from "../../api/index";
 import DiagnosisModal from "./diagnosis-modal.vue";
 import AdviceModal from "./advice-modal.vue";
 import { mapMutations, mapState } from 'vuex';
@@ -1236,7 +1499,11 @@ export default {
     return {
       bus: bus(this),
       foodVal: "",
+      measuresList,
+      outProject,
+      colors,
       doc: "",
+      measuresHaicheck:[],
       blurIndex: null,
       recordDate: "",
       record: [],
@@ -1292,6 +1559,8 @@ export default {
       beihaiList: ["体温", "脉搏", "呼吸", "血压", "心率"],
       isSaving: false, //给弹窗保存做节流
       isRecordBan: false, // 佛医记录是否禁用编辑
+      outFoodlist:[],
+      toUseList:[]
     };
   },
   computed: {
@@ -1299,6 +1568,10 @@ export default {
       openModalFromSpecial: state => state.sheet.openModalFromSpecial,
       evalData: state => state.sheet.evalData
     }),
+    modalOutWidth(){
+      if(this.activeTab==="5" || this.activeTab==="6") return 1420
+      return 720
+    },
     title() {
       const recordDate =
         this.HOSPITAL_ID === "huadu" ? "&nbsp" : this.recordDate;
@@ -1409,6 +1682,48 @@ export default {
     openPISlide(type) {
       // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
       this.bus.$emit("openclosePatientInfo", type, false, true);
+    },
+    reactiveRows(row,key, maxLength, minRows, maxRows) {
+      console.log(row[key],'row[key]')
+      if (row[key]) {
+        let number = row[key].replace(/[^0-9]/ig,""); 
+        let word = row[key].replace(/[^a-z]+/ig,"");
+        let char = row[key].split('').filter(i => i == ',').join('')
+        let curLength = (row[key].length - number.length - word.length - char.length) + ((number.length + word.length + char.length) / 2)
+        if(Math.ceil(curLength / maxLength) > minRows) {
+          if(maxRows) {
+            return (Math.ceil(curLength / maxLength) >= maxRows ? maxRows : Math.ceil(curLength / maxLength))
+          } else {
+            return Math.ceil(curLength / maxLength)
+          }
+        } else {
+          return minRows
+        }
+      } else {
+        return minRows
+      }
+    },
+    computedNum(i,table){
+      if(table=='secondTable'){
+        if(i==0) return this.outProject.slice(39,40)
+        else if(i==1) return this.outProject.slice(40,41)
+        else if(i==2) return this.outProject.slice(41,42)
+      }else{
+        if(i==0) return this.outProject.slice(0,7)
+        else if(i==1) return this.outProject.slice(7,15)
+        else if(i==2) return this.outProject.slice(15,23)
+        else if(i==3) return this.outProject.slice(23,30)
+        else return this.outProject.slice(30,39)
+      }
+    },
+    computedFood(i,table){
+      if(table=='secondTable'){
+        if(i==0) return this.outFoodlist.slice(10,15)
+        else if(i==1) return this.outFoodlist.slice(15,20)
+      }else{
+        if(i==0) return this.outFoodlist.slice(0,5)
+        else if(i==1) return this.outFoodlist.slice(5,10)
+      }
     },
     /* 是否同步体征信息 */
     syncTempChange() {
@@ -1731,6 +2046,71 @@ export default {
           this.fixedList.fieldOne.value = bloodPressure.value
         }
         delete this.fixedList.bloodPressure
+      }
+      if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
+        inputItemAll().then(res=>{
+          this.toUseList = res.data.data
+        })
+        let meavalue = config.record[0].find(item=>item.key==="measures").value
+        measuresList.map(item=>{
+          if(meavalue.split(",").includes(item.value)){
+            this.measuresHaicheck.push(item.name)
+          } 
+        })
+        this.outProject.forEach(item=>{
+          item.dischargeSize="";
+          item.outputColor=""
+          item.defaultInput && (item.discharge = "")
+        })
+        let confighasOuppTR = config.record.filter(item=>{
+          return item.find(li=> (['discharge'].includes(li.key) && li.value)
+          )
+        })
+        let confighasOupFood = config.record.filter(item=>{
+          return item.find(li=> (['food'].includes(li.key) && li.value)
+          )
+        })
+        let confighasOutFoodARR = confighasOupFood.map(tr=>{
+          let food = tr.find(td=>td.key==='food').value
+          let foodSize = tr.find(td=>td.key==='foodSize').value
+          let expand2 = tr.find(td=>td.key==='expand2').value
+          let expand = tr.find(td=>td.key==='expand').value
+          return {
+            food,
+            foodSize,
+            expand2,
+            expand
+          }
+        })
+        let confighasOutppARR = confighasOuppTR.map(tr=>{
+          let discharge = tr.find(td=>td.key==='discharge').value
+          let dischargeSize = tr.find(td=>td.key==='dischargeSize').value
+          let outputColor = tr.find(td=>td.key==='outputColor').value
+          return {
+            discharge,
+            dischargeSize,
+            outputColor
+          }
+        })
+        confighasOutppARR.map(item=>{
+          let index =  this.outProject.findIndex(out=>out.discharge === item.discharge)
+          index >=0 && this.outProject.splice(index,1,item)
+          if(index < 0){
+            let inputIndex = this.outProject.findIndex(item=>(!item.discharge))
+            inputIndex>0 && (this.outProject[inputIndex] = {...this.outProject[inputIndex],...item})
+          }
+        })
+        let PDAarr = [],inputArr = []
+        confighasOutFoodARR.map(item=>{
+          if(item.expand) PDAarr.push(item)
+          else inputArr.push(item)
+        })
+        for(let i=0;i<10;i++){
+          if(!PDAarr[i]) PDAarr.push({...defaultFood,expand:true})
+          if(!inputArr[i]) inputArr.push(defaultFood)
+        }
+        this.outFoodlist = [...PDAarr,...inputArr]
+        // return console.log(confighasOuppTR,confighasOutppARR,this.outProject,'confighasOuppTR')
       }
       let tab = config.tab;
       // 特殊记录组合
@@ -2104,6 +2484,14 @@ export default {
     },
     // 保存（普通文本）
     post(type) {
+      if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
+        if(this.outProject.find(item=>item.defaultInput && item.discharge && !item.dischargeSize.trim())) return this.$message.warning("出量自定义项目有已填项目但未填值")
+        else if(this.outProject.find(item=>item.defaultInput && !item.discharge && item.dischargeSize.trim())) return this.$message.warning("出量自定义项目有已填但未填项目名")
+        else if(this.outProject.find(item=>item.outputColor && !item.dischargeSize.trim())) return this.$message.warning("出量有已选颜色项但仍未填值")
+        else if(this.outFoodlist.find(item=>item.food && !item.foodSize.trim())) return this.$message.warning("入量有未填值")
+        else if(this.outFoodlist.find(item=>!item.food && item.foodSize.trim())) return this.$message.warning("入量有已填值但未有项目名")
+      }
+      
       if (this.isSaving) {
         return;
       }
@@ -2465,7 +2853,6 @@ export default {
       if (text) {
         result.push(text);
       }
-
       if (this.HOSPITAL_ID === "whfk" && replenishTime) {
         // 有补记时间最后自己一行推进去
         text = "";
@@ -2553,7 +2940,75 @@ export default {
           }
         }
       }
-      for (let i = 0; i < result.length; i++) {
+      if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
+        let valResult = [],length = "",measuresStr = "",foodResult =[]
+        measuresList.map((prev)=>{
+          if(prev && this.measuresHaicheck.includes(prev.name)){
+            measuresStr += ","+ prev.value
+          }
+        })
+        valResult = this.outProject.filter(item=>item.dischargeSize)
+        foodResult = this.outFoodlist.filter(item=>(item.food && item.foodSize))
+        length = Math.max(valResult.length,result.length,foodResult.length)
+        for (let i = 0; i < length; i++) {
+          if (i == 0) {
+            this.fixedList.measures.value = measuresStr.slice(1)
+            mergeTr(this.record[0], this.staticObj, this.fixedList);
+            console.log(this.record,this.staticObj,this.fixedList,'this.record[0]')
+          }
+          if (this.record[i]) {
+            this.record[i].find(
+              (item) => item.key == "description" || item.key == "specialRecord"
+            ).value = result[i];
+            this.record[i].map(item=>{
+              if(outProject[0].hasOwnProperty(item.key)) item.value=valResult[i]?valResult[i][item.key]:""
+            })
+            this.record[i].map(item=>{
+              if(defaultFood.hasOwnProperty(item.key)) item.value=foodResult[i]?foodResult[i][item.key]:""
+            })
+            // return console.log(foodResult,this.record[i])
+            process.env.splitSave && (this.record[i].isChange = true);
+          } else {
+          let currRow = JSON.parse(JSON.stringify(this.record[0]));
+          let nullRowArr = nullRow();
+
+          nullRowArr.find((item) => item.key == "recordSource").value =
+            currRow.find((item) => item.key == "recordSource").value;
+          nullRowArr.find((item) => item.key == "recordDate").value =
+            currRow.find((item) => item.key == "recordDate").value;
+
+          sheetModel[this.lastZ].bodyModel.splice(
+            this.lastY + 1,
+            0,
+            nullRowArr
+          );
+          this.lastY++;
+          sheetModel[this.lastZ].bodyModel[this.lastY].find(
+            (item) => item.key == "description" || item.key == "specialRecord"
+          ).value = result[i];
+          if(valResult[i]){
+            sheetModel[this.lastZ].bodyModel[this.lastY].map(item=>{
+              if(valResult[i].hasOwnProperty(item.key)) item.value=valResult[i][item.key]
+            })
+          }
+          if(foodResult[i]){
+            sheetModel[this.lastZ].bodyModel[this.lastY].map(item=>{
+              if(foodResult[i].hasOwnProperty(item.key)) item.value=foodResult[i][item.key]
+            })
+          }
+            // return console.log(valResult,this.record[i])
+          process.env.splitSave &&
+            (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true);
+          }
+        }
+        for(let i =0;i<(+this.record.length)-length;i++){
+          this.record[length+i].map(item=>{
+            if(outProject[0].hasOwnProperty(item.key)) item.value=""
+            if(defaultFood.hasOwnProperty(item.key)) item.value=""
+          })
+        }
+      }else{
+        for (let i = 0; i < result.length; i++) {
         if (i == 0) {
           // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
           if (this.sheetInfo.sheetType === 'common_gzry') {
@@ -2573,34 +3028,36 @@ export default {
             }
           }
           mergeTr(this.record[0], this.staticObj, this.fixedList);
-        }
-        if (this.record[i]) {
-          this.record[i].find(
-            (item) => item.key == "description" || item.key == "specialRecord"
-          ).value = result[i];
-          process.env.splitSave && (this.record[i].isChange = true);
-        } else {
-          let currRow = JSON.parse(JSON.stringify(this.record[0]));
-          let nullRowArr = nullRow();
+          }
+          if (this.record[i]) {
+            this.record[i].find(
+              (item) => item.key == "description" || item.key == "specialRecord"
+            ).value = result[i];
+            process.env.splitSave && (this.record[i].isChange = true);
+          } else {
+            let currRow = JSON.parse(JSON.stringify(this.record[0]));
+            let nullRowArr = nullRow();
 
-          nullRowArr.find((item) => item.key == "recordSource").value =
-            currRow.find((item) => item.key == "recordSource").value;
-          nullRowArr.find((item) => item.key == "recordDate").value =
-            currRow.find((item) => item.key == "recordDate").value;
+            nullRowArr.find((item) => item.key == "recordSource").value =
+              currRow.find((item) => item.key == "recordSource").value;
+            nullRowArr.find((item) => item.key == "recordDate").value =
+              currRow.find((item) => item.key == "recordDate").value;
 
-          sheetModel[this.lastZ].bodyModel.splice(
-            this.lastY + 1,
-            0,
-            nullRowArr
-          );
-          this.lastY++;
-          sheetModel[this.lastZ].bodyModel[this.lastY].find(
-            (item) => item.key == "description" || item.key == "specialRecord"
-          ).value = result[i];
-          process.env.splitSave &&
-            (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true);
+            sheetModel[this.lastZ].bodyModel.splice(
+              this.lastY + 1,
+              0,
+              nullRowArr
+            );
+            this.lastY++;
+            sheetModel[this.lastZ].bodyModel[this.lastY].find(
+              (item) => item.key == "description" || item.key == "specialRecord"
+            ).value = result[i];
+            process.env.splitSave &&
+              (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true);
+          }
         }
       }
+      // return console.log(sheetModel,this.record,'sheetModel')
       // 删减特殊情况超页(11页-10页);
       if (result.length < this.record.length) {
         const diff = this.record.length - result.length;
@@ -2619,7 +3076,7 @@ export default {
           ? this.syncTempChange()
           : this.bus.$emit("saveSheetPage", this.isLast);
       } else {
-        this.bus.$emit("saveSheetPage", this.isLast);
+          this.bus.$emit("saveSheetPage", this.isLast);
       }
       setTimeout(() => {
         this.isSaving = false;
@@ -2716,6 +3173,7 @@ export default {
      this.model.newDiagnosisModal = this.$refs.newDiagnosisModal;
     }
     window.openSpecialModal2 = (config) => {
+      console.log('openSpecialModal2',config)
       this.open(config);
       if (this.HOSPITAL_ID == "foshanrenyi") {
         // 打开编辑框时 检查项目:, 检查所见:, 印象:
