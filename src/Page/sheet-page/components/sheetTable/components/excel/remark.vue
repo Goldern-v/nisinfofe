@@ -659,6 +659,10 @@
     <div v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
      备注      A：缩宫素注射液10u   B：益母草针2ml   C：卡贝缩宫素注射液100ug   D：卡前列素氨丁三醇250ug（欣母沛)   E：卡前列素氨丁三醇250 ug(安列克)   F：米索前列醇片0.6mg   G：马来酸麦角新碱0.2mg   H：卡前列甲酯栓1mg
     </div>
+       <!-- 顺德人医-产后护理记录单 -->
+    <div v-if="sheetInfo.sheetType == 'postpartum_sdry'">
+     备注      伤口疼痛使用视觉模拟评分法（VAS）对疼痛进行分级。
+    </div>
     <div v-if="sheetInfo.sheetType == 'babymonitor_linyi'">
       备注：奶种类：①足月配方奶  ②早产儿配方奶  ③母乳  ④无乳糖配方奶    喂入方式：①口入  ②胃管 ③先口入后胃管
       氧疗方式：①鼻导管  ②面罩  ③机械通气    翻身：①左侧卧位  ②右侧卧位  ③平卧位  ④俯卧位
