@@ -14,15 +14,23 @@
           <el-button :class="[active=='yesterday1'?'active-btn':'']" @click="initTime('yesterday1')">24小时小结</el-button>
         </el-button-group>
       </div>
-      <!-- 北海 -->
-       <div class="time-type-button" v-if="HOSPITAL_ID=='beihairenyi'">
+      <div class="time-type-button" v-if="HOSPITAL_ID=='whsl'">
         <el-button-group>
-          <el-button :class="[active=='A'?'active-btn':'']" @click="beihaiInitTime('A')">A班小结</el-button>
-          <el-button :class="[active=='P'?'active-btn':'']" @click="beihaiInitTime('P')">P班小结</el-button>
-          <el-button :class="[active=='N'?'active-btn':'']" @click="beihaiInitTime('N')">N班小结</el-button>
-          <el-button :class="[active=='ALL'?'active-btn':'']" @click="beihaiInitTime('ALL')">24h总结</el-button>
+          <el-button :class="[active=='today1'?'active-btn':'']" @click="whslInitTime('today1')">白班</el-button>
+          <el-button :class="[active=='today2'?'active-btn':'']" @click="whslInitTime('today2')">夜班</el-button>
+          <el-button :class="[active=='today3'?'active-btn':'']" @click="whslInitTime('today3')">小夜班</el-button>
+          <el-button :class="[active=='today4'?'active-btn':'']" @click="whslInitTime('today4')">大夜班</el-button>
         </el-button-group>
       </div>
+      <!-- 北海 -->
+      <div class="time-type-button" v-else-if="HOSPITAL_ID=='beihairenyi'">
+          <el-button-group>
+            <el-button :class="[active=='A'?'active-btn':'']" @click="beihaiInitTime('A')">A班小结</el-button>
+            <el-button :class="[active=='P'?'active-btn':'']" @click="beihaiInitTime('P')">P班小结</el-button>
+            <el-button :class="[active=='N'?'active-btn':'']" @click="beihaiInitTime('N')">N班小结</el-button>
+            <el-button :class="[active=='ALL'?'active-btn':'']" @click="beihaiInitTime('ALL')">24h总结</el-button>
+          </el-button-group>
+        </div>
       <p for class="name-title">请选择日期区间：</p>
       <div flex="cross:center main:center" style="margin:0 15px 20px" v-if="HOSPITAL_ID==='fuyou'">
       <el-date-picker
@@ -128,6 +136,16 @@ export default {
         'today1':[moment().format("YYYY-MM-DD 07:01"),moment().format("YYYY-MM-DD 15:00")],
         'today2':[moment().format("YYYY-MM-DD 15:01"),moment().format("YYYY-MM-DD 23:00")],
         'yesterday1':[moment().subtract(1,'days').format("YYYY-MM-DD 07:01"),moment().format("YYYY-MM-DD 07:00")]
+      }
+      this.date = timeObject[type]
+    },
+    whslInitTime(type){
+      this.active = type
+      let timeObject = {
+        'today1':[moment().format("YYYY-MM-DD 07:01"),moment().format("YYYY-MM-DD 16:00")],
+        'today2':[moment().format("YYYY-MM-DD 16:01"),moment().add(1,'day').format("YYYY-MM-DD 07:00")],
+        'today3':[moment().format("YYYY-MM-DD 16:01"),moment().add(1,'day').format("YYYY-MM-DD 00:00")],
+        'today4':[moment().add(1,'day').format("YYYY-MM-DD 00:01"),moment().add(1,'day').format("YYYY-MM-DD 07:00")],
       }
       this.date = timeObject[type]
     },
