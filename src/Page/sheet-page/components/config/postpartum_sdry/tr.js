@@ -41,7 +41,8 @@ const chuliang = ["尿液","大便","引流液","呕吐物","胃液","恶露"]
 const breastCondition = ["胀痛","无异常"];
 const uterineContractions = ["硬","软"];
 const outputContent = ["尿", "引流液", "大便", "呕吐物", "恶露", "24h恶露", "阴道出血", "术中出血","恶露量"]
-const pangguang = ['充盈','轻度','中度','重度']
+const pangguang = ['空虚','轻度','中度','重度']
+const pomo = ['拔', '自脱', '通畅/', '/通畅','夹闭']
 
 export default [
   { hidden: true, key: 'recordDate', value: '' },
@@ -65,7 +66,7 @@ export default [
   { key: 'dischargeSize', event: keyf1, value: '', next: '', name: '出量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'outputColor', event: keyf1, value: '', next: '', name: '颜色性状', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4),autoComplete: { data: yanse } },
   { key: 'ureter', event: keyf1, value: '', next: '', name: '尿管', autoComplete: { data: niaoguan }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'analgesia', event: keyf1, value: '', next: '', name: '硬膜外/静脉镇痛泵情况', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'analgesia', event: keyf1, value: '', next: '', name: '硬膜外/静脉镇痛泵情况', autoComplete: { data: pomo }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygen', event: keyf1, value: '', next: '', name: '膀胱充盈度', autoComplete: { data: pangguang }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'customValue3', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
   { key: 'customValue4', event: keyf1, value: '',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },

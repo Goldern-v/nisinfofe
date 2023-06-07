@@ -661,7 +661,7 @@
     </div>
        <!-- 顺德人医-产后护理记录单 -->
     <div v-if="sheetInfo.sheetType == 'postpartum_sdry'">
-     备注      伤口疼痛使用视觉模拟评分法（VAS）对疼痛进行分级。
+     备注：伤口疼痛使用视觉模拟评分法（VAS）对疼痛进行分级。
     </div>
     <div v-if="sheetInfo.sheetType == 'babymonitor_linyi'">
       备注：奶种类：①足月配方奶  ②早产儿配方奶  ③母乳  ④无乳糖配方奶    喂入方式：①口入  ②胃管 ③先口入后胃管
