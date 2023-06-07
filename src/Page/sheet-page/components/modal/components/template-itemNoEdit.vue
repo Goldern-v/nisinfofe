@@ -39,7 +39,7 @@
 
   .desc {
     font-size: 13px;
-    color: #687179;
+    color: #333333;
     line-height: 18px;
   }
 
