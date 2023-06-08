@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint" style="overflow:auto" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':'']" :style="[sheetInfo.sheetType=='critical2_weihai' && {overflow:'auto'}]">
+  <div id="sheetPagePrint" style="overflow:auto" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':'']" :style="[query.sheetType=='critical2_weihai' && {overflow:'auto'}]">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -351,7 +351,9 @@ export default {
     });
     console.log("this.sheetInfo.sheetType ",this.sheetInfo.sheetType )
 
-    if (sheetTableWidth > 1000 && !['ops_linyi','nicu_custody_hd','critical2_weihai'].includes(this.sheetInfo.sheetType) ) {
+    if (sheetTableWidth > 1000 && 
+    !['ops_linyi','nicu_custody_hd'].includes(this.sheetInfo.sheetType) && 
+    this.query.sheetType!=='critical2_weihai') {
       printDir("h");
       addCSS(
         window,
@@ -387,7 +389,7 @@ export default {
         }
         `
       );
-    } else if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
+    } else if('critical2_weihai'===this.query.sheetType){
       addCSS(
         window,
         `
@@ -1027,6 +1029,9 @@ export default {
       let html =window.localStorage.sheetModel;
       var reg = /data-value/g;
       return html.replace(reg, "value");
+    },
+    query(){
+      return this.$route.query
     }
   },
   watch: {
