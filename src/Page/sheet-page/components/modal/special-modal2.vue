@@ -2503,7 +2503,7 @@ export default {
       if (this.isSaving) {
         return;
       }
-      if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zhzxy") {
+      if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zhzxy" || this.HOSPITAL_ID == "fuyou") {
         // 佛山市一，护记弹窗保存有换行\n,所以要全部清理。不然textarea显示有问题
         // 珠海中西医 弹窗保存会复制病例过来会有换行。所以全部清理
         this.doc = this.doc.replace(/\n/gi, "");
@@ -3141,11 +3141,15 @@ export default {
     },
     /**获取选择的同步项 */
     handleDiagnosis({ item, key }) {
+      console.log(item, 77777777)
       item.forEach((v) => {
         if (this.doc && v[key]) {
           this.doc += "\n";
         }
-        this.doc += v[key];
+        if (this.HOSPITAL_ID === 'fuyou')
+          this.doc += `${v[key]},${v.diagMeasures}`;
+        else 
+          this.doc += v[key];
       });
     },
     /**
