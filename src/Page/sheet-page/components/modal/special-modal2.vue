@@ -621,7 +621,7 @@
                 v-for="(item, key) in fixedList"
                 :key="sheetInfo.sheetType + item.key"
                 style="min-width: 33%; margin-bottom: 12px; overflow: hidden"
-                :style="item.isWrap && { 'min-width': '50%' }"
+                :style="[item.isWrap && { 'min-width': '50%' },item.outFixedList && {'display':'none'}]"
               >
                 <div class="input-cell" flex="cross:center">
                   <el-checkbox
@@ -2051,9 +2051,6 @@ export default {
         }
         delete this.fixedList.bloodPressure
       }
-      Object.keys(this.fixedList).map(key=>{
-        this.fixedList[key].outFixedList && (delete this.fixedList[key])
-      })
       if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
         this.measuresHaicheck = []
         inputItemAll().then(res=>{

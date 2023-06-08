@@ -179,7 +179,9 @@
               }).value == '5',
             onlyTdredText:tr.find((item) => {
               return item.key == 'recordSource';
-            }).onlyTdredText,
+            }).onlyTdredText && tr.find((item) => {
+              return item.key == 'food';
+            }).value==='24小时总结',
             borderThickening: ['whhk'].includes(HOSPITAL_ID)&&tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
