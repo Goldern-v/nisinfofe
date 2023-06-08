@@ -12,7 +12,6 @@
                 统计时间日期：
                 <el-date-picker
                     v-model="timeArange"
-                    @change="change"
                     value-format="YYYY-MM-DD HH:mm:ss"
                     type="datetimerange"
                     placeholder="选择时间范围">
@@ -124,15 +123,11 @@ export default {
             inList:[],
             jingmaiList:[],
             weichangList:[],
-            visible2:false,
             otherList:[],
             isEnabl:false,
         }
     },
     methods:{
-        change(val){
-            console.log(val,'change')
-        },
         openSeting(){
             this.$refs.patientInfoOutFoodSeting.open()
         },
@@ -145,11 +140,10 @@ export default {
             this.$set(this.timeArange,0, moment().format('YYYY-MM-DD 07:01:00'))
             this.$set(this.timeArange,1, moment().format('YYYY-MM-DD HH:mm:00'))
             this.isEnableToEdit()
-            await this.inputItemAll()
+            this.inputItemAll()
             this.$refs.modal.open();
         },
         filterOut(type){
-            // if(type==='other') return this.inList.filter(item=>!['静脉入量','胃肠入量'].includes(item.type))
             return this.inList.filter(item=>type===item.type)
         },
         isEnableToEdit(){
@@ -180,9 +174,7 @@ export default {
                     }
                 }
                 this.otherList = ARR
-                // this.otherList = otherList.map(item=>item.usage)
                 this.getData()
-                return console.log(this.jingmaiList,ARR,'this.jingmaiList')
             })
         },
         getData(){
@@ -191,7 +183,6 @@ export default {
                 let key = item['type']
                 otherList[key] = item.usagelist
             })
-            // return console.log(otherList,'otherList')
             let query = {
                 startTime:moment(this.timeArange[0]).format("YYYY-MM-DD HH:mm:ss"),
                 endTime:moment(this.timeArange[1]).format("YYYY-MM-DD HH:mm:ss"),
@@ -203,7 +194,6 @@ export default {
                 }
             }
             Promise.all([putGroupCountWeiHai(query)]).then((res)=>{
-                console.log("s---")
                 let {data:{data:data}} = res[0]
                 this.outLength = data.outShows['出量']
                 delete data.outShows["出量"]

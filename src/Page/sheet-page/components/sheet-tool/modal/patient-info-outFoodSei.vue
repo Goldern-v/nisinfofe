@@ -27,13 +27,13 @@
                         :data="canChoseList"
                         >
                     </el-transfer>
-                    <div class="transfer" style="text-align: center; margin: 10px 0px;">
+                    <div style="text-align: center; margin: 10px 0px;">
                         <el-button size="mini" type="text" @click="()=>{other.showCHose = false;other.choseList=[]}">取消</el-button>
                         <el-button type="primary" size="mini" @click="otherConfirm(other)">确定</el-button>
                     </div>
                 </el-popover>
             </template>
-            <div id="modal" @click.prevent="djw">
+            <div id="modal" @click.prevent="clickFun">
                 <el-popover
                     ref="popover1"
                     placement="bottom"
@@ -78,12 +78,9 @@
                         <el-button type="primary" size="mini" @click="confirm2">确定</el-button>
                     </div>
                 </el-popover>
-
-                
-
                 <div flex="cross:center" style="margin-bottom: 20px;">项目名称：静脉入量</div>
-                <div class="boxx">
-                    <div class="boxx-tll">用<span style="width: 28px;display: inline-block;"></span>法：</div>
+                <div class="boxxOut">
+                    <div class="boxx-tll">用<span></span>法：</div>
                     <div class="boxx-content">
                         <template  v-for="(item,index) in jingmai">
                             <div class="boxx-li" v-if="item.type" :key="index+'jingmai'">
@@ -91,12 +88,12 @@
                                 <div @click="deleteLi(jingmai,index)" class="closeBTN">×</div>
                             </div>
                         </template>
+                        <div class="setting" v-popover:popover1 ></div>
                     </div>
-                    <div class="setting" v-popover:popover1 ></div>
                 </div>
                 <div flex="cross:center" style="margin-bottom: 20px;">项目名称：胃肠入量</div>
-                <div class="boxx">
-                    <div class="boxx-tll">用<span style="width: 28px;display: inline-block;"></span>法：</div>
+                <div class="boxxOut">
+                    <div class="boxx-tll">用<span></span>法：</div>
                     <div class="boxx-content">
                         <template  v-for="(item,index) in weichang">
                             <div class="boxx-li" v-if="item.type" :key="index+'weichang'">
@@ -104,32 +101,10 @@
                                 <div @click="deleteLi(weichang,index)" class="closeBTN">×</div>
                             </div>
                         </template>
+                        <div class="setting" v-popover:popover2 ></div>
                     </div>
-                    <div class="setting" v-popover:popover2 ></div>
                 </div>
                 <div v-for='(other,i) in otherList' :key="i+'other'" class="otherList">
-                    <!-- <el-popover 
-                        :ref="i+'other'"
-                        placement="bottom"
-                        width="460"
-                        trigger="click"
-                        v-model="other.showCHose"
-                        popper-class="popover"
-                    >
-                        <el-transfer
-                            v-model="other.choseList"
-                            :props="{
-                                key: 'usage',
-                                label: 'usage'
-                                }"
-                            :data="canChoseList"
-                            >
-                        </el-transfer>
-                        <div class="transfer" style="text-align: center; margin: 10px 0px;">
-                            <el-button size="mini" type="text" @click="()=>{other.showCHose = false;other.choseList=[]}">取消</el-button>
-                            <el-button type="primary" size="mini" @click="otherConfirm(other)">确定</el-button>
-                        </div>
-                    </el-popover> -->
                     <div style="display: flex;
                         align-items: center;
                         justify-content: flex-start;
@@ -140,8 +115,8 @@
                         <div @click="addOhter(i)" class="otherBTN addOhter" v-if="i==otherList.length-1">+</div>
                         <div @click="deleteOther(i)" class="otherBTN deleteOther">-</div>
                     </div>
-                    <div class="boxx">
-                        <div class="boxx-tll">用<span style="width: 28px;display: inline-block;"></span>法：</div>
+                    <div class="boxxOut">
+                        <div class="boxx-tll">用<span></span>法：</div>
                         <div class="boxx-content">
                             <template v-for="(item,index) in other.useList" >
                                 <div class="boxx-li" :key="index+'other'">
@@ -149,8 +124,8 @@
                                     <div @click="deleteLi(other.useList,index)" class="closeBTN">×</div>
                                 </div>
                             </template>
+                            <div class="setting" :data-setIndex="i"></div>
                         </div>
-                        <div class="setting" v-popover="i+'other'" :data-setIndex="i"></div>
                     </div>
                 </div>
             </div>
@@ -176,26 +151,12 @@ export default {
             otherList:[],
             showCHose:false,
             showCHose2:false,
-            choseType:""
         }
     },
     mounted(){
-        this.$nextTick(()=>{
-            console.log(this.$refs.modal,'modal')
-            // document.getElementById("modal").addEventListener("click",this.djw)
-            // let otherList = Object.keys(this.$refs).filter(item=>item.includes('other'))
-            // console.log(this, this.$refs,"mounted")
-        })
     },
     methods:{
-        djw(e){
-            let flag = ['popover','button','transfer','checkbox'].find(item=>e.target.className.indexOf(item)>=0)
-            console.log(flag,'flag')
-            if(flag){
-                console.log("jinlaile")
-                // return 
-            } 
-            console.log(e,'e')
+        clickFun(e){
             let {setindex} = e.target.dataset
             if(setindex===undefined){
                 this.otherList.map(item=>{
@@ -210,10 +171,8 @@ export default {
             this.choseList2 = []
         },
         deleteLi(arr,index){
-            // return console.log(this.canChoseList,'this.canChoseList')
             this.canChoseList.push(arr[index])
             arr[index]={...arr[index],type:""}
-            console.log(arr,'arr')
         },
         addOhter(i){
             if(this.otherList[i].useList.length==0) return this.$message.warning("请先完成该设置再添加")
@@ -236,7 +195,6 @@ export default {
                     otherArr.push({...item2,type:item.type}) 
                 })
             })
-            // return console.log(otherArr,'otherArr',this.otherList)
             let allArr = [
                 ...this.jingmai,...this.weichang,...otherArr
             ]
@@ -249,7 +207,6 @@ export default {
                 }
                 return tempArr
             }, [])
-            // return console.log(allArr,newArr,'this.otherList')
             batchUpdate(allArr).then(res=>{
                 this.$emit("refresh")
                 this.$message.success("保存成功")
@@ -257,7 +214,6 @@ export default {
             })
         },
         confirm(){
-            console.log(this.choseType,'this.choseType')
             this.choseList.map(ischose=>{
                 let index = this.canChoseList.findIndex(item=>{
                     return item.usage===ischose
@@ -276,12 +232,10 @@ export default {
                 row.useList.push(this.canChoseList[index])
                 index>=0 && this.canChoseList.splice(index,1)
             })
-            // return console.log(row,this.canChoseList,'choseList')
             row.choseList = []
             row.showCHose = false
         },
         confirm2(){
-            console.log(this.choseType,'this.choseType')
             this.choseList2.map(ischose=>{
                 let index = this.canChoseList.findIndex(item=>{
                     return item.usage===ischose
@@ -291,7 +245,6 @@ export default {
             })
             this.choseList2 = []
             this.showCHose2 = false
-            // return console.log(this.choseList,this.canChoseList,'choseList')
         },
         async open(){
             this.inputItemAll()
@@ -337,18 +290,25 @@ export default {
         min-height: 600px;
     }
 }
-.boxx{
+/deep/ .boxxOut{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     .boxx-tll{
-
+        min-width: 70px;
+        height: 30px;
+        line-height: 30px;
+        >span{
+            width: 28px;
+            display: inline-block;
+        }
     }
     .boxx-content{
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: flex-start;
+        flex-wrap: wrap;
         .boxx-li{
             line-height: 30px;
             min-width: 78px;
@@ -359,6 +319,7 @@ export default {
             padding: 0 10px;
             color: #fff;
             margin-right: 10px;
+            margin-bottom: 10px;
             .closeBTN{
                 position: absolute;
                 top: 5px;
