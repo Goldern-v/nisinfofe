@@ -308,7 +308,8 @@ export default {
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '260px',
+          minWidth: '200px',
+          transform: 'scale(0.86)'
         },
       },
       {

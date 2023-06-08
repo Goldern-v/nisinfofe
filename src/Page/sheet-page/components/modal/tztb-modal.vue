@@ -49,6 +49,7 @@
           <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID)"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="bloodPressure" label="血压(mmHg)" min-width="110px" align="center"></el-table-column>
+          <el-table-column prop="spo2" label="Spo2" min-width="110px" align="center" v-if="HOSPITAL_ID=='whsl'"></el-table-column>
         </el-table>
       </div>
       <div slot="button">
