@@ -492,15 +492,15 @@ export default {
 
       getExecuteWithWardCodeLyxrm(obj).then(res => {
         let list =  res.data.data.sort((a,b)=>{
-          if(a.orderNo === b.orderNo){
+          if(a.barCode === b.barCode){
             return a.itemNo - b.itemNo
           }
         })
         let tableData = list.map((item, index, array) => {
           let prevRowId, nextRowId, currentRowId,prevRowTime,nextRowTime,currentRowTime;
-          prevRowId = array[index - 1] && array[index - 1].orderNo;
-          nextRowId = array[index + 1] && array[index + 1].orderNo;
-          currentRowId = array[index] && array[index].orderNo;
+          prevRowId = array[index - 1] && array[index - 1].barCode;
+          nextRowId = array[index + 1] && array[index + 1].barCode;
+          currentRowId = array[index] && array[index].barCode;
           prevRowTime=array[index - 1] && array[index - 1].executeDateTime;
           nextRowTime = array[index + 1] && array[index + 1].executeDateTime;
           currentRowTime = array[index] && array[index].executeDateTime;
