@@ -1976,6 +1976,7 @@ export default {
       this.$refs.zkModalZhzxy.close();
     },
     open(config) {
+      console.log(config,'config')
       setTimeout(() => {
         window.closeAutoCompleteNoId();
       }, 300);
@@ -2050,6 +2051,9 @@ export default {
         }
         delete this.fixedList.bloodPressure
       }
+      Object.keys(this.fixedList).map(key=>{
+        this.fixedList[key].outFixedList && (delete this.fixedList[key])
+      })
       if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
         this.measuresHaicheck = []
         inputItemAll().then(res=>{
