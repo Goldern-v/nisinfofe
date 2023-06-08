@@ -40,7 +40,7 @@ export default {
             { "name": "出量", "colspan": "3", "rowspan": "1"},
             { "name": "尿管", "colspan": "1", "rowspan": "2"},
             { "name": "硬膜外<br/>/静脉镇<br/>痛泵情况", "colspan": "1", "rowspan": "2"},
-            { "name": "吸氧<br/>L/分<br/>/压砂袋", "colspan": "1", "rowspan": "2"},
+          { "name": "膀胱充盈度", "colspan": "1", "rowspan": "2"},
 
 
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue3"},
@@ -51,8 +51,8 @@ export default {
          ],
         mid:
             [
-                {"name": "日期", "colspan": "1", "rowspan": "2", style: { minWidth: "50px",  maxWidth: "50px"},},
-                {"name": "时间", "colspan": "1", "rowspan": "2", style: { minWidth: "50px",  maxWidth: "50spx"},},
+                {"name": "日期", "colspan": "1", "rowspan": "2", style: { minWidth: "40px",  maxWidth: "40px"},},
+                {"name": "时间", "colspan": "1", "rowspan": "2", style: { minWidth: "40px",  maxWidth: "40spx"},},
                 {"name": "腹<br/>部", "colspan": "1", "rowspan": "1"},
                 {"name": "会<br/>阴", "colspan": "1", "rowspan": "1"},
                 {"name": "内容", "colspan": "1", "rowspan": "2"},
