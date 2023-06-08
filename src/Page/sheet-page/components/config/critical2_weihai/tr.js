@@ -8,16 +8,22 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let ysList = ['浅昏迷', '深昏迷', '清醒', '嗜睡', '模糊','昏睡','未醒','镇静','麻醉未醒']
+let ysList = ['昏迷', '清醒', '嗜睡', '模糊','昏睡','未醒','镇静','麻醉未醒','昏迷镇静']
 let xinlv = ['窦性', '房颤', '房扑', '逸搏', '停搏','室上速','室速','室颤','起搏','交界性']
-let tongkongX = ['2', '1.5']
+let tongkongX = ['5','4.5','4','3.5','3','2.5','2','1.5','1']
 let tongkongR = ['+','-','±']
-let tongqi = ['SIMV','PCV ','VCV','PS/CPAP','PRVC','NIVPS','S/T','IPPV','CPAP','鼻导管a']
+let tongqi = ['SIMV','PCV ','VCV','PS/CPAP','PRVC','NIVPS','S/T','IPPV','CPAP','鼻导管']
 let huxiyin = ['粗','清 ','低','痰鸣音','湿啰音','干啰音']
 let wowei = ['平卧','左侧 ','右侧','头低足高']
 let taitou = ['√']
 // le i = ''
-export default [{
+export default [
+  {
+    hidden: true,
+    key: "recordDate",
+    value: ""
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -145,6 +151,7 @@ export default [{
     textarea: {
       width: 160
     },
+    style:{"text-align":"left"}
   },
   {
     key: "foodSize", // SPO2（%）
@@ -160,6 +167,7 @@ export default [{
     textarea: {
       width: 100
     },
+    style:{"text-align":"left"}
   },
   {
     key: "dischargeSize", // SPO2（%）
@@ -364,11 +372,7 @@ export default [{
     key: "dataHash",
     value: ""
   },
-  {
-    hidden: true,
-    key: "recordDate",
-    value: ""
-  },
+ 
   {
     hidden: true,
     key: "monthHour",

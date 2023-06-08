@@ -252,6 +252,9 @@
         3.嗜睡 4.昏睡 5.昏迷 6.意识模糊 7.谵妄 8.其他
       </p>
     </div>
+    <div v-if="sheetInfo.sheetType == 'critical2_weihai'">
+      备注：1、瞳孔观察：+ 代表瞳孔对光反应灵敏，- 号代表瞳孔对光反应无， ±代表对光反应迟钝。2、护理措施：1吸痰，2翻身，3叩背。4、约束护理，5、皮肤护理，6、晨/晚间护理，7、口腔护理，8、会阴护理9、擦浴，10洗头，11失禁护理，12动/静脉置管护理，13引流管护理，14气切换药，15、压疮预防及护理
+    </div>
     <!-- 陵 城 病重（病危）患者护理记录单 -->
     <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'||sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_lc' ">
       <table>

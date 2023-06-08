@@ -5,12 +5,21 @@
         <img src="./images/患者资料@2x.png" alt />
       </div>
     </el-tooltip>
+    <el-tooltip class="item" effect="dark" content="出入量实时统计" placement="left" v-show="['critical2_weihai'].includes(sheetInfo.sheetType)">
+      <div class="fixed-icon" style="top:200px" :class="{ secondOpen: secondOpen }" @click="opentongji">
+        <img src="./images/患者资料@2x.png" alt />
+      </div>
+    </el-tooltip>
 
     <patientInfoSlide
       :faultNurseRecordList="notNurseRecordList"
       ref="patientInfoSlide"
       @onClose="onClose"
     ></patientInfoSlide>
+    <patientInfoOutFood
+      ref="patientInfoOutFood"
+      @onClose="OutFoodClose"
+    ></patientInfoOutFood>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -40,6 +49,8 @@
 </style>
 <script>
 import patientInfoSlide from "./modal/patient-info-slide";
+import patientInfoOutFood from "./modal/patient-info-outFood";
+import sheetInfo from "../config/sheetInfo";
 import bus from "vue-happy-bus";
 export default {
   props: {
@@ -52,6 +63,8 @@ export default {
   data() {
     return {
       open: false,
+      secondOpen: false,
+      sheetInfo,
       bus: bus(this),
     };
   },
@@ -69,8 +82,22 @@ export default {
         this.$refs.patientInfoSlide.close();
       }
     },
+    opentongji() {
+      this.secondOpen = !this.secondOpen;
+      if (!this.patientInfo.patientId) {
+        this.$store.commit("upPatientInfo", this.$route.query);
+      }
+      if (this.secondOpen) {
+        this.$refs.patientInfoOutFood.open();
+      } else {
+        this.$refs.patientInfoOutFood.close();
+      }
+    },
     onClose() {
       this.open = false;
+    },
+    OutFoodClose() {
+      this.secondOpen = false;
     },
   },
   computed: {
@@ -80,6 +107,7 @@ export default {
   },
   components: {
     patientInfoSlide,
+    patientInfoOutFood
   },
   created(){
     // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能

@@ -103,7 +103,7 @@
               检查报告
             </el-button>
             <el-button
-              v-if="['whsl'].includes(HOSPITAL_ID)"
+              v-if="['whsl', 'zhzxy'].includes(HOSPITAL_ID)"
               size="mini"
               @click="openModal('diagnosisModalRef')"
               >同步护理计划</el-button
@@ -858,7 +858,7 @@
           <el-tab-pane label="护理措施" name="4" v-if="['critical2_weihai'].includes(sheetInfo.sheetType)">
             <el-checkbox-group v-model="measuresHaicheck">
               <div class="measuresBox">
-                <div class="measuresLi" style="width:33.333%" :key="index + 'measure'" v-for="(measures,index) in measuresList">
+                <div class="measuresLi" :style="measures.style" :key="index + 'measure'" v-for="(measures,index) in measuresList">
                   <el-checkbox :label="measures.name"></el-checkbox>
                 </div>
               </div>
@@ -878,7 +878,7 @@
                   <td>量（ml）</td>
                   <td>颜色</td>
                 </tr>
-                <tr :key="index + 'out'" v-for="(out,index) in computedNum(i)">
+                <tr :key="index + 'out11'" v-for="(out,index) in computedNum(i)">
                   <td>
                     <div>{{ out.discharge }}</div>
                   </td>
@@ -945,7 +945,7 @@
           <el-tab-pane label="入量" name="6" v-if="['critical2_weihai'].includes(sheetInfo.sheetType)">
             <div class="title" flex="cross:center main:justify">PDA同步数据：</div>
             <div class="outPro foodOne">
-              <table v-for="(num,i) in 2" :key="i+'table'">
+              <table v-for="(num,i) in 2" :key="i+'tableru'">
                 <colgroup>
                   <col width="50%"/>
                   <col width="25%"/>
@@ -956,7 +956,7 @@
                   <td>量（ml）</td>
                   <td>用法</td>
                 </tr>
-                <tr :key="index + 'out'" v-for="(out,index) in computedFood(i)">
+                <tr :key="index + 'out111' + i" v-for="(out,index) in computedFood(i)">
                   <td>
                     <div>
                       <textarea v-model="out.food" :rows="reactiveRows(out,'food',22,1,3)"></textarea>
@@ -984,7 +984,7 @@
             </div>
             <div class="title" flex="cross:center main:justify">自定义项目：</div>
             <div class="outPro foodSecond">
-              <table v-for="(num,i) in 2" :key="i+'table'">
+              <table v-for="(num,i) in 2" :key="i+'tableru2'">
                 <colgroup>
                   <col width="50%"/>
                   <col width="25%"/>
@@ -995,10 +995,10 @@
                   <td>量（ml）</td>
                   <td>用法</td>
                 </tr>
-                <tr :key="index + 'out'" v-for="(out,index) in computedFood(i,'secondTable')">
+                <tr :key="index + 'out' + i" v-for="(out,index) in computedFood(i,'secondTable')">
                   <td>
                     <div>
-                      <textarea v-model="out.food" :rows="reactiveRows(out,'food',22,1,3)"></textarea>
+                      <textarea :key="index + 'out' + i" v-model="out.food" :rows="reactiveRows(out,'food',22,1,3)"></textarea>
                     </div>
                   </td>
                   <td>
@@ -1297,7 +1297,7 @@
       width:18%;
       &:nth-of-type(n+2){
         margin-left: 35px;
-      } 
+      }
       tr{
         td{
           vertical-align: middle;
@@ -1307,7 +1307,7 @@
   }
   table{
     border-collapse: collapse;
-    
+
     tr{
       &:first-of-type{
         td{
@@ -1315,6 +1315,9 @@
           text-align:center;
           vertical-align: middle;
           height: 22px;
+          &:first-of-type{
+            text-align:left;
+          }
         }
       }
       td{
@@ -1686,7 +1689,7 @@ export default {
     reactiveRows(row,key, maxLength, minRows, maxRows) {
       console.log(row[key],'row[key]')
       if (row[key]) {
-        let number = row[key].replace(/[^0-9]/ig,""); 
+        let number = row[key].replace(/[^0-9]/ig,"");
         let word = row[key].replace(/[^a-z]+/ig,"");
         let char = row[key].split('').filter(i => i == ',').join('')
         let curLength = (row[key].length - number.length - word.length - char.length) + ((number.length + word.length + char.length) / 2)
@@ -2048,14 +2051,19 @@ export default {
         delete this.fixedList.bloodPressure
       }
       if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
+        this.measuresHaicheck = []
         inputItemAll().then(res=>{
-          this.toUseList = res.data.data
+          let {data:{data:dataResult}} = res
+          dataResult.unshift({
+            id:"",isUsed:"",type:"",usage:""
+          })
+          this.toUseList = dataResult
         })
         let meavalue = config.record[0].find(item=>item.key==="measures").value
         measuresList.map(item=>{
           if(meavalue.split(",").includes(item.value)){
             this.measuresHaicheck.push(item.name)
-          } 
+          }
         })
         this.outProject.forEach(item=>{
           item.dischargeSize="";
@@ -2100,6 +2108,7 @@ export default {
             inputIndex>0 && (this.outProject[inputIndex] = {...this.outProject[inputIndex],...item})
           }
         })
+        this.outFoodlist = []
         let PDAarr = [],inputArr = []
         confighasOutFoodARR.map(item=>{
           if(item.expand) PDAarr.push(item)
@@ -2107,10 +2116,9 @@ export default {
         })
         for(let i=0;i<10;i++){
           if(!PDAarr[i]) PDAarr.push({...defaultFood,expand:true})
-          if(!inputArr[i]) inputArr.push(defaultFood)
+          if(!inputArr[i]) inputArr.push({...defaultFood})
         }
         this.outFoodlist = [...PDAarr,...inputArr]
-        // return console.log(confighasOuppTR,confighasOutppARR,this.outProject,'confighasOuppTR')
       }
       let tab = config.tab;
       // 特殊记录组合
@@ -2134,7 +2142,7 @@ export default {
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ""
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll','925','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll','925','nfyksdyy','whsl'].includes(this.HOSPITAL_ID)) {
         const firstDate = record[0].find((item) => item.key == "recordDate")
         const itemListTime = config.recordDate || firstDate.value
           record[0].find((item) => item.key == "recordDate").value
@@ -2491,7 +2499,7 @@ export default {
         else if(this.outFoodlist.find(item=>item.food && !item.foodSize.trim())) return this.$message.warning("入量有未填值")
         else if(this.outFoodlist.find(item=>!item.food && item.foodSize.trim())) return this.$message.warning("入量有已填值但未有项目名")
       }
-      
+
       if (this.isSaving) {
         return;
       }
