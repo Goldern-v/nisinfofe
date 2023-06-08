@@ -15,7 +15,7 @@ let tongkongR = ['+','-','±']
 let tongqi = ['SIMV','PCV ','VCV','PS/CPAP','PRVC','NIVPS','S/T','IPPV','CPAP','鼻导管']
 let huxiyin = ['粗','清 ','低','痰鸣音','湿啰音','干啰音']
 let wowei = ['平卧','左侧 ','右侧','头低足高']
-let taitou = ['√']
+let taitou = ['','√']
 // le i = ''
 export default [
   {

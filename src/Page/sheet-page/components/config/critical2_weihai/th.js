@@ -46,7 +46,7 @@ export default {
       },
       {
          name: `
-        瞳孔（mm）/<br/>反应
+        瞳孔（mm）/<br/>对光反应
         `,
         colspan: '4',
         rowspan: '2',
