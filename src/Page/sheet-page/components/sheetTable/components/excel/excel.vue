@@ -177,6 +177,9 @@
               tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
+            onlyTdredText:tr.find((item) => {
+              return item.key == 'recordSource';
+            }).onlyTdredText,
             borderThickening: ['whhk'].includes(HOSPITAL_ID)&&tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',

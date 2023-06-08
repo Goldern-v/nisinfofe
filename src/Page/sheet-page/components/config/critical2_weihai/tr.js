@@ -15,7 +15,7 @@ let tongkongR = ['+','-','±']
 let tongqi = ['SIMV','PCV ','VCV','PS/CPAP','PRVC','NIVPS','S/T','IPPV','CPAP','鼻导管']
 let huxiyin = ['粗','清 ','低','痰鸣音','湿啰音','干啰音']
 let wowei = ['平卧','左侧 ','右侧','头低足高']
-let taitou = ['√']
+let taitou = ['','√']
 // le i = ''
 export default [
   {
@@ -100,12 +100,18 @@ export default [
     autoComplete: {
       data: ysList
     },
+    textarea: {
+      width: 25
+    },
   },
   {
     key: "gcs", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "GCS"
+    name: "GCS",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "pupilReflexLeft1", // SPO2（%）
@@ -151,13 +157,19 @@ export default [
     textarea: {
       width: 160
     },
+    outFixedList:true,
     style:{"text-align":"left"}
   },
   {
     key: "foodSize", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "入量（单位ml）"
+    name: "入量（单位ml）",
+    textarea: {
+      width: 40
+    },
+    statBottomLine:true,
+    outFixedList:true,
   },
   {
     key: "discharge", // SPO2（%）
@@ -165,21 +177,31 @@ export default [
     event: keyf1,
     name: "排出物",
     textarea: {
-      width: 100
+      width: 50
     },
-    style:{"text-align":"left"}
+    style:{"text-align":"left"},
+    outFixedList:true,
   },
   {
     key: "dischargeSize", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "排出物数量（单位ml）"
+    name: "排出物数量（单位ml）",
+    textarea: {
+      width: 40
+    },
+    statBottomLine:true,
+    outFixedList:true,
   },
   {
     key: "outputColor", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "颜色"
+    name: "颜色",
+    textarea: {
+      width: 30
+    },
+    outFixedList:true,
   },
   {
     key: "breathWay", // SPO2（%）
@@ -279,6 +301,9 @@ export default [
     autoComplete: {
       data: wowei
     },
+    textarea: {
+      width: 25
+    },
   },
   {
     key: "measures", // SPO2（%）
@@ -288,12 +313,13 @@ export default [
     textarea: {
       width: 90
     },
+    outFixedList:true,
   },
   {
     key: "description", //护理记录
     value: "",
     textarea: {
-      width: 120
+      width: 250
     },
     style: {
       textAlign: "left",
@@ -360,7 +386,8 @@ export default [
   {
     hidden: true,
     key: "recordSource",
-    value: ""
+    value: "",
+    onlyTdredText:true
   },
   {
     hidden: true,

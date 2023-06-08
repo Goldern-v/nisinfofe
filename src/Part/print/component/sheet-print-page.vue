@@ -398,8 +398,8 @@ export default {
             size:A4;
           }
           .iframe > div:nth-of-type(n){
-            transform: rotateZ(90deg) scaleX(.9) scaleY(1.4) translateY(600px) !important;
-            margin-top: 20px !important;
+            transform: rotateZ(90deg) scaleX(.9) scaleY(1.35) translateY(615px) !important;
+            margin-top: 30px !important;
             transform-origin: center center !important;
             height: 1620px !important;
           }
