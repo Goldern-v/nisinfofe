@@ -46,20 +46,20 @@
             v-model="sheetInfo.relObj.pregnantTimes"
           />
         </span>
-        <span>
-          预产期：
+        <!-- <span>
+          预产期： -->
           <!-- <input
             style="width: 140px"
             class="bottom-line-input"
             :data-value="sheetInfo.relObj.contractionTime"
             v-model="sheetInfo.relObj.contractionTime"
           /> -->
-          <crDatePicker
+          <!-- <crDatePicker
             v-model="sheetInfo.relObj.contractionTime"
             :width="140"
             style="border:none;border-bottom:1px solid #000;height:22px"
-          />
-        </span>
+          /> -->
+        <!-- </span> -->
       </div>
       <div class="info-con">
         <span

@@ -103,7 +103,7 @@
               检查报告
             </el-button>
             <el-button
-              v-if="['whsl'].includes(HOSPITAL_ID)"
+              v-if="['whsl', 'zhzxy'].includes(HOSPITAL_ID)"
               size="mini"
               @click="openModal('diagnosisModalRef')"
               >同步护理计划</el-button
@@ -1297,7 +1297,7 @@
       width:18%;
       &:nth-of-type(n+2){
         margin-left: 35px;
-      } 
+      }
       tr{
         td{
           vertical-align: middle;
@@ -1307,7 +1307,7 @@
   }
   table{
     border-collapse: collapse;
-    
+
     tr{
       &:first-of-type{
         td{
@@ -1689,7 +1689,7 @@ export default {
     reactiveRows(row,key, maxLength, minRows, maxRows) {
       console.log(row[key],'row[key]')
       if (row[key]) {
-        let number = row[key].replace(/[^0-9]/ig,""); 
+        let number = row[key].replace(/[^0-9]/ig,"");
         let word = row[key].replace(/[^a-z]+/ig,"");
         let char = row[key].split('').filter(i => i == ',').join('')
         let curLength = (row[key].length - number.length - word.length - char.length) + ((number.length + word.length + char.length) / 2)
@@ -2063,7 +2063,7 @@ export default {
         measuresList.map(item=>{
           if(meavalue.split(",").includes(item.value)){
             this.measuresHaicheck.push(item.name)
-          } 
+          }
         })
         this.outProject.forEach(item=>{
           item.dischargeSize="";
@@ -2499,7 +2499,7 @@ export default {
         else if(this.outFoodlist.find(item=>item.food && !item.foodSize.trim())) return this.$message.warning("入量有未填值")
         else if(this.outFoodlist.find(item=>!item.food && item.foodSize.trim())) return this.$message.warning("入量有已填值但未有项目名")
       }
-      
+
       if (this.isSaving) {
         return;
       }
