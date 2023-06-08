@@ -317,7 +317,7 @@
             </div>
           </div>
           <img
-            style="right: 50px;"
+            :style="{right: HOSPITAL_ID === 'whhk' ? '50px': '25px' }"
             class="qr-code"
             :class="{ hasRemark: hasRemark }"
             :src="qrCode"
