@@ -212,7 +212,8 @@ export default {
           startTime,
           endTime,
           this.description,
-          type
+          type,
+          localStorage.wardCode
         ).then(res => {
         //  涉及到数据增加或者修改的，就要初始化页码重新计算获取新值
           this.bus.$emit("initSheetPageSize");

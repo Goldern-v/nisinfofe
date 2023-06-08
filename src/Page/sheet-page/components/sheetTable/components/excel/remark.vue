@@ -252,6 +252,9 @@
         3.嗜睡 4.昏睡 5.昏迷 6.意识模糊 7.谵妄 8.其他
       </p>
     </div>
+    <div v-if="sheetInfo.sheetType == 'critical2_weihai'">
+      备注：1、瞳孔观察：+ 代表瞳孔对光反应灵敏，- 号代表瞳孔对光反应无， ±代表对光反应迟钝。2、护理措施：1吸痰，2翻身，3叩背。4、约束护理，5、皮肤护理，6、晨/晚间护理，7、口腔护理，8、会阴护理9、擦浴，10洗头，11失禁护理，12动/静脉置管护理，13引流管护理，14气切换药，15、压疮预防及护理
+    </div>
     <!-- 陵 城 病重（病危）患者护理记录单 -->
     <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'||sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_lc' ">
       <table>
@@ -658,6 +661,10 @@
    <!-- 顺德人医-产后产房观察记录单 -->
     <div v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
      备注      A：缩宫素注射液10u   B：益母草针2ml   C：卡贝缩宫素注射液100ug   D：卡前列素氨丁三醇250ug（欣母沛)   E：卡前列素氨丁三醇250 ug(安列克)   F：米索前列醇片0.6mg   G：马来酸麦角新碱0.2mg   H：卡前列甲酯栓1mg
+    </div>
+       <!-- 顺德人医-产后护理记录单 -->
+    <div v-if="sheetInfo.sheetType == 'postpartum_sdry'">
+     备注：伤口疼痛使用视觉模拟评分法（VAS）对疼痛进行分级。
     </div>
     <div v-if="sheetInfo.sheetType == 'babymonitor_linyi'">
       备注：奶种类：①足月配方奶  ②早产儿配方奶  ③母乳  ④无乳糖配方奶    喂入方式：①口入  ②胃管 ③先口入后胃管
