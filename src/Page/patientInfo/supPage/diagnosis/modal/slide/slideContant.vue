@@ -94,7 +94,7 @@
               >
             </div>
           </div>
-          <div class="do-box"  v-if="HOSPITAL_ID == 'fuyou'">
+          <div class="do-box"  v-if="HOSPITAL_ID == 'fuyou' && diagnose">
             <div class="label">
               <span>【护理评估】</span>
             </div>
@@ -362,6 +362,7 @@ let bindData = {
   textInputMaxLength2: ['whsl'].includes(process.env.HOSPITAL_ID)?600:1000,
   evalFormList: [],
   evalForm: '',
+  diagnose: null
 };
 let bindDataClone = { ...bindData };
 export default {
@@ -382,6 +383,7 @@ export default {
   },
   methods: {
     async open(item, diagnose) {
+      this.diagnose = diagnose;
       Object.assign(bindData, bindDataClone);
       this.beginTime = moment().format("YYYY-MM-DD HH:mm");
       this.show = true;
