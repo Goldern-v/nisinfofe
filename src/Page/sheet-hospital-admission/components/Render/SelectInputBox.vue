@@ -1,7 +1,7 @@
 
 <template>
   <span :ref="refName2" style="display:flex; align-items:center;" class="input-box">
-    <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
+<!--     <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
       v-if="obj.label"
@@ -109,9 +109,22 @@ export default {
   },
   watch: {
     inputValue(valueNew, oldvaule) {
-      this.formObj.model[this.obj.name] = valueNew;
+      /*针对顺德人医多选下拉的默认值处理*/
+      if( process.env.HOSPITAL_ID =='nfyksdyy'){
+        if('I2332219' == this.obj.name){
+          // console.log(valueNew.indexOf('无') >=0,valueNew.length >= 2 , valueNew)
+          this.formObj.model[this.obj.name] =(valueNew.indexOf('无') >=0 &&valueNew.length >= 2) ? valueNew.replace('无,', "") : valueNew
+        }
+        if('I2332063' == this.obj.name){
+          this.formObj.model[this.obj.name] =(valueNew.indexOf('完整') >=0  &&valueNew.length >= 3) ? valueNew.replace('完整,',"") : valueNew
+        }
+      }else{
+        this.formObj.model[this.obj.name] = valueNew;
+      }
+      // console.log("this.formObj.model[this.obj.name]===",this.formObj.model[this.obj.name])
+      // console.log("valueNew===,",valueNew)
       // window.formObj.model[this.obj.name] = valueNew;
-      this.checkValueRule(valueNew);
+      this.checkValueRule(process.env.HOSPITAL_ID =='nfyksdyy'?this.formObj.model[this.obj.name]:valueNew);
       this.isShowDownList = false;
       // return valueNew;
     },
@@ -430,8 +443,11 @@ export default {
       } else {
         this.isShowDownList = !this.isShowDownList;
       }
-
+      console.log("this.$root.$refs.dialogBox===",this.$root.$refs.dialogBox)
       this.openAutoCompleteBox(target);
+
+     // if(!this.$root.$refs.dialogBox){
+     // }
       // if (this.isShowDownList) {
       //   // this.inputFocus(e, child)
       //   this.openAutoCompleteBox(target);
@@ -474,6 +490,7 @@ export default {
         let multiplechoice = this.obj.multiplechoice
           ? this.obj.multiplechoice
           : false;
+        console.log("this.obj===",this.obj)
         if (this.$root.$refs.autoInput) {
           this.isShowDownList = true;
           this.$root.$refs.autoInput.open({
@@ -521,7 +538,8 @@ export default {
                   obj[key] = values + "";
                   this.inputValue = obj[key] + "";
                   this.checkValueRule(obj[key], true, data.code);
-                  target.focus();
+                  // if( process.env.HOSPITAL_ID =='nfyksdyy' && )
+                  // target.focus();
                 }
               }
               if (target.tagName !== "INPUT") {
