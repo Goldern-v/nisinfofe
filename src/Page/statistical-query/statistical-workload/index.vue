@@ -95,9 +95,6 @@ export default {
       type2: searchKeyByCode(WORKLOAD_BAR2, 'table'),
       rankList: RANK,
       workload_bar1: WORKLOAD_BAR1,
-      otherColumns,
-      otherColumns_925,
-      otherColumns_foshanrenyi
     };
   },
   computed: {
@@ -152,11 +149,11 @@ export default {
       let ARR = (()=>{
         switch (this.HOSPITAL_ID){
           case "foshanrenyi":
-           return this.otherColumns_foshanrenyi
+           return otherColumns_foshanrenyi
           case "925":
-            return this.otherColumns_925
+            return otherColumns_925
           default:
-            return this.otherColumns
+            return otherColumns
         }
       })()
       return [firstItem, ...(curItem ? obj[curItem.code] || [] : []), ...ARR]
@@ -225,11 +222,11 @@ export default {
       let arr = (()=>{
         switch (this.HOSPITAL_ID){
           case "foshanrenyi":
-           return this.otherColumns_foshanrenyi
+           return otherColumns_foshanrenyi
           case "925":
-            return this.otherColumns_925
+            return otherColumns_925
           default:
-            return this.otherColumns
+            return otherColumns
         }
       })()
       if (this.tableData.length > 0) {
