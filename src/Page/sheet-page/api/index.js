@@ -19,6 +19,10 @@ export const getNurseExchangeInfoBatch = (data) => {
   return axios.post(`${apiPath}nurseLog/getNurseExchangeInfoBatch`, data);
 };
 
+export const putGroupCountWeiHai = (data) => {
+  return axios.post(`${apiPath}record/critical2_weihai/putGroupCountWeiHai`, {...data,blockId: sheetInfo.selectBlock.id});
+};
+
 // 护记体征信息同步到体温单
 export const saveBatch = (data) => {
   return axios.post(`${apiPath}threeTest/saveBatch`, data);
@@ -27,6 +31,18 @@ export const saveBatch = (data) => {
 // 通过护理单元获取体征字典表
 export const getmultiDict = (wardcode) => {
   return axios.get(`${apiPath}threeTest/type/${wardcode}`);
+};
+
+export const inputItemAll = () => {
+  return axios.get(`${apiPath}inputItem/getAll`);
+};
+
+export const batchUpdate = (data) => {
+  return axios.post(`${apiPath}inputItem/batchUpdate`,data);
+};
+
+export const isEnableToEdit = () => {
+  return axios.get(`${apiPath}inputItem/isEnableToEdit`);
 };
 
 // 分类合计

@@ -92,7 +92,7 @@
      </div>
     </div>
     <div v-else>
-      <div class="info-con"  v-if="sheetInfo.sheetType !=='postpartum2_sdry'">
+      <div class="info-con"  v-if="sheetInfo.sheetType !=='postpartum2_sdry'" style="display: flex; justify-content: start; align-items: center;">
         <span v-if="sheetInfo.sheetType =='prenatal_sdry'">
           科室:
           <div class="bottom-line" style="min-width: 373px">{{patientInfo.realDeptName}}</div>
@@ -105,9 +105,7 @@
           病区:
           <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
         </span>
-        <span  v-if="sheetInfo.sheetType=='prenatal_sdry' ||
-               sheetInfo.sheetType=='postpartum_sdry' ||
-                sheetInfo.sheetType=='baby_sdry'">
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
          特殊情况：
         <input
           style="width: 200px;font-size:13px;text-align: left;"
@@ -116,9 +114,31 @@
           v-model="sheetInfo.relObj.tsqk"
         />
         </span>
+        <template  v-if="sheetInfo.sheetType=='postpartum_sdry' ">
+        <span  style="margin-left: 17px;">
+            特殊情况：</span>
+            <customSelectCanRepeat
+              :options="specialCases"
+              @onSelect="(val) => setRelValue(`${index}specialCases`, val)"
+              multiple
+              >
+              <input  :data-value="sheetInfo.relObj[`${index}specialCases`]" v-model="sheetInfo.relObj[`${index}specialCases`]" style="width:180px;">
+              </customSelectCanRepeat>
+        </template>
+
+        <template  v-if="sheetInfo.sheetType=='baby_sdry'" >
+        <span  style="margin-left: 17px;">
+            羊水情况：</span>
+            <customSelectCanRepeat
+              :options="specialCases1"
+              @onSelect="(val) => setRelValue(`${index}specialCases1`, val)"
+              >
+              <input  :data-value="sheetInfo.relObj[`${index}specialCases1`]" v-model="sheetInfo.relObj[`${index}specialCases1`]" style="width:180px;border-bottom:none">
+              </customSelectCanRepeat>
+        </template>
         <span  v-if="sheetInfo.sheetType=='prenatal_sdry' ||
-               sheetInfo.sheetType=='postpartum_sdry' ||
-                sheetInfo.sheetType=='baby_sdry'">
+              //  sheetInfo.sheetType=='postpartum_sdry' ||
+          sheetInfo.sheetType=='baby_sdry'">
           过敏史：
           <input
           style="width: 130px;font-size:13px;text-align: left;"
@@ -127,7 +147,17 @@
           v-model="sheetInfo.relObj.guomishi"
         />
         </span>
-        </div>
+
+        <span  v-if="sheetInfo.sheetType=='postpartum_sdry'" style="margin-left: 30px;">
+          过敏史：
+          <input
+          style="width: 130px;font-size:13px;text-align: left;"
+          class="bottom-line"
+          :data-value="sheetInfo.relObj.guomishi"
+          v-model="sheetInfo.relObj.guomishi"
+        />
+        </span>
+      </div>
       <div class="info-con" style="display: flex; justify-content: start; align-items: center;">
         <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
           姓名:
@@ -274,8 +304,8 @@
     </template>
 
     <!-- 顺德人医产后产房表头处理 -->
-    <template v-if="sheetInfo.sheetType=='postpartum2_sdry'" >
-     <span>
+    <template v-if="sheetInfo.sheetType=='postpartum2_sdry' ||  sheetInfo.sheetType=='baby_sdry'" >
+     <span :class="sheetTypeClass">
         分娩方式：</span>
        <customSelectCanRepeat
           :options="options"
@@ -284,6 +314,8 @@
           <input :data-value="sheetInfo.relObj[`${index}options`]" v-model="sheetInfo.relObj[`${index}options`]" style="width:160px;">
         </customSelectCanRepeat>
     </template>
+
+
     <!-- 产后护理记录单分娩方式 -->
     <template v-if="sheetInfo.sheetType=='postpartum_sdry'" >
      <span style="margin-left: 70px" >
@@ -395,6 +427,12 @@ export default {
           value:'完整',
           name:'完整'
         }],
+        specialCases:[
+          {name:'GDM',value:'GDM'},{name:'GBS(+)',value:'GBS(+)'},{name:'心脏病',value:'心脏病'},{name:'甲亢',value:'甲亢'},{name:'甲减',value:'甲减'},{name:'ICP',value:'ICP'},{name:'高血压',value:'高血压'},{name:'子痫前期',value:'子痫前期'},{name:'双胎',value:'双胎'},{name:'部分性前置胎盘',value:'部分性前置胎盘'},
+          {name:'边缘性前置胎盘',value:'边缘性前置胎盘'},{name:'中央性前置胎盘',value:'中央性前置胎盘'},{name:'胎盘早剥',value:'胎盘早剥'},{name:'IVF-ET术后',value:'IVF-ET术后'},{name:'HIV',value:'HIV'},{name:'梅毒',value:'梅毒'},{name:'丙肝',value:'丙肝'},{name:'乙肝',value:'乙肝'},{name:'子宫切除术',value:'子宫切除术'},{name:'贫血',value:'贫血'},
+          {name:'血小板减少',value:'血小板减少'},{name:'其他',value:'其他'},
+        ],
+        specialCases1:[{name:'清',value:'清'},{name:'I°',value:'I°'},{name:'II°',value:'II°'},{name:'III°',value:'III°'},{name:'血性',value:'血性'},],
       //不需要入院日期的表单
       admissionDateList: [
         'blood_tj',
@@ -415,6 +453,14 @@ export default {
   },
   mounted() {},
   computed: {
+    // 特定表单样式
+    sheetTypeClass(){
+      return{
+        'postpartum2-sdry': this.sheetInfo.sheetType === 'postpartum2_sdry',
+        'baby-sdry': this.sheetInfo.sheetType === 'baby_sdry',
+      }
+    },
+
     ...{
 
 
@@ -718,6 +764,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.baby-sdry {
+  margin-left: 20px;
+}
+
 input.bottom-line {
   border-top: 0;
   border-left: 0;

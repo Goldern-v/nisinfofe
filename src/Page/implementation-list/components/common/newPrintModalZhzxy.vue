@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="['70*80', '7*7', '7*5'].includes(newModalSize)"
+    v-if="['70*80', '7*7', '7*5', '8*7'].includes(newModalSize)"
     class="new-print-modal new-print-modal--large"
     :class="{ size3: isSize3 }"
     :style="sizeStyle"
@@ -424,6 +424,8 @@ export default {
           return { width: "100mm", height: "39mm" };
         case "7*5":
           return { width: "50mm", height: "69mm" };
+        case '8*7':
+          return { width: '8.1cm', height: '7cm'}
         default:
           // case '7*7':
           return { width: "70mm", height: "69mm" };

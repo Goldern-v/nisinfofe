@@ -84,10 +84,12 @@
         科室：
         <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
       </span>
-      <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
-        床号：
-        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
-      </span>
+      <template v-if="!['critical2_weihai'].includes(sheetInfo.sheetType)">
+        <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+          床号：
+          <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+        </span>
+      </template>
       <span>
         {{sheetInfo.sheetType=='inandout_weihai' ? '病案号：' : '住院号：'}}
         <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>

@@ -377,14 +377,14 @@
       <div
         class="item-box"
         @click.stop="openTemplateSlider"
-        v-if="!isSingleTem && !isDeputy && isShow() && isShowWj"
+        v-if='!isSingleTem && !isDeputy && isShow() && HOSPITAL_ID === "nfyksdyy"'
       >
         <div class="text-con">特殊情况模板</div>
       </div>
       <div
         class="item-box"
         @click.stop="openTitleTemplateSlide"
-        v-if="!isSingleTem && !isDeputy && isShow() && isShowWj"
+        v-if='!isSingleTem && !isDeputy && isShow() && HOSPITAL_ID === "nfyksdyy"'
       >
         <div class="text-con">自定义标题模板</div>
       </div>
@@ -1200,17 +1200,18 @@ export default {
         }
           break;
         default: {
-          if (this.sheetInfo.sheetType === 'inandout_weihai') {
-            let y = moment()
-              .subtract(1, "days")
-              .format("YYYY-MM-DD");
-            let t = moment().format("YYYY-MM-DD");
-            let yt = y + " 07:00";
-            let tt = t + " 07:00";
-            this.bus.$emit('postWhsl', [yt, tt]);
-          } else {
+          // 20146要回原来的弹窗继续做 这个先不要了
+          // if (this.sheetInfo.sheetType === 'inandout_weihai') {
+          //   let y = moment()
+          //     .subtract(1, "days")
+          //     .format("YYYY-MM-DD");
+          //   let t = moment().format("YYYY-MM-DD");
+          //   let yt = y + " 07:00";
+          //   let tt = t + " 07:00";
+          //   this.bus.$emit('postWhsl', [yt, tt]);
+          // } else {
             this.bus.$emit("openHJModal");
-          }
+          // }
         }
         break;
       }

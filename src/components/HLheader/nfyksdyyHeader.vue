@@ -783,7 +783,7 @@
   padding: 0 0px;
   text-align: center;
   font-size: 13px;
-  color: #687179;
+  color: #333;
   letter-spacing: 0;
   cursor: pointer;
 

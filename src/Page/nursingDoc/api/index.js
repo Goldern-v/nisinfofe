@@ -7,9 +7,15 @@ const HOSPITAL_ID = process.env.HOSPITAL_ID
 export function checkLogin(data) {
     /*whsl 跳转逻辑有点问题，暂时把token设置null，每次请求接口重新根据user信息获取token*/
     if(HOSPITAL_ID === 'whsl'){
-        return axios.post(`${apiPath}identityCheck`, data,{headers:
-                data.userName.indexOf('doc_view_') == '-1' &&{ "Auth-Token-Nursing":''}
-              })
+        const userName = data.userName;
+        if (userName.indexOf("doc_view_") > -1) {
+            return axios.post(`${apiPath}identityCheck`, data)
+        } else {
+            return axios.post(`${apiPath}identityCheck`, data,{headers: {
+                    "Auth-Token-Nursing": ""
+                }})
+        }
+
     }else{
         return axios.post(`${apiPath}identityCheck`, data)
     }

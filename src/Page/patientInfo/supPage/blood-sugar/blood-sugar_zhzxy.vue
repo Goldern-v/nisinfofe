@@ -324,13 +324,16 @@ export default {
       this.getSugarItemDict();
     },
     async saveActiveSugar() {
-      if(!this.selected.sugarItem){
-        return this.$message({
-          message: '请填写项目再保存',
-          type: 'error',
-          duration:"1500"
-        })
+      if (this.HOSPITAL_ID !== 'whhk') {
+        if(!this.selected.sugarItem){
+          return this.$message({
+            message: '请填写项目再保存',
+            type: 'error',
+            duration:"1500"
+          })
+        }
       }
+
       if(!this.selected.sugarValue){
         return this.$message({
           message: '请填写血糖值再保存',

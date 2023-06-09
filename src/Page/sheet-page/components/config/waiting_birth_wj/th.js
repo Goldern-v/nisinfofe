@@ -138,8 +138,8 @@ export default {
         特殊情况
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          minWidth: "165px",
+          maxWidth: "165px"
         },
         colspan: "1",
         rowspan: "3"

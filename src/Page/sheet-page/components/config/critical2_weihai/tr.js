@@ -8,16 +8,22 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let ysList = ['浅昏迷', '深昏迷', '清醒', '嗜睡', '模糊','昏睡','未醒','镇静','麻醉未醒']
+let ysList = ['昏迷', '清醒', '嗜睡', '模糊','昏睡','未醒','镇静','麻醉未醒','昏迷镇静']
 let xinlv = ['窦性', '房颤', '房扑', '逸搏', '停搏','室上速','室速','室颤','起搏','交界性']
-let tongkongX = ['2', '1.5']
+let tongkongX = ['5','4.5','4','3.5','3','2.5','2','1.5','1']
 let tongkongR = ['+','-','±']
-let tongqi = ['SIMV','PCV ','VCV','PS/CPAP','PRVC','NIVPS','S/T','IPPV','CPAP','鼻导管a']
+let tongqi = ['SIMV','PCV ','VCV','PS/CPAP','PRVC','NIVPS','S/T','IPPV','CPAP','鼻导管']
 let huxiyin = ['粗','清 ','低','痰鸣音','湿啰音','干啰音']
 let wowei = ['平卧','左侧 ','右侧','头低足高']
-let taitou = ['√']
+let taitou = ['','√']
 // le i = ''
-export default [{
+export default [
+  {
+    hidden: true,
+    key: "recordDate",
+    value: ""
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -94,12 +100,18 @@ export default [{
     autoComplete: {
       data: ysList
     },
+    textarea: {
+      width: 25
+    },
   },
   {
     key: "gcs", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "GCS"
+    name: "GCS",
+    textarea: {
+      width: 30
+    },
   },
   {
     key: "pupilReflexLeft1", // SPO2（%）
@@ -141,31 +153,55 @@ export default [{
     key: "food", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "入量"
+    name: "入量",
+    textarea: {
+      width: 160
+    },
+    outFixedList:true,
+    style:{"text-align":"left"}
   },
   {
     key: "foodSize", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "入量（单位ml）"
+    name: "入量（单位ml）",
+    textarea: {
+      width: 40
+    },
+    statBottomLine:true,
+    outFixedList:true,
   },
   {
     key: "discharge", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "排出物"
+    name: "排出物",
+    textarea: {
+      width: 50
+    },
+    style:{"text-align":"left"},
+    outFixedList:true,
   },
   {
     key: "dischargeSize", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "排出物数量（单位ml）"
+    name: "排出物数量（单位ml）",
+    textarea: {
+      width: 40
+    },
+    statBottomLine:true,
+    outFixedList:true,
   },
   {
     key: "outputColor", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "颜色"
+    name: "颜色",
+    textarea: {
+      width: 30
+    },
+    outFixedList:true,
   },
   {
     key: "breathWay", // SPO2（%）
@@ -265,16 +301,26 @@ export default [{
     autoComplete: {
       data: wowei
     },
+    textarea: {
+      width: 25
+    },
   },
   {
     key: "measures", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "护理措施"
+    name: "护理措施",
+    textarea: {
+      width: 90
+    },
+    outFixedList:true,
   },
   {
     key: "description", //护理记录
     value: "",
+    textarea: {
+      width: 250
+    },
     style: {
       textAlign: "left",
       position: "absolute",
@@ -324,13 +370,24 @@ export default [{
   // },
   {
     hidden: true,
+    key: "expand2",
+    value: ""
+  },
+  {
+    hidden: true,
+    key: "expand",
+    value: ""
+  },
+  {
+    hidden: true,
     key: "status",
     value: ""
   },
   {
     hidden: true,
     key: "recordSource",
-    value: ""
+    value: "",
+    onlyTdredText:true
   },
   {
     hidden: true,
@@ -342,11 +399,7 @@ export default [{
     key: "dataHash",
     value: ""
   },
-  {
-    hidden: true,
-    key: "recordDate",
-    value: ""
-  },
+ 
   {
     hidden: true,
     key: "monthHour",

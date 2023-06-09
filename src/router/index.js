@@ -600,6 +600,7 @@ const router = new Router({
             return temperatureNFZXY
           case 'foshanrenyi':
           case 'nfyksdyy':
+          case 'zjhj':
             return temperatureFSSY
           case 'wujing':
             return temperatureWuJing
@@ -622,7 +623,7 @@ const router = new Router({
           case 'lyyz':
           case 'zzwy':
             return temperatureLYYZ
-          case 'whhk': 
+          case 'whhk':
             return temperatureWHHK
           case 'whyx':
             return temperatureWHYX
@@ -1123,6 +1124,7 @@ const router = new Router({
                 return temperatureJmfy
               case 'foshanrenyi':
               case 'nfyksdyy':
+              case 'zjhj':
                 return temperatureFSSY
               case 'nanfangzhongxiyi':
                 return temperatureNFZXY
@@ -1153,7 +1155,7 @@ const router = new Router({
               case 'lyyz':
               case 'zzwy':
                 return temperatureLYYZ
-              case 'whhk': 
+              case 'whhk':
                 return temperatureWHHK
               case 'gdtj':
                   return temperatureGDTJ

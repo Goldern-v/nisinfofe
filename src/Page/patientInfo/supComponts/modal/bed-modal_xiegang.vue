@@ -82,6 +82,28 @@
       </div>
       <div
         class="bed-card-warpper wrist-strap-print"
+        ref="printCon3"
+        v-show="printMode == 'wrist-children'"
+      >
+        <div class="bed-card-vert-con">
+
+          <div class="qr-code-img">
+            <img class="qr-code" :src="qrCode">
+            <p>{{ query.inpNo + '|' + query.visitId }}</p>
+          </div>
+          <div class="info">
+            <p>{{ query.name }}</p>
+            <p>{{ query.sex }} {{ query.birthday }}</p>
+            <p>{{ query.inpNo }}</p>
+          </div>
+          <div class="barcode-img">
+            <p style="margin-bottom:12px;">{{query.deptName + ' '+query.bedLabel}}</p>
+            <p>{{ query.wardName }}</p>
+          </div>
+      </div>
+      </div>
+      <div
+        class="bed-card-warpper wrist-strap-print"
         ref="printCon2"
         v-show="printMode == 'wrist'"
       >
@@ -99,29 +121,6 @@
           <div class="barcode-img">
             <p>{{query.deptName + ' '+query.bedLabel}}</p>
             <svg id="barcode"></svg>
-          </div>
-      </div>
-      </div>
-      <div
-        class="bed-card-warpper wrist-strap-print"
-        ref="printCon2"
-        v-show="printMode == 'wrist-children'"
-      >
-        <div class="bed-card-vert-con">
-
-          <div class="qr-code-img">
-            <img class="qr-code" :src="qrCode">
-            <p>{{ query.inpNo + '|' + query.visitId }}</p>
-          </div>
-          <div class="info">
-            <p>{{ query.name }}</p>
-            <p>{{ query.sex }} {{ query.birthday }}</p>
-            <p>{{ query.inpNo }}</p>
-          </div>
-          <div class="barcode-img">
-            <p style="margin-bottom:12px;">{{query.deptName + ' '+query.bedLabel}}</p>
-            <!-- <svg id="barcode"></svg> -->
-            <p>{{ query.wardName }}</p>
           </div>
       </div>
       </div>
@@ -488,7 +487,6 @@ export default {
     },
     open(printMode = "h") {
       this.init();
-      this.$refs.modal.open();
       this.printMode = printMode;
       this.title = this.printMode == 'h' ?"编辑床头卡":"腕带打印";
       const qrText = `${this.query.inpNo}|${this.query.visitId}`
@@ -517,6 +515,7 @@ export default {
           textAlign: "left",
         });
       }
+      this.$refs.modal.open();
     },
     close() {
       this.$refs.modal.close();
@@ -546,7 +545,7 @@ export default {
     },
     onPrint() {
       this.post();
-       if (this.printMode == "wrist" || this.printMode == "wrist-children") {
+       if (this.printMode == "wrist") {
         printing(this.$refs.printCon2, {
           injectGlobalCss: true,
           scanStyles: false,
@@ -562,7 +561,23 @@ export default {
           }
           `,
         });
-      }else {
+      }else if (this.printMode == "wrist-children") {
+        printing(this.$refs.printCon3, {
+          injectGlobalCss: true,
+          scanStyles: false,
+          css: `
+          .bed-card-warpper {
+            box-shadow: none !important;
+          }
+          .bed-card-vert-con {
+            margin: 15px 15px 0 15px !important;
+          }
+          @page {
+            margin: 0 0 0 120mm;
+          }
+          `,
+        });
+      } else {
         print(this.$refs.printCon);
       }
     },

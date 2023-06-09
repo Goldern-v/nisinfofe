@@ -5037,7 +5037,7 @@
           "class": null,
           "options": [
             "无",
-            "跌倒风险"
+            "翰霍普金斯跌倒风险评估量表(4.06)"
           ],
           "rule": [
             {
@@ -5052,7 +5052,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332160",
-                    "prefix": "约翰霍普金斯跌倒风险评估量表(4.06)",
+                    "prefix": "跌倒风险",
                     "suffix":[
                       {
                         "max": 50,
@@ -5102,7 +5102,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332169",
-                    "prefix": "Braden压疮风险护理单",
+                    "prefix": "压疮评估",
                     "suffix":[
                       {
                         "max": 23,
@@ -5166,12 +5166,12 @@
                 "params": {
                   "formCode": "NYSD_E0014",
                   "showSignBtn": true,
-                  "title": "外科住院患者静脉血栓风险评估表(Caprini)(4.07)",
+                  "title": "外科住院患者静脉血栓风险评估表(Caprini)(4.07).html",
                   "formUrl": "外科住院患者静脉血栓风险评估表(Caprini)(4.07).html",
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332163",
-                    "prefix": "外科住院患者静脉血栓风险评估表(Caprini)(4.07)",
+                    "prefix": "外科血栓评估",
                     "suffix": "分"
                   }
                 }
@@ -5190,7 +5190,7 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "S2332163",
-                    "prefix": "内科静脉血栓风险评估表(2.0)",
+                    "prefix": "内科血栓评估",
                     "suffix":[
                       {
                         "max": 3,

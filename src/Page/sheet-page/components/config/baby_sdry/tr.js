@@ -37,7 +37,7 @@ export default [
   { key: "recordHour", event: event_time,  click: click_time, value: ''},
   { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'reaction', event: keyf1, value: '', next: '', name: '反应', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4), autoComplete:{data:["好","一般","稍差","差","无"]} },
+  { key: 'react', event: keyf1, value: '', next: '', name: '反应', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4), autoComplete:{data:["好","一般","稍差","差","无"]} },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: '血氧饱和度',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'cry', event: keyf1, value: '', next: '', name: '哭声',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) , autoComplete:{data:["响亮","一般","弱","声嘶","插管","无"]} },
   { key: 'skinColor', event: keyf1, value: '', next: '', name: '皮肤颜色', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["红润","黄染","苍白"]}  },
@@ -51,7 +51,7 @@ export default [
   { key: 'urinate', event: keyf1, value: '', next: '', name: '小便次', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4)},
   { key: 'weight', event: keyf1, value: '', next: 'kg', name: '体重', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodSugar', event: keyf1, value: 'mmol/L', next: '', name: '血糖', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'oncogenesis', event: keyf1, value: '', next: '', name: '产瘤', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete:{data:["√"]} },
+  { key: 'oncogenesis', event: keyf1, value: '', next: '', name: '产瘤', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete: { data: ["无",'2*2*5cm']} },
   { key: 'hematoma', event: keyf1, value: '', next: '', name: '血肿', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4), autoComplete:{data:["√"]} },
   { key: 'armValue', event: keyf1, value: '',textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6)},
   { key: 'armValue2', event: keyf1, value: '',textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6)},
@@ -59,6 +59,7 @@ export default [
     key: "description", //特殊情况记录
     value: "",
     style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "220px", background: "transparent" },
+    textarea: { width: 220 },
     event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
   },
   { key: "sign", value: "" },//单签

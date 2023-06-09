@@ -177,6 +177,11 @@
               tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
+            onlyTdredText:tr.find((item) => {
+              return item.key == 'recordSource';
+            }).onlyTdredText && tr.find((item) => {
+              return item.key == 'food';
+            }).value==='24小时总结',
             borderThickening: ['whhk'].includes(HOSPITAL_ID)&&tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
@@ -1057,7 +1062,7 @@ export default {
     },
     // 护士职称权限判断处理
     onCanModify(data, index, y){
-      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData[ y + (index* data.length)]){
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData && this.listData.length>0 && this.listData[ y + (index* data.length)]){
         return this.listData[ y + (index* data.length)].canModify ? false : true;
       }else{
         return false
@@ -2798,11 +2803,17 @@ export default {
       let tab = "1";
       if (key == "description") {
         tab = "3";
+      } else if (key==="measures") {
+        tab = "4";
+      } else if (['dischargeSize','discharge','outputColor'].includes(key) && ['critical2_weihai'].includes(sheetInfo.sheetType)) {
+        tab = "5";
+      } else if (['food','foodSize'].includes(key) && ['critical2_weihai'].includes(sheetInfo.sheetType)) {
+        tab = "6";
       } else if (name || key.indexOf("field") == -1) {
         tab = "1";
       } else {
         tab = "2";
-      }
+      } 
       //佛山市一不要双击时间出弹框
       if (this.HOSPITAL_ID == "foshanrenyi" && key == "recordHour") {
         return

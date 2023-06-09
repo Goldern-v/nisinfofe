@@ -44,8 +44,8 @@ export default {
             { "name": "血肿", "colspan": "1", "rowspan": "2"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"title1"},
             { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"title2"},
-            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "220px",  maxWidth: "220px"}, },
-            { "name": "签名", "colspan": "1", "rowspan": "3"},
+            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "220px",  "maxWidth": "220px"} },
+          { "name": "签名", "colspan": "1", "rowspan": "3", "style": { "minWidth": "50px", "maxWidth": "50px" } },
          ]
         ,
         mid:
