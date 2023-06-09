@@ -472,20 +472,22 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey": [],
+                "cleanKey": [
+                  "高血压病",
+                  "糖尿病",
+                  "冠心病",
+                  "脑血管病",
+                  "支气管哮喘",
+                  "类风湿性关节炎",
+                  "帕金森综合征",
+                  "重型肝炎、肝硬化",
+                  "阿尔兹海默病",
+                  "白内障",
+                  "其他"
+                ],
                 "title": "既往史",
-                "parentName": "I2332219",
-                "type": "dependent",
-                "callbackInfo": {
-                  "respCode": "I2332219",
-                  "reqCode": "I2332020",
-                  "prefix": "其他:"
-                }
+                "parentName": "I2332219"
               }
-            },
-            {
-              "equal": "其他",
-              "style": "color:red"
             }
           ]
         }
@@ -2640,13 +2642,7 @@
                 ],
                 "title": "口腔黏膜",
                 "parentName": "I2332063",
-                "type": "dependent",
-                "callbackInfo": {
-                  "respCode": "I2332063",
-                  "reqCode": "I2332066",
-                  "prefix": "其他",
-                  "suffix": ""
-                }
+                "type": "dependent"
               }
             }
           ]

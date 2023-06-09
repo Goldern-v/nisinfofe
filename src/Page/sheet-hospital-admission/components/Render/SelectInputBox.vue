@@ -437,7 +437,6 @@ export default {
       } else {
         this.isShowDownList = !this.isShowDownList;
       }
-      console.log("this.$root.$refs.dialogBox===",this.$root.$refs.dialogBox)
       this.openAutoCompleteBox(target);
 
      // if(!this.$root.$refs.dialogBox){
@@ -484,7 +483,6 @@ export default {
         let multiplechoice = this.obj.multiplechoice
           ? this.obj.multiplechoice
           : false;
-        console.log("this.obj===",this.obj)
         if (this.$root.$refs.autoInput) {
           this.isShowDownList = true;
           this.$root.$refs.autoInput.open({

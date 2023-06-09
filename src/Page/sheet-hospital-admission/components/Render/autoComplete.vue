@@ -119,7 +119,6 @@ export default {
       // if (config.data.length > 0) {
       /*重复打开下拉*/
       setTimeout(() => {
-        // console.log('setTimeoutsetTimeoutsetTimeoutsetTimeout')
         this.show = true;
       }, 100);
       // }
@@ -142,7 +141,7 @@ export default {
 
       (this.selectIndex = this.data.length), (this.id = config.id);
 
-      // console.log("open:config", config, this.selectedList, this.getStatus());
+      console.log("open:config", config, this.selectedList, this.getStatus());
 
       this.$nextTick(() => {
         if (this.$refs.autoBox) {
@@ -201,15 +200,13 @@ export default {
         item,
         this.selectedList,
         this.obj[this.id],
-          this.obj[this.id].split(",")
       );
       // if (this.callback) {
       this.callback(item);
       // }
       // this.multiplechoice===true &&
       if (this.obj[this.id] && typeof this.obj[this.id] == "string") {
-        this.selectedList = this.obj[this.id].split(",").filter((item)=>item !=='无');
-        console.log("this.selectedList===",this.selectedList)
+        this.selectedList = this.obj[this.id].split(",");
       }
       // this.show = false;
       if (!this.multiplechoice) {
