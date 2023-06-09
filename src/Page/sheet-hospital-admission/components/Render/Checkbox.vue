@@ -277,11 +277,29 @@ export default {
             hiddenformGroupColBox: true,
             correlationID: "禁食啊"
           },
-          // {
-          //   id: 'I2332047',
-          //   value: '经管进食',
-          //   correlationID: "I2332048"
-          // },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            correlationID: "I2332048"
+          },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            inp: true,
+            correlationID: "I2332049"
+          },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            inp: true,
+            correlationID: "I2332214"
+          },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            inp: true,
+            correlationID: "I2332215"
+          },
           // {
           //   id: 'I2332047',
           //   value: '经管进食',

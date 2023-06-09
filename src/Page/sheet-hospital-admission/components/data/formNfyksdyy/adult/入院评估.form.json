@@ -472,26 +472,19 @@
             {
               "dialog": {
                 "openKey": "其他",
-                "cleanKey": [
-                  "无",
-                  "高血压病",
-                  "糖尿病",
-                  "冠心病",
-                  "脑血管病",
-                  "支气管哮喘",
-                  "类风湿性关节炎",
-                  "帕金森综合征",
-                  "重型肝炎、肝硬化",
-                  "阿尔兹海默病",
-                  "白内障"
-                ],
+                "cleanKey": [],
                 "title": "既往史",
                 "parentName": "I2332219",
-                "type": "dependent"
+                "type": "dependent",
+                "callbackInfo": {
+                  "respCode": "I2332219",
+                  "reqCode": "I2332020",
+                  "prefix": "其他:"
+                }
               }
             },
             {
-              "equal": "有",
+              "equal": "其他",
               "style": "color:red"
             }
           ]
@@ -536,9 +529,7 @@
                 "type": "dependent",
                 "callbackInfo": {
                   "respCode": "I2332021",
-                  "reqCode": "I2332022",
-                  "prefix": "有：",
-                  "suffix": ""
+                  "reqCode": "I2332022"
                 }
               }
             },
@@ -1065,8 +1056,10 @@
           "title": "GCS评估",
           "style": null,
           "titleStyle": "width:69px!important",
-          "inputStyle": "width:400px!important",
+          "inputStyle": "width:200px!important",
           "class": null,
+          "readOnly": null,
+          "hiddenTips": true,
           "options": [
             "无",
             "格拉斯哥昏迷评分量表"
@@ -1470,10 +1463,13 @@
         {
           "name": "I2332042",
           "type": "",
-          "title": "",
+          "title": "疼痛部位",
+          "titleStyle": "width:100px!important",
           "elementStyle": "margin: 0px 5px 0 8px;",
-          "elementClass": "el-radio_fs itemRadio",
+          "elementClass": "el-radio_fs",
           "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
           "children": [
             {
               "name": "I2332042",
@@ -2105,17 +2101,7 @@
                 }
               ]
             },
-            {
-              "name":"I2332048",
-              "type":"checkbox",
-              "title":"鼻胃管",
-              "elementStyle":"margin:px 5px 0 8px;",
-              "elementClass":"el-radio_fs itemRadio",
-              "style":null,
-              "class":null,
-              "hiddenTips":true,
-              "readOnly":null
-            },
+
             {
               "name":"I2332048",
               "type":"checkbox",
@@ -2147,7 +2133,7 @@
               "readOnly":null
             },
             {
-              "name":"I2332047",
+              "name":"I2332048",
               "type": "checkbox",
               "title": "其他",
               "elementStyle": "margin: 8px 5px 0 8px;",
@@ -2160,7 +2146,7 @@
                   "title": "",
                   "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "100%",
+                  "inputWidth": "400px",
                   "suffixDesc": "",
                   "style": null,
                   "class": null,
@@ -2304,8 +2290,10 @@
           "name": "S2332157",
           "type": "select",
           "title": "营养风险筛查",
-          "titleStyle":"width:100px!important",
+          "titleStyle":"width:120px!important",
           "inputWidth": "200px",
+          "hiddenTips": true,
+          "readOnly": null,
           "options": [
             "无",
             "营养风险筛查单"
@@ -2589,7 +2577,7 @@
           "name": "I2332060",
           "type": "input",
           "title": "其他概况",
-          "titleStyle": "width: 91px",
+          "titleStyle": "width: 62px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
           "labelLeft": true,
@@ -2646,7 +2634,6 @@
               "dialog": {
                 "openKey": "其他",
                 "cleanKey": [
-                  "完整",
                   "溃疡",
                   "白斑",
                   "红肿"
@@ -2661,21 +2648,6 @@
                   "suffix": ""
                 }
               }
-            },
-            {
-              "equals": "完整"
-            },
-            {
-              "equals": "溃疡"
-            },
-            {
-              "equals": "白斑"
-            },
-            {
-              "equals": "红肿"
-            },
-            {
-              "equals": "其他"
             }
           ]
         },
@@ -2945,7 +2917,8 @@
               "name": "I2332069",
               "type": "checkbox",
               "title": "其他",
-              "elementStyle": "margin: 0px 5px 0 8px;",
+              "elementStyle": "padding-top:5px",
+              "boxStyle": "line-height:22px",
               "elementClass": "el-radio_fs itemRadio",
               "class": null,
               "children": [
@@ -2953,8 +2926,7 @@
                   "name": "I2332070",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:50px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 0px 0px 0px",
+                  "inputStyle": "width:100%!important; margin: 0px 0px 0px 0px;height:auto",
                   "inputWidth": "100px",
                   "suffixDesc": "",
                   "style": null,
@@ -2969,8 +2941,9 @@
               "name": "I2332069",
               "type": "checkbox",
               "title": "留置尿管",
-              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementStyle": "padding-top:5px;margin-left:8px",
               "elementClass": "el-radio_fs itemRadio",
+              "boxStyle": "line-height:22px",
               "class": null,
               "children": [
                 {
@@ -2978,7 +2951,6 @@
                   "type": "input",
                   "dateTimeType": "date",
                   "title": "",
-                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:40%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "80px",
                   "suffixDesc": "（年/月/日）",
@@ -3648,7 +3620,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "12.认知评估",
+      "title": "12.认知障碍",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",

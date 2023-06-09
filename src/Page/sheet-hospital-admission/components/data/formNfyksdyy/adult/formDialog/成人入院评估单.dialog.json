@@ -69,7 +69,33 @@
       {
         "name": "I2332020",
         "type": "input",
-        "title": "既往史其他",
+        "title": "其他",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "口腔黏膜",
+    "type": "formGroupHorizontalBox",
+    "name": "I2332066",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "口腔黏膜",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332066",
+        "type": "input",
+        "title": "其他",
         "style": null,
         "class": null,
         "html": null,

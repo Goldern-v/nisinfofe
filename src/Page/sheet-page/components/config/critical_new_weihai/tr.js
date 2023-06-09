@@ -1,7 +1,8 @@
 import { multiDictInfo } from "../../../api/index";
 import info from "../sheetInfo";
 import {
-  keyf1
+  keyf1,
+  limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -132,6 +133,10 @@ export default [{
     event: keyf1,
     autoComplete: {
       data: ruList
+    },
+    change: (e, td) => limitChange(e, td, 26),
+    textarea: {
+      width:260
     },
     name: "入量名称"
   },
