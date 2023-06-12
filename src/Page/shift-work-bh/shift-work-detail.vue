@@ -12,7 +12,7 @@
         @click="onRowRemove"
       >删除行</Button>
       <!-- <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button> -->
-      <Button :disabled="isEmpty || allSigned"  @click="onSave(true)">保存</Button>
+      <Button :disabled="isEmpty || allSigned"  @click="onSave3(true)">保存</Button>
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
@@ -810,6 +810,26 @@ export default {
       await apis.updateShiftRecord({
         changeShiftTimes: changeShiftTime,
         changeShiftPatients,
+        shiftWithWardcodesA:[shiftWithWardcodesA],
+        shiftWithWardcodesP:[shiftWithWardcodesP],
+        shiftWithWardcodesN:[shiftWithWardcodesN],
+      });
+
+      this.load();
+      if (tip) {
+        this.$message.success("保存成功");
+      }
+    },
+    async onSave3(tip) {
+      const deptCode = this.deptCode;
+      const changeShiftTime = this.record;
+      // const changeShiftPatients = this.patients
+      //   .filter(p => p.name || p.id)
+      //   .map((p, i) => ({ ...p, sortValue: i + 1 }));
+      const [shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN] = this.shiftWithWardcodes
+      await apis.updateShiftRecord({
+        changeShiftTimes: changeShiftTime,
+        // changeShiftPatients,
         shiftWithWardcodesA:[shiftWithWardcodesA],
         shiftWithWardcodesP:[shiftWithWardcodesP],
         shiftWithWardcodesN:[shiftWithWardcodesN],

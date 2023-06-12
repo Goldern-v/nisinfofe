@@ -47,12 +47,13 @@
                 alt
               />
             </div>
-            <span v-else>{{ td.value }}</span>
+            <span v-else-if="td.type=='text'">{{ td.text }}</span>
+            <span v-else>{{ sheetInfo.relObj[td.name]===td.value?'√':'' }}</span>
           </td>
         </tr>
       </tbody>
     </table>
-    <div class="info">
+    <!-- <div class="info">
       <div class="group">催产素静脉点滴情况：
         <input
           type="text"
@@ -67,7 +68,7 @@
           v-model="sheetInfo.relObj.oxytocinDropScore"
         />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -93,29 +94,22 @@ export default {
         return;
       }
       // 累计评分
-      var allGrade = [null, null, 0, null, 1, null, 2, null, 3];
-      var currentGrade =
-        Number(allGrade[tdIndex]) != NaN ? Number(allGrade[tdIndex]) : 0;
       this.sheetInfo.relObj.totalCervixGrade =
         this.sheetInfo.relObj.totalCervixGrade || 0;
-      if (!td.value) {
+      if (td.value!=this.sheetInfo.relObj[td.name]) {
         tr.map((item, index) => {
           if (
             item.name == td.name &&
-            item.value &&
-            Number(allGrade[index]) != NaN
+            item.value == this.sheetInfo.relObj[td.name]
           ) {
-            this.sheetInfo.relObj.totalCervixGrade -= Number(allGrade[index]);
-            item.value = "";
+            this.sheetInfo.relObj.totalCervixGrade -= Number(this.sheetInfo.relObj[td.name]);
           }
         });
-        td.value = "√";
-        this.sheetInfo.relObj[td.name] = currentGrade;
-        this.sheetInfo.relObj.totalCervixGrade += currentGrade;
+        this.sheetInfo.relObj[td.name] = td.value;
+        this.sheetInfo.relObj.totalCervixGrade += Number(td.value);
       } else {
-        td.value = "";
         this.sheetInfo.relObj[td.name] = "";
-        this.sheetInfo.relObj.totalCervixGrade -= currentGrade;
+        this.sheetInfo.relObj.totalCervixGrade -= Number(td.value);
       }
     },
     sign2() {
@@ -137,23 +131,27 @@ export default {
 
   created() {},
   mounted() {
-    var allGrade = [null, null, 0, null, 1, null, 2, null, 3];
-    this.tableData.tbody.map(tr => {
-      tr.map((td, tdIndex) => {
-        if (td.name && this.sheetInfo.relObj[td.name] == allGrade[tdIndex]) {
-          td.value = "√";
-        } else if (td.isChecked) {
-          td.value = "";
-        }
-      });
-    });
+    // this.$nextTick(()=>{
+    //   var allGrade = [null, null, 0, null, 1, null, 2, null, 3];
+    //   this.tableData.tbody.map((tr,i) => {
+    //     tr.map((td, tdIndex) => {
+    //       if(i===0){
+    //         console.log(this.sheetInfo,this.sheetInfo.relObj,this.sheetInfo.sheetType,'sada')
+    //       }
+    //       if (td.name && this.sheetInfo.relObj[td.name] == allGrade[tdIndex]) {
+    //         td.value = "√";
+    //       } else if (td.isChecked) {
+    //         td.value = "";
+    //       }
+    //     });
+    //   });
+    // })
   },
   computed: {
     isPrint() {
       return window.location.href.indexOf("print") > -1;
     }
   },
-  watch: {},
   coponents: {}
 };
 </script>
