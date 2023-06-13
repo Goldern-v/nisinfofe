@@ -143,7 +143,11 @@ export default [{
   },
   {
     key: "sign",
-    value: ""
+    value: "",
+    style: {
+      minWidth: '70px',
+      maxWidth: "153px",
+    },
   },
   // {
   //   key: "audit",

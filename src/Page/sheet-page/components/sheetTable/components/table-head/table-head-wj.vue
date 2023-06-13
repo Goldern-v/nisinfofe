@@ -75,7 +75,7 @@
         </span>
       </div>
     </div>
-    <div class="info-con" flex="main:justify" v-else-if="sheetInfo.sheetType === 'postpartum_wj'">
+    <div class="info-con postpartum" flex="main:justify" v-else-if="sheetInfo.sheetType === 'postpartum_wj'">
       <span
         @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
       >
@@ -341,6 +341,11 @@ export default {
 .header-con {
   .info-con {
     margin: 0 0;
+    &.postpartum{
+      span{
+        font-size: 15px;
+      }
+    }
     > span {
       height: 23px;
       line-height: 23px;
