@@ -2017,11 +2017,13 @@
           "style": null,
           "titleStyle": "width:86px!important",
           "inputStyle": "width:270px!important",
-          "inputWidth": "180px",
+          "inputWidth": "350px",
           "class": null,
           "options": [
             "无",
-            "有,跌倒评估单(成人)"
+            "有,跌倒评估单(成人)",
+            "有,儿科跌倒评估",
+            "有,产科跌倒评估"
           ],
           "rule": [
             {
@@ -2046,6 +2048,42 @@
                 "type": "independent",
                 "parentName": "S0305_2",
                 "showHead": "true"
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "有,儿科跌倒评估",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "E1867",
+                  "showSignBtn": true,
+                  "title": "青海五院住院患者跌倒坠床危险因素评估表（儿科）",
+                  "formUrl": "青海五院住院患者跌倒坠床危险因素评估表（儿科）.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "S0305_2",
+                    "prefix": "有,儿科跌倒评估:",
+                    "suffix": "分"
+                  }
+                }
+              }
+            },
+            {
+              "relationForm": {
+                "openKey": "有,产科跌倒评估",
+                "cleanKey": "无",
+                "params": {
+                  "formCode": "E1655",
+                  "showSignBtn": true,
+                  "title": "青海五院产科住院患者跌倒、坠床危险因素评估表",
+                  "formUrl": "青海五院产科住院患者跌倒、坠床危险因素评估表.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "S0305_2",
+                    "prefix": "有,产科跌倒评估:",
+                    "suffix": "分"
+                  }
+                }
               }
             },
             {
@@ -2095,39 +2133,6 @@
             {
               "equal": "有",
               "style": "color:red"
-            }
-          ]
-        },
-        {
-          "name": "S0629",
-          "type": "select",
-          "title": "儿科跌倒风险评估",
-          "style": null,
-          "titleStyle": "width:69px!important",
-          "inputStyle": "width:400px!important",
-          "class": null,
-          "options": [
-            "无",
-            "有,住院患者跌倒/坠床危险因素评估表（儿科）"
-          ],
-          "rule": [
-            {
-              "relationForm": {
-                "openKey": "有,住院患者跌倒/坠床危险因素评估表（儿科）",
-                "cleanKey": "无",
-                "params": {
-                  "formCode": "E1867",
-                  "showSignBtn": true,
-                  "title": "青海五院住院患者跌倒坠床危险因素评估表（儿科）",
-                  "formUrl": "青海五院住院患者跌倒坠床危险因素评估表（儿科）.html",
-                  "callbackInfo": {
-                    "needScore": true,
-                    "code": "S0629",
-                    "prefix": "有,住院患者跌倒/坠床危险因素评估表(儿科):",
-                    "suffix": "分"
-                  }
-                }
-              }
             }
           ]
         },
@@ -2207,7 +2212,526 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "七、入院原因",
+      "title": "七、专科护理评估",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "I003001",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "七、专科护理评估",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 12px;",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I003001",
+          "type": "",
+          "title": "专科评估",
+          "titleStyle": "width:95px!important",
+          "class": null,
+          "boxStyle": "height:auto!important",
+          "inputStyle": "margin-top: -8px",
+          "children": [
+            {
+              "name": "I003001",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 8px 0px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I003001",
+              "type": "radio",
+              "title": "妇科",
+              "elementStyle": "margin: 8px 0px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I003001",
+              "type": "radio",
+              "title": "儿科",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I003001",
+              "type": "radio",
+              "title": "产科",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "无",
+                    "妇科",
+                    "儿科",
+                    "新生儿科"
+                  ]
+                },
+                {
+                  "show": "产科"
+                }
+              ]
+            },
+            {
+              "name": "I003001",
+              "type": "radio",
+              "title": "新生儿科",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "I003002",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "产科",
+      "parentKey": "I003001",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I003002",
+          "type": "",
+          "title": "剖宫产史",
+          "titleStyle": "width:72px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I003002",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I003002",
+              "type": "radio",
+              "title": "有",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null,
+              "children": [
+                {
+                  "name": "I003003",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "60px",
+                  "suffixDesc": "次",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
+            },
+            {
+              "name": "I003004",
+              "type": "input",
+              "prefix": "末次月经：",
+              "dateTimeType": "date2",
+              "title": "",
+              "elementStyle": "margin-left: 24px;margin-top: 5px",
+              "prefixStyle": "width: 65px",
+              "titleStyle": "width:100px!important",
+              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+              "inputWidth": "100px",
+              "suffixDesc": "",
+              "style": null,
+              "class": null,
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
+            },
+            {
+              "name": "I003005",
+              "type": "input",
+              "prefix": "预产期：",
+              "dateTimeType": "date2",
+              "title": "",
+              "elementStyle": "margin-left: 24px;margin-top: 5px",
+              "prefixStyle": "width: 50px",
+              "titleStyle": "width:100px!important",
+              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+              "inputWidth": "100px",
+              "suffixDesc": "",
+              "style": null,
+              "class": null,
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
+            }
+          ]
+        },
+        {
+          "name": "I003006",
+          "type": "",
+          "title": "",
+          "titleStyle": "width:72px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I003006",
+              "type": "checkbox",
+              "title": "宫高",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null,
+              "children": [
+                {
+                  "name": "I003007",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "60px",
+                  "suffixDesc": "cm",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
+            },
+            {
+              "name": "I0011015",
+              "type": "input",
+              "title": "",
+              "prefix": "腹围：",
+              "elementStyle": "margin-left: 24px;margin-top: 6px",
+              "titleStyle": "width:90px!important",
+              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+              "inputWidth": "60px",
+              "suffixDesc": "cm",
+              "style": null,
+              "class": null,
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
+            },
+            {
+              "name": "I0011016",
+              "type": "input",
+              "title": "",
+              "prefix": "入院时胎心率：",
+              "prefixStyle": "width: 100px",
+              "elementStyle": "margin-left: 24px;margin-top: 6px",
+              "titleStyle": "width:90px!important",
+              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+              "inputWidth": "60px",
+              "suffixDesc": "次/分",
+              "style": null,
+              "class": null,
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
+            }
+          ]
+        },
+        {
+          "name": "I0011017",
+          "type": "",
+          "title": "阴道检查",
+          "titleStyle": "width:72px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I0011017",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I0011017",
+              "type": "radio",
+              "title": "有",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I0011018",
+              "type": "checkbox",
+              "title": "宫颈管：",
+              "elementStyle": "margin: 8px 5px 0 24px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null,
+              "children": [
+                {
+                  "name": "I0011019",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "60px",
+                  "suffixDesc": "",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
+            },
+            {
+              "name": "I0011020",
+              "type": "input",
+              "title": "",
+              "prefix": "胎头位置：",
+              "prefixStyle": "width: 65px",
+              "elementStyle": "margin-left: 24px;margin-top: 6px",
+              "titleStyle": "width:90px!important",
+              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+              "inputWidth": "60px",
+              "suffixDesc": "",
+              "style": null,
+              "class": null,
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
+            }
+          ]
+        },
+        {
+          "name": "I0011021",
+          "type": "",
+          "title": "胎位",
+          "titleStyle": "width:72px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I0011021",
+              "type": "checkbox",
+              "title": "头先露",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I0011021",
+              "type": "checkbox",
+              "title": "额先露",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I0011021",
+              "type": "checkbox",
+              "title": "脸先露",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I0011021",
+              "type": "checkbox",
+              "title": "臀先露",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I0011021",
+              "type": "checkbox",
+              "title": "未知",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I0011021",
+              "type": "checkbox",
+              "title": "肩先露",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            }
+          ]
+        },
+        {
+          "name": "I0011022",
+          "type": "",
+          "title": "臀先露胎位",
+          "titleStyle": "width:72px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I0011022",
+              "type": "checkbox",
+              "title": "全臀",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I0011022",
+              "type": "checkbox",
+              "title": "足式",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I0011022",
+              "type": "checkbox",
+              "title": "横产式",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio",
+              "style": null,
+              "class": null
+            }
+          ]
+        },
+        {
+          "name": "I0011023",
+          "type": "",
+          "title": "宫缩",
+          "titleStyle": "width:72px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I0011023",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I0011023",
+              "type": "radio",
+              "title": "有",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I0011024",
+              "type": "input",
+              "title": "",
+              "prefix": "持续时间：",
+              "prefixStyle": "width: 65px",
+              "elementStyle": "margin-left: 24px;margin-top: 6px",
+              "titleStyle": "width:90px!important",
+              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+              "inputWidth": "60px",
+              "suffixDesc": "",
+              "style": null,
+              "class": null,
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
+            },
+            {
+              "name": "I0011025",
+              "type": "input",
+              "title": "",
+              "prefix": "间隔时间：",
+              "prefixStyle": "width: 65px",
+              "elementStyle": "margin-left: 24px;margin-top: 6px",
+              "titleStyle": "width:90px!important",
+              "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+              "inputWidth": "60px",
+              "suffixDesc": "",
+              "style": null,
+              "class": null,
+              "labelLeft": true,
+              "hiddenTips": true,
+              "readOnly": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "八、入院原因",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -2223,7 +2747,7 @@
         "100%"
       ],
       "title": "",
-      "parentTitle": "七、入院原因",
+      "parentTitle": "八、入院原因",
       "showTitle": true,
       "message": "",
       "require": "false",
@@ -2261,7 +2785,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "八、住院告知",
+      "title": "九、住院告知",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -2273,7 +2797,7 @@
       "name": "I001501",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "八、住院告知",
+      "title": "九、住院告知",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2385,7 +2909,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "九、出院小结及护理指导",
+      "title": "十、出院小结及护理指导",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -2397,7 +2921,7 @@
       "name": "",
       "type": "formGroupColBox",
       "col": 2,
-      "title": "九、出院小结及护理指导",
+      "title": "十、出院小结及护理指导",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2480,7 +3004,7 @@
       "name": "I001452",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "九、出院小结及护理指导",
+      "title": "十、出院小结及护理指导",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2547,7 +3071,7 @@
       "name": "I001453",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "九、出院小结及护理指导",
+      "title": "十、出院小结及护理指导",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2597,7 +3121,7 @@
       "name": "I001454",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "九、出院小结及护理指导",
+      "title": "十、出院小结及护理指导",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2633,7 +3157,7 @@
       "name": "I001884",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "九、出院小结及护理指导",
+      "title": "十、出院小结及护理指导",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2699,7 +3223,7 @@
       "name": "I001885",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "九、出院小结及护理指导",
+      "title": "十、出院小结及护理指导",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -2791,7 +3315,7 @@
           "class": null,
           "readOnly": true
         }
-       
+
       ]
     }
   ],
