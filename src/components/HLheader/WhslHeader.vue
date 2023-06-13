@@ -27,27 +27,6 @@
                 <i class="iconfont icon-chuangweiyilanqia"></i> 床位一览卡
               </el-row>
             </router-link>
-            <router-link to="/index" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-shouye"></i> 护理任务
-              </el-row>
-            </router-link>
-            <!-- <router-link to="/implementationList" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-jiaobanzhi"></i> 执行单
-              </el-row>
-            </router-link> -->
-
-            <router-link to="/MEWS" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="sheetHospitalEval"></i> MEWS
-              </el-row>
-            </router-link>
-            <router-link to="/infuse" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
-              </el-row>
-            </router-link>
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
@@ -72,77 +51,6 @@
                   <router-link to="/implementationList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="catheterPage"></i>执行记录
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-<!--            <el-dropdown-->
-<!--              menu-align="start"-->
-<!--              :class="{ 'router-link-active': isActiveAssessPage }"-->
-<!--            >-->
-<!--              <el-row class="nav-item" type="flex" align="middle">-->
-<!--                <i class="birthCertificate"></i>护理评估-->
-<!--              </el-row>-->
-<!--              <el-dropdown-menu slot="dropdown">-->
-<!--                <el-dropdown-item-->
-<!--                  :class="{-->
-<!--                    active: $route.path == '/sheetHospitalAdmission'-->
-<!--                  }"-->
-<!--                >-->
-<!--                  <router-link to="/sheetHospitalAdmission" tag="span">-->
-<!--                    <el-row class="menu-item" type="flex" align="middle">-->
-<!--                      <i class="sheetHospitalAdmission"></i>入院评估-->
-<!--                    </el-row>-->
-<!--                  </router-link> </el-dropdown-item-->
-<!--                ><el-dropdown-item-->
-<!--                  :class="{-->
-<!--                    active: $route.path == '/sheetHospitalEval'-->
-<!--                  }"-->
-<!--                >-->
-<!--                  <router-link to="/sheetHospitalEval" tag="span">-->
-<!--                    <el-row class="menu-item" type="flex" align="middle">-->
-<!--                      <i class="sheetHospitalEval"></i>住院评估-->
-<!--                    </el-row>-->
-<!--                  </router-link> </el-dropdown-item-->
-<!--                ><el-dropdown-item-->
-<!--                  :class="{-->
-<!--                    active: $route.path == '/MEWS'-->
-<!--                  }"-->
-<!--                >-->
-<!--                  <router-link to="/MEWS" tag="span">-->
-<!--                    <el-row class="menu-item" type="flex" align="middle">-->
-<!--                      <i class="sheetHospitalEval"></i> MEWS-->
-<!--                    </el-row>-->
-<!--                  </router-link>-->
-<!--                </el-dropdown-item>-->
-<!--              </el-dropdown-menu>-->
-<!--            </el-dropdown>-->
-            <el-dropdown
-              menu-align="start"
-              :class="{ 'router-link-active': isActiveRecordPage }"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>护理文书
-              </el-row>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item> </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/sheetPage' }"
-                >
-                  <router-link to="/sheetPage" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="healthEducation"></i>护理记录单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/formPage' }"
-                >
-                  <router-link to="/formPage" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingAssessment"></i> 护理评估单
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
@@ -200,9 +108,14 @@
                 >护理计划单</el-row
               >
             </router-link>
-             <router-link to="/archive" tag="span">
+            <router-link to="/sheetPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-guidang"></i> 归档
+                <i class="healthEducation"></i>护理记录单
+              </el-row>
+            </router-link>
+            <router-link to="/formPage" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i> 护理评估单
               </el-row>
             </router-link>
             <router-link to="/shiftWork" tag="span">
@@ -214,16 +127,35 @@
               <el-row class="nav-item" type="flex" align="middle">
               <i class="iconfont icon-jiankan"></i>健康教育单
               </el-row>
-             </router-link>
+            </router-link>
+            <router-link to="/allCatheter" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 导管
+              </el-row>
+            </router-link>
+            <router-link to="/index" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-shouye"></i> 护理任务
+              </el-row>
+            </router-link>
             <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理巡视
               </el-row>
             </router-link>
-
-            <router-link to="/allCatheter" tag="span">
+            <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-allCatheter"></i> 导管
+                <i class="sheetHospitalEval"></i> MEWS
+              </el-row>
+            </router-link>
+            <router-link to="/infuse" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
+              </el-row>
+            </router-link>
+             <router-link to="/archive" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-guidang"></i> 归档
               </el-row>
             </router-link>
             <router-link to="/statisticalQuery" tag="span">
@@ -231,124 +163,6 @@
                 <i class="iconfont icon-allCatheter"></i> 统计查询
               </el-row>
             </router-link>
-            <!-- <router-link to="/board" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-baiban"></i> 白板
-              </el-row>
-            </router-link> -->
-            <!-- <el-dropdown
-              menu-align="start"
-              :class="{
-                'router-link-active':
-                  $route.path == '/deepPage' || $route.path == '/catheterPage'
-              }"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>导管
-              </el-row>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>
-                  <router-link to="/deepPage" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle"
-                      >深静脉导管
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <router-link to="/catheterPage" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle"
-                      >导尿管
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown> -->
-            <!-- <router-link
-              to="/scheduling"
-              tag="span"
-              v-show="deptCode == '031202'"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-jiaobanzhi"></i> 血透排班
-              </el-row>
-            </router-link> -->
-
-            <!-- <router-link
-              to="/deliveryRoomWhiteboard"
-              tag="span"
-              v-if="deptCode == '051102_01'"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-whiteboard"></i> 产房白板
-              </el-row>
-            </router-link> -->
-            <!-- <router-link
-              to="/familyBigScreen"
-              tag="span"
-              v-if="deptCode == '051102_01'"
-            >
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-family"></i> 家属大屏
-              </el-row>
-            </router-link> -->
-
-            <!-- <router-link to="/MEWS" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-hulirenwu"></i> MEWS
-                <span class="red-tip" v-if="isTip"></span>
-              </el-row>
-            </router-link> -->
-            <!-- <router-link to="/formPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-dongtairizhi"></i> 护理评估
-              </el-row>
-            </router-link>-->
-            <!-- <router-link to="/evalFormPage" tag="span" v-show="isDev">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-dongtairizhi"></i> (新)护理评估
-              </el-row>
-            </router-link>-->
-            <!-- <router-link to="/catheterPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-dongtairizhi"></i> 导管
-              </el-row>
-            </router-link>-->
-
-
-            <!-- <router-link to="/wardReport" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-dongtairizhi"></i> 病房日报
-              </el-row>
-            </router-link>
-            <router-link to="/nursingDocumentation" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-huliwenshu"></i> 患者查询
-              </el-row>
-            </router-link>-->
-            <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-dongtairizhi"></i> 导管
-              </el-row>
-            </router-link>-->
-            <!-- <el-dropdown menu-align="start" :class="{'router-link-active': isActiveFormPage}">
-              <el-row class="nav-item" type="flex" align="middle">
-                <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>其他表单
-            </el-row>-->
-            <!-- <el-dropdown menu-align="start">
-              <el-row class="nav-item" type="flex" align="middle">
-                <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>其他表单
-            </el-row>-->
-            <!-- <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>
-                  <router-link to="/sugarPage" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">血糖</el-row>
-                  </router-link>
-                </el-dropdown-item>
-            </el-dropdown-menu>-->
-            <!-- </el-dropdown> -->
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"

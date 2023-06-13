@@ -556,10 +556,11 @@ export default {
         }
         await saveSyncRecord(params)
       }
-      if(this.HOSPITAL_ID === 'whsl' && this.sheetInfo.sheetType ==='critical_weihai'){
+      if(this.HOSPITAL_ID === 'whsl' && ['critical_weihai', 'critical2_weihai'].includes(this.sheetInfo.sheetType)){
         let newTemArr=temArr.map((item)=>{
-          return {...item,executeType:this.executeType,recordCodes:["critical_weihai"]}
+          return {...item,executeType:this.executeType,recordCodes:[this.sheetInfo.sheetType]}
         })
+
         saveVitalSignWhsl(newTemArr).then((res) => {
           this.$message.success("保存成功");
         });
