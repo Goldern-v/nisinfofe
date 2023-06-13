@@ -1137,14 +1137,13 @@ export default {
             weight: resData.weight
           };
         }
-        console.log(this.formData, "this.formData");
         this.modalLoading = false;
         if (
           ["lyxrm", "stmz"].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post != "护长"
         ) {
-          if (resData.isPrint == 1 && this.query.wardName == resData.wardCode) {
+          if (resData.isPrint == 1) {
             this.$message({
               type: "warning",
               message: "该患者已打印床头卡",

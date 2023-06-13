@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <el-tooltip class="item" effect="dark" content="患者资料" placement="left">
+  <div class="tooltipBox">
+    <el-tooltip class="item" data-content="患者资料" effect="dark" content="患者资料" placement="left">
       <div class="fixed-icon" :class="{ open: open }" @click="onToggle">
         <img src="./images/患者资料@2x.png" alt />
       </div>
     </el-tooltip>
-    <el-tooltip class="item" effect="dark" content="出入量实时统计" placement="left" v-show="['critical2_weihai'].includes(sheetInfo.sheetType)">
+    <el-tooltip class="item" data-content="出入量实时统计" effect="dark" content="出入量实时统计" placement="left" v-show="showFoodAndOut">
       <div class="fixed-icon" style="top:200px" :class="{ secondOpen: secondOpen }" @click="opentongji">
         <img src="./images/患者资料@2x.png" alt />
       </div>
@@ -104,6 +104,12 @@ export default {
     patientInfo() {
       return this.$store.state.sheet.patientInfo;
     },
+    showFoodAndOut(){
+      if(['whsl'].includes(this.HOSPITAL_ID)){
+        return ['critical2_weihai'].includes(this.sheetInfo.sheetType)
+      }
+      return false
+    }
   },
   components: {
     patientInfoSlide,
@@ -112,7 +118,6 @@ export default {
   created(){
     // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
     this.bus.$on("openclosePatientInfo",(type,close,feature)=>{
-      console.log("111111",type)
       this.onToggle()
       if(close) return
       setTimeout(()=>{

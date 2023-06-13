@@ -4,7 +4,7 @@
       <div class="left-part">
         <treeNursingPreview ref="treeNursingPreview"></treeNursingPreview>
       </div>
-      <div class="right-part">
+      <div class="right-part" :class="{whslPreView}">
         <component :is="otherComponent" v-if="otherComponent"></component>
         <rightPart v-show="!otherComponent"></rightPart>
       </div>
@@ -24,8 +24,20 @@
   height: calc(100vh - 21px) !important;
 }
 
->>>.new-btn, >>>.null-btn, >>>.tool-bar, >>>.fixed-icon, >>>.table-fixed-th {
+>>>.new-btn, >>>.null-btn, >>>.tool-bar, >>>.table-fixed-th {
   display: none !important;
+}
+>>>.tooltipBox{
+  display: none !important;
+}
+
+>>> .whslPreView{
+  .tooltipBox{
+      display: block !important;
+      .fixed-icon[data-content="患者资料"]{
+        display: none !important;
+        }
+    }
 }
 
 >>>.tool-contain {
@@ -253,6 +265,12 @@ export default {
         patientInfo.wardCode = data.wardCode;
         this.$store.commit("upPatientInfo", patientInfo);
       });
+    }
+  },
+  computed:{
+    whslPreView(){
+      if(['whsl'].includes(this.HOSPITAL_ID)) return true
+      return false
     }
   },
   components: {

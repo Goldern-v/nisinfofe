@@ -4,7 +4,7 @@
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
       class="iframe"
-      :class="HOSPITAL_ID === 'hengli' ? 'reduceGap' : ''"
+      :class="HOSPITAL_ID === 'hengli' ? 'reduceGap' : ['orthopaedic_sdry','postpartum2_sdry','baby2_sdry','baby_sdry','postpartum_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ?'sdyy':''"
       v-html="sheetModel"
     ></div>
   </div>
@@ -351,8 +351,8 @@ export default {
     });
     console.log("this.sheetInfo.sheetType ",this.sheetInfo.sheetType )
 
-    if (sheetTableWidth > 1000 && 
-    !['ops_linyi','nicu_custody_hd'].includes(this.sheetInfo.sheetType) && 
+    if (sheetTableWidth > 1000 &&
+    !['ops_linyi','nicu_custody_hd'].includes(this.sheetInfo.sheetType) &&
     this.query.sheetType!=='critical2_weihai') {
       printDir("h");
       addCSS(
@@ -824,25 +824,75 @@ export default {
           }
         `
       )
-      if(sheetInfo.sheetType == "orthopaedic_sdry"){
-        printDir("h");
+      if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
         addCSS(
           window,
           `
-            @media print {
-              #sheetPagePrint .contant{
-                margin-top:-5x;!important;
+             @media print {
+                  .body-con{
+                    height: 40px !important;
+                  }
+                  .sdyy > div {
+                    page-break-after: always;
+                    padding-top: 20px !important;
+                    box-sizing: border-box;
+                  }
               }
-              .body-con{
-                height: 35px !important;
-              }
-              @page{
-                padding:10px 0 0 10px;
-              }
-          }
           `
-        )
-      }
+                )
+              }
+      if ((sheetInfo.sheetType == "baby2_sdry")) {
+      addCSS(
+        window,
+            `
+            @media print {
+                  .body-con{
+                    height: 44px !important;
+                  }
+                  .sdyy > div {
+                    page-break-after: always;
+                    padding-top: 40px !important;
+                    box-sizing: border-box;
+                  }
+                  }
+            `
+          );
+        }
+
+      if ((sheetInfo.sheetType == "baby_sdry" )) {
+      addCSS(
+        window,
+            `
+            @media print {
+                  .body-con{
+                    height: 39px !important;
+                  }
+                  .sdyy > div {
+                    page-break-after: always;
+                    padding-top: 20px !important;
+                    box-sizing: border-box;
+                  }
+                  }
+            `
+          );
+        }
+      if ((sheetInfo.sheetType ==  'postpartum_sdry')) {
+      addCSS(
+        window,
+            `
+            @media print {
+                  .body-con{
+                    height: 35px !important;
+                  }
+                  .sdyy > div {
+                    page-break-after: always;
+                    padding-top: 20px !important;
+                    box-sizing: border-box;
+                  }
+                  }
+            `
+          );
+        }
     }
     // 如果双签可以这里加。打印的时候签名二合一。签名列拉宽
     if (

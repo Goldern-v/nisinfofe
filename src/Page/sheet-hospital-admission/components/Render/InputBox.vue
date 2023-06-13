@@ -34,7 +34,7 @@
       <span style="font-size: 12px;" :style="obj.labelStyle" :class="obj.labelClass">{{obj.label}}</span>
     </span>
 
-    <span v-if="obj.prefix" style="font-size: 12px; width: 48px">{{obj.prefix}}</span>
+    <span v-if="obj.prefix" style="font-size: 12px; width: 48px" :style="obj.prefixStyle">{{obj.prefix}}</span>
     <el-input
       v-model="inputValue"
       :id="getUUID()"
