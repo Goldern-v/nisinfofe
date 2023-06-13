@@ -841,6 +841,13 @@ export default {
         path.includes("sheetHospitalEval") ||
         path.includes("MEWS")
       );
+    },
+    isImplementationList(){
+      return[
+        "/bottleLabelByProgram",
+        "/implementationList"
+      ].includes(this.$route.path)
+
     }
   },
   methods: {
