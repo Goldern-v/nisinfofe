@@ -428,7 +428,7 @@
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
             </div>
-            <!-- <div class="context-box" v-if="Object.keys(fieldList).length">
+             <div class="context-box" v-if="Object.keys(fieldList).length && HOSPITAL_ID =='whsl'">
               <el-collapse-item name="fieldList">
                 <template slot="title">
                   <span class="title"> 自定义项目 </span>
@@ -473,7 +473,7 @@
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
-            </div> -->
+            </div>
             <div class="context-box">
               <el-collapse-item name="notes">
                 <template slot="title">

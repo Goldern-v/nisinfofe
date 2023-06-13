@@ -105,7 +105,8 @@ export default {
             this.sheetInfo.relObj.totalCervixGrade -= Number(this.sheetInfo.relObj[td.name]);
           }
         });
-        this.sheetInfo.relObj[td.name] = td.value;
+        this.$set(this.sheetInfo.relObj,td.name,td.value)
+        // this.sheetInfo.relObj[td.name] = td.value;
         this.sheetInfo.relObj.totalCervixGrade += Number(td.value);
       } else {
         this.sheetInfo.relObj[td.name] = "";

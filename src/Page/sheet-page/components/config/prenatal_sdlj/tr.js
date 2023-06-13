@@ -43,8 +43,8 @@ const 出量颜色 = ['黄色', '鲜红色', '暗红色', '墨绿色', '浓茶�
 const 出量名称 = ['呕吐物', '伤口引流', '腋窝引流', '胸壁引流', '胸腔引流', '腹腔引流', '心包积液', '胸腔引流液', '大便', '尿', '腹水', '脑积液', '痰液', '血液', '胃管', '尿管', '盆腔引流管', '肝下引流管','温氏孔引流管', '脾窝引流管', '伤口皮下引流管', 'T管', '隔下引流管', '人工肛', '胃造痰', '空肠造痰', '肛管引流管','杜氏窝引流管', '左肾造痰', '右肾造痰', '膀胱造痰', '左肾周引流', '右肾周引流', '耻骨后引流', '左输尿管导管引流', '右输尿管导管引流', '左肾窝引流', '右肾窝引流', '会阴部引流', '左输尿管造口支架管', '右输尿管造口支架管', '阴道出血', '术中出血', '止血球囊引流', '腹透液', '分娩时出血'];
 export default [
   { hidden: true, key: 'recordDate', value: '' },
-  { key: "recordMonth", event: event_date, click: click_date, value: '',textarea: { width: 40 },},
-  { key: "recordHour", event: event_time, value: '',textarea: { width: 40 },},
+  { key: "recordMonth", event: event_date, click: click_date, value: ''},
+  { key: "recordHour", event: event_time, value: '',},
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: '体温', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '脉搏', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 5) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 5) },
