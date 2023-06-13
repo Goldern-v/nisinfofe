@@ -27,55 +27,13 @@ import {
 } from "../keyEvent/date";
 
 let ysList = ["√", "+", "±", "++", "+++", "谵妄"];
-let tyList = [
-  "○",
-  "I",
-  "II",
-  "III",
-  "√",
-  "×",
-  "+",
-  "++",
-  "+++",
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I"
-];
-let measureList = [
-  { name: "A饮食指导", value: "A" },
-  { name: "B心理支持", value: "B" },
-  { name: "C指导室内活动", value: "C" },
-  { name: "D绝对卧床休息", value: "D" },
-  { name: "E左侧卧位", value: "E" },
-  { name: "F头低足高卧位", value: "F" },
-  { name: "G指导产妇深呼吸", value: "G" },
-  { name: "H指导产妇屏气", value: "H" },
-  { name: "I按摩腰骶部", value: "I" },
-  { name: "J母乳喂养指导", value: "J" },
-  { name: "K会阴护理", value: "K" },
-  { name: "L指导排尿", value: "L" },
-  { name: "M留陪人", value: "M" },
-  { name: "N其他", value: "N" }
-];
-let safeList = [
-  { name: "A留陪人", value: "A" },
-  { name: "B防压疮", value: "B" },
-  { name: "C防跌倒，防坠床", value: "C" },
-  { name: "D挂标识、防药物外渗", value: "D" },
-  { name: "E挂标识、防脱管", value: "E" },
-  { name: "F防烫伤", value: "F" },
-  { name: "G其他", value: "G" }
-];
+
 const yishi = ["清醒", "嗜睡", "浅昏迷", "深昏迷", "模糊", "昏睡", "谵妄", "痴呆", "药眠"]
 const yanse = [{ name: '①血性液', value: '血性液' }, { name: '②淡红色液', value: '淡红色液' }, { name: '③暗红色液', value: '暗红色液' }, { name: '④黄色液', value: '黄色液' }, { name: '⑤淡黄色液', value: '淡黄色液' }, { name: '⑥深黄色液', value: '深黄色液' }];
 const ruliang = ["饮水", "进食", "鼻饲", "输血", "输液", "静注"]
 const chuliang = ["尿液", "大便", "引流液", "呕吐物", "胃液", "恶露"]
+const xiyang  = ['鼻导管','头罩','温箱内']
+
 export default [
   { hidden: true, key: "recordDate", value: "" },
   { key: "recordMonth", event: event_date, click: click_date, value: "" },
@@ -86,7 +44,6 @@ export default [
     value: "",
     next: "℃",
     name: "温箱",
-    // autoComplete: { data: ysList },
     textarea: { width: 35 },
     change: (e, td) => limitChange(e, td, 2)
   },
@@ -142,6 +99,7 @@ export default [
     next: "",
     name: "意识",
     textarea: { width: 40 },
+    autoComplete: { data: yishi },
     change: (e, td) => limitChange(e, td, 2)
   },
   {
@@ -184,7 +142,6 @@ export default [
     key: "forehead",
     event: keyf1,
     value: "",
-    // autoComplete: { data: yanse },
     textarea: { width: 30 },
     next: "mg/dl",
     name: "额",
@@ -194,7 +151,6 @@ export default [
     key: "chest",
     event: keyf1,
     value: "",
-    // autoComplete: { data: yanse },
     textarea: { width: 30 },
     next: "mg/dl",
     name: "胸",
@@ -204,7 +160,6 @@ export default [
     key: "leg",
     event: keyf1,
     value: "",
-    // autoComplete: { data: yanse },
     textarea: { width: 30 },
     next: "mg/dl",
     name: "腿",
@@ -214,7 +169,6 @@ export default [
     key: "bloodSugar",
     event: keyf1,
     value: "",
-    // autoComplete: { data: yanse },
     textarea: { width: 30 },
     next: "mmol/L",
     name: "血糖",
@@ -224,17 +178,16 @@ export default [
     key: "oxygenWay",
     event: keyf1,
     value: "",
-    // autoComplete: { data: yanse },
     textarea: { width: 30 },
     next: "",
     name: "吸氧方式",
+    autoComplete: { data: xiyang },
     change: (e, td) => limitChange(e, td, 2)
   },
   {
     key: "oxygenRate",
     event: keyf1,
     value: "",
-    // autoComplete: { data: yanse },
     textarea: { width: 30 },
     next: "L/分",
     name: "氧流量",
@@ -244,7 +197,6 @@ export default [
     key: "concentration",
     event: keyf1,
     value: "",
-    // autoComplete: { data: yanse },
     textarea: { width: 30 },
     next: "%",
     name: "氧浓度",
@@ -254,7 +206,6 @@ export default [
     key: "oxygenWay",
     event: keyf1,
     value: "",
-    // autoComplete: { data: yanse },
     textarea: { width: 30 },
     next: "",
     name: "喂养方式",
@@ -317,10 +268,10 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "210px",
+      width: "265px",
       background: "transparent"
     },
-    textarea: { width: 210 },
+    textarea: { width: 265 },
     event: function (e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
@@ -331,7 +282,7 @@ export default [
   },
   { key: "sign", value: "" }, //单签
   // { key: "sign2", value: "" },//双签
-  // { key: "audit", value: "" }, //审核签名
+  { key: "audit", value: "" }, //审核签名
   { hidden: true, key: "id", value: "" },
   { hidden: true, key: "signerName", value: "" },
   { hidden: true, key: "signerName2", value: "" },
