@@ -125,6 +125,29 @@
         </el-table-column>
 
         <el-table-column prop="diagName" label="护理问题" min-width="100px" header-align="center"></el-table-column>
+        <el-table-column
+          prop="diagFactor"
+          label="问题因素"
+          min-width="100px"
+          header-align="center"
+        ></el-table-column>
+        <el-table-column label="护理目标" min-width="150px" header-align="center">
+          <template slot-scope="scope">
+            <!-- <span v-for="(item, index) in scope.row.targetsName" :key="index">
+              {{
+              item && item.parameter
+              }}
+            </span> -->
+            <div>
+              <span v-for="(item, index) in scope.row.targetsName" :key="index" v-show="scope.row.targetsName.length">
+                {{
+                item && item.parameter
+                }}
+              </span>
+              <span v-if="!scope.row.targetsName.length" v-html="scope.row.diagTarget&&scope.row.diagTarget.replace(/\n/g,'<br><br>')">{{scope.row.diagTarget}}</span>
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column label="护理措施计划" min-width="300px" header-align="center">
           <template slot-scope="scope">
             <!-- <div v-for="(item, index) in scope.row.measuresName" :key="index">
@@ -142,23 +165,6 @@
 
           </template>
 
-        </el-table-column>
-        <el-table-column label="护理目标" min-width="150px" header-align="center">
-          <template slot-scope="scope">
-            <!-- <span v-for="(item, index) in scope.row.targetsName" :key="index">
-              {{
-              item && item.parameter
-              }}
-            </span> -->
-            <div>
-              <span v-for="(item, index) in scope.row.targetsName" :key="index" v-show="scope.row.targetsName.length">
-                {{
-                item && item.parameter
-                }}
-              </span>
-              <span v-if="!scope.row.targetsName.length" v-html="scope.row.diagTarget&&scope.row.diagTarget.replace(/\n/g,'<br><br>')">{{scope.row.diagTarget}}</span>
-            </div>
-          </template>
         </el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
