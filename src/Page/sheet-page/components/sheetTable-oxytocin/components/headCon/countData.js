@@ -29,45 +29,41 @@ export let countData = {
     [
       {
         type: "text",
-        value: "宫颈扩张（CM）"
+        text: "宫颈扩张（CM）"
       },
       {
         type: "text",
-        value: "未开"
+        text: "未开"
       },
       {
-        type: "text",
-        value: "",
+        value: "0",
         isChecked: true,
         name: "cervix1"
       },
       {
         type: "text",
-        value: "1-2"
+        text: "1-2"
       },
       {
-        type: "text",
-        value: "",
+        value: "1",
         isChecked: true,
         name: "cervix1"
       },
       {
         type: "text",
-        value: "3-4"
+        text: "3-4"
       },
       {
-        type: "text",
-        value: "",
+        value: "2",
         isChecked: true,
         name: "cervix1"
       },
       {
         type: "text",
-        value: ">=5"
+        text: ">=5"
       },
       {
-        type: "text",
-        value: "",
+        value: "3",
         isChecked: true,
         name: "cervix1"
       }
@@ -75,45 +71,41 @@ export let countData = {
     [
       {
         type: "text",
-        value: "宫颈退缩（%）"
+        text: "宫颈退缩（%）"
       },
       {
         type: "text",
-        value: "0-30"
+        text: "0-30"
       },
       {
-        type: "text",
-        value: "",
+        value: "0",
         isChecked: true,
         name: "cervix2"
       },
       {
         type: "text",
-        value: "40-50"
+        text: "40-50"
       },
       {
-        type: "text",
-        value: "",
+        value: "1",
         isChecked: true,
         name: "cervix2"
       },
       {
         type: "text",
-        value: "60-70"
+        text: "60-70"
       },
       {
-        type: "text",
-        value: "",
+        value: "2",
         isChecked: true,
         name: "cervix2"
       },
       {
         type: "text",
-        value: ">=80"
+        text: ">=80"
       },
       {
-        type: "text",
-        value: "",
+        value: "3",
         isChecked: true,
         name: "cervix2"
       }
@@ -121,45 +113,41 @@ export let countData = {
     [
       {
         type: "text",
-        value: "先露高低（CM）"
+        text: "先露高低（CM）"
       },
       {
         type: "text",
-        value: "-3"
+        text: "-3"
       },
       {
-        type: "text",
-        value: "",
+        value: "0",
         isChecked: true,
         name: "cervix3"
       },
       {
         type: "text",
-        value: "-2"
+        text: "-2"
       },
       {
-        type: "text",
-        value: "",
+        value: "1",
         isChecked: true,
         name: "cervix3"
       },
       {
         type: "text",
-        value: "-1或0"
+        text: "-1或0"
       },
       {
-        type: "text",
-        value: "",
+        value: "2",
         isChecked: true,
         name: "cervix3"
       },
       {
         type: "text",
-        value: "+1或+2"
+        text: "+1或+2"
       },
       {
-        type: "text",
-        value: "",
+        value: "3",
         isChecked: true,
         name: "cervix3"
       }
@@ -167,100 +155,93 @@ export let countData = {
     [
       {
         type: "text",
-        value: "宫颈硬度"
+        text: "宫颈硬度"
       },
       {
         type: "text",
-        value: "硬"
+        text: "硬"
       },
       {
-        type: "text",
-        value: "",
+        value: "0",
         isChecked: true,
         name: "cervix4"
       },
       {
         type: "text",
-        value: "中等"
+        text: "中等"
       },
       {
-        type: "text",
-        value: "",
+        value: "1",
         isChecked: true,
         name: "cervix4"
       },
       {
         type: "text",
-        value: "软"
+        text: "软"
       },
       {
-        type: "text",
-        value: "",
+        value: "2",
         isChecked: true,
         name: "cervix4"
       },
       {
         type: "text",
-        value: ""
+        text: ""
       },
       {
         type: "text",
-        value: ""
+        text: ""
       }
     ],
     [
       {
         type: "text",
-        value: "宫颈位置"
+        text: "宫颈位置"
       },
       {
         type: "text",
-        value: "后位"
+        text: "后位"
       },
       {
-        type: "text",
-        value: "",
+        value: "0",
         isChecked: true,
         name: "cervix5"
       },
       {
         type: "text",
-        value: "中位"
+        text: "中位"
       },
       {
-        type: "text",
-        value: "",
+        value: "1",
         isChecked: true,
         name: "cervix5"
       },
       {
         type: "text",
-        value: "前位"
+        text: "前位"
       },
       {
-        type: "text",
-        value: "",
+        value: "2",
         isChecked: true,
         name: "cervix5"
       },
       {
         type: "text",
-        value: ""
+        text: ""
       },
       {
         type: "text",
-        value: ""
+        text: ""
       }
     ],
     [
       {
         type: "text",
-        value: "将检查结果在相应栏内够“√”累计宫颈评分。",
+        text: "将检查结果在相应栏内够“√”累计宫颈评分。",
         colspan: 5,
         style: "border-right: none"
       },
       {
-        type: "text",
         prev: "医生签名:",
         value: "",
         colspan: 4,

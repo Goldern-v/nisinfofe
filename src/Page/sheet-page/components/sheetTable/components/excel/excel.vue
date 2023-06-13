@@ -8,7 +8,7 @@
     <table
       class="sheet-table table-fixed-th no-print"
       :style="{ width: fiexHeaderWidth, top: `${fixedTop}px` }"
-      :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl}"
+      :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl,postpartumBigfont}"
       ref="tableHead"
       v-if="hasFiexHeader"
     >
@@ -98,7 +98,7 @@
     <table
       class="sheet-table"
       ref="table"
-      :class="{'tableTd-14':wujingCommonHl}"
+      :class="{'tableTd-14':wujingCommonHl,postpartumBigfont}"
       :style="{ width: sheetInfo.sheetType == 'access_gzry' ? '100%' : '' }"
     >
       <tr
@@ -1013,6 +1013,9 @@ export default {
     },
     sheetMaxPage() {
       return this.sheetInfo.sheetMaxPage;
+    },
+    postpartumBigfont(){
+      return this.sheetInfo.sheetType === 'postpartum_wj'
     },
     auditorNo() {
       return (
