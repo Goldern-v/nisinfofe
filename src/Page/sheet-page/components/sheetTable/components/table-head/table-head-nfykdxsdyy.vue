@@ -136,9 +136,10 @@
               <input  :data-value="sheetInfo.relObj[`${index}specialCases1`]" v-model="sheetInfo.relObj[`${index}specialCases1`]" style="width:180px;border-bottom:none">
               </customSelectCanRepeat>
         </template>
-        <span  v-if="sheetInfo.sheetType=='prenatal_sdry' ||
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry'
               //  sheetInfo.sheetType=='postpartum_sdry' ||
-          sheetInfo.sheetType=='baby_sdry'">
+          // sheetInfo.sheetType=='baby_sdry'
+          ">
           过敏史：
           <input
           style="width: 130px;font-size:13px;text-align: left;"
