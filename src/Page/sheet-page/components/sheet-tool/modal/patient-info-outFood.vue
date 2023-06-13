@@ -20,7 +20,7 @@
             </div>
             <el-tabs v-model="activeTab" class="tab-content" type="card">
                 <el-tab-pane label="出量" name="1">
-                    <div class="title" flex="cross:center main:justify">出量总量：{{ outLength?outLength+'ml':"" }}</div>
+                    <div class="title" flex="cross:center main:justify">出量总量：{{ outLength || 0}}ml</div>
                     <div class="outPro">
                         <table v-for="(num,i) in 3" :key="i+'table'">
                             <colgroup>
@@ -241,16 +241,19 @@ export default {
   }
   .boxx{
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         .boxx-tll{
             margin-left: 20px;
             min-width: 70px;
+            height: 40px;
+            line-height: 40px;
         }
         .el-checkbox-group{
             .measuresBox{
                 display: flex;
                 align-items: center;
                 line-height: 40px;
+                flex-wrap: wrap;
                 .measuresLi{
                     margin-right:20px;
 

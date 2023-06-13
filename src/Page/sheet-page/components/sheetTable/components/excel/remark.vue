@@ -5,7 +5,7 @@
     <div
         v-if="sheetInfo.sheetType == 'prenatal_sdlj'"
         style="font-size: 13px; margin-top: -5px">
-      备注 非药物阵痛方法：A-分娩球、B-自由体位待产、C-分娩操、D-豆袋热敷、E-导乐分娩、F-分娩镇痛仪、G-其他<input class="bottomInput" type="text" v-model="sheetInfo.relObj.remark" :data-value="sheetInfo.relObj.remark"/>（可填写保存）
+      备注 非药物阵痛方法：A-分娩球、B-自由体位待产、C-分娩操、D-豆袋热敷、E-导乐分娩、F-分娩镇痛仪、G-其他<input class="bottomInput" type="text" v-model="sheetInfo.relObj.remark" :data-value="sheetInfo.relObj.remark"/>
       膀胱充盈度：H-空虚、I-轻度充盈、J-中度充盈、K-重度充盈
     </div>
     <div

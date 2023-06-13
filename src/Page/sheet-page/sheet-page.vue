@@ -847,10 +847,10 @@ export default {
         })
         .catch((err) => {
           this.pageLoading = false;
-          if (err.data.code == '300') {
-            this.bus.$emit('initSheetPageSize')
-            this.pageLoading = false;
-          }
+          // if (err.data.code == '300') {
+          //   this.bus.$emit('initSheetPageSize')
+          //   this.pageLoading = false;
+          // }
         });
     },
     onScroll(e) {
