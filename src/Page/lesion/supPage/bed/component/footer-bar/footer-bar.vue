@@ -33,7 +33,8 @@
     justify-content: center;
     align-items: center;
     font-size: 13px;
-    color: #687179;
+    color: #333333;
+      font-weight: bold;
     letter-spacing: 0;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
     border-right: 1px solid #EAEEF1;
