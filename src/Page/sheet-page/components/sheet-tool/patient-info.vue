@@ -106,7 +106,7 @@ export default {
     },
     showFoodAndOut(){
       if(['whsl'].includes(this.HOSPITAL_ID)){
-        return (['critical2_weihai'].includes(this.sheetInfo.sheetType) || this.$route.path.indexOf('formPage')>0) 
+        return ['critical2_weihai'].includes(this.sheetInfo.sheetType)
       }
       return false
     }
