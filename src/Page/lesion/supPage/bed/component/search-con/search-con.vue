@@ -190,7 +190,8 @@
     height: 34px;
     padding-left: 12px;
     font-size: 13px;
-    color: #687179;
+    font-weight: bold;
+    color: #333333;
     cursor: pointer;
 
     &:hover {

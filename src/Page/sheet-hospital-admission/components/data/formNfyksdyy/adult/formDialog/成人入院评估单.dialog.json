@@ -107,7 +107,7 @@
   {
     "title": "完整性",
     "type": "formGroupHorizontalBox",
-    "name": "I2332052",
+    "name": "I233000",
     "message": "",
     "require": "false",
     "aliasTitle": "完整性",
@@ -120,7 +120,7 @@
     "modalWidth": 400,
     "children": [
       {
-        "name": "I2332052",
+        "name": "I233000",
         "type": "input",
         "title": "完整性其他",
         "style": null,

@@ -533,10 +533,10 @@ export default {
               let results = `${this.formBox.model[key]}(${this.formBox.model["I2332020"]})`
               this.$root.$refs["E2332"]['I2332219'].setCurrentValue(results);
               this.$root.$refs["E2332"]['I2332219'].checkValueRule(results);
-            }  else if( key == 'I2332063' && ['nfyksdyy'].includes(this.HOSPITAL_ID)){
-              let results = `${this.formBox.model[key]}(${this.formBox.model["I2332066"]})`
-              this.$root.$refs["E2332"]['I2332063'].setCurrentValue(results);
-              this.$root.$refs["E2332"]['I2332063'].checkValueRule(results);
+            }  else if( key == 'I2332052' && ['nfyksdyy'].includes(this.HOSPITAL_ID)){
+              let results = `${this.formBox.model[key]}(${this.formBox.model["I233000"]})`
+              this.$root.$refs["E2332"]['I2332052'].setCurrentValue(results);
+              this.$root.$refs["E2332"]['I2332052'].checkValueRule(results);
             }
           }
         }

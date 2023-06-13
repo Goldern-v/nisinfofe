@@ -1172,7 +1172,7 @@ export default {
     },
     async onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
-      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry'|| this.sheetInfo.sheetType == 'orthopaedic_sdry') {
+      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry'|| this.sheetInfo.sheetType == 'orthopaedic_sdry' || this.sheetInfo.sheetType == 'baby2_sdry') {
         let confirmRes = '';
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           confirmRes = await this.$confirm(
@@ -2816,7 +2816,7 @@ export default {
         tab = "1";
       } else {
         tab = "2";
-      } 
+      }
       //佛山市一不要双击时间出弹框
       if (this.HOSPITAL_ID == "foshanrenyi" && key == "recordHour") {
         return
