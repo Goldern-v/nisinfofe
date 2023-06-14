@@ -31,6 +31,13 @@
           </div>
         </span>
         <span>
+        入院时间：
+        <div class="bottom-line" style="min-width: 80px">
+          <!-- {{ patientInfo.admissionDate | toymd }} -->
+          {{ newPatientInfo[`admissionDate_${index}_${sheetInfo.selectBlock.id}`] | toymd }}
+        </div>
+      </span>
+        <!-- <span>
           孕次：
           <input
             class="bottom-line-input"
@@ -45,21 +52,21 @@
             :data-value="sheetInfo.relObj.pregnantTimes"
             v-model="sheetInfo.relObj.pregnantTimes"
           />
-        </span>
-        <span>
-          预产期：
+        </span> -->
+        <!-- <span>
+          预产期： -->
           <!-- <input
             style="width: 140px"
             class="bottom-line-input"
             :data-value="sheetInfo.relObj.contractionTime"
             v-model="sheetInfo.relObj.contractionTime"
           /> -->
-          <crDatePicker
+          <!-- <crDatePicker
             v-model="sheetInfo.relObj.contractionTime"
             :width="140"
             style="border:none;border-bottom:1px solid #000;height:22px"
-          />
-        </span>
+          /> -->
+        <!-- </span> -->
       </div>
       <div class="info-con">
         <span
@@ -75,7 +82,7 @@
         </span>
       </div>
     </div>
-    <div class="info-con" flex="main:justify" v-else-if="sheetInfo.sheetType === 'postpartum_wj'">
+    <div class="info-con postpartum" flex="main:justify" v-else-if="sheetInfo.sheetType === 'postpartum_wj'">
       <span
         @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
       >
@@ -341,6 +348,11 @@ export default {
 .header-con {
   .info-con {
     margin: 0 0;
+    &.postpartum{
+      span{
+        font-size: 15px;
+      }
+    }
     > span {
       height: 23px;
       line-height: 23px;

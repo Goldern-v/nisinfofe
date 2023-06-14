@@ -53,11 +53,38 @@
   },
   {
     "title": "既往史",
-    "type": "formGroupHorizontalBox",
-    "name": "I2332020",
+    "type": "formGroupVerticalBox",
+    "name": "",
     "message": "",
     "require": "false",
-    "aliasTitle": "既往史",
+    "aliasTitle": "",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "I003003",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332020",
+        "type": "input",
+        "title": "其他",
+        "value": "",
+        "style": null,
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "口腔黏膜",
+    "type": "formGroupHorizontalBox",
+    "name": "I2332066",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "口腔黏膜",
     "showTitle": true,
     "suffixDesc": "",
     "keys": "",
@@ -67,9 +94,9 @@
     "modalWidth": 400,
     "children": [
       {
-        "name": "I2332020",
+        "name": "I2332066",
         "type": "input",
-        "title": "既往史其他",
+        "title": "其他",
         "style": null,
         "class": null,
         "html": null,
@@ -80,7 +107,7 @@
   {
     "title": "完整性",
     "type": "formGroupHorizontalBox",
-    "name": "I2332052",
+    "name": "I233000",
     "message": "",
     "require": "false",
     "aliasTitle": "完整性",
@@ -93,7 +120,7 @@
     "modalWidth": 400,
     "children": [
       {
-        "name": "I2332052",
+        "name": "I233000",
         "type": "input",
         "title": "完整性其他",
         "style": null,

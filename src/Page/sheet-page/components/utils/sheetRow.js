@@ -33,7 +33,7 @@ export function getRowNum(index) {
     return 15;
   } else if (sheetInfo.sheetType == "Record_Children_Serious_Lc" || sheetInfo.sheetType == "ops_linyi" ) {
     return 26;
-  } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "postpartum_wj" || sheetInfo.sheetType == "iabp_fs" || sheetInfo.sheetType == "labor_con_ytll"|| sheetInfo.sheetType == "labor_ytll") {
+  } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "iabp_fs" || sheetInfo.sheetType == "labor_con_ytll"|| sheetInfo.sheetType == "labor_ytll") {
     return 33;
   } else if (sheetInfo.sheetType == "icu_lc") {
     return 22;
@@ -63,7 +63,8 @@ export function getRowNum(index) {
     sheetInfo.sheetType === 'record_icu_zzwy' ||
     sheetInfo.sheetType === 'obstetrics_new_zzwy' ||
     sheetInfo.sheetType === 'gynecology_new_zzwy' ||
-    sheetInfo.sheetType === 'baby_new_zzwy'
+    sheetInfo.sheetType === 'baby_new_zzwy' || 
+    sheetInfo.sheetType == "postpartum_wj" 
   ) {
     return 20;
   } else if (sheetInfo.sheetType == "cardiology_lcey" || sheetInfo.sheetType == "cardiology_tj") {

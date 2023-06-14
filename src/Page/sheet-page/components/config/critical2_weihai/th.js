@@ -7,7 +7,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1740px"
+    width: "1800px"
   },
   th: {
     top: [
@@ -29,8 +29,8 @@ export default {
       {
         name: '意识',
         style: {
-          minWidth: '50px',
-          maxWidth: '50px',
+          minWidth: '25px',
+          maxWidth: '25px',
         },
         colspan: '1',
         rowspan: '3'
@@ -38,15 +38,15 @@ export default {
       {
         name: 'GCS',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '30px',
+          maxWidth: '30px',
         },
         colspan: '1',
         rowspan: '3'
       },
       {
          name: `
-        瞳孔（mm）/<br/>反应
+        瞳孔（mm）/<br/>对光反应
         `,
         colspan: '4',
         rowspan: '2',
@@ -67,8 +67,8 @@ export default {
         出量
         `,
         style: {
-          minWidth: '200px',
-          maxWidth: '200px',
+          minWidth: '120px',
+          maxWidth: '120px',
         },
         colspan: '3',
         rowspan: '1',
@@ -99,8 +99,8 @@ export default {
         卧位
         `,
         style: {
-          minWidth: "50px",
-          maxWidth: '50px',
+          minWidth: "25px",
+          maxWidth: '25px',
         },
         colspan: '1',
         rowspan: '3',
@@ -123,8 +123,8 @@ export default {
         colspan: '1',
         rowspan: '3',
         style: {
-          minWidth: "120px",
-          maxWidth: '120px',
+          minWidth: "250px",
+          maxWidth: '250px',
         },
       },
       {
@@ -279,8 +279,8 @@ export default {
       量(ml)
       `,
       style: {
-        minWidth: "30px",
-        maxWidth: '30px',
+        minWidth: "40px",
+        maxWidth: '40px',
       },
       colspan: "1",
       rowspan: "2"
@@ -290,8 +290,8 @@ export default {
       项目
       `,
       style: {
-        minWidth: "100px",
-        maxWidth: '100px',
+        minWidth: "50px",
+        maxWidth: '50px',
       },
       colspan: "1",
       rowspan: "2"
@@ -301,8 +301,8 @@ export default {
       量(ml)
       `,
       style: {
-        minWidth: "30px",
-        maxWidth: '30px',
+        minWidth: "40px",
+        maxWidth: '40px',
       },
       colspan: "1",
       rowspan: "2"

@@ -482,11 +482,15 @@ export default {
       data.patientGroups.forEach(item=>{
         let dutyNurseNo = []
         item.dutyNurses.forEach(nameNo=>{
-          dutyNurseNo.push(this.nurseList.find(nurse=>nameNo==nurse.value).code)
+          // dutyNurseNo.push(this.nurseList.find(nurse=>nameNo==nurse.value).code)
+          let obj = this.nurseList.find(nurse=>nameNo==nurse.value)
+          if (obj) {
+            dutyNurseNo.push(obj.code)
+          }
         })
-        item.dutyNurseNo = dutyNurseNo.length>0 && dutyNurseNo.join(",")
-        item.dutyNurse = item.dutyNurses.length>0 && item.dutyNurses.join(",")
-        item.bedSet = item.bedSets.length>0 && item.bedSets.join(",")
+        item.dutyNurseNo = dutyNurseNo.length>0 ? dutyNurseNo.join(",") : ''
+        item.dutyNurse = item.dutyNurses.length>0 ? item.dutyNurses.join(",") : ''
+        item.bedSet = item.bedSets.length>0 ? item.bedSets.join(",") : ''
       })
       let url = this.HOSPITAL_ID === 'liaocheng' ? updateByDeptCodeAndGroupCodeLC : updateByDeptCodeAndGroupCode
       url(data).then((res) => {

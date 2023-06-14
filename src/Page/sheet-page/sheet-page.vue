@@ -421,7 +421,7 @@ export default {
       return resultModel;
     },
     sheetTable() {
-      // console.log("sheetInfo.sheetType",sheetInfo,sheetInfo.sheetType)
+      console.log("sheetInfo.sheetType",sheetInfo,sheetInfo.sheetType)
       if (sheetInfo.sheetType == "neonatology") {
         return sheetTableNeonatology;
         //  return sheetTablePost_partum;
@@ -847,10 +847,10 @@ export default {
         })
         .catch((err) => {
           this.pageLoading = false;
-          if (err.data.code == '300') {
-            this.bus.$emit('initSheetPageSize')
-            this.pageLoading = false;
-          }
+          // if (err.data.code == '300') {
+          //   this.bus.$emit('initSheetPageSize')
+          //   this.pageLoading = false;
+          // }
         });
     },
     onScroll(e) {
@@ -1242,7 +1242,9 @@ export default {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
-          newWid.location.href = "/crNursing/print/sheetPage";
+          if(["whsl"].includes(this.HOSPITAL_ID)){
+            newWid.location.href = `/crNursing/print/sheetPage?sheetType=${this.sheetInfo.sheetType}`;
+          }else newWid.location.href = `/crNursing/print/sheetPage`;
         } else {
           this.$router.push(`/print/sheetPage`);
         }

@@ -57,7 +57,8 @@
 
   .desc {
     font-size: 13px;
-    color: #687179;
+    font-weight: bold;
+    color: #333;
     line-height: 18px;
   }
 

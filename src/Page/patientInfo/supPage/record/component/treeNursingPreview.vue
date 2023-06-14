@@ -218,7 +218,7 @@ export default {
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
       showBloodSugar:['guizhou','hengli','huadu','whfk', 'beihairenyi', 'nanfangzhongxiyi', 'sdlj' , 'foshanrenyi', 'fsxt', 'zhzxy', 'lyyz','whsl','ytll','dglb','whhk'], // 是否开放血糖模块
       showBloodOxygen:['whfk'] ,// 是否开放血氧模块
-      hiddenTemperature: ['whsl'], // 隐藏体温单模块
+      hiddenTemperature: [], // 隐藏体温单模块
       timer:null
     };
   },

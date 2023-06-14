@@ -808,7 +808,7 @@ async mounted() {
           let y = {
             脉搏: {
               value: val,
-              reg: [0, 200],
+              reg:  ['sdlj'].includes(this.HOSPITAL_ID)?[0,250]:[0, 200],
             },
           };
           return y;

@@ -77,6 +77,7 @@ import SelectBar from './components/select-bar.vue'
 import { searchItem, searchKeyByCode } from '@/utils/enums.js';
 import { RANK, WORKLOAD_BAR1, WORKLOAD_BAR2 } from '../enums';
 import indexMixins from '../mixins/index.mixins'
+import {otherColumns_foshanrenyi,otherColumns_925,otherColumns} from './table'
 
 import Pagination from '@/components/pagination/pagination.vue'
 export default {
@@ -94,297 +95,6 @@ export default {
       type2: searchKeyByCode(WORKLOAD_BAR2, 'table'),
       rankList: RANK,
       workload_bar1: WORKLOAD_BAR1,
-      otherColumns: [
-        {
-					key: 'transfusion',
-					title: '静脉输液',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'replaceFluid',
-					title: '更换液体',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'skinTest',
-					title: '皮试',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'injection',
-					title: '注射',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'atomization',
-					title: '雾化',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'specimen',
-					title: '标本',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'intensiveCare',
-					title: '重症监护',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'inDanger',
-					title: '病危（重）',
-          align: 'center',
-					width: 130,
-          sortable: true
-				},
-        {
-					key: 'nursingClass0',
-					title: '特级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'nursingClass1',
-					title: '一级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'nursingClass2',
-					title: '二级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'nursingClass3',
-					title: '三级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'cure',
-					title: '治疗',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'nursingRecord',
-					title: '护理记录',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'admissionAssess',
-					title: '入院评估',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'inHospitalAssess',
-					title: '住院评估',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'riskAssess',
-					title: '风险评估',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'healthEducation',
-					title: '健康宣教',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'nursingVisit',
-					title: '护理巡视',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-      ],
-      otherColumns_foshanrenyi: [
-        {
-					key: 'transfusion',
-					title: '静脉输液',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'replaceFluid',
-					title: '更换液体',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'medicine',
-					title: '口服药',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'skinTest',
-					title: '皮试',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'injection',
-					title: '注射',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'atomization',
-					title: '雾化',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'cure',
-					title: '治疗',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'specimen',
-					title: '标本',
-          align: 'center',
-					width: 90,
-          sortable: true
-				},
-        {
-					key: 'blood',
-					title: '输血',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'matching',
-					title: '交叉配血',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'intensiveCare',
-					title: '重症监护',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'inDanger',
-					title: '病危（重）',
-          align: 'center',
-					width: 130,
-          sortable: true
-				},
-        {
-					key: 'nursingClass0',
-					title: '特级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'nursingClass1',
-					title: '一级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'nursingClass2',
-					title: '二级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'nursingClass3',
-					title: '三级护理',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'nursingRecord',
-					title: '护理记录',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'admissionAssess',
-					title: '入院评估',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        // {
-				// 	key: 'inHospitalAssess',
-				// 	title: '住院评估',
-        //   align: 'center',
-				// 	width: 120,
-        //   sortable: true
-				// },
-        {
-					key: 'riskAssess',
-					title: '风险评估',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'healthEducation',
-					title: '健康宣教',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-        {
-					key: 'nursingVisit',
-					title: '护理巡视',
-          align: 'center',
-					width: 120,
-          sortable: true
-				},
-      ]
     };
   },
   computed: {
@@ -436,8 +146,17 @@ export default {
       }
 
       let curItem = searchItem(WORKLOAD_BAR1, this.type1, 'key') 
-
-      return [firstItem, ...(curItem ? obj[curItem.code] || [] : []), ...(this.HOSPITAL_ID === 'foshanrenyi' ? this.otherColumns_foshanrenyi : this.otherColumns)]
+      let ARR = (()=>{
+        switch (this.HOSPITAL_ID){
+          case "foshanrenyi":
+           return otherColumns_foshanrenyi
+          case "925":
+            return otherColumns_925
+          default:
+            return otherColumns
+        }
+      })()
+      return [firstItem, ...(curItem ? obj[curItem.code] || [] : []), ...ARR]
 
     },
     options() {
@@ -500,7 +219,16 @@ export default {
     },
     // 图表数据
     chartData() {
-      let arr = [...(this.HOSPITAL_ID === 'foshanrenyi' ? this.otherColumns_foshanrenyi : this.otherColumns)]
+      let arr = (()=>{
+        switch (this.HOSPITAL_ID){
+          case "foshanrenyi":
+           return otherColumns_foshanrenyi
+          case "925":
+            return otherColumns_925
+          default:
+            return otherColumns
+        }
+      })()
       if (this.tableData.length > 0) {
         this.tableData.map(item => {
           arr.map(v => {

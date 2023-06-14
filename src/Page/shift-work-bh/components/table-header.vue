@@ -6,6 +6,9 @@
                  <template v-if="['beihairenyi'].includes(HOSPITAL_ID) ">
                   <th v-for="(col,key) of keys" :key="key">{{keys[key]}}</th>
                  </template>
+              <template v-else-if="['huadu'].includes(HOSPITAL_ID) ">
+                <th v-for="(col,key) of keysHuaDu" :key="key">{{keysHuaDu[key]}}</th>
+              </template>
                 <template v-else>
                   <th v-for="(col,key) of keysZHZXY" :key="key">{{keysZHZXY[key]}}</th>
                 </template>
@@ -21,6 +24,11 @@
                       <div v-html="shift[key]" contenteditable="true" style="outline:none;" @blur="(e)=>change(e,index,key)"></div>
                   </td>
                  </template>
+              <template v-else-if="['huadu'].includes(HOSPITAL_ID) ">
+                <td v-for="(col,key) of keysHuaDu" :key="key">
+                  <div v-html="shift[key]" contenteditable="true" style="outline:none;" @blur="(e)=>change(e,index,key)"></div>
+                </td>
+              </template>
                 <template v-else>
                   <td v-for="(col,key) of keysZHZXY" :key="key">
                       <div v-html="shift[key]" contenteditable="true" style="outline:none;" @blur="(e)=>change(e,index,key)"></div>
@@ -132,6 +140,27 @@ return {
         patientYi:'一级护理',
         companions:'陪人数'
     },
+  keysHuaDu:{
+    patientNumber:'患者总人数',
+    hospitalized:'入院',
+    changeIn:'转入',
+    leaveHospital:'出院',
+    changeOut:'转出',
+    todaySurgery:'今天手术',
+    tomSurgery:'明日手术',
+    childbirth:'分娩',
+    ill:'病重',
+    criticallyIll:'病危',
+    death:'死亡',
+    patientClass0:'特级护理',
+    patientClass1:'一级护理',
+    falls:'跌倒高危',
+    pressure:'压疮高危',
+    thrombus:'血栓高危',
+    nutrition:'营养高危',
+    aspiration:'误吸高危',
+    unplanned:'非计划性拔管高危',
+  },
     keysZHZXY:{
         patientNumber:'患者总人数',
         hospitalized:'入院',

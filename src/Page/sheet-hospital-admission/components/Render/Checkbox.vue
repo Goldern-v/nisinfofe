@@ -277,11 +277,29 @@ export default {
             hiddenformGroupColBox: true,
             correlationID: "禁食啊"
           },
-          // {
-          //   id: 'I2332047',
-          //   value: '经管进食',
-          //   correlationID: "I2332048"
-          // },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            correlationID: "I2332048"
+          },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            inp: true,
+            correlationID: "I2332049"
+          },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            inp: true,
+            correlationID: "I2332214"
+          },
+          {
+            id: 'I2332047',
+            value: '经管进食',
+            inp: true,
+            correlationID: "I2332215"
+          },
           // {
           //   id: 'I2332047',
           //   value: '经管进食',
@@ -355,10 +373,8 @@ export default {
           }else {
             if(this.formObj.model[item.id]){
               let elArr = Object.values(this.$root.$refs[this.formCode][item.correlationID])
-              console.log('elArr===',this.$root.$refs[this.formCode],[item.correlationID],elArr)
               if (elArr.length > 0) {
                 elArr.forEach(it => {
-                  console.log('it.$el===',it.$el)
                   it.$el.style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
                   if (item.prefixId) document.getElementById(item.prefixId).style = !this.formObj.model[item.id].includes(item.value) ? "display: none" : "display: inlink-block"
                 })

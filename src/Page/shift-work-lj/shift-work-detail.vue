@@ -384,7 +384,7 @@ export default {
               width: "80"
             },
             {
-              label: "主诉及现存主要问题",
+              label: "现在的情况",
               prop: "mainComplaint",
               editable: true,
               width: "90"
@@ -395,7 +395,7 @@ export default {
           label: "B（背景）",
           columns: [
             {
-              label: "既往病史、治疗经过、护理评估情况、治疗效果跟踪",
+              label: "主诉、既往史、过敏史、用药史、手术史、治疗经过、护理情况、治疗效果跟踪",
               prop: "background",
               editable: true,
               width: "180"
@@ -406,7 +406,7 @@ export default {
           label: "A（评估）",
           columns: [
             {
-              label: "交班前最后一次护理评估情况",
+              label: "护理评估、辅助检查（阳性）",
               prop: "assessmentSituation",
               editable: true,
               width: "110"
@@ -417,7 +417,7 @@ export default {
           label: "R（建议）",
           columns: [
             {
-              label: "交给下一班需注意的",
+              label: "交给下一班注意的护理意见建议、特殊预警",
               prop: "proposal",
               editable: true,
               width: "100"

@@ -9,9 +9,9 @@ let qrList = [];
 let gdList = [];
 let zgList = [];
 let skList = [];
-let allList = [ysList,rfList,qrList,gdList,zgList,skList]
-// let chuList = [];
-// let ruList = [];
+let chuList = [];
+let ruList = [];
+let allList = [ysList,rfList,qrList,gdList,zgList,skList,chuList,ruList]
 export default [
   {
     key: "recordMonth", //日期
@@ -73,9 +73,9 @@ export default [
     key: "food", //入
     value: "",
     event: keyf1,
-    // autoComplete: {
-    //   data: ruList
-    // },
+    autoComplete: {
+      data: ruList
+    },
     // textarea: {
     //   width: 120
     // }
@@ -89,9 +89,9 @@ export default [
     key: "discharge", //排出物
     value: "",
     event: keyf1,
-    // autoComplete: {
-    //   data: chuList
-    // },
+    autoComplete: {
+      data: chuList
+    },
     // textarea: {
     //   width: 70
     // }
@@ -304,6 +304,8 @@ export function getListData4() {
     "record:postpartum_nurse_wj:宫底高度",
     "record:postpartum_nurse_wj:子宫收缩",
     "record:postpartum_nurse_wj:伤口",
+    'record:postpartum_nurse_wj:排出物',
+    'record:postpartum_nurse_wj:入量'
   ];
   
   multiDictInfo(list).then(res => {

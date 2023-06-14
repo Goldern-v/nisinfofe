@@ -44,15 +44,17 @@ export default {
         },
         colspan: '1',
         rowspan: '3'
-      }, {
-        name: `宫缩<br/>强度`,
-        style: {
-          minWidth: '50px',
-          maxWidth: '50px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      }, {
+      },
+      //  {
+      //   name: `宫缩<br/>强度`,
+      //   style: {
+      //     minWidth: '50px',
+      //     maxWidth: '50px'
+      //   },
+      //   colspan: '1',
+      //   rowspan: '3'
+      // },
+       {
         name: `胎方位`,
         style: {
           minWidth: '50px',
@@ -97,8 +99,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          minWidth: "203px",
+          maxWidth: "203px"
         },
         colspan: "1",
         rowspan: "1"

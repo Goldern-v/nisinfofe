@@ -8,7 +8,7 @@
     <table
       class="sheet-table table-fixed-th no-print"
       :style="{ width: fiexHeaderWidth, top: `${fixedTop}px` }"
-      :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl}"
+      :class="{ isFixed, isInPatientDetails,'tableTd-14':wujingCommonHl,postpartumBigfont}"
       ref="tableHead"
       v-if="hasFiexHeader"
     >
@@ -98,7 +98,7 @@
     <table
       class="sheet-table"
       ref="table"
-      :class="{'tableTd-14':wujingCommonHl}"
+      :class="{'tableTd-14':wujingCommonHl,postpartumBigfont}"
       :style="{ width: sheetInfo.sheetType == 'access_gzry' ? '100%' : '' }"
     >
       <tr
@@ -114,7 +114,7 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          :class="{ canSet: item.canSet }"
+          :class="{ canSet: item.canSet,'no-print':item.noPrint}"
           @click="item.canSet && setTitle(item, data.titleModel)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
@@ -177,6 +177,11 @@
               tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
+            onlyTdredText:tr.find((item) => {
+              return item.key == 'recordSource';
+            }).onlyTdredText && tr.find((item) => {
+              return item.key == 'food';
+            }).value==='24小时总结',
             borderThickening: ['whhk'].includes(HOSPITAL_ID)&&tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
@@ -1009,6 +1014,9 @@ export default {
     sheetMaxPage() {
       return this.sheetInfo.sheetMaxPage;
     },
+    postpartumBigfont(){
+      return this.sheetInfo.sheetType === 'postpartum_wj'
+    },
     auditorNo() {
       return (
         sheetInfo.auditorMap &&
@@ -1057,7 +1065,7 @@ export default {
     },
     // 护士职称权限判断处理
     onCanModify(data, index, y){
-      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData[ y + (index* data.length)]){
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData && this.listData.length>0 && this.listData[ y + (index* data.length)]){
         return this.listData[ y + (index* data.length)].canModify ? false : true;
       }else{
         return false
@@ -1164,7 +1172,7 @@ export default {
     },
     async onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
-      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry'|| this.sheetInfo.sheetType == 'orthopaedic_sdry') {
+      if (this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry'|| this.sheetInfo.sheetType == 'orthopaedic_sdry' || this.sheetInfo.sheetType == 'baby2_sdry') {
         let confirmRes = '';
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           confirmRes = await this.$confirm(
@@ -2808,7 +2816,7 @@ export default {
         tab = "1";
       } else {
         tab = "2";
-      } 
+      }
       //佛山市一不要双击时间出弹框
       if (this.HOSPITAL_ID == "foshanrenyi" && key == "recordHour") {
         return

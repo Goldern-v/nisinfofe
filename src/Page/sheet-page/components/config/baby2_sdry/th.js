@@ -20,12 +20,12 @@ export default {
     top:
       [
         { "name": "年", "colspan": "2", "rowspan": "1", "key": "recordYear" },
-        { "name": "温<br/>箱<br/><br/>℃", "colspan": "1", "rowspan": "3" },
-        { "name": "T<br/><br/>℃", "colspan": "1", "rowspan": "3" },
+        { "name": "温<br/>箱<br/>℃", "colspan": "1", "rowspan": "3" },
+        { "name": "T<br/>℃", "colspan": "1", "rowspan": "3" },
         { "name": "HR<br/>次/分", "colspan": "1", "rowspan": "3" },
         { "name": "R<br/>次/分", "colspan": "1", "rowspan": "3" },
         { "name": "BP<br/>mmHg", "colspan": "1", "rowspan": "3" },
-        { "name": "导<br/>管<br/>后<br/>Spo2%", "colspan": "1", "rowspan": "3" },
+        { "name": "SPO₂%", "colspan": "1", "rowspan": "3" },
         {'name':'意<br/>识',"colsapn":"1","rowspan":"3"},
         { "name": "入量", "colspan": "2", "rowspan": "1" },
         { "name": "出量", "colspan": "2", "rowspan": "1" },
@@ -102,9 +102,9 @@ export default {
           }
         },
 
-        { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "210px", "maxWidth": "210px" } },
-        { "name": "签名", "colspan": "1", "rowspan": "3", "style": { "minWidth": "75px", "maxWidth": "75px" } },
-        // {"name":"带教<br/>护士","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+        { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "265px", "maxWidth": "265px" } },
+        { "name": "签名", "colspan": "1", "rowspan": "3", "style": { "minWidth": "50px", "maxWidth": "50px" } },
+        {"name":"查房签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
       ]
     ,
     mid:
@@ -115,7 +115,7 @@ export default {
         { "name": "量<br/>ml", "colspan": "1", "rowspan": "2" },
         { "name": "内容", "colspan": "1", "rowspan": "2" },
         { "name": "量<br/>ml", "colspan": "1", "rowspan": "2" },
-        {"name":"额","colspan":"1","rowspan":"2"},
+        { "name": "额","colspan":"1","rowspan":"2"},
         { "name": "胸", "colspan": "1", "rowspan": "2" },
         { "name": "腿", "colspan": "1", "rowspan": "2" },
       ]

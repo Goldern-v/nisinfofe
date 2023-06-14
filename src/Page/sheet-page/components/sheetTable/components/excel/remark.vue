@@ -5,7 +5,7 @@
     <div
         v-if="sheetInfo.sheetType == 'prenatal_sdlj'"
         style="font-size: 13px; margin-top: -5px">
-      备注 非药物阵痛方法：A-分娩球、B-自由体位待产、C-分娩操、D-豆袋热敷、E-导乐分娩、F-分娩镇痛仪、G-其他<input class="bottomInput" type="text" v-model="sheetInfo.relObj.remark" :data-value="sheetInfo.relObj.remark"/>（可填写保存）
+      备注 非药物阵痛方法：A-分娩球、B-自由体位待产、C-分娩操、D-豆袋热敷、E-导乐分娩、F-分娩镇痛仪、G-其他<input class="bottomInput" type="text" v-model="sheetInfo.relObj.remark" :data-value="sheetInfo.relObj.remark"/>
       膀胱充盈度：H-空虚、I-轻度充盈、J-中度充盈、K-重度充盈
     </div>
     <div
@@ -71,7 +71,7 @@
       v-if="sheetInfo.sheetType == 'postpartum_nurse_wj'"
       style="font-size: 13px; margin-top: -5px;"
     >
-      备注:①意识：清醒、嗜睡、昏睡、模糊、浅昏迷、深昏迷、谵妄状态、镇静状态、朦胧、麻醉未醒、药眠；&nbsp;②乳房情况：(+)、(-)；&nbsp;③泌乳情况：无、少、中、多；&nbsp;④宫颈高度：u-3、u-2、u-1、u=0、u+1、u+2、u+3；&nbsp;⑤子宫收缩：软、硬、轮廓不清；&nbsp;⑥伤口：会阴(+)、会阴(-)、腹部(+)、腹部(-)
+      备注:①意识：清醒、嗜睡、昏睡、模糊、浅昏迷、深昏迷、谵妄状态、镇静状态、朦胧、麻醉未醒、药眠；&nbsp;②乳房情况：(+)、(-)；&nbsp;③泌乳情况：无、少、中、多；&nbsp;④宫底高度：u-3、u-2、u-1、u=0、u+1、u+2、u+3；&nbsp;⑤子宫收缩：软、硬、轮廓不清；&nbsp;⑥伤口：会阴(+)、会阴(-)、腹部(+)、腹部(-)
     </div>
     <div
       v-if="
@@ -251,6 +251,9 @@
         <b>备注：氧疗：</b>①鼻导管 ②面罩 ③双鼻塞 <b>意识：</b>1.清醒 2.镇静
         3.嗜睡 4.昏睡 5.昏迷 6.意识模糊 7.谵妄 8.其他
       </p>
+    </div>
+    <div v-if="sheetInfo.sheetType == 'critical2_weihai'">
+      备注：1、瞳孔观察：+ 代表瞳孔对光反应灵敏，- 号代表瞳孔对光反应无， ±代表对光反应迟钝。2、护理措施：1吸痰，2翻身，3叩背。4、约束护理，5、皮肤护理，6、晨/晚间护理，7、口腔护理，8、会阴护理9、擦浴，10洗头，11失禁护理，12动/静脉置管护理，13引流管护理，14气切换药，15、压疮预防及护理
     </div>
     <!-- 陵 城 病重（病危）患者护理记录单 -->
     <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'||sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_lc' ">
@@ -652,9 +655,9 @@
       5、吸吮力：以“好”、“一般”、“差”表示；&nbsp;6、护理措施项目可填于空白项目栏：如病危、病重、吸痰，吸氧、雾化，膀胱冲洗，臀部护理、口腔护理，兰光治疗、留置针、心电监护、叩背排痰等。
     </div>
     <!-- 顺德人医-护理记录单（新生儿） -->
-    <div v-if="sheetInfo.sheetType == 'baby2_sdry'">
+    <!-- <div v-if="sheetInfo.sheetType == 'baby2_sdry'">
      吸氧：N鼻导管 F头罩 W温箱内    痰液里：少量+ 中量++ 大量+++    意识：清醒√ 嗜睡+ 浅昏迷++ 深昏迷+++
-    </div>
+    </div> -->
    <!-- 顺德人医-产后产房观察记录单 -->
     <div v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
      备注      A：缩宫素注射液10u   B：益母草针2ml   C：卡贝缩宫素注射液100ug   D：卡前列素氨丁三醇250ug（欣母沛)   E：卡前列素氨丁三醇250 ug(安列克)   F：米索前列醇片0.6mg   G：马来酸麦角新碱0.2mg   H：卡前列甲酯栓1mg

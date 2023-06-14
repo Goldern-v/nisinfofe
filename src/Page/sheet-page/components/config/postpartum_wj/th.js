@@ -79,7 +79,7 @@ export default {
         签名
         `,
         style: {
-          minWidth: '50px',
+          minWidth: '70px',
           maxWidth: "153px",
         },
         colspan: '1',

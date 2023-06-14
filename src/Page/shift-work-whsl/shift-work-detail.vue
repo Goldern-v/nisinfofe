@@ -388,6 +388,18 @@ export default {
             }
           ]
         },
+        this.HOSPITAL_ID == "whsl" ? {
+          label: "B（背景）",
+          columns: [
+            {
+              label: "既往病史、治疗经过、治",
+              label2: '疗效果跟踪',
+              prop: "background",
+              editable: true,
+              width: '150'
+            }
+          ]
+        } :
         {
           label: "B（背景）",
           columns: [
@@ -406,7 +418,7 @@ export default {
               label: "护理评估及护理记录",
               prop: "assessmentSituation",
               editable: true,
-              width: "200"
+              width: this.HOSPITAL_ID=="whsl"? "150" : "200"
             }
           ]
         },
@@ -417,7 +429,7 @@ export default {
               label: "交给下一班观察重点 ",
               prop: "proposal",
               editable: true,
-              width: "200"
+              width: this.HOSPITAL_ID=="whsl"? "150" : "200"
             }
           ]
         },

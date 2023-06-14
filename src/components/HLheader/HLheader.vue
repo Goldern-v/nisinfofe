@@ -404,6 +404,7 @@
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item
+                    v-if="HOSPITAL_ID !=='hj'"
                   :class="{ active: $route.path == '/flatManagement' }"
                 >
                   <router-link to="/flatManagement" tag="span">
@@ -449,7 +450,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item>
+                <el-dropdown-item  v-if="HOSPITAL_ID !=='hj'">
                   <router-link to="/dcList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>疫情记录查询

@@ -679,31 +679,31 @@
           "children": [
             {
               "name": "I2333014",
-              "type": "radio",
+              "type": "checkbox",
               "title": "正常",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
+              "elementClass": "el-radio_fs itemRadio",
               "class": null
             },
             {
               "name": "I2333014",
-              "type": "radio",
+              "type": "checkbox",
               "title": "过多",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
+              "elementClass": "el-radio_fs itemRadio",
               "class": null
             },
             {
               "name": "I2333014",
-              "type": "radio",
+              "type": "checkbox",
               "title": "过少",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
+              "elementClass": "el-radio_fs itemRadio",
               "class": null
             },
             {
               "name": "I2333014",
-              "type": "radio",
+              "type": "checkbox",
               "title": "混浊",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",
@@ -727,15 +727,15 @@
             },
             {
               "name": "I2333014",
-              "type": "radio",
+              "type": "checkbox",
               "title": "不详",
               "elementStyle": "margin: 8px 5px 0 0px;",
-              "elementClass": "el-radio_fs",
+              "elementClass": "el-radio_fs itemRadio",
               "class": null
             },
             {
               "name": "I2333014",
-              "type": "radio",
+              "type": "checkbox",
               "title": "其他",
               "elementStyle": "margin: 8px 5px 0 0px;",
               "elementClass": "el-radio_fs itemRadio",

@@ -1,7 +1,7 @@
 
 <template>
   <span :ref="refName2" style="display:flex; align-items:center;" class="input-box">
-    <!-- <autoComplete v-if="isShow" ref="autoInput" /> -->
+<!--     <autoComplete v-if="isShow" ref="autoInput" /> -->
     <!-- <el-input v-if="obj.type==='input'" v-model="checkboxValue" border size="small" :label="obj.title" :class="obj.class" :style="obj.style">{{obj.title}}</el-input> -->
     <span
       v-if="obj.label"
@@ -109,22 +109,29 @@ export default {
   },
   watch: {
     inputValue(valueNew, oldvaule) {
-      this.formObj.model[this.obj.name] = valueNew;
+      /*针对顺德人医多选下拉的默认值处理*/
+      if( process.env.HOSPITAL_ID =='nfyksdyy'){
+        if('I2332219' == this.obj.name){
+          // console.log(valueNew.indexOf('无') >=0,valueNew.length >= 2 , valueNew)
+          this.formObj.model[this.obj.name] =(valueNew.indexOf('无') >=0 &&valueNew.length >= 2) ? valueNew.replace('无,', "") : valueNew
+        }
+        if('I2332063' == this.obj.name){
+          this.formObj.model[this.obj.name] =(valueNew.indexOf('完整') >=0  &&valueNew.length >= 3) ? valueNew.replace('完整,',"") : valueNew
+        }
+      }else{
+        this.formObj.model[this.obj.name] = valueNew;
+      }
+      // console.log("this.formObj.model[this.obj.name]===",this.formObj.model[this.obj.name])
+      // console.log("valueNew===,",valueNew)
       // window.formObj.model[this.obj.name] = valueNew;
-      this.checkValueRule(valueNew);
+      this.checkValueRule(process.env.HOSPITAL_ID =='nfyksdyy'?this.formObj.model[this.obj.name]:valueNew);
       this.isShowDownList = false;
       // return valueNew;
     },
     'formObj.model'(newValue){
       // this.inputValue = this.formObj.model.id ? this.formObj.model[this.obj.name] : window.formObj.model[this.obj.name] ;
-      let flag = false
       if(this.obj.formCodeArr){
-        this.obj.formCodeArr.forEach(item=>{
-          if(this.formObj.model[item]) flag = true
-        })
-        if(this.obj.name==="S2332163"){
-          console.log(flag,'flag')
-        }
+        let flag = this.obj.formCodeArr.find(item=>this.formObj.model[item])
         if(!flag){
           let defaultObj =  (process.env.HOSPITAL_ID === 'foshanrenyi'||process.env.HOSPITAL_ID === 'nfyksdyy') ? (this.formCode === 'E2332' ? defaultFS_adult : defaultFS_child) : 入院默认值
           this.inputValue= defaultObj[this.obj.name] || ""
@@ -430,8 +437,10 @@ export default {
       } else {
         this.isShowDownList = !this.isShowDownList;
       }
-
       this.openAutoCompleteBox(target);
+
+     // if(!this.$root.$refs.dialogBox){
+     // }
       // if (this.isShowDownList) {
       //   // this.inputFocus(e, child)
       //   this.openAutoCompleteBox(target);
@@ -521,7 +530,8 @@ export default {
                   obj[key] = values + "";
                   this.inputValue = obj[key] + "";
                   this.checkValueRule(obj[key], true, data.code);
-                  target.focus();
+                  // if( process.env.HOSPITAL_ID =='nfyksdyy' && )
+                  // target.focus();
                 }
               }
               if (target.tagName !== "INPUT") {

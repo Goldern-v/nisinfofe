@@ -49,7 +49,12 @@
         label="性别"
         :min-width="HOSPITAL_ID=='fuyou'?'35px':'70px'"
       ></el-table-column>
-
+      <el-table-column
+          v-if="['whsl'].includes(HOSPITAL_ID)"
+          prop="diagnosis"
+          label="患者诊断"
+          min-width="70px"
+      ></el-table-column>
       <el-table-column
         prop="patientId"
         :label="['foshanrenyi'].includes(HOSPITAL_ID)?'住院号':'病人ID'"

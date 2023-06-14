@@ -572,6 +572,44 @@ export default {
           return item.key == "status";
         }).value;
         console.log("status", status);
+        let SigndataObj = {}, verifySignObj={}, strSignDataOBJ = {}
+        if(['hj'].includes(this.HOSPITAL_ID)){
+          let trObj = {};
+          for (let i = 0; i < trArr.length; i++) {
+            trObj[trArr[i].key] = trArr[i].value;
+          }
+          let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
+          strSignDataOBJ =
+              Object.assign({}, trObj, {
+                recordMonth: this.getPrev(currIndex, allList, "recordMonth"),
+                recordHour: this.getPrev(currIndex, allList, "recordHour"),
+                recordYear: this.getPrev(currIndex, allList, "recordYear"),
+                patientId: this.patientInfo.patientId,
+                visitId: this.patientInfo.visitId,
+                pageIndex: this.index,
+              })
+          let strSignData ={}
+          for(let key in strSignDataOBJ){
+            if(strSignDataOBJ[key]) strSignData[key]=strSignDataOBJ[key]
+          }
+          SigndataObj = {
+            Patient_ID:this.patientInfo.patientId,
+            Visit_ID:this.patientInfo.visitId,
+            Document_Title:this.$parent.patientInfo.recordName,
+            Document_ID:sheetInfo.sheetType,
+            Section_ID:trObj.id,
+            strSignData: JSON.stringify(strSignData),
+          };
+          verifySignObj = {
+            patientId:this.patientInfo.patientId,
+            visitId:this.patientInfo.visitId,
+            formName:this.$parent.patientInfo.recordName,
+            formCode:sheetInfo.sheetType,
+            instanceId:this.$parent.patientInfo.id,
+            recordId:strSignData.id,
+            signData:JSON.stringify(strSignData),
+          }
+        }
         // if (status == 1) return this.$message.warning('该记录已经签名了')
         this.$refs.signModal.open((password, empNo) => {
           let trObj = {};
@@ -635,7 +673,9 @@ export default {
               this.bus.$emit("saveNursingOrderSheetPage");
             }
           );
-        });
+        },'',null,false,'',
+            ['hj'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
+            undefined,undefined,undefined,['hj'].includes(this.HOSPITAL_ID)?SigndataObj:undefined,['hj'].includes(this.HOSPITAL_ID)?verifySignObj:undefined);
       } else {
         // 删除签名
         this.$refs.delsignModal.open((password, empNo) => {

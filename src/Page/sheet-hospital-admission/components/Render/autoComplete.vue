@@ -117,6 +117,7 @@ export default {
   methods: {
     open(config) {
       // if (config.data.length > 0) {
+      /*重复打开下拉*/
       setTimeout(() => {
         this.show = true;
       }, 100);
@@ -146,25 +147,25 @@ export default {
         if (this.$refs.autoBox) {
           let offset = this.$refs.autoBox.getBoundingClientRect();
           let elOffest = this.parentEl.getBoundingClientRect();
-          console.log(
-            "open:this.$refs",
-            this.$refs,
-            this.selectIndex,
-            offset,
-            elOffest
-          );
+          // console.log(
+          //   "open:this.$refs",
+          //   this.$refs,
+          //   this.selectIndex,
+          //   offset,
+          //   elOffest
+          // );
 
           if (window.innerHeight - offset.bottom < 10) {
             let top =
               Math.abs(elOffest.top - offset.height - elOffest.height / 3) +
               "px";
             this.style = Object.assign({}, this.style, { top });
-            console.log(
-              "open:this.style",
-              this.style,
-              offset,
-              window.innerHeight
-            );
+            // console.log(
+            //   "open:this.style",
+            //   this.style,
+            //   offset,
+            //   window.innerHeight
+            // );
           }
         }
         let selectTop = document.querySelector(".autoSelected");
@@ -176,11 +177,11 @@ export default {
         }
       });
     },
-    close(id = null, time = 0) {
-      this.show = false;
-    },
+    // close(id = null, time = 0) {
+    //   this.show = false;
+    // },
     closeBox() {
-      this.$nextTick(() => {
+      this.$nextTick( () => {
         this.show = false;
         // this.parentEl.focus()
       });
@@ -198,7 +199,7 @@ export default {
         e,
         item,
         this.selectedList,
-        this.obj[this.id]
+        this.obj[this.id],
       );
       // if (this.callback) {
       this.callback(item);

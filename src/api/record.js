@@ -37,9 +37,9 @@ export const delAll = (recordCode, patientId, visitId) => {
     return axios.get(`${apiPath}record/${recordCode}/deleteAll/${patientId}/${visitId}`)
 }
 // 出入量统计
-export const outputSum = (patientId, visitId, recordCode, startTime, endTime, description,type) => {
+export const outputSum = (patientId, visitId, recordCode, startTime, endTime, description,type,wardCode) => {
     return axios.post(`${apiPath}record/${recordCode}/outputSum`, {
-        startTime,endTime,description,blockId: sheetInfo.selectBlock.id,type
+        startTime,endTime,description,blockId: sheetInfo.selectBlock.id,type,wardCode
     })
 }
 // 出入量统计（花都）

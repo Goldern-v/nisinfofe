@@ -62,18 +62,20 @@ export default [{
     textarea: {
       width: 50
     }
-  }, {
-    key: "fieldSeven", //宫缩强度
-    value: "",
-    event: keyf1,
-    name: "宫缩强度",
-    autoComplete: {
-      data: 宫缩强度
-    },
-    textarea: {
-      width: 50
-    }
-  }, {
+  }, 
+  // {
+  //   key: "fieldSeven", //宫缩强度
+  //   value: "",
+  //   event: keyf1,
+  //   name: "宫缩强度",
+  //   autoComplete: {
+  //     data: 宫缩强度
+  //   },
+  //   textarea: {
+  //     width: 50
+  //   }
+  // }, 
+  {
     key: "fieldEight", //胎方位
     value: "",
     event: keyf1,
@@ -140,7 +142,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "180px",
+      width: "200px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -235,7 +237,7 @@ export default [{
 export function getListData4() {
   let list = [
     "宫缩",
-    "宫缩强度",
+    // "宫缩强度",
     "胎方位",
     "胎心",
     "宫口扩张",
@@ -244,7 +246,7 @@ export function getListData4() {
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(宫缩, "宫缩", data);
-    setList(宫缩强度, "宫缩强度", data);
+    // setList(宫缩强度, "宫缩强度", data);
     setList(胎方位, "胎方位", data);
     setList(胎心, "胎心", data);
     setList(宫口扩张, "宫口扩张", data);
