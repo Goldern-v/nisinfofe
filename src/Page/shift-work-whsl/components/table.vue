@@ -22,7 +22,11 @@
           <th v-for="col of columns" :key="col.label" :colspan="getColSpan(col)">{{col.label}}</th>
         </tr>
         <tr v-if="isMultiCol">
-          <th v-for="col of realColumns" :key="col.label">{{col.label}}</th>
+          <th v-for="col of realColumns" :key="col.label">
+            <span>{{col.label}}</span>
+            <br />
+            <span v-if="col.label2">{{col.label2}}</span>
+          </th>
         </tr>
       </thead>
       <tbody>

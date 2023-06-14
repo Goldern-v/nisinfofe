@@ -31,6 +31,13 @@
           </div>
         </span>
         <span>
+        入院时间：
+        <div class="bottom-line" style="min-width: 80px">
+          <!-- {{ patientInfo.admissionDate | toymd }} -->
+          {{ newPatientInfo[`admissionDate_${index}_${sheetInfo.selectBlock.id}`] | toymd }}
+        </div>
+      </span>
+        <!-- <span>
           孕次：
           <input
             class="bottom-line-input"
@@ -45,7 +52,7 @@
             :data-value="sheetInfo.relObj.pregnantTimes"
             v-model="sheetInfo.relObj.pregnantTimes"
           />
-        </span>
+        </span> -->
         <!-- <span>
           预产期： -->
           <!-- <input
