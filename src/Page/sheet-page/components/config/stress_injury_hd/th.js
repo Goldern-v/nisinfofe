@@ -30,8 +30,8 @@ export default {
         colspan: "1",
         rowspan: "3",
         style: {
-          minWidth: "36px",
-          maxWidth: "36px"
+          minWidth: "26px",
+          maxWidth: "26px"
         },
       },
       {
@@ -43,7 +43,7 @@ export default {
         rowspan: "1",
         style: {
           whiteSpace: "nowrap",
-          minWidth: "38px"
+          minWidth: "48px"
         }
       },
       {

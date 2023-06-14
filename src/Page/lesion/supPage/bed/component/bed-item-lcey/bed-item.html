@@ -72,7 +72,7 @@
           <div class="right-icon"></div>
         </el-row>
         <!--佛一处理床位一览卡的数据-->
-        <div v-if="['foshanrenyi','925'].includes(HOSPITAL_ID)" class="user-img-foshanrenyi">
+        <div v-if="['nfyksdyy'].includes(HOSPITAL_ID)" class="user-img-sdry" :style="{ backgroundColor: data.nursingClassColor }">
           <img v-if="data.sex==='女'" src="./images/女.png" height="46" width="46" />
           <img v-if="data.sex==='男'" src="./images/男.png" height="46" width="46" />
           <p>
