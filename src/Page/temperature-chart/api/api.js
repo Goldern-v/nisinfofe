@@ -52,6 +52,10 @@ export function saveOverAllTemperture(params) {
 export const getNowDateTimeList = (data) => {
   return axios.post(`${apiPath}vitalSign/list`, data);
 };
+//获取床位字典接口
+export const getBedList = (wardCode) => {
+  return axios.get(`${apiPath}/whiteboard/getBedList/${wardCode}`);
+};
 
 //聊城二院出入院同步
 export function autoVitalSigns(data) {

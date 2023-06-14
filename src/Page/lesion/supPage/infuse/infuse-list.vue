@@ -196,20 +196,13 @@ export default {
       }
     },
     getDetail(data) {
-      if(!['hengli','wujing'].includes(this.HOSPITAL_ID)) return
+      if(!['hengli','wujing','nfyksdyy'].includes(this.HOSPITAL_ID)) return
       this.pageLoading = true;
       let barCode = data.barCode;
-      if(this.HOSPITAL_ID=='hengli'||this.HOSPITAL_ID=='wujing'){
-        detailHl({barCode},this.HOSPITAL_ID).then(res => {
-          this.$refs.detailsModal.open(res.data.data);
-          this.pageLoading = false;
-        });
-      }else{
-        detail(barCode).then(res => {
-          this.$refs.detailsModal.open(res.data.data);
-          this.pageLoading = false;
-        });
-      }
+      detailHl({barCode},this.HOSPITAL_ID).then(res => {
+        this.$refs.detailsModal.open(res.data.data);
+        this.pageLoading = false;
+      });
     },
     saveLog(item) {
       let obj = {

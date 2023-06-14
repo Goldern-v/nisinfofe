@@ -13,7 +13,7 @@
       }"
       >{{data[0] && data[0].bedLabel}} {{data[0].nurseClass}}</div>
       <div class="list-con">
-        <div class="list-box" flex="cross:center" v-for="item in data" :key="item.orderText">
+        <div class="list-box" flex="cross:center" v-for="(item, index) in data" :key="index">
           <span class="key">{{item.orderText}}</span>
           <span flex-box="1" class="line"></span>
           <span class="value">{{item.dosage}}{{item.dosageUnits}}</span>
@@ -47,10 +47,10 @@
 .infuse-details-modal
   .el-dialog__header
     display none
-  .el-dialog__body  
+  .el-dialog__body
     padding 0
   .el-dialog
-    width 400px  
+    width 400px
     background: #FFFFFF;
     box-shadow: 0 5px 10px 0 rgba(0,0,0,0.50);
     border-radius: 4px;
@@ -58,7 +58,7 @@
   .bed-label
     position absolute
     top 12px
-    left 20px    
+    left 20px
 </style>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .close-btn
@@ -73,13 +73,13 @@
     color #000
 .bed-label
   height 25px
-  width 65px    
+  width 65px
   background: #4BB08D;
   border-radius: 2px;
   font-size: 18px;
   color: #FFFFFF;
 .list-con
-  margin-top 55px  
+  margin-top 55px
   padding 0px 20px 5px 36px
   position relative
   &:after
@@ -93,7 +93,7 @@
   .list-box
      margin-bottom 13px
      position relative
-     overflow visible 
+     overflow visible
      &:after
       content ''
       position absolute
@@ -109,19 +109,19 @@
     color: #333333;
   .value
     font-size: 13px;
-    color: #284FC2;  
+    color: #284FC2;
   .line
-    border-top 1px dashed #687179  
+    border-top 1px dashed #687179
     margin 0 10px
 .footer-con
   height 60px
   overflow hidden
-  background: #F7FAFA;    
+  background: #F7FAFA;
   border-top: 1px solid #EAEEF1;
   .aside
     font-size: 13px;
     color: #333333;
-    text-align center 
+    text-align center
     margin-top 8px
     margin-bottom 8px
   .date-item
@@ -129,30 +129,30 @@
     height 17px
     background: #FFFFFF;
     border: 1px solid #CBD5DD;
-    border-radius: 2px;  
+    border-radius: 2px;
     margin 0 2px 0 0px
     text-align center
-    line-height 17px  
-.info-con  
+    line-height 17px
+.info-con
   margin 0 35px 17px 40px
-.left-part 
+.left-part
   .tip
     background: #CBD5DD;
-    border-radius: 1px;   
+    border-radius: 1px;
     width 21px
     height 17px
-    text-align center 
-    line-height 17px 
+    text-align center
+    line-height 17px
     font-size: 13px;
     color: #333333;
   .text
     font-size: 12px;
     color: #687179;
-    letter-spacing: 0;  
+    letter-spacing: 0;
     margin-left 10px
 .right-part
   font-size: 12px;
-  color: #687179;    
+  color: #687179;
   .icon
     width 8px
     margin-right 2px
@@ -171,7 +171,7 @@
 
 .label-type-4 {
     background: #DB83D7 !important;
-  }         
+  }
 </style>
 
 <script>
@@ -198,7 +198,7 @@ export default {
     },
     initTime() {
       if (!this.data[0]) return;
-      
+
        let allSeconds = Number(this.data[0].restTime * 60)
       let hours = Math.floor(allSeconds/3600)
       let minutes = Math.floor((allSeconds/60) - (hours*60))

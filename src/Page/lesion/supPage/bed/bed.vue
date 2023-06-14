@@ -30,6 +30,7 @@
           :prevent="prevent"
           :synchronizationPatient="synchronizationPatient"
           v-show="filterSearch(item)"
+          @openBatchPrints="openBatchPrints"
         >
         </component>
       </el-row>
@@ -47,6 +48,11 @@
         @toPrints="surePrints"
         :list="bedList"
       ></printView>
+      <batchPrints
+        v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
+        ref="batchPrints"
+        :list="bedList"
+      ></batchPrints>
       <printHdModal ref="bedModalHd"></printHdModal>
       <bedModal ref="bedModal"></bedModal>
     </div>
@@ -217,6 +223,7 @@ import printHdModal from "./component/prints/modals.vue";
 import common from "@/common/mixin/common.mixin.js";
 import printsModal from "./component/bed-item-hd/prints-model.vue";
 import printView from "./component/prints/prints-view.vue";
+import batchPrints from "./component/prints/batch-prints.vue";
 import bedModal from "@/Page/patientInfo/supComponts/modal/bed-modal.vue";
 
 import qs from "qs";
@@ -374,12 +381,6 @@ export default {
 
       this.pBtnShow = true;
     },
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
-    handleIconClick(tab, event) {
-      console.log(tab, event);
-    },
     toLike(item) {
       console.log(item);
       // 床位一览卡关注
@@ -482,6 +483,10 @@ export default {
         }
       });
     },
+    // 顺德人医批量打印
+    openBatchPrints(key){
+      this.$refs.batchPrints.open(key)
+    }
   },
   components: {
     bedItem,
@@ -492,6 +497,7 @@ export default {
     bedItemFsry,
     printsModal,
     printView,
+    batchPrints,
     printHdModal,
     bedModal
   },

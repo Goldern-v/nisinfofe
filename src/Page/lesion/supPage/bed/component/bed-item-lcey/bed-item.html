@@ -1,6 +1,6 @@
 <el-col :xs="8" :sm="6" :md="6" :lg="6" class="w-20 bed-box">
   <span @click="toInfo(data)" class="nod">
-    <div class="card-box" @click="prevent(data, $event)">
+    <div class="card-box" @click="prevent(data, $event)" @contextmenu.stop="openContextMenuBed($event, data.patientId)">
       <!--佛一顶部特殊调整-->
         <div v-if="['foshanrenyi'].includes(HOSPITAL_ID)&&data.patientId" class="top_icon" :style="{ backgroundColor: data.nursingClassColor }"></div>
       <div class="like" @click.stop="toLike(data)">

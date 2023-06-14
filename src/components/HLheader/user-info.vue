@@ -539,7 +539,7 @@ export default {
         let user = JSON.parse(localStorage.getItem("user"))
         titleObject=this.getBase(JSON.stringify({user:user.empNo,auth: user.maps.userKey}))
       }
-      let qrcode = new QRCode(this.$refs.qrcodeContainer, {
+      let qrcode = this.$refs.qrcodeContainer && new QRCode(this.$refs.qrcodeContainer, {
         width: 100,// 二维码的宽
         height: 100,// 二维码的高
         //text: this.userName + " " + this.passWord , // 二维码的内容
@@ -548,7 +548,7 @@ export default {
         colorLight: '#fff',
         correctLevel: QRCode.CorrectLevel.H
       })
-      qrcode._el.title = "点击打印二维码";
+      qrcode && qrcode._el && (qrcode._el.title = "点击打印二维码");
     },
     getBase(str){
       //加密encodeURIcomponent

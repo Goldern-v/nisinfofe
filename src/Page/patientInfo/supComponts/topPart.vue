@@ -22,7 +22,84 @@
       >
         <div class="nav-item">首页</div>
       </router-link>
+      <el-dropdown
+        v-if="HOSPITAL_ID == 'nfyksdyy'"
+        menu-align="start"
+        class="nav-item"
+        :class="{ 'router-link-active': isNursing }"
+      >
+        <el-row class="nav-items" type="flex" align="middle">
+          护理文书
+        </el-row>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item
+            :class="{ active: $route.path == '/admissionPageAdult2' }"
+          >
+            <router-link :to="{
+                path: '/admissionPageAdult2',
+                query: { patientId: query.patientId, visitId: query.visitId }
+              }"
+        tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                入院评估(成人)
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item :class="{ active: $route.path == '/sheet' }">
+            <router-link :to="{
+          path: '/sheet',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                 护理记录单
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
+
+          <el-dropdown-item :class="{ active: $route.path == '/record' }">
+            <router-link  :to="{
+          path: '/record',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                护理评估单
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item :class="{ active: $route.path == '/bloodSugar' }">
+            <router-link :to="{
+          path: '/bloodSugar',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }" tag="span">
+              <el-row class="menu-item" type="flex" align="middle"
+                >血糖</el-row
+              >
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item :class="{ active: $route.path == '/healthEducation' }">
+            <router-link :to="{
+          path: '/healthEducation',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                健康教育单
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item :class="{ active: $route.path == '/diagnosis' }">
+            <router-link  :to="{
+          path: '/diagnosis',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                护理计划单</el-row
+              >
+            </router-link>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
       <router-link
+        v-else
         :to="{
           path: '/record',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -74,6 +151,7 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
+        v-if="HOSPITAL_ID != 'nfyksdyy'"
       >
         <div class="nav-item">护理记录单</div>
       </router-link>
@@ -87,22 +165,24 @@
         <div class="nav-item">体温单</div>
       </router-link>
 
-
-
-              <el-row v-if=" HOSPITAL_ID == 'hj' "  class="nav-item" type="flex" align="middle ">
-                <div @click="getPushLink()">
-                  <i class="singleTemperatureChart"></i>临床路径
-                </div>
-              </el-row>
-
+      <el-row
+        v-if="HOSPITAL_ID == 'hj'"
+        class="nav-item"
+        type="flex"
+        align="middle "
+      >
+        <div @click="getPushLink()">
+          <i class="singleTemperatureChart"></i>临床路径
+        </div>
+      </el-row>
 
       <router-link
         v-if="
           HOSPITAL_ID !== 'zhzxy' &&
             HOSPITAL_ID !== 'gdtj' &&
-            HOSPITAL_ID !== 'whsl'&&
-            HOSPITAL_ID !== 'ytll'&&
-            HOSPITAL_ID !== 'nfyksdyy'&&
+            HOSPITAL_ID !== 'whsl' &&
+            HOSPITAL_ID !== 'ytll' &&
+            HOSPITAL_ID !== 'nfyksdyy' &&
             HOSPITAL_ID !== 'dglb'
         "
         :to="{
@@ -118,6 +198,7 @@
           path: '/diagnosis',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
+         v-if="HOSPITAL_ID != 'nfyksdyy'"
         tag="span"
       >
         <div class="nav-item">护理计划</div>
@@ -127,6 +208,7 @@
           path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
+         v-if="HOSPITAL_ID != 'nfyksdyy'"
         tag="span"
       >
         <div class="nav-item">血糖</div>
@@ -138,6 +220,7 @@
           path: '/healthEducation',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
+         v-if="HOSPITAL_ID != 'nfyksdyy'"
         tag="span"
       >
         <div class="nav-item">健康教育单</div>
@@ -208,7 +291,7 @@
         <div class="nav-item">手术</div>
       </router-link> -->
       <router-link
-        v-if="['fsxt','dglb'].includes(HOSPITAL_ID)"
+        v-if="['fsxt', 'dglb'].includes(HOSPITAL_ID)"
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -279,7 +362,7 @@
         <div class="nav-item">执行记录</div>
       </router-link>
       <router-link
-        v-if="['whsl','nfyksdyy'].includes(HOSPITAL_ID)"
+        v-if="['whsl', 'nfyksdyy'].includes(HOSPITAL_ID)"
         :to="{
           path: '/implementationPerson',
           query: {
@@ -347,7 +430,7 @@
 }
 
 .router-link-active {
-  .nav-item {
+  .nav-items {
     background: #F2F2F2;
     border: 1px solid #CBD5DD;
     border-bottom: 0;
@@ -364,9 +447,28 @@
   float: left;
   cursor: pointer;
 }
+
 .no-under-link{
   text-decoration: none;
 }
+.menu-item {
+  height: 38px;
+  padding: 0 0px;
+  text-align: center;
+  font-size: 13px;
+  color: #333;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+.active{
+   background-color: #F8F8FA;
+
+  .menu-item {
+    color: #333;
+    font-weight: bold;
+  }
+}
+
 </style>
 <script>
 import common from "@/common/mixin/common.mixin";
@@ -389,7 +491,12 @@ export default {
     },
     ...mapState({
       patient: state => state.patient.currentPatient
-    })
+    }),
+    isNursing() {
+      let path = this.$route.path;
+      let istPath = ["admissionPageAdult2","sheet","record","bloodSugar","healthEducation","diagnosis"].some(item=>path.includes(item))
+      return istPath
+    }
   },
   components: {},
   methods: {
@@ -398,33 +505,35 @@ export default {
         this[key]();
       }
     },
-    getPushLink(){
-      let {patientId,visitId,wardCode} =this.query
-      console.log(this.query,'kkkkkkkkkkkk')
-      let empNo =JSON.parse(localStorage.user).empNo
-      getLink(patientId,visitId,empNo,wardCode).then(res=>{
-        console.log("res===",res)
-        this.copy(res.data.data.link)
-      })
+    getPushLink() {
+      let { patientId, visitId, wardCode } = this.query;
+      console.log(this.query, "kkkkkkkkkkkk");
+      let empNo = JSON.parse(localStorage.user).empNo;
+      getLink(patientId, visitId, empNo, wardCode).then(res => {
+        console.log("res===", res);
+        this.copy(res.data.data.link);
+      });
     },
-    copy (text) {
-      console.log('text',text)
+    copy(text) {
+      console.log("text", text);
       this.$confirm("即将跳转至外部链接", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        let a =  document.createElement('a');
-        a.setAttribute('href', `openIE:${text}`);
-        a.setAttribute('target', '_blank');
-        a.setAttribute('id', 'startTelMedicine');
+        let a = document.createElement("a");
+        a.setAttribute("href", `openIE:${text}`);
+        a.setAttribute("target", "_blank");
+        a.setAttribute("id", "startTelMedicine");
         // 防止反复添加
-        if (document.getElementById('startTelMedicine')) {
-          document.body.removeChild(document.getElementById('startTelMedicine'));
+        if (document.getElementById("startTelMedicine")) {
+          document.body.removeChild(
+            document.getElementById("startTelMedicine")
+          );
         }
         document.body.appendChild(a);
         a.click();
-      })
+      });
     },
     // （顺德龙江）手麻记录单（第三方链接）
     toHandNumbness() {
