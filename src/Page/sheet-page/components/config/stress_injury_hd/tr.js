@@ -62,7 +62,7 @@ export default [
       data: fqList
     },
     textarea: {
-      width: 65
+      width: 55
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -72,7 +72,7 @@ export default [
     event: keyf1,
     name: "大小",
     textarea: {
-      width: 65
+      width: 85
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -86,7 +86,7 @@ export default [
       data: jdysList
     },
     textarea: {
-      width: 65
+      width: 63
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -100,7 +100,7 @@ export default [
       data: jdysList
     },
     textarea: {
-      width: 65
+      width: 63
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -114,7 +114,7 @@ export default [
       data: jdysList
     },
     textarea: {
-      width: 65
+      width: 63
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -128,7 +128,7 @@ export default [
       data: jdysList
     },
     textarea: {
-      width: 65
+      width: 63
     },
     change: (e, td) => limitChange(e, td, 10),
   },
@@ -138,7 +138,7 @@ export default [
     event: keyf1,
     name: "渗出液（量、性状、颜色）",
     textarea: {
-      width: 65
+      width: 63
     },
     change: (e, td) => limitChange(e, td, 10),
   },
