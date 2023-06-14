@@ -43,9 +43,9 @@ export default {
           { "name": "膀胱充盈度", "colspan": "1", "rowspan": "2"},
 
 
-            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue3"},
-            { "name": "", "colspan": "1", "rowspan": "3",canSet:true,key:"customValue4"},
-            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "260px",  maxWidth: "260px"}, },
+          { "name": "", "colspan": "1", "rowspan": "3", "canSet": true, "key": "armValue", "style": { "minWidth": "45px", "maxWidth": "45px" } },
+          { "name": "", "colspan": "1", "rowspan": "3", "canSet": true, "key": "armValue2", "style": { "minWidth": "45px", "maxWidth": "45px" } },
+            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "260px",  "maxWidth": "260px"}, },
             { "name": "护士签名", "colspan": "1", "rowspan": "3"},
             // { "name": "质控护士", "colspan": "1", "rowspan": "3"}
          ],
