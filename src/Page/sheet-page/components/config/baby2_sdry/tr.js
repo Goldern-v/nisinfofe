@@ -28,11 +28,11 @@ import {
 
 let ysList = ["√", "+", "±", "++", "+++", "谵妄"];
 
-const yishi = ["清醒", "嗜睡", "浅昏迷", "深昏迷", "模糊", "昏睡", "谵妄", "痴呆", "药眠"]
-const yanse = [{ name: '①血性液', value: '血性液' }, { name: '②淡红色液', value: '淡红色液' }, { name: '③暗红色液', value: '暗红色液' }, { name: '④黄色液', value: '黄色液' }, { name: '⑤淡黄色液', value: '淡黄色液' }, { name: '⑥深黄色液', value: '深黄色液' }];
-const ruliang = ["饮水", "进食", "鼻饲", "输血", "输液", "静注"]
-const chuliang = ["尿液", "大便", "引流液", "呕吐物", "胃液", "恶露"]
+const yishi = ["药眠","清醒", "嗜睡", "浅昏迷", "深昏迷", "模糊", "昏睡", "谵妄", "痴呆"]
+const ruliang = ["全奶", "母乳", "早产奶", "深度水解奶", "输液", "维生素K1", "多巴胺", "多巴酚丁胺", "肾上腺素", "芬太尼", "咪达唑仑","呋噻米","苯巴比妥钠","NS+开塞露","布洛芬","米力农"]
+const chuliang = ["尿", "大便", "尿+大便", "胃内容物", "血液"]
 const xiyang  = ['鼻导管','头罩','温箱内']
+const weiyang = ['自吮', '口饲','禁食']
 
 export default [
   { hidden: true, key: "recordDate", value: "" },
@@ -71,6 +71,7 @@ export default [
     value: "",
     next: "次/分",
     name: "R",
+    autoComplete:{data:['辅助呼吸']},
     textarea: { width: 35 },
     change: (e, td) => limitChange(e, td, 2)
   },
@@ -88,7 +89,7 @@ export default [
     event: keyf1,
     value: "",
     next: "%",
-    name: "导管后SpO2",
+    name: "SPO₂%",
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 2)
   },
@@ -109,6 +110,7 @@ export default [
     next: "",
     name: "入量内容",
     textarea: { width: 40 },
+    autoComplete: { data: ruliang },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -127,6 +129,7 @@ export default [
     next: "",
     name: "出量内容",
     textarea: { width: 40 },
+    autoComplete: { data: chuliang },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -208,6 +211,7 @@ export default [
     value: "",
     textarea: { width: 30 },
     next: "",
+    autoComplete: { data: weiyang },
     name: "喂养方式",
     change: (e, td) => limitChange(e, td, 2)
   },
