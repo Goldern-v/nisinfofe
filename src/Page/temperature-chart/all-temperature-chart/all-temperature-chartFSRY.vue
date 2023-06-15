@@ -32,12 +32,27 @@
         </label>
       </div>
       <div class="search-box" v-if="isNfyksdyy">
-        <el-autocomplete
+         <el-select
+          v-model="searchWord"
+          placeholder="请选择床号"
+          style="max-height:30px;"
+          size="small"
+          clearable
+          multiple
+        >
+          <el-option
+            v-for="item in searchWordlist"
+            :key="item.value"
+            :label="item.value"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <!-- <el-autocomplete
           class="inline-input"
           v-model="searchWord"
           :fetch-suggestions="querySearch"
           placeholder="请输入内容"
-        ></el-autocomplete>
+        ></el-autocomplete> -->
         <!-- <el-input
         placeholder="床号/姓名/多选用空格隔开"
           icon="search"
@@ -79,7 +94,8 @@
           <el-select
             v-model="admitted"
             placeholder="请选择"
-            style="min-width: 250px; "
+            style="min-width: 250px; max-height:30px;"
+            size="small"
             clearable
             multiple
           >
@@ -795,6 +811,7 @@
 
       >>>.el-input__inner {
         height: 30px;
+        max-height: 28px;
         outline: none;
         padding-left: 10px;
         background: #fff;
@@ -804,6 +821,13 @@
       }
     }
   }
+  >>>.el-select__tags{
+    height:30px;
+    &:hover{
+      overflow-y: auto;
+    }
+  }
+
 
   .times {
     margin-right: 5px;
@@ -1131,7 +1155,11 @@ export default {
           return this.patientsInfoData.filter(
             item => item.expand3 === this.patientGroup
           );
-        } else {
+        } else if (this.HOSPITAL_ID == 'nfyksdyy' && this.searchWord.length){
+          data = this.patientsInfoData.filter(item => {
+            return  this.searchWord.some(beditem => item.bedLabel.match(beditem))
+          })
+        }else {
           let searchWord = new RegExp(this.searchWord, "i");
           data = this.patientsInfoData.filter(item => {
             return (
@@ -1202,18 +1230,6 @@ export default {
     window.addEventListener("keydown", this.keydownSave, false);
   },
   methods: {
-    //
-    querySearch(queryString, cb) {
-      var restaurants = this.searchWordlist;
-       var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
-      // 调用 callback 返回建议列表的数据
-      cb(results);
-    },
-     createFilter(queryString) {
-        return (restaurant) => {
-          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-        };
-      },
     //行样式
     rowStyle(row) {
       if (!this.levelColorHis.includes(this.HOSPITAL_ID)) {
