@@ -4,7 +4,6 @@
       <div class="m_title">请选择要打印的患者:</div>
       <el-select v-model="printSelect" filterable multiple placeholder="请选择">
         <el-option
-            v-if=""
             v-for="item in optionList"
             :key="item.patientId"
             :label="`${item.bedLabel}床 ${item.name} ${item.patientId} ${HOSPITAL_ID == 'huadu' ? item.remark : ''}`"

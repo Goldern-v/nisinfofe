@@ -7,11 +7,17 @@
   >
     <template v-if="!collapse">
       <div class="search-box" v-if="!isRefresh">
-        <el-input
-          placeholder="床号/姓名"
-          icon="search"
-          v-model="searchWord"
-        ></el-input>
+        <div flex>
+          <el-input
+            placeholder="床号/姓名"
+            icon="search"
+            v-model="searchWord"
+          ></el-input>
+          <div @click="handleFilter($event)" v-show="false">
+          <svg t="1686737054571" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6663" width="20" height="20"><path d="M625.1 1024c-21.7 0-39.2-17.5-39.2-39.2V383c0-9.8 3.6-19.2 10.2-26.4L849.6 78.5H172.8L424 355.8c6.6 7.2 10.2 16.6 10.2 26.3v349.2l96.2 84c16.3 14.3 18 39 3.7 55.4-14.2 16.4-38.9 18-55.4 3.7l-109.6-95.7c-8.5-7.4-13.4-18.2-13.4-29.5v-352L55.3 65.6c-10.4-11.5-13.1-28-6.8-42.2S68.8 0 84.4 0h854C954 0 968 9.2 974.3 23.4s3.6 30.8-6.9 42.3L664.3 398.3v586.5c0 21.7-17.6 39.2-39.2 39.2z" fill="#040000" p-id="6664"></path></svg>
+          </div>
+        </div>
+
         <el-select
           size="small"
           v-model="patientGroup"
@@ -353,6 +359,25 @@ export default {
     };
   },
   methods: {
+    // 处理筛选
+    handleFilter(e){
+      // console.log(e, 'dddddddddddd');
+      // let autoCompleteData = ['三天内体温超37.5', '入院3天内', '术后3天内', '病危患者', '病重患者', '转科患者', '特级护理患者', '一级护理患者', '二级护理患者', '三级护理患者', '3天未解大便']
+      let autoCompleteData = [{code: "5%葡萄糖", name: "5%葡萄糖"}, {code: "10%葡萄糖", name: "10%葡萄糖"}, {code: "生理盐水", name: "生理盐水"},{code: "甘露醇", name: "甘露醇"},{code: "白蛋白", name: "白蛋白"},{code: "血液制品", name: "血液制品"},{code: "其他", name: "其他"}]
+      console.log(e.clientX);
+      window.openAutoComplete({
+      style: {
+        top: `${e.y  - window.scrollY + 10}px`,
+        left: `${e.y - window.scrollX + 120}px`,
+        addWidth: `${e.offsetWidth}px`,
+        width: '120px'
+      },
+      data: autoCompleteData,
+      callback: function (data) {
+        console.log(data);
+      }
+      })
+    },
     async toUnlock(value){
       // 双选是同一患者时置空当前患者，并跳转值父级路由。
       if(this.HOSPITAL_ID == 'guizhou' && value.bedLabel == this.makePatient && this.$route.path=='/nursingMakeItem'){

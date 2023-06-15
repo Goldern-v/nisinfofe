@@ -235,8 +235,8 @@
       </div>
 <!--      *寮步--新生儿批量床头卡*-->
       <div class="bed-card-wrapper"
-           v-for="(item,index) in list"
-           :key="item.patientId+item.bedLabel"
+           v-for="(item) in list"
+           :key="item.patientId+'3G'"
            ref="printCon5"
            v-show="printMode=='bady'">
         <div class="bed-modal-ctx">
@@ -254,7 +254,7 @@
       <div
           ref="printCon6" v-show="printMode=='aldult'"
           class="bed-card-wrapper"  v-for="(item,index) in list"
-           :key="item.patientId+item.age">
+           :key="item.patientId+ '2G'">
         <div class="bed-modal-ctx-aldult">
         <div>床号：{{ item.bedLabel }}</div>
         <div>姓名：{{ item.name }}</div>
@@ -1176,8 +1176,6 @@ margin-top:30mm !important;
       }
       let { autoComplete, obj, key} = bind;
       let xy = offset(e.target);
-
-      console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
 
       setTimeout(() => {
         window.openAutoComplete({

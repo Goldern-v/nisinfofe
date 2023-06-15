@@ -42,6 +42,46 @@ export default {
     // }
   },
   methods: {
+     // 右键事件
+    openContextMenuBed(e,patientId) {
+      let style = {
+        top: `${Math.min(e.clientY - 20, window.innerHeight - 180)}px`,
+        left: `${Math.min(e.clientX + 20, window.innerWidth - 180)}px`,
+      };
+      let data = patientId ? [
+        {
+          name: "批量打印床头卡",
+          icon: "xiangxiacharuyihang",
+          click: () => {
+            this.$emit('openBatchPrints' ,'bedside')
+          },
+        },
+        {
+          name: "批量打印手腕带",
+          icon: "dongtairizhi",
+           click: () => {
+            this.$emit('openBatchPrints' ,'wristStrap')
+          },
+        },
+        {
+          name: "批量打印床位卡",
+          icon: "fuzhizhenghang",
+           click: () => {
+            this.$emit('openBatchPrints' ,'bedthNull')
+          },
+        }
+      ]: [
+        {
+          name: "批量打印床位卡",
+          icon: "fuzhizhenghang",
+          click: () => {
+            this.$emit('openBatchPrints' ,'bedthNull')
+          },
+        }
+      ]
+      e.preventDefault();
+      window.openContextMenu({ style, data });
+    },
     inToday(date) {
       return (
         new Date(date).Format("yyyy-MM-dd") == new Date().Format("yyyy-MM-dd")
