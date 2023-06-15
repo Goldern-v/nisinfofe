@@ -810,6 +810,10 @@ async mounted() {
               value: val,
               reg:  ['sdlj'].includes(this.HOSPITAL_ID)?[0,250]:[0, 200],
             },
+            心率: {
+              value: val,
+           ...['sdlj'].includes(this.HOSPITAL_ID) &&{reg:[0,250]},
+            },
           };
           return y;
         case "疼痛强度":
