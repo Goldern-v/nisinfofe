@@ -249,18 +249,19 @@ export default {
       return arr
     },
     newPatientInfo() {
-      /*  每页独立入院时间功能 */
-      this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`] = this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`] ? this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`] : this.patientInfo.admissionDate
-      let admissionDate = this.patientInfo.admissionDate
-      let nowadmissionDate = this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`]
-      if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index - 1}`]){
-        // 除了第一页，其他页数。先拿admissionDate，如果上一页也有时间那就拿就拿上一页的
-        admissionDate = this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index-1}`]
-      }
-      return {
-        ...this.patientInfo,
-        [`admissionDate_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowadmissionDate ? nowadmissionDate : admissionDate,
-      }
+        /*  每页独立入院时间功能 */
+        // console.log(this.index) 切换护记的时候可看到缓存了上次护记的页数 有bug 先注释掉下句赋值看看 同925
+        // this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`] = this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`] ? this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`] : this.patientInfo.admissionDate
+        let admissionDate = this.patientInfo.admissionDate
+        let nowadmissionDate = this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index}`]
+        if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index - 1}`]){
+          // 除了第一页，其他页数。先拿admissionDate，如果上一页也有时间那就拿就拿上一页的
+          admissionDate = this.sheetInfo.relObj[`PageIndex_admissionDate_${this.index-1}`]
+        }
+        return {
+          ...this.patientInfo,
+          [`admissionDate_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowadmissionDate ? nowadmissionDate : admissionDate,
+        }
     }
   },
   created(){
