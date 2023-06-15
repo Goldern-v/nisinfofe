@@ -2,265 +2,273 @@
   <div>
     <!-- 床头卡 -->
     <template v-if="category == 'bedside'">
-      <div
-        class="bed-card-wrapper"
-        v-loading="modalLoading"
-        ref="printCon"
-        v-for="item in printData"
-        :key="item.patientId"
-      >
-        <div class="bed-card-con" flex>
-          <img class="qr-code" :style="{ opacity: '1' }" :src="item.qrCode" />
-          <div class="qr-code-num">
-            {{ item.qrCodeNum }}
-          </div>
-          <div style="width: 0" flex-box="1" flex="dir:top main:justify">
-            <div class="title-name" flex="cross:center" style="height: 43px">
-              <span :style="`width:130px`"></span>
-              <input
-                type="text"
-                nowidth
-                style="font-size: 32px; padding-left: 5px"
-                flex-box="1"
-                class="bottom-line"
-                :value="item.name + ' ' + item.sex + ' ' + item.age"
-              />
+        <div
+          class="bed-card-wrapper"
+          style="display: inline-block;"
+          v-loading="modalLoading"
+          ref="printCon"
+          v-for="item in printData"
+          :key="item.patientId"
+        >
+          <div class="bed-card-con" flex>
+            <img class="qr-code" :style="{ opacity: '1' }" :src="item.qrCode" />
+            <div class="qr-code-num">
+              {{ item.qrCodeNum }}
             </div>
-            <div flex="cross:center" class="input-item title-bed">
-              <!-- <span class="label">住院号:</span> -->
-              <span :style="`width: 100px`"></span>
-              <input
-                type="text"
-                class="bottom-line title-bed__1"
-                :value="item.bedLabel + '床'"
-              />
-              <input
-                type="text"
-                flex-box="1"
-                nowidth
-                class="bottom-line title-bed__2"
-                :value="moment(item.admissionDate).format('YYYY-MM-DD')"
-              />
-            </div>
-
-            <div flex="cross:center" class="input-item">
-              <span class="label">饮食:</span>
-              <div
-                nowidth
-                class="check-con"
-                flex-box="1"
-                flex="main:justify cross:center"
-              >
+            <div style="width: 0" flex-box="1" flex="dir:top main:justify">
+              <div class="title-name" flex="cross:center" style="height: 43px">
+                <span :style="`width:130px`"></span>
                 <input
                   type="text"
                   nowidth
+                  style="font-size: 32px; padding-left: 5px"
                   flex-box="1"
                   class="bottom-line"
-                  v-model="item.diet"
+                  :value="item.name + ' ' + item.sex + ' ' + item.age"
                 />
               </div>
-            </div>
-            <div flex="cross:center" class="input-item">
-              <span class="label">病情等级:</span>
-              <div nowidth flex-box="1" flex="main:left cross:center">
-                <img
-                  style="
-                    max-width: 100%;
-                    max-height: 100%;
-                    image-resolution: 300dpi;
-                  "
-                  class="dj-box printCare"
-                  @click="selectRegistCare('重', item)"
-                  :class="{
-                    active:
-                      item.patientCondition &&
-                      item.patientCondition.includes('重'),
-                  }"
-                  :src="
-                    item.patientCondition &&
-                    item.patientCondition.includes('重')
-                      ? require('./images/重选.png')
-                      : require('./images/重.png')
-                  "
+              <div flex="cross:center" class="input-item title-bed">
+                <!-- <span class="label">住院号:</span> -->
+                <span :style="`width: 100px`"></span>
+                <input
+                  type="text"
+                  class="bottom-line title-bed__1"
+                  :value="item.bedLabel + '床'"
                 />
-                <img
-                  style="
-                    max-width: 100%;
-                    max-height: 100%;
-                    image-resolution: 300dpi;
-                  "
-                  class="dj-box printCare"
-                  @click="selectRegistCare('危', item)"
-                  :class="{
-                    active:
-                      item.patientCondition &&
-                      item.patientCondition.includes('危'),
-                  }"
-                  :src="
-                    item.patientCondition &&
-                    item.patientCondition.includes('危')
-                      ? require('./images/危选.png')
-                      : require('./images/危.png')
-                  "
-                />
-                <img
-                  style="
-                    max-width: 100%;
-                    max-height: 100%;
-                    image-resolution: 300dpi;
-                  "
-                  class="dj-box printCare"
-                  @click="selectRegistCare('普', item)"
-                  :class="{
-                    active:
-                      item.patientCondition &&
-                      item.patientCondition.includes('普'),
-                  }"
-                  :src="
-                    item.patientCondition &&
-                    item.patientCondition.includes('普')
-                      ? require('./images/普选.png')
-                      : require('./images/普.png')
-                  "
+                <input
+                  type="text"
+                  flex-box="1"
+                  nowidth
+                  class="bottom-line title-bed__2"
+                  :value="moment(item.admissionDate).format('YYYY-MM-DD')"
                 />
               </div>
-            </div>
 
-            <div flex="cross:center" class="input-item">
-              <span class="label">护理级别:</span>
-              <div nowidth flex-box="1" flex="main:left cross:center">
-                <img
-                  style="
-                    max-width: 100%;
-                    max-height: 100%;
-                    image-resolution: 300dpi;
-                  "
-                  class="dj-box printCare"
-                  @click="selectRegistCare('特', item, true)"
-                  :class="{
-                    active:
-                      item.nursingClass && item.nursingClass.includes('特'),
-                  }"
-                  :src="
-                    item.nursingClass && item.nursingClass.includes('特')
-                      ? require('./images/特选.png')
-                      : require('./images/特.png')
-                  "
-                />
-                <img
-                  style="
-                    max-width: 100%;
-                    max-height: 100%;
-                    image-resolution: 300dpi;
-                  "
-                  class="dj-box printCare"
-                  @click="selectRegistCare('一', item, true)"
-                  :class="{
-                    active:
-                      item.nursingClass && item.nursingClass.includes('一'),
-                  }"
-                  :src="
-                    item.nursingClass && item.nursingClass.includes('一')
-                      ? require('./images/一选.png')
-                      : require('./images/一.png')
-                  "
-                />
-                <img
-                  style="
-                    max-width: 100%;
-                    max-height: 100%;
-                    image-resolution: 300dpi;
-                  "
-                  class="dj-box printCare"
-                  @click="selectRegistCare('二', item, true)"
-                  :class="{
-                    active:
-                      item.nursingClass && item.nursingClass.includes('二'),
-                  }"
-                  :src="
-                    item.nursingClass && item.nursingClass.includes('二')
-                      ? require('./images/二选.png')
-                      : require('./images/二.png')
-                  "
-                />
-                <img
-                  style="
-                    max-width: 100%;
-                    max-height: 100%;
-                    image-resolution: 300dpi;
-                  "
-                  class="dj-box printCare"
-                  @click="selectRegistCare('三', item, true)"
-                  :class="{
-                    active:
-                      item.nursingClass && item.nursingClass.includes('三'),
-                  }"
-                  :src="
-                    item.nursingClass && item.nursingClass.includes('三')
-                      ? require('./images/三选.png')
-                      : require('./images/三.png')
-                  "
-                />
-              </div>
-            </div>
-            <div class="title-sign">
               <div flex="cross:center" class="input-item">
-                <span class="label">主管医生:</span>
-                <input
-                  type="text"
+                <span class="label">饮食:</span>
+                <div
                   nowidth
-                  :style="{
-                    'font-size': '18px',
-                  }"
+                  class="check-con"
                   flex-box="1"
-                  class="bottom-line"
-                  v-model="item.doctorInCharge"
-                />
+                  flex="main:justify cross:center"
+                >
+                  <input
+                    type="text"
+                    nowidth
+                    flex-box="1"
+                    class="bottom-line"
+                    v-model="item.diet"
+                  />
+                </div>
               </div>
               <div flex="cross:center" class="input-item">
-                <span class="label">责任护士:</span>
-                <input
-                  type="text"
-                  nowidth
-                  flex-box="1"
-                  class="bottom-line"
-                  :style="{
-                    'font-size': '18px',
-                  }"
-                  v-model="item.dutyNurse"
-                />
+                <span class="label">病情等级:</span>
+                <div nowidth flex-box="1" flex="main:left cross:center">
+                  <img
+                    style="
+                      max-width: 100%;
+                      max-height: 100%;
+                      image-resolution: 300dpi;
+                    "
+                    class="dj-box printCare"
+                    @click="selectRegistCare('重', item)"
+                    :class="{
+                      active:
+                        item.patientCondition &&
+                        item.patientCondition.includes('重'),
+                    }"
+                    v-if="item.patientCondition.includes('重')"
+                    :src="
+                      item.patientCondition &&
+                      item.patientCondition.includes('重')
+                        ? require('./images/重选.png')
+                        : require('./images/重.png')
+                    "
+                  />
+                  <img
+                    style="
+                      max-width: 100%;
+                      max-height: 100%;
+                      image-resolution: 300dpi;
+                    "
+                    class="dj-box printCare"
+                    @click="selectRegistCare('危', item)"
+                    v-if="item.patientCondition.includes('危')"
+                    :class="{
+                      active:
+                        item.patientCondition &&
+                        item.patientCondition.includes('危'),
+                    }"
+                    :src="
+                      item.patientCondition &&
+                      item.patientCondition.includes('危')
+                        ? require('./images/危选.png')
+                        : require('./images/危.png')
+                    "
+                  />
+                  <img
+                    style="
+                      max-width: 100%;
+                      max-height: 100%;
+                      image-resolution: 300dpi;
+                    "
+                    class="dj-box printCare"
+                    @click="selectRegistCare('普', item)"
+                    v-if="item.patientCondition.includes('普')"
+                    :class="{
+                      active:
+                        item.patientCondition &&
+                        item.patientCondition.includes('普'),
+                    }"
+                    :src="
+                      item.patientCondition &&
+                      item.patientCondition.includes('普')
+                        ? require('./images/普选.png')
+                        : require('./images/普.png')
+                    "
+                  />
+                </div>
+              </div>
+
+              <div flex="cross:center" class="input-item">
+                <span class="label">护理级别:</span>
+                <div nowidth flex-box="1" flex="main:left cross:center">
+                  <img
+                    style="
+                      max-width: 100%;
+                      max-height: 100%;
+                      image-resolution: 300dpi;
+                    "
+                    class="dj-box printCare"
+                    @click="selectRegistCare('特', item, true)"
+                    v-if="item.nursingClass.includes('特')"
+                    :class="{
+                      active:
+                        item.nursingClass && item.nursingClass.includes('特'),
+                    }"
+                    :src="
+                      item.nursingClass && item.nursingClass.includes('特')
+                        ? require('./images/特选.png')
+                        : require('./images/特.png')
+                    "
+                  />
+                  <img
+                    style="
+                      max-width: 100%;
+                      max-height: 100%;
+                      image-resolution: 300dpi;
+                    "
+                    class="dj-box printCare"
+                    @click="selectRegistCare('一', item, true)"
+                    v-if="item.nursingClass.includes('一')"
+                    :class="{
+                      active:
+                        item.nursingClass && item.nursingClass.includes('一'),
+                    }"
+                    :src="
+                      item.nursingClass && item.nursingClass.includes('一')
+                        ? require('./images/一选.png')
+                        : require('./images/一.png')
+                    "
+                  />
+                  <img
+                    style="
+                      max-width: 100%;
+                      max-height: 100%;
+                      image-resolution: 300dpi;
+                    "
+                    class="dj-box printCare"
+                    @click="selectRegistCare('二', item, true)"
+                    v-if="item.nursingClass.includes('二')"
+                    :class="{
+                      active:
+                        item.nursingClass && item.nursingClass.includes('二'),
+                    }"
+                    :src="
+                      item.nursingClass && item.nursingClass.includes('二')
+                        ? require('./images/二选.png')
+                        : require('./images/二.png')
+                    "
+                  />
+                  <img
+                    style="
+                      max-width: 100%;
+                      max-height: 100%;
+                      image-resolution: 300dpi;
+                    "
+                    class="dj-box printCare"
+                    @click="selectRegistCare('三', item, true)"
+                    v-if="item.nursingClass.includes('三')"
+                    :class="{
+                      active:
+                        item.nursingClass && item.nursingClass.includes('三'),
+                    }"
+                    :src="
+                      item.nursingClass && item.nursingClass.includes('三')
+                        ? require('./images/三选.png')
+                        : require('./images/三.png')
+                    "
+                  />
+                </div>
+              </div>
+              <div class="title-sign">
+                <div flex="cross:center" class="input-item">
+                  <span class="label">主管医生:</span>
+                  <input
+                    type="text"
+                    nowidth
+                    :style="{
+                      'font-size': '18px',
+                    }"
+                    flex-box="1"
+                    class="bottom-line"
+                    v-model="item.doctorInCharge"
+                  />
+                </div>
+                <div flex="cross:center" class="input-item">
+                  <span class="label">责任护士:</span>
+                  <input
+                    type="text"
+                    nowidth
+                    flex-box="1"
+                    class="bottom-line"
+                    :style="{
+                      'font-size': '18px',
+                    }"
+                    v-model="item.dutyNurse"
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div style="width: 131px">
-            <div class="tip">温馨提示</div>
-            <div style="height: 2px"></div>
-            <div>
-              <div
-                class="tip-item-con"
-                flex="cross:center main:justify"
-                v-for="items in tipList"
-                :key="items.label"
-              >
-                <img :src="items.img" alt />
-                <span>{{ items.label }}</span>
+            <div style="width: 131px">
+              <div class="tip">温馨提示</div>
+              <div style="height: 2px"></div>
+              <div>
+                <div
+                  class="tip-item-con"
+                  flex="cross:center main:justify"
+                  v-for="items in tipList"
+                  :key="items.label"
+                >
+                  <img :src="items.img" alt />
+                  <span>{{ items.label }}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     </template>
     <!-- 床位卡 -->
     <template v-else>
-      <div  ref="bedthNull">
+      <div  ref="bedthNull"  class="display-list">
         <div
           class="bed-card-wrapper"
           v-for="item in printData"
           :key="item.bedLabel"
         >
           <div class="container">
-            <div style="line-height: 28px; margin-top: 24px; font-size: 30px; text-align:center">
+            <div style="line-height: 28px; margin-top: 24px; font-size: 25px; text-align:center">
               床 位 卡
             </div>
             <div class="bed-card-cons" flex>
@@ -270,10 +278,10 @@
               <div>
                 <div flex="cross:center;" class="title-bed">
                   <div>
-                    <span style="font-size: 20px; margin: 0">病区：{{ query.wardName }}</span>
+                    <span style="font-size: 14px; line-height:20px;">病区：{{ query.wardName }}</span>
                   </div>
                   <div>
-                    <span style="font-size: 26px; margin: 0">床号： {{item.bedLabel + '床'}}</span>
+                    <span style="font-size: 18px; line-height:20px;">床号： {{item.bedLabel + '床'}}</span>
                   </div>
                 </div>
               </div>
@@ -286,10 +294,16 @@
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
+.display-list{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+
+}
 .bed-card-wrapper {
   background: #fff;
   // box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
-  display: inline-block;
+  // display: inline-block;
   font-size: 16px;
 
   >>> * {
@@ -301,8 +315,8 @@
 
 .container {
   margin: 20px;
-  width: 400px;
-  height: 280px;
+  width: 300px;
+  height: 200px;
   padding: 5px 8px;
   box-sizing: border-box;
   position: relative;
@@ -310,12 +324,13 @@
 
   .bed-card-cons {
     display: flex;
-    height: 220px;
+    height: 158px;
     .qr-code {
       position: absolute;
-      top: 20%;
-      width: 50%;
-      height: 72%;
+      top: 33%;
+      left: 6%;
+      width: 40%;
+      height: 60%;
     }
 
     .qr-code-num {
@@ -326,7 +341,6 @@
       text-align: center;
       z-index: 2;
       font-size: 16px;
-
     }
 
     .title-bed {

@@ -13,7 +13,7 @@
             icon="search"
             v-model="searchWord"
           ></el-input>
-          <div @click="handleFilter($event)" v-show="false">
+          <div @click="handleFilter($event, fliterList)" v-if="HOSPITAL_ID == 'nfyksdyy'">
           <svg t="1686737054571" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6663" width="20" height="20"><path d="M625.1 1024c-21.7 0-39.2-17.5-39.2-39.2V383c0-9.8 3.6-19.2 10.2-26.4L849.6 78.5H172.8L424 355.8c6.6 7.2 10.2 16.6 10.2 26.3v349.2l96.2 84c16.3 14.3 18 39 3.7 55.4-14.2 16.4-38.9 18-55.4 3.7l-109.6-95.7c-8.5-7.4-13.4-18.2-13.4-29.5v-352L55.3 65.6c-10.4-11.5-13.1-28-6.8-42.2S68.8 0 84.4 0h854C954 0 968 9.2 974.3 23.4s3.6 30.8-6.9 42.3L664.3 398.3v586.5c0 21.7-17.6 39.2-39.2 39.2z" fill="#040000" p-id="6664"></path></svg>
           </div>
         </div>
@@ -324,6 +324,8 @@ import FollowList from "../follow/index";
 //解锁
 // import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import { mapState } from 'vuex';
+import { index } from 'cheerio/lib/api/traversing';
+// 导入多选框
 export default {
   props: {
     data: Array,
@@ -356,15 +358,13 @@ export default {
       levelColor:{},
       isRefresh: ['whsl'].includes(this.HOSPITAL_ID)&&location.href.includes('newSingleTemperatureChart'),
       patientGroup: '', // 病人分组
+      fliterList:[],
     };
   },
   methods: {
     // 处理筛选
-    handleFilter(e){
-      // console.log(e, 'dddddddddddd');
-      // let autoCompleteData = ['三天内体温超37.5', '入院3天内', '术后3天内', '病危患者', '病重患者', '转科患者', '特级护理患者', '一级护理患者', '二级护理患者', '三级护理患者', '3天未解大便']
-      let autoCompleteData = [{code: "5%葡萄糖", name: "5%葡萄糖"}, {code: "10%葡萄糖", name: "10%葡萄糖"}, {code: "生理盐水", name: "生理盐水"},{code: "甘露醇", name: "甘露醇"},{code: "白蛋白", name: "白蛋白"},{code: "血液制品", name: "血液制品"},{code: "其他", name: "其他"}]
-      console.log(e.clientX);
+    handleFilter(e,list){
+      let autoCompleteData = [{code: "三天内体温超37.5", name: "三天内体温超37.5"}, {code: "入院3天内", name: "入院3天内"}, {code: "术后3天内", name: "术后3天内"},{code: "病危患者", name: "病危患者"},{code: "病重患者", name: "病重患者"},{code: "转科患者", name: "转科患者"},{code: "特级护理患者", name: "特级护理患者"},{code: "一级护理患者", name: "一级护理患者"},{code: "二级护理患者", name: "二级护理患者"},{code: "三级护理患者", name: "三级护理患者"},{code: "3天未解大便", name: "3天未解大便"}]
       window.openAutoComplete({
       style: {
         top: `${e.y  - window.scrollY + 10}px`,
@@ -373,9 +373,17 @@ export default {
         width: '120px'
       },
       data: autoCompleteData,
+      multiple:true,
       callback: function (data) {
-        console.log(data);
-      }
+       if(!list.includes(data)){
+        list.push(data)
+       }else{
+        let index = list.indexOf(data)
+        list.splice(index,1)
+       }
+      },
+      selectedList: list,
+      id: `${e.x}${e.y}`
       })
     },
     async toUnlock(value){
@@ -560,6 +568,29 @@ export default {
       if (this.hasPatientGroup && this.patientGroup) {
         return putSortList.filter(item => item.expand3 === this.patientGroup);
       }
+      // 高级筛选处理
+      if(this.fliterList.length && this.HOSPITAL_ID == 'nfyksdyy'){
+         return putSortList.filter(item => {
+            let admObj = {
+              '三天内体温超37.5': item.temperatureFlag == 1,
+              '入院3天内': item.newInFlag == 1,
+              '术后3天内': item.operationFlag == 1,
+              '转科患者': item.transferFlag == 1,
+              '3天未解大便': item.notDefecateFlag == 1,
+              '病危患者': item.patientCondition == '病危',
+              '病重患者': item.patientCondition == '病重',
+              '特级护理患者': item.nursingClass == '特级护理',
+              '一级护理患者': item.nursingClass == '一级护理',
+              '二级护理患者': item.nursingClass == '二级护理',
+              '三级护理患者': item.nursingClass == '三级护理'
+            };
+            let judgeList = this.fliterList.map(items => {
+              return admObj[items];
+            });
+            return judgeList.every(judge => judge == true)
+        });
+      }
+
       return putSortList;
     },
     openLeft() {
@@ -629,7 +660,6 @@ export default {
     },
     'sortList.length': {
       handler(n, o) {
-        console.log(n && (n != o), n , o);
         if (n && (n != o)) {
           this.selectFirstPatient()
         }
@@ -654,6 +684,7 @@ export default {
       this.img1Show = false;
       this.img2Show = true;
     }
+
   },
   components: {
     FollowList

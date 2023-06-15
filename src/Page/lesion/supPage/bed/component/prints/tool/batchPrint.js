@@ -97,7 +97,7 @@ function print(source, beforePrint, selfShow) {
     body {
       margin: 0;
       font-weight: bold;
-      // overflow: hidden;
+      overflow: hidden;
     }
     .bed-card-con {
       overflow: hidden;
