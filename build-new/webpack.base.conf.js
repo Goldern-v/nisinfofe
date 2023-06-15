@@ -72,7 +72,8 @@ module.exports = {
           // resolve("node_modules/.4.1.2@view-design"),
           resolve("node_modules/_view-design@4.0.2@view-design"),
           resolve("node_modules/crypto-js"),
-          resolve("node_modules/loader-utils")
+          resolve("node_modules/loader-utils"),
+          resolve("node_modules/parse5"),
         ],
         options: { plugins: ['transform-class-properties'] }
         // options: {
