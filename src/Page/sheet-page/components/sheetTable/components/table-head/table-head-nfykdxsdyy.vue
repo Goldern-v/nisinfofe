@@ -6,7 +6,7 @@
           width="300"/>
 
     </div>
-    <div class="title">{{patientInfo.recordName}}</div>
+    <div class="title" style="font-size: 30px;">{{patientInfo.recordName}}</div>
     <!-- {{sheetInfo.relObj}} -->
     <div v-if="sheetInfo.sheetType === 'contraction_inhibitor_sdry'||sheetInfo.sheetType === 'magnesiumsulphate_sdry'">
     <div class="info-con">

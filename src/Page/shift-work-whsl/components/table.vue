@@ -153,7 +153,7 @@ export default {
         );
 
         this.$parent.load();
-        this.$root.$refs.signModal.close();
+        // this.$root.$refs.signModal.close();
         this.$message.success("已取消签名");
       },'取消签名');
     },
@@ -167,7 +167,7 @@ export default {
         await apis.signParentRecord(row.id, type, username, password);
 
         this.$parent.load();
-        this.$root.$refs.signModal.close();
+        // this.$root.$refs.signModal.close();
         this.$message.success("签名成功");
       });
     },

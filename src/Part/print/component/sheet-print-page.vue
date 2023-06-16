@@ -1,5 +1,5 @@
 <template>
-  <div id="sheetPagePrint" style="overflow:auto" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':'']" :style="[query.sheetType=='critical2_weihai' && {overflow:'auto'}]">
+  <div id="sheetPagePrint" style="overflow:auto" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':['nfyksdyy'].includes(HOSPITAL_ID)?'nfyksdyyInputW':'']" :style="[query.sheetType=='critical2_weihai' && {overflow:'auto'}]">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
@@ -181,6 +181,15 @@
       // width 1100px !important
       margin: 0 !important;
     }
+    &.nfyksdyyInputW{
+        input, textarea {
+        color: #000 !important;
+        font-size 15px !important;
+        // color: #000000 !important;
+        // font-family: "SimHei" !important;
+  }
+    }
+
     &.guizhou{
       .contant {
         margin-top: -50px!important;
@@ -814,9 +823,12 @@ export default {
              min-width: 100px !important;
               max-width: 100px !important;
           }
-          img{
-            transform: scale(0.8);
+          .sign-img{
+            img{
+            transform: scale(1.2);
+            }
           }
+
           @media print {
             #sheetPagePrint .contant{
               margin-top:-20px;!important;
@@ -824,17 +836,17 @@ export default {
           }
         `
       )
-      if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
+    }
+    if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
         addCSS(
           window,
           `
              @media print {
                   .body-con{
-                    height: 40px !important;
+                    height: 41px !important;
                   }
                   .sdyy > div {
                     page-break-after: always;
-                    padding-top: 20px !important;
                     box-sizing: border-box;
                   }
               }
@@ -851,7 +863,6 @@ export default {
                   }
                   .sdyy > div {
                     page-break-after: always;
-                    padding-top: 40px !important;
                     box-sizing: border-box;
                   }
                   }
@@ -869,7 +880,6 @@ export default {
                   }
                   .sdyy > div {
                     page-break-after: always;
-                    padding-top: 20px !important;
                     box-sizing: border-box;
                   }
                   }
@@ -886,14 +896,12 @@ export default {
                   }
                   .sdyy > div {
                     page-break-after: always;
-                    padding-top: 20px !important;
                     box-sizing: border-box;
                   }
                   }
             `
           );
         }
-    }
     // 如果双签可以这里加。打印的时候签名二合一。签名列拉宽
     if (
       (sheetInfo.sheetType == "generalnursing_tj")
