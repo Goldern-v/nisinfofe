@@ -6,7 +6,7 @@
       :label-width="HOSPITAL_ID == 'fsxt' ? '120px' : '100px'"
     >
       <ElFormItem label="日期：" required>
-        <ElDatePicker v-model="form.recordDate" :clearable="false" />
+        <ElDatePicker :disabled="true" v-model="form.recordDate" :clearable="false" />
       </ElFormItem>
       <ElFormItem label="时间：" required>
         <ElTimePicker

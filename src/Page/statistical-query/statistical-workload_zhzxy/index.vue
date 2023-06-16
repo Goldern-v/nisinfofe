@@ -4,8 +4,8 @@
       :deptList="deptList"
       :loading.sync="loading"
       :formData="formData"
-      @handleExport="(obj) => handleExport()"
-      @handleQuery="(obj) => handleQuery()"
+      @handleExport="(obj) => handleExport(obj)"
+      @handleQuery="(obj) => handleQuery(obj)"
     >
     </search-con>
     <select-bar
@@ -135,6 +135,7 @@ export default {
       console.log('handleChangeSelect', val)
     },
     handleQuery(obj = {}) {
+      console.log('obj', obj)
       this.formData = { ...this.formData, ...obj}
       this.getData()
     },
