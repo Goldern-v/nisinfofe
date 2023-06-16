@@ -370,7 +370,7 @@ import {
     //   }
     // },
     {
-      key: "description", //特殊处理及病区观察
+      key: "description", //特殊处理及病情观察
       value: "",
       style: {
         textAlign: "left",
