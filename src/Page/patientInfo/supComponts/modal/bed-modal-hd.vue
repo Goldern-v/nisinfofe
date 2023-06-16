@@ -135,26 +135,31 @@
         v-show="printMode == 'v'"
       >
         <div class="bed-card-vert-con">
-          <span>床号：</span>
+          <!-- <span>床号：</span> -->
           <p>{{ query.bedLabel + "床" }}</p>
-          <span>姓名：</span>
+          <!-- <span>姓名：</span> -->
           <p>{{ query.name }}</p>
-          <span
+          <!-- <span
             ><span style="display: inline-block; width: 54px">性别：</span
             ><span
               style="font-size: 20px; display: inline-block; width: 30px"
               >{{ query.sex }}</span
             ></span
-          >
-          <span>年龄：</span>
+          > -->
+          <p>{{ query.sex + '性' }}</p>
+          <!-- <span>年龄：</span> -->
           <p>{{ query.age }}</p>
-          <span>住院号：</span>
-          <p>{{ query.patientId }}</p>
+          <!-- <span>住院号：</span> -->
+          <span>入院日期：</span>
+          <p style="font-size: 17px;">{{ query.admissionDate | ymdhm }}</p>
+          <!-- <p>{{ query.patientId }}</p> -->
           <img
             class="qr-code wrist-qrcode"
             :class="{ hasRemark: hasRemark }"
             :src="qrCode"
+            style=" width: 55px;position: relative;top: -12px;left: 13px;"
           />
+          <p>{{ query.patientId }}</p>
         </div>
       </div>
       <!-- 寮步样式 -->

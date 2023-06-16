@@ -46,7 +46,7 @@
               </div>
             </div>
           <div>
-            <div :class="['dglb'].includes(this.HOSPITAL_ID) ? 'dglb-logo-con' : 'logo-con'">
+            <div :class="['dglb'].includes(this.HOSPITAL_ID) ? 'dglb-logo-con' : ['nfyksdyy'].includes(this.HOSPITAL_ID) ? 'nfyksdyy-logo-con': 'logo-con'">
               <img :src="logoUrl" height="63" width="63"/>
             </div>
             <h1 class="name" v-html="logoName" v-if="!['dglb'].includes(this.HOSPITAL_ID)"></h1>
@@ -315,6 +315,21 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
     -ms-object-fit: contain;
   }
 }
+
+.nfyksdyy-logo-con {
+  img {
+    width: 83%;
+    height: 100px;
+    margin-left: 20px;
+    left: auto;
+    -o-object-fit: contain;
+    object-fit: contain;
+    -webkit-object-fit: contain;
+    -moz-object-fit: contain;
+    -ms-object-fit: contain;
+  }
+}
+
 .dglb-logo-con {
   height: 132px;
   margin: 24px auto 19px;
@@ -687,10 +702,10 @@ export default {
             type: "warning",
           })
           .then((res) => {
-            return resolve(true)  
+            return resolve(true)
           })
           .catch((err)=>{
-            return resolve(true)  
+            return resolve(true)
           })
         }else if(res.data.code==='403'){
           clearInterval(nanfanImgtimer);
@@ -699,7 +714,7 @@ export default {
             cancelButtonText: "取消",
             type: "warning",
           })
-        }else return resolve(true)  
+        }else return resolve(true)
       })
     },
     checkoutTODO({type, ifCA,res}){
@@ -1084,6 +1099,8 @@ export default {
           return require("../../common/images/logo_zhzxy_login.png");
         case "dglb":
           return require("../../common/images/logo_dglb_login.png");
+        case "nfyksdyy":
+          return require("../../common/images/logo_nfyksdyy.png");
         default:
           return require("../../common/images/logo.png");
       }
