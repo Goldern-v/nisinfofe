@@ -66,7 +66,7 @@
       </div>
     </sweet-modal>
     <sweet-modal
-      ref="newRecord"
+      ref="newRecordEdit"
       :modalWidth="500"
       title="修改时间"
       class="modal-record padding-0"
@@ -95,7 +95,7 @@
         ></el-date-picker>
       </div>
       <div slot="button">
-        <el-button class="modal-btn" @click="close">关闭</el-button>
+        <el-button class="modal-btn" @click="closeEdit">关闭</el-button>
         <el-button class="modal-btn" type="primary" @click="post"
           >保存</el-button
         >
@@ -149,13 +149,29 @@ export default {
     };
   },
   methods: {
-    open(data,type, callback) {
+    openEdit(data,type, callback) {
       this.type = type;
-      this.$refs.newRecord.open();
+      this.$nextTick(()=>{
+        this.$refs.newRecordEdit.open();
+      })
       this.afterStartExecuteTime = data.realExecuteDateTime;
       this.afterEndExecuteTime = data.endDateTime || data.endInfusionTime;
       this.eidtRowData = data;
       this.callback = callback
+    },
+    open(data,type, callback) {
+      this.type = type;
+      this.$nextTick(()=>{
+        this.$refs.newRecord.open();
+      })
+      this.afterStartExecuteTime = data.realExecuteDateTime;
+      this.afterEndExecuteTime = data.endDateTime || data.endInfusionTime;
+      this.eidtRowData = data;
+      this.callback = callback
+    },
+    closeEdit() {
+      this.$refs.newRecordEdit.close();
+      this.reason = '';
     },
     close() {
       this.$refs.newRecord.close();

@@ -595,7 +595,7 @@ export default {
       }
     },
     editTime(data) {
-      this.$refs.editModal.open(data);
+      this.$refs.editModal.openEdit(data,'');
     },
     // 补录
     backTracking(item) {

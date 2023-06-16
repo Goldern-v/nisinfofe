@@ -151,9 +151,7 @@
 }
 
 .print-box {
-  // display table
-  // min-height 100vh
-  // padding-left: 60px
+height: 100vh;
   margin-top: 26px;
   margin-right: 60px;
 }
@@ -180,6 +178,7 @@
   }
 
   .print-box {
+    height: 100% !important;
     margin: 0px !important;
     padding: 0 !important;
   }
@@ -220,6 +219,7 @@ export default {
   },
   methods: {
     print() {
+      this.$route.params.type.log
       if (!this.canPrint) return;
       if (this.$route.params.type == "assessment") {
         this.bus.$emit("printAssessment");
