@@ -324,8 +324,6 @@ import FollowList from "../follow/index";
 //解锁
 // import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import { mapState } from 'vuex';
-import { index } from 'cheerio/lib/api/traversing';
-// 导入多选框
 export default {
   props: {
     data: Array,
@@ -370,7 +368,7 @@ export default {
         top: `${e.y  - window.scrollY + 10}px`,
         left: `${e.y - window.scrollX + 120}px`,
         addWidth: `${e.offsetWidth}px`,
-        width: '120px'
+        width: '150px'
       },
       data: autoCompleteData,
       multiple:true,

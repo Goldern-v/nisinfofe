@@ -129,6 +129,13 @@
 }
 .autoSelected {
   background: #EEF6F5 !important;
+  :after{
+    content: '\221A';
+    font-size: 21px;
+    position: absolute;
+    right: 0;
+    color: #4bb08d;
+  }
 }
 
 #CrAutocomplete li:active {

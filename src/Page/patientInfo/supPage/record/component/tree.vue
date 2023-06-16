@@ -33,7 +33,7 @@
           <i class="el-icon-plus"></i>创建
         </el-button>
       </el-row>
-      <div class="body" :style="{ height: height }">
+      <div class="body" :style="{ height: height }" v-if="HOSPITAL_ID == 'nfyksdyy'">
         <el-tree
           v-loading="treeLoading"
           v-if="ifTree"
@@ -51,6 +51,25 @@
         ></el-tree>
         <div style="height: 20px"></div>
       </div>
+      <div class="body" :style="{ height: height }" v-else>
+        <el-tree
+          v-loading="treeLoading"
+          v-if="ifTree"
+          ref="formTree"
+          class="record-tree"
+          :data="regions"
+          highlight-current
+          :render-content="renderContent"
+          :default-expand-all="HOSPITAL_ID == 'whfk' && !isPersonage"
+          @node-click="nodeClick"
+          node-key="id"
+          :default-expanded-keys="expandList"
+          @node-expand="node_expand"
+          @node-collapse="node_collapse"
+        ></el-tree>
+        <div style="height: 20px"></div>
+      </div>
+
       <!-- 弹出框 -->
       <newForm ref="newForm"></newForm>
       <!-- 批量审核弹框 -->
