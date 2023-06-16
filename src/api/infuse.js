@@ -25,8 +25,8 @@ export const detail = (barCode) => {
 export const detailHl = (params,hospitalId) => {
     switch(hospitalId){
         case "hengli":
-            // return axios.post(`${apiPath}execute/detail`,params)
         case "wujing":
+        case "nfyksdyy":
             return axios.post(`${apiPath}procedure/pdaExecute/detail`,params)
         default:
             return axios.post(`${apiPath}execute/detail`,params)

@@ -43,7 +43,6 @@
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
-              :class="{ 'router-link-active': isImplementationList }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>

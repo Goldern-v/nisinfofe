@@ -19,7 +19,7 @@
           :for="`time${item.id}`"
           v-for="item in timesPoint"
           :key="item.id"
-          :style="{color:item.value  == query.entryTime?'red':'#000'}"
+          :style="{ color: item.value == query.entryTime ? 'red' : '#000' }"
         >
           <input
             type="radio"
@@ -31,43 +31,89 @@
           {{ item.value }}
         </label>
       </div>
-      <div class="search-box">
-        <el-input
+      <div class="search-box" v-if="isNfyksdyy">
+         <el-select
+          v-model="searchWord"
+          placeholder="请选择床号"
+          style="max-height:30px;"
+          size="small"
+          clearable
+          multiple
+        >
+          <el-option
+            v-for="item in searchWordlist"
+            :key="item.value"
+            :label="item.value"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <!-- <el-autocomplete
+          class="inline-input"
+          v-model="searchWord"
+          :fetch-suggestions="querySearch"
+          placeholder="请输入内容"
+        ></el-autocomplete> -->
+        <!-- <el-input
         placeholder="床号/姓名/多选用空格隔开"
+          icon="search"
+          v-model="searchWord"
+        ></el-input> -->
+      </div>
+      <div class="search-box" v-else>
+        <el-input
+          placeholder="床号/姓名/多选用空格隔开"
           icon="search"
           v-model="searchWord"
         ></el-input>
       </div>
-      <div v-if="HOSPITAL_ID==='nfyksdyy'">
-      <span class="label">病人分组:</span>
-          <el-select
-            v-model="patientGroup"
-            placeholder="请选择"
-            @change="tableDataWithFilter"
-            size="small"
-            style="width: 90px"
-            clearable
-          >
-            <el-option
-              v-for="item in patientGroup4Expand3"
-              :key="item.value"
-              :label="item.name"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-          </div>
+      <div v-if="isNfyksdyy">
+        <span class="label">病人分组:</span>
+        <el-select
+          v-model="patientGroup"
+          placeholder="请选择"
+          size="small"
+          style="width: 90px"
+          clearable
+        >
+          <el-option
+            v-for="item in patientGroup4Expand3"
+            :key="item.value"
+            :label="item.name"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </div>
       <div class="filterButton">
         <span>时间筛选关</span>
         <el-switch v-model="query.startFiltering"> </el-switch>
         <span>时间筛选开</span>
       </div>
       <div style="margin: 0px 10px 0px 10px" v-if="!query.startFiltering">
-        <el-radio-group v-model="admitted" size="small">
-          <el-radio-button label="所有患者"></el-radio-button>
-          <el-radio-button label="一周体重"></el-radio-button>
-          <el-radio-button label="三天未大便"></el-radio-button>
-          <el-radio-button label="发热患者" v-if="HOSPITAL_ID==='nfyksdyy'"></el-radio-button>
-        </el-radio-group>
+        <template v-if="isNfyksdyy">
+          <span>条件筛选：</span>
+          <el-select
+            v-model="admitted"
+            placeholder="请选择"
+            style="min-width: 250px; max-height:30px;"
+            size="small"
+            clearable
+            multiple
+          >
+            <el-option
+              v-for="item in admittedList"
+              :key="item.value"
+              :label="item.name"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </template>
+        <template v-else>
+          <el-radio-group v-model="admitted" size="small">
+            <el-radio-button label="所有患者"></el-radio-button>
+            <el-radio-button label="一周体重"></el-radio-button>
+            <el-radio-button label="三天未大便"></el-radio-button>
+          </el-radio-group>
+        </template>
       </div>
       <el-button @click="saveAllTemperture">保存</el-button>
       <el-button @click="onPrint">打印</el-button>
@@ -141,15 +187,20 @@
                 v-model="scope.row.temperature"
                 :class="className"
                 class="temperature"
-                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
+                :readonly="
+                  isReadonly(scope.row.recordDate) ||
+                    isEarlyAdmission(scope.row.admissionDate)
+                "
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="number"
-                @input="(e)=>{
-                  voidValue(scope.row)
-                }"
+                @input="
+                  e => {
+                    voidValue(scope.row);
+                  }
+                "
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="(e) => toRow(e, scope.row.admissionDate)"
+                @click="e => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -169,11 +220,17 @@
                 :readonly="isReadonly(scope.row.recordDate)"
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="number"
-                @input="(e)=>{
-                  voidValue(scope.row)
-                }"
+                @input="
+                  e => {
+                    voidValue(scope.row);
+                  }
+                "
                 @keydown="handleKeyDown"
-                @mousewheel="(e) => {e.preventDefault();}"
+                @mousewheel="
+                  e => {
+                    e.preventDefault();
+                  }
+                "
                 @keyup="handleKeyUp"
                 @click="toRow"
               />
@@ -189,15 +246,22 @@
               <input
                 v-model="scope.row.pulse"
                 class="pulse"
-                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
+                :readonly="
+                  isReadonly(scope.row.recordDate) ||
+                    isEarlyAdmission(scope.row.admissionDate)
+                "
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 :class="className"
                 type="number"
                 min="0"
-                @mousewheel="(e) => {e.preventDefault();}"
+                @mousewheel="
+                  e => {
+                    e.preventDefault();
+                  }
+                "
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="(e) => toRow(e, scope.row.admissionDate)"
+                @click="e => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -211,13 +275,16 @@
               <input
                 v-model="scope.row.breath"
                 :class="className"
-                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
+                :readonly="
+                  isReadonly(scope.row.recordDate) ||
+                    isEarlyAdmission(scope.row.admissionDate)
+                "
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 class="breath"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="(e) => toRow(e, scope.row.admissionDate)"
+                @click="e => toRow(e, scope.row.admissionDate)"
               />
               <!-- <input v-model="scope.row.breath" class="breath" /> -->
               <!-- <el-input v-model="scope.row.breath"></el-input> -->
@@ -239,7 +306,11 @@
                 :class="className"
                 type="number"
                 min="0"
-                @mousewheel="(e) => {e.preventDefault();}"
+                @mousewheel="
+                  e => {
+                    e.preventDefault();
+                  }
+                "
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
@@ -256,20 +327,23 @@
               <input
                 v-model="scope.row.bloodPressure"
                 :class="className"
-                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
+                :readonly="
+                  isReadonly(scope.row.recordDate) ||
+                    isEarlyAdmission(scope.row.admissionDate)
+                "
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 class="bloodPressure"
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="(e) => toRow(e, scope.row.admissionDate)"
+                @click="e => toRow(e, scope.row.admissionDate)"
               />
               <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
             </template>
           </el-table-column>
           <el-table-column
-          v-if="['qhwy'].includes(HOSPITAL_ID)"
+            v-if="['qhwy'].includes(HOSPITAL_ID)"
             prop="bloodOxygen"
             label="血氧饱和度"
             min-width="100"
@@ -322,13 +396,16 @@
                   slot="reference"
                   v-model="scope.row.stoolNum"
                   :class="className"
-                  :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
+                  :readonly="
+                    isReadonly(scope.row.recordDate) ||
+                      isEarlyAdmission(scope.row.admissionDate)
+                  "
                   :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                   class="stoolNum"
                   type="text"
                   @keydown="handleKeyDown"
                   @keyup="handleKeyUp"
-                  @click="(e) => toRow(e, scope.row.admissionDate)"
+                  @click="e => toRow(e, scope.row.admissionDate)"
                 />
               </el-popover>
             </template>
@@ -345,16 +422,19 @@
                 :class="className"
                 class="heartRate"
                 type="number"
-                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
+                :readonly="
+                  isReadonly(scope.row.recordDate) ||
+                    isEarlyAdmission(scope.row.admissionDate)
+                "
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 @mousewheel="
-                  (e) => {
+                  e => {
                     e.preventDefault();
                   }
                 "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="(e) => toRow(e, scope.row.admissionDate)"
+                @click="e => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -369,12 +449,15 @@
                 v-model="scope.row.fieldThree"
                 :class="className"
                 class="fieldThree"
-                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
+                :readonly="
+                  isReadonly(scope.row.recordDate) ||
+                    isEarlyAdmission(scope.row.admissionDate)
+                "
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="(e) => toRow(e, scope.row.admissionDate)"
+                @click="e => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -389,12 +472,15 @@
                 v-model="scope.row.foodSize"
                 :class="className"
                 class="foodSize"
-                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
+                :readonly="
+                  isReadonly(scope.row.recordDate) ||
+                    isEarlyAdmission(scope.row.admissionDate)
+                "
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="(e) => toRow(e, scope.row.admissionDate)"
+                @click="e => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -409,12 +495,15 @@
                 v-model="scope.row.dischargeSize"
                 :class="className"
                 class="dischargeSize"
-                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
+                :readonly="
+                  isReadonly(scope.row.recordDate) ||
+                    isEarlyAdmission(scope.row.admissionDate)
+                "
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="(e) => toRow(e, scope.row.admissionDate)"
+                @click="e => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -429,12 +518,15 @@
                 v-model="scope.row.curWeight"
                 :class="className"
                 class="curWeight"
-                :readonly="isReadonly(scope.row.recordDate) || isEarlyAdmission(scope.row.admissionDate)"
+                :readonly="
+                  isReadonly(scope.row.recordDate) ||
+                    isEarlyAdmission(scope.row.admissionDate)
+                "
                 :placeholder="isReadonly(scope.row.recordDate) ? '只读' : ''"
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="(e) => toRow(e, scope.row.admissionDate)"
+                @click="e => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -453,13 +545,13 @@
                 type="number"
                 :readonly="isEarlyAdmission(scope.row.admissionDate)"
                 @mousewheel="
-                  (e) => {
+                  e => {
                     e.preventDefault();
                   }
                 "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="(e) => toRow(e, scope.row.admissionDate)"
+                @click="e => toRow(e, scope.row.admissionDate)"
               />
             </template>
           </el-table-column>
@@ -539,9 +631,9 @@
             v-if="['qhwy'].includes(HOSPITAL_ID)"
             min-width="80"
           >
-          <template slot-scope="scope">
-            <el-input v-model="scope.row.painScore"></el-input>
-          </template>
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.painScore"></el-input>
+            </template>
           </el-table-column>
           <el-table-column
             prop="breath"
@@ -682,6 +774,7 @@
   .search-topbar {
     font-size: 13px;
     height: 41px;
+    min-height:41px;
     background-image: linear-gradient(-180deg, #f8f8fa 0%, #ebecf0 100%);
     border-bottom: 1px solid #cbd5dd;
     overflow: hidden;
@@ -718,6 +811,7 @@
 
       >>>.el-input__inner {
         height: 30px;
+        max-height: 28px;
         outline: none;
         padding-left: 10px;
         background: #fff;
@@ -727,6 +821,13 @@
       }
     }
   }
+  >>>.el-select__tags{
+    height:30px;
+    &:hover{
+      overflow-y: auto;
+    }
+  }
+
 
   .times {
     margin-right: 5px;
@@ -854,7 +955,8 @@ import common from "@/common/mixin/common.mixin.js";
 import {
   getPatientsInfo,
   saveOverAllTemperture,
-  getmultiDict
+  getmultiDict,
+  getBedList
 } from "../api/api";
 import moment from "moment";
 import print from "printing";
@@ -905,14 +1007,14 @@ export default {
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
             case "zhzxy":
-            case 'qhwy':
+            case "qhwy":
               if (this.getHours() >= 1 && this.getHours() <= 3) {
                 return "03";
               }
               if (this.getHours() > 3 && this.getHours() <= 7) {
                 return "07";
               }
-              if (this.getHours() > 7 && this.getHours() <=11 ) {
+              if (this.getHours() > 7 && this.getHours() <= 11) {
                 return "11";
               }
               if (this.getHours() > 11 && this.getHours() <= 17) {
@@ -928,7 +1030,7 @@ export default {
                 return "23";
               }
             default:
-            if (this.getHours() >= 0 && this.getHours() <= 4) {
+              if (this.getHours() >= 0 && this.getHours() <= 4) {
                 return "02";
               }
               if (this.getHours() > 4 && this.getHours() <= 8) {
@@ -947,13 +1049,13 @@ export default {
                 return "22";
               }
           }
-        })(), //录入时间
+        })() //录入时间
       },
       timesPoint: (() => {
         switch (this.HOSPITAL_ID) {
-          case 'foshanrenyi' :
-          case 'nfyksdyy' :
-          return [
+          case "foshanrenyi":
+          case "nfyksdyy":
+            return [
               {
                 id: 0,
                 value: "02"
@@ -979,8 +1081,8 @@ export default {
                 value: "22"
               }
             ];
-            case 'zhzxy':
-            case 'qhwy':
+          case "zhzxy":
+          case "qhwy":
             return [
               {
                 id: 0,
@@ -1007,15 +1109,24 @@ export default {
                 value: "23"
               }
             ];
-            default:
-
+          default:
         }
       })(),
       patientsInfoData: [],
+      searchWordlist: [],
       searchWord: "",
       pageLoadng: true,
       admitted: "所有患者",
-      patientGroup: '', // 病人分组
+      admittedList: [
+        { name: "一周体重", value: "一周体重" },
+        { name: "三天未大便", value: "三天未大便" },
+        { name: "发热患者", value: "发热患者" },
+        { name: "病危病重", value: "病危病重" },
+        { name: "新入", value: "新入" },
+        { name: "转入", value: "转入" }
+      ],
+      patientGroup: "", // 病人分组
+      isNfyksdyy: this.HOSPITAL_ID === "nfyksdyy"
     };
   },
   computed: {
@@ -1024,32 +1135,65 @@ export default {
     },
     tableData: {
       get() {
-        let data = []
+        let data = [];
         if (this.searchWord.includes(" ")) {
-          let searchWordArray = this.searchWord.split(' ').filter((s) => s !== '')
-          searchWordArray.forEach((x) => {
+          let searchWordArray = this.searchWord
+            .split(" ")
+            .filter(s => s !== "");
+          searchWordArray.forEach(x => {
             let reg = new RegExp(x, "i"); //忽略大小写
-            this.patientsInfoData.forEach((obj) => {
-              if (obj.patientId && (obj.bedLabel.match(reg) || obj.name.match(reg))) {
-                data.push(obj)
+            this.patientsInfoData.forEach(obj => {
+              if (
+                obj.patientId &&
+                (obj.bedLabel.match(reg) || obj.name.match(reg))
+              ) {
+                data.push(obj);
               }
-            })
-          })
+            });
+          });
         } else if (this.patientGroup) {
-           return this.patientsInfoData.filter(item => item.expand3 === this.patientGroup);
-        } else {
-          let searchWord = new RegExp(this.searchWord, 'i')
-          data = this.patientsInfoData.filter((item) => {
+          return this.patientsInfoData.filter(
+            item => item.expand3 === this.patientGroup
+          );
+        } else if (this.HOSPITAL_ID == 'nfyksdyy' && this.searchWord.length){
+          data = this.patientsInfoData.filter(item => {
+            return  this.searchWord.some(beditem => item.bedLabel.match(beditem))
+          })
+        }else {
+          let searchWord = new RegExp(this.searchWord, "i");
+          data = this.patientsInfoData.filter(item => {
             return (
               (item.bedLabel.match(searchWord) ||
                 item.name.match(searchWord)) &&
               item.patientId
             );
-
           });
         }
         return data.filter(item => {
-          return {'所有患者':item.patientId,'一周体重':item.noWeightFlag == 1,'三天未大便':item.notDefecateFlag == 1,'发热患者':item.temperatureFlag==1}[this.admitted]
+          if (this.isNfyksdyy) {
+            let admObj = {
+              所有患者: item.patientId,
+              一周体重: item.noWeightFlag == 1,
+              三天未大便: item.notDefecateFlag == 1,
+              发热患者: item.temperatureFlag == 1,
+              新入: item.newInFlag == 1,
+              转入: item.transInFlag == 1,
+              病危病重: item.patientCondition != "普通"
+            };
+            let judgeList = this.admitted.map(items => {
+              return admObj[items];
+            });
+            return this.admitted.length
+              ? judgeList.every(judge => judge == true)
+              : item.patientId;
+          } else {
+            return {
+              所有患者: item.patientId,
+              一周体重: item.noWeightFlag == 1,
+              三天未大便: item.notDefecateFlag == 1,
+              发热患者: item.temperatureFlag == 1
+            }[this.admitted];
+          }
         });
       },
       set(value) {}
@@ -1059,12 +1203,12 @@ export default {
         new Set(this.patientsInfoData.map(item => item.expand3))
       ).map(item => {
         return {
-          name: item ? `分组${item}` : '无',
+          name: item ? `分组${item}` : "无",
           value: item
-        }
-      })
-      return result
-    },
+        };
+      });
+      return result;
+    }
   },
   mounted() {
     this.query.wardCode = this.deptCode;
@@ -1074,6 +1218,11 @@ export default {
           ...item,
           options: item.selectType ? item.selectType.split(",") : []
         };
+      });
+    });
+    getBedList(this.query.wardCode).then(res => {
+      res.data.data.map(item => {
+        this.searchWordlist.push({value:item.bedLabel});
       });
     });
   },
@@ -1101,11 +1250,13 @@ export default {
     },
     // 比入院时间早
     isEarlyAdmission(admissionDate) {
-      if (!['foshanrenyi'].includes(this.HOSPITAL_ID)) {
+      if (!["foshanrenyi"].includes(this.HOSPITAL_ID)) {
         return false;
       }
       const [date, _, time] = admissionDate ? admissionDate.split(" ") : [];
-      const curDateTime = `${moment(this.query.entryDate).format('YYYY-MM-DD')} ${this.query.entryTime}:00:00`;
+      const curDateTime = `${moment(this.query.entryDate).format(
+        "YYYY-MM-DD"
+      )} ${this.query.entryTime}:00:00`;
       if (date && time) {
         const addmissionDateTime = `${date} ${time}`;
         return moment(addmissionDateTime).diff(moment(curDateTime)) > 0;
@@ -1232,9 +1383,9 @@ export default {
         painScore: "",
         stoolNum: "",
         nursingEvent: "",
-        anusTemperature:"",
+        anusTemperature: "",
         height: "",
-        bloodOxygen:""
+        bloodOxygen: ""
       };
       let list = this.tableData.map(item => {
         let obj = {};
@@ -1315,7 +1466,7 @@ export default {
     },
     toRow(e, admissionDate) {
       if (this.isEarlyAdmission(admissionDate)) {
-        return this.$message.warning('录入时间早于入院时间');
+        return this.$message.warning("录入时间早于入院时间");
       }
       let rowIndex =
         e.target.className.includes("stoolNum") ||
@@ -1336,12 +1487,14 @@ export default {
         }
       }
     },
-    voidValue(row){
+    voidValue(row) {
       //体温单批量录入体温格式化数据为 只能保留一个小数
-        if(row.temperature.includes('.')){
-          const afterArr =  row.temperature.split('.')
-          row.temperature = Number(`${afterArr[0]}.${afterArr[1].substring(0, 1)}`)
-        }
+      if (row.temperature.includes(".")) {
+        const afterArr = row.temperature.split(".");
+        row.temperature = Number(
+          `${afterArr[0]}.${afterArr[1].substring(0, 1)}`
+        );
+      }
     },
     handleKeyUp(e) {
       let rowIndex =

@@ -6,7 +6,7 @@
           width="300"/>
 
     </div>
-    <div class="title">{{patientInfo.recordName}}</div>
+    <div class="title" style="font-size: 30px;">{{patientInfo.recordName}}</div>
     <!-- {{sheetInfo.relObj}} -->
     <div v-if="sheetInfo.sheetType === 'contraction_inhibitor_sdry'||sheetInfo.sheetType === 'magnesiumsulphate_sdry'">
     <div class="info-con">
@@ -136,9 +136,10 @@
               <input  :data-value="sheetInfo.relObj[`${index}specialCases1`]" v-model="sheetInfo.relObj[`${index}specialCases1`]" style="width:180px;border-bottom:none">
               </customSelectCanRepeat>
         </template>
-        <span  v-if="sheetInfo.sheetType=='prenatal_sdry' ||
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry'
               //  sheetInfo.sheetType=='postpartum_sdry' ||
-          sheetInfo.sheetType=='baby_sdry'">
+          // sheetInfo.sheetType=='baby_sdry'
+          ">
           过敏史：
           <input
           style="width: 130px;font-size:13px;text-align: left;"

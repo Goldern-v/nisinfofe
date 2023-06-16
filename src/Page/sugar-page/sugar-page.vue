@@ -65,6 +65,7 @@ import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_f
 import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_foshanrenyi"; // 佛山市一
 import bloodSugarNfyksdyy from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_nfyksdyy";
 import bloodSugarZhuHaiZhongXiYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_zhzxy"; // 珠海中西医
+import bloodSugarWHHK from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_whhk"; // 珠海中西医
 import bloodSugarGdtj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_gdtj"; // 广东同江
 import sugarBtn from "@/Page/patientInfo/supPage/blood-sugar-sdlj/components/sugar-btn.vue";
 import bloodSugarModal from "@/Page/patientInfo/supComponts/modal/blood-sugar-modal.vue"
@@ -141,7 +142,7 @@ export default {
         南方医科大学顺德医院:'bloodSugarNfyksdyy',
         佛山市第一人民医院:'bloodSugarFoShanRenYi',
         珠海市中西医结合医院:'bloodSugarZhuHaiZhongXiYi',
-        武汉市汉口医院:'bloodSugarZhuHaiZhongXiYi',
+        武汉市汉口医院:'bloodSugarWHHK',
         广东同江医院:'bloodSugarGdtj',
         // 佛山市顺德区龙江医院: 'bloodSugarSdlj'
       };
@@ -214,6 +215,7 @@ export default {
     bloodSugarFoShanRenYi,
     bloodSugarNfyksdyy,
     bloodSugarZhuHaiZhongXiYi,
+    bloodSugarWHHK,
     bloodSugarGdtj,
     sugarBtn,
     bloodSugarModal
