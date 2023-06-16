@@ -5,6 +5,7 @@
       :title="title"
       :enable-mobile-fullscreen="false"
       class="modal"
+      @close="()=>{this.printSelect = []}"
     >
     <div class="content-view">
       <el-select v-model="printSelect" filterable multiple placeholder="请选择">
@@ -99,6 +100,10 @@ export default {
       this.$refs.modal.open();
     },
     post() {
+      if(!this.printSelect.length) return  this.$message({
+          type: "warning",
+          message: "请选择打印床号！",
+        });
       this.printData = this.optionList.filter(item => this.printSelect.includes(item.bedLabel));
       if(this.category == 'wristStrap'){
         this.$refs.wristStrapPrint.onPrint()
@@ -110,23 +115,14 @@ export default {
     },
      onPrint() {
       this.isBedSide = true;
-      const printCare = document.querySelectorAll(".printCare");
-      let arr = [];
-      for (let i = 0; i < printCare.length; i++) {
-        arr = printCare[i].className.split(" ");
-        if (!arr.includes("active")) printCare[i].style.display = "none";
-      }
-      this.$nextTick(() => {
-        print(
-          this.$refs.bedSidePrint,
-          (el) => { },
-          this.category
-        );
-        for (let i = 0; i < printCare.length; i++) {
-          printCare[i].style.display = "block";
-        }
-         this.isBedSide = false;
-      });
+        this.$nextTick(() => {
+          print(
+            this.$refs.bedSidePrint,
+            (el) => { },
+            this.category
+          );
+           this.isBedSide = false;
+        });
     },
   },
   components: {bedSide,wristStrap}

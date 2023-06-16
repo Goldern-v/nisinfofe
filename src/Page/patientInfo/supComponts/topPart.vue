@@ -41,7 +41,7 @@
               }"
         tag="span">
               <el-row class="menu-item" type="flex" align="middle">
-                入院评估(成人)
+                <i class="sheetHospitalAdmission"></i>入院评估(成人)
               </el-row>
             </router-link>
           </el-dropdown-item>
@@ -51,7 +51,7 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }" tag="span">
               <el-row class="menu-item" type="flex" align="middle">
-                 护理记录单
+                <i class="sheetHospitalEval"></i>护理记录单
               </el-row>
             </router-link>
           </el-dropdown-item>
@@ -62,7 +62,7 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }" tag="span">
               <el-row class="menu-item" type="flex" align="middle">
-                护理评估单
+                <i class="nursingAssessment"></i>护理评估单
               </el-row>
             </router-link>
           </el-dropdown-item>
@@ -72,7 +72,7 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }" tag="span">
               <el-row class="menu-item" type="flex" align="middle"
-                >血糖</el-row
+                ><i class="bloodSugar"></i>血糖</el-row
               >
             </router-link>
           </el-dropdown-item>
@@ -82,7 +82,7 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }" tag="span">
               <el-row class="menu-item" type="flex" align="middle">
-                健康教育单
+                <i class="healthEdu"></i>健康教育单
               </el-row>
             </router-link>
           </el-dropdown-item>
@@ -92,7 +92,7 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }" tag="span">
               <el-row class="menu-item" type="flex" align="middle">
-                护理计划单</el-row
+                <i class="sheetHospitalAdmission"></i>护理计划单</el-row
               >
             </router-link>
           </el-dropdown-item>
@@ -459,6 +459,34 @@
   color: #333;
   letter-spacing: 0;
   cursor: pointer;
+  i {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &.sheetHospitalAdmission {
+      background-image: url('../../../common/images/index/入院评估.png');
+    }
+
+    &.sheetHospitalEval {
+      background-image: url('../../../common/images/index/住院评估.png');
+    }
+
+    &.nursingAssessment {
+      background-image: url('../../../common/images/index/护理评估.png');
+    }
+
+    &.bloodSugar {
+      background-image: url('../../../common/images/index/血糖.png');
+    }
+
+    &.healthEdu {
+      background-image: url('../../../common/images/index/健康教育单.png');
+    }
+  }
 }
 .active{
    background-color: #F8F8FA;

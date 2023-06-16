@@ -6,6 +6,7 @@
       style="transform-origin: center top 0px; z-index: 2045; width: 120px; position: fixed;"
       :style="style"
       ref="autoBox"
+      v-if="!multiple"
     >
       <!-- 下拉框显示序号+内容 -->
       <div
@@ -78,6 +79,42 @@
         </div>
       </div>
     </div>
+    <!-- 多选 -->
+    <div
+      v-else
+      v-show="show && data && data.length > 0"
+      id="CrAutocomplete"
+      class="el-autocomplete-suggestion"
+      style="transform-origin: center top 0px; z-index: 2045; width: 120px; position: fixed;"
+      :style="style"
+      ref="autoBox"
+    >
+      <div class="el-scrollbar">
+        <div
+          class="el-autocomplete-suggestion__wrap el-scrollbar__wrap el-scrollbar__wrap--hidden-default"
+        >
+          <ul
+            class="el-scrollbar__view el-autocomplete-suggestion__list"
+            style="position: relative;"
+          >
+            <li
+              class
+              sytle="width:100%"
+              v-for="(item, index) in data"
+              @mouseleave="handlerLeave(id)"
+              @click="post(item)"
+              :key="item + index"
+              :class="{
+                autoSelected:
+                  index == selectIndex || selectedList.indexOf(item.code) > -1
+              }"
+            >
+              <span>{{ item.name }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -130,11 +167,21 @@ export default {
       options: "", //父子数据（父子下拉同时显示数据）
       parentVal: "", //当前父下拉
       splice: "",
-      config: ""
+      config: "",
+      selectedList: [],
+      multiple: false
     };
   },
   methods: {
+    handlerLeave(id){
+      document.querySelector('.bg').addEventListener('click', (e)=>{
+        if (e.target.tagName != "LI" && e.target.tagName != "SPAN" && e.target.tagName != "UI") {
+          this.show = false
+        }
+      })
+    },
     closeSelf() {
+      if(this.multiple) return
       this.show = false;
     },
     open(config) {
@@ -142,6 +189,8 @@ export default {
       this.style = config.style;
       this.callback = config.callback;
       this.splice = config.td && config.td.splice;
+      this.multiple = config.multiple;
+      this.selectedList = config.selectedList;
 
       this.options = [];
       this.childData = [];
@@ -265,18 +314,29 @@ export default {
         });
       }
       if (flag) {
-        if (
-          process.env.HOSPITAL_ID == "sdlj" &&
-          sheetInfo.sheetType == "orthopaedic_sdlj" &&
-          this.splice == "&"
-        ) {
-          item = item;
-        } else {
-          item = this.parentVal ? item + "(" + this.parentVal + ")" : item;
+        if(this.multiple){
+          // 多选
+          this.callback(item.code);
+        }else{
+          // 单选
+          if (
+            process.env.HOSPITAL_ID == "sdlj" &&
+            sheetInfo.sheetType == "orthopaedic_sdlj" &&
+            this.splice == "&"
+          ) {
+            item = item;
+          } else {
+            item = this.parentVal ? item + "(" + this.parentVal + ")" : item;
+          }
+          this.callback(item);
+          this.show = this.splice;
         }
-        this.callback(item);
-        this.show = this.splice;
       }
+    },
+    closeBox(){
+       this.$nextTick( () => {
+        this.show = false;
+      });
     },
     attachWindow() {
       window.openAutoComplete = config => {
