@@ -40,7 +40,7 @@ export default {
       },
       {
         name: `
-        特殊处理及病区观察
+        特殊处理及病情观察
         `,
         style: {
           minWidth: "228px",

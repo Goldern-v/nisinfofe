@@ -35,7 +35,7 @@
         <td style="padding: 0 4px" @click="setDate(item, index)">
           <div class="cell noPrint">
             <!-- <span>{{ item.date }}</span> -->
-            <input :disabled="true" type="text" v-model="item.date" :class="{ selected: selected === item }" />
+            <input type="text" v-model="item.date" :class="{ selected: selected === item }" />
             <!-- <span>
               <span>{{ item.time }}</span>
             </span> -->

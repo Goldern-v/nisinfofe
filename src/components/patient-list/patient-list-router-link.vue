@@ -324,7 +324,6 @@ import FollowList from "../follow/index";
 //解锁
 // import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import { mapState } from 'vuex';
-import { index } from 'cheerio/lib/api/traversing';
 // 导入多选框
 export default {
   props: {
