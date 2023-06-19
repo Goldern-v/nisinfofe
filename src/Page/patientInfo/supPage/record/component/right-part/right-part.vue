@@ -17,38 +17,40 @@
         <toolCon v-else v-show="showType"></toolCon>
       </div>
       <!-- 护理评估表 -->
+      <template v-if="isOtherPages">
       <div
           class="form-contain"
           :class="{ nopadding: !showConToolBar }"
           ref="formContain"
           :style="{ height: height }"
       >
-        <assessment v-show="showConToolBar && showType" ref="assessment"/>
-        <assessment_v2
-            v-show="!showConToolBar && showType"
-            ref="assessmentV2"
-            :tagsViewHeight="tagsViewHeight"
-        />
-        <div
-            v-show="showType == ''"
-            class="null-btn"
-            flex="cross:center main:center"
-            @click="newRecordOpen"
-            v-if="HOSPITAL_ID == 'beihairenyi'"
-        >
-          <i class="el-icon-plus"></i>
-          <span>创建护理评估单</span>
-        </div>
-        <div
-            v-show="showType == ''"
-            class="null-btn"
-            flex="cross:center main:center"
-            @click="newRecordOpen"
-            v-else
-        >
-          <i class="el-icon-plus"></i>
-          <span>创建护理文书</span>
-        </div>
+          <assessment v-show="showConToolBar && showType" ref="assessment"/>
+          <assessment_v2
+              v-show="!showConToolBar && showType"
+              ref="assessmentV2"
+              :tagsViewHeight="tagsViewHeight"
+          />
+
+          <div
+              v-show="showType == ''"
+              class="null-btn"
+              flex="cross:center main:center"
+              @click="newRecordOpen"
+              v-if="HOSPITAL_ID == 'beihairenyi'"
+          >
+            <i class="el-icon-plus"></i>
+            <span>创建护理评估单</span>
+          </div>
+          <div
+              v-show="showType == ''"
+              class="null-btn"
+              flex="cross:center main:center"
+              @click="newRecordOpen"
+              v-else
+          >
+            <i class="el-icon-plus"></i>
+            <span>创建护理文书</span>
+          </div>
         <div>
           <!-- 患者资料 -->
           <patientInfo
@@ -57,11 +59,13 @@
           ></patientInfo>
         </div>
       </div>
+     </template>
+     <!-- 其他记录单或者血糖，健康 -->
+        <component :is="otherComponent" v-else></component>
       <!-- 关联表单弹窗 -->
       <RelationFormModal/>
       <!-- 电子病例弹窗 -->
       <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','dglb','nfyksdyy'].includes(HOSPITAL_ID)" />
-
     </div>
   </div>
 </template>
@@ -165,6 +169,9 @@ import {toolBarConfig} from "./config.js";
 import bus from "vue-happy-bus";
 import patientInfo from "@/Page/sheet-page/components/sheet-tool/patient-info";
 import doctorEmr from "@/components/doctorEmr";
+import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
+import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_nfyksdyy.vue"; //血糖
+import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue";
 
 export default {
   props: {
@@ -187,6 +194,8 @@ export default {
       formBoxLoading: false,
       formBoxLoadingText: "载入中..",
       nodeData: {},
+      isOtherPages: true,
+      otherComponent:""
     };
   },
   created() {
@@ -217,6 +226,7 @@ export default {
     });
     this.bus.$on("openAssessmentBox", (data) => {
       console.log("openAssessmentBox", data);
+      this.isOtherPages = true;
       if(data.formCode==="form_growth" && this.HOSPITAL_ID == 'hj'){
         this.$route.query.id = data.id;
         this.$route.query.formType = "eval"
@@ -268,6 +278,11 @@ export default {
       });
       // this.$forceUpdate();
     });
+    this.bus.$on("openOtherPage",(data)=>{
+      this.isOtherPages = false;
+      this.otherComponent = data.type
+      this.bus.$emit("openSheetTag", data)
+    })
 
     this.bus.$on("closeAssessment", () => {
       this.showType = "";
@@ -334,6 +349,9 @@ export default {
     RelationFormModal,
     patientInfo,
     doctorEmr,
+    sheet,
+    bloodSugar,
+    healthEducation
   },
 };
 </script>

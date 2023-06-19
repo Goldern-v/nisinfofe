@@ -1,10 +1,10 @@
 <template>
 <div class="health-education">
-  <div class="health-education-list">
+  <div class="health-education-list" v-if="$route.path !== '/formPage' && HOSPITAL_ID =='nfyksdyy'">
     <div class="treeTitle">健康教育单</div>
     <baseTree :configList="configList" class="baseTree"></baseTree>
   </div>
-  <div class="health-education-table" v-loading="pageLoading">
+  <div class="health-education-table" :style="$route.path == '/formPage' && HOSPITAL_ID =='nfyksdyy'?'width:100%;margin:0;':''" v-loading="pageLoading">
     <!-- 无推送内容 -->
     <div v-if="isData === 2" style="height:100%">
       <NullBg></NullBg>
@@ -43,9 +43,9 @@
             <div class="sdyyinfo">
             <span>姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
             <span style="margin-left: 20px;">性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
-            <span style="margin-left: 20px;">年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
-            <span style="margin-left: 20px;">床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
-             <span>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
+            <span style="margin-left: 20px;">年龄：{{patientInfo.age||tableHeaderInfo.gender}}</span>
+            <span style="margin-left: 20px;">床号：{{patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
+             <span>住院号：{{ patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
           </div>
           <div class="sdyyinfo" style="border-bottom: 1px solid #000;">
             <span>科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span>
