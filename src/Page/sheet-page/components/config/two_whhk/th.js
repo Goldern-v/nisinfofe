@@ -8,7 +8,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1380px"
+    width: "1420px"
   },
   th: {
     top: [
@@ -72,10 +72,10 @@ export default {
       },
       {
         name: `静脉置管`,
-        colspan: "1",
+        colspan: "2",
         rowspan: "1",
         style: {
-          minWidth: "60px"
+          minWidth: "120px"
         }
       },
       {
@@ -176,6 +176,17 @@ export default {
         name: ``,
         canSet: true,
         key: 'fieldFive',
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: "60px",
+          maxWidth: "60px"
+        },
+      },
+      {
+        name: ``,
+        canSet: true,
+        key: 'intravenous2',
         colspan: "1",
         rowspan: "2",
         style: {

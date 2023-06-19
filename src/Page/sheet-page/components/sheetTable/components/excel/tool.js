@@ -175,7 +175,9 @@ function onFocusToAutoComplete(e, bind, cb) {
           } else {
             preText = td.value ? (td.value + ',') : ''
           }
-          td.value = (splice ? preText : '') + data
+          if(typeof (splice)==='string' && !splice){
+            td.value = preText + data
+          }else td.value = (splice ? preText : '') + data
         }
         ;
       },
