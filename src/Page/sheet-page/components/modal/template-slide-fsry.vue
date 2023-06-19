@@ -11,9 +11,9 @@
           </span>
         </div>
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-          <el-tab-pane label="科室模板" name="first">
+          <el-tab-pane label="科室模板" name="first" @dragover="dragover($event)">
             <TemplateModal :selectedSheetType="sheetInfo.sheetType" :selectType="selectType" @openAddModal="openAddModal"/>
-            <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
+            <div class="footer-con" id="footer-isshow" flex="main:center cross:center" @click="openAddModal" @dragover="dragover($event)">
               <i class="iconfont icon-tianjia"></i> 新建模板
             </div>
           </el-tab-pane>
@@ -73,6 +73,10 @@ export default {
 
   },
   methods: {
+    // 拖动事件（主要是为了拖动时鼠标光标不变为禁止）
+    dragover(e) {
+      e.preventDefault()
+    },
     handleClick(tab, event) {
         console.log(tab, event);
       },
@@ -219,5 +223,8 @@ export default {
     font-weight: bold;
     font-size: 12px;
   }
+}
+.isshow-footer{
+  display: none;
 }
 </style>

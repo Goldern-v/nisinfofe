@@ -111,3 +111,7 @@ export const getPersonalTemplate = (params) => {
   const recordCode = sheetInfo.sheetType
   return axios.post(`${apiPath}record/desc/listForEmp`, { recordCode, ...params })
 }
+// 护记特殊情况模块-保存拖拽后的模板数据
+export const getBatchSaveOrUpdateByDept = (params,empNo) => {
+  return axios.post(`${apiPath}record/desc/batchSaveOrUpdateByDept/${empNo}`, params)
+}
