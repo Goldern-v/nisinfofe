@@ -837,13 +837,14 @@ export default {
         `
       )
     }
-    if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
+    // if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
+        if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(this.query.sheetType)){
         addCSS(
           window,
           `
              @media print {
                   .body-con{
-                    height: 41px !important;
+                    height: 35px !important;
                   }
                   .sdyy > div {
                     page-break-after: always;
@@ -853,13 +854,14 @@ export default {
           `
                 )
               }
-      if ((sheetInfo.sheetType == "baby2_sdry")) {
+      if (('baby2_sdry'===this.query.sheetType )) {
+      // if ((sheetInfo.sheetType == "baby2_sdry")) {
       addCSS(
         window,
             `
             @media print {
                   .body-con{
-                    height: 44px !important;
+                    height: 40px !important;
                   }
                   .sdyy > div {
                     page-break-after: always;
@@ -870,13 +872,14 @@ export default {
           );
         }
 
-      if ((sheetInfo.sheetType == "baby_sdry" )) {
+      if (('baby_sdry'===this.query.sheetType )) {
+      // if ((sheetInfo.sheetType ==  'baby_sdry')) {
       addCSS(
         window,
             `
             @media print {
                   .body-con{
-                    height: 39px !important;
+                    height: 38px !important;
                   }
                   .sdyy > div {
                     page-break-after: always;
@@ -886,13 +889,14 @@ export default {
             `
           );
         }
-      if ((sheetInfo.sheetType ==  'postpartum_sdry')) {
+      if (('postpartum_sdry'===this.query.sheetType )) {
+      // if ((sheetInfo.sheetType ==  'postpartum_sdry')) {
       addCSS(
         window,
             `
             @media print {
                   .body-con{
-                    height: 35px !important;
+                    height: 34px !important;
                   }
                   .sdyy > div {
                     page-break-after: always;
