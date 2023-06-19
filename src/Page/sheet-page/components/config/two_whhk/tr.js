@@ -129,6 +129,17 @@ export default [
     },
   },
   {
+    key: "intravenous2", //静脉置管
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 10),
+    name: "静脉置管",
+    next: "",
+    textarea: {
+      width: 60
+    },
+  },
+  {
     key: "fieldFifteen", // 导管及引流管自定义1
     value: "",
     event: keyf1,
@@ -242,7 +253,7 @@ export default [
     event: keyf1,
     name: "护理措施",
     autoComplete: { data: hlcsList },
-    splice: true,
+    splice: '',
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 50
@@ -255,7 +266,7 @@ export default [
     name: "健康教育",
     next: '',
     autoComplete: { data: jkjyList },
-    splice: true,
+    splice: '',
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 50
