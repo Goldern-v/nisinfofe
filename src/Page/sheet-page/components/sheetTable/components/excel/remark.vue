@@ -692,6 +692,52 @@
       备注：1、硫酸镁静脉滴注时每 2h 观察记录一次，有异常情况时随时记录；<br/>
       &nbsp;&nbsp;&nbsp;2、每 24h 或停止使用时统计尿量一次，统计时划双红线，并写清楚统计的起止时间和签名。
     </div>
+    <div v-if="sheetInfo.sheetType == 'postpartum2_dglb'" class="postpartum2_dglb nosign">
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita1']"
+        v-model="sheetInfo.relObj['qita1']"
+      />
+      引导分娩产后2小时总出血量：
+      <input
+        style="width:50px;"
+        v-model="sheetInfo.relObj['qit4']"
+      />
+      ml
+      <span style="width:100px;"></span>
+      <input
+        type="checkbox"
+        :ischecked="sheetInfo.relObj['qita2']"
+        v-model="sheetInfo.relObj['qita2']"
+      />
+      引导分娩产后2小时总出血量：
+      <input
+        style="width:50px;"
+        v-model="sheetInfo.relObj['qit3']"
+      />
+      ml
+    </div>
+    <div v-if="sheetInfo.sheetType == 'postpartum2_dglb'" class="postpartum2_dglb sign">
+      指&nbsp;导&nbsp;者：
+      <input
+        v-model="sheetInfo.relObj['sign1']"
+      />
+      &nbsp;
+      手术者：
+      <input
+        v-model="sheetInfo.relObj['sign2']"
+      />
+      &nbsp;
+      接生者：
+      <input
+        v-model="sheetInfo.relObj['sign3']"
+      />
+      &nbsp;
+      护婴者：
+      <input
+        v-model="sheetInfo.relObj['sign4']"
+      />
+    </div>
     <div v-if="sheetInfo.sheetType == 'cardiac_therapy_tj'">
       冠脉介入治疗情况：<br/>
       植入支架：
@@ -950,6 +996,30 @@ export default {
 
 <style lang="stylus" scoped>
 .bottomRemark{
+  .postpartum2_dglb{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.nosign{
+      margin-bottom: 20px;
+    }
+    &.sign{
+      justify-content: flex-start;
+      margin-left: 20px;
+      input{
+        width:80px;
+      }
+    }
+    input{
+      border:0;
+      border-bottom: 1px solid #000;
+      &:focus{
+        outline: none;
+        border:0
+        border-bottom: 1px solid #000;
+      }
+    }
+  }
   >div{
       font-size: 13px;
       margin-top: -5px
