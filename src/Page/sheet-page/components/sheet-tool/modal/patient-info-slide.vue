@@ -27,6 +27,11 @@
             <div class="label">患者医嘱</div>
             <el-button @click="openModal('adviceModal')">查看</el-button>
           </div>
+          <div class="item-box" v-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID)">
+            <img src="../images/toset.png" alt class="label-icon" />
+            <div class="label">患者360</div>
+            <el-button @click="skip360">跳转</el-button>
+          </div>
           <div class="item-box" v-if="['lingcheng','lyxrm','foshanrenyi', 'stmz'].includes(HOSPITAL_ID)">
             <img src="../images/检验报告@2x.png" alt class="label-icon" />
             <div class="label">病历</div>
@@ -237,6 +242,12 @@ export default {
     },
   },
   methods: {
+    skip360() {
+      let { inpNo = '', patientId = '', visitId = ''} = (this.$route.query || {})
+      let { name = '', } = (this.$store.getters.getCurrentPatient() || {})
+      let { empNo } = (JSON.parse(localStorage.user) || {})
+      window.open(`/crNursing/otherPage?inpNo=${inpNo}&doctorName=${name}&doctorCode=${empNo}&patientId=${patientId}&visitId=${visitId}`);
+    },
     open() {
       this.show = true;
     },
@@ -280,6 +291,12 @@ export default {
     adviceModal,
     doctorEmrModal,
     iframeModal,
-  }
+  },
+  computed: {
+    query() {
+      let query = this.$route.query;
+      return query;
+    }
+  },
 };
 </script>
