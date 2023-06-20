@@ -306,7 +306,7 @@ export default {
     this.url = `${host}/sheet-page-print.html`;
   },
   mounted() {
-    console.log("this.sheetInfo.sheetType",this.sheetInfo.sheetType)
+    console.log("this.sheetInfo.sheetType",this.sheetInfo.sheetType,this.HOSPITAL_ID)
     if (document.querySelector('th[dataname="审核签名"]')) {
       $(".contant").width(Math.max($(".contant").width()));
     }
@@ -431,7 +431,37 @@ export default {
         `
       );
     }
-
+     if(['intervention_cure','orthopedics','gynecology','infectious_diseases','respiration',
+    'internal_eval_hj','reha_medicine','urology','neurology','endocrinology','general_surgery',
+    'neurosurgery','gastroenterology','neonatology2','medicine_cardiovascular','ear_nose_throat',
+    'tumor_hemodialysis','obstetrics','pediatrics'].includes(this.query.sheetType)){
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height:auto !important;
+            transform: scaleY(1) !important;
+            margin-top:-50px !important;
+          }
+        }
+        `
+      )
+    }
+    if(['prenatal'].includes(this.query.sheetType)){
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height:auto !important;
+            transform: scaleY(1) !important;
+            margin-top:-30px !important;
+          }
+        }
+        `
+      )
+    }
 
     if((this.HOSPITAL_ID === "huadu")){
       addCSS(
