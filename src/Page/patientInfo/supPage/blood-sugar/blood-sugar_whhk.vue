@@ -334,13 +334,13 @@ export default {
         }
       }
 
-      if(!this.selected.sugarValue){
-        return this.$message({
-          message: '请填写血糖值再保存',
-          type: 'error',
-          duration:"1500"
-        })
-      }
+      // if(!this.selected.sugarValue && this.HOSPITAL_ID !== 'whhk'){
+      //   return this.$message({
+      //     message: '请填写血糖值再保存',
+      //     type: 'error',
+      //     duration:"1500"
+      //   })
+      // }
       const user = JSON.parse(localStorage.getItem("user"));
       let item = {
         patientId: this.patientInfo.patientId,
@@ -493,9 +493,9 @@ export default {
       this.selected = null;
     },
     async onSave(item) {
-      if (!item.sugarValue) {
-        return this.$message.error('请填写血糖值再保存')
-      }
+      // if (!item.sugarValue) {
+      //   return this.$message.error('请填写血糖值再保存')
+      // }
       item.recordDate =
         moment(item.recordDate).format("YYYY-MM-DD HH:mm") + ":00";
       item.patientId = this.patientInfo.patientId;

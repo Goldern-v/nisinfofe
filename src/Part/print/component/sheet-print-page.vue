@@ -306,7 +306,7 @@ export default {
     this.url = `${host}/sheet-page-print.html`;
   },
   mounted() {
-    console.log("this.sheetInfo.sheetType",this.sheetInfo.sheetType)
+    console.log("this.sheetInfo.sheetType",this.sheetInfo.sheetType,this.HOSPITAL_ID)
     if (document.querySelector('th[dataname="审核签名"]')) {
       $(".contant").width(Math.max($(".contant").width()));
     }
@@ -431,7 +431,37 @@ export default {
         `
       );
     }
-
+     if(['intervention_cure','orthopedics','gynecology','infectious_diseases','respiration',
+    'internal_eval_hj','reha_medicine','urology','neurology','endocrinology','general_surgery',
+    'neurosurgery','gastroenterology','neonatology2','medicine_cardiovascular','ear_nose_throat',
+    'tumor_hemodialysis','obstetrics','pediatrics'].includes(this.query.sheetType)){
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height:auto !important;
+            transform: scaleY(1) !important;
+            margin-top:-50px !important;
+          }
+        }
+        `
+      )
+    }
+    if(['prenatal'].includes(this.query.sheetType)){
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height:auto !important;
+            transform: scaleY(1) !important;
+            margin-top:-30px !important;
+          }
+        }
+        `
+      )
+    }
 
     if((this.HOSPITAL_ID === "huadu")){
       addCSS(
@@ -837,13 +867,14 @@ export default {
         `
       )
     }
-    if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
+    // if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
+        if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(this.query.sheetType)){
         addCSS(
           window,
           `
              @media print {
                   .body-con{
-                    height: 41px !important;
+                    height: 35px !important;
                   }
                   .sdyy > div {
                     page-break-after: always;
@@ -853,13 +884,14 @@ export default {
           `
                 )
               }
-      if ((sheetInfo.sheetType == "baby2_sdry")) {
+      if (('baby2_sdry'===this.query.sheetType )) {
+      // if ((sheetInfo.sheetType == "baby2_sdry")) {
       addCSS(
         window,
             `
             @media print {
                   .body-con{
-                    height: 44px !important;
+                    height: 40px !important;
                   }
                   .sdyy > div {
                     page-break-after: always;
@@ -870,13 +902,14 @@ export default {
           );
         }
 
-      if ((sheetInfo.sheetType == "baby_sdry" )) {
+      if (('baby_sdry'===this.query.sheetType )) {
+      // if ((sheetInfo.sheetType ==  'baby_sdry')) {
       addCSS(
         window,
             `
             @media print {
                   .body-con{
-                    height: 39px !important;
+                    height: 38px !important;
                   }
                   .sdyy > div {
                     page-break-after: always;
@@ -886,13 +919,14 @@ export default {
             `
           );
         }
-      if ((sheetInfo.sheetType ==  'postpartum_sdry')) {
+      if (('postpartum_sdry'===this.query.sheetType )) {
+      // if ((sheetInfo.sheetType ==  'postpartum_sdry')) {
       addCSS(
         window,
             `
             @media print {
                   .body-con{
-                    height: 35px !important;
+                    height: 34px !important;
                   }
                   .sdyy > div {
                     page-break-after: always;

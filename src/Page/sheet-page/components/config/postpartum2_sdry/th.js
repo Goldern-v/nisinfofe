@@ -36,8 +36,8 @@ export default {
 
 
         { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "510px", "maxWidth": "510px" } },
-        { "name": "签名", "colspan": "1", "rowspan": "3", "style": { "minWidth": "75px", "maxWidth": "75px" } },
-        // {"name":"带教<br/>护士","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+        { "name": "护士签名", "colspan": "1", "rowspan": "3", "style": { "minWidth": "50px", "maxWidth": "50px" } },
+        {"name":"查房签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
       ]
     ,
     mid:

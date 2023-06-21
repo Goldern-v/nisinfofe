@@ -97,7 +97,7 @@ export default {
       intranetUrl:
         // "http://localhost:8080/#/" /* 医院正式环境内网 导致跨域 */,
         // "http://192.168.1.81:8080/#/" /* 医院正式环境内网 导致跨域 */,
-        "http://10.158.210.28:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://218.107.37.134:9093/temperature/#/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         "http://10.158.210.28:9093/temperature/#/printAll" /* 医院正式环境内网批量打印 */,
       outNetUrl:

@@ -117,6 +117,8 @@ export function getRowNum(index) {
     } else {
       return 34;
     }
+  } else if (sheetInfo.sheetType == 'third_round_records' || sheetInfo.sheetType == 'follow_doctor_check_records') {
+    return 27
   } else {
     return 17;
   }

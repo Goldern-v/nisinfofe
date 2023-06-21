@@ -52,7 +52,7 @@ export default {
         rowspan: '2'
       },
       {
-        name: '脉搏/<br/>心率',
+        name: '心率',
         style: {
           minWidth: '40px',
           maxWidth: '40px',
@@ -61,7 +61,7 @@ export default {
         rowspan: '2'
       },
       {
-        name: '呼<br/>吸',
+        name: '脉搏',
         style: {
           minWidth: '40px',
           maxWidth: '40px',
@@ -70,7 +70,16 @@ export default {
         rowspan: '2'
       },
       {
-        name: '血<br/>压',
+        name: '呼吸',
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
+        colspan: '1',
+        rowspan: '2'
+      },
+      {
+        name: '血压',
         style: {
           minWidth: '40px',
           maxWidth: '40px',
@@ -233,17 +242,27 @@ export default {
       },
       {
         name: `
-        次/<br/>分
+        次/分
         `,
         colspan: '1',
         rowspan: '1',
         style: {
-          minWidth: '32px',
+          minWidth: '40px',
         },
       },
       {
         name: `
-        次/<br/>分
+        次/分
+        `,
+        colspan: '1',
+        rowspan: '1',
+        style: {
+          minWidth: '40px',
+        },
+      },
+      {
+        name: `
+        次/分
         `,
         colspan: '1',
         rowspan: '1',
