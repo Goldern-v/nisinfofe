@@ -2082,6 +2082,11 @@
             "pinyin": "zx"
         },
         {
+            "code": "高中",
+            "name": "高中",
+            "pinyin": "gz"
+        },
+        {
             "code": "中专",
             "name": "中专",
             "pinyin": "zz"
@@ -2154,6 +2159,11 @@
             "code": "离异",
             "name": "离异",
             "pinyin": "ly"
+        },
+        {
+            "code": "丧偶",
+            "name": "丧偶",
+            "pinyin": "so"
         }
     ],
     "I001008": [

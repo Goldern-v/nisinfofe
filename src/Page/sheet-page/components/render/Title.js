@@ -2254,6 +2254,13 @@ export default function Title(
     );
   }
   break;
+  case "neonatal_care_qhwy": {
+    // 青海五院 - 肿瘤新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatal_care_qhwy/th").default)
+    );
+  }
+  break;
   case "nurse_jew": {
     // 925医院 - 一般患者护理记录单
     Th = JSON.parse(
