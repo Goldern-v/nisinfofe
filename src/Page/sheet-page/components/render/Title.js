@@ -2359,6 +2359,20 @@ export default function Title(
     );
   }
   break;
+  case "third_round_records": {
+    // 威海市立--三级护理查房
+    Th = JSON.parse(
+      JSON.stringify(require("../config/third_round_records/th.js").default)
+    );
+  }
+    break;
+  case "follow_doctor_check_records": {
+    // 威海市立--跟随医生查房
+    Th = JSON.parse(
+      JSON.stringify(require("../config/follow_doctor_check_records/th.js").default)
+    );
+  }
+    break;
   case "baby_yz": {
     // 临沂沂州 - 新生儿护理记录单
     Th = JSON.parse(

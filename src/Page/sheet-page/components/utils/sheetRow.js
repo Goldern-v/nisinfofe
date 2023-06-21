@@ -63,8 +63,8 @@ export function getRowNum(index) {
     sheetInfo.sheetType === 'record_icu_zzwy' ||
     sheetInfo.sheetType === 'obstetrics_new_zzwy' ||
     sheetInfo.sheetType === 'gynecology_new_zzwy' ||
-    sheetInfo.sheetType === 'baby_new_zzwy' || 
-    sheetInfo.sheetType == "postpartum_wj" 
+    sheetInfo.sheetType === 'baby_new_zzwy' ||
+    sheetInfo.sheetType == "postpartum_wj"
   ) {
     return 20;
   } else if (sheetInfo.sheetType == "cardiology_lcey" || sheetInfo.sheetType == "cardiology_tj") {
@@ -115,6 +115,8 @@ export function getRowNum(index) {
     } else {
       return 34;
     }
+  } else if (sheetInfo.sheetType == 'third_round_records' || sheetInfo.sheetType == 'follow_doctor_check_records') {
+    return 27
   } else {
     return 17;
   }

@@ -392,8 +392,7 @@ export default {
           label: "B（背景）",
           columns: [
             {
-              label: "既往病史、治疗经过、治",
-              label2: '疗效果跟踪',
+              label: "主诉",
               prop: "background",
               editable: true,
               width: '150'
@@ -415,7 +414,7 @@ export default {
           label: "A（评估）",
           columns: [
             {
-              label: "护理评估及护理记录",
+              label: "护理评估及护理措施",
               prop: "assessmentSituation",
               editable: true,
               width: this.HOSPITAL_ID=="whsl"? "150" : "200"

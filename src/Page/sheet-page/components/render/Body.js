@@ -1771,6 +1771,16 @@ function switchSheetType(type) {
       schema = require("../config/critical_new_weihai/tr.js").default;
     }
     break;
+    case "third_round_records": {
+      // 威海市立--三级护理查房
+      schema = require("../config/third_round_records/tr.js").default;
+    }
+      break;
+    case "follow_doctor_check_records": {
+      // 威海市立--跟随医生查房
+      schema = require("../config/follow_doctor_check_records/tr.js").default;
+    }
+      break;
     case "oxytocin_weihai": {
       // 威海市立 -静脉点滴催产素引产观察表
       schema = require("../config/oxytocin_weihai/tr.js").default
