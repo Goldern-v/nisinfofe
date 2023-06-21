@@ -2806,7 +2806,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (["ultrasound_fs","baby_tj","baby_whhk","insulin_whhk","labor_whhk","intravenous_whhk"].includes(this.sheetInfo.sheetType)) {
+            } else if (["ultrasound_fs","baby_tj","baby_whhk","insulin_whhk","labor_whhk","intravenous_whhk", "neonatal_care_qhwy"].includes(this.sheetInfo.sheetType)) {
               if (GetLength(text) > 30) {
                 result.push(text);
                 text = allDoc[i];
@@ -3142,14 +3142,13 @@ export default {
     },
     /**获取选择的同步项 */
     handleDiagnosis({ item, key }) {
-      console.log(item, 77777777)
       item.forEach((v) => {
         if (this.doc && v[key]) {
           this.doc += "\n";
         }
         if (this.HOSPITAL_ID === 'fuyou')
           this.doc += `${v[key]},${v.diagMeasures}`;
-        else 
+        else
           this.doc += v[key];
       });
     },

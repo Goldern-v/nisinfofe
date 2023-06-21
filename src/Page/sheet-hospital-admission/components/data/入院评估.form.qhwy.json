@@ -2879,19 +2879,59 @@
               "elementClass": "el-radio",
               "style": null,
               "class": null
-            },
-            {
-              "name": "I001501",
-              "type": "checkbox",
-              "title": "住院押金管理",
-              "elementStyle": "margin: 8px 5px 0 0;",
-              "elementClass": "el-radio",
-              "style": null,
-              "class": null
             }
-
           ]
         }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupColBox",
+      "col": 2,
+      "title": "签名",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "IE0001138",
+          "type": "input",
+          "title": "记录时间",
+          "titleStyle": "width:70px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "suffixDesc": "",
+          "style": null,
+          "class": null
+        },
+        {
+          "name": "A0001_1",
+          "type": "input",
+          "title": "责任护士签名",
+          "titleStyle": "width:80px!important",
+          "inputStyle": "width:270px!important",
+          "inputWidth": "160px",
+          "suffixDesc": "",
+          "style": "cursor: pointer!important",
+          "class": null
+        }
+
       ]
     },
     {
@@ -2986,8 +3026,6 @@
         }
       ]
     },
-
-
     {
       "name": "",
       "type": "formGroupHR",

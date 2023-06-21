@@ -88,7 +88,9 @@ export function getRowNum(index) {
     return 28
   } else if (sheetInfo.sheetType === 'mechanical_sdlj'||sheetInfo.sheetType === 'custody_yz') {
     return 33
-  } else if ( sheetInfo.sheetType === 'magnesium_lcey') {
+  } else if (sheetInfo.sheetType =='neonatal_care_qhwy'){
+    return 30
+  }else if ( sheetInfo.sheetType === 'magnesium_lcey') {
     return 24
   }else if (
     sheetInfo.sheetType === 'record_children_serious2_lc'||

@@ -94,15 +94,6 @@ export function getLastDetail(formCode, patientId, visitId) {
 }
 
 
-// 签名
-// export function getUser(password, empNo) {
-//   return axios.post(`${apiPath}user/getUser`, {
-//     password,
-//     empNo
-//   });
-// }
-
-
 // 审核签名
 export function getUser(password, empNo) {
   return axios.post(`${apiPath}record/block/getUser `, {

@@ -655,11 +655,6 @@ function switchSheetType(type) {
       schema = require("../config/body_temperature_hj/tr.js").default;
     }
       break;
-      // case "body_temperature_hl": {
-      //   // 横沥 - 体温单
-      //   schema = require("../config/body_temperature_hl/tr.js").default;
-      // }
-      break;
     case "internal_eval_lcey": {
       // 聊城二院 - (内科)一般患者护理评估记录单
       schema = require("../config/internal_eval_lcey/tr.js").default;
@@ -1729,6 +1724,11 @@ function switchSheetType(type) {
     case "neurosurgery_qhwy": {
         // 青海五院 - 神经外科护理记录单
       schema = require("../config/neurosurgery_qhwy/tr.js").default;
+    }
+      break;
+    case "neonatal_care_qhwy": {
+        // 青海五院 - 肿瘤新生儿护理记录单
+      schema = require("../config/neonatal_care_qhwy/tr.js").default;
     }
       break;
     case "nurse_jew": {
