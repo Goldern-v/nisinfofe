@@ -373,6 +373,8 @@
                     :disabled="isDisable()"
                     v-model="vitalSignObj[multiDictList['表底注释']].expand1"
                     clearable
+                    filterable
+                    allow-create
                   >
                     <el-option
                       v-for="(item, bottomIndex) in getFilterSelections(
@@ -1344,7 +1346,7 @@ export default {
     }
 
     .el-select {
-      width: 85px;
+      width: 125px;
     }
   }
 

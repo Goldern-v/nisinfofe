@@ -135,7 +135,7 @@ export default [
     key: "pupilReflexRight1", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "瞳孔对光反应左1",
+    name: "瞳孔对光反应右1",
     autoComplete: {
       data: tongkongX
     },
@@ -144,7 +144,7 @@ export default [
     key: "pupilReflexRight2", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "瞳孔对光反应左2",
+    name: "瞳孔对光反应右2",
     autoComplete: {
       data: tongkongR
     },

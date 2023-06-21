@@ -418,6 +418,7 @@ export default {
     },
     // 标签切换护记
     onSheetSwitch(sheet) {
+      console.log(sheet,'ddddddddddddddddddddddd');
       if (sheet && sheet.id !== this.currentTag.id) {
         this.currentTag = sheet;
       }
@@ -745,6 +746,8 @@ export default {
     },
   },
   created() {
+    // 文书单子统计打开记录单
+    this.bus.$on("openSheetTag", (tag)=>{this.onSheetSwitch(tag)})
     //第三方浏览界面 是路由传的患者信息 所以一开始先清空界面VUEX的信息，再提交路由的
     this.getDate();
     this.$store.commit("upPatientInfo", {});
@@ -1044,7 +1047,7 @@ export default {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
-          if(["whsl"].includes(this.HOSPITAL_ID)){
+          if(["whsl","nfyksdyy",'hj'].includes(this.HOSPITAL_ID)){
             newWid.location.href = `/crNursing/print/sheetPage?sheetType=${this.sheetInfo.sheetType}`;
           }else newWid.location.href = `/crNursing/print/sheetPage`;
         } else {

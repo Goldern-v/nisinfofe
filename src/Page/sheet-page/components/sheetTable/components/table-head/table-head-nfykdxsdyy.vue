@@ -176,7 +176,7 @@
           年龄:
           <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
         </span>
-        <span v-if="['orthopaedic_sdry', 'oxytocin_sdry', 'insulin_pump_sdry'].includes(sheetInfo.sheetType)">
+        <span v-if="[ 'oxytocin_sdry', 'insulin_pump_sdry'].includes(sheetInfo.sheetType)">
           床号：
 
           <div :class="['bottom-line','has-background']" :style="{minWidth:'55px'}"  @dblclick.stop="openBedRecordModal" >
@@ -184,9 +184,15 @@
             <!-- {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }} -->
           </div>
         </span>
+        <span v-if="['orthopaedic_sdry'].includes(sheetInfo.sheetType)">
+          床号：
+          <div :class="['bottom-line','has-background',]" :style="{minWidth:'45px'}"  @dblclick.stop="openBedRecordModal" >
+            {{ patientInfo.bedLabel }}
+          </div>
+        </span>
         <span v-else @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
           床号:
-          <div class="bottom-line" style="min-width: 90px">{{patientInfo.bedLabel}}</div>
+          <div class="bottom-line" :class="sheetTypeClass" style="min-width: 90px">{{patientInfo.bedLabel}}</div>
         </span>
         <!-- <span>{{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}</span> -->
         <span>
@@ -222,7 +228,7 @@
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
         </span>
-        <span  v-if="sheetInfo.sheetType == 'postpartum_sdry'" style="margin-left:20px;">
+        <span  v-if="sheetInfo.sheetType == 'postpartum_sdry'" style="margin-left:60px;">
           分娩时间：
           <crDatePicker
             :data-value="sheetInfo.relObj.laborTime"
@@ -306,7 +312,7 @@
 
     <!-- 顺德人医产后产房表头处理 -->
     <template v-if="sheetInfo.sheetType=='postpartum2_sdry' ||  sheetInfo.sheetType=='baby_sdry'" >
-     <span :class="sheetTypeClass">
+     <span :class="sheetTypeClass"  :style="{marginLeft : sheetInfo.sheetType=='baby_sdry' ? '60px': '' }">
         分娩方式：</span>
        <customSelectCanRepeat
           :options="options"
@@ -457,8 +463,18 @@ export default {
     // 特定表单样式
     sheetTypeClass(){
       return{
+        // 产后产房
         'postpartum2-sdry': this.sheetInfo.sheetType === 'postpartum2_sdry',
+        // 爱婴区
         'baby-sdry': this.sheetInfo.sheetType === 'baby_sdry',
+        // 产后护记
+        'postpartum_sdry':this.sheetInfo.sheetType === 'postpartum_sdry',
+        // 新生儿
+        'baby2_sdry':this.sheetInfo.sheetType === 'baby2_sdry',
+        // 产前护记
+        'prenatal_sdry':this.sheetInfo.sheetType === 'prenatal_sdry',
+
+
       }
     },
 
@@ -766,9 +782,16 @@ export default {
 
 <style lang="scss" scoped>
 .baby-sdry {
-  margin-left: 20px;
+  // margin-left: 20px;
+  min-width: 50px !important
 }
+.postpartum_sdry {
+  min-width: 50px !important
 
+}
+.baby2_sdry {
+  min-width: 50px !important
+}
 input.bottom-line {
   border-top: 0;
   border-left: 0;

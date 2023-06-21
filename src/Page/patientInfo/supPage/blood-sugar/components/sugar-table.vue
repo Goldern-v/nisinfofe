@@ -164,7 +164,7 @@
               v-if="item.expand1"
             />
           </div>
-          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'', HOSPITAL_ID=='ytll'?'ytll-img':'' , HOSPITAL_ID=='whsl'?'whsl-img':'', HOSPITAL_ID=='nfyksdyy'?'nfyksdyy-img':'']" v-else>
+          <div :class="['cell','inPrint',HOSPITAL_ID=='guizhou'?'guizhou-img':'',HOSPITAL_ID=='whfk'?'whfk-img':'', HOSPITAL_ID=='ytll'?'ytll-img':'' , HOSPITAL_ID=='whsl'?'whsl-img':'', HOSPITAL_ID=='nfyksdyy'?'nfyksdyy-img':'']" v-else-if='HOSPITAL_ID != "fuyou"'>
             <!-- {{item.nurseEmpNo}} -->
             <img
               :src="`/crNursing/api/file/signImage/${item.nurseEmpNo}?${token}`"

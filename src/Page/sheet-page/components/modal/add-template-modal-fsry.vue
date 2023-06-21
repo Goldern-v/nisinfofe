@@ -28,7 +28,7 @@
       <div flex="main:justify cross:top" style="margin-bottom: 10px">
         <p for class="title" style="margin-right: 10px">内容：</p>
         <!-- 厚街——兼容富文本内容渲染 -->
-        <el-input type="textarea" v-model="content"></el-input>
+        <el-input type="textarea" v-model="content" :rows="5"></el-input>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -55,6 +55,9 @@
     height: 100px;
     width: 100% !important;
     overflow: visible !important;
+  }
+  >>>.el-textarea__inner{
+    height: 180px !important;
   }
 }
 </style>
