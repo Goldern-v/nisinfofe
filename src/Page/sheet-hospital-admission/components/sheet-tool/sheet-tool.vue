@@ -1220,7 +1220,7 @@ export default {
           };
           getVerifyUser(post)
           .then((res) => {
-            this.$message.success("取消签名成功");
+            this.$message.success("签名成功");
             this.bus.$emit("setHosptialAdmissionLoading", {
               status: true,
               msg: "签名中...",

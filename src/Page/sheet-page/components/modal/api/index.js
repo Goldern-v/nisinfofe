@@ -3,6 +3,7 @@ import {
   apiPath
 } from "@/api/apiConfig";
 import qs from "qs";
+import { data } from "jquery";
 
 // 获取医嘱信息
 export const getOrdersExecuteWithPatinetId = (params) => {
@@ -77,4 +78,14 @@ export function bedExchange(params){
  */
 export const updateCommonInfo = (data)=> {
   return axios.post(`${apiPath}record/block/updateInfo` , data)
+}
+
+/*
+* 获取自定义分类数据
+record/titleTempalate/list
+
+*/
+
+export const getTitleTempalateList = (wardCode)=>{
+  return axios.get(`${apiPath}record/titleTempalate/getTitleTemplateType/${wardCode}`)
 }

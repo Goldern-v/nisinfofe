@@ -352,7 +352,6 @@ export default {
     showBtn() {
       this.isShow = !this.isShow;
       this.isActive = !this.isActive;
-      // this.regions = []
       if (this.isShow) {
         var show = document.getElementById("right");
         show.style.marginLeft = "275px";
@@ -698,9 +697,31 @@ export default {
 
           //区分患者转科------------------------------------------------------------------------------------------------------
           if (this.filterObj) {
-            this.regions = list_1.filter(
+            list_1 = list_1.filter(
               item => item.label == this.filterObj.label
             );
+            this.regions = [
+              {
+                label: "护理评估单",
+                type: "record",
+                children: [...list_1]
+              },
+              {
+                label: "护理记录单",
+                type: "sheet",
+                children: [...list_2]
+              },
+              {
+                label: "血糖单",
+                type: "bloodSugar",
+                children: [...list_3]
+              },
+              {
+                label: "健康教育单",
+                type: "healthEducation",
+                children: [...list_4]
+              }
+            ];
           } else {
             this.regions = [
               {
@@ -742,7 +763,6 @@ export default {
       this.$refs.newForm.open(this.filterObj);
     },
     refreshTree(isAllRefresh = false) {
-      if(!(this.$route.query.patientId && this.$route.query.visitId )) return
       if (isAllRefresh) {
         this.expandList = [];
       } else {
@@ -828,7 +848,7 @@ export default {
     this.bus.$on("updateTree", this.updateTree);
     this.bus.$on("getTreeRaw", callback => {
       if (callback) {
-        callback(this.regions);
+        callback(this.regions[0]);
       }
     });
     this.bus.$on("highlightTreeNode", this.onHighlightTreeNode);
