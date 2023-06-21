@@ -188,11 +188,13 @@
       ref="syncRecordRef"
       @on-select="onRecordSelect"
     />
+     <patientInfo v-if="['nfyksdyy'].includes(HOSPITAL_ID)"></patientInfo>
   </div>
 </template>
 
 <script>
 import common from "@/common/mixin/common.mixin";
+import patientInfo from "@/Page/sheet-page/components/sheet-tool/patient-info";
 import FallibleImage from "@/components/FallibleImage/FallibleImage.vue";
 import { pick } from "lodash";
 import print from "printing";
@@ -1092,6 +1094,7 @@ export default {
     SpecialCaseModal,
     SpecialCasePanel,
     SignModal,
+    patientInfo,
     SyncRecord
   }
 };
