@@ -163,6 +163,8 @@ export default {
       this.selectedRow = this.data[rowIndex];
       this.selectedRowIndex = rowIndex;
       this.selectedCol = col;
+      this.$route.query.patientId = this.selectedRow.patientId
+      this.$route.query.visitId = this.selectedRow.visitId
       this.$emit(
         "select",
         this.selectedRow,
