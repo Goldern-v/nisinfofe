@@ -39,7 +39,21 @@
           <input flex-box="1" v-model="data.secondTierDoctor"  />
         </div>
         <div style="height: 15px"></div>
-
+        <div flex="cross:center">
+          <div class="label"><input style="width: 65px;border: none;padding-left: 0;color: #0000FF" v-model="data.customization4" />:</div>
+          <input flex-box="1" v-model="data.classP"  />
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label"><input style="width: 65px;border: none;padding-left: 0;color: #0000FF" v-model="data.customization5"  />:</div>
+          <input flex-box="1" v-model="data.classN"  />
+        </div>
+        <div style="height: 15px"></div>
+        <div flex="cross:center">
+          <div class="label"><input style="width: 65px;border: none;padding-left: 0;color: #0000FF" v-model="data.customization6"/>:</div>
+          <input flex-box="1" v-model="data.classAllP"  />
+        </div>
+        <div style="height: 15px"></div>
       </div>
       <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top"  v-else-if="HOSPITAL_ID=='xiegang'">
         <div flex="cross:center">
