@@ -83,7 +83,7 @@
           ></el-option>
         </el-select>
       </div>
-      <div class="filterButton">
+      <div class="filterButton" v-if="!isNfyksdyy">
         <span>时间筛选关</span>
         <el-switch v-model="query.startFiltering"> </el-switch>
         <span>时间筛选开</span>
