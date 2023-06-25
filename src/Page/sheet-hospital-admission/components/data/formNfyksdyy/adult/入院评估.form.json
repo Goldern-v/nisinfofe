@@ -1053,7 +1053,7 @@
           ]
         },
         {
-          "name": "S0629",
+          "name": "FSSY_G0001",
           "type": "select",
           "title": "GCS评估",
           "style": null,
@@ -1078,7 +1078,7 @@
                   "formUrl": "格拉斯哥昏迷评分量表.html",
                   "callbackInfo": {
                     "needScore": true,
-                    "code": "S0629",
+                    "code": "FSSY_G0001",
                     "prefix": "格拉斯哥昏迷评分量表",
                     "suffix": "分"
                   }
@@ -1138,26 +1138,13 @@
               "inputStyle": "width:100%!important",
               "inputWidth": "100px",
               "labelLeft": true,
-              "suffixDesc": " 瞳孔形状:",
+              "suffixDesc": " 等大等圆:",
               "style": null,
               "class": null,
               "readOnly": null,
               "hiddenTips": true
             },
-            {
-              "name": "I2332038",
-              "type": "input",
-              "title": "",
-              "titleStyle": "width: 95px;",
-              "inputStyle": "width:100%!important",
-              "inputWidth": "100px",
-              "labelLeft": true,
-              "suffixDesc": "等大等圆:",
-              "style": null,
-              "class": null,
-              "readOnly": null,
-              "hiddenTips": true
-            },
+            
             {
               "name": "I2332039",
               "type": "",
@@ -1167,6 +1154,7 @@
               "labelLeft": true,
               "readOnly": null,
               "hiddenTips": true,
+              "suffixDesc": " 等大等圆:",
               "children": [
                 {
                   "name": "I2332039",
@@ -1450,7 +1438,7 @@
       "name": "",
       "type": "formGroupColBox",
       "title": "疼痛部位:有",
-      "col": 3,
+      "col": 4,
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -1479,7 +1467,7 @@
               "title": "",
               "titleStyle": "width:80px!important",
               "inputStyle": "width:100%!important",
-              "inputWidth": "200px",
+              "inputWidth": "100px",
               "suffixDesc": "",
               "style": null,
               "class": null,
@@ -1497,7 +1485,7 @@
           "class": "",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
-          "inputStyle": "width:80%",
+          "inputStyle": "60px",
           "labelLeft": true,
           "hiddenTips": true,
           "rule": [
@@ -1515,7 +1503,7 @@
           "class": "",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
-          "inputStyle": "width:80%",
+          "inputStyle": "100px",
           "labelLeft": true,
           "hiddenTips": true,
           "rule": [
@@ -1524,25 +1512,7 @@
               "style": "color:red"
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "I2332041",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "性质:",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "titleStyle": "margin-top: 7px;",
-      "boxStyle": "height:auto!important",
-      "classes": null,
-      "readOnly": null,
-      "children": [
+        },
         {
           "name": "I2332263",
           "type": "select",
@@ -1571,8 +1541,7 @@
         }
       ]
     },
-
-
+    
     {
       "name": "",
       "type": "formGroupColBox",
@@ -2692,55 +2661,7 @@
         }
       ]
     },
-    {
-      "name": "I2332065",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "活动假牙",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "titleStyle": "margin-top: 7px;",
-      "boxStyle": "height:auto!important",
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "I2332065",
-          "type": "",
-          "title": "活动假牙",
-          "titleStyle": "width:62px!important",
-          "class": null,
-          "boxStyle": "height:auto!important; display: flex",
-          "elementsStyle": "margin-top:8px",
-          "labelLeft": true,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332065",
-              "type": "radio",
-              "title": "无",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332065",
-              "type": "radio",
-              "title": "有",
-              "elementStyle": "margin: 8px 0px 0 0px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            }
-          ]
-        }
-      ]
-    },
+   
     {
       "name": "",
       "type": "formGroupTitle",
@@ -3304,6 +3225,15 @@
               "name": "I2332084",
               "type": "radio",
               "title": "偏瘫",
+              "elementStyle": "margin: 8px 5px 0 0;top:-5px",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332084",
+              "type": "radio",
+              "title": "截瘫",
               "elementStyle": "margin: 8px 5px 0 0;top:-5px",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -5645,7 +5575,18 @@
                     "needScore": true,
                     "code": "S2332163",
                     "prefix": "外科血栓评估",
-                    "suffix": "分"
+                    "suffix":[
+                      {
+                        "max": 3,
+                        "min": 0,
+                        "value": "分，低风险"
+                      },
+                      {
+                        "max": 20,
+                        "min": 4,
+                        "value": "分，高风险"
+                      }
+                    ]
                   }
                 }
               }
@@ -6191,36 +6132,33 @@
         }
       ]
     },
+    
     {
       "name": "",
-      "type": "formGroupHorizontalBox",
-      "colWidth": [
-        "0",
-        "100%"
-      ],
-      "title": "",
-      "parentTitle": "六、护理重点",
-      "showTitle": true,
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "六、护理重点",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
-      "style": "width:100%",
-      "tdStyle": "width:100%",
+      "boxStyle": "padding-left: 0px;",
       "classes": null,
       "readOnly": null,
       "children": [
         {
           "name": "I2332184",
-          "type": "mark",
-          "label": "其他：",
-          "elementStyle": "",
-          "labelWidth": "54px",
-          "textAlign": "left",
-          "rows": "4",
-          "lineFeedFize": "46",
-          "class": "mark"
+          "type": "input",
+          "title": "其他",
+          "titleStyle": "width: 62px",
+          "inputStyle": "width:100%!important",
+          "inputWidth": "100%",
+          "labelLeft": true,
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "hiddenTips": true
         }
       ]
     },

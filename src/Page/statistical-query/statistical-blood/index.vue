@@ -1,25 +1,28 @@
 <template>
-<div class="statistical-operation">
+<div class="statistical-temperature">
   <search-con
     :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
-    datetype="datetime"
+
     @handleExport="handleExport"
     @handleQuery="handleQuery">
-    <div class="search-con__ctx__item" v-if="formData.nursingClass != undefined">
-        护理等级：
-        <ElSelect style="width: 120px;" size="small" :value="formData.nursingClass" @input="handleQuery({nursingClass: $event})" filterable>
-          <ElOption v-for="val in nursingLvs" :key="val.key" :label="val.label" :value="val.key" />
-      </ElSelect>
+    <template>
+      <div class="search-con__ctx__item">
+        血糖：
+        <input-num-range :props="{step: 0.1}" :value="[formData.bloodMin, formData.bloodMax]" @change="(e) => handleIptNum(e,['bloodMin', 'bloodMax'])"/>
       </div>
+      <div class="search-con__ctx__item main-color">
+        <i class="icon iconfont">&#xe6bc;</i>注：血糖查询时的范围包含所输入的区间值
+      </div>
+    </template>
   </search-con>
-  <div class="statistical-operation__content default-content" v-loading.sync="loading">
+  <div class="statistical-temperature__content default-content" v-loading.sync="loading">
     <iview-table
       stripe
       :data="tableData"
       border
-      :height="wih - 182"
+      :height="wih - 222"
       :columns="columns"/>
     <pagination
       :pageIndex="pageIndex"
@@ -31,8 +34,9 @@
 </div>
 </template>
 <style lang='scss' scoped>
-.statistical-operation {
-  .statistical-operation__content {
+@import '../index.scss';
+.statistical-temperature {
+  .statistical-temperature__content {
     >>>.ivu-table {
       width: 100%;
       box-sizing: border-box;
@@ -51,8 +55,8 @@
 <script>
 import commonMixin from '@/common/mixin/common.mixin';
 import SearchCon from '../components/search-con.vue'
+import InputNumRange from '../components/input-num-range.vue'
 import indexMixins from '../mixins/index.mixins'
-import { NURSING_LEVEL } from '../enums';
 import Pagination from '@/components/pagination/pagination.vue'
 
 export default {
@@ -64,8 +68,10 @@ export default {
         beginTime: '',
         endTime: '',
         wardCode: '',
-        // status: 0,
-        nursingClass: '',
+        status: 0,
+        timing: '',
+        bloodMin: 0,
+        bloodMax: 10,
       },
       columns: [
         {
@@ -81,14 +87,14 @@ export default {
 					key: 'wardName',
 					title: '病区',
           align: 'center',
-					minWidth: 100,
+					minWidth: 180,
 				},
         {
-          key: 'bedNo',
-          title: '床号',
+					key: 'bedNo',
+					title: '床号',
           align: 'center',
-          width: 70,
-        },
+					minWidth: 70,
+				},
         {
 					key: 'name',
 					title: '患者姓名',
@@ -114,25 +120,28 @@ export default {
 					minWidth: 100,
 				},
         {
-					key: 'diagnosis',
-					title: '入院诊断',
+					key: 'recordDate',
+					title: '日期',
           align: 'center',
-					minWidth: 100,
+					minWidth: 110,
+          render: (h, { row }) => {
+            return <span>{row.recordDate.split(' ')[0]}</span>
+
+          }
 				},
         {
-					key: 'nursingClass',
-					title: '护理级别',
+					key: 'timing',
+					title: '时间点',
           align: 'center',
-					minWidth: 100,
+					minWidth: 70,
 				},
         {
-					key: 'condition',
-					title: '病危/病重',
+					key: 'bloodSugar',
+					title: '血糖(mmol/L)',
           align: 'center',
 					minWidth: 100,
 				},
       ],
-      nursingLvs: NURSING_LEVEL
     };
   },
   methods: {
@@ -140,6 +149,7 @@ export default {
   },
   components: {
     SearchCon,
+    InputNumRange,
     Pagination,
   }
 };

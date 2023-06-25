@@ -62,8 +62,7 @@
       <!-- <template slot="append" v-if="obj.options"> -->
       <!-- </template> -->
     </el-input>
-    <span v-if ="HOSPITAL_ID === 'nfyksdyy'" class="muban" @click="openTemplateModal"></span>
-    <span v-else class="muban" @click="openTemplateModal">+模板</span>
+    <span  class="muban" @click="openTemplateModal">+模板</span>
   </span>
 </template>
 

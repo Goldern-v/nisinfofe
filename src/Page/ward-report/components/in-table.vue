@@ -1,8 +1,8 @@
 <template>
   <table class="in-table">
     <colgroup>
-      <col width="60px" />
-      <col width="120px" />
+      <col width="30px" />
+      <col width="150px" />
       <col width="60px" />
       <col width="110px" />
       <col />
@@ -23,9 +23,17 @@
       <tr v-for="(item, i) of data" :key="item.name">
         <td>{{index + i}}</td>
         <td
+          v-if="HOSPITAL_ID !== 'xiegang'"
           @click="item.patientId && toPatientHome(item.patientId, item.visitId)"
           style="cursor: pointer"
         >{{item.name}}</td>
+        <td
+          v-else 
+          @click="item.patientId && toPatientHome(item.patientId, item.visitId)" 
+          style="cursor: pointer">{{item.name}}
+          <span v-if="item.patientId">/</span>
+          {{item.patientId}}
+        </td>
         <td>{{item.bedLabel}}</td>
         <td>{{item.isEmergency === '1' ? '√' : ''}}</td>
         <td>{{item.transferFrom}}</td>

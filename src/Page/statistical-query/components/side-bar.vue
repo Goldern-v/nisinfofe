@@ -128,7 +128,35 @@ export default {
               },
             ]
           }
-        })
+        }),
+        ...hisMatch({
+          map: {
+            whsl: [
+              {
+                name: "statisticalBlood",
+                meta: {
+                  title: '血糖统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
+              {
+                name: "statisticalUrineVolume",
+                meta: {
+                  title: '尿量统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
+              {
+                name: "statisticalTumble",
+                meta: {
+                  title: '跌倒统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
+            ],
+            other: []
+          }
+        }),
       ]
     }
   },
