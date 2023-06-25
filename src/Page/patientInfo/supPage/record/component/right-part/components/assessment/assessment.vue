@@ -851,12 +851,13 @@ export default {
           }
         }
       });
-      console.log(allSigned, curForm, treeData, this.info, "info");
+      console.log(allSigned, curForm, treeData, this.info, "info222");
       // curForm.label
       if (
         !allSigned &&
         this.info.title &&
-        (this.info.title.includes("入院评估表")||this.info.title.includes("首次护理记录单"))
+        (this.info.title.includes("入院评估表")||this.info.title.includes("首次护理记录单")) && 
+        this.HOSPITAL_ID !== "hj"
       ) {
         this.$message.warning(`不允许打印,请查看提示详情.`);
         this.$notify({

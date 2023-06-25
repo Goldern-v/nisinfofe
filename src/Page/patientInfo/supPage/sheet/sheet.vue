@@ -418,7 +418,6 @@ export default {
     },
     // 标签切换护记
     onSheetSwitch(sheet) {
-      console.log(sheet,'ddddddddddddddddddddddd');
       if (sheet && sheet.id !== this.currentTag.id) {
         this.currentTag = sheet;
       }
@@ -844,7 +843,6 @@ export default {
               return data
             })
         }
-        console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
         if(this.HOSPITAL_ID == 'wujing'){
             let trueRecordTimes = []
               //因为相同记录跨页日期时间会一样，这时候去判断记录会判断为同一条记录 ，所以要先根据记录日期去重

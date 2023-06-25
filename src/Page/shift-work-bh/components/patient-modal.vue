@@ -1,6 +1,7 @@
 <template>
+  <div class="patientModal">
   <SweetModal
-    ref="modal"
+    :ref="'modal'"
     title="患者ISBAR交班内容"
     :modal-width="760"
     @close="onPanelClose"
@@ -34,13 +35,37 @@
       <a v-if="!isSignedN" class="action" @click="onPanelOpen">+ 模板</a>
     </div>
     <div class="content">
-      <el-button
-        v-if="(tab == '2' || tab == '4') && hasSyncRecord"
-        type="primary"
-        @click="onSyncRecord()"
-        :disabled="isSignedN"
-      >同步护记
-      </el-button>
+      <div class="buttonBox">
+        <el-button
+          v-if="showAdviceBtn"
+          size="mini"
+          type="primary"
+          @click="openPISlide('testModal')"
+        >
+          检验报告
+        </el-button>
+        <el-button
+          v-if="showAdviceBtn"
+          type="primary"
+          size="mini"
+          @click="openPISlide('inspectModal')"
+        >
+          检查报告
+        </el-button>
+        <el-button
+          v-if="showAdviceBtn"
+          size="mini"
+          @click="openModal('adviceModalRef')"
+          >同步医嘱</el-button
+        >
+        <el-button
+          v-if="(tab == '2' || tab == '4') && hasSyncRecord"
+          type="primary"
+          @click="onSyncRecord()"
+          :disabled="isSignedN"
+        >同步护记
+        </el-button>
+      </div>
       <ElTabs class="tabs" v-model="tab" type="card" @input="onTabChange">
         <ElTabPane label="S现状" name="1">
           <div class="label">主要症状</div>
@@ -65,13 +90,22 @@
     <ElButton slot="button" @click="onClose">取消</ElButton>
     <ElButton slot="button" type="primary" @click="onConfirm">保存</ElButton>
   </SweetModal>
+  <advice-modal
+    v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
+    ref="adviceModalRef"
+    @handleOk="handleDiagnosis"
+  />
+  </div>
 </template>
 
 <script>
   import common from '@/common/mixin/common.mixin.js'
+  import AdviceModal from "@/Page/sheet-page/components/modal/advice-modal";
 
   import * as apis from '../apis'
   import Button from './button'
+  import bus from "vue-happy-bus";
+
   const defaultForm = {
     name:'',
     bedLabel:'',
@@ -90,16 +124,27 @@
       date: String,
       syncRecord: Object,
     },
-    data: () => ({
+  data() {
+    return {
       tab: '',
       bedLabelDisabled: false,
       isSignedN: false,
-      form: {...defaultForm}
-    }),
+      form: {...defaultForm},
+      bus: bus(this),
+      }
+    },
     computed: {
       hasSyncRecord() {
         return ['nfyksdyy'].includes(this.HOSPITAL_ID);
-      }
+      },
+      showAdviceBtn() {
+        switch (process.env.HOSPITAL_ID) {
+          case "nfyksdyy":
+            return ['2','3','4'].includes(this.tab);
+          default:
+            return false;
+        }
+      },
     },
     watch: {
       syncRecord: {
@@ -114,6 +159,26 @@
       }
     },
     methods: {
+      handleDiagnosis({ item, key }) {
+        item.forEach((v) => {
+          if (this.doc && v[key]) {
+            this.doc += "\n";
+          }
+          if (this.HOSPITAL_ID === 'fuyou')
+            this.doc += `${v[key]},${v.diagMeasures}`;
+          else
+            this.doc += v[key];
+        });
+      },
+      openModal(key) {
+        this.$refs[key] && this.$refs[key].open();
+      },
+      openPISlide(type) {
+        // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
+        this.$route.query.patientId = this.form.patientId
+        this.$route.query.visitId = this.form.visitId
+        this.bus.$emit("openclosePatientInfo", type, false, true);
+      },
       async open (tab, form, autoFocus, isSignedN) {
         const id = this.$route.params.id;
         const {data: {data}} = await apis.shiftgetPatient(id, form.patientId, form.visitId)
@@ -190,7 +255,8 @@
       }
     },
     components: {
-      Button
+      Button,
+      AdviceModal
     }
   }
 </script>
@@ -245,7 +311,8 @@
   .content
     height 325px
     position relative
-    >>>.el-button
+      
+    >>>.buttonBox
       position absolute
       right 0px
       top 3px

@@ -53,21 +53,21 @@
   },
   {
     "title": "既往史",
-    "type": "formGroupVerticalBox",
+    "type": "formGroupHorizontalBox",
     "name": "",
     "message": "",
     "require": "false",
     "aliasTitle": "",
     "showTitle": true,
     "suffixDesc": "",
-    "keys": "I003003",
+    "keys": "I2332219",
     "style": null,
     "classes": null,
     "readOnly": null,
     "modalWidth": 400,
     "children": [
       {
-        "name": "I2332020",
+        "name": "I2332666",
         "type": "input",
         "title": "其他",
         "value": "",
@@ -278,7 +278,7 @@
       "20%",
       "80%"
     ],
-    "name": "I2332022",
+    "name": "I2332021",
     "message": "",
     "require": "false",
     "aliasTitle": "手术史",
@@ -293,7 +293,7 @@
     "modalWidth": 400,
     "children": [
       {
-        "name": "I2332022",
+        "name": "I2332021",
         "type": "input",
         "inputType": "textarea",
         "title": "手术史",
