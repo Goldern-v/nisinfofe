@@ -486,7 +486,7 @@
                   "其他"
                 ],
                 "title": "既往史",
-                "parentName": "I2332219"
+                "parentName": "I2332666"
               }
             }
           ]
@@ -527,11 +527,11 @@
                 "openKey": "有",
                 "cleanKey": "无",
                 "title": "手术史",
-                "parentName": "I2332021",
+                "parentName": "I2332022",
                 "type": "dependent",
                 "callbackInfo": {
-                  "respCode": "I2332021",
-                  "reqCode": "I2332022"
+                  "respCode": "I2332022",
+                  "reqCode": "I2332021"
                 }
               }
             },
@@ -2764,7 +2764,7 @@
       "suffixDesc": "",
       "keys": "",
       "style": null,
-      "titleStyle": "margin-top: 7px;",
+      "titleStyle": "margin-top: 20px;",
       "boxStyle": "height:auto!important",
       "classes": null,
       "readOnly": null,
