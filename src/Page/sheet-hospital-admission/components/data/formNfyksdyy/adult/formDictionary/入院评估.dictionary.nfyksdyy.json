@@ -53,12 +53,7 @@
             "code": "高血压病",
             "name": "高血压病",
             "pinyin": "gxyb"
-        },
-         {
-            "code": "其他",
-            "name": "其他",
-            "pinyin": "qt"
-        },
+        },  
         {
             "code": "糖尿病",
             "name": "糖尿病",
@@ -95,6 +90,11 @@
             "code": "白内障",
             "name": "白内障",
             "pinyin": "bnz"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
         }
     ],
     "I2332019": [
