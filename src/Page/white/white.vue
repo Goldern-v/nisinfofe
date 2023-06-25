@@ -107,6 +107,9 @@ export default {
           if(!res.data.data.customization1)this.deptInfo.customization1 ='值班医生'
           if(!res.data.data.customization2)this.deptInfo.customization2 ='副班医生'
           if(!res.data.data.customization3)this.deptInfo.customization3 ='门诊医生'
+          if(!res.data.data.customization4)this.deptInfo.customization4 =' 备注1'
+          if(!res.data.data.customization5)this.deptInfo.customization5 =' 备注2'
+          if(!res.data.data.customization6)this.deptInfo.customization6 =' 备注3'
         }
         if(this.deptInfo.message&&this.deptInfo.message!==''){
           this.deptInfo.message = this.deptInfo.message.replace(/<br\/>/g, "\n");
