@@ -1,25 +1,24 @@
 <template>
-<div class="statistical-operation">
+<div class="statistical-pressure">
   <search-con
     :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
-    datetype="datetime"
     @handleExport="handleExport"
     @handleQuery="handleQuery">
-    <div class="search-con__ctx__item" v-if="formData.nursingClass != undefined">
-        护理等级：
-        <ElSelect style="width: 120px;" size="small" :value="formData.nursingClass" @input="handleQuery({nursingClass: $event})" filterable>
-          <ElOption v-for="val in nursingLvs" :key="val.key" :label="val.label" :value="val.key" />
-      </ElSelect>
+    <template>
+      <div class="search-con__ctx__item">
+        评分：
+        <input-num-range :value="[formData.fallDownScoreMin, formData.fallDownScoreMax]" @change="(e) => handleIptNum(e,['fallDownScoreMin', 'fallDownScoreMax'])"/>
       </div>
+    </template>
   </search-con>
-  <div class="statistical-operation__content default-content" v-loading.sync="loading">
+  <div class="statistical-pressure__content default-content" v-loading.sync="loading">
     <iview-table
       stripe
       :data="tableData"
       border
-      :height="wih - 182"
+      :height="wih - 132"
       :columns="columns"/>
     <pagination
       :pageIndex="pageIndex"
@@ -31,8 +30,8 @@
 </div>
 </template>
 <style lang='scss' scoped>
-.statistical-operation {
-  .statistical-operation__content {
+.statistical-pressure {
+  .statistical-pressure__content {
     >>>.ivu-table {
       width: 100%;
       box-sizing: border-box;
@@ -51,8 +50,8 @@
 <script>
 import commonMixin from '@/common/mixin/common.mixin';
 import SearchCon from '../components/search-con.vue'
+import InputNumRange from '../components/input-num-range.vue'
 import indexMixins from '../mixins/index.mixins'
-import { NURSING_LEVEL } from '../enums';
 import Pagination from '@/components/pagination/pagination.vue'
 
 export default {
@@ -64,8 +63,9 @@ export default {
         beginTime: '',
         endTime: '',
         wardCode: '',
-        // status: 0,
-        nursingClass: '',
+        status: 0,
+        fallDownScoreMin: 0,
+        fallDownScoreMax: 5,
       },
       columns: [
         {
@@ -78,17 +78,17 @@ export default {
 					}
 				},
         {
-					key: 'wardName',
-					title: '病区',
+          key: 'wardName',
+          title: '病区',
           align: 'center',
-					minWidth: 100,
-				},
-        {
-          key: 'bedNo',
-          title: '床号',
-          align: 'center',
-          width: 70,
+          minWidth: 180,
         },
+        {
+					key: 'bedNo',
+					title: '床号',
+          align: 'center',
+					minWidth: 70,
+				},
         {
 					key: 'name',
 					title: '患者姓名',
@@ -114,32 +114,34 @@ export default {
 					minWidth: 100,
 				},
         {
-					key: 'diagnosis',
-					title: '入院诊断',
+          key: 'evalDate',
+					title: '日期时间',
+          align: 'center',
+					minWidth: 100,
+          render: (h, { row }) => {
+            return <span>{row.evalDate.split(' ')[0]}</span>
+          }
+				},
+        {
+					key: 'fallDown',
+					title: '跌倒评分',
           align: 'center',
 					minWidth: 100,
 				},
         {
-					key: 'nursingClass',
-					title: '护理级别',
-          align: 'center',
-					minWidth: 100,
-				},
-        {
-					key: 'condition',
-					title: '病危/病重',
+					key: 'evalDesc',
+					title: '风险等级',
           align: 'center',
 					minWidth: 100,
 				},
       ],
-      nursingLvs: NURSING_LEVEL
     };
   },
   methods: {
-
   },
   components: {
     SearchCon,
+    InputNumRange,
     Pagination,
   }
 };

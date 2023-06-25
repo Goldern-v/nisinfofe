@@ -89,6 +89,12 @@ export default {
 					minWidth: 100,
 				},
         {
+          key: 'bedNo',
+          title: '床号',
+          align: 'center',
+          width: 70,
+        },
+        {
 					key: 'name',
 					title: '患者姓名',
           align: 'center',
