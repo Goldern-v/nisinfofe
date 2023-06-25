@@ -2,7 +2,7 @@
   <div>
     <div class="item-con">
       <el-tree
-        v-if="this.HOSPITAL_ID == 'nfyksdyy'"
+        v-if="['nfyksdyy','whhk'].includes(this.HOSPITAL_ID)"
         :data="datalist"
         :render-content="renderContentsdyy"
         @node-click="addTemplateAtDoc"
@@ -101,7 +101,6 @@ import {
   deleteTitleTemplateType
 } from "../api/index";
 import addTitletemplateModalFssy from "../add-title-template-modal-fssy.vue";
-import { children } from "cheerio/lib/api/traversing";
 export default {
   mixins: [common],
   props: {
@@ -141,7 +140,7 @@ export default {
     }
   },
   mounted() {
-    if (this.HOSPITAL_ID == "nfyksdyy") {
+    if (['nfyksdyy','whhk'].includes(this.HOSPITAL_ID)) {
       this.datalist = [];
       for (let key in this.sdyylistData) {
         let treeList = {
