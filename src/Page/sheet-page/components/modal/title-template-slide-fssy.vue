@@ -200,7 +200,7 @@ export default {
     },
     async getData() {
       if (
-        !["foshanrenyi", "fsxt", "gdtj", "lyyz", "nfyksdyy"].includes(
+        !["foshanrenyi", "fsxt", "gdtj", "lyyz", "nfyksdyy", "whhk"].includes(
           this.HOSPITAL_ID
         )
       )
@@ -211,7 +211,7 @@ export default {
       if (!opstObj.wardCode) return;
       let res = await titleTemplateList(opstObj);
       if (res.data.code == "200") {
-        if (this.HOSPITAL_ID == "nfyksdyy") {
+        if (['nfyksdyy','whhk'].includes(this.HOSPITAL_ID)) {
           let typeListData = {};
           if (this.isTemperature) {
             //如果是体温单界面  就只查询体温单的自定义标题
