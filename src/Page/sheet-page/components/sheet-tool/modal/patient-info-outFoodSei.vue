@@ -207,7 +207,7 @@ export default {
                 }
                 return tempArr
             }, [])
-            batchUpdate(allArr).then(res=>{
+            batchUpdate(newArr).then(res=>{
                 this.$emit("refresh")
                 this.$message.success("保存成功")
                 this.close()
