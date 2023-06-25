@@ -17,15 +17,22 @@
               class="search-input"
               placeholder="请输入你要查找的模版…"
               v-model="searchWord"
-            >
+            />
             <whiteButton text icon="icon-search"></whiteButton>
           </div>
           <div class="list-con">
             <!-- <div v-for="(item, key) in filterData" :key="key"> -->
-              <templateItem :listData="filterData" ></templateItem>
+            <templateItem
+              :listData="filterData"
+              :sdyylistData="sdyyFilterData"
+            ></templateItem>
             <!-- </div> -->
           </div>
-          <div class="footer-con" flex="main:center cross:center" @click="openAddModal">
+          <div
+            class="footer-con"
+            flex="main:center cross:center"
+            @click="openAddModal"
+          >
             <i class="iconfont icon-tianjia"></i> 新建模板
           </div>
         </div>
@@ -134,8 +141,7 @@ import whiteButton from "@/components/button/white-button.vue";
 import templateItem from "./components/title-template-item-fssy.vue";
 import addTemplateModal from "./add-title-template-modal-fssy.vue";
 import bus from "vue-happy-bus";
-import {titleTemplateList} from "./api/index"
-import sheetInfo from "../config/sheetInfo/index.js";
+import { titleTemplateList } from "./api/index";
 export default {
   data() {
     return {
@@ -145,31 +151,36 @@ export default {
       searchWord: "",
       selectedTab: "1",
       listMap: [],
+      listMapSdyy: {},
       typeList: [],
-      selectedType: "",
-      selectWidth: 100,
+      selectWidth: 100
     };
   },
   computed: {
     filterData() {
       let listMap = this.listMap;
-      if (!this.searchWord) return listMap
+      if (!this.searchWord) return listMap;
       return listMap.filter(item => {
         return item.title.indexOf(this.searchWord) > -1;
       });
     },
-    isTemperature(){
-      return this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes("temperature")
-    }
-
-  },
-  watch: {
-    selectedType() {
-      if (this.selectedType) {
-        list(this.selectedType).then(res => {
-          this.listMap = res.data.data.list;
-        });
-      }
+    sdyyFilterData() {
+      let listMapSdyy = this.listMapSdyy;
+      if (!this.searchWord) return listMapSdyy;
+      let typeData = Object.keys(listMapSdyy).filter(item => {
+        return item.indexOf(this.searchWord) > -1;
+      });
+      let newListMap = {};
+      typeData.map(item => {
+        newListMap[item] = listMapSdyy[item];
+      });
+      return newListMap;
+    },
+    isTemperature() {
+      return (
+        this.$route.path.includes("newSingleTemperatureChart") ||
+        this.$route.path.includes("temperature")
+      );
     }
   },
   methods: {
@@ -188,19 +199,46 @@ export default {
       this.selectedTab = tab;
     },
     async getData() {
-    if (!['foshanrenyi','fsxt', 'gdtj','lyyz', 'nfyksdyy'].includes(this.HOSPITAL_ID)) return
-      let deptCode = this.$store.state.lesion.deptCode
-      let opstObj = {}
-      opstObj.wardCode = deptCode
-      if(!opstObj.wardCode) return
-      let res = await titleTemplateList(opstObj)
-      if(res.data.code == '200'){
-        if(this.isTemperature){
-          //如果是体温单界面  就只查询体温单的自定义标题
-        this.listMap = res.data.data.filter((x)=>x.recordCode==="bodyTemperature")
-        }else{
-        this.listMap = res.data.data.filter((x)=>x.recordCode!=="bodyTemperature")
-
+      if (
+        !["foshanrenyi", "fsxt", "gdtj", "lyyz", "nfyksdyy"].includes(
+          this.HOSPITAL_ID
+        )
+      )
+        return;
+      let deptCode = this.$store.state.lesion.deptCode;
+      let opstObj = {};
+      opstObj.wardCode = deptCode;
+      if (!opstObj.wardCode) return;
+      let res = await titleTemplateList(opstObj);
+      if (res.data.code == "200") {
+        if (this.HOSPITAL_ID == "nfyksdyy") {
+          let typeListData = {};
+          if (this.isTemperature) {
+            //如果是体温单界面  就只查询体温单的自定义标题
+            for (let key in res.data.data) {
+              typeListData[key] = Object.values(res.data.data[key]).filter(
+                x => x.recordCode === "bodyTemperature"
+              );
+            }
+          } else {
+            for (let key in res.data.data) {
+              typeListData[key] = Object.values(res.data.data[key]).filter(
+                x => x.recordCode !== "bodyTemperature"
+              );
+            }
+          }
+          this.listMapSdyy = typeListData;
+        } else {
+          if (this.isTemperature) {
+            //如果是体温单界面  就只查询体温单的自定义标题
+            this.listMap = res.data.data.filter(
+              x => x.recordCode === "bodyTemperature"
+            );
+          } else {
+            this.listMap = res.data.data.filter(
+              x => x.recordCode !== "bodyTemperature"
+            );
+          }
         }
       }
     },
@@ -212,17 +250,17 @@ export default {
     }
   },
   created() {
-    this.getData()
+    this.getData();
   },
   mounted() {
-    this.show = false
+    this.show = false;
     this.bus.$on("refreshTitleTemplate", this.getData);
   },
 
   components: {
     whiteButton,
     templateItem,
-    addTemplateModal,
+    addTemplateModal
   }
 };
 </script>

@@ -2155,9 +2155,6 @@ export default {
         scrollTop: 0,
       });
     },
-    "sheetInfo.selectBlock.id"(newValue){
-      console.log('ddd');
-    },
     patientId:{
       handler() {
         this.oldSelectList = []
