@@ -59,7 +59,7 @@
       box-shadow:none ;
       height: 1350px ;
       padding-top:0 ;
-      margin-top:0;
+      // margin-top:0;
     }
     >>> .blood-sugar-table.table-box td{
       height: 41px;
