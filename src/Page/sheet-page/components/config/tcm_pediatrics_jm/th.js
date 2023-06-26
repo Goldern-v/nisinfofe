@@ -112,7 +112,7 @@ export default {
         canSet: false,
       },
       {
-        name: `舌苔`,
+        name: `舌像`,
         colspan: '1',
         rowspan: '3',
         style: {
@@ -121,7 +121,7 @@ export default {
         }
       },
       {
-        name: `脉`,
+        name: `脉象`,
         colspan: '1',
         rowspan: '3',
         style: {
@@ -196,6 +196,14 @@ export default {
       {
         name: `
         护士签名
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        上级护士签名
         `,
         style: {},
         colspan: '1',

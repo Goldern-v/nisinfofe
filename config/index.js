@@ -89,8 +89,8 @@ const currentTargetUrl = (() => {
     case "fuyou":
       // return "http://218.14.180.38:9094" // 江门妇幼正式
           // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
-      // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
-      return "http://192.168.3.154:8080" // 本地
+      return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
+      // return "http://192.168.3.154:8080" // 本地
 
 
     /** 中山七 */

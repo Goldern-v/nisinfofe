@@ -137,9 +137,9 @@ export default [{
   }
 },
 {
-  key: "fieldFive", //舌苔
+  key: "fieldFive", //舌像
   value: "",
-  name: "舌苔",
+  name: "舌像",
   next: "",
   event: keyf1,
   textarea: {
@@ -147,9 +147,9 @@ export default [{
   }
 },
 {
-  key: "fieldSix", //脉
+  key: "fieldSix", //脉象
   value: "",
-  name: "脉",
+  name: "脉象",
   next: "",
   event: keyf1,
   textarea: {
@@ -225,10 +225,10 @@ export default [{
   key: "sign",
   value: ""
 },
-// {
-//   key: "audit",
-//   value: ""
-// },
+{
+  key: "audit",
+  value: ""
+},
 {
   hidden: true,
   key: "id",
