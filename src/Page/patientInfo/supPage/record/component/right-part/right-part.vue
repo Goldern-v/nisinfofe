@@ -260,8 +260,9 @@ export default {
       ) {
         this.formVersion = data.formVersion;
         this.showConToolBar = false;
-        console.log("~~~~openAssessmentV2");
-        this.bus.$emit("openAssessmentV2", data);
+        this.$nextTick(()=>{
+          this.bus.$emit("openAssessmentV2", data);
+        })
       } else if (data.nooForm == 1 || data.formVersion == 0) {
         console.log("~~~~openAssessment");
         this.bus.$emit("openAssessment", data);

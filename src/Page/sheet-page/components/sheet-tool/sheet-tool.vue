@@ -1161,7 +1161,7 @@ export default {
 
         !isAddPageFlag && this.updateSheetPageInfo(this.pageArea)
         if((this.$route.path.includes('/formPage') && this.HOSPITAL_ID == 'nfyksdyy')||(this.$route.query.patientId && this.$route.query.visitId)){
-            this.bus.$emit('refreshTree', true)
+            this.bus.$emit('refreshTree')
           }
       } catch (error) { }
     },
@@ -1723,7 +1723,7 @@ export default {
           }
 
           if((this.$route.path.includes('/formPage') && this.HOSPITAL_ID == 'nfyksdyy')||(this.$route.query.patientId && this.$route.query.visitId)){
-            this.bus.$emit('refreshTree', true)
+            this.bus.$emit('refreshTree')
           }
         });
       }
