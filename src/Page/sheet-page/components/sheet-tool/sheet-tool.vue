@@ -1161,7 +1161,7 @@ export default {
 
         !isAddPageFlag && this.updateSheetPageInfo(this.pageArea)
         if((this.$route.path.includes('/formPage') && this.HOSPITAL_ID == 'nfyksdyy')||(this.$route.query.patientId && this.$route.query.visitId)){
-            this.bus.$emit('refreshTree', true)
+            this.bus.$emit('refreshTree')
           }
       } catch (error) { }
     },
@@ -1449,7 +1449,6 @@ export default {
           this.patientInfo.visitId,
           this.deptCode
         ).then((res) => {
-          this.sheetInfo.relObj = {}
           this.sheetBlockList.forEach((item) => {
             try {
               let currObj = res.data.data.list.find((obj) => obj.id == item.id);
@@ -1723,7 +1722,7 @@ export default {
           }
 
           if((this.$route.path.includes('/formPage') && this.HOSPITAL_ID == 'nfyksdyy')||(this.$route.query.patientId && this.$route.query.visitId)){
-            this.bus.$emit('refreshTree', true)
+            this.bus.$emit('refreshTree')
           }
         });
       }

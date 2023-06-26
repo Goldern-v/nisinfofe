@@ -155,10 +155,10 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "173px",
+      width: "180px",
       background: "transparent"
     },
-    event: function (e, td) {
+    event: function(e, td) {
       console.log(e.keyCode);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

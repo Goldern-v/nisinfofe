@@ -1184,7 +1184,7 @@ export default {
               return admObj[items];
             });
             return this.admitted.length
-              ? judgeList.every(judge => judge == true)
+              ? judgeList.includes(true)
               : item.patientId;
           } else {
             return {

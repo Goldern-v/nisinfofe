@@ -94,13 +94,13 @@ export default {
         },
         colspan: '1',
         rowspan: '3'
-      }, {
+      },  {
         name: `
         特殊情况记录
         `,
         style: {
-          minWidth: "173px",
-          maxWidth: "173px"
+          minWidth: "153px",
+          maxWidth: "153px"
         },
         colspan: "1",
         rowspan: "3"
