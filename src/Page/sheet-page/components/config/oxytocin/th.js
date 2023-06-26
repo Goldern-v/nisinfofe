@@ -34,69 +34,8 @@ export default {
         minWidth: '50px',
         maxWidth: '50px'
       },
-<<<<<<< Updated upstream
-      //  {
-      //   name: `宫缩<br/>强度`,
-      //   style: {
-      //     minWidth: '50px',
-      //     maxWidth: '50px'
-      //   },
-      //   colspan: '1',
-      //   rowspan: '3'
-      // },
-       {
-        name: `胎方位`,
-        style: {
-          minWidth: '50px',
-          maxWidth: '50px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      }, {
-        name: `胎心`,
-        style: {
-          minWidth: '50px',
-          maxWidth: '50px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      }, {
-        name: `宫口<br/>扩张`,
-        style: {
-          minWidth: '50px',
-          maxWidth: '50px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      }, {
-        name: `先露<br/>高低`,
-        style: {
-          minWidth: '50px',
-          maxWidth: '50px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      }, {
-        name: `血压<br/>mmHg`,
-        style: {
-          minWidth: '50px',
-          maxWidth: '50px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      },  {
-        name: `
-        特殊情况记录
-        `,
-        style: {
-          minWidth: "153px",
-          maxWidth: "153px"
-        },
-        colspan: "1",
-        rowspan: "3"
-      }, {
-        name: `
-=======
+
+
       colspan: '1',
       rowspan: '3'
     }, {
@@ -169,7 +108,6 @@ export default {
       rowspan: "1"
     }, {
       name: `
->>>>>>> Stashed changes
         护士签名
         `,
       style: {
