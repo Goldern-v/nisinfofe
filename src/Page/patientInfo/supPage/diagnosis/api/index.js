@@ -117,3 +117,12 @@ export const getTemplateApi = ()=>{
 export const getMatchVital = (params) => {
   return axios.post(`${apiPath}match/vital`, params)
 }
+
+/**
+ * 护理诊断计划签名
+ * @param {*} params id: 护理诊断计划id, empNo, password, type: 普通签名："1"；评价签名："2"
+ * @returns
+ */
+export const doDiagsSign = (params) => {
+  return axios.post(`${apiPath}nursingDiags/sign`, params)
+}

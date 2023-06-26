@@ -180,10 +180,11 @@ export default {
     extraList() {
       switch(this.HOSPITAL_ID) {
         case 'huadu':
+        case 'zhzxy':
           return [
             {
               name: '360视图',
-              url: this.url360Hd()
+              url: this.url360()
             }
           ]
         default:
@@ -207,9 +208,16 @@ export default {
         window.open(`http://hz360.fsyyy.com:8081/cdr/personal/?patientId=${this.$route.query.patientId}&visitNumber=1&systemcode=HLXT&doctorcode=${JSON.parse(localStorage.user).empNo}&oporIp=IP`)
       }else this.$refs[name].open(feature);
     },
-    url360Hd() {
-      const { inpNo = '' } = this.$route.query
-      return `http://172.16.8.135:9092/?vid=${inpNo}&vidType=02&appId=360&security=123#/personInfo`;
+    url360() {
+      const { inpNo = '', patientId } = this.$route.query
+      const { empNo } = (JSON.parse(localStorage.user) || {})
+      const huaduURL = `http://172.16.8.135:9092/?vid=${inpNo}&vidType=02&appId=360&security=123#/personInfo`;
+      const zhzxyURL = `http://10.95.6.17:9016/index.html#appid=FFEC62BF-AFE5-49CA-8E64-8A5AE79D8DEF&ysdm=${empNo}&  hzid=${patientId}&jzlb=3`;
+      const url360Map = {
+        'huadu': huaduURL,
+        'zhzxy': zhzxyURL
+      }
+      return url360Map[this.HOSPITAL_ID];
     },
   },
   created() {},
