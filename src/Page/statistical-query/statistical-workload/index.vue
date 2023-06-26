@@ -125,7 +125,13 @@ export default {
             align: 'center',
             width: 150,
             fixed: 'left',
-          }
+          },
+          {
+            key: 'bedNo',
+            title: '床号',
+            align: 'center',
+            width: 70,
+          },
         ],
         nurse: [
           {
