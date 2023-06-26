@@ -52,17 +52,29 @@ export default [{
       width: 50
     }
   }, {
-    key: "fieldThree", //宫缩
+    key: "fieldThree1", //宫缩间歇
     value: "",
     event: keyf1,
-    name: "宫缩",
-    autoComplete: {
-      data: 宫缩
-    },
+    name: "宫缩间歇1",
+    // autoComplete: {
+    //   data: 宫缩
+    // },
     textarea: {
-      width: 50
+      width: 30
     }
-  }, 
+  },
+  {
+    key: "fieldThree2", //宫缩间歇
+    value: "",
+    event: keyf1,
+    name: "宫缩间歇2",
+    // autoComplete: {
+    //   data: 宫缩
+    // },
+    textarea: {
+      width: 30
+    }
+  },
   // {
   //   key: "fieldSeven", //宫缩强度
   //   value: "",
@@ -74,7 +86,7 @@ export default [{
   //   textarea: {
   //     width: 50
   //   }
-  // }, 
+  // },
   {
     key: "fieldEight", //胎方位
     value: "",
@@ -133,7 +145,8 @@ export default [{
     textarea: {
       width: 50
     }
-  }, {
+  },
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -142,7 +155,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "200px",
+      width: "173px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -236,7 +249,7 @@ export default [{
 
 export function getListData4() {
   let list = [
-    "宫缩",
+    // "宫缩",
     // "宫缩强度",
     "胎方位",
     "胎心",
@@ -245,7 +258,7 @@ export function getListData4() {
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    setList(宫缩, "宫缩", data);
+    // setList(宫缩, "宫缩", data);
     // setList(宫缩强度, "宫缩强度", data);
     setList(胎方位, "胎方位", data);
     setList(胎心, "胎心", data);

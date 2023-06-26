@@ -2412,6 +2412,7 @@ export default {
             } else {
               this.toCopyRow(index);
             }
+            console.log(index);
           },
         },
         {
@@ -2477,7 +2478,10 @@ export default {
                     })||{}).value;
                     const first = this.sheetInfo.extraData&&this.sheetInfo.extraData.first || []
                     const last = this.sheetInfo.extraData&&this.sheetInfo.extraData.last || []
-                    const listData = [...first,...this.listData,...last]
+                    let listData = []
+                    if(this.listData){
+                      listData = [...first,...this.listData,...last]
+                    }
                     let idList = []
                     if(barCode){
                       idList = listData.filter(list => (list.id&&(list.expand == barCode))).map(list=>list.id)
