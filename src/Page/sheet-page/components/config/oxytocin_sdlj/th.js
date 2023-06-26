@@ -8,14 +8,32 @@ export default {
   },
   th: {
     top: [
+      // {
+      //   name: '',
+      //   style: {},
+      //   colspan: "2",
+      //   rowspan: "1",
+      //   key:'recordYear'
+      // },
       {
-        name: '',
-        style: {},
-        colspan: "2",
-        rowspan: "1",
-        key:'recordYear'
+        name: '日期',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+          // display: 'none',
+        },
+        colspan: '1',
+        rowspan: '3'
       },
-
+      {
+        name: '时间',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px'
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
       {
         name: '体温<br/>（℃）',
         style: {
@@ -152,25 +170,7 @@ export default {
       // }
     ],
     mid: [
-      {
-        name: '日期',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-          // display: 'none',
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: '时间',
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px'
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
+      
     ],
     bottom: [
     ]

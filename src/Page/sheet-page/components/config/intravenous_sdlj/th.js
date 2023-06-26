@@ -34,7 +34,7 @@ export default {
                 {"name":"胎动<br/>(次/时)","colspan":"1","rowspan":"3"},
                 {"name":"阴道出血量/颜色<br/>(ml)","colspan":"1","rowspan":"3","style":{"minWidth":"35px","maxWidth":"35px"}},
 
-                {"name":"尿量<br/>(ml)","colspan":"1","rowspan":"3"},
+                // {"name":"尿量<br/>(ml)","colspan":"1","rowspan":"3"},
                 {"name":"膝反射","colspan":"2","rowspan":"1"},
                 {
                     name: `
@@ -55,6 +55,7 @@ export default {
                 {"name":"","colspan":"1","rowspan":"3",canSet: true, key: "armValue","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3",canSet: true, key: "armValue2","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"","colspan":"1","rowspan":"3",canSet: true, key: "armValue3","style":{"minWidth":"35px","maxWidth":"35px"}},
+                {"name":"","colspan":"1","rowspan":"3",canSet: true, key: "armValue4","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"55px","maxWidth":"55px"}},
                 // {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"55px","maxWidth":"55px"}}
