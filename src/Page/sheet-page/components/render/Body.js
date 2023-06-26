@@ -655,11 +655,6 @@ function switchSheetType(type) {
       schema = require("../config/body_temperature_hj/tr.js").default;
     }
       break;
-      // case "body_temperature_hl": {
-      //   // 横沥 - 体温单
-      //   schema = require("../config/body_temperature_hl/tr.js").default;
-      // }
-      break;
     case "internal_eval_lcey": {
       // 聊城二院 - (内科)一般患者护理评估记录单
       schema = require("../config/internal_eval_lcey/tr.js").default;
@@ -1731,6 +1726,11 @@ function switchSheetType(type) {
       schema = require("../config/neurosurgery_qhwy/tr.js").default;
     }
       break;
+    case "neonatal_care_qhwy": {
+        // 青海五院 - 肿瘤新生儿护理记录单
+      schema = require("../config/neonatal_care_qhwy/tr.js").default;
+    }
+      break;
     case "nurse_jew": {
         // 925医院 - 一般患者护理记录单
       schema = require("../config/nurse_jew/tr.js").default;
@@ -1771,6 +1771,16 @@ function switchSheetType(type) {
       schema = require("../config/critical_new_weihai/tr.js").default;
     }
     break;
+    case "third_round_records": {
+      // 威海市立--三级护理查房
+      schema = require("../config/third_round_records/tr.js").default;
+    }
+      break;
+    case "follow_doctor_check_records": {
+      // 威海市立--跟随医生查房
+      schema = require("../config/follow_doctor_check_records/tr.js").default;
+    }
+      break;
     case "oxytocin_weihai": {
       // 威海市立 -静脉点滴催产素引产观察表
       schema = require("../config/oxytocin_weihai/tr.js").default

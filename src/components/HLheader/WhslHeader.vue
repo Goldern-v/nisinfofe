@@ -37,7 +37,7 @@
                 <i class="iconfont icon-hulijiludan"></i>执行单
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                     :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
                 >
                   <router-link to="/bottleLabelByProgram" tag="span">
@@ -45,7 +45,7 @@
                       <i class="wardReport"></i>执行瓶签打印
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <el-dropdown-item
                   :class="{ active: $route.path == '/implementationList' }">
                   <router-link to="/implementationList" tag="span">

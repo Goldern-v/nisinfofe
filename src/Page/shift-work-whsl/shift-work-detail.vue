@@ -24,7 +24,7 @@
         @click="onCreateModalOpen($route.params.code)"
       >创建交班志</Placeholder>
       <div class="paper" v-else>
-        <div ref="printable" data-print-style="height: auto;">
+        <div ref="printable" class="prinTable" data-print-style="height: auto;">
           <div class="head shift-paper">
             <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
             <h1 class="title">{{deptName}}</h1>
@@ -349,7 +349,7 @@ export default {
             {
               label: "类型",
               prop: "patientStatus",
-              width: "53",
+              width: this.HOSPITAL_ID=="whsl"? "45" : "53",
               align: "center",
             },
             {
@@ -378,13 +378,13 @@ export default {
               label: "主要诊断",
               prop: "diagnosis",
               editable: true,
-              width: "80"
+              width: this.HOSPITAL_ID=="whsl"? "50" : "80"
             },
             {
               label: "护理诊断及主要问题",
               prop: "mainComplaint",
               editable: true,
-              width: "90"
+              width: this.HOSPITAL_ID=="whsl"? "60" : "90"
             }
           ]
         },
@@ -392,11 +392,10 @@ export default {
           label: "B（背景）",
           columns: [
             {
-              label: "既往病史、治疗经过、治",
-              label2: '疗效果跟踪',
+              label: "主诉",
               prop: "background",
               editable: true,
-              width: '150'
+              width: '200'
             }
           ]
         } :
@@ -415,10 +414,10 @@ export default {
           label: "A（评估）",
           columns: [
             {
-              label: "护理评估及护理记录",
+              label: "护理评估及护理措施",
               prop: "assessmentSituation",
               editable: true,
-              width: this.HOSPITAL_ID=="whsl"? "150" : "200"
+              width: "200"
             }
           ]
         },
@@ -429,7 +428,7 @@ export default {
               label: "交给下一班观察重点 ",
               prop: "proposal",
               editable: true,
-              width: this.HOSPITAL_ID=="whsl"? "150" : "200"
+              width: this.HOSPITAL_ID=="whsl"? "180" : "200"
             }
           ]
         },
@@ -1085,6 +1084,10 @@ export default {
         .fixedTh {
           display: none !important;
           height: auto;
+        }
+        .prinTable .textarea {
+          font-size: 12px;
+          zoom: 0.8;
         }
         pre {
           white-space: pre-wrap;

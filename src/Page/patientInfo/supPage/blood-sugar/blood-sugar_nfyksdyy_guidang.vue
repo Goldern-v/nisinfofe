@@ -507,7 +507,6 @@ if(this.selected.expand2!==undefined){
       this.pageLoading = false;
 
       this.hisPatSugarList = res.data.data.hisPatSugarList;
-      console.log('this.hisPatSugarList',this.hisPatSugarList)
       /** 时间排序 */
       let list = res.data.data.hisPatSugarList.sort(
         (a, b) =>

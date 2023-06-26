@@ -401,10 +401,13 @@ export default {
         }
         console.log('formCode', this.info.formCode)
         // 厚街（手术患者交接记录单第三方查阅时可以编辑，显示top-bar按钮）
+        const hospitalRules = {
+          'hj': ['J0010', 'operationInstrumentDressing'].includes(this.info.formCode),
+          'zhzxy': ['ZHZXY_E0007', 'ZHZXY_E0031', 'ZHZXY_E0004'].includes(this.info.formCode),
+        }
         if (
           wid.document.querySelector(".top-bar") &&
-          this.HOSPITAL_ID == 'hj' &&
-          (this.info.formCode == 'J0010' || this.info.formCode == 'operationInstrumentDressing')
+          hospitalRules[this.HOSPITAL_ID]
         ) {
           wid.document.querySelector(".top-bar").style = "display: flex;";
           wid.document.querySelector("body").style = "padding-top:50px;";
@@ -520,25 +523,16 @@ export default {
               pointer-events: none !important;
           }`;
           // 厚街（手术患者交接记录单第三方查阅时可以编辑）ZHZXY_E0007      ZHZXY_E0004
-          let listHospital = [
-              ()=> this.HOSPITAL_ID == 'hj' && (this.info.formCode == 'J0010' || this.info.formCode == 'operationInstrumentDressing'),
-              ()=> this.HOSPITAL_ID == 'zhzxy' && (this.info.formCode == 'ZHZXY_E0007' || this.info.formCode == 'ZHZXY_E000'|| this.info.formCode == 'E1760'|| this.info.formCode == 'ZHZXY_E0031'),
-          ]
-          if (listHospital[0]() || listHospital[1]()) {
+          const hospitalRules = {
+            'hj': ['J0010', 'operationInstrumentDressing'].includes(this.info.formCode),
+            'zhzxy': ['ZHZXY_E0007', 'ZHZXY_E000', 'E1760', 'ZHZXY_E0031', 'ZHZXY_E0004'].includes(this.info.formCode),
+            'whsl': true
+          }
+          if (hospitalRules[this.HOSPITAL_ID]) {
             css = `#app input,#app label,#app td,#app .sign-con{
             }`;
           }
-          if(this.HOSPITAL_ID == 'whsl'){
-            css = `#app input,#app label,#app td,#app .sign-con{
-            }`;
-          }
-          if (
-            this.HOSPITAL_ID == 'hj' &&
-            (this.info.formCode == 'J0010' || this.info.formCode == 'operationInstrumentDressing')
-          ) {
-            css = `#app input,#app label,#app td,#app .sign-con{
-            }`;
-          }
+
           var style = document.createElement("style");
           style.type = "text/css";
           try {
@@ -694,7 +688,8 @@ export default {
       if (
         !allSigned &&
         this.info.title &&
-        !this.info.title.includes("入院评估表")
+        !this.info.title.includes("入院评估表") &&
+        this.HOSPITAL_ID !== "hj"
       ) {
         this.$message.warning(`不允许打印,请查看提示详情.`);
         this.$notify({

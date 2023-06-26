@@ -444,6 +444,9 @@ const StatisticalConsultation = () => import("@/Page/statistical-query/statistic
 const StatisticalConsultationZhzxy = () => import("@/Page/statistical-query/statistical-consultation-zhzxy/index.vue")
 const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
 const CriticalValue = () => import("@/Page/criticalValue/table.vue")
+const StatisticalBlood = () => import("@/Page/statistical-query/statistical-blood")
+const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
+const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 // 执行单路由
@@ -466,6 +469,7 @@ const getImplementation = () => {
     case 'zhzxy':
     case "stmz":
     case 'beihairenyi':
+    case 'dglb':
     case 'qhwy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
     case 'wujing':
@@ -1886,6 +1890,30 @@ const router = new Router({
                   return StatisticalConsultation;
               }
             })(),
+          },
+          {
+            path: "statisticalBlood",
+            name: "statisticalBlood",
+            meta: {
+              title: '血糖统计'
+            },
+            component: StatisticalBlood,
+          },
+          {
+            path: "statisticalUrineVolume",
+            name: "statisticalUrineVolume",
+            meta: {
+              title: '尿量统计'
+            },
+            component: StatisticalUrineVolume
+          },
+          {
+            path: "statisticalTumble",
+            name: "statisticalTumble",
+            meta: {
+              title: '跌倒统计'
+            },
+            component: StatisticalTumble
           },
         ]
       },

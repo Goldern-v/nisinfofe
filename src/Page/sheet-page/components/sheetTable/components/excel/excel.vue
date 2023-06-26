@@ -666,8 +666,9 @@
           >质控护士：</span
         >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
-          >护士签名：</span
-        >
+          >护士签名：</span>
+        <span v-else-if="sheetInfo.sheetType == 'postpartum2_dglb'"
+          >审核者：</span>
         <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' ||
           sheetInfo.sheetType == 'cardiology_tj' ||
           sheetInfo.sheetType == 'critical_new_lc'||
@@ -840,6 +841,7 @@ export default {
         "stress_injury_hd",
         "wait_delivery_hd",
         "neurosurgery_hd",
+        "postpartum2_dglb",
         "neonatology_hd",
         "neonatology2_hd",
         "Record_Children_Serious_Lc",
@@ -2410,6 +2412,7 @@ export default {
             } else {
               this.toCopyRow(index);
             }
+            console.log(index);
           },
         },
         {
@@ -2475,7 +2478,10 @@ export default {
                     })||{}).value;
                     const first = this.sheetInfo.extraData&&this.sheetInfo.extraData.first || []
                     const last = this.sheetInfo.extraData&&this.sheetInfo.extraData.last || []
-                    const listData = [...first,...this.listData,...last]
+                    let listData = []
+                    if(this.listData){
+                      listData = [...first,...this.listData,...last]
+                    }
                     let idList = []
                     if(barCode){
                       idList = listData.filter(list => (list.id&&(list.expand == barCode))).map(list=>list.id)

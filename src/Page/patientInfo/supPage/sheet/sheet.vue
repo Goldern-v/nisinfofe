@@ -745,6 +745,8 @@ export default {
     },
   },
   created() {
+    // 文书单子统计打开记录单
+    this.bus.$on("openSheetTag", (tag)=>{this.onSheetSwitch(tag)})
     //第三方浏览界面 是路由传的患者信息 所以一开始先清空界面VUEX的信息，再提交路由的
     this.getDate();
     this.$store.commit("upPatientInfo", {});
@@ -841,7 +843,6 @@ export default {
               return data
             })
         }
-        console.log('执行保存接口,保存数据==============>>>>>>',ayncVisitedDataList)
         if(this.HOSPITAL_ID == 'wujing'){
             let trueRecordTimes = []
               //因为相同记录跨页日期时间会一样，这时候去判断记录会判断为同一条记录 ，所以要先根据记录日期去重
@@ -1044,7 +1045,7 @@ export default {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
-          if(["whsl"].includes(this.HOSPITAL_ID)){
+          if(["whsl","nfyksdyy",'hj'].includes(this.HOSPITAL_ID)){
             newWid.location.href = `/crNursing/print/sheetPage?sheetType=${this.sheetInfo.sheetType}`;
           }else newWid.location.href = `/crNursing/print/sheetPage`;
         } else {

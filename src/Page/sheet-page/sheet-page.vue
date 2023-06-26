@@ -1242,7 +1242,7 @@ export default {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
-          if(["whsl"].includes(this.HOSPITAL_ID)){
+          if(["whsl","nfyksdyy",'hj'].includes(this.HOSPITAL_ID)){
             newWid.location.href = `/crNursing/print/sheetPage?sheetType=${this.sheetInfo.sheetType}`;
           }else newWid.location.href = `/crNursing/print/sheetPage`;
         } else {

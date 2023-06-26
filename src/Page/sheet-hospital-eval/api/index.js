@@ -61,6 +61,14 @@ export function cancelSignOrAduit(postData) {
   return axios.post(`${apiPath}form/design/cancelSignOrAduit `, postData);
 }
 
+
+
+// 校验签名
+export function getVerifyUser(params) {
+  return axios.post(`${apiPath}user/getUser`, params);
+}
+
+
 // formDesign - 新表单：获取数据
 /**
 {

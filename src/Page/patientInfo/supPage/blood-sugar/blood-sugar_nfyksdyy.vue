@@ -5,7 +5,7 @@
     :style="{ ' height': containHeight }"
   >
     <div ref="Contain" @mousewheel="(e) => onScroll(e)">
-      <div v-show="!isChart" class="blood-sugar-con">
+      <div v-show="!isChart" class="blood-sugar-con" :style="$route.path == '/formPage' && HOSPITAL_ID =='nfyksdyy' ? 'overflow: auto; height: calc(100vh - 105px);' : '' ">
         <div
           class="sugr-page"
           v-for="(item, index) in listMap"

@@ -9,7 +9,15 @@
     />
     <div class="content">
       <div class="left-part" id="left" :style="treeOpenLeft ? 'width: 0': 'width: 260px'">
+        <tree-sdyy
+        v-if="HOSPITAL_ID == 'nfyksdyy'"
+          ref="tree"
+          :filterObj="filterObj"
+          :hasTagsView="hasTagsView"
+          @openFormTag="onMountTag"
+        ></tree-sdyy>
         <tree
+        v-else
           ref="tree"
           :filterObj="filterObj"
           :hasTagsView="hasTagsView"
@@ -26,7 +34,7 @@
     <templateSlideFoshanshiyi  ref="templateSlideFoshanshiyi" />
     <!-- 诊断右侧弹窗 -->
     <diagnosisSlide ref="diagnosisSlide" :formObj="formObj"/>
-    <!-- 诊断弹窗 --> 
+    <!-- 诊断弹窗 -->
     <diagnosisModal ref="diagnosisModal" :formObj="formObj"/>
   </div>
 </template>
@@ -61,6 +69,7 @@ import templateSlide from "@/Page/sheet-hospital-admission/components/Render/mod
 import templateSlideFoshanshiyi from '@/Page/sheet-hospital-admission/components/Render/modal/template-slide/template-slide_foshanshiyi.vue'
 import diagnosisSlide from "@/Page/sheet-hospital-eval/components/Render/modal/diagnosisSlide.vue";
 import diagnosisModal from "@/Page/sheet-hospital-admission/components/Render/modal/diagnosis-modal.vue";
+import TreeSdyy from './component/tree-sdyy.vue';
 export default {
   props: {
     filterObj: Object
@@ -173,7 +182,7 @@ export default {
     },
     openTemplateModal(field,cb) {
       // if (this.HOSPITAL_ID === 'foshanrenyi'||this.HOSPITAL_ID === 'nfyksdyy')
-      // { 
+      // {
       //   this.$refs.templateSlideFoshanshiyi.open(field,true,true,cb);
       // } else {
       //   this.$refs.templateSlide.open(field,true,true,cb);
@@ -218,7 +227,8 @@ export default {
     templateSlide,
     templateSlideFoshanshiyi,
     diagnosisSlide,
-    diagnosisModal
+    diagnosisModal,
+    TreeSdyy
   },
   // beforeRouteLeave: (to, from, next) => {
   //   const isSave = localStorage.getItem('isSave')

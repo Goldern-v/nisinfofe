@@ -250,6 +250,12 @@ function getExecuteType() {
   console.log('hjm发请求')
   return axios.post(`${apiPath}procedure/pdaExecute/type`)
 }
+// 健康教育的下拉列表
+export const getEduFormList = params => {
+  return axios.get(
+    `${apiPath}missionBlock/getBlockByPV/${params.patientId}/${params.visitId}`
+  );
+};
 
 export {
   info,

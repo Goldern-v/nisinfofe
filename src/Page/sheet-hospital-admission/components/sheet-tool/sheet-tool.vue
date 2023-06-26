@@ -221,6 +221,7 @@ import {
   get,
   list,
   vitalsign,
+  getVerifyUser
 } from "@/Page/sheet-hospital-eval/api/index.js";
 
 import {
@@ -708,11 +709,11 @@ export default {
 
           this.$root.$refs.mainPage["formSignOrAudit"] = this.formSignOrAudit;
 
-          this.$root.$refs.mainPage["cancelSignOrAduit"] =
-            this.cancelSignOrAduit;
+          this.$root.$refs.mainPage["cancelSignOrAduit"] = this.cancelSignOrAduit;
+          this.$root.$refs.mainPage["formotherOrAudit"] = this.formotherOrAudit;
+          this.$root.$refs.mainPage["VerifyUserSign"] = this.VerifyUserSign;
 
-          this.$root.$refs.mainPage["checkFormMissingItems"] =
-            this.checkFormMissingItems;
+          this.$root.$refs.mainPage["checkFormMissingItems"] = this.checkFormMissingItems;
 
         });
       }
@@ -1110,6 +1111,58 @@ export default {
         signData:JSON.stringify(datapost),
       }
     },
+    // 取消普通护士签名
+    VerifyUserSign() {
+      let titleModal  = "取消护士签名"
+      this.useCaData()
+       window.openSignModal((password, empNo) => {
+        let post = {
+          empNo,
+          password,
+        };
+
+        this.bus.$emit("setHosptialAdmissionLoading", {
+          status: true,
+          msg: "取消签名中...",
+        });
+
+        getVerifyUser(post)
+          .then((res) => {
+            this.$message.success("取消签名成功");
+            window.formObj.model.A0001 = "";
+            window.formObj.model.A0001_1 = "";
+            window.formObj.model.IE0001138 = "";
+            let postData = Object.assign({}, window.formObj.model);
+            save(postData)
+              .then((res) => {
+                this.getHEvalBlockList(this.patientInfo);
+                this.changeSelectBlock(this.selectBlock);
+                let {
+                  data: {
+                    data: { master },
+                  },
+                } = res;
+                if (master.updaterName && master.updateTime) {
+                  this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
+                }
+                // 触发填写漏项提醒
+                this.checkFormMissingItems();
+              })
+              .catch((err) => {
+                this.bus.$emit("setHosptialAdmissionLoading", {
+                  status: false,
+                });
+              });
+          })
+          .catch((err) => {
+            console.log("取消签名评估err", err);
+            this.bus.$emit("setHosptialAdmissionLoading", {
+              status: false,
+            });
+          });
+      }, titleModal,false,undefined,  undefined, undefined, undefined ,undefined,undefined,
+          SigndataObj,verifySignObj);
+    },
     // 取消责任护士签名
     cancelSignOrAduit(config = {}) {
       let titleModal = "取消责任护士签名";
@@ -1117,6 +1170,10 @@ export default {
       if (config && config.type && config.type === "audit") {
         signType = { audit: true };
         titleModal = "取消审核护士签名";
+      }
+      if (config && config.type && config.type === "other") {
+        signType = { other: true };
+        titleModal = "取消护士签名";
       }
       this.useCaData()
       window.openSignModal((password, empNo) => {
@@ -1150,6 +1207,84 @@ export default {
       }, titleModal,false,undefined,  undefined, undefined, undefined ,undefined,undefined,
           SigndataObj,verifySignObj);
     },
+    formotherOrAudit(){
+      if (this.patientInfo && this.patientInfo.hasOwnProperty("patientId")) {
+         let titleModal = "责任护士签名";
+         let showDate = false;
+         this.useCaData()
+        window.openSignModal(
+          (password, empNo, signDate) => {
+          let post = {
+            password,
+            empNo
+          };
+          getVerifyUser(post)
+          .then((res) => {
+            this.$message.success("签名成功");
+            this.bus.$emit("setHosptialAdmissionLoading", {
+              status: true,
+              msg: "签名中...",
+            });
+            post = {
+              id: this.formId || "",
+              patientId: this.patientInfo.patientId,
+              visitId: this.patientInfo.visitId,
+              formType: "eval",
+              formCode: this.formCode,
+            };
+            window.formObj.model.IE0001138 =  dayjs(signDate).format("YYYY-MM-DD HH:mm") || "";
+            window.formObj.model.A0001 =  empNo;
+            window.formObj.model.formCode = this.formCode;
+
+            post = Object.assign({}, window.formObj.model, post);
+            //
+            let postData = new Object();
+            for (const key in post) {
+              if (post.hasOwnProperty(key)) {
+                if (!key) {
+                  continue;
+                }
+                if (!post[key] || post[key] === null || post[key] === "null") {
+                  postData[key] = "";
+                  continue;
+                }
+                postData[key] = post[key] + "";
+              }
+            }
+            save(postData)
+              .then((res) => {
+                this.getHEvalBlockList(this.patientInfo);
+                this.changeSelectBlock(this.selectBlock);
+                let {
+                  data: {
+                    data: { master },
+                  },
+                } = res;
+                if (master.updaterName && master.updateTime) {
+                  this.formObj.formSetting.updateInfo = `由${master.updaterName}创建，最后编辑于${master.updateTime}`;
+                }
+                // 触发填写漏项提醒
+                this.checkFormMissingItems();
+              })
+              .catch((err) => {
+                this.bus.$emit("setHosptialAdmissionLoading", {
+                  status: false,
+                });
+              });
+          })
+          .catch((err) => {
+            console.log("取消签名评估err", err);
+            this.bus.$emit("setHosptialAdmissionLoading", {
+              status: false,
+            });
+          });
+          },
+          titleModal,
+          showDate,undefined,  undefined, undefined, undefined ,undefined,undefined,
+          SigndataObj,verifySignObj
+        );
+      }
+    },
     // 责任护士签名
     formSignOrAudit(config = {}) {
       if (this.patientInfo && this.patientInfo.hasOwnProperty("patientId")) {
@@ -1162,6 +1297,10 @@ export default {
         if (config && config.type && config.type === "audit") {
           signType = { audit: true };
           titleModal = "审核护士签名";
+          showDate = false
+        }
+        if(config && config.type && config.type === "other") {
+          signType = { other: true }
           showDate = false
         }
         this.useCaData()
@@ -1180,6 +1319,9 @@ export default {
             } else if (signType.hasOwnProperty("audit")) {
               signType["auditTime"] =
                 dayjs(signDate).format("YYYY-MM-DD HH:mm") || "";
+            }else{
+              window.formObj.model.IE0001138 =  dayjs(signDate).format("YYYY-MM-DD HH:mm") || "";
+              window.formObj.model.A0001 =  empNo;
             }
 
             let post = {

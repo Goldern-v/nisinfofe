@@ -1160,6 +1160,9 @@ export default {
         }
 
         !isAddPageFlag && this.updateSheetPageInfo(this.pageArea)
+        if((this.$route.path.includes('/formPage') && this.HOSPITAL_ID == 'nfyksdyy')||(this.$route.query.patientId && this.$route.query.visitId)){
+            this.bus.$emit('refreshTree', true)
+          }
       } catch (error) { }
     },
     showSetCreatePage() {
@@ -1717,6 +1720,10 @@ export default {
           this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
           if( this.HOSPITAL_ID === 'whfk'&& this.sheetInfo.selectBlock.patientId){
             this.getPrintRecordData();
+          }
+
+          if((this.$route.path.includes('/formPage') && this.HOSPITAL_ID == 'nfyksdyy')||(this.$route.query.patientId && this.$route.query.visitId)){
+            this.bus.$emit('refreshTree', true)
           }
         });
       }

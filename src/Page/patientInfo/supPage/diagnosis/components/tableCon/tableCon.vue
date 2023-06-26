@@ -54,6 +54,7 @@ import { nursingDiagsPatient } from "../../api/index";
 import { model } from "../../diagnosisViewModel";
 import bus from "vue-happy-bus";
 import hospitalEval from '@/store/module/hospitalEval';
+import DTableZhzxy from './d-table-zhzxy.vue';
 export default {
   data() {
     return {
@@ -73,6 +74,7 @@ export default {
         "guizhou":DTableGZ,
         "foshanrenyi":DTableFSSY,
         "qhwy":DTableQHWY,
+        "zhzxy": DTableZhzxy,
         default:DTable
       }
       return ID_Component[this.HOSPITAL_ID]||ID_Component.default
@@ -222,6 +224,7 @@ export default {
     DTableGZ,
     DTableFSSY,
     DTableQHWY,
+    DTableZhzxy,
   }
 };
 </script>

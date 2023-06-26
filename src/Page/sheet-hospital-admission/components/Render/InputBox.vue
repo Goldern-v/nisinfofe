@@ -624,6 +624,15 @@ export default {
         ) {
           this.$root.$refs.mainPage.cancelSignOrAduit({ type: "audit" });
         }
+      } else if (this.obj.name === "A0001_1") {
+         if (
+          this.$root.$refs.mainPage.formSignOrAudit &&
+          !this.formObj.model.A0001_1
+        ) {
+          this.$root.$refs.mainPage.formotherOrAudit();
+        }else {
+          this.$root.$refs.mainPage.VerifyUserSign();
+        }
       }
       if (this.$root.$refs.autoInput) {
         this.$root.$refs.autoInput.close();

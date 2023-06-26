@@ -39,11 +39,11 @@ export default {
       }, {
         name: `宫<br/>缩`,
         style: {
-          minWidth: '50px',
-          maxWidth: '50px'
+          minWidth: '80px',
+          maxWidth: '80px'
         },
-        colspan: '1',
-        rowspan: '3'
+        colspan: '2',
+        rowspan: '1'
       },
       //  {
       //   name: `宫缩<br/>强度`,
@@ -99,11 +99,11 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "203px",
-          maxWidth: "203px"
+          minWidth: "173px",
+          maxWidth: "173px"
         },
         colspan: "1",
-        rowspan: "1"
+        rowspan: "3"
       }, {
         name: `
         护士签名
@@ -124,7 +124,30 @@ export default {
         rowspan: '3'
       },
     ],
-    mid: [],
+    mid: [
+      {
+        name: `
+        间歇(')
+        `,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '30px',
+          maxWidth: '30px'
+        },
+      },
+      {
+        name: `
+        间歇(")
+        `,
+        colspan: '1',
+        rowspan: '2',
+        style: {
+          minWidth: '30px',
+          maxWidth: '30px'
+        },
+      },
+    ],
     bottom: []
   }
 }

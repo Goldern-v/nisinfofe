@@ -1,10 +1,15 @@
 <template>
   <div>
-    <!-- <div class="item-con" @click="addTemplateAtDoc"> -->
     <div class="item-con">
-      <!-- <div class="title">{{data.name}}</div> -->
-
       <el-tree
+        v-if="['nfyksdyy','whhk'].includes(this.HOSPITAL_ID)"
+        :data="datalist"
+        :render-content="renderContentsdyy"
+        @node-click="addTemplateAtDoc"
+      >
+      </el-tree>
+      <el-tree
+        v-else
         :data="datalist"
         :render-content="renderContent"
         :props="{
@@ -13,17 +18,10 @@
         @node-click="addTemplateAtDoc"
       >
       </el-tree>
-      <!-- <div class="tool-box" flex="cross:center">
-        <el-tooltip content="编辑" placement="bottom" effect="dark">
-          <i class="iconfont icon-hulijiludan" @click.stop="toEdit"></i>
-        </el-tooltip>
-        <el-tooltip content="删除" placement="bottom" effect="dark">
-          <i class="iconfont icon-shanchuzhenghang" @click.stop="toDel"></i>
-        </el-tooltip>
-      </div> -->
     </div>
-    <!-- <div class="line"></div> -->
-    <addTitletemplateModalFssy ref="addTitletemplateModalFssyss"></addTitletemplateModalFssy>
+    <addTitletemplateModalFssy
+      ref="addTitletemplateModalFssyss"
+    ></addTitletemplateModalFssy>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -96,69 +94,186 @@ import data from "../../../sheet";
 import { dictDelete } from "@/api/common";
 import sheetInfo from "../../config/sheetInfo";
 import common from "@/common/mixin/common.mixin";
-import {titleTempalateList,deleteId,deleteGroup} from "../api/index"
-import addTitletemplateModalFssy from '../add-title-template-modal-fssy.vue';
+import {
+  titleTempalateList,
+  deleteId,
+  deleteGroup,
+  deleteTitleTemplateType
+} from "../api/index";
+import addTitletemplateModalFssy from "../add-title-template-modal-fssy.vue";
 export default {
   mixins: [common],
   props: {
     listData: Array,
+    sdyylistData: Object
   },
   data() {
     return {
       bus: bus(this),
       msg: "hello vue",
-      datalist: [],
+      datalist: []
     };
   },
-  watch:{
-    listData(newValue){
-      // console.log(newValue);
-      this.datalist = newValue
+  watch: {
+    listData(newValue) {
+      this.datalist = newValue;
+    },
+    sdyylistData: {
+      handler(newValue) {
+        this.datalist = [];
+        for (let key in newValue) {
+          let treeList = {
+            lable: key,
+            children: newValue[key].map(item => {
+              return {
+                lable: item.title,
+                children: item.list,
+                ...item
+              };
+            })
+          };
+          this.datalist.push(treeList);
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
-  mounted(){
-    this.datalist = this.listData
+  mounted() {
+    if (['nfyksdyy','whhk'].includes(this.HOSPITAL_ID)) {
+      this.datalist = [];
+      for (let key in this.sdyylistData) {
+        let treeList = {
+          lable: key,
+          children: this.sdyylistData[key].map(item => {
+            return {
+              lable: item.title,
+              children: item.list,
+              ...item
+            };
+          })
+        };
+        this.datalist.push(treeList);
+      }
+    } else {
+      this.datalist = this.listData;
+    }
   },
   methods: {
-    renderContent(h, { node, data, store }) {
-      if(node.level == 1){
-        return (
-          <span
-            class="custom-tree-node"
-          >
-            <span>{data.title}</span>
+    renderContentsdyy(h, { node, data, store }) {
+      if (node.level == 1 || node.level == 2) {
+        return node.level == 1 ? (
+          <span class="custom-tree-node">
+            <span>{data.lable}</span>
             <span style="margin-left:10px">
-              <el-tooltip content="编辑" placement="bottom" effect="dark" class="tooltipcls">
-                <i class="iconfont icon-hulijiludan" on-click={(e)=>{
-                  e.stopPropagation()
-                  this.toEdit(e,data)
-                  }}></i>
+              <el-tooltip
+                content="编辑"
+                placement="bottom"
+                effect="dark"
+                class="tooltipcls"
+              >
+                <i
+                  class="iconfont icon-hulijiludan"
+                  on-click={e => {
+                    e.stopPropagation();
+                    this.toEdit(e, data, node.level == 1);
+                  }}
+                ></i>
+              </el-tooltip>
+            </span>
+          </span>
+        ) : (
+          <span class="custom-tree-node">
+            <span>{data.lable}</span>
+            <span style="margin-left:10px">
+              <el-tooltip
+                content="编辑"
+                placement="bottom"
+                effect="dark"
+                class="tooltipcls"
+              >
+                <i
+                  class="iconfont icon-hulijiludan"
+                  on-click={e => {
+                    e.stopPropagation();
+                    this.toEdit(e, data);
+                  }}
+                ></i>
               </el-tooltip>
               <el-tooltip content="删除" placement="bottom" effect="dark">
                 <i
                   class="iconfont icon-shanchuzhenghang"
-                  on-click={(e)=>{
-                    e.stopPropagation()
-                    this.toDel(data)
+                  on-click={e => {
+                    e.stopPropagation();
+                    this.toDel(data);
                   }}
                 ></i>
               </el-tooltip>
             </span>
           </span>
         );
-      }else{
-          return (
-          <span
-            class="custom-tree-node"
-          >
+      } else {
+        return (
+          <span class="custom-tree-node">
             <span>{data.options}</span>
             <span style="margin-left:10px">
               <el-tooltip content="删除" placement="bottom" effect="dark">
                 <i
                   class="iconfont icon-shanchuzhenghang"
-                  on-click={(e)=>{
-                    e.stopPropagation()
-                    this.toDeleteById(data)
+                  on-click={e => {
+                    e.stopPropagation();
+                    this.toDeleteById(data);
+                  }}
+                ></i>
+              </el-tooltip>
+            </span>
+          </span>
+        );
+      }
+    },
+    renderContent(h, { node, data, store }) {
+      if (node.level == 1) {
+        return (
+          <span class="custom-tree-node">
+            <span>{data.title}</span>
+            <span style="margin-left:10px">
+              <el-tooltip
+                content="编辑"
+                placement="bottom"
+                effect="dark"
+                class="tooltipcls"
+              >
+                <i
+                  class="iconfont icon-hulijiludan"
+                  on-click={e => {
+                    e.stopPropagation();
+                    this.toEdit(e, data);
+                  }}
+                ></i>
+              </el-tooltip>
+              <el-tooltip content="删除" placement="bottom" effect="dark">
+                <i
+                  class="iconfont icon-shanchuzhenghang"
+                  on-click={e => {
+                    e.stopPropagation();
+                    this.toDel(data);
+                  }}
+                ></i>
+              </el-tooltip>
+            </span>
+          </span>
+        );
+      } else {
+        return (
+          <span class="custom-tree-node">
+            <span>{data.options}</span>
+            <span style="margin-left:10px">
+              <el-tooltip content="删除" placement="bottom" effect="dark">
+                <i
+                  class="iconfont icon-shanchuzhenghang"
+                  on-click={e => {
+                    e.stopPropagation();
+                    this.toDeleteById(data);
                   }}
                 ></i>
               </el-tooltip>
@@ -168,14 +283,20 @@ export default {
       }
     },
     addTemplateAtDoc(data) {
-      if (data.title == undefined) return
+      if (data.title == undefined) return;
       this.bus.$emit("addTitleTemplateFS", data);
     },
-    toEdit(event,data) {
-      console.log(event,data);
-      // this.bus.$emit("openAddTitleTemplateModalFS", data);
-      this.$refs.addTitletemplateModalFssyss.open(data)
-
+    toEdit(event, data, isType = false) {
+      if (!data.children[0].typeId && isType)
+        return this.$message.warning("其他为默认分类无法修改！");
+      if (data.children[0].typeId && isType) {
+        this.$refs.addTitletemplateModalFssyss.$refs.addTypeTemplateModal.open(
+          null,
+          data
+        );
+      } else {
+        this.$refs.addTitletemplateModalFssyss.open(data);
+      }
     },
     getRecordCode() {
       if (
@@ -188,19 +309,20 @@ export default {
       }
     },
     /**删除标题模板 */
-    toDel(data) {
+    toDel(data, isType = false) {
       this.$confirm("此操作将永久删除该含选项标题版, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let obj = {
           id: data.id
         };
-        deleteGroup(obj).then((res) => {
+
+        deleteGroup(obj).then(res => {
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
           this.bus.$emit("refreshTitleTemplate");
         });
@@ -211,21 +333,21 @@ export default {
       this.$confirm("此操作将永久删除该自定义标题选项, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
-        let id = data.id
-        deleteId(id).then((res) => {
+        let id = data.id;
+        deleteId(id).then(res => {
           this.$message({
             type: "success",
-            message: "删除成功!",
+            message: "删除成功!"
           });
           this.bus.$emit("refreshTitleTemplate");
         });
       });
-    },
+    }
   },
   components: {
-    addTitletemplateModalFssy,
-  },
+    addTitletemplateModalFssy
+  }
 };
 </script>

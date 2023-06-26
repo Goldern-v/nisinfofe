@@ -142,9 +142,6 @@ export default {
     },
   },
   beforeRouteUpdate(to, from, next) {
-    // let isChange = localStorage.getItem(DATA_CHANGE)
-    // isChange = isChange ? JSON.parse(isChange) : false
-    // (isChange && '925' == this.HOSPITAL_ID)
     if(!this.$store.state.admittingSave.admittingSave){
       return this.$confirm('入院评估单还未保存，是否需要离开页面?', '提示', {
           confirmButtonText: '确定',
@@ -164,12 +161,6 @@ export default {
           });
           return next(false)
         });
-        // console.log(comfirm,'ddd');
-        // if(!comfirm) {
-        //   return next()
-        // }else{
-        //   next(false)
-        // }
     }else{
       next()
     }
@@ -194,7 +185,6 @@ export default {
           });
           return next(false)
         });
-        // console.log(comfirm,'ddd');
         // if(!comfirm) {
         //   return next()
         // }else{

@@ -18,7 +18,7 @@
       </p>
       <div action @keyup.13="post" ref="titleInput">
         <!-- <el-input size="small" type="text" placeholder="输入标题名称" v-model="title"></el-input> -->
-        <template  v-if="['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(HOSPITAL_ID)">
+        <template  v-if="['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy','whhk'].includes(HOSPITAL_ID)">
           <el-autocomplete
             style="width: 100%"
             :value="fstitle"
@@ -106,7 +106,7 @@ export default {
      * optionList: 标题模板选项
      */
     open(callback, title, item, optionList) {
-      if(['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)){
+      if(['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy','whhk'].includes(this.HOSPITAL_ID)){
         this.callback = callback;
         this.fstitle = title;
         this.getTemplateList()
@@ -131,7 +131,7 @@ export default {
       }
     },
     post() {
-      if(this.fstitle && ['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)){
+      if(this.fstitle && ['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy','whhk'].includes(this.HOSPITAL_ID)){
         this.callback(this.fstitle, {
           list: this.options || [],
           id: this.selectedTempId
@@ -215,7 +215,7 @@ export default {
       }
     },
     openTitleTemplateSlide() {
-      if (['foshanrenyi','fsxt', 'gdtj','lyyz', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj','lyyz', 'nfyksdyy','whhk'].includes(this.HOSPITAL_ID)) {
         this.$refs.titleTemplateSlideFS.open();
         return
       }
@@ -281,7 +281,7 @@ export default {
       }
     });
     // 刷新标题模板列表
-    if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+    if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy','whhk'].includes(this.HOSPITAL_ID)) {
       this.bus.$on("refreshTitleTemplate", this.getTemplateList);
     }
   },

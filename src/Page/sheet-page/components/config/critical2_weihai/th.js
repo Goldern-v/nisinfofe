@@ -75,7 +75,7 @@ export default {
       },
       {
          name: `
-        检测项目
+         监测情况
         `,
         style: {
          
@@ -107,7 +107,7 @@ export default {
       },
       {
         name: `
-        护理措施
+        日常护理
         `,
         colspan: '1',
         rowspan: '3',
@@ -118,7 +118,7 @@ export default {
       },
       {
         name: `
-        特殊情况记录
+        特殊病情观察及护理措施
         `,
         colspan: '1',
         rowspan: '3',
@@ -276,7 +276,7 @@ export default {
     },
     {
       name: `
-      量(ml)
+      量<br/>(ml)
       `,
       style: {
         minWidth: "40px",
@@ -298,7 +298,7 @@ export default {
     },
     {
       name: `
-      量(ml)
+      量<br/>(ml)
       `,
       style: {
         minWidth: "40px",
@@ -395,22 +395,22 @@ export default {
     },
     {
       name: `
-      RASS/NEWS
+      RASS/<br/>NEWS
       `,
       style: {
-        minWidth: "30px",
-        maxWidth: '30px',
+        minWidth: "33px",
+        maxWidth: '33px',
       },
       colspan: "1",
       rowspan: "2"
     },
     {
       name: `
-      CPOT/NRS
+      CPOT/<br/>NRS 
       `,
       style: {
-        minWidth: "30px",
-        maxWidth: '30px',
+        minWidth: "35px",
+        maxWidth: '35px',
       },
       colspan: "1",
       rowspan: "2"
