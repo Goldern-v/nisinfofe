@@ -133,6 +133,31 @@
       bus: bus(this),
       }
     },
+    created(){
+      this.bus.$on("syncReportFSSY", (str) => {
+        switch (this.tab) {
+          case "2":
+            this.form.background = xie(this.form.background)
+            break;
+          case "3":
+            this.form.assessmentSituation = xie(this.form.assessmentSituation)
+            break;
+          case "4":
+            this.form.proposal = xie(this.form.proposal)
+            break;
+          default:
+            break;
+        }
+        function xie(doc) {
+          if (doc) {
+            doc += "\n" + str;
+          } else {
+            doc += str;
+          }
+          return doc
+        }
+      });
+    },
     computed: {
       hasSyncRecord() {
         return ['nfyksdyy'].includes(this.HOSPITAL_ID);

@@ -1449,7 +1449,6 @@ export default {
           this.patientInfo.visitId,
           this.deptCode
         ).then((res) => {
-          this.sheetInfo.relObj = {}
           this.sheetBlockList.forEach((item) => {
             try {
               let currObj = res.data.data.list.find((obj) => obj.id == item.id);
