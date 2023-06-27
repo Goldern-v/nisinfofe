@@ -302,7 +302,8 @@ function switchSheetType(type) {
       break;
     case "oxytocin": {
       // 催产素静脉点滴观察
-      schema = require("../config/oxytocin/tr.js").default;
+      if (process.env.HOSPITAL_ID == 'wujing') schema = require("../config/oxytocin_wujing/tr.js").default;
+      else schema = require("../config/oxytocin/tr.js").default;
     }
       break;
     case "dressing_count": {

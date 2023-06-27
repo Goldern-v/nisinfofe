@@ -262,7 +262,10 @@ export default function Title(
   break;
   case "oxytocin": {
     // 催产素静脉点滴观察
-    Th = JSON.parse(
+    if (process.env.HOSPITAL_ID == 'wujing'){
+      Th = JSON.parse(
+      JSON.stringify(require("../config/oxytocin_wujing/th").default)
+    )}else Th = JSON.parse(
       JSON.stringify(require("../config/oxytocin/th").default)
     );
   }
