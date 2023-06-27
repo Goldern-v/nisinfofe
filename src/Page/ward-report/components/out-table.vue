@@ -13,7 +13,8 @@
       </tr>
       <tr>
         <th>序号</th>
-        <th>姓名</th>
+        <th v-if="HOSPITAL_ID !== 'xiegang'">姓名</th>
+        <th v-else>姓名/住院号</th>
         <th>床号</th>
         <th>死亡（√）</th>
         <th>转往何科</th>

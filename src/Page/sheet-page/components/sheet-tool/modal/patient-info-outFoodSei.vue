@@ -83,7 +83,7 @@
                     <div class="boxx-tll">用<span></span>法：</div>
                     <div class="boxx-content">
                         <template  v-for="(item,index) in jingmai">
-                            <div class="boxx-li" v-if="item.type" :key="index+'jingmai'">
+                            <div class="boxx-li" :key="index+'jingmai'">
                                 {{ item.usage }}
                                 <div @click="deleteLi(jingmai,index)" class="closeBTN">×</div>
                             </div>
@@ -96,7 +96,7 @@
                     <div class="boxx-tll">用<span></span>法：</div>
                     <div class="boxx-content">
                         <template  v-for="(item,index) in weichang">
-                            <div class="boxx-li" v-if="item.type" :key="index+'weichang'">
+                            <div class="boxx-li" :key="index+'weichang'">
                                 {{ item.usage }}
                                 <div @click="deleteLi(weichang,index)" class="closeBTN">×</div>
                             </div>
@@ -171,8 +171,8 @@ export default {
             this.choseList2 = []
         },
         deleteLi(arr,index){
-            this.canChoseList.push(arr[index])
-            arr[index]={...arr[index],type:""}
+            this.canChoseList.push({...arr[index],type:""})
+            arr.splice(index,1)
         },
         addOhter(i){
             if(this.otherList[i].useList.length==0) return this.$message.warning("请先完成该设置再添加")
@@ -196,18 +196,9 @@ export default {
                 })
             })
             let allArr = [
-                ...this.jingmai,...this.weichang,...otherArr
+                ...this.jingmai,...this.weichang,...otherArr,...this.canChoseList
             ]
-            const newArr = allArr.reduce(function (tempArr, item) {
-                let index = tempArr.findIndex((ele) => ele.usage === item.usage)
-                if (index === -1) {
-                    tempArr.push(item)
-                }else if(index>=0 && item.type){
-                    tempArr[index] = item
-                }
-                return tempArr
-            }, [])
-            batchUpdate(newArr).then(res=>{
+            batchUpdate(allArr).then(res=>{
                 this.$emit("refresh")
                 this.$message.success("保存成功")
                 this.close()
