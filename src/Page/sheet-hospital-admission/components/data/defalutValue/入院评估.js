@@ -85,7 +85,7 @@ export const 入院默认值 = {
   S0629: process.env.HOSPITAL_ID== 'qhwy' && "无"
 };
 
-export const defaultFS_adult1 = {
+export const defaultFS_adult = {
   I2332001: '门诊',
   I2332002: '步行',
   I2332005: '患者',
