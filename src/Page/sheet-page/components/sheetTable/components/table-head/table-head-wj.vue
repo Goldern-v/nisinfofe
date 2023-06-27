@@ -75,7 +75,7 @@
           诊断：
           <div
             class="bottom-line"
-            style="min-width: 800px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+            style="min-width: 1100px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
           >
             {{ diagnosis }}
           </div>
