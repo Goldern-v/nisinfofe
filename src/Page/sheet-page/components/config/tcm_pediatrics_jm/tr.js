@@ -226,7 +226,7 @@ export default [{
   value: ""
 },
 {
-  key: "audit",
+  key: "sign2",
   value: ""
 },
 {
@@ -237,6 +237,11 @@ export default [{
 {
   hidden: true,
   key: "signerName",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerName2",
   value: ""
 },
 {
@@ -272,6 +277,11 @@ export default [{
 {
   hidden: false,
   key: "signerNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerNo2",
   value: ""
 },
 {
