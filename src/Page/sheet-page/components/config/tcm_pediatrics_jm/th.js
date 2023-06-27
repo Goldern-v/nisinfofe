@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: '1150px'
+    width: '1250px'
   },
   th: {
     top: [{
@@ -112,7 +112,7 @@ export default {
         canSet: false,
       },
       {
-        name: `舌苔`,
+        name: `舌像`,
         colspan: '1',
         rowspan: '3',
         style: {
@@ -121,7 +121,7 @@ export default {
         }
       },
       {
-        name: `脉`,
+        name: `脉象`,
         colspan: '1',
         rowspan: '3',
         style: {
@@ -196,6 +196,14 @@ export default {
       {
         name: `
         护士签名
+        `,
+        style: {},
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `
+        上级护士签名
         `,
         style: {},
         colspan: '1',

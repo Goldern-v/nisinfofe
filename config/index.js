@@ -89,8 +89,8 @@ const currentTargetUrl = (() => {
     case "fuyou":
       // return "http://218.14.180.38:9094" // 江门妇幼正式
           // return "https://info.cr-health.com:20211" // 公司-江门妇幼测试-外网
-      // return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
-      return "http://192.168.3.154:8080" // 本地
+      return "http://192.168.1.54:9872" // 公司-江门妇幼测试-内网
+      // return "http://192.168.3.154:8080" // 本地
 
 
     /** 中山七 */
@@ -275,9 +275,9 @@ const currentTargetUrl = (() => {
     case 'nfyksdyy':
       // return 'http://192.168.3.154:8080'
           // return 'http://192.168.1.54:9901'  //
-          // return  'http://59.38.110.189:9092'
+          return  'http://59.38.110.189:9092'
           // return  'http://192.168.20.136:8080'
-      return 'http://192.168.5.127:9091'
+      // return 'http://192.168.5.127:9091'
       // return  'https://info.cr-health.com:20215'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭

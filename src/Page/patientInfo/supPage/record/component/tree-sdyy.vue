@@ -20,14 +20,13 @@
         <!-- 评估单 -->
         <el-tree
           v-loading="treeLoading"
-          v-if="ifTree"
           ref="formTree"
           class="record-tree"
           :data="regions"
           highlight-current
           :render-content="renderContent"
           @node-click="nodeClick"
-          node-key="id"
+          node-key="index"
           :default-expanded-keys="expandList"
           @node-expand="node_expand"
           @node-collapse="node_collapse"
@@ -371,7 +370,7 @@ export default {
     async nodeClick(data, node) {
       let isChange = localStorage.getItem(DATA_CHANGE);
       isChange = isChange ? JSON.parse(isChange) : false;
-      if (isChange && node.level == 2) {
+      if (isChange && node.level == 3) {
         // if (node.level == 2) {
         const comfirm = await this.$confirm(
           "入院评估单还未保存，是否需要离开页面?",
@@ -723,28 +722,33 @@ export default {
               }
             ];
           } else {
-            this.regions = [
-              {
-                label: "护理评估单",
-                type: "record",
-                children: [...list_1]
-              },
-              {
-                label: "护理记录单",
-                type: "sheet",
-                children: [...list_2]
-              },
-              {
-                label: "血糖单",
-                type: "bloodSugar",
-                children: [...list_3]
-              },
-              {
-                label: "健康教育单",
-                type: "healthEducation",
-                children: [...list_4]
-              }
-            ];
+            this.$nextTick(()=>{
+              this.regions = [
+                {
+                  label: "护理评估单",
+                  type: "record",
+                  children: [...list_1]
+                },
+                {
+                  label: "护理记录单",
+                  type: "sheet",
+                  children: [...list_2],
+                  index: index += 1,
+                },
+                {
+                  label: "血糖单",
+                  type: "bloodSugar",
+                  children: [...list_3],
+                  index: index += 1,
+                },
+                {
+                  label: "健康教育单",
+                  type: "healthEducation",
+                  children: [...list_4],
+                  index: index += 1,
+                }
+              ];
+            })
           }
         })
         .then(res => {
@@ -752,12 +756,14 @@ export default {
         });
     },
     node_expand(curNode) {
-      if (this.expandListCopy.indexOf(curNode.index) == -1) {
+      if (this.expandListCopy.indexOf(curNode.index) == -1 && curNode.index) {
         this.expandListCopy.push(curNode.index);
       }
     },
     node_collapse(curNode) {
-      this.expandListCopy.remove(curNode.index);
+      if(curNode.index){
+        this.expandListCopy.remove(curNode.index);
+      }
     },
     newRecordOpen() {
       this.$refs.newForm.open(this.filterObj);
@@ -765,23 +771,24 @@ export default {
     refreshTree(isAllRefresh = false) {
       if (isAllRefresh) {
         this.expandList = [];
+        this.expandListCopy = [];
       } else {
         this.expandList = this.expandListCopy;
         this.bus.$emit("refreshFormPagePatientList");
       }
-      this.getTreeData();
       this.ifTree = false;
-      this.$nextTick(() => {
-        this.ifTree = true;
-      });
+      this.getTreeData();
+        this.$nextTick(() => {
+          this.ifTree = true;
+        });
       this.bus.$emit("activeAllButons");
     },
     updateTree() {
       this.expandList = this.expandListCopy || [];
-      this.getTreeData();
       this.ifTree = false;
+      this.getTreeData();
       this.$nextTick(() => {
-        this.ifTree = true;
+         this.ifTree = true
       });
       this.bus.$emit("activeAllButons");
     },

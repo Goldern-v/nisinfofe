@@ -585,7 +585,7 @@ export default {
             let judgeList = this.fliterList.map(items => {
               return admObj[items];
             });
-            return judgeList.every(judge => judge == true)
+            return judgeList.includes(true)
         });
       }
 

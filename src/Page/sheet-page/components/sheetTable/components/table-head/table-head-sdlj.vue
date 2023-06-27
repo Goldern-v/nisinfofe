@@ -107,7 +107,12 @@
       <span v-show="birthdayList.includes(sheetInfo.sheetType)">
         出生日期：
         <div class="bottom-line" style="min-width: 100px" >
-          {{ patientInfo.relObj.detailBirthday ? patientInfo.relObj.detailBirthday : '' }}
+           <input
+            class="no-line"
+            :data-value="patientInfo.relObj.detailBirthday"
+            v-model="patientInfo.relObj.detailBirthday"
+          />
+          <!-- {{ patientInfo.relObj.detailBirthday ? patientInfo.relObj.detailBirthday : '' }} -->
         </div>
       </span>
       <span>
@@ -303,6 +308,12 @@ input.bottom-line {
   border-top: 0;
   border-left: 0;
   border-right: 0;
+  outline: none;
+  height: 12px;
+  font-size: 13px;
+}
+input.no-line {
+  border: 0;
   outline: none;
   height: 12px;
   font-size: 13px;

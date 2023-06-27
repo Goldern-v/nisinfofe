@@ -1,7 +1,17 @@
-import { listItem } from "../../../api/recordDesc";
-import { multiDictInfo } from "../../../api/index";
-import {keyf1, limitChange} from "../keyEvent/f1.js";
-import { event_date, event_time, click_date } from "../keyEvent/date";
+import {
+  listItem
+} from "../../../api/recordDesc";
+import {
+  multiDictInfo
+} from "../../../api/index";
+import {
+  keyf1
+} from "../keyEvent/f1.js";
+import {
+  event_date,
+  event_time,
+  click_date
+} from "../keyEvent/date";
 import info from "../sheetInfo";
 // let info = {
 //   sheetType: "neurology"
@@ -9,17 +19,13 @@ import info from "../sheetInfo";
 let ysList = [];
 let chuList = [];
 let ruList = [];
-let UC = ["无","不规则"]
-let uterine_neck = ['未开','1','2','3','4','5','6','7','8','9','10','1指尖','容1指','1指松']
-let high_low = ['S-3','S-2','S-1','S=0','S+3','S+2','S+1']
-
-export default [
-  {
-    key: "recordDate", //年份
-    value: "",
-    hidden:true
-  },
-  {
+let 宫缩 = [];
+let 宫缩强度 = [];
+let 胎方位 = [];
+let 胎心 = [];
+let 宫口扩张 = [];
+let 先露高低 = [];
+export default [{
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -29,102 +35,117 @@ export default [
     key: "recordHour", //时间
     value: "",
     event: event_time
-  },
-  {
-    key: "temperature", //体温
-    value: "",
-    name: "体温",
-    event: keyf1
-  },
-  {
-    key: "sph", //脉搏
-    value: "",
-    name: "脉搏",
-    event: keyf1
-  },
-  {
-    key: "breath", //催产素浓度
-    value: "",
-    name: "呼吸",
-    event: keyf1
-  },
-
-  {
+  }, {
     key: "fieldOne", //催产素浓度
     value: "",
+    event: keyf1,
     name: "催产素浓度",
-    event: keyf1
+    textarea: {
+      width: 50
+    }
+  }, {
+    key: "fieldTwo", //滴数（滴/分）
+    value: "",
+    event: keyf1,
+    name: "滴数（滴/分）",
+    textarea: {
+      width: 50
+    }
+  }, {
+    key: "fieldThree1", //宫缩间歇
+    value: "",
+    event: keyf1,
+    name: "宫缩间歇1",
+    // autoComplete: {
+    //   data: 宫缩
+    // },
+    textarea: {
+      width: 30
+    }
   },
   {
-    key: "fieldTwo", //滴数
+    key: "fieldThree2", //宫缩间歇
     value: "",
-    name: "滴数",
-    event: keyf1
-  }, {
-    key: "fieldThree", //宫缩
-    value: "",
-    name: "宫缩",
     event: keyf1,
-    autoComplete: {
-      data: UC
-    },
-    // event: function (e, td) {
-    //   if (e.keyCode == 32) {
-    //     e.target.value += "/";
-    //     e.preventDefault();
-    //   }
-    //   keyf1(e, td);
-    // }
-  }, {
-    key: "fieldFour", //宫缩强度
-    value: "",
-    name: "宫缩强度",
-    event: keyf1
-  }, {
-    key: "fieldFive", //胎方位
+    name: "宫缩间歇2",
+    // autoComplete: {
+    //   data: 宫缩
+    // },
+    textarea: {
+      width: 30
+    }
+  },
+  // {
+  //   key: "fieldSeven", //宫缩强度
+  //   value: "",
+  //   event: keyf1,
+  //   name: "宫缩强度",
+  //   autoComplete: {
+  //     data: 宫缩强度
+  //   },
+  //   textarea: {
+  //     width: 50
+  //   }
+  // },
+  {
+    key: "fieldEight", //胎方位
     value: "",
     event: keyf1,
     name: "胎方位",
     autoComplete: {
-      data: ['LOA', 'ROA', '其它']
+      data: 胎方位
+    },
+    textarea: {
+      width: 50
     }
   }, {
-    key: "fieldSix", //胎心
+    key: "fieldFour", //胎心
     value: "",
     event: keyf1,
     name: "胎心",
     autoComplete: {
-      data: []
+      data: 胎心
+    },
+    textarea: {
+      width: 50
     }
   }, {
-    key: "fieldSeven", //宫口扩张
+    key: "fieldFive", //宫口扩张
     value: "",
     event: keyf1,
     name: "宫口扩张",
     autoComplete: {
-      data: uterine_neck
+      data: 宫口扩张
     },
+    textarea: {
+      width: 50
+    }
   }, {
-    key: "fieldEight", //先露高低
+    key: "fieldSix", //先露高低
     value: "",
     event: keyf1,
     name: "先露高低",
     autoComplete: {
-      data: high_low
+      data: 先露高低
+    },
+    textarea: {
+      width: 50
     }
   }, {
     key: "bloodPressure", //血压mmHg
     value: "",
     event: keyf1,
-    name: "血压mmHg",
-    autoComplete: {
-      data: []
+    event: function (e, td) {
+      if (e.keyCode == 32) {
+        e.target.value += "/";
+        e.preventDefault();
+      }
+      keyf1(e, td);
     },
     textarea: {
-      width: 36
+      width: 50
     }
   },
-  { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   {
     key: "description", //特殊情况记录
     value: "",
@@ -134,7 +155,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "153px",
+      width: "173px",
       background: "transparent"
     },
     event: function (e, td) {
@@ -155,10 +176,10 @@ export default [
     },
     value: ""
   },
-  // {
-  //   key: "audit", //审核签名
-  //   value: ""
-  // },
+  {
+    key: "audit",
+    value: ""
+  },
   {
     hidden: true,
     key: "id",
@@ -228,20 +249,21 @@ export default [
 
 export function getListData4() {
   let list = [
-    "宫底",
-    "子宫收缩",
-    "膀胱情况",
-    "入量项目",
-    "出量项目"
+    // "宫缩",
+    // "宫缩强度",
+    "胎方位",
+    "胎心",
+    "宫口扩张",
+    "先露高低"
   ];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
-    console.log(data);
-    setList(宫底, "宫底", data);
-    setList(子宫收缩, "子宫收缩", data);
-    setList(膀胱情况, "膀胱情况", data);
-    setList(入量项目, "入量项目", data);
-    setList(出量项目, "出量项目", data);
+    // setList(宫缩, "宫缩", data);
+    // setList(宫缩强度, "宫缩强度", data);
+    setList(胎方位, "胎方位", data);
+    setList(胎心, "胎心", data);
+    setList(宫口扩张, "宫口扩张", data);
+    setList(先露高低, "先露高低", data);
   });
 }
 
