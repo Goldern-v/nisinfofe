@@ -1653,7 +1653,6 @@ export default {
           this.patientInfo.visitId,
           this.deptCode
         ).then((res) => {
-          this.sheetInfo.relObj = {}
           this.bus.$emit("setSheetTableLoading", false);
           this.oldSelectList = this.selectList
           this.selectList = [];

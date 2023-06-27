@@ -123,7 +123,6 @@ export default [
 }, {
   key: "bloodPressure", //血压mmHg
   value: "",
-  event: keyf1,
   event: function (e, td) {
     if (e.keyCode == 32) {
       e.target.value += "/";
@@ -143,7 +142,7 @@ export default [
     top: "1px",
     bottom: "1px",
     left: "1px",
-    width: "200px",
+    width: "180px",
     background: "transparent"
   },
   event: function (e, td) {

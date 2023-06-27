@@ -423,8 +423,26 @@ export default {
     console.dir(this.sheetInfo);
     // 获取分娩方式
     this.getData();
-    if (this.sheetInfo.relObj && !this.sheetInfo.relObj["yyc_" + this.index]) {
-      this.getDetail();
+    // if (this.sheetInfo.relObj && !this.sh  eetInfo.relObj["yyc_" + this.index]) {
+    //   this.getDetail();
+    // }
+    if (!this.sheetInfo.relObj["yyc_" + this.index] && this.index !== 0) {
+      this.sheetInfo.relObj = {
+        ...{
+          ["yyc_" + this.index]: this.sheetInfo.relObj[
+          "yyc_" + (this.index - 1)
+              ]
+        },
+        ...this.sheetInfo.relObj
+      };
+    }
+    if (!this.sheetInfo.relObj["yz_" + this.index] && this.index !== 0) {
+      this.sheetInfo.relObj = {
+        ...{
+          ["yz_" + this.index]: this.sheetInfo.relObj["yz_" + (this.index - 1)]
+        },
+        ...this.sheetInfo.relObj
+      };
     }
   },
   destroyed() {} /* fix vue-happy-bus bug */,

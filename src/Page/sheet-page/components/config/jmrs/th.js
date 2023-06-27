@@ -28,7 +28,6 @@ export default {
         name: `
         T<br/>(℃)
         `,
-        style: {},
         colspan: "1",
         rowspan: "3",
         style: {
@@ -40,7 +39,6 @@ export default {
         name: `
         P/HR<br/>(次/分)
         `,
-        style: {},
         colspan: "1",
         rowspan: "3",
         style: {
@@ -52,7 +50,6 @@ export default {
         name: `
         R<br/>(次/分)
         `,
-        style: {},
         colspan: "1",
         rowspan: "3",
         style: {
@@ -133,7 +130,6 @@ export default {
       },
       {
         name: `标题1`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
@@ -145,7 +141,6 @@ export default {
       },
       {
         name: `标题2`,
-        style: {},
         colspan: "1",
         rowspan: "3",
         canSet: true,
