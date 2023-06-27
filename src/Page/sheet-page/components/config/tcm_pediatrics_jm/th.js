@@ -112,7 +112,7 @@ export default {
         canSet: false,
       },
       {
-        name: `舌像`,
+        name: `舌象`,
         colspan: '1',
         rowspan: '3',
         style: {

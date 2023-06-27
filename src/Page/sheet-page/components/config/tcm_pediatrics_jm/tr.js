@@ -137,9 +137,9 @@ export default [{
   }
 },
 {
-  key: "fieldFive", //舌像
+  key: "fieldFive", //舌象
   value: "",
-  name: "舌像",
+  name: "舌象",
   next: "",
   event: keyf1,
   textarea: {

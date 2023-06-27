@@ -234,10 +234,10 @@ export default {
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
-    if (!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]) {
+    if (typeof(this.sheetInfo.relObj[`${this.index}nurseLevel`]) == 'undefined') {
       this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] = this.patientInfo.bedLabel
     }
-    if (!this.sheetInfo.relObj[`${this.index}nurseLevel`]) {
+    if (typeof(this.sheetInfo.relObj[`${this.index}nurseLevel`]) == 'undefined') {
       this.sheetInfo.relObj[`${this.index}nurseLevel`] = this.sheetInfo.relObj['freshlyNurseLevel']
     }
   },
