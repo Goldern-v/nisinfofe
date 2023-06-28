@@ -109,12 +109,12 @@
           {{ patientInfo.inpNo }}
         </div>
       </span>
-      <span>
+      <!-- <span>
         分娩日期：
         <div class="bottom-line" style="min-width: 80px">
           {{ patientInfo.admissionDate | toymd }}
         </div>
-      </span>
+      </span> -->
     </div>
     <div v-else>
       <div class="info-con" :class="{'big-header':sheetInfo.sheetType=='common_wj'}" flex="main:justify">

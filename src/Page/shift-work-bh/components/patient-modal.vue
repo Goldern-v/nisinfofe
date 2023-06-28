@@ -185,15 +185,29 @@
     },
     methods: {
       handleDiagnosis({ item, key }) {
-        item.forEach((v) => {
-          if (this.doc && v[key]) {
-            this.doc += "\n";
-          }
-          if (this.HOSPITAL_ID === 'fuyou')
-            this.doc += `${v[key]},${v.diagMeasures}`;
-          else
-            this.doc += v[key];
-        });
+        switch (this.tab) {
+          case "2":
+            this.form.background = xie(this.form.background)
+            break;
+          case "3":
+            this.form.assessmentSituation = xie(this.form.assessmentSituation)
+            break;
+          case "4":
+            this.form.proposal = xie(this.form.proposal)
+            break;
+          default:
+            break;
+        }
+        function xie(doc) {
+           item.forEach((v) => {
+            if (doc && v[key]) {
+              doc += "\n";
+            }
+            doc += v[key];
+          });
+          return doc
+        }
+
       },
       openModal(key) {
         this.$refs[key] && this.$refs[key].open();

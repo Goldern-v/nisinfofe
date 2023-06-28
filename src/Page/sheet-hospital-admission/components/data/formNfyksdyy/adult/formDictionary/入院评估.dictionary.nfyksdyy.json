@@ -197,11 +197,6 @@
             "pinyin": "wanzheng"
         },
         {
-            "code": "部位",
-            "name": "部位",
-            "pinyin": "buwei"
-        },
-        {
             "code": "水疱",
             "name": "水疱",
             "pinyin": "shuipao"
@@ -378,6 +373,13 @@
             "code": "未婚",
             "name": "未婚",
             "pinyin": "weihun"
+        }
+    ],
+    "I2332008": [
+        {
+            "code": "汉族",
+            "name": "汉族",
+            "pinyin": "hanz"
         }
     ],
     "I2332015": [
@@ -617,6 +619,40 @@
             "code": "未完成",
             "name": "未完成",
             "pinyin": "wwc"
+        }
+    ],
+    "I2332226": [
+        {
+            "code": "灵敏",
+            "name": "灵敏",
+            "pinyin": "lm"
+        },
+        {
+            "code": "迟钝",
+            "name": "迟钝",
+            "pinyin": "ct"
+        },
+        {
+            "code": "消失",
+            "name": "消失",
+            "pinyin": "xs"
+        }
+    ],
+    "I2332202": [
+        {
+            "code": "灵敏",
+            "name": "灵敏",
+            "pinyin": "lm1"
+        },
+        {
+            "code": "迟钝",
+            "name": "迟钝",
+            "pinyin": "ct2"
+        },
+        {
+            "code": "消失",
+            "name": "消失",
+            "pinyin": "xs3"
         }
     ]
 }

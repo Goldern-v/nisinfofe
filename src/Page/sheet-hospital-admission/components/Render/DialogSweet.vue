@@ -529,14 +529,6 @@ export default {
               let results = `${this.formBox.model[key]}(${this.formBox.model["I001120"]}+${this.formBox.model["I001121"]}+${this.formBox.model["I001122"]})`
               this.$root.$refs[this.formCode]['I001119'].setCurrentValue(results);
               this.$root.$refs[this.formCode]['I001119'].checkValueRule(results);
-            } else if( key == 'I2332219' && ['nfyksdyy'].includes(this.HOSPITAL_ID)){
-              let results = `${this.formBox.model[key]}(${this.formBox.model["I2332020"]})`
-              this.$root.$refs["E2332"]['I2332219'].setCurrentValue(results);
-              this.$root.$refs["E2332"]['I2332219'].checkValueRule(results);
-            }  else if( key == 'I2332052' && ['nfyksdyy'].includes(this.HOSPITAL_ID)){
-              let results = `${this.formBox.model[key]}(${this.formBox.model["I233000"]})`
-              this.$root.$refs["E2332"]['I2332052'].setCurrentValue(results);
-              this.$root.$refs["E2332"]['I2332052'].checkValueRule(results);
             }
           }
         }
