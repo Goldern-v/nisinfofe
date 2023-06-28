@@ -390,15 +390,15 @@
         ref="printCon3"
         v-show="printMode.includes('wrist')"
       >
-        <div class="bed-card-vert-con wrist-newVert-con">
-          <div class="top">
-            <span>科室：{{ query.deptName }}</span>
+        <div class="bed-card-vert-con">
+          <div class="top" style="position: relative;height:30px">
+            <span style="position: absolute;">科室：{{ query.deptName }}</span>
+            <span :style="{position:'absolute',left: printMode=='wrist-children'?'210px':'270px',}">床号：{{ query.bedLabel }}</span>
           </div>
-          <div>
-            <span >姓名：{{ query.name }}</span>
-            <span >性别：{{ query.sex }}</span>
-            <span >年龄：{{ query.age }}</span>
-            
+          <div style="position: relative;height:30px">
+            <span style="position: absolute;">姓名：{{ query.name }}</span>
+            <span :style="{position:'absolute',left: printMode=='wrist-children'?'175px':'160px',}">性别：{{ query.sex }}</span>
+            <span :style="{position:'absolute',left: printMode=='wrist-children'?'260px':'270px',}">年龄：{{ query.age }}</span>
 
             <!-- <div>
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
@@ -420,11 +420,7 @@
             :src="qrCode"
           /> -->
           <div>
-            <span >床号：{{ query.bedLabel }}</span>
-            <span>住院号：{{ query.inpNo }}</span>
-          </div>
-          <div>
-              
+              <span>住院号：{{ query.inpNo }}</span>
               <!-- <span class="bhzd">诊断:{{query.remark}}</span> -->
               <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
         </div>
@@ -542,14 +538,14 @@ vertCon(w=10.6,h=5.8){
       margin: 20px;
       width: 119px;
       height: 498px;
-      // padding: 35px 8px 5px !important;
+      padding: 35px 8px 5px !important;
       box-sizing: border-box;
       position: relative;
       border: 3px solid #000;
       text-align: left;
       width: 500px;
       height: auto;
-      // padding: 5px 0 0 0 !important;
+      padding: 5px 0 0 0 !important;
       border: none;
      .top {
         span {
@@ -571,8 +567,8 @@ vertCon(w=10.6,h=5.8){
         }
       }
      span {
-        font-size: 16px;
-        line-height: 22px;
+        font-size: 20px;
+        line-height: 24px;
         // margin-left: 45px;
         &.bhzd{
             display:inline-block;
@@ -587,7 +583,7 @@ vertCon(w=10.6,h=5.8){
      }
     .qr-code {
       position: absolute;
-      right: -19px;
+      right: 0;
       top: 50%;
       margin-top: -56px;
       height: 112px;
@@ -603,11 +599,6 @@ vertCon(w=10.6,h=5.8){
       margin-left: 15px;
     }
    }
-  .wrist-newVert-con{
-    // vertCon(7.5,2);
-    width: 353.7px !important;
-    height: 86.2px !important;
-  }
 }
 
 .bed-card-con {

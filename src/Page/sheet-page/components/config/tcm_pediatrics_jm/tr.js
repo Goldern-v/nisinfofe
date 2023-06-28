@@ -137,9 +137,9 @@ export default [{
   }
 },
 {
-  key: "fieldFive", //舌像
+  key: "fieldFive", //舌象
   value: "",
-  name: "舌像",
+  name: "舌象",
   next: "",
   event: keyf1,
   textarea: {
@@ -226,7 +226,7 @@ export default [{
   value: ""
 },
 {
-  key: "audit",
+  key: "sign2",
   value: ""
 },
 {
@@ -237,6 +237,11 @@ export default [{
 {
   hidden: true,
   key: "signerName",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerName2",
   value: ""
 },
 {
@@ -272,6 +277,11 @@ export default [{
 {
   hidden: false,
   key: "signerNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerNo2",
   value: ""
 },
 {

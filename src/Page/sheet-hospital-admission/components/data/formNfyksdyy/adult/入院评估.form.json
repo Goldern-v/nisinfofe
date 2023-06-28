@@ -251,7 +251,7 @@
           "name": "I2332007",
           "type": "input",
           "title": "国籍",
-          "titleStyle": "width:80px!important",
+          "titleStyle": "width:80px!important;margin-top: 0px",
           "inputStyle": "width:100%!important",
           "inputWidth": "80%",
           "style": null,
@@ -283,7 +283,7 @@
       "children": [
         {
           "name": "I2332008",
-          "type": "input",
+          "type": "select",
           "title": "民族",
           "titleStyle": "width:80px!important",
           "inputStyle": "width:100%!important",
@@ -292,13 +292,18 @@
           "class": null,
           "labelLeft": true,
           "hiddenTips": true,
-          "readOnly": null
+          "readOnly": null,
+          "rule": [
+            {
+              "equals": "汉族"
+            }
+          ]
         },
         {
           "name": "I2332009",
           "type": "input",
           "title": "职业",
-          "titleStyle": "width:80px!important",
+          "titleStyle": "width:80px!important;margin-top: 0px",
           "inputStyle": "width:100%!important",
           "inputWidth": "95%",
           "style": null,
@@ -486,7 +491,13 @@
                   "其他"
                 ],
                 "title": "既往史",
-                "parentName": "I2332666"
+                "parentName": "I2332219",
+                "type": "dependent",
+                "callbackInfo": {
+                  "respCode": "I2332219",
+                  "reqCode": "I2332666"
+
+                }
               }
             }
           ]
@@ -822,7 +833,7 @@
           "type": "input",
           "title": "T",
           "suffixDesc": "℃",
-          "titleStyle": "width:15px!important",
+          "titleStyle": "width:15px!important;margin-top: 0px",
           "inputStyle": "width:100%!important",
           "inputWidth": "55px",
           "style": null,
@@ -835,7 +846,7 @@
           "type": "input",
           "title": "P",
           "suffixDesc": "次/min",
-          "titleStyle": "width:45px!important",
+          "titleStyle": "width:45px!important;margin-top: 0px",
           "inputStyle": "width:100%!important",
           "inputWidth": "55px",
           "style": null,
@@ -848,7 +859,7 @@
           "type": "input",
           "labelTitle": "HR",
           "suffixDesc": "次/min",
-          "titleStyle": "width:45px!important",
+          "titleStyle": "width:45px!important;margin-top: 0px",
           "inputStyle": "width:100%!important",
           "inputWidth": "55px",
           "style": null,
@@ -861,7 +872,7 @@
           "type": "input",
           "title": "R",
           "suffixDesc": "次/min",
-          "titleStyle": "width:15px!important",
+          "titleStyle": "width:15px!important;margin-top: 0px",
           "inputStyle": "width:100%!important",
           "inputWidth": "55px",
           "style": null,
@@ -874,7 +885,7 @@
           "type": "input",
           "labelTitle": "BP",
           "suffixDesc": "mmHG",
-          "titleStyle": "width:30px!important",
+          "titleStyle": "width:30px!important;margin-top: 0px",
           "inputStyle": "width:100%!important",
           "inputWidth": "65px",
           "style": null,
@@ -902,8 +913,8 @@
       "type": "formGroupColBox",
       "col": 2,
       "colWidth": [
-        "60%",
-        "40%"
+        "70%",
+        "30%"
       ],
       "title": "意识/神志",
       "message": "",
@@ -946,19 +957,18 @@
             {
               "name": "I2332032",
               "type": "radio",
-              "title": "镇静状态",
+              "title": "模糊",
               "elementStyle": "margin: 3px 5px 0 0;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null,
+              "showName": "嗜睡",
               "tasks": [
                 {
-                  "show": "镇静状态"
+                  "show": "嗜睡"
                 },
                 {
-                  "clean": [
-                    "嗜睡"
-                  ]
+                  "clean": "镇静状态"
                 }
               ]
             },
@@ -979,41 +989,7 @@
                 }
               ]
             },
-            {
-              "name": "I2332032",
-              "type": "radio",
-              "title": "模糊",
-              "elementStyle": "margin: 3px 5px 0 0;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null,
-              "showName": "嗜睡",
-              "tasks": [
-                {
-                  "show": "嗜睡"
-                },
-                {
-                  "clean": "镇静状态"
-                }
-              ]
-            },
-            {
-              "name": "I2332032",
-              "type": "radio",
-              "title": "谵妄",
-              "elementStyle": "margin: 3px 5px 0 0;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null,
-              "tasks": [
-                {
-                  "clean": [
-                    "镇静状态",
-                    "嗜睡"
-                  ]
-                }
-              ]
-            },
+            
             {
               "name": "I2332032",
               "type": "radio",
@@ -1035,7 +1011,7 @@
             {
               "name": "I2332032",
               "type": "radio",
-              "title": "昏迷",
+              "title": "浅昏迷",
               "elementStyle": "margin: 3px 5px 0 0;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -1047,6 +1023,78 @@
                 },
                 {
                   "clean": "镇静状态"
+                }
+              ]
+            },
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "深昏迷",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "showName": "嗜睡",
+              "tasks": [
+                {
+                  "show": "嗜睡"
+                },
+                {
+                  "clean": "镇静状态"
+                }
+              ]
+            },
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "药眠状态",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "showName": "嗜睡",
+              "tasks": [
+                {
+                  "show": "嗜睡"
+                },
+                {
+                  "clean": "镇静状态"
+                }
+              ]
+            },
+            
+            
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "痴呆",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "镇静状态",
+                    "嗜睡"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "谵妄",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "镇静状态",
+                    "嗜睡"
+                  ]
                 }
               ]
             }
@@ -1079,8 +1127,24 @@
                   "callbackInfo": {
                     "needScore": true,
                     "code": "FSSY_G0001",
-                    "prefix": "格拉斯哥昏迷评分量表",
-                    "suffix": "分"
+                    "prefix": "GCS评估",
+                    "suffix":[
+                      {
+                        "max": 8,
+                        "min": 3,
+                        "value": "分，高度昏迷"
+                      },
+                      {
+                        "max": 12,
+                        "min": 9,
+                        "value": "分，中度昏迷"
+                      },
+                      {
+                        "max": 13,
+                        "min": 14,
+                        "value": "分，轻度昏迷"
+                      }
+                    ]
                   }
                 }
               }
@@ -1089,140 +1153,16 @@
         }
       ]
     },
+    
     {
       "name": "",
       "type": "formGroupColBox",
-      "col": 1,
-      "title": "镇静状态",
-      "parentKey": "I2333099",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "boxStyle": "padding-left: 0px;",
-      "classes": null,
-      "readOnly": null,
-      "labelLeft": true,
-      "hiddenTips": true,
-      "children": [
-        {
-          "name": "I2332036",
-          "type": "",
-          "title": "瞳孔大小：左",
-          "titleStyle": "width: 102px!important",
-          "class": "radio_input",
-          "labelLeft": true,
-          "readOnly": null,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332036",
-              "type": "input",
-              "title": "",
-              "titleStyle": "width: 95px;",
-              "inputStyle": "width:100%!important",
-              "inputWidth": "100px",
-              "labelLeft": true,
-              "suffixDesc": " 右:",
-              "style": null,
-              "class": null,
-              "readOnly": null,
-              "hiddenTips": true
-            },
-            {
-              "name": "I2332037",
-              "type": "input",
-              "title": "",
-              "titleStyle": "width: 95px;",
-              "inputStyle": "width:100%!important",
-              "inputWidth": "100px",
-              "labelLeft": true,
-              "suffixDesc": " 等大等圆:",
-              "style": null,
-              "class": null,
-              "readOnly": null,
-              "hiddenTips": true
-            },
-            
-            {
-              "name": "I2332039",
-              "type": "",
-              "title": "",
-              "titleStyle": "width: 66px!important",
-              "class": "radio_input",
-              "labelLeft": true,
-              "readOnly": null,
-              "hiddenTips": true,
-              "suffixDesc": " 等大等圆:",
-              "children": [
-                {
-                  "name": "I2332039",
-                  "type": "radio",
-                  "title": "是",
-                  "elementStyle": "margin: 3px 5px 0 0;",
-                  "elementClass": "el-radio_fs itemRadio",
-                  "style": null,
-                  "class": null
-                },
-                {
-                  "name": "I2332039",
-                  "type": "radio",
-                  "title": "否",
-                  "elementStyle": "margin: 3px 5px 0 0;",
-                  "elementClass": "el-radio_fs itemRadio",
-                  "style": null,
-                  "class": null
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "I2332040",
-          "type": "",
-          "title": "对光反射",
-          "titleStyle": "width: 72px!important",
-          "class": "radio_input",
-          "labelLeft": true,
-          "readOnly": null,
-          "hiddenTips": true,
-          "children": [
-            {
-              "name": "I2332040",
-              "type": "radio",
-              "title": "灵敏",
-              "elementStyle": "margin: 3px 5px 0 0;",
-              "elementClass": "el-radio_fs itemRadio",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332040",
-              "type": "radio",
-              "title": "迟钝",
-              "elementStyle": "margin: 3px 5px 0 0;",
-              "elementClass": "el-radio_fs itemRadio",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332040",
-              "type": "radio",
-              "title": "消失",
-              "elementStyle": "margin: 3px 5px 0 0;",
-              "elementClass": "el-radio_fs itemRadio",
-              "style": null,
-              "class": null
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "",
-      "type": "formGroupColBox",
-      "col": 1,
+      "col": 3,
+      "colWidth": [
+        "50%",
+        "25%",
+        "25%"
+      ],
       "title": "嗜睡",
       "parentKey": "I2333099",
       "message": "",
@@ -1239,8 +1179,8 @@
         {
           "name": "I2332222",
           "type": "",
-          "title": "瞳孔大小：左",
-          "titleStyle": "width: 102px!important",
+          "title": "瞳孔：大小：左",
+          "titleStyle": "width: 120px!important",
           "class": "radio_input",
           "labelLeft": true,
           "readOnly": null,
@@ -1250,11 +1190,11 @@
               "name": "I2332222",
               "type": "input",
               "title": "",
-              "titleStyle": "width: 95px;",
+              "titleStyle": "width: 55px;",
               "inputStyle": "width:100%!important",
               "inputWidth": "100px",
               "labelLeft": true,
-              "suffixDesc": " 右:",
+              "suffixDesc": "mm 右",
               "style": null,
               "class": null,
               "readOnly": null,
@@ -1264,101 +1204,55 @@
               "name": "I2332223",
               "type": "input",
               "title": "",
-              "titleStyle": "width: 95px;",
+              "titleStyle": "width: 55px;",
               "inputStyle": "width:100%!important",
               "inputWidth": "100px",
               "labelLeft": true,
-              "suffixDesc": " 瞳孔形状:",
+              "suffixDesc": "mm",
               "style": null,
               "class": null,
               "readOnly": null,
               "hiddenTips": true
-            },
+            }
+          ]
+        },
+        {
+          "name": "I2332202",
+          "type": "select",
+          "title": "对光反射:左",
+          "titleStyle": "width:115px!important",
+          "class": "",
+          "boxStyle": "height:auto!important",
+          "elementsStyle": "margin-top:8px",
+          "inputStyle": "60px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "rule": [
             {
-              "name": "I2332224",
-              "type": "input",
-              "title": "",
-              "titleStyle": "width: 95px;",
-              "inputStyle": "width:100%!important",
-              "inputWidth": "100px",
-              "labelLeft": true,
-              "suffixDesc": "等大等圆:",
-              "style": null,
-              "class": null,
-              "readOnly": null,
-              "hiddenTips": true
-            },
-            {
-              "name": "I2332225",
-              "type": "",
-              "title": "",
-              "titleStyle": "width: 66px!important",
-              "class": "radio_input",
-              "labelLeft": true,
-              "readOnly": null,
-              "hiddenTips": true,
-              "children": [
-                {
-                  "name": "I2332225",
-                  "type": "radio",
-                  "title": "是",
-                  "elementStyle": "margin: 3px 5px 0 0;",
-                  "elementClass": "el-radio_fs itemRadio",
-                  "style": null,
-                  "class": null
-                },
-                {
-                  "name": "I2332225",
-                  "type": "radio",
-                  "title": "否",
-                  "elementStyle": "margin: 3px 5px 0 0;",
-                  "elementClass": "el-radio_fs itemRadio",
-                  "style": null,
-                  "class": null
-                }
-              ]
+              "equal": "有",
+              "style": "color:red"
             }
           ]
         },
         {
           "name": "I2332226",
-          "type": "",
-          "title": "对光反射",
-          "titleStyle": "width: 72px!important",
-          "class": "radio_input",
+          "type": "select",
+          "title": "右",
+          "titleStyle": "width:115pxpx!important",
+          "class": "",
+          "boxStyle": "height:auto!important",
+          "elementsStyle": "margin-top:8px",
+          "inputStyle": "60px",
           "labelLeft": true,
-          "readOnly": null,
           "hiddenTips": true,
-          "children": [
+          "rule": [
             {
-              "name": "I2332226",
-              "type": "radio",
-              "title": "灵敏",
-              "elementStyle": "margin: 3px 5px 0 0;",
-              "elementClass": "el-radio_fs itemRadio",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332226",
-              "type": "radio",
-              "title": "迟钝",
-              "elementStyle": "margin: 3px 5px 0 0;",
-              "elementClass": "el-radio_fs itemRadio",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332226",
-              "type": "radio",
-              "title": "消失",
-              "elementStyle": "margin: 3px 5px 0 0;",
-              "elementClass": "el-radio_fs itemRadio",
-              "style": null,
-              "class": null
+              "equal": "有",
+              "style": "color:red"
             }
           ]
         }
+       
 
       ]
     },
@@ -1454,7 +1348,7 @@
           "name": "I2332042",
           "type": "",
           "title": "疼痛部位",
-          "titleStyle": "width:100px!important",
+          "titleStyle": "width:100px!important;margin-top: 0px",
           "elementStyle": "margin: 0px 5px 0 8px;",
           "elementClass": "el-radio_fs",
           "class": null,
@@ -1481,7 +1375,7 @@
           "name": "I2332041",
           "type": "select",
           "title": "程度",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:75px!important",
           "class": "",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
@@ -1499,7 +1393,7 @@
           "name": "I2332262",
           "type": "select",
           "title": "持续时间",
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:75px!important",
           "class": "",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
@@ -1518,7 +1412,7 @@
           "type": "select",
           "title": "性质",
           "multiplechoice": true,
-          "titleStyle": "width:62px!important",
+          "titleStyle": "width:75px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
@@ -2166,7 +2060,7 @@
         {
           "name": "I100009",
           "type": "input",
-          "titleStyle":"width:100px!important",
+          "titleStyle":"width:100px!important;;margin-top: 0px",
           "title": "身高",
           "inputWidth": "40px",
           "suffixDesc": "cm",
@@ -2199,7 +2093,7 @@
           "name": "I100010",
           "type": "input",
           "title": "体重",
-          "titleStyle":"width:100px!important",
+          "titleStyle":"width:100px!important;;margin-top: 0px",
           "suffixDesc": "kg",
           "inputWidth": "40px",
           "style": null,
@@ -2229,8 +2123,8 @@
         {
           "name": "I100011",
           "type": "input",
-          "title": "体重指数",
-          "titleStyle":"width:100px!important",
+          "title": "BMI",
+          "titleStyle":"width:55px!important;;margin-top: 0px",
           "inputWidth": "40px",
           "suffixDesc": "kg/m2",
           "style": null,
@@ -2414,7 +2308,6 @@
                 "openKey": "其他",
                 "cleanKey": [
                   "完整",
-                  "部位",
                   "水疱",
                   "硬结",
                   "瘀斑",
@@ -2426,7 +2319,11 @@
                 ],
                 "title": "完整性",
                 "parentName": "I2332052",
-                "type": "dependent"
+                "type": "dependent",
+                "callbackInfo": {
+                  "respCode": "I2332052",
+                  "reqCode": "I233000"
+                }
               }
             },
             {
@@ -2449,7 +2346,7 @@
       "style": null,
       "titleStyle": "margin-top: 7px;",
       "boxStyle": "height:auto!important",
-      "classes": null,
+      "class":null,
       "readOnly": null,
       "children": [
         {
@@ -2457,7 +2354,7 @@
           "type": "",
           "title": "颜色",
           "titleStyle": "width:62px!important",
-          "class": null,
+          "class":"radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
           "labelLeft": true,
@@ -2522,9 +2419,24 @@
               "type": "radio",
               "title": "其他",
               "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
+              "elementClass": "el-radio_fs itemRadio",
               "style": null,
-              "class": null
+              "class": null,
+              "children": [
+                {
+                  "name": "I2332070",
+                  "type": "input",
+                  "title": "",
+                  "inputStyle": "width:100%!important; margin: 0px 0px 0px 0px;height:auto",
+                  "inputWidth": "100px",
+                  "suffixDesc": "",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
             }
           ]
         }
@@ -2611,7 +2523,11 @@
                 ],
                 "title": "口腔黏膜",
                 "parentName": "I2332063",
-                "type": "dependent"
+                "type": "dependent",
+                "callbackInfo": {
+                  "respCode": "I2332063",
+                  "reqCode": "I233777"
+                }
               }
             }
           ]
@@ -3204,8 +3120,8 @@
         {
           "name": "I2332084",
           "type": "",
-          "title": "活动度",
-          "titleStyle": "width:62px!important",
+          "title": "四肢活动度",
+          "titleStyle": "width:75px!important",
           "class": "",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -3215,7 +3131,7 @@
             {
               "name": "I2332084",
               "type": "radio",
-              "title": "正常",
+              "title": "自如",
               "elementStyle": "margin: 8px 5px 0 0;top:-5px",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -3224,7 +3140,7 @@
             {
               "name": "I2332084",
               "type": "radio",
-              "title": "偏瘫",
+              "title": "无力",
               "elementStyle": "margin: 8px 5px 0 0;top:-5px",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -3233,7 +3149,7 @@
             {
               "name": "I2332084",
               "type": "radio",
-              "title": "截瘫",
+              "title": "受限",
               "elementStyle": "margin: 8px 5px 0 0;top:-5px",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -3242,8 +3158,8 @@
             {
               "name": "I2332084",
               "type": "radio",
-              "title": "活动受限:",
-              "elementStyle": "margin: 8px 5px 0 8px;top:-5px",
+              "title": "偏瘫:(",
+              "elementStyle": "margin: 8px 5px 0 0;top:-5px",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -3278,44 +3194,26 @@
             {
               "name": "I2332085",
               "type": "checkbox",
-              "title": "右下肢",
+              "title": "右下肢)",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
             },
             {
-              "name": "I2332085",
-              "type": "checkbox",
-              "title": "颈椎",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "name": "I2332084",
+              "type": "radio",
+              "title": "截瘫",
+              "elementStyle": "margin: 8px 5px 0 0;top:-5px",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
             },
             {
-              "name": "I2332085",
-              "type": "checkbox",
-              "title": "胸椎",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332085",
-              "type": "checkbox",
-              "title": "腰椎",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332085",
-              "type": "checkbox",
-              "title": "全脊柱",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "name": "I2332084",
+              "type": "radio",
+              "title": "全瘫",
+              "elementStyle": "margin: 8px 5px 0 0;top:-5px",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -5898,7 +5796,7 @@
                   "name": "I2332248",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:180px!important",
+                  "titleStyle": "width:180px!important;margin-top: 0px",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
                   "inputWidth": "180px",
                   "suffixDesc": "",

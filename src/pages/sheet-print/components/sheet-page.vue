@@ -279,6 +279,16 @@ export default {
                   `
                 );
               }
+              if(['common_wj'].includes(this.sheetInfo.sheetType)) {
+                addCSS(
+                  window,
+                  `
+                    #sheetPagePrint .iframe .sheet-table td[datakey="description"] strong{
+                      font-weight:bold !important;
+                    }
+                  `
+                );
+              }
               /** 如果是威县超宽打印 */
               if (this.HOSPITAL_ID == "weixian") {
                 addCSS(

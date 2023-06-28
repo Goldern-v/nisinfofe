@@ -52,33 +52,6 @@
     ]
   },
   {
-    "title": "既往史",
-    "type": "formGroupHorizontalBox",
-    "name": "",
-    "message": "",
-    "require": "false",
-    "aliasTitle": "",
-    "showTitle": true,
-    "suffixDesc": "",
-    "keys": "I2332219",
-    "style": null,
-    "classes": null,
-    "readOnly": null,
-    "modalWidth": 400,
-    "children": [
-      {
-        "name": "I2332666",
-        "type": "input",
-        "title": "其他",
-        "value": "",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
-      }
-    ]
-  },
-  {
     "title": "口腔黏膜",
     "type": "formGroupHorizontalBox",
     "name": "I2332066",
@@ -104,32 +77,7 @@
       }
     ]
   },
-  {
-    "title": "完整性",
-    "type": "formGroupHorizontalBox",
-    "name": "I233000",
-    "message": "",
-    "require": "false",
-    "aliasTitle": "完整性",
-    "showTitle": true,
-    "suffixDesc": "",
-    "keys": "",
-    "style": null,
-    "classes": null,
-    "readOnly": null,
-    "modalWidth": 400,
-    "children": [
-      {
-        "name": "I233000",
-        "type": "input",
-        "title": "完整性其他",
-        "style": null,
-        "class": null,
-        "html": null,
-        "readOnly": null
-      }
-    ]
-  },
+  
 
   {
     "title": "过敏史食物",
@@ -297,6 +245,105 @@
         "type": "input",
         "inputType": "textarea",
         "title": "手术史",
+        "style": "width:100%",
+        "tdStyle": "width:100%",
+        "elementStyle": "width:100%",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "口腔黏膜",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I233777",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "口腔黏膜",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I233777",
+        "type": "input",
+        "inputType": "textarea",
+        "title": "口腔黏膜",
+        "style": "width:100%",
+        "tdStyle": "width:100%",
+        "elementStyle": "width:100%",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "既往史",
+    "type": "formGroupHorizontalBox",
+    "colWidth": [
+      "20%",
+      "80%"
+    ],
+    "name": "I2332666",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "既往史",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": "width:100%",
+    "tdStyle": "width:100%",
+    "elementStyle": "width:100%",
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I2332666",
+        "type": "input",
+        "inputType": "textarea",
+        "title": "既往史",
+        "style": "width:100%",
+        "tdStyle": "width:100%",
+        "elementStyle": "width:100%",
+        "class": null,
+        "html": null,
+        "readOnly": null
+      }
+    ]
+  },
+  {
+    "title": "完整性",
+    "type": "formGroupHorizontalBox",
+    "name": "I233000",
+    "message": "",
+    "require": "false",
+    "aliasTitle": "完整性",
+    "showTitle": true,
+    "suffixDesc": "",
+    "keys": "",
+    "style": null,
+    "classes": null,
+    "readOnly": null,
+    "modalWidth": 400,
+    "children": [
+      {
+        "name": "I233000",
+        "type": "input",
+        "inputType": "textarea",
+        "title": "口腔黏膜",
         "style": "width:100%",
         "tdStyle": "width:100%",
         "elementStyle": "width:100%",

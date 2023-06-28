@@ -8,6 +8,8 @@ import {
   keyf1,
   limitChange
 } from "../keyEvent/f1.js";
+import info from "../sheetInfo";
+
 import {
   event_date,
   event_time,
@@ -17,7 +19,7 @@ import {
 let 胎位 = ['LOA','ROA','ROT','LOT','RST','LST'];
 let 部位 = ['左上','左下','右上','右下','左下右下','左上右上','左上右下','左下右上'];
 let 衔接 = ['已','未'];
-let 宫颈扩张 = ['1','1+','2','2+','3','3+','4','5','6','7','8','9','开全'];
+let 宫颈扩张 = ['1','1+','2','2+','3','3+','4','5','6','7','8','9','全开'];
 let 先露高低 = ['-1','-2','-3','0','+1','+2','+3'];
 let 胎膜 = ['已破','未破'];
 let 羊水性状 = ['Ⅰ°','Ⅱ°','Ⅲ°','清','浑浊'];
@@ -362,3 +364,37 @@ export default [
   },
 ];
 
+export function getListData4() {
+  let list = [
+    "胎位",
+    "部位",
+    "衔接",
+    "先露高低",
+    "宫颈扩张",
+    "胎膜",
+    "羊水性状",
+    "检查方式",
+    "阴道流血"
+  ];
+  multiDictInfo(list,info.sheetType).then(res => {
+    let data = res.data.data;
+    setList(胎位, "胎位", data);
+    setList(部位, "部位", data);
+    setList(衔接, "衔接", data);
+    setList(宫颈扩张, "宫颈扩张", data);
+    setList(先露高低, "先露高低", data);
+    setList(胎膜, "胎膜", data);
+    setList(羊水性状, "羊水性状", data);
+    setList(检查方式, "检查方式", data);
+    setList(阴道流血, "阴道流血", data);
+  });
+}
+
+getListData4();
+
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}
