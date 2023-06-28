@@ -246,10 +246,11 @@ const currentTargetUrl = (() => {
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
       // return 'http://192.168.5.127:9091'
-      return 'http://218.204.204.90:9095'
+      // return 'http://218.204.204.90:9095'
       // return 'http://120.24.240.231:19097'
       // return 'http://192.168.3.154:8080'
       // return 'http://192.168.3.191:9091'
+      return 'http://192.168.1.54:9883'
 
     //武汉汉口
     case 'whhk':

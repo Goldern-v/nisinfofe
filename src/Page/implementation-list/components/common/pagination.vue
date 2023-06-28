@@ -156,6 +156,7 @@ export default {
   background: #fff;
   overflow: hidden;
   font-size: 14px;
+  width: 100%;
   .now-page {
     width: 50px;
   }
