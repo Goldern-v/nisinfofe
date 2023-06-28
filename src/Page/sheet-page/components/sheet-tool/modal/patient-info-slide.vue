@@ -188,10 +188,23 @@ export default {
   data() {
     return {
       bus: bus(this),
-      show: false
+      show: false,
     };
   },
   computed: {
+     ...mapState({
+      patient: (state) => state.patient.currentPatient
+    }),
+    empNo() {
+      try {
+        return JSON.parse(localStorage.user).empNo;
+      } catch (error) { }
+    },
+    empName() {
+      try {
+        return JSON.parse(localStorage.user).empName;
+      } catch (error) { }
+    },
     extraList() {
       switch(this.HOSPITAL_ID) {
         case 'lyxrm':
@@ -226,19 +239,6 @@ export default {
         default:
           return []
       }
-    },
-     ...mapState({
-      patient: (state) => state.patient.currentPatient
-    }),
-    empNo() {
-      try {
-        return JSON.parse(localStorage.user).empNo;
-      } catch (error) { }
-    },
-    empName() {
-      try {
-        return JSON.parse(localStorage.user).empName;
-      } catch (error) { }
     },
   },
   methods: {
