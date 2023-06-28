@@ -3330,12 +3330,13 @@
       "readOnly": null,
       "children": [
         {
-          "name": "evalDate",
+          "name": "signTime",
           "type": "input",
           "title": "记录时间",
           "titleStyle": "width:70px!important",
           "inputStyle": "width:270px!important",
           "inputWidth": "160px",
+          "dateTimeType":"datetime",
           "suffixDesc": "",
           "style": null,
           "class": null,
