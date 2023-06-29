@@ -12,6 +12,9 @@
       </div>
       <div class="new-modal-top-left">
         <div class="new-modal-top-left-first"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}">
+          <div v-if="HOSPITAL_ID == 'qhwy'">{{ $store.state.lesion.deptName }} </div>
+        </div>
+        <div class="new-modal-top-left-first"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}">
           <div>{{ currentBottle.name }}</div>
           <div>
             {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
@@ -24,7 +27,7 @@
           <div>{{ currentBottle.age }}</div>
         </div>
         <div class="new-modal-top-left-second">
-          <div v-if="HOSPITAL_ID = 'qhwy'" style="text-indent: 5px">
+          <div v-if="HOSPITAL_ID == 'qhwy'" style="text-indent: 5px">
             {{ currentBottle.executeDate.substr(0, 16) }}
           </div>
           <div v-else style="text-indent: 5px">
@@ -46,8 +49,8 @@
         </div>
     </div>
     <div class="new-modal-bottom-second">
-      <div style="width: 20%">频次途径</div>
-      <div style="flex: 1">{{ currentBottle.frequency }}</div>
+      <div style="width: 26%">频次途径</div>
+      <div style="flex: 1">{{ currentBottle.frequency }} <span v-if="HOSPITAL_ID == 'qhwy'">{{currentBottle.administration}}</span></div>
       <div>{{ currentBottle.freqDetail }}</div>
     </div>
   </div>
@@ -237,7 +240,7 @@
       .new-modal-top-left-second {
         height: 25px !important;
         div {
-          font-size: 20px;
+          font-size: 19px;
           line-height: 24px;
         }
       }
@@ -324,13 +327,15 @@ export default {
           return { width: '8cm', height: '5.8cm'}
         case '3.5*5':
           return { width: '7cm', height: '4.5cm'}
+        case '5*8':
+          return { width: '8cm', height: '5.9cm'}
         default:
         // case '3*5':
           return { width: '10cm', height: '5.9cm'}
       }
     },
     modalBStyle() {
-      if (this.newModalSize === '3*5') {
+      if (this.newModalSize === '3*5' || this.newModalSize === '5*8') {
         return { height: '100px' }
       }
       return {}

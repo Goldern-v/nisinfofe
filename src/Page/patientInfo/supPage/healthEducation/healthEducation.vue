@@ -1,6 +1,6 @@
 <template>
 <div class="health-education">
-  <div class="health-education-list" v-if="$route.path !== '/formPage' && HOSPITAL_ID =='nfyksdyy'">
+  <div class="health-education-list" v-if="$route.path !== '/formPage'">
     <div class="treeTitle">健康教育单</div>
     <baseTree :configList="configList" class="baseTree"></baseTree>
   </div>

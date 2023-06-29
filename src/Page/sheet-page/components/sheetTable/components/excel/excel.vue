@@ -1321,6 +1321,7 @@ export default {
       let self = this
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
+          console.log(title,'dddddddddddddddddddddd');
           let { list = [], id = '' } = obj  || {}
           list = list.map(v => v.options)
           let data = {

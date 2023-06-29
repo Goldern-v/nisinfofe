@@ -698,9 +698,10 @@
         :ischecked="sheetInfo.relObj['qita1']"
         v-model="sheetInfo.relObj['qita1']"
       />
-      引导分娩产后2小时总出血量：
+      产后2小时总出血量：
       <input
         style="width:50px;"
+        :data-value="sheetInfo.relObj['qit4']"
         v-model="sheetInfo.relObj['qit4']"
       />
       ml
@@ -710,10 +711,11 @@
         :ischecked="sheetInfo.relObj['qita2']"
         v-model="sheetInfo.relObj['qita2']"
       />
-      引导分娩产后2小时总出血量：
+      剖宫产出血量：
       <input
         style="width:50px;"
         v-model="sheetInfo.relObj['qit3']"
+        :data-value="sheetInfo.relObj['qit3']"
       />
       ml
     </div>
@@ -721,21 +723,25 @@
       指&nbsp;导&nbsp;者：
       <input
         v-model="sheetInfo.relObj['sign1']"
+        :data-value="sheetInfo.relObj['sign1']"
       />
       &nbsp;
       手术者：
       <input
         v-model="sheetInfo.relObj['sign2']"
+        :data-value="sheetInfo.relObj['sign2']"
       />
       &nbsp;
       接生者：
       <input
+        :data-value="sheetInfo.relObj['sign3']"
         v-model="sheetInfo.relObj['sign3']"
       />
       &nbsp;
       护婴者：
       <input
         v-model="sheetInfo.relObj['sign4']"
+        :data-value="sheetInfo.relObj['sign4']"
       />
     </div>
     <div v-if="sheetInfo.sheetType == 'cardiac_therapy_tj'">
