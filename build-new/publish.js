@@ -48,6 +48,7 @@ let sshUpload = (
     中国人民解放军联勤保障部队第九二五医院: '925',
     东莞市寮步医院: 'dglb',
     湛江海军医院: 'zjhj',
+    青海省第五人民医院: 'qinghaiwuyuan',
   };
   let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {
