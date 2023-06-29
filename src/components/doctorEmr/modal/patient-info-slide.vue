@@ -174,27 +174,10 @@ export default {
     return {
       bus: bus(this),
       show: false,
-      extraList: this.getExtraList()
     };
   },
   computed: {
-    // extraList() {
-    //   switch(this.HOSPITAL_ID) {
-    //     case 'huadu':
-    //     case 'zhzxy':
-    //       return [
-    //         {
-    //           name: '360视图',
-    //           url: this.url360()
-    //         }
-    //       ]
-    //     default:
-    //       return []
-    //   }
-    // },
-  },
-  methods: {
-    getExtraList() {
+    extraList() {
       switch(this.HOSPITAL_ID) {
         case 'huadu':
         case 'zhzxy':
@@ -208,6 +191,11 @@ export default {
           return []
       }
     },
+    selectPatient() {
+      return this.$store.state.patient.currentPatient;
+    }
+  },
+  methods: {
     open() {
       this.show = true;
     },
@@ -224,7 +212,8 @@ export default {
       }else this.$refs[name].open(feature);
     },
     url360() {
-      const { inpNo = '', patientId } = this.$route.query
+      const { inpNo = '' } = this.$route.query
+      const { patientId } = this.selectPatient;
       const { empNo } = (JSON.parse(localStorage.user) || {})
       const huaduURL = `http://172.16.8.135:9092/?vid=${inpNo}&vidType=02&appId=360&security=123#/personInfo`;
       const zhzxyURL = `http://10.95.6.17:9016/index.html#appid=FFEC62BF-AFE5-49CA-8E64-8A5AE79D8DEF&ysdm=${empNo}&hzid=${patientId}&jzlb=3`;

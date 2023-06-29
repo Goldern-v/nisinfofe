@@ -98,11 +98,11 @@
         ID号：
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
       </span> -->
-      <span v-if="['critical_new_weihai', 'internal_eval_weihai', 'inandout_weihai','baby_weihai'].includes(sheetInfo.sheetType)">
+      <span v-if="['critical_new_weihai', 'internal_eval_weihai', 'inandout_weihai','baby_weihai', 'extracardi_one_weihai', 'extracardi_two_weihai', 'extracardi_three_weihai'].includes(sheetInfo.sheetType)">
         入院日期：
         {{patientInfo.admissionDate | toymd}}
       </span>
-      <span v-if="['critical_mahui_weihai'].includes(sheetInfo.sheetType)">
+      <span v-if="['critical_mahui_weihai', 'extracardi_one_weihai', 'extracardi_two_weihai', 'extracardi_three_weihai'].includes(sheetInfo.sheetType)">
         体重：
         <input
           style="width: 60px;font-size:13px;text-align: center;"
@@ -113,9 +113,38 @@
         kg
       </span>
     </div>
-    <!-- <div class="info-con" v-if="['critical_weihai'].includes(sheetInfo.sheetType)">
+    <div class="info-con" v-if="['extracardi_one_weihai', 'extracardi_two_weihai', 'extracardi_three_weihai'].includes(sheetInfo.sheetType)">
       <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span>
-    </div> -->
+    </div>
+    <div
+      class="info-con"
+      style="display: flex;align-items: center"
+      v-if="[
+      'extracardi_one_weihai',
+      'extracardi_two_weihai',
+      'extracardi_three_weihai'
+      ].includes(sheetInfo.sheetType)"
+    >
+      <span>手术名称：</span>
+      <input
+        style="flex: 1;font-size:13px;text-align: left;"
+        class="bottom-line"
+        :data-value="sheetInfo.relObj[`ssmc`]"
+        v-model="sheetInfo.relObj[`ssmc`]"
+      />
+    </div>
+    <div
+      class="info-con"
+      style="display: flex;align-items: center"
+      v-if="['extracardi_one_weihai'].includes(sheetInfo.sheetType)"
+    >
+      <span>1、5%葡萄糖注射液（泵入组）&nbsp;</span>
+      <span>2、0.9%氯化钠注射液（泵入组）&nbsp;</span>
+      <span>3、去白细胞悬浮红细胞&nbsp;</span>
+      <span>4、病毒灭活冰冻血浆&nbsp;</span>
+      <span>5、自体血&nbsp;</span>
+      <span>6、其他</span>
+    </div>
   </div>
 </template>
 
