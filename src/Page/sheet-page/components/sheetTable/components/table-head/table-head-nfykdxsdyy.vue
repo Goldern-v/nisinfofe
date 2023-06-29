@@ -108,7 +108,7 @@
         <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
          特殊情况：
         <input
-          style="width: 200px;font-size:13px;text-align: left;"
+          style="width: 200px;font-size:16px;text-align: left;"
           class="bottom-line"
           :data-value="sheetInfo.relObj.tsqk"
           v-model="sheetInfo.relObj.tsqk"
@@ -142,7 +142,7 @@
           ">
           过敏史：
           <input
-          style="width: 130px;font-size:13px;text-align: left;"
+          style="width: 130px;font-size:16px;text-align: left;"
           class="bottom-line"
           :data-value="sheetInfo.relObj.guomishi"
           v-model="sheetInfo.relObj.guomishi"
@@ -152,7 +152,7 @@
         <span  v-if="sheetInfo.sheetType=='postpartum_sdry'" style="margin-left: 30px;">
           过敏史：
           <input
-          style="width: 130px;font-size:13px;text-align: left;"
+          style="width: 130px;font-size:16px;text-align: left;"
           class="bottom-line"
           :data-value="sheetInfo.relObj.guomishi"
           v-model="sheetInfo.relObj.guomishi"
@@ -250,7 +250,7 @@
         <!-- <span  v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
           会阴情况：
           <input
-          style="width: 100px;font-size:13px;text-align: center;"
+          style="width: 100px;font-size:16px;text-align: center;"
           class="bottom-hava-line"
           :data-value="sheetInfo.relObj[`${index}perinealCondition`]"
           v-model="sheetInfo.relObj[`${index}perinealCondition`]"
@@ -270,20 +270,20 @@
         <span  v-if="sheetInfo.sheetType=='prenatal_sdry'">
         孕产史：孕
         <input
-          style="width: 20px;font-size:13px;text-align: center;"
+          style="width: 20px;font-size:16px;text-align: center;"
           class="bottom-line"
           :data-value="sheetInfo.relObj['pregnantTimes']"
           v-model="sheetInfo.relObj['pregnantTimes']"
         />产
         <input
-          style="width: 20px;font-size:13px;text-align: center;"
+          style="width: 20px;font-size:16px;text-align: center;"
           class="bottom-line"
           :data-value="sheetInfo.relObj['parity']"
           v-model="sheetInfo.relObj['parity']"
         />
         孕
         <input
-          style="width: 35px;font-size:13px;text-align: center;"
+          style="width: 35px;font-size:16px;text-align: center;"
           class="bottom-line"
           :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
           v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
@@ -294,7 +294,7 @@
     <template v-if="sheetInfo.sheetType=='prenatal_sdry'" >
      <span>&nbsp;&nbsp;引产(</span>
       <input
-          style="width: 20px;font-size:13px;text-align: center;"
+          style="width: 20px;font-size:16px;text-align: center;"
           class="bottom-line"
           :data-value="sheetInfo.relObj.yc"
           v-model="sheetInfo.relObj.yc"
