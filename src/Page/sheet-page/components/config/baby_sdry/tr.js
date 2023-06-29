@@ -51,8 +51,8 @@ export default [
   { key: 'urinate', event: keyf1, value: '', next: '', name: '小便次', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4)},
   { key: 'weight', event: keyf1, value: '', next: 'kg', name: '体重', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodSugar', event: keyf1, value: 'mmol/L', next: '', name: '血糖', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'oncogenesis', event: keyf1, value: '', next: '', name: '产瘤', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete: { data: ["无",'2*2*5cm']} },
-  { key: 'hematoma', event: keyf1, value: '', next: '', name: '血肿', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4), autoComplete:{data:["√"]} },
+  { key: 'oncogenesis', event: keyf1, value: '', next: '', name: '产瘤', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete: { data: ["无",'2*2*5']} },
+  { key: 'hematoma', event: keyf1, value: '', next: '', name: '血肿', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: ["无", '2*2*5'] } },
   { key: 'armValue', event: keyf1, value: '',textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6)},
   { key: 'armValue2', event: keyf1, value: '',textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6)},
   {
