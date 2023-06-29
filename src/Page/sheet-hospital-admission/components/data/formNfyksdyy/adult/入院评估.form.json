@@ -5799,7 +5799,7 @@
           "name": "I2332181",
           "type": "",
           "title": "基础护理",
-          "titleStyle": "width:65px!important",
+          "titleStyle": "width:65px!important;margin-top:16px",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "inputStyle": "margin-top:8px",

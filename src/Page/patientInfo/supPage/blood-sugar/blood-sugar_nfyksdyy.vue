@@ -21,7 +21,7 @@
 
 
           <div class="sup-title" style="border-bottom: 1px solid #000;">
-            血糖记录单
+            科内血糖记录单
           </div>
 
           <div class="info" style="margin-top: 0px">
