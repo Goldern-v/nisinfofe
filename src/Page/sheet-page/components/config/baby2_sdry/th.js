@@ -40,7 +40,7 @@ export default {
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
-          "key": 'fieldOne',
+          "key": 'armValue',
           "style": {
             "minWidth": '37px',
             "maxWidth": '37px',
@@ -51,7 +51,7 @@ export default {
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
-          "key": 'fieldTwo',
+          "key": 'armValue2',
           "style": {
             "minWidth": '37px',
             "maxWidth": '37px',
@@ -62,7 +62,7 @@ export default {
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
-          "key": 'fieldThree',
+          "key": 'armValue3',
           "style": {
             "minWidth": '37px',
             "maxWidth": '37px',
@@ -73,7 +73,7 @@ export default {
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
-          "key": 'fieldFour',
+          "key": 'armValue4',
           "style": {
             "minWidth": '37px',
             "maxWidth": '37px',
@@ -84,7 +84,7 @@ export default {
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
-          "key": 'fieldFive',
+          "key": 'armValue5',
           "style": {
             "minWidth": '37px',
             "maxWidth": '37px',
@@ -95,7 +95,7 @@ export default {
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
-          "key": 'fieldSix',
+          "key": 'armValue6',
           "style": {
             "minWidth": '37px',
             "maxWidth": '37px',

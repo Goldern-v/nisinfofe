@@ -1052,7 +1052,7 @@
 
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'fuyou','whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi', 'whsl'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'fuyou','whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi', 'whsl','zhzxy'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"

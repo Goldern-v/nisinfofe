@@ -206,7 +206,7 @@ export default [
     change: (e, td) => limitChange(e, td, 2)
   },
   {
-    key: "oxygenWay",
+    key: "feedingWay",
     event: keyf1,
     value: "",
     textarea: { width: 30 },

@@ -178,7 +178,7 @@ export default {
     }
 
     /** 如果是超宽打印 */
-    if (this.HOSPITAL_ID == "hj") {
+    if (this.HOSPITAL_ID == "hj"||this.HOSPITAL_ID == "zhzxy") {
       addCSS(
         window,
         `

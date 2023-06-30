@@ -1444,21 +1444,22 @@ export default {
         this.patientInfo.visitId &&
         this.deptCode
       ) {
-        blockList(
-          this.patientInfo.patientId,
-          this.patientInfo.visitId,
-          this.deptCode
-        ).then((res) => {
-          this.sheetBlockList.forEach((item) => {
-            try {
-              let currObj = res.data.data.list.find((obj) => obj.id == item.id);
-              item.pageIndex = currObj.pageIndex;
-              item.endPageIndex = currObj.endPageIndex;
-              resolve(res)
-            } catch (error) {}
-          });
+        resolve();
+        // blockList(
+        //   this.patientInfo.patientId,
+        //   this.patientInfo.visitId,
+        //   this.deptCode
+        // ).then((res) => {
+        //   this.sheetBlockList.forEach((item) => {
+        //     try {
+        //       let currObj = res.data.data.list.find((obj) => obj.id == item.id);
+        //       item.pageIndex = currObj.pageIndex;
+        //       item.endPageIndex = currObj.endPageIndex;
+        //       resolve(res)
+        //     } catch (error) {}
+        //   });
 
-        });
+        // });
       }
       })
     },
@@ -1723,6 +1724,14 @@ export default {
           if((this.$route.path.includes('/formPage') && this.HOSPITAL_ID == 'nfyksdyy')||(this.$route.query.patientId && this.$route.query.visitId)){
             this.bus.$emit('refreshTree')
           }
+          // 优化 this.initSelectList 方法重复调接口
+          this.sheetBlockList.forEach((item) => {
+            try {
+              let currObj = list.find((obj) => obj.id == item.id);
+              item.pageIndex = currObj.pageIndex;
+              item.endPageIndex = currObj.endPageIndex;
+            } catch (error) {}
+          });
         });
       }
     },
@@ -2154,11 +2163,13 @@ export default {
       });
     },
     patientId:{
-      handler() {
+      handler(val) {
         this.oldSelectList = []
         this.selectList = [];
           this.$parent.breforeQuit(() => {
-            this.bus.$emit("setSheetTableLoading", true);
+            if (val) {
+              this.bus.$emit("setSheetTableLoading", true);
+            }
             this.sheetInfo.addPage = []
             // 初始化页面区间列表
             this.getBlockList()
@@ -2171,7 +2182,13 @@ export default {
           }
       },
     },
-
+    // 切换科室，清空护记数据
+    deptCode(val) {
+      if (val) {
+        this.sheetBlockList = [];
+        this.sheetInfo.selectBlock = {};
+      }
+    },
     $route(to, from) {
       if (to.name != from.name) {
         this.getBlockList();

@@ -442,6 +442,7 @@ const statisticalExitAdmission = () => import("@/Page/statistical-query/statisti
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
 const StatisticalConsultation = () => import("@/Page/statistical-query/statistical-consultation/index.vue")
 const StatisticalConsultationZhzxy = () => import("@/Page/statistical-query/statistical-consultation-zhzxy/index.vue")
+const statisticalIncrease = () => import("@/Page/statistical-query/statistical-increase/index.vue")
 const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
 const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 const StatisticalBlood = () => import("@/Page/statistical-query/statistical-blood")
@@ -1788,6 +1789,14 @@ const router = new Router({
               title: '手术统计'
             },
             component: statisticalOperation,
+          },
+          {
+            path: "statisticalIncrease",
+            name: "statisticalIncrease",
+            meta: {
+              title: '医嘱执行统计'
+            },
+            component: statisticalIncrease,
           },
           {
             path: "statisticalPulseHeartRate",

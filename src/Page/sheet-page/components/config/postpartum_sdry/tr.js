@@ -30,10 +30,10 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let niaoguan = ['拔','通畅','夹闭']
+let niaoguan = ['拔','通畅','夹闭','√']
 let shaoOrzhDuo = ['少','中等','多']
 let shangkou = ['干洁','红肿','渗液','水肿','正常']
-let gongjin = ['u=0','u=1','u=2','u=3','u=4','u+0','u+1','u+2','u+3','u+4','u-0','u-1','u-2','u-3','u-4']
+let gongjin = ['U=0','U+1','U+2','U+3','U-1','U-2','U-3']
 const yishi = ["清醒", "嗜睡", "浅昏迷", "深昏迷", "模糊", "昏睡", "谵妄","痴呆","药眠"]
 const yanse = [{name: '①血性液', value: '血性液'},{name: '②淡红色液', value: '淡红色液'},{name: '③暗红色液', value: '暗红色液'},{name: '④黄色液', value: '黄色液'},{name: '⑤淡黄色液', value: '淡黄色液'},{name: '⑥深黄色液', value: '深黄色液'}];
 const ruliang = ["饮水","进食","鼻饲","输血","输液","静注"]
@@ -59,7 +59,8 @@ export default [
   { key: 'uterineFloor', event: keyf1, value: '', next: '', name: '宫底高度', autoComplete: { data: gongjin },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'uterineShrink', event: keyf1, value: '', next: '', name: '子宫收缩', autoComplete: { data: uterineContractions },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'abdomen', event: keyf1, value: '', next: '', name: '伤口腹部',autoComplete: { data: shangkou }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'perineum', event: keyf1, value: '', next: '', name: '伤口会阴',autoComplete: { data: shangkou }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'perineum', event: keyf1, value: '', next: '', name: '伤口会阴', autoComplete: { data: shangkou }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'pain', event: keyf1, value: '', next: '', name: '伤口疼痛',  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete: { data: ruliang } },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', autoComplete: { data: outputContent }, textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),},
@@ -74,7 +75,7 @@ export default [
     key: "description", //特殊情况记录
     value: "",
     style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "163px", background: "transparent" },
-    textarea: { width: 260 },
+    textarea: { width: 225 },
     event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
   },
   { key: "sign", value: "" },//单签

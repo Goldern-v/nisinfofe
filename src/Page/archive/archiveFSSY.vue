@@ -109,7 +109,13 @@
           label="姓名"
           min-width="100px"
         ></el-table-column>
-
+        <el-table-column
+          prop="inpNo"
+          header-align="center"
+          align="center"
+          label="住院号"
+          min-width="120px"
+        ></el-table-column>
         <el-table-column
           header-align="center"
           align="center"
