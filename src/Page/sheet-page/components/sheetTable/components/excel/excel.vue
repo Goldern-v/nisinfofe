@@ -1051,7 +1051,7 @@ export default {
       return window.localStorage.getItem("whhkCaOrUsbSignIn")?JSON.parse(window.localStorage.getItem("whhkCaOrUsbSignIn")):null
     },
     fixedTop() {
-      return (this.isInPatientDetails ? 45 : 56) + (this.sheetTagsHeight || 0)
+      return (this.isInPatientDetails ? 45 : 55) + (this.sheetTagsHeight || 0)
     },
   },
   methods: {

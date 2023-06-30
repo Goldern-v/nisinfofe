@@ -13,13 +13,13 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1360px"
+    width: "1200px"
   },
   th: {
     top: [
       { name:"", colspan:"2", rowspan:"1", key:"recordYear" },
-      { name: "入量", colspan: "9", rowspan: "1" },
-      { name: "出量", colspan: "8", rowspan: "1" },
+      { name: "入量", colspan: "8", rowspan: "1" },
+      { name: "出量", colspan: "5", rowspan: "1" },
       {
         name: "升压药物血管药物<br/>μg/kg/min",
         colspan: "1",
@@ -69,8 +69,8 @@ export default {
         style: { minWidth: "50px", maxWidth: "50px" }
       },
       { name: "每时", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
-      { name: "总量", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
-      { name: "总量", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
+      // { name: "总量", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
+      // { name: "总量", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
       { name: "每时", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
       {
         name: "尿量<br/>(ml)",
@@ -78,18 +78,18 @@ export default {
         rowspan: "2",
         style: { minWidth: "50px", maxWidth: "50px" }
       },
-      {
-        name: "累计<br/>尿量<br/>(ml)",
-        colspan: "1",
-        rowspan: "2",
-        style: { minWidth: "50px", maxWidth: "50px" }
-      },
-      {
-        name: "累计<br/>胸液<br/>(ml)",
-        colspan: "1",
-        rowspan: "2",
-        style: { minWidth: "50px", maxWidth: "50px" }
-      },
+      // {
+      //   name: "累计<br/>尿量<br/>(ml)",
+      //   colspan: "1",
+      //   rowspan: "2",
+      //   style: { minWidth: "50px", maxWidth: "50px" }
+      // },
+      // {
+      //   name: "累计<br/>胸液<br/>(ml)",
+      //   colspan: "1",
+      //   rowspan: "2",
+      //   style: { minWidth: "50px", maxWidth: "50px" }
+      // },
       {
         name: "心包<br/>胸骨后<br/>(ml)",
         colspan: "1",

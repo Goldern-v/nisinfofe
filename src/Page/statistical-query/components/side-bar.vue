@@ -30,6 +30,18 @@ export default {
         }),
         ...hisMatch({
           map: {
+            lyxrm: [{
+              name:"statisticalIncrease",
+              meta: {
+                title:'工作量细项统计',
+                img: require("../images/workload.png"),
+              }
+            }],
+            other: []
+          }
+        }),
+        ...hisMatch({
+          map: {
             wujing: [{
               name: "statisticalReport",
               meta: {

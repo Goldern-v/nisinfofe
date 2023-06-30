@@ -19,16 +19,16 @@ export default {
     top: [
       { name:"", colspan:"2", rowspan:"1", key:"recordYear" },
       { name: "神志", colspan: "5", rowspan: "1" },
-      { name: "呼吸", colspan: "11", rowspan: "1" },
+      { name: "呼吸", colspan: "12", rowspan: "1" },
       {
         name: "体温<br/>(℃)",
         colspan: "1",
         rowspan: "3",
-        style: { minWidth: "50px", maxWidth: "50px" }
+        style: { minWidth: "40px", maxWidth: "40px" }
       },
       {
         name: "循环",
-        colspan: "6",
+        colspan: "7",
         rowspan: "1",
         style: { minWidth: "70px", maxWidth: "70px" }
       },
@@ -52,17 +52,23 @@ export default {
         rowspan: "2",
         style: { minWidth: "50px", maxWidth: "50px" }
       },
-      { name: "意识", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
+      { name: "意识", colspan: "1", rowspan: "2", style: { minWidth: "40px", maxWidth: "40px" } },
       { name: "瞳孔(mm)", colspan: "2", rowspan: "1", style: { minWidth: "80px", maxWidth: "80px" } },
       { name: "对光反射", colspan: "2", rowspan: "1", style: { minWidth: "80px", maxWidth: "80px" } },
       { name: "插管<br/>内置<br/>(cm)", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
       { name: "气囊压力<br/>(cmH2O)", colspan: "1", rowspan: "2", style: { minWidth: "60px", maxWidth: "60px" } },
       { name: "辅助方式", colspan: "1", rowspan: "2", style: { minWidth: "60px", maxWidth: "60px" } },
       {
-        name: "氧浓度%/<br/>氧流量<br/>L/min",
+        name: "氧浓度%",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "50px", maxWidth: "50px" }
+        style: { minWidth: "40px", maxWidth: "40px" }
+      },
+      {
+        name: "氧流量<br/>L/min",
+        colspan: "1",
+        rowspan: "2",
+        style: { minWidth: "40px", maxWidth: "40px" }
       },
       { name: "PS<br/>(cmH2O)", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
       { name: "PEEP<br/>(cmH2O)", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
@@ -73,7 +79,7 @@ export default {
         name: "Spo2<br/>(%)",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "50px", maxWidth: "50px" }
+        style: { minWidth: "40px", maxWidth: "40px" }
       },
       {
         name: "末梢",
@@ -82,7 +88,13 @@ export default {
         style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
-        name: "心率/<br/>脉搏<br/>(bmp)",
+        name: "心率<br/>(bmp)",
+        colspan: "1",
+        rowspan: "2",
+        style: { minWidth: "50px", maxWidth: "50px" }
+      },
+      {
+        name: "脉搏<br/>(bmp)",
         colspan: "1",
         rowspan: "2",
         style: { minWidth: "50px", maxWidth: "50px" }
