@@ -711,7 +711,7 @@
         :ischecked="sheetInfo.relObj['qita2']"
         v-model="sheetInfo.relObj['qita2']"
       />
-      剖宫产出血量：
+      剖宫2小时总出血量：
       <input
         style="width:50px;"
         v-model="sheetInfo.relObj['qit3']"

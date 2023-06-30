@@ -148,3 +148,35 @@ export const NURSING_LEVEL = [
     code: 'lv3',
   },
 ]
+export const INCREASE_SELECT= [
+  {
+    label: '医嘱执行统计',
+    themeName: '医嘱执行统计',
+    key: 'order_execution',
+    code: 'order_execution',
+  },
+  {
+    label: '巡视次数统计',
+    themeName: '巡视次数统计',
+    key: 'patrol',
+    code: 'patrol',
+  },
+  {
+    label: '标本采集数量统计',
+    themeName: '标本采集数量统计',
+    key: 'specimen_collected',
+    code: 'specimen_collected',
+  },
+  {
+    label: '护理记录单数量统计',
+    themeName: '护理记录单数量统计',
+    key: 'record_number',
+    code: 'record_number',
+  },
+  {
+    label: '输血工作量统计',
+    themeName: '输血工作量统计',
+    key: 'blood_workload',
+    code: 'blood_workload',
+  },
+]
