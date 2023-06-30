@@ -447,6 +447,14 @@ const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 const StatisticalBlood = () => import("@/Page/statistical-query/statistical-blood")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
+
+// 925 设备使用记录
+const EquipmentManagement = () => import("@/Page/equipment-management/index.vue")
+const UsageRecord = () => import("@/Page/equipment-management/usageRecord/table.vue")
+const Inventory = () => import("@/Page/equipment-management/inventory")
+
+
+
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 // 执行单路由
@@ -1914,6 +1922,36 @@ const router = new Router({
               title: '跌倒统计'
             },
             component: StatisticalTumble
+          },
+        ]
+      },
+      // 925-设备管理
+      {
+        path: "/equipment",
+        name: "equipment",
+        component: EquipmentManagement,
+        redirect: {
+          name: "usageRecord"
+          // name: "statisticalWorkload",
+          // name: (() => {
+          //   switch (HOSPITAL_ID) {
+          //     case 'zhzxy':
+          //       return 'statisticalConsultation'
+          //     default:
+          //       return 'statisticalWorkload';
+          //   }
+          // })()
+        },
+        children: [
+          {
+            path: "usageRecord",
+            component: UsageRecord,
+            name: "usageRecord",
+          },
+          {
+            path: "inventory",
+            component: Inventory,
+            name: "inventory",
           },
         ]
       },
