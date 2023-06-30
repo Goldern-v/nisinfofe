@@ -33,7 +33,7 @@ export default {
             lyxrm: [{
               name:"statisticalIncrease",
               meta: {
-                title:'增加工作量细项统计',
+                title:'工作量细项统计',
                 img: require("../images/workload.png"),
               }
             }],

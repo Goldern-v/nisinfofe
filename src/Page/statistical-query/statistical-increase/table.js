@@ -42,7 +42,7 @@ export const patrol = [{
         sortable: true
     },
     {
-        key: 'administration',
+        key: 'visitContent',
         title: '巡视内容',
         align: 'center',
         sortable: true
