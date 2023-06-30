@@ -2383,6 +2383,27 @@ export default function Title(
     );
   }
     break;
+  case "extracardi_one_weihai": {
+    // 威海市立--心外患者重症护理记录单Ⅰ
+    Th = JSON.parse(
+      JSON.stringify(require("../config/extracardi_one_weihai/th.js").default)
+    );
+  }
+    break;
+  case "extracardi_two_weihai": {
+    // 威海市立--心外患者重症护理记录单Ⅱ
+    Th = JSON.parse(
+      JSON.stringify(require("../config/extracardi_two_weihai/th.js").default)
+    );
+  }
+    break;
+  case "extracardi_three_weihai": {
+    // 威海市立--心外患者重症护理记录单Ⅲ
+    Th = JSON.parse(
+      JSON.stringify(require("../config/extracardi_three_weihai/th.js").default)
+    );
+  }
+    break;
   case "baby_yz": {
     // 临沂沂州 - 新生儿护理记录单
     Th = JSON.parse(

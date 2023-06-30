@@ -35,7 +35,7 @@ export default {
             { "name": "乳<br/>房<br/>情<br/>况", "colspan": "1", "rowspan": "2"},
             { "name": "宫<br/>高<br/><br/>U=FB", "colspan": "1", "rowspan": "2"},
             { "name": "子宫<br/>收缩", "colspan": "1", "rowspan": "2"},
-            { "name": "伤口情况", "colspan": "2", "rowspan": "1"},
+            { "name": "伤口情况", "colspan": "3", "rowspan": "1"},
             { "name": "入量", "colspan": "2", "rowspan": "1"},
             { "name": "出量", "colspan": "3", "rowspan": "1"},
             { "name": "尿管", "colspan": "1", "rowspan": "2"},
@@ -45,7 +45,7 @@ export default {
 
           { "name": "", "colspan": "1", "rowspan": "3", "canSet": true, "key": "armValue", "style": { "minWidth": "45px", "maxWidth": "45px" } },
           { "name": "", "colspan": "1", "rowspan": "3", "canSet": true, "key": "armValue2", "style": { "minWidth": "45px", "maxWidth": "45px" } },
-            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "260px",  "maxWidth": "260px"}, },
+            { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "225px",  "maxWidth": "225px"}, },
           { "name": "护士签名", "colspan": "1", "rowspan": "3", style: { minWidth: "50px", maxWidth: "50px" } },
           { "name": "查房签名", "colspan": "1", "rowspan": "3", style: { minWidth: "50px", maxWidth: "50px" } },
 
@@ -57,6 +57,7 @@ export default {
                 {"name": "时间", "colspan": "1", "rowspan": "2", style: { minWidth: "40px",  maxWidth: "40spx"},},
                 {"name": "腹<br/>部", "colspan": "1", "rowspan": "1"},
                 {"name": "会<br/>阴", "colspan": "1", "rowspan": "1"},
+                { "name": "疼<br/>痛", "colspan": "1", "rowspan": "1" },
                 {"name": "内容", "colspan": "1", "rowspan": "2"},
                 {"name": "量ml", "colspan": "1", "rowspan": "2"},
                 {"name": "内容", "colspan": "1", "rowspan": "2"},

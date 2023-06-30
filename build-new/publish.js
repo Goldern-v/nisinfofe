@@ -23,6 +23,7 @@ let sshUpload = (
     武警广东省总队医院: "wujing",
     江门市妇幼保健院: "fuyou",
     聊城市第二人民医院: "liaocheng",
+    青海五院: "qhwy",
     贵州省人民医院: "guizhourenyi",
     中山大学附属第七医院: "zhongshanqiyuan",
     东莞市横沥医院: "dongguanhengli",
@@ -48,6 +49,7 @@ let sshUpload = (
     中国人民解放军联勤保障部队第九二五医院: '925',
     东莞市寮步医院: 'dglb',
     湛江海军医院: 'zjhj',
+    青海省第五人民医院: 'qinghaiwuyuan',
   };
   let hospitalEN = "dongguanhoujie";
   if (hospitalList[hospitalName]) {
