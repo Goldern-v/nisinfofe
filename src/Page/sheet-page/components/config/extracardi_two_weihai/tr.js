@@ -42,7 +42,7 @@ export default [
     event: keyf1,
     value: "",
     name: "意识",
-    textarea: { width: 50 },
+    textarea: { width: 40 },
     autoComplete: { data: yishi }
   },
   {
@@ -108,8 +108,17 @@ export default [
     key: "breatheFout",
     event: keyf1,
     value: "",
-    name: "氧浓度%/氧流量L/min",
-    textarea: { width: 50 },
+    next: '%',
+    name: "氧浓度",
+    textarea: { width: 40 },
+  },
+  {
+    key: "breatheFoutOne",
+    event: keyf1,
+    value: "",
+    next: 'L/min',
+    name: "氧流量",
+    textarea: { width: 40 },
   },
   {
     key: "breatheFive",
@@ -165,7 +174,7 @@ export default [
     value: "",
     next: "%",
     name: "Spo2",
-    textarea: { width: 50 },
+    textarea: { width: 40 },
   },
   {
     key: "temperature",
@@ -173,7 +182,7 @@ export default [
     value: "",
     next: "℃",
     name: "体温",
-    textarea: { width: 50 },
+    textarea: { width: 40 },
   },
   {
     key: "circulateOne",
@@ -184,11 +193,19 @@ export default [
     autoComplete: { data: moshao }
   },
   {
+    key: "circulateFive",
+    event: keyf1,
+    value: "",
+    next: "bmp",
+    name: "心率",
+    textarea: { width: 50 },
+  },
+  {
     key: "pulse",
     event: keyf1,
     value: "",
     next: "bmp",
-    name: "心率/脉搏",
+    name: "脉搏",
     textarea: { width: 50 },
   },
   {
@@ -196,7 +213,7 @@ export default [
     event: keyf1,
     value: "",
     name: "心律",
-    textarea: { width: 70 },
+    textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 10),
     autoComplete: { data: xinlv }
   },

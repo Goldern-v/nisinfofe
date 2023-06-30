@@ -133,7 +133,7 @@
 .contain {
   margin: 0;
   background: #fff;
-  border: 1px solid #CBD5DD;
+  // border: 1px solid #CBD5DD;
   border-radius: 2px;
   display: flex;
   &.fullpage {
@@ -1393,6 +1393,11 @@ export default {
           cleanData();
           this.getDate();
         });
+        // 切换科室，清空护记数据
+        this.sheetModelData = [];
+        this.sheetTagsList = [];
+        this.currentTag = null;
+        this.$store.commit("upPatientInfo", {});
         // 解锁
         this.destroyUnlock()
       }
