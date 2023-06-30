@@ -77,7 +77,7 @@ export default [
     event: keyf1,
     value: "",
     next: "次/分",
-    name: "HR",
+    name: "R",
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 4)
   },

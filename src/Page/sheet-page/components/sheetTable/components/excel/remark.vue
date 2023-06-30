@@ -711,7 +711,7 @@
         :ischecked="sheetInfo.relObj['qita2']"
         v-model="sheetInfo.relObj['qita2']"
       />
-      剖宫产出血量：
+      剖宫2小时总出血量：
       <input
         style="width:50px;"
         v-model="sheetInfo.relObj['qit3']"
@@ -976,6 +976,14 @@
       吸氧方式: A.鼻导管 B.头罩 C.面罩&nbsp;
       血运: A.温 B.湿冷&nbsp;
       感觉: A.正常 B.麻木 C.未恢复&nbsp;
+    </div>
+    <!-- 心外患者重症护理记录单Ⅱ -->
+    <div v-if="sheetInfo.sheetType == 'extracardi_two_weihai'">
+      备注：意识：A麻醉未醒  B清醒  C镇静  D模糊  E昏迷；瞳孔对光反射：A灵敏（+） B迟钝（±） C消失（-）；心律：S窦性 Af房颤 AF房扑 P起搏；
+    </div>
+    <!-- 心外患者重症护理记录单Ⅲ -->
+    <div v-if="sheetInfo.sheetType == 'extracardi_three_weihai'">
+      备注：体位：A平卧位  B半卧位  C床头抬高30度  D左侧卧位  E右侧卧位；痰色：A白色  B黄色  C绿色  ；痰性状：A稀薄  B粘稠  C血性；痰量：A少量  B中量  C大量；引流液颜色：A鲜红色  B暗红色  C淡红色  D淡黄色  E黄绿色  F黄褐色  G无色；引流液性质：A血性  B澄清  C浑浊  D云絮状沉淀  E乳糜状  F脓性  G有气体溢出；尿色：A淡黄 B深黄 C酱油色 D血性；Braden压疮护理措施：A体位变换  B气垫床  C皮肤护理  D预防性敷料  E预防医疗器械性压疮  F足跟悬浮  G营养评估支持  H健康宣教  I悬挂警示标识牌；跌倒护理措施：A及时发现并满足患者需要  B使用床档  C使用约束带  D悬挂防跌倒、防坠床警示牌  E告知患者寻找协助的方法  F加强营养；非计划性拔管护理措施：A保持通畅  B严格交接班  C妥善固定 D约束带  E药物镇静镇痛  F评估耐受性及依从性  G管路标识  H健康教育；评估工具：A.NRS  B.CPOT量表；疼痛评估护理措施：A取舒适卧位  B心理护理  C理疗  D通知医生  E药物治疗。
     </div>
   </div>
 </template>

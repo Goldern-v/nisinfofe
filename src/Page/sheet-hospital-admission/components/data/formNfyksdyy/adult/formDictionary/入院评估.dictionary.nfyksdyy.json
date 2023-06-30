@@ -50,6 +50,11 @@
     ],
     "I2332219" : [
         {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu"
+        },  
+        {
             "code": "高血压病",
             "name": "高血压病",
             "pinyin": "gxyb"
@@ -217,6 +222,21 @@
             "pinyin": "chuxuedian"
         },
         {
+            "code": "皮疹",
+            "name": "皮疹",
+            "pinyin": "chuxuedian"
+        },
+        {
+            "code": "破损",
+            "name": "破损",
+            "pinyin": "chuxuedian"
+        },
+        {
+            "code": "潮红",
+            "name": "潮红",
+            "pinyin": "chuxuedian"
+        },
+        {
             "code": "丘疹",
             "name": "丘疹",
             "pinyin": "quzhen"
@@ -282,6 +302,11 @@
         }
     ],
     "I2332063": [
+        {
+            "code": "完整",
+            "name": "完整",
+            "pinyin": "wangzheng"
+        },
         {
             "code": "溃疡",
             "name": "溃疡",
@@ -653,6 +678,80 @@
             "code": "消失",
             "name": "消失",
             "pinyin": "xs3"
+        }
+    ],
+    "I2332201": [
+        {
+            "code": "昏迷",
+            "name": "昏迷",
+            "pinyin": "hunm"
+        }
+    ],
+    "I2332248": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu1"
+        }
+    ],
+    "I2332194": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu3"
+        }
+    ],
+    "I2332184": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu4"
+        }
+    ],
+    "I2332189": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu5"
+        }
+    ],
+    "I2332060": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu6"
+        }
+    ],
+    "I2332195": [
+        {
+            "code": "血性液",
+            "name": "血性液",
+            "pinyin": "xueye"
+        },
+        {
+            "code": "淡红色液",
+            "name": "淡红色液",
+            "pinyin": "dhsy"
+        },
+        {
+            "code": "暗红色液",
+            "name": "暗红色液",
+            "pinyin": "anhsy"
+        },
+        {
+            "code": "黄色液",
+            "name": "黄色液",
+            "pinyin": "hsy"
+        },
+        {
+            "code": "淡黄色液",
+            "name": "淡黄色液",
+            "pinyin": "dhsy"
+        },
+        {
+            "code": "深黄色液",
+            "name": "深黄色液",
+            "pinyin": "shsy"
         }
     ]
 }

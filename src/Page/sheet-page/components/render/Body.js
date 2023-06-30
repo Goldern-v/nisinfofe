@@ -1817,6 +1817,21 @@ function switchSheetType(type) {
       schema = require("../config/general_item_weihai/tr.js").default;
     }
     break;
+    case "extracardi_one_weihai": {
+      //威海市立 - 心外患者重症护理记录单Ⅰ
+      schema = require("../config/extracardi_one_weihai/tr.js").default;
+    }
+    break;
+    case "extracardi_two_weihai": {
+      //威海市立 - 心外患者重症护理记录单Ⅱ
+      schema = require("../config/extracardi_two_weihai/tr.js").default;
+    }
+    break;
+    case "extracardi_three_weihai": {
+      //威海市立 - 心外患者重症护理记录单Ⅲ
+      schema = require("../config/extracardi_three_weihai/tr.js").default;
+    }
+    break;
     case "baby_yz": {
       // 临沂沂州 - 新生儿护理记录单
       schema = require("../config/baby_yz/tr.js").default;
