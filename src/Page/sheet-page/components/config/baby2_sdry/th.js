@@ -31,12 +31,12 @@ export default {
         { "name": "出量", "colspan": "2", "rowspan": "1" },
         {"name":"皮测胆红素<br/>mg/dl","colspan":"3","rowspan":"1"},
         {"name":"血<br/>糖<br/>mmol/L","colspan":"1","rowspan":"3"},
-        {"name":"吸<br/>氧<br/>方<br/>式","colspan":"1","rowspan":"3"},
-        {"name":"氧<br/>流<br/>量<br/>L/分","colspan":"1","rowspan":"3"},
-        {"name":"氧<br/>浓<br/>度<br/>%","colspan":"1","rowspan":"3"},
-        {"name":"喂<br/>养<br/>方<br/>式","colspan":"1","rowspan":"3"},
+        { "name": "喂<br/>养<br/>方<br/>式", "colspan": "1", "rowspan": "3" },
+        // {"name":"吸<br/>氧<br/>方<br/>式","colspan":"1","rowspan":"3"},
+        // {"name":"氧<br/>流<br/>量<br/>L/分","colspan":"1","rowspan":"3"},
+        // {"name":"氧<br/>浓<br/>度<br/>%","colspan":"1","rowspan":"3"},
         {
-          "name": `标题1`,
+          "name": ``,
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
@@ -47,7 +47,7 @@ export default {
           }
         },
         {
-          "name": `标题2`,
+          "name": ``,
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
@@ -58,7 +58,7 @@ export default {
           }
         },
         {
-          "name": `标题3`,
+          "name": ``,
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
@@ -69,7 +69,7 @@ export default {
           }
         },
         {
-          "name": `标题4`,
+          "name": ``,
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
@@ -80,7 +80,7 @@ export default {
           }
         },
         {
-          "name": `标题5`,
+          "name": ``,
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
@@ -91,11 +91,42 @@ export default {
           }
         },
         {
-          "name": `标题6`,
+          "name": ``,
           "colspan": '1',
           "rowspan": '3',
           "canSet": true,
           "key": 'armValue6',
+          "style": {
+            "minWidth": '37px',
+            "maxWidth": '37px',
+          }
+        },
+        {
+          "name": ``,
+          "colspan": '1',
+          "rowspan": '3',
+          "canSet": true,
+          "key": 'armValue7',
+          "style": {
+            "minWidth": '37px',
+            "maxWidth": '37px',
+          }
+        }, {
+          "name": ``,
+          "colspan": '1',
+          "rowspan": '3',
+          "canSet": true,
+          "key": 'armValue8',
+          "style": {
+            "minWidth": '37px',
+            "maxWidth": '37px',
+          }
+        }, {
+          "name": ``,
+          "colspan": '1',
+          "rowspan": '3',
+          "canSet": true,
+          "key": 'armValue9',
           "style": {
             "minWidth": '37px',
             "maxWidth": '37px',
