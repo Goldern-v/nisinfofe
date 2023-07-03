@@ -164,7 +164,7 @@
           姓名:
           <div class="bottom-line" style="min-width: 65px">{{patientInfo.patientName}}</div>
         </span>
-        <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)"  v-if="sheetInfo.sheetType !=='postpartum2_sdry'">
+        <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)"   v-if ="!['postpartum2_sdry','baby_sdry'].includes(sheetInfo.sheetType)">
           性别:
           <div class="bottom-line" style="min-width: 30px">{{patientInfo.sex}}</div>
         </span>
@@ -172,7 +172,7 @@
           年龄:
           <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
         </span> -->
-        <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
+        <span @click="updateTetxInfo('age', '年龄', patientInfo.age)" v-if="sheetInfo.sheetType !== 'baby_sdry'">
           年龄:
           <div class="bottom-line" style="min-width: 50px">{{patientInfo.age}}</div>
         </span>
@@ -312,8 +312,8 @@
 
     <!-- 顺德人医产后产房表头处理 -->
     <template v-if="sheetInfo.sheetType=='postpartum2_sdry' ||  sheetInfo.sheetType=='baby_sdry'" >
-     <span :class="sheetTypeClass"  :style="{marginLeft : sheetInfo.sheetType=='baby_sdry' ? '60px': '' }">
-        分娩方式:</span>
+     <span :class="sheetTypeClass"  :style="{marginLeft : sheetInfo.sheetType=='baby_sdry' ? '35px': '' }">
+        分娩方式：</span>
        <customSelectCanRepeat
           :options="options"
           @onSelect="(val) => setRelValue('option', val)"

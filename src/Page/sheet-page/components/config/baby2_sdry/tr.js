@@ -71,7 +71,7 @@ export default [
     value: "",
     next: "次/分",
     name: "R",
-    autoComplete:{data:['辅助呼吸']},
+    // autoComplete:{data:['辅助呼吸']},
     textarea: { width: 35 },
     change: (e, td) => limitChange(e, td, 2)
   },
@@ -178,34 +178,6 @@ export default [
     change: (e, td) => limitChange(e, td, 2)
   },
   {
-    key: "oxygenWay",
-    event: keyf1,
-    value: "",
-    textarea: { width: 30 },
-    next: "",
-    name: "吸氧方式",
-    autoComplete: { data: xiyang },
-    change: (e, td) => limitChange(e, td, 2)
-  },
-  {
-    key: "oxygenRate",
-    event: keyf1,
-    value: "",
-    textarea: { width: 30 },
-    next: "L/分",
-    name: "氧流量",
-    change: (e, td) => limitChange(e, td, 2)
-  },
-  {
-    key: "concentration",
-    event: keyf1,
-    value: "",
-    textarea: { width: 30 },
-    next: "%",
-    name: "氧浓度",
-    change: (e, td) => limitChange(e, td, 2)
-  },
-  {
     key: "feedingWay",
     event: keyf1,
     value: "",
@@ -215,6 +187,35 @@ export default [
     name: "喂养方式",
     change: (e, td) => limitChange(e, td, 2)
   },
+  // {
+  //   key: "oxygenWay",
+  //   event: keyf1,
+  //   value: "",
+  //   textarea: { width: 30 },
+  //   next: "",
+  //   name: "吸氧方式",
+  //   autoComplete: { data: xiyang },
+  //   change: (e, td) => limitChange(e, td, 2)
+  // },
+  // {
+  //   key: "oxygenRate",
+  //   event: keyf1,
+  //   value: "",
+  //   textarea: { width: 30 },
+  //   next: "L/分",
+  //   name: "氧流量",
+  //   change: (e, td) => limitChange(e, td, 2)
+  // },
+  // {
+  //   key: "concentration",
+  //   event: keyf1,
+  //   value: "",
+  //   textarea: { width: 30 },
+  //   next: "%",
+  //   name: "氧浓度",
+  //   change: (e, td) => limitChange(e, td, 2)
+  // },
+
   {
     key: "armValue", //标题1
     value: "",
@@ -239,6 +240,7 @@ export default [
       width: 40
     }
   },
+
   {
     key: "armValue4", //标题4
     value: "",
@@ -257,6 +259,30 @@ export default [
   },
   {
     key: "armValue6", //标题6
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 40
+    }
+  },
+  {
+    key: "armValue7", //标题7
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 40
+    }
+  },
+  {
+    key: "armValue8", //标题8
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 40
+    }
+  },
+  {
+    key: "armValue9", //标题9
     value: "",
     event: keyf1,
     textarea: {

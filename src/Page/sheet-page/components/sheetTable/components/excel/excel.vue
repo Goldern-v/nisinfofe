@@ -946,7 +946,8 @@ export default {
 
       },
       currentKey: "", //点击下拉当前的key
-      wujingCommonHl:false
+      wujingCommonHl:false,
+      SelectedTd:{}
     };
   },
 
@@ -2817,7 +2818,7 @@ export default {
         tab = "3";
       } else if (key==="measures") {
         tab = "4";
-      } else if (['dischargeSize','discharge','outputColor'].includes(key) && ['critical2_weihai'].includes(sheetInfo.sheetType)) {
+      } else if (this.SelectedTd.outChoseItem) {
         tab = "5";
       } else if (['food','foodSize'].includes(key) && ['critical2_weihai'].includes(sheetInfo.sheetType)) {
         tab = "6";
@@ -2895,7 +2896,8 @@ export default {
         thead,
         tab,
         isLast,
-        canNotSave
+        canNotSave,
+        SelectedTd:this.SelectedTd
       };
       // if (
       //   this.HOSPITAL_ID == "weixian" ||
@@ -2983,6 +2985,7 @@ export default {
       if (td.isSelected) {
         td.value = "✓";
       }
+      this.SelectedTd = td
     },
     /** 审核整页 */
     openAduitModal(pageIndexs) {

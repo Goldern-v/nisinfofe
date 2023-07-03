@@ -16,6 +16,64 @@ let tongqi = ['SIMV','PCV ','VCV','PS/CPAP','PRVC','NIVPS','S/T','IPPV','CPAP','
 let huxiyin = ['粗','清 ','低','痰鸣音','湿啰音','干啰音']
 let wowei = ['平卧','左侧 ','右侧','头低足高']
 let taitou = ['','√']
+let outProject = [
+  [{discharge:"尿",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"呕吐",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"大便",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"渗液",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"恶露",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"超滤量",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"透析量",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"胃肠减压",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"腹腔引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"盆腔引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"隔下引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"负压引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"骶前引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"腹膜后引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"肛周引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"脑室引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"硬膜下引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"头部引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"颈前引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"腋窝引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"皮下引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"颈部引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"切口引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"胸腔闭式引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"胸腔引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"心包引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"胸壁引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"心包胸骨后引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"纵隔引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"胸骨后引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"胆管引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"鼻胆管引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"肝脓肿引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"胰管引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"吻合口引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"左肾造痿引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"右肾造痿引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"膀胱造痿引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"输尿管支架管引流",unClear:true},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input"},{outputColor:"",type:"select"}],
+]
+let outChoseItem = {
+  th:[
+    {title:"项目",colwidth:"30%"},
+    {title:"量（ml）",colwidth:"30%"},
+    {title:"颜色",colwidth:"40%"}
+  ],
+  outProject,
+  maxLength:4,
+  tableNum:5,
+  outProjectCode:['discharge','dischargeSize','outputColor'],
+  keyCode:"discharge",
+  oneTooneCode:['discharge','dischargeSize','outputColor']
+}
+
 // le i = ''
 export default [
   {
@@ -181,6 +239,7 @@ export default [
     },
     style:{"text-align":"left"},
     outFixedList:true,
+    outChoseItem
   },
   {
     key: "dischargeSize", // SPO2（%）
@@ -192,6 +251,7 @@ export default [
     },
     statBottomLine:true,
     outFixedList:true,
+    outChoseItem
   },
   {
     key: "outputColor", // SPO2（%）
@@ -202,6 +262,7 @@ export default [
       width: 30
     },
     outFixedList:true,
+    outChoseItem
   },
   {
     key: "breathWay", // SPO2（%）

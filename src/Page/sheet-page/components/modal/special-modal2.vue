@@ -864,78 +864,77 @@
               </div>
             </el-checkbox-group>
           </el-tab-pane>
-          <el-tab-pane label="出量" name="5" v-if="['critical2_weihai'].includes(sheetInfo.sheetType)">
+          <el-tab-pane label="出量" name="5" v-if="['critical2_weihai','extracardi_one_weihai','extracardi_three_weihai'].includes(sheetInfo.sheetType)">
             <div class="title" flex="cross:center main:justify">固定项目：</div>
-            <div class="outPro firstoutPro">
-              <table v-for="(num,i) in 5" :key="i+'table'">
+            <div class="outPro firstoutPro" :class="[weihaiZhongzheng]">
+              <table v-for="(num,i) in outChoseItem.tableNum" :key="i+'table'">
                 <colgroup>
-                  <col width="30%"/>
-                  <col width="30%"/>
-                  <col width="40%"/>
+                  <col :width="th.colwidth" v-for='(th,thIn) in outChoseItem.th' :key="thIn +'th'" />
                 </colgroup>
                 <tr>
-                  <td>项目</td>
-                  <td>量（ml）</td>
-                  <td>颜色</td>
+                  <td v-for='(th,thIn) in outChoseItem.th' :key="thIn +'th'">{{th.title}}</td>
                 </tr>
                 <tr :key="index + 'out11'" v-for="(out,index) in computedNum(i)">
-                  <td>
-                    <div>{{ out.discharge }}</div>
-                  </td>
-                  <td>
+                  <td v-for="(td,tdIndex) in out" :key="tdIndex +'td'">
                     <div>
-                      <el-input v-model="out.dischargeSize"></el-input>
-                    </div>
-                  </td>
-                  <td>
-                    <div>
-                      <el-select v-model="out.outputColor" placeholder="请选择">
-                        <el-option
-                          v-for="item in colors"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value">
-                        </el-option>
-                      </el-select>
+                      <template v-if="td.type=='input'">
+                        <el-input v-model="td[Object.keys(td)[0]]"></el-input>
+                      </template>
+                      <template v-else-if="td.type=='selectGou'">
+                        <div class="todagou" @click="toGou(td,Object.keys(td)[0])">{{td[Object.keys(td)[0]]}}</div>
+                      </template>
+                      <template v-else-if="td.type=='select'">
+                        <el-select v-model="td[Object.keys(td)[0]]" placeholder="请选择">
+                          <el-option
+                            v-for="item in colors"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                      </template>
+                      <template v-else>
+                      {{ td[Object.keys(td)[0]] }}
+                      </template>
                     </div>
                   </td>
                 </tr>
               </table>
             </div>
             <div class="title" flex="cross:center main:justify">自定义项目：</div>
-            <div class="outPro textareaDiv">
+            <div class="outPro textareaDiv" :class="[weihaiZhongzheng]">
               <table v-for="(num,i) in 3" :key="i+'table'">
                 <colgroup>
-                  <col width="30%"/>
-                  <col width="30%"/>
-                  <col width="40%"/>
+                  <col :width="th.colwidth" v-for='(th,thIn) in outChoseItem.th' :key="thIn +'th'" />
                 </colgroup>
                 <tr>
-                  <td>项目</td>
-                  <td>量（ml）</td>
-                  <td>颜色</td>
+                  <td v-for='(th,thIn) in outChoseItem.th' :key="thIn +'th2'">{{th.title}}</td>
                 </tr>
-                <tr :key="index + 'out'" v-for="(out,index) in computedNum(i,'secondTable')">
-                  <td>
+                <tr :key="index + 'out2'" v-for="(out,index) in computedNum(i,'secondTable')">
+                  <td v-for="(td,tdIndex) in out" :key="tdIndex +'td2'">
                     <div>
-                      <textarea v-model="out.discharge" :rows="reactiveRows(out,'discharge',4,1,3)"></textarea>
-                    </div>
-                  </td>
-                  <td>
-                    <div>
-                      <el-input v-model="out.dischargeSize"></el-input>
-                    </div>
-                  </td>
-                  <td>
-                    <div>
-                      <el-select v-model="out.outputColor" placeholder="请选择">
-                        <el-option
-                          v-for="item in colors"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value">
-                        </el-option>
-                      </el-select>
+                      <template v-if="td.type=='input'">
+                        <el-input v-model="td[Object.keys(td)[0]]"></el-input>
+                      </template>
+                      <template v-else-if="td.type=='selectGou'">
+                        <div class="todagou" @click="toGou(td,Object.keys(td)[0])">{{td[Object.keys(td)[0]]}}</div>
+                      </template>
+                      <template v-else-if="td.type=='textarea'">
+                        <textarea v-model="td[Object.keys(td)[0]]" :rows="reactiveRows(td,Object.keys(td)[0],outChoseItem.maxLength,1,3)"></textarea>
+                      </template>
+                      <template v-else-if="td.type=='select'">
+                        <el-select v-model="td[Object.keys(td)[0]]" placeholder="请选择">
+                          <el-option
+                            v-for="item in colors"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                      </template>
+                      <template v-else>
+                        {{ td[Object.keys(td)[0]] }}
+                      </template>
                     </div>
                   </td>
                 </tr>
@@ -1053,7 +1052,7 @@
 
     <zkModalZhzxy @addZkmodalDoc="addZkmodalDoc" ref="zkModalZhzxy"></zkModalZhzxy>
     <diagnosis-modal
-      v-if="['guizhou', 'lyxrm', 'huadu', 'fuyou','whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi', 'whsl'].includes(HOSPITAL_ID)"
+      v-if="['guizhou', 'lyxrm', 'huadu', 'fuyou','whhk', '925', 'stmz', 'nfyksdyy','foshanrenyi', 'whsl','zhzxy'].includes(HOSPITAL_ID)"
       :modalWidth="diagnosisWid"
       ref="diagnosisModalRef"
       @handleOk="handleDiagnosis"
@@ -1266,7 +1265,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-  &.firstoutPro{
+  &.firstoutPro.critical2{ 
       table{
         width:18%;
         &:first-of-type{
@@ -1286,6 +1285,22 @@
       }
     }
   }
+  &.firstoutPro{ 
+    &.oneweihai,&.threeweihai{
+      table{
+        width:32%;
+      //   &:first-of-type{
+      //   height:260px;
+      // }
+      // &:nth-of-type(2){
+      //   height:300px;
+      // }
+      // &:nth-of-type(3){
+      //   height:300px;
+      // }
+      }
+    }
+  }
   &.foodOne,&.foodSecond{
     table{
       width:48%;
@@ -1293,6 +1308,11 @@
   }
   &.textareaDiv{
     justify-content: flex-start;
+    &.oneweihai,&.threeweihai{
+      table{
+        width:30%;
+      }
+    }
     table{
       width:18%;
       &:nth-of-type(n+2){
@@ -1324,6 +1344,11 @@
         border: 1px solid #000;
         color:#000;
         vertical-align: middle;
+        .todagou{
+          display: flex;
+          width: 100%;
+          height: 22px;
+        }
         >div{
           text-align:left;
           height:100%;
@@ -1388,7 +1413,7 @@ import zkModalZhzxy from "./zkModal-zhzxy.vue";
 import sheetInfo from "../config/sheetInfo";
 import { decoder_title, decoder_record2 } from "./render/decode.js";
 import { mergeTr } from "./render/render.js";
-import { measuresList,outProject,colors,defaultFood} from "./render/measures.js";
+import { measuresList,colors,defaultFood} from "./render/measures.js";
 import { dateKey, timeKey } from "../config/keyEvent/date.js";
 import { FormToEnter } from "@/plugin/tool/FormToTab.js";
 import $ from "jquery";
@@ -1503,7 +1528,7 @@ export default {
       bus: bus(this),
       foodVal: "",
       measuresList,
-      outProject,
+      outProject:[],
       colors,
       doc: "",
       measuresHaicheck:[],
@@ -1563,7 +1588,8 @@ export default {
       isSaving: false, //给弹窗保存做节流
       isRecordBan: false, // 佛医记录是否禁用编辑
       outFoodlist:[],
-      toUseList:[]
+      toUseList:[],
+      outChoseItem:[]
     };
   },
   computed: {
@@ -1571,9 +1597,15 @@ export default {
       openModalFromSpecial: state => state.sheet.openModalFromSpecial,
       evalData: state => state.sheet.evalData
     }),
+    weihaiZhongzheng(){
+      if('critical2_weihai' === this.sheetInfo.sheetType) return "critical2"
+      else if('extracardi_one_weihai' === this.sheetInfo.sheetType) return "oneweihai"
+      else if('extracardi_three_weihai' === this.sheetInfo.sheetType) return "threeweihai"
+    },
     modalOutWidth(){
-      if(this.activeTab==="5" || this.activeTab==="6") return 1420
-      return 720
+      if('critical2_weihai' === this.sheetInfo.sheetType && (this.activeTab==="5" || this.activeTab==="6")) return 1420
+      else if(['extracardi_three_weihai','extracardi_one_weihai'].includes(this.sheetInfo.sheetType) && this.activeTab==="5") return 1060
+      else return 720
     },
     title() {
       const recordDate =
@@ -1686,8 +1718,12 @@ export default {
       // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
       this.bus.$emit("openclosePatientInfo", type, false, true);
     },
+    toGou(obj,key){
+      if(obj[key]) obj[key] = ""
+      else obj[key] = "√"
+    },
     reactiveRows(row,key, maxLength, minRows, maxRows) {
-      console.log(row[key],'row[key]')
+      console.log(row[key],key,'row[key]')
       if (row[key]) {
         let number = row[key].replace(/[^0-9]/ig,"");
         let word = row[key].replace(/[^a-z]+/ig,"");
@@ -1707,16 +1743,28 @@ export default {
       }
     },
     computedNum(i,table){
-      if(table=='secondTable'){
-        if(i==0) return this.outProject.slice(39,40)
-        else if(i==1) return this.outProject.slice(40,41)
-        else if(i==2) return this.outProject.slice(41,42)
-      }else{
-        if(i==0) return this.outProject.slice(0,7)
-        else if(i==1) return this.outProject.slice(7,15)
-        else if(i==2) return this.outProject.slice(15,23)
-        else if(i==3) return this.outProject.slice(23,30)
-        else return this.outProject.slice(30,39)
+      //该护记需要这样特定排列 其他按顺序
+      if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
+        if(table=='secondTable'){
+          if(i==0) return this.outProject.slice(39,40)
+          else if(i==1) return this.outProject.slice(40,41)
+          else if(i==2) return this.outProject.slice(41,42)
+        }else{
+          if(i==0) return this.outProject.slice(0,7)
+          else if(i==1) return this.outProject.slice(7,15)
+          else if(i==2) return this.outProject.slice(15,23)
+          else if(i==3) return this.outProject.slice(23,30)
+          else return this.outProject.slice(30,39)
+        }
+      }else {
+        //默认排查每行数据首列不包含defaultInput即非自定义项的
+        let fixList =  this.outProject.filter(item=>!item[0].defaultInput)
+        let zidingList =  this.outProject.filter(item=>item[0].defaultInput)
+        if(table=='secondTable'){
+          return zidingList.slice(i,i+1)
+        }else{
+          return fixList.filter((item,index)=>(index % this.outChoseItem.tableNum==i))
+        }
       }
     },
     computedFood(i,table){
@@ -1975,6 +2023,90 @@ export default {
       this.doc = doc.slice(0, index) + valRegP + doc.slice(index);
       this.$refs.zkModalZhzxy.close();
     },
+    initOUT(config){
+      this.outProject.forEach(item=>{
+        item.forEach(INtem=>{
+          if(!INtem.unClear) INtem[Object.keys(INtem)[0]]=""
+        })
+      })
+      let confighasOuppTR = config.record.filter(item=>{
+        return item.find(li=> (this.outChoseItem.keyCode===li.key && li.value))
+      })
+      // return console.log(confighasOutppARR,'confighasOutppARR')
+      //护记多列对固定项目多列（刚好一对一）既然多对多 注意字段最好和列表所需字段一致 特别第一列（键值列） keyCode
+      if(this.outChoseItem.outProjectCode.length === this.outChoseItem.oneTooneCode.length){
+        let confighasOutppARR = confighasOuppTR.map(tr=>{
+          let valObj = {}
+          this.outChoseItem.oneTooneCode.forEach(li=>{
+            valObj[li] = tr.find(td=>td.key===li).value
+          })
+          return valObj
+        })
+        confighasOutppARR.map(out=>{
+          let result = this.outProject.find(item=>{
+            return item.find(item2=>{
+              return (Object.keys(item2).includes(this.outChoseItem.keyCode) && item2[this.outChoseItem.keyCode] === out[this.outChoseItem.keyCode])
+            })
+          })
+          if(result){
+            Object.keys(out).map((key,index)=>{
+              let outKey = Object.keys(result[index])[0]
+              result[index][outKey] = out[key]
+            })
+          }else{
+            let noFix = this.outProject.find(item=>{
+              return item.find(item2=>{
+                return (Object.keys(item2).includes(this.outChoseItem.keyCode) && !item2[this.outChoseItem.keyCode])
+              })
+            })
+            if(noFix){
+              Object.keys(out).map((key,index)=>{
+                let outKey = Object.keys(noFix[index])[0]
+                noFix[index][outKey] = out[key]
+              })
+            }
+            console.log(noFix,'noFix',Object.keys(noFix[0])[0]);
+          }
+          console.log(result,'result',out)
+        })
+      }else {
+        // 目前只支持护记1列对多列
+        let valArr = []
+        confighasOuppTR.map(tr=>{
+          valArr.push(tr.find(item=>this.outChoseItem.keyCode===item.key).value)
+        })
+        valArr.map(item=>{
+          // 这里默认拿到的第一个就是列键值 然后按顺序去放列
+          let arr = item.split(" ")
+          let result  = this.outProject.find(out=>
+             out[0][Object.keys(out[0])] === arr[0]
+          )
+          if(result){
+            arr.map((val,index)=>{
+              let outKey = Object.keys(result[index])[0]
+              result[index][outKey] = val
+            })
+          }else{
+            let noFix = this.outProject.find(out=>!out[0][Object.keys(out[0])[0]])
+            if(noFix){
+              arr.map((val,index)=>{
+                let outKey = Object.keys(noFix[index])[0]
+                noFix[index][outKey] = val
+              })
+            }
+          }
+        })
+        console.log(this.outChoseItem,confighasOuppTR,valArr,'-----dj');
+      }
+      // confighasOutppARR.map(item=>{
+      //   let index =  this.outProject.findIndex(out=>out[].discharge === item.discharge)
+      //   index >=0 && this.outProject.splice(index,1,item)
+      //   if(index < 0){
+      //     let inputIndex = this.outProject.findIndex(item=>(!item.discharge))
+      //     inputIndex>=0 && (this.outProject[inputIndex] = {...this.outProject[inputIndex],...item})
+      //   }
+      // })
+    },
     open(config) {
       console.log(config,'config')
       setTimeout(() => {
@@ -2051,6 +2183,7 @@ export default {
         }
         delete this.fixedList.bloodPressure
       }
+      if(config.SelectedTd.outChoseItem) this.outChoseItem = config.SelectedTd.outChoseItem
       if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
         this.measuresHaicheck = []
         inputItemAll().then(res=>{
@@ -2066,15 +2199,8 @@ export default {
             this.measuresHaicheck.push(item.name)
           }
         })
-        this.outProject.forEach(item=>{
-          item.dischargeSize="";
-          item.outputColor=""
-          item.defaultInput && (item.discharge = "")
-        })
-        let confighasOuppTR = config.record.filter(item=>{
-          return item.find(li=> (['discharge'].includes(li.key) && li.value)
-          )
-        })
+        this.outProject = this.outChoseItem.outProject
+        this.initOUT(config)
         let confighasOupFood = config.record.filter(item=>{
           return item.find(li=> (['food'].includes(li.key) && li.value)
           )
@@ -2091,24 +2217,7 @@ export default {
             expand
           }
         })
-        let confighasOutppARR = confighasOuppTR.map(tr=>{
-          let discharge = tr.find(td=>td.key==='discharge').value
-          let dischargeSize = tr.find(td=>td.key==='dischargeSize').value
-          let outputColor = tr.find(td=>td.key==='outputColor').value
-          return {
-            discharge,
-            dischargeSize,
-            outputColor
-          }
-        })
-        confighasOutppARR.map(item=>{
-          let index =  this.outProject.findIndex(out=>out.discharge === item.discharge)
-          index >=0 && this.outProject.splice(index,1,item)
-          if(index < 0){
-            let inputIndex = this.outProject.findIndex(item=>(!item.discharge))
-            inputIndex>0 && (this.outProject[inputIndex] = {...this.outProject[inputIndex],...item})
-          }
-        })
+        
         this.outFoodlist = []
         let PDAarr = [],inputArr = []
         confighasOutFoodARR.map(item=>{
@@ -2120,6 +2229,10 @@ export default {
           if(!inputArr[i]) inputArr.push({...defaultFood})
         }
         this.outFoodlist = [...PDAarr,...inputArr]
+      }
+      if(['extracardi_one_weihai','extracardi_three_weihai'].includes(this.sheetInfo.sheetType)){
+        this.outProject = this.outChoseItem.outProject
+        this.initOUT(config)
       }
       let tab = config.tab;
       // 特殊记录组合
@@ -2494,11 +2607,23 @@ export default {
     // 保存（普通文本）
     post(type) {
       if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
-        if(this.outProject.find(item=>item.defaultInput && item.discharge && !item.dischargeSize.trim())) return this.$message.warning("出量自定义项目有已填项目但未填值")
-        else if(this.outProject.find(item=>item.defaultInput && !item.discharge && item.dischargeSize.trim())) return this.$message.warning("出量自定义项目有已填但未填项目名")
-        else if(this.outProject.find(item=>item.outputColor && !item.dischargeSize.trim())) return this.$message.warning("出量有已选颜色项但仍未填值")
+        if(this.outProject.find(item=>item[0].defaultInput && item[0].discharge && !item[1].dischargeSize.trim())) return this.$message.warning("出量自定义项目有已填项目但未填值")
+        else if(this.outProject.find(item=>item[0].defaultInput && !item[0].discharge && item[1].dischargeSize.trim())) return this.$message.warning("出量自定义项目有已填但未填项目名")
+        else if(this.outProject.find(item=>item[2].outputColor && !item[1].dischargeSize.trim())) return this.$message.warning("出量有已选颜色项但仍未填值")
         else if(this.outFoodlist.find(item=>item.food && !item.foodSize.trim())) return this.$message.warning("入量有未填值")
         else if(this.outFoodlist.find(item=>!item.food && item.foodSize.trim())) return this.$message.warning("入量有已填值但未有项目名")
+      }else if(['extracardi_one_weihai'].includes(this.sheetInfo.sheetType)){
+        if(this.outProject.find(item=>item[0].defaultInput && !item[0].discharge && item[1].dischargeSize.trim())) return this.$message.warning("出量自定义项目有已填但未填项目名")
+        else if(this.outProject.find(item=>item[0].defaultInput && item[0].discharge && !item[1].dischargeSize.trim())) return this.$message.warning("出量自定义项目有已填项目但未填值")
+        else if(this.outChoseItem.oneTooneCode.includes('drugsTwo')){
+          if(this.outProject.find(item=>item[0] && item[0].discharge && item[1].dischargeSize.trim() && !item[2].danwei.trim())) return this.$message.warning("出量自定义项目有已填但未填单位")
+        }
+      }else if(['extracardi_three_weihai'].includes(this.sheetInfo.sheetType)){
+        if(this.outChoseItem.oneTooneCode.includes('pipingOne')){
+          if(this.outProject.find(item=>(item[0].pipingOne && item[0].defaultInput) && (!item[1].pipingTwo.trim() && !item[2].pipingThree.trim()))) return this.$message.warning("出量自定义项目有已填项目但未填值")
+        }else if(this.outChoseItem.oneTooneCode.includes('pipingFout')){
+          if(this.outProject.find(item=>(item[0].pipingFout && item[0].defaultInput) && (!item[1].pipingFive.trim() && !item[2].pipingSix.trim() && !item[3].pipingSeven.trim()))) return this.$message.warning("出量自定义项目有已填项目但未填值")
+        }
       }
 
       if (this.isSaving) {
@@ -2949,19 +3074,28 @@ export default {
           }
         }
       }
-      if(['critical2_weihai'].includes(this.sheetInfo.sheetType)){
+      //出量项目一对一多对多（刚好一对一）走下列
+      if(['critical2_weihai','extracardi_three_weihai'].includes(this.sheetInfo.sheetType)){
         let valResult = [],length = "",measuresStr = "",foodResult =[]
-        measuresList.map((prev)=>{
-          if(prev && this.measuresHaicheck.includes(prev.name)){
-            measuresStr += ","+ prev.value
-          }
-        })
-        valResult = this.outProject.filter(item=>item.dischargeSize)
+        if('critical2_weihai'===this.sheetInfo.sheetType){
+          measuresList.map((prev)=>{
+            if(prev && this.measuresHaicheck.includes(prev.name)){
+              measuresStr += ","+ prev.value
+            }
+          })
+        }
+        if('critical2_weihai'===this.sheetInfo.sheetType){
+          valResult = this.outProject.filter(item=>item[1].dischargeSize)
+        }else if('extracardi_three_weihai'===this.sheetInfo.sheetType){
+          if(this.outChoseItem.oneTooneCode.includes('pipingOne')) valResult = this.outProject.filter(item=>(item[1].pipingTwo || item[2].pipingThree))
+          else if(this.outChoseItem.oneTooneCode.includes('pipingFout')) valResult = this.outProject.filter(item=>(item[1].pipingFive || item[2].pipingSix || item[3].pipingSeven))
+        }
         foodResult = this.outFoodlist.filter(item=>(item.food && item.foodSize))
-        length = Math.max(valResult.length,result.length,foodResult.length)
+        if('critical2_weihai'===this.sheetInfo.sheetType) length = Math.max(valResult.length,result.length,foodResult.length)
+        else length = Math.max(valResult.length,result.length)
         for (let i = 0; i < length; i++) {
           if (i == 0) {
-            this.fixedList.measures.value = measuresStr.slice(1)
+            if('critical2_weihai'===this.sheetInfo.sheetType) this.fixedList.measures.value = measuresStr.slice(1)
             mergeTr(this.record[0], this.staticObj, this.fixedList);
             console.log(this.record,this.staticObj,this.fixedList,'this.record[0]')
           }
@@ -2970,11 +3104,13 @@ export default {
               (item) => item.key == "description" || item.key == "specialRecord"
             ).value = result[i];
             this.record[i].map(item=>{
-              if(outProject[0].hasOwnProperty(item.key)) item.value=valResult[i]?valResult[i][item.key]:""
+              if(this.outChoseItem.outProjectCode.includes(item.key)) item.value=valResult[i]?valResult[i].find(td=>Object.keys(td).includes(item.key))[item.key]:""
             })
-            this.record[i].map(item=>{
-              if(defaultFood.hasOwnProperty(item.key)) item.value=foodResult[i]?foodResult[i][item.key]:""
-            })
+            if('critical2_weihai'===this.sheetInfo.sheetType){
+              this.record[i].map(item=>{
+                if(defaultFood.hasOwnProperty(item.key)) item.value=foodResult[i]?foodResult[i][item.key]:""
+              })
+            }
             // return console.log(foodResult,this.record[i])
             process.env.splitSave && (this.record[i].isChange = true);
           } else {
@@ -2997,12 +3133,80 @@ export default {
           ).value = result[i];
           if(valResult[i]){
             sheetModel[this.lastZ].bodyModel[this.lastY].map(item=>{
-              if(valResult[i].hasOwnProperty(item.key)) item.value=valResult[i][item.key]
+              if(this.outChoseItem.outProjectCode.includes(item.key)) item.value=valResult[i].find(td=>Object.keys(td).includes(item.key))[item.key]
             })
           }
-          if(foodResult[i]){
+          if('critical2_weihai'===this.sheetInfo.sheetType){
+            if(foodResult[i]){
+              sheetModel[this.lastZ].bodyModel[this.lastY].map(item=>{
+                if(foodResult[i].hasOwnProperty(item.key)) item.value=foodResult[i][item.key]
+              })
+            }
+          }
+            // return console.log(valResult,this.record[i])
+          process.env.splitSave &&
+            (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true);
+          }
+        }
+        for(let i =0;i<(+this.record.length)-length;i++){
+          this.record[length+i].map(item=>{
+            if(this.outChoseItem.outProjectCode.includes(item.key)) item.value=""
+            if('critical2_weihai'===this.sheetInfo.sheetType){
+              if(defaultFood.hasOwnProperty(item.key)) item.value=""
+            }
+          })
+        }
+      }else if(['extracardi_one_weihai'].includes(this.sheetInfo.sheetType)){
+        // 这里出量项目一对一 
+        let valResult = [],length = ""
+        valResult = this.outProject.filter(item=>item[1].dischargeSize)
+        length = Math.max(valResult.length,result.length)
+        for (let i = 0; i < length; i++) {
+          if (i == 0) {
+            mergeTr(this.record[0], this.staticObj, this.fixedList);
+            console.log(this.record,this.staticObj,this.fixedList,'this.record[0]')
+          }
+          if (this.record[i]) {
+            this.record[i].find(
+              (item) => item.key == "description" || item.key == "specialRecord"
+            ).value = result[i];
+            this.record[i].find(item=>{
+              if(this.outChoseItem.oneTooneCode.includes(item.key)){
+                item.value=valResult[i]?
+                valResult[i].reduce((pre,next,index)=>{
+                  return pre + (index==0?"":" ") + next[Object.keys(next)[0]]
+                },"") : ""
+                return true
+              } 
+            })
+            process.env.splitSave && (this.record[i].isChange = true);
+          } else {
+          let currRow = JSON.parse(JSON.stringify(this.record[0]));
+          let nullRowArr = nullRow();
+
+          nullRowArr.find((item) => item.key == "recordSource").value =
+            currRow.find((item) => item.key == "recordSource").value;
+          nullRowArr.find((item) => item.key == "recordDate").value =
+            currRow.find((item) => item.key == "recordDate").value;
+
+          sheetModel[this.lastZ].bodyModel.splice(
+            this.lastY + 1,
+            0,
+            nullRowArr
+          );
+          this.lastY++;
+          sheetModel[this.lastZ].bodyModel[this.lastY].find(
+            (item) => item.key == "description" || item.key == "specialRecord"
+          ).value = result[i];
+          if(valResult[i]){
             sheetModel[this.lastZ].bodyModel[this.lastY].map(item=>{
-              if(foodResult[i].hasOwnProperty(item.key)) item.value=foodResult[i][item.key]
+              if(this.outChoseItem.oneTooneCode.includes(item.key)){
+                item.value=valResult[i]?
+                valResult[i].reduce((pre,next,index)=>{
+                  return pre + (index==0?"":" ") + next[Object.keys(next)[0]]
+                },"") : ""
+                return true
+              }
             })
           }
             // return console.log(valResult,this.record[i])
@@ -3012,8 +3216,7 @@ export default {
         }
         for(let i =0;i<(+this.record.length)-length;i++){
           this.record[length+i].map(item=>{
-            if(outProject[0].hasOwnProperty(item.key)) item.value=""
-            if(defaultFood.hasOwnProperty(item.key)) item.value=""
+            if(this.outChoseItem.oneTooneCode.includes(item.key)) item.value=""
           })
         }
       }else{

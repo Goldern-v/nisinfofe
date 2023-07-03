@@ -34,6 +34,55 @@ const tt_cuoshi = ['A', 'B', 'C', 'D', 'E']
 
 const check = ["√"]
 
+let outProject1 = [
+  [{pipingOne:"右颈内静脉",unClear:true},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+  [{pipingOne:"右锁骨下静脉",unClear:true},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+  [{pipingOne:"左肱动脉",unClear:true},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+  [{pipingOne:"左足背动脉",unClear:true},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+  [{pipingOne:"左桡动脉",unClear:true},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+  [{pipingOne:"右手背",unClear:true},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+  [{pipingOne:"右手腕",unClear:true},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+  [{pipingOne:"右前臂",unClear:true},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+  [{pipingOne:"",defaultInput:true,type:"textarea"},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+  [{pipingOne:"",defaultInput:true,type:"textarea"},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+  [{pipingOne:"",defaultInput:true,type:"textarea"},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
+]
+let outChoseItem1 = {
+  th:[
+    {title:"名称",colwidth:"50%"},
+    {title:"外露长度",colwidth:"30%"},
+    {title:"护理",colwidth:"20%"}
+  ],
+  outProject:outProject1,
+  tableNum:3,
+  maxLength:10,
+  outProjectCode:['pipingOne','pipingTwo','pipingThree'],
+  keyCode:"pipingOne",
+  oneTooneCode:['pipingOne','pipingTwo','pipingThree']
+}
+let outProject2 = [
+  [{pipingFout:"心包胸骨后引流",unClear:true},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"左胸腔闭式引流",unClear:true},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"左胸腔引流",unClear:true},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+]
+let outChoseItem2 = {
+  th:[
+    {title:"名称",colwidth:"30%"},
+    {title:"颜色",colwidth:"30%"},
+    {title:"性质",colwidth:"30%"},
+    {title:"护理",colwidth:"10%"}
+  ],
+  outProject:outProject2,
+  tableNum:3,
+  outProjectCode:['pipingFout','pipingFive','pipingSix','pipingSeven'],
+  keyCode:"pipingFout",
+  maxLength:5,
+  oneTooneCode:['pipingFout','pipingFive','pipingSix','pipingSeven'],
+}
+
 export default [
   { hidden: true, key: "recordDate", value: "" },
   { key: "recordMonth", event: event_date, click: click_date, value: "" },
@@ -84,6 +133,7 @@ export default [
     value: "",
     next: "ml",
     name: "动静脉置管:名称",
+    outChoseItem:outChoseItem1,
     textarea: { width: 60 },
     change: (e, td) => limitChange(e, td, 10)
   },
@@ -93,6 +143,7 @@ export default [
     value: "",
     next: "cm",
     name: "外露长度",
+    outChoseItem:outChoseItem1,
     textarea: { width: 40 },
   },
   {
@@ -101,6 +152,7 @@ export default [
     value: "",
     name: "动静脉置管:护理",
     textarea: { width: 35 },
+    outChoseItem:outChoseItem1,
     autoComplete: { data: check },
   },
   {
@@ -108,6 +160,7 @@ export default [
     event: keyf1,
     value: "",
     name: "引流管:名称",
+    outChoseItem:outChoseItem2,
     textarea: { width: 60 },
   },
   {
@@ -116,6 +169,7 @@ export default [
     value: "",
     name: "引流液颜色",
     textarea: { width: 35 },
+    outChoseItem:outChoseItem2,
     autoComplete: { data: yinliuye },
   },
   {
@@ -123,6 +177,7 @@ export default [
     event: keyf1,
     value: "",
     name: "引流液性质",
+    outChoseItem:outChoseItem2,
     textarea: { width: 35 },
     autoComplete: { data: yinliuye },
   },
@@ -131,6 +186,7 @@ export default [
     event: keyf1,
     value: "",
     name: "引流管护理",
+    outChoseItem:outChoseItem2,
     textarea: { width: 35 },
     autoComplete: { data: check },
    },
