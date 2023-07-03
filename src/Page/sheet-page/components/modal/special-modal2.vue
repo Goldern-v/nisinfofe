@@ -1265,7 +1265,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-  &.firstoutPro.critical2{ 
+  &.firstoutPro.critical2{
       table{
         width:18%;
         &:first-of-type{
@@ -1285,7 +1285,7 @@
       }
     }
   }
-  &.firstoutPro{ 
+  &.firstoutPro{
     &.oneweihai,&.threeweihai{
       table{
         width:32%;
@@ -2217,7 +2217,7 @@ export default {
             expand
           }
         })
-        
+
         this.outFoodlist = []
         let PDAarr = [],inputArr = []
         confighasOutFoodARR.map(item=>{
@@ -3157,7 +3157,7 @@ export default {
           })
         }
       }else if(['extracardi_one_weihai'].includes(this.sheetInfo.sheetType)){
-        // 这里出量项目一对一 
+        // 这里出量项目一对一
         let valResult = [],length = ""
         valResult = this.outProject.filter(item=>item[1].dischargeSize)
         length = Math.max(valResult.length,result.length)
@@ -3177,7 +3177,7 @@ export default {
                   return pre + (index==0?"":" ") + next[Object.keys(next)[0]]
                 },"") : ""
                 return true
-              } 
+              }
             })
             process.env.splitSave && (this.record[i].isChange = true);
           } else {
@@ -3349,7 +3349,7 @@ export default {
         if (this.doc && v[key]) {
           this.doc += "\n";
         }
-        if (this.HOSPITAL_ID === 'fuyou')
+        if (['fuyou', 'whsl'].includes(this.HOSPITAL_ID))
           this.doc += `${v[key]},${v.diagMeasures}`;
         else
           this.doc += v[key];

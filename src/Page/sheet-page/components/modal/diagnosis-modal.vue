@@ -57,7 +57,7 @@
             align="center"
           ></el-table-column>
           <el-table-column
-            v-if="newType"
+            v-if="newType || hasMeasure"
             prop="diagMeasures"
             label="护理措施计划"
             min-width="275px"
@@ -152,6 +152,7 @@ export default {
       filterData: [],
       newType: ['lyxrm','huadu', 'whhk', 'stmz','foshanrenyi','fuyou'].includes(this.HOSPITAL_ID),
       hospitalType:['fuyou'].includes(this.HOSPITAL_ID),
+      hasMeasure: ['whsl'].includes(this.HOSPITAL_ID)
     };
   },
   methods: {
