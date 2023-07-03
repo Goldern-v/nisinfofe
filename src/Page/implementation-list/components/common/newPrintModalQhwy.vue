@@ -2,7 +2,10 @@
   <div
     :style="sizeStyle"
     class="new-print-modal"
-		:class="{'new-print-modal--s': !isLargeType,'pageBreak':isLargeType, 'new-print-modal--s1': !isLargeType && 'qhwy' === HOSPITAL_ID}"
+		:class="{'new-print-modal--s': !isLargeType,
+    'pageBreak':isLargeType, 
+    'new-print-modal--s1': !isLargeType && 'qhwy' === HOSPITAL_ID, 
+    'zoom-qhwy-5x8': newModalSize === '5*8' && 'qhwy' === HOSPITAL_ID}"
   >
     <div class="new-modal-top">
       <div class="new-modal-top-right">
@@ -268,6 +271,11 @@
   }
   }
 }
+.zoom-qhwy-5x8{
+  .new-modal-bottom{
+    zoom: 0.85;
+  }
+}
 </style>
 <script>
 import { cloneDeep } from "lodash";
@@ -328,15 +336,17 @@ export default {
         case '3.5*5':
           return { width: '7cm', height: '4.5cm'}
         case '5*8':
-          return { width: '8cm', height: '5.9cm'}
+          return { width: '8cm', height: '4.9cm'}
         default:
         // case '3*5':
           return { width: '10cm', height: '5.9cm'}
       }
     },
     modalBStyle() {
-      if (this.newModalSize === '3*5' || this.newModalSize === '5*8') {
+      if (this.newModalSize === '3*5') {
         return { height: '100px' }
+      } else if (this.newModalSize === '5*8'){
+        return { height: '80px' }
       }
       return {}
     }
