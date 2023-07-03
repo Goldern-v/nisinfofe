@@ -146,7 +146,6 @@ export function click_check(e, td) {
 }
 
 // 点击打勾再次点击取消
-
 export function click_cancel(e, td) {
   if (td.value == "") {
     td.value = '√';
@@ -155,46 +154,39 @@ export function click_cancel(e, td) {
   }
 }
 
-//产后产科特殊td选择
-export function click_letterA(e,td){
-  if(td.value == ""){
-    td.value = 'A'
-  }else{
-    td.value = ""
-  }
-}
 
-export function click_letterB(e, td) {
-  if (td.value == "") {
-    td.value = 'B'
-  } else {
-    td.value = ""
-  }
-}
 
-export function click_letterC(e, td) {
-  if (td.value == "") {
-    td.value = 'C'
-  } else {
-    td.value = ""
-  }
-}
+// export function click_letterB(e, td) {
+//   if (td.value == "") {
+//     td.value = 'B'
+//   } else {
+//     td.value = ""
+//   }
+// }
 
-export function click_letterF(e, td) {
-  if (td.value == "") {
-    td.value = 'F'
-  } else {
-    td.value = ""
-  }
-}
+// export function click_letterC(e, td) {
+//   if (td.value == "") {
+//     td.value = 'C'
+//   } else {
+//     td.value = ""
+//   }
+// }
 
-export function click_letterH(e, td) {
-  if (td.value == "") {
-    td.value = 'H'
-  } else {
-    td.value = ""
-  }
-}
+// export function click_letterF(e, td) {
+//   if (td.value == "") {
+//     td.value = 'F'
+//   } else {
+//     td.value = ""
+//   }
+// }
+
+// export function click_letterH(e, td) {
+//   if (td.value == "") {
+//     td.value = 'H'
+//   } else {
+//     td.value = ""
+//   }
+// }
 const arr = ['√|', '√|√', '|√', '']
 /**点击显示顺序 '√|', '√|√', '|√', '' */
 export function click_double (e, td) {
@@ -202,4 +194,27 @@ export function click_double (e, td) {
   let nextIndex = curIndex >= arr.length - 1 || curIndex == -1 ? 0 : curIndex + 1
 
   td.value = arr[nextIndex]
+}
+
+
+
+// 护记通用鼠标单选点击事件函数
+export function click_letter(e, td, key) {
+  if (td.value == "") {
+    td.value = key
+  }
+  else {
+    td.value = ""
+  }
+}
+
+
+// 护记通用鼠标多选点击事件函数
+const arr1 = []
+/**点击显示顺序 '√|', '√|√', '|√', '' */
+export function click_double1(e, td, arr1) {
+  let curIndex = arr1.findIndex(v => v === td.value)
+  let nextIndex = curIndex >= arr1.length - 1 || curIndex == -1 ? 0 : curIndex + 1
+
+  td.value = arr1[nextIndex]
 }
