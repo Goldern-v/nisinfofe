@@ -49,7 +49,17 @@ export default {
       },
       {
         name: `
-        脉搏/心率<br/>次/分
+        心率<br/>次/分
+        `,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: "60px"
+        },
+      },
+      {
+        name: `
+        脉搏<br/>次/分
         `,
         colspan: "1",
         rowspan: "3",

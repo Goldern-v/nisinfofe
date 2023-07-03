@@ -115,10 +115,16 @@ export default [
     name: "体温"
   },
   {
-    key: "pulse", //脉搏/心率
+    key: "heartrate", //心率
     value: "",
     event: keyf1,
-    name:"脉搏/心率"
+    name:"心率"
+  },
+  {
+    key: "pulse", //脉搏
+    value: "",
+    event: keyf1,
+    name:"脉搏"
   },
   {
     key: "heartRhythm", //呼吸 次/min
@@ -475,7 +481,7 @@ export default [
     key: "dataHash",
     value: ""
   },
- 
+
   {
     hidden: true,
     key: "monthHour",
