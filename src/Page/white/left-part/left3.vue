@@ -59,7 +59,7 @@
             <span style="width: 100px; text-align: center" v-else-if="HOSPITAL_ID=='gdtj'|| HOSPITAL_ID=='zhzxy'">
               <input  style="width: 60px;margin-right: 20px" v-model="item.groupCode" @blur="update">
             </span>
-            <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi'].includes(HOSPITAL_ID)? index+1 : index}}：</span>
+            <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi',"nfyksdyy"].includes(HOSPITAL_ID)? index+1 : index}}：</span>
             <input v-if="HOSPITAL_ID !== 'liaocheng'" flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
             <!-- 聊城二院 床位 添加 下拉选项 -->
             <el-select
