@@ -14,7 +14,7 @@
           <el-button :class="[active=='yesterday1'?'active-btn':'']" @click="initTime('yesterday1')">24小时小结</el-button>
         </el-button-group>
       </div>
-      <div class="time-type-button" v-if="sheetInfo.sheetType === 'inandout_weihai'">
+      <div class="time-type-button" v-if="['inandout_weihai', 'critical_new_weihai'].includes(sheetInfo.sheetType)">
         <el-button-group>
           <el-button :class="[active=='today1'?'active-btn':'']" @click="whslInitTime('today1')">白班</el-button>
           <el-button :class="[active=='today2'?'active-btn':'']" @click="whslInitTime('today2')">夜班</el-button>

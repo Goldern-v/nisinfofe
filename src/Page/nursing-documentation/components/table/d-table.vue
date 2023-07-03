@@ -116,6 +116,8 @@
       <el-table-column label="操作" min-width="80px">
         <template slot-scope="scope">
           <el-button type="text" @click="openDetail(scope.row)">查看</el-button>
+          <el-button type="text" v-if="HOSPITAL_ID == 'hj'" @click="onRecall(scope.row)">病历召回</el-button>
+          <el-button type="text" v-if="HOSPITAL_ID == 'hj'" @click="onAgain(scope.row)">重新归档</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -159,7 +161,7 @@
 }
 </style>
 <script>
-import { info } from "@/api/task";
+import { info, medicalRecall} from "@/api/task";
 import commonMixin from "../../../../common/mixin/common.mixin";
 import qs from "qs";
 export default {
@@ -200,6 +202,34 @@ export default {
           visitId: res.data.data.visitId,
         })}`
       );
+    },
+    onRecall(row) {
+      this.pageLoadng = true;
+      let data =  {
+        patientId: row.patientId,
+        visitId: row.visitId,
+        status: "1"
+      }
+      medicalRecall(data).then((res) => {
+        if(res.data.errorCode == '1'){
+          this.$message.success(res.data.errorMsg);
+        }
+        this.pageLoadng = false
+      })
+    },
+    onAgain(row) {
+       this.pageLoadng = true;
+      let data =  {
+        patientId: row.patientId,
+        visitId: row.visitId,
+        status: "2"
+      }
+      medicalRecall(data).then((res) => {
+        if(res.data.errorCode == '1'){
+          this.$message.success(res.data.errorMsg);
+        }
+        this.pageLoadng = false
+      })
     },
   },
   components: {},

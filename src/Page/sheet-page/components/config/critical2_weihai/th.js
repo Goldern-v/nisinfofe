@@ -21,9 +21,9 @@ export default {
       {
         name: '生命体征',
         style: {
-          
+
         },
-        colspan: '7',
+        colspan: '8',
         rowspan: '1'
       },
       {
@@ -78,7 +78,7 @@ export default {
          监测情况
         `,
         style: {
-         
+
         },
         colspan: '12',
         rowspan: '1',
@@ -187,7 +187,7 @@ export default {
     //    量<br/>ml
     //    `,
     //    style: {
-        
+
     //    },
     //    colspan: '1',
     //    rowspan: '2',
@@ -202,12 +202,22 @@ export default {
     },
     {
       name: `
-      心率/脉搏<br/>次/分
+      心率<br/>次/分
       `,
       colspan: "1",
       rowspan: "2",
       style: {
-        minWidth: "50px"
+        minWidth: "40px"
+      },
+    },
+    {
+      name: `
+      脉搏<br/>次/分
+      `,
+      colspan: "1",
+      rowspan: "2",
+      style: {
+        minWidth: "40px"
       },
     },
     {
@@ -406,7 +416,7 @@ export default {
     },
     {
       name: `
-      CPOT/<br/>NRS 
+      CPOT/<br/>NRS
       `,
       style: {
         minWidth: "35px",

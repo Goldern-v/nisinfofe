@@ -593,6 +593,20 @@
         ></el-autocomplete>
       </div>
       <div
+        class="item-box"
+        :style="{width:'80px', maxWidth: '80px',display:'flex !important', overflow: 'hidden'}"
+        v-if="isDeputy && HOSPITAL_ID == 'guizhou'"
+      >
+        <el-autocomplete
+          class="pegeSelect"
+          icon="caret-bottom"
+          placeholder="请输入页码"
+          v-model="pageInfoObj.pageArea"
+          @input="pageNumberChange"
+          :fetch-suggestions="querySearch"
+        ></el-autocomplete>
+      </div>
+      <div
       class="searchPageByDate"
       @click="searchPageByDateModal"
       v-if="!isGeneralCareWj"

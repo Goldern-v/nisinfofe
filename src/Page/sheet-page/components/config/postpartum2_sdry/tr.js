@@ -25,11 +25,7 @@ import {
   click_date,
   click_time,
   click_cancel,
-  click_letterA,
-  click_letterB,
-  click_letterC,
-  click_letterF,
-  click_letterH
+  click_letter,
 } from "../keyEvent/date";
 
 let ysList = ["√", "+", "±", "++", "+++", "谵妄"];
@@ -231,7 +227,7 @@ export default [
       minWidth:"25px",
       maxWidth:"25px"
     },
-    click: (e, td) => click_letterA(e, td, 2)
+    click: (e, td) => click_letter(e, td, "A")
   },
   {
     key: "intravenous",
@@ -245,7 +241,7 @@ export default [
       minWidth:"25px",
       maxWidth:"25px"
     },
-    click: (e, td) => click_letterC(e, td, 2)
+    click: (e, td) => click_letter(e, td, "C")
   },
   {
     key: "musclesInject",
@@ -253,7 +249,7 @@ export default [
     value: "",
     next: "",
     name: "肌注",
-    click: (e, td) => click_letterB(e, td),
+    click: (e, td) => click_letter(e, td, "B"),
     style: {
       minWidth: "30px",
       maxWidth: "30px"
@@ -266,7 +262,7 @@ export default [
     next: "",
     name: "肛塞",
     // textarea: { width: 40 },
-    click: (e, td) => click_letterF(e, td),
+    click: (e, td) => click_letter(e, td, "F"),
     style: {
       minWidth: "30px",
       maxWidth: "30px"
@@ -285,7 +281,7 @@ export default [
       minWidth:"25px",
       maxWidth:"25px"
     },
-    click: (e, td) => click_letterH(e, td)
+    click: (e, td) => click_letter(e, td, "H")
   },
   // {
   //   key: "cervicalDilation",
