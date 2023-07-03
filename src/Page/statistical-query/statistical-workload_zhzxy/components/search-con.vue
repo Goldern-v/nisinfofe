@@ -54,12 +54,12 @@
           <ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
         </ElSelect>
       </div>
-      <div class="search-con__ctx__item">
+      <div class="search-con__ctx__item" v-if="isEnabl">
         <ElInput
           style="width: 140px;margin-left: 12px"
           size="small"
-          :value="formData.nurse"
-          @input="handleQuery({nurse: $event})"
+          :value="formData.empName"
+          @input="handleQuery({empName: $event})"
           placeholder="护士姓名|工号"
           icon="search"
         >
@@ -122,6 +122,10 @@ export default {
       default: 'date'
     },
     loading: {
+      type: Boolean,
+      default: false,
+    },
+    isEnabl: {
       type: Boolean,
       default: false,
     }
