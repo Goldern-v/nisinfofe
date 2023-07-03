@@ -1,6 +1,7 @@
 import axios from './axios'
 import qs from 'qs'
 import { apiPath } from './apiConfig'
+import { param } from 'jquery'
 
 
 
@@ -49,4 +50,10 @@ export const info = (patientId, visitId) => {
 // fsxt执行单保存备注
 export const saveMark = (params) => {
     return axios.post(`${apiPath}procedure/webExecute/saveNurseExecute`, qs.stringify(params))
+}
+
+
+// 厚街-增加病历召回和重新归档功能
+export const medicalRecall = (params) => {
+    return axios.post(`${apiPath}indexInfo/getMedicalRecall`, params)
 }
