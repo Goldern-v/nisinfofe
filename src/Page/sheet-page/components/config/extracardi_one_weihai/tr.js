@@ -26,15 +26,15 @@ import {
 } from "../keyEvent/date";
 
 let outProject = [
-  [{discharge:"多巴胺",unClear:true},{dischargeSize:"",type:"input"},],
-  [{discharge:"去甲肾上腺素",unClear:true},{dischargeSize:"",type:"input"},],
-  [{discharge:"硝酸甘油",unClear:true},{dischargeSize:"",type:"input"},],
-  [{discharge:"硝普钠",unClear:true},{dischargeSize:"",type:"input"},],
-  [{discharge:"异丙肾上腺素",unClear:true},{dischargeSize:"",type:"input"},],
-  [{discharge:"肾上腺素",unClear:true},{dischargeSize:"",type:"input"},],
-  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input"}],
-  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input"}],
-  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input"}],
+  [{discharge:"多巴胺",unClear:true},{dischargeSize:"",type:"input",needTarget:true},],
+  [{discharge:"去甲肾上腺素",unClear:true},{dischargeSize:"",type:"input",needTarget:true},],
+  [{discharge:"硝酸甘油",unClear:true},{dischargeSize:"",type:"input",needTarget:true},],
+  [{discharge:"硝普钠",unClear:true},{dischargeSize:"",type:"input",needTarget:true},],
+  [{discharge:"异丙肾上腺素",unClear:true},{dischargeSize:"",type:"input",needTarget:true},],
+  [{discharge:"肾上腺素",unClear:true},{dischargeSize:"",type:"input",needTarget:true},],
+  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input",needTarget:true}],
+  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input",needTarget:true}],
+  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input",needTarget:true}],
 ]
 let outChoseItem1 = {
   th:[
@@ -42,29 +42,28 @@ let outChoseItem1 = {
     {title:"量（μg/kg/min）",colwidth:"40%"},
   ],
   outProject,
-  outProjectCode:['discharge','dischargeSize'],
-  keyCode:"drugsOne",
+  dischargeType:"升压药物血管药物",
   tableNum:3,
   maxLength:12,
-  oneTooneCode:['drugsOne']
+  sheetypeCode:['drugsOne']
 }
 let outProject2 = [
-  [{discharge:"30‰氯化钾",unClear:true},{dischargeSize:"",type:"input"},{danwei:"ml/h",unClear:true}],
-  [{discharge:"1%丙泊酚",unClear:true},{dischargeSize:"",type:"input"},{danwei:"mg/h",unClear:true}],
-  [{discharge:"呋塞米",unClear:true},{dischargeSize:"",type:"input"},{danwei:"mg/h",unClear:true}],
-  [{discharge:"注射用重组人脑利钠肽",unClear:true},{dischargeSize:"",type:"input"},{danwei:"ug/kg/min",unClear:true}],
-  [{discharge:"右美托咪定",unClear:true},{dischargeSize:"",type:"input"},{danwei:"ug/h",unClear:true}],
-  [{discharge:"艾司洛尔",unClear:true},{dischargeSize:"",type:"input"},{danwei:"mg/h",unClear:true}],
-  [{discharge:"胺碘酮",unClear:true},{dischargeSize:"",type:"input"},{danwei:"mg/min",unClear:true}],
-  [{discharge:"米力农",unClear:true},{dischargeSize:"",type:"input"},{danwei:"ug/kg/min",unClear:true}],
-  [{discharge:"胰岛素",unClear:true},{dischargeSize:"",type:"input"},{danwei:"u/h",unClear:true}],
-  [{discharge:"硝酸异山梨酯",unClear:true},{dischargeSize:"",type:"input"},{danwei:"mg/h",unClear:true}],
-  [{discharge:"左西孟旦",unClear:true},{dischargeSize:"",type:"input"},{danwei:"ug/h",unClear:true}],
-  [{discharge:"布托啡诺",unClear:true},{dischargeSize:"",type:"input"},{danwei:"ug/h",unClear:true}],
-  [{discharge:"利多卡因",unClear:true},{dischargeSize:"",type:"input"},{danwei:"mg/h",unClear:true}],
-  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input"},{danwei:"",type:"input"}],
-  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input"},{danwei:"",type:"input"}],
-  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input"},{danwei:"",type:"input"}],
+  [{discharge:"30‰氯化钾",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"ml/h",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"1%丙泊酚",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"mg/h",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"呋塞米",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"mg/h",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"注射用重组人脑利钠肽",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"ug/kg/min",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"右美托咪定",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"ug/h",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"艾司洛尔",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"mg/h",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"胺碘酮",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"mg/min",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"米力农",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"ug/kg/min",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"胰岛素",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"u/h",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"硝酸异山梨酯",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"mg/h",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"左西孟旦",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"ug/h",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"布托啡诺",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"ug/h",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"利多卡因",unClear:true},{dischargeSize:"",type:"input",needTarget:true},{danwei:"mg/h",unClear:true,needTarget:['dischargeSize']}],
+  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input",needTarget:true},{danwei:"",type:"input",needTarget:['dischargeSize']}],
+  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input",needTarget:true},{danwei:"",type:"input",needTarget:['dischargeSize']}],
+  [{discharge:"",defaultInput:true,type:"textarea"},{dischargeSize:"",type:"input",needTarget:true},{danwei:"",type:"input",needTarget:['dischargeSize']}],
 ]
 let outChoseItem2 = {
   th:[
@@ -73,11 +72,10 @@ let outChoseItem2 = {
     {title:"单位",colwidth:"30%"},
   ],
   outProject:outProject2,
-  outProjectCode:['discharge','dischargeSize',"danwei"],
-  keyCode:"drugsTwo",
+  dischargeType:"强心利尿其他特殊药物",
   tableNum:3,
   maxLength:7,
-  oneTooneCode:['drugsTwo']
+  sheetypeCode:['drugsTwo']
 }
 
 export default [

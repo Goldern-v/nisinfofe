@@ -34,6 +34,21 @@ const tt_cuoshi = ['A', 'B', 'C', 'D', 'E']
 
 const check = ["√"]
 
+const colors = [
+  {value:"",label:""},
+  {value:"淡黄色",label:"淡黄色"},
+  {value:"深黄色",label:"深黄色"},
+  {value:"褐色",label:"褐色"},
+  {value:"黄绿色",label:"黄绿色"},
+  {value:"墨绿色",label:"墨绿色"},
+  {value:"咖啡色",label:"咖啡色"},
+  {value:"黑色",label:"黑色"},
+  {value:"淡红色血性",label:"淡红色血性"},
+  {value:"暗红色血性",label:"暗红色血性"},
+  {value:"新鲜血性",label:"新鲜血性"},
+  {value:"陶土血性",label:"陶土血性"},
+  {value:"澄清无色",label:"澄清无色"},
+]
 let outProject1 = [
   [{pipingOne:"右颈内静脉",unClear:true},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
   [{pipingOne:"右锁骨下静脉",unClear:true},{pipingTwo:"",type:"input"},{pipingThree:"",type:"selectGou"}],
@@ -56,17 +71,16 @@ let outChoseItem1 = {
   outProject:outProject1,
   tableNum:3,
   maxLength:10,
-  outProjectCode:['pipingOne','pipingTwo','pipingThree'],
-  keyCode:"pipingOne",
-  oneTooneCode:['pipingOne','pipingTwo','pipingThree']
+  dischargeType:"动静脉置管",
+  sheetypeCode:['pipingOne','pipingTwo','pipingThree']
 }
 let outProject2 = [
-  [{pipingFout:"心包胸骨后引流",unClear:true},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
-  [{pipingFout:"左胸腔闭式引流",unClear:true},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
-  [{pipingFout:"左胸腔引流",unClear:true},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
-  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
-  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
-  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select"},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"心包胸骨后引流",unClear:true},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"左胸腔闭式引流",unClear:true},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"左胸腔引流",unClear:true},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
 ]
 let outChoseItem2 = {
   th:[
@@ -77,10 +91,9 @@ let outChoseItem2 = {
   ],
   outProject:outProject2,
   tableNum:3,
-  outProjectCode:['pipingFout','pipingFive','pipingSix','pipingSeven'],
-  keyCode:"pipingFout",
+  dischargeType:"引流管",
   maxLength:5,
-  oneTooneCode:['pipingFout','pipingFive','pipingSix','pipingSeven'],
+  sheetypeCode:['pipingFout','pipingFive','pipingSix','pipingSeven'],
 }
 
 export default [

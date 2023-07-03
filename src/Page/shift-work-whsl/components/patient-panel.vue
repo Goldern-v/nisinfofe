@@ -7,6 +7,7 @@
         <ElTabPane label="背景" name="2"></ElTabPane>
         <ElTabPane label="评估" name="3"></ElTabPane>
         <ElTabPane label="建议" name="4"></ElTabPane>
+        <ElTabPane label="评价" name="5"></ElTabPane>
       </ElTabs>
       <div class="search-bar">
         <input class="input" type="text" v-model="title" placeholder="请输入你要查找的模板关键字" />
