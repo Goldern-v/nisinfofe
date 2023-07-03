@@ -312,13 +312,8 @@
 
     <!-- 顺德人医产后产房表头处理 -->
     <template v-if="sheetInfo.sheetType=='postpartum2_sdry' ||  sheetInfo.sheetType=='baby_sdry'" >
-<<<<<<< Updated upstream
-     <span :class="sheetTypeClass"  :style="{marginLeft : sheetInfo.sheetType=='baby_sdry' ? '60px': '' }">
-        分娩方式:</span>
-=======
      <span :class="sheetTypeClass"  :style="{marginLeft : sheetInfo.sheetType=='baby_sdry' ? '35px': '' }">
         分娩方式：</span>
->>>>>>> Stashed changes
        <customSelectCanRepeat
           :options="options"
           @onSelect="(val) => setRelValue('option', val)"
