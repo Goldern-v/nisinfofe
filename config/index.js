@@ -398,7 +398,7 @@ module.exports = {
                 // target: "http://120.197.141.41:9091", //东莞
                 // target: "http://120.197.141.41:9094", //东莞正式库的测试
 
-                target: "http://59.38.110.189:9092", //测试
+                target: "http://192.168.20.79:4892", //测试
                 // target: "http://192.168.1.20:8964", // 内网测试cno
                 // target: "http://dev.cr-health.com:4453", // 外网测试
                 // target: 'http://192.168.1.88:8062', // 内网兆彬IP测试
@@ -408,14 +408,14 @@ module.exports = {
                 changeOrigin: false,
                 pathRewrite: {
                     // crNursing 东莞厚街护理系统 路径
-                    "http://localhost:4892/crNursing/sheet-print": "http://127.0.0.1:5500/dist/nfyk/sheet-print.html" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+                    "http://localhost:4892/crNursing/sheet-print": "http://192.168.20.79:4892/dist/nfyk/sheet-print.html" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
                 }
             },
             "/crNursing/static": {
                 // target: "http://120.197.141.41:9091", //东莞
                 // target: "http://120.197.141.41:9094", //东莞正式库的测试
 
-                target: "http://127.0.0.1:5500", //测试
+                target: "http://192.168.20.79:4892", //测试
                 // target: "http://192.168.1.20:8964", // 内网测试cno
                 // target: "http://dev.cr-health.com:4453", // 外网测试
                 // target: 'http://192.168.1.88:8062', // 内网兆彬IP测试
@@ -425,7 +425,7 @@ module.exports = {
                 changeOrigin: true,
                 pathRewrite: {
                     // crNursing 东莞厚街护理系统 路径
-                    "^/crNursing/static": "http://127.0.0.1:5500/dist/nfyk/static" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
+                    "^/crNursing/static": "http://192.168.20.79:4892/dist/nfyk/static" //这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
                 }
             },
             "/stylesheets": {

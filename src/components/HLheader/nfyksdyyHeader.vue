@@ -115,6 +115,13 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item :class="{active: $route.path == '/formPage'}">
+                  <router-link to="/formPage" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="nursingAssessment"></i> 护理评估单
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
                 <el-dropdown-item :class="{active: $route.path == '/sheetPage'}">
                 <router-link to="/sheetPage" tag="span">
               <el-row class="menu-item" type="flex" align="middle">
@@ -123,13 +130,7 @@
             </router-link>
             </el-dropdown-item>
 
-                 <el-dropdown-item :class="{active: $route.path == '/formPage'}">
-                  <router-link to="/formPage" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingAssessment"></i> 护理评估单
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item>
+                 
                 <el-dropdown-item :class="{active: $route.path == '/sugarPage'}">
             <router-link to="/sugarPage" tag="span">
               <el-row class="menu-item" type="flex" align="middle"><i class="bloodSugar"></i>血糖</el-row>

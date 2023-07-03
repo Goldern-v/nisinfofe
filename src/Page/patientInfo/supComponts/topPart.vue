@@ -45,6 +45,16 @@
               </el-row>
             </router-link>
           </el-dropdown-item>
+          <el-dropdown-item :class="{ active: $route.path == '/record' }">
+            <router-link  :to="{
+          path: '/record',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                <i class="nursingAssessment"></i>护理评估单
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
           <el-dropdown-item :class="{ active: $route.path == '/sheet' }">
             <router-link :to="{
           path: '/sheet',
@@ -56,16 +66,7 @@
             </router-link>
           </el-dropdown-item>
 
-          <el-dropdown-item :class="{ active: $route.path == '/record' }">
-            <router-link  :to="{
-          path: '/record',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }" tag="span">
-              <el-row class="menu-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i>护理评估单
-              </el-row>
-            </router-link>
-          </el-dropdown-item>
+          
           <el-dropdown-item :class="{ active: $route.path == '/bloodSugar' }">
             <router-link :to="{
           path: '/bloodSugar',
@@ -423,7 +424,8 @@
   line-height: 37px;
   padding: 0 10px;
   font-size: 13px;
-  color: #687179;
+  color: #000;
+  font-weight: 700;
   letter-spacing: 0.26px;
   float: left;
   cursor: pointer;
