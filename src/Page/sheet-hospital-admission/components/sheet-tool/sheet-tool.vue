@@ -511,6 +511,8 @@ export default {
         nation: "I001003", // 国籍
         occupation: "I001002", // 工作
         religion: "I001004", // 宗教
+        expand3:"I001008",
+        expand2:'I2332011'
         // 'admissionDate':'', // 入院日期
       };
 
