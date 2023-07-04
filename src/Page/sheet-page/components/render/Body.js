@@ -1043,6 +1043,11 @@ function switchSheetType(type) {
       schema = require("../config/monitoring_bh/tr.js").default;
     }
       break;
+    case "turning_over_bh": {
+      // 北海市 - 预防压力性损伤翻身记录表
+      schema = require("../config/turning_over_bh/tr.js").default;
+    }
+      break;
     case "nursingrecords_zxy": {
       // 南方中西医 - 护理记录单
       schema = require("../config/nursingrecords_zxy/tr.js").default;

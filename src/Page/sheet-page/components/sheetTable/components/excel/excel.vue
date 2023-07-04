@@ -216,6 +216,7 @@
           :dataKey="td.key"
           :dataName="td.name"
           v-if="!td.hidden"
+          :colspan="td.colspan"
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
           :class="[

@@ -1304,6 +1304,13 @@ export default function Title(
     );
   }
   break;
+  case "turning_over_bh": {
+    // 北海市 - 预防压力性损伤翻身记录表
+    Th = JSON.parse(
+      JSON.stringify(require("../config/turning_over_bh/th").default)
+    );
+  }
+  break;
   case "nursingrecords_zxy": {
     //  南方中西医 - 护理记录单
     Th = JSON.parse(
