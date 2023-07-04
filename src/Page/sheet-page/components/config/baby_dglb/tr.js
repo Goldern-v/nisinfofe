@@ -162,7 +162,7 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
     name: "肛周情况",
     autoComplete: {
-      data: ['潮红','破损','溃疡','皮疹']
+      data: ['潮红','破损','溃疡','皮疹','正常']
     },
     textarea: {
       width: 40

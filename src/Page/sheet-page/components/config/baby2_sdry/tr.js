@@ -73,7 +73,7 @@ export default [
     name: "R",
     // autoComplete:{data:['辅助呼吸']},
     textarea: { width: 35 },
-    change: (e, td) => limitChange(e, td, 2)
+    change: (e, td) => limitChange(e, td, 4)
   },
   {
     key: "bloodPressure",

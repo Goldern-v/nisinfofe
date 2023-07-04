@@ -333,14 +333,14 @@
         >
           <input type="text" :data-value="sheetInfo.relObj.parturition" v-model="sheetInfo.relObj.parturition" style="width:160px;">
         </customSelectCanRepeat>
-     <span >
+     <!-- <span >
        &nbsp;&nbsp;护理措施</span>
       <customSelectCanRepeat
         :options="hulicuoshis"
         @onSelect="(val) => setRelValue('hulicuoshi',val)"
       >
       <input  type="text" :data-value="sheetInfo.relObj.hulicuoshi" v-model="sheetInfo.relObj.hulicuoshi" style="width: 100px;">
-      </customSelectCanRepeat>
+      </customSelectCanRepeat> -->
     </template>
       <span  v-if="sheetInfo.sheetType=='prenatal_sdry'  ">
         &nbsp;&nbsp;破膜时间:
