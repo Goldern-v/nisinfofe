@@ -236,7 +236,6 @@ export default {
           }
         }
       }
-      console.log('realIndex', realIndex, sheetInfo.relObj)
       return (
         (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
         this.patientInfo.diagnosis

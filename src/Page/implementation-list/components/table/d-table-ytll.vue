@@ -1,5 +1,6 @@
 <template>
   <div class="d-table">
+    <el-button @click="editTime">测试</el-button>
     <u-table
       style="width: 100%"
       border
@@ -685,8 +686,7 @@ export default {
         .catch(() => {});
     },
     editTime(data) {
-      console.log('editTime', this.$refs);
-      this.$refs.editModal.open(data);
+      this.$refs.editModal.openEdit(data);
     },
   },
   filters: {
