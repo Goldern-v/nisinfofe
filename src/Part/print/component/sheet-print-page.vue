@@ -462,7 +462,7 @@ export default {
         }
         `
       )
-    }else if(['intervention_cure'].includes(this.query.sheetType)){
+    }else if(['intervention_cure','cpr'].includes(this.query.sheetType)){
       addCSS(
         window,
         `
