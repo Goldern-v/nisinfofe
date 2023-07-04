@@ -9,21 +9,23 @@
       <el-checkbox-group v-model="exportList" v-if="exportItemList.length">
         <el-checkbox
           v-for="(item, index) in exportItemList"
-          :key="item + index"
-          :label="item + index"
-        >{{ item }}
+          :key="item.name + index"
+          :label="item.name"
+        >{{ item.name }}
         </el-checkbox>
       </el-checkbox-group>
       <div v-else class="empty">暂无数据</div>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button @click="close">返 回</el-button>
-      <el-button type="primary">保 存</el-button>
+      <el-button @click="post" type="primary">保 存</el-button>
     </span>
   </el-dialog>
 </template>
 
 <script>
+import { updateWorkItems } from '../../apis/index'
+
   export default {
     props: {
       showExportModal: {
@@ -34,6 +36,7 @@
     data() {
       return {
         exportList: [],
+        exportItemList:[]
       }
     },
     computed: {
@@ -44,12 +47,26 @@
         set(val) {
           this.$emit("update:showExportModal", val)
         }
-      },
-      exportItemList() {
-        return new Array(60).fill('刮痧治疗')
       }
     },
     methods: {
+      open(coloums){
+        console.log(coloums,'coloums');
+        this.exportItemList = coloums
+        this.exportList = this.exportItemList.map(item=>{
+          if(item.status == 1) return item.name
+        })
+      },
+      post(){
+        this.exportItemList.forEach(item=>{
+          this.exportList.includes(item.name) && (item.status = 1)
+          !this.exportList.includes(item.name) && (item.status = 0)
+        })
+        updateWorkItems(this.exportItemList).then(res=>{
+          this.$message.success("保存成功")
+          this.close()
+        })
+      },
       close() {
         this.$emit("update:showExportModal", false)
       },

@@ -1,8 +1,8 @@
 <template>
   <div class="select-bar">
     <el-radio-group v-model="type">
-      <el-radio-button label="chinese" name="中医">中医</el-radio-button>
-      <el-radio-button label="west" name="西医">西医</el-radio-button>
+      <el-radio-button label="1" name="中医">中医</el-radio-button>
+      <el-radio-button label="2" name="西医">西医</el-radio-button>
     </el-radio-group>
     <div class="select-bar__block"></div>
     <el-button
@@ -26,7 +26,7 @@
     props: {
       chineseOrWest: {
         type: String,
-        default: () => 'chinese'
+        default: "1"
       },
       tableOrChart: {
         type: String,

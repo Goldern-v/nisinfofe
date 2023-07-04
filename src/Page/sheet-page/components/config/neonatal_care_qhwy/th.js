@@ -95,6 +95,15 @@ export default {
         rowspan: '3'
       },
       {
+        name: `病 情 记 录 `,
+        style: {
+          minWidth: '190px',
+          maxWidth: '190px'
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
         name: `
         护士签名
         `,
@@ -105,15 +114,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },
-      {
-        name: `病 情 记 录 `,
-        style: {
-          minWidth: '190px',
-          maxWidth: '190px'
-        },
-        colspan: '1',
-        rowspan: '3'
-      }
+   
     ],
     mid: [
       {

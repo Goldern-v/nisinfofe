@@ -159,9 +159,7 @@
 }
 </style>
 <script>
-import dTable from "./components/table/d-table-whfk";
-// import pagination from "./components/common/pagination";
-import { patEmrList } from "@/api/document";
+import dTable from "./components/table/d-table-ytll";
 import { getExecuteWithWardcode, handleWebExecuteBatch } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";

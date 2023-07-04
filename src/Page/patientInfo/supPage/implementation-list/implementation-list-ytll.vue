@@ -160,10 +160,7 @@
 </style>
 <script>
 import dTable from "@/Page/implementation-list/components/table/d-table-ytll.vue";
-// import pagination from "./components/common/pagination";
-import { patEmrList } from "@/api/document";
-import { getExecuteWithWardcode, handleWebExecuteBatch } from "@/Page/implementation-list/api/index.js";
-
+import { handleWebExecuteBatch } from "@/Page/implementation-list/api/index.js";
 import { getOrdersExecuteWithPatinetIdNew } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";

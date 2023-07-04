@@ -174,7 +174,10 @@ export const chineseColumns = [
     width: 80,
   },
 ]
-
+export const columsObj= {
+  align: 'center',
+  width: 80,
+}
 
 export const westColumns = [
 

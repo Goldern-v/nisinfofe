@@ -12,21 +12,15 @@
       ref="retest"
       @selection-change="handleSelectionChange"
     >
-      <u-table-column type="selection" width="55"></u-table-column>
+<!--      <u-table-column type="selection" width="55"></u-table-column>-->
       <u-table-column
         prop="executeDateTime"
         label="计划执行时间"
         min-width="140px"
         align="center"
+        fixed="left"
       >
-        <template
-          slot-scope="scope"
-          :title="
-            scope.row.rowType == 1 || !scope.row.rowType
-              ? scope.row.executeDateTime
-              : '' | ymdhm
-          "
-        >
+        <template slot-scope="scope">
           <span
             :title="
               scope.row.rowType == 1 || !scope.row.rowType
@@ -47,6 +41,7 @@
         label="床号"
         min-width="50px"
         align="center"
+        fixed="left"
       >
         <template slot-scope="scope">
           <div
@@ -65,7 +60,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="姓名" prop="patientName" width="80px" align="center">
+      <u-table-column label="姓名" prop="patientName" width="80px" align="center" fixed="left">
         <template slot-scope="scope">
           <div
             :title="
@@ -79,7 +74,7 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="医嘱内容" prop="orderText" min-width="250px">
+      <u-table-column label="医嘱内容" prop="orderText" min-width="250px" fixed="left">
         <template slot-scope="scope">
           <div
             :class="scope.row.rowType && `rowType-${scope.row.rowType}`"
@@ -425,7 +420,8 @@
     border: 0 !important;
 
     td {
-      height: 30px;
+      height: 50px !important;
+      position: relative;
     }
 
     th, td {
@@ -689,6 +685,7 @@ export default {
         .catch(() => {});
     },
     editTime(data) {
+      console.log('editTime', this.$refs);
       this.$refs.editModal.open(data);
     },
   },

@@ -40,12 +40,13 @@
           v-if="formObj.formSetting.updateInfo"
           v-html="formObj.formSetting.updateInfo"
         ></span>
-        <span v-if=" HOSPITAL_ID == 'nfyksdyy'" >
+        <!-- 如若需要可直接打开，之前判断顺德的没效果 -->
+        <!-- <span v-if=" HOSPITAL_ID == 'nfyksdyy'" >
       </span>
       <span v-else >
         <img src="../../images/责任护士已签.png" alt v-if="formObj.model.status==1" class="lock-img" />
         <img src="../../images/审核护士已签.png" alt v-if="formObj.model.status==2" class="lock-img" />
-      </span>
+      </span> -->
         <!-- 页面标题 -->
         <FormTitle :obj="formObj.formSetting" :formObj="formObj" />
 

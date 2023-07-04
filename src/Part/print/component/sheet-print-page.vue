@@ -184,7 +184,7 @@
     &.nfyksdyyInputW{
         input, textarea {
         color: #000 !important;
-        font-size 15px !important;
+        font-size 12px !important;
         // color: #000000 !important;
         // font-family: "SimHei" !important;
   }
@@ -432,7 +432,7 @@ export default {
         `
       );
     }
-     if(['intervention_cure','orthopedics','gynecology','infectious_diseases','respiration',
+     if(['orthopedics','gynecology','infectious_diseases','respiration',
     'internal_eval_hj','reha_medicine','urology','neurology','endocrinology','general_surgery',
     'neurosurgery','gastroenterology','neonatology2','medicine_cardiovascular','ear_nose_throat',
     'tumor_hemodialysis','obstetrics','pediatrics'].includes(this.query.sheetType)){
@@ -462,8 +462,31 @@ export default {
         }
         `
       )
+    }else if(['intervention_cure','cpr'].includes(this.query.sheetType)){
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height:auto !important;
+            transform: scaleY(1) !important;
+            margin-top:-70px !important;
+          }
+        }
+        `
+      )
+    }else if(this.sheetInfo.sheetType == 'postpartumnursing_jm'){
+       addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            transform: scaleY(1) !important;
+            margin-top:-40px !important;
+        }
+        `
+      );
     }
-
     if((this.HOSPITAL_ID === "huadu")){
       addCSS(
         window,
@@ -861,16 +884,16 @@ export default {
           }
 
           @media print {
-            #sheetPagePrint .contant{
-              margin-top:-20px;!important;
-            }
+              @page {
+                       margin:10mm 0 0 0;
+                    }
           }
         `
       )
     }
     // if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
         if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(this.query.sheetType)){
-        addCSS(
+          addCSS(
           window,
           `
              @media print {
@@ -972,7 +995,40 @@ export default {
         `
       );
     }
+    if (
+      (sheetInfo.sheetType == "two_whhk")
+    ) {
+      addCSS(
 
+        window,
+        `
+           @media print {
+            #sheetPagePrint td {
+              line-height: 29px !important;
+              margin-top:-20px;!important;
+            }
+
+          }
+        `
+      );
+    }
+    if (
+      (sheetInfo.sheetType == "one_whhk")
+    ) {
+      addCSS(
+
+        window,
+        `
+           @media print {
+            #sheetPagePrint td {
+              line-height: 29px !important;
+              margin-top:-20px;!important;
+            }
+
+          }
+        `
+      );
+    }
     // 陵城打印
     if (this.HOSPITAL_ID == "lingcheng") {
       addCSS(

@@ -3,6 +3,7 @@
     <search-con
       :deptList="deptList"
       :loading.sync="loading"
+      :isEnabl="isEnabl"
       :formData="formData"
       @handleExport="(obj) => handleExport(obj)"
       @handleQuery="(obj) => handleQuery(obj)"
@@ -19,6 +20,7 @@
         stripe
         :data="tableData"
         border
+        :span-method="handleSpan"
         :height="wih - 228"
         :columns="columns"
       />
@@ -38,6 +40,7 @@
       /> -->
     </div>
     <ExportModal
+      ref="ExportModal"
       :showExportModal.sync="showExport"
     ></ExportModal>
   </div>
@@ -73,9 +76,9 @@ import { nursingUnit } from "@/api/lesion"
 import commonMixin from '@/common/mixin/common.mixin';
 import SearchCon from './components/search-con.vue'
 import SelectBar from './components/select-bar.vue'
-import { query, exportExc } from '../apis/index'
+import { query, exportExc,getWorkItems,isEnableToEdit } from '../apis/index'
 import Pagination from '@/components/pagination/pagination.vue'
-import { chineseColumns } from './table.js'
+import { columsObj } from './table.js'
 import moment from 'moment';
 import ExportModal from './components/ExportModal.vue';
 export default {
@@ -85,16 +88,17 @@ export default {
   data() {
     return {
       // 中/西医
-      chineseOrWest: 'chinese',
+      chineseOrWest: '1',
       // 表格/图表
       tableOrChart: 'table',
-      chineseColumns,
+      chineseColumns:[],
       formData: {
         beginTime: '',
         endTime: '',
         wardCode: '',
-        dimension: '',
-        nurse: '',
+        dimension: '0',
+        type:"1",
+        empName: '',
       },
       pageIndex: 1,
       pageNum: 20,
@@ -102,17 +106,42 @@ export default {
       loading: false,
       tableData: [],
       deptList: [],
-      showExport: false
+      showExport: false,
+      isEnabl:false,
+      WorkItems:[]
     };
   },
-  mounted() {
+  async mounted() {
     this.formData.beginTime = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')
     // 当天23点59分59秒的时间格式
     this.formData.endTime = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')
+    this.getTitle()
+    let {data:{data}} = await isEnableToEdit()
+    this.isEnabl = data.isEnableToEdit
     this.getDepList()
     this.handleQuery()
   },
   methods: {
+    handleSpan({ row, column, rowIndex, columnIndex }){
+      if(this.tableData.length>=2 && rowIndex==this.tableData.length-1 && columnIndex==0){
+        return {
+            rowspan: 1,
+            colspan: 2
+        }
+      }else if (this.tableData.length>=2 && rowIndex==this.tableData.length-1 && columnIndex==1) {
+          return  [0, 0];
+      }
+    },
+    getTitle(){
+      getWorkItems(this.formData.type).then(res=>{
+        console.log(res,'res');
+        if(res.data.data.length>0){
+          let {data:{data}} = res
+          this.WorkItems = data
+          this.chineseColumns = data.map(item=>({title:item.name,key:item.name,...columsObj}))
+        }
+      })
+    },
     async getDepList() {
       try {
         if (this.deptList.length > 0) return
@@ -132,18 +161,22 @@ export default {
       }
     },
     handleChangeSelect(val) {
+      this.formData.type = val
       console.log('handleChangeSelect', val)
     },
     handleQuery(obj = {}) {
       console.log('obj', obj)
       this.formData = { ...this.formData, ...obj}
+      if(!this.isEnabl){
+        this.formData.empName = JSON.parse(localStorage.user).empName
+      }
       this.getData()
     },
     async getData() {
       try {
         this.loading = true;
         let formData = {
-          themeName: this.$route.meta.title,
+          themeName: "病区"+this.$route.meta.title,
           ...this.formData,
           beginTime: this.formData.beginTime.split(' ')[0],
           endTime: this.formData.endTime.split(' ')[0],
@@ -151,8 +184,15 @@ export default {
           pageNum: this.pageNum,
         }
         const res = await query(formData)
-        let {list, totalCount } = res.data.data
-        this.tableData = list || []
+        console.log("get0datra");
+        let {list, totalCount,rowCount } = res.data.data
+        let listEnd = list.map(item=>({...item,...item.workloadStat}))
+        let zong = {}
+        if(listEnd.length>=1){
+          this.chineseColumns.map((item,index)=>{zong[item.key]=rowCount[index] || 0})
+          this.tableData = [...listEnd,{index:"合计",...zong}] || []
+        }else this.tableData = listEnd || []
+        console.log(this.tableData,'this.tableData');
         this.total = totalCount || 0
 
         this.loading = false
@@ -162,13 +202,14 @@ export default {
     },
     handleExportSetting() {
       this.showExport = true
+      this.$refs.ExportModal.open(this.WorkItems)
     },
     async handleExport() {
       if (this.loading) return
       try {
         this.loading = true
         exportExc({
-          themeName: this.$route.meta.title,
+          themeName: "病区"+this.$route.meta.title,
           ...this.formData,
           beginTime: this.formData.beginTime.split(' ')[0],
           endTime: this.formData.endTime.split(' ')[0],
@@ -229,12 +270,26 @@ export default {
           align: 'center',
           width: 70,
           render: (h, { index }) => {
-            return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
+            console.log(index,'------')
+            if(this.tableData.length>=2 && index!==this.tableData.length-1){
+              return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
+            }else if(this.tableData.length>=2 && index==this.tableData.length-1){
+              return <span>{ "总计" }</span>
+            }else {
+              return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
+            }
           }
         },
+        this.formData.dimension==="1"?
         {
-          key: 'name',
+          key: 'empName',
           title: '姓名',
+          align: 'center',
+          width: 80,
+        }:
+        {
+          key: 'wardName',
+          title: '科室名称',
           align: 'center',
           width: 80,
         },

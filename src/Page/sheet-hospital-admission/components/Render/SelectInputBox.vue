@@ -327,7 +327,10 @@ export default {
                 bedLabel,
                 inpNo,
                 age,
+                admissionDate,
+                wardName
               } = this.formObj.model;
+              console.log("this.formObj.model========",this.formObj.model)
               const query = {
                 patientName,
                 deptName,
@@ -339,6 +342,8 @@ export default {
                 bedLabel,
                 inpNo,
                 age,
+                admissionDate,
+                wardName,
                 id: this.formObj.model[r.relationForm.params.formCode] //关联表单id
               };
               const params = {

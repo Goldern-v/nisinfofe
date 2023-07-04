@@ -292,7 +292,6 @@
           "class": null,
           "labelLeft": true,
           "hiddenTips": true,
-          "readOnly": null,
           "rule": [
             {
               "equals": "汉族"
@@ -318,12 +317,11 @@
           "title": "婚姻状态",
           "titleStyle": "width:80px!important",
           "inputStyle": "width:100%!important",
+          "boxStyle": "height:auto!important",
           "inputWidth": "95%",
-          "style": null,
           "class": null,
           "labelLeft": true,
           "hiddenTips": true,
-          "readOnly": null,
           "rule": [
             {
               "equals": "已婚"
@@ -1030,6 +1028,24 @@
               "name": "I2332032",
               "type": "radio",
               "title": "浅昏迷",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "showName": "嗜睡",
+              "tasks": [
+                {
+                  "show": "嗜睡"
+                },
+                {
+                  "clean": "镇静状态"
+                }
+              ]
+            },
+            {
+              "name": "I2332032",
+              "type": "radio",
+              "title": "中昏迷",
               "elementStyle": "margin: 3px 5px 0 0;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -2742,7 +2758,7 @@
               "name": "I2332067",
               "type": "checkbox",
               "title": "正常",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "class": null,
               "style": null
@@ -2751,7 +2767,7 @@
               "name": "I2332069",
               "type": "checkbox",
               "title": "尿频",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -2760,7 +2776,7 @@
               "name": "I2332069",
               "type": "checkbox",
               "title": "尿急",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -2769,7 +2785,7 @@
               "name": "I2332069",
               "type": "checkbox",
               "title": "尿痛",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -2778,7 +2794,7 @@
               "name": "I2332069",
               "type": "checkbox",
               "title": "尿失禁",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
               "class": null
@@ -2787,7 +2803,7 @@
               "name": "I2332069",
               "type": "checkbox",
               "title": "尿潴留",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null
             },
@@ -2795,7 +2811,7 @@
               "name": "I2332069",
               "type": "checkbox",
               "title": "多尿",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null
             },
@@ -2803,7 +2819,7 @@
               "name": "I2332069",
               "type": "checkbox",
               "title": "少尿",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs",
               "class": null
             },
@@ -2831,7 +2847,7 @@
                   "type": "input",
                   "title": "",
                   "inputStyle": "width:100%!important; margin: 0px 0px 0px 0px;height:auto",
-                  "inputWidth": "120px",
+                  "inputWidth": "221px",
                   "suffixDesc": "",
                   "style": null,
                   "class": null,
@@ -2845,18 +2861,7 @@
         }
       ]
     },
-    {
-      "name": "",
-      "type": "formGroupHR",
-      "title": "---hr---",
-      "line": "dashed",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": "",
-      "classes": "",
-      "readOnly": ""
-    },
+
     {
       "name": "I2332078",
       "type": "formGroupColBox",
@@ -2961,7 +2966,7 @@
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "100%",
+                  "inputWidth": "329px",
                   "suffixDesc": "",
                   "style": null,
                   "class": null,
@@ -4532,7 +4537,7 @@
                   "suffixDesc": "ml",
                   "titleStyle": "width:60px!important",
                   "inputStyle": "width:175px!important",
-                  "inputWidth": "68px",
+                  "inputWidth": "100px",
                   "class": null,
                   "readOnly": null
                 }
@@ -5670,7 +5675,7 @@
                         "value": "分，中危"
                       },
                       {
-                        "max": 20,
+                        "max": 100,
                         "min": 5,
                         "value": "分，高危"
                       }
