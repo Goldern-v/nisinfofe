@@ -64,6 +64,7 @@ export const adult_notCheckFill2 = [
     "I2332189",
     "I2332179",
     "I2332266",
+    "I2332261",
 ]
 
 export const child_notCheckFill2 = [

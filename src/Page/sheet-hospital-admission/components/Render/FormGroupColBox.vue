@@ -241,11 +241,12 @@ export default {
     width: 100%
     display inline-flex
     // height: 28px;
-    align-items: center;
+    align-items: stretch;
   .left-td
-    width: 13%
+    width: 7%
     text-align: left
     font-size: 12px;
+    margin-top:8px;
     .XRadiobox-items
       line-height: 18px;
       display: inline-flex
