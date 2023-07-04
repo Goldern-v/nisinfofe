@@ -870,10 +870,13 @@ export default {
     }
     // if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
         if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(this.query.sheetType)){
-        addCSS(
+          addCSS(
           window,
           `
              @media print {
+                   .header-con{
+                   margin-top:32px !important;
+                   }
                   .body-con{
                     height: 35px !important;
                   }
@@ -891,6 +894,9 @@ export default {
         window,
             `
             @media print {
+               .header-con{
+                   margin-top:32px !important;
+                   }
                   .body-con{
                     height: 40px !important;
                   }
@@ -909,6 +915,9 @@ export default {
         window,
             `
             @media print {
+               .header-con{
+                   margin-top:32px !important;
+                   }
                   .body-con{
                     height: 38px !important;
                   }
@@ -926,6 +935,9 @@ export default {
         window,
             `
             @media print {
+            .header-con{
+                   margin-top:32px !important;
+                   }
                   .body-con{
                     height: 34px !important;
                   }

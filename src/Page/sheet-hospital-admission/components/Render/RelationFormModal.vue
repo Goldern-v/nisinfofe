@@ -115,7 +115,7 @@ export default {
     },
     handleOpen(payload) {
       this.$refs.modal.open();
-
+      console.log("payload====",payload)
       if (!payload.noFetch) {
         //使用iframe引入表单地址
         var baseURL = this.isDev ? devFormUrl : formUrl;
@@ -138,7 +138,7 @@ export default {
       this.callbackInfo = payload && payload.callbackInfo;
       this.formCode = payload && payload.formCode;
       this.selectedValue = payload && payload.valueNew
-      this.selectValue = payload && payload.TSInputVal  
+      this.selectValue = payload && payload.TSInputVal
       //覆写成功回调
       if (payload.callback)
         this.successCallback = (data) => payload.callback(data);
@@ -157,7 +157,7 @@ export default {
         if (target && target.contentWindow.todoSave) {
           target.contentWindow.todoSave();
         }
-        
+
       }
     },
     handleSign() {
