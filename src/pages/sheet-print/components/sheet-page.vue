@@ -264,7 +264,7 @@ export default {
                 );
               }
 
-              if(['lyxrm','huadu', 'stmz', 'wujing', 'zhzxy'].includes(this.HOSPITAL_ID)) {
+              if(['lyxrm','huadu', 'stmz', 'wujing', 'zhzxy','nfyksdyy'].includes(this.HOSPITAL_ID)) {
                 addCSS(
                   window,
                   `
@@ -285,6 +285,17 @@ export default {
                   `
                     #sheetPagePrint .iframe .sheet-table td[datakey="description"] strong{
                       font-weight:bold !important;
+                    }
+                  `
+                );
+              }else if(['orthopaedic_sdry'].includes(this.sheetInfo.sheetType)) {
+                addCSS(
+                  window,
+                  `
+                    #sheetPagePrint .iframe > div:nth-of-type(n) {
+                        padding-top: 0 !important;
+                        transform-origin:top center;
+                        transform:scaleY(1.35) scaleX(1.15) rotate(0) !important;
                     }
                   `
                 );
