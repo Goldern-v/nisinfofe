@@ -184,7 +184,7 @@
     &.nfyksdyyInputW{
         input, textarea {
         color: #000 !important;
-        font-size 15px !important;
+        font-size 12px !important;
         // color: #000000 !important;
         // font-family: "SimHei" !important;
   }
@@ -884,9 +884,9 @@ export default {
           }
 
           @media print {
-            #sheetPagePrint .contant{
-              margin-top:-20px;!important;
-            }
+              @page {
+                       margin:10mm 0 0 0;
+                    }
           }
         `
       )
@@ -897,9 +897,6 @@ export default {
           window,
           `
              @media print {
-                   .header-con{
-                   margin-top:32px !important;
-                   }
                   .body-con{
                     height: 35px !important;
                   }
@@ -917,9 +914,6 @@ export default {
         window,
             `
             @media print {
-               .header-con{
-                   margin-top:32px !important;
-                   }
                   .body-con{
                     height: 40px !important;
                   }
@@ -938,9 +932,6 @@ export default {
         window,
             `
             @media print {
-               .header-con{
-                   margin-top:32px !important;
-                   }
                   .body-con{
                     height: 38px !important;
                   }
@@ -958,9 +949,6 @@ export default {
         window,
             `
             @media print {
-            .header-con{
-                   margin-top:32px !important;
-                   }
                   .body-con{
                     height: 34px !important;
                   }
