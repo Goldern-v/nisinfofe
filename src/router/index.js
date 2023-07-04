@@ -439,6 +439,9 @@ const statisticalWorkload = () => import("@/Page/statistical-query/statistical-w
 const statisticalWorkloadZhzxy = () => import("@/Page/statistical-query/statistical-workload_zhzxy/index.vue")
 const statisticalBreath = () => import("@/Page/statistical-query/statistical-breath/index.vue")
 const statisticalExitAdmission = () => import("@/Page/statistical-query/statistical-exitAdmission/index.vue")
+const statisticalScanCodeDetails = () => import("@/Page/statistical-query/statistical-scan-code-details/index.vue")
+const statisticalScanRate = () => import("@/Page/statistical-query/statistical-scan-rate/index.vue")
+
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
 const StatisticalConsultation = () => import("@/Page/statistical-query/statistical-consultation/index.vue")
 const StatisticalConsultationZhzxy = () => import("@/Page/statistical-query/statistical-consultation-zhzxy/index.vue")
@@ -1921,6 +1924,22 @@ const router = new Router({
               title: '跌倒统计'
             },
             component: StatisticalTumble
+          },
+          {
+            path: "statisticalScanCodeDetails",
+            name: "statisticalScanCodeDetails",
+            meta: {
+              title: '扫码明细统计1'
+            },
+            component: statisticalScanCodeDetails
+          },
+          {
+            path: "statisticalScanRate",
+            name: "statisticalScanRate",
+            meta: {
+              title: '扫码率统计2'
+            },
+            component: statisticalScanRate
           },
         ]
       },
