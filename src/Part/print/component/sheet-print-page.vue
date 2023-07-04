@@ -462,7 +462,7 @@ export default {
         }
         `
       )
-    }else if(['intervention_cure'].includes(this.query.sheetType)){
+    }else if(['intervention_cure','cpr'].includes(this.query.sheetType)){
       addCSS(
         window,
         `
@@ -995,7 +995,40 @@ export default {
         `
       );
     }
+    if (
+      (sheetInfo.sheetType == "two_whhk")
+    ) {
+      addCSS(
 
+        window,
+        `
+           @media print {
+            #sheetPagePrint td {
+              line-height: 29px !important;
+              margin-top:-20px;!important;
+            }
+
+          }
+        `
+      );
+    }
+    if (
+      (sheetInfo.sheetType == "one_whhk")
+    ) {
+      addCSS(
+
+        window,
+        `
+           @media print {
+            #sheetPagePrint td {
+              line-height: 29px !important;
+              margin-top:-20px;!important;
+            }
+
+          }
+        `
+      );
+    }
     // 陵城打印
     if (this.HOSPITAL_ID == "lingcheng") {
       addCSS(

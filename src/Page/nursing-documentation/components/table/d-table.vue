@@ -56,10 +56,16 @@
           min-width="70px"
       ></el-table-column>
       <el-table-column
+        prop="phone"
+        label="电话"
+        min-width="115px"
+        v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
+      ></el-table-column>
+      <el-table-column
         prop="patientId"
         :label="['foshanrenyi'].includes(HOSPITAL_ID)?'住院号':'病人ID'"
         min-width="120px"
-        v-if="!['fuyou'].includes(HOSPITAL_ID)"
+        v-if="!['fuyou','nfyksdyy'].includes(HOSPITAL_ID)"
       ></el-table-column>
 
       <el-table-column
