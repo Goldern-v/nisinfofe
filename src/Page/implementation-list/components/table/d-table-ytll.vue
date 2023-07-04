@@ -1,6 +1,5 @@
 <template>
   <div class="d-table">
-    <el-button @click="editTime">测试</el-button>
     <u-table
       style="width: 100%"
       border
