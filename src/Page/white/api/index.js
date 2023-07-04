@@ -100,6 +100,10 @@ export function updateBoardConfigure(data) {
 export function GetExamAppoint(deptCode) {
   return axios.get(`${apiPath}whiteboardManage/GetExamAppoint/${deptCode}`);
 }
+// 获取北海检查预约
+export function getExamAppointWithWardcode(deptCode) {
+  return axios.get(`${apiPath}whiteboard/getExamAppointWithWardcode/${deptCode}`);
+}
 // 获取全部检查预约
 export function GetAllExamAppoint(deptCode) {
   return axios.get(`${apiPath}whiteboardManage/GetAllExamAppoint/${deptCode}`);

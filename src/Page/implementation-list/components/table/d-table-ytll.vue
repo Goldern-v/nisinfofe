@@ -20,14 +20,7 @@
         align="center"
         fixed="left"
       >
-        <template
-          slot-scope="scope"
-          :title="
-            scope.row.rowType == 1 || !scope.row.rowType
-              ? scope.row.executeDateTime
-              : '' | ymdhm
-          "
-        >
+        <template slot-scope="scope">
           <span
             :title="
               scope.row.rowType == 1 || !scope.row.rowType
@@ -692,7 +685,7 @@ export default {
         .catch(() => {});
     },
     editTime(data) {
-      this.$refs.editModal.open(data);
+      this.$refs.editModal.openEdit(data);
     },
   },
   filters: {
