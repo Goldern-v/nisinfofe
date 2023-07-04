@@ -88,14 +88,6 @@ export default [
     event: keyf1,
   },
   {
-    key: "sign", //护士签名
-    style: {
-      minWidth: '72px',
-      maxWidth: '72px',
-    },
-    value: ""
-  },
-  {
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -119,7 +111,14 @@ export default [
       keyf1(e, td);
     }
   },
-
+  {
+    key: "sign", //护士签名
+    style: {
+      minWidth: '72px',
+      maxWidth: '72px',
+    },
+    value: ""
+  },
   // {
   //   key: "audit", //审核签名
   //   value: ""

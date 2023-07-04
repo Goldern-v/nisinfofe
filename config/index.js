@@ -125,7 +125,7 @@ const currentTargetUrl = (() => {
       // return "http://192.168.1.54:9867"
       // return "http://192.168.20.77:8080"
       // return "http://192.168.3.153:8080"
-      return "http://ydys.gz5055.com:9093" //GZsr@bcy!2021#.
+      return "http://ydys.gz5055.com:9093" //gzSR@BCY!2021#.
     /** 山南市人民医院 */
     case "shannan":
       // return "http://124.31.235.39:9094 " // 公司-山南市人民医院正式  admin  Bcy@21qw
@@ -154,8 +154,8 @@ const currentTargetUrl = (() => {
     // 北海人医
     case 'beihairenyi':
       // return "http://219.159.198.37:9094"  // 正式地址 bhrmyy 123456
-      // return "http://192.168.20.45:8080" // 伟彬本地
-      return "http://192.168.1.54:9877" // 公司内网测试环境
+      return "http://192.168.20.136:8080" // 地
+      // return "http://192.168.1.54:9877" // 公司内网测试环境
       // return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
 
     // 佛山市医

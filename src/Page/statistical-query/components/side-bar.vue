@@ -18,7 +18,6 @@ export default {
       bars: [
         ...hisMatch({
           map: {
-            zhzxy: [],
             other: [{
               name: "statisticalWorkload",
               meta: {

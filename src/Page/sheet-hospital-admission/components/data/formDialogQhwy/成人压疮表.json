@@ -677,18 +677,25 @@
           "readOnly": true,
           "rule": [
             {
-              "min": "5",
+              "min": "-1",
               "max": "16",
-              "equal": "压疮中风险",
+              "equal": "高风险",
               "style": "color:red",
-              "display": "压疮中风险"
+              "display": "高风险"
             },
             {
               "min": "16",
-              "max": "23",
-              "equal": "压疮高风险",
+              "max": "22",
+              "equal": "低风险",
               "style": "color:red",
-              "display": "压疮高风险"
+              "display": "低风险"
+            },
+            {
+              "min": "22",
+              "max": "200",
+              "equal": "无风险",
+              "style": "color:bule",
+              "display": "无风险"
             }
           ]
         }

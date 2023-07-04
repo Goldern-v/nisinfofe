@@ -1769,8 +1769,6 @@ const router = new Router({
           // name: "statisticalWorkload",
           name: (() => {
             switch (HOSPITAL_ID) {
-              case 'zhzxy':
-                return 'statisticalConsultation'
               default:
                 return 'statisticalWorkload';
             }

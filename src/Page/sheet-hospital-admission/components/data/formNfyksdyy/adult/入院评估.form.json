@@ -1927,7 +1927,7 @@
               "class": null,
               "children": [
                 {
-                  "name": "I2332044",
+                  "name": "I2332200",
                   "type": "input",
                   "title": "",
                   "titleStyle": "width:90px!important",
@@ -2827,7 +2827,7 @@
               "class": null,
               "children": [
                 {
-                  "name": "I2332070",
+                  "name": "I2332179",
                   "type": "input",
                   "title": "",
                   "inputStyle": "width:100%!important; margin: 0px 0px 0px 0px;height:auto",
@@ -3763,7 +3763,7 @@
                 "class": null
               },
               {
-                "name": "I2332212",
+                "name": "I2332195",
                 "type": "input",
                 "title": "",
                 "elementClass": "el-radio_fs",
@@ -4853,7 +4853,7 @@
               "class": null,
               "children": [
                 {
-                  "name": "I2332261",
+                  "name": "I2332155",
                   "type": "input",
                   "title": "",
                   "titleStyle": "width:180px!important",
@@ -5662,6 +5662,11 @@
                       {
                         "max": 2,
                         "min": 1,
+                        "value": "分，低危"
+                      },
+                      {
+                        "max": 4,
+                        "min": 3,
                         "value": "分，中危"
                       },
                       {
@@ -5809,43 +5814,7 @@
             {
               "name": "I2332181",
               "type": "checkbox",
-              "title": "协助漱口",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332181",
-              "type": "checkbox",
-              "title": "指导∕协助刷牙",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332181",
-              "type": "checkbox",
               "title": "口腔护理",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332181",
-              "type": "checkbox",
-              "title": "面部清洁",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332181",
-              "type": "checkbox",
-              "title": "协助沐浴",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -5872,25 +5841,7 @@
             {
               "name": "I2332181",
               "type": "checkbox",
-              "title": "梳头",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332181",
-              "type": "checkbox",
-              "title": "会阴清洁/消毒",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332181",
-              "type": "checkbox",
-              "title": "足部清洁",
+              "title": "会阴抹洗",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -5917,15 +5868,6 @@
             {
               "name": "I2332181",
               "type": "checkbox",
-              "title": "协助床上移动",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332181",
-              "type": "checkbox",
               "title": "留置尿管护理",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
@@ -5944,7 +5886,7 @@
             {
               "name": "I2332181",
               "type": "checkbox",
-              "title": "臀部护理",
+              "title": "皮肤护理",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -5962,7 +5904,7 @@
             {
               "name": "I2332181",
               "type": "checkbox",
-              "title": "帮助/协助使用便器",
+              "title": "协助使用便器",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -6247,7 +6189,7 @@
           "name": "I2332184",
           "type": "select",
           "title": "其他",
-          "titleStyle": "width: 62px;margin-top: 0px",
+          "titleStyle": "width: 62px;margin-top: 8px",
           "inputStyle": "width:100%!important",
           "inputWidth": "100%",
           "labelLeft": true,
