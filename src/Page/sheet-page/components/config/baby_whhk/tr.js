@@ -15,11 +15,11 @@ import {
 const check = ['√']
 const dbxzList = ['胎便', '混合便', '母乳便', '人工喂养便']
 export default [
-  // {
-  //   key: "recordDate", //年份
-  //   value: "",
-  //   hidden:true
-  // },
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
   {
     key: "recordMonth", //日期
     value: "",
