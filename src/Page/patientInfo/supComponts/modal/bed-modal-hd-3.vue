@@ -763,7 +763,9 @@ export default {
         this.title = "儿童腕带打印";
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
-      } else if (this.printMode == "fsxt-wrist-children") {
+      } else if (this.printMode == "t") {
+        this.title = "打印床头卡3";
+      }else if (this.printMode == "fsxt-wrist-children") {
         this.title = "新生儿腕带打印";
       } else {
         this.title = "编辑床头卡";
