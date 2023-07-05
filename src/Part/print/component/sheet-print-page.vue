@@ -877,10 +877,8 @@ export default {
              min-width: 100px !important;
               max-width: 100px !important;
           }
-          .sign-img{
-            img{
-            transform: scale(1.2);
-            }
+          .sign-img img{
+           height: calc(100% - 7px)  !important;
           }
 
           @media print {
