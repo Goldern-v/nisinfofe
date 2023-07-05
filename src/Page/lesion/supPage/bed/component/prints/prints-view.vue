@@ -91,6 +91,7 @@ export default {
       this.printSelect = this.optionList.map(item => item.patientId)
     },
     surePrint() {
+
       if (!this.printSelect.length) {
         return
       }

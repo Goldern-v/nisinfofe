@@ -67,70 +67,22 @@ export default {
         default:
           return [
               {
-                key: 'index',
-                title: '序号',
-                align: 'center',
-                width: 70,
-                render: (h, { index }) => {
-                  return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
-                }
-              },
-              {
                 key: 'wardName',
                 title: '病区',
                 align: 'center',
-                minWidth: 100,
+                minWidth: 80,
               },
               {
-                key: 'bedNo',
-                title: '床号',
+                key: 'scanRate',
+                title: '药品类扫码率统计',
                 align: 'center',
-                width: 70,
+                minWidth: 120,
               },
               {
-                key: 'name',
-                title: '患者姓名',
+                key: 'tolScanRate',
+                title: '整体执行率统计',
                 align: 'center',
-                minWidth: 70,
-              },
-              {
-                key: 'sex',
-                title: '性别',
-                align: 'center',
-                width: 70,
-              },
-              {
-                key: 'age',
-                title: '年龄',
-                align: 'center',
-                width: 70,
-              },
-              {
-                key: 'patientId',
-                title: '病案号',
-                align: 'center',
-                minWidth: 100,
-              },
-              {
-                key: 'diagnosis',
-                title: '入院诊断',
-                align: 'center',
-                minWidth: 110,
-              },
-              {
-                key: 'admissionDate',
-                title: '入院时间',
-                align: 'center',
-                minWidth: 110,
-              },
-              {
-                key: 'dischargeDate',
-                title: '出院时间',
-                align: 'center',
-                minWidth: 110,
-                render: (h, { row }) => {
-                  return <span>{ row.dischargeDate || '-' }</span>
-                }
+                width: 120,
               },
             ]
       }

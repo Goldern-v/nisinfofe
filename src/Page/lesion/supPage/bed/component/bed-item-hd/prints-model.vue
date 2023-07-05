@@ -2,7 +2,9 @@
   <div class="right-mouse-modal" v-if="HOSPITAL_ID=='huadu'">
     <div class="item" @click="toPrint('wrist')">批量打印腕带</div>
     <div class="item" @click="toPrint('v')">批量打印床头卡1</div>
-    <div class="item" @click="toPrint('h')">批量打印床头卡2</div>
+    <div class="item" @click="toPrint('h')">批量打印田美院区床头卡</div>
+    <div class="item" @click="toPrint('t')">批量打印儿保科信息卡</div>
+    <!-- <div class="item" @click="toPrint('w')">批量打印床头卡3</div> -->
     <div class="item" @click="cancelPrints">取消</div>
   </div>
 <!--  寮步 -->
@@ -25,7 +27,7 @@
     z-index:999;
     border:1px solid #ccc;
     .item{
-      width: 140px;
+      width: 160px;
       height: 30px;
       border-bottom 1px solid #ccc
       font-size 14px
