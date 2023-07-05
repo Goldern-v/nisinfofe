@@ -28,6 +28,27 @@
       </span>
       </div>
     </template>
+    <template v-else-if="sheetInfo.sheetType == 'turning_over_bh'">
+      <div class="info-con" flex="main:justify">
+        <span>
+        科室：
+        <div class="bottom-line" style="min-width: 120px">{{patientInfo.deptName}}</div>
+      </span>
+       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
+        床号：
+        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+      </span>
+        <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
+        姓名：
+        <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
+      </span>
+       <span>
+        住院号：
+        <div class="bottom-line" style="min-width: 80px">{{patientInfo.inpNo}}</div>
+      </span>
+
+      </div>
+    </template>
     <template v-else-if="isNewSheet">
        <div class="info-con" flex="main:justify">
         <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
@@ -104,7 +125,7 @@
       </span>
     </div>
     </template>
-   
+
     <!-- <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span> -->
     <!-- <span>入院日期：{{$route.query.admissionDate}}</span> -->
   </div>

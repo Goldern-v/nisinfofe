@@ -877,10 +877,8 @@ export default {
              min-width: 100px !important;
               max-width: 100px !important;
           }
-          .sign-img{
-            img{
-            transform: scale(1.2);
-            }
+          .sign-img img{
+           height: calc(100% - 7px)  !important;
           }
 
           @media print {
@@ -900,6 +898,9 @@ export default {
                   .body-con{
                     height: 35px !important;
                   }
+              #sheetPagePrint .contant{
+              margin-top:-30px;!important;
+                }
                   .sdyy > div {
                     page-break-after: always;
                     box-sizing: border-box;

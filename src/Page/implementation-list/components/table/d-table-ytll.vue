@@ -685,8 +685,7 @@ export default {
         .catch(() => {});
     },
     editTime(data) {
-      console.log('editTime', this.$refs);
-      this.$refs.editModal.open(data);
+      this.$refs.editModal.openEdit(data);
     },
   },
   filters: {
