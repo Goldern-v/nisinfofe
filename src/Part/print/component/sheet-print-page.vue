@@ -900,6 +900,9 @@ export default {
                   .body-con{
                     height: 35px !important;
                   }
+              #sheetPagePrint .contant{
+              margin-top:-30px;!important;
+                }
                   .sdyy > div {
                     page-break-after: always;
                     box-sizing: border-box;
