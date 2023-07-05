@@ -460,6 +460,17 @@ export default {
       await this.load()
       await this.onSave()
     },
+    // 处理合计
+    handleAll(a,p,n){
+      const objAll ={}
+      for(const key of Object.keys(a)){
+        const valueA = parseInt(a[key]) || 0;
+        const valueP = parseInt(p[key]) || 0;
+        const valueN = parseInt(n[key]) || 0;
+        objAll[key] = valueA + valueP + valueN;
+      }
+      return objAll
+    },
     async load() {
       const id = this.$route.params.id;
       if (!id) return;
@@ -473,7 +484,8 @@ export default {
         record.specialCase = record.specialCase || "";
         this.record = {...record,...shiftWithWardcodesA[0]||{}};
         this.patients = patients;
-        this.shiftWithWardcodes = [shiftWithWardcodesA[0]||{},shiftWithWardcodesP[0]||{},shiftWithWardcodesN[0]||{}];
+        // 顺德人医增加合计
+        this.shiftWithWardcodes = [shiftWithWardcodesA[0]||{},shiftWithWardcodesP[0]||{},shiftWithWardcodesN[0]||{},this.HOSPITAL_ID =='nfyksdyy' && this.handleAll(shiftWithWardcodesA[0],shiftWithWardcodesP[0],shiftWithWardcodesN[0])];
         this.modified = false;
 
         if (patients.length < 11) {
