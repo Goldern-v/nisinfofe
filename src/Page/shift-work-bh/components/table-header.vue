@@ -14,8 +14,9 @@
                 </template>
             </tr>
             <tr v-for="(shift,index) in columns" :key="index">
-                <td v-if="['beihairenyi'].includes(HOSPITAL_ID) ">{{columnsKey[index]}}</td>
-                <td v-else>{{columnsKeyZHZXY[index]}}</td>
+              <td v-if="['beihairenyi'].includes(HOSPITAL_ID) ">{{columnsKey[index]}}</td>
+              <td v-else-if="HOSPITAL_ID == 'nfyksdyy' ">{{columnsKeyNFYKSDYY[index]}}</td>
+              <td v-else>{{columnsKeyZHZXY[index]}}</td>
                 <template v-if="['beihairenyi'].includes(HOSPITAL_ID) ">
                   <td v-for="(col,key) of keys" :key="key">
                       <!-- 不可编辑 -->
@@ -119,6 +120,7 @@ data() {
 return {
     columnsKey:['白班','中班','夜班'],
     columnsKeyZHZXY:['A班','P班','N班'],
+  columnsKeyNFYKSDYY:['A班','P班','N班','合计'],
     keys:{
         // bedEmpty:'空床',
         patientTotal:'原有',

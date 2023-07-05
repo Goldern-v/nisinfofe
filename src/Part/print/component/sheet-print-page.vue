@@ -877,14 +877,21 @@ export default {
              min-width: 100px !important;
               max-width: 100px !important;
           }
-          .sign-img img{
-           height: calc(100% - 7px)  !important;
-          }
 
+  #sheetPagePrint td[datakey="signerNo"] .sign-img img{
+       transform:scale(0.87)
+  }
           @media print {
+              transform:scale(0.99)
+     #sheetPagePrint td[datakey="signerNo"] .sign-img img{
+       transform:scale(0.87)
+  }
               @page {
-                       margin:10mm 0 0 0;
+                       margin:3mm 0mm 0mm 0mm;
                     }
+                     #sheetPagePrint .contant{
+                        margin-top:-45px;!important;
+                }
           }
         `
       )
@@ -895,12 +902,6 @@ export default {
           window,
           `
              @media print {
-                  .body-con{
-                    height: 35px !important;
-                  }
-              #sheetPagePrint .contant{
-              margin-top:-30px;!important;
-                }
                   .sdyy > div {
                     page-break-after: always;
                     box-sizing: border-box;
@@ -915,9 +916,6 @@ export default {
         window,
             `
             @media print {
-                  .body-con{
-                    height: 40px !important;
-                  }
                   .sdyy > div {
                     page-break-after: always;
                     box-sizing: border-box;
@@ -933,9 +931,6 @@ export default {
         window,
             `
             @media print {
-                  .body-con{
-                    height: 38px !important;
-                  }
                   .sdyy > div {
                     page-break-after: always;
                     box-sizing: border-box;
@@ -950,9 +945,6 @@ export default {
         window,
             `
             @media print {
-                  .body-con{
-                    height: 34px !important;
-                  }
                   .sdyy > div {
                     page-break-after: always;
                     box-sizing: border-box;

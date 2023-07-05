@@ -14,11 +14,11 @@ import {
 
 const check = ['√']
 export default [
-  // {
-  //   key: "recordDate", //年份
-  //   value: "",
-  //   hidden:true
-  // },
+  {
+    key: "recordDate", //年份
+    value: "",
+    hidden:true
+  },
   {
     key: "recordMonth", //日期
     value: "",
@@ -270,11 +270,6 @@ export default [
   {
     hidden: true,
     key: "dataHash",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordDate",
     value: ""
   },
   {

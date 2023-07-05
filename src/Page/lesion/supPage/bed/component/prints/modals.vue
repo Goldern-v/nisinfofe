@@ -114,6 +114,132 @@
           </div>
         </div>
       </div>
+
+      <div
+        class="bed-card-warpper"
+        v-loading="modalLoading"
+        ref="printCon8"
+        v-show="printMode == 't'"
+      >
+        <div
+          v-for="(item,index) in list"
+          :key="item.patientId + '|' + item.visitId"
+          class="bed-card-con"
+          :class="[(index+1)%9==0?'nextpage':'',(index+1)%9==1||(index+1)%9==2||(index+1)%9==3?'firstpage':'']"
+          flex
+        >
+          <div style="width: 0" flex-box="1" flex="dir:top main:justify">
+            <div flex="cross:center" class="input-item" style="height: 43px">
+              <span class="label">科别:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
+                flex-box="1"
+                class="bottom-line"
+              >
+                {{ item.wardName }}
+              </div>
+            </div>
+            <div
+              flex="cross:center"
+              class="input-item"
+              :style="{
+                overflow: item.name.length > 7 ? 'unset' : '',
+                minHeight: '43px',
+              }"
+            >
+              <span class="label">床号:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
+                flex-box="1"
+                class="bottom-line"
+              >
+                {{ item.bedLabel }}
+              </div>
+              <span class="label">姓名:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
+                flex-box="3"
+                class="bottom-line"
+                :class="[item.name.length > 7 ? 'huadu-bigname' : '']"
+              >
+                {{ item.name }}
+              </div>
+            </div>
+            <div flex="cross:center" class="input-item">
+              <span class="label">性别:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
+                flex-box="1"
+                class="bottom-line"
+              >
+                {{ item.sex }}
+              </div>
+              <span class="label">住院号:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
+                flex-box="1"
+                class="bottom-line"
+              >
+                {{ item.patientId }}
+              </div>
+            </div>
+            <div flex="cross:center" class="input-item">
+              <span class="label">联系人:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
+                flex-box="1"
+                class="bottom-line"
+              >
+                {{ item.contactName }}
+              </div>
+            </div>
+            <div flex="cross:center" class="input-item">
+              <span class="label">联系电话:</span>
+              <div
+                type="text"
+                nowidth
+                style="font-size: 22px; padding-left: 5px; border-bottom: 0"
+                flex-box="1"
+                class="bottom-line"
+              >
+                {{ item.companyPhone }}
+              </div>
+            </div>
+            <div flex="cross:center" class="input-item">
+              <span class="label">入院日期:</span>
+              <div
+                type="text"
+                flex-box="1"
+                style="
+                  width: 0px;
+                  font-size: 22px;
+                  padding-left: 2px;
+                  border-bottom: 0;
+                "
+                nowidth
+                class="bottom-line"
+              >
+                {{ moment(item.admissionDate).format("YYYY-MM-DD HH:mm:ss") }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
       <div
         class="bed-card-warpper bed-card-vertical"
         ref="printCon2"
@@ -813,6 +939,7 @@ var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
+import { getPatientInfo } from "@/api/common.js";
 export default {
   props: {
     // 过敏史
@@ -868,9 +995,9 @@ export default {
     };
   },
   computed: {
-    // query() {
-    //   return this.$route.query;
-    // },
+    query() {
+      return this.$route.query;
+    },
     hasRemark() {
       return this.remarkPrint
     },
@@ -880,6 +1007,10 @@ export default {
       this.$set(this.list,index,this.list[index])
     },
      init() {
+
+     this.$nextTick(()=>{
+
+
       this.list.map(async (item,index)=>{
         item.formData = {
           diet: "",
@@ -889,7 +1020,7 @@ export default {
           remark: ""
         };
         await this.$set(this.list,index,item)
-        let res = await getEntity(item.patientId, item.visitId);
+        let res = this.printMode == 't' ? await getPatientInfo(item.patientId, item.visitId) :  await getEntity(item.patientId, item.visitId);
         let resData = res.data.data
         let diagnosis = await textOver(item.diagnosis, 52);
         item.formData = {
@@ -906,12 +1037,16 @@ export default {
         item.allergy1 = resData.allergy1;
         item.allergy2 = resData.allergy2;
         item.drugGms = resData.drugGms;
+        item.companyPhone = resData.companyPhone;
+        item.contactName = resData.contactName;
         this.modalLoading = false;
         await this.$set(this.list,index,item)
       });
       multiDictInfo(["床头卡饮食"]).then(res => {
         this.ysList = res.data.data.床头卡饮食.map(item => item.name);
       });
+
+       })
     },
     getRegistCare(item) {
       let data = [];
@@ -940,6 +1075,7 @@ export default {
     },
     open(printMode = "h",list) {
       this.list = list;
+
       this.init();
       this.printMode = printMode;
       console.log("this.printMode===",this.printMode)
@@ -966,6 +1102,8 @@ export default {
         this.title = "儿童腕带打印";
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
+      }else if (this.printMode == "t") {
+        this.title = "打印床头卡3";
       } else if (this.printMode == "bady") {
         this.title = "打印新生儿床头卡";
       } else {
@@ -1063,12 +1201,12 @@ export default {
               .bed-card-wrapper {
             box-shadow: none !important;
               }
-.bed-modal-ctx-aldult{
-border:2px solid #000 ;
-margin-left:15%;
-margin-bottom:15mm !important;
-margin-top:30mm !important;
-}
+            .bed-modal-ctx-aldult{
+            border:2px solid #000 ;
+            margin-left:15%;
+            margin-bottom:15mm !important;
+            margin-top:30mm !important;
+            }
 
           @page {
                  padding-top: 40px !important;
@@ -1109,7 +1247,38 @@ margin-top:30mm !important;
               }
             `,
           });
-        }  else {
+        } else if (this.printMode == "t"){
+          printing(this.$refs.printCon8, {
+            direction: "horizontal",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+            .bed-card-warpper {
+              box-shadow: none !important;
+              transform:translate(50px,0);
+              display:flex!important;
+              flex-wrap:wrap;
+              width:29cm;
+            }
+            .bed-card-con{
+              margin:0!important;
+            }
+            .bed-card-con.firstpage{
+              margin-top:105px!important;
+            }
+            .bed-card-con.nextpage{
+              margin-bottom:105px!important;
+            }
+            .huadu-bigname{
+              position:relative!important;
+              top:15px!important;
+            }
+            @page {
+              margin: 1px 30px 0;
+            }
+            `
+          });
+        }else {
           printing(this.$refs.printCon, {
             direction: "horizontal",
             injectGlobalCss: true,
@@ -1141,6 +1310,7 @@ margin-top:30mm !important;
             `
           });
         }
+
       });
     },
     querySearchAsyncDoc(queryString, cb) {
