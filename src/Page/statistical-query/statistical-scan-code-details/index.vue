@@ -68,70 +68,52 @@ export default {
           // 病区、状态、非扫码类、输液、注射、雾化、标本、口服
           return [
               {
-                key: 'index',
-                title: '序号',
-                align: 'center',
-                width: 70,
-                render: (h, { index }) => {
-                  return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
-                }
-              },
-              {
                 key: 'wardName',
                 title: '病区',
                 align: 'center',
-                minWidth: 100,
+                minWidth: 80,
               },
               {
-                key: 'bedNo',
-                title: '床号',
+                key: 'status',
+                title: '状态',
                 align: 'center',
                 width: 70,
               },
               {
-                key: 'name',
-                title: '患者姓名',
+                key: 'noScanRate',
+                title: '非扫码类',
                 align: 'center',
                 minWidth: 70,
               },
               {
-                key: 'sex',
-                title: '性别',
+                key: 'transfusion',
+                title: '输液类',
                 align: 'center',
                 width: 70,
               },
               {
-                key: 'age',
-                title: '年龄',
+                key: 'injection',
+                title: '注射类',
                 align: 'center',
-                width: 70,
+                width: 80,
               },
               {
-                key: 'patientId',
-                title: '病案号',
+                key: 'specimen',
+                title: '标本',
                 align: 'center',
-                minWidth: 100,
+                minWidth: 80,
               },
               {
-                key: 'diagnosis',
-                title: '入院诊断',
+                key: 'atomization',
+                title: '雾化',
                 align: 'center',
-                minWidth: 110,
+                minWidth: 80,
               },
               {
-                key: 'admissionDate',
-                title: '入院时间',
+                key: 'orally',
+                title: '口服',
                 align: 'center',
-                minWidth: 110,
-              },
-              {
-                key: 'dischargeDate',
-                title: '出院时间',
-                align: 'center',
-                minWidth: 110,
-                render: (h, { row }) => {
-                  return <span>{ row.dischargeDate || '-' }</span>
-                }
+                minWidth: 80,
               },
             ]
       }
