@@ -304,7 +304,7 @@ export default {
                       letter-spacing: -1.21px;
                     }
                     @media print {
-                      .iframe > div:nth-of-type(2n) {
+                      .iframe > div:nth-of-type(n) {
                         height: ${sheetTableWidth * 0.82}px !important;
                       }
                     }
