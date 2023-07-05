@@ -1,10 +1,10 @@
 <template>
-  <div id="sheetPagePrint" style="overflow:auto" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':['nfyksdyy'].includes(HOSPITAL_ID)?'nfyksdyyInputW':'']" :style="[query.sheetType=='critical2_weihai' && {overflow:'auto'}]">
+  <div id="sheetPagePrint" style="overflow:auto" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':'']" :style="[query.sheetType=='critical2_weihai' && {overflow:'auto'}]">
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
       class="iframe"
-      :class="HOSPITAL_ID === 'hengli' ? 'reduceGap' : ['orthopaedic_sdry','postpartum2_sdry','baby2_sdry','baby_sdry','postpartum_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ?'sdyy':''"
+      :class="HOSPITAL_ID === 'hengli' ? 'reduceGap' : ''"
       v-html="sheetModel"
     ></div>
   </div>
@@ -184,7 +184,7 @@
     &.nfyksdyyInputW{
         input, textarea {
         color: #000 !important;
-        font-size 12px !important;
+        font-size:12px !important;
         // color: #000000 !important;
         // font-family: "SimHei" !important;
   }
@@ -882,77 +882,104 @@ export default {
        transform:scale(0.87)
   }
           @media print {
-              transform:scale(0.99)
-     #sheetPagePrint td[datakey="signerNo"] .sign-img img{
+            #sheetPagePrint .body-con{
+              height:38px !important;
+              font-size:13px !important;
+            }
+      #sheetPagePrint td[datakey="signerNo"] .sign-img img{
        transform:scale(0.87)
   }
-              @page {
-                       margin:3mm 0mm 0mm 0mm;
-                    }
-                     #sheetPagePrint .contant{
-                        margin-top:-45px;!important;
-                }
-          }
+ 
         `
       )
     }
-    // if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
-        if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(this.query.sheetType)){
-          addCSS(
-          window,
-          `
-             @media print {
-                  .sdyy > div {
-                    page-break-after: always;
-                    box-sizing: border-box;
-                  }
-              }
-          `
-                )
-              }
-      if (('baby2_sdry'===this.query.sheetType )) {
-      // if ((sheetInfo.sheetType == "baby2_sdry")) {
-      addCSS(
-        window,
-            `
-            @media print {
-                  .sdyy > div {
-                    page-break-after: always;
-                    box-sizing: border-box;
-                  }
-                  }
-            `
-          );
-        }
 
-      if (('baby_sdry'===this.query.sheetType )) {
-      // if ((sheetInfo.sheetType ==  'baby_sdry')) {
-      addCSS(
-        window,
-            `
-            @media print {
-                  .sdyy > div {
-                    page-break-after: always;
-                    box-sizing: border-box;
-                  }
-                  }
-            `
-          );
-        }
-      if (('postpartum_sdry'===this.query.sheetType )) {
-      // if ((sheetInfo.sheetType ==  'postpartum_sdry')) {
-      addCSS(
-        window,
-            `
-            @media print {
-                  .sdyy > div {
-                    page-break-after: always;
-                    box-sizing: border-box;
-                  }
-                  }
-            `
-          );
-        }
+    // if(sheetInfo.sheetType == "orthopaedic_sdry"){
+    //     printDir("h");
+    //     addCSS(
+    //       window,
+    //       `
+    //         @media print {
+    //           #sheetPagePrint .contant{
+    //             margin-top:-5x;!important;
+    //           }
+    //           .body-con{
+    //             height: 35px !important;
+    //           }
+    //           @page{
+    //             padding:10px 0 0 10px;
+    //           }
+    //       }
+    //       `
+    //     )
+    //   }
+
+
+    // // if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
+    //     if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(this.query.sheetType)){
+    //       addCSS(
+    //       window,
+    //       `
+    //          @media print {
+    //               .sdyy > div {
+    //                 page-break-after: always;
+    //                 box-sizing: border-box;
+    //               }
+    //           }
+    //       `
+    //             )
+    //           }
+    //   if (('baby2_sdry'===this.query.sheetType )) {
+    //   // if ((sheetInfo.sheetType == "baby2_sdry")) {
+    //   addCSS(
+    //     window,
+    //         `
+    //         @media print {
+    //               .sdyy > div {
+    //                 page-break-after: always;
+    //                 box-sizing: border-box;
+    //               }
+    //               }
+    //         `
+    //       );
+    //     }
+
+    //   // if (('baby_sdry'===this.query.sheetType )) {
+    //   if ((sheetInfo.sheetType ==  'baby_sdry')) {
+    //   addCSS(
+    //     window,
+    //         `
+            
+    //         @media print {
+    //           transform:scale(0.83)
+    //           @page {
+             
+          
+    //                    margin:0mm 0mm 0mm 0mm;
+    //                    padding:0mm;
+    //                 }
+    //               .sdyy > div {
+    //                 page-break-after: always;
+    //                 box-sizing: border-box;
+    //               }
+    //               }
+    //         `
+    //       );
+    //     }
+    //   if (('postpartum_sdry'===this.query.sheetType )) {
+    //   // if ((sheetInfo.sheetType ==  'postpartum_sdry')) {
+    //   addCSS(
+    //     window,
+    //         `
+    //         @media print {
+    //               .sdyy > div {
+    //                 page-break-after: always;
+    //                 box-sizing: border-box;
+    //               }
+    //               }
+    //         `
+    //       );
+    //     }
     // 如果双签可以这里加。打印的时候签名二合一。签名列拉宽
     if (
       (sheetInfo.sheetType == "generalnursing_tj")
