@@ -1,45 +1,133 @@
 <template>
   <div class="shift-work-detail" v-loading="loading">
+    <!-- header-toolbar -->
     <div class="toolbar">
-      <!-- test -->
       <span>科室：</span>
       <ElSelect size="small" :value="$route.params.code" @input="onCodeChange">
-        <ElOption v-for="d of depts" :key="d.deptCode" :label="d.deptName" :value="d.deptCode" />
+        <ElOption
+          v-for="d of depts"
+          :key="d.deptCode"
+          :label="d.deptName"
+          :value="d.deptCode"
+        />
       </ElSelect>
-      <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()">添加患者</Button>
+      <Button :disabled="isEmpty || allSigned" @click="onPatientsModalShow()"
+        >添加患者</Button
+      >
       <Button
-        :disabled="isEmpty || allSigned || !$refs.table || !$refs.table.selectedRow"
+        :disabled="
+          isEmpty || allSigned || !$refs.table || !$refs.table.selectedRow
+        "
         @click="onRowRemove"
-      >删除行</Button>
+        >删除行</Button
+      >
       <!-- <Button :disabled="isEmpty || allSigned || !modified" @click="onSave(true)">保存</Button> -->
-      <Button :disabled="isEmpty || allSigned"  @click="onSave3(true)">保存</Button>
+      <Button :disabled="isEmpty || allSigned" @click="onSave3(true)"
+        >保存</Button
+      >
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
       <div class="empty"></div>
-      <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove">删除交班志</Button>
-      <Button :disabled="isEmpty" @click="onToggleFullPage">{{getFullPage() ? '关闭全屏' : '全屏'}}</Button>
+      <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove"
+        >删除交班志</Button
+      >
+      <Button :disabled="isEmpty" @click="onToggleFullPage">{{
+        getFullPage() ? "关闭全屏" : "全屏"
+      }}</Button>
     </div>
+    <!-- contain -->
     <div class="container" ref="container">
       <Placeholder
         v-if="isEmpty"
         icon="el-icon-plus"
         @click="onCreateModalOpen($route.params.code)"
-      >创建交班志</Placeholder>
+        >创建交班志</Placeholder
+      >
       <div class="paper" v-else>
         <div ref="printable" data-print-style="height: auto;">
           <div class="head shift-paper">
-            <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
-            <h1 class="title">{{deptName}}</h1>
-            <h2 class="sub-title">ISBAR交班记录卡</h2>
-            <div class="class-option" v-if="HOSPITAL_ID == 'zhongshanqi'">
-                <ElSelect size="small" :value="currentClass" @input="onClassChange">
-                  <ElOption label="白班" value="白班" />
-                  <ElOption label="小夜班" value="小夜班" />
-                  <ElOption label="大夜班" value="大夜班" />
-              </ElSelect>
-            </div>
-            <div style="text-align: right;">交班日期：<b>{{record.changeShiftDate}}</b></div>
+            <template v-if="HOSPITAL_ID == 'ytll'">
+              <h1 class="title">{{ HOSPITAL_NAME }}</h1>
+              <h1 class="sub-title">护 理 日 夜 交 接 班 报 告 汇 总 单</h1>
+              <div class="parent-content" >
+                <span>病区：{{ deptName }}</span>
+                <span
+                  >日期：<b>{{ record.changeShiftDate }}</b></span
+                >
+                <div data-print-style="width: auto">
+                  <span>护士长签名：</span>
+                  <span data-print-style="display: none">
+                    <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
+                    <button
+                      v-if="record.autographNameP"
+                      @click="onDelSignModalOpen('P', record.autographEmpNoP)"
+                    >
+                      {{ record.autographNameP }}
+                    </button>
+                    <button
+                      v-else
+                      :disabled="isEmpty"
+                      @click="onSignModalOpen('P')"
+                    >
+                      点击签名
+                    </button>
+                  </span>
+                  <FallibleImage
+                    class="img"
+                    v-if="record.autographNameP"
+                    :src="
+                      `/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`
+                    "
+                    :alt="record.autographNameP"
+                    data-print-style="display: inline-block; width: 52px; height: auto;"
+                  />
+                  <span
+                    v-else
+                    style="display: none;"
+                    data-print-style="display: inline-block;"
+                    >未签名</span
+                  >
+                </div>
+              </div>
+                <div class="details" style="margin-bottom: -10px;">
+
+                <span>
+                  安全日历 用药差错<b><input type="text" v-model="shiftWithWardcodes.expand1" /></b>天，
+                </span>
+                <span>
+                  跌倒<b><input type="text" v-model="shiftWithWardcodes.expand2" /></b>天，
+                </span>
+                <span>
+                  非计划拔管<b><input type="text" v-model="shiftWithWardcodes.expand3" /></b>天，
+                </span>
+                <span>
+                  压力性损伤<b><input type="text" v-model="shiftWithWardcodes.expand4" /></b>天，
+                </span>
+                <span>
+                  标本管理<b><input type="text" v-model="shiftWithWardcodes.expand5" /></b>天，
+                </span>
+                <span>
+                  输血事件<b><input type="text" v-model="shiftWithWardcodes.expand6" /></b>天，
+                </span>
+                <span>
+                  其他<b><input type="text" v-model="shiftWithWardcodes.expand7" /></b>天，
+                </span>
+                <span>
+                  多重耐药<b><input type="text" v-model="shiftWithWardcodes.expand8" /></b>例，
+                </span>
+              </div>
+            </template>
+            <template v-else>
+              <h1 class="title">{{ deptName }}</h1>
+              <h2 class="sub-title">ISBAR交班记录卡</h2>
+              <div style="text-align: right;">
+                交班日期：<b>{{ record.changeShiftDate }}</b>
+              </div>
+            </template>
             <div class="details">
-              <tableHeader :columns='shiftWithWardcodes' @changeShiftWithWardcodes='changeShiftWithWardcodes'/>
+              <tableHeader
+                :columns="shiftWithWardcodes"
+                @changeShiftWithWardcodes="changeShiftWithWardcodes"
+              />
             </div>
           </div>
           <ExcelTable
@@ -69,14 +157,19 @@
               </td>
             </tr>
             <tr class="normal-row">
-              <td colspan="7" class="special-case-title" data-print-style="border-bottom: none;">
+              <td
+                colspan="7"
+                class="special-case-title"
+                data-print-style="border-bottom: none;"
+              >
                 <span class="row-title">特殊情况交接：</span>
                 <span
                   class="row-action"
                   v-if="!allSigned"
                   @click="onSpecialCasePanelOpen"
                   data-print-style="display: none;"
-                >特殊情况模板</span>
+                  >特殊情况模板</span
+                >
               </td>
             </tr>
             <tr class="normal-row">
@@ -84,7 +177,9 @@
                 colspan="7"
                 style="padding: 0;"
                 data-print-style="border-top: none;"
-                @contextmenu.stop.prevent="onContextMenu($event, record.specialSituation)"
+                @contextmenu.stop.prevent="
+                  onContextMenu($event, record.specialSituation)
+                "
               >
                 <label>
                   <el-input
@@ -99,7 +194,12 @@
               </td>
             </tr>
           </ExcelTable>
-          <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
+
+          <div
+            class="foot"
+            v-if="record"
+            data-print-style="padding-bottom: 25px"
+          >
             <div data-print-style="width: auto">
               <span>A班签名：</span>
               <span data-print-style="display: none">
@@ -107,17 +207,32 @@
                 <button
                   v-if="record.autographNameA"
                   @click="onDelSignModalOpen('A', record.autographEmpNoA)"
-                >{{record.autographNameA}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('A')">点击签名</button>
+                >
+                  {{ record.autographNameA }}
+                </button>
+                <button
+                  v-else
+                  :disabled="isEmpty"
+                  @click="onSignModalOpen('A')"
+                >
+                  点击签名
+                </button>
               </span>
               <FallibleImage
                 class="img"
                 v-if="record.autographNameA"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoA}?${token}`"
+                :src="
+                  `/crNursing/api/file/signImage/${record.autographEmpNoA}?${token}`
+                "
                 :alt="record.autographNameA"
                 data-print-style="display: inline-block; width: 52px; height: auto;"
               />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
+              <span
+                v-else
+                style="display: none;"
+                data-print-style="display: inline-block;"
+                >未签名</span
+              >
             </div>
             <div data-print-style="width: auto">
               <span>P班签名：</span>
@@ -125,18 +240,33 @@
                 <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
                 <button
                   v-if="record.autographNameP"
-                  @click="onDelSignModalOpen('P',record.autographEmpNoP)"
-                >{{record.autographNameP}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('P')">点击签名</button>
+                  @click="onDelSignModalOpen('P', record.autographEmpNoP)"
+                >
+                  {{ record.autographNameP }}
+                </button>
+                <button
+                  v-else
+                  :disabled="isEmpty"
+                  @click="onSignModalOpen('P')"
+                >
+                  点击签名
+                </button>
               </span>
               <FallibleImage
                 class="img"
                 v-if="record.autographNameP"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`"
+                :src="
+                  `/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`
+                "
                 :alt="record.autographNameP"
                 data-print-style="display: inline-block; width: 52px; height: auto;"
               />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
+              <span
+                v-else
+                style="display: none;"
+                data-print-style="display: inline-block;"
+                >未签名</span
+              >
             </div>
             <div data-print-style="width: auto">
               <span>N班签名：</span>
@@ -144,27 +274,43 @@
                 <button
                   v-if="record.autographNameN"
                   @click="onDelSignModalOpen('N', record.autographEmpNoN)"
-                >{{record.autographNameN}}</button>
+                >
+                  {{ record.autographNameN }}
+                </button>
                 <button
                   v-else
                   :disabled="isEmpty"
                   @click="onSignModalOpen('N', record.autographEmpNoN)"
-                >点击签名</button>
+                >
+                  点击签名
+                </button>
               </span>
               <FallibleImage
                 class="img"
                 v-if="record.autographNameN"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
+                :src="
+                  `/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`
+                "
                 :alt="record.autographNameN"
                 data-print-style="display: inline-block; width: 52px; height: auto;"
               />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
+              <span
+                v-else
+                style="display: none;"
+                data-print-style="display: inline-block;"
+                >未签名</span
+              >
             </div>
           </div>
         </div>
       </div>
     </div>
-    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm"  @save="onSave4"/>
+    <!-- 弹窗组件 -->
+    <PatientsModal
+      ref="patientsModal"
+      @confirm="onPatientsModalConfirm"
+      @save="onSave4"
+    />
     <PatientModal
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
@@ -181,14 +327,14 @@
       @tab-change="onPatientPanelTabChange"
       @apply-template="onPatientPanelApply"
     />
-    <SpecialCasePanel ref="specialCasePanel" @apply-template="onSpecialCasePanelApply" />
+    <SpecialCasePanel
+      ref="specialCasePanel"
+      @apply-template="onSpecialCasePanelApply"
+    />
     <SignModal ref="signModal" />
     <!-- 系统层级乱套了，无奈，只能放到这里，勿喷 -->
-    <SyncRecord
-      ref="syncRecordRef"
-      @on-select="onRecordSelect"
-    />
-     <patientInfo v-if="['nfyksdyy'].includes(HOSPITAL_ID)"></patientInfo>
+    <SyncRecord ref="syncRecordRef" @on-select="onRecordSelect" />
+    <patientInfo v-if="['nfyksdyy'].includes(HOSPITAL_ID)"></patientInfo>
   </div>
 </template>
 
@@ -212,7 +358,7 @@ import SpecialCaseModal from "./components/special-case-modal";
 import SpecialCasePanel from "./components/special-case-panel";
 import SignModal from "./components/sign-modal";
 import $ from "jquery";
-import SyncRecord from './components/SyncRecord.vue';
+import SyncRecord from "./components/SyncRecord.vue";
 const defaultPatient = {
   name: "",
   bedLabel: "",
@@ -353,10 +499,10 @@ export default {
       ],
       fixedTh: false,
       currentClass: "白班",
-      panelTab: '1',
+      panelTab: "1",
       syncRecord: {
-        background: '',
-        proposal: '',
+        background: "",
+        proposal: ""
       }
     };
   },
@@ -388,8 +534,10 @@ export default {
     },
     "$route.params.id"() {
       this.load();
-      if(this.HOSPITAL_ID == 'zhongshanqi'){
-         this.currentClass = sessionStorage.getItem(this.$route.fullPath) ? sessionStorage.getItem(this.$route.fullPath): this.currentClass
+      if (this.HOSPITAL_ID == "zhongshanqi") {
+        this.currentClass = sessionStorage.getItem(this.$route.fullPath)
+          ? sessionStorage.getItem(this.$route.fullPath)
+          : this.currentClass;
       }
     },
     modified(value, oldValue) {
@@ -404,9 +552,9 @@ export default {
     }
     let dom = this.$refs.container;
     $(dom).scroll(e => {
-      if(this.HOSPITAL_ID == 'zhzxy' && $(dom).scrollTop() >= 250){
-         this.fixedTh = true;
-      }else if (!this.HOSPITAL_ID == 'zhzxy' && $(dom).scrollTop() >= 117) {
+      if (this.HOSPITAL_ID == "zhzxy" && $(dom).scrollTop() >= 250) {
+        this.fixedTh = true;
+      } else if (!this.HOSPITAL_ID == "zhzxy" && $(dom).scrollTop() >= 117) {
         this.fixedTh = true;
       } else {
         this.fixedTh = false;
@@ -415,9 +563,9 @@ export default {
   },
   methods: {
     onRecordSelect(value) {
-      if (this.panelTab == '2') {
+      if (this.panelTab == "2") {
         this.syncRecord.background = value;
-      } else if (this.panelTab == '4') {
+      } else if (this.panelTab == "4") {
         this.syncRecord.proposal = value;
       }
     },
@@ -427,8 +575,8 @@ export default {
     onTabChange(tab) {
       this.panelTab = tab;
     },
-    changeShiftWithWardcodes(index,key,value){
-      this.shiftWithWardcodes[index][key]=value
+    changeShiftWithWardcodes(index, key, value) {
+      this.shiftWithWardcodes[index][key] = value;
     },
     async loadDepts() {
       const parentCode = this.deptCode;
@@ -450,15 +598,15 @@ export default {
     onCodeChange(code) {
       this.$router.push({ path: `/shiftWork/${code}` });
     },
-    onClassChange(currentClass){
+    onClassChange(currentClass) {
       this.currentClass = currentClass;
-      sessionStorage.setItem(this.$route.fullPath,this.currentClass);
+      sessionStorage.setItem(this.$route.fullPath, this.currentClass);
       this.load();
     },
     // 创建保存一次
-    async getToSave(){
-      await this.load()
-      await this.onSave()
+    async getToSave() {
+      await this.load();
+      await this.onSave();
     },
     async load() {
       const id = this.$route.params.id;
@@ -469,11 +617,21 @@ export default {
         const {
           data: { data }
         } = await apis.getShiftRecord(id);
-        const { changeShiftTimes: record, changeShiftPatients: patients,shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN } = data;
+        const {
+          changeShiftTimes: record,
+          changeShiftPatients: patients,
+          shiftWithWardcodesA,
+          shiftWithWardcodesP,
+          shiftWithWardcodesN
+        } = data;
         record.specialCase = record.specialCase || "";
-        this.record = {...record,...shiftWithWardcodesA[0]||{}};
+        this.record = { ...record, ...(shiftWithWardcodesA[0] || {}) };
         this.patients = patients;
-        this.shiftWithWardcodes = [shiftWithWardcodesA[0]||{},shiftWithWardcodesP[0]||{},shiftWithWardcodesN[0]||{}];
+        this.shiftWithWardcodes = [
+          shiftWithWardcodesA[0] || {},
+          shiftWithWardcodesP[0] || {},
+          shiftWithWardcodesN[0] || {}
+        ];
         this.modified = false;
 
         if (patients.length < 11) {
@@ -640,7 +798,10 @@ export default {
               // this.modified = true
               const selectedRow = this.$refs.table.selectedRow;
               if (selectedRow && selectedRow.sortValue) {
-                await apis.removeShiftRecordRow(this.record.id,selectedRow.sortValue);
+                await apis.removeShiftRecordRow(
+                  this.record.id,
+                  selectedRow.sortValue
+                );
               }
               this.$refs.table.removeRow();
             }
@@ -705,7 +866,7 @@ export default {
       // this.modified = true
       const selectedRow = this.$refs.table.selectedRow;
       if (selectedRow && selectedRow.sortValue) {
-        await apis.removeShiftRecordRow(this.record.id,selectedRow.sortValue);
+        await apis.removeShiftRecordRow(this.record.id, selectedRow.sortValue);
       }
       this.$refs.table.removeRow();
     },
@@ -737,8 +898,8 @@ export default {
         .filter(p => p.patientId && p.visitId)
         .map(p => p.patientId + "//" + p.visitId);
       // console.log(d , this.record.changeShiftDate);
-      if(d){
-        selectedKeys = []
+      if (d) {
+        selectedKeys = [];
       }
       this.$refs.patientsModal.open({ deptCode, date, id, selectedKeys });
     },
@@ -763,15 +924,8 @@ export default {
       if (isExisted && isExisted !== selectedRow) {
         return this.$message.error("已存在该患者");
       }
-
-      // if (selectedRow) {
-      //   this.$refs.table.updateRow(data);
-      // } else {
-      //   this.$refs.table.addRow(data);
-      // }
-      this.onSave2(true,data);
+      this.onSave2(true, data);
       this.$refs.patientModal.close();
-      // this.modified = true
     },
     onPatientModalTabChange(tab) {
       if (this.$refs.patientPanel) {
@@ -783,7 +937,7 @@ export default {
     },
     onPatientPanelClose() {
       this.$refs.patientPanel.close();
-      this.syncRecord = { background: '', proposal: '' };
+      this.syncRecord = { background: "", proposal: "" };
     },
     onPatientPanelTabChange(tab) {
       this.$refs.patientModal.changeTab(tab);
@@ -808,13 +962,17 @@ export default {
       const changeShiftPatients = this.patients
         .filter(p => p.name || p.id)
         .map((p, i) => ({ ...p, sortValue: i + 1 }));
-      const [shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN] = this.shiftWithWardcodes
+      const [
+        shiftWithWardcodesA,
+        shiftWithWardcodesP,
+        shiftWithWardcodesN
+      ] = this.shiftWithWardcodes;
       await apis.updateShiftRecord({
         changeShiftTimes: changeShiftTime,
         changeShiftPatients,
-        shiftWithWardcodesA:[shiftWithWardcodesA],
-        shiftWithWardcodesP:[shiftWithWardcodesP],
-        shiftWithWardcodesN:[shiftWithWardcodesN],
+        shiftWithWardcodesA: [shiftWithWardcodesA],
+        shiftWithWardcodesP: [shiftWithWardcodesP],
+        shiftWithWardcodesN: [shiftWithWardcodesN]
       });
 
       this.load();
@@ -825,16 +983,17 @@ export default {
     async onSave3(tip) {
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
-      // const changeShiftPatients = this.patients
-      //   .filter(p => p.name || p.id)
-      //   .map((p, i) => ({ ...p, sortValue: i + 1 }));
-      const [shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN] = this.shiftWithWardcodes
+      const [
+        shiftWithWardcodesA,
+        shiftWithWardcodesP,
+        shiftWithWardcodesN
+      ] = this.shiftWithWardcodes;
       await apis.updateShiftRecord({
         changeShiftTimes: changeShiftTime,
         // changeShiftPatients,
-        shiftWithWardcodesA:[shiftWithWardcodesA],
-        shiftWithWardcodesP:[shiftWithWardcodesP],
-        shiftWithWardcodesN:[shiftWithWardcodesN],
+        shiftWithWardcodesA: [shiftWithWardcodesA],
+        shiftWithWardcodesP: [shiftWithWardcodesP],
+        shiftWithWardcodesN: [shiftWithWardcodesN]
       });
 
       this.load();
@@ -842,17 +1001,21 @@ export default {
         this.$message.success("保存成功");
       }
     },
-    async onSave2(tip,form) {
+    async onSave2(tip, form) {
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
-      let changeShiftPatients = [form]
-      const [shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN] = this.shiftWithWardcodes
+      let changeShiftPatients = [form];
+      const [
+        shiftWithWardcodesA,
+        shiftWithWardcodesP,
+        shiftWithWardcodesN
+      ] = this.shiftWithWardcodes;
       await apis.savePatient({
         changeShiftTimes: changeShiftTime,
         changeShiftPatients,
-        shiftWithWardcodesA:[shiftWithWardcodesA],
-        shiftWithWardcodesP:[shiftWithWardcodesP],
-        shiftWithWardcodesN:[shiftWithWardcodesN],
+        shiftWithWardcodesA: [shiftWithWardcodesA],
+        shiftWithWardcodesP: [shiftWithWardcodesP],
+        shiftWithWardcodesN: [shiftWithWardcodesN]
       });
 
       this.load();
@@ -861,19 +1024,23 @@ export default {
         this.$message.success("保存成功");
       }
     },
-    async onSave4(tip,patients) {
+    async onSave4(tip, patients) {
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
       let changeShiftPatients = patients
         .filter(p => p.name || p.id)
         .map((p, i) => ({ ...p, sortValue: i + 1 }));
-      const [shiftWithWardcodesA,shiftWithWardcodesP,shiftWithWardcodesN] = this.shiftWithWardcodes
+      const [
+        shiftWithWardcodesA,
+        shiftWithWardcodesP,
+        shiftWithWardcodesN
+      ] = this.shiftWithWardcodes;
       await apis.updateShiftRecord({
         changeShiftTimes: changeShiftTime,
         changeShiftPatients,
-        shiftWithWardcodesA:[shiftWithWardcodesA],
-        shiftWithWardcodesP:[shiftWithWardcodesP],
-        shiftWithWardcodesN:[shiftWithWardcodesN],
+        shiftWithWardcodesA: [shiftWithWardcodesA],
+        shiftWithWardcodesP: [shiftWithWardcodesP],
+        shiftWithWardcodesN: [shiftWithWardcodesN]
       });
 
       this.load();
@@ -886,29 +1053,6 @@ export default {
       if (this.modified) {
         return this.$message.warning("请先保存后再签名");
       }
-
-      // if (type === "P" && !this.record.autographNameA) {
-      //   return this.$message.warning("需要A班先签名");
-      // }
-
-      // if (type === "N" && !this.record.autographNameP) {
-      //   return this.$message.warning("需要P班先签名");
-      // }
-
-      // this.$refs.signModal.open({
-      //   callback: async ({ username, password }) => {
-      //     await apis.signShiftRecord(this.record.id, type, username, password);
-
-      //     this.load();
-      //     this.$refs.signModal.close();
-      //     this.$message.success("签名成功");
-
-      //     if (type === "N") {
-      //       this.reloadSideList();
-      //     }
-      //   }
-      // });
-
       window.openSignModal(async (password, username) => {
         await apis.signShiftRecord(this.record.id, type, username, password);
 
@@ -922,24 +1066,6 @@ export default {
       });
     },
     onDelSignModalOpen(type, sourceEmpNo) {
-      // this.$refs.signModal.open({
-      //   title: "取消签名确认",
-      //   callback: async ({ username, password }) => {
-      //     await apis.delSignShiftRecord(
-      //       this.record.id,
-      //       username,
-      //       password,
-      //       type,
-      //       sourceEmpNo
-      //     );
-
-      //     this.load();
-      //     this.$refs.signModal.close();
-      //     this.$message.success("已取消签名");
-      //     this.reloadSideList();
-      //   }
-      // });
-
       window.openSignModal(async (password, username) => {
         await apis.delSignShiftRecord(
           this.record.id,
@@ -956,21 +1082,6 @@ export default {
       });
     },
     async onRemove() {
-      // this.$refs.signModal.open({
-      //   callback: async ({ username, password }) => {
-      //     await apis.removeShiftRecord(this.record.id, username, password);
-
-      //     const code = this.$route.params.code;
-
-      //     this.$message.success("删除成功");
-      //     this.$refs.signModal.close();
-      //     this.modified = false;
-      //     this.record = null;
-      //     this.patients = [];
-      //     this.$router.push({ path: `/shiftWork/${code}` });
-      //     this.reloadSideList();
-      //   }
-      // });
       window.openSignModal(async (password, username) => {
         await apis.removeShiftRecord(this.record.id, username, password);
 
@@ -1135,6 +1246,22 @@ export default {
   overflow: auto;
 }
 
+.parent-content{
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 10px;
+   button {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: none;
+    color: rgb(40, 79, 194);
+    cursor: pointer;
+  }
+}
+
 .paper {
   margin: 0 auto 20px;
   padding: 20px;
@@ -1170,7 +1297,7 @@ export default {
 
 .details {
   margin-top: 15px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   display: flex;
   justify-content: space-between;
   font-size: 13px;
