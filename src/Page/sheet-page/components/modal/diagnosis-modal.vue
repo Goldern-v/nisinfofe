@@ -150,7 +150,7 @@ export default {
       bus: bus(this),
       formList: {},
       filterData: [],
-      newType: ['lyxrm','huadu', 'whhk', 'stmz','foshanrenyi','fuyou'].includes(this.HOSPITAL_ID),
+      newType: ['lyxrm','huadu', 'whhk', 'stmz','foshanrenyi','fuyou','zhzxy'].includes(this.HOSPITAL_ID),
       hospitalType:['fuyou'].includes(this.HOSPITAL_ID),
       hasMeasure: ['whsl'].includes(this.HOSPITAL_ID)
     };
