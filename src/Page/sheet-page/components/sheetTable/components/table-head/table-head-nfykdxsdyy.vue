@@ -230,11 +230,11 @@
         </span>
         <span  v-if="sheetInfo.sheetType == 'postpartum_sdry'" style="margin-left:60px;">
           分娩时间:
-          <crDatePicker
+          <input
             :data-value="sheetInfo.relObj.laborTime"
             v-model="sheetInfo.relObj.laborTime"
-            :width="140"
-            style="border:none;border-bottom:1px solid #000;height:22px;"
+            @click="handleLaborTime($event)"
+            style="border:none;border-bottom:1px solid #000;height:22px;width:192px;"
           />
         </span>
 
@@ -325,7 +325,7 @@
 
     <!-- 产后护理记录单分娩方式 -->
     <template v-if="sheetInfo.sheetType=='postpartum_sdry'" >
-     <span style="margin-left: 70px" >
+     <span style="margin-left: 25px" >
         分娩方式:</span>
        <customSelectCanRepeat
           :options="parturitions"
@@ -642,6 +642,12 @@ export default {
     }
   },
   methods: {
+    // 点击获取当前时间
+    handleLaborTime(e){
+      if(!e.target.value) {
+        e.target.value = moment().format("YYYY-MM-DD HH:mm")
+      }
+    },
     closeBedshow(){
       this.bedShow = false
     },

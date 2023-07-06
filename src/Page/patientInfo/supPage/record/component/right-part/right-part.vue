@@ -224,9 +224,10 @@ export default {
         ...data,
       });
     });
-    this.bus.$on("openAssessmentBox", (data) => {
+    this.bus.$on("openAssessmentBox", (data,isopenPages) => {
       console.log("openAssessmentBox", data);
       this.isOtherPages = true;
+      if(isopenPages) return
       if(data.formCode==="form_growth" && this.HOSPITAL_ID == 'hj'){
         this.$route.query.id = data.id;
         this.$route.query.formType = "eval"
@@ -279,10 +280,12 @@ export default {
       });
       // this.$forceUpdate();
     });
-    this.bus.$on("openOtherPage",(data)=>{
+    this.bus.$on("openOtherPage",(data, isopenSheetTag = false)=>{
       this.isOtherPages = false;
       this.otherComponent = data.type
-      this.bus.$emit("openSheetTag", data)
+      if(isopenSheetTag){
+        this.bus.$emit("openSheetTag", data)
+      }
     })
 
     this.bus.$on("closeAssessment", () => {

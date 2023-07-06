@@ -401,10 +401,17 @@ export default {
       } catch (error) {}
       let typelsit = ["sheet", "bloodSugar","healthEducation"];
       if(typelsit.includes(data.type)){
-        if (node.level === 2) {
-          this.bus.$emit("openOtherPage", data);
+        if (node.level === 2 || (node.level == 1 && data.type == "bloodSugar") || (node.level == 1 && !data.children.length)) {
+          let isopenSheetTag = false
+          if(data.type == "sheet" && node.level == 2) isopenSheetTag = true
+          this.bus.$emit("openOtherPage", data , isopenSheetTag);
         }
       }else{
+        if(node.level == 1){
+          this.bus.$emit(
+              "openAssessmentBox",{},true
+            );
+        }
          if (node.level == 3) {
             this.$emit(
               "openFormTag",
@@ -649,10 +656,10 @@ export default {
               ...item
             };
           });
-          let list_3 = [{
+          let list_3 = {
             label:'血糖单',
             type: "bloodSugar"
-          }]
+          }
           let list_4 = res[2].data.data.map(item => {
             return {
               label: `健康教育单 ${item.creatDate}`,
@@ -710,11 +717,7 @@ export default {
                 type: "sheet",
                 children: [...list_2]
               },
-              {
-                label: "血糖单",
-                type: "bloodSugar",
-                children: [...list_3]
-              },
+              {...list_3},
               {
                 label: "健康教育单",
                 type: "healthEducation",
@@ -736,10 +739,7 @@ export default {
                   index: index += 1,
                 },
                 {
-                  label: "血糖单",
-                  type: "bloodSugar",
-                  children: [...list_3],
-                  index: index += 1,
+                  ...list_3
                 },
                 {
                   label: "健康教育单",
