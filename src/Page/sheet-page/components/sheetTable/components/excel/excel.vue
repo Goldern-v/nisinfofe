@@ -35,7 +35,7 @@
       </tr>
       <tr
         class="head-con"
-        :id="[sheetInfo.sheetType == 'common_wj'?'bigFonstSize':'']"
+        :id="[sheetInfo.sheetType == 'common_wj' || HOSPITAL_ID=='nfyksdyy' ?'bigFonstSize':'']"
         v-for="(th, index) in data.titleModel.th"
         :key="index"
       >
@@ -103,7 +103,7 @@
     >
       <tr
         class="head-con"
-        :id="[sheetInfo.sheetType == 'common_wj'?'bigFonstSize':'']"
+        :id="[sheetInfo.sheetType == 'common_wj' || HOSPITAL_ID=='nfyksdyy' ?'bigFonstSize':'']"
         v-for="(th, index) in data.titleModel.th"
         :key="index"
       >
@@ -187,6 +187,7 @@
               }).value == '5',
             redBottom:['wujing'].includes(HOSPITAL_ID)&&redBottom(tr,y), // 待性能优化
             isCanModify: onCanModify(data.bodyModel,index, y),
+            bigFontSizeSdyy:  HOSPITAL_ID=='nfyksdyy' ,
           },
           tr.find((item) => {
             return item.key == 'markObj';
@@ -216,6 +217,7 @@
           :dataKey="td.key"
           :dataName="td.name"
           v-if="!td.hidden"
+          :id="[]"
           :colspan="td.colspan"
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
@@ -581,6 +583,7 @@
     </div>
     <div
       class="table-footer"
+      :class="{bigFontSizeSdyy:  HOSPITAL_ID=='nfyksdyy'}"
       v-if="sheetInfo.sheetType != 'intervention_cure_hd'"
     >
       <span v-if="doubleSignArr.includes(sheetInfo.sheetType)" class="zg-name">
