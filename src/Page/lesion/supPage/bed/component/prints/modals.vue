@@ -1007,10 +1007,7 @@ export default {
       this.$set(this.list,index,this.list[index])
     },
      init() {
-
      this.$nextTick(()=>{
-
-
       this.list.map(async (item,index)=>{
         item.formData = {
           diet: "",
@@ -1045,8 +1042,7 @@ export default {
       multiDictInfo(["床头卡饮食"]).then(res => {
         this.ysList = res.data.data.床头卡饮食.map(item => item.name);
       });
-
-       })
+     })
     },
     getRegistCare(item) {
       let data = [];

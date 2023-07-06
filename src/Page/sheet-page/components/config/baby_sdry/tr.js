@@ -76,17 +76,19 @@ export default [
     click: (e, td) => click_double1(e, td, ["干洁", "渗血","渗液",'']),
   //  autoComplete:{data:["干洁","渗血","渗液","血肿"]}
    },
-  { key: 'stoolNum', event: keyf1, value: '', next: '', name: '大便次', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4)},
-  { key: 'urinate', event: keyf1, value: '', next: '', name: '小便次', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4)},
-  { key: 'weight', event: keyf1, value: '', next: 'kg', name: '体重', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'stoolNum', event: keyf1, value: '', next: '', name: '大便次', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4)},
+  { key: 'urinate', event: keyf1, value: '', next: '', name: '小便次', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4)},
+  { key: 'weight', event: keyf1, value: '', next: 'kg', name: '体重', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodSugar', event: keyf1, value: 'mmol/L', next: '', name: '血糖', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oncogenesis', event: keyf1, value: '', next: '', name: '产瘤',
   // textarea: { width: 45 },
+  "style":{"minWidth":"50px","maxWidth":"50px"},
     click: (e, td) => click_double1(e, td, ["无", "消退", "2X2X0.5",'']),
+    change: (e, td) => limitChange(e, td, 8)
   // autoComplete: { data: ["无",'2*2*5']}
 },
   { key: 'hematoma', event: keyf1, value: '', next: '', name: '血肿',
-  // textarea: { width: 45 },
+    "style": { "minWidth": "50px", "maxWidth": "50px" },
     click: (e, td) => click_double1(e, td, ["无", "消退", "2X2X0.5", '']),
   // autoComplete: { data: ["无", '2*2*5'] }
 },
