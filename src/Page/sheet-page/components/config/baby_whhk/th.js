@@ -12,24 +12,7 @@ export default {
   },
   th: {
     top: [
-      {
-        name: `日期`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-      },
-      {
-        name: `时间`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-      },
+      { name: "", colspan: "2", rowspan: "1", key: "recordYear" },
       {
         name: "体<br/>温<br/>℃",
         colspan: "1",
@@ -130,6 +113,24 @@ export default {
       },
     ],
     mid: [
+      {
+        name: `日期`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+      },
+      {
+        name: `时间`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+      },
       {
         name: `母乳`,
         colspan: "1",

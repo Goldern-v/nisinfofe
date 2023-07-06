@@ -877,7 +877,10 @@ export default function Title(
   break;
   case "critical_linyi": {
     // 临邑人医 - 病重（病危）患者护理记录单
-    Th = JSON.parse(
+    if (process.env.HOSPITAL_ID == 'whhk') Th = JSON.parse(
+      JSON.stringify(require("../config/critical_whhk/th").default)
+    );
+    else Th = JSON.parse(
       JSON.stringify(require("../config/critical_linyi/th").default)
     );
   }

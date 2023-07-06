@@ -79,15 +79,22 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint()"
-            v-if="HOSPITAL_ID == 'huadu'|| HOSPITAL_ID == 'beihairenyi'"
+            v-if=" HOSPITAL_ID == 'beihairenyi'"
           >打印床头卡2
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
+            @click="openBedPrint()"
+            v-if="HOSPITAL_ID == 'huadu'"
+          >打印田美院区床头卡
           </div>
           <div
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrint3()"
             v-if="HOSPITAL_ID == 'huadu'"
-          >打印床头卡3
+          >打印儿保科信息卡
           </div>
           <div
             class="print-btn"

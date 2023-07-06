@@ -292,11 +292,23 @@ export default {
                 addCSS(
                   window,
                   `
+                    #sheetPagePrint .iframe{
+                      overflow: auto;
+                    }
                     #sheetPagePrint .iframe > div:nth-of-type(n) {
                         padding-top: 0 !important;
                         transform-origin:top center;
-                        transform:scaleY(1.35) scaleX(1.15) rotate(0) !important;
+                        transform:scaleY(1.35) scaleX(1) rotate(0) !important;
                     }
+                    #sheetPagePrint .iframe > div:nth-of-type(n) .sheet-table td[datakey="description"] textarea{
+                      letter-spacing: -1.21px;
+                    }
+                    @media print {
+                      .iframe > div:nth-of-type(n) {
+                        height: ${sheetTableWidth * 0.82}px !important;
+                      }
+                    }
+
                   `
                 );
               }

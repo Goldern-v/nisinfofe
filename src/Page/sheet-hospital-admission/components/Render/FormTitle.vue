@@ -66,7 +66,7 @@ export default {
           name: "age",
           value: "",
           title: "年龄",
-          postText:`${this.HOSPITAL_ID !=='nfyksdyy'?`(${this.ageLevel})`:''}`
+          postText:`${this.HOSPITAL_ID !=='nfyksdyy'&& this.HOSPITAL_ID !=='foshanrenyi'?`(${this.ageLevel})`:''}`
         },
         {
           name: "wardName",
