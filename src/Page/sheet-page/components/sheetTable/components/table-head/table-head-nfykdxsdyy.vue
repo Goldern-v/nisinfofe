@@ -134,7 +134,7 @@
               @onSelect="(val) => setRelValue('specialCasesYangShui', val)"
               multiple
               >
-              <input  :data-value="sheetInfo.relObj.specialCasesYangShui" v-model="sheetInfo.relObj.specialCasesYangShui" style="width:180px;border-bottom:none">
+              <input  :data-value="sheetInfo.relObj.specialCasesYangShui" v-model="sheetInfo.relObj.specialCasesYangShui" style="width:180px;">
               </customSelectCanRepeat>
         </template>
         <span  v-if="sheetInfo.sheetType=='prenatal_sdry'
@@ -233,7 +233,7 @@
           <crDatePicker
             :data-value="sheetInfo.relObj.laborTime"
             v-model="sheetInfo.relObj.laborTime"
-            :width="140"
+            :width="190"
             style="border:none;border-bottom:1px solid #000;height:22px;"
           />
         </span>
@@ -325,7 +325,7 @@
 
     <!-- 产后护理记录单分娩方式 -->
     <template v-if="sheetInfo.sheetType=='postpartum_sdry'" >
-     <span style="margin-left: 70px" >
+     <span style="margin-left: 25px" >
         分娩方式:</span>
        <customSelectCanRepeat
           :options="parturitions"
