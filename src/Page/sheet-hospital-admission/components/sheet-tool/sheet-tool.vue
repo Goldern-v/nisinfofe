@@ -393,6 +393,7 @@ export default {
         {
           label: "打印预览",
           // style: "min-width:100px",
+          style: this.HOSPITAL_ID !== 'nfyksdyy' ?'': "display:none",
           onClick: (e) => {
             this.$refs.previewEvalModal.open(window.formObj.model);
           },

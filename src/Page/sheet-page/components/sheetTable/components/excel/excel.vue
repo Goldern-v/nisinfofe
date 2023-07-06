@@ -1166,12 +1166,13 @@ export default {
       leftTopBottomRight(e, bind);
     },
     onFocus(e, bind) {
+
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
         setTimeout(() => {
           if(!this.isOpenEditModal){
             //自定义标题没有输入事件  所以当有医院配置 保存按需（修改记录）来传给后端后 需要调用这个事件
-            onFocusToAutoComplete(e, bind, () => this.customCallBack(e, bind.tr, bind.x, bind.y, bind.index)); //下拉框延迟
+            onFocusToAutoComplete(e, bind, () => this.customCallBack(e, bind.tr, bind.x, bind.y, bind.z)); //下拉框延迟
           }
         }, 300);
       }
@@ -3205,7 +3206,7 @@ export default {
         setTimeout(() => {
           if(!this.isOpenEditModal){
             //自定义标题没有输入事件  所以当有医院配置 保存按需（修改记录）来传给后端后 需要调用这个事件
-            onFocusToAutoComplete(e, data, () => this.customCallBack(e, data.tr, data.x, data.y, data.index)); //下拉框延迟
+            onFocusToAutoComplete(e, data, () => this.customCallBack(e, data.tr, data.x, data.y, data.z)); //下拉框延迟
           }
         }, 300);
       }
