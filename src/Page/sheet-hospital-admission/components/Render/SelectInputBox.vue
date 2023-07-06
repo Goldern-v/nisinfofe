@@ -120,7 +120,7 @@ export default {
       if(this.obj.formCodeArr){
         let flag = this.obj.formCodeArr.find(item=>this.formObj.model[item])
         if(!flag){
-          let defaultObj =  (process.env.HOSPITAL_ID === 'foshanrenyi'||process.env.HOSPITAL_ID === 'nfyksdyy') ? (this.formCode === 'E2332' ? defaultFS_adult : defaultFS_child) : 入院默认值
+          let defaultObj =  (process.env.HOSPITAL_ID === 'foshanrenyi') ? (this.formCode === 'E2332' ? defaultFS_adult : defaultFS_child) : 入院默认值
           this.inputValue= defaultObj[this.obj.name] || ""
           this.formObj.model[this.obj.name] = defaultObj[this.obj.name] || ""
         }

@@ -98,7 +98,7 @@ export default [
     value: "",
     next: "mmHg",
     name: "BP",
-    textarea: { width: 35 },
+    textarea: { width: 45 },
     change: (e, td) => limitChange(e, td, 2)
   },
   {
@@ -374,7 +374,7 @@ export default [
       width: "510px",
       background: "transparent"
     },
-    textarea: { width: 510},
+    textarea: { width: 490},
     event: function (e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

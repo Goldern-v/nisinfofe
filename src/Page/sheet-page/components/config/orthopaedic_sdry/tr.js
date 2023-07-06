@@ -60,7 +60,7 @@ export default [
     value: "",
     next: "次/分",
     name: "脉搏",
-    textarea: { width: 40 },
+    textarea: { width: 35 },
     change: (e, td) => limitChange(e, td, 4)
   },
   {
@@ -78,7 +78,7 @@ export default [
     value: "",
     next: "次/分",
     name: "R",
-    textarea: { width: 40 },
+    textarea: { width: 35 },
     change: (e, td) => limitChange(e, td, 4)
   },
   {
@@ -87,7 +87,7 @@ export default [
     value: "",
     next: "mmHg",
     name: "血压",
-    textarea: { width: 45 },
+    textarea: { width: 60 },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -96,7 +96,7 @@ export default [
     value: "",
     next: "",
     name: "血氧饱和度%",
-    textarea: { width: 40 },
+    textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 4)
   },
   {
@@ -107,7 +107,7 @@ export default [
     name: "入量内容",
     autoComplete: { data: ruliang },
     textarea: { width: 55 },
-    change: (e, td) => limitChange(e, td, 8)
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "foodSize",
@@ -124,7 +124,7 @@ export default [
     value: "",
     next: "ml",
     name: "出量内容",
-    textarea: { width: 55 },
+    textarea: { width: 60 },
     autoComplete: { data: chuliang },
     change: (e, td) => limitChange(e, td, 8)
   },
@@ -170,7 +170,7 @@ export default [
     value: "",
     next: "",
     name: "",
-    textarea: { width: 40 },
+    textarea: { width: 43 },
     autoComplete: { data: Customizations },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -180,7 +180,7 @@ export default [
     value: "",
     next: "",
     name: "",
-    textarea: { width: 40 },
+    textarea: { width: 43 },
     autoComplete: { data: Customizations },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -191,7 +191,7 @@ export default [
     next: "",
     name: "",
     autoComplete: { data: Customizations },
-    textarea: { width: 40 },
+    textarea: { width: 43 },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -201,7 +201,7 @@ export default [
     next: "",
     name: "",
     autoComplete: { data: Customizations },
-    textarea: { width: 40 },
+    textarea: { width: 43 },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -211,7 +211,7 @@ export default [
     next: "",
     name: "",
     autoComplete: { data: Customizations },
-    textarea: { width: 40 },
+    textarea: { width: 43 },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -221,7 +221,7 @@ export default [
     next: "",
     name: "",
     autoComplete: { data: Customizations },
-    textarea: { width: 40 },
+    textarea: { width: 43 },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -231,7 +231,7 @@ export default [
     next: "",
     name: "",
     autoComplete: { data: Customizations },
-    textarea: { width: 40 },
+    textarea: { width: 43 },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -241,7 +241,7 @@ export default [
     next: "",
     name: "",
     autoComplete: { data: Customizations },
-    textarea: { width: 40 },
+    textarea: { width: 43 },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -251,7 +251,7 @@ export default [
     next: "",
     name: "",
     autoComplete: { data: Customizations },
-    textarea: { width: 40 },
+    textarea: { width: 43 },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -262,7 +262,7 @@ export default [
     name: "",
     // autoComplete: { data: ['/'] },
     autoComplete: { data: Customizations },
-    textarea: { width: 40 },
+    textarea: { width: 43 },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -274,10 +274,9 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "300px",
       background: "transparent"
     },
-    textarea: { width: 240 },
+    textarea: { width: 260 },
     event: function(e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
