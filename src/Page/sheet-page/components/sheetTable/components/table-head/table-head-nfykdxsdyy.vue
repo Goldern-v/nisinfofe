@@ -134,7 +134,7 @@
               @onSelect="(val) => setRelValue('specialCasesYangShui', val)"
               multiple
               >
-              <input  :data-value="sheetInfo.relObj.specialCasesYangShui" v-model="sheetInfo.relObj.specialCasesYangShui" style="width:180px;border-bottom:none">
+              <input  :data-value="sheetInfo.relObj.specialCasesYangShui" v-model="sheetInfo.relObj.specialCasesYangShui" style="width:180px;">
               </customSelectCanRepeat>
         </template>
         <span  v-if="sheetInfo.sheetType=='prenatal_sdry'

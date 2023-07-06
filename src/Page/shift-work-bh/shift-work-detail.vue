@@ -615,7 +615,12 @@ export default {
         const valueA = parseInt(a[key]) || 0;
         const valueP = parseInt(p[key]) || 0;
         const valueN = parseInt(n[key]) || 0;
-        objAll[key] = valueA + valueP + valueN;
+        if(['hospitalized','changeIn','leaveHospital','changeOut','childbirth','death'].includes(key)){
+          objAll[key] = valueA + valueP + valueN;
+        }else{
+          // 其余取N班的值
+          objAll[key] =valueN
+        }
       }
       return objAll
     },
