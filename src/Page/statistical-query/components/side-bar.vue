@@ -84,6 +84,34 @@ export default {
         }),
         ...hisMatch({
           map: {
+            ytll: [
+              {
+                name: 'statisticalUnplanned',
+                meta: {
+                  title: '非计划性拔管统计',
+                  img: require("../images/VTE.png"),
+                }
+              },
+              {
+                name: 'statisticalAdultFall',
+                meta: {
+                  title: '成人跌倒统计',
+                  img: require("../images/VTE.png"),
+                }
+              },
+              {
+                name: 'statisticalChildrenFall',
+                meta: {
+                  title: '儿童跌倒统计',
+                  img: require("../images/VTE.png"),
+                }
+              },
+            ],
+            other: []
+          }
+        }),
+        ...hisMatch({
+          map: {
             gdtj: [],
             zhzxy: [],
             wujing: [],
@@ -235,6 +263,7 @@ export default {
   width: 200px;
   height: 100%;
   background: #fff;
+  overflow-y: auto;
   .side-bar__item {
     position: relative;
     display: flex;

@@ -451,6 +451,9 @@ const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 const StatisticalBlood = () => import("@/Page/statistical-query/statistical-blood")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
+const StatisticalUnplanned = () => import("@/Page/statistical-query/statistical-unplanned")
+const StatisticalAdultFall = () => import("@/Page/statistical-query/statistical-adult-fall")
+const StatisticalChildrenFall = () => import("@/Page/statistical-query/statistical-children-fall")
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 // 执行单路由
@@ -1885,6 +1888,30 @@ const router = new Router({
               title: 'VTE统计'
             },
             component: statisticalVTE,
+          },
+          {
+            path: "statisticalUnplanned",
+            name: "statisticalUnplanned",
+            meta: {
+              title: '非计划性拔管统计'
+            },
+            component: StatisticalUnplanned,
+          },
+          {
+            path: "statisticalAdultFall",
+            name: "statisticalAdultFall",
+            meta: {
+              title: '成人跌倒统计'
+            },
+            component: StatisticalAdultFall,
+          },
+          {
+            path: "statisticalChildrenFall",
+            name: "statisticalChildrenFall",
+            meta: {
+              title: '儿童跌倒统计'
+            },
+            component: StatisticalChildrenFall,
           },
           {
             path: "statisticalConsultation",
