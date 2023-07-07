@@ -421,84 +421,47 @@ export default {
       return resultModel;
     },
     sheetTable() {
-      console.log("sheetInfo.sheetType",sheetInfo,sheetInfo.sheetType)
-      if (sheetInfo.sheetType == "neonatology") {
-        return sheetTableNeonatology;
-        //  return sheetTablePost_partum;
-      } else if (sheetInfo.sheetType == "post_partum") {
-        return sheetTablePost_partum;
-      } else if (sheetInfo.sheetType == "blood_purification") {
-        return sheetTablePost_hemodialysis;
-      } else if (sheetInfo.sheetType == "oxytocin") {
-        return sheetTable_oxytocin;
-      } else if (sheetInfo.sheetType == "dressing_count") {
-        return sheetTableDressing_count;
-      } else if (sheetInfo.sheetType == "maternal_newborn_lc") {
-        return sheetTableMaternal_newborn_lc;
-      } else if (sheetInfo.sheetType == "record_children_serious2_lc") {
-        return sheetTable_record_children_serious2_lc;
-      } else if (sheetInfo.sheetType == "picc_maintenance_hd") {
-        return sheetTable_picc_maintenance_hd;
-      } else if (sheetInfo.sheetType == "intervention_cure_hd") {
-        return sheetTable_intervention_cure_hd;
-      } else if (sheetInfo.sheetType == "hemodialysis_CRRT_hd") {
-        return sheetTable_hemodialysis_CRRT_hd;
-      } else if (sheetInfo.sheetType == "intervention_cure") {
-        return sheetTable_intervention_cure;
-      } else if (sheetInfo.sheetType == "mild_hypothermia_hd") {
-        return sheetTable_mild_hypothermia_hd;
-      } else if (sheetInfo.sheetType == "neonatology_picc") {
-        return sheetTable_neonatology_picc;
-      } else if (sheetInfo.sheetType == "newborn_qzx") {
-        return sheetTable_newborn_qzx;
+      let data ={
+        "neonatology" : sheetTableNeonatology,
+        "post_partum" : sheetTablePost_partum,
+        "blood_purification" : sheetTablePost_hemodialysis,
+        "oxytocin" : sheetTable_oxytocin,
+        "dressing_count" : sheetTableDressing_count,
+        "maternal_newborn_lc" : sheetTableMaternal_newborn_lc,
+        "record_children_serious2_lc" : sheetTable_record_children_serious2_lc,
+        "picc_maintenance_hd" : sheetTable_picc_maintenance_hd,
+        "intervention_cure_hd" : sheetTable_intervention_cure_hd,
+        "hemodialysis_CRRT_hd" : sheetTable_hemodialysis_CRRT_hd,
+        "intervention_cure" : sheetTable_intervention_cure,
+        "mild_hypothermia_hd" : sheetTable_mild_hypothermia_hd,
+        "neonatology_picc" : sheetTable_neonatology_picc,
+        "newborn_qzx" : sheetTable_newborn_qzx,
+        "surgical_eval2_lcey" : sheetTable_surgical_eval2_lcey,
+        "intervention_cure_lcey" : sheetTable_intervention_cure_lcey,
+        "picu_hemodialysis_jm" : sheetTable_picu_hemodialysis_jm,
+        "waiting_birth_gzry" : sheetTable_waiting_birth_gzry,
+        "newborn_care_gzry" : sheetTable_newborn_care_gzry,
+        "catheterplacement_jm" : sheetTable_catheterplacement_jm,
+        "picc_custody_jm" : sheetTable_picc_custody_jm,
+        "nicu_custody_hd" : sheetTable_nicu_custody_hd,
+        "nicu_custody_jm" : sheetTable_nicu_custody_jm,
+        "cardiology_lcey" : sheetTable_cardiology_lcey,
+        "rescue_hl" : sheetTable_emergency_rescue,
+        "oxytocin_hl" : sheetTable_oxytocin_hl,
+        "oxytocin_sdlj" : sheetTable_oxytocin_sdlj,
+        "oxytocinck_dglb" : sheetTable_oxytocinck_dglb,
+        "oxytocin_sdry" : sheetTable_oxytocin_sdry,
+        "insulin_pump_sdry" : sheetTable_insulin_pump_sdry,
+        "oxytocin_dglb" : sheetTable_oxytocin_dglb,
+        "dressing_count_hl" : sheetTable_dressing_count_hl,
+        "intersurgerycure_qzx" : sheetTable_intersurgerycure_qzx,
+        "prenatal_ytll" : sheetTable_prenatal_ytll,
       }
-      // else if (sheetInfo.sheetType == "internal_eval_lcey") {
-      //   return sheetTable_internal_eval_lcey;
-      // }
-      else if (sheetInfo.sheetType == "surgical_eval2_lcey") {
-        return sheetTable_surgical_eval2_lcey;
-      } else if (sheetInfo.sheetType == "intervention_cure_lcey") {
-        return sheetTable_intervention_cure_lcey;
-      } else if (sheetInfo.sheetType == "picu_hemodialysis_jm") {
-        return sheetTable_picu_hemodialysis_jm;
-      } else if (sheetInfo.sheetType == "waiting_birth_gzry") {
-        return sheetTable_waiting_birth_gzry;
-      } else if (sheetInfo.sheetType == "newborn_care_gzry") {
-        return sheetTable_newborn_care_gzry;
-      } else if (sheetInfo.sheetType == "catheterplacement_jm") {
-        return sheetTable_catheterplacement_jm;
-      } else if (sheetInfo.sheetType == "picc_custody_jm") {
-        return sheetTable_picc_custody_jm;
-      } else if (sheetInfo.sheetType == "nicu_custody_hd") {
-        return sheetTable_nicu_custody_hd;
-      } else if (sheetInfo.sheetType == "nicu_custody_jm") {
-        return sheetTable_nicu_custody_jm;
-      } else if (sheetInfo.sheetType == "cardiology_lcey") {
-        return sheetTable_cardiology_lcey;
-      } else if (sheetInfo.sheetType == "rescue_hl") {
-        return sheetTable_emergency_rescue;
-      } else if (sheetInfo.sheetType == "oxytocin_hl") {
-        return sheetTable_oxytocin_hl;
-      } else if (sheetInfo.sheetType == "oxytocin_sdlj") {
-        return sheetTable_oxytocin_sdlj;
-      } else if (sheetInfo.sheetType == "oxytocinck_dglb") {
-        return sheetTable_oxytocinck_dglb;
-      }
-      else if (sheetInfo.sheetType == "oxytocin_sdry") {
-        return sheetTable_oxytocin_sdry;
-      } else if (sheetInfo.sheetType == "insulin_pump_sdry") {
-        return sheetTable_insulin_pump_sdry;
-      } else if (sheetInfo.sheetType == "oxytocin_dglb") {
-        return sheetTable_oxytocin_dglb;
-      } else if (sheetInfo.sheetType == "dressing_count_hl") {
-        return sheetTable_dressing_count_hl;
-      } else if (sheetInfo.sheetType == "intersurgerycure_qzx") {
-        return sheetTable_intersurgerycure_qzx;
-      } else if (sheetInfo.sheetType == "prenatal_ytll") {
-        return sheetTable_prenatal_ytll;
-      } else {
-        return sheetTable;
-      }
+        if(data[sheetInfo.sheetType]){
+          return data[sheetInfo.sheetType]
+        }else{
+          return sheetTable;
+        }
     },
   },
   methods: {

@@ -96,7 +96,7 @@ export default [
     value: "",
     next: "℃",
     name: "体温",
-    textarea: { width: 35 },
+    textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 2)
   },
   {
@@ -114,7 +114,7 @@ export default [
     value: "",
     next: "次/分",
     name: "呼吸",
-    textarea: { width: 35 },
+    textarea: { width: 30},
     change: (e, td) => limitChange(e, td, 2)
   },
   {
@@ -218,7 +218,7 @@ export default [
     next: "",
     name: "衔接",
     autoComplete: { data: ["已", "未", "部分"] },
-    textarea: { width: 25 },
+    textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 2)
   },
   // {
@@ -321,7 +321,7 @@ export default [
     name: "非药物镇痛方法",
     autoComplete: { data: ["呼吸减痛法", "自由体位", "音乐疗法", "分娩球", "陪伴", "助产指导"] },
     textarea: {
-      width: 40
+      width: 45
     }
   },
   {
@@ -391,7 +391,7 @@ export default [
       width: "210px",
       background: "transparent"
     },
-    textarea: { width: 210 },
+    textarea: { width: 200 },
     event: function(e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

@@ -35,7 +35,7 @@
       </tr>
       <tr
         class="head-con"
-        :id="[sheetInfo.sheetType == 'common_wj'?'bigFonstSize':'']"
+        :id="[sheetInfo.sheetType == 'common_wj' || HOSPITAL_ID=='nfyksdyy' ?'bigFonstSize':'']"
         v-for="(th, index) in data.titleModel.th"
         :key="index"
       >
@@ -103,7 +103,7 @@
     >
       <tr
         class="head-con"
-        :id="[sheetInfo.sheetType == 'common_wj'?'bigFonstSize':'']"
+        :id="[sheetInfo.sheetType == 'common_wj' || HOSPITAL_ID=='nfyksdyy' ?'bigFonstSize':'']"
         v-for="(th, index) in data.titleModel.th"
         :key="index"
       >
@@ -187,6 +187,7 @@
               }).value == '5',
             redBottom:['wujing'].includes(HOSPITAL_ID)&&redBottom(tr,y), // 待性能优化
             isCanModify: onCanModify(data.bodyModel,index, y),
+            bigFontSizeSdyy:  HOSPITAL_ID=='nfyksdyy' ,
           },
           tr.find((item) => {
             return item.key == 'markObj';
@@ -216,6 +217,7 @@
           :dataKey="td.key"
           :dataName="td.name"
           v-if="!td.hidden"
+          :id="[]"
           :colspan="td.colspan"
           @mouseover="markTip($event, td)"
           @mouseout="closeMarkTip"
@@ -581,6 +583,7 @@
     </div>
     <div
       class="table-footer"
+      :class="{bigFontSizeSdyy:  HOSPITAL_ID=='nfyksdyy'}"
       v-if="sheetInfo.sheetType != 'intervention_cure_hd'"
     >
       <span v-if="doubleSignArr.includes(sheetInfo.sheetType)" class="zg-name">
@@ -1166,12 +1169,13 @@ export default {
       leftTopBottomRight(e, bind);
     },
     onFocus(e, bind) {
+
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
         setTimeout(() => {
           if(!this.isOpenEditModal){
             //自定义标题没有输入事件  所以当有医院配置 保存按需（修改记录）来传给后端后 需要调用这个事件
-            onFocusToAutoComplete(e, bind, () => this.customCallBack(e, bind.tr, bind.x, bind.y, bind.index)); //下拉框延迟
+            onFocusToAutoComplete(e, bind, () => this.customCallBack(e, bind.tr, bind.x, bind.y, bind.z)); //下拉框延迟
           }
         }, 300);
       }
@@ -3205,7 +3209,7 @@ export default {
         setTimeout(() => {
           if(!this.isOpenEditModal){
             //自定义标题没有输入事件  所以当有医院配置 保存按需（修改记录）来传给后端后 需要调用这个事件
-            onFocusToAutoComplete(e, data, () => this.customCallBack(e, data.tr, data.x, data.y, data.index)); //下拉框延迟
+            onFocusToAutoComplete(e, data, () => this.customCallBack(e, data.tr, data.x, data.y, data.z)); //下拉框延迟
           }
         }, 300);
       }

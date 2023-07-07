@@ -18,7 +18,9 @@
             :colspan="item.colspan || 1"
             v-for="item in tableData.thead"
             :key="item.value"
-          >{{ item.value }}</th>
+          >
+            {{ item.value }}
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -31,34 +33,36 @@
             :style="[td.style, td.isChecked && { cursor: 'pointer' }]"
             @click="td.isChecked && isChecked(tr, td, tdIndex)"
           >
-            <label v-if="td.prev">{{ td.prev }}</label>
-
-          <div class="sign-img-con" v-if="td.sign">
-           <input type="text" v-model="sheetInfo.relObj.signerName2"  :data-value="sheetInfo.relObj.signerName2">
+          <div v-if="td.sign" class="sign-img-con" >
+             <label v-if="td.prev">{{ td.prev }}</label>
+                <div
+                  class="sign-null-box"
+                  @click="sign2()"
+                  v-if="!sheetInfo.relObj.signerNo2"
+                ></div>
+                <div class="sign-in-box" v-else @click="sign2(true)">
+                  <div class="audit-img sign-img">
+                    <img
+                      class="in-print"
+                      :src="
+                        `/crNursing/api/file/signImage/${sheetInfo.relObj.signerNo2}?${token}`
+                      "
+                      alt
+                    />
+                  </div>
+            </div>
           </div>
-           <!--
-            <div class="sign-img-con" @click="sign2" v-if="td.sign">
-              <span v-if="!isPrint" class="head-sign-text">
-                {{
-                sheetInfo.relObj.signerName2
-                }}
-              </span>
-              <img
-                class="head-sign-img"
-                v-if="sheetInfo.relObj.signerNo2"
-                :src="
-                  `/crNursing/api/file/signImage/${sheetInfo.relObj.signerNo2}?${token}`
-                "
-                alt
-              />
-            </div> -->
-            <span v-else>{{ td.value }}</span>
+            <div v-else>
+              <label v-if="td.prev">{{ td.prev }}</label>
+              <span >{{ td.value }}</span>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
     <div class="info">
-      <div class="group">催产素静脉点滴情况：
+      <div class="group">
+        催产素静脉点滴情况：
         <input
           type="text"
           :data-value="sheetInfo.relObj.oxytocinCondition"
@@ -124,20 +128,30 @@ export default {
         this.sheetInfo.relObj.totalCervixGrade -= currentGrade;
       }
     },
-    sign2() {
+    sign2(isCancel) {
+      let title = isCancel ? '取消签名' : '确认签名'
       window.openSignModal((password, empNo) => {
         getUser(password, empNo).then(res => {
-          this.sheetInfo.relObj.signerNo2 = res.data.data.empNo;
-          this.sheetInfo.relObj.signerName2 = res.data.data.empName;
-          console.log(res.data.data.empName);
-          console.log(this.sheetInfo.relObj.signerName2);
-          this.bus.$emit("saveSheetPage");
-          this.$notify.success({
-            title: "提示",
-            message: "签名成功"
-          });
+            if(isCancel){
+              this.sheetInfo.relObj.signerNo2 = "";
+              this.sheetInfo.relObj.signerName2 = "";
+              this.bus.$emit("saveSheetPage");
+              this.$notify.success({
+                title: "提示",
+                message: "取消签名成功"
+              });
+            }else{
+              this.sheetInfo.relObj.signerNo2 = res.data.data.empNo;
+              this.sheetInfo.relObj.signerName2 = res.data.data.empName;
+              this.bus.$emit("saveSheetPage");
+              this.$notify.success({
+                title: "提示",
+                message: "签名成功"
+              });
+            }
+
         });
-      });
+      }, title )
     }
   },
 
@@ -157,6 +171,10 @@ export default {
   computed: {
     isPrint() {
       return window.location.href.indexOf("print") > -1;
+    },
+    auditorNo(){
+      console.log(this.sheetInfo.relObj["signerName2"],'dddddddddddd');
+      return this.sheetInfo.relObj["signerName2"]
     }
   },
   watch: {},
@@ -225,31 +243,36 @@ export default {
     }
   }
 }
-
-.sign-img-con {
-  display: inline-block;
-  width: 100px;
-  height: 21px;
-  font-size: 12px;
-  margin-right: 14px;
-  // cursor: pointer;
-  border-bottom: 1px solid #444;
-  input{
-    display: inline-block;
-    width: 100%;
-    border: none;
-    outline: none;
-  }
-  .head-sign-text {
-    height: 28px;
-    line-height: 28px;
-  }
-  .head-sign-img {
-    transform: translate(-1px, 10px);
-    margin-top: -10px;
-    display: none;
-    height: 28px;
-    line-height: 28px;
-  }
+.sign-img-con{
+  display: flex;
+  align-items: center;
+  height: 30px;
+  .sign-null-box {
+      cursor: pointer;
+      margin: auto;
+      height: 30px;
+      width: 80px;
+    }
+    .sign-in-box {
+      min-width: 52px;
+      height: 30px;
+      cursor: pointer;
+      margin: auto;
+      object-fit: cover;
+      .audit-text {
+        line-height: 30px;
+      }
+      .audit-img {
+        height: 30px;
+        object-fit: cover;
+        padding-bottom: 2px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
 }
+
+
 </style>

@@ -149,6 +149,15 @@
           v-model="sheetInfo.relObj.guomishi"
         />
         </span>
+        <span  v-if="sheetInfo.sheetType=='prenatal_sdry'  ">
+        &nbsp;&nbsp;破膜时间:
+          <crDatePicker
+            :data-value="sheetInfo.relObj.laborTime"
+            v-model="sheetInfo.relObj.laborTime"
+            :width="140"
+            style="border:none;border-bottom:1px solid #000;height:22px"
+          />
+      </span>
         <span  v-if="sheetInfo.sheetType=='postpartum_sdry'" style="margin-left: 30px;">
           过敏史：
           <input
@@ -192,7 +201,7 @@
         </span>
         <span v-else @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
           床号:
-          <div class="bottom-line" :class="sheetTypeClass" style="min-width: 90px">{{patientInfo.bedLabel}}</div>
+          <div class="bottom-line" :class="sheetTypeClass" style="min-width: 60px">{{patientInfo.bedLabel}}</div>
         </span>
         <!-- <span>{{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}</span> -->
         <span>
@@ -230,11 +239,11 @@
         </span>
         <span  v-if="sheetInfo.sheetType == 'postpartum_sdry'" style="margin-left:60px;">
           分娩时间:
-          <crDatePicker
+          <input
             :data-value="sheetInfo.relObj.laborTime"
             v-model="sheetInfo.relObj.laborTime"
-            :width="190"
-            style="border:none;border-bottom:1px solid #000;height:22px;"
+            @click="handleLaborTime($event)"
+            style="border:none;border-bottom:1px solid #000;height:22px;width:192px;"
           />
         </span>
 
@@ -263,7 +272,7 @@
           :options="perineums"
           @onSelect="(val) => setRelValue(`${index}perineums`, val)"
         >
-          <input :data-value="sheetInfo.relObj[`${index}perineums`]" v-model="sheetInfo.relObj[`${index}perineums`]" style="width:130px;">
+          <input :data-value="sheetInfo.relObj[`${index}perineums`]" v-model="sheetInfo.relObj[`${index}perineums`]" style="width:100px;">
         </customSelectCanRepeat>
     </template>
 
@@ -342,15 +351,7 @@
       <input  type="text" :data-value="sheetInfo.relObj.hulicuoshi" v-model="sheetInfo.relObj.hulicuoshi" style="width: 100px;">
       </customSelectCanRepeat> -->
     </template>
-      <span  v-if="sheetInfo.sheetType=='prenatal_sdry'  ">
-        &nbsp;&nbsp;破膜时间:
-          <crDatePicker
-            :data-value="sheetInfo.relObj.laborTime"
-            v-model="sheetInfo.relObj.laborTime"
-            :width="140"
-            style="border:none;border-bottom:1px solid #000;height:22px"
-          />
-      </span>
+    
 
       </div>
     </div>
@@ -642,6 +643,12 @@ export default {
     }
   },
   methods: {
+    // 点击获取当前时间
+    handleLaborTime(e){
+      if(!e.target.value) {
+        e.target.value = moment().format("YYYY-MM-DD HH:mm")
+      }
+    },
     closeBedshow(){
       this.bedShow = false
     },
@@ -817,6 +824,11 @@ input.bottom-line {
   border-right: 0;
   outline: none;
   height: 12px;
+}
+.sheet-page-container .header-con span {
+  margin-right: -2px;
+  font-size: 16px;
+  color: #000;
 }
 .ml-1000 {
   margin-left: 850px;
