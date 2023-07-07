@@ -739,7 +739,8 @@ function switchSheetType(type) {
       break;
     case "critical_linyi": {
       // 临邑人医 - 病重（病危）患者护理记录单
-      schema = require("../config/critical_linyi/tr").default;
+      if (process.env.HOSPITAL_ID == 'whhk') schema = require("../config/critical_whhk/tr").default;
+      else schema = require("../config/critical_linyi/tr").default;
     }
       break;
     case "critical_new_linyi": {

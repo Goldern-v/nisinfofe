@@ -23,6 +23,11 @@ let fangsheList = [] // 对光反射
 
 export default [
   {
+    hidden: true,
+    key: "recordDate",
+    value: ""
+  },
+  {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
@@ -402,11 +407,6 @@ export default [
   {
     hidden: true,
     key: "dataHash",
-    value: ""
-  },
-  {
-    hidden: true,
-    key: "recordDate",
     value: ""
   },
   {

@@ -1,10 +1,22 @@
 <template>
-  <div id="sheetPagePrint" style="overflow:auto" :class="[HOSPITAL_ID=='guizhou'?'guizhou':['fuyou'].includes(HOSPITAL_ID)?'fontInputW':['zhzxy'].includes(HOSPITAL_ID)?'zhzxyInputW':['nfyksdyy'].includes(HOSPITAL_ID)?'nfyksdyyInputW':'']" :style="[query.sheetType=='critical2_weihai' && {overflow:'auto'}]">
+  <div
+    id="sheetPagePrint"
+    :class="[
+      HOSPITAL_ID == 'guizhou'
+        ? 'guizhou'
+        : ['fuyou'].includes(HOSPITAL_ID)
+        ? 'fontInputW'
+        : ['zhzxy'].includes(HOSPITAL_ID)
+        ? 'zhzxyInputW'
+        : '',
+    ]"
+    :style="[query.sheetType == 'critical2_weihai' && { overflow: 'auto' }]"
+  >
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
     <div
       class="iframe"
-      :class="HOSPITAL_ID === 'hengli' ? 'reduceGap' : ['orthopaedic_sdry','postpartum2_sdry','baby2_sdry','baby_sdry','postpartum_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ?'sdyy':''"
+      :class="HOSPITAL_ID === 'hengli' ? 'reduceGap' : ''"
       v-html="sheetModel"
     ></div>
   </div>
@@ -12,9 +24,10 @@
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
 #sheetPagePrint {
-  *{
+  * {
     pointer-events: none;
   }
+
   overflow: hidden;
 
   .contant {
@@ -52,7 +65,8 @@
   td[datakey='sign'] {
     display: none !important;
   }
-/* 打印时隐藏第二列签名---td */
+
+  /* 打印时隐藏第二列签名---td */
   td[datakey='sign2'] {
     display: none !important;
   }
@@ -71,38 +85,45 @@
   th[dataname='护士签名'] {
     width: 90px !important;
   }
+
   th[dataname='签名'] {
     width: 60px !important;
   }
+
   th[dataname='检查者'] {
     width: 60px !important;
   }
+
   th[dataname='审核签名'] {
     display: none !important;
   }
 
-  th[dataname='记录人签名']:first-child{
+  th[dataname='记录人签名']:first-child {
     width: 90px !important;
   }
-  th[dataname='记录人签名']{
+
+  th[dataname='记录人签名'] {
     width: 90px !important;
   }
-  th[dataname='护士<br>签名']{
+
+  th[dataname='护士<br>签名'] {
     width: 90px !important;
   }
-  th[dataname='带教<br/>护士']{
+
+  th[dataname='带教<br/>护士'] {
     display: none !important;
   }
 
-/* 打印时隐藏第二列签名表头---th */
-  th[dataname='记录人签名']:last-child{
-    display :none;
+  /* 打印时隐藏第二列签名表头---th */
+  th[dataname='记录人签名']:last-child {
+    display: none;
   }
+
   // th[dataname='护士签名']:last-child{
-  //   display :none;
+  // display :none;
   // }
-  th[dataname='护士<br>签名']:last-child{
-    display :none;
+  th[dataname='护士<br>签名']:last-child {
+    display: none;
   }
 
   .sign-img {
@@ -147,27 +168,31 @@
   [datakey='description'] {
     text-align: left;
   }
-   &.zhzxyInputW{
-      table td,th textarea,input,span{
-        font-size:14px !important
-      }
+
+  &.zhzxyInputW {
+    table td, th textarea, input, span {
+      font-size: 14px !important;
+    }
   }
 }
-//字体变黑体，解决打印模糊问题
-.fontInputW{
-   input {
+
+// 字体变黑体，解决打印模糊问题
+.fontInputW {
+  input {
     color: #000000 !important;
-    font-family: "SimHei" !important;
+    font-family: 'SimHei' !important;
     font-weight: 400;
   }
-   textarea {
+
+  textarea {
     color: #000000 !important;
-    font-family: "SimHei" !important;
+    font-family: 'SimHei' !important;
     font-weight: 400 !important;
   }
+
   div {
     color: #000000 !important;
-    font-family: "SimHei" !important;
+    font-family: 'SimHei' !important;
     font-weight: 400 !important;
   }
 }
@@ -181,20 +206,22 @@
       // width 1100px !important
       margin: 0 !important;
     }
-    &.nfyksdyyInputW{
-        input, textarea {
+
+    &.nfyksdyyInputW {
+      input, textarea {
         color: #000 !important;
-        font-size 12px !important;
+        // font-size:12px !important;
         // color: #000000 !important;
         // font-family: "SimHei" !important;
-  }
-    }
-
-    &.guizhou{
-      .contant {
-        margin-top: -50px!important;
       }
     }
+
+    &.guizhou {
+      .contant {
+        margin-top: -50px !important;
+      }
+    }
+
     .his-logo {
       top: 0 !important;
       left: 0 !important;
@@ -209,22 +236,27 @@
       padding-top: 80px;
       box-sizing: border-box;
     }
+
     .iframe > div:last-child {
       page-break-after: auto;
     }
+
     /* 横沥所有护记头尾部空白减少 */
-    .reduceGap> div{
+    .reduceGap> div {
       padding-top: 20px !important;
     }
+
     .iframe > div:nth-of-type(2n) {
       transform: rotate(180deg);
     }
+
     .el-checkbox__inner::after {
       border-color: #000;
     }
   }
+
   strong {
-    font-family: "SimHei" !important;
+    font-family: 'SimHei' !important;
     font-size: 13px !important;
   }
 }
@@ -281,20 +313,16 @@ export default {
         "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
         "obstetricnursing_jm", //江门妇幼_产科护理记录单
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
-        "postpartumnursing_jm",//江门妇幼_产后护理记录单
-        "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
-        "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
-        "safemetachysis_jm",//江门妇幼_输血护理记录单
-        "internal_eval_lcey",//聊城_一般患者护理记录单
-        "critical_new_lcey",//聊城_病重（危）患者护理记录单(带瞳孔）
-        "critical2_lcey",//聊城_病重（危）患者护理记录单
-        "critical_lcey",//聊城_病重（病危）患者护理记录单（带瞳孔）
+        "postpartumnursing_jm", //江门妇幼_产后护理记录单
+        "entdepartment_jm", //江门妇幼_耳鼻喉科护理记录单
+        "catheterplacement_jm", //江门妇幼_深静脉导管置入术后维护单
+        "safemetachysis_jm", //江门妇幼_输血护理记录单
+        "internal_eval_lcey", //聊城_一般患者护理记录单
+        "critical_new_lcey", //聊城_病重（危）患者护理记录单(带瞳孔）
+        "critical2_lcey", //聊城_病重（危）患者护理记录单
+        "critical_lcey", //聊城_病重（病危）患者护理记录单（带瞳孔）
       ],
-      heightAdjuthd:[
-        'postpartum_hd',
-        'wait_delivery_hd',
-        'prenatal_hd'
-      ]
+      heightAdjuthd: ["postpartum_hd", "wait_delivery_hd", "prenatal_hd"],
     };
   },
   created() {
@@ -307,7 +335,11 @@ export default {
     this.url = `${host}/sheet-page-print.html`;
   },
   mounted() {
-    console.log("this.sheetInfo.sheetType",this.sheetInfo.sheetType,this.HOSPITAL_ID)
+    console.log(
+      "this.sheetInfo.sheetType",
+      this.sheetInfo.sheetType,
+      this.HOSPITAL_ID
+    );
     if (document.querySelector('th[dataname="审核签名"]')) {
       $(".contant").width(Math.max($(".contant").width()));
     }
@@ -318,52 +350,56 @@ export default {
     if (this.HOSPITAL_ID == "lingcheng") {
       let pageEle = document.querySelectorAll("div.contant");
       let arr = Array.from(pageEle);
-      arr.map(child => {
+      arr.map((child) => {
         child.style.width = child.offsetWidth + 40 + "px";
       });
     }
     let sheetTableWidth = document.querySelector("div.contant").offsetWidth;
     //   医院的护理单打印双数页面会翻转（双面打印）。这些医院都是不需要偶数页面打印翻转的
-    if(this.HOSPITAL_ID==="sdlj"
-       || this.HOSPITAL_ID==="fuyou"
-       ||this.sheetInfo.sheetType==="ventilation_hl"
-       ||this.HOSPITAL_ID==="wujing"
-       ||this.HOSPITAL_ID==="fsxt"
-       ||this.HOSPITAL_ID==="gdtj"
-       ||this.HOSPITAL_ID==="whfk"
-       ||this.HOSPITAL_ID==="foshanrenyi"
-       ||this.HOSPITAL_ID==="zhzxy"
-       ||this.HOSPITAL_ID==="lyxrm"
-       ||this.HOSPITAL_ID==="huadu"
-       ||this.HOSPITAL_ID==="xiegang"
-       ||this.HOSPITAL_ID==='whsl'
-       ||this.HOSPITAL_ID==='ytll'
-       ||this.HOSPITAL_ID==='stmz'
-       ||this.HOSPITAL_ID==='lyyz'
-        ||this.HOSPITAL_ID==='hj'
-        ||this.HOSPITAL_ID==='nfyksdyy'
-       ||this.HOSPITAL_ID==='dglb'){
+    if (
+      this.HOSPITAL_ID === "sdlj" ||
+      this.HOSPITAL_ID === "fuyou" ||
+      this.sheetInfo.sheetType === "ventilation_hl" ||
+      this.HOSPITAL_ID === "wujing" ||
+      this.HOSPITAL_ID === "fsxt" ||
+      this.HOSPITAL_ID === "gdtj" ||
+      this.HOSPITAL_ID === "whfk" ||
+      this.HOSPITAL_ID === "foshanrenyi" ||
+      this.HOSPITAL_ID === "zhzxy" ||
+      this.HOSPITAL_ID === "lyxrm" ||
+      this.HOSPITAL_ID === "huadu" ||
+      this.HOSPITAL_ID === "xiegang" ||
+      this.HOSPITAL_ID === "whsl" ||
+      this.HOSPITAL_ID === "ytll" ||
+      this.HOSPITAL_ID === "stmz" ||
+      this.HOSPITAL_ID === "lyyz" ||
+      this.HOSPITAL_ID === "hj" ||
+      this.HOSPITAL_ID === "nfyksdyy" ||
+      this.HOSPITAL_ID === "dglb"
+    ) {
       printDir("h");
-            addCSS(
-              window,
-              `
+      addCSS(
+        window,
+        `
           @media print {
             .iframe > div:nth-of-type(2n) {
               transform: rotate(0deg) !important;
             }
           }
           `
-            );
+      );
     }
 
     $("#app").css({
-      minWidth: sheetTableWidth + "px"
+      minWidth: sheetTableWidth + "px",
     });
-    console.log("this.sheetInfo.sheetType ",this.sheetInfo.sheetType )
+    console.log("this.sheetInfo.sheetType ", this.sheetInfo.sheetType);
 
-    if (sheetTableWidth > 1000 &&
-    !['ops_linyi','nicu_custody_hd'].includes(this.sheetInfo.sheetType) &&
-    this.query.sheetType!=='critical2_weihai') {
+    if (
+      sheetTableWidth > 1000 &&
+      !["ops_linyi", "nicu_custody_hd"].includes(this.sheetInfo.sheetType) &&
+      this.query.sheetType !== "critical2_weihai"
+    ) {
       printDir("h");
       addCSS(
         window,
@@ -375,7 +411,8 @@ export default {
         }
         `
       );
-    } else if (this.sheetInfo.sheetType == 'ops_linyi') { //解决A3打印偶数页时会多一页空白页
+    } else if (this.sheetInfo.sheetType == "ops_linyi") {
+      //解决A3打印偶数页时会多一页空白页
       printDir("h");
       addCSS(
         window,
@@ -387,7 +424,7 @@ export default {
         }
         `
       );
-    } else if (this.sheetInfo.sheetType == 'nicu_custody_hd') {
+    } else if (this.sheetInfo.sheetType == "nicu_custody_hd") {
       printDir("h");
       addCSS(
         window,
@@ -399,7 +436,7 @@ export default {
         }
         `
       );
-    } else if('critical2_weihai'===this.query.sheetType){
+    } else if ("critical2_weihai" === this.query.sheetType) {
       addCSS(
         window,
         `
@@ -432,10 +469,28 @@ export default {
         `
       );
     }
-     if(['orthopedics','gynecology','infectious_diseases','respiration',
-    'internal_eval_hj','reha_medicine','urology','neurology','endocrinology','general_surgery',
-    'neurosurgery','gastroenterology','neonatology2','medicine_cardiovascular','ear_nose_throat',
-    'tumor_hemodialysis','obstetrics','pediatrics'].includes(this.query.sheetType)){
+    if (
+      [
+        "orthopedics",
+        "gynecology",
+        "infectious_diseases",
+        "respiration",
+        "internal_eval_hj",
+        "reha_medicine",
+        "urology",
+        "neurology",
+        "endocrinology",
+        "general_surgery",
+        "neurosurgery",
+        "gastroenterology",
+        "neonatology2",
+        "medicine_cardiovascular",
+        "ear_nose_throat",
+        "tumor_hemodialysis",
+        "obstetrics",
+        "pediatrics",
+      ].includes(this.query.sheetType)
+    ) {
       addCSS(
         window,
         `
@@ -447,9 +502,9 @@ export default {
           }
         }
         `
-      )
+      );
     }
-    if(['prenatal'].includes(this.query.sheetType)){
+    if (["prenatal"].includes(this.query.sheetType)) {
       addCSS(
         window,
         `
@@ -461,8 +516,8 @@ export default {
           }
         }
         `
-      )
-    }else if(['intervention_cure','cpr'].includes(this.query.sheetType)){
+      );
+    } else if (["intervention_cure", "cpr"].includes(this.query.sheetType)) {
       addCSS(
         window,
         `
@@ -474,9 +529,9 @@ export default {
           }
         }
         `
-      )
-    }else if(this.sheetInfo.sheetType == 'postpartumnursing_jm'){
-       addCSS(
+      );
+    } else if (this.sheetInfo.sheetType == "postpartumnursing_jm") {
+      addCSS(
         window,
         `
         @media print {
@@ -487,7 +542,7 @@ export default {
         `
       );
     }
-    if((this.HOSPITAL_ID === "huadu")){
+    if (this.HOSPITAL_ID === "huadu") {
       addCSS(
         window,
         `
@@ -500,7 +555,8 @@ export default {
       );
     }
     /* 护理记录单行高 */
-    if ( (this.HOSPITAL_ID === "quzhou") &&
+    if (
+      this.HOSPITAL_ID === "quzhou" &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -514,7 +570,8 @@ export default {
         `
       );
     }
-    if ( (this.HOSPITAL_ID === "sdlj") &&
+    if (
+      this.HOSPITAL_ID === "sdlj" &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -528,7 +585,8 @@ export default {
         `
       );
     }
-    if ( (this.HOSPITAL_ID === "wujing") &&
+    if (
+      this.HOSPITAL_ID === "wujing" &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -542,7 +600,7 @@ export default {
         `
       );
     }
-    if(this.sheetInfo.sheetType=="common_wj"){
+    if (this.sheetInfo.sheetType == "common_wj") {
       addCSS(
         window,
         `
@@ -554,7 +612,7 @@ export default {
         `
       );
     }
-    if(this.sheetInfo.sheetType=="cardiovascular_xt"){
+    if (this.sheetInfo.sheetType == "cardiovascular_xt") {
       addCSS(
         window,
         `
@@ -566,7 +624,7 @@ export default {
         `
       );
     }
-    if ( (["zhzxy"].includes(this.HOSPITAL_ID)) ) {
+    if (["zhzxy"].includes(this.HOSPITAL_ID)) {
       addCSS(
         window,
         `
@@ -578,7 +636,8 @@ export default {
         `
       );
     }
-    if ( (["foshanrenyi"].includes(this.HOSPITAL_ID)) &&
+    if (
+      ["foshanrenyi"].includes(this.HOSPITAL_ID) &&
       this.lineSpacingArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -594,7 +653,7 @@ export default {
     }
     /* 花都打印双签名：第二个护士签名打印时隐藏 */
     if (
-      (this.HOSPITAL_ID === "huadu") &&
+      this.HOSPITAL_ID === "huadu" &&
       this.multiSignArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -615,7 +674,7 @@ export default {
       );
     }
     if (
-      (this.HOSPITAL_ID === "huadu") &&
+      this.HOSPITAL_ID === "huadu" &&
       this.heightAdjuthd.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -633,9 +692,7 @@ export default {
       );
     }
 
-    if (
-      (this.HOSPITAL_ID === "fsxt")
-    ) {
+    if (this.HOSPITAL_ID === "fsxt") {
       addCSS(
         window,
         `
@@ -662,8 +719,8 @@ export default {
         `
       );
     }
-     if (
-      (this.HOSPITAL_ID === "liaocheng") &&
+    if (
+      this.HOSPITAL_ID === "liaocheng" &&
       this.multiSignArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -685,9 +742,7 @@ export default {
         `
       );
     }
-    if (
-      (this.HOSPITAL_ID === "qhwy")
-    ) {
+    if (this.HOSPITAL_ID === "qhwy") {
       addCSS(
         window,
         `
@@ -698,10 +753,7 @@ export default {
         `
       );
     }
-    if (
-      (this.HOSPITAL_ID === "gdtj")
-    ) {
-
+    if (this.HOSPITAL_ID === "gdtj") {
       addCSS(
         window,
         `
@@ -715,9 +767,7 @@ export default {
         `
       );
     }
-     if (
-      (this.HOSPITAL_ID === "xiegang")
-    ) {
+    if (this.HOSPITAL_ID === "xiegang") {
       addCSS(
         window,
         `
@@ -734,8 +784,8 @@ export default {
         `
       );
     }
-     if (
-      (this.HOSPITAL_ID === "sdlj") &&
+    if (
+      this.HOSPITAL_ID === "sdlj" &&
       this.sheetInfo.sheetType == "neonate_sdlj"
     ) {
       addCSS(
@@ -767,10 +817,10 @@ export default {
             }
           }
         `
-      )
+      );
     }
     if (
-      (this.HOSPITAL_ID === "fuyou") &&
+      this.HOSPITAL_ID === "fuyou" &&
       this.multiSignArr.includes(this.sheetInfo.sheetType)
     ) {
       addCSS(
@@ -785,11 +835,9 @@ export default {
         `
       );
     }
-     if (
-      (this.HOSPITAL_ID === "925")
-    ) {
-       printDir("h");
-       addCSS(
+    if (this.HOSPITAL_ID === "925") {
+      printDir("h");
+      addCSS(
         window,
         `
            @media print {
@@ -855,7 +903,7 @@ export default {
             }
           }
         `
-      )
+      );
     }
     if (this.HOSPITAL_ID === "nfyksdyy") {
       addCSS(
@@ -877,95 +925,110 @@ export default {
              min-width: 100px !important;
               max-width: 100px !important;
           }
-          .sign-img{
-            img{
-            transform: scale(1.2);
-            }
+          .info-con{
+            font-size:16px!improtant;
           }
 
+          #sheetPagePrint td[datakey="signerNo"] .sign-img img{
+              transform:scale(0.81)
+          }
           @media print {
-              @page {
-                       margin:10mm 0 0 0;
-                    }
+            #sheetPagePrint .body-con{ height: 40px !important; }
+            #sheetPagePrint .body-con td input { font-size: 14px !important;}
+            #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
           }
+
         `
-      )
+      );
     }
-    // if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
-        if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(this.query.sheetType)){
-          addCSS(
-          window,
-          `
-             @media print {
-                  .body-con{
-                    height: 35px !important;
-                  }
-                  .sdyy > div {
-                    page-break-after: always;
-                    box-sizing: border-box;
-                  }
-              }
-          `
-                )
-              }
-      if (('baby2_sdry'===this.query.sheetType )) {
-      // if ((sheetInfo.sheetType == "baby2_sdry")) {
-      addCSS(
-        window,
-            `
-            @media print {
-                  .body-con{
-                    height: 40px !important;
-                  }
-                  .sdyy > div {
-                    page-break-after: always;
-                    box-sizing: border-box;
-                  }
-                  }
-            `
-          );
-        }
 
-      if (('baby_sdry'===this.query.sheetType )) {
-      // if ((sheetInfo.sheetType ==  'baby_sdry')) {
-      addCSS(
-        window,
-            `
-            @media print {
-                  .body-con{
-                    height: 38px !important;
-                  }
-                  .sdyy > div {
-                    page-break-after: always;
-                    box-sizing: border-box;
-                  }
-                  }
-            `
-          );
-        }
-      if (('postpartum_sdry'===this.query.sheetType )) {
-      // if ((sheetInfo.sheetType ==  'postpartum_sdry')) {
-      addCSS(
-        window,
-            `
-            @media print {
-                  .body-con{
-                    height: 34px !important;
-                  }
-                  .sdyy > div {
-                    page-break-after: always;
-                    box-sizing: border-box;
-                  }
-                  }
-            `
-          );
-        }
+    // if(sheetInfo.sheetType == "orthopaedic_sdry"){
+    //     printDir("h");
+    //     addCSS(
+    //       window,
+    //       `
+    //         @media print {
+    //           #sheetPagePrint .contant{
+    //             margin-top:-5x;!important;
+    //           }
+    //           .body-con{
+    //             height: 35px !important;
+    //           }
+    //           @page{
+    //             padding:10px 0 0 10px;
+    //           }
+    //       }
+    //       `
+    //     )
+    //   }
+
+    // // if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(sheetInfo.sheetType) ){
+    //     if(['orthopaedic_sdry','postpartum2_sdry','prenatal_sdry'].includes(this.query.sheetType)){
+    //       addCSS(
+    //       window,
+    //       `
+    //          @media print {
+    //               .sdyy > div {
+    //                 page-break-after: always;
+    //                 box-sizing: border-box;
+    //               }
+    //           }
+    //       `
+    //             )
+    //           }
+    //   if (('baby2_sdry'===this.query.sheetType )) {
+    //   // if ((sheetInfo.sheetType == "baby2_sdry")) {
+    //   addCSS(
+    //     window,
+    //         `
+    //         @media print {
+    //               .sdyy > div {
+    //                 page-break-after: always;
+    //                 box-sizing: border-box;
+    //               }
+    //               }
+    //         `
+    //       );
+    //     }
+
+    //   // if (('baby_sdry'===this.query.sheetType )) {
+    //   if ((sheetInfo.sheetType ==  'baby_sdry')) {
+    //   addCSS(
+    //     window,
+    //         `
+
+    //         @media print {
+    //           transform:scale(0.83)
+    //           @page {
+
+    //                    margin:0mm 0mm 0mm 0mm;
+    //                    padding:0mm;
+    //                 }
+    //               .sdyy > div {
+    //                 page-break-after: always;
+    //                 box-sizing: border-box;
+    //               }
+    //               }
+    //         `
+    //       );
+    //     }
+    //   if (('postpartum_sdry'===this.query.sheetType )) {
+    //   // if ((sheetInfo.sheetType ==  'postpartum_sdry')) {
+    //   addCSS(
+    //     window,
+    //         `
+    //         @media print {
+    //               .sdyy > div {
+    //                 page-break-after: always;
+    //                 box-sizing: border-box;
+    //               }
+    //               }
+    //         `
+    //       );
+    //     }
     // 如果双签可以这里加。打印的时候签名二合一。签名列拉宽
-    if (
-      (sheetInfo.sheetType == "generalnursing_tj")
-    ) {
+    if (sheetInfo.sheetType == "generalnursing_tj") {
       addCSS(
-
         window,
         `
             #sheetPagePrint th[dataname="护士<br/>签名"] {
@@ -975,11 +1038,8 @@ export default {
         `
       );
     }
-    if (
-      (sheetInfo.sheetType == "baby_tj")
-    ) {
+    if (sheetInfo.sheetType == "baby_tj") {
       addCSS(
-
         window,
         `
             #sheetPagePrint th[dataname="签 名"] {
@@ -995,11 +1055,8 @@ export default {
         `
       );
     }
-    if (
-      (sheetInfo.sheetType == "two_whhk")
-    ) {
+    if (sheetInfo.sheetType == "two_whhk") {
       addCSS(
-
         window,
         `
            @media print {
@@ -1012,11 +1069,8 @@ export default {
         `
       );
     }
-    if (
-      (sheetInfo.sheetType == "one_whhk")
-    ) {
+    if (sheetInfo.sheetType == "one_whhk") {
       addCSS(
-
         window,
         `
            @media print {
@@ -1043,19 +1097,17 @@ export default {
         `
       );
       //亚心打印
-      if (
-      (this.HOSPITAL_ID === "whyx")
-      ) {
-      addCSS(
-        window,
-        `
+      if (this.HOSPITAL_ID === "whyx") {
+        addCSS(
+          window,
+          `
            img{
               transform: scale(0.8);
             }
         `
-      );
-    }
-    if (sheetInfo.sheetType == "Record_Children_Serious_Lc") {
+        );
+      }
+      if (sheetInfo.sheetType == "Record_Children_Serious_Lc") {
         addCSS(
           window,
           `
@@ -1084,33 +1136,15 @@ export default {
             $(item).html("");
           }
           if (
-            $(item)
-              .html()
-              .indexOf("标题1") > -1 ||
-            $(item)
-              .html()
-              .indexOf("标题2") > -1 ||
-            $(item)
-              .html()
-              .indexOf("标题3") > -1 ||
-            $(item)
-              .html()
-              .indexOf("标题4") > -1 ||
-            $(item)
-              .html()
-              .indexOf("标题5") > -1 ||
-            $(item)
-              .html()
-              .indexOf("标题6") > -1 ||
-            $(item)
-              .html()
-              .indexOf("标题7") > -1 ||
-            $(item)
-              .html()
-              .indexOf("标题8") > -1 ||
-            $(item)
-              .html()
-              .indexOf("标题9") > -1
+            $(item).html().indexOf("标题1") > -1 ||
+            $(item).html().indexOf("标题2") > -1 ||
+            $(item).html().indexOf("标题3") > -1 ||
+            $(item).html().indexOf("标题4") > -1 ||
+            $(item).html().indexOf("标题5") > -1 ||
+            $(item).html().indexOf("标题6") > -1 ||
+            $(item).html().indexOf("标题7") > -1 ||
+            $(item).html().indexOf("标题8") > -1 ||
+            $(item).html().indexOf("标题9") > -1
           ) {
             $(item).html("");
           }
@@ -1121,7 +1155,7 @@ export default {
       /* 聊城二院-介入诊疗护理记录单时间选择器打印显示 */
       if ($(".editOrPirnt").length) {
         const cssArr = Array.from($(".editOrPirnt"));
-        cssArr.forEach(item => {
+        cssArr.forEach((item) => {
           item.style.display = "none";
           item.outerText =
             (item.attributes.value && item.attributes.value.value) || "";
@@ -1129,16 +1163,12 @@ export default {
       }
       /** 添加上标下标 */
       $('[datakey="description"]').each((index, el) => {
-        let dataValue = $(el)
-          .find("input")
-          .val();
+        let dataValue = $(el).find("input").val();
         let resultValue = `<span>${formatSub(
           formatSub(formatSub(dataValue))
         )}</span>`;
         if (dataValue.indexOf("^") > -1) {
-          $(el)
-            .empty()
-            .append(resultValue);
+          $(el).empty().append(resultValue);
         }
       });
     });
@@ -1162,7 +1192,7 @@ export default {
     print() {
       if (
         Array.from(window.document.querySelectorAll("img")).every(
-          img => img.complete
+          (img) => img.complete
         )
       ) {
         window.print();
@@ -1171,17 +1201,17 @@ export default {
           this.print();
         }, 1000);
       }
-    }
+    },
   },
   computed: {
     sheetModel() {
-      let html =window.localStorage.sheetModel;
+      let html = window.localStorage.sheetModel;
       var reg = /data-value/g;
       return html.replace(reg, "value");
     },
-    query(){
-      return this.$route.query
-    }
+    query() {
+      return this.$route.query;
+    },
   },
   watch: {
     qoSelect() {
@@ -1194,8 +1224,8 @@ export default {
         $(".iframe>div").show();
         $(".iframe>div:nth-of-type(2n - 1)").hide();
       }
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>

@@ -59,7 +59,6 @@
 </style>
 
 <script>
-// import patientList from "@/components/patient-list/patient-list.vue";
 import patientList from "@/components/patient-list/patient-list-router-link.vue";
 import common from "@/common/mixin/common.mixin.js";
 import { patients } from "@/api/lesion";
@@ -68,6 +67,8 @@ import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEd
 import healthEducationGuizhou from "@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation";
 import healthEducationHengLi from "@/Page/patientInfo/supPage/healthEducationHengLi/healthEducation";
 import healthEducationBeihairenyi from "@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation";
+import healthEducationNfyksdyy from "@/Page/patientInfo/supPage/healthEducationNfyksdyy/healthEducation";
+
 export default {
   mixins: [common],
   data() {
@@ -97,6 +98,8 @@ export default {
           return "healthEducationHengLi";
         case "beihairenyi":
           return "healthEducationBeihairenyi";
+        case "nfyksdyy":
+          return "healthEducationNfyksdyy";
         default:
           return "healthEducation";
       }
@@ -158,6 +161,7 @@ export default {
     healthEducationGuizhou,
     healthEducationHengLi,
     healthEducationBeihairenyi,
+    healthEducationNfyksdyy
   },
 };
 </script>

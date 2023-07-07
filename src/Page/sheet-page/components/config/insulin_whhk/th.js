@@ -12,24 +12,7 @@ export default {
   },
   th: {
     top: [
-      {
-        name: `日期`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-      },
-      {
-        name: `时间`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-      },
+      { name: "", colspan: "2", rowspan: "1", key: "recordYear" },
       {
         name: "局部皮肤",
         colspan: "5",
@@ -98,6 +81,24 @@ export default {
       },
     ],
     mid: [
+      {
+        name: `日期`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+      },
+      {
+        name: `时间`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+      },
       {
         name: `正常`,
         colspan: "1",

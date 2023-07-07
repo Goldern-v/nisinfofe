@@ -193,22 +193,22 @@ export default {
                 },
               },
             ],
-            // nfyksdyy:[
-            //   {
-            //     name: "statisticalScanCodeDetails",
-            //     meta: {
-            //       title: '扫码明细统计111',
-            //       img: require("../images/VTE.png"),
-            //     },
-            //   },
-            //   {
-            //     name: "statisticalScanRate",
-            //     meta: {
-            //       title: '扫码率统计2222',
-            //       img: require("../images/VTE.png"),
-            //     },
-            //   },
-            // ],
+            nfyksdyy:[
+              {
+                name: "statisticalScanCodeDetails",
+                meta: {
+                  title: '扫码明细统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
+              {
+                name: "statisticalScanRate",
+                meta: {
+                  title: '扫码率统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
+            ],
             other: []
           }
         }),

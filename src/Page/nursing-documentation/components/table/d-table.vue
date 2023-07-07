@@ -122,8 +122,8 @@
       <el-table-column label="操作" min-width="80px">
         <template slot-scope="scope">
           <el-button type="text" @click="openDetail(scope.row)">查看</el-button>
-          <el-button type="text" v-if="HOSPITAL_ID == 'hj'" @click="onRecall(scope.row)">病历召回</el-button>
-          <el-button type="text" v-if="HOSPITAL_ID == 'hj'" @click="onAgain(scope.row)">重新归档</el-button>
+          <el-button type="text" v-if="HOSPITAL_ID == 'hj' && userDeptCode" @click="onRecall(scope.row)">病历召回</el-button>
+          <el-button type="text" v-if="HOSPITAL_ID == 'hj' && userDeptCode" @click="onAgain(scope.row)">重新归档</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -180,6 +180,11 @@ export default {
     return {
       msg: "hello vue",
     };
+  },
+  computed:{
+    userDeptCode(){
+      return JSON.parse(localStorage.getItem("user")).deptCode == '820902'
+    }
   },
   methods: {
     async openDetail(row) {

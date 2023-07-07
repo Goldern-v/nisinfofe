@@ -12,24 +12,7 @@ export default {
   },
   th: {
     top: [
-      {
-        name: `日期`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-      },
-      {
-        name: `时间`,
-        colspan: "1",
-        rowspan: "3",
-        style: {
-          minWidth: '36px',
-          maxWidth: '36px',
-        },
-      },
+      { name: "", colspan: "2", rowspan: "1", key: "recordYear" },
       {
         name: "意识",
         colspan: "1",
@@ -192,7 +175,26 @@ export default {
         rowspan: "3",
       },
     ],
-    mid: [{
+    mid: [
+      {
+        name: `日期`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+      },
+      {
+        name: `时间`,
+        colspan: "1",
+        rowspan: "2",
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px',
+        },
+      },
+      {
         name: `T<br/>℃`,
         colspan: "1",
         rowspan: "2",

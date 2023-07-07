@@ -419,7 +419,7 @@ const otherPage = () => import("@/Page/patientInfo/supPage/otherPage/otherPage.v
 // const healthEducationGuizhou = () => import("@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation.vue");
 
 const healthEducationBerhairenyi = () => import("@/Page/patientInfo/supPage/healthEducationBeihairenyi/healthEducation.vue")
-
+const healthEducationNfyksdyy = () => import("@/Page/patientInfo/supPage/healthEducationNfyksdyy/healthEducation.vue")
 // 患者流转列表
 const patientFlowList = () => import("@/Page/patient-flow-list/patientFlowList.vue")
 const patientFlowMsg = () => import("@/Page/patient-flow-msg/patientFlowMsg.vue")
@@ -876,6 +876,7 @@ const router = new Router({
             case 'zhzxy':
             case 'nfyksdyy':
             case 'huadu':
+            // case 'ytll':
               return shiftWorkBh
             case 'fqfybjy':
               return shiftWorkFq
@@ -904,8 +905,6 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'lingcheng':
                 return shiftWorkDetailLc
-              case 'huadu':
-                return shiftWorkDetailBh
               case 'fuyou':
                 return shiftWorkDetailFy
               case 'liaocheng':
@@ -916,6 +915,8 @@ const router = new Router({
               case 'beihairenyi':
               case 'zhzxy':
               case 'nfyksdyy':
+              // case 'ytll':
+              case 'huadu':
                 return shiftWorkDetailBh
               case 'gdtj':
                 // return  shiftWorkDetailGdtj
@@ -1272,6 +1273,8 @@ const router = new Router({
                 return healthEducationGuizhou
               case 'beihairenyi':
                 return healthEducationBerhairenyi
+              case 'nfyksdyy':
+                return healthEducationNfyksdyy
               default:
                 return healthEducation
             }
@@ -1956,7 +1959,7 @@ const router = new Router({
             path: "statisticalScanCodeDetails",
             name: "statisticalScanCodeDetails",
             meta: {
-              title: '扫码明细统计1'
+              title: '扫码明细统计'
             },
             component: statisticalScanCodeDetails
           },
@@ -1964,7 +1967,7 @@ const router = new Router({
             path: "statisticalScanRate",
             name: "statisticalScanRate",
             meta: {
-              title: '扫码率统计2'
+              title: '扫码率统计'
             },
             component: statisticalScanRate
           },

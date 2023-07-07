@@ -72,7 +72,7 @@ export default {
       data: {
         bedList: [],
       },
-      patientListLoading: false,
+      patientListLoading: true,
       bus: bus(this),
       lockHospitalList:['huadu']//配置了评估单锁定功能的医院
     };
@@ -137,9 +137,17 @@ export default {
         this.bus.$emit("closeAssessment");
         this.destroyUnlock()
       }
+
       // 优化后bedList由组件自己维护。不需要发请求
       // this.getDate();
     },
+    "$route.query.patientId"(val, oldValue){
+     if(this.HOSPITAL_ID== 'nfyksdyy'){
+      this.bus.$emit(
+        "openAssessmentBox",{},true
+      );
+     }
+    }
   },
   beforeRouteUpdate(to, from, next) {
     if(!this.$store.state.admittingSave.admittingSave){
