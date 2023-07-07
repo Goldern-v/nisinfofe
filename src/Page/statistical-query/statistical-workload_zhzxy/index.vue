@@ -96,8 +96,8 @@ export default {
         beginTime: '',
         endTime: '',
         wardCode: '',
-        dimension: '0',
         type:"1",
+        dimension: '0',
         empName: '',
       },
       pageIndex: 1,
@@ -115,10 +115,9 @@ export default {
     this.formData.beginTime = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')
     // 当天23点59分59秒的时间格式
     this.formData.endTime = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')
-    this.getTitle()
     let {data:{data}} = await isEnableToEdit()
     this.isEnabl = data.isEnableToEdit
-    this.getDepList()
+    await this.getDepList()
     this.handleQuery()
   },
   methods: {
@@ -131,16 +130,6 @@ export default {
       }else if (this.tableData.length>=2 && rowIndex==this.tableData.length-1 && columnIndex==1) {
           return  [0, 0];
       }
-    },
-    getTitle(){
-      getWorkItems(this.formData.type).then(res=>{
-        console.log(res,'res');
-        if(res.data.data.length>0){
-          let {data:{data}} = res
-          this.WorkItems = data
-          this.chineseColumns = data.map(item=>({title:item.name,key:item.name,...columsObj}))
-        }
-      })
     },
     async getDepList() {
       try {
@@ -162,11 +151,12 @@ export default {
     },
     handleChangeSelect(val) {
       this.formData.type = val
+      this.handleQuery()
       console.log('handleChangeSelect', val)
     },
     handleQuery(obj = {}) {
-      console.log('obj', obj)
-      this.formData = { ...this.formData, ...obj}
+      this.formData = { ...this.formData, ...obj }
+      
       if(!this.isEnabl){
         this.formData.empName = JSON.parse(localStorage.user).empName
       }
@@ -175,27 +165,48 @@ export default {
     async getData() {
       try {
         this.loading = true;
+        let themeName = ""
+        if(this.formData.dimension === "0") themeName = "病区"+this.$route.meta.title
+        else themeName = "护士"+this.$route.meta.title
         let formData = {
-          themeName: "病区"+this.$route.meta.title,
+          themeName,
           ...this.formData,
           beginTime: this.formData.beginTime.split(' ')[0],
           endTime: this.formData.endTime.split(' ')[0],
           pageIndex: this.pageIndex,
           pageNum: this.pageNum,
         }
-        const res = await query(formData)
-        console.log("get0datra");
-        let {list, totalCount,rowCount } = res.data.data
-        let listEnd = list.map(item=>({...item,...item.workloadStat}))
-        let zong = {}
-        if(listEnd.length>=1){
-          this.chineseColumns.map((item,index)=>{zong[item.key]=rowCount[index] || 0})
-          this.tableData = [...listEnd,{index:"合计",...zong}] || []
-        }else this.tableData = listEnd || []
-        console.log(this.tableData,'this.tableData');
-        this.total = totalCount || 0
-
-        this.loading = false
+        Promise.all([getWorkItems(this.formData.type),query(formData)]).then((res)=>{
+          console.log("get0datra");
+           if(res[0].data.data.length>0){
+              let {data:{data}} = res[0]
+              this.WorkItems = data
+              let chineseColumns = data.map(item=>({title:item.name,key:item.name,...columsObj}))
+              this.chineseColumns = [
+                ...chineseColumns,
+                {
+                key: 'rowAll',
+                title: '合计',
+                align: 'center',
+                width: 80,
+                }
+              ]
+            }
+          let {list, totalCount,columnCount,rowCount } = res[1].data.data
+          let listEnd = list.map(item=>({...item,...item.workloadStat}))
+          let zong = {},tableData =[]
+          if(listEnd.length>=2){
+            this.chineseColumns.map((item,index)=>{zong[item.key]=columnCount[item.key] || 0})
+            let listEND = listEnd.map((item,index)=>({...item,rowAll:rowCount[index]}))
+            this.tableData = [...listEND,{...zong}] || []
+          }else{
+            tableData = listEnd || []
+            this.tableData = tableData.map((item,index)=>({...item,rowAll:rowCount[index]}))
+          } 
+          console.log(this.tableData,'this.tableData');
+          this.total = totalCount || 0
+          this.loading = false
+        })
       } catch (e) {
         this.loading = false
       }
@@ -208,8 +219,11 @@ export default {
       if (this.loading) return
       try {
         this.loading = true
+        let themeName = ""
+        if(this.formData.dimension === "0") themeName = "病区"+this.$route.meta.title
+        else themeName = "护士"+this.$route.meta.title
         exportExc({
-          themeName: "病区"+this.$route.meta.title,
+          themeName,
           ...this.formData,
           beginTime: this.formData.beginTime.split(' ')[0],
           endTime: this.formData.endTime.split(' ')[0],
@@ -252,7 +266,7 @@ export default {
     // 修改页数
     handleCurrentChange(newPage) {
       this.pageIndex = newPage;
-      this.getData();
+      this.handleQuery();
     },
   },
   computed: {
@@ -270,7 +284,7 @@ export default {
           align: 'center',
           width: 70,
           render: (h, { index }) => {
-            console.log(index,'------')
+            console.log(index,'------',this.tableData.length)
             if(this.tableData.length>=2 && index!==this.tableData.length-1){
               return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
             }else if(this.tableData.length>=2 && index==this.tableData.length-1){
@@ -293,7 +307,7 @@ export default {
           align: 'center',
           width: 80,
         },
-        ...this.chineseColumns,
+        ...this.chineseColumns
       ]
 
     },
