@@ -56,7 +56,7 @@
       </span>
       <span>
         诊断:
-        <div  class="bottom-line" style="min-width: 163px">{{patientInfo.diagnosis}}</div>
+        <div  class="bottom-line" style="min-width: 150px">{{patientInfo.diagnosis}}</div>
       </span>
       <!-- <span>
         ID号:
