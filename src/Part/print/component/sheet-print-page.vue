@@ -926,7 +926,7 @@ export default {
               max-width: 100px !important;
           }
           .info-con{
-            font-size:16px!improtant;
+            font-size:16px!important;
           }
 
           #sheetPagePrint td[datakey="signerNo"] .sign-img img{
@@ -1059,13 +1059,17 @@ export default {
       addCSS(
         window,
         `
-           @media print {
-            #sheetPagePrint td {
-              line-height: 29px !important;
-              margin-top:-20px;!important;
+              @media print {
+    #sheetPagePrint .iframe > div{
+       padding-top:20px !important;
+   }
+    .iframe > div:nth-of-type(2n) {
+             margin-top:50px !important;
             }
-
-          }
+           #sheetPagePrint .body-con {
+           height: 46px !important;
+           font-size:15px !important;
+            }
         `
       );
     }
@@ -1074,12 +1078,13 @@ export default {
         window,
         `
            @media print {
-            #sheetPagePrint td {
-              line-height: 29px !important;
-              margin-top:-20px;!important;
+      .iframe > div:nth-of-type(2n) {
+             margin-top:50px !important;
             }
-
-          }
+           #sheetPagePrint .body-con {
+           height: 46px !important;
+           font-size:15px !important;
+            }
         `
       );
     }

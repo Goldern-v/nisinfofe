@@ -2831,7 +2831,7 @@ export default {
           })
         }
         foodResult = this.outFoodlist.filter(item=>(item.food && item.foodSize))
-        if('critical2_weihai'===this.sheetInfo.sheetType) length = Math.max(valResult.length,result.length,foodResult.length)
+        if('critical2_weihai'===this.sheetInfo.sheetType) length = Math.max(...valResult.map(item=>item.length),result.length,foodResult.length)
         else length = Math.max(...valResult.map(item=>item.length),result.length)
         for (let i = 0; i < length; i++) {
           if (i == 0) {
