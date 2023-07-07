@@ -75,6 +75,7 @@
           <input
             type="text"
             class="bottom-line"
+            style="border-bottom: 1px solid;"
             v-model="relObj.sysA"
             :data-value="relObj.sysA"
           />
@@ -205,6 +206,7 @@
           <input
             type="text"
             class="bottom-line"
+            style="border-bottom: 1px solid;"
             v-model="relObj.sysA1"
             :data-value="relObj.sysA1"
           />
@@ -302,7 +304,7 @@
             <div
               class="sign-null-box"
               @click="sign2('signerNo3', 'signerName3')"
-              v-if="!relObj.signerNo2"
+              v-if="!relObj.signerNo3"
             ></div>
             <div
               class="sign-in-box"
@@ -313,7 +315,7 @@
                 <img
                   class="in-print"
                   :src="
-                    `/crNursing/api/file/signImage/${relObj.signerNo2}?${token}`
+                    `/crNursing/api/file/signImage/${relObj.signerNo3}?${token}`
                   "
                   alt
                 />
@@ -335,6 +337,7 @@
           <input
             type="text"
             class="bottom-line"
+            style="border-bottom: 1px solid;"
             v-model="relObj.sysA2"
             :data-value="relObj.sysA2"
           />
@@ -432,7 +435,7 @@
             <div
               class="sign-null-box"
               @click="sign2('signerNo4', 'signerName4')"
-              v-if="!relObj.signerNo2"
+              v-if="!relObj.signerNo4"
             ></div>
             <div
               class="sign-in-box"
@@ -443,7 +446,7 @@
                 <img
                   class="in-print"
                   :src="
-                    `/crNursing/api/file/signImage/${relObj.signerNo2}?${token}`
+                    `/crNursing/api/file/signImage/${relObj.signerNo4}?${token}`
                   "
                   alt
                 />
@@ -465,6 +468,7 @@
           <input
             type="text"
             class="bottom-line"
+            style="border-bottom: 1px solid;"
             v-model="relObj.sysA3"
             :data-value="relObj.sysA3"
           />
@@ -562,7 +566,7 @@
             <div
               class="sign-null-box"
               @click="sign2('signerNo5', 'signerName5')"
-              v-if="!relObj.signerNo2"
+              v-if="!relObj.signerNo5"
             ></div>
             <div
               class="sign-in-box"
@@ -573,7 +577,7 @@
                 <img
                   class="in-print"
                   :src="
-                    `/crNursing/api/file/signImage/${relObj.signerNo2}?${token}`
+                    `/crNursing/api/file/signImage/${relObj.signerNo5}?${token}`
                   "
                   alt
                 />
@@ -688,17 +692,18 @@ export default {
   components: {}
 };
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus">
-.cardiac_intervent-info-contain {
-  font-size: 13px;
-
-  .bottom-line {
+<style lang="scss" scoped>
+.bottom-line {
     border: 0;
     width: 96%;
     outline: none;
     text-align: center;
   }
+
+</style>
+<style lang="stylus" rel="stylesheet/stylus" >
+.cardiac_intervent-info-contain {
+  font-size: 13px;
 
   input[type='radio'] {
     -webkit-appearance: none;
