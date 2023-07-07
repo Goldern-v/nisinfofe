@@ -165,6 +165,7 @@ const flatManagement = () => import("@/Page/flat-management/flat-management"); /
 const puerperantSituation = () =>
   import("@/Page/puerperantSituation/puerperantSituation"); //产科分娩登记表
 const archive = () => import("@/Page/archive/archive.vue"); //归档
+const archiveFuyou = () => import("@/Page/archive/archiveFuyou.vue"); //归档
 const archiveFSSY = () => import("@/Page/archive/archiveFSSY.vue"); //归档
 const familyBigScreen = () =>
   import("@/Page/family-big-screen/family-big-screen.vue"); //家属大屏
@@ -409,6 +410,7 @@ const previousHistory = () => import("@/Page/patientInfo/supPage/previous-histor
 // 深静脉导管维护单页面
 import deepPage from "@/Page/deep-page/deep-page.vue";
 import allCatheter from "@/Page/allCatheter/all-catheter.vue";
+import allCatheterQHWY from "@/Page/allCatheter/all-catheter-qhwy.vue";
 // 导管监测单
 import catheterPage from "@/Page/catheter-page/catheter-page.vue";
 const ocxObject =()=>import("@/Page/patientInfo/supComponts/modal/ocxObject")
@@ -451,6 +453,9 @@ const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 const StatisticalBlood = () => import("@/Page/statistical-query/statistical-blood")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
+const StatisticalUnplanned = () => import("@/Page/statistical-query/statistical-unplanned")
+const StatisticalAdultFall = () => import("@/Page/statistical-query/statistical-adult-fall")
+const StatisticalChildrenFall = () => import("@/Page/statistical-query/statistical-children-fall")
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 // 执行单路由
@@ -728,6 +733,8 @@ const router = new Router({
             case "stmz":
             case "nfyksdyy":
               return archiveFSSY
+            case "fuyou":
+              return archiveFuyou
             default:
               return archive
           }
@@ -1509,7 +1516,14 @@ const router = new Router({
       },
       {
         path: "/allCatheter",
-        component: allCatheter
+        component: (() => {
+          switch (HOSPITAL_ID) {
+            case 'qhwy':
+              return allCatheterQHWY
+            default:
+              return allCatheter
+          }
+        })(),
       },
       {
         path: "/catheterPage",
@@ -1888,6 +1902,30 @@ const router = new Router({
               title: 'VTE统计'
             },
             component: statisticalVTE,
+          },
+          {
+            path: "statisticalUnplanned",
+            name: "statisticalUnplanned",
+            meta: {
+              title: '非计划性拔管统计'
+            },
+            component: StatisticalUnplanned,
+          },
+          {
+            path: "statisticalAdultFall",
+            name: "statisticalAdultFall",
+            meta: {
+              title: '成人跌倒统计'
+            },
+            component: StatisticalAdultFall,
+          },
+          {
+            path: "statisticalChildrenFall",
+            name: "statisticalChildrenFall",
+            meta: {
+              title: '儿童跌倒统计'
+            },
+            component: StatisticalChildrenFall,
           },
           {
             path: "statisticalConsultation",
