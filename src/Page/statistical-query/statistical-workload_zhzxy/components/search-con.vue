@@ -172,6 +172,7 @@ export default {
   },
   methods: {
     handleQuery(obj = {}) {
+      console.log(obj,'handleQuery');
       let copy = { ...obj }
       let timeFormat = ['beginTime', 'endTime']
       let keys = Object.keys(copy)

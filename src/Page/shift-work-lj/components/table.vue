@@ -2,7 +2,7 @@
   <div>
     <table class="table fixed-th" v-if="fixedTh">
       <colgroup>
-        <col v-for="col of realColumns" :key="col.label" :width="col.width">
+        <col v-for="col of realColumns" :key="col.label" :width="col.width+'%'">
       </colgroup>
       <thead>
         <tr>
@@ -15,7 +15,7 @@
     </table>
     <table class="table" ref="table">
       <colgroup>
-        <col v-for="col of realColumns" :key="col.label" :width="col.width">
+        <col v-for="col of realColumns" :key="col.label" :width="col.width+'%'">
       </colgroup>
       <thead>
         <tr>

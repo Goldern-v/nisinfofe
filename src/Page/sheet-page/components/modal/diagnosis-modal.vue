@@ -258,6 +258,7 @@ export default {
         case 'whhk':
         case "stmz":
         case "foshanrenyi":
+        case 'zhzxy':
           return 'diagMeasures'
         default:
           return 'diagName'

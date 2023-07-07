@@ -24,7 +24,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-const yishi = ["A", "B", "C", "D", "E"];
+const yishi = ["A 麻醉未醒", "B 清醒", "C 镇静", "D 模糊", "E 昏迷"];
 const dgfs = ["A", "B", "C"];
 const fzfs = ["SIMV","PS/CPAP","SPONT","鼻导管","气管插管内吸氧","面罩"]
 const huxiyin = ["粗","清","低","痰鸣音","湿啰音","干啰音"]
@@ -43,13 +43,14 @@ export default [
     value: "",
     name: "意识",
     textarea: { width: 40 },
-    autoComplete: { data: yishi }
+    autoComplete: { data: yishi },
+    splitFlag:" ",
   },
   {
     key: "pupilLeft",
     event: keyf1,
     value: "",
-    next: "ml",
+    next: "mm",
     name: "瞳孔左",
     textarea: { width: 40 },
   },
@@ -57,7 +58,7 @@ export default [
     key: "pupilRight",
     event: keyf1,
     value: "",
-    next: "ml",
+    next: "mm",
     name: "瞳孔右",
     textarea: { width: 40 },
   },
@@ -133,7 +134,7 @@ export default [
     event: keyf1,
     value: "",
     next: "cmH2O",
-    name: "出量总量",
+    name: "PEEP",
     textarea: { width: 50 },
   },
   {
@@ -241,27 +242,28 @@ export default [
     name: "CVP",
     textarea: { width: 50 },
   },
-  // {
-  //   key: "description", //特殊情况记录
-  //   value: "",
-  //   style: {
-  //     textAlign: "left",
-  //     position: "absolute",
-  //     top: "1px",
-  //     bottom: "1px",
-  //     left: "1px",
-  //     width: "200px",
-  //     background: "transparent"
-  //   },
-  //   textarea: { width: 200 },
-  //   event: function(e, td) {
-  //     if (e.keyCode == 9) {
-  //       td.value = "    " + td.value;
-  //       e.preventDefault();
-  //     }
-  //     keyf1(e, td);
-  //   }
-  // },
+  {
+    hidden: true,
+    key: "description", //特殊情况记录
+    value: "",
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px",
+      bottom: "1px",
+      left: "1px",
+      width: "200px",
+      background: "transparent"
+    },
+    textarea: { width: 200 },
+    event: function(e, td) {
+      if (e.keyCode == 9) {
+        td.value = "    " + td.value;
+        e.preventDefault();
+      }
+      keyf1(e, td);
+    }
+  },
   { key: "sign", value: "" }, //单签
   // { key: "sign2", value: "" },//双签
   // { key: "audit", value: "" },//审核签名
