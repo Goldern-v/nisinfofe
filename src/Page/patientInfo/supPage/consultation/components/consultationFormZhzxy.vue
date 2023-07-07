@@ -47,7 +47,22 @@
               v-model="consultation.nursingDiagnosis"
             />
           </el-form-item>
-
+          <el-form-item label="申请科室" :label-width="formLabelWidth">
+            <el-select
+              :disabled="!allowSave"
+              v-model="consultation.deptCode"
+              placeholder="请选择"
+              filterable
+            >
+              <el-option
+                v-for="item in applyDepartmentOptions"
+                :key="item.code"
+                :label="item.name"
+                :value="item.code"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="邀请会诊科室" :label-width="formLabelWidth">
             <el-select
               :disabled="!allowSave"
@@ -355,7 +370,11 @@ export default {
     },
     submit() {
       // this.btnLoading.submit = true;
-      update(this.filterData())
+      const data = this.filterData();
+      if (data.nursingConsultation.consultationDeptCode === data.nursingConsultation.deptCode) {
+        return this.$message.error('申请科室不能和会诊科室相同');
+      }
+      update(data)
         .then((res) => {
           this.$message({
             showClose: true,
@@ -438,10 +457,11 @@ export default {
   created() {
     getAllDept(this.$route.query.wardCode)
       .then((res) => {
-        let result = res.data.data.filter((item) => {
-          return item.code != this.$route.query.wardCode;
-        });
-        this.applyDepartmentOptions = result;
+        // let result = res.data.data.filter((item) => {
+        //   return item.code != this.$route.query.wardCode;
+        // });
+        // this.applyDepartmentOptions = result;
+        this.applyDepartmentOptions = res.data.data;
         this.deptList = res.data.data || [];
       })
       .catch((e) => {});
