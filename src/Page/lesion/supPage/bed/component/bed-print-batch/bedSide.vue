@@ -210,6 +210,7 @@
                     "
                   />
                 </div>
+                
               </div>
               <div class="title-sign">
                 <div flex="cross:center" class="input-item">
@@ -649,7 +650,7 @@ export default {
   },
   methods: {
     getqrCode(item) {
-      let qr_png_value = item.inpNo;
+      let qr_png_value = item.inpNo.substring(0,this.item.inpNo.lastIndexOf("_"));;
       var qr_png = qr.imageSync(
         this.category == "bedside"
           ? qr_png_value

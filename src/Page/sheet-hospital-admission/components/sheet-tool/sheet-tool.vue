@@ -57,7 +57,7 @@
 
       <div style="width: 5px"></div>
       <div
-        v-if="HOSPITAL_ID !== 'foshanrenyi'"
+        v-if="!['foshanrenyi','nfyksdyy'].includes(HOSPITAL_ID)"
         class="item-box"
         flex="cross:center main:center"
         :class="{ disabled: selectBlock.status != '2' }"

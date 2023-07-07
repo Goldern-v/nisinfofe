@@ -4,6 +4,7 @@
     :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
+    :istype="!!HOSPITAL_ID == 'nfyksdyy'"
     datetype="datetime"
     @handleExport="handleExport"
     @handleQuery="handleQuery"/>
@@ -61,6 +62,9 @@ export default {
       columns: this.handleColumns()
     };
   },
+  mounted() {
+    delete this.formData.status;
+  },
   methods: {
     handleColumns(){
       switch (this.HOSPITAL_ID) {
@@ -82,7 +86,7 @@ export default {
                 key: 'tolScanRate',
                 title: '整体执行率统计',
                 align: 'center',
-                width: 120,
+                width: 200,
               },
             ]
       }

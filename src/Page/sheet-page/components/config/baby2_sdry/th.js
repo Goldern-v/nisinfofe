@@ -14,7 +14,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1385px"
+    width: "1460px"
   },
   th: {
     top:
@@ -42,8 +42,8 @@ export default {
           "canSet": true,
           "key": 'armValue',
           "style": {
-            "minWidth": '37px',
-            "maxWidth": '37px',
+            "minWidth": '45px',
+            "maxWidth": '45px',
           }
         },
         {
@@ -53,8 +53,8 @@ export default {
           "canSet": true,
           "key": 'armValue2',
           "style": {
-            "minWidth": '37px',
-            "maxWidth": '37px',
+            "minWidth": '45px',
+            "maxWidth": '45px',
           }
         },
         {
@@ -64,7 +64,7 @@ export default {
           "canSet": true,
           "key": 'armValue3',
           "style": {
-            "minWidth": '37px',
+            "minWidth": '45px',
             "maxWidth": '37px',
           }
         },
@@ -75,8 +75,8 @@ export default {
           "canSet": true,
           "key": 'armValue4',
           "style": {
-            "minWidth": '37px',
-            "maxWidth": '37px',
+            "minWidth": '45px',
+            "maxWidth": '45px',
           }
         },
         {
@@ -86,8 +86,8 @@ export default {
           "canSet": true,
           "key": 'armValue5',
           "style": {
-            "minWidth": '37px',
-            "maxWidth": '37px',
+            "minWidth": '45px',
+            "maxWidth": '45px',
           }
         },
         {
@@ -97,8 +97,8 @@ export default {
           "canSet": true,
           "key": 'armValue6',
           "style": {
-            "minWidth": '37px',
-            "maxWidth": '37px',
+            "minWidth": '45px',
+            "maxWidth": '45px',
           }
         },
         {
@@ -108,8 +108,8 @@ export default {
           "canSet": true,
           "key": 'armValue7',
           "style": {
-            "minWidth": '37px',
-            "maxWidth": '37px',
+            "minWidth": '45px',
+            "maxWidth": '45px',
           }
         }, {
           "name": ``,
@@ -118,8 +118,8 @@ export default {
           "canSet": true,
           "key": 'armValue8',
           "style": {
-            "minWidth": '37px',
-            "maxWidth": '37px',
+            "minWidth": '45px',
+            "maxWidth": '45px',
           }
         }, {
           "name": ``,
@@ -128,8 +128,8 @@ export default {
           "canSet": true,
           "key": 'armValue9',
           "style": {
-            "minWidth": '37px',
-            "maxWidth": '37px',
+            "minWidth": '45px',
+            "maxWidth": '45px',
           }
         },
 

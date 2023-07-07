@@ -32,6 +32,7 @@
       </ElSelect>
       </div>
       <div class="search-con__ctx__item" v-if="formData.status != undefined">
+        {{ formData.status }}
         患者状态：
         <ElSelect style="width: 120px;" size="small" :value="formData.status" @input="handleQuery({status: $event})">
           <ElOption v-for="val in patientStatus" :key="val.key" :label="val.label" :value="val.key" />
@@ -104,7 +105,12 @@ export default {
     loading: {
       type: Boolean,
       default: false,
-    }
+    },
+    istype: {
+      type: Boolean,
+      default: false,
+    },
+
   },
   data() {
     return {
