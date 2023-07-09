@@ -64,12 +64,14 @@ function decode(ayncVisitedData) {
         if(recordDate && recordDate.value) {
           tr[`recordDate`] = recordDate.value
         }else{
+          // 当没有recordDate时候是为新输入内容，需要加上日期时间；
           if (itemRecordYear && month && hour) {
             firstRecordDate = itemRecordYear + "-" + month + " " + hour
           }
           if (firstRecordDate) {
             bodyModel[index].find(item => item.key == "recordDate").value = firstRecordDate
           } else {
+            // 当有日期时候默认
             if(month && hour){
               bodyModel[index].find(item => item.key == "recordDate").value =`${itemRecordYear}-${month} ${hour}`
             }else{
@@ -88,13 +90,19 @@ function decode(ayncVisitedData) {
                   if(lastRecordHour) break;
                   lastRecordHour = bodyModel[j].find(item => item.key == "recordHour").value
                 }
-                if(lastRecordMonth && lastRecordHour){
-                  bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
-                  bodyModel[index].find(item => item.key == "recordHour").value = lastRecordHour
-                  bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${lastRecordHour}`
+                // 当上一条日期和时间都在的时候.不是自己输入时间则获取上一条,当有输入的时间保存上一条的日期;
+                if(hour && !month){
+                  if(lastRecordMonth){
+                    bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
+                    bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
+                  }  
+                }else{
+                  if(lastRecordMonth && lastRecordHour){
+                    bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
+                    bodyModel[index].find(item => item.key == "recordHour").value = lastRecordHour
+                    bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${lastRecordHour}`
+                  }  
                 }
-
-                // }
               }
 
             }

@@ -79,7 +79,7 @@
     <evalModelPaging ref="evalModelPaging"></evalModelPaging>
     <!-- 电子病例弹窗 -->
     <doctorEmr
-      v-if="['foshanrenyi','huadu','zhzxy','dglb'].includes(HOSPITAL_ID) && !$route.path.includes('temperature')"
+      v-if="['foshanrenyi','huadu','zhzxy','dglb','nfyksdyy'].includes(HOSPITAL_ID) && !$route.path.includes('temperature')"
     />
   </div>
 </template>
