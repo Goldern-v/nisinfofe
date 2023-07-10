@@ -214,8 +214,6 @@
       },
       openPISlide(type) {
         // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
-        this.$route.query.patientId = this.form.patientId
-        this.$route.query.visitId = this.form.visitId
         this.bus.$emit("openclosePatientInfo", type, false, true);
       },
       async open (tab, form, autoFocus, isSignedN) {
