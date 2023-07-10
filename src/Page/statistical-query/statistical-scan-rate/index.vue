@@ -4,6 +4,7 @@
     :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
+    :istype="!!HOSPITAL_ID == 'nfyksdyy'"
     datetype="datetime"
     @handleExport="handleExport"
     @handleQuery="handleQuery"/>
@@ -61,6 +62,9 @@ export default {
       columns: this.handleColumns()
     };
   },
+  mounted() {
+    delete this.formData.status;
+  },
   methods: {
     handleColumns(){
       switch (this.HOSPITAL_ID) {
@@ -70,19 +74,19 @@ export default {
                 key: 'wardName',
                 title: '病区',
                 align: 'center',
-                minWidth: 80,
+                minWidthwidth: 120,
               },
               {
                 key: 'scanRate',
                 title: '药品类扫码率统计',
                 align: 'center',
-                minWidth: 120,
+                minWidthwidth: 120,
               },
               {
                 key: 'tolScanRate',
                 title: '整体执行率统计',
                 align: 'center',
-                width: 120,
+                minWidthwidth: 200,
               },
             ]
       }

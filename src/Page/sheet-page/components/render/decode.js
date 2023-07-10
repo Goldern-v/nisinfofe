@@ -49,7 +49,7 @@ function decode(ayncVisitedData) {
       // changeArr: 修改的每行中的recordDate的数据会添加进去。
       if (bodyModel.hasOwnProperty(index) && (!process.env.splitSave || bodyModel[index].isChange || (bodyModel[index][recordDateIndex] && bodyModel[index][recordDateIndex].value && changeArr.includes(bodyModel[index][recordDateIndex].value)))) {
         let tr = {};
-        const recordDate = bodyModel[index].find((item)=>item.key == "recordDate");
+        const  recordDate = bodyModel[index].find((item)=>item.key == "recordDate");
         const recordYear = bodyModel[index].find(item => item.key == "recordYear").value
         let itemRecordYear = recordYear ? recordYear : moment().format("YYYY");
         const month = bodyModel[index].find(item => item.key == "recordMonth").value
@@ -64,28 +64,44 @@ function decode(ayncVisitedData) {
         if(recordDate && recordDate.value) {
           tr[`recordDate`] = recordDate.value
         }else{
+          // 当没有recordDate时候是为新输入内容，需要加上日期时间；
           if (itemRecordYear && month && hour) {
             firstRecordDate = itemRecordYear + "-" + month + " " + hour
           }
           if (firstRecordDate) {
             bodyModel[index].find(item => item.key == "recordDate").value = firstRecordDate
           } else {
+            // 当有日期时候默认
             if(month && hour){
               bodyModel[index].find(item => item.key == "recordDate").value =`${itemRecordYear}-${month} ${hour}`
             }else{
               let i = index
+              let j = index
               if(i==0){
                 bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${moment().format("MM-DD")} ${hour}`
               }else{
+                let lastRecordMonth = '';
+                let lastRecordHour = ''
                 while(i--) {
-                  const lastRecordMonth = bodyModel[i].find(item => item.key == "recordMonth").value
-                  if (lastRecordMonth) {
-                    if(bodyModel[index].find(item => item.key == "recordHour").value){
-                      bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
-                      bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
-                    }
-                    break;
-                  }
+                  if(lastRecordMonth) break;
+                  lastRecordMonth = bodyModel[i].find(item => item.key == "recordMonth").value
+                }
+                while(j--) {
+                  if(lastRecordHour) break;
+                  lastRecordHour = bodyModel[j].find(item => item.key == "recordHour").value
+                }
+                // 当上一条日期和时间都在的时候.不是自己输入时间则获取上一条,当有输入的时间保存上一条的日期;
+                if(hour && !month){
+                  if(lastRecordMonth){
+                    bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
+                    bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
+                  }  
+                }else{
+                  if(lastRecordMonth && lastRecordHour){
+                    bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
+                    bodyModel[index].find(item => item.key == "recordHour").value = lastRecordHour
+                    bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${lastRecordHour}`
+                  }  
                 }
               }
 
@@ -121,6 +137,7 @@ function decode(ayncVisitedData) {
      result[0]['recordYear'] = moment(result[0]['recordDate']).format('YYYY')
    }
   //  医院开启了修改单条数据出现顺序保存错乱，做了处理，后续有问题可以看一下这里的逻辑，代码写的很烂，如有优化可以进行优化。sorry了
+  console.log(allData, prevRecord, isChangePreRecord, result, isChangeLastRecord,lastRecord);
   if(isHospital){
     allData = [...allData, ...prevRecord, ...isChangePreRecord, ...result, ...isChangeLastRecord, ...lastRecord];
   }else{

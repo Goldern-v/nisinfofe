@@ -440,7 +440,6 @@ export default {
       }
     },
     toSign(e, signName) {
-      console.log("签名按钮", e, signName);
       let empNumber, empName;
 
       if (this.formatData.data.formData["empNo"]) {

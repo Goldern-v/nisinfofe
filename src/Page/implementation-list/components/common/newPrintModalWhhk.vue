@@ -1,218 +1,384 @@
 <template>
   <div
+    v-if="['70*80', '7*7', '7*5', '8*7'].includes(newModalSize)"
+    class="new-print-modal new-print-modal--large"
+    :class="{ size3: isSize3 }"
     :style="sizeStyle"
-    class="new-print-modal"
-		:class="{'new-print-modal--s': !isLargeType,'pageBreak':isLargeType}"
   >
-  <div>
-  </div>
-    <div class="new-modal-top">
-      <div class="new-modal-top-right">
-        <div class="new-modal-top-right-top">
-          <img :src="currentBottle.qcSrc || ''" />
+    <div class="new-print-modal__title">
+      <span>{{ currentBottle.printFlag ? "补" : "" }}</span>
+      <span class="center">{{ hospitalName }}</span>
+      <span>{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
+    </div>
+    <div class="new-print-modal__second">
+      <div class="flex">
+        <div>
+          姓名:<span>{{ currentBottle.name }}</span>
         </div>
+        <div >
+              <img :src="currentBottle.qcSrc || ''" />
+        </div>
+          <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
       </div>
-      <div class="new-modal-top-left">
-        <div class="new-modal-top-left-first"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}">
-          <div>{{ currentBottle.name }}</div>
-          <div>
-            {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
-          </div>
-        </div>
-        <div class="new-modal-top-left-second">
-          <div style="text-indent: 5px">{{ isLargeType?currentBottle.deptName:currentBottle.patientId }}</div>
-          <div>{{ isLargeType?(currentBottle.patientId || ""):currentBottle.deptName }}</div>
-          <div>{{ currentBottle.sex || "" }}</div>
-          <div>{{ currentBottle.age }}</div>
-        </div>
-        <div class="new-modal-top-left-second">
-          <div style="text-indent: 5px">
-            执行日期:{{ currentBottle.executeDate.substr(0, 16) }}
-          </div>
-          <div>
-            {{ currentBottle.repeatIndicator | repeatIndicatorFilter }}
-          </div>
-        </div>
+      <div class="flex">
+        <div style="margin-top: -5px;">床号:<span>{{ currentBottle.bedLabel }}</span></div>
+        <div style="padding-left: 110px;">{{ `${'7*5' === newModalSize ? '' : '年龄:'}${currentBottle.age}` }}</div>
+      </div>
+      <div class="flex" >
+        <div>{{ `住院号:${currentBottle.patientId || ""}` }}</div>
+        <div>{{ `${currentBottle.deptName}` }}</div>
       </div>
     </div>
-    <div class="new-modal-bottom" :style="modalBStyle">
-        <!-- <div
-          v-for="(item, index) in currentBottle.orderText"
-          :key="index"
-        > -->
-        <!-- {{ item }}  -->
-        <div
-          v-for="(item, index) in this.itemObj"
-          :key="index"
-        >
-          {{ item.orderText }} {{ item.dosage }} {{ item.dosageUnits }}
-        </div>
-    </div>
-    <div class="new-modal-bottom-second">
-      <div style="width: 20%">频次途径</div>
-      <div style="flex: 1">{{ currentBottle.frequency }}</div>
-      <!-- <div v-if="HOSPITAL_ID == 'whsl'">{{ currentBottle.freqDetail }}</div> -->
-      <div v-if="['whsl','whhk'].includes(HOSPITAL_ID)">{{ currentBottle.freqDetail }}</div>
 
+    <div class="new-print-modal__content">
+      <div class="flex" >
+        <div style="width: 66%; text-align: center;">药品名称</div>
+        <div style="width: 10%;">规格</div>
+        <div style="width: 10%;">数量</div>
+        <div style="width: 10%;">剂量</div>
+      </div>
+      <div v-for="(item, index) in this.itemObj"
+            :key="index" :class="'table-cell'"  style="line-height: 1.2;">
+        <span style="width: 66%;white-space: pre-wrap;" :class="'table-cell-span'">{{ item.orderText }}</span>
+        <span style="width: 10%;" :class="'table-cell-span1'">{{ item.expand2 }}</span>
+        <span style="width: 10%; text-align: center;" >{{ item.expand3 }}</span>
+        <span style="width: 10%;" :class="'table-cell-span3'">{{ currentBottle.dosageDosageUnits[index] }}</span>
+      </div>
+    </div>
+    <div class="new-print-modal__tip">
+      <div>医生说明:{{ freqDetail }}</div>
+      <div class="warm-icon">
+        <img v-for="v in currentBottle.tipIcons" :key="v" :src="warmUrl(v)" />
+      </div>
+    </div>
+
+      <div class="new-print-modal__tip ">
+        <div >
+          <span> {{ currentBottle.administration }} </span>
+          <span>{{currentBottle.frequency}}</span>
+          <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
+        </div>
+      </div>
+
+    <div class="new-print-modal__tip_l">
+      <span>配药人：</span>
+      <span style="margin-left: 100px;">配药时间：</span>
+    </div>
+  </div>
+
+  <div v-else class="new-print-modal new-modal-small" :style="sizeStyle">
+    <div class="new-modal-small-top">
+      <div class="new-modal-small-top__left">
+        <div class="flex">
+          <div>
+            姓名: <span>{{ currentBottle.name }}</span>
+          </div>
+          <div>
+            床号: <span>{{ currentBottle.bedLabel }}</span>
+          </div>
+        </div>
+        <div class="flex">
+          <div>途径: {{ currentBottle.administration }}</div>
+          <div>
+            频率:
+            {{
+              `${currentBottle.frequency}${
+                currentBottle.groupNo ? `(${currentBottle.groupNo})` : ""
+              }`
+            }}
+          </div>
+        </div>
+        <div>执行时间: {{ currentBottle.executeDate.substr(0, 16) }}</div>
+      </div>
+      <div class="new-modal-small-top__right">
+        <img :src="currentBottle.qcSrc || ''" />
+      </div>
+    </div>
+
+    <div class="new-modal-small-content">
+      <div v-for="(item, index) in currentBottle.orderText" :key="index">
+        <span>{{ item }}</span>
+        <span>{{ itemObj[index].freqDetail }}</span>
+        <span>{{ currentBottle.dosageDosageUnits[index] }}</span>
+      </div>
     </div>
   </div>
 </template>
-<style lang='scss' scoped>
-.new-print-modal {
-	display: flex;
-	flex-direction: column;
-  &.pageBreak{
-    page-break-after: always;
-  }
-  >>> * {
-    font-size: 12px;
-  }
-  .new-modal-top {
-    display: flex;
-    font-weight: 600;
-    div {
+// 临邑浏览器版本有部分为谷歌49，需要考虑兼容
+ <style lang="scss" scoped>
+
+// 表格样式
+  .new-print-modal__content_l {
+    max-height: 125px;
+    min-height:125px;
+    td, tr {
+      border: none !important;
+    }
+    // margin-top: 4px;
+    tr:nth-child(n + 1) {
       font-size: 13px;
     }
-    > div:first-child {
-      border-right: 1px solid #000;
-    }
-    .new-modal-top-left {
-      box-sizing: border-box;
-      width: calc(100% - 60px);
-      .new-modal-top-left-first {
-        display: flex;
-        box-sizing: border-box;
-        border-bottom: 1px solid #000;
-        & > div {
-          text-align: center;
-          line-height: 29px;
-          font-size: 25px;
-          font-weight: 900;
-          height:29px;
-        }
-        div + div {
-          margin-left: 8px;
-        }
-      }
-      .new-modal-top-left-second {
-        line-height: 20px;
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid #000;
-        box-sizing: border-box;
-        white-space: nowrap;
-        padding-right: 8px;
-        &:last-child {
-          border-bottom: 0;
-        }
-      }
-    }
-    .new-modal-top-right {
-      width: 62px;
-
-      .new-modal-top-right-top {
-        box-sizing: border-box;
-        overflow: hidden;
-        img {
-					margin-top: 6px;
-          width: 100%;
-          height: 64px;
-          object-fit: cover;
-        }
-      }
-      .new-modal-top-right-bottom {
-        line-height: 16px;
-      }
-    }
-  }
-  .new-modal-bottom {
-    border-top: 1px solid #000;
-    font-weight: 700;
-    width: 100%;
-    box-sizing: border-box;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		flex: 1;
-		overflow: hidden;
-      div {
-        line-height: 18px;
-        font-size: 15px;
-      }
-  }
-  .new-modal-bottom-second {
-    width: 100%;
-    display: flex;
-    line-height: 28px;
-    border-top: 1px solid #000;
-    div:first-child {
-      border-right: 1px solid #000;
-    }
-    div:nth-of-type(2n + 1) {
+    tr td:nth-child(n + 1) {
       text-align: center;
     }
-    div:nth-of-type(2n) {
-      text-indent: 5px;
+    // span {
+    //   // font-weight: 900;
+    //   line-height: 14px;
+    // }
+  }
+
+
+.bb {
+  border-bottom: 1px solid #000;
+}
+.new-print-modal {
+  * {
+    font-family: SimHei !important;
+  }
+
+  &.new-print-modal--large {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    height: 100%;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    &.size3 {
+      transform: rotate(90deg) translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform-origin: top left;
+      line-height: 14px;
+      font-size: 13px;
+      .new-print-modal__title {
+        min-height: 14px;
+        span {
+          font-size: 13px;
+          line-height: 14px;
+        }
+      }
+      .new-print-modal__second {
+        height: 56px;
+        .flex {
+          height: 15px;
+          &:first-child {
+            height: 26px;
+          }
+        }
+      }
+      .new-print-modal__content div {
+        line-height: 14px;
+      }
+      .new-print-modal__tip {
+        min-height: 14px;
+      }
+      .warm-icon {
+        img {
+          width: 14px;
+          height: 14px;
+        }
+      }
+      .new-print-modal__b__l {
+        span {
+          font-size: 12px;
+          // font-weight: 600;
+        }
+      }
+      .qc-box {
+        width: 49px;
+      }
     }
   }
-  &.new-print-modal--s {
-    display: block;
-    /* position: absolute;
-    transform: scale(.5);
-    transform-origin: 0 0 0; */
-		>>> * {
-			font-size: 12px;
-			font-weight: 700;
-			line-height: 21px;
-		}
-		>>> .new-modal-top{
-        display:block;
-        overflow: hidden;
-        >div{
-          float:left;
-          &:first-of-type{
-            width: 59px;
-          }
-        }
-        .new-modal-top-left{
-          >div:first-of-type{
-            height:29px;
-          }
-          /* div{
-            height:21px;
-          } */
-        }
-        div {
-        font-size: 13px;
-			  line-height: 21px;
+  .new-print-modal__title {
+    display: flex;
+    justify-content: space-between;
+    min-height: 20px;
+    width: 100%;
+    font-size: 18px;
+    margin: 2px 0 2px;
+    flex-shrink: 0;
+  }
+
+  .new-print-modal__second {
+    height: 63px;
+    @extend .bb;
+    .flex {
+      display: flex;
+
+      height: 18px;
+      div {
+        flex: 3;
+        white-space: nowrap;
+      }
+      div:last-child {
+        flex: 2;
+      }
+      > div > span {
+        font-size: 24px;
+        line-height: 24px;
+        display: inline-block;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+      &:first-child {
+        height: 26px;
+      }
+      img {
+      width: 40%;
+      height: auto;
+      object-fit: cover;
+      padding-left: 10px;
+    }
+    }
+    div {
+      flex: 62%;
+      text-indent: 3px;
+    }
+
+    > div:nth-child(2) > span {
+      font-size: 22px;
+      font-weight: 900;
+    }
+  }
+
+  .qc-box {
+    width: 50px;
+    overflow: hidden;
+    padding: 1px 1px 0px 0px;
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+  .new-print-modal__content {
+    flex: 1;
+    div {
+      display: flex;
+      justify-content: space-between;
+      line-height: 12px;
+      text-align: left;
+    }
+    span {
+      white-space: nowrap;
+    }
+  }
+  .new-print-modal__tip {
+    display: flex;
+    justify-content: space-between;
+    min-height: 18px;
+    overflow: hidden;
+    @extend .bb;
+  }
+  .new-print-modal__tip_l {
+    display: flex;
+    // justify-content: space-between;
+    min-height: 18px;
+    overflow: hidden;
+
+  }
+  .warm-icon {
+    img {
+      width: 18px;
+      height: 18px;
+    }
+    img + img {
+      margin-left: 4px;
+    }
+  }
+  .new-print-modal__b {
+    display: flex;
+    padding-bottom: 6px;
+  }
+  .new-print-modal__b__l {
+    display: flex;
+    justify-content: space-around;
+    flex: 1;
+    span {
+      width: 100%;
+    }
+    span:nth-child(1),
+    span:nth-child(2),
+    span:nth-child(4),
+    span:nth-child(5) {
+      width: 50%;
+    }
+    span:nth-child(n + 4) {
+      display: flex;
+      &::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #000;
       }
     }
-		.new-modal-top-left{
-        .new-modal-top-left-first{
-            display: block;
-          div{
-            display: inline-block;
-			      font-size: 22px;
-			      padding-top: 3px;
-        }
-		  }
-      .whhk-new-modal-top-left-first{
-        height: 36px !important;
-      }
-      .new-modal-top-left-second{
-        display:block;
-        div{
+    @extend .bb;
+  }
+
+  &.new-modal-small {
+    height: 100%;
+    box-sizing: border-box;
+    font-weight: 500;
+    div,
+    p,
+    span {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+  .new-modal-small-top {
+    border: 1px solid #000;
+    height: 80px;
+    box-sizing: border-box;
+    .new-modal-small-top__left {
+      display: inline-block;
+      width: calc(100% - 85px);
+      overflow: hidden;
+      .flex:first-child {
+        line-height: 25px;
+        height: 30px;
+        > div > span {
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 30px;
+          text-shadow: 1px 0px #000, -1px 0px #000, 0px 1px #000, 0px -1px #000;
           display: inline-block;
         }
       }
+      .flex {
+        display: flex;
+
+        white-space: nowrap;
+        div {
+          flex: 3;
+        }
+        div:last-child {
+          flex: 2;
+        }
+      }
     }
-		.new-modal-bottom{
-      height: 72px;
-      display: block;
-      div {
-			font-size: 14px;
-			line-height: 22px;
-		  }
+    .new-modal-small-top__right {
+      display: inline-block;
+      width: 69px;
+      padding: 2px 2px 0px 0px;
+      img {
+        width: 100%;
+      }
+    }
+
+  }
+  .new-modal-small-content {
+    flex: 1;
+    div {
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 2px;
+      text-align: left;
+      border: 1px solid #000;
+      border-top: none;
     }
   }
 }
@@ -221,65 +387,96 @@
 import { cloneDeep } from "lodash";
 import moment from "moment";
 var qr = require("qr-image");
-const DRUG_TYPES = {
-  1: "普通",
-  2: "高危",
-  3: "自备",
+
+const arrayBufferToBase64 = (buffer) => {
+  var binary = "";
+  var bytes = new Uint8Array(buffer);
+  var len = bytes.byteLength;
+  for (var i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return "data:image/png;base64," + window.btoa(binary);
 };
+
 export default {
   props: {
     itemObj: { type: Array, default: () => [] },
     newModalSize: { type: String, default: "6*8" },
   },
   data() {
-    return {};
+    return {
+      isZhzxy: this.HOSPITAL_ID === "zhzxy",
+    };
   },
-  methods: {},
+  methods: {
+    // 返回避光或者重症图片路径
+    warmUrl(type) {
+      let url = "";
+      switch (type + "") {
+        case "2":
+          url = require("../../../../common/images/card/gaowei.png");
+          break;
+        case "4":
+          url = require("../../../../common/images/card/biguang.png");
+          break;
+      }
+      return url;
+    },
+  },
+  watch: {},
   computed: {
     currentBottle() {
       let cloneObj = cloneDeep(this.itemObj[0]);
       let orderText = [];
+      // 提示图标
+      let tipIcons = [];
       let dosageDosageUnits = [];
-
       this.itemObj.map((item) => {
-        orderText.push(item.orderText + (DRUG_TYPES[item.drugType] || ""));
+        orderText.push(item.orderText);
+        const val = ["2", "4"].find((v) => v == item.printFlag);
+        if (val) {
+          tipIcons.push(val);
+        }
         let content = `${item.dosage || ""}${item.dosageUnits || ""}`;
         dosageDosageUnits.push(content);
+
+        let orderText1 = item.orderText.split(" ")[0]
+        console.log("orderTex1t11111111111111",item.orderText,orderText1 ,this.itemObj);
       });
+      tipIcons.length > 2 && (tipIcons = [...new Set(tipIcons)]);
       let qr_png_value = this.itemObj[0].barCode;
-      var qr_png = qr.imageSync(qr_png_value, { type: "png",margin: 2 });
-      function arrayBufferToBase64(buffer) {
-        var binary = "";
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i < len; i++) {
-          binary += String.fromCharCode(bytes[i]);
-        }
-        return "data:image/png;base64," + window.btoa(binary);
-      }
+      var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: 0 });
       let base64 = arrayBufferToBase64(qr_png);
       let qcSrc = base64;
-      cloneObj = { ...cloneObj, orderText, dosageDosageUnits, qcSrc };
+      cloneObj = { ...cloneObj, orderText, qcSrc, tipIcons, dosageDosageUnits };
       return cloneObj;
     },
-    isLargeType() {
-      return this.newModalSize == "8*7";
+    hospitalName() {
+      return this.HOSPITAL_NAME;
+    },
+    // 医生说明
+    freqDetail() {
+      return (
+        this.itemObj && this.itemObj.map((item) => item.freqDetail).join("\n")
+      );
     },
     // 宽高样式
     sizeStyle() {
-      switch(this.newModalSize) {
+      switch (this.newModalSize) {
+        case "2*5":
+          return { width: "100mm", height: "39mm" };
+        case "7*5":
+          return { width: "50mm", height: "69mm" };
         case '8*7':
           return { width: '8.1cm', height: '7cm'}
         default:
-          return { width: '10cm', height: '5.9cm'}
+          // case '7*7':
+          return { width: "70mm", height: "69mm" };
       }
     },
-    modalBStyle() {
-      if (this.newModalSize === '3*5') {
-        return { height: '100px' }
-      }
-      return {}
-    }
+    isSize3() {
+      return this.newModalSize === "7*5";
+    },
   },
   filters: {
     repeatIndicatorFilter(val) {

@@ -98,8 +98,8 @@ export default [
     value: "",
     next: "mmHg",
     name: "BP",
-    textarea: { width: 45 },
-    change: (e, td) => limitChange(e, td, 2)
+    textarea: { width: 55 },
+    change: (e, td) => limitChange(e, td, 7)
   },
   {
     key: "pulse",
@@ -125,7 +125,7 @@ export default [
     value: "",
     next: "次/分",
     name: "R",
-    textarea: { width: 45 },
+    textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 3),
   },
   {
@@ -134,7 +134,7 @@ export default [
     value: "",
     next: "%",
     name: "血氧饱和度",
-    textarea: { width: 50 },
+    textarea: { width: 45 },
     change: (e, td) => limitChange(e, td, 4)
   },
   {

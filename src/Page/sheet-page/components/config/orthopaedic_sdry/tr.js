@@ -106,7 +106,7 @@ export default [
     next: "",
     name: "入量内容",
     autoComplete: { data: ruliang },
-    textarea: { width: 55 },
+    textarea: { width: 45 },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -170,7 +170,7 @@ export default [
     value: "",
     next: "",
     name: "",
-    textarea: { width: 43 },
+    textarea: { width: 55 },
     autoComplete: { data: Customizations },
     change: (e, td) => limitChange(e, td, 6)
   },

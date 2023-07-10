@@ -38,6 +38,12 @@
         v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
       ></el-table-column>
       <el-table-column
+          v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
+          prop="diagnosis"
+          label="诊断"
+          min-width="200px"
+      ></el-table-column>
+      <el-table-column
         :label="['fuyou'].includes(HOSPITAL_ID)?'责任医生':'管床医生'"
         prop="doctorInCharge"
         min-width="90px"
@@ -71,7 +77,7 @@
       <el-table-column
         :label="['foshanrenyi'].includes(HOSPITAL_ID)?'记账号':'住院号'"
         prop="inpNo"
-        min-width="95px"
+        min-width="120px"
       ></el-table-column>
 
       <el-table-column
