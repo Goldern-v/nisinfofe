@@ -722,7 +722,69 @@
             "pinyin": "wu6"
         }
     ],
-    "I2332195": [
+    "I2332100": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu7"
+        }
+    ],
+    "I2332097": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu8"
+        }
+    ],
+    "I2332025": [
+        {
+            "code": "青霉素",
+            "name": "青霉素",
+            "pinyin": "qinmeis"
+        },
+        {
+            "code": "头孢类",
+            "name": "头孢类",
+            "pinyin": "toubaolei"
+        }
+        
+    ],
+    "I2332261": [
+        {
+            "code": "酒精",
+            "name": "酒精",
+            "pinyin": "jiuj"
+        },
+        {
+            "code": "花粉",
+            "name": "花粉",
+            "pinyin": "huafen"
+        }
+        
+    ],
+    "I2332220": [
+        {
+            "code": "海鲜类",
+            "name": "海鲜类",
+            "pinyin": "haixlei"
+        },
+        {
+            "code": "鸡蛋",
+            "name": "鸡蛋",
+            "pinyin": "jidan"
+        },
+        {
+            "code": "乳制品",
+            "name": "乳制品",
+            "pinyin": "ruzhip"
+        },
+        {
+            "code": "芒果",
+            "name": "芒果",
+            "pinyin": "manguo"
+        }
+    ],
+    "I2332": [
         {
             "code": "血性液",
             "name": "血性液",

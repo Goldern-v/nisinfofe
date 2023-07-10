@@ -1224,7 +1224,7 @@ export default {
             td.value ='';
           }
         }
-        if((td.key === 'bloodPressure') && td.value !== ''&&!td.value.split('/')[1] && sheetInfo.sheetType !== 'common_gzry'){
+        if((td.key === 'bloodPressure') && td.value !== ''&&!td.value.split('/')[1] && sheetInfo.sheetType !== 'common_gzry' && this.HOSPITAL_ID != 'nfyksdyy'){
           td.value ='';
         }
         if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1]
@@ -1327,7 +1327,6 @@ export default {
       let self = this
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
-          console.log(title,'dddddddddddddddddddddd');
           let { list = [], id = '' } = obj  || {}
           list = list.map(v => v.options)
           let data = {

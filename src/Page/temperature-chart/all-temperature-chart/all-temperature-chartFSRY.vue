@@ -201,6 +201,7 @@
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="e => toRow(e, scope.row.admissionDate)"
+                @blur="e => onBlur(e, 'temperature')"
               />
             </template>
           </el-table-column>
@@ -262,6 +263,7 @@
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="e => toRow(e, scope.row.admissionDate)"
+                @blur="e => onBlur(e, 'pulse')"
               />
             </template>
           </el-table-column>
@@ -285,6 +287,7 @@
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="e => toRow(e, scope.row.admissionDate)"
+                @blur="e => onBlur(e, 'breath')"
               />
               <!-- <input v-model="scope.row.breath" class="breath" /> -->
               <!-- <el-input v-model="scope.row.breath"></el-input> -->
@@ -337,6 +340,7 @@
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="e => toRow(e, scope.row.admissionDate)"
+                @blur="e => onBlur(e, 'bloodPressure')"
               />
               <!-- <input v-model="scope.row.bloodPressure" class="bloodPressure" /> -->
               <!-- <el-input v-model="scope.row.bloodPressure"></el-input> -->
@@ -435,6 +439,7 @@
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="e => toRow(e, scope.row.admissionDate)"
+                 @blur="e => onBlur(e, 'heartRate')"
               />
             </template>
           </el-table-column>
@@ -1120,6 +1125,8 @@ export default {
       admittedList: [
         { name: "一周体重", value: "一周体重" },
         { name: "三天未大便", value: "三天未大便" },
+        { name: "昨日入院", value: "昨日入院" },
+        { name: "术后三天", value: "术后三天" },
         { name: "发热患者", value: "发热患者" },
         { name: "病危病重", value: "病危病重" },
         { name: "新入", value: "新入" },
@@ -1175,7 +1182,9 @@ export default {
               所有患者: item.patientId,
               一周体重: item.noWeightFlag == 1,
               三天未大便: item.notDefecateFlag == 1,
+              昨日入院: item.expand2 == 1,
               发热患者: item.temperatureFlag == 1,
+              术后三天: item.operationFlag == 1,
               新入: item.newInFlag == 1,
               转入: item.transInFlag == 1,
               病危病重: item.patientCondition != "普通"
@@ -1230,6 +1239,64 @@ export default {
     window.addEventListener("keydown", this.keydownSave, false);
   },
   methods: {
+    // 失去焦点数据
+    async onBlur(e, row){
+       if(row == 'temperature' && e.target.value !== ''&&(isNaN(e.target.value)||e.target.value<35||e.target.value>42)){
+          confirmRes = await this.$confirm(
+            " 体温的填写范围是35～42，您的填写超出录入范围,请重新填写",
+            "错误",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "error",
+            }
+          ).catch(() => {
+             e.target.value = '';
+          });
+
+        }
+        if((row == 'pulse' || row == 'heartRate')&& e.target.value !== ''&&(isNaN(e.target.value)||e.target.value<30||e.target.value>300)){
+          confirmRes = await this.$confirm(
+            e.target.name+ "的填写范围是30～300，您的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {
+             e.target.value ='';
+          });
+        }
+        if((row === 'breath')&&e.target.value !== ''&&(isNaN(e.target.value)||e.target.value<0||e.target.value>100)){
+          confirmRes = await this.$confirm(
+            e.target.name+ "的填写范围是0～100，您的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {
+            e.target.value ='';
+          });
+        }
+        if((row === 'bloodPressure')&&e.target.value !== ''&&(isNaN(e.target.value.split('/')[0])||!e.target.value.split('/')[1]
+        ||(e.target.value.split('/')[0]>250||e.target.value.split('/')[0]<50)||e.target.value.split('/')[1]>200||e.target.value.split('/')[1]<0)){
+          confirmRes = await this.$confirm(
+            e.target.name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            }
+          ).catch(() => {
+            e.target.value ='';
+          });
+
+        }
+    },
     //行样式
     rowStyle(row) {
       if (!this.levelColorHis.includes(this.HOSPITAL_ID)) {

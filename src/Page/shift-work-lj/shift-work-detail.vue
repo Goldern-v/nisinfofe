@@ -357,12 +357,12 @@ export default {
               prop: "bedLabel",
               editable: true,
               align: "center",
-              width: this.HOSPITAL_ID=="hengli"?"45":"35"
+              width: this.HOSPITAL_ID=="hengli"?"45":"5"
             },
             {
               label: "姓名、性别、年龄",
               prop: "name",
-              width: "53",
+              width: "7",
               render: row => {
                 const status = row.patientStatus
                   ? `(${row.patientStatus})`
@@ -381,13 +381,13 @@ export default {
               label: "主要诊断",
               prop: "diagnosis",
               editable: true,
-              width: "80"
+              width: "10"
             },
             {
               label: "现在的情况",
               prop: "mainComplaint",
               editable: true,
-              width: "90"
+              width: "10"
             }
           ]
         },
@@ -398,7 +398,7 @@ export default {
               label: "主诉、既往史、过敏史、用药史、手术史、治疗经过、护理情况、治疗效果跟踪",
               prop: "background",
               editable: true,
-              width: "180"
+              width: "45"
             }
           ]
         },
@@ -409,7 +409,7 @@ export default {
               label: "护理评估、辅助检查（阳性）",
               prop: "assessmentSituation",
               editable: true,
-              width: "110"
+              width: "30"
             }
           ]
         },
@@ -420,7 +420,7 @@ export default {
               label: "交给下一班注意的护理意见建议、特殊预警",
               prop: "proposal",
               editable: true,
-              width: "100"
+              width: "5"
             }
           ]
         }

@@ -362,7 +362,7 @@ export default {
   methods: {
     // 处理筛选
     handleFilter(e,list){
-      let autoCompleteData = [{code: "三天内体温超37.5", name: "三天内体温超37.5"}, {code: "入院3天内", name: "入院3天内"}, {code: "术后3天内", name: "术后3天内"},{code: "病危患者", name: "病危患者"},{code: "病重患者", name: "病重患者"},{code: "转科患者", name: "转科患者"},{code: "特级护理患者", name: "特级护理患者"},{code: "一级护理患者", name: "一级护理患者"},{code: "二级护理患者", name: "二级护理患者"},{code: "三级护理患者", name: "三级护理患者"},{code: "3天未解大便", name: "3天未解大便"}]
+      let autoCompleteData = [{code: "三天内体温超37.3", name: "三天内体温超37.3"},{code: "当天入院", name: "当天入院"}, {code: "入院3天内", name: "入院3天内"}, {code: "术后3天内", name: "术后3天内"},{code: "病危患者", name: "病危患者"},{code: "病重患者", name: "病重患者"},{code: "转科患者", name: "转科患者"},{code: "特级护理患者", name: "特级护理患者"},{code: "一级护理患者", name: "一级护理患者"},{code: "二级护理患者", name: "二级护理患者"},{code: "三级护理患者", name: "三级护理患者"},{code: "3天未解大便", name: "3天未解大便"}]
       window.openAutoComplete({
       style: {
         top: `${e.y  - window.scrollY + 10}px`,
@@ -570,7 +570,8 @@ export default {
       if(this.fliterList.length && this.HOSPITAL_ID == 'nfyksdyy'){
          return putSortList.filter(item => {
             let admObj = {
-              '三天内体温超37.5': item.temperatureFlag == 1,
+              '三天内体温超37.3': item.temperatureFlag == 1,
+              '当天入院': item.inpDay == 1,
               '入院3天内': item.newInFlag == 1,
               '术后3天内': item.operationFlag == 1,
               '转科患者': item.transferFlag == 1,
