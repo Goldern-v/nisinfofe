@@ -25,7 +25,8 @@
     <div class="container">
       <NullBg v-if="!digits" text="暂时没有病房日报数据～" />
       <div class="print-area" v-else ref="area">
-        <Paper
+        <component
+          :is="whichPaper"
           v-for="(paper, i) of papers"
           :key="i"
           :name="name"
@@ -39,7 +40,7 @@
           :index="i === 0 ? 1 : smallSize + 1 + (i - 1) * largeSize"
           :page="i"
           :total="papers.length"
-        />
+        ></component>
       </div>
     </div>
   </div>
@@ -53,6 +54,7 @@ import Button from "./components/button";
 import NullBg from "@/components/null/null-bg.vue";
 import common from "@/common/mixin/common.mixin.js";
 import Paper from "./components/paper.vue";
+import PaperSdyy from "./components/paper-sdyy.vue";
 import * as apis from "./apis";
 
 export default {
@@ -60,7 +62,8 @@ export default {
   components: {
     NullBg,
     Paper,
-    Button
+    Button,
+    PaperSdyy
   },
   data() {
     return {
@@ -77,6 +80,20 @@ export default {
       code: "",
       name: ""
     };
+  },
+  computed: {
+    whichPaper() {
+      const pager = {
+        'nfyksdyy': PaperSdyy,
+      }
+      return pager[this.HOSPITAL_ID] || Paper;
+    },
+    smallSize4Hospital() {
+      const pageSize = {
+        nfyksdyy: 12
+      }
+      return pageSize[this.HOSPITAL_ID] || 10;
+    }
   },
   watch: {
     deptCode(value, oldValue) {
@@ -139,7 +156,7 @@ export default {
         }
       } = res2;
 
-      const smallSize = (this.smallSize = 10);
+      const smallSize = (this.smallSize = this.smallSize4Hospital);
       const largeSize = (this.largeSize = 16);
 
       const total = Math.max(inList.length, outList.length);
@@ -186,7 +203,6 @@ export default {
 
       const area = this.$refs.area;
       const els = Array.from(area.querySelectorAll(".paper"));
-      debugger;
       await print(els, {
         direction: "horizontal",
         injectGlobalCss: true,
