@@ -864,7 +864,7 @@
               </div>
             </el-checkbox-group>
           </el-tab-pane>
-          <el-tab-pane label="出量" name="5" v-if="outChoseItemList.length>0 ">
+          <el-tab-pane :label="outChoseItemList[0].modalLabel || '出量'" name="5" v-if="outChoseItemList.length>0 ">
             <dischargeSetting ref="dischargeSetting" :outChoseItemList="outChoseItemList"></dischargeSetting>
           </el-tab-pane>
           <el-tab-pane label="入量" name="6" v-if="['critical2_weihai'].includes(sheetInfo.sheetType)">

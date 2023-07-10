@@ -26,20 +26,27 @@ export default {
         rowspan: "3",
       },
       {
-        name: "T<br/>(℃)",
+        name: "体温<br/>(℃)",
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        P<br/>(次/<br/>分)
+        脉搏<br/>(次/<br/>分)
         `,
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `
-        R<br/>(次/<br/>分)
+        心率<br/>(次/<br/>分)
+        `,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        呼吸<br/>(次/<br/>分)
         `,
         colspan: "1",
         rowspan: "3",
