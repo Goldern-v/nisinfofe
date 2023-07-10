@@ -221,7 +221,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 45
     }
   },
   {
@@ -229,7 +229,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 45
     }
   },
   {
@@ -237,7 +237,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 45
     }
   },
 
@@ -246,7 +246,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 45
     }
   },
   {
@@ -254,7 +254,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 45
     }
   },
   {
@@ -262,7 +262,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 45
     }
   },
   {
@@ -270,7 +270,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 45
     }
   },
   {
@@ -278,7 +278,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 45
     }
   },
   {
@@ -286,7 +286,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 40
+      width: 45
     }
   },
   {

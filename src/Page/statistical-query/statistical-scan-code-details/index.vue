@@ -4,6 +4,7 @@
     :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
+    :istype="!!HOSPITAL_ID == 'nfyksdyy'"
     datetype="datetime"
     @handleExport="handleExport"
     @handleQuery="handleQuery"/>
@@ -56,10 +57,12 @@ export default {
         beginTime: '',
         endTime: '',
         wardCode: '',
-        status: 0,
       },
       columns: this.handleColumns()
     };
+  },
+  mounted() {
+    delete this.formData.status;
   },
   methods: {
     handleColumns(){
@@ -77,25 +80,25 @@ export default {
                 key: 'status',
                 title: '状态',
                 align: 'center',
-                width: 70,
+                minWidth: 80,
               },
               {
                 key: 'noScanRate',
                 title: '非扫码类',
                 align: 'center',
-                minWidth: 70,
+                minWidth: 85,
               },
               {
                 key: 'transfusion',
                 title: '输液类',
                 align: 'center',
-                width: 70,
+                minWidth: 90,
               },
               {
-                key: 'injection',
+                key: 'Injection',
                 title: '注射类',
                 align: 'center',
-                width: 80,
+                minWidth: 90,
               },
               {
                 key: 'specimen',

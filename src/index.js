@@ -129,7 +129,7 @@ import "@/plugin/webSocket";
 import "./common/directives/common.directive";
 
 /** 时间控件 */
-import crDatePicker from "@/components/cr-date-picker/cr-date-picker";
+import crDatePicker from "@/components/cr-date-picker/cr-date-pickerV2.vue";
 Vue.component("cr-date-picker", crDatePicker);
 //添加element-ui2.0表格组件
 // import { Table as EcrmTable, TableColumn as EcrmTableColumn } from 'ecrm-element-ui';
