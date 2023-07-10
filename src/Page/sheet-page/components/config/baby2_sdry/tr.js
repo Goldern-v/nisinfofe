@@ -44,7 +44,7 @@ export default [
     value: "",
     next: "℃",
     name: "温箱",
-    textarea: { width: 35 },
+    textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 2)
   },
   {
@@ -53,7 +53,7 @@ export default [
     value: "",
     next: "℃",
     name: "T",
-    textarea: { width: 35 },
+    textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 2)
   },
   {
@@ -81,7 +81,7 @@ export default [
     value: "",
     next: "mmHg",
     name: "BP",
-    textarea: { width: 40 },
+    textarea: { width: 55 },
     change: (e, td) => limitChange(e, td, 4)
   },
   {
@@ -90,7 +90,7 @@ export default [
     value: "",
     next: "%",
     name: "SPO₂%",
-    textarea: { width: 40 },
+    textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 2)
   },
   {
@@ -109,7 +109,7 @@ export default [
     value: "",
     next: "",
     name: "入量内容",
-    textarea: { width: 40 },
+    textarea: { width: 45 },
     autoComplete: { data: ruliang },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -128,7 +128,7 @@ export default [
     value: "",
     next: "",
     name: "出量内容",
-    textarea: { width: 40 },
+    textarea: { width: 45 },
     autoComplete: { data: chuliang },
     change: (e, td) => limitChange(e, td, 6)
   },
