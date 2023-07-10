@@ -25,7 +25,7 @@ export default {
         { "name": "HR<br/>次/分", "colspan": "1", "rowspan": "3" },
         { "name": "R<br/>次/分", "colspan": "1", "rowspan": "3" },
         { "name": "BP<br/>mmHg", "colspan": "1", "rowspan": "3" },
-        { "name": "SPO₂%", "colspan": "1", "rowspan": "3" },
+        { "name": "SPO₂<br/>%", "colspan": "1", "rowspan": "3" },
         {'name':'意<br/>识',"colsapn":"1","rowspan":"3"},
         { "name": "入量", "colspan": "2", "rowspan": "1" },
         { "name": "出量", "colspan": "2", "rowspan": "1" },
@@ -65,7 +65,7 @@ export default {
           "key": 'armValue3',
           "style": {
             "minWidth": '45px',
-            "maxWidth": '37px',
+            "maxWidth": '45px',
           }
         },
         {

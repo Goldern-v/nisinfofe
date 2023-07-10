@@ -13,7 +13,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1450px"
+    width: "1520px"
   },
   th: {
     top: [
@@ -38,7 +38,7 @@ export default {
         rowspan: "3",
         canSet: true,
         name: "",
-        style: { minWidth: "45px", maxWidth: "45px" }
+        style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
         key: "fieldSeven",
@@ -46,7 +46,7 @@ export default {
         rowspan: "3",
         name: "",
         canSet: true,
-        style: { minWidth: "45px", maxWidth: "45px" }
+        style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
         name: "",
@@ -54,7 +54,7 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldEight",
-        style: { minWidth: "45px", maxWidth: "45px" }
+        style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
         name: "",
@@ -62,7 +62,7 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldNine",
-        style: { minWidth: "45px", maxWidth: "45px" }
+        style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
         name: "",
@@ -70,7 +70,7 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldTen",
-        style: { minWidth: "45px", maxWidth: "45px" }
+        style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
         name: "",
@@ -78,7 +78,7 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldTwelve",
-        style: { minWidth: "45px", maxWidth: "45px" }
+        style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
         name: "",
@@ -86,7 +86,7 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldThirteen",
-        style: { minWidth: "45px", maxWidth: "45px" }
+        style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
         name: "",
@@ -94,7 +94,7 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldFourteen",
-        style: { minWidth: "45px", maxWidth: "45px" }
+        style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
         name: "",
@@ -102,7 +102,7 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldEleven",
-        style: { minWidth: "45px", maxWidth: "45px" }
+        style: { minWidth: "50px", maxWidth: "50px" }
       },
       {
         name: "",
@@ -110,7 +110,7 @@ export default {
         rowspan: "3",
         canSet: true,
         key: "fieldFifteen",
-        style: { minWidth: "45px", maxWidth: "45px" }
+        style: { minWidth: "50px", maxWidth: "50px" }
       },
       {name: "特殊情况记录",colspan: "1",rowspan: "3",style: { minWidth: "260px", maxWidth: "260px" }},
       {

@@ -2364,7 +2364,7 @@ export default {
       if (this.isSaving) {
         return;
       }
-      if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zhzxy" || this.HOSPITAL_ID == "fuyou") {
+      if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zhzxy" || this.HOSPITAL_ID == "fuyou"|| this.HOSPITAL_ID == "nfyksdyy") {
         // 佛山市一，护记弹窗保存有换行\n,所以要全部清理。不然textarea显示有问题
         // 珠海中西医 弹窗保存会复制病例过来会有换行。所以全部清理
         this.doc = this.doc.replace(/\n/gi, "");
