@@ -880,7 +880,7 @@ const router = new Router({
             case 'zhzxy':
             case 'nfyksdyy':
             case 'huadu':
-            // case 'ytll':
+            case 'ytll':
               return shiftWorkBh
             case 'fqfybjy':
               return shiftWorkFq
@@ -919,7 +919,7 @@ const router = new Router({
               case 'beihairenyi':
               case 'zhzxy':
               case 'nfyksdyy':
-              // case 'ytll':
+              case 'ytll':
               case 'huadu':
                 return shiftWorkDetailBh
               case 'gdtj':
