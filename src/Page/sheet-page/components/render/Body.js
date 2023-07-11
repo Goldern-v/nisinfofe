@@ -1823,6 +1823,11 @@ function switchSheetType(type) {
       schema = require("../config/general_item_weihai/tr.js").default;
     }
     break;
+    case "critical_patient_weihai": {
+      //威海市立 - 危重患者护理记录单
+      schema = require("../config/critical_patient_weihai/tr.js").default;
+    }
+      break;
     case "extracardi_one_weihai": {
       //威海市立 - 心外患者重症护理记录单Ⅰ
       schema = require("../config/extracardi_one_weihai/tr.js").default;
