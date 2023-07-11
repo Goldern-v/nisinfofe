@@ -2393,6 +2393,13 @@ export default function Title(
     );
   }
     break;
+    case "critical_patient_weihai": {
+      // 威海市立-- 危重患者护理记录单
+      Th = JSON.parse(
+          JSON.stringify(require("../config/critical_patient_weihai/th.js").default)
+      );
+    }
+      break;
   case "extracardi_one_weihai": {
     // 威海市立--心外患者重症护理记录单Ⅰ
     Th = JSON.parse(

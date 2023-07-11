@@ -739,6 +739,22 @@
                       :style="item.maxWidth && { width: item.maxWidth + 'px' }"
                       v-else-if="HOSPITAL_ID == 'beihairenyi' && key == 'food'"
                     />
+<!--                    <input-->
+<!--                        type="number"-->
+<!--                        :readonly="isRead"-->
+<!--                        v-model="fixedList[key].value"-->
+<!--                        @input="inputEight(item,key)"-->
+<!--                        @blur="checkValue(fixedList[key])"-->
+<!--                        v-autoComplete="{-->
+<!--                        dataList: dictionary[item.key],-->
+<!--                        obj: fixedList,-->
+<!--                        key: key,-->
+<!--                        tr,-->
+<!--                        td: item,-->
+<!--                      }"-->
+<!--                        :style="item.maxWidth && { width: item.maxWidth + 'px' }"-->
+<!--                        v-else-if="HOSPITAL_ID == 'whsl' && sheetInfo.sheetType =='extracardi_one_weihai' && isOutALl.includes(item.key) "-->
+<!--                    />-->
                     <input
                       type="text"
                       :readonly="isRead"
@@ -1455,6 +1471,7 @@ export default {
       outFoodlist:[],
       toUseList:[],
       outChoseItemList:[],
+      isOutALl:['inputOne', 'inputTwo', 'inputThree','inputSeven','inputSix','inputFive','inputFout','outputOne','outputFout','outputFive','outputSix'],//威海心护1--特殊字段
     };
   },
   computed: {
@@ -1571,6 +1588,29 @@ export default {
     },
   },
   methods: {
+    // 威海心护1 合计计算
+    // inputEight(item,key){
+    //   // 入量
+    //   const inputToSum = ['inputOne', 'inputTwo', 'inputThree','inputSeven','inputSix','inputFive','inputFout'];
+    //   // 出量
+    //   const outputSum =['outputOne','outputFout','outputFive','outputSix']
+    //   if(inputToSum.includes(item.key)){
+    //     const total = Object.keys(this.fixedList)
+    //         .filter(item => inputToSum.includes(item.key))
+    //         .reduce((acc, item) => acc + Number(item.value), 0);
+    //     console.log("total===1111",total)
+    //     this.fixedList.find(item => item.key === 'inputEight').value = total;
+    //   }
+    //   if(outputSum.includes(item.key)){
+    //     const total = this.fixedList
+    //         .filter(item => outputSum.includes(item.key))
+    //         .reduce((acc, item) => acc + Number(item.value), 0);
+    //     console.log("total===2222",total)
+    //     this.fixedList.find(item => item.key === 'outputEight').value = total;
+    //
+    //   }
+    //
+    // },
     ...mapMutations(['upOpenModalFromSpecial', 'upEvalData']),
     // 新医院注意 新增时需要在对应弹窗匹配
     // 检验 src/Page/sheet-page/components/sheet-tool/modal/test-modal.vue
@@ -1918,6 +1958,8 @@ export default {
           this.fixedList[item].maxWidth = width + 10;
         }
       }
+      console.log("this.fixedList===",this.fixedList)
+
       // 贵州省医common_gzry，血压弹框分开为收缩压和舒张压
       if (this.sheetInfo.sheetType === 'common_gzry') {
         const bloodPressure = this.fixedList.bloodPressure

@@ -457,6 +457,7 @@
                   splice: td.splice,
                 });
                 td.key == 'description' && ['nfyksdyy'].includes(HOSPITAL_ID) && onSearch($event, {x, y ,z:index, td, tr});
+                sheetInfo.sheetType == 'extracardi_one_weihai' && inputEight(td,tr,y)
             "
             @focus="
               td.autoComplete &&
@@ -2332,20 +2333,19 @@ export default {
         return false;
       }
     },
-    checkMaxLength(value, length) {
-      const regC = /[^ -~]+/g;
-      const regE = /\D+/g;
-      // console.log("textarea", value, length);
-    },
+
     isOverText(td, isSdyy) {
-     
       try {
         let inputWidth = td.textarea.width;
         let textWidth = td.value.split("").reduce((total, num) => {
           let charCode = num.charCodeAt(0);
+          if (charCode >= 0 && charCode <= 128) return total + 5.9;
+          else return total + 11.8;
           if ((charCode >= 0 && charCode <= 128)) return isSdyy ?  total + 6.8 : total + 5.9;
           else return  isSdyy ?  total + 14 : total + 11.8
+
         }, 0);
+
 
         if (textWidth > inputWidth) {
           return true;
@@ -3213,7 +3213,26 @@ export default {
           }
         }, 300);
       }
-    }
+    },
+    // 威海计算入量，出量
+    inputEight(e,tr,y){
+      // 入量
+      const inputToSum = ['inputOne', 'inputTwo', 'inputThree','inputSeven','inputSix','inputFive','inputFout'];
+      // 出量
+      const outputSum =['outputOne','outputFout','outputFive','outputSix']
+      if(inputToSum.includes(e.key)){
+        const total = tr
+          .filter(item => inputToSum.includes(item.key))
+          .reduce((acc, item) => acc + Number(item.value), 0);
+        tr.find(item => item.key === 'inputEight').value = !total ? '' :total
+      }
+      if(outputSum.includes(e.key)){
+        const total = tr
+            .filter(item => outputSum.includes(item.key))
+            .reduce((acc, item) => acc + Number(item.value), 0);
+        tr.find(item => item.key === 'outputEight').value = !total ? '' :total;
+      }
+    },
   },
   watch: {
     scrollY() {
