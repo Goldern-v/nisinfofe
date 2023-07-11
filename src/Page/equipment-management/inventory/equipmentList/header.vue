@@ -63,7 +63,7 @@
       </div>
     </div>
     <div class="search-item">
-      <el-button size="small" type="primary" @click="searchClick">查询</el-button>
+      <el-button size="small" type="primary" @click="getTableData">查询</el-button>
       <el-button size="small" type="primary" @click="handleExport">导出</el-button>
       <el-button size="small" type="primary" @click="printAllQcode">打印二维码</el-button>
       <el-button size="small" type="primary" v-if='isNursingMinister' @click.native.prevent="onAdd()">添加</el-button>
@@ -122,6 +122,7 @@ export default {
         status: '',
         statusFlag: '',
         type: '全部',
+        wardName: this.$store.state.lesion.deptName,
       },
       stateID: [
         {
@@ -159,10 +160,17 @@ export default {
       // isNursingMinister: false
     };
   },
+  watch: {
+    '$store.state.lesion.deptName'(newValue, oldValue) {
+      this.title.wardName = newValue
+      this.getTableData()
+    }
+  },
   mounted() {
     this.getAllDeviceType()
     this.getAllQrCodeSize()
     this.bus.$on('getQrCodeSize', this.getAllQrCodeSize)
+    this.bus.$on('downloadTemSuccess', this.getAllQrCodeSize)
   },
   methods: {
     getAllQrCodeSize() {
@@ -200,6 +208,7 @@ export default {
       }
     },
     onAdd(row = null) {
+      this.$refs.modalAdd.getDepList()
       this.$refs.modalAdd.visible = true
       if (row) {
         this.$refs.modalAdd.title = '修改'
@@ -213,9 +222,9 @@ export default {
     },
     getSize(size, status) {
       if (size) {
-        let w = size.split('*')[0];
-        let h = size.split('*')[1];
-        if (`${w}*${h}` === '3*5') return 1
+        let w = parseInt(size.split('*')[0]);
+        let h = parseInt(size.split('*')[1]);
+        if ((`${w}*${h}` === '3*5') || (`${w}*${h}` === '4*5')) return 1
         else if(`${w}*${h}` === '6*8') return 2
         else {
           if (status === 'qrCodeSize') {
@@ -229,9 +238,6 @@ export default {
         }
       }
       else return null
-    },
-    searchClick() {
-      this.getTableData()
     },
     getTableData() {
       this.$emit('getTableData')
@@ -270,9 +276,10 @@ export default {
 <style lang="scss" scoped>
 .header {
   font-size: 12px;
-  padding: 0 20px 10px 20px;
+  padding: 10px 20px 10px 20px;
   display: flex;
   justify-content: space-between;
+  position: relative;
   .header-item{
     display: flex;
     align-items: center;

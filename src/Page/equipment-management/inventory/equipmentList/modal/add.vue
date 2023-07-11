@@ -130,7 +130,7 @@ export default {
     };
   },
   created() {
-    this.getDepList()
+    // this.getDepList()
   },
   methods: {
     cancel(formName) {

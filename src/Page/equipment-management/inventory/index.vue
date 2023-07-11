@@ -1,5 +1,5 @@
 <template>
-  <div class="critical-value">
+  <div class="inventory">
     <div class="tab">
       <el-radio-group v-model="cut" size="small">
         <el-radio-button label="设备列表"></el-radio-button>
@@ -34,8 +34,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.critical-value {
-  height: calc(100vh - 81px);
+.inventory {
+  height: calc(100vh - 82px);
   margin: 10px;
   background-color: #fff;
 }

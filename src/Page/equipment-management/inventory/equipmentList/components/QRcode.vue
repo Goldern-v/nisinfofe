@@ -48,8 +48,8 @@ export default {
   methods: {
     getSizeStyle(size) {
       if (size) {
-        let w = size.split('*')[0];
-        let h = size.split('*')[1] - 0.1;
+        let w = parseInt(size.split('*')[0]);
+        let h = parseInt(size.split('*')[1]) - 0.1;
         if (h < 3) this.status = true
         else this.status = false
         return { width: `${w}cm`, height: `${h}cm`}

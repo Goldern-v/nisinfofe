@@ -1,5 +1,5 @@
 <template>
-  <div class="critical-value">
+  <div class="equipmentType">
     <Header ref="header" :multipleSelection='multipleSelection' />
     <div class="content">
       <el-table
@@ -140,7 +140,6 @@ export default {
     },
     selectionChange(val) {
       this.multipleSelection = val
-      // console.log(val, 9999999)
     },
     sizeChange(newSize) {
       this.query.pageSize = newSize;

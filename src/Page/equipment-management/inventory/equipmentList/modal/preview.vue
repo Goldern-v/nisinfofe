@@ -51,26 +51,9 @@ export default {
   },
   methods: {
     getQRCode(row) {
-      console.log(this.$refs.QRcode)
       this.$nextTick(() => {
         this.$refs.QRcode.getQRCode(row)
       })
-      
-      // let qr_png_value = row.registrationCode || '';
-      
-      // let qr_png = qr.imageSync(qr_png_value, { type: "png" });
-      // function arrayBufferToBase64(buffer) {
-      //   let binary = "";
-      //   let bytes = new Uint8Array(buffer);
-      //   let len = bytes.byteLength;
-      //   for (let i = 0; i < len; i++) {
-      //     binary += String.fromCharCode(bytes[i]);
-      //   }
-      //   return "data:image/png;base64," + window.btoa(binary);
-      // }
-      // let base64 = arrayBufferToBase64(qr_png);
-      // this.QRCode = base64;
-      // this.qrCodeNum = qr_png_value;
     },
     cancel() {
       this.visible = false

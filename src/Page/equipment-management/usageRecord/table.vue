@@ -1,5 +1,5 @@
 <template>
-  <div class="critical-value">
+  <div class="usageRecord">
     <Header @getTableData='getData' ref="header" :multipleSelection='multipleSelection' />
     <div class="content">
       <el-table
@@ -166,8 +166,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.critical-value {
-  height: calc(100vh - 81px);
+.usageRecord {
+  height: calc(100vh - 82px);
   margin: 10px;
   background-color: #fff;
   .content {

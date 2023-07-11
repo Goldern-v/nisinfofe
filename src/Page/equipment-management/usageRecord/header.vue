@@ -58,11 +58,12 @@
           placeholder="请输入设备名称 | 设备编码"
           icon="search"
           v-model="title.code"
-          :on-icon-click="searchIconClick"
+          :on-icon-click="getTableData"
+          @change="getTableData"
         >
         </el-input>
       </div>
-      <el-button size="small" type="primary" @click="searchClick">查询</el-button>
+      <el-button size="small" type="primary" @click="getTableData">查询</el-button>
       <el-button size="small" type="primary" @click="handleExport">导出</el-button>
     </div>
   </div>
@@ -121,7 +122,7 @@ export default {
         type: '全部',
         status: '',
         isRelated: '1',
-        wardCode: localStorage.getItem('selectDeptValue')
+        wardCode: this.$store.state.lesion.deptCode || ''
       },
       time: [start, end],
       qualitys: [
@@ -151,6 +152,12 @@ export default {
       deviceType: [],
     };
   },
+  watch: {
+    '$store.state.lesion.deptCode'(newValue, oldValue) {
+      this.title.wardCode = newValue
+      this.getTableData()
+    }
+  },
   created() {
     this.getAllDeviceType()
   },
@@ -162,13 +169,6 @@ export default {
           this.deviceType =[ {name: '全部', id: 'all'}, ...((res.data && res.data.data) || [])]
         }
       });
-    },
-    searchClick() {
-      this.title.wardCode = localStorage.getItem('selectDeptValue') || ''
-      this.getTableData()
-    },
-    searchIconClick() {
-      this.getTableData()
     },
     getTableData() {
       this.$emit('getTableData') 

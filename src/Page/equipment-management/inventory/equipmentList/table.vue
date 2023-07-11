@@ -1,21 +1,21 @@
 <template>
-  <div class="critical-value">
+  <div class="equipmentList">
     <Header @getTableData='getData' ref="header" :isNursingMinister='isNursingMinister' :multipleSelection='multipleSelection' />
     <!-- 打印二维码 -->
-      <div class="QRcode" ref="printQRcode">
-        <QRcode ref="QRcodeRef" :information='information' :printAll='printAll' />
-      </div>
-      <!-- 打印状态标识 -->
-      <div  ref="statusFlagRef" class="statusFlagRef" :style="statusInformation.styleSize">
-        <div class="status">
-          <div class="border">
-            <div :style="{ border: `19px solid ${statusInformation.color}` }">{{statusInformation.statusFlag}}</div>
-          </div>
-          <div class="border">
-            <div :style="{ border: `19px solid ${statusInformation.color}` }">{{statusInformation.date}}</div>
-          </div>
+    <div class="QRcode" ref="printQRcode">
+      <QRcode ref="QRcodeRef" :information='information' :printAll='printAll' />
+    </div>
+    <!-- 打印状态标识 -->
+    <div  ref="statusFlagRef" class="statusFlagRef" :style="statusInformation.styleSize">
+      <div class="status">
+        <div class="border">
+          <div :style="{ border: `19px solid ${statusInformation.color}` }">{{statusInformation.statusFlag}}</div>
+        </div>
+        <div class="border">
+          <div :style="{ border: `19px solid ${statusInformation.color}` }">{{statusInformation.date}}</div>
         </div>
       </div>
+    </div>
     <div class="content">
       <el-table
         v-loading="loading"
@@ -33,7 +33,7 @@
           type="selection"
           width="55">
         </el-table-column>
-        <!-- <el-table-column fixed align="center" type="index" label="序号" width="60"></el-table-column> -->
+        <el-table-column fixed align="center" type="index" label="序号" width="60"></el-table-column>
         <el-table-column
           v-for="(item, index) in column"
           :key="index + 'column'"
@@ -165,17 +165,17 @@ export default {
     };
   },
   mounted() {
-    this.tableHeight = window.innerHeight - 222;
+    this.tableHeight = window.innerHeight - 225;
     this.getData()
     this.getIsNursingMinister()
     this.bus.$on('editSuccess', this.getData)
+    this.bus.$on('downloadTemSuccess', this.getData)
   },
   methods: {
     // 判断是否为护理部
     getIsNursingMinister() {
       getIsNursingMinister().then(res => {
         if (res.data.code === "200") {
-          console.log(res.data, 888888)
           this.isNursingMinister = res.data && res.data.data && res.data.data.isNursingMinister
         }
       });
@@ -216,7 +216,7 @@ export default {
     printQcode(row) {
       this.printAll = ''
       this.information = row
-      this.$refs.QRcodeRef.getQRCode(row, text)
+      this.$refs.QRcodeRef.getQRCode(row)
       this.$nextTick(() => {
           printing(this.$refs.printQRcode, {
           direction: "vertical",
@@ -234,15 +234,6 @@ export default {
         color: this.getColor(row.statusFlag), 
         styleSize: this.$refs.QRcodeRef.getSizeStyle(row.statusFlagSize, text)
       }
-      let cssStyle = `
-          @media print {
-            .status {
-              color: red !important;
-              background-color:red !important;
-            }
-          }
-          `
-      // this.$refs.QRcodeRef.getQRCode(row, text)
       this.$nextTick(() => {
           printing(this.$refs.statusFlagRef, {
           direction: "vertical",
@@ -302,10 +293,7 @@ export default {
     },
     getAllQRCode(data) {
       return data.map(item => {
-        // this.$nextTick(() => {
-          console.log(this.$refs)
           item['qrCode'] = this.$refs.QRcodeRef.getQRCode(item)
-        // })
         return item
       })
     },
@@ -323,6 +311,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.equipmentList{
+  overflow: hidden;
+  position: relative;
+}
 .content {
   margin: 0px 20px;
 }
