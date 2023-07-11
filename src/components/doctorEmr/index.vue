@@ -305,7 +305,7 @@ export default {
         this.fileUrl = `http://192.168.99.72:8099/?hospital_no=45607379-3&patient_id=${this.$route.query.patientId}&visit_id=${this.$route.query.visitId}`
           break;
         case 'nfyksdyy':
-        this.fileUrl = `http://192.168.8.174:8090/Home/DoqLeiView?a=1&mdt=H&pcid=${this.$route.query.inpNo}`
+        this.fileUrl = `http://192.168.8.174:8090/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&pcid=${this.$route.query.inpNo}`
         break;
         default:
         this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`;
@@ -327,11 +327,11 @@ export default {
     -ms-transform: translate(-50%, -40%);
     -moz-transform: translate(-50%, -40%);
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 61%;
+    left: 56%;
     z-index: 999;
-    width: 1200px;
-    height: 800px;
+    width: 960px;
+    height: 555px;
     background: #ffffff;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 
