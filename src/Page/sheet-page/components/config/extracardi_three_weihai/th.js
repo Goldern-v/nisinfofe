@@ -26,7 +26,7 @@ export default {
         name: "RASS<br/>镇静<br/>评估",
         colspan: "1",
         rowspan: "3" ,
-        style: { minWidth: "40", maxWidth: "40" }
+        style: { minWidth: "40px", maxWidth: "40px" }
       },
       { name: "疼痛评估", colspan: "2", rowspan: "1" },
       {

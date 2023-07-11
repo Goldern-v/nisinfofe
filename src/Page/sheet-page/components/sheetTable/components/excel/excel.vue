@@ -457,6 +457,7 @@
                   splice: td.splice,
                 });
                 td.key == 'description' && ['nfyksdyy'].includes(HOSPITAL_ID) && onSearch($event, {x, y ,z:index, td, tr});
+                sheetInfo.sheetType == 'extracardi_one_weihai' && inputEight(td,tr,y)
             "
             @focus="
               td.autoComplete &&
@@ -2332,11 +2333,6 @@ export default {
         return false;
       }
     },
-    checkMaxLength(value, length) {
-      const regC = /[^ -~]+/g;
-      const regE = /\D+/g;
-      // console.log("textarea", value, length);
-    },
     isOverText(td) {
       try {
         let inputWidth = td.textarea.width;
@@ -3212,7 +3208,26 @@ export default {
           }
         }, 300);
       }
-    }
+    },
+    // 威海计算入量，出量
+    inputEight(e,tr,y){
+      // 入量
+      const inputToSum = ['inputOne', 'inputTwo', 'inputThree','inputSeven','inputSix','inputFive','inputFout'];
+      // 出量
+      const outputSum =['outputOne','outputFout','outputFive','outputSix']
+      if(inputToSum.includes(e.key)){
+        const total = tr
+          .filter(item => inputToSum.includes(item.key))
+          .reduce((acc, item) => acc + Number(item.value), 0);
+        tr.find(item => item.key === 'inputEight').value = !total ? '' :total
+      }
+      if(outputSum.includes(e.key)){
+        const total = tr
+            .filter(item => outputSum.includes(item.key))
+            .reduce((acc, item) => acc + Number(item.value), 0);
+        tr.find(item => item.key === 'outputEight').value = !total ? '' :total;
+      }
+    },
   },
   watch: {
     scrollY() {
