@@ -165,6 +165,7 @@ export default {
       this.selectedCol = col;
       this.$route.query.patientId = this.selectedRow.patientId
       this.$route.query.visitId = this.selectedRow.visitId
+      this.$store.commit("upPatientInfo", this.$route.query);
       this.$emit(
         "select",
         this.selectedRow,
