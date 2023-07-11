@@ -324,15 +324,7 @@
           "class": null,
           "labelLeft": true,
           "hiddenTips": true,
-          "readOnly": null,
-          "rule": [
-            {
-              "equals": "已婚"
-            },
-            {
-              "equals": "未婚"
-            }
-          ]
+          "readOnly": null
         }
       ]
     },
@@ -1948,7 +1940,7 @@
             {
               "name": "I2332044",
               "type": "checkbox",
-              "title": "特殊治疗饮食：",
+              "title": "特殊治疗饮食",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "class": null
@@ -1967,7 +1959,7 @@
                   "title": "",
                   "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important",
-                  "inputWidth": "90px",
+                  "inputWidth": "345px",
                   "suffixDesc": "",
                   "style": null,
                   "class": null,
@@ -2500,7 +2492,7 @@
                   "type": "input",
                   "title": "",
                   "inputStyle": "width:100%!important; margin: 0px 0px 0px 0px;height:auto",
-                  "inputWidth": "100px",
+                  "inputWidth": "387px",
                   "suffixDesc": "",
                   "style": null,
                   "class": null,
@@ -3206,7 +3198,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "11.四肢活动度/肌力",
+      "title": "11.四肢活动度",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -3218,7 +3210,7 @@
       "name": "I2332084",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "11.四肢活动度/肌力",
+      "title": "",
       "message": "",
       "require": "false",
       "prefixDesc": "",
@@ -5366,14 +5358,16 @@
           "titleStyle": "width:60px!important",
           "inputStyle": "width:300px!important",
           "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
           "options": [
             "无",
-            "翰霍普金斯跌倒风险评估量表(4.06)"
+            "约翰霍普金斯跌倒风险评估量表(4.06)"
           ],
           "rule": [
             {
               "relationForm": {
-                "openKey": "翰霍普金斯跌倒风险评估量表(4.06)",
+                "openKey": "约翰霍普金斯跌倒风险评估量表(4.06)",
                 "cleanKey": "无",
                 "params": {
                   "formCode": "NYSD_E0018",
@@ -5415,6 +5409,8 @@
           "style": null,
           "titleStyle": "width:60px!important",
           "inputStyle": "width:300px!important",
+          "labelLeft": true,
+          "hiddenTips": true,
           "options": [
             "无",
             "Braden压疮风险护理单"
@@ -5481,6 +5477,8 @@
           "titleStyle": "width:60px!important",
           "inputStyle": "width:300px!important",
           "class": null,
+          "labelLeft": true,
+          "hiddenTips": true,
           "options": [
             "无",
             "外科住院患者静脉血栓风险评估表(Caprini)(4.07)",
@@ -5563,6 +5561,8 @@
           "title": "营养风险筛查",
           "titleStyle": "width:78px!important",
           "inputStyle": "width:282px!important",
+          "labelLeft": true,
+          "hiddenTips": true,
           "options": [
             "无",
             "营养风险筛查单"
