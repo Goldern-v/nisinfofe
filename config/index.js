@@ -71,6 +71,7 @@ const currentTargetUrl = (() => {
       // return "http://192.168.1.54:9883" //公司-花都测试-内网
       // return "http://192.168.20.112:8080" //公司-花都测试-内网
 
+
     /** 贵州医科大正式 */
     case "gy":
       return "http://58.42.249.209:17953" //贵州医科大正式
@@ -222,9 +223,9 @@ const currentTargetUrl = (() => {
     case 'zhzxy':
       // return "http://192.168.1.54:9883" //珠海中西医测试
     // return "http://218.13.87.27:9094"
-      return "http://183.234.20.149:19094"//正式
+      // return "http://183.234.20.149:19094"//正式
       // return "http://192.168.20.20:9092"//正式
-      // return "https://info.cr-health.com:20217"
+      return "https://info.cr-health.com:20217"
 
     // 青海五院
     case 'qhwy':
@@ -281,8 +282,8 @@ const currentTargetUrl = (() => {
           // return 'http://192.168.1.54:9901'  //
           // return  'http://59.38.110.189:9092'
           // return  'http://192.168.20.136:8080'
-      return 'http://192.168.5.127:9091'
-      // return  'https://info.cr-health.com:20215'
+      // return 'http://192.168.5.127:9091'
+      return  'https://info.cr-health.com:20215'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭
       return 'http://192.168.3.187:9091'
