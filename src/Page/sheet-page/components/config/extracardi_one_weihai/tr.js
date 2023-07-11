@@ -88,6 +88,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量1",
+    change: (e, td) => limitChange(e, td, 10),
     textarea: { width: 50 },
   },
   {

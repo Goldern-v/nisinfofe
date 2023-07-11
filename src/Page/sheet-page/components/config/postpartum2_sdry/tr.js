@@ -158,7 +158,7 @@ export default [
     change: (e, td) => limitChange(e, td, 6)
   },
   {
-    key: " uterineFloor",
+    key: "uterineFloor",
     event: keyf1,
     value: "",
     next: "",

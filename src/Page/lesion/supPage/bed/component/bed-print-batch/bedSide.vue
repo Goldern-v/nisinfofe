@@ -650,7 +650,9 @@ export default {
   },
   methods: {
     getqrCode(item) {
-      let qr_png_value = item.inpNo.substring(0,this.item.inpNo.lastIndexOf("_"));;
+      // qr_png_value = this.query.inpNo.substring(0,this.query.inpNo.lastIndexOf("_"));
+
+      let qr_png_value = item.inpNo.substring(0,item.inpNo.lastIndexOf("_"));
       var qr_png = qr.imageSync(
         this.category == "bedside"
           ? qr_png_value

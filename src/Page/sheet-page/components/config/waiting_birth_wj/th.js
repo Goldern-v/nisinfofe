@@ -11,7 +11,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1150px"
+    width: "1200px"
   },
   th: {
     top: [
@@ -19,27 +19,42 @@ export default {
         name: `日期`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
         name: `时间`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
-        name: "T<br/>(℃)",
+        name: "体温<br/>(℃)",
         colspan: "1",
         rowspan: "3"
       },
       {
         name: `
-        P<br/>(次/<br/>分)
+        脉搏<br/>(次/<br/>分)
         `,
         colspan: "1",
         rowspan: "3",
       },
       {
         name: `
-        R<br/>(次/<br/>分)
+        心率<br/>(次/<br/>分)
+        `,
+        colspan: "1",
+        rowspan: "3",
+      },
+      {
+        name: `
+        呼吸<br/>(次/<br/>分)
         `,
         colspan: "1",
         rowspan: "3",

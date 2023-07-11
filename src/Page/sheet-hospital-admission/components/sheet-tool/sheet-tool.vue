@@ -512,8 +512,9 @@ export default {
         nation: "I001003", // 国籍
         occupation: "I001002", // 工作
         religion: "I001004", // 宗教
-        expand3:"I2332001",
-        expand2:'I2332011'
+        expand3:"I2332001",//入院类型
+        expand2:'I2332011',//学历
+        chargeType:"I2332004"//费别
         // 'admissionDate':'', // 入院日期
       };
 

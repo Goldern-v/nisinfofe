@@ -884,6 +884,61 @@
           "readOnly": null
         }
       ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "患者/家属对宣教内容知晓情况",
+      "type": "formGroupVerticalBox",
+      "title": "患者/家属对宣教内容知晓情况",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "style": null,
+      "classes": "name",
+      "readOnly": null,
+      "keys": "I1316019",
+      "children": [
+        {
+          "name": "I1316019",
+          "type": "radio",
+          "title": "不了解",
+          "style": null,
+          "class": null,
+          "html": null,
+          "elementStyle":"width:70px !important;margin: 3px 0 0 20px;display: inline-block;",
+          "readOnly": null
+        },
+        {
+          "name": "I1316019",
+          "type": "radio",
+          "title": "了解",
+          "style": null,
+          "class": null,
+          "elementStyle":"width:70px !important;margin-top: 3px;display: inline-block;",
+          "readOnly": null
+        },
+        {
+          "name": "I1316019",
+          "elementStyle":"width:70px !important;margin-top: 3px;display: inline-block;",
+          "type": "radio",
+          "title": "掌握",
+          "style": null,
+          "class": null,
+          "readOnly": null
+        }
+      ]
     }
   ],
   "dialogs": [],

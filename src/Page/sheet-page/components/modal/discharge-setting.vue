@@ -14,7 +14,15 @@
                     <td v-for="(td,tdIndex) in out" :key="tdIndex +'td'">
                     <div>
                         <template v-if="td.type=='input'">
-                        <el-input v-model="td[Object.keys(td)[0]]"></el-input>
+                        <input 
+                            v-model="td[Object.keys(td)[0]]"
+                            v-autoComplete="{
+                                dataList: dictionary[Object.keys(td)[0]],
+                                obj: td,
+                                key: Object.keys(td)[0],
+                                td:configTdList[Object.keys(td)[0]],
+                            }"
+                            />
                         </template>
                         <template v-else-if="td.type=='selectGou'">
                         <div class="todagou" @click="toGou(td,Object.keys(td)[0])">{{td[Object.keys(td)[0]]}}</div>
@@ -50,7 +58,15 @@
                     <td v-for="(td,tdIndex) in out" :key="tdIndex +'td2'">
                     <div>
                         <template v-if="td.type=='input'">
-                        <el-input v-model="td[Object.keys(td)[0]]"></el-input>
+                        <input 
+                            v-model="td[Object.keys(td)[0]]"
+                            v-autoComplete="{
+                                dataList: dictionary[Object.keys(td)[0]],
+                                obj: td,
+                                key: Object.keys(td)[0],
+                                td:configTdList[Object.keys(td)[0]],
+                            }"
+                        />
                         </template>
                         <template v-else-if="td.type=='selectGou'">
                         <div class="todagou" @click="toGou(td,Object.keys(td)[0])">{{td[Object.keys(td)[0]]}}</div>
@@ -81,10 +97,100 @@
 </template>
 
 <script>
+import {
+  onFocusToAutoComplete,
+} from "@/Page/sheet-page/components/sheetTable/components/excel/tool.js";
 import sheetInfo from "../config/sheetInfo";
+import { decoder_record2,decoder_title } from "@/Page/sheet-page/components/modal/render/decode.js";
+
+function autoComplete(el, bind) {
+  if (bind.value.dataList) {
+    let obj = bind.value.obj;
+    let key = bind.value.key;
+    let tr = bind.value.tr;
+    let td = bind.value.td;
+    const splice = td && td.splice
+    el.onfocus = (e) => {
+      let dataList = bind.value.dataList;
+      if (el.readOnly) return;
+      let scrollTop = document.querySelector(".sheetTable-contain").scrollTop;
+      let scrollLeft = document.querySelector(".sheetTable-contain").scrollLeft;
+      let xy = e.target.getBoundingClientRect();
+      setTimeout(() => {
+        window.openAutoComplete({
+          style: {
+            top: `${xy.top + 34}px`,
+            left: `${xy.left}px`,
+          },
+          data: dataList,
+          callback: function (data) {
+            if (process.env.HOSPITAL_ID == "weixian") {
+              if (td.value && td.value != data && td.childKey) {
+                tr.map((item) => {
+                  if (item.parentKey && item.parentKey == td.name) {
+                    item.value = "";
+                  }
+                });
+              }
+            }
+            if (data) {
+              if (typeof obj[key] == "object") {
+                // 多选
+                if (splice) {
+                  const split = typeof splice === 'string' ? splice : ','
+                  const oldValue =  obj[key].value ? obj[key].value.split(split) : []
+                  const index = oldValue.findIndex(v => v === data)
+                  if (index > -1) {
+                    oldValue.splice(index, 1)
+                  } else {
+                    oldValue.push(data.trim())
+                  }
+                  obj[key].value = oldValue.join()
+                } else { // 单选
+                  obj[key].value = data.trim();
+                }
+              } else {
+                // 多选
+                if (splice) {
+                  const split = typeof splice === 'string' ? splice : ','
+                  const oldValue =  obj[key] ? obj[key].split(split) : []
+                  const index = oldValue.findIndex(v => v === data)
+                  if (index > -1) {
+                    oldValue.splice(index, 1)
+                  } else {
+                    oldValue.push(data.trim())
+                  }
+                  obj[key] = oldValue.join()
+                } else { // 单选
+                  obj[key] = data.trim();
+                }
+              }
+            }
+          },
+          id: key,
+          tr: tr,
+          td: td,
+        });
+      });
+    };
+    // el.onblur = (e) => {
+    //   setTimeout(() => {
+    //     window.closeAutoComplete(key);
+    //   }, 400);
+    // };
+  } else {
+    el.onfocus = null;
+  }
+}
 
 export default {
     name: 'dischargeSetting',
+    directives: {
+        autoComplete: {
+            bind: autoComplete,
+            update: autoComplete,
+        },
+    },
     props:{
         outChoseItemList:{
             type:Array,
@@ -94,6 +200,9 @@ export default {
     data() {
         return {
             sheetInfo,
+            customTitle: [],
+            dictionary:[],
+            configTdList:[]
         };
     },
 
@@ -102,7 +211,7 @@ export default {
     },
 
     methods: {
-         toGou(obj,key){
+        toGou(obj,key){
             if(obj[key]) obj[key] = ""
             else obj[key] = "√"
         },
@@ -147,9 +256,7 @@ export default {
                                     noFix[index][outKey] = out[key]
                                 })
                             }
-                            console.log(noFix,'noFix',Object.keys(noFix[0])[0]);
                         }
-                        console.log(result,'result',out)
                         })
                     }else {
                         // 目前只支持护记1列对多列
@@ -180,6 +287,10 @@ export default {
                         })
                     }
                 })
+                this.customTitle = decoder_title(config.thead);
+                let decodeData = decoder_record2(config.record, this.customTitle);
+                this.dictionary = decodeData[1];
+                this.configTdList = decodeData[2];
             })
         },
         post(){
@@ -241,7 +352,6 @@ export default {
             })) return str
         },
         reactiveRows(row,key, maxLength, minRows, maxRows) {
-            console.log(row[key],key,'row[key]')
             if (row[key]) {
                 let number = row[key].replace(/[^0-9]/ig,"");
                 let word = row[key].replace(/[^a-z]+/ig,"");
@@ -333,16 +443,7 @@ export default {
             &.oneweihai,&.threeweihai{
             table{
                 width:32%;
-            //   &:first-of-type{
-            //   height:260px;
-            // }
-            // &:nth-of-type(2){
-            //   height:300px;
-            // }
-            // &:nth-of-type(3){
-            //   height:300px;
-            // }
-            }
+                }
             }
         }
         &.textareaDiv{
@@ -397,10 +498,14 @@ export default {
                 justify-content: flex-start;
                 padding-left: 5px;
                 }
-                /deep/ .el-input__inner{
+                /deep/ .el-input__inner,input{
                 height: 20px;
                 text-align: left;
                 border:0 !important;
+                }
+                input{
+                    outline: none;
+                    width:100%;
                 }
                 textarea{
                 width: 100%;

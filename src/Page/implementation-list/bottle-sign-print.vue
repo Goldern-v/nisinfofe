@@ -571,6 +571,12 @@ export default {
             maxLine:16,
             usenewModalSize:"70*80"
           };
+          case "qhwy":
+          return {
+            maxLength:22,
+            maxLine:32,
+            usenewModalSize:"5*8"
+          };
           case "whhk":
           return {
             maxLength:12,
@@ -1046,7 +1052,7 @@ export default {
         sortArr.forEach((sort)=>{
           sort.forEach((item)=>{
             //确定瓶签每行打印的时候需要的字
-            if(["925"].includes(this.HOSPITAL_ID)) item.holdorderText = item.orderText +  (item.dosage || "") + (item.dosageUnits || "")
+            if(["925",'qhwy'].includes(this.HOSPITAL_ID)) item.holdorderText = item.orderText +  (item.dosage || "") + (item.dosageUnits || "")
           })
         })
         for(let i=0;i<sortArr.length;i++){

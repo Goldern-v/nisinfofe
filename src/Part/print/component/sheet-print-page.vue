@@ -936,6 +936,7 @@ export default {
             #sheetPagePrint .body-con{ height: 40px !important; }
             #sheetPagePrint .body-con td input { font-size: 14px !important;}
             #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
+            #sheetPagePrint .body-con td[datakey="description"]  textarea{ font-size: 14px !important;}
           }
 
         `

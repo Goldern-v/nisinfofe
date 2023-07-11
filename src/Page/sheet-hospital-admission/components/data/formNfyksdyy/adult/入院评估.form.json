@@ -292,6 +292,7 @@
           "class": null,
           "labelLeft": true,
           "hiddenTips": true,
+          "readOnly": null,
           "rule": [
             {
               "equals": "汉族"
@@ -319,9 +320,11 @@
           "inputStyle": "width:100%!important",
           "boxStyle": "height:auto!important",
           "inputWidth": "95%",
+          "style": null,
           "class": null,
           "labelLeft": true,
           "hiddenTips": true,
+          "readOnly": null,
           "rule": [
             {
               "equals": "已婚"
@@ -1478,7 +1481,7 @@
           "name": "I2332042",
           "type": "",
           "title": "疼痛部位",
-          "titleStyle": "width:72px!important;margin-top: 0px",
+          "titleStyle": "width:61px!important;margin-top: 0px",
           "elementStyle": "margin: 0px 5px 0 8px;",
           "elementClass": "el-radio_fs",
           "class": null,
@@ -1948,23 +1951,7 @@
               "title": "特殊治疗饮食：",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
-              "class": null,
-              "children": [
-                {
-                  "name": "I2332200",
-                  "type": "input",
-                  "title": "",
-                  "titleStyle": "width:90px!important",
-                  "inputStyle": "width:100%!important",
-                  "inputWidth": "90px",
-                  "suffixDesc": "",
-                  "style": null,
-                  "class": null,
-                  "labelLeft": true,
-                  "hiddenTips": true,
-                  "readOnly": null
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2332044",
@@ -2347,66 +2334,7 @@
 
       ]
     },
-    {
-      "name": "I233204",
-      "type": "formGroupColBox",
-      "col": 1,
-      "title": "",
-      "message": "",
-      "require": "false",
-      "prefixDesc": "",
-      "suffixDesc": "",
-      "keys": "",
-      "style": null,
-      "titleStyle": "margin-top: 7px;",
-      "boxStyle": "height:auto!important",
-      "classes": null,
-      "readOnly": null,
-      "children": [
-        {
-          "name": "S2332157",
-          "type": "select",
-          "title": "营养风险筛查",
-          "titleStyle":"width:86px!important",
-          "inputWidth": "200px",
-          "hiddenTips": true,
-          "readOnly": null,
-          "options": [
-            "无",
-            "营养风险筛查单"
-          ],
-          "rule": [
-            {
-              "relationForm": {
-                "openKey": [
-                  "营养风险筛查单"
-                ],
-                "cleanKey": "无",
-                "params": {
-                  "formCode": "NYSD_E0065",
-                  "showSignBtn": true,
-                  "title": "营养风险筛查单（NRS2002）",
-                  "formUrl": "营养风险筛查单（NRS2002）.html",
-                  "callbackInfo": {
-                    "needScore": true,
-                    "code": "S2332157",
-                    "prefix": "营养风险筛查单",
-                    "suffix": "分"
-                  }
-                }
-              }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
-            }
-          ],
-          "style": null,
-          "class": null
-        }
-        
-      ]
-    },
+    
     {
       "name": "",
       "type": "formGroupTitle",
@@ -2905,16 +2833,39 @@
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332078",
+              "type": "checkbox",
+              "title": "便秘",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "style": null,
               "class": null,
               "children": [
                 {
-                  "name": "I2332213",
+                  "name": "I2332300",
                   "type": "input",
                   "title": "",
-                  "titleStyle": "width:80px!important",
+                  "titleStyle": "width:90px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "60px",
-                  "suffixDesc": "次/天（量）",
+                  "inputWidth": "30px",
+                  "suffixDesc": "次/",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                },
+                {
+                  "name": "I2332301",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "30px",
+                  "suffixDesc": "天",
                   "style": null,
                   "class": null,
                   "labelLeft": true,
@@ -2926,20 +2877,27 @@
             {
               "name": "I2332078",
               "type": "checkbox",
-              "title": "便秘",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs itemRadio",
-              "style": null,
-              "class": null
-            },
-            {
-              "name": "I2332078",
-              "type": "checkbox",
               "title": "腹泻",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
-              "class": null
+              "class": null,
+              "children": [
+                {
+                  "name": "I2332302",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "30px",
+                  "suffixDesc": "次/天",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
             },
             {
               "name": "I2332078",
@@ -2974,7 +2932,7 @@
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "329px",
+                  "inputWidth": "295px",
                   "suffixDesc": "",
                   "style": null,
                   "class": null,
@@ -3093,7 +3051,7 @@
               "elementClass": "el-radio_fs",
               "titleStyle": "width:80px!important",
               "elementStyle": "width:30 0px;margin: 8px 0px 0 0px;",
-              "inputWidth": "650px",
+              "inputWidth": "757px",
               "suffixDesc": "",
               "style": null,
               "class": null,
@@ -3161,8 +3119,8 @@
         {
           "name": "I2332196",
           "type": "",
-          "title": "引流液",
-          "titleStyle": "width:75px!important",
+          "title": " 引流液 ",
+          "titleStyle": "width:52px!important",
           "class": "radio_input",
           "boxStyle": "height:auto!important; display: flex",
           "elementsStyle": "margin-top:8px",
@@ -3174,7 +3132,7 @@
               "name": "I2332196",
               "type": "radio",
               "title": "淡黄色",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null
@@ -3183,7 +3141,7 @@
               "name": "I2332196",
               "type": "radio",
               "title": "黄绿色",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null
@@ -3192,7 +3150,7 @@
               "name": "I2332196",
               "type": "radio",
               "title": "墨绿色",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null
@@ -3201,7 +3159,7 @@
               "name": "I2332196",
               "type": "radio",
               "title": "黄褐色",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null
@@ -3210,7 +3168,7 @@
               "name": "I2332196",
               "type": "radio",
               "title": "红色",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null
@@ -3219,7 +3177,7 @@
               "name": "I2332196",
               "type": "radio",
               "title": "其他",
-              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementStyle": "margin: 8px 0px 0 8px;",
               "elementClass": "el-radio_fs itemRadio",
               "style": null,
               "class": null,
@@ -3229,8 +3187,8 @@
                   "type": "input",
                   "title": "",
                   "titleStyle": "width:80px!important",
-                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "100%",
+                  "inputStyle": "width:100%!important; margin: 0px 0px 8px 0px",
+                  "inputWidth": "272px",
                   "suffixDesc": "",
                   "style": null,
                   "class": null,
@@ -3378,17 +3336,29 @@
       ]
     },
     {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "12.自理能力",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "I2332086",
       "type": "formGroupColBox",
       "col": 1,
-      "title": "8.四肢活动度/肌力",
+      "title": "12.自理能力",
       "message": "",
       "require": "false",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
       "style": null,
-      "titleStyle": "margin-top: 7px;",
+      "titleStyle": "margin-top: 0px;",
       "boxStyle": "height:auto!important",
       "classes": null,
       "readOnly": null,
@@ -3396,101 +3366,137 @@
         {
           "name": "I2332086",
           "type": "",
-          "title": "肌力部位及分级",
-          "titleStyle": "width:110px!important",
+          "title": "",
+          "titleStyle": "width:62px!important",
           "class": "radio_input",
-          "boxStyle": "height:auto!important; display: flex",
+          "boxStyle": "height:auto!important",
           "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
           "children": [
             {
               "name": "I2332086",
               "type": "checkbox",
-              "title": "左上肢，",
+              "title": "完全自理",
               "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "children": [
-                {
-                  "name": "I2332087",
-                  "type": "select",
-                  "title": "",
-                  "style": null,
-                  "suffixDesc": "级",
-                  "titleStyle": "width:60px!important",
-                  "inputStyle": "width:175px!important",
-                  "inputWidth": "68px",
-                  "class": null,
-                  "readOnly": null
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2332086",
               "type": "checkbox",
-              "title": "左下肢，",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "title": "完全不能自理",
+              "elementStyle": "margin: 8px 5px 0 0;",
+              "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "children": [
-                {
-                  "name": "I2332088",
-                  "type": "select",
-                  "title": "",
-                  "style": null,
-                  "suffixDesc": "级",
-                  "titleStyle": "width:60px!important",
-                  "inputStyle": "width:175px!important",
-                  "inputWidth": "68px",
-                  "class": null,
-                  "readOnly": null
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2332086",
               "type": "checkbox",
-              "title": "右上肢，",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "title": "部分自理 (",
+              "elementStyle": "margin: 8px -7px 0 8px;",
+              "elementClass": "el-radio_fs",
               "style": null,
-              "class": null,
-              "children": [
-                {
-                  "name": "I2332089",
-                  "type": "select",
-                  "title": "",
-                  "style": null,
-                  "suffixDesc": "级",
-                  "titleStyle": "width:60px!important",
-                  "inputStyle": "width:175px!important",
-                  "inputWidth": "68px",
-                  "class": null,
-                  "readOnly": null
-                }
-              ]
+              "class": null
             },
             {
               "name": "I2332086",
               "type": "checkbox",
-              "title": "右下肢，",
-              "elementStyle": "margin: 8px 5px 0 8px;",
-              "elementClass": "el-radio_fs itemRadio",
+              "title": "进食",
+              "elementStyle": "margin: 8px 0px 0 8px;",
+              "elementClass": "el-radio_fs",
               "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332086",
+              "type": "checkbox",
+              "title": "如厕",
+              "elementStyle": "margin: 8px 0px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332086",
+              "type": "checkbox",
+              "title": "个人卫生)",
+              "elementStyle": "margin: 8px 0px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332086",
+              "type": "checkbox",
+              "title": "其他:",
+              "elementStyle": "margin: 4px 0px 0 8px;",
+              "elementClass": "el-radio_fs itemRadio",
               "class": null,
+              "style": null,
               "children": [
                 {
-                  "name": "I2332090",
+                  "name": "S2332154",
                   "type": "select",
                   "title": "",
-                  "style": null,
-                  "suffixDesc": "级",
-                  "titleStyle": "width:60px!important",
-                  "inputStyle": "width:175px!important",
-                  "inputWidth": "68px",
-                  "class": null,
-                  "readOnly": null
+                  "titleStyle": "width:80px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "295px",
+                  "options": [
+                    "无",
+                    "基本生活活动能力量表"
+                  ],
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "rule": [
+                    {
+                      "relationForm": {
+                        "openKey": "基本生活活动能力量表",
+                        "cleanKey": "完全自理",
+                        "params": {
+                          "formCode": "NYSD_E0007",
+                          "showSignBtn": true,
+                          "title": "基本生活活动能力量表(4.01)",
+                          "formUrl": "基本生活活动能力量表(4.01).html",
+                          "callbackInfo": {
+                            "needScore": true,
+                            "code": "S2332154",
+                            "prefix": "自理能力评分",
+                            "suffix":[
+                              {
+                                "max": 100,
+                                "min": 100,
+                                "value": "分，独立"
+                              },
+                              {
+                                "max": 95,
+                                "min": 75,
+                                "value": "分，轻度依赖"
+                              },
+                              {
+                                "max": 70,
+                                "min": 50,
+                                "value": "分，中度依赖"
+                              },
+                              {
+                                "max": 45,
+                                "min": 25,
+                                "value": "分，重度依赖"
+                              },
+                              {
+                                "max": 20,
+                                "min": 0,
+                                "value": "分，完全依赖"
+                              }
+                            ]
+                          }
+                        },
+                        "title": "四肢活动"
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -3502,7 +3508,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "12.心理情绪",
+      "title": "13.心理情绪",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -3624,7 +3630,7 @@
                   "title": "",
                   "titleStyle": "width:80px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "100px",
+                  "inputWidth": "231px",
                   "suffixDesc": "",
                   "style": null,
                   "class": null,
@@ -3646,7 +3652,7 @@
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "13.认知障碍",
+      "title": "14.认知障碍",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -3781,7 +3787,7 @@
                     "title": "",
                     "titleStyle": "width:80px!important",
                     "inputStyle": "width:100%!important; margin: 8px 5px 0 8px;",
-                    "inputWidth": "250px",
+                    "inputWidth": "530px",
                     "suffixDesc": "",
                     "style": null,
                     "class": null,
@@ -5552,64 +5558,43 @@
           ]
         },
         {
-          "name": "S2332154",
+          "name": "S2332157",
           "type": "select",
-          "title": "自理能力",
-          "style": null,
-          "titleStyle": "width:60px!important",
-          "inputStyle": "width:300px!important",
-          "class": null,
+          "title": "营养风险筛查",
+          "titleStyle": "width:78px!important",
+          "inputStyle": "width:282px!important",
           "options": [
-            "完全自理",
-            "基本生活活动能力量表"
+            "无",
+            "营养风险筛查单"
           ],
           "rule": [
             {
               "relationForm": {
-                "openKey": "基本生活活动能力量表",
-                "cleanKey": "完全自理",
+                "openKey": [
+                  "营养风险筛查单"
+                ],
+                "cleanKey": "无",
                 "params": {
-                  "formCode": "NYSD_E0007",
+                  "formCode": "NYSD_E0065",
                   "showSignBtn": true,
-                  "title": "基本生活活动能力量表(4.01)",
-                  "formUrl": "基本生活活动能力量表(4.01).html",
+                  "title": "营养风险筛查单（NRS2002）",
+                  "formUrl": "营养风险筛查单（NRS2002）.html",
                   "callbackInfo": {
                     "needScore": true,
-                    "code": "S2332154",
-                    "prefix": "自理能力评分",
-                    "suffix":[
-                      {
-                        "max": 100,
-                        "min": 100,
-                        "value": "分，独立"
-                      },
-                      {
-                        "max": 95,
-                        "min": 75,
-                        "value": "分，轻度依赖"
-                      },
-                      {
-                        "max": 70,
-                        "min": 50,
-                        "value": "分，中度依赖"
-                      },
-                      {
-                        "max": 45,
-                        "min": 25,
-                        "value": "分，重度依赖"
-                      },
-                      {
-                        "max": 20,
-                        "min": 0,
-                        "value": "分，完全依赖"
-                      }
-                    ]
+                    "code": "S2332157",
+                    "prefix": "营养风险筛查单",
+                    "suffix": "分"
                   }
-                },
-                "title": "四肢活动"
+                }
               }
+            },
+            {
+              "equal": "有",
+              "style": "color:red"
             }
-          ]
+          ],
+          "style": null,
+          "class": null
         }
       ]
     },
@@ -5735,7 +5720,16 @@
             {
               "name": "I2332181",
               "type": "checkbox",
-              "title": "协助翻身/有效咳嗽",
+              "title": "协助翻身",
+              "elementStyle": "margin: 8px 5px 0 8px;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null
+            },
+            {
+              "name": "I2332181",
+              "type": "checkbox",
+              "title": "有效咳嗽",
               "elementStyle": "margin: 8px 5px 0 8px;",
               "elementClass": "el-radio_fs",
               "style": null,
@@ -5761,11 +5755,11 @@
               "children": [
                 {
                   "name": "I2332248",
-                  "type": "select",
+                  "type": "input",
                   "title": "",
                   "titleStyle": "width:180px!important;margin-top: 0px",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "180px",
+                  "inputWidth": "399px",
                   "suffixDesc": "",
                   "style": null,
                   "class": null,
@@ -6069,7 +6063,7 @@
         {
           "name": "I2332188",
           "type": "",
-          "title": "内容",
+          "title": "宣教内容",
           "titleStyle": "width:62px!important",
           "class": null,
           "boxStyle": "height:auto!important",
@@ -6198,11 +6192,11 @@
               "children": [
                 {
                   "name": "I2332266",
-                  "type": "select",
+                  "type": "input",
                   "title": "",
                   "titleStyle": "width:180px!important",
                   "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
-                  "inputWidth": "180px",
+                  "inputWidth": "434px",
                   "suffixDesc": "",
                   "style": null,
                   "class": null,
