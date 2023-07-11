@@ -414,7 +414,7 @@
           <textarea
             v-else-if="td.textarea"
             :class="{
-              towLine: isOverText(td),
+              towLine: isOverText(td,  HOSPITAL_ID=='nfyksdyy'),
               maxHeight56: sheetInfo.sheetType == 'additional_count_hd',
               maxHeight40: sheetInfo.sheetType == 'cardiology_lcey',
               readonly: onCanModify(data.bodyModel,index, y)
@@ -488,7 +488,7 @@
           <div
             v-else-if="
               td.key === 'description' &&
-             (HOSPITAL_ID === 'lingcheng' || sheetInfo.sheetType === 'common_wj') &&
+             (HOSPITAL_ID === 'nfyksdyy' || sheetInfo.sheetType === 'common_wj') &&
               sheetInfo.selectBlock.openRichText
             "
             v-html="td.value"
@@ -2333,14 +2333,19 @@ export default {
         return false;
       }
     },
-    isOverText(td) {
+
+    isOverText(td, isSdyy) {
       try {
         let inputWidth = td.textarea.width;
         let textWidth = td.value.split("").reduce((total, num) => {
           let charCode = num.charCodeAt(0);
           if (charCode >= 0 && charCode <= 128) return total + 5.9;
           else return total + 11.8;
+          if ((charCode >= 0 && charCode <= 128)) return isSdyy ?  total + 6.8 : total + 5.9;
+          else return  isSdyy ?  total + 14 : total + 11.8
+
         }, 0);
+
 
         if (textWidth > inputWidth) {
           return true;

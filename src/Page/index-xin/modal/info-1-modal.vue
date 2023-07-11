@@ -30,7 +30,7 @@
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post" :loading="iconLoading" v-if="!['lyxrm', 'stmz'].includes(HOSPITAL_ID)">查看患者详情</el-button>
+        <el-button class="modal-btn" type="primary" @click="post" :loading="iconLoading" v-if="!['lyxrm', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)">查看患者详情</el-button>
         <template v-else>
           <el-button class="modal-btn" type="primary" @click="post" :loading="iconLoading">查看患者体温单</el-button>
           <el-button class="modal-btn" type="primary" @click="formPage" :loading="iconLoading">查看患者文书</el-button>
@@ -131,7 +131,7 @@ export default {
           formCode: this.data.expand
         })}`;
       }
-      if (['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         url = `/crNursing/temperature?${qs.stringify({
           patientId: this.data.patientId,
           visitId: this.data.visitId,

@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="new-modal-top-left">
-        <div class="new-modal-top-left-first"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}">
+        <div class="new-modal-top-left-first first-one"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}">
           <div v-if="HOSPITAL_ID == 'qhwy'">{{ $store.state.lesion.deptName }} </div>
         </div>
         <div class="new-modal-top-left-first"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}">
@@ -29,7 +29,7 @@
           <div>{{ currentBottle.sex || "" }}</div>
           <div>{{ currentBottle.age }}</div>
         </div>
-        <div class="new-modal-top-left-second">
+        <div class="new-modal-top-left-second" v-if="newModalSize !== '5*8'">
           <div v-if="HOSPITAL_ID == 'qhwy'" style="text-indent: 5px">
             {{ currentBottle.executeDate.substr(0, 16) }}
           </div>
@@ -270,10 +270,41 @@
       }
   }
   }
-}
-.zoom-qhwy-5x8{
-  .new-modal-bottom{
-    zoom: 0.85;
+  &.zoom-qhwy-5x8{
+    .new-modal-top{
+      height: 70px;
+    }
+    .new-modal-top-right{
+      .new-modal-top-right-top{
+        width: 62px!important;
+      }
+    }   
+    .new-modal-top-left{
+      .new-modal-top-left-first{
+        &.first-one{
+          height: 18px !important;
+          >div{
+              font-size: 12px;
+              line-height: 12px;
+              height: 12px;
+          }
+        }
+      }
+      .new-modal-top-left-second{
+        height: 18px!important;
+        div{
+          font-size: 12px;
+          line-height: 18px;
+        }
+      }
+    }
+    .new-modal-bottom{
+      zoom: 0.85;
+      div{
+        line-height: 17px;
+        font-size: 12px;
+      }
+    }
   }
 }
 </style>
@@ -346,7 +377,7 @@ export default {
       if (this.newModalSize === '3*5') {
         return { height: '100px' }
       } else if (this.newModalSize === '5*8'){
-        return { height: '80px' }
+        return { height: '105px' }
       }
       return {}
     }

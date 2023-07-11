@@ -24,8 +24,13 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-const tanye = ["A", "B", "C"]
-const yinliuye = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+import info from "../sheetInfo";
+
+const tanyeColor = ["A", "B", "C"]
+const tanyeSize = ["A", "B", "C"]
+const tanye2 = ["A 稀薄","B 粘稠","C 血性"]
+const yinliuyeColor = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+const yinliuyexingzhi = ["A 血性",'B 澄清','C 浑浊','D 云絮状沉淀','E 乳糜状','F 脓性','G 有气体溢出'];
 const niaose = ["A", "B", "C", "D"]
 const Braden_cuoshi = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 const diedao_cuoshi = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -72,15 +77,16 @@ let outChoseItem1 = {
   tableNum:3,
   maxLength:10,
   dischargeType:"动静脉置管",
+  modalLabel:"管路",
   sheetypeCode:['pipingOne','pipingTwo','pipingThree']
 }
 let outProject2 = [
-  [{pipingFout:"心包胸骨后引流",unClear:true},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
-  [{pipingFout:"左胸腔闭式引流",unClear:true},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
-  [{pipingFout:"左胸腔引流",unClear:true},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
-  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
-  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
-  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input"},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"心包胸骨后引流",unClear:true},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input",autoComplete: { data:yinliuyexingzhi },},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"左胸腔闭式引流",unClear:true},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input",autoComplete: { data:yinliuyexingzhi },},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"左胸腔引流",unClear:true},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input",autoComplete: { data:yinliuyexingzhi },},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input",autoComplete: { data:yinliuyexingzhi },},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input",autoComplete: { data:yinliuyexingzhi },},{pipingSeven:"",type:"selectGou"}],
+  [{pipingFout:"",defaultInput:true,type:"textarea"},{pipingFive:"",type:"select",option:colors},{pipingSix:"",type:"input",autoComplete: { data:yinliuyexingzhi },},{pipingSeven:"",type:"selectGou"}],
 ]
 let outChoseItem2 = {
   th:[
@@ -92,6 +98,7 @@ let outChoseItem2 = {
   outProject:outProject2,
   tableNum:3,
   dischargeType:"引流管",
+  modalLabel:"管路",
   maxLength:5,
   sheetypeCode:['pipingFout','pipingFive','pipingSix','pipingSeven'],
 }
@@ -122,7 +129,7 @@ export default [
     value: "",
     name: "痰液颜色",
     textarea: { width: 35 },
-    autoComplete: { data: tanye },
+    autoComplete: { data: tanyeColor },
   },
   {
     key: "breatheFout",
@@ -130,7 +137,8 @@ export default [
     value: "",
     name: "痰液性状",
     textarea: { width: 35 },
-    autoComplete: { data: tanye },
+    autoComplete: { data: tanye2 },
+    splitFlag:" "
   },
   {
     key: "breatheFive",
@@ -138,7 +146,7 @@ export default [
     value: "",
     name: "痰液量",
     textarea: { width: 35 },
-    autoComplete: { data: tanye },
+    autoComplete: { data: tanyeSize },
   },
   {
     key: "pipingOne",
@@ -183,7 +191,7 @@ export default [
     name: "引流液颜色",
     textarea: { width: 35 },
     outChoseItem:outChoseItem2,
-    autoComplete: { data: yinliuye },
+    autoComplete: { data: yinliuyeColor },
   },
   {
     key: "pipingSix",
@@ -192,7 +200,8 @@ export default [
     name: "引流液性质",
     outChoseItem:outChoseItem2,
     textarea: { width: 35 },
-    autoComplete: { data: yinliuye },
+    autoComplete: { data: yinliuyexingzhi },
+    splitFlag:" "
   },
   {
     key: "pipingSeven",
@@ -335,3 +344,40 @@ export default [
   { hidden: true, key: "empNo", value: "" },
   { hidden: true, key: "multiSign", value: "" }
 ];
+
+export function getListData4() {
+  let list = [
+    "痰液性状",
+    "痰液颜色",
+    "痰液量",
+    "引流液颜色",
+    "引流液性质",
+    "尿管尿色",
+    "Braden压疮护理措施",
+    "跌倒护理措施",
+    "非计划性拔管护理措施",
+    "疼痛评估护理措施",
+  ];
+  multiDictInfo(list,info.sheetType).then(res => {
+    let data = res.data.data;
+    console.log(data);
+    setList(tanye2, "痰液性状", data);
+    setList(tanyeColor, "痰液颜色", data);
+    setList(tanyeSize, "痰液量", data);
+    setList(yinliuyeColor, "引流液颜色", data);
+    setList(yinliuyexingzhi, "引流液性质", data);
+    setList(niaose, "尿管尿色", data);
+    setList(Braden_cuoshi, "Braden压疮护理措施", data);
+    setList(diedao_cuoshi, "跌倒护理措施", data);
+    setList(fjhxbg_cuoshi, "非计划性拔管护理措施", data);
+    setList(tt_cuoshi, "疼痛评估护理措施", data);
+  });
+}
+function setList(list, key, data) {
+  list.splice(0, list.length);
+  for (let item of data[key]) {
+    list.push(item.name);
+  }
+}
+
+getListData4();

@@ -53,31 +53,31 @@
                 <span
                   >日期：<b>{{ record.changeShiftDate }}</b></span
                 >
-                <div data-print-style="width: auto">
+                <div data-print-style="width: auto" class="foot">
                   <span>护士长签名：</span>
                   <span data-print-style="display: none">
                     <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
                     <button
-                      v-if="record.autographNameP"
-                      @click="onDelSignModalOpen('P', record.autographEmpNoP)"
+                      v-if="record.nurseSignatureNo"
+                      @click="onDelSignModalOpen('', record.nurseSignatureNo)"
                     >
-                      {{ record.autographNameP }}
+                      {{ record.nurseSignatureName }}
                     </button>
                     <button
                       v-else
                       :disabled="isEmpty"
-                      @click="onSignModalOpen('P')"
+                      @click="onSignModalOpen('')"
                     >
                       点击签名
                     </button>
                   </span>
                   <FallibleImage
                     class="img"
-                    v-if="record.autographNameP"
+                    v-if="record.nurseSignatureName"
                     :src="
-                      `/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`
+                      `/crNursing/api/file/signImage/${record.nurseSignatureNo}?${token}`
                     "
-                    :alt="record.autographNameP"
+                    :alt="record.nurseSignatureName"
                     data-print-style="display: inline-block; width: 52px; height: auto;"
                   />
                   <span
@@ -91,28 +91,28 @@
                 <div class="details" style="margin-bottom: -10px;">
 
                 <span>
-                  安全日历 用药差错<b><input type="text" v-model="shiftWithWardcodes.expand1" /></b>天，
+                  安全日历 用药差错<b><input type="text" v-model="record.expand1" /></b>天，
                 </span>
                 <span>
-                  跌倒<b><input type="text" v-model="shiftWithWardcodes.expand2" /></b>天，
+                  跌倒<b><input type="text" v-model="record.expand2" /></b>天，
                 </span>
                 <span>
-                  非计划拔管<b><input type="text" v-model="shiftWithWardcodes.expand3" /></b>天，
+                  非计划拔管<b><input type="text" v-model="record.expand3" /></b>天，
                 </span>
                 <span>
-                  压力性损伤<b><input type="text" v-model="shiftWithWardcodes.expand4" /></b>天，
+                  压力性损伤<b><input type="text" v-model="record.expand4" /></b>天，
                 </span>
                 <span>
-                  标本管理<b><input type="text" v-model="shiftWithWardcodes.expand5" /></b>天，
+                  标本管理<b><input type="text" v-model="record.expand5" /></b>天，
                 </span>
                 <span>
-                  输血事件<b><input type="text" v-model="shiftWithWardcodes.expand6" /></b>天，
+                  输血事件<b><input type="text" v-model="record.expand6" /></b>天，
                 </span>
                 <span>
-                  其他<b><input type="text" v-model="shiftWithWardcodes.expand7" /></b>天，
+                  其他<b><input type="text" v-model="record.expand7" /></b>天，
                 </span>
                 <span>
-                  多重耐药<b><input type="text" v-model="shiftWithWardcodes.expand8" /></b>例，
+                  多重耐药<b><input type="text" v-model="record.expand8" /></b>例，
                 </span>
               </div>
             </template>
@@ -144,7 +144,7 @@
             @input-keydown="onTableInputKeydown"
           >
             <tr class="empty-row" v-if="!patients.length">
-              <td colspan="7" style="padding: 0">
+              <td :colspan="isYTLL ? '10' : '7'" style="padding: 0">
                 <Placeholder
                   black
                   size="small"
@@ -158,7 +158,7 @@
             </tr>
             <tr class="normal-row">
               <td
-                colspan="7"
+                :colspan="isYTLL ? '10' : '7'"
                 class="special-case-title"
                 data-print-style="border-bottom: none;"
               >
@@ -174,7 +174,7 @@
             </tr>
             <tr class="normal-row">
               <td
-                colspan="7"
+                :colspan="isYTLL ? '10' : '7'"
                 style="padding: 0;"
                 data-print-style="border-top: none;"
                 @contextmenu.stop.prevent="
@@ -476,14 +476,46 @@ export default {
         },
         {
           label: "A（评估）",
-          columns: [
-            {
-              label: "交班前最后一次护理评估情况",
-              prop: "assessmentSituation",
-              editable: true,
-              width: "110"
+          columns:(()=>{
+            switch(process.env.HOSPITAL_ID){
+              case "ytll":
+                return [
+                  {
+                    label: "跌",
+                    prop: "fall",
+                    editable: true,
+                    width: "30"
+                  },
+                  {
+                    label: "VTE",
+                    prop: "vte",
+                    editable: true,
+                    width: "30"
+                  },
+                  {
+                    label: "压",
+                    prop: "ulcer",
+                    editable: true,
+                    width: "30"
+                  },
+                  {
+                    label: "管",
+                    prop: "conduit",
+                    editable: true,
+                    width: "30"
+                  },
+                ]
+              default:
+                return  [
+                  {
+                    label: "交班前最后一次护理评估情况",
+                    prop: "assessmentSituation",
+                    editable: true,
+                    width: "110"
+                  }
+                ]
             }
-          ]
+          })()
         },
         {
           label: "R（建议）",
@@ -503,7 +535,8 @@ export default {
       syncRecord: {
         background: "",
         proposal: ""
-      }
+      },
+      isYTLL: process.env.HOSPITAL_ID == 'ytll'
     };
   },
   computed: {
@@ -1262,7 +1295,7 @@ export default {
 .parent-content{
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 20px;
   margin-top: 10px;
    button {

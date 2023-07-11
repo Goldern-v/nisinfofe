@@ -78,9 +78,17 @@
           <ElInput type="textarea" ref="background" v-model="form.background" class="textarea" :disabled="isSignedN"/>
         </ElTabPane>
         <ElTabPane label="A评估" name="3">
-          <div class="label">交班前最后一次护理评估情况</div>
-          <ElInput type="textarea" ref="assessmentSituation" v-model="form.assessmentSituation" class="textarea" :disabled="isSignedN"/>
-        </ElTabPane>
+          <template v-if="HOSPITAL_ID == 'ytll'">
+            <div class="label">跌：<ElInput type="text" ref="fall" style="width:100px;" v-model="form.fall" :disabled="isSignedN"/></div>
+            <div class="label">VTE：<ElInput type="text" ref="VTE" style="width:100px;" v-model="form.VTE" :disabled="isSignedN"/></div>
+            <div class="label">压：<ElInput type="text" ref="ulcer" style="width:100px;" v-model="form.ulcer" :disabled="isSignedN"/></div>
+            <div class="label">管：<ElInput type="text" ref="conduit" style="width:100px;" v-model="form.conduit" :disabled="isSignedN"/></div>
+          </template>
+          <template v-else>
+            <div class="label">交班前最后一次护理评估情况</div>
+            <ElInput type="textarea" ref="assessmentSituation" v-model="form.assessmentSituation" class="textarea" :disabled="isSignedN"/>
+          </template>
+          </ElTabPane>
         <ElTabPane label="R建议" name="4">
           <div class="label">交给下班需注意的</div>
           <ElInput type="textarea" ref="proposal" v-model="form.proposal" class="textarea" :disabled="isSignedN"/>
@@ -214,8 +222,6 @@
       },
       openPISlide(type) {
         // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
-        this.$route.query.patientId = this.form.patientId
-        this.$route.query.visitId = this.form.visitId
         this.bus.$emit("openclosePatientInfo", type, false, true);
       },
       async open (tab, form, autoFocus, isSignedN) {
@@ -350,7 +356,7 @@
   .content
     height 325px
     position relative
-      
+
     >>>.buttonBox
       position absolute
       right 0px

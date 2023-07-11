@@ -62,6 +62,17 @@ export default [
     },
   },
   {
+    key: "heartRate", //P/HR
+    value: "",
+    event: keyf1,
+    change: (e, td) => limitChange(e, td, 6),
+    name: "心率",
+    next: "次/分",
+    textarea: {
+      width: 45
+    },
+  },
+  {
     key: "breath", //R
     value: "",
     event: keyf1,
