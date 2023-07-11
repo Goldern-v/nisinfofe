@@ -36,13 +36,13 @@
             <template slot-scope="scope">
               <el-button
                 type="success"
-                @click.native.prevent="editRow(scope.row, tableData)"
+                @click.native.prevent="editRow(scope.row)"
                 size="small">
                 修改
               </el-button>
               <el-button
                 type="danger"
-                @click.native.prevent="deleteRow(scope.row, tableData)"
+                @click.native.prevent="deleteRow(scope.row)"
                 size="small">
                 移除
               </el-button>
@@ -61,9 +61,11 @@
 </template>
 
 <script>
+import bus from "vue-happy-bus";
 import Pagination from "@/components/pagination/pagination.vue";
 import Header from './header'
 import tableColumn from './column'
+import { getList, deleteOne } from '../../api/equipmentType'
 
 export default {
   components: {
@@ -72,8 +74,9 @@ export default {
   },
   data() {
     return {
+      bus: bus(this),
       tableColumn,
-      tableData: [{id: '111'}, {name: '设备'}],
+      tableData: [],
       loading: false,
       tableHeight: "",
       query: {
@@ -87,27 +90,51 @@ export default {
   },
   mounted() {
     this.tableHeight = window.innerHeight - 220;
-    // this.getTableData();
+    this.getTableData();
+    this.bus.$on('editSuccess', this.getTableData)
+    this.bus.$on('downloadTemSuccess', this.getTableData)
   },
   methods: {
-    editRow(row, data) {
+    editRow(row) {
       this.$refs.header.onAdd(row);
     },
-    deleteRow(row, data) {
-
+    deleteRow(row) {
+      this.$msgbox({
+        title: '提示',
+        size: 'small',
+        message: `确定要删除此设备类别信息吗？`,
+        showCancelButton: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            deleteOne(row).then(res => {
+              if (res.data.code === "200") {
+                this.$message.success(`删除成功！`);
+                this.getTableData();
+              } else {
+                this.$message.warning(res.data.desc || `删除失败！`);
+              }
+            });
+            done();
+          } else {
+            done();
+          }
+        }
+      })
     },
     getTableData() {
       this.loading = true;
       let params = {
         pageIndex: this.query.pageIndex,
         pageSize: this.query.pageSize,
-        wardCode: localStorage.getItem('selectDeptValue')
+        // wardCode: localStorage.getItem('selectDeptValue')
       };
-      getCriticalValue(params).then(res => {
+      getList(params).then(res => {
         this.loading = false;
         if (res.data.code === "200") {
           this.tableData = (res.data && res.data.data && res.data.data.list) || []
-          this.total = (res.data && res.data.data && res.data.data.pageCount) || 0
+          this.total = (res.data && res.data.data && res.data.data.totalCount) || 0
         }
       });
     },
@@ -129,13 +156,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.critical-value {
-  height: calc(100vh - 81px);
-  margin: 10px;
-  background-color: #fff;
-  .content {
-    margin: 0px 20px;
-  }
+.content {
+  margin: 0px 20px;
 }
 /deep/.el-table .cell, /deep/.el-table th > div {
   padding-left: 5px !important;

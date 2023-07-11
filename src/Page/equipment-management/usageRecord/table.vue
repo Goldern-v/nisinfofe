@@ -1,6 +1,6 @@
 <template>
   <div class="critical-value">
-    <Header @getTableData='getData' ref="header" :query="query" :multipleSelection='multipleSelection' />
+    <Header @getTableData='getData' ref="header" :multipleSelection='multipleSelection' />
     <div class="content">
       <el-table
         v-loading="loading"
@@ -41,8 +41,11 @@
 </template>
 
 <script>
+import moment from 'moment';
 import Pagination from "@/components/pagination/pagination.vue";
 import Header from './header'
+import { getList } from '../api/usageRecord'
+
 
 export default {
   components: {
@@ -53,7 +56,7 @@ export default {
     return {
       tableColumn: [
         {
-          prop: "id",
+          prop: "code",
           label: "设备编码",
           minWidth: "80",
           align: "center",
@@ -65,43 +68,55 @@ export default {
           align: "center"
         },
         {
-          prop: "result",
+          prop: "registrationCode",
           label: "设备登记码",
-          minWidth: "100",
+          minWidth: "140",
           align: "center"
         },
         {
-          prop: "reference",
-          label: "使用科室",
+          prop: "wardName",
+          label: "患者名称",
           minWidth: "160",
           align: "center"
         },
         {
-          prop: "patientName",
-          label: "使用人",
-          minWidth: "80",
+          prop: "patientId",
+          label: "患者ID",
+          minWidth: "90",
           align: "center"
         },
         {
-          prop: "patientId",
+          prop: "status",
           label: "使用状态",
           minWidth: "80",
           align: "center"
         },
         {
-          prop: "reportTime",
-          label: "开始时间",
-          minWidth: "120",
+          prop: "beginEmpName",
+          label: "开始护士",
+          minWidth: "160",
           align: "center"
         },
         {
-          prop: "reportTime",
+          prop: "beginTime",
+          label: "开始时间",
+          minWidth: "140",
+          align: "center"
+        },
+        {
+          prop: "endEmpName",
+          label: "结束护士",
+          minWidth: "80",
+          align: "center"
+        },
+        {
+          prop: "endTime",
           label: "结束时间",
-          minWidth: "120",
+          minWidth: "140",
           align: "center"
         }
       ],
-      tableData: [{id: '111'}, {name: '设备'}],
+      tableData: [],
       loading: false,
       tableHeight: "",
       query: {
@@ -109,23 +124,33 @@ export default {
         pageIndex: 1
       },
       total: 0,
-      wardCode: '',
-      multipleSelection: []
+      multipleSelection: [],
     };
   },
   mounted() {
     this.tableHeight = window.innerHeight - 220;
-    // this.$refs.header.getTableData();
+    this.getData()
   },
   methods: {
-    getData(data) {
-      let { tableData, total } = data;
-      this.tableData = tableData
-      this.total = total
+    getData() {
+      this.loading = true;
+      let params = {
+        ...{ ...this.$refs.header.title, type: this.$refs.header.title.type === '全部' ? '' : this.$refs.header.title.type},
+        beginTime: moment(this.$refs.header.time[0]).format('YYYY-MM-DD') + ' 00:00:00' || "",
+        endTime: moment(this.$refs.header.time[1]).format('YYYY-MM-DD') + ' 23:59:59' || "",
+        pageIndex: this.query.pageIndex,
+        pageSize: this.query.pageSize,
+      };
+      getList(params).then(res => {
+        this.loading = false;
+        if (res.data.code === "200") {
+          this.tableData = (res.data && res.data.data && res.data.data.list) || []
+          this.total = (res.data && res.data.data && res.data.data.totalCount) || 0
+        }
+      });
     },
     selectionChange(val) {
       this.multipleSelection = val
-      console.log(val, 9999999)
     },
     sizeChange(newSize) {
       this.query.pageSize = newSize;

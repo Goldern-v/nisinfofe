@@ -4,6 +4,7 @@
       <div>
         <div class="item">日期：</div>
         <el-date-picker
+          @change='getTableData'
           v-model="time"
           size="small"
           type="daterange"
@@ -14,19 +15,8 @@
         </el-date-picker>
       </div>
       <div>
-        <div class="item">科室：</div>
-        <ElSelect
-          style="width: 180px;"
-          size="small"
-          v-model="wardCode"
-          filterable
-        >
-          <ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
-        </ElSelect>
-      </div>
-      <div>
         <div class="item">设备性质：</div>
-        <el-select size="small" style="width: 100px;" v-model="type" placeholder="请选择">
+        <el-select size="small"  style="width: 115px;" @change="getTableData" v-model="title.isRelated" placeholder="请选择">
           <el-option
             v-for="item in qualitys"
             :key="item.value"
@@ -38,7 +28,7 @@
       </div>
       <div>
         <div class="item">使用状态：</div>
-        <el-select size="small" style="width: 100px;" v-model="type" placeholder="请选择">
+        <el-select size="small" style="width: 100px;" @change="getTableData" v-model="title.status" placeholder="请选择">
           <el-option 
             v-for="item in typeOPtions"
             :key="item.value"
@@ -50,12 +40,12 @@
       </div>
       <div>
         <div class="item">设备类别：</div>
-        <el-select size="small" style="width: 100px;" v-model="type" placeholder="请选择">
+        <el-select size="small" style="width: 100px;" @change="getTableData" v-model="title.type" placeholder="请选择">
           <el-option
-            v-for="item in equipmentClass"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in deviceType"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
           >
           </el-option>
         </el-select>
@@ -67,7 +57,7 @@
           size="small"
           placeholder="请输入设备名称 | 设备编码"
           icon="search"
-          v-model="search"
+          v-model="title.code"
           :on-icon-click="searchIconClick"
         >
         </el-input>
@@ -79,20 +69,15 @@
 </template>
 
 <script>
-import { getCriticalValue } from "@/api/common";
-import moment from 'moment';
-import qs from "qs";
-import { nursingUnit } from "@/api/lesion"
+import { deviceUsageExport } from '../api/usageRecord'
+import { getAllDeviceType } from '@/Page/equipment-management/api/equipmentType'
+
 const end = new Date();
 const start = new Date();
 start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
 export default {
   components: {},
   props: {
-    query: {
-      default: {}, 
-      type: Object
-    },
     multipleSelection: {
       default: [],
       type: Array
@@ -131,22 +116,27 @@ export default {
           }
         ]
       },
+      title: {
+        code: '',
+        type: '全部',
+        status: '',
+        isRelated: '1',
+        wardCode: localStorage.getItem('selectDeptValue')
+      },
       time: [start, end],
-      type: "检验",
-      search: "",
       qualitys: [
         {
-          value: "患者关联",
+          value: "1",
           label: "患者关联"
         },
         {
-          value: "非患者关联",
+          value: "0",
           label: "非患者关联"
         }
       ],
       typeOPtions: [
         {
-          value: "全部",
+          value: "",
           label: "全部"
         },
         {
@@ -158,105 +148,56 @@ export default {
           label: "已结束"
         }
       ],
-      equipmentClass: [
-        {
-          value: "全部",
-          label: "全部"
-        },
-        {
-          value: "监护仪",
-          label: "监护仪"
-        },
-        {
-          value: "呼吸仪",
-          label: "呼吸仪"
-        },
-        {
-          value: "呼吸机",
-          label: "呼吸机"
-        }
-      ],
-      wardCode: '',
-      deptList: []
+      deviceType: [],
     };
   },
-  mounted() {
-    this.getDepList()
-    // this.getTableData();
+  created() {
+    this.getAllDeviceType()
   },
   methods: {
-    async getDepList() {
-      try {
-        if (this.deptList.length > 0) return
-        const res = await nursingUnit()
-        this.deptList = res.data.data.deptList || []
-        if (this.deptList.length > 0) {
-          this.deptList = [
-            { code: '', name: '全院' },
-            ...this.deptList
-          ]
-          this.wardCode = res.data.data.defaultDept || ''
+    getAllDeviceType() {
+      getAllDeviceType().then(res => {
+        this.loading = false;
+        if (res.data.code === "200") {
+          this.deviceType =[ {name: '全部', id: 'all'}, ...((res.data && res.data.data) || [])]
         }
-      } catch (e) {
-      }
+      });
     },
     searchClick() {
+      this.title.wardCode = localStorage.getItem('selectDeptValue') || ''
       this.getTableData()
     },
     searchIconClick() {
       this.getTableData()
     },
     getTableData() {
-      this.loading = true;
-      let params = {
-        patientName: this.search,
-        type: this.type,
-        beginTime: moment(this.time[0]).format('YYYY-MM-DD') + ' 00:00:00' || "",
-        endTime: moment(this.time[1]).format('YYYY-MM-DD') + ' 23:59:59' || "",
-        pageIndex: this.query.pageIndex,
-        pageSize: this.query.pageSize,
-        wardCode: this.wardCode || localStorage.getItem('selectDeptValue')
-      };
-      getCriticalValue(params).then(res => {
-        this.loading = false;
-        if (res.data.code === "200") {
-          let tableData = (res.data && res.data.data && res.data.data.list) || []
-          let total = (res.data && res.data.data && res.data.data.pageCount) || 0
-          this.$emit('getTableData', { tableData, total })
-        }
-      });
+      this.$emit('getTableData') 
     },
     async handleExport() {
-      if (this.loading) return
-
       try {
-        this.loading = true
-        exportExc({
-          // themeName: this.$route.meta.title,
-          // ...this.formData,
-          // beginTime: this.formData.beginTime.split(' ')[0],
-          // endTime: this.formData.endTime.split(' ')[0],
-        }).then(res => {
-
-          let fileName = res.headers["content-disposition"]
-          ? decodeURIComponent(
-            res.headers["content-disposition"].replace("attachment;filename=", "")
-          ) : this.$route.meta.title + '.xls';
-          let blob = new Blob([res.data], {
-            type: res.data.type
-          });
-          let a = document.createElement('a')
-          let href = window.URL.createObjectURL(blob) // 创建链接对象
-          a.href = href
-          a.download = fileName // 自定义文件名
-          document.body.appendChild(a)
-          a.click()
-          window.URL.revokeObjectURL(href)
-          document.body.removeChild(a) // 移除a元素
-          this.loading = false
-        })
+        if (this.multipleSelection.length > 0) {
+          deviceUsageExport(this.multipleSelection, this.title.isRelated).then(res => {
+            let fileName = res.headers["content-disposition"]
+            ? decodeURIComponent(
+              res.headers["content-disposition"].replace("attachment;filename=", "")
+            ) : this.$route.meta.title + '.xls';
+            let blob = new Blob([res.data], {
+              type: res.data.type
+            });
+            let a = document.createElement('a')
+            let href = window.URL.createObjectURL(blob) // 创建链接对象
+            a.href = href
+            a.download = fileName // 自定义文件名
+            document.body.appendChild(a)
+            a.click()
+            window.URL.revokeObjectURL(href)
+            document.body.removeChild(a) // 移除a元素
+          })
+        } else {
+          this.$message.warning('未选择导出设备类别条目！')
+        }
       } catch (e) {
-        this.loading = false
+        console.log(e)
       }
     },
   }
@@ -266,7 +207,9 @@ export default {
 <style lang="scss" scoped>
 .header {
   font-size: 12px;
+  display: flex;
   padding: 10px 20px;
+  justify-content: space-between;
   .header-item{
     display: flex;
     align-items: center;

@@ -2,9 +2,9 @@
 export default 
 [
   {
-    prop: "id",
+    prop: "code",
     label: "类别编号",
-    minWidth: "80",
+    minWidth: "120",
     align: "center",
   },
   {
@@ -14,25 +14,25 @@ export default
     align: "center"
   },
   {
-    prop: "result",
+    prop: "isRelated",
     label: "使用关联患者",
     minWidth: "100",
     align: "center"
   },
   {
-    prop: "reference",
+    prop: "description",
     label: "类别说明",
     minWidth: "200",
     align: "center"
   },
   {
-    prop: "patientName",
+    prop: "createTime",
     label: "创建时间",
-    minWidth: "180",
+    minWidth: "120",
     align: "center"
   },
   {
-    prop: "patientId",
+    prop: "empName",
     label: "创建人",
     minWidth: "80",
     align: "center"

@@ -25,53 +25,67 @@
 </template>
 
 <script>
-  import printing from "printing";
-  import QRcode from '../components/QRcode'
+import printing from "printing";
+import QRcode from '../components/QRcode'
 
-  export default {
-    components: {
-      QRcode
+export default {
+  components: {
+    QRcode
+  },
+  props: {
+    multipleSelection: {
+      default: () => [],
+      type: Array
     },
-    props: {
-      multipleSelection: {
-        default: () => [],
-        type: Array
+  },
+  data() {
+    return {
+      title: '预览二维码',
+      visible: false,
+      information: {
+        name: '',
+        id: '',
+        qrCodeSize: '',
       },
+    };
+  },
+  methods: {
+    getQRCode(row) {
+      console.log(this.$refs.QRcode)
+      this.$nextTick(() => {
+        this.$refs.QRcode.getQRCode(row)
+      })
+      
+      // let qr_png_value = row.registrationCode || '';
+      
+      // let qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      // function arrayBufferToBase64(buffer) {
+      //   let binary = "";
+      //   let bytes = new Uint8Array(buffer);
+      //   let len = bytes.byteLength;
+      //   for (let i = 0; i < len; i++) {
+      //     binary += String.fromCharCode(bytes[i]);
+      //   }
+      //   return "data:image/png;base64," + window.btoa(binary);
+      // }
+      // let base64 = arrayBufferToBase64(qr_png);
+      // this.QRCode = base64;
+      // this.qrCodeNum = qr_png_value;
     },
-    data() {
-      return {
-        title: '预览二维码',
-        visible: false,
-        information: {
-          name: '',
-          id: '',
-          size: '',
-        }
-      };
+    cancel() {
+      this.visible = false
     },
-    methods: {
-      cancel() {
-        this.visible = false
-      },
-      onPrint() {
-        // this.visible = false;
-        console.log(this.$refs.QRcode)
-        printing(this.$refs.QRcode.$el, {
-          direction: "vertical",
-          injectGlobalCss: true,
-          scanStyles: false,
-          // css: cssStyle
-        });
-          // console.log(this.$refs.allQRcode,this.print, this.multipleSelection,  77777)
-          // printing(this.$refs.allQRcode, {
-          //   direction: "vertical",
-          //   injectGlobalCss: true,
-          //   scanStyles: false,
-          //   // css: cssStyle
-          // });
-      }
+    onPrint() {
+      printing(this.$refs.QRcode.$el, {
+        direction: "vertical",
+        injectGlobalCss: true,
+        scanStyles: false,
+        // css: cssStyle
+      });
+      this.visible = false
     }
-  };
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -87,6 +101,7 @@
 /deep/.el-dialog__body{
   display: flex;
   justify-content: center;
+  margin-bottom: 10px; 
 }
 
 </style>

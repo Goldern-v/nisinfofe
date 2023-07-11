@@ -3,19 +3,19 @@
     <div class="header-item">
       <div>
         <div class="item">设备类别：</div>
-        <el-select size="small" style="width: 90px;" v-model="type" placeholder="请选择">
+        <el-select size="small" style="width: 110px;" @change="getTableData" v-model="title.type" placeholder="请选择">
           <el-option
-            v-for="item in equipmentClass"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in [{name: '全部', id: 'all'}, ...deviceType]"
+            :key="item.id"
+            :label="item.name"
+            :value="item.name"
           >
           </el-option>
         </el-select>
       </div>
       <div>
         <div class="item">状态标识：</div>
-        <el-select size="small" style="width: 90px;" v-model="type" placeholder="请选择">
+        <el-select size="small" style="width: 90px;" @change="getTableData" v-model="title.statusFlag" placeholder="请选择">
           <el-option 
             v-for="item in stateID"
             :key="item.value"
@@ -27,7 +27,7 @@
       </div>
       <div>
         <div class="item">设备状态：</div>
-        <el-select size="small" style="width: 90px;" v-model="type" placeholder="请选择">
+        <el-select size="small" style="width: 90px;" @change="getTableData" v-model="title.status" placeholder="请选择">
           <el-option
             v-for="item in equipmentState"
             :key="item.value"
@@ -39,10 +39,10 @@
       </div>
       <div>
         <div class="item">二维码规格：</div>
-        <el-select size="small" style="width: 90px;" v-model="allSize" placeholder="请选择">
+        <el-select size="small" style="width: 90px;" @change="getTableData" v-model="title.qrCodeSize" placeholder="请选择">
           <el-option
-            v-for="item in allQRcode"
-            :key="item"
+            v-for="(item, index) in allQRcodeSize"
+            :key="index"
             :label="item"
             :value="item"
           >
@@ -51,66 +51,81 @@
       </div>
       <div class="search">
         <el-input
+          style="width: 210px"
           size="small"
           placeholder="请输入设备名称 | 设备编码"
           icon="search"
-          v-model="search"
-          :on-icon-click="searchIconClick"
+          v-model="title.code"
+          :on-icon-click="getTableData"
+          @change="getTableData"
         >
         </el-input>
       </div>
     </div>
     <div class="search-item">
-      
       <el-button size="small" type="primary" @click="searchClick">查询</el-button>
       <el-button size="small" type="primary" @click="handleExport">导出</el-button>
-      <el-button size="small" type="primary" @click="printQcode">打印二维码</el-button>
-      <el-button size="small" type="primary" @click.native.prevent="onAdd()">添加</el-button>
-      <el-button size="small" type="primary" @click="handleExport">导入</el-button>
+      <el-button size="small" type="primary" @click="printAllQcode">打印二维码</el-button>
+      <el-button size="small" type="primary" v-if='isNursingMinister' @click.native.prevent="onAdd()">添加</el-button>
+      <el-button size="small" type="primary" v-if='isNursingMinister' @click="handleImport">导入</el-button>
     </div>
-    <!-- 多选打印 -->
-    <div class="allQRcode" ref="allQRcode" v-for="item in multipleSelection" :key="item.id">
-      <QRcode :information='item' :allSize='allSize' :printAll='printAll' />
+    <!-- 多选打印二维码 -->
+    <div class="allQRcode">
+      <div ref="allQRcode" v-for="item in multipleSelection" :key="item.id">
+        <QRcode ref="QRcode" :information='item' :allSize='title.qrCodeSize' :printAll='printAll' />
+      </div>
     </div>
-    <ModalAdd ref="modalAdd" />
+    <ModalAdd :deviceType='deviceType' ref="modalAdd" />
     <ModalPreview ref="modalPreview" :multipleSelection='multipleSelection'/>
-
+    <ModalImport ref="modalImport" :url="url" :downloadTemApi='downloadTemApi' />  
   </div>
 </template>
 
 <script>
-import { getCriticalValue } from "@/api/common";
-import moment from 'moment';
-import qs from "qs";
+import bus from "vue-happy-bus";
 import printing from "printing";
-import { nursingUnit } from "@/api/lesion"
+// import { nursingUnit } from "@/api/lesion"
 import ModalAdd from "./modal/add"
 import ModalPreview from './modal/preview'
 import QRcode from './components/QRcode'
+import ModalImport from '../../components/modal/import'
+import { deviceExport, downloadTemplate, getAllQrCodeSize } from '@/Page/equipment-management/api/equipmentList'
+import { getAllDeviceType } from '@/Page/equipment-management/api/equipmentType'
 
 export default {
   components: {
     ModalAdd,
     ModalPreview,
+    ModalImport,
     QRcode
   },
   props: {
-    query: {
-      default: {}, 
-      type: Object
-    },
+    // query: {
+    //   default: {}, 
+    //   type: Object
+    // },
     multipleSelection: {
       default: [],
       type: Array
+    },
+    isNursingMinister: {
+      default: false,
+      type: Boolean
     }
   },
   data() {
     return {
-      type: "检验",
-      search: "",
+      bus: bus(this),
+      title: {
+        code: '',
+        qrCodeSize: '全部',
+        status: '',
+        statusFlag: '',
+        type: '全部',
+      },
       stateID: [
         {
-          value: "全部",
+          value: "",
           label: "全部"
         },
         {
@@ -124,7 +139,7 @@ export default {
       ],
       equipmentState: [
         {
-          value: "全部",
+          value: "",
           label: "全部"
         },
         {
@@ -136,39 +151,41 @@ export default {
           label: "闲置中"
         }
       ],
-      equipmentClass: [
-        {
-          value: "全部",
-          label: "全部"
-        },
-        {
-          value: "监护仪",
-          label: "监护仪"
-        },
-        {
-          value: "呼吸仪",
-          label: "呼吸仪"
-        },
-        {
-          value: "呼吸机",
-          label: "呼吸机"
-        }
-      ],
-      wardCode: '',
-      deptList: [],
-      allSize: '5*8',
-      allQRcode: ['5*8', '8*7', '10*10', '全部'],
-      printAll: ''
+      allQRcodeSize: [],
+      printAll: '',
+      downloadTemApi: null, // 下载模块
+      url: 'device/importTemplate', // 导入接口
+      deviceType: [], 
+      // isNursingMinister: false
     };
   },
   mounted() {
-    this.getDepList()
-    // this.getTableData();
+    this.getAllDeviceType()
+    this.getAllQrCodeSize()
+    this.bus.$on('getQrCodeSize', this.getAllQrCodeSize)
   },
   methods: {
-    printQcode() {
-      console.log((this.multipleSelection.length > 0) && (this.allSize  !== '全部'))
-      if (this.multipleSelection.length > 0 && this.allSize  !== '全部') {
+    getAllQrCodeSize() {
+      getAllQrCodeSize().then(res => {
+        if (res.data.code === "200") {
+          this.allQRcodeSize = ['全部', ...((res.data && res.data.data) || [])]
+        }
+      });
+    },
+    getAllDeviceType() {
+      getAllDeviceType().then(res => {
+        if (res.data.code === "200") {
+          this.deviceType = (res.data && res.data.data) || []
+        }
+      });
+    },
+    // 导入
+    handleImport() {
+      this.$refs.modalImport.visible = true;
+      this.downloadTemApi = downloadTemplate
+    },
+    printAllQcode() {
+      if (this.multipleSelection.length > 0 && this.title.qrCodeSize !== '全部') {
         this.printAll = 'all'
         this.$nextTick(() => {
           printing(this.$refs.allQRcode, {
@@ -179,91 +196,71 @@ export default {
           })
         })
       } else {
-        this.$message.warning('未选择打印二维码条目或者未选择打印二维码规格！')
+        this.$message.warning('请选择打印二维码条目与请选择打印二维码规格！')
       }
     },
     onAdd(row = null) {
-      console.log(row, 66666);
       this.$refs.modalAdd.visible = true
       if (row) {
         this.$refs.modalAdd.title = '修改'
-        this.$refs.modalAdd.form = row
+        let newRow = { ...row, qrCodeSize: this.getSize(row.qrCodeSize, 'qrCodeSize'), statusFlagSize: this.getSize(row.statusFlagSize, 'statusFlagSize'), buyTime: new Date(row.buyTime) || '' } 
+        this.$nextTick(() => {
+          this.$refs.modalAdd.form = newRow
+        }) 
       } else {
         this.$refs.modalAdd.title = '添加'
       }
     },
-    async getDepList() {
-      try {
-        if (this.deptList.length > 0) return
-        const res = await nursingUnit()
-        this.deptList = res.data.data.deptList || []
-        if (this.deptList.length > 0) {
-          this.deptList = [
-            { code: '', name: '全院' },
-            ...this.deptList
-          ]
-          this.wardCode = res.data.data.defaultDept || ''
+    getSize(size, status) {
+      if (size) {
+        let w = size.split('*')[0];
+        let h = size.split('*')[1];
+        if (`${w}*${h}` === '3*5') return 1
+        else if(`${w}*${h}` === '6*8') return 2
+        else {
+          if (status === 'qrCodeSize') {
+            this.$refs.modalAdd.qrCodeSizeH = h
+            this.$refs.modalAdd.qrCodeSizeW = w
+          } else {
+            this.$refs.modalAdd.statusFlagSizeH = h
+            this.$refs.modalAdd.statusFlagSizeW = w
+          }
+          return 3
         }
-      } catch (e) {
       }
+      else return null
     },
     searchClick() {
       this.getTableData()
     },
-    searchIconClick() {
-      this.getTableData()
-    },
     getTableData() {
-      this.loading = true;
-      let params = {
-        patientName: this.search,
-        type: this.type,
-        beginTime: moment(this.time[0]).format('YYYY-MM-DD') + ' 00:00:00' || "",
-        endTime: moment(this.time[1]).format('YYYY-MM-DD') + ' 23:59:59' || "",
-        pageIndex: this.query.pageIndex,
-        pageSize: this.query.pageSize,
-        wardCode: this.wardCode || localStorage.getItem('selectDeptValue')
-      };
-      getCriticalValue(params).then(res => {
-        this.loading = false;
-        if (res.data.code === "200") {
-          let tableData = (res.data && res.data.data && res.data.data.list) || []
-          let total = (res.data && res.data.data && res.data.data.pageCount) || 0
-          this.$emit('getTableData', { tableData, total })
-        }
-      });
+      this.$emit('getTableData')
     },
     async handleExport() {
-      if (this.loading) return
-
       try {
-        this.loading = true
-        exportExc({
-          // themeName: this.$route.meta.title,
-          // ...this.formData,
-          // beginTime: this.formData.beginTime.split(' ')[0],
-          // endTime: this.formData.endTime.split(' ')[0],
-        }).then(res => {
-
-          let fileName = res.headers["content-disposition"]
-          ? decodeURIComponent(
-            res.headers["content-disposition"].replace("attachment;filename=", "")
-          ) : this.$route.meta.title + '.xls';
-          let blob = new Blob([res.data], {
-            type: res.data.type
-          });
-          let a = document.createElement('a')
-          let href = window.URL.createObjectURL(blob) // 创建链接对象
-          a.href = href
-          a.download = fileName // 自定义文件名
-          document.body.appendChild(a)
-          a.click()
-          window.URL.revokeObjectURL(href)
-          document.body.removeChild(a) // 移除a元素
-          this.loading = false
-        })
+        if (this.multipleSelection.length > 0) {
+          deviceExport(this.multipleSelection).then(res => {
+            let fileName = res.headers["content-disposition"]
+            ? decodeURIComponent(
+              res.headers["content-disposition"].replace("attachment;filename=", "")
+            ) : this.$route.meta.title + '.xls';
+            let blob = new Blob([res.data], {
+              type: res.data.type
+            });
+            let a = document.createElement('a')
+            let href = window.URL.createObjectURL(blob) // 创建链接对象
+            a.href = href
+            a.download = fileName // 自定义文件名
+            document.body.appendChild(a)
+            a.click()
+            window.URL.revokeObjectURL(href)
+            document.body.removeChild(a) // 移除a元素
+          })
+        } else {
+          this.$message.warning('未选择导出设备类别条目！')
+        }
       } catch (e) {
-        this.loading = false
+        console.log(e)
       }
     },
   }
@@ -274,7 +271,7 @@ export default {
 .header {
   font-size: 12px;
   padding: 0 20px 10px 20px;
-  /* display: flex; */
+  display: flex;
   justify-content: space-between;
   .header-item{
     display: flex;

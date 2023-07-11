@@ -2,7 +2,7 @@
 export const column =  
 [
   {
-    prop: "id",
+    prop: "code",
     label: "设备编码",
     minWidth: "80",
     align: "center",
@@ -16,33 +16,28 @@ export const column =
     fixed: true,
   },
   {
-    prop: "result",
+    prop: "registrationCode",
     label: "设备登记码",
-    minWidth: "100",
-    align: "center"
+    minWidth: "150",
+    align: "center",
+    fixed: true,
   },
   {
-    prop: "reference",
+    prop: "type",
     label: "设备类别",
     minWidth: "80",
     align: "center"
   },
   {
-    prop: "patientName",
+    prop: "isRelated",
     label: "使用关联患者",
     minWidth: "80",
     align: "center"
   },
   {
-    prop: "patientId",
+    prop: "buyTime",
     label: "购入时间",
     minWidth: "160",
-    align: "center"
-  },
-  {
-    prop: "reportTime",
-    label: "开始时间",
-    minWidth: "120",
     align: "center"
   },
   // {
@@ -64,32 +59,32 @@ export const column =
 ]
 
 export const column2 = [{
-    prop: "reportTime",
+    prop: "wardName",
     label: "放置位置",
     minWidth: "160",
     align: "center"
   },
   {
-    prop: "size",
+    prop: "qrCodeSize",
     label: "二维码规格",
     minWidth: "80",
     align: "center"
   },
   {
-    prop: "reportTime",
+    prop: "statusFlagSize",
     label: "状态标识规格",
     minWidth: "80",
     align: "center"
   },
   {
-    prop: "reportTime",
+    prop: "empName",
     label: "登记人",
     minWidth: "80",
     align: "center"
   },
   {
-    prop: "最新记录时间",
-    label: "登记人",
+    prop: "latestRecord",
+    label: "最新记录时间",
     minWidth: "180",
     align: "center"
   }
