@@ -11,7 +11,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1150px"
+    width: "1200px"
   },
   th: {
     top: [
@@ -19,11 +19,19 @@ export default {
         name: `日期`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
         name: `时间`,
         colspan: "1",
         rowspan: "3",
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
       },
       {
         name: "体温<br/>(℃)",
