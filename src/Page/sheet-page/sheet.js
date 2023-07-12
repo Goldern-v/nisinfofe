@@ -23,7 +23,6 @@ let addPage = []
  * 自定义标题数据缓存数据
  * @param {*} param0
  * autoOptionsData: 自定义选项
- * index 为页码
  * @returns
  */
 let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = '', autoOptionsData = []}) {
@@ -38,7 +37,7 @@ let Page = function({titleData = [], autoTitleData = [], bodyData = [], index = 
     blockId:sheetInfo.selectBlock.id,
     supplementLastList,
     supplementNextList
-    // supplement:sheetInfo
+    // fromAddPage
   };
 };
 let data = [];
@@ -108,7 +107,7 @@ export function delSheetPage(index, callback) {
 
 export function cleanDataOnly() {
   data.splice(0, data.length);
-}
+  }
   let isFirst = function(tr, x, y, bodyModel) {
     let recordDate = tr.find(item => item.key == "recordDate").value;
     let recordSource = tr.find(item => item.key == "recordSource").value;
@@ -144,9 +143,9 @@ export function cleanDataOnly() {
     ) {
       return true;
     }
-    // if (listData && listData[x] && listData[x].canModify) {
-    //   return false;
-    // }
+    if (listData && listData[x] && listData[x].canModify) {
+      return false;
+    }
     // 当审核完，就出现问题，下拉还是会出现。 用this.isDisabed解决
     // 这里主要是给弹窗做判断isRead
     if (
@@ -170,6 +169,16 @@ export function cleanDataOnly() {
           }
         }
       }
+    if (
+      process.env.HOSPITAL_ID === "nfyksdyy" &&
+      listData &&
+      listData[nowX] &&
+      listData[nowX].status == 2 &&
+      !listData[nowX].canModify
+    ) {
+      // 当审核完，status=2&&canModify=false,
+      return true;
+    }
   };
   // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
   let isDisabed = function(tr, td, x, y, bodyModel, nowX, sheetType) {
@@ -206,6 +215,28 @@ export function cleanDataOnly() {
         }
       }
     }
+    // 顺德护记单除特殊情况以及同一记录的第一条其余填写保存后锁定
+    if (process.env.HOSPITAL_ID === "nfyksdyy") {
+      // 如果审核完，canModify = false 全部禁用
+      if (
+        listData[nowX] &&
+        listData[nowX].status == 2 &&
+        !listData[nowX].canModify
+      ) {
+        return true;
+      } else {
+        // 否则按照锁定规则
+        const firstEqualIndex = listData.findIndex(
+          item => listData[nowX] && item.recordDate == listData[nowX].recordDate
+        );
+        return (
+          firstEqualIndex != -1 &&
+          firstEqualIndex !== nowX &&
+          td.key != "description"
+        );
+      }
+    }
+    // 如果审核完，canModify=false才禁用
     if (
       process.env.HOSPITAL_ID === "gdtj" &&
       listData &&
@@ -307,10 +338,7 @@ export function cleanDataOnly() {
     }
     // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
   let setSignDiabled=function(td, nowX ,listData) {
-
-      if (process.env.HOSPITAL_ID == 'foshanrenyi') {
-        // 佛山人医表示取消该功能 禅道ID 14369
-        return false
+      if (process.env.HOSPITAL_ID == 'nfyksdyy') {
         const lastIndex = findLastIndex(
           listData,
           item => item && listData[nowX] && item.recordDate == listData[nowX].recordDate
@@ -320,11 +348,11 @@ export function cleanDataOnly() {
         return false
       }
     }
-export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
-  cleanData();
-  startPage = sheetInfo.startPage
-  endPage = sheetInfo.endPage
-  sheetStartPage = sheetInfo.sheetStartPage
+    export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
+      cleanData();
+      startPage = sheetInfo.startPage
+      endPage = sheetInfo.endPage
+      sheetStartPage = sheetInfo.sheetStartPage
   let titleList = [];
   let bodyList = [];
   let customOptions = []
@@ -378,7 +406,6 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
       sheetInfo.auditorMap[key] = "";
     }
   }
-
   sheetInfo.auditorMap = Object.assign({}, bodyData.auditorMap);
   for (let i = startSize; i <= realSize; i++) {
     data.push(
@@ -409,60 +436,60 @@ export let initSheetPage=(titleData, bodyData, markData ,listDataList)=>{
     }));
   }
 }
-  let forMatData = () => {
-      sheetData = data.map((item, index, arr) => {
-        let obj = {
-          index:item.index,
-          data: item,
-          length: arr.length,
-          blockId:item.blockId
-        };
-        return obj;
-      });
-      sheetData.map((item, index) => {
-        // x为每页护记的行数
-        item.data.bodyModel.map((tr, x) => {
-          if (!tr.hasOwnProperty("isRead")) {
-            // 如果传x永远都是当前护记的行数，不会叠加（列入0~16 17条数据的护记）。使用的时候是判断的是整个表格的数据(一页显示17条数据的护记  可能会有几百条数据，所以x需要计算)
-            // 不计算 isRead  isDisabed  永远都是拿第一页数据进行比对，是否签名与审核，第2页之后的都是用第一页的数据比较
-            let nowX = "";
-            let tdnowX = ""
-            if (item.index == 0) {
-              nowX = x;
-            } else {
-              nowX =
-                getRowNum(item.index) -
-                1 +
-                getRowNum(item.index) * (item.index - 1) +
-                x +
-                1;
-            }
-            if(index == 0){
-              tdnowX = x
-            } else{
-              tdnowX =
-              getRowNum(item.index) * index +
-              x
-            }
-            tr.isRead = isRead(tr, x, nowX, listData);
-            tr.find((item) => item.key == 'id').value && tr.map((td, y) => {
-              td.isDisabed = isDisabed(
-                tr,
-                td,
-                x,
-                y,
-                item.data.bodyModel,
-                tdnowX,
-                sheetInfo.sheetType
-              );
-              td.signDisabled = setSignDiabled(td, nowX, listData);
-            });
-          }
-        });
-      });
+let forMatData = () => {
+  sheetData = data.map((item, index, arr) => {
+    let obj = {
+      index:item.index,
+      data: item,
+      length: arr.length,
+      blockId:item.blockId
     };
-    //返回护记显示的数据
-    export function getData() {
-      forMatData();
-      return sheetData;
-    }
+    return obj;
+  });
+  sheetData.map((item, index) => {
+    // x为每页护记的行数
+    item.data.bodyModel.map((tr, x) => {
+      if (!tr.hasOwnProperty("isRead")) {
+        // 如果传x永远都是当前护记的行数，不会叠加（列入0~16 17条数据的护记）。使用的时候是判断的是整个表格的数据(一页显示17条数据的护记  可能会有几百条数据，所以x需要计算)
+        // 不计算 isRead  isDisabed  永远都是拿第一页数据进行比对，是否签名与审核，第2页之后的都是用第一页的数据比较
+        let nowX = "";
+        let tdnowX = ""
+        if (item.index == 0) {
+          nowX = x;
+        } else {
+          nowX =
+            getRowNum(item.index) -
+            1 +
+            getRowNum(item.index) * (item.index - 1) +
+            x +
+            1;
+        }
+        if(index == 0){
+          tdnowX = x
+        } else{
+          tdnowX =
+          getRowNum(item.index) * index +
+          x
+        }
+        tr.isRead = isRead(tr, x, nowX, listData);
+        tr.find((item) => item.key == 'id').value && tr.map((td, y) => {
+          td.isDisabed = isDisabed(
+            tr,
+            td,
+            x,
+            y,
+            item.data.bodyModel,
+            tdnowX,
+            sheetInfo.sheetType
+          );
+          td.signDisabled = setSignDiabled(td, nowX, listData);
+        });
+      }
+    });
+  });
+};
+//返回护记显示的数据
+export function getData() {
+  forMatData();
+  return sheetData;
+}
