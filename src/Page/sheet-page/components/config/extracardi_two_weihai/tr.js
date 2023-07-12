@@ -66,7 +66,7 @@ export default [
     key: "reactionLeft",
     event: keyf1,
     value: "",
-    next: "ml",
+    next: "",
     name: "对光反射左",
     textarea: { width: 40 },
     autoComplete: { data: dgfs }
@@ -75,7 +75,7 @@ export default [
     key: "reactionRight",
     event: keyf1,
     value: "",
-    next: "ml",
+    next: "",
     name: "对光反射右",
     textarea: { width: 40 },
     autoComplete: { data: dgfs }
