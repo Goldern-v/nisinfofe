@@ -68,6 +68,7 @@
         <ElCheckbox :disabled="!groups['转入']" :value="isAllCheck('转入')" @change="onCheckStatus($event, '转入')">转入</ElCheckbox> -->
         <ElCheckbox :disabled="!groups['今手']" :value="isAllCheck('今手')" @change="onCheckStatus($event, '今手')">今手</ElCheckbox>
         <ElCheckbox :disabled="!groups['明手']" :value="isAllCheck('明手')" @change="onCheckStatus($event, '明手')">明手</ElCheckbox>
+        <ElCheckbox :disabled="!groups['分娩']" :value="isAllCheck('分娩')" @change="onCheckStatus($event, '分娩')">分娩</ElCheckbox>
         <ElCheckbox :disabled="!groups['明出']" :value="isAllCheck('明出')" @change="onCheckStatus($event, '明出')">明出</ElCheckbox>
         <ElCheckbox :disabled="!groups['病重']" :value="isAllCheck('病重')" @change="onCheckStatus($event, '病重')">病重</ElCheckbox>
         <ElCheckbox :disabled="!groups['病危']" :value="isAllCheck('病危')" @change="onCheckStatus($event, '病危')">病危</ElCheckbox>
@@ -130,7 +131,7 @@
 
         const groups = groupBy(patients, 'patientType')
 
-        let status = ['白入', '夜入','白转','夜转', '今手', '明手', '明出', '病重', '病危']
+        let status = ['白入', '夜入','白转','夜转', '今手', '明手','分娩', '明出', '病重', '病危']
 
 
         this.patients = patients.filter((p) => !this.selectedKeys.includes(p.key))
