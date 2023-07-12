@@ -24,7 +24,7 @@ export default {
       { name: "P<br/>次/分", colspan: "1", rowspan: "3" },
       { name: "HR<br/>次/分", colspan: "1", rowspan: "3" },
       { name: "R<br/>次/分", colspan: "1", rowspan: "3" },
-      { name: "BP<br/>mnHg", colspan: "1", rowspan: "3" },
+      { name: "BP<br/>mmHg", colspan: "1", rowspan: "3" },
       {
         name: "血<br/>氧<br/>饱<br/>和<br/>度<br/>%",
         colspan: "1",
