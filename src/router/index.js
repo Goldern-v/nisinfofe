@@ -1073,11 +1073,8 @@ const router = new Router({
           component: record
         },
         {
-          name: "admissionPageAdult2",
           path: "/admissionPageAdult2",
-          meta: {
-            formCode: 'E2332'
-          },
+
           component: sheetAdmissionPageAdult
         },
         {

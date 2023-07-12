@@ -13,7 +13,7 @@
           flex
           :class="{ remarkCon: formData.remarkPrint,itemHeight:HOSPITAL_ID=='sdlj' }"
         >
-          
+
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div flex="cross:center" class="qr-code-item" style="height:150px;">
               <p v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" style="line-height: 80px;" class="name">
@@ -27,7 +27,7 @@
                 :src="qrCode"
               />
             </div>
-            <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" 
+            <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}"
             class="input-item input-item-row">
               <div class="fontSize-50">{{query.sex}}</div>
               <div class="fontSize-50" v-if="HOSPITAL_ID!='sdlj'">{{query.age}}</div>
@@ -471,7 +471,6 @@ export default {
     }
   },
   created(){
-    console.log(this.$store.state);
   },
   methods: {
     init() {
@@ -482,7 +481,6 @@ export default {
         dutyNurses: "",
         remark: ""
       };
-      console.log("this.query.",this.query)
       if(this.HOSPITAL_ID=="sdlj" && this.query.patientId.indexOf("$")>=0){
         const patientArr = this.query.name.split(")")
         this.nameYing = patientArr[0] + ")"
@@ -634,12 +632,6 @@ export default {
       // })
       cb([]);
     },
-    // handleSelectDoc(item) {
-    //     console.log(item);
-    //     return {
-    //       value: item + 123
-    //     }
-    // },
     querySearchAsyncNur(queryString, cb) {
       // findByKeywordNur(queryString).then(res => {
       //   cb(res.data.data.map(item => {
@@ -660,7 +652,6 @@ export default {
       let { autoComplete, obj, key } = bind;
       let xy = offset(e.target);
 
-      console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
 
       setTimeout(() => {
         window.openAutoComplete({
@@ -670,7 +661,6 @@ export default {
           },
           data: autoComplete,
           callback: function(data) {
-            console.log(data, "data");
             if (data) {
               if (obj[key]) {
                 obj[key] += "," + data;

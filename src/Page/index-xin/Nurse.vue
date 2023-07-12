@@ -317,7 +317,7 @@ export default {
           this.$set(this.body, "content", data);
           this.page1Loading = false;
         });
-        
+
     },
     init() {
       if (!this.deptCode) return;
@@ -381,7 +381,6 @@ export default {
   },
   computed: {
     filterPostil() {
-      console.log(this.postil.content)
       if (this.postil.isshow) {
         return this.postil.content.filter(item => {
           return item.signerNo == this.userInfo.empNo;

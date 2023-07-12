@@ -4,7 +4,13 @@
       :style="isShow ? 'display:block' : 'display:none'"
       style="transition: width 2s"
     >
-      <el-row class="header" type="flex" justify="space-between" align="middle">
+      <el-row
+        class="header"
+        type="flex"
+        justify="space-between"
+        align="middle"
+        :style="{ padding: openLeft ? 0 : '' }"
+      >
         <span
           class="title"
           style="cursor: pointer"
@@ -32,6 +38,23 @@
           @node-collapse="node_collapse"
         ></el-tree>
         <div style="height: 20px"></div>
+      </div>
+      <div
+        class="flag-con"
+        :style="{ top: flagTop }"
+        flex="main:center cross:center"
+        @click="toOpenLeft"
+      >
+        <i
+          class="iconfont icon-yincang"
+          v-show="!openLeft"
+          style="margin-left: -1px"
+        ></i>
+        <i
+          class="iconfont icon-xianshi"
+          v-show="openLeft"
+          style="margin-left: -2px"
+        ></i>
       </div>
 
       <!-- 弹出框 -->
@@ -311,7 +334,7 @@ export default {
       isPersonage: false, //是否为个人详情打开
       hisLeftList: ["wujing", "huadu"], //是否要开放左侧收缩功能医院
       batchAuditDialog: false, // 批量审核表单弹框
-      batchAuditForms: {}, // 批量审核节点数据
+      batchAuditForms: {} // 批量审核节点数据
     };
   },
   computed: {
@@ -399,54 +422,56 @@ export default {
         this.bus.$emit("activeAllButons");
         window.app.$CRMessageBox.notifyBox.close();
       } catch (error) {}
-      let typelsit = ["sheet", "bloodSugar","healthEducation"];
-      if(typelsit.includes(data.type)){
-        if (node.level === 2 || (node.level == 1 && data.type == "bloodSugar") || (node.level == 1 && !data.children.length)) {
-          let isopenSheetTag = false
-          if(data.type == "sheet" && node.level == 2) isopenSheetTag = true
-          this.bus.$emit("openOtherPage", data , isopenSheetTag);
+      let typelsit = ["sheet", "bloodSugar", "healthEducation"];
+      if (typelsit.includes(data.type)) {
+        if (
+          node.level === 2 ||
+          (node.level == 1 && data.type == "bloodSugar") ||
+          (node.level == 1 && !data.children.length)
+        ) {
+          let isopenSheetTag = false;
+          if (data.type == "sheet" && node.level == 2) isopenSheetTag = true;
+          this.bus.$emit("openOtherPage", data, isopenSheetTag);
         }
-      }else{
-        if(node.level == 1){
+      } else {
+        if (node.level == 1) {
+          this.bus.$emit("openAssessmentBox", {}, true);
+        }
+        if (node.level == 3) {
+          this.$emit(
+            "openFormTag",
+            Object.assign({}, getFormConfig(node.data.formName), {
+              id: node.data.form_id,
+              formCode: node.parent.data.formCode,
+              showCurve: node.parent.data.showCurve,
+              creator: node.parent.data.creator,
+              listPrint: node.parent.data.listPrint,
+              nooForm: node.parent.data.nooForm,
+              pageUrl: node.parent.data.pageUrl,
+              pageItem: data.pageTitle,
+              status: data.status,
+              missionId: data.missionId,
+              pageIndex: node.data.pageIndex,
+              evalDate: node.data.label.slice(0, 16),
+              node
+            })
+          );
           this.bus.$emit(
-              "openAssessmentBox",{},true
-            );
-        }
-         if (node.level == 3) {
-            this.$emit(
-              "openFormTag",
-              Object.assign({}, getFormConfig(node.data.formName), {
-                id: node.data.form_id,
-                formCode: node.parent.data.formCode,
-                showCurve: node.parent.data.showCurve,
-                creator: node.parent.data.creator,
-                listPrint: node.parent.data.listPrint,
-                nooForm: node.parent.data.nooForm,
-                pageUrl: node.parent.data.pageUrl,
-                pageItem: data.pageTitle,
-                status: data.status,
-                missionId: data.missionId,
-                pageIndex: node.data.pageIndex,
-                evalDate: node.data.label.slice(0, 16),
-                node
-              })
-            );
-            this.bus.$emit(
-              "openAssessmentBox",
-              Object.assign({}, getFormConfig(node.data.formName), {
-                id: node.data.form_id,
-                formCode: node.parent.data.formCode,
-                showCurve: node.parent.data.showCurve,
-                creator: node.parent.data.creator,
-                listPrint: node.parent.data.listPrint,
-                nooForm: node.parent.data.nooForm,
-                pageUrl: node.parent.data.pageUrl,
-                pageItem: data.pageTitle,
-                status: data.status,
-                missionId: data.missionId,
-                pageIndex: node.data.pageIndex
-              })
-            );
+            "openAssessmentBox",
+            Object.assign({}, getFormConfig(node.data.formName), {
+              id: node.data.form_id,
+              formCode: node.parent.data.formCode,
+              showCurve: node.parent.data.showCurve,
+              creator: node.parent.data.creator,
+              listPrint: node.parent.data.listPrint,
+              nooForm: node.parent.data.nooForm,
+              pageUrl: node.parent.data.pageUrl,
+              pageItem: data.pageTitle,
+              status: data.status,
+              missionId: data.missionId,
+              pageIndex: node.data.pageIndex
+            })
+          );
         }
       }
     },
@@ -515,7 +540,7 @@ export default {
         icon = fileicon;
       }
       let viewDom = h();
-      let typelsit = ["sheet", "bloodSugar","healthEducation"];
+      let typelsit = ["sheet", "bloodSugar", "healthEducation"];
       if (node.level == 1) {
         if (typelsit.includes(node.data.type)) {
           return h(
@@ -575,16 +600,15 @@ export default {
     },
     getTreeData() {
       this.treeLoading = true;
-      let params = {patientId: this.$route.query.patientId, visitId:this.$route.query.visitId,deptCode: this.$store.state.lesion.deptCode}
+      let params = {
+        patientId: this.$route.query.patientId,
+        visitId: this.$route.query.visitId,
+        deptCode: this.$store.state.lesion.deptCode
+      };
       Promise.all([
         groupList(params.patientId, params.visitId),
-        blockList(
-          params.patientId,
-          params.visitId,
-          params.deptCode
-        ),
-        getEduFormList({patientId: params.patientId,
-          visitId:params.visitId,})
+        blockList(params.patientId, params.visitId, params.deptCode),
+        getEduFormList({ patientId: params.patientId, visitId: params.visitId })
       ])
         .then(res => {
           let index = 0;
@@ -657,9 +681,9 @@ export default {
             };
           });
           let list_3 = {
-            label:'血糖单',
+            label: "血糖单",
             type: "bloodSugar"
-          }
+          };
           let list_4 = res[2].data.data.map(item => {
             return {
               label: `健康教育单 ${item.creatDate}`,
@@ -703,9 +727,7 @@ export default {
 
           //区分患者转科------------------------------------------------------------------------------------------------------
           if (this.filterObj) {
-            list_1 = list_1.filter(
-              item => item.label == this.filterObj.label
-            );
+            list_1 = list_1.filter(item => item.label == this.filterObj.label);
             this.regions = [
               {
                 label: "护理评估单",
@@ -717,7 +739,7 @@ export default {
                 type: "sheet",
                 children: [...list_2]
               },
-              {...list_3},
+              { ...list_3 },
               {
                 label: "健康教育单",
                 type: "healthEducation",
@@ -725,7 +747,7 @@ export default {
               }
             ];
           } else {
-            this.$nextTick(()=>{
+            this.$nextTick(() => {
               this.regions = [
                 {
                   label: "护理评估单",
@@ -736,7 +758,7 @@ export default {
                   label: "护理记录单",
                   type: "sheet",
                   children: [...list_2],
-                  index: index += 1,
+                  index: (index += 1)
                 },
                 {
                   ...list_3
@@ -745,10 +767,10 @@ export default {
                   label: "健康教育单",
                   type: "healthEducation",
                   children: [...list_4],
-                  index: index += 1,
+                  index: (index += 1)
                 }
               ];
-            })
+            });
           }
         })
         .then(res => {
@@ -761,7 +783,7 @@ export default {
       }
     },
     node_collapse(curNode) {
-      if(curNode.index){
+      if (curNode.index) {
         this.expandListCopy.remove(curNode.index);
       }
     },
@@ -778,9 +800,9 @@ export default {
       }
       this.ifTree = false;
       this.getTreeData();
-        this.$nextTick(() => {
-          this.ifTree = true;
-        });
+      this.$nextTick(() => {
+        this.ifTree = true;
+      });
       this.bus.$emit("activeAllButons");
     },
     updateTree() {
@@ -788,7 +810,7 @@ export default {
       this.ifTree = false;
       this.getTreeData();
       this.$nextTick(() => {
-         this.ifTree = true
+        this.ifTree = true;
       });
       this.bus.$emit("activeAllButons");
     },
