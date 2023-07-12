@@ -193,12 +193,20 @@ export default {
               ]
             }
           let {list, totalCount,columnCount,rowCount } = res[1].data.data
-          let listEnd = list.map(item=>({...item,...item.workloadStat}))
+          let listEnd = list.map(item=>{
+            let obj = {}
+            Object.values(item.workloadStat).map((val,valIn)=>{
+              obj[Object.values(this.chineseColumns)[valIn]['key']] = val
+            })
+            return ({...item,...obj})
+            })
           let zong = {},tableData =[]
           if(listEnd.length>=2){
-            this.chineseColumns.map((item,index)=>{zong[item.key]=columnCount[item.key] || 0})
+            Object.values(columnCount).map((val,valIn)=>{
+              zong[Object.values(this.chineseColumns)[valIn]['key']] = val
+            })
             let listEND = listEnd.map((item,index)=>({...item,rowAll:rowCount[index]}))
-            this.tableData = [...listEND,{...zong}] || []
+            this.tableData = [...listEND,zong] || []
           }else{
             tableData = listEnd || []
             this.tableData = tableData.map((item,index)=>({...item,rowAll:rowCount[index]}))

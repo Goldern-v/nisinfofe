@@ -1178,10 +1178,9 @@ export default {
         this.post();
         if (this.printMode == "wrist") {
           const styleHospital = {
-            whhk: 'rotate(90deg) translateY(-110%) translateX(45%);' ,
-            zhzxy: 'translateY(20%) translateX(25%);',
+            whhk: 'rotate(90deg) translateY(-110%) translateX(45%);',
             dglb: 'rotate(90deg) translateY(-105%) translateX(25%);',
-            default: 'rotate(90deg) translateY(-100%) translateX(25%);'
+            default: 'rotate(90deg) translateY(-120%) translateX(25%);'
           }
           const translateStr= styleHospital[this.HOSPITAL_ID] || styleHospital.default;
           let styleSheet = {
@@ -1207,6 +1206,7 @@ export default {
               }
               @page {
                 margin: 0;
+                size: ${this.isZhzxy ? 'portrait' : ''}
               }`,
             fsxt: `
             .bed-card-warpper {

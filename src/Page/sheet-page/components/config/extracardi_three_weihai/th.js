@@ -13,7 +13,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1400px"
+    width: "1560px"
   },
   th: {
     top: [
@@ -33,7 +33,7 @@ export default {
         name: "特殊病情观察及护理措施",
         colspan: "1",
         rowspan: "3",
-        style: { minWidth: "200px", maxWidth: "200px" }
+        style: { minWidth: "365px", maxWidth: "365px" }
       },
       {
         name: "签 名",

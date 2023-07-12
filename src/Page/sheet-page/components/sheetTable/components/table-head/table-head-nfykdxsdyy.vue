@@ -186,7 +186,7 @@
           <crDatePicker
             :data-value="sheetInfo.relObj.laborTime"
             v-model="sheetInfo.relObj.laborTime"
-            :width="140"
+            :width="152"
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
         </span>
@@ -307,7 +307,7 @@
           <crDatePicker
             :data-value="sheetInfo.relObj.laborTime"
             v-model="sheetInfo.relObj.laborTime"
-            :width="140"
+            :width="152"
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
         </span>
@@ -329,7 +329,7 @@
           <crDatePicker
             :data-value="sheetInfo.relObj.placentaTime"
             v-model="sheetInfo.relObj.placentaTime"
-            :width="140"
+            :width="152"
             style="border:none;border-bottom:1px solid #000;height:22px"
           />
         </span>

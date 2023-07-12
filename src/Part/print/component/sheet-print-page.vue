@@ -10,7 +10,7 @@
         ? 'zhzxyInputW'
         : '',
     ]"
-    :style="[query.sheetType == 'critical2_weihai' && { overflow: 'auto' }]"
+    :style="[overflowAuto && { overflow: 'auto' }]"
   >
     <!-- {{process}} -->
     <!-- <iframe :src="url" :style="{height: iframeHeight + 'px'}" @load="onload" ref="iframe"></iframe> -->
@@ -513,6 +513,20 @@ export default {
             height:auto !important;
             transform: scaleY(1) !important;
             margin-top:-30px !important;
+          }
+        }
+        `
+      );
+    }else if (["extracardi_three_weihai"].includes(this.query.sheetType)) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height: ${sheetTableWidth * 0.755}px !important;
+            transform: scaleX(0.99) scaleY(1.2);
+            transform-origin: top center;
+            margin-top: -40px;
           }
         }
         `
@@ -1165,6 +1179,10 @@ export default {
     },
   },
   computed: {
+    overflowAuto(){
+      if(['critical2_weihai','extracardi_three_weihai'].includes(this.query.sheetType)) return true
+      return false 
+    },
     sheetModel() {
       let html = window.localStorage.sheetModel;
       var reg = /data-value/g;

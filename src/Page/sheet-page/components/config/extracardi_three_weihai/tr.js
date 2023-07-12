@@ -108,7 +108,7 @@ export default [
   { key: "recordMonth", event: event_date, click: click_date, value: "" },
   { key: "recordHour", event: event_time, click: click_time, value: "" },
   {
-    key: "breatheOne ",
+    key: "breatheOne",
     event: keyf1,
     value: "",
     name: "体疗",
@@ -313,10 +313,10 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "200px",
+      width: "365px",
       background: "transparent"
     },
-    textarea: { width: 200 },
+    textarea: { width: 365 },
     event: function(e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

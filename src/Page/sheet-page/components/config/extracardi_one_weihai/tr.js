@@ -232,8 +232,8 @@ export default [
     next: "ml",
     name: "强心利尿其他特殊药物",
     outChoseItem:outChoseItem2,
-    textarea: { width: 70 },
-    change: (e, td) => limitChange(e, td, 10)
+    textarea: { width: 100 },
+    // change: (e, td) => limitChange(e, td, 10)
   },
   {
     key: "description", //特殊情况记录
