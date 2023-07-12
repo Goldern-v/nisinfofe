@@ -1177,12 +1177,17 @@ export default {
       this.$nextTick(() => {
         this.post();
         if (this.printMode == "wrist") {
-          const translateStr= this.isWhhk ? 'rotate(90deg) translateY(-110%) translateX(45%);' : 'rotate(90deg) translateY(-120%) translateX(25%);'
+          const styleHospital = {
+            whhk: 'rotate(90deg) translateY(-110%) translateX(45%);',
+            dglb: 'rotate(90deg) translateY(-105%) translateX(25%);',
+            default: 'rotate(90deg) translateY(-120%) translateX(25%);'
+          }
+          const translateStr= styleHospital[this.HOSPITAL_ID] || styleHospital.default;
           let styleSheet = {
             default: `
               .bed-card-warpper {
                 box-shadow: none !important;
-                transform: ${this.isDglb ? 'rotate(90deg) translateY(-105%) translateX(25%);' : translateStr}
+                transform: ${translateStr}
                 transform-origin: 0 0;
               }
               .bed-card-vert-con {

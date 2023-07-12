@@ -20,7 +20,7 @@
                                 dataList: dictionary[Object.keys(td)[0]],
                                 obj: td,
                                 key: Object.keys(td)[0],
-                                td:configTdList[Object.keys(td)[0]],
+                                td:fixedList[Object.keys(td)[0]],
                             }"
                             />
                         </template>
@@ -64,7 +64,7 @@
                                 dataList: dictionary[Object.keys(td)[0]],
                                 obj: td,
                                 key: Object.keys(td)[0],
-                                td:configTdList[Object.keys(td)[0]],
+                                td:fixedList[Object.keys(td)[0]],
                             }"
                         />
                         </template>
@@ -97,11 +97,7 @@
 </template>
 
 <script>
-import {
-  onFocusToAutoComplete,
-} from "@/Page/sheet-page/components/sheetTable/components/excel/tool.js";
 import sheetInfo from "../config/sheetInfo";
-import { decoder_record2,decoder_title } from "@/Page/sheet-page/components/modal/render/decode.js";
 
 function autoComplete(el, bind) {
   if (bind.value.dataList) {
@@ -195,14 +191,19 @@ export default {
         outChoseItemList:{
             type:Array,
             default:[]
-        }
+        },
+        dictionary:{
+            type:Object,
+            default:{}
+        },
+        fixedList:{
+            type:Object,
+            default:{}
+        },
     },
     data() {
         return {
             sheetInfo,
-            customTitle: [],
-            dictionary:[],
-            configTdList:[]
         };
     },
 
@@ -287,10 +288,6 @@ export default {
                         })
                     }
                 })
-                this.customTitle = decoder_title(config.thead);
-                let decodeData = decoder_record2(config.record, this.customTitle);
-                this.dictionary = decodeData[1];
-                this.configTdList = decodeData[2];
             })
         },
         post(){

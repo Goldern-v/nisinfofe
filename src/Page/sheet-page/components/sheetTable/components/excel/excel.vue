@@ -2333,19 +2333,15 @@ export default {
         return false;
       }
     },
-
+   
     isOverText(td, isSdyy) {
       try {
         let inputWidth = td.textarea.width;
         let textWidth = td.value.split("").reduce((total, num) => {
           let charCode = num.charCodeAt(0);
-          if (charCode >= 0 && charCode <= 128) return total + 5.9;
-          else return total + 11.8;
           if ((charCode >= 0 && charCode <= 128)) return isSdyy ?  total + 6.8 : total + 5.9;
           else return  isSdyy ?  total + 14 : total + 11.8
-
         }, 0);
-
 
         if (textWidth > inputWidth) {
           return true;

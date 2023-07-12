@@ -261,7 +261,8 @@ export default {
         "sdlj",
         "foshanrenyi",
         "fsxt",
-        'lyxrm'
+        'lyxrm',
+        'nfyksdyy'
       ], // 是否开放血糖模块
       // 需要护理和血糖分开
       showSheetorSugat:[ "guizhou",],

@@ -74,7 +74,7 @@ export const 入院默认值 = {
   I001260: "无",
   I1001883: "/",
   I100136: "无",
-  "I2332047":process.env.HOSPITAL_ID=='nfyksdyy' && "经口进食",
+  // "I2332047":process.env.HOSPITAL_ID=='nfyksdyy' && "经口进食",
   I100098: "普食",
   I001114:process.env.HOSPITAL_ID=='qhwy' && "既往体健",
   I001366:process.env.HOSPITAL_ID=='qhwy' && "无",

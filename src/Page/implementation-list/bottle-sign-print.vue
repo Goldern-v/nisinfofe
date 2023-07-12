@@ -576,13 +576,7 @@ export default {
             maxLength:22,
             maxLine:32,
             usenewModalSize:"5*8"
-          };
-          case "whhk":
-          return {
-            maxLength:12,
-            maxLine:8,
-            usenewModalSize:"70*80"
-          };
+          }
           default :
           return ""
         }
@@ -1152,13 +1146,13 @@ export default {
         case "whfk":
         case "whsl":
           return "NewPrintModalWhfk";
-        case "whhk":
-          return "newPrintModalWhhk";
+        // case "whhk":
+        //   return "NewPrintModalWhhk";
         case "wujing":
           return "NewPrintModalWujing";
         case "ytll":
           return "NewPrintModalYtll";
-        // case "whhk":
+        case "whhk":
         case "zhzxy":
           return "NewPrintModalZhzxy";
         case "qhwy":

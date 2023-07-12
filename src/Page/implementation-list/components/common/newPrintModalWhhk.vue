@@ -54,9 +54,12 @@
 
       <div class="new-print-modal__tip ">
         <div >
-          <span> {{ currentBottle.administration }} </span>
-          <span>{{currentBottle.frequency}}</span>
-          <span>{{ currentBottle.executeDate.substr(0, 16) }}</span>
+          <!-- <span> {{ frequency1 }} </span> -->
+          <!-- 途径 -->
+          <span style="font-weight: 900;">{{currentBottle.frequency2}}</span>
+          <!-- 频次 -->
+          <span style="font-weight: 900; padding-left: 10px;">{{currentBottle.frequency1}}</span>
+          <span style="padding-left: 10px;">{{ currentBottle.executeDate.substr(0, 16) }}</span>
         </div>
       </div>
 
@@ -428,7 +431,10 @@ export default {
     currentBottle() {
       let cloneObj = cloneDeep(this.itemObj[0]);
       let orderText = [];
-      // 提示图标
+      let frequency2 = '';//途径
+      let frequency1 = '';//频次
+
+      // 提示图标;
       let tipIcons = [];
       let dosageDosageUnits = [];
       this.itemObj.map((item) => {
@@ -441,14 +447,21 @@ export default {
         dosageDosageUnits.push(content);
 
         let orderText1 = item.orderText.split(" ")[0]
-        console.log("orderTex1t11111111111111",item.orderText,orderText1 ,this.itemObj);
+        // 频次
+        frequency1 = this.itemObj[0].frequency.split(" ")[0]
+        // 途径
+        frequency2 = this.itemObj[0].frequency.split(" ")[1]
+
+        // console.log('currentBottle.administration',this.itemObj[0].frequency);
+        // console.log('currentBottle.administration',frequency1,'-----------',frequency2);
+
       });
       tipIcons.length > 2 && (tipIcons = [...new Set(tipIcons)]);
       let qr_png_value = this.itemObj[0].barCode;
       var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: 0 });
       let base64 = arrayBufferToBase64(qr_png);
       let qcSrc = base64;
-      cloneObj = { ...cloneObj, orderText, qcSrc, tipIcons, dosageDosageUnits };
+      cloneObj = { ...cloneObj, orderText, qcSrc, tipIcons, dosageDosageUnits, frequency2,frequency1 };
       return cloneObj;
     },
     hospitalName() {
