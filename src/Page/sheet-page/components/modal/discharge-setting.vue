@@ -268,9 +268,7 @@ export default {
                         valArr.map(item=>{
                         // 这里默认拿到的第一个就是列键值 然后按顺序去放列
                         let arr = item.split(" ")
-                        let result  = outProject.find(out=>
-                            out[0][Object.keys(out[0])] === arr[0]
-                        )
+                        let result = outProject.find(out=>(out[0][Object.keys(out[0])[0]] === arr[0]))
                         if(result){
                             arr.map((val,index)=>{
                             let outKey = Object.keys(result[index])[0]
@@ -282,7 +280,7 @@ export default {
                             arr.map((val,index)=>{
                                 let outKey = Object.keys(noFix[index])[0]
                                 noFix[index][outKey] = val
-                            })
+                                })
                             }
                         }
                         })
