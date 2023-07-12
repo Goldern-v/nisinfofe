@@ -749,6 +749,13 @@ export default function Title(
     );
   }
   break;
+  case "ear_nose_jm": {
+    // 江门妇幼 - 耳鼻喉科护理记录单(成人）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/ear_nose_jm/th.js").default)
+    );
+  }
+  break;
   case "internalCareRecord": {
     // 江门妇幼 - 内科护理记录单
     Th = JSON.parse(

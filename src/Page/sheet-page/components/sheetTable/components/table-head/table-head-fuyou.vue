@@ -88,7 +88,8 @@
               sheetInfo.sheetType === 'obstetricnursing_jm' ||
               sheetInfo.sheetType === 'entdepartment_jm' ||
               sheetInfo.sheetType === 'gynaecology_jm' ||
-              sheetInfo.sheetType === 'generalsurgery_jm'
+              sheetInfo.sheetType === 'generalsurgery_jm' ||
+              sheetInfo.sheetType === 'ear_nose_jm'
               "
               @click="updateDiagnosis('diagnosis', '入院诊断', patientInfo.diagnosis)"
       >
@@ -118,7 +119,7 @@
       >
         {{sheetInfo.sheetType == 'postpartumnursing_jm'?'分娩日期':'出生日期'}}：
         <div class="bottom-line" style="min-width: 95px">
-          {{ patientInfo.relObj.deliveryDate ? patientInfo.relObj.deliveryDate : "" }} 
+          {{ patientInfo.relObj.deliveryDate ? patientInfo.relObj.deliveryDate : "" }}
         </div>
       </span>
       <span
@@ -126,13 +127,13 @@
       >
         {{sheetInfo.sheetType == 'postpartumnursing_jm'?'分娩日期':'出生日期'}}：
         <div class="bottom-line" style="min-width: 95px">
-          {{ patientInfo.birthday ? patientInfo.birthday : "" }} 
+          {{ patientInfo.birthday ? patientInfo.birthday : "" }}
         </div>
       </span>
       <span v-if="sheetInfo.sheetType === 'gynaecology_jm'">
         入科时间：
-        <div 
-        class="bottom-line" 
+        <div
+        class="bottom-line"
         style="
           min-width: 140px;
           min-height: 13px;
@@ -280,7 +281,7 @@ export default {
             this.$set(this.patientInfo.relObj,'delivery',delivery)
            }
         }
-       
+
     }
   },
   watch: {},

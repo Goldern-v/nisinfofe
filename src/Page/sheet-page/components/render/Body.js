@@ -651,6 +651,11 @@ function switchSheetType(type) {
       schema = require("../config/internalCareRecord/tr.js").default;
     }
       break;
+    case "ear_nose_jm": {
+      // 江门妇幼 - 耳鼻喉科护理记录单(成人）
+      schema = require("../config/ear_nose_jm/tr.js").default;
+    }
+      break;
     case "body_temperature_hj": {
       // 聊城二院 - 体温单
       schema = require("../config/body_temperature_hj/tr.js").default;
