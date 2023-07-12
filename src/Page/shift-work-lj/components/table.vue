@@ -254,7 +254,7 @@ export default {
       background #f4f2f5
       font-weight 700
       text-align center
-      word-break keep-all
+      /*word-break keep-all*/
       /*white-space nowrap*/
 
     tbody tr
