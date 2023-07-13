@@ -10,7 +10,6 @@ export default {
       formData: {
         beginTime: '',
         endTime: '',
-        wardCode: '',
         // status: 0,
       },
       pageIndex: 1,
@@ -25,7 +24,7 @@ export default {
     this.formData.beginTime = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss')
     // 当天23点59分59秒的时间格式
     this.formData.endTime = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')
-    if (this.$route.name !== 'statisticalNursingLv') {
+    if (!['statisticalNursingLv','statisticalNutritionalRisk'].includes(this.$route.name)) {
       this.formData.status = 1
     }
     await this.getDepList()
@@ -50,7 +49,8 @@ export default {
               },
               ...this.deptList
             ]
-            this.formData.wardCode = res.data.data.defaultDept || ''
+            if(!this.deptMultiple) this.formData.wardCode = res.data.data.defaultDept || ''
+            else this.formData.wardCodeList = [res.data.data.defaultDept] || ['']
           }
         this.loading = false
       } catch (e) {
@@ -95,13 +95,21 @@ export default {
       this.getData()
     },
     async getData() {
+      let beginTime = "",endTime = ""
+      if(['statisticalNutritionalRisk'].includes(this.$route.name)){
+        beginTime = this.formData.beginTime.split(' ')[0] + " 00:00"
+        endTime = this.formData.endTime.split(' ')[0] + " 23:59"
+      }else{
+        beginTime = this.formData.beginTime.split(' ')[0]
+        endTime = this.formData.endTime.split(' ')[0]
+      }
       try {
         this.loading = true;
         let formData = {
           themeName: this.$route.meta.title,
           ...this.formData,
-          beginTime: this.formData.beginTime.split(' ')[0],
-          endTime: this.formData.endTime.split(' ')[0],
+          beginTime,
+          endTime,
           pageIndex: this.pageIndex,
           pageNum: this.pageNum,
         }
