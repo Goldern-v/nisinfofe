@@ -451,6 +451,7 @@ const statisticalIncrease = () => import("@/Page/statistical-query/statistical-i
 const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
 const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 const StatisticalBlood = () => import("@/Page/statistical-query/statistical-blood")
+const statisticalNutritionalRisk = () => import("@/Page/statistical-query/statistical-nutritionalRisk")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
 const StatisticalUnplanned = () => import("@/Page/statistical-query/statistical-unplanned")
@@ -1946,6 +1947,14 @@ const router = new Router({
               title: '血糖统计'
             },
             component: StatisticalBlood,
+          },
+          {
+            path: "statisticalNutritionalRisk",
+            name: "statisticalNutritionalRisk",
+            meta: {
+              title: '营养风险统计'
+            },
+            component: statisticalNutritionalRisk,
           },
           {
             path: "statisticalUrineVolume",

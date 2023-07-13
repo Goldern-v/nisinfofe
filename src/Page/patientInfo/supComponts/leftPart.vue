@@ -179,6 +179,14 @@
           <div
             class="print-btn"
             flex="cross:center main:center"
+            @click="openOcx"
+            v-if="cp_status===1"
+          >
+            临床路径
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
             @click="openPrintModal"
             v-if="HOSPITAL_ID == 'weixian'"
           >
@@ -431,7 +439,7 @@ import bedModalstmz from "./modal/bed-modal-stmz";
 import bedModalWhsl from "./modal/bed-modal_whsl";
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
-import { previewArchive } from "./modal/api/index";
+import { previewArchive,getLCPStatus } from "./modal/api/index";
 import InpatientRegis from "@/components/Inpatient-registration/index";
 
 export default {
@@ -440,6 +448,7 @@ export default {
       overflow: "hidden",
       printDetailList: [], //归档详情
       archiveStatus: "",
+      cp_status:0,
       printArchiveMaster: {} //归档、转pdf状态对象
     };
   },
@@ -467,10 +476,18 @@ export default {
     openOcx() {
       const { patientId, visitId, wardCode } = this.info;
       const { empNo: userId, empName: userName } = this.getUser;
-
-      window.open(
-        `http://192.168.99.72:8080/jhlcprun/main?patientNo=${patientId}_${visitId}&deptCode=${wardCode}&hospitalId=45607379-3&userId=${userId}&userName=${userName}&userType=2`
-      );
+      let url = ""
+      switch(this.HOSPITAL_ID){
+        case "dglb":
+          url = `http://10.51.7.12:8080/jhlcprun/main?patientNo=${patientId}_${visitId}&deptCode=${wardCode}&hospitalId=45723170644190011A1001&userId=${userId}&userName=${userName}&userType=2`
+          break;
+        case "foshanrenyi":
+          url = `http://192.168.99.72:8080/jhlcprun/main?patientNo=${patientId}_${visitId}&deptCode=${wardCode}&hospitalId=45607379-3&userId=${userId}&userName=${userName}&userType=2`
+          break;
+        default:
+          break;
+      }
+      window.open(url);
     },
     // 床头卡打印
     openBedPrint(printMode) {
@@ -559,12 +576,22 @@ export default {
         this.printDetailList = res.data.data.printDetailList;
         this.printArchiveMaster = res.data.data.printArchiveMasters || {};
       });
+    },
+    getLCPStatus(){
+      let params = {
+        patientId:this.info.patientId,
+        visitId:this.info.visitId
+      }
+      getLCPStatus(params).then(res=>{
+        if(res.data.data.cp_status) this.cp_status = parseInt(res.data.data.cp_status)
+      })
     }
   },
   created() {
     if (["foshanrenyi"].includes(this.HOSPITAL_ID))
       this.$store.commit("common/upDefaultOpenLeft", false);
     window.document.title = `${this.info.bedLabel}-${this.info.name}`;
+    if(['dglb'].includes(this.HOSPITAL_ID)) this.getLCPStatus()
   },
   mounted() {
     this.getArchiveStatus();

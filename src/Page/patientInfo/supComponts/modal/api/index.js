@@ -13,6 +13,10 @@ export function saveBed(data) {
   return axios.post(`${apiPath}patient/PatientBedLabel/save`, data);
 }
 
+export function getLCPStatus(data) {
+  return axios.post(`${apiPath}indexInfo/getLCPStatus`, data);
+}
+
 // 根据patientId和visitId查询病人床头标签
 export function getEntity(patientId, visitId) {
   return axios.get(
