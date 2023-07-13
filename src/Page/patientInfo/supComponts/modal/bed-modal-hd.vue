@@ -1285,6 +1285,7 @@ export default {
               }
               @page {
                 margin: 0;
+                size: ${this.isZhzxy ? 'portrait' : ''};
               }
             `,
           });
