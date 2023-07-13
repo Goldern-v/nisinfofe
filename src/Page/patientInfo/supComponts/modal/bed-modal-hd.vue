@@ -1206,7 +1206,7 @@ export default {
               }
               @page {
                 margin: 0;
-                size: ${this.isZhzxy ? 'portrait' : ''}
+                size: ${this.isZhzxy || this.isWhhk ? 'portrait' : ''}
               }`,
             fsxt: `
             .bed-card-warpper {
@@ -1285,6 +1285,7 @@ export default {
               }
               @page {
                 margin: 0;
+                size: ${this.isZhzxy ? 'portrait' : ''};
               }
             `,
           });

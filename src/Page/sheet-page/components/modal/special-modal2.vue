@@ -822,7 +822,7 @@
               </div>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="特殊情况记录" name="3">
+          <el-tab-pane v-if="useDescription" label="特殊情况记录" name="3">
             <div class="title" flex="cross:center main:justify">
               <span>病情、药物治疗、护理措施、效果</span>
               <span
@@ -1484,6 +1484,11 @@ export default {
       openModalFromSpecial: state => state.sheet.openModalFromSpecial,
       evalData: state => state.sheet.evalData
     }),
+    useDescription(){
+      if(this.record.length===0) return false 
+      if(this.record[0].find(item => ((item.key == 'description' || item.key == 'specialRecord') && !item.hidden))) return true
+      return false 
+    },
     modalOutWidth(){
       if('critical2_weihai' === this.sheetInfo.sheetType && (this.activeTab==="5" || this.activeTab==="6")) return 1420
       else if(['extracardi_three_weihai','extracardi_one_weihai'].includes(this.sheetInfo.sheetType) && this.activeTab==="5") return 1060
