@@ -25,11 +25,11 @@ import {
   click_time
 } from "../keyEvent/date";
 const yishi = ["A 麻醉未醒", "B 清醒", "C 镇静", "D 模糊", "E 昏迷"];
-const dgfs = ["A", "B", "C"];
+const dgfs = ["A 灵敏（+）","B 迟钝（±）","C 消失（-）"];
 const fzfs = ["SIMV","PS/CPAP","SPONT","鼻导管","气管插管内吸氧","面罩"]
 const huxiyin = ["粗","清","低","痰鸣音","湿啰音","干啰音"]
 const moshao = ['暖', '温', '凉']
-const xinlv = ['S', 'Af', 'AF', 'P']
+const xinlv = ['S 窦性','Af 房颤','AF 房扑','P 起搏']
 
 const Customizations1 = ["√"]
 
@@ -68,6 +68,7 @@ export default [
     value: "",
     next: "",
     name: "对光反射左",
+    splitFlag:" ",
     textarea: { width: 40 },
     autoComplete: { data: dgfs }
   },
@@ -77,6 +78,7 @@ export default [
     value: "",
     next: "",
     name: "对光反射右",
+    splitFlag:" ",
     textarea: { width: 40 },
     autoComplete: { data: dgfs }
   },
@@ -216,6 +218,7 @@ export default [
     name: "心律",
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 10),
+    splitFlag:" ",
     autoComplete: { data: xinlv }
   },
   {
