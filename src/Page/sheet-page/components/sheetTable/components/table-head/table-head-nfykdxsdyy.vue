@@ -53,10 +53,6 @@
             {{ patientInfo.age }}
           </div>
         </span>
-        <!-- <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
-        床号:
-        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
-      </span> -->
         <span>
           床号：
           <div
@@ -64,8 +60,8 @@
             :style="{ minWidth: '55px' }"
             @dblclick.stop="openBedRecordModal"
           >
-            {{ patientInfo.bedLabel }}
-            <!-- {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }} -->
+            <!-- {{ patientInfo.bedLabel }} -->
+            {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
           </div>
         </span>
         <span>
@@ -250,7 +246,8 @@
             :style="{ minWidth: '55px' }"
             @dblclick.stop="openBedRecordModal"
           >
-            {{ patientInfo.bedLabel }}
+            <!-- {{ patientInfo.bedLabel }} -->
+             {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
           </div>
         </span>
         <span v-if="['orthopaedic_sdry'].includes(sheetInfo.sheetType)">
@@ -260,12 +257,13 @@
             :style="{ minWidth: '45px' }"
             @dblclick.stop="openBedRecordModal"
           >
-            {{ patientInfo.bedLabel }}
+            <!-- {{ patientInfo.bedLabel }} -->
+             {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
           </div>
         </span>
         <span
           v-else
-          @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)"
+          @dblclick.stop="openBedRecordModal"
         >
           床号:
           <div
@@ -273,7 +271,8 @@
             :class="sheetTypeClass"
             style="min-width: 60px"
           >
-            {{ patientInfo.bedLabel }}
+            <!-- {{ patientInfo.bedLabel }} -->
+             {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
           </div>
         </span>
 
@@ -936,6 +935,9 @@ export default {
     customSelectCanRepeat
   },
   async created() {
+    if (!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]) {
+      this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] = this.patientInfo.bedLabel
+    }
     if (this.index != 0) {
       this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo
         .relObj[`${this.index}pregnantWeeks`]
