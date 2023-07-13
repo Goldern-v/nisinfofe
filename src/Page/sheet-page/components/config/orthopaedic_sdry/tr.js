@@ -24,7 +24,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-const yishi = ["清醒", "嗜睡", "浅昏迷", "深昏迷", "模糊", "昏睡", "谵妄","痴呆","药眠"]
+const yishi = ["清醒", "嗜睡", "浅昏迷", "中昏迷","深昏迷", "模糊", "昏睡", "谵妄","痴呆","药眠"]
 const yanse = [{name: '①血性液', value: '血性液'},{name: '②淡红色液', value: '淡红色液'},{name: '③暗红色液', value: '暗红色液'},{name: '④黄色液', value: '黄色液'},{name: '⑤淡黄色液', value: '淡黄色液'},{name: '⑥深黄色液', value: '深黄色液'}];
 const ruliang = ["饮水","进食","鼻饲","输血","输液","静注"]
 const chuliang = ["尿液","大便","引流液","呕吐物","胃液","恶露","超滤","血透超滤"]
