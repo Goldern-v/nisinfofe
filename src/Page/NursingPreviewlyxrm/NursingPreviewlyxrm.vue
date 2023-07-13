@@ -55,6 +55,11 @@
 
 .content {
   &.nfyksdyy{
+    @media print {
+      @page{
+        size:A4;
+      }
+    }
     >>> .sugr-page{
       box-shadow:none ;
       height: 1350px ;
