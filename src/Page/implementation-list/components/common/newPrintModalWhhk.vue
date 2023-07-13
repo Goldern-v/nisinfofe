@@ -31,7 +31,7 @@
     </div>
 
     <div class="new-print-modal__content">
-      <div class="flex" style="display: flex;" >
+      <!-- <div class="flex" style="display: flex;" >
         <div style="width: 25%; margin-left: 50px">药品名称</div>
         <div style="width: 10%;">规格</div>
         <div style="width: 10%;">数量</div>
@@ -47,12 +47,19 @@
         <div  >{{ item.expand3 }}</div>
         <div style="margin-left: 35px;" :class="'table-cell-span3'">{{ currentBottle.dosageDosageUnits[index] }}</div>
         </div>
-
-
-        <!-- <span style=" width: 200%;white-space: pre-wrap; flex-wrap：wrap" :class="'table-cell-span'">{{ item.orderText }}</span>
-        <span style="display: inline-block; text-align:right;  " >{{ item.expand2 }}</span>
-        <span style=" text-align: center;" >{{ item.expand3 }}</span>
-        <span style="" :class="'table-cell-span3'">{{ currentBottle.dosageDosageUnits[index] }}</span> -->
+      </div> -->
+       <div class="flex" style="text-align: center;">
+        <div style="width: 64%; ">药品名称</div>
+        <div style="width: 21%; ">规格</div>
+        <div style="width: 13%;">数量</div>
+        <div style="width: 12%;">剂量</div>
+      </div>
+      <div v-for="(item, index) in this.itemObj"
+            :key="index" :class="'table-cell'"  style="line-height: 1.2;">
+        <span style="width: 50%;white-space: pre-wrap;" :class="'table-cell-span'">{{ item.orderText }}</span>
+        <span style="width: 26%;" :class="'table-cell-span1'">{{ item.expand2 }}</span>
+        <span style="width: 10%; text-align: center;" >{{ item.expand3 }}</span>
+        <span style="width: 12%;" :class="'table-cell-span3'">{{ currentBottle.dosageDosageUnits[index] }}</span>
       </div>
     </div>
     <div class="new-print-modal__tip">
@@ -271,7 +278,7 @@
   .new-print-modal__content {
     flex: 1;
     div {
-      // display: flex;
+      display: flex;
       justify-content: space-between;
       line-height: 16px;
       text-align: left;
