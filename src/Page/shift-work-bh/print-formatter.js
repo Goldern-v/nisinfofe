@@ -15,7 +15,9 @@ export default function(win) {
   let rest = Array.prototype.slice.call(trs, -2); // 特殊情况（两行）
 
   const emptyRow = document.createElement("tr");
-  emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(7);
+  emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(
+    process.env.HOSPITAL_ID == "ytll" ? 10 : 7
+  );
   emptyRow.style.height = "30px";
 
   // 移除空行
@@ -26,7 +28,7 @@ export default function(win) {
   if (patients.length === 0) {
     patients.push(emptyRow.cloneNode(true));
   }
-  let pageNo = 0
+  let pageNo = 0;
   let page, newTable, newTableBody, row;
   while ((row = patients.shift() || rest)) {
     const h =
@@ -51,12 +53,12 @@ export default function(win) {
       }
 
       page = document.createElement("div");
-      if(pageNo==1){
+      if (pageNo == 1) {
         page.appendChild(header.cloneNode(true));
-      }else{
-        let cloneHeader = header.cloneNode(true)
-        cloneHeader.removeChild(cloneHeader.children[3])
-        page.appendChild(cloneHeader)
+      } else {
+        let cloneHeader = header.cloneNode(true);
+        cloneHeader.removeChild(cloneHeader.children[3]);
+        page.appendChild(cloneHeader);
       }
       page.appendChild(newTable);
       page.appendChild(footer.cloneNode(true));

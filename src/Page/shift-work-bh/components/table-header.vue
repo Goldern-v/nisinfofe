@@ -238,16 +238,12 @@ export default {
     };
   },
   methods: {
-    log() {
-      console.log(this.columns);
-    },
     change(e, index, key) {
       let value = e.currentTarget.innerText;
       this.$emit("changeShiftWithWardcodes", index, key, value);
     }
   },
   created() {
-    console.log(this.columns);
   },
   components: {}
 };
