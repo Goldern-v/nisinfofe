@@ -33,7 +33,7 @@
           <el-table-column v-if="oneBedHospital.includes(HOSPITAL_ID)" prop="bedLabelNew" label="床号" min-width="110px" align="center"></el-table-column>
           <el-table-column v-if="!oneBedHospital.includes(HOSPITAL_ID)" prop="bedLabelOld" label="旧床号" min-width="110px" align="center"></el-table-column>
           <el-table-column v-if="!oneBedHospital.includes(HOSPITAL_ID)" prop="bedLabelNew" label="新床号" min-width="110px" align="center"></el-table-column>
-         
+
         </el-table>
       </div>
       <div slot="button">
@@ -44,7 +44,7 @@
   </div>
 </template>
 <style lang='stylus' rel='stylesheet/stylus' type='text/stylus' scoped>
-.box 
+.box
   width 40px
   height 40px
   border 1px solid #bfcbd9
@@ -143,7 +143,7 @@ export default {
           this.close();
           this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
           sheetInfo.relObj[`PageIndex_bedLabel_${this.activeIndex}`] = res.data.data.bedLabel;
-          this.bus.$emit("saveSheetPage", false); 
+          this.bus.$emit("saveSheetPage", false);
         });
       }else{
         updateBlockInfo({
@@ -174,7 +174,7 @@ export default {
         this.$nextTick(()=>{
           this.tableData.map(item=>{
             this.$refs.bedRecord.toggleRowSelection(item,item.selected)
-          })  
+          })
         })
         if(this.oneBedHospital.includes(this.HOSPITAL_ID)){
           this.firstBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
@@ -200,7 +200,7 @@ export default {
       } else {
         this.tableData.forEach(e => e.selected = false)
       }
-      
+
     },
     handleSelectionChange(val,row) {
       row.selected = !row.selected
@@ -216,7 +216,7 @@ export default {
         this.secondBedRecord = this.multipleSelection[0] ? this.multipleSelection[0].bedLabelNew : ""
         this.thirdBedRecord = this.multipleSelection[1] ? this.multipleSelection[1].bedLabelNew : ""
       }
-      
+
       if(this.multipleSelection[2]) {
         this.bedLabel = this.firstBedRecord+"->"+this.secondBedRecord+"->"+this.thirdBedRecord
       }else if(this.multipleSelection[1]) {
@@ -235,7 +235,7 @@ export default {
       if(this.formlist != undefined){
         return this.formlist;
       }
-        
+
     }
   },
   components: {
@@ -247,7 +247,7 @@ export default {
     }else{
       this.bedModalWidth = 550
     }
-    
+
   },
 };
 </script>
