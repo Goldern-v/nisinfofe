@@ -466,7 +466,9 @@
 .el-dialog--small {
   width: 70%
 }
-
+.equipment_dialog{
+  width: 50%
+}
 .el-dialog--large {
   width: 90%
 }

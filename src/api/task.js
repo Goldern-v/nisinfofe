@@ -55,5 +55,5 @@ export const saveMark = (params) => {
 
 // 厚街-增加病历召回和重新归档功能
 export const medicalRecall = (params) => {
-    return axios.post(`${apiPath}indexInfo/getMedicalRecall`, params)
+    return axios.post(`${apiPath}indexInfo/getMedicalRecall`, qs.stringify(params))
 }
