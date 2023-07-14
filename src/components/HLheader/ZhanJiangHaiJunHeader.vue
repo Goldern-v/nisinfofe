@@ -26,7 +26,7 @@
                 <i class="nursingAssessment"></i> 护理文书
               </el-row>
             </router-link>
-          </el-row>
+
           <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveTemperaturePage }"
@@ -60,6 +60,7 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
+          </el-row>
           <el-row class="right-part" type="flex" align="middle">
             <span class="big-1250-con">
               <el-popover

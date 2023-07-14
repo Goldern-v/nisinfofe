@@ -151,9 +151,9 @@ export default [{
   autoComplete: {
     data: 表顶注释
   },
-  textarea: {
-    width: 36
-  },
+  // textainrea: {
+  //   width: 36
+  // },
   // splice: true,
   style: 'overflow: hidden',
 },

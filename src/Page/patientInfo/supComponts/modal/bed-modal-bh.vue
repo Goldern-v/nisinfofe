@@ -888,7 +888,6 @@ export default {
   },
   computed: {
     query() {
-      console.log(this.$route.query);
       return this.$route.query;
     },
     hasRemark() {

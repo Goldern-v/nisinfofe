@@ -31,6 +31,12 @@
           <ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
       </ElSelect>
       </div>
+      <div class="search-con__ctx__item" v-else-if="formData.wardCodeList != undefined && deptMultiple">
+        病区：
+        <ElSelect multiple style="width: 150px;" size="small" :value="formData.wardCodeList" @input="deptChange" filterable>
+          <ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
+      </ElSelect>
+      </div>
       <div class="search-con__ctx__item" v-if="formData.status != undefined">
         {{ formData.status }}
         患者状态：
@@ -90,6 +96,10 @@ import { PATIENT_STATUS, TIME_POINT } from "../enums";
 import { nursingUnit } from "@/api/lesion"
 export default {
   props: {
+    deptMultiple:{
+      type: Boolean,
+      default: false,
+    },
     formData: {
       type: Object,
       default: () => ({}),
@@ -155,6 +165,11 @@ export default {
     // this.defaultData()
   },
   methods: {
+    deptChange(val){
+      if(val.length>=2 && val[0]=="") val.shift()
+      else if(val.length>=2 && val[val.length-1]=="") val = [""]
+      this.handleQuery({wardCodeList:val})
+    },
     handleQuery(obj = {}) {
       let copy = { ...obj }
       let timeFormat = ['beginTime', 'endTime']

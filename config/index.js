@@ -250,10 +250,10 @@ const currentTargetUrl = (() => {
     case '925':
       // return 'http://192.168.5.127:9091'
       // return 'http://218.204.204.90:9095'
-      // return 'http://120.24.240.231:19097'
+      return 'http://120.24.240.231:19097'
       // return 'http://192.168.3.154:8080'
       // return 'http://192.168.3.191:9091'
-      return 'http://192.168.1.54:9883'
+      // return 'http://192.168.1.54:9883'
 
     //武汉汉口
     case 'whhk':
@@ -267,11 +267,11 @@ const currentTargetUrl = (() => {
 
     // 威海市立
     case 'whsl':
-      return 'http://192.168.1.54:9866'
+      // return 'http://192.168.1.54:9866'
       // return 'http://120.24.240.231:19097'
       // return 'https://info.cr-health.com:20217'
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
-      // return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
+      return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
       // return ' http://221.2.154.22:19094/'
       // return 'http://192.168.1.54:9896'
       // return 'http://192.168.20.20:9092'
@@ -280,10 +280,10 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.3.154:8080'
       // return 'http://192.168.1.54:9883'
           // return 'http://192.168.1.54:9901'  //
-          // return  'http://59.38.110.189:9092'
+          return  'http://59.38.110.189:9092'
           // return  'http://192.168.20.136:8080'
       // return 'http://192.168.5.127:9091'
-      return  'https://info.cr-health.com:20215'
+      // return  'https://info.cr-health.com:20215'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭
       return 'http://192.168.3.187:9091'

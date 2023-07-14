@@ -223,7 +223,7 @@ export default [
     name: "升压药物血管药物",
     textarea: { width: 70 },
     outChoseItem:outChoseItem1,
-    change: (e, td) => limitChange(e, td, 10)
+    // change: (e, td) => limitChange(e, td, 16)
   },
   {
     key: "drugsTwo",
@@ -232,7 +232,7 @@ export default [
     next: "ml",
     name: "强心利尿其他特殊药物",
     outChoseItem:outChoseItem2,
-    textarea: { width: 100 },
+    textarea: { width: 130 },
     // change: (e, td) => limitChange(e, td, 10)
   },
   {

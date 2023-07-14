@@ -362,7 +362,7 @@ export default {
             {
               label: "姓名、性别、年龄",
               prop: "name",
-              width: "7",
+              width: "10",
               render: row => {
                 const status = row.patientStatus
                   ? `(${row.patientStatus})`
@@ -387,7 +387,7 @@ export default {
               label: "现在的情况",
               prop: "mainComplaint",
               editable: true,
-              width: "10"
+              width: "20"
             }
           ]
         },
@@ -398,7 +398,7 @@ export default {
               label: "主诉、既往史、过敏史、用药史、手术史、治疗经过、护理情况、治疗效果跟踪",
               prop: "background",
               editable: true,
-              width: "45"
+              width: "35"
             }
           ]
         },
@@ -409,7 +409,7 @@ export default {
               label: "护理评估、辅助检查（阳性）",
               prop: "assessmentSituation",
               editable: true,
-              width: "30"
+              width: "10"
             }
           ]
         },
@@ -420,7 +420,7 @@ export default {
               label: "交给下一班注意的护理意见建议、特殊预警",
               prop: "proposal",
               editable: true,
-              width: "5"
+              width: "10"
             }
           ]
         }

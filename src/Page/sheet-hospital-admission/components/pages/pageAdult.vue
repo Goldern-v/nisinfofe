@@ -71,7 +71,6 @@ export default {
     });
     if(this.route){
       this.$nextTick(()=>{
-        console.log("djw-mounted-init")
         this.bus.$emit("setHosptialAdmissionLoading", true);
         this.bus.$emit("setIsNewForm", false);
         this.bus.$emit("getHEvalBlockList", this.$route.query);

@@ -35,63 +35,81 @@
           <el-dropdown-item
             :class="{ active: $route.path == '/admissionPageAdult2' }"
           >
-            <router-link :to="{
+            <router-link
+              :to="{
                 path: '/admissionPageAdult2',
                 query: { patientId: query.patientId, visitId: query.visitId }
               }"
-        tag="span">
+              tag="span"
+            >
               <el-row class="menu-item" type="flex" align="middle">
                 <i class="sheetHospitalAdmission"></i>入院评估(成人)
               </el-row>
             </router-link>
           </el-dropdown-item>
           <el-dropdown-item :class="{ active: $route.path == '/record' }">
-            <router-link  :to="{
-          path: '/record',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }" tag="span">
+            <router-link
+              :to="{
+                path: '/record',
+                query: { patientId: query.patientId, visitId: query.visitId }
+              }"
+              tag="span"
+            >
               <el-row class="menu-item" type="flex" align="middle">
                 <i class="nursingAssessment"></i>护理评估单
               </el-row>
             </router-link>
           </el-dropdown-item>
           <el-dropdown-item :class="{ active: $route.path == '/sheet' }">
-            <router-link :to="{
-          path: '/sheet',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }" tag="span">
+            <router-link
+              :to="{
+                path: '/sheet',
+                query: { patientId: query.patientId, visitId: query.visitId }
+              }"
+              tag="span"
+            >
               <el-row class="menu-item" type="flex" align="middle">
                 <i class="sheetHospitalEval"></i>护理记录单
               </el-row>
             </router-link>
           </el-dropdown-item>
 
-          
           <el-dropdown-item :class="{ active: $route.path == '/bloodSugar' }">
-            <router-link :to="{
-          path: '/bloodSugar',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }" tag="span">
+            <router-link
+              :to="{
+                path: '/bloodSugar',
+                query: { patientId: query.patientId, visitId: query.visitId }
+              }"
+              tag="span"
+            >
               <el-row class="menu-item" type="flex" align="middle"
                 ><i class="bloodSugar"></i>血糖</el-row
               >
             </router-link>
           </el-dropdown-item>
-          <el-dropdown-item :class="{ active: $route.path == '/healthEducation' }">
-            <router-link :to="{
-          path: '/healthEducation',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }" tag="span">
+          <el-dropdown-item
+            :class="{ active: $route.path == '/healthEducation' }"
+          >
+            <router-link
+              :to="{
+                path: '/healthEducation',
+                query: { patientId: query.patientId, visitId: query.visitId }
+              }"
+              tag="span"
+            >
               <el-row class="menu-item" type="flex" align="middle">
                 <i class="healthEdu"></i>健康教育单
               </el-row>
             </router-link>
           </el-dropdown-item>
           <el-dropdown-item :class="{ active: $route.path == '/diagnosis' }">
-            <router-link  :to="{
-          path: '/diagnosis',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }" tag="span">
+            <router-link
+              :to="{
+                path: '/diagnosis',
+                query: { patientId: query.patientId, visitId: query.visitId }
+              }"
+              tag="span"
+            >
               <el-row class="menu-item" type="flex" align="middle">
                 <i class="sheetHospitalAdmission"></i>护理计划单</el-row
               >
@@ -199,7 +217,7 @@
           path: '/diagnosis',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
-         v-if="HOSPITAL_ID != 'nfyksdyy'"
+        v-if="HOSPITAL_ID != 'nfyksdyy'"
         tag="span"
       >
         <div class="nav-item">护理计划</div>
@@ -209,7 +227,7 @@
           path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
-         v-if="HOSPITAL_ID != 'nfyksdyy'"
+        v-if="HOSPITAL_ID != 'nfyksdyy'"
         tag="span"
       >
         <div class="nav-item">血糖</div>
@@ -221,7 +239,7 @@
           path: '/healthEducation',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
-         v-if="HOSPITAL_ID != 'nfyksdyy'"
+        v-if="HOSPITAL_ID != 'nfyksdyy'"
         tag="span"
       >
         <div class="nav-item">健康教育单</div>
@@ -432,7 +450,7 @@
 }
 
 .router-link-active {
-  .nav-items {
+  .nav-items,.nav-item {
     background: #F2F2F2;
     border: 1px solid #CBD5DD;
     border-bottom: 0;
@@ -498,7 +516,6 @@
     font-weight: bold;
   }
 }
-
 </style>
 <script>
 import common from "@/common/mixin/common.mixin";
@@ -516,16 +533,23 @@ export default {
   },
   computed: {
     query() {
-      let query = this.$route.query;
-      return query;
+      return this.$route.query;
     },
     ...mapState({
       patient: state => state.patient.currentPatient
     }),
     isNursing() {
+
       let path = this.$route.path;
-      let istPath = ["admissionPageAdult2","sheet","record","bloodSugar","healthEducation","diagnosis"].some(item=>path.includes(item))
-      return istPath
+      let istPath = [
+        "admissionPageAdult2",
+        "sheet",
+        "record",
+        "bloodSugar",
+        "healthEducation",
+        "diagnosis"
+      ].some(item => path.includes(item) && path != '/sheetNursingOrder');
+      return istPath;
     }
   },
   components: {},
@@ -537,10 +561,8 @@ export default {
     },
     getPushLink() {
       let { patientId, visitId, wardCode } = this.query;
-      console.log(this.query, "kkkkkkkkkkkk");
       let empNo = JSON.parse(localStorage.user).empNo;
       getLink(patientId, visitId, empNo, wardCode).then(res => {
-        console.log("res===", res);
         this.copy(res.data.data.link);
       });
     },

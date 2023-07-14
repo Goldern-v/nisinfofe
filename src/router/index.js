@@ -451,8 +451,17 @@ const statisticalIncrease = () => import("@/Page/statistical-query/statistical-i
 const testGuizhou = () => import("@/Page/patientInfo/supPage/test/testGuizhou")
 const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 const StatisticalBlood = () => import("@/Page/statistical-query/statistical-blood")
+const statisticalNutritionalRisk = () => import("@/Page/statistical-query/statistical-nutritionalRisk")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
+
+// 925 设备使用记录
+const EquipmentManagement = () => import("@/Page/equipment-management/index.vue")
+const UsageRecord = () => import("@/Page/equipment-management/usageRecord/table.vue")
+const Inventory = () => import("@/Page/equipment-management/inventory")
+
+
+
 const StatisticalUnplanned = () => import("@/Page/statistical-query/statistical-unplanned")
 const StatisticalAdultFall = () => import("@/Page/statistical-query/statistical-adult-fall")
 const StatisticalChildrenFall = () => import("@/Page/statistical-query/statistical-children-fall")
@@ -1073,11 +1082,8 @@ const router = new Router({
           component: record
         },
         {
-          name: "admissionPageAdult2",
           path: "/admissionPageAdult2",
-          meta: {
-            formCode: 'E2332'
-          },
+
           component: sheetAdmissionPageAdult
         },
         {
@@ -1951,6 +1957,14 @@ const router = new Router({
             component: StatisticalBlood,
           },
           {
+            path: "statisticalNutritionalRisk",
+            name: "statisticalNutritionalRisk",
+            meta: {
+              title: '营养风险统计'
+            },
+            component: statisticalNutritionalRisk,
+          },
+          {
             path: "statisticalUrineVolume",
             name: "statisticalUrineVolume",
             meta: {
@@ -1981,6 +1995,36 @@ const router = new Router({
               title: '扫码率统计'
             },
             component: statisticalScanRate
+          },
+        ]
+      },
+      // 925-设备管理
+      {
+        path: "/equipment",
+        name: "equipment",
+        component: EquipmentManagement,
+        redirect: {
+          name: "usageRecord"
+          // name: "statisticalWorkload",
+          // name: (() => {
+          //   switch (HOSPITAL_ID) {
+          //     case 'zhzxy':
+          //       return 'statisticalConsultation'
+          //     default:
+          //       return 'statisticalWorkload';
+          //   }
+          // })()
+        },
+        children: [
+          {
+            path: "usageRecord",
+            component: UsageRecord,
+            name: "usageRecord",
+          },
+          {
+            path: "inventory",
+            component: Inventory,
+            name: "inventory",
           },
         ]
       },

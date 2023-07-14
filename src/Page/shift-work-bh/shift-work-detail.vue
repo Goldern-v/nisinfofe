@@ -53,7 +53,7 @@
                 <span
                   >日期：<b>{{ record.changeShiftDate }}</b></span
                 >
-                <div data-print-style="width: auto" class="foot">
+                <div data-print-style="width: auto" class="foot-head" >
                   <span>护士长签名：</span>
                   <span data-print-style="display: none">
                     <!-- <template v-if="record.autographNameP">{{record.autographNameP}}</template> -->
@@ -368,7 +368,11 @@ const defaultPatient = {
   mainComplaint: "",
   background: "",
   assessmentSituation: "",
-  proposal: ""
+  proposal: "",
+  fall:"",
+  vte:"",
+  ulcer:"",
+  conduit:"",
 };
 
 const arrowKeyValues = {
@@ -672,12 +676,16 @@ export default {
           shiftWithWardcodesA,
           shiftWithWardcodesP,
           shiftWithWardcodesN
-        } = data;
+        } = data;patients
         record.specialCase = record.specialCase || "";
         this.record = { ...record, ...(shiftWithWardcodesA[0] || {}) };
         this.patients = patients;
         // 顺德人医增加合计
-        this.shiftWithWardcodes = [shiftWithWardcodesA[0]||{},shiftWithWardcodesP[0]||{},shiftWithWardcodesN[0]||{},this.HOSPITAL_ID =='nfyksdyy' && this.handleAll(shiftWithWardcodesA[0],shiftWithWardcodesP[0],shiftWithWardcodesN[0])];
+        this.shiftWithWardcodes = [shiftWithWardcodesA[0]||{},shiftWithWardcodesP[0]||{},shiftWithWardcodesN[0]||{}];
+        if(this.HOSPITAL_ID =='nfyksdyy'){
+          this.shiftWithWardcodes.push(this.handleAll(shiftWithWardcodesA[0],shiftWithWardcodesP[0],shiftWithWardcodesN[0]))
+        }
+
         this.modified = false;
 
         if (patients.length < 11) {
@@ -943,7 +951,6 @@ export default {
       let selectedKeys = this.patients
         .filter(p => p.patientId && p.visitId)
         .map(p => p.patientId + "//" + p.visitId);
-      // console.log(d , this.record.changeShiftDate);
       if (d) {
         selectedKeys = [];
       }
@@ -1178,6 +1185,10 @@ export default {
         this.patients[row].sex = "";
         this.patients[row].diagnosis = "";
         this.patients[row].patientStatus = "";
+        this.patients[row].fall = "";
+        this.patients[row].vte = "";
+        this.patients[row].ulcer = "";
+        this.patients[row].conduit = "";
       }
     },
     async onTableInputKeydown({ event, value, prop, row }) {
@@ -1210,6 +1221,10 @@ export default {
             this.patients[row].visitId = data.visitId || "";
             this.patients[row].proposal = data.advice || "";
             this.patients[row].assessmentSituation = data.evaluate || "";
+            this.patients[row].fall = data.fall || "";
+            this.patients[row].vte = data.vte || "";
+            this.patients[row].ulcer = data.ulcer || "";
+            this.patients[row].conduit = data.conduit || "";
 
             if (data.background !== "," && data.background !== "，") {
               this.patients[row].background += data.background;
@@ -1295,8 +1310,8 @@ export default {
 .parent-content{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 12px;
-  line-height: 20px;
   margin-top: 10px;
    button {
     padding: 0;
@@ -1416,6 +1431,36 @@ export default {
 
 .foot {
   margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  line-height: 25px;
+
+  div {
+    font-size: 0;
+    white-space: nowrap;
+  }
+
+  img, span {
+    vertical-align: middle;
+    font-size: 13px;
+  }
+
+  .img {
+    display: none;
+    width: 52px;
+    max-height: 25px;
+  }
+
+  button {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: none;
+    color: rgb(40, 79, 194);
+    cursor: pointer;
+  }
+}
+.foot-head {
   display: flex;
   justify-content: space-between;
   line-height: 25px;

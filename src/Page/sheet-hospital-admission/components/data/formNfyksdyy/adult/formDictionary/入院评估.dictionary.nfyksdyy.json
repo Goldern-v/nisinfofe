@@ -731,6 +731,38 @@
         }
         
     ],
+    "I2332046": [
+        {
+            "code": "低盐低脂饮食",
+            "name": "低盐低脂饮食",
+            "pinyin": "dydzys"
+        },
+        {
+            "code": "糖尿病饮食",
+            "name": "糖尿病饮食",
+            "pinyin": "tdbys"
+        },
+        {
+            "code": "高蛋白饮食",
+            "name": "高蛋白饮食",
+            "pinyin": "gdbys"
+        },
+        {
+            "code": "低嘌呤饮食",
+            "name": "低嘌呤饮食",
+            "pinyin": "xplys"
+        },
+        {
+            "code": "优质低蛋白饮食",
+            "name": "优质低蛋白饮食",
+            "pinyin": "yzdbys"
+        },
+        {
+            "code": "清淡饮食",
+            "name": "清淡饮食",
+            "pinyin": "qtys"
+        }
+    ],
     "I2332220": [
         {
             "code": "海鲜类",

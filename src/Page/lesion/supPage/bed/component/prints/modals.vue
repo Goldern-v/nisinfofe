@@ -14,10 +14,15 @@
         v-show="printMode == 'h'"
       >
         <div
-          v-for="(item,index) in list"
+          v-for="(item, index) in list"
           :key="item.patientId + '|' + item.visitId"
           class="bed-card-con"
-          :class="[(index+1)%9==0?'nextpage':'',(index+1)%9==1||(index+1)%9==2||(index+1)%9==3?'firstpage':'']"
+          :class="[
+            (index + 1) % 9 == 0 ? 'nextpage' : '',
+            (index + 1) % 9 == 1 || (index + 1) % 9 == 2 || (index + 1) % 9 == 3
+              ? 'firstpage'
+              : ''
+          ]"
           flex
         >
           <img
@@ -26,11 +31,7 @@
             :src="qrCode[index]"
           />
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
-            <div
-              flex="cross:center"
-              class="input-item"
-              style="height: 43px"
-            >
+            <div flex="cross:center" class="input-item" style="height: 43px">
               <span class="label">科别:</span>
               <div
                 type="text"
@@ -38,12 +39,17 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-              >{{item.wardName}}</div>
+              >
+                {{ item.wardName }}
+              </div>
             </div>
             <div
               flex="cross:center"
               class="input-item"
-              :style="{overflow:item.name&&item.name.length>7?'unset':'',minHeight:'43px'}"
+              :style="{
+                overflow: item.name && item.name.length > 7 ? 'unset' : '',
+                minHeight: '43px'
+              }"
             >
               <span class="label">床号:</span>
               <div
@@ -52,7 +58,9 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0"
                 flex-box="1"
                 class="bottom-line"
-              >{{item.bedLabel}}</div>
+              >
+                {{ item.bedLabel }}
+              </div>
               <span class="label">姓名:</span>
               <div
                 type="text"
@@ -60,8 +68,12 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="3"
                 class="bottom-line"
-                :class="[item.name&&item.name.length>7?'huadu-bigname':'']"
-              >{{item.name}}</div>
+                :class="[
+                  item.name && item.name.length > 7 ? 'huadu-bigname' : ''
+                ]"
+              >
+                {{ item.name }}
+              </div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">性别:</span>
@@ -71,7 +83,9 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-              >{{item.sex}}</div>
+              >
+                {{ item.sex }}
+              </div>
               <span class="label">年龄:</span>
               <div
                 type="text"
@@ -79,7 +93,9 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="3"
                 class="bottom-line"
-              >{{item.age}}</div>
+              >
+                {{ item.age }}
+              </div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">住院号:</span>
@@ -89,8 +105,10 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-              >{{item.patientId}}</div>
+              >
+                {{ item.patientId }}
               </div>
+            </div>
             <div flex="cross:center" class="input-item">
               <span class="label">主管医生:</span>
               <div
@@ -99,7 +117,9 @@
                 style="font-size: 22px;padding-left: 5px;border-bottom:0;"
                 flex-box="1"
                 class="bottom-line"
-              >{{item.mainDoctors}}</div>
+              >
+                {{ item.mainDoctors }}
+              </div>
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">入院日期:</span>
@@ -109,7 +129,9 @@
                 style="width: 0px;font-size: 22px; padding-left: 2px;;margin-right:80px;border-bottom:0;"
                 nowidth
                 class="bottom-line"
-              >{{moment(item.admissionDate).format('YYYY-MM-DD')}}</div>
+              >
+                {{ moment(item.admissionDate).format("YYYY-MM-DD") }}
+              </div>
             </div>
           </div>
         </div>
@@ -122,10 +144,15 @@
         v-show="printMode == 't'"
       >
         <div
-          v-for="(item,index) in list"
+          v-for="(item, index) in list"
           :key="item.patientId + '|' + item.visitId"
           class="bed-card-con"
-          :class="[(index+1)%9==0?'nextpage':'',(index+1)%9==1||(index+1)%9==2||(index+1)%9==3?'firstpage':'']"
+          :class="[
+            (index + 1) % 9 == 0 ? 'nextpage' : '',
+            (index + 1) % 9 == 1 || (index + 1) % 9 == 2 || (index + 1) % 9 == 3
+              ? 'firstpage'
+              : ''
+          ]"
           flex
         >
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
@@ -145,8 +172,8 @@
               flex="cross:center"
               class="input-item"
               :style="{
-                overflow: item.name.length > 7 ? 'unset' : '',
-                minHeight: '43px',
+                overflow: item.name && item.name.length > 7 ? 'unset' : '',
+                minHeight: '43px'
               }"
             >
               <span class="label">床号:</span>
@@ -166,7 +193,7 @@
                 style="font-size: 22px; padding-left: 5px; border-bottom: 0"
                 flex-box="3"
                 class="bottom-line"
-                :class="[item.name.length > 7 ? 'huadu-bigname' : '']"
+                :class="[item.name && item.name.length > 7 ? 'huadu-bigname' : '']"
               >
                 {{ item.name }}
               </div>
@@ -238,8 +265,6 @@
         </div>
       </div>
 
-
-
       <div
         class="bed-card-warpper bed-card-vertical"
         ref="printCon2"
@@ -247,9 +272,12 @@
       >
         <div
           class="bed-card-vert-con"
-          v-for="(item,index) in list"
+          v-for="(item, index) in list"
           :key="item.patientId"
-          :class="[(index+1)%10==0?'nextpage':'',[1,2,3,4,5].includes((index+1)%10)?'firstpage':'']"
+          :class="[
+            (index + 1) % 10 == 0 ? 'nextpage' : '',
+            [1, 2, 3, 4, 5].includes((index + 1) % 10) ? 'firstpage' : ''
+          ]"
         >
           <!-- <span>床号：</span> -->
 
@@ -261,27 +289,29 @@
             <span style="font-size:20px;display:inline-block;width:30px;">
               {{ item.sex + '性' }}</span>
             </span> -->
-            <p>{{ item.sex + '性' }}</p>
+          <p>{{ item.sex + "性" }}</p>
           <!-- <span>年龄：</span> -->
           <p>{{ item.age }}</p>
           <!-- <span>住院号：</span> -->
           <span>入院日期：</span>
           <p style="font-size: 17px;">{{ item.admissionDate | ymdhm }}</p>
           <!-- <p class="patientId">{{ item.patientId }}</p> -->
-            <img
+          <img
             class=" wrist-qrcode"
             :class="{ hasRemark: hasRemark }"
             :src="qrCode[index]"
             style=" width: 55px;position: relative;top: -12px;left: 13px;"
           />
-          <span><p >{{ item.patientId }}</p></span>
+          <span
+            ><p>{{ item.patientId }}</p></span
+          >
         </div>
       </div>
       <div
         class="bed-card-warpper wrist-strap-print"
         ref="printCon3"
-        v-for="(item,index) in list"
-        :key="item.patientId+item.visitId"
+        v-for="(item, index) in list"
+        :key="item.patientId + item.visitId"
         v-show="printMode == 'wrist'"
       >
         <div class="bed-card-vert-con">
@@ -299,12 +329,19 @@
             <div>
               <span>入院日期：{{ item.admissionDate | ymdhm }}</span>
             </div>
-            <div class="allergy" :class="[item.allergy1||item.drugGms||item.allergy2?'gm':'']">
-                过敏信息：
-                <span v-if="item.allergy1">{{ item.allergy1 }};</span>
-                <span v-if="item.drugGms">{{ item.drugGms }};</span>
-                <span v-if="item.allergy2">{{ item.allergy2 }}</span>
-                <span v-if="!(item.allergy1||item.drugGms||item.allergy2)">无</span>
+            <div
+              class="allergy"
+              :class="[
+                item.allergy1 || item.drugGms || item.allergy2 ? 'gm' : ''
+              ]"
+            >
+              过敏信息：
+              <span v-if="item.allergy1">{{ item.allergy1 }};</span>
+              <span v-if="item.drugGms">{{ item.drugGms }};</span>
+              <span v-if="item.allergy2">{{ item.allergy2 }}</span>
+              <span v-if="!(item.allergy1 || item.drugGms || item.allergy2)"
+                >无</span
+              >
             </div>
             <!-- <svg id="barcode"></svg> -->
           </div>
@@ -316,22 +353,21 @@
         </div>
       </div>
       <div
-          class="bed-card-warpper wrist-strap-print children-wrist"
-          ref="printCon4"
-          v-for="(item,index) in list"
-          :key="item.patientId"
-          v-show="printMode == 'wrist-children'"
-
+        class="bed-card-warpper wrist-strap-print children-wrist"
+        ref="printCon4"
+        v-for="(item, index) in list"
+        :key="item.patientId"
+        v-show="printMode == 'wrist-children'"
       >
         <div class="bed-card-vert-con">
           <div class="top">
-            <span  v-if="isDglb">科室：{{ item.deptName }}</span>
-            <span  v-else>科室：{{ item.wardName }}</span>
+            <span v-if="isDglb">科室：{{ item.deptName }}</span>
+            <span v-else>科室：{{ item.wardName }}</span>
           </div>
           <div>
             <div>
               <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
-              >床位：{{ item.bedLabel }}</span
+                >床位：{{ item.bedLabel }}</span
               >
               <span v-if="!isDglb">住院号：{{ item.patientId }}</span>
             </div>
@@ -347,60 +383,68 @@
             </div>
           </div>
           <img
-              class="qr-code"
-              :class="[{ hasRemark: hasRemark }, {'abs-img':isDglb}]"
-              :src="qrCode[index]"
+            class="qr-code"
+            :class="[{ hasRemark: hasRemark }, { 'abs-img': isDglb }]"
+            :src="qrCode[index]"
           />
-<!--          <img-->
-<!--              class="qr-code"-->
-<!--              :class="[{ hasRemark: hasRemark }, {'abs-img': this.isDglb}]"-->
-<!--              :src="qrCode"-->
-<!--          />-->
-          <span :class="{'abs-text':isDglb}">{{ item.inpNo }}</span>
+          <!--          <img-->
+          <!--              class="qr-code"-->
+          <!--              :class="[{ hasRemark: hasRemark }, {'abs-img': this.isDglb}]"-->
+          <!--              :src="qrCode"-->
+          <!--          />-->
+          <span :class="{ 'abs-text': isDglb }">{{ item.inpNo }}</span>
         </div>
       </div>
-<!--      *寮步--新生儿批量床头卡*-->
-      <div class="bed-card-wrapper"
-           v-for="(item) in list"
-           :key="item.patientId+'3G'"
-           ref="printCon5"
-           v-show="printMode=='bady'">
+      <!--      *寮步--新生儿批量床头卡*-->
+      <div
+        class="bed-card-wrapper"
+        v-for="item in list"
+        :key="item.patientId + '3G'"
+        ref="printCon5"
+        v-show="printMode == 'bady'"
+      >
         <div class="bed-modal-ctx">
           <div>床&nbsp;&nbsp;&nbsp;&nbsp;号：{{ item.bedLabel }}</div>
           <div>住&nbsp;院&nbsp;号：{{ item.inpNo }}</div>
-          <div>产妇姓名：{{ item.expand1||'' }}</div>
+          <div>产妇姓名：{{ item.expand1 || "" }}</div>
           <div>宝宝性别：{{ item.sex }}</div>
           <div class="pos-a">
-            <div>{{ item.formData.weight ? item.formData.weight + 'g' : ' ' }}</div>
-            <div>{{ moment(item.birthday).format('YYYY-MM-DD') }}</div>
+            <div>
+              {{ item.formData.weight ? item.formData.weight + "g" : " " }}
+            </div>
+            <div>{{ moment(item.birthday).format("YYYY-MM-DD") }}</div>
           </div>
         </div>
       </div>
-<!--      寮步--批量床头卡-->
+      <!--      寮步--批量床头卡-->
       <div
-          ref="printCon6" v-show="printMode=='aldult'"
-          class="bed-card-wrapper"  v-for="(item,index) in list"
-           :key="item.patientId+ '2G'">
+        ref="printCon6"
+        v-show="printMode == 'aldult'"
+        class="bed-card-wrapper"
+        v-for="(item, index) in list"
+        :key="item.patientId + '2G'"
+      >
         <div class="bed-modal-ctx-aldult">
-        <div>床号：{{ item.bedLabel }}</div>
-        <div>姓名：{{ item.name }}</div>
-        <div>住院号：{{ item.inpNo }}</div>
-        <div>性别：{{ item.sex }}</div>
-        <div>年龄：{{ item.age }}</div>
-        <div class="flex">
-          过敏史：
-          <input
+          <div>床号：{{ item.bedLabel }}</div>
+          <div>姓名：{{ item.name }}</div>
+          <div>住院号：{{ item.inpNo }}</div>
+          <div>性别：{{ item.sex }}</div>
+          <div>年龄：{{ item.age }}</div>
+          <div class="flex">
+            过敏史：
+            <input
               type="text"
               class="bottom-line"
               v-model="item.expand3"
               @input="onIptGms(index)"
-          />
+            />
+          </div>
+          <div>主管医生：{{ item.formData.mainDoctors }}</div>
+          <div>
+            入院日期：{{ moment(item.admissionDate).format("YYYY-MM-DD") }}
+          </div>
+          <img class="qr-code" :src="qrCode[index]" />
         </div>
-        <div>主管医生：{{ item.formData.mainDoctors }}
-        </div>
-        <div>入院日期：{{ moment(item.admissionDate).format('YYYY-MM-DD')}}</div>
-        <img class="qr-code" :src="qrCode[index]" />
-      </div>
       </div>
 
       <div slot="button">
@@ -945,9 +989,8 @@ export default {
     // 过敏史
     guominshi: {
       type: String,
-      default: '',
-    },
-
+      default: ""
+    }
   },
   data() {
     return {
@@ -976,22 +1019,22 @@ export default {
       ysList: [],
       printMode: "h", //打印模式
       title: "编辑床头卡",
-      list:[
+      list: [
         {
           formData: {
             diet: "",
             registCare: [],
             mainDoctors: "",
             dutyNurses: "",
-            remark: "",
+            remark: ""
           },
           allergy1: "",
           allergy2: "",
-          drugGms: "",
+          drugGms: ""
         }
       ],
       remarkPrint: true,
-      isDglb: 'dglb' === this.HOSPITAL_ID,
+      isDglb: "dglb" === this.HOSPITAL_ID
     };
   },
   computed: {
@@ -999,50 +1042,53 @@ export default {
       return this.$route.query;
     },
     hasRemark() {
-      return this.remarkPrint
-    },
+      return this.remarkPrint;
+    }
   },
   methods: {
     onIptGms(index) {
-      this.$set(this.list,index,this.list[index])
+      this.$set(this.list, index, this.list[index]);
     },
-     init() {
-     this.$nextTick(()=>{
-      this.list.map(async (item,index)=>{
-        item.formData = {
-          diet: "",
-          registCare: [],
-          mainDoctors: "",
-          dutyNurses: "",
-          remark: ""
-        };
-        await this.$set(this.list,index,item)
-        let res = this.printMode == 't' ? await getPatientInfo(item.patientId, item.visitId) :  await getEntity(item.patientId, item.visitId);
-        let resData = res.data.data
-        let diagnosis = await textOver(item.diagnosis, 52);
-        item.formData = {
-          diet: resData.diet || "",
-          registCare: resData.registCare
-            ? (resData.registCare || "").split(",")
-            : this.getRegistCare(item),
-          mainDoctors: resData.mainDoctors || "",
-          dutyNurses: resData.dutyNurses || "",
-          remark: diagnosis,
-          remarkPrint: resData.remarkPrint
-        };
-        item.mainDoctors = resData.mainDoctors || ""
-        item.allergy1 = resData.allergy1;
-        item.allergy2 = resData.allergy2;
-        item.drugGms = resData.drugGms;
-        item.companyPhone = resData.companyPhone;
-        item.contactName = resData.contactName;
-        this.modalLoading = false;
-        await this.$set(this.list,index,item)
+    init() {
+      this.$nextTick(() => {
+        this.list.map(async (item, index) => {
+          item.formData = {
+            diet: "",
+            registCare: [],
+            mainDoctors: "",
+            dutyNurses: "",
+            remark: ""
+          };
+          await this.$set(this.list, index, item);
+          let res =
+            this.printMode == "t"
+              ? await getPatientInfo(item.patientId, item.visitId)
+              : await getEntity(item.patientId, item.visitId);
+          let resData = res.data.data;
+          let diagnosis = await textOver(item.diagnosis, 52);
+          item.formData = {
+            diet: resData.diet || "",
+            registCare: resData.registCare
+              ? (resData.registCare || "").split(",")
+              : this.getRegistCare(item),
+            mainDoctors: resData.mainDoctors || "",
+            dutyNurses: resData.dutyNurses || "",
+            remark: diagnosis,
+            remarkPrint: resData.remarkPrint
+          };
+          item.mainDoctors = resData.mainDoctors || "";
+          item.allergy1 = resData.allergy1;
+          item.allergy2 = resData.allergy2;
+          item.drugGms = resData.drugGms;
+          item.companyPhone = resData.companyPhone;
+          item.contactName = resData.contactName;
+          this.modalLoading = false;
+          await this.$set(this.list, index, item);
+        });
+        multiDictInfo(["床头卡饮食"]).then(res => {
+          this.ysList = res.data.data.床头卡饮食.map(item => item.name);
+        });
       });
-      multiDictInfo(["床头卡饮食"]).then(res => {
-        this.ysList = res.data.data.床头卡饮食.map(item => item.name);
-      });
-     })
     },
     getRegistCare(item) {
       let data = [];
@@ -1069,13 +1115,13 @@ export default {
       }
       return data;
     },
-    open(printMode = "h",list) {
+    open(printMode = "h", list) {
       this.list = list;
 
       this.init();
       this.printMode = printMode;
-      console.log("this.printMode===",this.printMode)
-      this.list.forEach(async(item,index)=>{
+      console.log("this.printMode===", this.printMode);
+      this.list.forEach(async (item, index) => {
         let qr_png_value = item.patientId + "|" + item.visitId;
         let qr_png = qr.imageSync(qr_png_value, { type: "png" });
         // var qr_png = qr.imageSync(this.query.patientId, { type: "png" });
@@ -1089,40 +1135,40 @@ export default {
           return "data:image/png;base64," + window.btoa(binary);
         }
         let base64 = arrayBufferToBase64(qr_png);
-        await this.$set(this.qrCode,index,base64)
-        await this.$set(this.qrCodeNum,index,item.patientId)
-      })
+        await this.$set(this.qrCode, index, base64);
+        await this.$set(this.qrCodeNum, index, item.patientId);
+      });
       if (this.printMode == "wrist") {
         this.title = "腕带打印";
-      }else if(this.printMode == "wrist-children") {
+      } else if (this.printMode == "wrist-children") {
         this.title = "儿童腕带打印";
       } else if (this.printMode == "v") {
         this.title = "打印床头卡";
-      }else if (this.printMode == "t") {
+      } else if (this.printMode == "t") {
         this.title = "打印床头卡3";
       } else if (this.printMode == "bady") {
         this.title = "打印新生儿床头卡";
       } else {
         this.title = "编辑床头卡";
       }
-      setTimeout(()=>{
+      setTimeout(() => {
         this.$refs.modal.open();
-      },1)
+      }, 1);
     },
     close() {
       this.$refs.modal.close();
     },
-    selectRegistCare(item,index) {
+    selectRegistCare(item, index) {
       if (this.list[index].formData.registCare.includes(item)) {
         this.list[index].formData.registCare.remove(item);
-        this.$set(this.list,index,this.list[index])
+        this.$set(this.list, index, this.list[index]);
       } else {
         this.list[index].formData.registCare.push(item);
-        this.$set(this.list,index,this.list[index])
+        this.$set(this.list, index, this.list[index]);
       }
     },
     post() {
-      this.list.map(item=>{
+      this.list.map(item => {
         let data = {};
         data.name = item.name;
         data.sex = item.sex;
@@ -1139,7 +1185,7 @@ export default {
           this.$message.success("保存成功");
           this.close();
         });
-      })
+      });
     },
     onPrint() {
       this.$nextTick(() => {
@@ -1207,10 +1253,9 @@ export default {
           @page {
                  padding-top: 40px !important;
           }
-            `,
+            `
           });
-        }
-        else if (this.printMode == "wrist-children") {
+        } else if (this.printMode == "wrist-children") {
           printing(this.$refs.printCon4, {
             direction: "vertical",
             injectGlobalCss: true,
@@ -1224,9 +1269,9 @@ export default {
               @page {
                 margin: 0;
               }
-            `,
+            `
           });
-        }  else if (this.printMode == "bady") {
+        } else if (this.printMode == "bady") {
           /*寮步--新生儿床头卡*/
           printing(this.$refs.printCon5, {
             direction: "vertical",
@@ -1241,9 +1286,9 @@ export default {
               @page {
                 margin: 0;
               }
-            `,
+            `
           });
-        } else if (this.printMode == "t"){
+        } else if (this.printMode == "t") {
           printing(this.$refs.printCon8, {
             direction: "horizontal",
             injectGlobalCss: true,
@@ -1274,7 +1319,7 @@ export default {
             }
             `
           });
-        }else {
+        } else {
           printing(this.$refs.printCon, {
             direction: "horizontal",
             injectGlobalCss: true,
@@ -1306,7 +1351,6 @@ export default {
             `
           });
         }
-
       });
     },
     querySearchAsyncDoc(queryString, cb) {
@@ -1340,7 +1384,7 @@ export default {
           top: top
         };
       }
-      let { autoComplete, obj, key} = bind;
+      let { autoComplete, obj, key } = bind;
       let xy = offset(e.target);
 
       setTimeout(() => {
@@ -1367,7 +1411,7 @@ export default {
     onBlurToAutoComplete(e, bind) {
       setTimeout(() => {
         window.closeAutoComplete(`bedModal`);
-        this.list=JSON.parse(JSON.stringify(this.list))
+        this.list = JSON.parse(JSON.stringify(this.list));
       }, 400);
     }
   },

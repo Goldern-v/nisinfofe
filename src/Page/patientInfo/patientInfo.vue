@@ -125,8 +125,9 @@ export default {
           })
         }
         this.inited = true;
+        console.log(this.query,'this.query');
         this.query = res.data.data;
-        if(this.$route.path !== '/previousHistory/nursingPreview'){
+        if(this.$route.path != '/previousHistory/nursingPreview'){
           Object.assign(this.$route.query, this.query);
         }
         // getPatientInfo
@@ -171,9 +172,6 @@ export default {
 
       };
       return hisList[HisName] || "topPart";
-    },
-    handleInpatientSave() {
-      this.getPatientData();
     },
   },
   mounted() {
