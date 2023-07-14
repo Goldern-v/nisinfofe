@@ -280,6 +280,7 @@ export default {
         case "beihairenyi":
         return bedItemBhry;
         case "foshanrenyi":
+        case "zjhj":
         case "925":
         return bedItemFsry;
         default:

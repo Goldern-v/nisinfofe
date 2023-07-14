@@ -726,6 +726,7 @@ const router = new Router({
         component: (() => {
           switch(HOSPITAL_ID) {
             case 'lyxrm':
+            case 'zjhj':
             case 'ytll':
             case 'foshanrenyi':
             case 'zhzxy':
@@ -1704,6 +1705,7 @@ const router = new Router({
             case "sdlj":
             case "dglb":
             case '925':
+            case 'zjhj':
               return newSingleTemperatureChartSDLJ;
             case "whyx":
               return newSingleTemperatureChartWHYX;
