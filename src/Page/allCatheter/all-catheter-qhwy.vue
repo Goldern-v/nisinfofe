@@ -28,14 +28,14 @@
       <div class="right-part" v-loading="tableLoading" :class="{noAllpage:!isAllCathterPage}">
         <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
         <div class="sheetTable-contain" :style="{width:`calc(100% - ${isAllCathterPage?'280px':'81px'} )`,marginLeft:`${isAllCathterPage?'280px':'81px'}`}" ref="scrollCon">
-          
-          <cathterTabel 
-            @onChangePatient_self='onChangePatient_self' 
-            :title="tableInfo.formTitle" 
-            @changeShowTable='changeShowTable' 
-            :tabelConfig='tabelConfig' 
-            :tableInfo='tableInfo' 
-            v-if="showTable&&!isMorePage" 
+
+          <cathterTabel
+            @onChangePatient_self='onChangePatient_self'
+            :title="tableInfo.formTitle"
+            @changeShowTable='changeShowTable'
+            :tabelConfig='tabelConfig'
+            :tableInfo='tableInfo'
+            v-if="showTable&&!isMorePage"
             @toPrint="toPrint()"
             @updateTableConfig='updateTableConfig'/>
           <div
@@ -48,24 +48,24 @@
             添加导管
           </div>
           <template  v-if="showTable&&isMorePage" >
-          <cathterTabel 
+          <cathterTabel
             @toPrint="toPrint()"
-            :ref="`cathterTabel_${index}`" 
-            @saveTableFn='saveTableFn' 
-            @onChangePatient_self='onChangePatient_self' 
-            :title="tableInfo.formTitle" 
-            @changeShowTable='changeShowTable' 
-            :tabelConfig='tableList' 
-            :tableInfo='tableInfo' 
-            @updateTableConfig='updateTableConfig' 
-            v-for="(tableList,index) in tabelConfig" 
-            :key="index" 
+            :ref="`cathterTabel_${index}`"
+            @saveTableFn='saveTableFn'
+            @onChangePatient_self='onChangePatient_self'
+            :title="tableInfo.formTitle"
+            @changeShowTable='changeShowTable'
+            :tabelConfig='tableList'
+            :tableInfo='tableInfo'
+            @updateTableConfig='updateTableConfig'
+            v-for="(tableList,index) in tabelConfig"
+            :key="index"
             :pageNum="(index + 1)"/>
           </template>
           <div id="printTable" ref="printTable">
             <printTable
               :tabelConfig='tabelConfig'
-              :tableInfo='tableInfo' 
+              :tableInfo='tableInfo'
               :config = "config"
             >
             </printTable>
@@ -283,11 +283,12 @@ export default {
       setTimeout(()=>{
         this.$nextTick(() => {
           printing(this.$refs.printTable, {
+            direction: 'horizontal',
             injectGlobalCss: true,
             scanStyles: false,
             // margin: 0 0;
             css: `
-              
+
             `,
           })
             .then(() => {

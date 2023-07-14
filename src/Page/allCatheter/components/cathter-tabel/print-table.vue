@@ -48,9 +48,9 @@
 </template>
 <style lang='scss' scoped>
 @media print {
-  @page {
+  /* @page {
     size: landscape;
-  }
+  } */
   .cathe-table {
     margin: 1cm 0;
     page-break-after: always;

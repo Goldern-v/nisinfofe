@@ -56,7 +56,7 @@
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==4 && HOSPITAL_ID=='hj'">A3：</span>
 
             <span style="width: 60px; text-align: center" v-else-if="HOSPITAL_ID=='whyx'">{{index+1}}：</span>
-            <span style="width: 100px; text-align: center" v-else-if="HOSPITAL_ID=='gdtj'|| HOSPITAL_ID=='zhzxy'">
+            <span style="width: 100px; text-align: center" v-else-if="['gdtj', 'zhzxy', 'xiegang'].includes(HOSPITAL_ID)">
               <input  style="width: 60px;margin-right: 20px" v-model="item.groupCode" @blur="update">
             </span>
             <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi',"nfyksdyy"].includes(HOSPITAL_ID)? index+1 : index}}：</span>
@@ -202,6 +202,7 @@ import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 import left3Modal from '../modal/letf3-modal.vue'
 import moment from 'moment'
+import { hisMatch } from '@/utils/tool'
 export default {
   mixins: [common],
   data() {
@@ -217,6 +218,16 @@ export default {
       isSave: true,
       fuyouBedLisg:[],
       options: [
+        ...hisMatch({
+          map: {
+            xiegang: [
+              { value: 1, label: '1' },
+              { value: 2, label: '2' },
+              { value: 3, label: '3' },
+            ],
+            other: [],
+          }
+        }),
         {
           value: 4,
           label: "4",
@@ -381,7 +392,7 @@ export default {
       http(this.deptCode).then((res) => {
         // this.list = this.mergeData(groupdList, res.data.data);
         this.list = res.data.data;
-        this.value = this.list.length > 4 ? this.list.length : 4;
+        this.value = this.list.length > this.minGroupValue ? this.list.length : this.minGroupValue;
         this.pageLoading = false;
         setTimeout(() => {
           this.isSave = true;
@@ -515,6 +526,12 @@ export default {
     },
   },
   computed: {
+    minGroupValue() {
+      const groupValue = {
+        xiegang: 1,
+      }
+      return groupValue[this.HOSPITAL_ID] || 4;
+    },
     computedList() {
       let resultList = [];
       for (let i = 0; i < this.value; i++) {
