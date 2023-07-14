@@ -118,7 +118,8 @@ function onFocusToAutoComplete(e, bind, cb) {
   if (status >= 1) {
     if (
       empNo == JSON.parse(localStorage.user).empNo ||
-      JSON.parse(localStorage.user).nursingStaff
+      JSON.parse(localStorage.user).nursingStaff ||
+      process.env.HOSPITAL_ID == 'nfyksdyy'
     ) {
       isRead = false;
     } else if(['foshanrenyi'].includes(process.env.HOSPITAL_ID) && JSON.parse(localStorage.user).roleManageCodeList.includes('FORM0001')){
