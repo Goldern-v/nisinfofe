@@ -454,6 +454,14 @@ const StatisticalBlood = () => import("@/Page/statistical-query/statistical-bloo
 const statisticalNutritionalRisk = () => import("@/Page/statistical-query/statistical-nutritionalRisk")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
+
+// 925 设备使用记录
+const EquipmentManagement = () => import("@/Page/equipment-management/index.vue")
+const UsageRecord = () => import("@/Page/equipment-management/usageRecord/table.vue")
+const Inventory = () => import("@/Page/equipment-management/inventory")
+
+
+
 const StatisticalUnplanned = () => import("@/Page/statistical-query/statistical-unplanned")
 const StatisticalAdultFall = () => import("@/Page/statistical-query/statistical-adult-fall")
 const StatisticalChildrenFall = () => import("@/Page/statistical-query/statistical-children-fall")
@@ -1987,6 +1995,36 @@ const router = new Router({
               title: '扫码率统计'
             },
             component: statisticalScanRate
+          },
+        ]
+      },
+      // 925-设备管理
+      {
+        path: "/equipment",
+        name: "equipment",
+        component: EquipmentManagement,
+        redirect: {
+          name: "usageRecord"
+          // name: "statisticalWorkload",
+          // name: (() => {
+          //   switch (HOSPITAL_ID) {
+          //     case 'zhzxy':
+          //       return 'statisticalConsultation'
+          //     default:
+          //       return 'statisticalWorkload';
+          //   }
+          // })()
+        },
+        children: [
+          {
+            path: "usageRecord",
+            component: UsageRecord,
+            name: "usageRecord",
+          },
+          {
+            path: "inventory",
+            component: Inventory,
+            name: "inventory",
           },
         ]
       },

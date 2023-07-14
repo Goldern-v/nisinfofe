@@ -246,7 +246,16 @@
                     <i class="nursingDocumentation"></i>危急值
                   </el-row>
                 </router-link>
-              </el-dropdown-item>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/equipment' }"
+                >
+                  <router-link to="/equipment" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="birthCertificate"></i>设备管理
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>
