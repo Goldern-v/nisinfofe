@@ -25,40 +25,54 @@
           </div>
           <div v-else style="display:flex;">
             <div class="date" v-if="tr && tr.length && isShowItem()">
-            <label class="label">日期：</label>
-            <input
-              type="text"
-              :disabled="
-                recordDate != '' &&
-                HOSPITAL_ID != 'huadu' &&
-                HOSPITAL_ID != 'wujing'&&
-                HOSPITAL_ID != 'gdtj' &&
-                HOSPITAL_ID != 'nfyksdyy' &&
-                HOSPITAL_ID != 'whsl'
-              "
-              v-model="staticObj.recordMonth"
-              @keyup="dateKey($event, staticObj, 'recordMonth')"
-            />
+              <label class="label">日期：</label>
+              <input
+                type="text"
+                :disabled="
+                  recordDate != '' &&
+                  HOSPITAL_ID != 'huadu' &&
+                  HOSPITAL_ID != 'wujing'&&
+                  HOSPITAL_ID != 'gdtj' &&
+                  HOSPITAL_ID != 'nfyksdyy' &&
+                  HOSPITAL_ID != 'whsl'
+                "
+                v-model="staticObj.recordMonth"
+                @keyup="dateKey($event, staticObj, 'recordMonth')"
+              />
+            </div>
+            <div class="time">
+              <label class="label">时间：</label>
+              <input
+                type="text"
+                :disabled="
+                  recordDate != '' &&
+                  HOSPITAL_ID != 'huadu' &&
+                  HOSPITAL_ID != 'wujing'&&
+                  HOSPITAL_ID != 'gdtj' &&
+                  HOSPITAL_ID != 'nfyksdyy' &&
+                  HOSPITAL_ID != 'whsl'
+                "
+                v-model="staticObj.recordHour"
+                @keyup="timeKey($event, staticObj, 'recordHour')"
+              />
+            </div>
           </div>
-          <div class="time">
-            <label class="label">时间：</label>
-            <input
-              type="text"
-              :disabled="
-                recordDate != '' &&
-                HOSPITAL_ID != 'huadu' &&
-                HOSPITAL_ID != 'wujing'&&
-                HOSPITAL_ID != 'gdtj' &&
-                HOSPITAL_ID != 'nfyksdyy' &&
-                HOSPITAL_ID != 'whsl'
-              "
-              v-model="staticObj.recordHour"
-              @keyup="timeKey($event, staticObj, 'recordHour')"
-            />
+          <div v-if="['critical2_weihai'].includes(sheetInfo.sheetType) && activeTab==1" class="tongbuBtn">
+            <el-button
+              size="mini"
+              type="primary"
+              @click="openTB"
+            >
+              监护仪同步
+            </el-button>
+            <el-button
+              size="mini"
+              type="primary"
+              @click="openTB"
+            >
+              呼吸机同步
+            </el-button>
           </div>
-          </div>
-
-
           <div
             style="margin-left: 10px"
             v-if="
@@ -1012,6 +1026,9 @@
     <zxdtbModal
       ref="zxdtbModal"
     />
+    <jiqitbModal
+      ref="jiqitbModal"
+    />
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -1038,8 +1055,13 @@
 }
 
 .special-date-con {
+  position: relative;
   margin: 0 0 18px 0;
-
+  .tongbuBtn{
+    position: absolute;
+    right: 0;
+    top: 2px;
+  }
   .date {
     margin-right: 30px;
   }
@@ -1313,6 +1335,7 @@ import DiagnosisModal from "./diagnosis-modal.vue";
 import AdviceModal from "./advice-modal.vue";
 import { mapMutations, mapState } from 'vuex';
 import zxdtbModal from "./zxdtb-modal.vue";
+import jiqitbModal from "./jiqitb-modal.vue";
 import dischargeSetting from './discharge-setting.vue';
 
 function autoComplete(el, bind) {
@@ -3179,6 +3202,9 @@ export default {
       this.upOpenModalFromSpecial(true)
       this.$refs.zxdtbModal.open();
     },
+    openTB(){
+      this.$refs.jiqitbModal.open();
+    },
     openSpecialSymbols() {
       this.$refs.templateSlideFsry.openSpecialSymbols();
     }
@@ -3283,6 +3309,7 @@ export default {
     DiagnosisModal,
     AdviceModal,
     zxdtbModal,
+    jiqitbModal,
     zkModalZhzxy,
     templateSlideFSRY,
     newDiagnosisModal,
