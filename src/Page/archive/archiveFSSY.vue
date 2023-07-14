@@ -669,7 +669,7 @@ export default {
     // 跳转至电子病历
     openDetail(row) {
       const { patientId, visitId } = row
-      if (['foshanrenyi', 'lyxrm','zhzxy', 'whhk','nfyksdyy', 'stmz'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'lyxrm','zjhj','zhzxy', 'whhk','nfyksdyy', 'stmz'].includes(this.HOSPITAL_ID)) {
         const { href } = this.$router.resolve({
           path: "/home",
           query: { patientId, visitId }
