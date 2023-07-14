@@ -61,14 +61,14 @@
             <el-button
               size="mini"
               type="primary"
-              @click="openTB"
+              @click="openTB('jianhuyi')"
             >
               监护仪同步
             </el-button>
             <el-button
               size="mini"
               type="primary"
-              @click="openTB"
+              @click="openTB('huxiji')"
             >
               呼吸机同步
             </el-button>
@@ -1036,6 +1036,8 @@
       ref="zxdtbModal"
     />
     <jiqitbModal
+      :modalWidth="760"
+      @confirm="jiqiConfirm"
       ref="jiqitbModal"
     />
   </div>
@@ -1659,6 +1661,11 @@ export default {
     openPISlide(type) {
       // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
       this.bus.$emit("openclosePatientInfo", type, false, true);
+    },
+    jiqiConfirm(row){
+      Object.keys(row).map(key=>{
+        Object.keys(this.fixedList).includes(key) && (this.fixedList[key].value = row[key])
+      })
     },
     reactiveRows(row,key, maxLength, minRows, maxRows) {
       console.log(row[key],key,'row[key]')
@@ -3211,8 +3218,8 @@ export default {
       this.upOpenModalFromSpecial(true)
       this.$refs.zxdtbModal.open();
     },
-    openTB(){
-      this.$refs.jiqitbModal.open();
+    openTB(type){
+      this.$refs.jiqitbModal.open(type);
     },
     openSpecialSymbols() {
       this.$refs.templateSlideFsry.openSpecialSymbols();
