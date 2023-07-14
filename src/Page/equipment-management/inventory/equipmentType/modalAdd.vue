@@ -2,7 +2,7 @@
   <el-dialog size='tiny' :before-close="close" :title="title + '设备类别'" :visible.sync="visible">
     <el-form :model="form" :rules="rules" ref="ruleForm">
       <el-form-item v-if="title === '修改' " label="类别编码" :label-width="formLabelWidth">
-        <el-input readonly v-model="form.registrationCode" auto-complete="off"></el-input>
+        <el-input readonly v-model="form.code" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="类别名称" prop="name" :label-width="formLabelWidth">
         <el-input v-model="form.name" auto-complete="off"></el-input>

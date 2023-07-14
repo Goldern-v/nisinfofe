@@ -11,7 +11,7 @@
         <el-input v-model="form.name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="设备类别" prop="type" :label-width="formLabelWidth">
-        <el-select v-model="form.type" placeholder="请选择">
+        <el-select v-model="form.type" filterable placeholder="请选择">
           <el-option v-for="item in deviceType" :key="item.id"  :label="item.name" :value="item.name"></el-option>
         </el-select>
       </el-form-item>
@@ -104,12 +104,10 @@ export default {
       statusFlagSizeW: '',
       statusFlagSizeH: '',
       formLabelWidth: '125px',
-      // equipmentType: ['呼吸机', '氧气机', '血糖仪', '心电图机', '耳鼻喉镜'],
       deptList: [],
       rules: {
         code: [
           { required: true, message: '请输入设备编码', trigger: 'blur' },
-          // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
         name: [
           { required: true, message: '请输入设备名称', trigger: 'change' }
@@ -147,14 +145,18 @@ export default {
       done()
     },
     confirm(formName) {
-      // this.visible = false;
       this.$refs[formName].validate((valid) => {
         if (valid) {
           try{
             let url = this.title === '添加' ? add : update
+            if (this.title !== '添加') {
+              let type = this.deviceType.filter(item => item.name === this.form.type)
+              this.form.isRelated = (type.length && type[0].isRelated) || ''
+            }
             this.form.qrCodeSize = this.getSize(this.form.qrCodeSize, this.qrCodeSizeW, this.qrCodeSizeH)
             this.form.statusFlagSize = this.getSize(this.form.statusFlagSize, this.statusFlagSizeW, this.statusFlagSizeH, true)
             this.form.buyTime = moment(this.form.buyTime).format("YYYY-MM-DD HH:mm:ss")
+
             url(this.form).then(res => {
               if (res.data.code === "200") {
                 this.$message.success(`${this.title}设备类别信息成功！`);

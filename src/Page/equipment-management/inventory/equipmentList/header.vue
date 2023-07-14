@@ -3,7 +3,7 @@
     <div class="header-item">
       <div>
         <div class="item">设备类别：</div>
-        <el-select size="small" style="width: 110px;" @change="getTableData" v-model="title.type" placeholder="请选择">
+        <el-select filterable size="small" style="width: 110px;" @change="getTableData" v-model="title.type" placeholder="请选择">
           <el-option
             v-for="item in [{name: '全部', id: 'all'}, ...deviceType]"
             :key="item.id"
@@ -212,7 +212,7 @@ export default {
       this.$refs.modalAdd.visible = true
       if (row) {
         this.$refs.modalAdd.title = '修改'
-        let newRow = { ...row, qrCodeSize: this.getSize(row.qrCodeSize, 'qrCodeSize'), statusFlagSize: this.getSize(row.statusFlagSize, 'statusFlagSize'), buyTime: new Date(row.buyTime) || '' } 
+        let newRow = { ...row, qrCodeSize: this.getSize(row.qrCodeSize, 'qrCodeSize'), statusFlagSize: this.getSize(row.statusFlagSize, 'statusFlagSize'), buyTime: row.buyTime ? new Date(row.buyTime) : '' } 
         this.$nextTick(() => {
           this.$refs.modalAdd.form = newRow
         }) 

@@ -40,7 +40,7 @@
       </div>
       <div>
         <div class="item">设备类别：</div>
-        <el-select size="small" style="width: 100px;" @change="getTableData" v-model="title.type" placeholder="请选择">
+        <el-select filterable size="small" style="width: 100px;" @change="getTableData" v-model="title.type" placeholder="请选择">
           <el-option
             v-for="item in deviceType"
             :key="item.id"
