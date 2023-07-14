@@ -113,14 +113,24 @@
         kg
       </span>
     </div>
-    <div class="info-con" v-if="['extracardi_one_weihai', 'extracardi_two_weihai', 'extracardi_three_weihai'].includes(sheetInfo.sheetType)">
-      <span class="diagnosis-con" :title="patientInfo.diagnosis">诊断：{{patientInfo.diagnosis}}</span>
+    <!-- <div class="info-con" v-if="['extracardi_two_weihai', 'extracardi_three_weihai'].includes(sheetInfo.sheetType)">
+      <span class="diagnosis-con" :title="patientInfo.diagnosis" >诊断：{{patientInfo.diagnosis}}</span>
+    </div> -->
+
+    <div class="info-con  container" v-if="['extracardi_one_weihai','extracardi_two_weihai', 'extracardi_three_weihai'].includes(sheetInfo.sheetType)" style="flex: 2;">
+      <span class="diagnosis-con left" :title="patientInfo.diagnosis" >诊断：<div class="bottom-line">{{patientInfo.diagnosis}}</div></span>
+      <span class="right">手术名称：
+        <input
+        style="flex: 1;font-size:13px;text-align: left;"
+        class="bottom-line"
+        :data-value="sheetInfo.relObj[`ssmc`]"
+        v-model="sheetInfo.relObj[`ssmc`]"
+      /></span>
     </div>
-    <div
+    <!-- <div
       class="info-con"
       style="display: flex;align-items: center"
       v-if="[
-      'extracardi_one_weihai',
       'extracardi_two_weihai',
       'extracardi_three_weihai'
       ].includes(sheetInfo.sheetType)"
@@ -132,7 +142,7 @@
         :data-value="sheetInfo.relObj[`ssmc`]"
         v-model="sheetInfo.relObj[`ssmc`]"
       />
-    </div>
+    </div> -->
     <div
       class="info-con"
       style="display: flex;align-items: center"
@@ -329,5 +339,12 @@ input.bottom-line {
   border-left: 0;
   border-right: 0;
   outline: none;
+}
+
+.container{
+  display: flex;
+  .left, .right {
+  flex: 1; /* 设置元素的弹性比例为1，平分空间 */
+}
 }
 </style>

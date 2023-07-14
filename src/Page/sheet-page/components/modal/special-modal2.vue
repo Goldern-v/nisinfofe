@@ -822,7 +822,16 @@
               </div>
             </div>
           </el-tab-pane>
-          <el-tab-pane v-if="useDescription" label="特殊情况记录" name="3">
+          <el-tab-pane  :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 && sheetInfo.sheetType == 'extracardi_one_weihai'">
+            <dischargeSetting
+              ref="dischargeSetting"
+              :outChoseItemList="outChoseItemList"
+              :dictionary="dictionary"
+              :fixedList="fixedList"
+              ></dischargeSetting>
+          </el-tab-pane>
+          <!-- <el-tab-pane v-if="useDescription" label= "特殊情况记录" name="3"> -->
+          <el-tab-pane v-if="useDescription" :label= "sheetInfo.sheetType == 'extracardi_one_weihai'?'其他药物':'特殊情况记录'" name="3">
             <div class="title" flex="cross:center main:justify">
               <span>病情、药物治疗、护理措施、效果</span>
               <span
@@ -880,7 +889,7 @@
               </div>
             </el-checkbox-group>
           </el-tab-pane>
-          <el-tab-pane :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0">
+          <el-tab-pane :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 && sheetInfo.sheetType != 'extracardi_one_weihai'">
             <dischargeSetting
               ref="dischargeSetting"
               :outChoseItemList="outChoseItemList"
@@ -1485,9 +1494,9 @@ export default {
       evalData: state => state.sheet.evalData
     }),
     useDescription(){
-      if(this.record.length===0) return false 
+      if(this.record.length===0) return false
       if(this.record[0].find(item => ((item.key == 'description' || item.key == 'specialRecord') && !item.hidden))) return true
-      return false 
+      return false
     },
     modalOutWidth(){
       if('critical2_weihai' === this.sheetInfo.sheetType && (this.activeTab==="5" || this.activeTab==="6")) return 1420
