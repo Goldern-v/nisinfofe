@@ -836,14 +836,14 @@
               </div>
             </div>
           </el-tab-pane>
-          <el-tab-pane  :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 && sheetInfo.sheetType == 'extracardi_one_weihai'">
+          <!-- <el-tab-pane  :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 ">
             <dischargeSetting
               ref="dischargeSetting"
               :outChoseItemList="outChoseItemList"
               :dictionary="dictionary"
               :fixedList="fixedList"
               ></dischargeSetting>
-          </el-tab-pane>
+          </el-tab-pane> -->
           <!-- <el-tab-pane v-if="useDescription" label= "特殊情况记录" name="3"> -->
           <el-tab-pane v-if="useDescription" :label= "sheetInfo.sheetType == 'extracardi_one_weihai'?'其他药物':'特殊情况记录'" name="3">
             <div class="title" flex="cross:center main:justify">
@@ -903,7 +903,7 @@
               </div>
             </el-checkbox-group>
           </el-tab-pane>
-          <el-tab-pane :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 && sheetInfo.sheetType != 'extracardi_one_weihai'">
+          <el-tab-pane :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 ">
             <dischargeSetting
               ref="dischargeSetting"
               :outChoseItemList="outChoseItemList"
