@@ -240,7 +240,7 @@
               textAlign:'left'
             }, (HOSPITAL_ID == 'foshanrenyi' && td.signDisabled && { cursor: 'not-allowed' }))
           "
-          @contextmenu.stop="openContextMenu($event, y, tr, td)"
+          @contextmenu.stop="openContextMenu($event, y, tr, td,{ tr, x ,y ,index })"
           @click="
             selectedItem(td);
             (
@@ -1244,7 +1244,6 @@ export default {
           }
 
         }
-        console.log(td.value);
       }
       if(this.sheetInfo.sheetType == 'body_temperature_Hd'){
         let confirmRes = '';
@@ -2369,7 +2368,7 @@ export default {
         return false;
       }
     },
-   
+
     isOverText(td, isSdyy) {
       try {
         let inputWidth = td.textarea.width;
@@ -2390,7 +2389,7 @@ export default {
       }
     },
     // 右键菜单
-    openContextMenu(e, index, row, cell) {
+    openContextMenu(e, index, row, cell,datas) {
       $(e.target).parents("tr").addClass("selectedRow");
       let style = {
         top: `${Math.min(e.clientY - 15, window.innerHeight - 280)}px`,
@@ -2453,7 +2452,8 @@ export default {
             } else {
               this.toCopyRow(index);
             }
-            console.log(index);
+            //这个方法是处理   每次点击没有自动调用查询是否更改的方法的BUG
+            this.$emit('onModalChange', e,this.data.bodyModel[index], datas.x, datas.y, datas.index)
           },
         },
         {

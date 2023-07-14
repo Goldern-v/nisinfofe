@@ -35,7 +35,7 @@
         label="年龄"
         prop="age"
         min-width="70px"
-        v-if="['foshanrenyi'].includes(HOSPITAL_ID)"
+        v-if="['foshanrenyi','nfyksdyy'].includes(HOSPITAL_ID)"
       ></el-table-column>
       <el-table-column
           v-if="['nfyksdyy'].includes(HOSPITAL_ID)"

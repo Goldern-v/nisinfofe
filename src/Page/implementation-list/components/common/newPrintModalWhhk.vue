@@ -31,18 +31,35 @@
     </div>
 
     <div class="new-print-modal__content">
-      <div class="flex" >
-        <div style="width: 66%; text-align: center;">药品名称</div>
+      <!-- <div class="flex" style="display: flex;" >
+        <div style="width: 25%; margin-left: 50px">药品名称</div>
         <div style="width: 10%;">规格</div>
         <div style="width: 10%;">数量</div>
         <div style="width: 10%;">剂量</div>
       </div>
       <div v-for="(item, index) in this.itemObj"
+        :key="index"   style="line-height: 1.2;">
+        <div >
+          <span  :class="'table-cell-span'">{{ item.orderText }}</span>
+        </div>
+        <div style="display: flex; margin-left: 40%; justify-content: normal" >
+        <div style="width: 100px; text-align: center;" :class="'table-cell-span1'">{{ item.expand2 }}</div>
+        <div  >{{ item.expand3 }}</div>
+        <div style="margin-left: 35px;" :class="'table-cell-span3'">{{ currentBottle.dosageDosageUnits[index] }}</div>
+        </div>
+      </div> -->
+       <div class="flex" style="text-align: center;">
+        <div style="width: 64%; ">药品名称</div>
+        <div style="width: 21%; ">规格</div>
+        <div style="width: 13%;">数量</div>
+        <div style="width: 12%;">剂量</div>
+      </div>
+      <div v-for="(item, index) in this.itemObj"
             :key="index" :class="'table-cell'"  style="line-height: 1.2;">
-        <span style="width: 66%;white-space: pre-wrap;" :class="'table-cell-span'">{{ item.orderText }}</span>
-        <span style="width: 10%;" :class="'table-cell-span1'">{{ item.expand2 }}</span>
+        <span style="width: 50%;white-space: pre-wrap;" :class="'table-cell-span'">{{ item.orderText }}</span>
+        <span style="width: 26%;" :class="'table-cell-span1'">{{ item.expand2 }}</span>
         <span style="width: 10%; text-align: center;" >{{ item.expand3 }}</span>
-        <span style="width: 10%;" :class="'table-cell-span3'">{{ currentBottle.dosageDosageUnits[index] }}</span>
+        <span style="width: 12%;" :class="'table-cell-span3'">{{ currentBottle.dosageDosageUnits[index] }}</span>
       </div>
     </div>
     <div class="new-print-modal__tip">
@@ -111,24 +128,24 @@
  <style lang="scss" scoped>
 
 // 表格样式
-  .new-print-modal__content_l {
-    max-height: 125px;
-    min-height:125px;
-    td, tr {
-      border: none !important;
-    }
-    // margin-top: 4px;
-    tr:nth-child(n + 1) {
-      font-size: 13px;
-    }
-    tr td:nth-child(n + 1) {
-      text-align: center;
-    }
-    // span {
-    //   // font-weight: 900;
-    //   line-height: 14px;
-    // }
-  }
+  // .new-print-modal__content_l {
+  //   max-height: 125px;
+  //   min-height:125px;
+  //   td, tr {
+  //     border: none !important;
+  //   }
+  //   // margin-top: 4px;
+  //   tr:nth-child(n + 1) {
+  //     font-size: 13px;
+  //   }
+  //   tr td:nth-child(n + 1) {
+  //     text-align: center;
+  //   }
+  //   // span {
+  //   //   // font-weight: 900;
+  //   //   line-height: 14px;
+  //   // }
+  // }
 
 
 .bb {
@@ -263,11 +280,11 @@
     div {
       display: flex;
       justify-content: space-between;
-      line-height: 12px;
+      line-height: 16px;
       text-align: left;
     }
     span {
-      white-space: nowrap;
+      // white-space: nowrap;
     }
   }
   .new-print-modal__tip {

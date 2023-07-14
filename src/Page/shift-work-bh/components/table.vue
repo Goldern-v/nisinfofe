@@ -51,7 +51,7 @@
                 @keydown.native="onInputKeydown($event, row[col.prop], col.prop, rowIndex, colIndex)"
               />
             </label>
-            <div class="cell" v-else>{{row[col.prop]}}</div>
+            <div class="cell" v-else>{{row[col.prop]}} </div>
           </td>
         </tr>
         <slot></slot>
@@ -122,7 +122,6 @@ export default {
           columns.push(col);
         }
       }
-
       return columns;
     }
   },

@@ -143,9 +143,9 @@ export function cleanDataOnly() {
     ) {
       return true;
     }
-    if (listData && listData[x] && listData[x].canModify) {
-      return false;
-    }
+    // if (listData && listData[x] && listData[x].canModify) {
+    //   return false;
+    // }
     // 当审核完，就出现问题，下拉还是会出现。 用this.isDisabed解决
     // 这里主要是给弹窗做判断isRead
     if (
@@ -169,16 +169,16 @@ export function cleanDataOnly() {
           }
         }
       }
-    if (
-      process.env.HOSPITAL_ID === "nfyksdyy" &&
-      listData &&
-      listData[nowX] &&
-      listData[nowX].status == 2 &&
-      !listData[nowX].canModify
-    ) {
-      // 当审核完，status=2&&canModify=false,
-      return true;
-    }
+    // if (
+    //   process.env.HOSPITAL_ID === "nfyksdyy" &&
+    //   listData &&
+    //   listData[nowX] &&
+    //   listData[nowX].status == 2 &&
+    //   !listData[nowX].canModify
+    // ) {
+    //   // 当审核完，status=2&&canModify=false,
+    //   return true;
+    // }
   };
   // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
   let isDisabed = function(tr, td, x, y, bodyModel, nowX, sheetType) {
@@ -216,26 +216,26 @@ export function cleanDataOnly() {
       }
     }
     // 顺德护记单除特殊情况以及同一记录的第一条其余填写保存后锁定
-    if (process.env.HOSPITAL_ID === "nfyksdyy") {
-      // 如果审核完，canModify = false 全部禁用
-      if (
-        listData[nowX] &&
-        listData[nowX].status == 2 &&
-        !listData[nowX].canModify
-      ) {
-        return true;
-      } else {
-        // 否则按照锁定规则
-        const firstEqualIndex = listData.findIndex(
-          item => listData[nowX] && item.recordDate == listData[nowX].recordDate
-        );
-        return (
-          firstEqualIndex != -1 &&
-          firstEqualIndex !== nowX &&
-          td.key != "description"
-        );
-      }
-    }
+    // if (process.env.HOSPITAL_ID === "nfyksdyy") {
+    //   // 如果审核完，canModify = false 全部禁用
+    //   if (
+    //     listData[nowX] &&
+    //     listData[nowX].status == 2 &&
+    //     !listData[nowX].canModify
+    //   ) {
+    //     return true;
+    //   } else {
+    //     // 否则按照锁定规则
+    //     const firstEqualIndex = listData.findIndex(
+    //       item => listData[nowX] && item.recordDate == listData[nowX].recordDate
+    //     );
+    //     return (
+    //       firstEqualIndex != -1 &&
+    //       firstEqualIndex !== nowX &&
+    //       td.key != "description"
+    //     );
+    //   }
+    // }
     // 如果审核完，canModify=false才禁用
     if (
       process.env.HOSPITAL_ID === "gdtj" &&
@@ -337,8 +337,11 @@ export function cleanDataOnly() {
       return -1
     }
     // 签名是否可以点击（签名除同一记录的最后一个不锁定，其他锁定）
-  let setSignDiabled=function(td, nowX ,listData) {
-      if (process.env.HOSPITAL_ID == 'nfyksdyy') {
+    let setSignDiabled=function(td, nowX ,listData) {
+
+      if (process.env.HOSPITAL_ID == 'foshanrenyi') {
+        // 佛山人医表示取消该功能 禅道ID 14369
+        return false
         const lastIndex = findLastIndex(
           listData,
           item => item && listData[nowX] && item.recordDate == listData[nowX].recordDate

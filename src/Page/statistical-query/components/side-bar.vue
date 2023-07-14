@@ -192,6 +192,13 @@ export default {
                   img: require("../images/VTE.png"),
                 },
               },
+              {
+                name: "statisticalNutritionalRisk",
+                meta: {
+                  title: '营养风险统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
             ],
             nfyksdyy:[
               {

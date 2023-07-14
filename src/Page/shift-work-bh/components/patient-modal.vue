@@ -80,7 +80,7 @@
         <ElTabPane label="A评估" name="3">
           <template v-if="HOSPITAL_ID == 'ytll'">
             <div class="label">跌：<ElInput type="text" ref="fall" style="width:100px;" v-model="form.fall" :disabled="isSignedN"/></div>
-            <div class="label">VTE：<ElInput type="text" ref="VTE" style="width:100px;" v-model="form.VTE" :disabled="isSignedN"/></div>
+            <div class="label">VTE：<ElInput type="text" ref="VTE" style="width:100px;" v-model="form.vte" :disabled="isSignedN"/></div>
             <div class="label">压：<ElInput type="text" ref="ulcer" style="width:100px;" v-model="form.ulcer" :disabled="isSignedN"/></div>
             <div class="label">管：<ElInput type="text" ref="conduit" style="width:100px;" v-model="form.conduit" :disabled="isSignedN"/></div>
           </template>
