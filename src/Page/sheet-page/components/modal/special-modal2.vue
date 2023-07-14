@@ -1664,7 +1664,7 @@ export default {
     },
     jiqiConfirm(row){
       Object.keys(row).map(key=>{
-        Object.keys(this.fixedList).includes(key) && (this.fixedList[key].value = row[key])
+        Object.keys(this.fixedList).includes(key) && row[key] && (this.fixedList[key].value = row[key])
       })
     },
     reactiveRows(row,key, maxLength, minRows, maxRows) {
