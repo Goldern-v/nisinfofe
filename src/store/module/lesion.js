@@ -5,7 +5,7 @@ export default {
     deptName: "",
     wardCode: "",
     wardName: "",
-    updateDataTime: new Date().Format("hh: mm"),
+    updateDataTime: new Date(),
     taskType: "0",
     oldFormInfo:{},
     checkDeptName: ""

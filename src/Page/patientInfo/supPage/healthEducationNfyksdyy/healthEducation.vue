@@ -85,7 +85,7 @@
                     >
                     <span style="margin-left: 20px;"
                       >床号：{{
-                        patientInfo.bedLabel || tableHeaderInfo.bedLabel
+                        patientInfo.bedExchange ||  patientInfo.bedLabel || tableHeaderInfo.bedLabel
                       }}</span
                     >
                     <span
@@ -97,11 +97,10 @@
                   <div class="sdyyinfo" style="border-bottom: 1px solid #000;">
                     <span
                       >科室：{{
-                        patientInfo.deptName || tableHeaderInfo.deptName
+                         patientInfo.deptExchange || patientInfo.deptName || tableHeaderInfo.deptName
                       }}</span
                     >
-                    <span style="margin-left: 20px;width: 372px;"
-                      @click="handleDeptNameChoose(true)" >病区:{{ $route.query.wardName }}</span
+                    <span style="margin-left: 20px;width: 372px;" >病区:{{  patientInfo.wardExchange || $route.query.wardName }}</span
                     >
                   </div>
                 </div>
@@ -124,21 +123,6 @@
             @confirm="pullData"
             :pageParam="pageParam"
           />
-          <!-- 转科弹窗 -->
-          <changeMajorRadio
-            :dialogTableVisibleTrue="dialogDeptNameVisible"
-            :majorData="{
-              patientId: patientInfo.patientId,
-              visitId: patientInfo.visitId,
-              id: blockId
-            }"
-            @TableVisible="val => (dialogDeptNameVisible = val)"
-            @savedata="
-              val => {
-                val && $refs.editModal.submitForm('ruleForm');
-              }
-            "
-          ></changeMajorRadio>
         </div>
       </div>
     </div>
@@ -188,7 +172,6 @@ export default {
       pageParam: [], // 表格数据
       selected: null, // 选择某行
       configList: [],
-      dialogDeptNameVisible: false,
     };
   },
   computed: {
@@ -200,11 +183,6 @@ export default {
     this.init();
   },
   methods: {
-    // 转科弹窗
-    handleDeptNameChoose(val) {
-      console.log('dddddddddddddd');
-      this.dialogDeptNameVisible = val
-    },
     // 获取下拉框数据列表
     init() {
       this.getSelectData(1);
