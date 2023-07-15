@@ -89,7 +89,7 @@ export default [
     next: "ml",
     name: "入量1",
     change: (e, td) => limitChange(e, td, 10),
-    textarea: { width: 50 },
+    textarea: { width: 30 },
   },
   {
     key: "inputTwo",
@@ -97,7 +97,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量2",
-    textarea: { width: 50 },
+    textarea: { width: 30 },
   },
   {
     key: "inputThree",
@@ -105,7 +105,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量3",
-    textarea: { width: 50 },
+    textarea: { width: 30 },
   },
   {
     key: "inputFout",
@@ -113,7 +113,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量4",
-    textarea: { width: 50 },
+    textarea: { width: 30 },
   },
   {
     key: "inputFive",
@@ -121,7 +121,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量5",
-    textarea: { width: 50 },
+    textarea: { width: 30 },
   },
   {
     key: "inputSix",
@@ -129,7 +129,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量6",
-    textarea: { width: 50 },
+    textarea: { width: 30 },
   },
   {
     key: "inputSeven",
@@ -137,14 +137,14 @@ export default [
     value: "",
     next: "ml",
     name: "口服/鼻饲",
-    textarea: { width: 50 },
+    textarea: { width: 30 },
   },
   {
     key: "inputEight",
     event: keyf1,
     value: "",
     name: "入量每时",
-    textarea: { width: 50 },
+    textarea: { width: 70 },
   },
   // {
   //   key: "totalInput",
@@ -165,7 +165,7 @@ export default [
     event: keyf1,
     value: "",
     name: "出量每时",
-    textarea: { width: 50 },
+    textarea: { width: 70 },
   },
   {
     key: "outputOne",
@@ -173,7 +173,7 @@ export default [
     value: "",
     next: "ml",
     name: "尿量",
-    textarea: { width: 50 },
+    textarea: { width: 70 },
    },
   // {
   //   key: "outputTwo",
@@ -197,7 +197,7 @@ export default [
     value: "",
     next: "ml",
     name: "心包胸骨后",
-    textarea: { width: 50 },
+    textarea: { width: 90 },
   },
   {
     key: "outputFive",
@@ -205,7 +205,7 @@ export default [
     value: "",
     next: "ml",
     name: "胸腔闭式引流",
-    textarea: { width: 50 },
+    textarea: { width: 90 },
   },
   {
     key: "outputSix",

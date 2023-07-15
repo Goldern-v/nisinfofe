@@ -56,27 +56,27 @@ export default {
         colspan: "1",
         rowspan: "2",
       },
-      { name: "1", colspan: "1", rowspan: "2", style: { minWidth: "45px", maxWidth: "45px" } },
-      { name: "2", colspan: "1", rowspan: "2", style: { minWidth: "45px", maxWidth: "45px" } },
-      { name: "3", colspan: "1", rowspan: "2", style: { minWidth: "45px", maxWidth: "45px" } },
-      { name: "4", colspan: "1", rowspan: "2", style: { minWidth: "45px", maxWidth: "45px" } },
-      { name: "5", colspan: "1", rowspan: "2", style: { minWidth: "45px", maxWidth: "45px" } },
-      { name: "6", colspan: "1", rowspan: "2", style: { minWidth: "45px", maxWidth: "45px" } },
+      { name: "1", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
+      { name: "2", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
+      { name: "3", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
+      { name: "4", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
+      { name: "5", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
+      { name: "6", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
       {
         name: "口服<br/>/<br/>鼻饲<br/>",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "50px", maxWidth: "50px" }
+        style: { minWidth: "30px", maxWidth: "30px" }
       },
-      { name: "每时", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
+      { name: "每时", colspan: "1", rowspan: "2", style: { minWidth: "70px", maxWidth: "70px" } },
       // { name: "总量", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
       // { name: "总量", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
-      { name: "每时", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
+      { name: "每时", colspan: "1", rowspan: "2", style: { minWidth: "70px", maxWidth: "70px" } },
       {
         name: "尿量<br/>",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "50px", maxWidth: "50px" }
+        style: { minWidth: "70px", maxWidth: "70px" }
       },
       // {
       //   name: "累计<br/>尿量<br/>(ml)",
@@ -94,19 +94,19 @@ export default {
         name: "心包<br/>胸骨后<br/>",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "50px", maxWidth: "50px" }
+        style: { minWidth: "90px", maxWidth: "90px" }
       },
       {
         name: "胸腔闭<br/>式引流<br/>",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "50px", maxWidth: "50px" }
+        style: { minWidth: "90px", maxWidth: "90px" }
       },
       {
         name: "其他<br/>",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "50px", maxWidth: "50px" }
+        style: { minWidth: "60px", maxWidth: "60px" }
       },
     ],
     bottom: []
