@@ -415,50 +415,19 @@ export default {
       }
     },
     selectPatient(patient) {
-      console.log(this.$route.path , this.HOSPITAL_ID == 'nfyksdyy' && this.$route.path == '/admissionPageAdult' && adultPatientId != patient.patientId);
-      let adultPatientId = this.$store.state.patient.currentPatient.patientId
-      if (
-       this.HOSPITAL_ID == 'nfyksdyy' && this.$route.path.includes('/admissionPageAdult')  && adultPatientId != patient.patientId
-      ) {
-        window.app
-        .$confirm("入院评估（成人），离开将会丢失数据", "提示", {
-          confirmButtonText: "离开",
-          cancelButtonText: "取消",
-          type: "warning",
-        })
-        .then((res) => {
-          this.selectPatientId = patient.patientId;
-          localStorage.setItem('PageAdultpatientId', true)
-          if (this.callFunction) {
-            this.$route.query.patientId = patient.patientId;
-            this.$route.query.visitId = patient.visitId;
-            this.$route.query.inpNo = patient.inpNo;
-            patient.formId = this.$route.params.formId || "";
-            //
-            this.$store.commit("upCurrentPatientObj", patient);
-            this.$store.commit("upWardCode", patient.wardCode || "");
-            this.$store.commit("upWardName", patient.wardName || "");
-            //patient 参数 true是否要滚动到最后一页
-            this.callFunction(patient,true);
-            //
-          }
-        }).catch((err)=>{
-          return
-        })
-      } else{
-         if (this.callFunction) {
-            this.$route.query.patientId = patient.patientId;
-            this.$route.query.visitId = patient.visitId;
-            this.$route.query.inpNo = patient.inpNo;
-            patient.formId = this.$route.params.formId || "";
-            //
-            this.$store.commit("upCurrentPatientObj", patient);
-            this.$store.commit("upWardCode", patient.wardCode || "");
-            this.$store.commit("upWardName", patient.wardName || "");
-            //patient 参数 true是否要滚动到最后一页
-            this.callFunction(patient,true);
-            //
-          }
+      this.selectPatientId = patient.patientId;
+      if (this.callFunction) {
+        this.$route.query.patientId = patient.patientId;
+        this.$route.query.visitId = patient.visitId;
+        this.$route.query.inpNo = patient.inpNo;
+        patient.formId = this.$route.params.formId || "";
+        //
+        this.$store.commit("upCurrentPatientObj", patient);
+        this.$store.commit("upWardCode", patient.wardCode || "");
+        this.$store.commit("upWardName", patient.wardName || "");
+        //patient 参数 true是否要滚动到最后一页
+        this.callFunction(patient,true);
+        //
       }
     },
     isActive(item) {
@@ -595,11 +564,7 @@ export default {
         );
       } catch (error) {}
       if (this.hasPatientGroup && this.patientGroup) {
-        if(this.HOSPITAL_ID == 'nfyksdyy'){
-          putSortList = putSortList.filter(item => item.expand3 === this.patientGroup);
-        }else {
-          return putSortList.filter(item => item.expand3 === this.patientGroup);
-        }
+        return putSortList.filter(item => item.expand3 === this.patientGroup);
       }
       // 高级筛选处理
       if(this.fliterList.length && this.HOSPITAL_ID == 'nfyksdyy'){
