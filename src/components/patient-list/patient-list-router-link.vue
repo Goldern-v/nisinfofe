@@ -564,7 +564,11 @@ export default {
         );
       } catch (error) {}
       if (this.hasPatientGroup && this.patientGroup) {
-        return putSortList.filter(item => item.expand3 === this.patientGroup);
+        if(this.HOSPITAL_ID == 'nfyksdyy'){
+          putSortList = putSortList.filter(item => item.expand3 === this.patientGroup);
+        }else {
+          return putSortList.filter(item => item.expand3 === this.patientGroup);
+        }
       }
       // 高级筛选处理
       if(this.fliterList.length && this.HOSPITAL_ID == 'nfyksdyy'){
