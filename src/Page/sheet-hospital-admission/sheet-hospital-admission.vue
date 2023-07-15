@@ -194,25 +194,12 @@ export default {
     this.$store.commit("upPatientInfo", {});
   },
   beforeRouteUpdate(to,from,next){
-    if(this.HOSPITAL_ID == 'nfyksdyy'){
-
-      window.app
-         .$confirm("入院评估（成人），离开将会丢失数据", "提示", {
-           confirmButtonText: "离开",
-           cancelButtonText: "取消",
-           type: "warning",
-         })
-         .then((res) => {
-           this.formCode = (to.meta && to.meta.formCode) || ''
-           this.pathRouter = to.name
-           next();
-         });
-    }else{
-      this.formCode = (to.meta && to.meta.formCode) || ''
-      this.pathRouter = to.name
-    }
+    this.formCode = (to.meta && to.meta.formCode) || ''
+    this.pathRouter = to.name
+     next();
   },
   beforeRouteLeave(to, from, next) {
+    if(this.HOSPITAL_ID == 'nfyksdyy'){
     window.app
       .$confirm("入院评估（成人），离开将会丢失数据", "提示", {
         confirmButtonText: "离开",
@@ -222,6 +209,9 @@ export default {
       .then((res) => {
         next();
       });
+    }else{
+      next()
+    }
   },
   mounted() {
 

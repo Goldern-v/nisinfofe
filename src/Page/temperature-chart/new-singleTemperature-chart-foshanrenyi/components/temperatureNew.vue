@@ -86,9 +86,9 @@ export default {
           // return "http://localhost:8080"
           return "http://192.168.103.17:9091"
         case 'nfyksdyy':
-          // return "http://192.168.0.200:9091" // 医院内网
+          return "http://192.168.0.200:9091" // 医院内网
           // return "http://59.38.110.189:9092" // 医院外网
-          return "http://localhost:8080" // 本地
+          // return "http://localhost:8080" // 本地
         default:
           break;
       }
@@ -112,8 +112,8 @@ export default {
       printAllPath: "",
       queryDate: moment().format('YYYY-MM-DD'),
       intranetUrl:
-        // `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
-      `${baseUrl}/#/` /* 医院正式环境内网 导致跨域 */,
+        `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
+      // `${baseUrl}/#/` /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
         `${baseUrl}/temperature/#/printAll` /* 医院正式环境内网 */,
     };
@@ -262,6 +262,9 @@ export default {
             break;
           case "clickDateTime":
             this.getDataFromPage(e.data.value);
+            break;
+          case "tipMessage":
+            this.$message.success('保存转床床号成功')
             break;
           default:
             break;

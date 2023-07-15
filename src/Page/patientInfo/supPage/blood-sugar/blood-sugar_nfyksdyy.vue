@@ -647,7 +647,7 @@ if(this.selected.expand2!==undefined){
           resBedNolList.push(resBedNolRes.data.data.bedExchangeLog)
         }
       }
-      this.resBedNol = resBedNolList.join(',')
+      this.resBedNol = resBedNolList.length ? resBedNolList.join(',') : this.patientInfo.bedLabel
     },
     toPrint() {
       if (this.HOSPITAL_ID === 'sdlj') {
@@ -816,7 +816,7 @@ if(this.selected.expand2!==undefined){
        }
       updateBedExchangeInfo(bedData).then((res)=>{
         this.$message({
-          message: '保存成功',
+          message: '保存转床床号成功',
           type: 'success'
         })
       })
