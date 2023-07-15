@@ -92,8 +92,35 @@ export default [
       data: []
     },
     textarea: {
-      width: 36
+      width: 65
     }
+  },
+  {
+    key: "pulse", // 脉搏<br>(次/分)
+    value: "",
+    event: keyf1,
+    name: " 脉搏<br>(次/分)",
+    autoComplete: {
+      data: []
+    },
+  },
+  {
+    key: "spo2", //血氧饱和度(%)
+    value: "",
+    event: keyf1,
+    name: "血氧饱和度(%)",
+    autoComplete: {
+      data: []
+    },
+  },
+  {
+    key: "temperature", //体温<br>℃
+    value: "",
+    event: keyf1,
+    name: "体温℃",
+    autoComplete: {
+      data: []
+    },
   },
   {
     key: "membranes", //胎膜
@@ -105,7 +132,10 @@ export default [
     key: "amnion", //羊水性质
     value: "",
     event: keyf1,
-    name: "羊水性质"
+    name: "羊水性质",
+    textarea: {
+      width: 50
+    }
   },
   {
     key: "description", //特殊情况记录
@@ -120,7 +150,6 @@ export default [
       background: "transparent"
     },
     event: function (e, td) {
-      console.log(e.keyCode);
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
         e.preventDefault();

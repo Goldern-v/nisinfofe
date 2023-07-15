@@ -1160,10 +1160,14 @@ export default {
             });
           });
         } else if (this.patientGroup) {
-          return this.patientsInfoData.filter(
-            item => item.expand3 === this.patientGroup
-          );
-        } else if (this.HOSPITAL_ID == 'nfyksdyy' && this.searchWord.length){
+          if(this.isNfyksdyy){
+            data = this.patientsInfoData.filter(
+            item => item.expand3 === this.patientGroup)
+          }else {
+             return  this.patientsInfoData.filter(
+            item => item.expand3 === this.patientGroup)
+          }
+        } else if (this.isNfyksdyy && this.searchWord.length){
           data = this.patientsInfoData.filter(item => {
             return  this.searchWord.some(beditem => item.bedLabel.match(beditem))
           })

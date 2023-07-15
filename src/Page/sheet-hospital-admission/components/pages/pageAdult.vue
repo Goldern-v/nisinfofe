@@ -500,7 +500,23 @@ export default {
         }
       }
     }
-  }
+  },
+
+  beforeRouteLeave(to, from, next) {
+    if(this.HOSPITAL_ID == 'nfyksdyy'){
+    window.app
+      .$confirm("入院评估（成人），离开将会丢失数据", "提示", {
+        confirmButtonText: "离开",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+      .then((res) => {
+        next();
+      });
+    }else{
+       next();
+    }
+  },
 };
 </script>
 

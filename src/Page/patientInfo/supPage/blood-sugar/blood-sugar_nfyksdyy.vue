@@ -28,7 +28,8 @@
             <span>姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
             <span style="margin-left: 20px;">性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span style="margin-left: 20px;">年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
-            <span style="margin-left: 20px;">床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
+            <!-- <span style="margin-left: 20px;">床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span> -->
+            <span style="margin-left: 20px;">床号：<input type="text" :value="resBedNol.split(',')[index]" style="width:128px; border:none;resize: none; outline:none;" @blur="onResBedNo($event,index+1)"></span>
             <span style="margin-left: 20px;">住院号：{{patientInfo.inpNo}}</span>
           </div>
           <div class="info" style="border-bottom: 1px solid #000;">
@@ -415,7 +416,9 @@ import {
   getSugarItemDict,
   getEditAge,
   getFormHeadData,
-  getPrintRecord
+  getPrintRecord,
+  getBedExchangeInfo,
+  updateBedExchangeInfo
 } from "./api/index.js";
 import whiteButton from "@/components/button/white-button.vue";
 import sugarChart from "./components/sugar-chart.vue";
@@ -578,6 +581,7 @@ if(this.selected.expand2!==undefined){
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
+
       if( this.HOSPITAL_ID === 'whfk'){
         this.getPrintRecordData();
       }
@@ -586,13 +590,16 @@ if(this.selected.expand2!==undefined){
         this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel
       }
       this.resAge = res.data.data.age;
+
+
+
       ////表头用户信息通过获取用户信息接口获取的医院
       (this.hisUserTitLeList.includes(this.HOSPITAL_ID)) && (this.sugarUserInfo = res.data.data);
       if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
         this.resName = res.data.data.name;
         this.resGender = res.data.data.gender;
         this.resDeptName = res.data.data.deptName;
-        this.resBedNol = res.data.data.bedNo;
+        // this.resBedNol = res.data.data.bedNo;
         this.resInHosId = res.data.data.inHosId;
       }
       if (this.HOSPITAL_ID == "fuyou") this.tDeptName = res.data.data.deptName;
@@ -600,7 +607,6 @@ if(this.selected.expand2!==undefined){
       this.pageLoading = false;
 
       this.hisPatSugarList = res.data.data.hisPatSugarList;
-      console.log('this.hisPatSugarList',this.hisPatSugarList)
       /** 时间排序 */
       let list = res.data.data.hisPatSugarList.sort(
         (a, b) =>
@@ -626,6 +632,22 @@ if(this.selected.expand2!==undefined){
           this.startPage = 1;
         }
       });
+      let resBedNolList = []
+      // 获取动态床号数据
+      if(this.listMap.length){
+        for(let i = 1 ; i <=  this.listMap.length; i++){
+          let bedData = {
+              bedLabelNew: this.resBedNol || this.patientInfo.bedLabel,
+              moduleCode: 'sugar',
+              pageNo: i,
+              patientId: this.patientInfo.patientId,
+              visitId: this.patientInfo.visitId
+          }
+          const resBedNolRes = await getBedExchangeInfo(bedData)
+          resBedNolList.push(resBedNolRes.data.data.bedExchangeLog)
+        }
+      }
+      this.resBedNol = resBedNolList.join(',')
     },
     toPrint() {
       if (this.HOSPITAL_ID === 'sdlj') {
@@ -783,6 +805,21 @@ if(this.selected.expand2!==undefined){
       }, err => {
 
       });
+    },
+    async onResBedNo(e,index){
+      let bedData = {
+           bedLabelNew: e.target.value,
+           moduleCode: 'sugar',
+           pageNo: index,
+           patientId: this.patientInfo.patientId,
+           visitId: this.patientInfo.visitId
+       }
+      updateBedExchangeInfo(bedData).then((res)=>{
+        this.$message({
+          message: '保存成功',
+          type: 'success'
+        })
+      })
     },
   },
   mounted(){
