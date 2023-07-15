@@ -65,13 +65,13 @@
             >
               监护仪同步
             </el-button>
-            <el-button
+            <!-- <el-button
               size="mini"
               type="primary"
               @click="openTB('huxiji')"
             >
               呼吸机同步
-            </el-button>
+            </el-button> -->
           </div>
           <div
             style="margin-left: 10px"
