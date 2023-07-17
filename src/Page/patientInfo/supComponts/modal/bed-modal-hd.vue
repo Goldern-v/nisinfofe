@@ -171,17 +171,17 @@
       >
         <div class="bed-card-vert-con">
           <div>
-            <div class="top">
+            <div class="top" >
               <span >科室：{{ query.deptName }}</span>
             </div>
             <div>
-              <div>
+              <div :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-1px' : ''}">
                 <span>{{ query.name }}</span>
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
                 <span>{{ query.bedLabel }}床</span>
               </div>
-              <div>
+              <div :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-5px' : ''}">
                 <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
               </div>
               <div
@@ -189,6 +189,7 @@
               >
                 <p
                   :class="[allergy1 || drugGms || allergy2 ? 'gm' : '']"
+                  :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-5px' : ''}"
                 >
                   过敏信息：
                   <span v-if="allergy1">{{ allergy1 }};</span>
@@ -200,12 +201,14 @@
             </div>
           </div>
              <img
+               :style="{right: ['liaocheng'].includes(HOSPITAL_ID) ? '80px' : ''}"
                style="right: 50px; margin-top: -65px"
                class="qr-code"
                :class="{ hasRemark: hasRemark }"
                :src="qrCode"
               />
-            <span style="position: absolute;right: 90px;top: 87px;}">{{ query.inpNo }}</span>
+            <span v-if="!isliaocheng" style="position: absolute;right: 90px;top: 87px;">{{ query.inpNo }}</span>
+            <span v-if="isliaocheng" style="position: absolute;right: 90px;top: 87px;">{{ query.patientId }}</span>
         </div>
       </div>
       </template>
@@ -1024,6 +1027,7 @@ export default {
       isDglb: 'dglb' === this.HOSPITAL_ID,
       isWhhk: 'whhk' === this.HOSPITAL_ID,
       isZhzxy: 'zhzxy' === this.HOSPITAL_ID,
+      isliaocheng : 'liaocheng' === this.HOSPITAL_ID
     };
   },
   computed: {
@@ -1155,7 +1159,7 @@ export default {
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
       this.qrCodeNum = this.query.patientId;
-    
+
       if (this.printMode == "wrist") {
         this.title = "成人腕带打印";
       } else if (this.printMode == "wrist-children") {
