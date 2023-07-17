@@ -1141,6 +1141,8 @@ export default {
               .then((res) => {
                 this.getHEvalBlockList(this.patientInfo);
                 this.changeSelectBlock(this.selectBlock);
+                 // 离开表单是否保存
+                this.$store.commit("upIsLeaveTip", true);
                 let {
                   data: {
                     data: { master },
@@ -1224,6 +1226,8 @@ export default {
               .then((res) => {
                 this.getHEvalBlockList(this.patientInfo);
                 this.changeSelectBlock(this.selectBlock);
+                 // 离开表单是否保存
+                this.$store.commit("upIsLeaveTip", true);
               })
               .catch((err) => {
                 this.bus.$emit("setHosptialAdmissionLoading", {
@@ -1431,6 +1435,8 @@ export default {
                 }
                 // 触发填写漏项提醒
                 this.checkFormMissingItems();
+                 // 离开表单是否保存
+                this.$store.commit("upIsLeaveTip", true);
               })
               .catch((err) => {
                 console.log("签名评估err", err);
@@ -1525,7 +1531,7 @@ export default {
               this.selectBlock.status = "1";
             this.changeSelectBlock(this.selectBlock,title);
             this.showMeasureDetailBox(res);
-
+            this.$store.commit("upIsLeaveTip", true);
             //
             let {
               data: {

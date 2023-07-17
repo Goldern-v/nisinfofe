@@ -57,7 +57,7 @@
           床号：
           <div
             :class="['bottom-line', 'has-background']"
-            :style="{ minWidth: '55px' }"
+            :style="{ minWidth: '55px',paddingRight:'5px' }"
             @dblclick.stop="openBedRecordModal"
           >
             <!-- {{ patientInfo.bedLabel }} -->
@@ -113,7 +113,7 @@
           @click="handleDeptNameChoose"
         >
           科室:
-          <div class="bottom-line" style="min-width: 331px">
+          <div class="bottom-line" style="min-width: 336px">
             {{ patientInfo.realDeptName }}
           </div>
         </span>
@@ -243,7 +243,7 @@
 
           <div
             :class="['bottom-line', 'has-background']"
-            :style="{ minWidth: '55px' }"
+            :style="{ minWidth: '55px', paddingRight:'5px' }"
             @dblclick.stop="openBedRecordModal"
           >
             <!-- {{ patientInfo.bedLabel }} -->
@@ -254,7 +254,7 @@
           床号:
           <div
             :class="['bottom-line', 'has-background']"
-            :style="{ minWidth: '45px' }"
+            :style="{ minWidth: '45px', paddingRight:'5px' }"
             @dblclick.stop="openBedRecordModal"
           >
             <!-- {{ patientInfo.bedLabel }} -->
@@ -269,7 +269,7 @@
           <div
             class="bottom-line"
             :class="sheetTypeClass"
-            style="min-width: 60px"
+            style="min-width: 60px; padding-right: 5px;"
           >
             <!-- {{ patientInfo.bedLabel }} -->
              {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}

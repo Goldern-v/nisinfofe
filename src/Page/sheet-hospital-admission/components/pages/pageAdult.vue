@@ -3,7 +3,7 @@
     <div v-if="route" class="tool-con" flex-box="1">
       <sheetTool :formCodeFy='formCode' ref="sheetHospitalAdmissionTool"></sheetTool>
     </div>
-    <div :class="[route&&'sheetTable-contain']">
+    <div :class="[route&&'sheetTable-contain']" @click="handleIsLeaveTip">
       <div :class="fileJSON ? 'pages':'no-page'" ref="sheetPage">
         <div
           v-if="isShowLoadingLayout"
@@ -500,11 +500,17 @@ export default {
           }
         }
       }
+    },
+    // 点击使用是修改，就将他设置为没有保存
+    handleIsLeaveTip(){
+      // 离开表单是否保存
+      this.$store.commit("upIsLeaveTip", false);
     }
   },
 
   beforeRouteLeave(to, from, next) {
-    if(this.HOSPITAL_ID == 'nfyksdyy' && !form.path == '/admissionPageAdult'){
+    console.log( from.path == '/admissionPageAdult2', from.path, this.$store.state.admittingSave.isLeaveTip);
+    if(this.HOSPITAL_ID == 'nfyksdyy' && from.path == '/admissionPageAdult2' && !this.$store.state.admittingSave.isLeaveTip ){
     window.app
       .$confirm("入院评估（成人），离开将会丢失数据", "提示", {
         confirmButtonText: "离开",
@@ -512,6 +518,7 @@ export default {
         type: "warning",
       })
       .then((res) => {
+        this.$store.commit("upIsLeaveTip", true);
         next();
       });
     }else{
