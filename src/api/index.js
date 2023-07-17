@@ -55,11 +55,12 @@ function noticePage(pageIndex, pageSize) {
 }
 
 // 修改密码
-function changePassword(oldPswd, newPswd, rePswd) {
+function changePassword(oldPswd, newPswd, rePswd,empNo) {
     return axios.post(`${apiPath}changePassword`, {
         oldPswd,
         newPswd,
-        rePswd
+        rePswd,
+        empNo
     })
 }
 

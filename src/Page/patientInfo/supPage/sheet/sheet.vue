@@ -609,11 +609,12 @@ export default {
       ) {
         window.app
           .$confirm("请确认记录单已保存，如未保存离开将会丢失数据", "提示", {
-            confirmButtonText: "离开",
+            confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
             cancelButtonText: "取消",
             type: "warning"
           })
           .then(res => {
+             this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
             next();
           });
       } else {
@@ -1220,11 +1221,12 @@ export default {
     if (!sheetInfo.isSave) {
       window.app
         .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
-          confirmButtonText: "离开",
+          confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
           cancelButtonText: "取消",
           type: "warning"
         })
         .then(res => {
+          this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
           this.sheetInfo.relObj = {}
           next();
         });

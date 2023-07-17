@@ -741,11 +741,12 @@ export default {
       ) {
         window.app
           .$confirm("请确认记录单已保存，如未保存离开将会丢失数据", "提示", {
-            confirmButtonText: "离开",
+            confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
             cancelButtonText: "取消",
             type: "warning",
           })
           .then((res) => {
+            this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
             next();
           });
       } else {
@@ -830,7 +831,6 @@ export default {
       this.bus.$emit("refreshImg");
     },
     onModalChange(e,tr,x,y,index){
-      console.log(e,tr,x,y,index,'dddddddd');
       // 改变当前行状态,如果数据变化 就拿到当行的数据
       tr[`isChange`] = true
       // // 获取recordDate的下标
@@ -1408,13 +1408,14 @@ export default {
     ) {
       window.app
         .$confirm("护理记录单，离开将会丢失数据", "提示", {
-          confirmButtonText: "离开",
+           confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
           cancelButtonText: "取消",
           type: "warning",
         })
         .then((res) => {
           this.sheetInfo.selectBlock = {}
           cleanData();
+          this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
           next();
         });
     } else {

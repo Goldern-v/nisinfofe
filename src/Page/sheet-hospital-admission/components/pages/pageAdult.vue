@@ -33,6 +33,7 @@ import sheetTool from "@/Page/sheet-hospital-admission/components/sheet-tool/she
 import BusFactory from "vue-happy-bus";
 import common from "@/common/mixin/common.mixin.js";
 import { getPatientInfo } from '../../api'
+import form from '@/store/module/form';
 
 export default {
   name: "page",
@@ -500,7 +501,23 @@ export default {
         }
       }
     }
-  }
+  },
+
+  beforeRouteLeave(to, from, next) {
+    if(this.HOSPITAL_ID == 'nfyksdyy' && !form.path == '/admissionPageAdult'){
+    window.app
+      .$confirm("入院评估（成人），离开将会丢失数据", "提示", {
+        confirmButtonText: "离开",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+      .then((res) => {
+        next();
+      });
+    }else{
+       next();
+    }
+  },
 };
 </script>
 

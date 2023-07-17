@@ -956,7 +956,7 @@ export default {
         `
       );
     }
-    // 
+    //
     if (sheetInfo.sheetType == "baby_sdry" || sheetInfo.sheetType == "postpartum2_sdry" ) {
       addCSS(
         window,
@@ -989,6 +989,26 @@ export default {
           }
           @media print {
             #sheetPagePrint .body-con{ height: 35px !important; }
+            #sheetPagePrint .body-con td input { font-size: 14px !important;}
+            #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
+            #sheetPagePrint .contant{margin-top:-30px !important;}
+          }
+        `
+      );
+    }
+    if (sheetInfo.sheetType == "oxytocin_sdry") {
+      addCSS(
+        window,
+        `
+        .info-con{
+            font-size:16px!improtant;
+          }
+
+          #sheetPagePrint td[datakey="signerNo"] .sign-img img{
+              transform:scale(0.81)
+          }
+          @media print {
+            #sheetPagePrint .body-con{ height: 34px !important; }
             #sheetPagePrint .body-con td input { font-size: 14px !important;}
             #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
             #sheetPagePrint .contant{margin-top:-30px !important;}
@@ -1181,7 +1201,7 @@ export default {
   computed: {
     overflowAuto(){
       if(['critical2_weihai','extracardi_three_weihai'].includes(this.query.sheetType)) return true
-      return false 
+      return false
     },
     sheetModel() {
       let html = window.localStorage.sheetModel;

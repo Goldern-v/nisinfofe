@@ -263,6 +263,9 @@ export default {
           case "clickDateTime":
             this.getDataFromPage(e.data.value);
             break;
+          case "tipMessage":
+            this.$message.success('保存转床床号成功')
+            break;
           default:
             break;
         }
