@@ -201,7 +201,7 @@
   box-sizing: border-box;
   margin: 0 auto 20px;
   position: relative;
-  scrollBar(7px, 14px);
+  scrollBar(14px, 14px);
 }
 
 .null-btn {
