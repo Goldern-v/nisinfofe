@@ -179,8 +179,8 @@ export default {
         病情观察 护理措施
         `,
         style: {
-          minWidth: '270px',
-          maxWidth: '270px',
+          minWidth: '272px',
+          maxWidth: '272px',
         },
         colspan: '1',
         rowspan: '3'
@@ -261,7 +261,7 @@ export default {
       }
     ],
     bottom: [
-      
+
     ]
   }
 }

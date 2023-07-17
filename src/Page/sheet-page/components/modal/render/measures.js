@@ -31,7 +31,7 @@ export const jianhuColoums = [
     {label:"体温℃",prop:"temperature",width:80},
     {label:"心率次/分",prop:"heartRate",width:80},
     {label:"脉搏次/分",prop:"pluse",width:80},
-    {label:"心律",prop:"heartRhythm",width:80},
+    {label:"心律",prop:"",width:80},
     {label:"呼吸次/分",prop:"breath",width:80},
     {label:"血压mmHg",prop:"bloodPressure",width:80},
     {label:"SPO2(%)",prop:"spo2",width:80},

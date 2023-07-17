@@ -737,6 +737,11 @@ function switchSheetType(type) {
       schema = require("../config/internal_eval_linyi/tr.js").default;
     }
       break;
+    case "fetal_heart_weihai": {
+      // 临邑人医 - 一般患者护理评估记录单
+      schema = require("../config/fetal_heart_weihai/tr.js").default;
+    }
+      break;
     case "babymonitor_linyi": {
       // 临邑人医 - 一般患者护理评估记录单
       schema = require("../config/babymonitor_linyi/tr.js").default;

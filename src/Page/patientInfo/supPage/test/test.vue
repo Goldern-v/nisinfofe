@@ -37,10 +37,10 @@
           <testForm  ref="testForm" :tableHeaderInfo="tableHeaderInfo"></testForm>
         </template>
         <template v-else>
-          <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm>
+          <testForm v-if="rightData && rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm>
         </template>
         <!--右边的检验报告单部分，花都的testFormHD组件，因为事件与其他医院不一样-->
-        <testFormHD v-if="rightData.testNo&&['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testFormHD>
+        <testFormHD v-if="rightData && rightData.testNo&&['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testFormHD>
       </div>
     </div>
   </div>
@@ -177,7 +177,7 @@
     created() {
       testList(this.infoData.patientId, this.infoData.visitId).then((res) => {
         this.loading = false
-        this.list = res.data.data
+        this.list = res.data.data || []
         if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
           this.rightData = this.list.map(item=>{
             Object.keys(item).filter(str=>!['testResultList'].includes(str)).forEach((keys)=>{
