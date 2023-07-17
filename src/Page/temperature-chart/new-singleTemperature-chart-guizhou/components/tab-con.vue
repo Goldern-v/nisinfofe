@@ -102,81 +102,91 @@
                   <div class="rowItemText">
                     <span>{{ index }}</span>
                   </div>
-                  <el-tooltip
-                    placement="top"
-                    popper-class="custom-temp-dict-select"
-                    :disabled="
-                      !(
-                        totalDictInfo[index].options &&
-                        totalDictInfo[index].options.length > 0
-                      )
-                    "
-                    :visible-arrow="false"
-                    :manual="true"
-                    :value="vitalSignObj[j].popVisible"
-                  >
-                    <input
-                      :id="i + 1"
-                      @keydown.enter.prevent="changeNext"
-                      :type="
-                        totalDictInfo[index].inputType === '2'
-                          ? 'number'
-                          : 'text'
+                  <div class="input_icon">
+                    <span
+                      @click="openNewDiagnosis(vitalSignObj[j])"
+                      style="color: red;position: absolute;"
+                      v-if="checkDiagnose(vitalSignObj[j], i + 1)"
+                      :title="`${vitalSignObj[j].vitalSigns}数值异常`"
+                    >
+                      <i class="el-icon-information"></i>
+                    </span>
+                    <el-tooltip
+                      placement="top"
+                      popper-class="custom-temp-dict-select"
+                      :disabled="
+                        !(
+                          totalDictInfo[index].options &&
+                          totalDictInfo[index].options.length > 0
+                        )
                       "
-                      :title="vitalSignObj[j].vitalValue"
-                      @mousewheel="
-                        (e) => {
-                          e.preventDefault();
-                        }
-                      "
-                       @input="()=>{
-                        handlePopRefresh(vitalSignObj[j])
-                        validFormFc(vitalSignObj[j], i + 1)
-                      }"
-                      @click="() => (vitalSignObj[j].popVisible = true)"
-                      @blur="onBlur($event, j, index,vitalSignObj[j].vitalValue)"
-                      v-model="vitalSignObj[j].vitalValue"
-                    />
-                    <template v-slot:content>
-                      <div
-                        class="container"
-                        @click.prevent="
-                          () => {
-                            vitalSignObj[j].popVisible = false;
+                      :visible-arrow="false"
+                      :manual="true"
+                      :value="vitalSignObj[j].popVisible"
+                    >
+                      <input
+                        :id="i + 1"
+                        @keydown.enter.prevent="changeNext"
+                        :type="
+                          totalDictInfo[index].inputType === '2'
+                            ? 'number'
+                            : 'text'
+                        "
+                        :title="vitalSignObj[j].vitalValue"
+                        @mousewheel="
+                          (e) => {
+                            e.preventDefault();
                           }
                         "
-                      >
-                        <template
-                          v-if="
-                            totalDictInfo[index].options &&
-                            getFilterSelections(
-                              totalDictInfo[index].options,
-                              vitalSignObj[j].vitalValue
-                            ).length > 0
+                        @input="()=>{
+                          handlePopRefresh(vitalSignObj[j])
+                          validFormFc(vitalSignObj[j], i + 1)
+                        }"
+                        @click="() => (vitalSignObj[j].popVisible = true)"
+                        @blur="onBlur($event, j, index,vitalSignObj[j].vitalValue)"
+                        v-model="vitalSignObj[j].vitalValue"
+                      />
+                      <template v-slot:content>
+                        <div
+                          class="container"
+                          @click.prevent="
+                            () => {
+                              vitalSignObj[j].popVisible = false;
+                            }
                           "
                         >
-                          <div
-                            :key="selectionDictIdx"
-                            class="selection-dict-item"
-                            v-for="(
-                              option, selectionDictIdx
-                            ) in getFilterSelections(
-                              totalDictInfo[index].options,
-                              vitalSignObj[j].vitalValue
-                            )"
-                            @click.prevent="
-                              () =>
-                                (vitalSignObj[j].vitalValue =
-                                  vitalSignObj[j].vitalValue + option)
+                          <template
+                            v-if="
+                              totalDictInfo[index].options &&
+                              getFilterSelections(
+                                totalDictInfo[index].options,
+                                vitalSignObj[j].vitalValue
+                              ).length > 0
                             "
                           >
-                            {{ option }}
-                          </div>
-                        </template>
-                        <div v-else class="null-item">无匹配数据</div>
-                      </div>
-                    </template>
-                  </el-tooltip>
+                            <div
+                              :key="selectionDictIdx"
+                              class="selection-dict-item"
+                              v-for="(
+                                option, selectionDictIdx
+                              ) in getFilterSelections(
+                                totalDictInfo[index].options,
+                                vitalSignObj[j].vitalValue
+                              )"
+                              @click.prevent="
+                                () =>
+                                  (vitalSignObj[j].vitalValue =
+                                    vitalSignObj[j].vitalValue + option)
+                              "
+                            >
+                              {{ option }}
+                            </div>
+                          </template>
+                          <div v-else class="null-item">无匹配数据</div>
+                        </div>
+                      </template>
+                    </el-tooltip>
+                  </div>
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
@@ -230,7 +240,7 @@
                         handlePopRefresh(vitalSignObj[j])
                         validFormFc(vitalSignObj[j], i + 100)
                       }"
-                         @mousewheel="
+                        @mousewheel="
                         (e) => {
                           e.preventDefault();
                           e.stopPropagation();
@@ -441,6 +451,9 @@
         </div>
       </div>
     </div>
+    <newDiagnosisModal ref="newDiagnosisModal"></newDiagnosisModal>
+    <slideContant ref="slideContant"></slideContant>
+    <slideConRight ref="slideConRight"></slideConRight>
   </div>
 </template>
 <script>
@@ -448,6 +461,9 @@ import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
 import { validForm } from "../../validForm/validForm";
+import newDiagnosisModal from "../../../../Page/patientInfo/supPage/diagnosis/modal/newDiagnosisModal.vue";
+import slideContant from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideContant.vue"
+import slideConRight from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
 import {
   getVitalSignListByDate,
   getmultiDict,
@@ -460,6 +476,16 @@ import {
 } from "../../api/api";
 export default {
   props: { patientInfo: Object },
+  provide() {
+    return {
+      openSlideCon: item => {
+          this.$refs.slideConRight.open(item)
+      },
+      openSlideContant: async (item)=>{
+        this.$refs.slideContant.open(item)
+      }
+    };
+  },
   data() {
     // 初始化筛选时间
     let initTimeArea = {
@@ -724,6 +750,28 @@ export default {
       } else {
         document.getElementById(index).style.outline = "";
         vitalSignObj.isCorrect = true;
+      }
+    },
+    openNewDiagnosis(diagnose) {
+      this.$refs.newDiagnosisModal.open();
+      this.$refs.newDiagnosisModal.searchWord=`${diagnose.vitalSigns}`;
+    },
+    checkDiagnose(diagnose, i){
+      const { vitalCode, vitalValue } = diagnose;
+      if (!['yeTemperature'].includes(vitalCode)) {
+        return
+      } else {
+        if(vitalValue) {
+          let setCheckValue = (vitalCode, vitalValue) => {
+            switch (vitalCode) {
+              case 'yeTemperature':
+                return Number(vitalValue) < 35 || Number(vitalValue) > 37.5
+              default:
+                break;
+            }
+          }
+          return setCheckValue(vitalCode, vitalValue)
+        }
       }
     },
     init() {
@@ -1156,7 +1204,7 @@ export default {
       }
     }
   },
-  components: { nullBg },
+  components: { newDiagnosisModal, slideContant, slideConRight, nullBg },
 };
 </script>
 
@@ -1193,7 +1241,11 @@ export default {
       flex-direction: column;
     }
   }
-
+  .input_icon {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
   .row-bottom {
     height: 100%;
 
