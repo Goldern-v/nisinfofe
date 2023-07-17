@@ -118,7 +118,7 @@ export default {
     },
     open(type) {
       let startDate = moment().format("yyyy-MM-DD") + " 00:00:00";
-      let endDate = moment().format("yyyy-MM-DD HH:mm:ss");
+      let endDate = moment().format("yyyy-MM-DD"+ " 23:59:59");
       this.longDate = [startDate, endDate];
       if (type === "jianhuyi") {
         this.coloums = jianhuColoums;
