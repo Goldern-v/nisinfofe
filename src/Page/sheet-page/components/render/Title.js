@@ -875,6 +875,13 @@ export default function Title(
     );
   }
   break;
+  case "fetal_heart_weihai": {
+    // 临邑人医 - 一般患者护理评估记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/fetal_heart_weihai/th.js").default)
+    );
+  }
+  break;
   case "babymonitor_linyi": {
     // 临邑人医 - 一般患者护理评估记录单
     Th = JSON.parse(
