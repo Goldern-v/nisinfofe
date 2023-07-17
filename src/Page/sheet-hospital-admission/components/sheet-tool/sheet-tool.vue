@@ -1180,6 +1180,57 @@ export default {
         titleModal = "取消护士签名";
       }
       this.useCaData()
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+         let post = {
+          id: this.formId || "",
+          patientId: this.patientInfo.patientId,
+          visitId: this.patientInfo.visitId,
+          formType: "eval",
+          formCode: this.formCode,
+          // evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
+          evalScore: "",
+          sign: false,
+          empNo: this.user.empNo, //"admin",
+          // password: "123456"
+          // ...window.formObj.model
+        };
+        post = { ...window.formObj.model, ...post };
+
+        this.formObj.model.formCode = this.formCode;
+
+        post = Object.assign({}, this.formObj.model, post);
+
+        // post.formCode = this.formCode
+
+        let postData = new Object();
+        for (const key in post) {
+          if (post.hasOwnProperty(key)) {
+            if (!key) {
+              continue;
+            }
+            if (
+              post[key] === null ||
+              post[key] === "null" ||
+              post[key] === "undefined" ||
+              post[key] === undefined
+            ) {
+              postData[key] = "";
+              continue;
+            }
+            postData[key] = post[key] + "";
+          }
+        }
+        save(postData)
+              .then((res) => {
+                this.getHEvalBlockList(this.patientInfo);
+                this.changeSelectBlock(this.selectBlock);
+              })
+              .catch((err) => {
+                this.bus.$emit("setHosptialAdmissionLoading", {
+                  status: false,
+                });
+              });
+      }
       window.openSignModal((password, empNo) => {
         let post = {
           // sign: true,

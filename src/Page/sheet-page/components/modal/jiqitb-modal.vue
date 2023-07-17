@@ -122,6 +122,7 @@ export default {
       this.longDate = [startDate, endDate];
       if (type === "jianhuyi") {
         this.coloums = jianhuColoums;
+        this.title = "监护仪同步"
         query = monitorData;
       } else if (type === "huxiji") {
         this.coloums = huxiColoums;

@@ -105,8 +105,44 @@ export default {
         血压<br>mmHg
         `,
         style: {
-          minWidth: '72px',
-          maxWidth: '72px'
+          minWidth: '65px',
+          maxWidth: '65px'
+        },
+        colspan: '1',
+        rowspan: '3',
+        canSet: false,
+      },
+      {
+        name: `
+        脉搏<br>(次/分)
+        `,
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px'
+        },
+        colspan: '1',
+        rowspan: '3',
+        canSet: false,
+      },
+      {
+        name: `
+        血氧饱和度(%)
+        `,
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px'
+        },
+        colspan: '1',
+        rowspan: '3',
+        canSet: false,
+      },
+      {
+        name: `
+        体温<br>℃
+        `,
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px'
         },
         colspan: '1',
         rowspan: '3',

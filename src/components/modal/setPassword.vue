@@ -205,7 +205,7 @@ export default {
 				return false
 			}
 		}
-      changePassword(this.oldPswd, this.newPswd, this.rePswd).then((res) => {
+      changePassword(this.oldPswd, this.newPswd, this.rePswd,this.$store.state.common.user.empNo).then((res) => {
         let msg = this.permit.passwordThreshold
           ? "修改成功，建议三个月修改一次密码"
           : res.data.desc;
