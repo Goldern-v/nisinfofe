@@ -139,7 +139,8 @@
       flex: 1;
       height: 30px;
       object-fit: contain;
-      margin: 0 -5px;
+      // margin: 0 -5px;
+      width: min(50px, 100%);
     }
 
     span {
