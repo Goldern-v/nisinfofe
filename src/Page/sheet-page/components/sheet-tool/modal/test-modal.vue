@@ -3,7 +3,7 @@
     <!-- 佛山从护记进入是可以回填数据,去护记的特殊情况 -->
     <!-- 新医院注意 -->
     <template v-if="['foshanrenyi', 'zhzxy','lyxrm', 'whhk', '925', 'stmz','nfyksdyy','nanfangzhongxiyi','qhwy'].includes(HOSPITAL_ID) && hasFeature">
-       <testFSRY></testFSRY>
+       <testFSRY :info='info'></testFSRY>
     </template>
     <template v-else>
        <test></test>
@@ -31,17 +31,19 @@ export default {
   data() {
     return {
       hasFeature:false,
-      bus: bus(this)
+      bus: bus(this),
+      info: {}
     };
   },
   methods: {
-    open(feature) {
+    open(feature, data = null) {
       if(feature){
         this.hasFeature=true
         this.$refs.modalName.setCloseCallback(()=>{
           this.bus.$emit("openclosePatientInfo",'',true)
         })
       }
+      data && (this.info = data)
       this.$refs.modalName.open();
     },
     post() {},

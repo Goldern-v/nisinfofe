@@ -258,8 +258,8 @@ export default {
     toggle() {
       this.show = !this.show;
     },
-    openModal(name,feature) {
-      this.$refs[name].open(feature);
+    openModal(name,feature, data = null) {
+      this.$refs[name].open(feature, data);
     },
     url360() {
       const { patientId = '' } = this.$route.query
