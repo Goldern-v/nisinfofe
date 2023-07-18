@@ -144,6 +144,7 @@ export default [
     event: keyf1,
     value: "",
     name: "入量每时",
+    statBottomLine: true,
     textarea: { width: 70 },
   },
   // {
@@ -165,6 +166,7 @@ export default [
     event: keyf1,
     value: "",
     name: "出量每时",
+    statBottomLine: true,
     textarea: { width: 70 },
   },
   {
@@ -173,6 +175,7 @@ export default [
     value: "",
     next: "ml",
     name: "尿量",
+    statBottomLine: true,
     textarea: { width: 70 },
    },
   // {
@@ -197,6 +200,7 @@ export default [
     value: "",
     next: "ml",
     name: "心包胸骨后",
+    statBottomLine: true,
     textarea: { width: 90 },
   },
   {
@@ -205,6 +209,7 @@ export default [
     value: "",
     next: "ml",
     name: "胸腔闭式引流",
+    statBottomLine: true,
     textarea: { width: 90 },
   },
   {
@@ -213,6 +218,7 @@ export default [
     value: "",
     next: "ml",
     name: "其他",
+    statBottomLine: true,
     textarea: { width: 50 },
   },
   {
@@ -263,7 +269,7 @@ export default [
   { hidden: true, key: "signerName", value: "" },
   { hidden: true, key: "signerName2", value: "" },
   { hidden: true, key: "status", value: "" },
-  { hidden: true, key: "recordSource", value: "" },
+  { hidden: true, key: "recordSource", value: "", },
   { hidden: true, key: "recordYear", value: "" },
   { hidden: true, key: "dataHash", value: "" },
   { hidden: true, key: "recordDate", value: "" },
