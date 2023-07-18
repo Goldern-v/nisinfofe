@@ -49,6 +49,13 @@
           <span class="name">血氧</span>
         </div>
       </div>
+      <div v-if="show360.includes(HOSPITAL_ID)">
+        <div @click="setItemShow('six')" class="title">患者360</div>
+        <div v-if="isShowObj.six" @click="openOtherPage" class='fromCss'>
+          <img src='@/common/images/record/文件.png' class="img"/>
+          <span class="name">患者360</span>
+        </div>
+      </div>
     </div>
     <!-- 弹出框 -->
     <newForm ref="newForm"></newForm>
@@ -212,13 +219,15 @@ export default {
         two: false,
         three: true,//默认显示体温单模块
         four:false,
-        five:false
+        five:false,
+        six: false,
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
       showBloodSugar:['guizhou','hengli','huadu','whfk', 'beihairenyi', 'nanfangzhongxiyi', 'sdlj' , 'foshanrenyi', 'fsxt', 'zhzxy', 'lyyz','whsl','ytll','dglb','whhk','nfyksdyy'], // 是否开放血糖模块
       showBloodOxygen:['whfk'] ,// 是否开放血氧模块
       hiddenTemperature: [], // 隐藏体温单模块
+      show360: ['guizhou'],
       timer:null
     };
   },
@@ -242,6 +251,18 @@ export default {
     }
   },
   methods: {
+    openOtherPage() {
+      const patientId = this.$route.query.patientId;
+      let user = localStorage.getItem('user')
+      if (user) {
+        user = JSON.parse(user)
+      }
+      const fileUrl = `http://10.207.45.213:8015/cdr/personal/?medicalrecordno=${patientId}&systemcode=008&doctorcode=${user.empNo}`;
+      const a = document.createElement('a')
+      a.href = fileUrl
+      a.target = '_blank'
+      a.click()
+    },
     // 控制右边表单
     showForm (type) {
       this.bus.$emit("openOtherForm", { component: type });
