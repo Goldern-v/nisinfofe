@@ -138,7 +138,7 @@ export default {
       },
       {
         name: `
-        间歇(")
+        持续
         `,
         colspan: '1',
         rowspan: '2',

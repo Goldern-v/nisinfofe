@@ -449,13 +449,14 @@ export default {
       printDetailList: [], //归档详情
       archiveStatus: "",
       cp_status:0,
-      printArchiveMaster: {} //归档、转pdf状态对象
+      printArchiveMaster: {}, //归档、转pdf状态对象
+      info: this.$route.query || {}
     };
   },
   computed: {
-    info() {
-      return this.$route.query;
-    },
+    // info() {
+    //   return this.$route.query;
+    // },
     openLeft() {
       return this.$store.state.common.openLeft;
     },

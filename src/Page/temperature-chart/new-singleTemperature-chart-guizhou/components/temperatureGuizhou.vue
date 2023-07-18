@@ -313,6 +313,9 @@ export default {
     top: 2px;
     left: 60%;
     display: inline-flex !important;
+    & > div {
+      cursor: pointer;
+    }
   }
 
   .nomal {

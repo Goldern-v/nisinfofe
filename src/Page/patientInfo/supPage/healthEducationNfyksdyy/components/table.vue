@@ -85,14 +85,12 @@
     <div class="health-table-page">{{`第${index + 1}/${page}页`}}</div>
     <!-- 宣教内容弹窗 -->
     <healthContentModal ref="healthContentModal" :content="content" :name="name" />
-    <lcHealthContentModal ref="lcHealthContentModal" :data="data" :content="content" :name="name" />
   </div>
 </template>
 
 <script>
 import { getContentByMissionId } from "../api/healthApi";
 import healthContentModal from "./healthContentModal"; // 添加修改弹窗
-import lcHealthContentModal from "./lcHealthContentModal"; // 添加修改弹窗
 import common from "@/common/mixin/common.mixin.js";
 
 export default {
@@ -176,12 +174,10 @@ export default {
     init() {
       this.patientId = this.$route.query.patientId;
     },
-
     // 打印
     print() {
       this.isPrints = true;
     },
-
     // 初始化默认值
     setData(total) {
       let array = [];
@@ -253,7 +249,6 @@ export default {
   },
   components: {
     healthContentModal,
-    lcHealthContentModal
   }
 };
 </script>

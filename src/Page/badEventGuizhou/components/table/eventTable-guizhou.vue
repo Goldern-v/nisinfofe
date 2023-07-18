@@ -63,7 +63,7 @@
         <template slot-scope="scope">
           <!-- {{scope.row.status}} -->
           <div :class="{'nopass-row':scope.row.status==-2}">
-            <span>{{getStatus(scope.row)}}</span>
+            <span>{{HOSPITAL_ID =='guizhou' ? scope.row.currentNodeName : getStatus(scope.row)}}</span>
           </div>
         </template>
       </el-table-column>

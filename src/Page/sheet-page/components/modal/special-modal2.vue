@@ -25,40 +25,54 @@
           </div>
           <div v-else style="display:flex;">
             <div class="date" v-if="tr && tr.length && isShowItem()">
-            <label class="label">日期：</label>
-            <input
-              type="text"
-              :disabled="
-                recordDate != '' &&
-                HOSPITAL_ID != 'huadu' &&
-                HOSPITAL_ID != 'wujing'&&
-                HOSPITAL_ID != 'gdtj' &&
-                HOSPITAL_ID != 'nfyksdyy' &&
-                HOSPITAL_ID != 'whsl'
-              "
-              v-model="staticObj.recordMonth"
-              @keyup="dateKey($event, staticObj, 'recordMonth')"
-            />
+              <label class="label">日期：</label>
+              <input
+                type="text"
+                :disabled="
+                  recordDate != '' &&
+                  HOSPITAL_ID != 'huadu' &&
+                  HOSPITAL_ID != 'wujing'&&
+                  HOSPITAL_ID != 'gdtj' &&
+                  HOSPITAL_ID != 'nfyksdyy' &&
+                  HOSPITAL_ID != 'whsl'
+                "
+                v-model="staticObj.recordMonth"
+                @keyup="dateKey($event, staticObj, 'recordMonth')"
+              />
+            </div>
+            <div class="time">
+              <label class="label">时间：</label>
+              <input
+                type="text"
+                :disabled="
+                  recordDate != '' &&
+                  HOSPITAL_ID != 'huadu' &&
+                  HOSPITAL_ID != 'wujing'&&
+                  HOSPITAL_ID != 'gdtj' &&
+                  HOSPITAL_ID != 'nfyksdyy' &&
+                  HOSPITAL_ID != 'whsl'
+                "
+                v-model="staticObj.recordHour"
+                @keyup="timeKey($event, staticObj, 'recordHour')"
+              />
+            </div>
           </div>
-          <div class="time">
-            <label class="label">时间：</label>
-            <input
-              type="text"
-              :disabled="
-                recordDate != '' &&
-                HOSPITAL_ID != 'huadu' &&
-                HOSPITAL_ID != 'wujing'&&
-                HOSPITAL_ID != 'gdtj' &&
-                HOSPITAL_ID != 'nfyksdyy' &&
-                HOSPITAL_ID != 'whsl'
-              "
-              v-model="staticObj.recordHour"
-              @keyup="timeKey($event, staticObj, 'recordHour')"
-            />
+          <div v-if="['critical2_weihai'].includes(sheetInfo.sheetType) && activeTab==1" class="tongbuBtn">
+            <el-button
+              size="mini"
+              type="primary"
+              @click="openTB('jianhuyi')"
+            >
+              监护仪同步
+            </el-button>
+            <!-- <el-button
+              size="mini"
+              type="primary"
+              @click="openTB('huxiji')"
+            >
+              呼吸机同步
+            </el-button> -->
           </div>
-          </div>
-
-
           <div
             style="margin-left: 10px"
             v-if="
@@ -822,14 +836,14 @@
               </div>
             </div>
           </el-tab-pane>
-          <el-tab-pane  :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 && sheetInfo.sheetType == 'extracardi_one_weihai'">
+          <!-- <el-tab-pane  :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 ">
             <dischargeSetting
               ref="dischargeSetting"
               :outChoseItemList="outChoseItemList"
               :dictionary="dictionary"
               :fixedList="fixedList"
               ></dischargeSetting>
-          </el-tab-pane>
+          </el-tab-pane> -->
           <!-- <el-tab-pane v-if="useDescription" label= "特殊情况记录" name="3"> -->
           <el-tab-pane v-if="useDescription" :label= "sheetInfo.sheetType == 'extracardi_one_weihai'?'其他药物':'特殊情况记录'" name="3">
             <div class="title" flex="cross:center main:justify">
@@ -889,7 +903,7 @@
               </div>
             </el-checkbox-group>
           </el-tab-pane>
-          <el-tab-pane :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 && sheetInfo.sheetType != 'extracardi_one_weihai'">
+          <el-tab-pane :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 ">
             <dischargeSetting
               ref="dischargeSetting"
               :outChoseItemList="outChoseItemList"
@@ -1021,6 +1035,11 @@
     <zxdtbModal
       ref="zxdtbModal"
     />
+    <jiqitbModal
+      :modalWidth="760"
+      @confirm="jiqiConfirm"
+      ref="jiqitbModal"
+    />
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -1047,8 +1066,13 @@
 }
 
 .special-date-con {
+  position: relative;
   margin: 0 0 18px 0;
-
+  .tongbuBtn{
+    position: absolute;
+    right: 0;
+    top: 2px;
+  }
   .date {
     margin-right: 30px;
   }
@@ -1322,6 +1346,7 @@ import DiagnosisModal from "./diagnosis-modal.vue";
 import AdviceModal from "./advice-modal.vue";
 import { mapMutations, mapState } from 'vuex';
 import zxdtbModal from "./zxdtb-modal.vue";
+import jiqitbModal from "./jiqitb-modal.vue";
 import dischargeSetting from './discharge-setting.vue';
 
 function autoComplete(el, bind) {
@@ -1636,6 +1661,11 @@ export default {
     openPISlide(type) {
       // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
       this.bus.$emit("openclosePatientInfo", type, false, true);
+    },
+    jiqiConfirm(row){
+      Object.keys(row).map(key=>{
+        Object.keys(this.fixedList).includes(key) && row[key] && (this.fixedList[key].value = row[key])
+      })
     },
     reactiveRows(row,key, maxLength, minRows, maxRows) {
       console.log(row[key],key,'row[key]')
@@ -3188,6 +3218,9 @@ export default {
       this.upOpenModalFromSpecial(true)
       this.$refs.zxdtbModal.open();
     },
+    openTB(type){
+      this.$refs.jiqitbModal.open(type);
+    },
     openSpecialSymbols() {
       this.$refs.templateSlideFsry.openSpecialSymbols();
     }
@@ -3292,6 +3325,7 @@ export default {
     DiagnosisModal,
     AdviceModal,
     zxdtbModal,
+    jiqitbModal,
     zkModalZhzxy,
     templateSlideFSRY,
     newDiagnosisModal,

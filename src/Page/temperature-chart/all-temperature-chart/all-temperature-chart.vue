@@ -14,7 +14,7 @@
           clearable
         />
         <ElDatePicker
-          v-if="['guizhou', '925'].includes(HOSPITAL_ID)"
+          v-if="['guizhou', '925','zjhj'].includes(HOSPITAL_ID)"
           class="date-picker"
           type="date"
           size="small"
@@ -80,6 +80,7 @@
             'nanfangzhongxiyi',
             'foshanrenyi',
             '925',
+            'zjhj',
             'dglb',
             'nfyksdyy'
           ].includes(HOSPITAL_ID)
@@ -1140,6 +1141,7 @@ export default {
             case "quzhou":
             case "guizhou":
             case '925':
+            case 'zjhj':
             case 'dglb':
             case 'nfyksdyy':
             case "wujing":

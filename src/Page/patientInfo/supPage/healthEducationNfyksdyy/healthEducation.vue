@@ -7,7 +7,7 @@
     <div
       class="health-education-table"
       :style="
-        $route.path == '/formPage' && HOSPITAL_ID == 'nfyksdyy'
+        $route.path == '/formPage'
           ? 'width:100%;margin:0;'
           : ''
       "
@@ -41,7 +41,6 @@
               text="推送"
               @click="onPush"
               :disabled="!selected"
-              v-if="HOSPITAL_ID != 'beihairenyi'"
             ></WhiteButton>
           </div>
           <div class="tool-fix tool-right">
@@ -70,38 +69,37 @@
                   <div class="sdyyinfo">
                     <span
                       >姓名：{{
-                        patientInfo.name || tableHeaderInfo.name
+                        patientInfo.name
                       }}</span
                     >
                     <span style="margin-left: 20px;"
                       >性别：{{
-                        patientInfo.sex || tableHeaderInfo.gender
+                        patientInfo.sex
                       }}</span
                     >
                     <span style="margin-left: 20px;"
                       >年龄：{{
-                        patientInfo.age || tableHeaderInfo.gender
+                        patientInfo.age
                       }}</span
                     >
                     <span style="margin-left: 20px;"
                       >床号：{{
-                        patientInfo.bedLabel || tableHeaderInfo.bedLabel
+                        configList[index].bedExchange ||  patientInfo.bedLabel
                       }}</span
                     >
                     <span
                       >住院号：{{
-                        patientInfo.inpNo || tableHeaderInfo.bedNo
+                        patientInfo.inpNo
                       }}</span
                     >
                   </div>
                   <div class="sdyyinfo" style="border-bottom: 1px solid #000;">
                     <span
                       >科室：{{
-                        patientInfo.deptName || tableHeaderInfo.deptName
+                         configList[index].deptExchange || patientInfo.deptName
                       }}</span
                     >
-                    <span style="margin-left: 20px;width: 372px;"
-                      @click="handleDeptNameChoose(true)" >病区:{{ $route.query.wardName }}</span
+                    <span style="margin-left: 20px;width: 372px;" >病区:{{  configList[index].wardExchange || $route.query.wardName }}</span
                     >
                   </div>
                 </div>
@@ -124,21 +122,6 @@
             @confirm="pullData"
             :pageParam="pageParam"
           />
-          <!-- 转科弹窗 -->
-          <changeMajorRadio
-            :dialogTableVisibleTrue="dialogDeptNameVisible"
-            :majorData="{
-              patientId: patientInfo.patientId,
-              visitId: patientInfo.visitId,
-              id: blockId
-            }"
-            @TableVisible="val => (dialogDeptNameVisible = val)"
-            @savedata="
-              val => {
-                val && $refs.editModal.submitForm('ruleForm');
-              }
-            "
-          ></changeMajorRadio>
         </div>
       </div>
     </div>
@@ -188,7 +171,6 @@ export default {
       pageParam: [], // 表格数据
       selected: null, // 选择某行
       configList: [],
-      dialogDeptNameVisible: false,
     };
   },
   computed: {
@@ -200,11 +182,6 @@ export default {
     this.init();
   },
   methods: {
-    // 转科弹窗
-    handleDeptNameChoose(val) {
-      console.log('dddddddddddddd');
-      this.dialogDeptNameVisible = val
-    },
     // 获取下拉框数据列表
     init() {
       this.getSelectData(1);
@@ -234,6 +211,9 @@ export default {
           res.data.data.map(item => {
             array.push({
               label: `健康教育单 ${item.creatDate}`,
+              bedExchange: item.bedExchange,
+              deptExchange: item.deptExchange,
+              wardExchange: item.wardExchange,
               onClick() {
                 that.changeEducation(item.id);
               }
@@ -250,6 +230,7 @@ export default {
             this.changeEducation(res.data.data[0].id);
             this.isData = 1;
           }
+          console.log('dddddddddd',this.configList);
         })
         .catch(e => {});
     },

@@ -108,10 +108,10 @@ const currentTargetUrl = (() => {
 
     /** 南方中西医 */
     case "nanfangzhongxiyi":
-      return "http://218.107.37.134:9091" // 南方中西医正式
+      // return "http://218.107.37.134:9091" // 南方中西医正式
       // return "http://192.168.1.54:9883" // 公司-南方中西医测试-内网
       // return "http://192.168.1.54:9879" // 公司-南方中西医测试-内网(真)
-      // return 'http://192.168.1.27:9092'  //华渊本地
+      return 'http://192.168.3.163:8080'  //华渊本地
       // return 'http://192.168.20.62:8080'
           // return 'http://192.168.1.54:9901'
 
@@ -269,9 +269,9 @@ const currentTargetUrl = (() => {
     case 'whsl':
       // return 'http://192.168.1.54:9866'
       // return 'http://120.24.240.231:19097'
-      // return 'https://info.cr-health.com:20217'
+      return 'https://info.cr-health.com:20217'
       // return 'http://221.2.154.22:9094' //威海市立正式环境  admin / Bcy@23nr
-      return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
+      // return 'http://10.108.4.45:9091/' //威海市立正式环境  admin / Bcy@23nr
       // return ' http://221.2.154.22:19094/'
       // return 'http://192.168.1.54:9896'
       // return 'http://192.168.20.20:9092'

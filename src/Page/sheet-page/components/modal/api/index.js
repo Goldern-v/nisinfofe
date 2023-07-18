@@ -57,6 +57,15 @@ export const getWardExecuteZXY = ( params ) => {
   return axios.post(
     `${apiPath}execute/getWardExecuteZXY`, params);
 };
+
+export const respiratorData = ( params ) => {
+  return axios.post(
+    `${apiPath}respiratorData/getList`, params);
+};
+export const monitorData = ( params ) => {
+  return axios.post(
+    `${apiPath}monitorData/getList`, params);
+};
 // 护记PC体征同步
 export const weihaiVitalSignPost = ( params ) => {
   return axios.post(

@@ -14,7 +14,7 @@ export function saveBed(data) {
 }
 
 export function getLCPStatus(data) {
-  return axios.post(`${apiPath}indexInfo/getLCPStatus`, data);
+  return axios.post(`${apiPath}indexInfo/getLCPStatus`, qs.stringify(data));
 }
 
 // 根据patientId和visitId查询病人床头标签

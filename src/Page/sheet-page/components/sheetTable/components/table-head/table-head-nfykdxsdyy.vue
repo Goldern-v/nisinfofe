@@ -57,7 +57,7 @@
           床号：
           <div
             :class="['bottom-line', 'has-background']"
-            :style="{ minWidth: '55px' }"
+            :style="{ minWidth: '55px',paddingRight:'5px' }"
             @dblclick.stop="openBedRecordModal"
           >
             <!-- {{ patientInfo.bedLabel }} -->
@@ -113,7 +113,7 @@
           @click="handleDeptNameChoose"
         >
           科室:
-          <div class="bottom-line" style="min-width: 331px">
+          <div class="bottom-line" style="min-width: 336px">
             {{ patientInfo.realDeptName }}
           </div>
         </span>
@@ -243,7 +243,7 @@
 
           <div
             :class="['bottom-line', 'has-background']"
-            :style="{ minWidth: '55px' }"
+            :style="{ minWidth: '55px', paddingRight:'5px' }"
             @dblclick.stop="openBedRecordModal"
           >
             <!-- {{ patientInfo.bedLabel }} -->
@@ -254,7 +254,7 @@
           床号:
           <div
             :class="['bottom-line', 'has-background']"
-            :style="{ minWidth: '45px' }"
+            :style="{ minWidth: '45px', paddingRight:'5px' }"
             @dblclick.stop="openBedRecordModal"
           >
             <!-- {{ patientInfo.bedLabel }} -->
@@ -269,7 +269,7 @@
           <div
             class="bottom-line"
             :class="sheetTypeClass"
-            style="min-width: 60px"
+            style="min-width: 60px; padding-right: 5px;"
           >
             <!-- {{ patientInfo.bedLabel }} -->
              {{ newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`] }}
@@ -635,17 +635,12 @@ export default {
       },
       newPatientInfo() {
         /*  每页独立床号功能 */
-        let beforeBed = this.patientInfo.bedLabel;
-        let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`];
-        if (
-          this.index != 0 &&
-          this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]
-        ) {
-          // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
-          beforeBed = this.sheetInfo.relObj[
-            `PageIndex_bedLabel_${this.index - 1}`
-          ];
-        }
+      let beforeBed = this.patientInfo.bedLabel
+      let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]
+      if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]){
+        // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
+        beforeBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index-1}`]
+      }
         return {
           ...this.patientInfo,
           [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed
@@ -826,7 +821,7 @@ export default {
       //修改床号同步都每一页
       this.bedShow = true;
       setTimeout(() => {
-        this.$refs.bedRecordModal.open("", "-1");
+        this.$refs.bedRecordModal.open("", this.index);
       }, 0);
     },
     updateBirthDay() {
@@ -924,7 +919,6 @@ export default {
     },
     YMDHM(val) {
       if (val) {
-        console.log(moment(val).format());
         return moment(val).format("YYYY年MM月DD日HH时mm分");
       }
     }

@@ -95,3 +95,13 @@ export function getFormHeadData(patientId, visitId) {
 export function getPrintRecord(params, formType, formCode) {
   return axios.post(`${apiPath}form/common/getPrintRecord`, params)
 }
+
+/**获取每一页的床位 */
+// 顺德人医 - 获取动态床号数据
+export const getBedExchangeInfo = (config) => {
+  return axios.post(`${apiPath}nurseLog/getBedExchangeInfo`,config)
+};
+// 顺德人医 - 更新床号轨迹数据
+export const updateBedExchangeInfo = (config) => {
+  return axios.post(`${apiPath}nurseLog/updateBedExchangeInfo`,config)
+};
