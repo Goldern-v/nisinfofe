@@ -903,7 +903,7 @@
               </div>
             </el-checkbox-group>
           </el-tab-pane>
-          <el-tab-pane :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 ">
+          <el-tab-pane :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '出量':'出量')" name="5" v-if="outChoseItemList.length>0 ">
             <dischargeSetting
               ref="dischargeSetting"
               :outChoseItemList="outChoseItemList"

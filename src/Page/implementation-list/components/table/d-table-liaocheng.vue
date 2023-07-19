@@ -301,15 +301,10 @@
           >
           <el-button
             type="text"
-            @click="editTime(item)"
-            
-            v-if="
-              isEdit &&
-              ((HOSPITAL_ID == 'lingcheng' && item.executeFlag > 0) ||
-                item.executeFlag == 4)
-            "
-            >修改</el-button
-          >
+            @click="editTime(scope.row)"
+            v-if="  isEdit &&
+                scope.row.executeFlag === 4||scope.row.executeFlag > 0"
+          >修改</el-button>
           <el-button
             type="text"
             @click="cancelOrderExecute(item)"
@@ -599,7 +594,7 @@ export default {
       }
     },
     editTime(data) {
-      this.$refs.editModal.open(data);
+      this.$refs.editModal.openEdit(data,'');
     },
     addRowClass(row) {
       if (row.row.executeFlag == 4) {

@@ -27,7 +27,12 @@
                 <i class="iconfont icon-chuangweiyilanqia"></i> 床位一览卡
               </el-row>
             </router-link>
-            <el-dropdown
+            <router-link to="/implementationList" tag="span">
+                    <el-row class="nav-item" type="flex" align="middle">
+                      <i class="iconfont icon-hulijiludan"></i>执行单
+                    </el-row>
+                  </router-link>
+            <!-- <el-dropdown
               menu-align="start"
               :hide-on-click="false"
               :class="{ 'router-link-active': isImplementation }"
@@ -37,7 +42,7 @@
                 <i class="iconfont icon-hulijiludan"></i>执行单
               </el-row>
               <el-dropdown-menu slot="dropdown">
-                <!-- <el-dropdown-item
+                 <el-dropdown-item
                     :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
                 >
                   <router-link to="/bottleLabelByProgram" tag="span">
@@ -45,8 +50,8 @@
                       <i class="wardReport"></i>执行瓶签打印
                     </el-row>
                   </router-link>
-                </el-dropdown-item> -->
-                <el-dropdown-item
+                </el-dropdown-item> 
+                  <el-dropdown-item
                   :class="{ active: $route.path == '/implementationList' }">
                   <router-link to="/implementationList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -55,7 +60,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown>  -->
             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveTemperaturePage }"
@@ -123,11 +128,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告
               </el-row>
             </router-link>
-            <router-link to="/healthEdu" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-              <i class="iconfont icon-jiankan"></i>健康教育单
-              </el-row>
-            </router-link>
+            <router-link to="/nursingDocumentation" tag="span">
+                    <el-row class="nav-item" type="flex" align="middle">
+                      <i class="iconfont icon-huangzhecxun"></i>患者查询
+                    </el-row>
+                  </router-link>
             <router-link to="/allCatheter" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-allCatheter"></i> 导管
@@ -143,16 +148,7 @@
                 >护理巡视
               </el-row>
             </router-link>
-            <router-link to="/MEWS" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="sheetHospitalEval"></i> MEWS
-              </el-row>
-            </router-link>
-            <router-link to="/infuse" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
-              </el-row>
-            </router-link>
+           
              <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
@@ -180,7 +176,7 @@
 <!--                    </el-row>-->
 <!--                  </router-link>-->
 <!--                </el-dropdown-item>-->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/nursingDocumentation' }"
                 >
                   <router-link to="/nursingDocumentation" tag="span">
@@ -188,7 +184,28 @@
                       <i class="nursingDocumentation"></i>患者查询
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
+                <el-dropdown-item>
+                <router-link to="/healthEdu" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+              <i class="iconfont icon-jiankan"></i>健康教育单
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item>
+          <router-link to="/MEWS" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                <i class="sheetHospitalEval"></i> MEWS
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
+            <el-dropdown-item>
+            <router-link to="/infuse" tag="span">
+              <el-row class="menu-item" type="flex" align="middle">
+                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
+              </el-row>
+            </router-link>
+          </el-dropdown-item>
 <!--                <el-dropdown-item-->
 <!--                  :class="{ active: $route.path == '/catheterPage' }"-->
 <!--                >-->
