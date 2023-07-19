@@ -542,6 +542,8 @@ export default {
         this.$store.commit("upIsLeaveTip", true);
         next();
       });
+    }else{
+       next();
     }
   }
 }
