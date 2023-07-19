@@ -825,6 +825,7 @@ export default {
     listData: Array,
     specialLis: Array,
     sheetTagsHeight: Number,
+    evalTagHeight: Number
   },
   mixins: [common],
   data() {
@@ -1056,8 +1057,14 @@ export default {
     whhkCaOrUsbSignIn(){
       return window.localStorage.getItem("whhkCaOrUsbSignIn")?JSON.parse(window.localStorage.getItem("whhkCaOrUsbSignIn")):null
     },
+    tagHeight() {
+      const extraHeight = this.$route.path == '/formPage' ? 20 : 8;
+      return ['/formPage', '/record'].includes(this.$route.path)
+        ? (this.evalTagHeight + extraHeight) + this.sheetTagsHeight
+        : this.sheetTagsHeight;
+    },
     fixedTop() {
-      return (this.isInPatientDetails ? 45 : 55) + (this.sheetTagsHeight || 0)
+      return (this.isInPatientDetails ? 45 : 55) + (this.tagHeight || 0)
     },
   },
   methods: {

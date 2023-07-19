@@ -44,6 +44,8 @@
 .content
   margin 10px 15px 0
   margin-bottom 0
+  position relative
+  z-index 0
   .left-part
     float left
     width 260px
@@ -51,6 +53,8 @@
     border: 1px solid #CBD5DD;
     border-radius: 2px 2px 0 2px;
     transition: all 0.4s cubic-bezier(0.55, 0, 0.07, 1.04) 0s;
+    position: relative;
+    z-index: 2;
   .right-part
     margin-left 260px
   #right
@@ -165,11 +169,17 @@ export default {
       }
       const lastTag = this.tagsList[this.tagsList.length - 1]
       // 打开最后一张表单
-      if (reopen && lastTag) {
+      if (reopen && lastTag && !tag.type) {
         this.bus.$emit("openAssessmentBox", lastTag);
       }
+      // 关闭护记
+      const closeEvent = {
+        sheet: () => this.bus.$emit('closeSheetTag', tag)
+      }
+      closeEvent[tag.type] && closeEvent[tag.type]();
       if (!lastTag) {
         // 关闭评估单
+
         this.bus.$emit('closeAssessment')
         // 取消高亮
         this.bus.$emit('highlightTreeNode', null);
@@ -219,6 +229,7 @@ export default {
     this.bus.$on("closeDiagnosisSlide", () => {
       this.$refs.diagnosisSlide.close()
     });
+    this.bus.$on('mountTag', this.onMountTag);
   },
   components: {
     tree,
