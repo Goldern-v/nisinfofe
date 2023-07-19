@@ -1361,7 +1361,33 @@ export default {
     //
     setTitleFS(item) {
       let self = this
-      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+        item.style.backgroundColor = '#edecb2';
+        this.$parent.$parent.$refs.sheetTool.$refs.titleTemplateSlideFS.open((title, obj) => {
+          let { list = [], id = '' } = obj  || {}
+          list = list.map(v => v.options)
+          let data = {
+            list: [{
+              pageIndex: this.index,
+              fieldEn: item.key,
+              id,
+              fieldCn: title,
+              option: list,
+            }],
+            recordCode: sheetInfo.sheetType,
+          };
+          self.bus.$emit("saveSheetPage");
+          item.style.backgroundColor = '';
+          saveTitleOptions(data).then((res) => {
+            // item.name = title;
+            this.bus.$emit('refreshSheetPage')
+          });
+        },
+        item.name,
+        item
+        );
+      }else{
+        this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
           let { list = [], id = '' } = obj  || {}
           list = list.map(v => v.options)
@@ -1389,6 +1415,7 @@ export default {
         item.name,
         item,
       );
+      }
     },
     getLastRecordDate(index,row,direction){
       let lastRecordMonth = ''

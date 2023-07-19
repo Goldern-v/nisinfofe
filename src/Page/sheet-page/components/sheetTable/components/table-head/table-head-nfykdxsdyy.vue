@@ -13,16 +13,18 @@
       "
     >
       <div class="info-con">
-        <span @click="handleDeptNameChoose">
+        <span @click="handleDeptNameChoose(0)">
           科室:
           <div class="bottom-line" style="min-width: 266px">
-            {{ patientInfo.realDeptName }}
+            <!-- {{ patientInfo.realDeptName }} -->
+            {{ newPatientInfo[`realDeptName_${index}_${sheetInfo.selectBlock.id}`] }}
           </div>
         </span>
-        <span>
+        <span @click="handleDeptNameChoose(1)">
           病区:
           <div class="bottom-line" style="min-width: 135px">
-            {{ patientInfo.deptName }}
+            <!-- {{ patientInfo.deptName }} -->
+            {{ newPatientInfo[`deptName_${index}_${sheetInfo.selectBlock.id}`] }}
           </div>
         </span>
       </div>
@@ -101,26 +103,30 @@
       >
         <span
           v-if="sheetInfo.sheetType == 'prenatal_sdry'"
-          @click="handleDeptNameChoose"
+          @click="handleDeptNameChoose(0)"
         >
           科室:
           <div class="bottom-line" style="min-width: 373px">
-            {{ patientInfo.realDeptName }}
+            <!-- {{ patientInfo.realDeptName }} -->
+            {{ newPatientInfo[`realDeptName_${index}_${sheetInfo.selectBlock.id}`]}}
           </div>
         </span>
         <span
           v-if="sheetInfo.sheetType !== 'prenatal_sdry'"
-          @click="handleDeptNameChoose"
+          @click="handleDeptNameChoose(0)"
         >
           科室:
           <div class="bottom-line" style="min-width: 336px">
-            {{ patientInfo.realDeptName }}
+            <!-- {{ patientInfo.realDeptName }} -->
+            {{ newPatientInfo[`realDeptName_${index}_${sheetInfo.selectBlock.id}`] }}
+
           </div>
         </span>
-        <span style="margin-left: 4px;">
+        <span style="margin-left: 4px;" @click="handleDeptNameChoose(1)">
           病区:
           <div class="bottom-line" style="min-width: 135px">
-            {{ patientInfo.deptName }}
+            <!-- {{ patientInfo.deptName }} -->
+            {{ newPatientInfo[`deptName_${index}_${sheetInfo.selectBlock.id}`] }}
           </div>
         </span>
         <span v-if="sheetInfo.sheetType == 'prenatal_sdry'">
@@ -641,11 +647,31 @@ export default {
         // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
         beforeBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index-1}`]
       }
+
+      let beforerealDept = this.patientInfo.realDeptName
+      let newrealDept = this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`]
+      if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index - 1}`]){
+        // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
+        beforerealDept = this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index-1}`]
+      }
+
+      let beforeDeptName = this.patientInfo.deptName
+      let newDeptName = this.sheetInfo.relObj[`PageIndex_deptName_${this.index}`]
+      if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_deptName_${this.index - 1}`]){
+        // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
+        beforeDeptName = this.sheetInfo.relObj[`PageIndex_deptName_${this.index-1}`]
+      }
         return {
           ...this.patientInfo,
           [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed
             ? nowBed
-            : beforeBed
+            : beforeBed,
+          [`realDeptName_${this.index}_${this.sheetInfo.selectBlock.id}`]: newrealDept
+            ? newrealDept
+            : beforerealDept,
+          [`deptName_${this.index}_${this.sheetInfo.selectBlock.id}`]: newDeptName
+            ? newDeptName
+            : beforeDeptName
         };
       }
     },
@@ -774,8 +800,8 @@ export default {
   },
   methods: {
     // 转科弹窗
-    handleDeptNameChoose() {
-      this.bus.$emit("handleDeptNameChoose", true);
+    handleDeptNameChoose(istype) {
+      this.bus.$emit("openMajorCheckbox", true, istype,this.index);
     },
     // 点击获取当前时间
     handleLaborTime(e) {
@@ -932,6 +958,12 @@ export default {
     if (!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]) {
       this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] = this.patientInfo.bedLabel
     }
+    // if (!this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`]) {
+    //   this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`] = this.patientInfo.realDeptName
+    // }
+    // if (!this.sheetInfo.relObj[`PageIndex_deptName_${this.index}`]) {
+    //   this.sheetInfo.relObj[`PageIndex_deptName_${this.index}`] = this.patientInfo.deptName
+    // }
     if (this.index != 0) {
       this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo
         .relObj[`${this.index}pregnantWeeks`]

@@ -334,16 +334,6 @@ export default {
         // 如果浏览器缩放比不是100的时候弹出提示
         try {
           !this.isDev &&
-            // this.$alert(
-            //   `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`,
-            //   "提示",
-            //   {
-            //     confirmButtonText: "确定",
-            //     callback: () => {
-            //       this.showScaleMsg = false;
-            //     },
-            //   }
-            // );
             this.$notify.info({
               title: "提示",
               message: `当前浏览器缩放 ${this.scaleRate}%，可能会影响页面正常显示，可以通过 cltr + '0' 恢复 100%`,
@@ -356,7 +346,7 @@ export default {
     },
     isResize() {
       window.addEventListener("resize", () => {
-        if (this.showScaleMsg || this.scaleRate == detectZoom()) {
+        if (localStorage.getItem("noShowScaleTip") || this.showScaleMsg || this.scaleRate == detectZoom()) {
           this.scaleRate = detectZoom();
           if (
             document.getElementsByClassName("el-notification__content") &&
