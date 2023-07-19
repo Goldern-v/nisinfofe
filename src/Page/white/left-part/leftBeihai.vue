@@ -128,7 +128,7 @@
 <style lang="scss" scoped>
 /deep/ .el-table .warning-row{
   font-weight: bold;
-  background: #f6f9eb;
+  background: #e2f0e4;
 }
 </style>
 
