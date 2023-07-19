@@ -509,7 +509,6 @@ export default {
   },
 
   beforeRouteLeave(to, from, next) {
-    console.log( from.path == '/admissionPageAdult2', from.path, this.$store.state.admittingSave.isLeaveTip);
     if(this.HOSPITAL_ID == 'nfyksdyy' && from.path == '/admissionPageAdult2' && !this.$store.state.admittingSave.isLeaveTip ){
     window.app
       .$confirm("入院评估（成人），离开将会丢失数据", "提示", {
@@ -518,6 +517,18 @@ export default {
         type: "warning",
       })
       .then((res) => {
+        this.$store.commit("upIsLeaveTip", true);
+        next();
+      });
+    }else if(this.HOSPITAL_ID == 'foshanrenyi' && !this.$store.state.admittingSave.isLeaveTip ){
+      window.app
+      .$confirm("是否保存一体化评估内容", "提示", {
+        confirmButtonText: "保存",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+      .then((res) => {
+        this.bus.$emit("tosave")
         this.$store.commit("upIsLeaveTip", true);
         next();
       });

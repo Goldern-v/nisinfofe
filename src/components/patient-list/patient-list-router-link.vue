@@ -526,7 +526,36 @@ export default {
               message: "已取消"
             });
           });
-      } else {
+      } else if(
+        !this.$store.state.admittingSave.isLeaveTip &&
+        this.HOSPITAL_ID == "foshanrenyi")
+      {
+         window.app
+        .$confirm("是否保存一体化评估内容", "提示", {
+          confirmButtonText: "保存",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+        .then((res) => {
+          this.bus.$emit("tosave")
+          this.$store.commit("upIsLeaveTip", true);
+          this.selectPatientId = patient.patientId;
+          if (this.callFunction) {
+            this.$route.query.patientId = patient.patientId;
+            this.$route.query.visitId = patient.visitId;
+            this.$route.query.inpNo = patient.inpNo;
+            patient.formId = this.$route.params.formId || "";
+            //
+            this.$store.commit("upCurrentPatientObj", patient);
+            this.$store.commit("upWardCode", patient.wardCode || "");
+            this.$store.commit("upWardName", patient.wardName || "");
+            //patient 参数 true是否要滚动到最后一页
+            this.callFunction(patient, true);
+            //
+          }
+          next();
+        });
+      }else {
         this.selectPatientId = patient.patientId;
         if (this.callFunction) {
           this.$route.query.patientId = patient.patientId;

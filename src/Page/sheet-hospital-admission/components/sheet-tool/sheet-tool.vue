@@ -1666,6 +1666,9 @@ export default {
     this.bus.$on("setIsNewForm", (isNewForm) => {
       this.isNewForm = isNewForm;
     });
+    this.bus.$on("tosave", () => {
+      this.formSave()
+    });
     // this.isNewForm = false;
   },
   mounted() {
