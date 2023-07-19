@@ -284,7 +284,9 @@ export default {
       this.isOtherPages = false;
       this.otherComponent = data.type
       if(isopenSheetTag){
-        this.$store.commit("upSheetTagInfo", data);
+        if (data.type == 'sheet') {
+          this.$store.commit("upSheetTagInfo", data);
+        }
         this.bus.$emit("mountTag", data);
         // this.bus.$emit("openSheetTag", data)
       }

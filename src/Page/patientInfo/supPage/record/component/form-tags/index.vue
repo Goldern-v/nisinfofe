@@ -45,8 +45,12 @@ export default {
   },
   methods: {
     formatTagName(tag) {
-      if (tag.type === 'sheet') {
-        return tag.recordName;
+      const tagName = {
+        sheet: 'recordName',
+        bloodSugar: 'label',
+      }
+      if (tag.type) {
+        return tag[tagName[tag.type]];
       }
       return tag.pageUrl.replace('.html', '') + ' ' + tag.evalDate;
     },
@@ -67,8 +71,8 @@ export default {
       this.selectedTag = tag;
       this.$emit('updateCurrentTag', tag);
       this.bus.$emit('highlightTreeNode', tag);
-      if (tag.type && tag.type == 'sheet') {
-        if (!type) {
+      if (tag.type) {
+        if (type !== 'sheet' || tag.type == 'bloodSugar') {
           this.bus.$emit('openOtherPage', tag, true);
         } else {
           this.bus.$emit('openSheetTag', tag);
@@ -133,7 +137,11 @@ export default {
   watch: {
     currentTag: {
       handler(val) {
-        if (!this.selectedTag || (val && val.id !== this.selectedTag.id)) {
+        if (
+          !this.selectedTag
+          || (val && val.id !== this.selectedTag.id)
+          || val.type == 'bloodSugar'
+        ) {
           this.onOpenTagForm(val);
           this.moveToCurrentTag(val);
         }
