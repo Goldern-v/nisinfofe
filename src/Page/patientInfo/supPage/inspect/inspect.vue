@@ -299,7 +299,6 @@ export default {
     this.visitId = this.infoData.visitId;
     if (this.$route.query.id) {
       this.rightData['examNo'] = this.$route.query.id || ''
-      console.log(this.rightData, '检查22')
       this.toRight(this.rightData)
     }
     
@@ -310,7 +309,6 @@ export default {
       window.open(`http://192.168.100.26:8090/HkWebReport/ExaminePatientController/GetHistoryList.do?DataBase=ALL%22&exam_Pat_No=${this.infoData.inpNo}`)
     },
     toRight(data) {
-      console.log(data, 66666);
       if (!data) return;
       this.rightData = data;
       this.$nextTick(() => {

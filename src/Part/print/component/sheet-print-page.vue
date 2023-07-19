@@ -139,7 +139,8 @@
       flex: 1;
       height: 30px;
       object-fit: contain;
-      margin: 0 -5px;
+      // margin: 0 -5px;
+      width: min(50px, 100%);
     }
 
     span {
@@ -445,7 +446,7 @@ export default {
             size:A4;
           }
           .iframe > div:nth-of-type(n){
-            transform: rotateZ(90deg) scaleX(.9) scaleY(1.35) translateY(615px) !important;
+            transform: rotateZ(90deg) scaleX(.9) scaleY(1.33) translateY(615px) !important;
             margin-top: 30px !important;
             transform-origin: center center !important;
             height: 1620px !important;

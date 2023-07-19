@@ -69,6 +69,12 @@
             align="center"
           ></el-table-column>
           <el-table-column
+            prop="nursingClass"
+            label="护理等级"
+            min-width="90"
+            align="center"
+          ></el-table-column>
+          <el-table-column
             prop="name"
             label="姓名"
             min-width="100"

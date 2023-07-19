@@ -928,7 +928,6 @@ export default {
       // if (this.allSigned) {
       //   return
       // }
-
       const tabMap = {
         background: "2",
         assessmentSituation: "3",

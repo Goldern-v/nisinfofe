@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="right-part">
-          <testFormFSRY ref="testForm" :tableHeaderInfo="tableHeaderInfo" :checkNum='radio'></testFormFSRY>
+          <testFormFSRY ref="testForm" :tableHeaderInfo="tableHeaderInfo" :info="info" :checkNum='radio'></testFormFSRY>
           <!-- <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm> -->
           <!--右边的检验报告单部分，花都的testFormHD组件，因为事件与其他医院不一样-->
           <!-- <testFormHD v-if="rightData.testNo&&['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testFormHD> -->
@@ -156,6 +156,12 @@ import {
 } from '@/api/patientInfo'
 import bus from "vue-happy-bus";
 export default {
+  props: {
+    info: {
+      type: Object,
+      default: {}
+    }
+  },
   data() {
     return {
       list: [],
@@ -279,6 +285,7 @@ export default {
       this.radio = index
       if (!['foshanrenyi'].includes(this.HOSPITAL_ID)) {
         this.rightData = data
+        this.tableHeaderInfo = data
       } else {
         //初始化的时候合并的，点击之后拿点击的表头
         data = this.rightData&&this.rightData[index]
