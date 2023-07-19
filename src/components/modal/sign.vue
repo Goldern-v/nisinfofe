@@ -330,8 +330,8 @@ export default {
         this.isCaSign = true
       }
     }
-    if(['fuyou'].includes(this.HOSPITAL_ID)){
-      // if(localStorage['fuyouCaData']) this.isCaSign = true
+    if(['hj'].includes(this.HOSPITAL_ID)){
+      if(this.fuyouCaData && this.fuyouCaData.userName) this.isCaSign = true
     }
     if(type){
       let signType = {sign:'1',audit:'2'};
