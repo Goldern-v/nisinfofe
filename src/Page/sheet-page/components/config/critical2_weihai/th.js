@@ -385,7 +385,7 @@ export default {
     },
     {
       name: `
-      气囊<br/>压力<br/>(cmH2)
+      气囊<br/>压力<br/>(cmH2o)
       `,
       style: {
         minWidth: "30px",

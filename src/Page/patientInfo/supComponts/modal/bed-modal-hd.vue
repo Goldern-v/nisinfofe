@@ -172,16 +172,16 @@
         <div class="bed-card-vert-con">
           <div>
             <div class="top" >
-              <span >科室：{{ query.deptName }}</span>
+              <span :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-20px' : ''}">科室：{{ query.deptName }}</span>
             </div>
             <div>
-              <div :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-1px' : ''}">
+              <div :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-30px' : ''}">
                 <span>{{ query.name }}</span>
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
                 <span>{{ query.bedLabel }}床</span>
               </div>
-              <div :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-5px' : ''}">
+              <div :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-30px' : ''}">
                 <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
               </div>
               <div
@@ -189,7 +189,7 @@
               >
                 <p
                   :class="[allergy1 || drugGms || allergy2 ? 'gm' : '']"
-                  :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-5px' : ''}"
+                  :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-20px' : ''}"
                 >
                   过敏信息：
                   <span v-if="allergy1">{{ allergy1 }};</span>
@@ -201,14 +201,14 @@
             </div>
           </div>
              <img
-               :style="{right: ['liaocheng'].includes(HOSPITAL_ID) ? '80px' : ''}"
+               :style="{right: ['liaocheng'].includes(HOSPITAL_ID) ? '140px' : ''}"
                style="right: 50px; margin-top: -65px"
                class="qr-code"
                :class="{ hasRemark: hasRemark }"
                :src="qrCode"
               />
             <span v-if="!isliaocheng" style="position: absolute;right: 90px;top: 87px;">{{ query.inpNo }}</span>
-            <span v-if="isliaocheng" style="position: absolute;right: 90px;top: 87px;">{{ query.patientId }}</span>
+            <span v-if="isliaocheng" style="position: absolute;right: 148px;top: 87px;">{{ query.patientId }}</span>
         </div>
       </div>
       </template>
