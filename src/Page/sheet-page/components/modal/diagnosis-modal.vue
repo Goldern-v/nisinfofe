@@ -51,6 +51,7 @@
             </template>
           </el-table-column>
           <el-table-column
+            v-if="!problems"
             prop="diagName"
             label="护理问题"
             min-width="275px"
@@ -150,9 +151,10 @@ export default {
       bus: bus(this),
       formList: {},
       filterData: [],
-      newType: ['lyxrm','huadu', 'whhk', 'stmz','foshanrenyi','fuyou','zhzxy'].includes(this.HOSPITAL_ID),
+      newType: ['lyxrm','huadu', 'whhk', 'stmz','foshanrenyi','fuyou','zhzxy',].includes(this.HOSPITAL_ID),
       hospitalType:['fuyou'].includes(this.HOSPITAL_ID),
-      hasMeasure: ['whsl'].includes(this.HOSPITAL_ID)
+      hasMeasure: ['whsl', 'guizhou'].includes(this.HOSPITAL_ID),
+      problems: ['guizhou'].includes(this.HOSPITAL_ID),
     };
   },
   methods: {

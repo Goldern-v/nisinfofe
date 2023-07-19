@@ -22,7 +22,7 @@
               <template slot-scope="scope">
                 <span>{{
                   scope.row.patientname +
-                    `(${scope.row.sex} ${scope.row.age}岁)`
+                    `(${scope.row.sex} ${scope.row.age})`
                 }}</span>
               </template>
             </el-table-column>
@@ -128,7 +128,7 @@
 <style lang="scss" scoped>
 /deep/ .el-table .warning-row{
   font-weight: bold;
-  background: #f6f9eb;
+  background: #e2f0e4;
 }
 </style>
 
@@ -166,9 +166,10 @@ export default {
         };
         let startDate = moment(item.bookdate + " " + startTime).valueOf();
         let endDate = moment(item.bookdate + " " + endTime).valueOf();
-        item.ative =
-          moment(new Date()).valueOf() >= startDate &&
-          moment(new Date()).valueOf() <= endDate;
+        // item.ative = 
+        //   moment(new Date()).valueOf() >= startDate &&
+        //   moment(new Date()).valueOf() <= endDate;
+        item.ative = moment(item.bookdate).valueOf() > moment(moment(new Date()).format("YYYY-MM-DD")).valueOf()
         return  endDate >=  moment(new Date()).valueOf() ;
       });
       // 检查类别分类过滤
@@ -195,7 +196,7 @@ export default {
       } else {
         return "";
       }
-    }
+    },
   },
   components: {
     boxBase,

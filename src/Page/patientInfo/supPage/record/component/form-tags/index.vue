@@ -5,13 +5,17 @@
         v-for="(tag, index) in tagsList"
         :id="tag.id"
         ref="tag"
-        :key="index + tag.formCode"
+        :key="index + '-' + tag.formCode"
         :class="isActive(tag) ? 'active' : ''"
         class="tags-view-item"
         @click="onOpenTagForm(tag)"
       >
         {{ formatTagName(tag) }}
-        <span class="el-icon-close" @click.prevent.stop="onCloseTag(tag)"></span>
+        <span
+          v-if="tagsList && (tagsList.length > 1 || tagsList[0].type !== 'sheet')"
+          class="el-icon-close"
+          @click.prevent.stop="onCloseTag(tag)"
+        ></span>
       </span>
     </div>
   </div>
@@ -41,6 +45,13 @@ export default {
   },
   methods: {
     formatTagName(tag) {
+      const tagName = {
+        sheet: 'recordName',
+        bloodSugar: 'label',
+      }
+      if (tag.type) {
+        return tag[tagName[tag.type]];
+      }
       return tag.pageUrl.replace('.html', '') + ' ' + tag.evalDate;
     },
     isActive(item) {
@@ -56,10 +67,19 @@ export default {
     },
     // 打开评估单
     onOpenTagForm(tag) {
+      const type = this.selectedTag.type;
       this.selectedTag = tag;
       this.$emit('updateCurrentTag', tag);
-      this.bus.$emit("openAssessmentBox", tag);
       this.bus.$emit('highlightTreeNode', tag);
+      if (tag.type) {
+        if (type !== 'sheet' || tag.type == 'bloodSugar') {
+          this.bus.$emit('openOtherPage', tag, true);
+        } else {
+          this.bus.$emit('openSheetTag', tag);
+        }
+        return;
+      }
+      this.bus.$emit("openAssessmentBox", tag);
     },
     // 关闭标签
     onCloseTag(tag) {
@@ -117,7 +137,11 @@ export default {
   watch: {
     currentTag: {
       handler(val) {
-        if (!this.selectedTag || (val && val.id !== this.selectedTag.id)) {
+        if (
+          !this.selectedTag
+          || (val && val.id !== this.selectedTag.id)
+          || val.type == 'bloodSugar'
+        ) {
           this.onOpenTagForm(val);
           this.moveToCurrentTag(val);
         }

@@ -352,7 +352,7 @@ export default {
       if (this.$route.path == "/formPage" || this.filterObj) {
         return `${this.wih - 120 - this.tagsViewHeight}px`;
       } else {
-        return `${this.wih - 180 - this.tagsViewHeight}px`;
+        return `${this.wih - 162 - this.tagsViewHeight}px`;
       }
     },
     openLeft() {
@@ -430,7 +430,12 @@ export default {
           (node.level == 1 && !data.children.length)
         ) {
           let isopenSheetTag = false;
-          if (data.type == "sheet" && node.level == 2) isopenSheetTag = true;
+          if (
+            (data.type == "sheet" && node.level == 2)
+            || data.type == "bloodSugar"
+          ) {
+            isopenSheetTag = true;
+          }
           this.bus.$emit("openOtherPage", data, isopenSheetTag);
         }
       } else {

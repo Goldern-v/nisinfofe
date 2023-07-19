@@ -18,9 +18,9 @@
         <div class="name">{{ data.subject }}报告单</div>
         <el-row class="info-class" type="flex" justify="space-between">
           <span>申请单号：{{ tableHeaderInfo.testNo }}</span>
-          <span>姓名：{{ $route.query.name||patientInfo.name }}</span>
-          <span>性别：{{ $route.query.sex||patientInfo.sex }}</span>
-          <span>年龄：{{ $route.query.age ||patientInfo.age}}</span>
+          <span>姓名：{{ $route.query.name||patientInfo.name || (info.name && info.name.split(/[\(\) | \（\）)]+/)[0])}}</span>
+          <span>性别：{{ $route.query.sex||patientInfo.sex ||  (info.name && info.name.split(/[\(\) | \（\）)]+/)[1])}}</span>
+          <span>年龄：{{ $route.query.age ||patientInfo.age || info.age}}</span>
           <span v-if="HOSPITAL_ID=='fuyou'">住院号：{{ $route.query.inpNo }}</span>
           <span v-else>病人ID：{{ tableHeaderInfo.patientId }}</span>
         </el-row>
@@ -244,8 +244,11 @@ export default {
     tableHeaderInfo:{
       type:Object,
       default:{}
+    },
+    info: {
+      type:Object,
+      default:{}
     }
-
   },
   data() {
     return {
@@ -353,7 +356,7 @@ export default {
   },
   filters: {
     dataForm(value) {
-      let result = moment(value).format("YYYY-MM-DD HH:mm:ss");
+      let result = value ? moment(value).format("YYYY-MM-DD HH:mm:ss") : '';
       return !(result + "").includes("NaN") ? result : value || "没出报告";
     },
   },

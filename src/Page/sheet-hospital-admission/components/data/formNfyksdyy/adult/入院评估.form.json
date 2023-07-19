@@ -2184,7 +2184,6 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
-              "weight2": "I1001883",
               "result": "I100011",
               "relate": "I233204",
               "relateRule": [{

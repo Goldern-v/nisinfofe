@@ -330,9 +330,6 @@ export default {
         this.isCaSign = true
       }
     }
-    if(['fuyou'].includes(this.HOSPITAL_ID)){
-      // if(localStorage['fuyouCaData']) this.isCaSign = true
-    }
     if(type){
       let signType = {sign:'1',audit:'2'};
       this.signType = signType[type];
@@ -381,6 +378,15 @@ export default {
         if([].includes(this.HOSPITAL_ID) && !this.nanfangCa){
           this.pw = true
         }else this.pw = false;
+      
+      // 如果已经是ca签名的情况下 点开签名弹窗 默认开启ca签名
+      if(['hj'].includes(this.HOSPITAL_ID)){
+        if(this.fuyouCaData && this.fuyouCaData.userName) {
+          this.isCaSign = true
+          this.pw = true
+        }
+      }
+
       this.showDate = showDate;
       // this.showMessage = showMessage;
       this.message = message;

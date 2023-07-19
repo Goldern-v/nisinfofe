@@ -22,10 +22,7 @@
           <table class="table-bottom" data-print-style="height: 100%;">
             <tr>
               <td>
-                <InTable :data="inList" :index="index"/>
-              </td>
-              <td>
-                <OutTable :data="outList" :index="index"/>
+                <Table :data="inList" :dataOut="outList" :index="index"/>
               </td>
             </tr>
           </table>
@@ -55,8 +52,7 @@
 import common from "@/common/mixin/common.mixin.js";
 import FallibleImage from "@/components/FallibleImage/FallibleImage.vue";
 import HeadTable from "./head-table-sdyy.vue";
-import InTable from "./in-table-sdyy.vue";
-import OutTable from "./out-table-sdyy.vue";
+import Table from "./table-sdyy.vue";
 
 export default {
   mixins: [common],
@@ -81,8 +77,7 @@ export default {
   components: {
     FallibleImage,
     HeadTable,
-    InTable,
-    OutTable,
+    Table,
   }
 };
 </script>

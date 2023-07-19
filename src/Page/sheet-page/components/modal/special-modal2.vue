@@ -903,7 +903,7 @@
               </div>
             </el-checkbox-group>
           </el-tab-pane>
-          <el-tab-pane :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '泵入药物':'出量')" name="5" v-if="outChoseItemList.length>0 ">
+          <el-tab-pane :label="outChoseItemList[0].modalLabel || (HOSPITAL_ID =='whsl' ? '出量':'出量')" name="5" v-if="outChoseItemList.length>0 ">
             <dischargeSetting
               ref="dischargeSetting"
               :outChoseItemList="outChoseItemList"
@@ -2455,7 +2455,7 @@ export default {
       if (this.isSaving) {
         return;
       }
-      if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zhzxy" || this.HOSPITAL_ID == "fuyou"|| this.HOSPITAL_ID == "nfyksdyy") {
+      if (['guizhou', 'nfyksdyy', 'fuyou', 'zhzxy', 'foshanrenyi'].includes(this.HOSPITAL_ID)) {
         // 佛山市一，护记弹窗保存有换行\n,所以要全部清理。不然textarea显示有问题
         // 珠海中西医 弹窗保存会复制病例过来会有换行。所以全部清理
         this.doc = this.doc.replace(/\n/gi, "");
@@ -3194,7 +3194,7 @@ export default {
         if (this.doc && v[key]) {
           this.doc += "\n";
         }
-        if (['fuyou', 'whsl'].includes(this.HOSPITAL_ID))
+        if (['fuyou', 'whsl', 'guizhou'].includes(this.HOSPITAL_ID))
           this.doc += `${v[key]},${v.diagMeasures}`;
         else
           this.doc += v[key];

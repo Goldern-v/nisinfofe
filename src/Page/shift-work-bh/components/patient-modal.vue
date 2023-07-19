@@ -221,8 +221,8 @@
         this.$refs[key] && this.$refs[key].open();
       },
       openPISlide(type) {
-        // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
-        this.bus.$emit("openclosePatientInfo", type, false, true);
+        // 四个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能 第四个参数患者基本信息（交班志基本信息  从交班志打开【检查报告】没有拿到基本信息）
+        this.bus.$emit("openclosePatientInfo", type, false, true, this.form);
       },
       async open (tab, form, autoFocus, isSignedN) {
         const id = this.$route.params.id;
@@ -232,7 +232,7 @@
         this.bedLabelDisabled = !!form
         this.isSignedN = !!isSignedN
         this.$refs.modal.open()
-
+      
         if (!autoFocus || autoFocus === 'bedLabel') {
           this.$nextTick(() => this.$refs.input.$refs.input.focus())
         } else if (autoFocus === 'name') {

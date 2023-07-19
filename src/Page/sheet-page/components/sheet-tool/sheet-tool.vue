@@ -1710,6 +1710,15 @@ export default {
           }
           //选择接口最后一个护记
           this.sheetInfo.selectBlock =this.sheetBlockList[this.sheetBlockList.length - 1] || {};
+          // 护记嵌套在评估单模块
+          const isInFormPage = ['/formPage', '/record'].includes(this.$route.path);
+          if (isInFormPage) {
+            // 从评估单模块第一次打开护记时，打开选中的护记，而不是最后一张
+            const tagInfo = this.$store.state.sheet.sheetTagInfo;
+            if (tagInfo) {
+              this.sheetInfo.selectBlock = this.sheetBlockList.find(block => block.id == tagInfo.id);
+            }
+          }
           if (!this.sheetBlockList.length) {
             this.sheetInfo.relObj = {}
             this.bus.$emit('clearSheetModel')

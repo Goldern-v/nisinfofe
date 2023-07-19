@@ -569,7 +569,10 @@ export default {
           measureStr: this.measureStr,
           targetStr: this.targetStr,
           factorStr: this.factorStr||'',
-          wardCode: !this.$route.path.includes('newSingleTemperatureChart') ? model.selectedBlock.wardCode : this.$store.state.sheet.patientInfo.wardCode,
+          wardCode:
+            !this.$route.path.includes('newSingleTemperatureChart')
+              ? (model.selectedBlock.wardCode || this.$route.query.wardCode)
+              : this.$store.state.sheet.patientInfo.wardCode,
           beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm")
         };
         if (this.status === "1") {
