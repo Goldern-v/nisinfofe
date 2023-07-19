@@ -3,7 +3,7 @@
     <div v-if="route" class="tool-con" flex-box="1">
       <sheetTool :formCodeFy='formCode' ref="sheetHospitalAdmissionTool"></sheetTool>
     </div>
-    <div :class="[route&&'sheetTable-contain']">
+    <div :class="[route&&'sheetTable-contain']"  @click="handleIsLeaveTip">
       <div :class="fileJSON ? 'pages':'no-page'" ref="sheetPage">
         <div
           v-if="isShowLoadingLayout"
@@ -524,9 +524,27 @@ export default {
           }
         }
       }
+    },
+     handleIsLeaveTip(){
+      this.$store.commit("upIsLeaveTip", false);
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if(this.HOSPITAL_ID == 'foshanrenyi' && !this.$store.state.admittingSave.isLeaveTip ){
+      window.app
+      .$confirm("是否保存一体化评估内容", "提示", {
+        confirmButtonText: "保存",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+      .then((res) => {
+        this.bus.$emit("tosave")
+        this.$store.commit("upIsLeaveTip", true);
+        next();
+      });
     }
   }
-};
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
