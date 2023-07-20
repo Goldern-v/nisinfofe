@@ -172,6 +172,8 @@ import doctorEmr from "@/components/doctorEmr";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_nfyksdyy.vue"; //血糖
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue";
+import temperature from "@/Page/patientInfo/supPage/temperature/temperature-foshanrenyi";
+import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 
 export default {
   props: {
@@ -359,7 +361,9 @@ export default {
     doctorEmr,
     sheet,
     bloodSugar,
-    healthEducation
+    healthEducation,
+    temperature,
+    diagnosis
   },
 };
 </script>

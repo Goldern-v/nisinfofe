@@ -979,7 +979,6 @@ export default {
     },
     getFilterSelections(orgin, filterStr) {
       if (!filterStr || !filterStr.trim()) return orgin;
-      console.log("orgin==",orgin)
       return orgin;
     },
     handlePopRefresh(target) {
