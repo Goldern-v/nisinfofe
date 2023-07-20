@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 表单编辑器医嘱同步使用这个页面。信息系统需要大改，建议新建一个组件。 -->
     <sweet-modal ref="modal" :modalWidth="modalWidth" :title="title">
       <div flex="cross:center">
         <div>
@@ -72,7 +73,7 @@
           <el-table-column
             prop="startDate"
             label="日期"
-            min-width="200px"
+            min-width="160px"
             align="center"
           >
             <template slot-scope="scope">
@@ -83,11 +84,11 @@
             <el-table-column
               prop="orderText"
               label="医嘱内容"
-              min-width="110px"
+              min-width="150px"
               align="center"
             ></el-table-column>
             <el-table-column
-              prop="dosage"
+              prop="dosageStr"
               label="药品剂量"
               min-width="110px"
               align="center"
@@ -95,6 +96,12 @@
             <el-table-column
               prop="administration"
               label="途径"
+              min-width="110px"
+              align="center"
+            ></el-table-column>
+            <el-table-column
+              prop="frequency"
+              label="频率"
               min-width="110px"
               align="center"
             ></el-table-column>
@@ -238,9 +245,15 @@ export default {
     post() {
       let temArr = this.multipleSelection,str="";
         if (this.multipleSelection.length == 0) return this.$message.warning("请选择一条数据");
-        temArr.map((item,index)=>{
-          str +=index==temArr.length-1?item.orderText:item.orderText+','
-        })
+        str = temArr.map((obj) => {
+          const fields = [
+           obj.orderText,
+           obj.dosageStr,
+           obj.administration,
+           obj.frequency
+          ].filter(Boolean); // 过滤掉为空的字段
+          return fields.join(',');
+        }).join(';');
         this.yzcb(str)
         this.close()
     },
