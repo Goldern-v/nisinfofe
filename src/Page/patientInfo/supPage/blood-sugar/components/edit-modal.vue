@@ -120,7 +120,8 @@
             class="icon-center"
           >
             <ElOption
-              v-for="item in [{ name: '拒测', value: '拒测' }, { name: '外出', value: '外出' }]"
+              v-for="item in [{ name: '拒测', value: '拒测' }, { name: '外出', value: '外出' },
+               { name: '动态', value: '动态' }, { name: '自测', value: '自测' }]"
               :key="item.name"
               :label="item.name"
               :value="item.value"

@@ -56,27 +56,27 @@ export default {
         colspan: "1",
         rowspan: "2",
       },
-      { name: "1", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
-      { name: "2", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
-      { name: "3", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
-      { name: "4", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
-      { name: "5", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
-      { name: "6", colspan: "1", rowspan: "2", style: { minWidth: "30px", maxWidth: "30px" } },
+      { name: "1", colspan: "1", rowspan: "2", style: { minWidth: "42px", maxWidth: "42px" } },
+      { name: "2", colspan: "1", rowspan: "2", style: { minWidth: "42px", maxWidth: "42px" } },
+      { name: "3", colspan: "1", rowspan: "2", style: { minWidth: "42px", maxWidth: "42px" } },
+      { name: "4", colspan: "1", rowspan: "2", style: { minWidth: "42px", maxWidth: "42px" } },
+      { name: "5", colspan: "1", rowspan: "2", style: { minWidth: "42px", maxWidth: "42px" } },
+      { name: "6", colspan: "1", rowspan: "2", style: { minWidth: "42px", maxWidth: "42px" } },
       {
         name: "口服<br/>/<br/>鼻饲<br/>",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "30px", maxWidth: "30px" }
+        style: { minWidth: "42px", maxWidth: "42px" }
       },
-      { name: "每时", colspan: "1", rowspan: "2", style: { minWidth: "70px", maxWidth: "70px" } },
+      { name: "每时", colspan: "1", rowspan: "2", style: { minWidth: "42px", maxWidth: "42px" } },
       // { name: "总量", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
       // { name: "总量", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
-      { name: "每时", colspan: "1", rowspan: "2", style: { minWidth: "70px", maxWidth: "70px" } },
+      { name: "每时", colspan: "1", rowspan: "2", style: { minWidth: "42px", maxWidth: "42px" } },
       {
         name: "尿量<br/>",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "70px", maxWidth: "70px" }
+        style: { minWidth: "42px", maxWidth: "42px" }
       },
       // {
       //   name: "累计<br/>尿量<br/>(ml)",
