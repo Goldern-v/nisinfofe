@@ -170,6 +170,9 @@ export default {
     this.bus.$on("openPizhuModalBox", (tr, td, callback = null) => {
       this.$refs.pizhuModal.open(tr, td, callback);
     });
+    this.bus.$on("changeOriginTemptp", (flag) => {
+      this.$emit("changeOriginTemptp",flag)
+    });
   },
   mounted() {
     window.cleanAllMark = this.cleanAllMark;

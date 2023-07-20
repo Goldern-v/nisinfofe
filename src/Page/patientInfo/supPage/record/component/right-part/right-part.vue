@@ -1,5 +1,5 @@
 <template>
-  <div class="right-part-contain" :class="{ fullPageRecord }">
+  <div class="right-part-contain" :class="{ fullPageRecord,ifCloseOriginTem }">
     <div
         class="form-loading-box"
         v-loading="formBoxLoading"
@@ -28,6 +28,7 @@
           <assessment_v2
               v-show="!showConToolBar && showType"
               ref="assessmentV2"
+              @changeOriginTemptp = "changeOriginTemptp"
               :tagsViewHeight="tagsViewHeight"
           />
 
@@ -71,6 +72,11 @@
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .right-part-contain {
+  &.ifCloseOriginTem{
+    /deep/ .doctor-emr-wrapper{
+      display: none
+    }
+  }
   height: 100%;
   .form-loading-box {
     height: 100%;
@@ -195,7 +201,8 @@ export default {
       formBoxLoadingText: "载入中..",
       nodeData: {},
       isOtherPages: true,
-      otherComponent:""
+      otherComponent:"",
+      ifCloseOriginTem:false
     };
   },
   created() {
@@ -298,6 +305,9 @@ export default {
     this.$store.commit("upPatientInfo", this.$route.query);
   },
   methods: {
+    changeOriginTemptp(flag){
+      this.ifCloseOriginTem = flag
+    },
     newRecordOpen() {
       this.$parent.$refs.tree.$refs.newForm.open();
     },
