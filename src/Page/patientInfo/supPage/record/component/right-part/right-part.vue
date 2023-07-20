@@ -62,7 +62,7 @@
       </div>
      </template>
      <!-- 其他记录单或者血糖，健康 -->
-        <component :is="otherComponent" v-else></component>
+        <component :is="otherComponent" v-else :evalTagHeight="tagsViewHeight"></component>
       <!-- 关联表单弹窗 -->
       <RelationFormModal/>
       <!-- 电子病例弹窗 -->
@@ -178,6 +178,8 @@ import doctorEmr from "@/components/doctorEmr";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_nfyksdyy.vue"; //血糖
 import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue";
+import temperature from "@/Page/patientInfo/supPage/temperature/temperature-foshanrenyi";
+import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 
 export default {
   props: {
@@ -291,7 +293,11 @@ export default {
       this.isOtherPages = false;
       this.otherComponent = data.type
       if(isopenSheetTag){
-        this.bus.$emit("openSheetTag", data)
+        if (data.type == 'sheet') {
+          this.$store.commit("upSheetTagInfo", data);
+        }
+        this.bus.$emit("mountTag", data);
+        // this.bus.$emit("openSheetTag", data)
       }
     })
 
@@ -365,7 +371,9 @@ export default {
     doctorEmr,
     sheet,
     bloodSugar,
-    healthEducation
+    healthEducation,
+    temperature,
+    diagnosis
   },
 };
 </script>

@@ -37,7 +37,7 @@
         type="primary"
         @click="handleSign"
         :disabled="loading"
-        v-show="showSignBtn"
+        v-show="showSignBtn && HOSPITAL_ID != 'nfyksdyy' "
         >签名</el-button
       >
     </div>

@@ -90,7 +90,7 @@ export default {
     },
     smallSize4Hospital() {
       const pageSize = {
-        nfyksdyy: 12
+        nfyksdyy: 10
       }
       return pageSize[this.HOSPITAL_ID] || 10;
     }

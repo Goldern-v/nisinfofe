@@ -28,7 +28,7 @@
             <span>姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
             <span style="margin-left: 20px;">性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span style="margin-left: 20px;">年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
-            <span style="margin-left: 20px;">床号：<input type="text" :value="resBedNol.split(',')[index]" style="width:128px; border:none;resize: none; outline:none;" @blur="onResBedNo($event,index+1)"></span>
+            <span style="margin-left: 20px;">床号：<input type="text" :value="resBedNol.split(',')[index]" style="width:128px; border:none;resize: none; outline:none;" @blur="onResBedNo($event,index+1)" :data-value="resBedNol.split(',')[index]"></span>
             <span style="margin-left: 20px;">住院号：{{patientInfo.inpNo}}</span>
           </div>
           <div class="info" style="border-bottom: 1px solid #000;">
@@ -481,14 +481,10 @@ export default {
 
     },
     async getBedExchange(){
-      console.log('dddddddddd');
        let resBedNolList = []
       // 获取动态床号数据
       if(this.listMap.length){
         for(let i = 1 ; i <=  this.listMap.length; i++){
-          if(this.resBedNol.split(',')[i-2] && !this.resBedNol.split(',')[i-1] && i > 1){
-            this.resBedNol += ','+this.resBedNol.split(',')[i-2]
-          }
           let bedData = {
               bedLabelNew: this.resBedNol.split(',')[i-1] || this.patientInfo.bedLabel,
               moduleCode: 'sugar',

@@ -32,7 +32,14 @@
           @switchSheet="onSheetSwitch"
           @closeSheet="onSheetClose"
         />
-        <div class="sheetTable-contain" ref="scrollCon" @scroll="onScroll">
+        <div
+          class="sheetTable-contain"
+          ref="scrollCon"
+          @scroll="onScroll"
+          :style="{
+            height: `calc(100% - ${sheetTagsHeight}px)`
+          }"
+        >
           <div ref="sheetTableContain">
             <component
               v-bind:is="sheetTable"
@@ -50,6 +57,7 @@
               :specialLis="specialList"
               @onModalChange="onModalChange"
               :sheetTagsHeight="sheetTagsHeight"
+              :evalTagHeight="evalTagHeight"
             ></component>
           </div>
           <div
@@ -67,6 +75,7 @@
     <delPageModal ref="delPageModal" :index="sheetModelData.length"></delPageModal>
     <HjModal ref="HjModal"></HjModal>
     <HdModal ref="HdModal"></HdModal>
+    <SDYYModal ref="SDYYModal"></SDYYModal>
     <GuizhouModal ref="GuizhouModal"></GuizhouModal>
     <signModal ref="signModal" title="需要该行签名着确认"></signModal>
     <signModal ref="signModal2" title="签名者确认"></signModal>
@@ -139,7 +148,7 @@
 }
 
 .sheetTable-contain {
-  height: calc( 100% - 35px);
+  // height: calc( 100% - 35px);
   background: #DFDFDF;
   overflow: auto;
   padding: 15px;
@@ -255,6 +264,7 @@ import $ from "jquery";
 import moment from "moment";
 import HjModal from "@/Page/sheet-page/components/modal/hj-modal.vue";
 import HdModal from "@/Page/sheet-page/components/modal/hd-modal.vue";
+import SDYYModal from "@/Page/sheet-page/components/modal/sdyy-modal.vue";
 import GuizhouModal from "@/Page/sheet-page/components/modal/guizhou-modal.vue";
 import signModal from "@/components/modal/sign.vue";
 import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
@@ -272,6 +282,9 @@ import {GetUserList,verifyNewCaSign} from '../../../../api/caCardApi'//护记CA�
 import SheetTags from '@/Page/sheet-page/components/sheet-tags/index.vue';
 export default {
   mixins: [common],
+  props: {
+    evalTagHeight: Number
+  },
   data() {
     return {
       data: {
@@ -307,17 +320,20 @@ export default {
     // 显示标签
     hasSheetTags() {
       // return ['nfyksdyy', 'whsl'].includes(this.HOSPITAL_ID) && !!this.sheetTagsList.length;
-      return !!this.sheetTagsList.length;
+      const inFormPage = ['/formPage', '/record'].includes(this.$route.path) && ['nfyksdyy'].includes(this.HOSPITAL_ID);
+      return !!this.sheetTagsList.length && !inFormPage;
     },
     // 标签高度
     sheetTagsHeight() {
       return this.hasSheetTags ? 35 : 0;
     },
     containHeight() {
+      const isInPatientDetails = this.$route.path == '/record' && ['nfyksdyy'].includes(this.HOSPITAL_ID);
+      const evalTagHeight = isInPatientDetails ? 42 : 0;
       if (this.fullpage) {
         return this.wih - 100 + "px";
       } else {
-        return this.wih - 154 + "px";
+        return this.wih - 154 - evalTagHeight + "px";
       }
     },
     patientInfo() {
@@ -747,7 +763,8 @@ export default {
   },
   created() {
     // 文书单子统计打开记录单
-    this.bus.$on("openSheetTag", (tag)=>{this.onSheetSwitch(tag)})
+    this.bus.$on("openSheetTag", this.onSheetSwitch)
+    this.bus.$on("closeSheetTag", this.onSheetClose);
     //第三方浏览界面 是路由传的患者信息 所以一开始先清空界面VUEX的信息，再提交路由的
     this.getDate();
     this.$store.commit("upPatientInfo", {});
@@ -1130,6 +1147,9 @@ export default {
     this.bus.$on("openHDModal", () => {
       this.$refs.HdModal.open();
     });
+    this.bus.$on("openSDYYModal", () => {
+      this.$refs.SDYYModal.open();
+    });
     this.bus.$on("openGuizhouModal", () => {
       this.$refs.GuizhouModal.open();
     });
@@ -1208,7 +1228,7 @@ export default {
     'sheetInfo.sheetType': {
       handler(val, prev) {
         if (val != prev) {
-          this.bus.$emit('refreshSheetPage', true)
+          // this.bus.$emit('refreshSheetPage', true)
         }
       }
     }
@@ -1242,6 +1262,7 @@ export default {
     delPageModal,
     HjModal,
     HdModal,
+    SDYYModal,
     GuizhouModal,
     signModal,
     specialModal,

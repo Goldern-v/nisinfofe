@@ -52,7 +52,7 @@
           <span v-if="item.key == 'recordYear'">{{
             recordYear()
           }}</span>
-          <span v-else v-html="item.name"></span>
+          <span v-else v-html="item.name" @click.stop="item.canSet && handleName(item, data.titleModel)"></span>
           <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
             <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
               <input
@@ -118,7 +118,7 @@
           @click="item.canSet && setTitle(item, data.titleModel)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
-          <span v-else v-html="item.name"></span>
+          <span v-else v-html="item.name"  @click.stop="item.canSet && handleName(item, data.titleModel)"></span>
           <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
             <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
               <input
@@ -825,6 +825,7 @@ export default {
     listData: Array,
     specialLis: Array,
     sheetTagsHeight: Number,
+    evalTagHeight: Number
   },
   mixins: [common],
   data() {
@@ -1056,8 +1057,14 @@ export default {
     whhkCaOrUsbSignIn(){
       return window.localStorage.getItem("whhkCaOrUsbSignIn")?JSON.parse(window.localStorage.getItem("whhkCaOrUsbSignIn")):null
     },
+    tagHeight() {
+      const extraHeight = this.$route.path == '/formPage' ? 20 : 8;
+      return ['/formPage', '/record'].includes(this.$route.path)
+        ? (this.evalTagHeight + extraHeight) + this.sheetTagsHeight
+        : this.sheetTagsHeight;
+    },
     fixedTop() {
-      return (this.isInPatientDetails ? 45 : 55) + (this.sheetTagsHeight || 0)
+      return (this.isInPatientDetails ? 45 : 55) + (this.tagHeight || 0)
     },
   },
   methods: {
@@ -1358,10 +1365,62 @@ export default {
         item,
       );
     },
+    handleName(item,item2){
+      this.$parent.$parent.$refs.sheetTool.$refs.titleTemplateSlideFS.close()
+      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
+        (title, obj) => {
+          let { list = [], id = '' } = obj  || {}
+          list = list.map(v => v.options)
+          let data = {
+            list: [{
+              pageIndex: this.index,
+              fieldEn: item.key,
+              id,
+              fieldCn: title,
+              option: list,
+            }],
+            recordCode: sheetInfo.sheetType,
+          };
+          this.bus.$emit("saveSheetPage");
+          saveTitleOptions(data).then((res) => {
+            // item.name = title;
+            this.bus.$emit('refreshSheetPage')
+          });
+        },
+        item.name,
+        item,
+      );
+    },
     //
     setTitleFS(item) {
       let self = this
-      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+        item.style.backgroundColor = '#edecb2';
+        this.$parent.$parent.$refs.sheetTool.$refs.titleTemplateSlideFS.open((title, obj) => {
+          let { list = [], id = '' } = obj  || {}
+          list = list.map(v => v.options)
+          let data = {
+            list: [{
+              pageIndex: this.index,
+              fieldEn: item.key,
+              id,
+              fieldCn: title,
+              option: list,
+            }],
+            recordCode: sheetInfo.sheetType,
+          };
+          this.bus.$emit("saveSheetPage");
+          item.style.backgroundColor = '';
+          saveTitleOptions(data).then((res) => {
+            // item.name = title;
+            this.bus.$emit('refreshSheetPage')
+          });
+        },
+        item.name,
+        item
+        );
+      }else{
+        this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
           let { list = [], id = '' } = obj  || {}
           list = list.map(v => v.options)
@@ -1389,6 +1448,7 @@ export default {
         item.name,
         item,
       );
+      }
     },
     getLastRecordDate(index,row,direction){
       let lastRecordMonth = ''

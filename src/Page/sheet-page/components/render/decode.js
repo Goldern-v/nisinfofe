@@ -90,17 +90,19 @@ function decode(ayncVisitedData) {
                   if(lastRecordHour) break;
                   lastRecordHour = bodyModel[j].find(item => item.key == "recordHour").value
                 }
-                // 当上一条日期和时间都在的时候.不是自己输入时间则获取上一条,当有输入的时间保存上一条的日期;
-                if(hour && !month){
-                  if(lastRecordMonth){
-                    bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
-                    bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
-                  }
-                }else{
-                  if(lastRecordMonth && lastRecordHour){
-                    bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
-                    bodyModel[index].find(item => item.key == "recordHour").value = lastRecordHour
-                    bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${lastRecordHour}`
+                if (isHospital) {
+                  // 当上一条日期和时间都在的时候.不是自己输入时间则获取上一条,当有输入的时间保存上一条的日期;
+                  if (hour && !month) {
+                    if (lastRecordMonth) {
+                      bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
+                      bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${hour}`
+                    }
+                  } else {
+                    if (lastRecordMonth && lastRecordHour) {
+                      bodyModel[index].find(item => item.key == "recordMonth").value = lastRecordMonth
+                      bodyModel[index].find(item => item.key == "recordHour").value = lastRecordHour
+                      bodyModel[index].find(item => item.key == "recordDate").value = `${itemRecordYear}-${lastRecordMonth} ${lastRecordHour}`
+                    }
                   }
                 }
               }

@@ -11,7 +11,6 @@
                 <div style="width:140px;">拔管时间：</div>
                 <cr-date-picker
                     v-model="extubationTime"
-                    type="datetime"
                     format="yyyy-MM-dd HH:mm"
                     placeholder="选择拔管日期"
                 ></cr-date-picker>

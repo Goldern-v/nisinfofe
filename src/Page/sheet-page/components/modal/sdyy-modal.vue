@@ -1,70 +1,67 @@
 <template>
     <sweet-modal ref="modal" :modalWidth="500" title="出入量统计">
-      <div class="time-type-button" v-if="HOSPITAL_ID=='liaocheng'">
-        <el-button-group>
-          <el-button :class="[active=='today'?'active-btn':'']" @click="initTime('today')">白班小结</el-button>
-          <el-button :class="[active=='yesterday'?'active-btn':'']" @click="initTime('yesterday')">24小时小结</el-button>
-        </el-button-group>
-      </div>
-      <div class="time-type-button" v-if="HOSPITAL_ID=='liaocheng'|| HOSPITAL_ID=='nfyksdyy'">
+      <div class="time-type-button">
         <el-button-group>
           <el-button :class="[active=='today1'?'active-btn':'']" @click="initTime('today1')">白班小结</el-button>
           <el-button :class="[active=='today2'?'active-btn':'']" @click="initTime('today2')">P班小结</el-button>
           <el-button :class="[active=='yesterday1'?'active-btn':'']" @click="initTime('yesterday1')">24小时小结</el-button>
         </el-button-group>
       </div>
-      <div class="time-type-button" v-if="['inandout_weihai', 'critical_new_weihai'].includes(sheetInfo.sheetType)">
-        <el-button-group>
-          <el-button :class="[active=='today1'?'active-btn':'']" @click="whslInitTime('today1')">白班</el-button>
-          <el-button :class="[active=='today2'?'active-btn':'']" @click="whslInitTime('today2')">夜班</el-button>
-          <el-button :class="[active=='today3'?'active-btn':'']" @click="whslInitTime('today3')">小夜班</el-button>
-          <el-button :class="[active=='today4'?'active-btn':'']" @click="whslInitTime('today4')">大夜班</el-button>
-        </el-button-group>
-      </div>
-      <!-- 北海 -->
-      <div class="time-type-button" v-else-if="HOSPITAL_ID=='beihairenyi'">
-          <el-button-group>
-            <el-button :class="[active=='A'?'active-btn':'']" @click="beihaiInitTime('A')">A班小结</el-button>
-            <el-button :class="[active=='P'?'active-btn':'']" @click="beihaiInitTime('P')">P班小结</el-button>
-            <el-button :class="[active=='N'?'active-btn':'']" @click="beihaiInitTime('N')">N班小结</el-button>
-            <el-button :class="[active=='ALL'?'active-btn':'']" @click="beihaiInitTime('ALL')">24h总结</el-button>
-          </el-button-group>
-        </div>
       <p for class="name-title">请选择日期区间：</p>
-      <div flex="cross:center main:center" style="margin:0 15px 20px" v-if="HOSPITAL_ID==='fuyou'">
-      <el-date-picker
-      v-model="date[0]"
-      type="datetime"
-      format="yyyy-MM-dd HH:mm"
-      placeholder="选择开始日期">
-      </el-date-picker>
-      <span style="padding: 0 15px; width: 30px">至</span>
-      <el-date-picker
-      v-model="date[1]"
-      type="datetime"
-      format="yyyy-MM-dd HH:mm"
-      placeholder="选择结束日期">
-      </el-date-picker>
-      </div>
-      <div flex="cross:center main:center" style="margin:0 15px 20px" v-else>
+      <div flex="cross:center main:center" style="margin:0 15px 20px">
         <cr-date-picker
           v-model="date[0]"
           format="yyyy-MM-dd HH:mm"
           placeholder="选择开始日期"
+          @input="putGroupCount('update')"
         ></cr-date-picker>
         <span style="padding: 0 15px; width: 30px">至</span>
         <cr-date-picker
           v-model="date[1]"
           format="yyyy-MM-dd HH:mm"
           placeholder="选择结束日期"
+          @input="putGroupCount('update')"
         ></cr-date-picker>
       </div>
-      <p for class="name-title" flex="cross:center main:justify">
-        <span>特殊情况处理：</span>
-        <span class="activeText" @click="putGroupCount">分类合计</span>
-      </p>
-      <div style="margin: 0 15px" class="textarea-con">
-        <el-input type="textarea" :rows="2" placeholder="请输入特殊情况处理" v-model="description"></el-input>
+      <div class="group-count">
+        <div>
+          <el-checkbox
+            :indeterminate="isIndeterminate"
+            v-model="checkAll"
+            @change="handleCheckAllChange"
+            >全选</el-checkbox
+          >
+        </div>
+        <div class="check-group">
+          <div class="left">
+            <span>入量</span>
+            <el-checkbox-group
+              v-model="resultList"
+              size="small"
+              @change="handleCheckedCitiesChange"
+            >
+              <div class="m-10" v-for="(item, key) of inShows" :key="key">
+                <el-checkbox :label="key"></el-checkbox>:{{
+                  item ? `${item}` : " "
+                }}
+              </div>
+            </el-checkbox-group>
+          </div>
+          <div class="right">
+            <span>出量</span>
+            <el-checkbox-group
+              v-model="resultList2"
+              size="small"
+              @change="handleCheckedCitiesChange"
+            >
+              <div class="m-10" v-for="(item, key) of outShows" :key="key">
+                <el-checkbox :label="key"></el-checkbox>:{{
+                  item ? `${item}` : " "
+                }}
+              </div>
+            </el-checkbox-group>
+          </div>
+        </div>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
@@ -98,10 +95,25 @@
 .textarea-con
   >>>textarea
     height 120px
+
+.group-count {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .check-group {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+
+  .el-checkbox-group {
+    padding-top: 10px;
+  }
+}
 </style>
 
 <script>
-import { outputSum } from "@/api/record";
+import { outputSumHd } from "@/api/record";
 import { putGroupCount } from "../../api/index.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -118,6 +130,12 @@ export default {
       active:'', // 顶部按钮激活状态(聊城)
       sheetInfo,
       isCounting:false, //计算的时候做节流,
+      resultList: [],//入量勾选的数据
+      resultList2: [],//出量勾选的数据
+      checkAll: false,//是否选中全部选项
+      inShows: "",//入量数据
+      outShows: "",///出量数据
+      isIndeterminate: true,
     };
   },
   mounted() {
@@ -157,6 +175,10 @@ export default {
     },
     open() {
       this.active = ''
+      this.resultList = [];
+      this.resultList2 = [];
+      this.isIndeterminate = true;
+      this.checkAll = false;
       this.$refs.modal.open();
       this.description = "";
       let y = moment()
@@ -172,8 +194,13 @@ export default {
         tt=t + " 07:00"
       }
       this.date = [yt, tt];
+      this.putGroupCount();
     },
     close() {
+      this.resultList = [];
+      this.resultList2 = [];
+      this.isIndeterminate = true;
+      this.checkAll = false;
       this.$refs.modal.close();
     },
     post(dateArr) {
@@ -185,34 +212,23 @@ export default {
        this.isCounting=false
       },1000)
       if (this.date[1]) {
-        // this.bus.$emit("saveSheetPage");
-        // setTimeout(() => {
         let date = this.date;
         let startTime = dateArr ? dateArr[0] : this.date[0];
         let endTime = dateArr ? dateArr[1] : this.date[1];
-        if(this.HOSPITAL_ID==="fuyou"){
-        // el-date-picker的value-format不生效
-          startTime=moment(startTime).format("YYYY-MM-DD HH:mm")
-          endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
-          }
         let recordCode = sheetInfo.sheetType;
-        //默认0统计出量和入量；1只统计出量；2只统计入量
-        let type=0
-        if(this.sheetInfo.sheetType=='operating_fk'||this.HOSPITAL_ID==="925"){
-           type=1
-        }
-        outputSum(
+
+        outputSumHd(
           this.$parent.patientInfo.patientId,
           this.$parent.patientInfo.visitId,
           recordCode,
           startTime,
           endTime,
           this.description,
-          type,
-          localStorage.wardCode
+          this.resultList,
+          this.resultList2
         ).then(res => {
         //  涉及到数据增加或者修改的，就要初始化页码重新计算获取新值
-          this.bus.$emit("initSheetPageSize");
+          this.bus.$emit("saveSheetPage", true);
           this.$message({
             showClose: true,
             message: "计算成功",
@@ -228,39 +244,55 @@ export default {
         });
       }
     },
-    putGroupCount() {
-      let date = this.date;
+    putGroupCount(types) {
+      if(types){
+        this.resultList = [];
+        this.resultList2 = [];
+        this.isIndeterminate = true;
+        this.checkAll = false;
+      }
       let startTime = this.date[0];
       let endTime = this.date[1];
-      if(this.HOSPITAL_ID==="fuyou"){
-        // el-date-picker的value-format不生效
-        startTime=moment(startTime).format("YYYY-MM-DD HH:mm")
-        endTime=moment(endTime).format("YYYY-MM-DD HH:mm")
-      }
-      //默认0统计出量和入量；1只统计出量；2只统计入量
-      let type=0
-      if(this.sheetInfo.sheetType=='operating_fk'||this.HOSPITAL_ID==="925"){
-          type=1
-      }
+      this.checkAll = false;
       putGroupCount(
         this.$parent.patientInfo.patientId,
         this.$parent.patientInfo.visitId,
         startTime,
         endTime,
-        type
       ).then(res => {
-        if (res.data.data.desc) {
-          if(this.HOSPITAL_ID==="wujing"){
-            let str = res.data.data.desc.replace(/出量/g,"总出量").replace(/入量/m,"总入量");
-            this.description = this.description + str;
-          }else{
-            this.description = this.description + res.data.data.desc;
-          }
-        } else {
-          this.$message.warning("分类合计为空");
-        }
+          this.inShows = res.data.data.inShows;
+          this.outShows = res.data.data.outShows;
       });
-    }
+    },
+    handleCheckAllChange(val) {
+      if (this.checkAll) {
+        for (let key in this.inShows) {
+          this.resultList.push(key);
+        }
+        for (let key in this.outShows) {
+          this.resultList2.push(key);
+        }
+      } else {
+        this.resultList = [];
+        this.resultList2 = [];
+      }
+      this.isIndeterminate = false;
+    },
+    handleCheckedCitiesChange(value) {
+      let checkedCount = value.length;
+      let num1 = 0,
+        num2 = 0;
+      for (let key in this.inShows) {
+        num1++;
+      }
+      for (let key in this.outShows) {
+        num2++;
+      }
+      this.checkAll =
+        this.resultList.length + this.resultList2.length == num1 + num2;
+      this.isIndeterminate =
+        this.resultList.length + this.resultList2.length < num1 + num2;
+    },
   },
   components: {}
 };
