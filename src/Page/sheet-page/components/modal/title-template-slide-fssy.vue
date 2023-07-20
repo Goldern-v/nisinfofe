@@ -189,7 +189,7 @@ export default {
   },
   methods: {
     open(callbeck,name, item) {
-      if(item.key){
+      if(item && item.key){
         callbeck && (this.callback = callbeck)
         this.tableTh = item;
         this.isSaveFill = true;
@@ -210,7 +210,9 @@ export default {
     },
     close() {
       this.show = false;
-      this.tableTh.style.backgroundColor = '';
+      if(this.tableTh.key) {
+        this.tableTh.style.backgroundColor = '';
+      }
     },
     changeTab(tab) {
       this.selectedTab = tab;
@@ -271,7 +273,7 @@ export default {
     if(this.HOSPITAL_ID == 'nfyksdyy'){
       this.bus.$on("addTitleTemplateFS", (data) => {
           this.callback &&  this.callback(data.title,  {
-          list: data.list.length && data.list.options || [],
+          list: data.list.length && data.list || [],
           id: data.id
         })
         this.close()

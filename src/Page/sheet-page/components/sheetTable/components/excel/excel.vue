@@ -52,7 +52,7 @@
           <span v-if="item.key == 'recordYear'">{{
             recordYear()
           }}</span>
-          <span v-else v-html="item.name"></span>
+          <span v-else v-html="item.name" @click.stop="item.canSet && handleName(item, data.titleModel)"></span>
           <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
             <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
               <input
@@ -118,7 +118,7 @@
           @click="item.canSet && setTitle(item, data.titleModel)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
-          <span v-else v-html="item.name"></span>
+          <span v-else v-html="item.name"  @click.stop="item.canSet && handleName(item, data.titleModel)"></span>
           <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
             <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
               <input
@@ -1365,6 +1365,32 @@ export default {
         item,
       );
     },
+    handleName(item,item2){
+      this.$parent.$parent.$refs.sheetTool.$refs.titleTemplateSlideFS.close()
+      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
+        (title, obj) => {
+          let { list = [], id = '' } = obj  || {}
+          list = list.map(v => v.options)
+          let data = {
+            list: [{
+              pageIndex: this.index,
+              fieldEn: item.key,
+              id,
+              fieldCn: title,
+              option: list,
+            }],
+            recordCode: sheetInfo.sheetType,
+          };
+          this.bus.$emit("saveSheetPage");
+          saveTitleOptions(data).then((res) => {
+            // item.name = title;
+            this.bus.$emit('refreshSheetPage')
+          });
+        },
+        item.name,
+        item,
+      );
+    },
     //
     setTitleFS(item) {
       let self = this
@@ -1383,7 +1409,7 @@ export default {
             }],
             recordCode: sheetInfo.sheetType,
           };
-          self.bus.$emit("saveSheetPage");
+          this.bus.$emit("saveSheetPage");
           item.style.backgroundColor = '';
           saveTitleOptions(data).then((res) => {
             // item.name = title;

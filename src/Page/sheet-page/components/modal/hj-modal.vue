@@ -49,14 +49,12 @@
       <div flex="cross:center main:center" style="margin:0 15px 20px" v-else>
         <cr-date-picker
           v-model="date[0]"
-          type="datetime"
           format="yyyy-MM-dd HH:mm"
           placeholder="选择开始日期"
         ></cr-date-picker>
         <span style="padding: 0 15px; width: 30px">至</span>
         <cr-date-picker
           v-model="date[1]"
-          type="datetime"
           format="yyyy-MM-dd HH:mm"
           placeholder="选择结束日期"
         ></cr-date-picker>
