@@ -200,6 +200,24 @@
               />
             </template>
           </el-table-column>
+          <!-- <el-table-column
+            prop="spo2"
+            label="spo2"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.spo2"
+                :class="className"
+                class="sp02"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column> -->
           <el-table-column
             prop="physicalCooling"
             label="物理降温"
@@ -496,7 +514,16 @@
               <el-input v-model="scope.row.heartRate"></el-input>
             </template>
           </el-table-column>
-
+          <!-- <el-table-column
+            prop="spo2"
+            label="spo2"
+            min-width="50"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.spo2"></el-input>
+            </template>
+          </el-table-column> -->
           <el-table-column
             prop="physicalCooling"
             label="物理降温"
@@ -1037,6 +1064,7 @@ export default {
         foodSize: "",
         id: "",
         physicalCooling: "",
+        // spo2: "",
         monthHour: "",
         multiSign: "",
         pulse: "",
