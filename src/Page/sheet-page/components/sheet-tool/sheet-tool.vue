@@ -1214,7 +1214,7 @@ export default {
         case "nfyksdyy":{
           this.bus.$emit("checkChange",()=>{
             this.bus.$emit('saveSheetPage', 'noSaveSign')
-          },()=>{this.bus.$emit("openHJModal")})
+          },()=>{this.bus.$emit("openSDYYModal")})
         }
           break;
         default: {
@@ -1786,7 +1786,7 @@ export default {
     },
     openTitleTemplateSlide() {
       if (['nfyksdyy'].includes(this.HOSPITAL_ID)) {
-        this.$refs.titleTemplateSlideFS.open();
+          this.$refs.titleTemplateSlideFS.open();
         return
       }
       this.$refs.titleTemplateSlide.open();

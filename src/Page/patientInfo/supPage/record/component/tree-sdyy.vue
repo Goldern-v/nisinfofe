@@ -430,7 +430,10 @@ export default {
           (node.level == 1 && !data.children.length)
         ) {
           let isopenSheetTag = false;
-          if (data.type == "sheet" && node.level == 2) {
+          if (
+            (data.type == "sheet" && node.level == 2)
+            || data.type == "bloodSugar"
+          ) {
             isopenSheetTag = true;
           }
           this.bus.$emit("openOtherPage", data, isopenSheetTag);

@@ -212,6 +212,7 @@
     margin-top: 5px;
     display: inline-block;
     width: 20%;
+    overflow: hidden;
   }
 
   .title {

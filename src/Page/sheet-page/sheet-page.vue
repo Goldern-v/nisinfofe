@@ -100,6 +100,7 @@
     <delPageModal ref="delPageModal" :index="sheetModelData.length"></delPageModal>
     <HjModal ref="HjModal"></HjModal>
     <HdModal ref="HdModal"></HdModal>
+    <SDYYModal ref="SDYYModal"></SDYYModal>
     <GuizhouModal ref="GuizhouModal"></GuizhouModal>
     <signModal ref="signModal" title="需要该行签名者确认"></signModal>
     <signModal ref="signModal2" title="签名者确认"></signModal>
@@ -115,6 +116,7 @@
     <!-- 电子病例弹窗 -->
     <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt','dglb','nfyksdyy'].includes(HOSPITAL_ID)" />
     <changeMajorRadio
+      v-if="HOSPITAL_ID != 'nfyksdyy'"
       :dialogTableVisibleTrue="dialogDeptNameVisible"
       :majorData="{
         patientId:  patientInfo.patientId,
@@ -124,6 +126,17 @@
       @TableVisible="(val) => dialogDeptNameVisible = val"
       @savedata="(val) => {val &&  getSheetData()}"
     ></changeMajorRadio>
+    <changeMajorCheckbox
+      v-else
+      ref="changeMajorCheckbox"
+      :majorData="{
+        patientId:  patientInfo.patientId,
+        visitId: patientInfo.visitId,
+        id: sheetInfo.selectBlock.id
+      }"
+      @TableVisible="(val) => dialogDeptNameVisible = val"
+      @savedata="(val) => {val &&  getSheetData()}"
+    ></changeMajorCheckbox>
   </div>
 </template>
 
@@ -316,6 +329,7 @@ import $ from "jquery";
 import moment from "moment";
 import HjModal from "./components/modal/hj-modal.vue";
 import HdModal from "./components/modal/hd-modal.vue";
+import SDYYModal from "@/Page/sheet-page/components/modal/sdyy-modal.vue";
 import GuizhouModal from "./components/modal/guizhou-modal.vue";
 import signModal from "@/components/modal/sign.vue";
 import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
@@ -334,6 +348,7 @@ import testSheet from './testSheet.json'
 //解锁
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import changeMajorRadio from '@/Page/sheet-page/components/modal/changeMajorRadio.vue'
+import changeMajorCheckbox from '@/Page/sheet-page/components/modal/changeMajorCheckbox.vue'
 import SheetTags from './components/sheet-tags/index.vue';
 import qs from 'qs'
 
@@ -1089,7 +1104,20 @@ export default {
         }
       }
     );
-    this.bus.$on('handleDeptNameChoose',(val)=>{this.dialogDeptNameVisible = val})
+    this.bus.$on('handleDeptNameChoose',(val)=>{
+      this.dialogDeptNameVisible = val;
+    })
+    this.bus.$on('openMajorCheckbox',(val, deptType, index)=>{
+      let data = {
+        deptType,
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        formId: this.sheetInfo.selectBlock.id
+      }
+      this.$refs.changeMajorCheckbox.majorData = data
+      this.$refs.changeMajorCheckbox.dialogVisible = val
+      this.$refs.changeMajorCheckbox.activeIndex = index
+    })
     this.bus.$on("refreshSheetPage", () => {
       this.getSheetData()
     });
@@ -1291,6 +1319,9 @@ export default {
     this.bus.$on("openHDModal", () => {
       this.$refs.HdModal.open();
     });
+    this.bus.$on("openSDYYModal", () => {
+      this.$refs.SDYYModal.open();
+    });
     this.bus.$on("openGuizhouModal", () => {
       this.$refs.GuizhouModal.open();
     });
@@ -1429,6 +1460,7 @@ export default {
     delPageModal,
     HjModal,
     HdModal,
+    SDYYModal,
     GuizhouModal,
     signModal,
     specialModal,
@@ -1475,6 +1507,7 @@ export default {
     sheetTable_cardiology_lcey,
     sheetTable_prenatal_ytll,
     changeMajorRadio,
+    changeMajorCheckbox,
     SheetTags
   },
 };

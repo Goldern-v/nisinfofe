@@ -163,7 +163,7 @@
       <router-link
         :to="{
           path: '/temperature',
-          query: { patientId: query.patientId, visitId: query.visitId },
+          query: { patientId: query.patientId, visitId: query.visitId, wardCode: query.cpIncludeDeptCode },
         }"
         tag="span"
       >

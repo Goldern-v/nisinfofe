@@ -289,7 +289,7 @@ export default {
       ca_name: "",
       ca_isLogin: "",
       strUserCertID: "",
-      showScaleTip:['huadu'].includes(this.HOSPITAL_ID),
+      showScaleTip:['huadu', 'nfyksdyy'].includes(this.HOSPITAL_ID),
       userName: "",
       passWord: "",
       fuyouCaData:null,//江门妇幼ca签名认证数据
