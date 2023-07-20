@@ -118,7 +118,7 @@ export default [
     }
   },
   {
-    key: "expand", //宫颈扩张
+    key: "cervicalDilation", //宫颈扩张
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),
