@@ -14,7 +14,7 @@
       v-loading="pageLoading"
     >
       <!-- 无推送内容 -->
-      <div v-if="isData === 2" style="height:100%">
+      <div v-if="isData === 2 || isEmpty()" style="height:100%">
         <NullBg></NullBg>
         <div class="addBtn">
           <WhiteButton text="添加健康教育单" @click="addEducation" />
@@ -84,7 +84,7 @@
                     >
                     <span style="margin-left: 20px;"
                       >床号：{{
-                        configList[index].bedExchange ||  patientInfo.bedLabel
+                        configList[index] ? configList[index].bedExchange :  patientInfo.bedLabel
                       }}</span
                     >
                     <span
@@ -96,11 +96,12 @@
                   <div class="sdyyinfo" style="border-bottom: 1px solid #000;">
                     <span
                       >科室：{{
-                         configList[index].deptExchange || patientInfo.deptName
+                         configList[index] ? configList[index].deptExchange : patientInfo.deptName
                       }}</span
                     >
-                    <span style="margin-left: 20px;width: 372px;" >病区:{{  configList[index].wardExchange || $route.query.wardName }}</span
-                    >
+                    <span style="margin-left: 20px;width: 372px;" >病区:{{
+                      configList[index] ? configList[index].wardExchange : $route.query.wardName }}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -146,10 +147,13 @@ import dayjs from "dayjs";
 import { setTimeout } from "timers";
 import baseTree from "@/components/baseTree/baseTree";
 import common from "@/common/mixin/common.mixin.js";
-
+import bus from "vue-happy-bus";
 export default {
   mixins: [common],
   name: "healthEducation",
+  props: {
+    hasTagsView: Boolean,
+  },
   components: {
     Table,
     WhiteButton,
@@ -160,6 +164,7 @@ export default {
   },
   data() {
     return {
+      bus: bus(this),
       pageLoading: false,
       selectValue: "",
       sheetBlockList: [],
@@ -182,6 +187,9 @@ export default {
     this.init();
   },
   methods: {
+    isEmpty() {
+      return ['/formPage', '/record'].includes(this.$route.path) && !this.hasTagsView;
+    },
     // 获取下拉框数据列表
     init() {
       this.getSelectData(1);
@@ -225,6 +233,14 @@ export default {
               children: array
             }
           ];
+          this.bus.$emit('refreshTree');
+          if (res.data.data && res.data.data.length && !index) {
+            this.bus.$emit("mountTag", {
+              label: `健康教育单 ${res.data.data[0].creatDate}`,
+              type: "healthEducation",
+              ...res.data.data[0]
+            });
+          }
           if (index) {
             // 初始化默认第一张单子
             this.changeEducation(res.data.data[0].id);
@@ -312,6 +328,7 @@ export default {
         }
       );
       await deleteBlock(this.blockId);
+      this.bus.$emit("formTagClose", { id: this.blockId });
       this.pullData();
       this.getSelectData(1);
       this.$message.success("删除成功！");

@@ -124,12 +124,10 @@ export default {
         [
           { rowspan: 2, text: "教育时间", width: 80 },
           { rowspan: 2, text: "宣教内容", width: 160 },
-          [
-            { colspan: 2, text: "教育对象" },
-            { colspan: 4, text: "教育方法" },
-            { colspan: 3, text: "教育评估" },
-            { rowspan: 2, text: "备注", width: 90 },
-          ],
+          { colspan: 2, text: "教育对象" },
+          { colspan: 4, text: "教育方法" },
+          { colspan: 3, text: "教育评估" },
+          { rowspan: 2, text:  '备注', width: 90 },
           { rowspan: 2, text: "签名", width: 60 }
         ],
         [
