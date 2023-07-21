@@ -180,6 +180,7 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
+        v-if="HOSPITAL_ID != 'nfyksdyy'"
       >
         <div class="nav-item">体温单</div>
       </router-link>

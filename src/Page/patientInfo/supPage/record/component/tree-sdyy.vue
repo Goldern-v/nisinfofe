@@ -433,7 +433,7 @@ export default {
         ) {
           let isopenSheetTag = false;
           if (
-            (data.type == "sheet" && node.level == 2)
+            (data.type == "sheet" || data.type == "healthEducation" && node.level == 2)
             || data.type == "bloodSugar" || data.type == "temperature" || data.type == "diagnosis"
           ) {
             isopenSheetTag = true;

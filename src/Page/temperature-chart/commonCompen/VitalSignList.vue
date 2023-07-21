@@ -4,8 +4,9 @@
     custom-class="vital-list-dialog"
     :close-on-click-modal="false"
     @close="close"
-    :append-to-body="false"
+    :append-to-body="true"
     modalClass="vital-list-modal"
+    s
   >
     <div style="display: flex;margin-bottom: 10px">
       <el-button @click="handleAddRow">添加一行</el-button>

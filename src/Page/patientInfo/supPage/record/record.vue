@@ -44,8 +44,6 @@
 .content
   margin 10px 15px 0
   margin-bottom 0
-  position relative
-  z-index 0
   .left-part
     float left
     width 260px
@@ -157,7 +155,6 @@ export default {
       if (tagIndex === -1) {
         this.tagsList.push(form);
       }
-      console.log(this.tagsList,'dddddddddddddd');
     },
     updateCurrentTag(tag) {
       if (!this.currentTag || (tag && (this.types.includes(this.currentTag.type) ? tag => tag.label !== this.currentTag.label : tag.id !== this.currentTag.id))) {
@@ -171,7 +168,6 @@ export default {
         this.tagsList.splice(tagIndex, 1);
       }
     },
-
     handleCloseTag(tag, reopen) {
       if (!this.tagsList.length || !this.hasTagsView) return;
       const tagIndex = this.tagsList.findIndex(t => t.id == tag.id);
@@ -180,17 +176,15 @@ export default {
       }
       const lastTag = this.tagsList[this.tagsList.length - 1]
       // 打开最后一张表单
-      if (reopen && lastTag && !tag.type) {
-        this.bus.$emit("openAssessmentBox", lastTag);
+      if (reopen && lastTag) {
+        if (!tag.type) {
+          this.bus.$emit("openAssessmentBox", lastTag);
+        } else {
+          this.bus.$emit('openOtherPage', lastTag, true);
+        }
       }
-      // 关闭护记
-      const closeEvent = {
-        sheet: () => this.bus.$emit('closeSheetTag', tag)
-      }
-      closeEvent[tag.type] && closeEvent[tag.type]();
-      if (!lastTag) {
+      if (!lastTag && !tag.type) {
         // 关闭评估单
-
         this.bus.$emit('closeAssessment')
         // 取消高亮
         this.bus.$emit('highlightTreeNode', null);

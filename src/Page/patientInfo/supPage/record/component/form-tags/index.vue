@@ -51,6 +51,7 @@ export default {
         bloodSugar: 'label',
         temperature: 'label',
         diagnosis: 'label',
+        healthEducation: 'label'
       }
       if (tag.type) {
         return tag[tagName[tag.type]];

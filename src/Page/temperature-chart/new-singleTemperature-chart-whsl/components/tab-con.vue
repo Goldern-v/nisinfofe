@@ -993,11 +993,12 @@ export default {
         let obj = [];
         const babyType = [
           "01",
-          "aurigo",
-          "funicle",
-          "breast",
-          "milk",
-          "033",
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "vaccine",
           "3",
         ]; //婴儿显示项目
         if (this.isBaby) {
@@ -1022,7 +1023,7 @@ export default {
           }
           switch (item.signType) {
             case "base":
-            if(!["表顶注释","表底注释"].includes(item.vitalSign))
+            if(!["表顶注释","表底注释","母乳", "牛乳", "黄疸", "粪便", "脐带", "卡介苗"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
               break;
             case "other":
