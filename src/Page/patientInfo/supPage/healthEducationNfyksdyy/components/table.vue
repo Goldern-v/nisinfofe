@@ -14,69 +14,69 @@
       </thead>
       <tbody>
         <tr
-          v-for="(data, k) in tableData"
+          v-for="(trItem, k) in tableData"
           :key="k+'ab'"
           class="health-tr point"
-          :class="{selected: selected === data}"
-          @click="onSelect(data)"
-          @dblclick="onDblClick(data)"
+          :class="{selected: selected === trItem}"
+          @click="onSelect(trItem)"
+          @dblclick="onDblClick(trItem)"
         >
           <!-- 教育时间 -->
 
           <td>
-            <span>{{data['教育时间']}}</span>
-            <!-- <input class="date" type="text" name="" id="" :value="data['教育时间']"> -->
+            <span>{{trItem['教育时间']}}</span>
+            <!-- <input class="date" type="text" name="" id="" :value="trItem['教育时间']"> -->
           </td>
           <!-- 宣教内容 -->
-          <td v-if="HOSPITAL_ID !== 'qhwy'" :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, data)">
-            <span>{{data['宣教内容']}}</span>
+          <td v-if="HOSPITAL_ID !== 'qhwy'" :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, trItem)">
+            <span>{{trItem['宣教内容']}}</span>
           </td>
           <td class="remark" v-if="HOSPITAL_ID === 'qhwy'">
-            <span class="remark-span">{{data['宣教类型']}}</span>
+            <span class="remark-span">{{trItem['宣教类型']}}</span>
           </td>
           <!-- 宣教内容 -->
-          <td :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, data)" v-if="HOSPITAL_ID === 'qhwy'">
-            <span>{{data['宣教内容']}}</span>
+          <td :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, trItem)" v-if="HOSPITAL_ID === 'qhwy'">
+            <span>{{trItem['宣教内容']}}</span>
           </td>
           <!-- 教育对象 -->
           <td v-for="o in object" :key="o + 'a'">
-            <span class="is-radio" v-if="data['教育对象'] === o">√</span>
+            <span class="is-radio" v-if="trItem['教育对象'] === o">√</span>
           </td>
           <!-- 教育方法 -->
           <td v-for="p in method" :key="p + 'b'">
-            <span class="is-radio" v-if="data['教育方法'] === p">√</span>
+            <span class="is-radio" v-if="trItem['教育方法'] === p">√</span>
           </td>
           <!-- 教育评估 -->
           <td v-for="q in assessment" :key="q + 'c'">
-            <span class="is-radio" v-if="data['教育评估'] === q">√</span>
+            <span class="is-radio" v-if="trItem['教育评估'] === q">√</span>
           </td>
           <!-- 备注 -->
           <td class="remark contentLeft" v-if="HOSPITAL_ID !== 'qhwy'">
-            <span class="remark-span">{{data[`${HOSPITAL_ID === 'whhk' ? '宣教情况' : '备注'}`]}}</span>
+            <span class="remark-span">{{trItem[`${HOSPITAL_ID === 'whhk' ? '宣教情况' : '备注'}`]}}</span>
           </td>
           <!-- 签名 -->
           <td v-if="['lingcheng','guizhou','foshanrenyi','qhwy'].includes(HOSPITAL_ID)" class="specialTd">
             <img
               v-if="['lingcheng','foshanrenyi','qhwy'].includes(HOSPITAL_ID)"
-              v-show="data['lc签名']"
+              v-show="trItem['lc签名']"
               class="img"
-              :src="`/crNursing/api/file/signImage/${data['lc签名']}?${token}`"
+              :src="`/crNursing/api/file/signImage/${trItem['lc签名']}?${token}`"
               alt
             />
-            <span class="noPrint" v-else>{{data['签名']}}</span>
+            <span class="noPrint" v-else>{{trItem['签名']}}</span>
             <img
               v-if="HOSPITAL_ID=='guizhou'"
-              v-show="data['lc签名']"
+              v-show="trItem['lc签名']"
               :class="['img',['guizhou'].includes(HOSPITAL_ID) && 'inPrint']"
-              :src="`/crNursing/api/file/signImage/${data['lc签名']}?${token}`"
+              :src="`/crNursing/api/file/signImage/${trItem['lc签名']}?${token}`"
               alt
             />
           </td>
           <!-- <td v-else-if="['guizhou'].includes(HOSPITAL_ID)" class="noPrint">
-            <span>{{data['签名']}}</span>
+            <span>{{trItem['签名']}}</span>
           </td> -->
           <td v-else>
-            <span>{{data['签名']}}</span>
+            <span>{{trItem['签名']}}</span>
           </td>
         </tr>
       </tbody>
@@ -123,17 +123,12 @@ export default {
       theadData: [
         [
           { rowspan: 2, text: "教育时间", width: 80 },
-          this.HOSPITAL_ID === 'qhwy' ?{ rowspan: 2, text: "宣教类型", width: 90 }:{ rowspan: 2, text: "宣教内容", width: 160 },
-          ...this.HOSPITAL_ID === 'qhwy' ? [
-            { rowspan: 2, text: "宣教内容", width: 160 },
+          { rowspan: 2, text: "宣教内容", width: 160 },
+          [
             { colspan: 2, text: "教育对象" },
             { colspan: 4, text: "教育方法" },
             { colspan: 3, text: "教育评估" },
-          ] : [
-            { colspan: 2, text: "教育对象" },
-            { colspan: 4, text: "教育方法" },
-            { colspan: 3, text: "教育评估" },
-            { rowspan: 2, text: `${this.HOSPITAL_ID === 'whhk' ? '宣教情况' : '备注'}`, width: 90 },
+            { rowspan: 2, text: "备注", width: 90 },
           ],
           { rowspan: 2, text: "签名", width: 60 }
         ],
@@ -216,35 +211,32 @@ export default {
       });
     },
     //点击宣教内容
-    healthContent(e, data) {
-      if (!data["宣教内容"]) return;
+    healthContent(e, trData) {
+      if (!trData["宣教内容"]) return;
       e.stopPropagation();
-      let ids = data.item ? data.item.missionId : "";
-      this.data = data;
+      let ids = trData.item ? trData.item.missionId : "";
       getContentByMissionId(ids)
         .then(res => {
           this.content = res.data.data[0].content;
           this.name = res.data.data[0].name;
           this.isContent = true;
-          this.HOSPITAL_ID == "lingcheng"
-            ? this.$refs.lcHealthContentModal.open("打开陵城健康宣教")
-            : this.$refs.healthContentModal.open("打开健康宣教内容");
+          this.$refs.healthContentModal.open("打开健康宣教内容");
         })
         .catch(e => {});
     },
     // 点击行
-    onSelect(data) {
-      if (!data["宣教内容"]) return;
-      if (data === this.selected) {
+    onSelect(trData) {
+      if (!trData["宣教内容"]) return;
+      if (trData === this.selected) {
         this.$emit("update:selected", null);
         return;
       }
-      this.$emit("update:selected", data);
+      this.$emit("update:selected", trData);
     },
     // 双击行修改
-    onDblClick(data) {
-      if (!data["教育时间"]) return;
-      this.$emit("dblclick", data);
+    onDblClick(trData) {
+      if (!trData["教育时间"]) return;
+      this.$emit("dblclick", trData);
     }
   },
   components: {

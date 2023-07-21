@@ -223,7 +223,7 @@
             </router-link> -->
             <router-link to="/allTemperatureChart" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="allTemperatureChart"></i> 批量录入体温单
+                <i class="allTemperatureChart"></i> 批量体温
               </el-row>
             </router-link>
             <router-link to="/archive" tag="span">

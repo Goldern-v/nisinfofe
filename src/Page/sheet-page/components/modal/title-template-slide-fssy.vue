@@ -2,7 +2,7 @@
   <div>
     <!-- <div class="no-do-bg" v-show="show" @click="close"></div> -->
     <transition name="el-zoom-in-left">
-      <div class="slide-con" v-show="show">
+      <div class="slide-con" v-show="show" :style="{top: HOSPITAL_ID == 'nfyksdyy' && $route.name == 'formPage' && '60px'}">
         <div class="head-con" flex="cross:center main:justify">
           <span class="title">自定义标题模版</span>
           <span class="close-btn" @click="close">
@@ -189,6 +189,7 @@ export default {
   },
   methods: {
     open(callbeck,name, item) {
+      console.log(this.$route);
       if(item && item.key){
         callbeck && (this.callback = callbeck)
         this.tableTh = item;

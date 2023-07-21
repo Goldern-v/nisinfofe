@@ -41,11 +41,13 @@
             <div class="label">患者病历</div>
             <el-button @click="openModal('doctorEmrModal')">查看</el-button>
           </div>
-          <div class="item-box" v-for="(v, i) in extraList" :key="i">
-            <img src="../images/检验报告@2x.png" alt class="label-icon" />
-            <div class="label">{{ v.name }}</div>
-            <el-button @click="openModal('iframeModal', {url: v.url})">查看</el-button>
-          </div>
+          <template v-if="extraList.length">
+            <div class="item-box" v-for="(v, i) in extraList" :key="i">
+              <img src="../images/检验报告@2x.png" alt class="label-icon" />
+              <div class="label">{{ v.name }}</div>
+              <el-button @click="openModal('iframeModal', {url: v.url})">查看</el-button>
+            </div>
+          </template>
         </div>
         <inspectModal ref="inspectModal" v-if="show"></inspectModal>
         <testModal ref="testModal" v-if="show"></testModal>
@@ -174,23 +176,24 @@ export default {
     return {
       bus: bus(this),
       show: false,
+      extraList:(()=>{
+        switch(process.env.HOSPITAL_ID) {
+          case 'huadu':
+          case 'zhzxy':
+            return [
+              {
+                name: '360视图',
+                url: this.url360()
+              }
+            ]
+          default:
+            return []
+        }
+      })()
     };
   },
   computed: {
-    extraList() {
-      switch(this.HOSPITAL_ID) {
-        case 'huadu':
-        case 'zhzxy':
-          return [
-            {
-              name: '360视图',
-              url: this.url360()
-            }
-          ]
-        default:
-          return []
-      }
-    },
+
     selectPatient() {
       return this.$store.state.patient.currentPatient;
     }
