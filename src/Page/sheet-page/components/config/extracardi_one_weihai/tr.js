@@ -227,7 +227,8 @@ export default [
     value: "",
     next: "μg/kg/min",
     name: "升压药物血管药物",
-    textarea: { width: 70},
+    textarea: { width: 80},
+    style:{"text-align":"left"},
     outChoseItem:outChoseItem1,
     // change: (e, td) => limitChange(e, td, 16)
   },
@@ -238,6 +239,7 @@ export default [
     next: "ml",
     name: "强心利尿其他特殊药物",
     outChoseItem:outChoseItem2,
+    style:{"text-align":"left"},
     textarea: { width: 130 },
     // change: (e, td) => limitChange(e, td, 10)
   },
@@ -251,9 +253,10 @@ export default [
       bottom: "1px",
       left: "1px",
       width: "200px",
-      background: "transparent"
+      background: "transparent",
+      // text-align: "left"
     },
-    textarea: { width: 200 },
+    textarea: { width: 180},
     event: function(e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
