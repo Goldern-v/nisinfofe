@@ -38,6 +38,7 @@ export default {
     return {
       bus: BusFactory(this),
       selectedTag: this.currentTag,
+      types: ["bloodSugar", 'temperature', "diagnosis"]
     }
   },
   computed: {
@@ -48,6 +49,8 @@ export default {
       const tagName = {
         sheet: 'recordName',
         bloodSugar: 'label',
+        temperature: 'label',
+        diagnosis: 'label',
       }
       if (tag.type) {
         return tag[tagName[tag.type]];
@@ -55,7 +58,7 @@ export default {
       return tag.pageUrl.replace('.html', '') + ' ' + tag.evalDate;
     },
     isActive(item) {
-      return this.selectedTag && item.id === this.selectedTag.id;
+      return this.selectedTag && (this.types.includes(item.type) ? item.label === this.selectedTag.label : item.id === this.selectedTag.id) ;
     },
     onScrollX(e) {
       // console.log(e)
@@ -72,7 +75,8 @@ export default {
       this.$emit('updateCurrentTag', tag);
       this.bus.$emit('highlightTreeNode', tag);
       if (tag.type) {
-        if (type !== 'sheet' || tag.type == 'bloodSugar') {
+
+        if (type !== 'sheet' ||  this.types.includes(tag.type)) {
           this.bus.$emit('openOtherPage', tag, true);
         } else {
           this.bus.$emit('openSheetTag', tag);
@@ -140,7 +144,7 @@ export default {
         if (
           !this.selectedTag
           || (val && val.id !== this.selectedTag.id)
-          || val.type == 'bloodSugar'
+          || this.types.includes(val.type)
         ) {
           this.onOpenTagForm(val);
           this.moveToCurrentTag(val);

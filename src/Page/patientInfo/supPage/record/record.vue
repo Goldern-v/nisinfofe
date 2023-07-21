@@ -74,6 +74,7 @@ import templateSlideFoshanshiyi from '@/Page/sheet-hospital-admission/components
 import diagnosisSlide from "@/Page/sheet-hospital-eval/components/Render/modal/diagnosisSlide.vue";
 import diagnosisModal from "@/Page/sheet-hospital-admission/components/Render/modal/diagnosis-modal.vue";
 import TreeSdyy from './component/tree-sdyy.vue';
+import { format } from 'element-ui/lib/utils/date';
 export default {
   props: {
     filterObj: Object
@@ -84,7 +85,8 @@ export default {
       bus: bus(this),
       tagsList: [],
       currentTag: null,
-      formObj:{}
+      formObj:{},
+      types: ["bloodSugar", 'temperature', "diagnosis"]
     };
   },
   computed: {
@@ -151,16 +153,25 @@ export default {
     // 添加表单标签
     onMountTag(form) {
       this.currentTag = form
-      const tagIndex = this.tagsList.findIndex(tag => tag.id === form.id);
+      const tagIndex = this.tagsList.findIndex(tag => this.types.includes(form.type) ? tag.label === form.label : tag.id === form.id);
       if (tagIndex === -1) {
         this.tagsList.push(form);
       }
+      console.log(this.tagsList,'dddddddddddddd');
     },
     updateCurrentTag(tag) {
-      if (!this.currentTag || (tag && tag.id !== this.currentTag.id)) {
+      if (!this.currentTag || (tag && (this.types.includes(this.currentTag.type) ? tag => tag.label !== this.currentTag.label : tag.id !== this.currentTag.id))) {
         this.currentTag = tag;
       }
     },
+    // 删除
+    delCurrentTag(id) {
+      const tagIndex = this.tagsList.findIndex(t => t.id == id);
+      if (tagIndex !== -1) {
+        this.tagsList.splice(tagIndex, 1);
+      }
+    },
+
     handleCloseTag(tag, reopen) {
       if (!this.tagsList.length || !this.hasTagsView) return;
       const tagIndex = this.tagsList.findIndex(t => t.id == tag.id);
@@ -230,6 +241,7 @@ export default {
       this.$refs.diagnosisSlide.close()
     });
     this.bus.$on('mountTag', this.onMountTag);
+    this.bus.$on('delCurrentTag', (id) => {this.delCurrentTag(id)} )
   },
   components: {
     tree,

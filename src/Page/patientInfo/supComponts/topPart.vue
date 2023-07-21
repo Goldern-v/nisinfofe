@@ -56,11 +56,11 @@
               tag="span"
             >
               <el-row class="menu-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i>护理评估单
+                <i class="nursingAssessment"></i>护理文书
               </el-row>
             </router-link>
           </el-dropdown-item>
-          <el-dropdown-item :class="{ active: $route.path == '/sheet' }">
+          <!-- <el-dropdown-item :class="{ active: $route.path == '/sheet' }">
             <router-link
               :to="{
                 path: '/sheet',
@@ -114,7 +114,7 @@
                 <i class="sheetHospitalAdmission"></i>护理计划单</el-row
               >
             </router-link>
-          </el-dropdown-item>
+          </el-dropdown-item> -->
         </el-dropdown-menu>
       </el-dropdown>
       <router-link

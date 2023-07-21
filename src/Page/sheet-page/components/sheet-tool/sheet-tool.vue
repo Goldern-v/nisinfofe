@@ -1712,11 +1712,17 @@ export default {
           this.sheetInfo.selectBlock =this.sheetBlockList[this.sheetBlockList.length - 1] || {};
           // 护记嵌套在评估单模块
           const isInFormPage = ['/formPage', '/record'].includes(this.$route.path);
-          if (isInFormPage) {
+          if (isInFormPage && this.sheetBlockList.length ) {
             // 从评估单模块第一次打开护记时，打开选中的护记，而不是最后一张
             const tagInfo = this.$store.state.sheet.sheetTagInfo;
             if (tagInfo) {
-              this.sheetInfo.selectBlock = this.sheetBlockList.find(block => block.id == tagInfo.id);
+              this.sheetInfo.selectBlock = this.sheetBlockList.find(block => block.id == tagInfo.id) || this.sheetBlockList[this.sheetBlockList.length - 1] || {};
+              let tagdata = {
+                label: `${this.sheetInfo.selectBlock.recordName} ${this.sheetInfo.selectBlock.createTime}`,
+                type: "sheet",
+                ...this.sheetInfo.selectBlock
+              }
+              this.bus.$emit("mountTag", tagdata);
             }
           }
           if (!this.sheetBlockList.length) {
@@ -1828,6 +1834,7 @@ export default {
         type: "warning",
       }).then(() => {
         this.$emit('sheetDelete', this.sheetInfo.selectBlock)
+        this.bus.$emit("delCurrentTag", this.sheetInfo.selectBlock.id)
         blockDelete(this.sheetInfo.selectBlock.id).then((res) => {
           this.$message({
             type: "success",
@@ -2020,7 +2027,7 @@ export default {
     },
     blockId: {
       get() {
-        return this.sheetInfo.selectBlock.id;
+        return this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id;
       },
       set() {},
     },
@@ -2176,7 +2183,7 @@ export default {
           this.pageBlockId = val.id;
         }
         cleanData();
-        this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+        this.sheetInfo.sheetType = this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.recordCode;
         this.initSheetPageSize()
       },
     },

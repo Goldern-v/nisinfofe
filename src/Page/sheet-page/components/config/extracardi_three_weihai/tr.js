@@ -36,6 +36,8 @@ const Braden_cuoshi = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 const diedao_cuoshi = ['A', 'B', 'C', 'D', 'E', 'F']
 const fjhxbg_cuoshi = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 const tt_cuoshi = ['A', 'B', 'C', 'D', 'E']
+const dongjingmai = ['右颈内静脉','右锁骨下静脉','左肱动脉','左足背动脉','左桡动脉']
+const yinliuguan = ['心包胸骨后引流','左胸腔闭式引流','左胸腔引流']
 
 const check = ["√"]
 
@@ -155,6 +157,7 @@ export default [
     next: "",
     name: "动静脉置管:名称",
     outChoseItem:outChoseItem1,
+    autoComplete:{data:dongjingmai},
     textarea: { width: 60 },
     change: (e, td) => limitChange(e, td, 10)
   },
@@ -181,6 +184,7 @@ export default [
     event: keyf1,
     value: "",
     name: "引流管:名称",
+    autoComplete:{data:yinliuguan},
     outChoseItem:outChoseItem2,
     textarea: { width: 60 },
   },
@@ -243,7 +247,7 @@ export default [
     next: "",
     name: "Braden压疮护理措施",
     textarea: { width: 60 },
-    splice: '.', 
+    splice: '.',
     autoComplete: { data: [{name: 'A体位变换', value: 'A'},{name: 'B气垫床', value: 'B'},{name: 'C皮肤护理', value: 'C'},{name: 'D预防性敷料', value: 'D'},{name: 'E预防医疗器械性压疮', value: 'E'},{name: 'G营养评估支持', value: 'G'},{name: 'H健康宣教', value: 'H'},{name: 'I悬挂警示标识牌', value: 'I'}] },
   },
   {

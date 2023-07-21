@@ -189,24 +189,8 @@ export default {
     return {
       bus: bus(this),
       show: false,
-    };
-  },
-  computed: {
-     ...mapState({
-      patient: (state) => state.patient.currentPatient
-    }),
-    empNo() {
-      try {
-        return JSON.parse(localStorage.user).empNo;
-      } catch (error) { }
-    },
-    empName() {
-      try {
-        return JSON.parse(localStorage.user).empName;
-      } catch (error) { }
-    },
-    extraList() {
-      switch(this.HOSPITAL_ID) {
+      extraList:(()=>{
+        switch(process.env.HOSPITAL_ID) {
         case 'lyxrm':
         case "stmz":
           return [
@@ -239,6 +223,22 @@ export default {
         default:
           return []
       }
+      })()
+    };
+  },
+  computed: {
+     ...mapState({
+      patient: (state) => state.patient.currentPatient
+    }),
+    empNo() {
+      try {
+        return JSON.parse(localStorage.user).empNo;
+      } catch (error) { }
+    },
+    empName() {
+      try {
+        return JSON.parse(localStorage.user).empName;
+      } catch (error) { }
     },
   },
   methods: {

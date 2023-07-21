@@ -169,6 +169,9 @@ export default {
       .selectRow {
         background: #e2f0e4;
       }
+      /deep/ .el-table__body-wrapper{
+        overflow-x: auto;
+      }
     }
   }
 }

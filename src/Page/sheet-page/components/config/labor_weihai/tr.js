@@ -1,5 +1,5 @@
 import {
-  keyf1
+  keyf1, limitChange
 } from "../keyEvent/f1.js";
 import {
   event_date,
@@ -118,7 +118,7 @@ export default [
     }
   },
   {
-    key: "expand", //宫颈扩张
+    key: "cervicalDilation", //宫颈扩张
     value: "",
     event: keyf1,
     change: (e, td) => limitChange(e, td, 6),

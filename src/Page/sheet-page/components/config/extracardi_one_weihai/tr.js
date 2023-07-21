@@ -89,7 +89,7 @@ export default [
     next: "ml",
     name: "入量1",
     change: (e, td) => limitChange(e, td, 10),
-    textarea: { width: 30 },
+    textarea: { width: 42 },
   },
   {
     key: "inputTwo",
@@ -97,7 +97,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量2",
-    textarea: { width: 30 },
+    textarea: { width: 42 },
   },
   {
     key: "inputThree",
@@ -105,7 +105,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量3",
-    textarea: { width: 30 },
+    textarea: { width: 42 },
   },
   {
     key: "inputFout",
@@ -113,7 +113,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量4",
-    textarea: { width: 30 },
+    textarea: { width: 42 },
   },
   {
     key: "inputFive",
@@ -121,7 +121,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量5",
-    textarea: { width: 30 },
+    textarea: { width: 42 },
   },
   {
     key: "inputSix",
@@ -129,7 +129,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量6",
-    textarea: { width: 30 },
+    textarea: { width: 42 },
   },
   {
     key: "inputSeven",
@@ -137,7 +137,7 @@ export default [
     value: "",
     next: "ml",
     name: "口服/鼻饲",
-    textarea: { width: 30 },
+    textarea: { width: 42 },
   },
   {
     key: "inputEight",
@@ -145,7 +145,7 @@ export default [
     value: "",
     name: "入量每时",
     statBottomLine: true,
-    textarea: { width: 70 },
+    textarea: { width: 42 },
   },
   // {
   //   key: "totalInput",
@@ -167,7 +167,7 @@ export default [
     value: "",
     name: "出量每时",
     statBottomLine: true,
-    textarea: { width: 70 },
+    textarea: { width: 42 },
   },
   {
     key: "outputOne",
@@ -176,7 +176,7 @@ export default [
     next: "ml",
     name: "尿量",
     statBottomLine: true,
-    textarea: { width: 70 },
+    textarea: { width: 42 },
    },
   // {
   //   key: "outputTwo",
@@ -227,7 +227,8 @@ export default [
     value: "",
     next: "μg/kg/min",
     name: "升压药物血管药物",
-    textarea: { width: 70 },
+    textarea: { width: 80},
+    style:{"text-align":"left"},
     outChoseItem:outChoseItem1,
     // change: (e, td) => limitChange(e, td, 16)
   },
@@ -238,6 +239,7 @@ export default [
     next: "ml",
     name: "强心利尿其他特殊药物",
     outChoseItem:outChoseItem2,
+    style:{"text-align":"left"},
     textarea: { width: 130 },
     // change: (e, td) => limitChange(e, td, 10)
   },
@@ -251,9 +253,10 @@ export default [
       bottom: "1px",
       left: "1px",
       width: "200px",
-      background: "transparent"
+      background: "transparent",
+      // text-align: "left"
     },
-    textarea: { width: 200 },
+    textarea: { width: 180},
     event: function(e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

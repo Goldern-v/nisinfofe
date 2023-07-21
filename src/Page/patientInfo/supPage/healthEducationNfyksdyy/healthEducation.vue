@@ -230,7 +230,6 @@ export default {
             this.changeEducation(res.data.data[0].id);
             this.isData = 1;
           }
-          console.log('dddddddddd',this.configList);
         })
         .catch(e => {});
     },

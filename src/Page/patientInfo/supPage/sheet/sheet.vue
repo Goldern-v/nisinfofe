@@ -765,6 +765,9 @@ export default {
     // 文书单子统计打开记录单
     this.bus.$on("openSheetTag", this.onSheetSwitch)
     this.bus.$on("closeSheetTag", this.onSheetClose);
+    this.bus.$on('clearSheetModel',()=>{
+      this.sheetModelData=[]
+    })
     //第三方浏览界面 是路由传的患者信息 所以一开始先清空界面VUEX的信息，再提交路由的
     this.getDate();
     this.$store.commit("upPatientInfo", {});

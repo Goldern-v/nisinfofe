@@ -68,7 +68,7 @@
         </span>
         <span>
           住院号:
-          <div class="bottom-line" style="min-width: 70px">
+          <div class="bottom-line" style="min-width: 70px; padding-right: 5px;">
             {{ patientInfo.inpNo }}
           </div>
         </span>
@@ -284,7 +284,7 @@
 
         <span>
           住院号:
-          <div class="bottom-line" style="min-width: 80px">
+          <div class="bottom-line" style="min-width: 80px; padding-right: 5px;">
             {{ patientInfo.inpNo }}
           </div>
         </span>

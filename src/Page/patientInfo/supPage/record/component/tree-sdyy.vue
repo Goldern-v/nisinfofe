@@ -422,17 +422,19 @@ export default {
         this.bus.$emit("activeAllButons");
         window.app.$CRMessageBox.notifyBox.close();
       } catch (error) {}
-      let typelsit = ["sheet", "bloodSugar", "healthEducation"];
+      let typelsit = ["sheet", "bloodSugar", "healthEducation", "temperature", "diagnosis"];
       if (typelsit.includes(data.type)) {
         if (
           node.level === 2 ||
           (node.level == 1 && data.type == "bloodSugar") ||
+          (node.level == 1 && data.type == "temperature") ||
+          (node.level == 1 && data.type == "diagnosis") ||
           (node.level == 1 && !data.children.length)
         ) {
           let isopenSheetTag = false;
           if (
             (data.type == "sheet" && node.level == 2)
-            || data.type == "bloodSugar"
+            || data.type == "bloodSugar" || data.type == "temperature" || data.type == "diagnosis"
           ) {
             isopenSheetTag = true;
           }
@@ -545,7 +547,7 @@ export default {
         icon = fileicon;
       }
       let viewDom = h();
-      let typelsit = ["sheet", "bloodSugar", "healthEducation"];
+      let typelsit = ["sheet", "bloodSugar", "healthEducation", "temperature","diagnosis"];
       if (node.level == 1) {
         if (typelsit.includes(node.data.type)) {
           return h(
@@ -689,6 +691,14 @@ export default {
             label: "血糖单",
             type: "bloodSugar"
           };
+          let list_5 = {
+            label: "体温单",
+            type: "temperature"
+          };
+          let list_6 = {
+            label: "护理计划单",
+            type: "diagnosis"
+          };
           let list_4 = res[2].data.data.map(item => {
             return {
               label: `健康教育单 ${item.creatDate}`,
@@ -744,12 +754,14 @@ export default {
                 type: "sheet",
                 children: [...list_2]
               },
+              { ...list_5 },
               { ...list_3 },
               {
                 label: "健康教育单",
                 type: "healthEducation",
                 children: [...list_4]
-              }
+              },
+              { ...list_6 },
             ];
           } else {
             this.$nextTick(() => {
@@ -766,6 +778,9 @@ export default {
                   index: (index += 1)
                 },
                 {
+                  ...list_5
+                },
+                {
                   ...list_3
                 },
                 {
@@ -773,6 +788,9 @@ export default {
                   type: "healthEducation",
                   children: [...list_4],
                   index: (index += 1)
+                },
+                {
+                  ...list_6
                 }
               ];
             });
