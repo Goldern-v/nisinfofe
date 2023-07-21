@@ -44,8 +44,6 @@
 .content
   margin 10px 15px 0
   margin-bottom 0
-  position relative
-  z-index 0
   .left-part
     float left
     width 260px

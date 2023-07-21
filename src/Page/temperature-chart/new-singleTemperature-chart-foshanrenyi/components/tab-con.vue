@@ -946,7 +946,9 @@ export default {
     isDisable() {
       if (
         this.$route.path.includes("newSingleTemperatureChart") ||
-        this.$route.path.includes("temperature")
+        this.$route.path.includes("temperature") ||
+        this.$route.path.includes("formPage") ||
+        this.$route.path.includes("record")
       ) {
         return false;
       } else {
