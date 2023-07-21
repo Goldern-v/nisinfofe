@@ -93,7 +93,7 @@ export default {
         },
         {
           key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ?"已有压力性损伤": ['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID) ?"已有压力性损伤风险" : this.HOSPITAL_ID == 'nfyksdyy'?'VTE高危' : "已有压疮",
-          length:  this.HOSPITAL_ID == 'nfyksdyy'? this.hasVteDanger.length : this.hasYachuang.length
+          length:  this.HOSPITAL_ID == 'nfyksdyy'? this.dangerInVteLy.length : this.hasYachuang.length
         },
         {
           key: "新入",
