@@ -62,7 +62,12 @@
       </div>
      </template>
      <!-- 其他记录单或者血糖，健康 -->
-        <component :is="otherComponent" v-else :evalTagHeight="tagsViewHeight"></component>
+        <component
+          :is="otherComponent"
+          v-else
+          :evalTagHeight="tagsViewHeight"
+          :hasTagsView="hasTagsView"
+        ></component>
       <!-- 关联表单弹窗 -->
       <RelationFormModal/>
       <!-- 电子病例弹窗 -->
@@ -177,7 +182,7 @@ import patientInfo from "@/Page/sheet-page/components/sheet-tool/patient-info";
 import doctorEmr from "@/components/doctorEmr";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_nfyksdyy.vue"; //血糖
-import healthEducation from "@/Page/patientInfo/supPage/healthEducation/healthEducation.vue";
+import healthEducation from "@/Page/patientInfo/supPage/healthEducationNfyksdyy/healthEducation.vue";
 import temperature from "@/Page/patientInfo/supPage/temperature/temperature-foshanrenyi";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 
