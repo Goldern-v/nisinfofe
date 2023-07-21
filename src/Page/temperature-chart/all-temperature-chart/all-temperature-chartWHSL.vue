@@ -237,6 +237,24 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="spo2"
+            label="血氧饱和度Spo2"
+            min-width="120"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.spo2"
+                :class="className"
+                class="sp02"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="height"
             label="身高"
             min-width="80"
@@ -1064,7 +1082,7 @@ export default {
         foodSize: "",
         id: "",
         physicalCooling: "",
-        // spo2: "",
+        spo2: "",
         monthHour: "",
         multiSign: "",
         pulse: "",
