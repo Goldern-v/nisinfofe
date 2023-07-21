@@ -111,7 +111,7 @@ export default {
         })}`;
 
         this.showSignBtn = payload.showSignBtn || false;
-
+        this.$refs.iframe.setAttribute('id', 'linkFormIframe');
         this.$refs.iframe.setAttribute("src", url);
 
         this.useIframe = true;
