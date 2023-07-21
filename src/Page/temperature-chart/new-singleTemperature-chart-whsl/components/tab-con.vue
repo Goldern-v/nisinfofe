@@ -993,11 +993,12 @@ export default {
         let obj = [];
         const babyType = [
           "01",
-          "aurigo",
-          "funicle",
-          "breast",
-          "milk",
-          "033",
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "vaccine",
           "3",
         ]; //婴儿显示项目
         if (this.isBaby) {
