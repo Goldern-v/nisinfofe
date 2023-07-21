@@ -1023,7 +1023,7 @@ export default {
           }
           switch (item.signType) {
             case "base":
-            if(!["表顶注释","表底注释"].includes(item.vitalSign))
+            if(!["表顶注释","表底注释","母乳", "牛乳", "黄疸", "粪便", "脐带", "卡介苗"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
               break;
             case "other":
