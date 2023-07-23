@@ -977,6 +977,26 @@ export default {
         `
       );
     }
+    if (sheetInfo.sheetType == "critical_new_weihai" ) {
+      addCSS(
+        window,
+        `
+        .info-con{
+            font-size:14px!improtant;
+          }
+
+          #sheetPagePrint td[datakey="signerNo"] .sign-img img{
+              transform:scale(0.81)
+          }
+          @media print {
+            #sheetPagePrint .body-con{ height: 40px !important; }
+            #sheetPagePrint .body-con td input { font-size: 14px !important;}
+            #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
+            #sheetPagePrint .body-con td[datakey="description"]  textarea{ font-size: 14px !important;}
+          }
+        `
+      );
+    }
     if (sheetInfo.sheetType == "postpartum_sdry") {
       addCSS(
         window,
