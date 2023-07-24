@@ -1634,14 +1634,12 @@ export default {
     //     const total = Object.keys(this.fixedList)
     //         .filter(item => inputToSum.includes(item.key))
     //         .reduce((acc, item) => acc + Number(item.value), 0);
-    //     console.log("total===1111",total)
     //     this.fixedList.find(item => item.key === 'inputEight').value = total;
     //   }
     //   if(outputSum.includes(item.key)){
     //     const total = this.fixedList
     //         .filter(item => outputSum.includes(item.key))
     //         .reduce((acc, item) => acc + Number(item.value), 0);
-    //     console.log("total===2222",total)
     //     this.fixedList.find(item => item.key === 'outputEight').value = total;
     //
     //   }
@@ -1660,7 +1658,6 @@ export default {
       })
     },
     reactiveRows(row,key, maxLength, minRows, maxRows) {
-      console.log(row[key],key,'row[key]')
       if (row[key]) {
         let number = row[key].replace(/[^0-9]/ig,"");
         let word = row[key].replace(/[^a-z]+/ig,"");
@@ -1896,7 +1893,6 @@ export default {
           }
         }
         if ((td.key == 'fieldOne') && td.value !== ''&&(isNaN(td.value) || td.value < 50 || td.value > 250)) {
-            console.log(td.key,(td.value >= 50 && td.value <= 250))
           confirmRes = await this.$confirm(
             td.name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",
             "提示",
@@ -1936,7 +1932,6 @@ export default {
       this.$refs.zkModalZhzxy.close();
     },
     open(config) {
-      console.log(config,'config')
       setTimeout(() => {
         window.closeAutoCompleteNoId();
       }, 300);
@@ -1999,7 +1994,6 @@ export default {
           this.fixedList[item].maxWidth = width + 10;
         }
       }
-      console.log("this.fixedList===",this.fixedList)
 
       // 贵州省医common_gzry，血压弹框分开为收缩压和舒张压
       if (this.sheetInfo.sheetType === 'common_gzry') {
@@ -2920,7 +2914,6 @@ export default {
           if (i == 0) {
             if('critical2_weihai'===this.sheetInfo.sheetType) this.fixedList.measures.value = measuresStr.slice(1)
             mergeTr(this.record[0], this.staticObj, this.fixedList);
-            console.log(this.record,this.staticObj,this.fixedList,'this.record[0]')
           }
           if (this.record[i]) {
             this.record[i].find(
@@ -2936,7 +2929,6 @@ export default {
                 if(defaultFood.hasOwnProperty(item.key)) item.value=foodResult[i]?foodResult[i][item.key]:""
               })
             }
-            // return console.log(foodResult,this.record[i])
             process.env.splitSave && (this.record[i].isChange = true);
           } else {
           let currRow = JSON.parse(JSON.stringify(this.record[0]));
@@ -2970,7 +2962,6 @@ export default {
               })
             }
           }
-            // return console.log(valResult,this.record[i])
           process.env.splitSave &&
             (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true);
           }
@@ -2995,7 +2986,6 @@ export default {
         for (let i = 0; i < length; i++) {
           if (i == 0) {
             mergeTr(this.record[0], this.staticObj, this.fixedList);
-            console.log(this.record,this.staticObj,this.fixedList,'this.record[0]')
           }
           if (this.record[i]) {
             this.record[i].find(
@@ -3044,7 +3034,6 @@ export default {
               })
             }
           })
-            // return console.log(valResult,this.record[i])
           process.env.splitSave &&
             (sheetModel[this.lastZ].bodyModel[this.lastY].isChange = true);
           }
@@ -3106,7 +3095,6 @@ export default {
           }
         }
       }
-      // return console.log(sheetModel,this.record,'sheetModel')
       // 删减特殊情况超页(11页-10页);
       if (result.length < this.record.length) {
         const diff = this.record.length - result.length;
@@ -3228,7 +3216,6 @@ export default {
      this.model.newDiagnosisModal = this.$refs.newDiagnosisModal;
     }
     window.openSpecialModal2 = (config) => {
-      console.log('openSpecialModal2',config)
       this.open(config);
       if (this.HOSPITAL_ID == "foshanrenyi") {
         // 打开编辑框时 检查项目:, 检查所见:, 印象:

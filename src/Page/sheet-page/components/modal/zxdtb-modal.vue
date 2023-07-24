@@ -846,7 +846,34 @@ export default {
             name: "口服药",
           },
         ];
-      } else if (['gdtj',"wujing"].includes(this.HOSPITAL_ID)) {
+      } else if(['whsl'].includes(this.HOSPITAL_ID)){
+        return [
+          {
+            id: "",
+            name: "全部",
+          },
+          {
+            id: "输液",
+            name: "输液类",
+          },
+          {
+            id: "注射",
+            name: "注射类",
+          },
+          {
+            id: "口服",
+            name: "口服药",
+          },
+          {
+            id: "输血",
+            name: "输血类",
+          },
+          {
+            id: "雾化",
+            name: "雾化类",
+          },
+        ];
+      }else if (['gdtj',"wujing"].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",
