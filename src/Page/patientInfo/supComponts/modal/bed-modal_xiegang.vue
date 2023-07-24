@@ -81,7 +81,7 @@
         </div>
       </div>
       <div
-        class="bed-card-warpper wrist-strap-print"
+        class="bed-card-warpper wrist-children"
         ref="printCon3"
         v-show="printMode == 'wrist-children'"
       >
@@ -151,6 +151,51 @@
   >>> *
     font-family 'SimHei','Microsoft Yahei' !important
     font-weight bold
+  &.wrist-children{
+    .bed-card-vert-con{
+        margin: 20px;
+        box-sizing: border-box;
+        position: relative;
+        text-align: left;
+        width: 500px;
+        padding-left: 50px;
+        border: none;
+        height: 70px;
+        display: flex;
+        &>div{
+          margin-right: 15px;
+        }
+      .qr-code-img{
+        .qr-code{
+          height: 50px;
+          width: 50px;
+          margin-top: -8px;
+          vertical-align: top;
+        }
+        p{
+          font-size: 12px;
+          line-height: 12px;
+        }
+      }
+      .info{
+        p{
+          &:first-of-type{padding-top: 0;}
+            font-size: 12px;
+            line-height: 12px;
+            text-align: center;
+            padding-top: 5px;
+        }
+      }
+      .barcode-img{
+        width: 150px;
+        p{
+          font-size: 12px;
+          line-height: 12px;
+        }
+      }
+    }
+  }
+    
 .bed-card-con
   margin 5px
   width 496px
@@ -573,7 +618,7 @@ export default {
             margin: 15px 15px 0 15px !important;
           }
           @page {
-            margin: 0 0 0 120mm;
+            margin: 0.7cm 0 0 5.8cm;
           }
           `,
         });
