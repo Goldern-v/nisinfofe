@@ -88,7 +88,7 @@
       <p><label>IP代理地址:</label><span>{{proxyIP}}</span></p>-->
     </div>
     <div class="footer-con" flex="cross:center">
-      <span v-if="!['whsl','whfk','ytll'].includes(HOSPITAL_ID)">
+      <span v-if="!['whfk','ytll'].includes(HOSPITAL_ID)">
         <span @click="$emit('setPassword')">修改密码</span>&nbsp;&nbsp;|&nbsp;&nbsp;
       </span>
       <span>个人档案</span>&nbsp;&nbsp;|&nbsp;&nbsp;

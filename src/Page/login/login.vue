@@ -108,7 +108,7 @@
                     <span style="color: red;">{{"推车登录请勾选!"}}</span>
                   </div>
                   <button
-                    v-if=" HOSPITAL_ID==='whsl'?false :  !caLoginFlag"
+                    v-if=" !caLoginFlag"
                     style="background-color: #fff; float: right; border: 0"
                     @click="toReset()"
                   >
