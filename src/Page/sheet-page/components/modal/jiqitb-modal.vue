@@ -135,6 +135,7 @@ export default {
     },
     post() {
       if (!this.selectRow.id) return this.$message.warning("请选择一条数据");
+      ['temperature','pulse','heartRhythm'].forEach(key=>{delete this.selectRow[key]})
       this.$emit("confirm", this.selectRow);
       this.close();
     },
