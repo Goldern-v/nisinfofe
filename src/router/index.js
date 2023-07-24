@@ -1659,6 +1659,7 @@ const router = new Router({
             case 'nfyksdyy':
             case 'zhzxy':
             case 'qhwy':
+            case 'zjhj':
               return allTemperatureChartFSRY
             case 'lyyz':
             case 'whhk':
@@ -1694,6 +1695,7 @@ const router = new Router({
               return newSingleTemperatureChartJmfy;
             case "foshanrenyi":
             case 'nfyksdyy':
+            case 'zjhj':
               return newSingleTemperatureChartFSSY;
             case "nanfangzhongxiyi":
               return newSingleTemperatureChartZhongXiYi;
@@ -1713,7 +1715,6 @@ const router = new Router({
             case "sdlj":
             case "dglb":
             case '925':
-            case 'zjhj':
               return newSingleTemperatureChartSDLJ;
             case "whyx":
               return newSingleTemperatureChartWHYX;
