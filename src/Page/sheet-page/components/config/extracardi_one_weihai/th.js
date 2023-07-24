@@ -13,7 +13,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1200px"
+    width: "1250px"
   },
   th: {
     top: [
@@ -24,7 +24,7 @@ export default {
         name: "升压药物血管药物<br/>μg/kg/min",
         colspan: "1",
         rowspan: "3",
-        style: { minWidth: "70px", maxWidth: "70px" }
+        style: { minWidth: "80px", maxWidth: "80px" }
       },
       {
         name: "强心利尿其他特殊药物",
@@ -50,11 +50,13 @@ export default {
         name: "日期",
         colspan: "1",
         rowspan: "2",
+        style: { minWidth: "45px", maxWidth: "45px" }
       },
       {
         name: "时间",
         colspan: "1",
         rowspan: "2",
+        style: { minWidth: "45px", maxWidth: "45px" }
       },
       { name: "1", colspan: "1", rowspan: "2", style: { minWidth: "42px", maxWidth: "42px" } },
       { name: "2", colspan: "1", rowspan: "2", style: { minWidth: "42px", maxWidth: "42px" } },
