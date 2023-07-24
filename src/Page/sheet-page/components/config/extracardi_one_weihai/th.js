@@ -24,13 +24,13 @@ export default {
         name: "升压药物血管药物<br/>μg/kg/min",
         colspan: "1",
         rowspan: "3",
-        style: { minWidth: "80px", maxWidth: "80px" }
+        style: { minWidth: "125px", maxWidth: "125px" }
       },
       {
         name: "强心利尿其他特殊药物",
         colspan: "1",
         rowspan: "3",
-        style: { minWidth: "130px", maxWidth: "130px" }
+        style: { minWidth: "150px", maxWidth: "150px" }
       },
       {
         name: "其他药物",
@@ -96,13 +96,13 @@ export default {
         name: "心包<br/>胸骨后<br/>",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "90px", maxWidth: "90px" }
+        style: { minWidth: "45px", maxWidth: "45px" }
       },
       {
         name: "胸腔闭<br/>式引流<br/>",
         colspan: "1",
         rowspan: "2",
-        style: { minWidth: "90px", maxWidth: "90px" }
+        style: { minWidth: "45px", maxWidth: "45px" }
       },
       {
         name: "其他<br/>",

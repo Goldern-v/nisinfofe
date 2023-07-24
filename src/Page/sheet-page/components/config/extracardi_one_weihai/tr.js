@@ -201,7 +201,7 @@ export default [
     next: "ml",
     name: "心包胸骨后",
     statBottomLine: true,
-    textarea: { width: 90 },
+    textarea: { width: 45 },
   },
   {
     key: "outputFive",
@@ -210,7 +210,7 @@ export default [
     next: "ml",
     name: "胸腔闭式引流",
     statBottomLine: true,
-    textarea: { width: 90 },
+    textarea: { width: 45 },
   },
   {
     key: "outputSix",
@@ -227,7 +227,7 @@ export default [
     value: "",
     next: "μg/kg/min",
     name: "升压药物血管药物",
-    textarea: { width: 80},
+    textarea: { width: 125},
     style:{"text-align":"left"},
     outChoseItem:outChoseItem1,
     // change: (e, td) => limitChange(e, td, 16)
@@ -240,7 +240,7 @@ export default [
     name: "强心利尿其他特殊药物",
     outChoseItem:outChoseItem2,
     style:{"text-align":"left"},
-    textarea: { width: 130 },
+    textarea: { width: 150 },
     // change: (e, td) => limitChange(e, td, 10)
   },
   {
@@ -256,7 +256,7 @@ export default [
       background: "transparent",
       // text-align: "left"
     },
-    textarea: { width: 180},
+    textarea: { width: 200},
     event: function(e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
