@@ -188,32 +188,16 @@ export default {
     }
   },
   methods: {
-    open(callbeck,name, item) {
-      console.log(this.$route);
-      if(item && item.key){
-        callbeck && (this.callback = callbeck)
-        this.tableTh = item;
-        this.isSaveFill = true;
-        this.getData();
-        this.show = true;
-        this.selectWidth = 100;
-        setTimeout(() => {
-          this.selectWidth = 101;
-        }, 300);
-      }else{
-        this.getData();
-        this.show = true;
-        this.selectWidth = 100;
-        setTimeout(() => {
-          this.selectWidth = 101;
-        }, 300);
-      }
+    open() {
+      this.getData();
+      this.show = true;
+      this.selectWidth = 100;
+      setTimeout(() => {
+        this.selectWidth = 101;
+      }, 300);
     },
     close() {
       this.show = false;
-      if(this.tableTh.key) {
-        this.tableTh.style.backgroundColor = '';
-      }
     },
     changeTab(tab) {
       this.selectedTab = tab;
@@ -271,15 +255,6 @@ export default {
   },
   created() {
     this.getData();
-    if(this.HOSPITAL_ID == 'nfyksdyy'){
-      this.bus.$on("addTitleTemplateFS", (data) => {
-          this.callback &&  this.callback(data.title,  {
-          list: data.list.length && data.list || [],
-          id: data.id
-        })
-        this.close()
-      });
-    }
   },
   mounted() {
     this.show = false;

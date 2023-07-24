@@ -52,7 +52,7 @@
           <span v-if="item.key == 'recordYear'">{{
             recordYear()
           }}</span>
-          <span v-else v-html="item.name" @click.stop="item.canSet && handleName(item, data.titleModel)"></span>
+          <span v-else v-html="item.name"></span>
           <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
             <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
               <input
@@ -118,7 +118,7 @@
           @click="item.canSet && setTitle(item, data.titleModel)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
-          <span v-else v-html="item.name"  @click.stop="item.canSet && handleName(item, data.titleModel)"></span>
+          <span v-else v-html="item.name"></span>
           <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
             <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
               <input
@@ -1365,62 +1365,11 @@ export default {
         item,
       );
     },
-    handleName(item,item2){
-      this.$parent.$parent.$refs.sheetTool.$refs.titleTemplateSlideFS.close()
-      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
-        (title, obj) => {
-          let { list = [], id = '' } = obj  || {}
-          list = list.map(v => v.options)
-          let data = {
-            list: [{
-              pageIndex: this.index,
-              fieldEn: item.key,
-              id,
-              fieldCn: title,
-              option: list,
-            }],
-            recordCode: sheetInfo.sheetType,
-          };
-          this.bus.$emit("saveSheetPage");
-          saveTitleOptions(data).then((res) => {
-            // item.name = title;
-            this.bus.$emit('refreshSheetPage')
-          });
-        },
-        item.name,
-        item,
-      );
-    },
     //
     setTitleFS(item) {
       let self = this
-      if(this.HOSPITAL_ID == 'nfyksdyy'){
-        item.style.backgroundColor = '#edecb2';
-        this.$parent.$parent.$refs.sheetTool.$refs.titleTemplateSlideFS.open((title, obj) => {
-          let { list = [], id = '' } = obj  || {}
-          list = list.map(v => v.options)
-          let data = {
-            list: [{
-              pageIndex: this.index,
-              fieldEn: item.key,
-              id,
-              fieldCn: title,
-              option: list,
-            }],
-            recordCode: sheetInfo.sheetType,
-          };
-          this.bus.$emit("saveSheetPage");
-          item.style.backgroundColor = '';
-          saveTitleOptions(data).then((res) => {
-            // item.name = title;
-            this.bus.$emit('refreshSheetPage')
-          });
-        },
-        item.name,
-        item
-        );
-      }else{
-        this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
+
+      this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
           let { list = [], id = '' } = obj  || {}
           list = list.map(v => v.options)
@@ -1448,7 +1397,6 @@ export default {
         item.name,
         item,
       );
-      }
     },
     getLastRecordDate(index,row,direction){
       let lastRecordMonth = ''
