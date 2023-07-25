@@ -700,7 +700,14 @@ export default {
       // // 判断修改的记录是否起始页
       let isStartPage =  index == 0 || y!=0
       // // 获取上条记录
-      let preRow = isStartPage ? sheetModel[index].bodyModel[y - 1] : sheetModel[index - 1].bodyModel[sheetModel[index - 1].bodyModel.length - 1]
+      let preRow = {}
+      if(isStartPage){
+        let sheetModelObj = sheetModel.find(item=>item.index == index)
+        preRow = sheetModelObj.bodyModel[y - 1]
+      }else{
+        let sheetModelLastObj = sheetModel.find(item=>item.index-1 == index)
+        preRow = sheetModelLastObj.bodyModel[sheetModelLastObj.bodyModel.length - 1]
+      }
       let monthIndex = tr.findIndex(item=>item.key == "recordMonth")
       let hourIndex = tr.findIndex(item=>item.key == "recordHour")
       let monthValue = ''

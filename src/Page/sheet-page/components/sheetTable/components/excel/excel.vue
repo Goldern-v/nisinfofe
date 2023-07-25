@@ -171,8 +171,8 @@
               tr.find((item) => item.key == 'recordDate').value,
             noSignRow: tr.find((item) => item.key == 'status').value === '0',
             multiSign: tr.find((item) => item.key == 'multiSign').value,
-            selectedTr: sheetInfo.selectRow.includes(tr),
-            clickRow: sheetInfo.clickRow === tr,
+            selectedTr: HOSPITAL_ID !== 'nfyksdyy' && sheetInfo.selectRow.includes(tr),
+            clickRow: HOSPITAL_ID !== 'nfyksdyy' && sheetInfo.clickRow === tr,
             redText:
               tr.find((item) => {
                 return item.key == 'recordSource';
@@ -3012,18 +3012,15 @@ export default {
     // 按下commmand多选
     selectRow(tr, e) {
       if (sheetInfo.model == "print") return;
-      if (this.HOSPITAL_ID == "weixian") {
-        this.sheetInfo.clickRow = tr;
-      }
       this.sheetInfo.clickRow = tr;
       if (this.sheetInfo.downControl) {
         this.sheetInfo.downControl = e.ctrlKey;
-        let index = this.sheetInfo.selectRow.indexOf(tr);
-        if (index > -1) {
-          this.sheetInfo.selectRow.splice(index, 1);
-        } else {
+        // let index = this.sheetInfo.selectRow.indexOf(tr);
+        // if (index > -1) {
+        //   this.sheetInfo.selectRow.splice(index, 1);
+        // } else {
           this.sheetInfo.selectRow.push(tr);
-        }
+        // }
       }
     },
     selectedItem(td) {
