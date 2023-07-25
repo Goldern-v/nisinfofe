@@ -7,7 +7,7 @@ function currYear() {
 }
 export default {
   style: {
-    width: "1250px"
+    width: "1200px"
   },
   // 科室的名称 关节骨科
   deptType: "",
@@ -152,8 +152,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          minWidth: "203px",
+          maxWidth: "203px"
         },
         colspan: "1",
         rowspan: "3"
@@ -165,13 +165,13 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
-      {
-        name: `
-        质控护士签名
-        `,
-        colspan: "1",
-        rowspan: "3"
-      }
+      // {
+      //   name: `
+      //   质控护士签名
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3"
+      // }
     ],
     mid: [
       {

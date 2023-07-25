@@ -128,11 +128,7 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告
               </el-row>
             </router-link>
-            <router-link to="/nursingDocumentation" tag="span">
-                    <el-row class="nav-item" type="flex" align="middle">
-                      <i class="iconfont icon-huangzhecxun"></i>患者查询
-                    </el-row>
-                  </router-link>
+     
             <router-link to="/allCatheter" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-allCatheter"></i> 导管
@@ -159,6 +155,11 @@
                 <i class="iconfont icon-allCatheter"></i> 统计查询
               </el-row>
             </router-link>
+            <router-link to="/nursingDocumentation" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingDocumentation"></i> 患者查询
+              </el-row>
+            </router-link>
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
@@ -169,22 +170,7 @@
                 <i class="iconfont icon-hulijiludan"></i>其他
               </el-row>
               <el-dropdown-menu slot="dropdown">
-<!--                <el-dropdown-item>-->
-<!--                  <router-link to="/badEvent" tag="span">-->
-<!--                    <el-row class="menu-item" type="flex" align="middle">-->
-<!--                      <i class="badEvent"></i>不良事件-->
-<!--                    </el-row>-->
-<!--                  </router-link>-->
-<!--                </el-dropdown-item>-->
-                <!-- <el-dropdown-item
-                  :class="{ active: $route.path == '/nursingDocumentation' }"
-                >
-                  <router-link to="/nursingDocumentation" tag="span">
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="nursingDocumentation"></i>患者查询
-                    </el-row>
-                  </router-link>
-                </el-dropdown-item> -->
+
                 <el-dropdown-item>
                 <router-link to="/healthEdu" tag="span">
               <el-row class="menu-item" type="flex" align="middle">
@@ -858,7 +844,7 @@ export default {
     },
     isActivePage() {
       if (this.$route.path.indexOf("/wardReport") > -1) return true;
-      if (this.$route.path == "/nursingDocumentation") return true;
+      // if (this.$route.path == "/nursingDocumentation") return true;
       // if (this.$route.path == "/badEvent") return true;
       if (this.$route.path.indexOf("/inpatientReport") > -1) return true;
       // if (this.$route.path == "/catheterPage") return true;

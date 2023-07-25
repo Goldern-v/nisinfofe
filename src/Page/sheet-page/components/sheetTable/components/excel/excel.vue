@@ -782,6 +782,7 @@ import {
   markDelete,
   saveTitleOptions,
   findListByBlockId,
+  delSameRecordRow
 } from "@/api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
 import whhkSignModal from "@/components/modal/whhk-sign.vue";
@@ -813,6 +814,7 @@ import moment from "moment";
 import { getUser,saveRecordAllSign } from "@/api/common.js";
 import bottomRemark from "./remark";
 import { GetUserList} from "@/api/caCardApi";
+import { hisMatch } from '@/utils/tool'
 export default {
   props: {
     data: Object,
@@ -2384,6 +2386,40 @@ export default {
         return false;
       }
     },
+    deleteSameRecord(e, index, row) {
+      const id = row.find((item) => item.key == "id").value;
+      const isRead = this.isRead(row, index);
+      const onDeleteSuccess = () => {
+        this.$notify.success({
+          title: "提示",
+          message: "删除成功",
+          duration: 1000,
+        });
+        this.bus.$emit("saveSheetPage", true);
+      }
+      if (id && isRead) {
+        this.$parent.$parent.$refs.signModal.open((password, empNo) => {
+          delSameRecordRow(id, password, empNo).then((res) => {
+            onDeleteSuccess();
+          });
+        });
+      } else {
+        this.$confirm("你确定删除该行相同时间所有数据吗", "提示", {
+          confirmButtonText: "删除",
+          cancelButtonText: "取消",
+          type: "warning",
+        }).then((res) => {
+          if (id) {
+            delSameRecordRow(id, "", "").then((res) => {
+              onDeleteSuccess();
+            });
+          } else {
+            // this.delRow(index);
+            // onDeleteSuccess();
+          }
+        });
+      }
+    },
     // 右键菜单
     openContextMenu(e, index, row, cell,datas) {
       $(e.target).parents("tr").addClass("selectedRow");
@@ -2391,6 +2427,7 @@ export default {
         top: `${Math.min(e.clientY - 15, window.innerHeight - 280)}px`,
         left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`,
       };
+      const hasId = row.find((item) => item.key == "id").value;
       let data = [
         {
           name: "向上插入新行",
@@ -2452,6 +2489,18 @@ export default {
             this.$emit('onModalChange', e,this.data.bodyModel[index], datas.x, datas.y, datas.index)
           },
         },
+        ...hisMatch({
+          map: {
+            whhk: hasId ? [
+              {
+                name: '删除整段记录',
+                icon: 'shanchuzhenghang',
+                click: () => this.deleteSameRecord(e, index, row)
+              }
+            ] : [],
+            other: []
+          },
+        }),
         {
           name: "删除整行",
           icon: "shanchuzhenghang",

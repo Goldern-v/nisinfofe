@@ -56,6 +56,12 @@
               <span style="font-size: 14px;">术后{{data.operationDay}}天</span>
             </span>
           </div>
+          <div
+            v-if="HOSPITAL_ID == 'zhzxy' && (data.allergy1 || data.drugGms || data.allergy2)"
+            class="allergy-icon"
+          >
+            <span>过敏史</span>
+          </div>
           <div flex-box="1" flex="dir:right" style="width: 0">
             <template  v-for="item in squareList">
               <div class="table-name"

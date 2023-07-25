@@ -278,11 +278,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      width: "203px",
       background: "transparent"
     },
     textarea: {
-      width: 150
+      width: 203
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -297,10 +297,10 @@ export default [
     key: "sign",
     value: ""
   },
-  {
-    key: "sign2",
-    value: ""
-  },
+  // {
+  //   key: "sign2",
+  //   value: ""
+  // },
   // {
   //   key: "audit",
   //   value: ""

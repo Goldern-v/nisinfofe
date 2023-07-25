@@ -87,6 +87,22 @@ export const delRow = (id, password, empNo) => {
   );
 };
 /**
+ * 删除相同时间的记录
+ * @param {*} id
+ * @param {*} password
+ * @param {*} empNo
+ * @returns
+ */
+export const delSameRecordRow = (id, password, empNo) => {
+  return axios.post(`${apiPath}record/${sheetInfo.sheetType}/deleteByRecordDate`,
+    qs.stringify({
+      id,
+      password,
+      empNo,
+    })
+  );
+}
+/**
  *武警删除护记行接口,删除某一行时，查询该行是否有执行单同步 如果有 则一起删除
  * @param {*} idList //需要删除的护记行id,删除单条记录时 寻找有相同执行同步的记录一起删除
  * @param {*} password //null

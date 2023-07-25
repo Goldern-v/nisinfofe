@@ -97,11 +97,15 @@
             </template>
             </el-table-column>
             <el-table-column
-                prop="signerName"
                 align="center"
                 width="80"
                 label="评估人">
+              <template slot-scope="scope">
+                <img class='img' v-if="scope.row.signerNo" :src="`/crNursing/api/file/signImage/${scope.row.signerNo}?${token}`" alt="">
+                <span v-else>{{scope.row.signerName}}</span>
+              </template>
             </el-table-column>
+            
             <el-table-column
                 prop="address"
                 align="center"
@@ -118,12 +122,18 @@
         <removeModal v-if="showRemoveStatus" :replaceTime='tableInfo.expectExtubationTime' @closeRepModal='removeClose' @changeRepFn='removeChangeRepFn'></removeModal>
     </div>
 </template>
-<style lang='scss' scoped>
+<style lang="stylus" scoped>
 .table-page{
     overflow: hidden;
     padding:0 20px 20px;
     background-color: #fff;
     font-size: 14px;
+    .img{
+      width: 65px;
+      height: 30px;
+      display: block;
+      margin: auto;
+    }
     .fix-table{
         background-color: #fff;
         position: fixed;
@@ -267,285 +277,291 @@ import {
 import delModal from '@/Page/allCatheter/components/del-row-modal/del-row-modal.vue'
 import repModal from '@/Page/allCatheter/components/replace-modal/replace-modal.vue'
 import removeModal from '@/Page/allCatheter/components/replace-modal/replace-modal.vue'
+import common from "@/common/mixin/common.mixin.js";
+
 export default {
-props: {
+  components: {
+    FallibleImage: () => import('@/components/FallibleImage/FallibleImage.vue')
+  },
+  props: {
     tabelConfig:{
-        type:Array,
-        value:[]
+      type:Array,
+      value:[]
     },
     pageNum:Number,
     tableInfo:{
-        type:Object,
-        value:{}
+      type:Object,
+      value:{}
     },
     title:{
-        type:String,
-        value:''
+      type:String,
+      value:''
     }
-    },
-data() {
-return {
-    config:[],
-    tabelData:[],
-    optionsConfig:{},
-    isDel:false,
-    currentRow:{},
-    delType:'',
-    showChangeRt:false,
-    modalTitle:'',
-    modalContont:'',
-    contentWidth:"auto",
-    tableHtml:null,
-    showRemoveStatus: false,
-};
-},
-methods: {
-    toPrint(){
-        this.$emit('toPrint');
-    },
-    show(){
-        // console.log(111);
-    },
-    handleSelect(){},
-    querySearch(queryString, cb,arr){
-        if(arr&&arr.length){
-            let tem = arr.map(item=>{
-                // console.log(item);
-                return {value:item.code}
-            })
-            cb(tem)
-        }else{
-            cb([])
-        }
-    },
-    refreshCatcherTable(code,type,id,patientId,visitId){
-        getCatheterTable({
-                code,
-                type,
-                id,
-                patientId,
-                visitId
-            },code).then(res=>{
-                // console.log(res);
-                this.$emit('updateTableConfig',res.data.data)
-            })
-    },
-    extubationModal(){
-        this.modalTitle = '拔管'
-        this.modalContont = '确定要给该患者拔管吗？'
-        this.delType = 'extubation'
-        this.isDel = true
-    },
-    extubation(extubationTime){
-        extubationApi({...this.tableInfo,extubationTime},this.tableInfo.code).then(res=>{
-            this.$message.success('操作成功')
-            let config = res.data.data
-            this.$emit('updateTableConfig',config)
-            this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
-        }).catch(err=>{
-            this.$message.error(err.desc)
-        })
-    },
-    changeRepFn(val){
-        let obj = JSON.parse(JSON.stringify(this.tableInfo))
-        obj.replaceTime = val
-        updateInfo(obj,this.tableInfo.code).then(res=>{
-            let config = res.data.data
-            this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
-            this.$emit('updateTableConfig',config)
-        })
-    },
-    removeChangeRepFn(val){
-        let obj = JSON.parse(JSON.stringify(this.tableInfo))
-        obj.expectExtubationTime = val
-        updateInfo(obj,this.tableInfo.code).then(res=>{
-            let config = res.data.data
-            this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
-            this.$emit('updateTableConfig',config)
-        })
-    },
-    changeReplaceTime(){
-        this.showChangeRt = true
-    },
-    removeTime(){
-        this.showRemoveStatus = true
-    },
-    closeRepModal(){
-        this.showChangeRt = false
-    },
-    removeClose(){
-        this.showRemoveStatus = false
-    },
-    initDT(type,row){
-        if(type=='date'&&!row.recordMonth){
-            row.recordMonth = moment().format("MM-DD")
-        }else if(type=='time'&&!row.recordHour){
-            row.recordHour = moment().format("HH:mm")
-        }
-    },
-    closeModal(){
-        this.isDel = false
-        this.currentRow = {}
-    },
-    delAll(){
-        this.modalTitle = ''
-        this.modalContont = ''
-        this.delType = 'all'
-        this.isDel = true
-    },
-    showDelModal(row){
-        this.modalTitle = ''
-        this.modalContont = ''
-        if(!row.id){
-            this.$message.error('该行暂无数据！')
-            return
-        }
-        this.currentRow = row
-        this.delType = 'row'
-        this.isDel = true
-    },
-    delRow(empNo,password,extubationTime){
-        let {code,type,id,patientId,visitId} = this.tableInfo
-        if(this.delType==='row'){
-            delRowApi({
-                id:this.currentRow.id,
-                empNo:empNo,
-                password:password
-            },code).then(res=>{
-                this.$message.success('删除成功')
-                this.isDel = false
-                this.refreshCatcherTable(code,type,id,patientId,visitId)
-            }).catch(err=>{
-                this.$message.error(err.desc)
-            })
-        }else if(this.delType==='all'){
-            delAllApi({
-                id:this.tableInfo.id,
-                empNo:empNo,
-                password:password
-            },code).then(res=>{
-                this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
-                this.isDel = false
-                this.$message.success('删除成功')
-                this.$emit('changeShowTable',false)
-            }).catch(err=>{
-                this.$message.error(err.desc)
-            })
-        }else if(this.delType==='extubation'){
-            this.extubation(extubationTime)
-        }
-    },
-    saveTable(){
-        if(this.pageNum){
-            this.$emit('saveTableFn')
-        }else{
-            let {code,type,id,patientId,visitId} = this.tableInfo
-            saveCatheter({
-                code,type,id,
-                list:this.tabelData
-            },code).then(res=>{
-                this.$message.success('保存成功')
-                this.refreshCatcherTable(code,type,id,patientId,visitId)
-            }).catch(err=>{
-                console.log(err);
-            })
-        }
-    },
-    fillData(oldArr){
-        if(oldArr.length<17){
-            let arr = JSON.parse(JSON.stringify(oldArr))
-            for(let i = arr.length;i<17;i++){
-                arr[i] = {recordMonth:'',recordHour:''}
-                this.config.map(item=>{
-                    arr[i][item.name] = ''
-                })
-            }
-            this.tabelData = JSON.parse(JSON.stringify(arr))
-        }else{
-            this.tabelData = JSON.parse(JSON.stringify(oldArr))
-        }
-        // console.log(this.tabelData);
-    },
-    async init(){
-        let res =  await getConfig(this.tableInfo.code)
-        this.config = res.data.data
-        this.fillData(this.tabelConfig)
-        let dictRes = await getCatheterValueDict(this.tableInfo.code)
-        this.optionsConfig = dictRes.data.data
-    },
-    handleScroll(e){
-        let target = e.currentTarget
-        let fixHeader = document.getElementsByClassName('el-table__header-wrapper')[0]
-        // console.log(`${480-target.scrollLeft}px`);
-        fixHeader.style.left = `${505-target.scrollLeft}px`
-    }
-},
-mounted(){
+  },
+  mixins: [common],
+  data() {
+    return {
+        config:[],
+        tabelData:[],
+        optionsConfig:{},
+        isDel:false,
+        currentRow:{},
+        delType:'',
+        showChangeRt:false,
+        modalTitle:'',
+        modalContont:'',
+        contentWidth:"auto",
+        tableHtml:null,
+        showRemoveStatus: false,
+    };
+  },
+  methods: {
+      toPrint(){
+          this.$emit('toPrint');
+      },
+      show(){
+          // console.log(111);
+      },
+      handleSelect(){},
+      querySearch(queryString, cb,arr){
+          if(arr&&arr.length){
+              let tem = arr.map(item=>{
+                  // console.log(item);
+                  return {value:item.code}
+              })
+              cb(tem)
+          }else{
+              cb([])
+          }
+      },
+      refreshCatcherTable(code,type,id,patientId,visitId){
+          getCatheterTable({
+                  code,
+                  type,
+                  id,
+                  patientId,
+                  visitId
+              },code).then(res=>{
+                  // console.log(res);
+                  this.$emit('updateTableConfig',res.data.data)
+              })
+      },
+      extubationModal(){
+          this.modalTitle = '拔管'
+          this.modalContont = '确定要给该患者拔管吗？'
+          this.delType = 'extubation'
+          this.isDel = true
+      },
+      extubation(extubationTime){
+          extubationApi({...this.tableInfo,extubationTime},this.tableInfo.code).then(res=>{
+              this.$message.success('操作成功')
+              let config = res.data.data
+              this.$emit('updateTableConfig',config)
+              this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
+          }).catch(err=>{
+              this.$message.error(err.desc)
+          })
+      },
+      changeRepFn(val){
+          let obj = JSON.parse(JSON.stringify(this.tableInfo))
+          obj.replaceTime = val
+          updateInfo(obj,this.tableInfo.code).then(res=>{
+              let config = res.data.data
+              this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
+              this.$emit('updateTableConfig',config)
+          })
+      },
+      removeChangeRepFn(val){
+          let obj = JSON.parse(JSON.stringify(this.tableInfo))
+          obj.expectExtubationTime = val
+          updateInfo(obj,this.tableInfo.code).then(res=>{
+              let config = res.data.data
+              this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
+              this.$emit('updateTableConfig',config)
+          })
+      },
+      changeReplaceTime(){
+          this.showChangeRt = true
+      },
+      removeTime(){
+          this.showRemoveStatus = true
+      },
+      closeRepModal(){
+          this.showChangeRt = false
+      },
+      removeClose(){
+          this.showRemoveStatus = false
+      },
+      initDT(type,row){
+          if(type=='date'&&!row.recordMonth){
+              row.recordMonth = moment().format("MM-DD")
+          }else if(type=='time'&&!row.recordHour){
+              row.recordHour = moment().format("HH:mm")
+          }
+      },
+      closeModal(){
+          this.isDel = false
+          this.currentRow = {}
+      },
+      delAll(){
+          this.modalTitle = ''
+          this.modalContont = ''
+          this.delType = 'all'
+          this.isDel = true
+      },
+      showDelModal(row){
+          this.modalTitle = ''
+          this.modalContont = ''
+          if(!row.id){
+              this.$message.error('该行暂无数据！')
+              return
+          }
+          this.currentRow = row
+          this.delType = 'row'
+          this.isDel = true
+      },
+      delRow(empNo,password,extubationTime){
+          let {code,type,id,patientId,visitId} = this.tableInfo
+          if(this.delType==='row'){
+              delRowApi({
+                  id:this.currentRow.id,
+                  empNo:empNo,
+                  password:password
+              },code).then(res=>{
+                  this.$message.success('删除成功')
+                  this.isDel = false
+                  this.refreshCatcherTable(code,type,id,patientId,visitId)
+              }).catch(err=>{
+                  this.$message.error(err.desc)
+              })
+          }else if(this.delType==='all'){
+              delAllApi({
+                  id:this.tableInfo.id,
+                  empNo:empNo,
+                  password:password
+              },code).then(res=>{
+                  this.$emit('onChangePatient_self',this.$store.state.sheet.patientInfo)
+                  this.isDel = false
+                  this.$message.success('删除成功')
+                  this.$emit('changeShowTable',false)
+              }).catch(err=>{
+                  this.$message.error(err.desc)
+              })
+          }else if(this.delType==='extubation'){
+              this.extubation(extubationTime)
+          }
+      },
+      saveTable(){
+          if(this.pageNum){
+              this.$emit('saveTableFn')
+          }else{
+              let {code,type,id,patientId,visitId} = this.tableInfo
+              saveCatheter({
+                  code,type,id,
+                  list:this.tabelData
+              },code).then(res=>{
+                  this.$message.success('保存成功')
+                  this.refreshCatcherTable(code,type,id,patientId,visitId)
+              }).catch(err=>{
+                  console.log(err);
+              })
+          }
+      },
+      fillData(oldArr){
+          if(oldArr.length<17){
+              let arr = JSON.parse(JSON.stringify(oldArr))
+              for(let i = arr.length;i<17;i++){
+                  arr[i] = {recordMonth:'',recordHour:''}
+                  this.config.map(item=>{
+                      arr[i][item.name] = ''
+                  })
+              }
+              this.tabelData = JSON.parse(JSON.stringify(arr))
+          }else{
+              this.tabelData = JSON.parse(JSON.stringify(oldArr))
+          }
+          // console.log(this.tabelData);
+      },
+      async init(){
+          let res =  await getConfig(this.tableInfo.code)
+          this.config = res.data.data
+          this.fillData(this.tabelConfig)
+          let dictRes = await getCatheterValueDict(this.tableInfo.code)
+          this.optionsConfig = dictRes.data.data
+      },
+      handleScroll(e){
+          let target = e.currentTarget
+          let fixHeader = document.getElementsByClassName('el-table__header-wrapper')[0]
+          // console.log(`${480-target.scrollLeft}px`);
+          fixHeader.style.left = `${505-target.scrollLeft}px`
+      }
+  },
+  mounted(){
     this.tableHtml = document.getElementById("table-box")
     let tbody = document.getElementsByClassName('el-table__body-wrapper')[0]
     tbody.addEventListener('scroll', this.handleScroll, true)
-},
-created(){
+  },
+  created(){
     this.init()
-},
-components: {
+  },
+  components: {
     delModal,
     repModal,
     MDMasked,
     removeModal
-},
-computed:{
+  },
+  computed:{
     intubationDays(){
-        let m1 = moment(this.tableInfo.intubationTime)
-        let m2 = this.tableInfo.extubationTime?moment(this.tableInfo.extubationTime):moment()
-        return m2.diff(m1,'day') + 1
+      let m1 = moment(this.tableInfo.intubationTime)
+      let m2 = this.tableInfo.extubationTime?moment(this.tableInfo.extubationTime):moment()
+      return m2.diff(m1,'day') + 1
     },
     replaceDays(){
-        if(this.tableInfo.extubationTime)return 'unShow'
-        let m1 = moment(this.tableInfo.replaceTime)
-        let m2 = moment()
-        let day = m1.diff(m2,'day') + 1
-        // console.log(day);
-        if(m1.format('YYYY-MM-DD')===m2.format('YYYY-MM-DD')){
-            return 'today'
-        }else if(day<=0){
-            return 'outTime'
-        }else if(day){
-            return day
-        }else{
-            return 'unSet'
-        }
+      if(this.tableInfo.extubationTime)return 'unShow'
+      let m1 = moment(this.tableInfo.replaceTime)
+      let m2 = moment()
+      let day = m1.diff(m2,'day') + 1
+      // console.log(day);
+      if(m1.format('YYYY-MM-DD')===m2.format('YYYY-MM-DD')){
+          return 'today'
+      }else if(day<=0){
+          return 'outTime'
+      }else if(day){
+          return day
+      }else{
+          return 'unSet'
+      }
     },
     ExtReplaceDays(){
-        if(this.tableInfo.extubationTime)return 'unShow'
-        let m1 = moment(this.tableInfo.expectExtubationTime)
-        let m2 = moment()
-        let day = m1.diff(m2,'day') + 1
-        console.log(m1, m2, this.tableInfo.expectExtubationTime, 6666666);
-        if(m1.format('YYYY-MM-DD')===m2.format('YYYY-MM-DD')){
-            return 'today'
-        }else if(day<=0){
-            return 'outTime'
-        }else if(day){
-            return day
-        }else{
-            return 'unSet'
-        }
+      if(this.tableInfo.extubationTime)return 'unShow'
+      let m1 = moment(this.tableInfo.expectExtubationTime)
+      let m2 = moment()
+      let day = m1.diff(m2,'day') + 1
+      console.log(m1, m2, this.tableInfo.expectExtubationTime, 6666666);
+      if(m1.format('YYYY-MM-DD')===m2.format('YYYY-MM-DD')){
+          return 'today'
+      }else if(day<=0){
+          return 'outTime'
+      }else if(day){
+          return day
+      }else{
+          return 'unSet'
+      }
     },
     tableHeight(){
-        return '750'
+      return '750'
     },
-},
-watch:{
+  },
+  watch:{
     tableHtml(val){
-        let fixHeader = document.getElementsByTagName('thead')[0]
-        if(val){
-            this.contentWidth = `${this.tableHtml.offsetWidth+40}px`
-        }else{
-            this.contentWidth = "auto"
-        }
-        fixHeader.style.offsetWidth = this.contentWidth
+      let fixHeader = document.getElementsByTagName('thead')[0]
+      if(val){
+        this.contentWidth = `${this.tableHtml.offsetWidth+40}px`
+      }else{
+        this.contentWidth = "auto"
+      }
+      fixHeader.style.offsetWidth = this.contentWidth
     }
-}
+  }
 };
 </script>
