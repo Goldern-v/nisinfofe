@@ -3052,18 +3052,15 @@ export default {
     // 按下commmand多选
     selectRow(tr, e) {
       if (sheetInfo.model == "print") return;
-      if (this.HOSPITAL_ID == "weixian") {
-        this.sheetInfo.clickRow = tr;
-      }
       this.sheetInfo.clickRow = tr;
       if (this.sheetInfo.downControl) {
         this.sheetInfo.downControl = e.ctrlKey;
-        let index = this.sheetInfo.selectRow.indexOf(tr);
-        if (index > -1) {
-          this.sheetInfo.selectRow.splice(index, 1);
-        } else {
+        // let index = this.sheetInfo.selectRow.indexOf(tr);
+        // if (index > -1) {
+        //   this.sheetInfo.selectRow.splice(index, 1);
+        // } else {
           this.sheetInfo.selectRow.push(tr);
-        }
+        // }
       }
     },
     selectedItem(td) {
