@@ -196,9 +196,7 @@ export default {
       this.getTableData();
     },
     getSelectData(index) {
-      console.log(' this.$route.query',  this.$route.query);
       let { visitId, patientId } = this.$route.query;
-      if(visitId && patientId) return
       let params = {
         visitId,
         patientId
