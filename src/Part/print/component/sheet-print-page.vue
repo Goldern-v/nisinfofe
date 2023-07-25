@@ -920,6 +920,23 @@ export default {
         `
       );
     }
+    //骨科护理记录单
+    if (this.query.sheetType === "orthopaedic_sdlj" ) {
+      addCSS(
+        window,
+        `
+        .info-con{
+            font-size:14px!improtant;
+          }
+          @media print {
+            #sheetPagePrint .body-con{ height: 40px !important; }
+            #sheetPagePrint .body-con td input { font-size: 14px !important;}
+            #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
+            #sheetPagePrint .body-con td[datakey="description"]  textarea{ font-size: 12px !important;}
+          }
+        `
+      );
+    }
     if (this.HOSPITAL_ID === "nfyksdyy") {
       addCSS(
         window,
