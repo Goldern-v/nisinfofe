@@ -606,7 +606,6 @@ export default {
       }
     },
     getTreeData() {
-      
       let params = {
         patientId: this.$route.query.patientId,
         visitId: this.$route.query.visitId,
