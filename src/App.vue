@@ -86,7 +86,14 @@ export default {
     }
   },
   created() {
-
+      document.addEventListener("visibilitychange", () => {
+      // '窗口切换事件激活visible-显示，hidden-隐藏
+        if (document.visibilityState === "visible" && this.HOSPITAL_ID == 'nfyksdyy') {
+          if(this.$store.state.common.user.empNo != JSON.parse(localStorage.getItem('user')).empNo){
+            this.$router.push('/login')
+          }
+        }
+      });
     // start --- 针对花都多窗口切换用户bug的绑定监听事件
     let _this = this // 改写windo事件的this指向
     window.addEventListener("storage", function (e) {
@@ -330,7 +337,7 @@ export default {
       }
       this.showScaleMsg = true;
       this.scaleRate = detectZoom();
-      if (this.scaleRate != 100 && !this.isDev) {
+      if (this.scaleRate != 100 && !this.isDev && this.HOSPITAL_ID !== 'nfyksdyy') {
         // 如果浏览器缩放比不是100的时候弹出提示
         try {
           !this.isDev &&
@@ -356,6 +363,7 @@ export default {
             document
               .getElementsByClassName("el-notification__content")[0]
               .innerText.includes("可以通过 cltr + '0'")
+            && this.HOSPITAL_ID !== 'nfyksdyy'
           ) {
             document.getElementsByClassName(
               "el-notification__content"

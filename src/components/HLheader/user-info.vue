@@ -64,7 +64,7 @@
         <el-button size="mini" @click="onPrint" style="margin-left:110px">打印二维码</el-button>
       </div>
     </div>
-    <div style="padding-bottom: 10px">
+    <div style="padding-bottom: 10px" v-if="HOSPITAL_ID != 'nfyksdyy'">
       <el-switch
         v-model="showScaleTip"
         active-color="#4BB08D"
