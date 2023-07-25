@@ -465,6 +465,7 @@ const Inventory = () => import("@/Page/equipment-management/inventory")
 const StatisticalUnplanned = () => import("@/Page/statistical-query/statistical-unplanned")
 const StatisticalAdultFall = () => import("@/Page/statistical-query/statistical-adult-fall")
 const StatisticalChildrenFall = () => import("@/Page/statistical-query/statistical-children-fall")
+
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 // 执行单路由
@@ -660,11 +661,12 @@ const router = new Router({
         }
       })(),
       name: "体温单"
-    },{
+    },
+    {
       path: 'implementationList',
       component: getImplementation(),
       name: '执行单'
-    }
+    },
     ]
   },
   {
@@ -1223,6 +1225,8 @@ const router = new Router({
               case "stmz":
               case "925":
                 return allCatheter
+              case "qhwy":
+                return allCatheterQHWY
               default:
                 return catheter
             }
@@ -1345,14 +1349,16 @@ const router = new Router({
             name: "执行单",
             alias: "执行单"
           },
-        {
-          path: "/previousHistory",
-          component: previousHistory,
-          name: '既往护理病历',
-          alias: "既往护理病历",
-        }
+          {
+            path: "/previousHistory",
+            component: previousHistory,
+            name: '既往护理病历',
+            alias: "既往护理病历",
+          },
         ]
       },
+
+
       {
         path: "/nursingDocumentation",
         component: nursingDocumentation,

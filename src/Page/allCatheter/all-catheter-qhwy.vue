@@ -28,7 +28,6 @@
       <div class="right-part" v-loading="tableLoading" :class="{noAllpage:!isAllCathterPage}">
         <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
         <div class="sheetTable-contain" :style="{width:`calc(100% - ${isAllCathterPage?'280px':'81px'} )`,marginLeft:`${isAllCathterPage?'280px':'81px'}`}" ref="scrollCon">
-
           <cathterTabel
             @onChangePatient_self='onChangePatient_self'
             :title="tableInfo.formTitle"

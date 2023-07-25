@@ -156,7 +156,15 @@
       >
         <div class="nav-item">检验</div>
       </router-link>
-
+      <router-link
+        :to="{
+          path: '/catheter',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">导管</div>
+      </router-link>
     </div>
     <div style="height: 50px"></div>
   </div>
