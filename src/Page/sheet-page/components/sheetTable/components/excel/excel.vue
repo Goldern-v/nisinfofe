@@ -2457,7 +2457,10 @@ export default {
                   item.key == "id" ||
                   item.key == "sign" ||
                   item.key == "signerName" ||
-                  item.key == "status"
+                  item.key == "status" ||
+                  (this.HOSPITAL_ID == 'nfyksdyy' && (item.key == "recordMonth" ||
+                  item.key == "recordHour" ||
+                  item.key == "recordDate"))
                 ) {
                   obj = { value: "" };
                 }
