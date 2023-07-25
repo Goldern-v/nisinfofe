@@ -298,7 +298,7 @@ export default [
     key: "fio2", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "FiO2"
+    name: "FiO2(%)"
   },
   {
     key: "vit", // SPO2（%）

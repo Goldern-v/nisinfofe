@@ -123,7 +123,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <!-- <el-dropdown-item
+              <el-dropdown-item
                   :class="{ active: $route.path == '/sheetPage' }"
                 >
                   <router-link to="/sheetPage" tag="span">
@@ -133,7 +133,7 @@
                   </router-link>
                 </el-dropdown-item>
 
-                <el-dropdown-item
+                  <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/sugarPage' }"
                 >
                   <router-link to="/sugarPage" tag="span">
@@ -183,7 +183,7 @@
             <router-link to="/sugarPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">血糖</el-row>
             </router-link> -->
-            <!-- <el-dropdown
+             <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveTemperaturePage }"
             >
@@ -215,17 +215,17 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown> -->
+            </el-dropdown> 
             <!-- <router-link to="/healthEdu" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="healthEdu"></i>健康教育单
               </el-row>
             </router-link> -->
-            <router-link to="/allTemperatureChart" tag="span">
+            <!-- <router-link to="/allTemperatureChart" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="allTemperatureChart"></i> 批量体温
+                <i class="allTemperatureChart"></i> 批量录入体温单
               </el-row>
-            </router-link>
+            </router-link> -->
             <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档

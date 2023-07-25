@@ -341,7 +341,7 @@ export default {
     },
     {
       name: `
-        FiO2
+        FiO2(%)
       `,
       style: {
         minWidth: "40px",
