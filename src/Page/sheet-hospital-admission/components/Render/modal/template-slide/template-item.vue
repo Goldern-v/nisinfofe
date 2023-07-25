@@ -187,7 +187,7 @@ export default {
       
     },
     toDel() {
-      if (this.HOSPITAL_ID === 'foshanrenyi') {
+      if (['foshanrenyi', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
         if (this.isRoleManage || this.isNewAdminOrNursingDepartment){
           if (!this.data.wardCode) {
             if (this.isRoleManage && !this.isNewAdminOrNursingDepartment) {
