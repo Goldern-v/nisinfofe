@@ -606,6 +606,7 @@ export default {
       }
     },
     getTreeData() {
+      if(!(this.$route.query.patientId && this.$route.query.visitId)) return
       this.treeLoading = true;
       let params = {
         patientId: this.$route.query.patientId,
