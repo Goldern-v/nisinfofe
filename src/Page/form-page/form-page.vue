@@ -129,11 +129,13 @@ export default {
   watch: {
     deptCode(val, oldValue) {
       if (oldValue && val) {
-        // this.$router.replace({
-        //   path: "/formPage",
-        //   query: {},
-        // });
-        // this.bus.$emit("refreshTree", true);
+        if (this.HOSPITAL_ID !== 'nfyksdyy') {
+          this.$router.replace({
+            path: "/formPage",
+            query: {},
+          });
+          this.bus.$emit("refreshTree", true);
+        }
         this.bus.$emit("closeAssessment");
         this.destroyUnlock()
       }

@@ -218,7 +218,14 @@
 
       },
       openModal(key) {
-        this.$refs[key] && this.$refs[key].open();
+        const modalData = ['nfyksdyy'].includes(this.HOSPITAL_ID) && {
+          modalTitle: `
+          同步医嘱 <span style="margin-left: 12px">
+            ${this.form.name}&nbsp;${this.form.age}&nbsp;
+          </span>
+          `
+        }
+        this.$refs[key] && this.$refs[key].open(modalData);
       },
       openPISlide(type) {
         // 四个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能 第四个参数患者基本信息（交班志基本信息  从交班志打开【检查报告】没有拿到基本信息）
@@ -232,7 +239,7 @@
         this.bedLabelDisabled = !!form
         this.isSignedN = !!isSignedN
         this.$refs.modal.open()
-      
+
         if (!autoFocus || autoFocus === 'bedLabel') {
           this.$nextTick(() => this.$refs.input.$refs.input.focus())
         } else if (autoFocus === 'name') {
