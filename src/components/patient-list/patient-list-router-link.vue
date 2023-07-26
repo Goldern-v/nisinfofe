@@ -633,7 +633,7 @@ export default {
       //   }
       // });
       this.$router.replace({
-        path: "/formPage",
+        path: this.toName,
         query: item || {}
       });
       this.bus.$emit("refreshTree", true);
