@@ -38,6 +38,9 @@ export default {
     upWritTreeLeft(state) {
       state.openWritTreeLeft = !state.openWritTreeLeft
     },
+    upOpenFormTree(state, value) {
+      state.openWritTreeLeft = value
+    },
     upSheetPageFullpage(state, val) {
       state.fullpage = val
     },

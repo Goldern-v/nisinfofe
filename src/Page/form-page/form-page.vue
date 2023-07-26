@@ -107,7 +107,7 @@ export default {
           query: item,
         },
         () => {
-          this.bus.$emit("refreshTree", true);
+          this.bus.$emit("refreshTree", true,true);
           this.bus.$emit("closeAssessment");
         }
       );
