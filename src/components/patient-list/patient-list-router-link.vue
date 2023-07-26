@@ -821,10 +821,13 @@ export default {
     },
     "sortList.length": {
       handler(n, o) {
-        this.selectFirstPatient();
-        // if (n && n != o) {
-          
-        // }
+        if (this.HOSPITAL_ID == "nfyksdyy") {
+          this.selectFirstPatient();
+        } else {
+          if (n && n != o) {
+            this.selectFirstPatient();
+          }
+        }
       }
     }
   },
