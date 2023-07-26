@@ -4,6 +4,7 @@
     :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
+    :datetype="setDateType"
     @handleExport="handleExport"
     @handleQuery="handleQuery">
     <template>
@@ -136,6 +137,15 @@ export default {
 				},
       ],
     };
+  },
+  computed: {
+    setDateType() {
+      const dateTypeID = {
+        nfyksdyy: 'datetime',
+        default: 'date'
+      }
+      return dateTypeID[this.HOSPITAL_ID] || dateTypeID.default;
+    }
   },
   methods: {
   },

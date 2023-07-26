@@ -84,13 +84,18 @@ export default {
         oDiv.onmousedown = (ev) => {
           const disX = ev.clientX - dragNode.offsetLeft;
           const disY = ev.clientY - dragNode.offsetTop;
+          // 顶部距离最小值(由于dragNode使用了transform，0.4是 translateY的值);
+          const limitTop = dragNode.offsetHeight * 0.4;
           const [iframeDom] = document.getElementsByClassName("iframeDom");
           iframeDom.style['pointer-events'] = 'none'
           if (el.getBoundingClientRect().width !== window.innerWidth) {
             // 非“全屏”下才能拖动
             document.onmousemove = (ev) => {
               const l = ev.clientX - disX;
-              const t = ev.clientY - disY;
+              let t = ev.clientY - disY;
+              if (t <= limitTop && ['nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
+                t = limitTop;
+              }
               dragNode.style.left = l + "px";
               dragNode.style.top = t + "px";
             };
