@@ -24,12 +24,27 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-const yishi = ["A 麻醉未醒", "B 清醒", "C 镇静", "D 模糊", "E 昏迷"];
-const dgfs = ["A 灵敏（+）","B 迟钝（±）","C 消失（-）"];
+const yishi = [
+  {name: 'A麻醉未醒', value: 'A'},
+  {name: 'B清醒', value: 'B'},
+  {name: 'C镇静', value: 'C'},
+  {name: 'D模糊', value: 'D'},
+  {name: 'E昏迷', value: 'E'},
+];
+const dgfs = [
+  {name: 'A灵敏（+）', value: 'A'},
+  {name: 'B迟钝（±）', value: 'B'},
+  {name: 'C消失（-）', value: 'C'},
+];
 const fzfs = ["SIMV","PS/CPAP","SPONT","鼻导管","气管插管内吸氧","面罩"]
 const huxiyin = ["粗","清","低","痰鸣音","湿啰音","干啰音"]
 const moshao = ['暖', '温', '凉']
-const xinlv = ['S 窦性','Af 房颤','AF 房扑','P 起搏']
+const xinlv = [
+  {name: 'S窦性', value: 'S'},
+  {name: 'Af房颤', value: 'Af'},
+  {name: 'AF房扑', value: 'AF'},
+  {name: 'P起搏', value: 'P'},
+]
 
 const Customizations1 = ["√"]
 
@@ -44,7 +59,6 @@ export default [
     name: "意识",
     textarea: { width: 40 },
     autoComplete: { data: yishi },
-    splitFlag:" ",
   },
   {
     key: "pupilLeft",
@@ -68,7 +82,6 @@ export default [
     value: "",
     next: "",
     name: "对光反射左",
-    splitFlag:" ",
     textarea: { width: 40 },
     autoComplete: { data: dgfs }
   },
@@ -78,7 +91,6 @@ export default [
     value: "",
     next: "",
     name: "对光反射右",
-    splitFlag:" ",
     textarea: { width: 40 },
     autoComplete: { data: dgfs }
   },
@@ -218,7 +230,6 @@ export default [
     name: "心律",
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 10),
-    splitFlag:" ",
     autoComplete: { data: xinlv }
   },
   {

@@ -335,9 +335,6 @@ export default {
           } else {
             item = this.parentVal ? item + "(" + this.parentVal + ")" : item;
           }
-          if (this.config.td && this.config.td.splitFlag) {
-            item = item.split(this.config.td.splitFlag)[0];
-          }
           this.callback(item);
           this.show = this.splice;
         }

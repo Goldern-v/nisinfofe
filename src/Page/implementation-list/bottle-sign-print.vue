@@ -1183,7 +1183,7 @@ export default {
         case "whsl":
           return ["3*5", "6*8"];
         case "qhwy":
-          return ["3*5", "5*8"];
+          return ["5*8","3*5"];
         default:
           return ["6*8","3*5"];
       }
