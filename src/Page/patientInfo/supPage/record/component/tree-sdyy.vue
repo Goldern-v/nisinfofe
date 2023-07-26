@@ -334,7 +334,8 @@ export default {
       isPersonage: false, //是否为个人详情打开
       hisLeftList: ["wujing", "huadu"], //是否要开放左侧收缩功能医院
       batchAuditDialog: false, // 批量审核表单弹框
-      batchAuditForms: {} // 批量审核节点数据
+      batchAuditForms: {}, // 批量审核节点数据
+      isdefault: false, //默认展开护记和评估单
     };
   },
   computed: {
@@ -483,6 +484,11 @@ export default {
       }
     },
     renderContent(h, { node, data, store }) {
+      if(this.isdefault){
+        if(node.data.type == 'sheet' || data.label == '护理评估单'){
+          node.expanded = true;
+        }
+      }
       //未签名
       let hasSave =
         node.childNodes.filter(item => {
@@ -817,13 +823,17 @@ export default {
     newRecordOpen() {
       this.$refs.newForm.open(this.filterObj);
     },
-    refreshTree(isAllRefresh = false) {
+    refreshTree(isAllRefresh = false, isopenLeft = false) {
       if (isAllRefresh) {
         this.expandList = [];
         this.expandListCopy = [];
       } else {
         this.expandList = this.expandListCopy;
         this.bus.$emit("refreshFormPagePatientList");
+      }
+      if(isopenLeft) {
+        this.$store.commit("upOpenFormTree", false);
+        this.isdefault = true
       }
       this.ifTree = false;
       this.getTreeData();

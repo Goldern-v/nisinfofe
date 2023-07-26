@@ -52,8 +52,16 @@
         </div>
     </div>
     <div class="new-modal-bottom-second">
-      <div style="width: 26%">频次途径</div>
-      <div style="flex: 1">{{ currentBottle.frequency }} <span v-if="HOSPITAL_ID == 'qhwy'">{{currentBottle.administration}}</span></div>
+      <div style="width: 26%" v-if="newModalSize == '5*8'">{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}医嘱</div>
+      <div style="width: 26%" v-else>频次途径</div>
+      <div style="flex: 1" v-if="newModalSize == '5*8'">
+        {{ currentBottle.frequency }} 
+        <span>{{`${currentBottle.administration} ${currentBottle.executeDate}`}}</span>
+      </div>
+      <div style="flex: 1" v-else>
+        {{ currentBottle.frequency }} 
+        <span>{{currentBottle.administration}}</span>
+      </div>
       <div>{{ currentBottle.freqDetail }}</div>
     </div>
   </div>
@@ -303,6 +311,11 @@
       div{
         line-height: 17px;
         font-size: 12px;
+      }
+    }
+    .new-modal-bottom-second{
+      div{
+        font-size: 14px;
       }
     }
   }

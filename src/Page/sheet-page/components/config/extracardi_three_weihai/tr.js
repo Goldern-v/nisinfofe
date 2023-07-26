@@ -140,7 +140,6 @@ export default [
     name: "痰液性状",
     textarea: { width: 35 },
     autoComplete: { data: [{name: 'A稀薄', value: 'A'},{name: 'B粘稠', value: 'B'},{name: 'C血性', value: 'C'}] },
-    splitFlag:" "
   },
   {
     key: "breatheFive",
@@ -205,7 +204,6 @@ export default [
     outChoseItem:outChoseItem2,
     textarea: { width: 35 },
     autoComplete: { data: [{name: 'A血性', value: 'A'},{name: 'B澄清', value: 'B'},{name: 'C浑浊', value: 'C'},{name: 'D云絮状沉淀', value: 'D'},{name: ' E乳糜状', value: 'E'},{name: 'F脓性', value: 'F'},{name: 'G有气体溢出', value: 'G'}] },
-    splitFlag:" "
   },
   {
     key: "pipingSeven",

@@ -729,6 +729,7 @@ export default {
         'whsl',
         'whhk',
         'zhzxy',
+        'zjhj',
         'nfyksdyy',
         '925',
         'dglb',
@@ -746,7 +747,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925','dglb', 'stmz'
+        "whfk","foshanrenyi","fsxt",'zjhj',"liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925','dglb', 'stmz'
         ].includes(
         this.HOSPITAL_ID
       );
