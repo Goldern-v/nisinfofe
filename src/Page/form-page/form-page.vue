@@ -89,7 +89,7 @@ export default {
     },
   },
   methods: {
-    // getDate(v = false) {
+    // getDate() {
     //   if (this.deptCode) {
     //     this.patientListLoading = true;
     //     patients(this.deptCode).then((res) => {
@@ -97,13 +97,6 @@ export default {
     //         return item.patientId;
     //       });
     //       this.patientListLoading = false;
-    //       if (v) {
-    //         this.$router.replace({
-    //           path: "/formPage",
-    //           query: bedList.length > 0 ? bedList[0] : {},
-    //         });
-    //         this.bus.$emit("refreshTree", true);
-    //       }
     //     });
     //   }
     // },
@@ -141,18 +134,6 @@ export default {
         //   query: {},
         // });
         // this.bus.$emit("refreshTree", true);
-        if (this.deptCode) {
-          patients(this.deptCode).then((res) => {
-            let bedList = res.data.data.filter((item) => {
-              return item.patientId;
-            });
-            this.$router.replace({
-              path: "/formPage",
-              query: bedList.length > 0 ? bedList[0] : {},
-            });
-            this.bus.$emit("refreshTree", true);
-          });
-        }
         this.bus.$emit("closeAssessment");
         this.destroyUnlock()
       }
