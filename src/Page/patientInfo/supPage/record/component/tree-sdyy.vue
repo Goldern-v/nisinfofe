@@ -612,13 +612,16 @@ export default {
       }
     },
     getTreeData() {
-      if(!(this.$route.query.patientId && this.$route.query.visitId)) return
-      this.treeLoading = true;
       let params = {
         patientId: this.$route.query.patientId,
         visitId: this.$route.query.visitId,
         deptCode: this.$store.state.lesion.deptCode
       };
+      if (!params.patientId || !params.visitId) {
+        this.regions = [];
+        return
+      }
+      this.treeLoading = true;
       Promise.all([
         groupList(params.patientId, params.visitId),
         blockList(params.patientId, params.visitId, params.deptCode),

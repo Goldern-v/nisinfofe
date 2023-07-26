@@ -623,15 +623,20 @@ export default {
         this.makePatient = this.curSheetPatient.bedLabel;
         this.selectPatient(item);
       }
+      // this.$router.replace({
+      //   name: this.toName,
+      //   params: {
+      //     patientId: item.patientId,
+      //     visitId: item.visitId,
+      //     formId: item.id,
+      //     inpNo: item.inpNo
+      //   }
+      // });
       this.$router.replace({
-        name: this.toName,
-        params: {
-          patientId: item.patientId,
-          visitId: item.visitId,
-          formId: item.id,
-          inpNo: item.inpNo
-        }
+        path: "/formPage",
+        query: item || {}
       });
+      this.bus.$emit("refreshTree", true);
     }
   },
   computed: {
@@ -813,9 +818,10 @@ export default {
     },
     "sortList.length": {
       handler(n, o) {
-        if (n && n != o) {
-          this.selectFirstPatient();
-        }
+        this.selectFirstPatient();
+        // if (n && n != o) {
+          
+        // }
       }
     }
   },

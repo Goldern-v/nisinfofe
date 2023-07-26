@@ -91,13 +91,13 @@ export default {
   methods: {
     // getDate() {
     //   if (this.deptCode) {
-    //     // this.patientListLoading = true;
-    //     // patients(this.deptCode).then((res) => {
-    //     //   this.data.bedList = res.data.data.filter((item) => {
-    //     //     return item.patientId;
-    //     //   });
-    //     //   this.patientListLoading = false;
-    //     // });
+    //     this.patientListLoading = true;
+    //     patients(this.deptCode).then((res) => {
+    //       let bedList = res.data.data.filter((item) => {
+    //         return item.patientId;
+    //       });
+    //       this.patientListLoading = false;
+    //     });
     //   }
     // },
     isSelectPatient(item) {
@@ -129,15 +129,15 @@ export default {
   watch: {
     deptCode(val, oldValue) {
       if (oldValue && val) {
-        this.$router.replace({
-          path: "/formPage",
-          query: {},
-        });
-        this.bus.$emit("refreshTree", true);
+        // this.$router.replace({
+        //   path: "/formPage",
+        //   query: {},
+        // });
+        // this.bus.$emit("refreshTree", true);
         this.bus.$emit("closeAssessment");
         this.destroyUnlock()
       }
-
+      // this.getDate(true)
       // 优化后bedList由组件自己维护。不需要发请求
       // this.getDate();
     },

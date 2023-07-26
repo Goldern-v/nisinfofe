@@ -143,20 +143,35 @@
             align="center"
           >
             <template slot-scope="scope">
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="!(breathOption && breathOption.length > 0)"
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in breathOption"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.breath = option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
               <input
+              slot="reference"
                 v-model="scope.row.breath"
                 :class="className"
                 class="breath"
-                type="number"
-                @mousewheel="
-                  (e) => {
-                    e.preventDefault();
-                  }
-                "
+                type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
                 @click="toRow"
               />
+            </el-popover>
             </template>
           </el-table-column>
           <el-table-column
@@ -834,6 +849,7 @@ export default {
       patientList: [],
       isSelectedNurs: "",
       handleKeyCode: [37, 38, 39, 40, 13],
+      breathOption: ["R"],
       colClass: "",
       // pickerOptions: {
       //   disabledDate(time) {
