@@ -6,6 +6,12 @@
           <el-button :class="[active=='yesterday'?'active-btn':'']" @click="initTime('yesterday')">24小时小结</el-button>
         </el-button-group>
       </div>
+      <div class="time-type-button" v-if="sheetInfo.sheetType=='critical2_weihai'">
+        <el-button-group>
+          <el-button :class="[active=='critical2today'?'active-btn':'']" @click="initTime('critical2today')">白班小结</el-button>
+          <el-button :class="[active=='yesterday1'?'active-btn':'']" @click="initTime('yesterday1')">24小时小结</el-button>
+        </el-button-group>
+      </div>
       <div class="time-type-button" v-if="HOSPITAL_ID=='liaocheng'|| HOSPITAL_ID=='nfyksdyy'">
         <el-button-group>
           <el-button :class="[active=='today1'?'active-btn':'']" @click="initTime('today1')">白班小结</el-button>
@@ -128,6 +134,7 @@ export default {
       this.active = type
       let timeObject = {
         'today':[moment().format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 17:00")],
+        'critical2today':[moment().format("YYYY-MM-DD 07:01"),moment().format("YYYY-MM-DD 15:59")],
         'yesterday':[moment().subtract(1,'days').format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 07:00")],
         'today1':[moment().format("YYYY-MM-DD 07:01"),moment().format("YYYY-MM-DD 15:00")],
         'today2':[moment().format("YYYY-MM-DD 15:01"),moment().format("YYYY-MM-DD 23:00")],
