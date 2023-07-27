@@ -171,8 +171,8 @@
               tr.find((item) => item.key == 'recordDate').value,
             noSignRow: tr.find((item) => item.key == 'status').value === '0',
             multiSign: tr.find((item) => item.key == 'multiSign').value,
-            selectedTr: HOSPITAL_ID !=='nfyksdyy' && sheetInfo.selectRow.includes(tr),
-            clickRow: HOSPITAL_ID !=='nfyksdyy' &&  sheetInfo.clickRow === tr,
+            selectedTr: HOSPITAL_ID != 'nfyksdyy' && sheetInfo.selectRow.includes(tr),
+            clickRow: sdyyRow == `${index}_${y}`,
             redText:
               tr.find((item) => {
                 return item.key == 'recordSource';
@@ -206,7 +206,7 @@
           },
         ]"
         :key="y"
-        @click="selectRow(tr, $event)"
+        @click="selectRows(tr, $event, index, y)"
         @mouseover="markTip($event, tr)"
         @mouseout="closeMarkTip"
         :recordId="tr.find((item) => item.key == 'id').value"
@@ -841,6 +841,7 @@ export default {
       multiSign: false,
       selectType: false, //时间日期鼠标选中修改控制限制
       flag:true,
+      sdyyRow: '',
       //底部签名
       auditArr: [
         "com_lc",
@@ -3050,17 +3051,19 @@ export default {
       window.closeMarkTip();
     },
     // 按下commmand多选
-    selectRow(tr, e) {
+    selectRows(tr, e, index, y) {
       if (sheetInfo.model == "print") return;
-      this.sheetInfo.clickRow = tr;
+      // this.sheetInfo.clickRow = `${index}_${y}`;
+      this.sdyyRow = `${index}_${y}`;
+      // console.log('this.sheetInfo.clickRow',this.sheetInfo.clickRow);
       if (this.sheetInfo.downControl) {
         this.sheetInfo.downControl = e.ctrlKey;
-        // let index = this.sheetInfo.selectRow.indexOf(tr);
-        // if (index > -1) {
-        //   this.sheetInfo.selectRow.splice(index, 1);
-        // } else {
+        let index = this.sheetInfo.selectRow.indexOf(tr);
+        if (index > -1) {
+          this.sheetInfo.selectRow.splice(index, 1);
+        } else {
           this.sheetInfo.selectRow.push(tr);
-        // }
+        }
       }
     },
     selectedItem(td) {
