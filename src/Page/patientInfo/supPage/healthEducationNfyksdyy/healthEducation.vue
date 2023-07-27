@@ -84,7 +84,7 @@
                     >
                     <span style="margin-left: 20px;"
                       >床号：{{
-                        configList[index] ? configList[index].bedExchange :  patientInfo.bedLabel
+                        configList[0]? configList[0].children[index].bedExchange :  patientInfo.bedLabel
                       }}</span
                     >
                     <span
@@ -96,11 +96,11 @@
                   <div class="sdyyinfo" style="border-bottom: 1px solid #000;">
                     <span
                       >科室：{{
-                         configList[index] ? configList[index].deptExchange : patientInfo.deptName
+                         configList[0] ? configList[0].children[index].deptExchange : patientInfo.deptName
                       }}</span
                     >
                     <span style="margin-left: 20px;width: 372px;" >病区:{{
-                      configList[index] ? configList[index].wardExchange : $route.query.wardName }}
+                      configList[0] ? configList[0].children[index].wardExchange : $route.query.wardName }}
                     </span>
                   </div>
                 </div>
