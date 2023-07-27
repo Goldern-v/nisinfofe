@@ -116,7 +116,7 @@ export default {
               {
                 name: "statisticalTumble",
                 meta: {
-                  title: '跌倒统计',
+                  title: '跌倒风险统计',
                   img: require("../images/VTE.png"),
                 },
               },
