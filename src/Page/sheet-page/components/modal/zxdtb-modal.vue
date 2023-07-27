@@ -827,7 +827,7 @@ export default {
       ]
     },
     allType() {
-      if (["liaocheng", "lyxrm", "qhwy","whhk", 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (["liaocheng", "lyxrm", "qhwy","whhk", 'stmz','ytll','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",

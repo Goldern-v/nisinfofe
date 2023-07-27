@@ -381,9 +381,9 @@ export default {
                 // console.log(weight.toFixed(2));
                 result = isNaN(Number(result)) || !isFinite(result) ? 0 : result;
                 this.$root.$refs[this.formCode][r.result].setCurrentValue(
-                result ? result.toFixed(2) : ""
+                result ? result.toFixed(1) : ""
                 );
-                this.formObj.model[r.result] = result ? result.toFixed(2) : "";
+                this.formObj.model[r.result] = result ? result.toFixed(1) : "";
                 if (r.relate && r.relateRule) {
                   const relateItem = r.relateRule.find(rl => {
                     if (!rl.min && rl.max) {

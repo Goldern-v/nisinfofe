@@ -358,19 +358,24 @@
     ],
     "I2332011": [
         {
-            "code": "文盲",
-            "name": "文盲",
-            "pinyin": "wenmang"
+            "code": "博士",
+            "name": "博士",
+            "pinyin": "poshi"
         }  ,
         {
-            "code": "小学",
-            "name": "小学",
-            "pinyin": "xiaoxue"
+            "code": "硕士",
+            "name": "硕士",
+            "pinyin": "shuoshi"
+        }  ,
+        {
+            "code": "本科",
+            "name": "本科",
+            "pinyin": "bengke"
         },
         {
-            "code": "中学",
-            "name": "中学",
-            "pinyin": "zhongxue"
+            "code": "大专",
+            "name": "大专",
+            "pinyin": "dazhuan"
         },
         {
             "code": "中专",
@@ -378,14 +383,39 @@
             "pinyin": "zhongzhuan"
         },
         {
+            "code": "职中",
+            "name": "职中",
+            "pinyin": "zizhon"
+        },
+        {
+            "code": "技校",
+            "name": "技校",
+            "pinyin": "jixiao"
+        },
+        {
             "code": "高中",
             "name": "高中",
             "pinyin": "gaozhong"
         },
         {
-            "code": "本科及以上",
-            "name": "本科及以上",
-            "pinyin": "benkeyishang"
+            "code": "初中",
+            "name": "初中",
+            "pinyin": "chuzhong"
+        },
+        {
+            "code": "小学",
+            "name": "小学",
+            "pinyin": "xiaoxue"
+        },
+        {
+            "code": "学龄前儿童",
+            "name": "学龄前儿童",
+            "pinyin": "xqnrt"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qita"
         }
     ],
     "I2332010": [
