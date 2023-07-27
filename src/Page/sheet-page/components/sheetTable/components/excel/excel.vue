@@ -1061,8 +1061,10 @@ export default {
       return window.localStorage.getItem("whhkCaOrUsbSignIn")?JSON.parse(window.localStorage.getItem("whhkCaOrUsbSignIn")):null
     },
     tagHeight() {
-      const extraHeight = this.$route.path == '/formPage' ? 20 : 8;
-      return ['/formPage', '/record'].includes(this.$route.path)
+      let pathnameArr = window.location.pathname.split("/")
+      let pathname = pathnameArr[pathnameArr.length-1]
+      const extraHeight = pathname == 'formPage' ? 20 : 8;
+      return ['formPage', 'record'].includes(pathname)
         ? (this.evalTagHeight + extraHeight) + this.sheetTagsHeight
         : this.sheetTagsHeight;
     },
