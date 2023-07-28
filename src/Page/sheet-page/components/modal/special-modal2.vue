@@ -2901,18 +2901,18 @@ export default {
           }
         })
         if('critical2_weihai'===this.sheetInfo.sheetType){
+          let measurArr = []
           measuresList.map((prev)=>{
-            if(prev && this.measuresHaicheck.includes(prev.name)){
-              measuresStr += ","+ prev.value
-            }
+            if(prev && this.measuresHaicheck.includes(prev.name)) measurArr.push(prev.value)
           })
+          measuresStr = measurArr.sort((pre,next)=>+pre - +next).join(",")
         }
         foodResult = this.outFoodlist.filter(item=>(item.food && item.foodSize))
         if('critical2_weihai'===this.sheetInfo.sheetType) length = Math.max(...valResult.map(item=>item.length),result.length,foodResult.length)
         else length = Math.max(...valResult.map(item=>item.length),result.length)
         for (let i = 0; i < length; i++) {
           if (i == 0) {
-            if('critical2_weihai'===this.sheetInfo.sheetType) this.fixedList.measures.value = measuresStr.slice(1)
+            if('critical2_weihai'===this.sheetInfo.sheetType) this.fixedList.measures.value = measuresStr
             mergeTr(this.record[0], this.staticObj, this.fixedList);
           }
           if (this.record[i]) {

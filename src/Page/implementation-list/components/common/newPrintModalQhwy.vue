@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="new-modal-bottom-second">
-      <div style="width: 26%" v-if="newModalSize == '5*8'">{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}医嘱</div>
+      <div style="width: 20%" v-if="newModalSize == '5*8'">{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}医嘱</div>
       <div style="width: 26%" v-else>频次途径</div>
       <div style="flex: 1" v-if="newModalSize == '5*8'">
         {{ currentBottle.frequency }} 
@@ -315,7 +315,7 @@
     }
     .new-modal-bottom-second{
       div{
-        font-size: 14px;
+        font-size: 12px;
       }
     }
   }

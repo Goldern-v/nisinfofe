@@ -148,6 +148,7 @@
         :isAdl="isAdl"
         :tubingShedding="tubingShedding"
         :selfCare="selfCare"
+        :nutritionalRisk="nutritionalRisk"
       ></footerBar>
     </div>
   </div>
@@ -509,6 +510,10 @@ export default {
     // VTE高风险
     hasVteDanger() {
       return this.bedList.filter((item) => item.hasVteDanger);
+    },
+    // 营养风险
+    nutritionalRisk() {
+      return this.bedList.filter((item) => item.nutritionalRisk);
     },
     // 发热
     isFever() {
@@ -1058,6 +1063,11 @@ export default {
             } else {
               this.$parent.bedList = this.hasVteDanger;
             }
+          }
+          break;
+        case "营养风险":
+          {
+            this.$parent.bedList = this.nutritionalRisk;
           }
           break;
         case "压疮高风险":

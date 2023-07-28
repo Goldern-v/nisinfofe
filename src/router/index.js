@@ -454,6 +454,7 @@ const StatisticalBlood = () => import("@/Page/statistical-query/statistical-bloo
 const statisticalNutritionalRisk = () => import("@/Page/statistical-query/statistical-nutritionalRisk")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
+const StatisticalTumbleSdyy = () => import("@/Page/statistical-query/statistical-tumble-sdyy")
 
 // 925 设备使用记录
 const EquipmentManagement = () => import("@/Page/equipment-management/index.vue")
@@ -1985,9 +1986,16 @@ const router = new Router({
             path: "statisticalTumble",
             name: "statisticalTumble",
             meta: {
-              title: '跌倒统计'
+              title: ['nfyksdyy'].includes(HOSPITAL_ID) ? '跌倒风险统计' : '跌倒统计'
             },
-            component: StatisticalTumble
+            component: (()=>{
+              switch (HOSPITAL_ID) {
+                case 'nfyksdyy':
+                  return StatisticalTumbleSdyy
+                default:
+                  return StatisticalTumble;
+              }
+            })(),
           },
           {
             path: "statisticalScanCodeDetails",

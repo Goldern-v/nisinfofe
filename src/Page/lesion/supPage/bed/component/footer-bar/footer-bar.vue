@@ -75,7 +75,8 @@ export default {
     isAdl:Array,
     isPain:Array,
     tubingShedding:Array,
-    selfCare:Array
+    selfCare:Array,
+    nutritionalRisk: Array,
   },
   data() {
     return {};
@@ -135,10 +136,16 @@ export default {
           length: this.isFever.length
         });
       }
-      if (['liaocheng','lyyz','qhwy','ytll','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng','lyyz','qhwy','ytll'].includes(this.HOSPITAL_ID)) {
         arr.push({
           key: "VTE高风险",
           length: this.hasVteDanger.length
+        });
+      }
+      if (['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+        arr.push({
+          key: '营养风险',
+          length: this.nutritionalRisk.length
         });
       }
       if (['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {

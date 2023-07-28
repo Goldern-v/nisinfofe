@@ -221,7 +221,7 @@
         const modalData = ['nfyksdyy'].includes(this.HOSPITAL_ID) && {
           modalTitle: `
           同步医嘱 <span style="margin-left: 12px">
-            ${this.form.name}&nbsp;${this.form.age}&nbsp;
+            ${this.form.name}&nbsp;${this.form.age}&nbsp;${this.form.inpNo || ''}
           </span>
           `
         }

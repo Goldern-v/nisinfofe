@@ -5582,7 +5582,18 @@
                     "needScore": true,
                     "code": "S2332157",
                     "prefix": "营养风险筛查单",
-                    "suffix": "分"
+                    "suffix":[
+                      {
+                        "max": 2,
+                        "min": 0,
+                        "value": "分，无风险"
+                      },
+                      {
+                        "max": 40,
+                        "min": 3,
+                        "value": "分，有风险"
+                      }
+                    ]
                   }
                 }
               }
