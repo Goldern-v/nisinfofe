@@ -772,7 +772,7 @@ export default {
     },
     // 一行选中
     handleRowClick(row, column, event) {
-      if (!["foshanrenyi",'zhzxy', '925','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) return;
+      if (!["foshanrenyi",'zhzxy', '925','nanfangzhongxiyi','whsl'].includes(this.HOSPITAL_ID)) return;
       this.$refs["zxdtb-table"].toggleRowSelection(row);
     },
     changeRecordDate(row, type, newVal) {

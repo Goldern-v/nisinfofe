@@ -253,8 +253,8 @@
       </p>
     </div>
     <div v-if="sheetInfo.sheetType == 'critical2_weihai'">
-      备注：1、瞳孔观察：+:代表瞳孔对光反应灵敏；-:代表瞳孔对光反应无；±:代表对光反应迟钝;<br/>
-      &emsp;&nbsp;&nbsp;2、日常护理：1:吸痰; 2:翻身; 3:叩背; 4:约束护理; 5:皮肤护理; 6:晨/晚间护理; 7:口腔护理; 8:会阴护理; 9:擦浴; 10:洗头; 11:失禁护理; 12:动/静脉置管护理; 13:引流管护理; 14:气切换药; 15:压疮预防及护理;
+      备注：瞳孔对光反应：+代表瞳孔对光反应灵敏，-号代表瞳孔对光反应无，±代表瞳孔对光反应迟钝。<br/>
+      &emsp;&nbsp;&nbsp;日常护理：1吸痰，2翻身，3叩背，4约束护理，5皮肤护理，6晨/晚间护理，7口腔护理，8会阴护理，9擦浴，10洗头，11失禁护理，12动/静脉置管护理，13引流管护理，14气切换药，15压疮预防及护理。
     </div>
     <!-- 陵 城 病重（病危）患者护理记录单 -->
     <div class="bottomTable" v-if="sheetInfo.sheetType == 'critical_lc'||sheetInfo.sheetType == 'critical2_lc'||sheetInfo.sheetType == 'critical_new_linyi' || sheetInfo.sheetType == 'critical_new_lc' ">
