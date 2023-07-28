@@ -117,8 +117,12 @@
         this.close()
       },
       onConfirm () {
+        this.selectedItems.map(item => {
+          item["mainComplaint"] = item.complaint || "";
+          item["proposal"] = item.advice || "";
+          item["assessmentSituation"] = item.evaluate || "";
+        })
         return this.$emit('save', true,this.selectedItems)
-        // this.$emit('confirm', this.selectedItems)
       },
       async loadPatients (deptCode, date, id) {
         const { data } = await apis.listPatients(deptCode, date, id)
