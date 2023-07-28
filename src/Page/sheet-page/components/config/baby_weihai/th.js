@@ -17,7 +17,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px"
+          minWidth: "40px"
         },
       },
       {
@@ -27,7 +27,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px"
+          minWidth: "40px"
         },
       },
       {
@@ -78,8 +78,8 @@ export default {
       {
         name: '呼吸',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -383,7 +383,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "60px"
+          minWidth: "50px"
         },
       },
       {
@@ -393,7 +393,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "60px"
+          minWidth: "45px"
         },
       },
       {

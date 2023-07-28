@@ -26,18 +26,12 @@ export default [{
     value: "",
     event: event_date,
     click: click_date,
-    style: {
-      minWidth: "28px"
-    },
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
     click: click_time,
-    style: {
-      minWidth: "28px"
-    },
   },
   {
     key: "temperature", //体温-数值
@@ -68,10 +62,7 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      minWidth: 48
-    },
-    style: {
-      'line-height': '30px'
+      width: 45
     },
     name: "血压(mmHg)"
   },
@@ -148,8 +139,12 @@ export default [{
     autoComplete: {
       data: ysList5
     },
-    name: "呼吸"
+    name: "呼吸",
+    textarea: {
+      width: 45
+    },
   },
+
   {
     key: "fieldSix", //意识
     value: "",
@@ -324,10 +319,9 @@ export default [{
     autoComplete: {
       data: ysList12
     },
-    style: {
-      minWidth: "100px",
-      maxWidth: "100px"
-    },
+    textarea: {
+      width: 100,
+    }
   },
   {
     key: "description", //护理记录
