@@ -2907,7 +2907,7 @@ export default {
           })
           measuresStr = measurArr.sort((pre,next)=>+pre - +next).join(",")
         }
-        foodResult = this.outFoodlist.filter(item=>(item.food && item.foodSize))
+        foodResult = this.outFoodlist.filter(item=>(item.food))
         if('critical2_weihai'===this.sheetInfo.sheetType) length = Math.max(...valResult.map(item=>item.length),result.length,foodResult.length)
         else length = Math.max(...valResult.map(item=>item.length),result.length)
         for (let i = 0; i < length; i++) {

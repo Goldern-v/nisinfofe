@@ -245,7 +245,7 @@
         </div>
       </div>
     </div>
-    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm" @save="onSave3"/>
+    <PatientsModal ref="patientsModal"  @save="onSave3"/>
     <PatientModal
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
@@ -854,6 +854,7 @@ export default {
       this.$refs.patientsModal.open({ deptCode, date, id, selectedKeys });
     },
     onPatientsModalConfirm(patients) {
+      console.log(patients, patients);
       for (let p of patients) {
         let obj = {...p};
         obj["mainComplaint"] = obj.complaint || "";
