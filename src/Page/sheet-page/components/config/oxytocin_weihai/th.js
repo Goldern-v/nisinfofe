@@ -61,7 +61,7 @@ export default {
         rowspan: '1'
       },
       {
-        name: '宫缩<br/>持续/间隔',
+        name: '宫缩<br/>持续/间隔<br>(s)(min)',
         style: {
           minWidth: '60px',
           maxWidth: '60px',
