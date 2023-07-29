@@ -321,7 +321,7 @@ export default {
       this.status = config.patient.status;
 
       // 请求接口获取数据填充
-      if (['liaocheng','lyyz','qhwy','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng','lyyz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         const {data: {data}} = await getPatientInfo(config.patient.patientId, config.patient.visitId)
         if(!formObj.I001014 && !['liaocheng'].includes(this.HOSPITAL_ID)){
           formObj.I001014 = data.chargeType  // 费别
