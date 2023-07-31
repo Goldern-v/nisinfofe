@@ -414,6 +414,12 @@ export default {
         ) {
           wid.document.querySelector(".top-bar").style = "display: flex;";
           wid.document.querySelector("body").style = "padding-top:50px;";
+        }else if( wid.document.querySelector(".top-bar") && this.HOSPITAL_ID == 'whsl'){
+          wid.document.querySelector(".top-bar").style = "display: flex;";
+          wid.document.querySelector(".top-bar .page-bar_right button:nth-child(1)").style = "display:none;";
+          wid.document.querySelector(".top-bar .page-bar_right button:nth-child(3)").style = "display:none;";
+          wid.document.querySelector(".top-bar .page-bar_left").style = "display:none;";
+          wid.document.querySelector("body").style = "padding-top:50px;";
         }
       }
 

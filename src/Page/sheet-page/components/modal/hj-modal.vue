@@ -74,7 +74,7 @@
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post()">计算</el-button>
+        <el-button class="modal-btn" type="primary" :disabled="isPost" @click="post()">计算</el-button>
       </div>
     </sweet-modal>
 </template>
@@ -269,6 +269,13 @@ export default {
       });
     }
   },
-  components: {}
+  computed: {
+    isPost(){
+      return JSON.parse(localStorage.user).deptCode != this.sheetInfo.selectBlock.deptCode
+    }
+  },
+  components: {
+
+  }
 };
 </script>
