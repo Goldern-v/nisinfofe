@@ -9,7 +9,8 @@ export function nursingDiagsSearch(
   visitId,
   keyword,
   pageIndex,
-  pageSize
+  pageSize,
+  wardCode
 ) {
   return axios.post(
     `${apiPath}nursingDiags/search`,
@@ -18,6 +19,7 @@ export function nursingDiagsSearch(
       visitId,
       keyword,
       pageIndex,
+      wardCode,
       pageSize
     })
   );
@@ -31,6 +33,13 @@ export function measure(code) {
 // 保存护理诊断
 export function nursingDiagsSave(obj) {
   return axios.post(`${apiPath}nursingDiags/save`, obj);
+}
+
+export function editDiagnosis(obj) {
+  return axios.post(`${apiPath}diagnosis/editDiagnosis`, obj);
+}
+export function deleteDiagnosis(obj) {
+  return axios.post(`${apiPath}diagnosis/deleteDiagnosis`, qs.stringify(obj));
 }
 // 更新护理诊断
 export function nursingDiagsUpdate(obj) {
