@@ -245,6 +245,7 @@ import sheetModel, {
   getData,
   cleanData,
 } from "@/Page/sheet-page/sheet.js";
+import { saveModal } from "@/Page/sheet-page/components/sheet-tool/sheetPageModal.js"
 import decode from "@/Page/sheet-page/components/render/decode.js";
 import {
   saveBody,
@@ -965,7 +966,7 @@ export default {
     this.bus.$on("refreshSheetPage", isFirst => {
       this.getSheetData(isFirst);
     });
-    this.bus.$on("toSheetPrintPage", newWid => {
+    this.bus.$on("toSheetPrintPage", async (newWid) => {
       if ($(".sign-text").length) {
         // 判断是否存在标记
         if ($(".mark-mark-mark").length) {
@@ -1029,7 +1030,8 @@ export default {
       // window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       // 对存储空间不够做处理
       try {
-        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+        if(this.HOSPITAL_ID ==="whhk") await saveModal($(this.$refs.sheetTableContain).html())
+        else window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       } catch (err) {
         // 可能要预留下来的 暂时不移除
         let keys = [
@@ -1044,7 +1046,8 @@ export default {
             localStorage.removeItem(key);
           }
         }
-        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+        if(this.HOSPITAL_ID ==="whhk") await saveModal($(this.$refs.sheetTableContain).html())
+        else window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       }
 
       // let printUrl = "";
