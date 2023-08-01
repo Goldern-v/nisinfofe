@@ -122,7 +122,7 @@ export default {
           setTimeout(() => {
             this.$refs.titleInput.querySelector("input").focus();
           }, 200);
-          if(this.HOSPITAL_ID == 'whhk' || this.HOSPITAL_ID == 'nfyksdyy'){
+          if(this.HOSPITAL_ID == 'whhk' || this.HOSPITAL_ID == 'nfyksdyy' || this.HOSPITAL_ID == 'foshanrenyi'){
             this.openTitleTemplateSlide()
           }
         });

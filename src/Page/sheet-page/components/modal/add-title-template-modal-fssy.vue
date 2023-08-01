@@ -9,7 +9,7 @@
       <div style="margin-bottom: 20px">
         <el-tabs type="card" @tab-click="handleClick" v-model="activeName">
           <el-tab-pane label="纯标题模板" style="display: flex;" name="first">
-            <div class="tab-list-item" v-if="['nfyksdyy','whhk'].includes(this.HOSPITAL_ID)">
+            <div class="tab-list-item" v-if="['nfyksdyy','whhk','foshanrenyi'].includes(this.HOSPITAL_ID)">
               <p for class="title" style="margin-right: 10px">分类：</p>
               <el-select
                 v-model="typeId"
@@ -33,7 +33,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="含选项标题模板" name="second">
-            <div class="tab-list-item" v-if="['nfyksdyy','whhk'].includes(this.HOSPITAL_ID)">
+            <div class="tab-list-item" v-if="['nfyksdyy','whhk','foshanrenyi'].includes(this.HOSPITAL_ID)">
               <p for class="title" style="margin-right: 10px">分类：</p>
               <el-select
                 v-model="typeId"
@@ -72,7 +72,7 @@
       </div>
       <div
         slot="button"
-        :style="isAddList ||['nfyksdyy','whhk'].includes(this.HOSPITAL_ID) ? 'display:flex; justify-content:space-between' : ''"
+        :style="isAddList ||['nfyksdyy','whhk','foshanrenyi'].includes(this.HOSPITAL_ID) ? 'display:flex; justify-content:space-between' : ''"
       >
         <el-button
           class="modal-btn"
