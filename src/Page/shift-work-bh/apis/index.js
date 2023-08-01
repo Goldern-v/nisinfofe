@@ -256,3 +256,8 @@ export function updateShiftRecordICU(data) {
 export const getRecordData = (patientId, visitId, recordDate) => {
   return axios.get(`${apiPath}changeShiftMaster/getRecordData/${patientId}/${visitId}/${recordDate}`);
 }
+
+// 按床排序
+export const sortByBed = (shiftId) => {
+  return axios.get(`${apiPath}changeShiftBHMaster/changeSort/${shiftId}`);
+}

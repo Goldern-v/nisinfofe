@@ -14,6 +14,7 @@
           format="yyyy-MM-dd HH:mm"
           placeholder="选择开始日期"
           @input="putGroupCount('update')"
+          style="width: 135px"
         ></cr-date-picker>
         <span style="padding: 0 15px; width: 30px">至</span>
         <cr-date-picker
@@ -21,6 +22,7 @@
           format="yyyy-MM-dd HH:mm"
           placeholder="选择结束日期"
           @input="putGroupCount('update')"
+          style="width: 135px"
         ></cr-date-picker>
       </div>
       <div class="group-count">

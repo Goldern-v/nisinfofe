@@ -20,7 +20,7 @@
               <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危'">病危</span>
           </div>
           <div class="info">
-            {{data.sex}} | {{data.age}} | {{data.patientId}} | {{data.chargeType
+            {{data.sex}} | {{data.age}} | {{ HOSPITAL_ID === 'dglb' ? data.inpNo : data.patientId }} | {{data.chargeType
             || '--'}}
           </div>
           <div style="border-bottom: 1px dashed #E4E8EB; margin-bottom: 10px"></div>
@@ -54,6 +54,9 @@
               :title="item.description + ' 分数:' + item.evalScore + '分'" :style="{background: item.iconTextRgb}"
               @click.stop="toFormPage(data, item)">
               <span>{{item.iconText}}</span>
+            </div>
+            <div v-if=" HOSPITAL_ID === 'dglb' && (data.expand3 === '1' || data.expand3 === '2')" class="table-name" :style="{background: data.expand3 === '1' ? 'rgb(225, 52, 48)' : 'green' }">
+              <span>临</span>
             </div>
           </div>
           <div class="right-icon"></div>

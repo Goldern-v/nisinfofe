@@ -97,6 +97,11 @@
     </div>
     <ElButton slot="button" @click="onClose">取消</ElButton>
     <ElButton slot="button" type="primary" @click="onConfirm">保存</ElButton>
+    <template v-if="showAPN">
+      <ElButton slot="button" @click="setString('【A】')">A</ElButton>
+      <ElButton slot="button" @click="setString('【P】')">P</ElButton>
+      <ElButton slot="button" @click="setString('【N】')">N</ElButton>
+    </template>
   </SweetModal>
   <advice-modal
     v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
@@ -178,6 +183,9 @@
             return false;
         }
       },
+      showAPN() {
+        return ['nfyksdyy'].includes(this.HOSPITAL_ID) && ['2', '3'].includes(this.tab);
+      }
     },
     watch: {
       syncRecord: {
@@ -192,6 +200,20 @@
       }
     },
     methods: {
+      setString(value) {
+        value = value || '';
+        const tabMap = {
+          '2': () => {
+            this.form.background += value;
+            this.$refs.background.$refs.textarea.focus();
+          },
+          '3': () => {
+            this.form.assessmentSituation += value;
+            this.$refs.assessmentSituation.$refs.textarea.focus();
+          }
+        }
+        tabMap[this.tab] && tabMap[this.tab]();
+      },
       handleDiagnosis({ item, key }) {
         switch (this.tab) {
           case "2":
