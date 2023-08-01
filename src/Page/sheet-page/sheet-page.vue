@@ -351,6 +351,7 @@ import changeMajorRadio from '@/Page/sheet-page/components/modal/changeMajorRadi
 import changeMajorCheckbox from '@/Page/sheet-page/components/modal/changeMajorCheckbox.vue'
 import SheetTags from './components/sheet-tags/index.vue';
 import qs from 'qs'
+import { saveModal } from "./components/sheet-tool/sheetPageModal.js"
 
 export default {
   mixins: [common],
@@ -1161,7 +1162,7 @@ export default {
         this.bus.$emit('saveSheetPage', 'noSaveSign')
       }
     });
-    this.bus.$on("toSheetPrintPage", (newWid) => {
+    this.bus.$on("toSheetPrintPage", async (newWid) => {
       if ($(".sign-text").length) {
         // 判断是否存在标记
         if ($(".mark-mark-mark").length) {
@@ -1206,7 +1207,8 @@ export default {
 
       // 对存储空间不够做处理
       try {
-        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+        if(this.HOSPITAL_ID ==="whhk") await saveModal($(this.$refs.sheetTableContain).html())
+        else window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       } catch (err) {
         // 可能要预留下来的 暂时不移除
         let keys = [
@@ -1221,7 +1223,8 @@ export default {
             localStorage.removeItem(key);
           }
         }
-        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+        if(this.HOSPITAL_ID ==="whhk") await saveModal($(this.$refs.sheetTableContain).html())
+        else window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       }
       if (
         process.env.HOSPITAL_ID == "fuyou" ||

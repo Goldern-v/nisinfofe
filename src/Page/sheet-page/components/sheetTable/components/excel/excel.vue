@@ -52,7 +52,7 @@
           <span v-if="item.key == 'recordYear'">{{
             recordYear()
           }}</span>
-          <span v-else v-html="item.name"></span>
+          <span v-else v-html="item.name" :style="setStyle(item.name, item.canSet)"></span>
           <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
             <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
               <input
@@ -118,7 +118,7 @@
           @click="item.canSet && setTitle(item, data.titleModel)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
-          <span v-else v-html="item.name"></span>
+          <span v-else v-html="item.name" :style="setStyle(item.name, item.canSet)"></span>
           <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
             <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
               <input
@@ -1073,6 +1073,15 @@ export default {
     },
   },
   methods: {
+    // 自定义标题根据内容字数缩小
+    setStyle(text, canSet) {
+      if (!canSet || this.HOSPITAL_ID !== 'nfyksdyy') {
+        return {};
+      }
+      text = text || '';
+      const scale = Math.min(1, 1 - (text.length - 10) * 0.03);
+      return { zoom: scale };
+    },
     customCallBack(e,tr,x,y,index){
       if(!this.splitSave) return
       //这个方法是处理  自定义标题 每次选择 没有自动调用查询是否更改的方法的BUG

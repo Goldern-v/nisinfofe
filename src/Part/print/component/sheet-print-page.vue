@@ -276,6 +276,7 @@ import common from "@/common/mixin/common.mixin.js";
 import { addCSS } from "@/utils/css";
 import { formatSub } from "@/utils/sup";
 import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
+import { readTxt } from "@/Page/sheet-page/components/sheet-tool/sheetPageModal.js"
 export default {
   props: ["qoSelect"],
   mixins: [common],
@@ -286,6 +287,7 @@ export default {
       pageLoading: true,
       bus: bus(this),
       sheetInfo,
+      sheetModel:"",
       // 需要扩大行距的记录单code
       lineSpacingArr: [
         "icu_qz", // 曲周_重症护理记录单
@@ -335,7 +337,8 @@ export default {
     }
     this.url = `${host}/sheet-page-print.html`;
   },
-  mounted() {
+  async mounted() {
+    await this.getData()
     console.log(
       "this.sheetInfo.sheetType",
       this.sheetInfo.sheetType,
@@ -1222,6 +1225,22 @@ export default {
     }
   },
   methods: {
+    getData(){
+      return new Promise((resolve)=>{
+        if(this.HOSPITAL_ID === "whhk"){
+          readTxt().then(res=>{
+            var reg = /data-value/g;
+            this.sheetModel = res.replace(reg, "value");
+            resolve(true)
+          });
+        }else {
+          let html = window.localStorage.sheetModel;
+          var reg = /data-value/g;
+          this.sheetModel = html.replace(reg, "value");
+          resolve(true)
+        }
+      })
+    },
     print() {
       if (
         Array.from(window.document.querySelectorAll("img")).every(
@@ -1241,11 +1260,11 @@ export default {
       if(['critical2_weihai','extracardi_three_weihai'].includes(this.query.sheetType)) return true
       return false
     },
-    sheetModel() {
-      let html = window.localStorage.sheetModel;
-      var reg = /data-value/g;
-      return html.replace(reg, "value");
-    },
+    // sheetModel() {
+    //     let html = window.localStorage.sheetModel;
+    //     var reg = /data-value/g;
+    //     return html.replace(reg, "value");
+    // },
     query() {
       return this.$route.query;
     },

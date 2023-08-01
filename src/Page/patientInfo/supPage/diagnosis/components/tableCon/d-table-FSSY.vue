@@ -65,7 +65,14 @@
         </el-table-column>
          <el-table-column prop="positionNursing" label="体位护理"  width="100" header-align="center">
           <template slot-scope="scope">
-            <el-input v-model="scope.row.positionNursing"  type="textarea" autosize></el-input>
+            <el-select v-model="scope.row.positionNursing" multiple placeholder="">
+              <el-option
+                v-for="item in positionOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </template>
         </el-table-column>
          <el-table-column prop="skinNursing" label="皮肤护理"  width="100" header-align="center">
@@ -109,7 +116,20 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column prop="beginTime" label="开始时间" width="95" align="center"></el-table-column>
+        <el-table-column prop="beginTime" label="开始时间" width="95" align="center">
+          <template slot-scope="scope">
+            {{scope.row.beginTime}}
+            <el-date-picker
+              v-model="scope.row.beginTime"
+              :default-value="scope.row.beginTime"
+              type="datetime"
+              placeholder="选择日期时间"
+              value-format="yyyy-MM-dd HH:mm"
+              :clearable="false"
+              @change="val => {timeChange(val, scope.row,'beginTime')}">
+            </el-date-picker>
+          </template>
+        </el-table-column>
         <el-table-column label="开始护士" width="90" header-align="center" align="center">
           <template slot-scope="scope">
             <!-- <div v-if="!scope.row.creatorName" class="tool-btn" @click="onSignOrCancel(scope.row)">
@@ -127,7 +147,20 @@
           align="center"
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" width="325" header-align="center"></el-table-column>
-        <el-table-column prop="endTime" label="停止时间" width="95" align="center"></el-table-column>
+        <el-table-column prop="endTime" label="停止时间" width="95" align="center">
+          <template slot-scope="scope">
+           {{scope.row.endTime}}
+            <el-date-picker
+              v-model="scope.row.endTime"
+              :default-value="scope.row.endTime"
+              type="datetime"
+              placeholder="选择日期时间"
+              value-format="yyyy-MM-dd HH:mm"
+              :clearable="false"
+              @change="val => {timeChange(val, scope.row,'endTime')}">
+            </el-date-picker>
+           </template>
+        </el-table-column>
          <el-table-column label="停止护士" width="90" header-align="center" align="center" fixed="right">
           <template slot-scope="scope">
             <!-- <div v-if="!scope.row.signerName" class="tool-btn" @click="onSignOrCancel(scope.row)">
@@ -224,7 +257,7 @@
           </template>
         </el-table-column>
          <el-table-column prop="catheterNursing" label="导管护理"  width="60" header-align="center"></el-table-column>
-         <el-table-column prop="positionNursing" label="体位护理"  width="60" header-align="center"></el-table-column>
+         <el-table-column prop="positionNursing" label="体位护理" :formatter="positionFormatter"  width="60" header-align="center"></el-table-column>
          <el-table-column prop="skinNursing" label="皮肤护理"  width="60" header-align="center"></el-table-column>
          <el-table-column prop="tracheaNursingCodes" :formatter='tracheaFormatter' label="气管护理"  width="70" header-align="center"></el-table-column>
          <el-table-column prop="securityNursingCodes" :formatter='securityFormatter' label="安全护理"  width="70" header-align="center"></el-table-column>
@@ -284,6 +317,14 @@ export default {
         {label:'勤巡视病房',value:'勤巡视病房'},
         {label:'加床档',value:'加床档'},
         {label:'约束四肢',value:'约束四肢'},
+        {label:'安全转运护理',value:'安全转运护理'},
+        {label:'防跌倒/坠床护理',value:'防跌倒/坠床护理'},
+        {label:'防烫伤护理',value:'防烫伤护理'},
+        {label:'防走失护理',value:'防走失护理'},
+        {label:'安全约束护理',value:'安全约束护理'},
+        {label:'入院护理',value:'入院护理'},
+        {label:'出院护理',value:'出院护理'},
+        {label:'放呛噎护理',value:'放呛噎护理'},
       ],
       dietaryOptions:[
         {label:'普通饮食',value:'普通饮食'},
@@ -297,19 +338,38 @@ export default {
         {label:'糖尿病饮食',value:'糖尿病饮食'},
         {label:'其他',value:'其他'},
       ],
-      test: []
+      positionOptions:[
+        {label:'头低脚高位',value:'头低脚高位'},
+        {label:'半卧位',value:'半卧位'},
+        {label:'抬高床头15-30°',value:'抬高床头15-30°'},
+        {label:'抬高床头30-45°',value:'抬高床头30-45°'},
+        {label:'抬高左下肢25CM',value:'抬高左下肢25CM'},
+        {label:'抬高右下肢25CM',value:'抬高右下肢25CM'},
+        {label:'抬高左上肢',value:'抬高左上肢'},
+        {label:'抬高右上肢',value:'抬高右上肢'},
+        {label:'外展中立位',value:'外展中立位'},
+        {label:'头高脚低位',value:'头高脚低位'},
+        {label:'去枕平卧位',value:'去枕平卧位'},
+      ],
+      test: [],
     };
   },
-  
+
   methods: {
+    timeChange(val,row,type){
+      row[type] = moment(val).format("YYYY-MM-DD HH:mm")
+    },
     tracheaFormatter(row) {
-      return row.tracheaNursingCodes.join(', ') 
+      return row.tracheaNursingCodes.join(', ')
     },
     securityFormatter(row) {
       return row.securityNursingCodes.join(', ')
     },
     dietaryFormatter(row) {
-      return row.dietaryGuidanceTypes.join(', ') 
+      return row.dietaryGuidanceTypes.join(', ')
+    },
+    positionFormatter(row) {
+      return row.positionNursing.join(', ')
     },
     onSignOrCancel(row){
       window.openSignModal((password,username)=>{
@@ -343,8 +403,9 @@ export default {
     save(row) {
       // 后端新增加的字段 用多选数组形式 佛一需求
       // 气管护理：tracheaNursingCodes
-      // 安全护理：securityNursingCodes  
+      // 安全护理：securityNursingCodes
       // 饮食指导：dietaryGuidanceTypes
+      // 体位护理：positionNursing
       model.selectedRow = row;
       let strSignData = JSON.stringify({
         measureStr: row.measuresName.length ?row.measuresName :row.diagMeasures,
@@ -358,7 +419,7 @@ export default {
         Document_ID:model.selectedRow.diagCode,
         Section_ID:model.selectedRow.diagCode,
         strSignData: strSignData,
-        
+
       };
 
       let verifySignObj = {
@@ -531,6 +592,14 @@ export default {
        .gutter{
         border: none !important;
       }
+    }
+    .el-date-editor.el-input{
+      width: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50% );
+      opacity: 0;
     }
     /* th:last-child{
       border:none !important;
