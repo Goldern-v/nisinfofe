@@ -239,7 +239,7 @@ import formatter from "./utils/print-formatter";
 
 import { fileDownload } from "@/utils/fileExport.js";
 
-const pageSize = ["lyxrm", "whsl", "whhk", "stmz"].includes(
+const pageSize = ["lyxrm", "whsl", "whhk", "stmz", 'ytll'].includes(
   process.env.HOSPITAL_ID
 )
   ? 1000
@@ -297,7 +297,7 @@ export default {
           ...this.query,
           bedLabel: this.query.bedLabel.trim()
         }).then(res => {
-          if (["lyxrm", "whsl", "whhk", "stmz"].includes(this.HOSPITAL_ID)) {
+          if (["lyxrm", "whsl", "whhk", "stmz", 'ytll'].includes(this.HOSPITAL_ID)) {
             let child = [],
               tableData = [];
             res.data.data.list.map((item, index, array) => {
@@ -377,13 +377,12 @@ export default {
       this.query.pageIndex = 1;
       this.onLoad();
       this.onLoadAll();
-      console.log(1);
     },
     getNursingClass() {
       let list = ["nurse_nursing_class"];
       multiDictInfo(list).then(res => {
         this.allNursingClass = res.data.data.nurse_nursing_class;
-        if (["lyxrm", "whsl", "whhk", "stmz"].includes(this.HOSPITAL_ID))
+        if (["lyxrm", "whsl", "whhk", "stmz", 'ytll'].includes(this.HOSPITAL_ID))
           this.allNursingClass.unshift({ name: "全部", code: "" });
       });
     },
@@ -401,7 +400,7 @@ export default {
           bedLabel: this.query.bedLabel.trim(),
           pageSize: 9999
         }).then(res => {
-          if (["lyxrm", "whsl", "whhk", "stmz"].includes(this.HOSPITAL_ID)) {
+          if (["lyxrm", "whsl", "whhk", "stmz", 'ytll'].includes(this.HOSPITAL_ID)) {
             let child = [],
               tableData = [];
             res.data.data.list.map((item, index, array) => {
@@ -514,6 +513,7 @@ export default {
         case "lyxrm":
         case "whsl":
         case "stmz":
+        case "ytll":
           return "dTableLyxrm";
         default:
           return "dTable";
