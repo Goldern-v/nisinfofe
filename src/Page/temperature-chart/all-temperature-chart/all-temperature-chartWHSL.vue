@@ -169,7 +169,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </el-popover>
             </template>
@@ -188,7 +188,7 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -211,7 +211,7 @@
                 "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -229,7 +229,7 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column> -->
@@ -247,7 +247,7 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -265,7 +265,7 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -283,7 +283,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -302,7 +302,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -345,7 +345,7 @@
                   type="text"
                   @keydown="handleKeyDown"
                   @keyup="handleKeyUp"
-                  @click="toRow"
+                   @click="toRow"
                 />
               </el-popover>
             </template>
@@ -364,7 +364,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column> -->
@@ -382,7 +382,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column> -->
@@ -400,7 +400,7 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -418,7 +418,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -437,7 +437,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -455,7 +455,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column> -->
@@ -1203,8 +1203,8 @@ export default {
       }
     },
     toRow(e) {
-      let rowIndex = e.path[3].rowIndex;
-      var trs = e.path[4].getElementsByTagName("tr");
+      let rowIndex = e.target.parentElement.parentElement.parentElement.rowIndex;
+      var trs = e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("tr");
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
           trs[i].style.backgroundColor = "green";
@@ -1214,8 +1214,8 @@ export default {
       }
     },
     handleKeyUp(e) {
-      let rowIndex = e.path[3].rowIndex;
-      var trs = e.path[4].getElementsByTagName("tr");
+     let rowIndex = e.target.parentElement.parentElement.parentElement.rowIndex;
+      var trs = e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("tr");
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
           trs[i].style.backgroundColor = "green";

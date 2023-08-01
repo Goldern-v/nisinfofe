@@ -330,6 +330,7 @@
       </div>
       <div
         class="item-box"
+        :class="[(['whsl'].includes(HOSPITAL_ID)) && 'page-select']"
         @click="toPrint"
         v-if="
           (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
