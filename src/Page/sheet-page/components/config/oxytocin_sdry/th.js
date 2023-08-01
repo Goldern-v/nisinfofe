@@ -85,7 +85,7 @@ export default {
         colspan: '1',
         rowspan: '3'
       },{
-        name: `宫口<br>扩张<br>cm`,
+        name: `宫颈<br>扩张<br>cm`,
         style: {
           minWidth: '36px',
           maxWidth: '36px'

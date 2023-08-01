@@ -203,6 +203,7 @@ export default {
       let list = ["nurse_nursing_class"];
       multiDictInfo(list).then(res => {
         this.allNursingClass = res.data.data.nurse_nursing_class;
+        this.allNursingClass.unshift({ code: '', name: '全部' });
       });
     },
     openViewModal() {
