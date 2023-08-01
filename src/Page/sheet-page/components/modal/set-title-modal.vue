@@ -25,7 +25,7 @@
             :fetch-suggestions="querySearch"
             placeholder="输入标题名称"
             @select="handleSelect"
-            @input="HOSPITAL_ID == 'whhk' && handleInput($event)"
+            @input="handleInput($event)"
           ></el-autocomplete>
           <el-select v-model="selectedVal" placeholder="请选择" style="width: 100%;margin-top:20px;" v-if="options">
             <el-option
@@ -122,7 +122,7 @@ export default {
           setTimeout(() => {
             this.$refs.titleInput.querySelector("input").focus();
           }, 200);
-          if(this.HOSPITAL_ID == 'whhk' || this.HOSPITAL_ID == 'nfyksdyy'){
+          if(this.HOSPITAL_ID == 'whhk' || this.HOSPITAL_ID == 'nfyksdyy' || this.HOSPITAL_ID == 'foshanrenyi'){
             this.openTitleTemplateSlide()
           }
         });
