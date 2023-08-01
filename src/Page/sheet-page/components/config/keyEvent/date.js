@@ -153,40 +153,6 @@ export function click_cancel(e, td) {
     td.value = ""
   }
 }
-
-
-
-// export function click_letterB(e, td) {
-//   if (td.value == "") {
-//     td.value = 'B'
-//   } else {
-//     td.value = ""
-//   }
-// }
-
-// export function click_letterC(e, td) {
-//   if (td.value == "") {
-//     td.value = 'C'
-//   } else {
-//     td.value = ""
-//   }
-// }
-
-// export function click_letterF(e, td) {
-//   if (td.value == "") {
-//     td.value = 'F'
-//   } else {
-//     td.value = ""
-//   }
-// }
-
-// export function click_letterH(e, td) {
-//   if (td.value == "") {
-//     td.value = 'H'
-//   } else {
-//     td.value = ""
-//   }
-// }
 const arr = ['√|', '√|√', '|√', '']
 /**点击显示顺序 '√|', '√|√', '|√', '' */
 export function click_double (e, td) {
