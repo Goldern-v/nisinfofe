@@ -44,7 +44,7 @@
     <sweet-modal
       ref="newRecord"
       :modalWidth="500"
-      title="修改时间"
+      :title="HOSPITAL_ID == 'nfyksdyy' ? '补执行原因' :'修改时间'"
       class="modal-record padding-0"
       v-if="type == '补执行-sdyy'"
     >
@@ -279,6 +279,9 @@ export default {
           },
           {
             value: '网络故障'
+          },
+          {
+            value: '已遵医生口头医嘱执行，现补执行'
           },
         ]
         // 过滤所填写的项

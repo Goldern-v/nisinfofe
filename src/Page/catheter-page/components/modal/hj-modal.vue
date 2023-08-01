@@ -33,16 +33,16 @@
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .name-title
   font-size 14px;
-  margin 0px 0 15px  
+  margin 0px 0 15px
   font-weight bold
   padding-left 15px
   padding-right 15px
 .activeText
-  font-size 14px  
+  font-size 14px
   color rgb(40, 79, 194)
   cursor pointer
   font-weight normal
-.textarea-con 
+.textarea-con
   >>>textarea
     height 120px
 </style>

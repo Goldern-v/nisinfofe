@@ -43,6 +43,7 @@
       type="datetime"
       format="yyyy-MM-dd HH:mm"
       placeholder="选择开始日期">
+
       </el-date-picker>
       <span style="padding: 0 15px; width: 30px">至</span>
       <el-date-picker
@@ -57,12 +58,14 @@
           v-model="date[0]"
           format="yyyy-MM-dd HH:mm"
           placeholder="选择开始日期"
+          style="width: 135px;"
         ></cr-date-picker>
         <span style="padding: 0 15px; width: 30px">至</span>
         <cr-date-picker
           v-model="date[1]"
           format="yyyy-MM-dd HH:mm"
           placeholder="选择结束日期"
+          style="width: 135px;"
         ></cr-date-picker>
       </div>
       <p for class="name-title" flex="cross:center main:justify">
