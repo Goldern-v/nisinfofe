@@ -98,9 +98,9 @@
     <ElButton slot="button" @click="onClose">取消</ElButton>
     <ElButton slot="button" type="primary" @click="onConfirm">保存</ElButton>
     <template v-if="showAPN">
-      <ElButton slot="button" @click="setString('【A】')">A</ElButton>
-      <ElButton slot="button" @click="setString('【P】')">P</ElButton>
-      <ElButton slot="button" @click="setString('【N】')">N</ElButton>
+      <ElButton slot="button" @click="setString('【A】')" :disabled="isSignedN">A</ElButton>
+      <ElButton slot="button" @click="setString('【P】')" :disabled="isSignedN">P</ElButton>
+      <ElButton slot="button" @click="setString('【N】')" :disabled="isSignedN">N</ElButton>
     </template>
   </SweetModal>
   <advice-modal
@@ -204,11 +204,11 @@
         value = value || '';
         const tabMap = {
           '2': () => {
-            this.form.background += value;
+            this.form.background = (this.form.background || '') + value;
             this.$refs.background.$refs.textarea.focus();
           },
           '3': () => {
-            this.form.assessmentSituation += value;
+            this.form.assessmentSituation = (this.form.assessmentSituation || '') + value;
             this.$refs.assessmentSituation.$refs.textarea.focus();
           }
         }
