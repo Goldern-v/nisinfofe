@@ -528,9 +528,9 @@ export default {
         @media print {
           .iframe > div:nth-of-type(n) {
             height: ${sheetTableWidth * 0.755}px !important;
-            transform: scaleX(0.99) scaleY(1.2);
-            transform-origin: top center;
-            margin-top: -40px;
+            transform: scaleX(0.99) scaleY(1.2) !important;
+            transform-origin: top center !important;
+            margin-top: -40px ;
           }
         }
         `

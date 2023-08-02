@@ -95,12 +95,13 @@
         </ElTabPane>
       </ElTabs>
     </div>
+    <ElButton slot="button" @click="tbYesterday" v-if="['nfyksdyy'].includes(this.HOSPITAL_ID)">同步昨日交班</ElButton>
     <ElButton slot="button" @click="onClose">取消</ElButton>
     <ElButton slot="button" type="primary" @click="onConfirm">保存</ElButton>
     <template v-if="showAPN">
-      <ElButton slot="button" @click="setString('【A】')">A</ElButton>
-      <ElButton slot="button" @click="setString('【P】')">P</ElButton>
-      <ElButton slot="button" @click="setString('【N】')">N</ElButton>
+      <ElButton slot="button" @click="setString('【A】')" :disabled="isSignedN">A</ElButton>
+      <ElButton slot="button" @click="setString('【P】')" :disabled="isSignedN">P</ElButton>
+      <ElButton slot="button" @click="setString('【N】')" :disabled="isSignedN">N</ElButton>
     </template>
   </SweetModal>
   <advice-modal
@@ -200,15 +201,34 @@
       }
     },
     methods: {
+      tbYesterday(){
+        function xie(doc,str) {
+          if (doc) {
+            doc += "\n" + str;
+          } else {
+            doc = str;
+          }
+          return doc
+        }
+        let { patientId,visitId } = this.form , id = this.$route.params.id;
+        apis.getPreviousPatient({patientId,visitId,id}).then(res=>{
+          let arr = ["proposal","assessmentSituation","background","mainComplaint","diagnosis"];
+          let {data:{data}}= res
+          arr.forEach(code=>{
+            let str = data[code] || ""
+            this.form[code] = xie(this.form[code],str)
+          })
+        })
+      },
       setString(value) {
         value = value || '';
         const tabMap = {
           '2': () => {
-            this.form.background += value;
+            this.form.background = (this.form.background || '') + value;
             this.$refs.background.$refs.textarea.focus();
           },
           '3': () => {
-            this.form.assessmentSituation += value;
+            this.form.assessmentSituation = (this.form.assessmentSituation || '') + value;
             this.$refs.assessmentSituation.$refs.textarea.focus();
           }
         }
