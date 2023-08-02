@@ -212,9 +212,9 @@ export default {
         deptCode: this.$store.state.sheet.patientInfo.deptCode,
         patientId: this.$store.state.sheet.patientInfo.patientId,
         visitId: this.$store.state.sheet.patientInfo.visitId,
-        intubationTime: moment(this.intubationTime).format(
+        intubationTime: this.intubationTime ? moment(this.intubationTime).format(
           "YYYY-MM-DD HH:mm:ss"
-        ),
+        ) : '',
         replaceTime: this.expecteReplaceTime
           ? moment(this.expecteReplaceTime).format("YYYY-MM-DD HH:mm:ss")
           : "",
