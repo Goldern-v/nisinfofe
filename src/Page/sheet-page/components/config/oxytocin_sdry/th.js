@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "800px"
+    width: "880px"
   },
   th: {
     top: [
@@ -43,15 +43,7 @@ export default {
       //   colspan: '1',
       //   rowspan: '3'
       // },
-      // {
-      //   name: '呼吸<br/>（次/分）',
-      //   style: {
-      //     minWidth: '36px',
-      //     maxWidth: '36px'
-      //   },
-      //   colspan: '1',
-      //   rowspan: '3'
-      // },
+
       {
         name: `催产<br>素浓<br>度<br>（u/500ml）`,
         style: {
@@ -124,6 +116,15 @@ export default {
         rowspan: '3',
         canSet: false,
       },
+        {
+        name: '呼吸<br/>（次/分）',
+        style: {
+          minWidth: '36px',
+          maxWidth: '36px'
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
       {
         name: `
         血氧饱和度(%)
@@ -159,6 +160,15 @@ export default {
       },
       {
         name: `羊水<br>性质`,
+        style: {
+          minWidth: '44px',
+          maxWidth: '44px'
+        },
+        colspan: '1',
+        rowspan: '3'
+      },
+      {
+        name: `膀胱<br>充盈<br>度`,
         style: {
           minWidth: '44px',
           maxWidth: '44px'

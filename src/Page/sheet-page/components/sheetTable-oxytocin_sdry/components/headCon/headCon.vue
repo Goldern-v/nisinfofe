@@ -230,7 +230,7 @@ export default {
     }
   }
   table {
-    width: 100%;
+    width: 880px;
     th,
     td {
       border: 1px solid #000;

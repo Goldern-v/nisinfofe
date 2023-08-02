@@ -283,8 +283,8 @@ const currentTargetUrl = (() => {
           // return  'http://59.38.110.189:9092'
           // return  'http://192.168.20.136:8080'
       // return 'http://192.168.5.127:9091'
-      // return  'https://info.cr-health.com:20215'
-      return 'http://10.108.4.45:9091/'
+      return  'https://info.cr-health.com:20215'
+      // return 'http://10.108.4.45:9091/'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭
       return 'http://192.168.3.187:9091'

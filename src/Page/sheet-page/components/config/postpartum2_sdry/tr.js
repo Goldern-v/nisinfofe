@@ -224,8 +224,8 @@ export default [
     name: "宫颈管内注射",
     // textarea: { width: 30 },
     style:{
-      minWidth:"25px",
-      maxWidth:"25px"
+      minWidth:"50px",
+      maxWidth:"50px"
     },
     click: (e, td) => click_letter(e, td, "A")
   },
@@ -251,8 +251,8 @@ export default [
     name: "肌注",
     click: (e, td) => click_letter(e, td, "B"),
     style: {
-      minWidth: "30px",
-      maxWidth: "30px"
+      minWidth: "60px",
+      maxWidth: "60px"
     }
   },
   {
@@ -283,85 +283,6 @@ export default [
     },
     click: (e, td) => click_letter(e, td, "H")
   },
-  // {
-  //   key: "cervicalDilation",
-  //   event: keyf1,
-  //   value: "",
-  //   next: "cm",
-  //   name: "宫颈扩张",
-  //   autoComplete: { data: ["未开", "容一指"] },
-  //   textarea: { width: 40 },
-  //   change: (e, td) => limitChange(e, td, 3)
-  // },
-  // {
-  //   key: "showHigh",
-  //   event: keyf1,
-  //   value: "",
-  //   next: "cm",
-  //   name: "先露高低",
-  //   autoComplete: { data: ["+1", "=0", "-1"] },
-  //   textarea: { width: 30 },
-  //   change: (e, td) => limitChange(e, td, 2)
-  // },
-  // {
-  //   key: "caul",
-  //   event: keyf1,
-  //   value: "",
-  //   next: "",
-  //   name: "胎膜",
-  //   autoComplete: { data: ["已", "未"] },
-  //   textarea: { width: 25 },
-  //   change: (e, td) => limitChange(e, td, 2)
-  // },
-  // {
-  //   key: "amnioticTraits",
-  //   event: keyf1,
-  //   value: "",
-  //   next: "",
-  //   name: "羊水性状",
-  //   autoComplete: { data: ["清", "Ⅰ°", "Ⅱ°", "Ⅲ°", "血性"] },
-  //   textarea: { width: 30 },
-  //   change: (e, td) => limitChange(e, td, 2)
-  // },
-
-  // {
-  //   key: "painEval",
-  //   event: keyf1,
-  //   value: "",
-  //   next: "",
-  //   name: "宫缩疼痛评分",
-  //   textarea: { width: 30 },
-  //   change: (e, td) => limitChange(e, td, 2)
-  // },
-  // {
-  //   key: "analgesic", //标题1
-  //   value: "",
-  //   event: keyf1,
-  //   value: "",
-  //   next: "",
-  //   name: "非药物镇痛方法",
-  //   textarea: {
-  //     width: 40
-  //   }
-  // },
-  // {
-  //   key: "bladderFilling", //标题2
-  //   value: "",
-  //   event: keyf1,
-  //   next: "",
-  //   name: "膀胱充盈度",
-  //   textarea: {
-  //     width: 40
-  //   }
-  // },
-  // {
-  //   key: "armValue", //标题1
-  //   value: "",
-  //   event: keyf1,
-  //   textarea: {
-  //     width: 40
-  //   }
-  // },
   {
     key: "description", //特殊情况记录
     value: "",
@@ -374,7 +295,7 @@ export default [
       width: "510px",
       background: "transparent"
     },
-    textarea: { width: 490},
+    textarea: { width: 435},
     event: function (e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
