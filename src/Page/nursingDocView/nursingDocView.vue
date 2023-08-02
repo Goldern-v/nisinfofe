@@ -101,6 +101,7 @@ import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureFSXT from "@/Page/patientInfo/supPage/temperature/temperature-fsxt";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
+import temperatureWHHK from "@/Page/patientInfo/supPage/temperature/temperature-whhk";
 import temperatureLYYZ from "@/Page/patientInfo/supPage/temperature/temperature-lyyz";
 import temperatureWHSL from "@/Page/patientInfo/supPage/temperature/temperature-whsl";
 import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature-nanfangzhongxiyi";
@@ -199,7 +200,6 @@ export default {
         case "whfk":
           return temperatureWHFK;
         case "lyxrm":
-        case "whhk":
         case "stmz":
           return temperatureLYXRM;
         case "sdlj":
@@ -208,6 +208,8 @@ export default {
           return temperatureFSXT;
         case "nanfangzhongxiyi":
           return temperatureNFZXY;
+          case "whhk":
+          return temperaturewhhk;
         case "foshanrenyi":
           return temperatureFSSY;
         case "xiegang":
@@ -485,6 +487,7 @@ export default {
     temperatureWHFK,
     temperatureLYXRM,
     temperatureLYYZ,
+    temperatureWHHK,
     temperatureSDLJ,
     temperatureFSXT,
     temperatureNFZXY,
