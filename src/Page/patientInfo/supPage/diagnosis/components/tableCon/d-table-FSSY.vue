@@ -63,9 +63,9 @@
             <el-input v-model="scope.row.catheterNursing" type="textarea" autosize></el-input>
           </template>
         </el-table-column>
-         <el-table-column prop="positionNursing" label="体位护理"  width="100" header-align="center">
+         <el-table-column prop="positionNursingCodes" label="体位护理"  width="100" header-align="center">
           <template slot-scope="scope">
-            <el-select v-model="scope.row.positionNursing" multiple placeholder="">
+            <el-select v-model="scope.row.positionNursingCodes" multiple placeholder="">
               <el-option
                 v-for="item in positionOptions"
                 :key="item.value"
@@ -241,11 +241,6 @@
         </el-table-column>
         <el-table-column label="护理目标" width="60" header-align="center">
           <template slot-scope="scope">
-            <!-- <span v-for="(item, index) in scope.row.targetsName" :key="index">
-              {{
-              item && item.parameter
-              }}
-            </span> -->
             <div>
               <span v-for="(item, index) in scope.row.targetsName" :key="index" v-show="scope.row.targetsName.length">
                 {{
@@ -257,7 +252,7 @@
           </template>
         </el-table-column>
          <el-table-column prop="catheterNursing" label="导管护理"  width="60" header-align="center"></el-table-column>
-         <el-table-column prop="positionNursing" label="体位护理" :formatter="positionFormatter"  width="60" header-align="center"></el-table-column>
+         <el-table-column prop="positionNursingCodes" label="体位护理" :formatter="positionFormatter"  width="60" header-align="center"></el-table-column>
          <el-table-column prop="skinNursing" label="皮肤护理"  width="60" header-align="center"></el-table-column>
          <el-table-column prop="tracheaNursingCodes" :formatter='tracheaFormatter' label="气管护理"  width="70" header-align="center"></el-table-column>
          <el-table-column prop="securityNursingCodes" :formatter='securityFormatter' label="安全护理"  width="70" header-align="center"></el-table-column>
@@ -369,7 +364,7 @@ export default {
       return row.dietaryGuidanceTypes.join(', ')
     },
     positionFormatter(row) {
-      return row.positionNursing.join(', ')
+      return row.positionNursingCodes.join(', ')
     },
     onSignOrCancel(row){
       window.openSignModal((password,username)=>{
@@ -405,7 +400,7 @@ export default {
       // 气管护理：tracheaNursingCodes
       // 安全护理：securityNursingCodes
       // 饮食指导：dietaryGuidanceTypes
-      // 体位护理：positionNursing
+      // 体位护理：positionNursingCodes
       model.selectedRow = row;
       let strSignData = JSON.stringify({
         measureStr: row.measuresName.length ?row.measuresName :row.diagMeasures,
@@ -447,13 +442,14 @@ export default {
           factorStr: row.diagFactor,
           nursingClass:row.nursingClass,
           catheterNursing:row.catheterNursing,
-          positionNursing:row.positionNursing,
+          positionNursingCodes:row.positionNursingCodes,
           skinNursing:row.skinNursing,
           tracheaNursingCodes:row.tracheaNursingCodes,
           securityNursingCodes:row.securityNursingCodes,
           dietaryGuidanceTypes:row.dietaryGuidanceTypes,
           wardCode: model.selectedBlock.wardCode,
-          beginTime: moment(row.beginTime).format("YYYY-MM-DD HH:mm")
+          beginTime: moment(row.beginTime).format("YYYY-MM-DD HH:mm"),
+          endTime: moment(row.endTime).format("YYYY-MM-DD HH:mm")
         };
         nursingDiagsUpdate(obj).then(res => {
           this.$message.success("保存成功");
@@ -473,7 +469,7 @@ export default {
         definition: model.selectedRow.definition,
         nursingClass:row.nursingClass,
         catheterNursing:row.catheterNursing,
-        positionNursing:row.positionNursing,
+        positionNursingCodes:row.positionNursingCodes,
         skinNursing:row.skinNursing,
         tracheaNursingCodes:row.tracheaNursingCodes,
         securityNursingCodes:row.securityNursingCodes,
@@ -486,7 +482,7 @@ export default {
         definition: model.selectedRow.definition,
         nursingClass:row.nursingClass,
         catheterNursing:row.catheterNursing,
-        positionNursing:row.positionNursing,
+        positionNursingCodes:row.positionNursingCodes,
         skinNursing:row.skinNursing,
         tracheaNursingCodes:row.tracheaNursingCodes,
         securityNursingCodes:row.securityNursingCodes,

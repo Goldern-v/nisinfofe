@@ -35,9 +35,7 @@
             <span>性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span>年龄：{{ resAge ? resAge : patientInfo.age || tableHeaderInfo.gender }}</span>
             <span>科室：{{
-                patientInfo.deptName ||
-                  patientInfo.deptName ||
-                  tableHeaderInfo.deptName
+                tableHeaderInfo.deptName || patientInfo.bedLabel
             }}</span>
             <span
               >床号：{{
