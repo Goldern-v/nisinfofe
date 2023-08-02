@@ -10,7 +10,7 @@
           placeholder="选择入院起始时间"
           size="small"
           v-model="startDate"
-          style="width:160px"
+          style="width:170px"
         ></el-date-picker>
         &nbsp;--&nbsp;
         <el-date-picker
@@ -19,7 +19,7 @@
           placeholder="选择终止时间"
           size="small"
           v-model="endDate"
-          style="width:160px"
+          style="width:170px"
         ></el-date-picker>
 
         <span class="label">长/临:</span>
