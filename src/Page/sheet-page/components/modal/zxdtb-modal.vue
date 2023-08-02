@@ -556,7 +556,7 @@ export default {
         }
         await saveSyncRecord(params)
       }
-      if(this.HOSPITAL_ID === 'whsl' && ['critical_weihai', 'critical2_weihai'].includes(this.sheetInfo.sheetType)){
+      if(this.HOSPITAL_ID === 'whsl' && ['critical_weihai', 'critical2_weihai','extracardi_one_weihai'].includes(this.sheetInfo.sheetType)){
         let newTemArr=temArr.map((item)=>{
           return {...item,executeType:this.executeType,recordCodes:[this.sheetInfo.sheetType]}
         })

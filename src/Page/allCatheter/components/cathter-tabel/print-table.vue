@@ -14,7 +14,7 @@
       </div>
       <div class="info">
         <div v-for="(con, conIn) in info2" :key="conIn + 'info2'">
-          {{ con.label + "：" + tableInfo[con.code] }}
+          {{ con.label + "：" + (tableInfo[con.code] || '') }}
         </div>
       </div>
       <table>
@@ -142,6 +142,7 @@ export default {
       info2: [
         { label: "导管名称", code: "formTitle" },
         { label: "置管时间", code: "intubationTime" },
+        { label: "置管来源", code: "catheterSource" },
       ],
     };
   },

@@ -10,7 +10,7 @@
                 <div class="catch-info">
                     <div class="set-cathter">
                         <div>置管时间：{{tableInfo.intubationTime}}</div>
-                        <div>置管天数：第{{intubationDays}}天</div>
+                        <div>置管天数：<span v-if="intubationDays"> 第{{intubationDays}}天</span></div>
                         <div :style="{width:'140px'}">置管来源：{{tableInfo.catheterSource}}</div>
                     </div>
                     <div class="up-cathter">

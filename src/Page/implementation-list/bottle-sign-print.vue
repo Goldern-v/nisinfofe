@@ -11,7 +11,7 @@
             placeholder="选择入院起始时间"
             size="small"
             v-model="startDate"
-            :style="HOSPITAL_ID == 'ytll' ? 'width:170px' : 'width:160px'"
+            style="width:170px"
           ></el-date-picker>
           <span class="label">执行结束时间</span>
           <el-date-picker
@@ -20,7 +20,7 @@
             placeholder="选择终止时间"
             size="small"
             v-model="endDate"
-            :style="HOSPITAL_ID == 'ytll' ? 'width:170px' : 'width:160px'"
+            style="width:170px"
           ></el-date-picker>
           <span class="label">医嘱类型:</span>
           <el-select

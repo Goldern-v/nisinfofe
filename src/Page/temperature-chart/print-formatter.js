@@ -17,10 +17,11 @@ export default function(win) {
     return row.innerText.trim() !== "";
   });
   let page, row, newTbody, box;
-
+  const isHorizontal = process.env.HOSPITAL_ID === 'nanfangzhongxiyi';
+  const limitHeight = isHorizontal ? 780 : 950;
   while ((row = patients.shift())) {
     const h = row.offsetHeight;
-    if (!page || page.offsetHeight + h > 950) {
+    if (!page || page.offsetHeight + h > limitHeight) {
       let newWrap = wrap.cloneNode(true);
       let newTable = newWrap.children[0];
       newTbody = newTable.children[1];
