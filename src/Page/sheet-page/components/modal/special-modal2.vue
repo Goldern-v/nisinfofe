@@ -1020,7 +1020,7 @@
       @handleOk="handleDiagnosis"
     />
     <advice-modal
-      v-if="['lyxrm', 'whhk', 'stmz', 'nfyksdyy'].includes(HOSPITAL_ID)"
+      v-if="['lyxrm', 'whhk', 'stmz', 'nfyksdyy','zjhj'].includes(HOSPITAL_ID)"
       ref="adviceModalRef"
       @handleOk="handleDiagnosis"
     />
@@ -1598,6 +1598,7 @@ export default {
         case "lyxrm":
         case 'whhk':
         case "stmz":
+        case "zjhj":
         case "nfyksdyy":
           return this.activeTab === "3";
         default:

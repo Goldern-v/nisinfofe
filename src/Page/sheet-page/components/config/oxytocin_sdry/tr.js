@@ -149,6 +149,7 @@ export default [
       width: "153px",
       background: "transparent"
     },
+    textarea: { width: 153 },
     event: function (e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;

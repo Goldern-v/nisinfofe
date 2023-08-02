@@ -95,6 +95,7 @@
         </ElTabPane>
       </ElTabs>
     </div>
+    <ElButton slot="button" @click="tbYesterday" v-if="['nfyksdyy'].includes(this.HOSPITAL_ID)">同步昨日交班</ElButton>
     <ElButton slot="button" @click="onClose">取消</ElButton>
     <ElButton slot="button" type="primary" @click="onConfirm">保存</ElButton>
     <template v-if="showAPN">
@@ -200,6 +201,25 @@
       }
     },
     methods: {
+      tbYesterday(){
+        function xie(doc,str) {
+          if (doc) {
+            doc += "\n" + str;
+          } else {
+            doc = str;
+          }
+          return doc
+        }
+        let { patientId,visitId } = this.form , id = this.$route.params.id;
+        apis.getPreviousPatient({patientId,visitId,id}).then(res=>{
+          let arr = ["proposal","assessmentSituation","background","mainComplaint","diagnosis"];
+          let {data:{data}}= res
+          arr.forEach(code=>{
+            let str = data[code] || ""
+            this.form[code] = xie(this.form[code],str)
+          })
+        })
+      },
       setString(value) {
         value = value || '';
         const tabMap = {
