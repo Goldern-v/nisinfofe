@@ -57,6 +57,7 @@ import topPartSdlj from "@/Page/patientInfo/supComponts/topPart_Sdlj.vue";//顺�
 import topPartQhwy from "@/Page/patientInfo/supComponts/topPart_Qhwy.vue";//青海五院
 import topPartWhhk from "@/Page/patientInfo/supComponts/topPart_Whhk.vue";
 import topPartZhzxy from "@/Page/patientInfo/supComponts/topPart_Zhzxy.vue"; // 珠海中西医
+import topPartNfyksdyy from "@/Page/patientInfo/supComponts/topPart_Nfyksdyy.vue"; // 珠海中西医
 import leftPart from "@/Page/patientInfo/supComponts/leftPart";
 import leftPartHengli from "@/Page/patientInfo/supComponts/leftPart_Hengli";
 import leftPartFuyou from "@/Page/patientInfo/supComponts/leftPart_Fuyou";
@@ -169,6 +170,7 @@ export default {
         青海省第五人民医院:'topPartQhwy',
         中国人民解放军联勤保障部队第九二五医院: 'topPartGuiZhou',
         珠海市中西医结合医院: 'topPartZhzxy',
+        南方医科大学顺德医院: 'topPartNfyksdyy',
 
       };
       return hisList[HisName] || "topPart";
@@ -220,7 +222,8 @@ export default {
     topPartSdlj,
     topPartWhhk,
     topPartQhwy,
-    topPartZhzxy
+    topPartZhzxy,
+    topPartNfyksdyy
   },
 };
 </script>

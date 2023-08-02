@@ -254,6 +254,10 @@ export default {
           // this.formObj.modal[this.callbackInfo.id] = data.master.id
           this.formObj.model[this.callbackInfo.code] = (this.callbackInfo.openKeyName ? this.selectedValue + ',' : '') + resVal
         }
+      }else if(!data.master.evalScore && this.callbackInfo.noEvalScoreSuffix){
+        //没分数的情况下 拿默认尾部字符串
+        let resVal = this.callbackInfo.prefix + this.callbackInfo.noEvalScoreSuffix
+        this.formObj.model[this.callbackInfo.code] = (this.callbackInfo.openKeyName ? this.selectedValue + ',' : '') + resVal
       }
       if (this.callbackInfo.defaultName) {
         this.formObj.model[this.callbackInfo.code] = this.callbackInfo.prefix

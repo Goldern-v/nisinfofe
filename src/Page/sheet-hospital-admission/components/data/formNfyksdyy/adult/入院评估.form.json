@@ -5582,6 +5582,7 @@
                     "needScore": true,
                     "code": "S2332157",
                     "prefix": "营养风险筛查单",
+                    "noEvalScoreSuffix":"，无风险",
                     "suffix":[
                       {
                         "max": 2,
