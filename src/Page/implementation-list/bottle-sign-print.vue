@@ -369,7 +369,7 @@ export default {
       page: {
         pageIndex: 1,
         // pageNum: 20,
-        pageNum:[ "lyxrm","whsl"].includes(this.HOSPITAL_ID) ? 100 : 40,
+        pageNum:[ "lyxrm","whsl", 'qhwy'].includes(this.HOSPITAL_ID) ? 100 : 40,
         total: 0,
       },
       // startDate: moment().format("YYYY-MM-DD"),
