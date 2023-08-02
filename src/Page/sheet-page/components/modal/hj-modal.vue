@@ -274,7 +274,7 @@ export default {
   },
   computed: {
     isPost(){
-      return JSON.parse(localStorage.user).deptCode != this.sheetInfo.selectBlock.deptCode
+      return ['whsl'].includes(this.HOSPITAL_ID) && JSON.parse(localStorage.user).deptCode != this.sheetInfo.selectBlock.deptCode
     }
   },
   components: {
