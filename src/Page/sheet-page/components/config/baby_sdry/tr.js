@@ -70,13 +70,16 @@ export default [
   { key: 'bloodSugar', event: keyf1, value: 'mmol/L', next: '', name: '血糖', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oncogenesis', event: keyf1, value: '', next: '', name: '产瘤',
   "style":{"minWidth":"50px","maxWidth":"50px"},
-    click: (e, td) => click_double1(e, td, ["无", "消退", "2X2X0.5",'']),
+    textarea: { width: 50 },
+    autoComplete: { data: ["无", "消退", "2X2X0.5" ] },
     change: (e, td) => limitChange(e, td, 8)
 },
   { key: 'hematoma', event: keyf1, value: '', next: '', name: '血肿',
     "style": { "minWidth": "50px", "maxWidth": "50px" },
     textarea: { width: 50 },
-  autoComplete: { data: ["无", "消退", "2X2X0.5", '11.5*1.5*1.5'] }
+  autoComplete: { data: ["无", "消退", "2X2X0.5" ] },
+    change: (e, td) => limitChange(e, td, 8)
+
 },
   { key: 'armValue', event: keyf1, value: '',textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6)},
   { key: 'armValue2', event: keyf1, value: '',textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6)},
