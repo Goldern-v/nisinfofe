@@ -115,6 +115,7 @@
           align="center"
           label="住院号"
           min-width="120px"
+          v-if="HOSPITAL_ID != 'foshanrenyi'"
         ></el-table-column>
         <el-table-column
           header-align="center"

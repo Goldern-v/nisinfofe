@@ -105,6 +105,15 @@ export default [
     },
   },
   {
+    key: "breath", // 呼吸
+    value: "",
+    event: keyf1,
+    name: " 呼吸",
+    // autoComplete: {
+    //   data: []
+    // },
+  },
+  {
     key: "spo2", //血氧饱和度(%)
     value: "",
     event: keyf1,
@@ -134,7 +143,16 @@ export default [
     event: keyf1,
     name: "羊水性质",
     textarea: {
-      width: 50
+      width: 44
+    }
+  },
+  {
+    key: "bladder", //膀胱充盈度
+    value: "",
+    event: keyf1,
+    name: "膀胱充盈度",
+    textarea: {
+      width: 44
     }
   },
   {
@@ -149,6 +167,7 @@ export default [
       width: "153px",
       background: "transparent"
     },
+    textarea: { width: 153 },
     event: function (e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
