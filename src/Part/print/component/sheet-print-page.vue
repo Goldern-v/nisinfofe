@@ -522,6 +522,7 @@ export default {
         `
       );
     }else if (["extracardi_three_weihai"].includes(this.query.sheetType)) {
+    // }else if (this.sheetInfo.sheetType ==  "extracardi_three_weihai") {
       addCSS(
         window,
         `
@@ -530,7 +531,7 @@ export default {
             height: ${sheetTableWidth * 0.755}px !important;
             transform: scaleX(0.99) scaleY(1.2) !important;
             transform-origin: top center !important;
-            margin-top: -40px ;
+            margin-top: -40px !important;
           }
         }
         `
