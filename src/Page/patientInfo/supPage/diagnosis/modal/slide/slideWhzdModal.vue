@@ -196,6 +196,7 @@ export default {
       this.openWHSettingModal(config);
     },
     toDelete(row) {
+      if(['QCR0004','QCR0001'].find(code=>!this.user.roleManageCodeList.includes(code))) return this.$message.warning("您没有可删除的权限")
       this.$confirm("删除后数据无法修复，确认删除？", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -221,6 +222,7 @@ export default {
       });
     },
     toEdit(row) {
+      if(['QCR0004','QCR0001'].find(code=>!this.user.roleManageCodeList.includes(code))) return this.$message.warning("您没有可编辑的权限")
       measure(row.code).then((res) => {
         if (res.data.code == "200") {
           let { factorList, measures, targetList } = res.data.data;
@@ -247,6 +249,9 @@ export default {
   },
   watch: {},
   computed: {
+    user(){
+      return JSON.parse(localStorage.getItem("user"));
+    },
     wardCode() {
       let code = localStorage.getItem("wardCode");
       return code;
