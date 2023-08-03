@@ -80,84 +80,84 @@ export default [{
   //     minWidth: 48
   //   }
   // },
-  {
-    key: "fieldOne", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList
-    },
-    style: {
-      minWidth: '35px',
-      maxWidth: '35px',
-    },
-    name: "反应"
-  },
-  {
-    key: "fieldTwo", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList2
-    },
-    style: {
-      minWidth: '25px',
-      maxWidth: '25px',
-    },
-    name: "哭声"
-  },
-  {
-    key: "fieldThree", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList3
-    },
-    style: {
-      minWidth: '25px',
-      maxWidth: '25px',
-    },
-    name: "肌张力"
-  },
-  {
-    key: "fieldFour", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList4
-    },
-    style: {
-      minWidth: '50px',
-      maxWidth: '50px',
-    },
-    name: "皮肤"
-  },
-  {
-    key: "fieldFive", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList5
-    },
-    name: "呼吸",
-    textarea: {
-      width: 45
-    },
-  },
+  // {
+  //   key: "fieldOne", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList
+  //   },
+  //   style: {
+  //     minWidth: '35px',
+  //     maxWidth: '35px',
+  //   },
+  //   name: "反应"
+  // },
+  // {
+  //   key: "fieldTwo", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList2
+  //   },
+  //   style: {
+  //     minWidth: '25px',
+  //     maxWidth: '25px',
+  //   },
+  //   name: "哭声"
+  // },
+  // {
+  //   key: "fieldThree", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList3
+  //   },
+  //   style: {
+  //     minWidth: '25px',
+  //     maxWidth: '25px',
+  //   },
+  //   name: "肌张力"
+  // },
+  // {
+  //   key: "fieldFour", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList4
+  //   },
+  //   style: {
+  //     minWidth: '50px',
+  //     maxWidth: '50px',
+  //   },
+  //   name: "皮肤"
+  // },
+  // {
+  //   key: "fieldFive", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList5
+  //   },
+  //   name: "呼吸",
+  //   textarea: {
+  //     width: 45
+  //   },
+  // },
 
-  {
-    key: "fieldSix", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList6
-    },
-    style: {
-      minWidth: '40px',
-      maxWidth: '40px',
-    },
-    name: "末梢"
-  },
+  // {
+  //   key: "fieldSix", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList6
+  //   },
+  //   style: {
+  //     minWidth: '40px',
+  //     maxWidth: '40px',
+  //   },
+  //   name: "末梢"
+  // },
   {
     key: "fieldSeven", //意识
     value: "",
@@ -332,7 +332,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      minWidth: "150px",
+      minWidth: "370px",
       background: "transparent"
     },
     event: function (e, td) {

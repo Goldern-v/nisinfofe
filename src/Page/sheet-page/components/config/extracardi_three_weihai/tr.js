@@ -294,7 +294,7 @@ export default [
     event: keyf1,
     value: "",
     name: "疼痛评估工具/评分",
-    autoComplete: { data: ["NRS/", 'CPOT量表'] },
+    autoComplete: { data: [{name: 'A,NRS', value: 'A/'},{name: 'B,CPOT量表', value: 'B'}] },
     textarea: { width: 50 },
   },
   {
