@@ -77,7 +77,13 @@
         align="center"
         stripe
         highlight-current-row
+        @selection-change="handleSelectionChange"
       >
+        <el-table-column
+          v-if="HOSPITAL_ID == 'nfyksdyy'"
+          type="selection"
+          width="55">
+        </el-table-column>
         <el-table-column
           label="序号"
           header-align="center"
@@ -259,7 +265,7 @@
                 </el-button>
               <el-button
                 type="text"
-                v-if="scope.row.uploadStatus == 2 && (scope.row.recallApplyStatus == '' || scope.row.recallApplyStatus == '0') && scope.row.canApplyAndCancel"
+                v-if="HOSPITAL_ID != 'nfyksdyy' && scope.row.uploadStatus == 2 && (scope.row.recallApplyStatus == '' || scope.row.recallApplyStatus == '0') && scope.row.canApplyAndCancel"
                 @click="applyForRecall(scope.row, scope.$index)">
                 申请召回
                 </el-button>
@@ -319,12 +325,13 @@
     <cancel-recall-modal ref="cancelRecallRef" :loading.sync="pageLoading" :item="curItem" @refresh="handleRefresh" />
     <apply-for-recall-modal ref="applyForRecallRef" :loading.sync="pageLoading" :item="curItem" @refresh="handleRefresh"/>
     <audit-modal ref="audioRef" :loading.sync="pageLoading" :item="curItem" @refresh="handleRefresh"/>
+    <BatchArchiveModal ref="BatchArchiveRef" @batchPost="handleBatchPost" />
+    <infomodal ref="infomodalRef"  />
   </div>
 </template>
 
 <script>
 var moment = require("moment"); //使用时间插件
-import Cookie from "js-cookie";
 import {
   getArchiveList,
   uploadBatch,
@@ -334,7 +341,9 @@ import {
   uploadFileArchive,
   getConfig,
   canCancelArchive,
-  getAchivePrintConfig
+  getAchivePrintConfig,
+  uploadBatchSelect,
+  genDocBatchSelect
 } from "./api/index";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
@@ -344,6 +353,8 @@ import pagination from "@/components/pagination/pagination.vue";
 import CancelRecallModal from './modal/cancel-recall-modal.vue'
 import ApplyForRecallModal from './modal/apply-for-recall-modal.vue'
 import AuditModal from './modal/audit-modal.vue'
+import BatchArchiveModal from './modal/batch-archive-modal.vue'
+import infomodal from './modal/info-1-modal.vue'
 
 export default {
   mixins: [common, mixin],
@@ -353,6 +364,8 @@ export default {
     CancelRecallModal,
     ApplyForRecallModal,
     AuditModal,
+    BatchArchiveModal,
+    infomodal
   },
   data() {
     return {
@@ -395,10 +408,16 @@ export default {
       showAutoPrint: true, // 是否开启自动归档按钮
       curItem: null, // 选中行的数据,
       curIndex: -1,
-
+      multipleSelection: []
     };
   },
   methods: {
+    handleBatchPost(from){
+
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
     close() {
       this.preview.title = ''
       this.$refs["preview-modal"].close();
@@ -411,7 +430,10 @@ export default {
     },
     // 文件归档上传
     uploadFileArchive(item) {
-      this.$confirm("是否归档?", "提示", {
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+       this.$refs.infomodalRef.open(item)
+      }else{
+        this.$confirm("是否归档?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -426,6 +448,8 @@ export default {
           this.getArchiveList();
         });
       });
+      }
+
     },
     tablesHeight() {
       try {
@@ -459,13 +483,34 @@ export default {
         patientName:"",
         inpNo:""
       }
-      uploadBatch(params).then(res=>{
-        this.$message({
-          type: "success",
-          message: "正在批量归档，请稍等"
-        });
-        this.getArchiveList()
-      })
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+        if(!this.multipleSelection.length) return this.$message({
+            type: "warning",
+            message: "目前未选择患者，请选择患者！"
+          });
+        let list = []
+        this.multipleSelection.map(item => {
+          list.push({ patientId:item.patientId,visitId:item.visitId})
+        })
+        params = {list, ...params}
+        uploadBatchSelect(params).then(res => {
+          this.$message({
+            type: "success",
+            message: "正在批量归档，请稍等"
+          });
+          this.getArchiveList()
+        })
+      }else{
+        // this.$refs.BatchArchiveRef.dialogVisible = true;
+        // this.$refs.BatchArchiveRef.title = '确认批量归档时间段';
+        uploadBatch(params).then(res=>{
+          this.$message({
+            type: "success",
+            message: "正在批量归档，请稍等"
+          });
+          this.getArchiveList()
+        })
+      }
     },
     allturnPDF(){
       let params = {
@@ -480,13 +525,35 @@ export default {
         patientName:"",
         inpNo:""
       }
-      genDocBatch(params).then(res=>{
-        this.$message({
-          type: "success",
-          message: "正在批量转pdf，请稍等"
-        });
-        this.getArchiveList()
-      })
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+        if(!this.multipleSelection.length) return this.$message({
+            type: "warning",
+            message: "目前未选择患者，请选择患者！"
+          });
+        let list = []
+        this.multipleSelection.map(item => {
+          list.push({ patientId:item.patientId,visitId:item.visitId})
+        })
+        params = {list, ...params}
+        genDocBatchSelect(params).then(res => {
+           this.$message({
+            type: "success",
+            message: "正在批量归档，请稍等"
+          });
+          this.getArchiveList()
+        })
+      }else{
+        // this.$refs.BatchArchiveRef.dialogVisible = true;
+        // this.$refs.BatchArchiveRef.title = '确认批量pdf时间段';
+        genDocBatch(params).then(res=>{
+          this.$message({
+            type: "success",
+            message: "正在批量转pdf，请稍等"
+          });
+          this.getArchiveList()
+        })
+      }
+
     },
     //科室患者归档列表
     getArchiveList() {
@@ -880,6 +947,10 @@ export default {
   >>>.el-table::after, .el-table::before {
     background: #cbd5dd;
     display: none;
+  }
+
+  >>>.el-table th {
+    text-align: center;
   }
 
   >>>.el-table__row td:first-child .cell, >>>.el-table__row td:last-child .cell {

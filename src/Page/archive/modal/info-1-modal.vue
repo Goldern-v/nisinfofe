@@ -1,42 +1,36 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="400" title="归档打印" :enable-mobile-fullscreen="false">
-      <!-- <div v-loading="iconLoading">
-        <div class="list-con">
-          <span class="key">时间：</span>
-          <span class="value">{{data.taskTime | filterTime}}</span>
+    <sweet-modal
+      ref="modal"
+      :modalWidth="400"
+      title="归档打印"
+      :enable-mobile-fullscreen="false"
+    >
+      <div class="list-con">
+        <span class="key">责任护士：</span>
+        <div class="value">
+          <el-input v-model="details.dutyNurse" placeholder="请输入名字"></el-input>
         </div>
-        <div class="list-con">
-          <span class="key">任务：</span>
-          <span class="value">{{data.task}}</span>
+      </div>
+      <div class="list-con">
+        <span class="key">质控护士：</span>
+        <div class="value">
+          <el-input v-model="details.qcNurse" placeholder="请输入名字"></el-input>
         </div>
-        <div class="list-con">
-          <span class="key">患者：</span>
-          <span class="value">{{data.bedLabel+'床 ' + data.patientName}}</span>
-        </div>
-        <div class="list-con">
-          <span class="key">来源：</span>
-          <span class="value">{{data.taskSource}}</span>
-        </div> 
-        <div flex="cross:center" class="icon-con">
-        <div class="table-name" v-for="item in (details.evalIcons &&  details.evalIcons.slice(0,6))" :key="item.formName" :title="item.description" :style="{background: item.iconTextRgb}">
-              {{item.iconText}}
-          </div>
-         </div>  
-      </div>-->
-      <p>是否归档</p>
+      </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
         <el-button class="modal-btn" @click="confirm">确定</el-button>
-        <!-- <el-button class="modal-btn" type="primary" @click="post" :loading="iconLoading">查看患者详情</el-button> -->
       </div>
     </sweet-modal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .list-con {
-  margin: 0 40px 10px;
-  font-size: 14px;
+  margin: 20px 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
 
   .key {
     color: #687179;
@@ -72,7 +66,6 @@
 import common from "@/common/mixin/common.mixin.js";
 import mixin from "../mixins/index.js";
 import { uploadFileArchive } from "../api/index.js";
-import qs from "qs";
 export default {
   mixins: [common, mixin],
   data() {
@@ -96,25 +89,19 @@ export default {
     },
     // 文件归档上传
     uploadFileArchive() {
-      uploadFileArchive(this.item.patientId, this.item.visitId).then(rep => {
-        this.$message({
-          type: "success",
-          message: "文件上传成功"
+        uploadFileArchive(
+          this.item.patientId,
+          this.item.visitId,
+          this.details.dutyNurse,
+          this.details.qcNurse
+        ).then(rep => {
+          this.$message({
+            type: "success",
+            message: "文件上传成功"
+          });
+          this.getArchiveList();
         });
-        this.getArchiveList();
-      });
     },
-    // post() {
-    //   let obj = {}
-    //   let item = this.details
-    //   for(let i in item) {
-    //     if(item[i]) {
-    //       obj[i] = item[i]
-    //     }
-    //   }
-    //   window.open(`/crNursing/home?${qs.stringify(obj)}`)
-    //   this.close()
-    // },
     confirm() {
       this.close();
       this.uploadFileArchive();
@@ -123,4 +110,3 @@ export default {
   components: {}
 };
 </script>
-
