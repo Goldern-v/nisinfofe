@@ -263,7 +263,7 @@ export default {
   },
   computed: {
     wardCode() {
-      let code = localStorage.getItem("wardCode");
+      let code = localStorage.getItem("selectDeptValue");
       return code;
     },
   },

@@ -243,15 +243,17 @@ export default {
       // if (!this.searchWord) {
       //   return;
       // }
+      let {pageIndex,pageSize,wardCode,searchWord} = this,{patientId,visitId} = this.$route.query
+      let params = {
+        patientId,
+        visitId,
+        searchWord,
+        pageIndex,
+        pageSize,
+        wardCode
+      }
       this.searchLoading = true;
-      nursingDiagsSearch(
-        this.$route.query.patientId,
-        this.$route.query.visitId,
-        this.searchWord,
-        this.pageIndex,
-        this.pageSize,
-        this.wardCode
-      ).then(res => {
+      nursingDiagsSearch(params).then(res => {
         this.searchLoading = false;
         this.totalCount = res.data.data.totalCount;
         this.list = res.data.data.list;
@@ -343,7 +345,7 @@ export default {
   },
   computed:{
     wardCode(){
-      let code = localStorage.getItem('wardCode')
+      let code = localStorage.getItem('selectDeptValue')
       return code
     },
     importHeaders(){
