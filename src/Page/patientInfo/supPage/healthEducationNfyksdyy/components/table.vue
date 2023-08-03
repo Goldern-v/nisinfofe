@@ -39,8 +39,8 @@
             <span>{{trItem['宣教内容']}}</span>
           </td>
           <!-- 教育对象 -->
-          <td v-for="o in object" :key="o + 'a'">
-            <span class="is-radio" v-if="trItem['教育对象'] === o">√</span>
+          <td v-for="(o,oin) in object" :key="o + 'a'">
+            <span class="is-radio" v-if="trItem['教育对象'].split(',')[oin] === o">√</span>
           </td>
           <!-- 教育方法 -->
           <td v-for="p in method" :key="p + 'b'">
