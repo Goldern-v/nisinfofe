@@ -1,5 +1,4 @@
 import axios from "@/api/axios";
-import qs from "qs";
 import { apiPath } from "@/api/apiConfig";
 
 // 科室患者归档列表
@@ -30,9 +29,14 @@ export function previewArchive(patientId, visitId) {
     `${apiPath}print/archive/detail/${patientId}/${visitId}`);
 }
 // 文件归档上传
-export function uploadFileArchive(patientId, visitId) {
-  return axios.get(
-    `${apiPath}print/archive/upload/${patientId}/${visitId}`);
+export function uploadFileArchive(patientId, visitId, dutyNurse, qcNurse) {
+  if(process.env.HOSPITAL_ID == 'nfyksdyy'){
+    return axios.get(
+      `${apiPath}print/archive/upload/${patientId}/${visitId}?dutyNurse=${dutyNurse}&qcNurse=${qcNurse}`,);
+  }else{
+    return axios.get(
+      `${apiPath}print/archive/upload/${patientId}/${visitId}`);
+  }
 }
 // 获取用户配置
 export function getConfig() {
@@ -71,4 +75,19 @@ export function recallCancel(params) {
  */
 export function recallAudit(params) {
   return axios.post(`${apiPath}print/archive/recallAudit`, params)
+}
+
+/**
+ * /api/print/archive/uploadBatchSelect
+ * 批量选择归档
+ */
+export function uploadBatchSelect(params) {
+  return axios.post(`${apiPath}print/archive/uploadBatchSelect`, params)
+}
+/**
+ * /api/print/archive/genDocBatchSelect
+ * 批量选择转pdf
+ */
+export function genDocBatchSelect(params) {
+  return axios.post(`${apiPath}print/archive/genDocBatchSelect`, params)
 }

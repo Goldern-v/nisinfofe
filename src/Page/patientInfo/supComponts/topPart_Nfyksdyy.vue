@@ -113,6 +113,15 @@
       >
         <div class="nav-item">护理文书</div>
       </router-link> -->
+      <router-link
+        :to="{
+          path: '/temperature',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">体温单</div>
+      </router-link>
       <div
         class="nav-item"
         @click="openNewPage('onnfyksdyyEmrWeb')"
