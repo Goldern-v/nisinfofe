@@ -86,6 +86,8 @@ export default {
     },
     close() {
       this.$refs.modal.close();
+      this.details.dutyNurse = '',
+      this.details.qcNurse = ''
     },
     // 文件归档上传
     uploadFileArchive() {
@@ -100,6 +102,8 @@ export default {
             message: "文件上传成功"
           });
           this.getArchiveList();
+          this.details.dutyNurse = '',
+          this.details.qcNurse = ''
         });
     },
     confirm() {
