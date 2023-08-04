@@ -283,6 +283,9 @@ export default {
           {
             value: '已遵医生口头医嘱执行，现补执行'
           },
+          {
+            value: '输血暂无二维码可扫'
+          },
         ]
         // 过滤所填写的项
         // let results = queryString ? restaurants.filter((restaurant) => {

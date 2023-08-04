@@ -62,7 +62,9 @@ export default [
     //   }
     //   keyf1(e, td);
     // }
-  },  {
+    textarea:{width:38}
+  },
+  {
     key: "fieldSix", //胎心
     value: "",
     event: keyf1,
