@@ -163,7 +163,7 @@
         </div>
       </div>
       <!-- 寮步样式 -->
-      <template v-if="['dglb','liaocheng'].includes(HOSPITAL_ID)">
+      <template v-if="['dglb'].includes(HOSPITAL_ID)">
       <div
         class="bed-card-warpper wrist-strap-print"
         ref="printCon3"
@@ -171,17 +171,17 @@
       >
         <div class="bed-card-vert-con">
           <div>
-            <div class="top" >
-              <span :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-20px' : ''}">科室：{{ query.deptName }}</span>
+            <div class="top">
+              <span >科室：{{ query.deptName }}</span>
             </div>
             <div>
-              <div :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-30px' : ''}">
+              <div>
                 <span>{{ query.name }}</span>
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
                 <span>{{ query.bedLabel }}床</span>
               </div>
-              <div :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-30px' : ''}">
+              <div>
                 <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
               </div>
               <div
@@ -189,7 +189,6 @@
               >
                 <p
                   :class="[allergy1 || drugGms || allergy2 ? 'gm' : '']"
-                  :style="{marginLeft: ['liaocheng'].includes(HOSPITAL_ID) ? '-20px' : ''}"
                 >
                   过敏信息：
                   <span v-if="allergy1">{{ allergy1 }};</span>
@@ -201,14 +200,59 @@
             </div>
           </div>
              <img
-               :style="{right: ['liaocheng'].includes(HOSPITAL_ID) ? '140px' : ''}"
                style="right: 50px; margin-top: -65px"
                class="qr-code"
                :class="{ hasRemark: hasRemark }"
                :src="qrCode"
               />
-            <span v-if="!isliaocheng" style="position: absolute;right: 90px;top: 87px;">{{ query.inpNo }}</span>
-            <span v-if="isliaocheng" style="position: absolute;right: 148px;top: 87px;">{{ query.patientId }}</span>
+            <span style="position: absolute;right: 90px;top: 87px;}">{{ query.inpNo }}</span>
+        </div>
+      </div>
+      </template>
+      <template v-if="['liaocheng'].includes(HOSPITAL_ID)">
+      <div
+        class="bed-card-warpper wrist-strap-print"
+        ref="printCon3"
+        v-show="printMode == 'wrist'"
+      >
+        <div class="bed-card-vert-con">
+          <div>
+            <div class="top">
+              <span style="margin-left: -20px;">科室：{{ query.deptName }}</span>
+            </div>
+            <div>
+              <div style="margin-left: -30px;">
+                <span>{{ query.name }}</span>
+                <span>{{ query.sex }}</span>
+                <span>{{ query.age }}</span>
+                <span>{{ query.bedLabel }}床</span>
+              </div>
+              <div style="margin-left: -30px;">
+                <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+              </div>
+              <div
+                class="allergy"
+              >
+                <p
+                  :class="[allergy1 || drugGms || allergy2 ? 'gm' : '']"
+                  style="margin-left: -20px;"
+                >
+                  过敏信息：
+                  <span v-if="allergy1">{{ allergy1 }};</span>
+                  <span v-if="drugGms">{{ drugGms }};</span>
+                  <span v-if="allergy2">{{ allergy2 }}</span>
+                  <span v-if="!(allergy1 || drugGms || allergy2)">无</span>
+                </p>
+              </div>
+            </div>
+          </div>
+             <img
+               style="right: 130px; margin-top: -81px"
+               class="qr-code"
+               :class="{ hasRemark: hasRemark }"
+               :src="qrCode"
+              />
+            <span style="position: absolute;right: 135px;top: 66px;}">{{ query.patientId }}</span>
         </div>
       </div>
       </template>
@@ -1068,21 +1112,6 @@ export default {
         this.allergy2 = resData.allergy2;
         this.drugGms = resData.drugGms;
         this.modalLoading = false;
-        if (
-          ["liaocheng"].includes(this.HOSPITAL_ID) &&
-          JSON.parse(localStorage.user) &&
-          JSON.parse(localStorage.user).post != "护长"
-        ) {
-          if (resData.isPrint == 1) {
-            this.$message({
-              type: "warning",
-              message: "该患者已打印手腕带"
-            });
-            return;
-          } else {
-            this.isOpen();
-          }
-        }
       });
       multiDictInfo(["床头卡饮食"]).then((res) => {
         this.ysList = res.data.data.床头卡饮食.map((item) => item.name);
@@ -1116,17 +1145,6 @@ export default {
     open(printMode = "h") {
       this.init();
       this.printMode = printMode;
-      if (
-        (["liaocheng"].includes(this.HOSPITAL_ID) &&
-          JSON.parse(localStorage.user) &&
-          JSON.parse(localStorage.user).post == "护长") ||
-          !["liaocheng"].includes(this.HOSPITAL_ID)
-      ) {
-        this.isOpen();
-      }
-    },
-    isOpen() {
-      // this.printMode = printMode;
       let qr_png_value;
       switch (this.HOSPITAL_ID) {
         case "fsxt":
@@ -1159,7 +1177,6 @@ export default {
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
       this.qrCodeNum = this.query.patientId;
-
       if (this.printMode == "wrist") {
         this.title = "成人腕带打印";
       } else if (this.printMode == "wrist-children") {

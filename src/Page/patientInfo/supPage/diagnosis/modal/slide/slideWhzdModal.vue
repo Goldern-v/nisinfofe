@@ -178,15 +178,18 @@ export default {
       this.search();
     },
     search() {
+      let {pageIndex,pageSize,wardCode,keyword,deptType} = this,{patientId,visitId} = this.$route.query
+      let params = {
+        patientId,
+        visitId,
+        keyword,
+        pageIndex,
+        pageSize,
+        wardCode,
+        deptType
+      }
       this.searchLoading = true;
-      nursingDiagsSearch(
-        this.$route.query.patientId,
-        this.$route.query.visitId,
-        this.keyword,
-        this.pageIndex,
-        this.pageSize,
-        this.wardCode
-      ).then((res) => {
+      nursingDiagsSearch(params).then((res) => {
         this.searchLoading = false;
         this.totalCount = res.data.data.totalCount;
         this.list = res.data.data.list;
@@ -253,7 +256,7 @@ export default {
       return JSON.parse(localStorage.getItem("user"));
     },
     wardCode() {
-      let code = localStorage.getItem("wardCode");
+      let code = localStorage.getItem("selectDeptValue");
       return code;
     },
     tablelist() {

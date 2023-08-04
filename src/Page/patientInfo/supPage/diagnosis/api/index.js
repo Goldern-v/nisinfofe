@@ -4,24 +4,10 @@ import { model } from "../diagnosisViewModel";
 import qs from "qs";
 
 //获取评估列表信息
-export function nursingDiagsSearch(
-  patientId,
-  visitId,
-  keyword,
-  pageIndex,
-  pageSize,
-  wardCode
-) {
+export function nursingDiagsSearch(obj) {
   return axios.post(
     `${apiPath}nursingDiags/search`,
-    qs.stringify({
-      patientId,
-      visitId,
-      keyword,
-      pageIndex,
-      wardCode,
-      pageSize
-    })
+    qs.stringify(obj)
   );
 }
 
