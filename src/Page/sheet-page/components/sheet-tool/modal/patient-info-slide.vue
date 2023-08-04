@@ -189,8 +189,24 @@ export default {
     return {
       bus: bus(this),
       show: false,
-      extraList:(()=>{
-        switch(process.env.HOSPITAL_ID) {
+    };
+  },
+  computed: {
+     ...mapState({
+      patient: (state) => state.patient.currentPatient
+    }),
+    empNo() {
+      try {
+        return JSON.parse(localStorage.user).empNo;
+      } catch (error) { }
+    },
+    empName() {
+      try {
+        return JSON.parse(localStorage.user).empName;
+      } catch (error) { }
+    },
+    extraList() {
+      switch(this.HOSPITAL_ID) {
         case 'lyxrm':
         case "stmz":
           return [
@@ -223,22 +239,6 @@ export default {
         default:
           return []
       }
-      })()
-    };
-  },
-  computed: {
-     ...mapState({
-      patient: (state) => state.patient.currentPatient
-    }),
-    empNo() {
-      try {
-        return JSON.parse(localStorage.user).empNo;
-      } catch (error) { }
-    },
-    empName() {
-      try {
-        return JSON.parse(localStorage.user).empName;
-      } catch (error) { }
     },
   },
   methods: {
@@ -280,7 +280,7 @@ export default {
     },
     patientRecord() {
       const { inpNo ='' } = this.$route.query
-      return `http://192.168.8.174:8090/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&pcid=${inpNo}`;
+      return `http://192.168.8.174:8000/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&ids=${inpNo}`;
     },
   },
   mounted() {},
