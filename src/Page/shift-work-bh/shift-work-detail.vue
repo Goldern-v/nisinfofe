@@ -340,7 +340,7 @@
     <SignModal ref="signModal" />
     <!-- 系统层级乱套了，无奈，只能放到这里，勿喷 -->
     <SyncRecord ref="syncRecordRef" @on-select="onRecordSelect" />
-    <patientInfo v-if="['nfyksdyy'].includes(HOSPITAL_ID)"></patientInfo>
+    <!-- <patientInfo v-if="['nfyksdyy'].includes(HOSPITAL_ID)"></patientInfo> -->
   </div>
 </template>
 
