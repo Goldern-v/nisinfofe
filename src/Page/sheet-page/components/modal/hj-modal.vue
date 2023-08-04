@@ -208,7 +208,7 @@ export default {
         let recordCode = sheetInfo.sheetType;
         //默认0统计出量和入量；1只统计出量；2只统计入量
         let type=0
-        if(this.sheetInfo.sheetType=='operating_fk'||this.HOSPITAL_ID==="925"){
+        if(this.sheetInfo.sheetType=='operating_fk'|| ['925', 'whsl'].includes(this.HOSPITAL_ID)){
            type=1
         }
         outputSum(
@@ -249,7 +249,7 @@ export default {
       }
       //默认0统计出量和入量；1只统计出量；2只统计入量
       let type=0
-      if(this.sheetInfo.sheetType=='operating_fk'||this.HOSPITAL_ID==="925"){
+      if(this.sheetInfo.sheetType=='operating_fk'|| ['925', 'whsl'].includes(this.HOSPITAL_ID)){
           type=1
       }
       putGroupCount(
