@@ -1248,7 +1248,7 @@ export default {
     // 失去焦点数据
     async onBlur(e, row){
        if(row == 'temperature' && e.target.value !== ''&&(isNaN(e.target.value)||e.target.value<35||e.target.value>42)){
-          confirmRes = await this.$confirm(
+          this.$confirm(
             " 体温的填写范围是35～42，您的填写超出录入范围,请重新填写",
             "错误",
             {
@@ -1262,7 +1262,7 @@ export default {
 
         }
         if((row == 'pulse' || row == 'heartRate')&& e.target.value !== ''&&(isNaN(e.target.value)||e.target.value<30||e.target.value>300)){
-          confirmRes = await this.$confirm(
+          this.$confirm(
             e.target.name+ "的填写范围是30～300，您的填写超出录入范围,是否确定填写?",
             "提示",
             {
@@ -1275,7 +1275,7 @@ export default {
           });
         }
         if((row === 'breath')&&e.target.value !== ''&&(isNaN(e.target.value)||e.target.value<0||e.target.value>100)){
-          confirmRes = await this.$confirm(
+          this.$confirm(
             e.target.name+ "的填写范围是0～100，您的填写超出录入范围,是否确定填写?",
             "提示",
             {
@@ -1289,7 +1289,7 @@ export default {
         }
         if((row === 'bloodPressure')&&e.target.value !== ''&&(isNaN(e.target.value.split('/')[0])||!e.target.value.split('/')[1]
         ||(e.target.value.split('/')[0]>250||e.target.value.split('/')[0]<50)||e.target.value.split('/')[1]>200||e.target.value.split('/')[1]<0)){
-          confirmRes = await this.$confirm(
+          this.$confirm(
             e.target.name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",
             "提示",
             {
@@ -1300,7 +1300,6 @@ export default {
           ).catch(() => {
             e.target.value ='';
           });
-
         }
     },
     //行样式

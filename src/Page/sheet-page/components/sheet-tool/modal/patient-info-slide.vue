@@ -280,7 +280,7 @@ export default {
     },
     patientRecord() {
       const { inpNo ='' } = this.$route.query
-      return `http://192.168.8.174:8090/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&pcid=${inpNo}`;
+      return `http://192.168.8.174:8000/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&ids=${inpNo}`;
     },
   },
   mounted() {},

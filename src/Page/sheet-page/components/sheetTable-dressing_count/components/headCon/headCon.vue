@@ -517,7 +517,7 @@ export default {
           });
         }
         this.bus.$emit("saveSheetPage", true);
-      }, title);
+      }, title,false,null,'',{});
     },
     sign3() {
       if (this.sheetInfo.selectBlock.relSignInfo == undefined) {
@@ -554,7 +554,7 @@ export default {
             );
           });
         }
-      }, title);
+      }, title, false,null,'',{},);
       this.bus.$emit("saveSheetPage", true);
     },
     sign4() {
@@ -593,7 +593,7 @@ export default {
           });
         }
         this.bus.$emit("saveSheetPage", true);
-      }, title);
+      }, title,false,null,'',{});
     }
   },
   mounted() {
