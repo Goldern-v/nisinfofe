@@ -303,6 +303,9 @@ export default {
                     #sheetPagePrint .iframe > div:nth-of-type(n) .sheet-table td[datakey="description"] textarea{
                       letter-spacing: -1.21px;
                     }
+                    #sheetPagePrint .iframe .sign-img img{
+                      height: 20px;
+                    }
                     @media print {
                       .iframe > div:nth-of-type(n) {
                         height: ${sheetTableWidth * 0.75}px !important;
