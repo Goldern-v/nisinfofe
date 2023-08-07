@@ -1,13 +1,13 @@
 <template>
   <div class="health-education">
-    <div class="health-education-list" v-if="$route.path !== '/formPage'">
+    <div class="health-education-list" v-if="['formPage', 'record'].includes($route.path)">
       <div class="treeTitle">健康教育单</div>
       <baseTree :configList="configList" class="baseTree"></baseTree>
     </div>
     <div
       class="health-education-table"
       :style="
-        $route.path == '/formPage'
+        !['formPage', 'record'].includes($route.path)
           ? 'width:100%;margin:0;'
           : ''
       "
