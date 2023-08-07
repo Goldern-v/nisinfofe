@@ -245,6 +245,7 @@ export default {
      * 获取自定义标题模板列表
      */
     async getTemplateList() {
+      this.templateClassify = []
       try {
         const res = await titleTemplateList({
           wardCode: this.deptCode
