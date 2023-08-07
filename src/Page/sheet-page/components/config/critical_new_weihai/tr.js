@@ -174,7 +174,7 @@ export default [{
     value: "",
     event: keyf1,
     name: "出量-颜色性状",
-    autoComplete: { data: ["I","II","III"] },
+    autoComplete: { data: ["Ⅰ","Ⅱ","Ⅲ"] },
   },
   // {
   //   key: "rassScore", //标题1
