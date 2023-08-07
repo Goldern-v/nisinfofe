@@ -85,7 +85,7 @@ export default {
         南方医科大学顺德医院: 'nfyksdyyHeader',
         中国人民解放军联勤保障部队第九二五医院: 'JiuerWuHeader',
         东莞市寮步医院: 'dglbHeader',
-        湛江海军医院: 'ZhanJiangHaiJunHeader'
+        中国人民解放军南部战区海军第一医院: 'ZhanJiangHaiJunHeader'
       };
       return hisList[HisName] || "HLheader";
     },
