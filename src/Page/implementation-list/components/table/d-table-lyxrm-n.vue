@@ -477,6 +477,8 @@ export default {
       // 时间选择权限：护长
       isTimeSelect: this.HOSPITAL_ID === 'beihairenyi' && this.isRoleManage,
       typeReason: "", //补执行的原因填写
+      tableScrollTop: 0,
+      timer: null
     };
   },
   filters: {
@@ -549,6 +551,10 @@ export default {
     // 是否输液
     isInfusion() {
       return this.currentType.includes('输液') || this.currentType.includes('全部')
+    },
+    // 补执行或备注信息操作完需要定位到操作前位置
+    fixedToScrollTop() {
+      return ['lyxrm'].includes(this.HOSPITAL_ID);
     }
   },
   watch: {
@@ -558,7 +564,15 @@ export default {
           this.$refs.uTable.doLayout();
         })
       }
-    }
+    },
+    tableData() {
+      if (this.tableScrollTop && this.fixedToScrollTop) {
+        this.timer = setTimeout(() => {
+          this.$refs.uTable.$refs.singleTable.$refs.bodyWrapper.scrollTop = this.tableScrollTop;
+          this.tableScrollTop = 0;
+        }, 1000)
+      }
+    },
   },
   components: {
     editModal,
@@ -637,6 +651,9 @@ export default {
           fn(data).then((res) => {
             this.$message.success("补录成功");
             this.bus.$emit("loadImplementationList");
+            if (this.$refs.uTable.$refs.singleTable.$refs.bodyWrapper) {
+              this.tableScrollTop = this.$refs.uTable.$refs.singleTable.$refs.bodyWrapper.scrollTop;
+            }
           });
         })
         .catch(() => {});
@@ -686,6 +703,9 @@ export default {
           addRecord(data).then((res) => {
             this.$message.success(res.data.desc);
             this.bus.$emit("loadImplementationList");
+            if (this.$refs.uTable.$refs.singleTable.$refs.bodyWrapper) {
+              this.tableScrollTop = this.$refs.uTable.$refs.singleTable.$refs.bodyWrapper.scrollTop;
+            }
           });
         })
         .catch((err) => {});
@@ -696,6 +716,9 @@ export default {
       ? // && JSON.parse(localStorage.user).post == "护长"
         true
       : false;
+  },
+  beforeDestroy() {
+    clearTimeout(this.timer);
   }
 }
 </script>
