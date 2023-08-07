@@ -240,6 +240,10 @@ export default {
           return []
       }
     },
+    query() {
+      let query = this.$route.query;
+      return query;
+    }
   },
   methods: {
     skip360() {
@@ -250,6 +254,15 @@ export default {
     },
     open() {
       this.show = true;
+      this.$nextTick(this.openLastModal);
+    },
+    openLastModal() {
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        const lastOpenModal = this.$store.state.patient.slideModal;
+        if (lastOpenModal) {
+          this.$refs[lastOpenModal].open();
+        }
+      }
     },
     close() {
       this.show = false;
@@ -260,6 +273,7 @@ export default {
     },
     openModal(name,feature, data = null) {
       this.$refs[name].open(feature, data);
+      this.$store.commit('setSlideModal', name);
     },
     url360() {
       const { patientId = '' } = this.$route.query
@@ -284,19 +298,26 @@ export default {
     },
   },
   mounted() {},
-  watch: {},
+  watch: {
+    query: {
+      deep: true,
+      handler() {
+        this.$store.commit('setSlideModal', '');
+      }
+    },
+    patient: {
+      deep: true,
+      handler() {
+        this.$store.commit('setSlideModal', '');
+      }
+    }
+  },
   components: {
     inspectModal,
     testModal,
     adviceModal,
     doctorEmrModal,
     iframeModal,
-  },
-  computed: {
-    query() {
-      let query = this.$route.query;
-      return query;
-    }
   },
 };
 </script>

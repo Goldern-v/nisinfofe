@@ -136,13 +136,13 @@ export default {
           }
 				},
         {
-					key: 'fallDown',
+					key: 'evalScore',
 					title: '跌倒评分',
           align: 'center',
 					minWidth: 100,
 				},
         {
-					key: 'evalDesc',
+					key: 'riskGrade',
 					title: '风险等级',
           align: 'center',
 					minWidth: 100,

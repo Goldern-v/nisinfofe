@@ -119,6 +119,7 @@ import bloodSugarNfyksdyy from "@/Page/patientInfo/supPage/blood-sugar/blood-sug
 import bloodSugarGdtj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_gdtj"; // 广东同江
 import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_foshanrenyi"; // 佛山市一
 import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; //血糖
+import bloodSugarZjhj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_zjhj.vue"; //血糖
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj.vue"; //血糖
 import bloodOxygen from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
@@ -190,6 +191,8 @@ export default {
           return bloodSugarBhry;
         case "fsxt":
           return bloodSugarFsxt;
+        case "zjhj":
+          return bloodSugarZjhj;
         case "zhzxy":
           return bloodSugarZhzxy;
           case "nfyksdyy":
@@ -288,6 +291,7 @@ export default {
     bloodSugar,
     bloodSugarBhry,
     bloodSugarFsxt,
+    bloodSugarZjhj,
     bloodSugarGdtj,
     bloodSugarFoShanRenYi,
     bloodSugarSdlj,

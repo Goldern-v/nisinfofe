@@ -114,7 +114,7 @@
     <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
     <!-- 电子病例弹窗 -->
-    <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt','dglb','nfyksdyy'].includes(HOSPITAL_ID)" />
+    <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt','dglb','nfyksdyy','whsl'].includes(HOSPITAL_ID)" />
     <changeMajorRadio
       v-if="HOSPITAL_ID != 'nfyksdyy'"
       :dialogTableVisibleTrue="dialogDeptNameVisible"

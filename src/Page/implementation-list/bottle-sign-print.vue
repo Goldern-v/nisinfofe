@@ -146,9 +146,12 @@
               size="small"
               style="width: 80px"
             >
-              <el-option label="全部" :value="''"></el-option>
-              <el-option label="是" :value="1"></el-option>
-              <el-option label="否" :value="0"></el-option>
+              <el-option
+                v-for="item in staticOptions"
+                :key="item.name"
+                :label="item.name"
+                :value="item.value"
+              ></el-option>
             </el-select>
           </span>
           <span class="label" v-if="hasNewPrintHos || hasSilentPrintHos"
@@ -410,7 +413,7 @@ export default {
         executeDate: moment().format("YYYY-MM-DD"), //执行日期
         bedLabel: "", //床位号，如果查全部传*"
         bedLabelEnd: "",
-        staticMatchingFlag: ['qhwy'].includes(this.HOSPITAL_ID) ? 0 : '', // 静配标识
+        staticMatchingFlag: ['qhwy'].includes(this.HOSPITAL_ID) ? 1 : '', // 静配标识
         repeatIndicator: ["whfk"].includes(this.HOSPITAL_ID) ? 0 : 9,
         //医嘱类型，长期传1，临时传0，全部传9
         reprintFlag: ["lyxrm", "whhk", "zhzxy", "925", 'stmz','qhwy'].includes(this.HOSPITAL_ID)? 9 : 0, //是否重打，1=是，0=否
@@ -452,6 +455,20 @@ export default {
       // 静默打印
       // hasSilentPrintHos: false,
       hasSilentPrintHos: ["whsl"].includes(this.HOSPITAL_ID),
+      staticOptions: hisMatch({
+        map: {
+          whsl: [
+            { name: '全部', value: '' },
+            { name: '是', value: 1 },
+            { name: '否', value: 0 },
+          ],
+          qhwy: [
+            { name: '全部', value: '' },
+            { name: '是', value: 0 },
+            { name: '否', value: 1 },
+          ]
+        }
+      }),
       typeOptions: hisMatch({
         map: {
           whfk: [

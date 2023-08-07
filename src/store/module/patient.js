@@ -2,6 +2,7 @@ export default {
   state: {
     currentPatient: {},
     patientList: [],
+    slideModal: '',
   },
   mutations: {
     upCurrentPatientObj(state, value) {
@@ -9,6 +10,9 @@ export default {
     },
     upPatientListObj(state, value) {
       state.patientList = JSON.parse(JSON.stringify(value))
+    },
+    setSlideModal(state, value) {
+      state.slideModal = value;
     }
   },
   getters: {
