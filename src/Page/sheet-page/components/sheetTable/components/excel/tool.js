@@ -170,15 +170,28 @@ function onFocusToAutoComplete(e, bind, cb) {
         }
 
         if (data) {
-          let preText = ""
-          if (typeof (splice) == 'string') {
-            preText = td.value ? (td.value + splice) : ''
-          } else {
-            preText = td.value ? (td.value + ',') : ''
+          // let preText = ""
+          if(typeof (splice) == 'string'){
+            let index = td.value.split(splice).findIndex(val=>val===data)
+            if(index<0){
+              td.value = td.value + splice + data
+            }else{
+              let arr = td.value.split(splice)
+              arr.splice(index,1)
+              td.value = arr.join(splice)
+            }
+          }else{
+            td.value = data
           }
-          if(typeof (splice)==='string' && !splice){
-            td.value = preText + data
-          }else td.value = (splice ? preText : '') + data
+
+          // if (typeof (splice) == 'string') {
+          //   preText = td.value ? (td.value + splice) : ''
+          // } else {
+          //   preText = td.value ? (td.value + ',') : ''
+          // }
+          // if(typeof (splice)==='string' && !splice){
+          //   td.value = preText + data
+          // }else td.value = (splice ? preText : '') + data} 
         }
         ;
       },

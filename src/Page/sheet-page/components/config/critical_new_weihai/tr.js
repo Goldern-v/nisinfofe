@@ -1,4 +1,4 @@
-import { multiDictInfo } from "../../../api/index";
+import { getDictItemValueList, multiDictInfo } from "../../../api/index";
 import info from "../sheetInfo";
 import {
   keyf1,
@@ -10,7 +10,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let ysList = [],ruList = [];
+let ysList = [],ruList = [], chuList;
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -159,7 +159,10 @@ export default [{
     key: "discharge", //出量-名称
     value: "",
     event: keyf1,
-    name: "出量名称"
+    name: "出量名称",
+    autoComplete: {
+      data: chuList
+    },
   },
   {
     key: "dischargeSize", //出量-ml
@@ -289,11 +292,23 @@ export default [{
   }
 ];
 export function getListData() {
-  let list = ["意识",`${info.sheetType}入量名称`];
+  let list = ["意识"];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(ysList, "意识", data);
-    setList(ruList, `${info.sheetType}入量名称`, data);
+  });
+  let list2 = [
+    "record:critical_new_weihai:入量名称",
+    "record:critical_new_weihai:出量名称",
+  ];
+  const deptCode = localStorage.getItem("selectDeptValue");
+  const promiseList = [];
+  for (let i = 0; i < list2.length; i++) {
+    promiseList.push(getDictItemValueList(list2[i], deptCode));
+  }
+  Promise.all(promiseList).then(([r1, r2]) => {
+    setList(ruList, r1.data.data);
+    setList(chuList, r2.data.data);
   });
 }
 

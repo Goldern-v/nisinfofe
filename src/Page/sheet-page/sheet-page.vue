@@ -762,8 +762,18 @@ export default {
             warmtlt : "请确认记录单已保存，如未保存离开将会丢失数据",
             buttonList : [
               {label:"取消",fun:()=>{this.$refs.confirmModal.close()}},
-              {label:"离开",fun:()=>{this.$refs.confirmModal.close(),this.$refs.confirmModal.close(),next()}},
-              {label:"保存并离开",type:"primary",fun:()=>{this.bus.$emit('saveSheetPage', 'noSaveSign'),this.$refs.confirmModal.close(),next()}}
+              {label:"离开",fun:()=>{
+                this.bus.$emit("clearClickRow")
+                this.$refs.confirmModal.close(),
+                this.$refs.confirmModal.close(),
+                next()
+              }},
+              {label:"保存并离开",type:"primary",fun:()=>{
+                this.bus.$emit("clearClickRow")
+                this.bus.$emit('saveSheetPage', 'noSaveSign')
+                this.$refs.confirmModal.close(),
+                next()
+              }}
             ]
           }
           this.$refs.confirmModal.open(config)
@@ -775,11 +785,13 @@ export default {
             type: "warning",
           })
           .then((res) => {
+            this.bus.$emit("clearClickRow")
             // this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
             next();
           });
         }
       } else {
+        this.bus.$emit("clearClickRow")
         next();
       }
     },
