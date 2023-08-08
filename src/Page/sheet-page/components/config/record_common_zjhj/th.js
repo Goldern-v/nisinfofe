@@ -42,8 +42,8 @@ export default {
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"fieldFive","style":{"minWidth":"30px","maxWidth":"30px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"fieldSix","style":{"minWidth":"30px","maxWidth":"30px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"180px","maxWidth":"180px"}},
-                {"name":"签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
-                // {"name":"带教<br/>护士","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"记录人<br/>签  名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"质控人<br/>签  名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
             ]
         ,
         mid:
