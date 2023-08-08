@@ -188,12 +188,11 @@ export default {
       } else if (this.hasClassify) {
         let list = [];
         for (const classify of this.templateClassify) {
-          list = classify.reduce((arr, item) => {
+          classify.map((item) => {
             if (item.title.includes(queryString)) {
-              arr.push({ value: item.title, id: item.id, list: item.list || [] });
+              list.push({ value: item.title, id: item.id, list: item.list || [] })
             }
-            return arr;
-          }, []);
+          })
         }
         cb(list);
       } else if (this.cellObj && this.cellObj.titleList) {
@@ -246,6 +245,7 @@ export default {
      * 获取自定义标题模板列表
      */
     async getTemplateList() {
+      this.templateClassify = []
       try {
         const res = await titleTemplateList({
           wardCode: this.deptCode

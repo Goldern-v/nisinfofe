@@ -105,7 +105,7 @@
                 <span v-else>{{scope.row.signerName}}</span>
               </template>
             </el-table-column>
-            
+
             <el-table-column
                 prop="address"
                 align="center"
@@ -353,6 +353,7 @@ export default {
           this.isDel = true
       },
       extubation(extubationTime){
+        extubationTime = extubationTime ? moment(extubationTime).format('YYYY-MM-DD HH:mm') : extubationTime;
           extubationApi({...this.tableInfo,extubationTime},this.tableInfo.code).then(res=>{
               this.$message.success('操作成功')
               let config = res.data.data

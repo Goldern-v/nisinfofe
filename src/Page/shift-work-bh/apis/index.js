@@ -6,6 +6,13 @@ import qs from "qs";
 export function listDepartment(parentCode) {
   return axios.get(`${apiPath}wardDaily/getDeptWithWardcode/${parentCode}`);
 }
+
+export function getPreviousPatient({id,patientId,visitId}) {
+  return axios.get(
+    `${apiPath}changeShiftBHMaster/getPreviousPatient/${id}/${patientId}/${visitId}`
+  );
+}
+
 export function shiftgetPatient(id,patientId,visitId) {
   return axios.get(
     `${apiPath}changeShiftMaster/getPatient/${id}/${patientId}/${visitId}`

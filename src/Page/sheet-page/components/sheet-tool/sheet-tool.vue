@@ -1709,8 +1709,9 @@ export default {
               );
             });
           }
+          const whichBlock = this.HOSPITAL_ID === 'whhk' ? 0 : this.sheetBlockList.length - 1;
           //选择接口最后一个护记
-          this.sheetInfo.selectBlock =this.sheetBlockList[this.sheetBlockList.length - 1] || {};
+          this.sheetInfo.selectBlock =this.sheetBlockList[whichBlock] || {};
           // 护记嵌套在评估单模块
           const isInFormPage = ['/formPage', '/record'].includes(this.$route.path);
           if (isInFormPage && this.sheetBlockList.length ) {

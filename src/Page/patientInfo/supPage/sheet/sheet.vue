@@ -90,6 +90,17 @@
     <doctorEmr
       v-if="['foshanrenyi','huadu','zhzxy','dglb','nfyksdyy'].includes(HOSPITAL_ID) && !$route.path.includes('temperature')"
     />
+    <changeMajorCheckbox
+      ref="changeMajorCheckbox"
+      :majorData="{
+        patientId:  patientInfo.patientId,
+        visitId: patientInfo.visitId,
+        id: sheetInfo.selectBlock.id
+      }"
+      @TableVisible="(val) => dialogDeptNameVisible = val"
+      @savedata="(val) => {val &&  getSheetData()}"
+    ></changeMajorCheckbox>
+    <confirm-modal ref="confirmModal"></confirm-modal>
   </div>
 </template>
 
@@ -273,6 +284,7 @@ import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue
 import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
 import evalModel from "@/Page/sheet-page/components/modal/eval-model/eval-model.vue";
+import confirmModal from "@/components/confirm/index.vue";
 import evalModelPaging from "@/Page/sheet-page/components/modal/eval-model/eval-model-paging.vue"
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
@@ -281,6 +293,7 @@ import { patients } from "@/api/lesion";
 import syncExamTestModal from "@/Page/sheet-page/components/modal/sync-exam-test-modal.vue";
 import {GetUserList,verifyNewCaSign} from '../../../../api/caCardApi'//护记CA签名的方法
 import SheetTags from '@/Page/sheet-page/components/sheet-tags/index.vue';
+import changeMajorCheckbox from '@/Page/sheet-page/components/modal/changeMajorCheckbox.vue'
 export default {
   mixins: [common],
   props: {
@@ -624,16 +637,35 @@ export default {
         !this.sheetInfo.isSave&&
         this.sheetInfo.selectBlock.id
       ) {
-        window.app
-          .$confirm("请确认记录单已保存，如未保存离开将会丢失数据", "提示", {
-            confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(res => {
-             this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
-            next();
-          });
+        if(this.HOSPITAL_ID == 'nfyksdyy'){
+          let config = {
+            warmtlt : "请确认记录单已保存，如未保存离开将会丢失数据",
+            buttonList : [
+              {label:"取消",fun:()=>{this.$refs.confirmModal.close()}},
+              {label:"离开",fun:()=>{
+                this.$refs.confirmModal.close(),
+                next()
+              }},
+              {label:"保存并离开",type:"primary",fun:()=>{
+                this.bus.$emit('saveSheetPage', 'noSaveSign'),
+                this.$refs.confirmModal.close(),
+                next()
+              }}
+            ]
+          }
+          this.$refs.confirmModal.open(config)
+        }else{
+          window.app
+            .$confirm("请确认记录单已保存，如未保存离开将会丢失数据", "提示", {
+              confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
+              cancelButtonText: "取消",
+              type: "warning"
+            })
+            .then(res => {
+              //  this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
+              next();
+            });
+        }
       } else {
         next();
       }
@@ -1084,6 +1116,17 @@ export default {
         }
       }
     });
+    this.bus.$on('openMajorCheckbox',(val, deptType, index)=>{
+      let data = {
+        deptType,
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        formId: this.sheetInfo.selectBlock.id
+      }
+      this.$refs.changeMajorCheckbox.majorData = data
+      this.$refs.changeMajorCheckbox.dialogVisible = val
+      this.$refs.changeMajorCheckbox.activeIndex = index
+    })
     this.bus.$on("toSheetPrintPagewhfk", (obj) => {
       const newWid = obj.newWid,fromParams=obj.fromParams;
       if ($(".sign-text").length) {
@@ -1319,7 +1362,9 @@ export default {
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,
     sheetTable_prenatal_ytll,
-    SheetTags
+    SheetTags,
+    changeMajorCheckbox,
+    confirmModal
   }
 };
 </script>

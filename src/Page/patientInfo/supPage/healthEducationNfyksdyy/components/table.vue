@@ -25,22 +25,14 @@
 
           <td>
             <span>{{trItem['教育时间']}}</span>
-            <!-- <input class="date" type="text" name="" id="" :value="trItem['教育时间']"> -->
           </td>
           <!-- 宣教内容 -->
-          <td v-if="HOSPITAL_ID !== 'qhwy'" :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, trItem)">
-            <span>{{trItem['宣教内容']}}</span>
-          </td>
-          <td class="remark" v-if="HOSPITAL_ID === 'qhwy'">
-            <span class="remark-span">{{trItem['宣教类型']}}</span>
-          </td>
-          <!-- 宣教内容 -->
-          <td :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, trItem)" v-if="HOSPITAL_ID === 'qhwy'">
+          <td :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, trItem)">
             <span>{{trItem['宣教内容']}}</span>
           </td>
           <!-- 教育对象 -->
-          <td v-for="o in object" :key="o + 'a'">
-            <span class="is-radio" v-if="trItem['教育对象'] === o">√</span>
+          <td v-for="(o) in object" :key="o + 'a'">
+            <span class="is-radio" v-if="trItem['教育对象'] && trItem['教育对象']!='' && trItem['教育对象'].split(',').includes(o)">√</span>
           </td>
           <!-- 教育方法 -->
           <td v-for="p in method" :key="p + 'b'">
@@ -51,8 +43,8 @@
             <span class="is-radio" v-if="trItem['教育评估'] === q">√</span>
           </td>
           <!-- 备注 -->
-          <td class="remark contentLeft" v-if="HOSPITAL_ID !== 'qhwy'">
-            <span class="remark-span">{{trItem[`${HOSPITAL_ID === 'whhk' ? '宣教情况' : '备注'}`]}}</span>
+          <td class="remark contentLeft">
+            <span class="remark-span">{{trItem['备注']}}</span>
           </td>
           <!-- 签名 -->
           <td v-if="['lingcheng','guizhou','foshanrenyi','qhwy'].includes(HOSPITAL_ID)" class="specialTd">
@@ -64,17 +56,7 @@
               alt
             />
             <span class="noPrint" v-else>{{trItem['签名']}}</span>
-            <img
-              v-if="HOSPITAL_ID=='guizhou'"
-              v-show="trItem['lc签名']"
-              :class="['img',['guizhou'].includes(HOSPITAL_ID) && 'inPrint']"
-              :src="`/crNursing/api/file/signImage/${trItem['lc签名']}?${token}`"
-              alt
-            />
           </td>
-          <!-- <td v-else-if="['guizhou'].includes(HOSPITAL_ID)" class="noPrint">
-            <span>{{trItem['签名']}}</span>
-          </td> -->
           <td v-else>
             <span>{{trItem['签名']}}</span>
           </td>

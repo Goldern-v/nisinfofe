@@ -1,5 +1,5 @@
 
-/** 
+/**
   佛山市一 - 护理记录单(儿科二区通用)
 */
 
@@ -30,7 +30,7 @@ import {
     click_date,
     click_time
   } from "../keyEvent/date";
-  
+
   export default [
     { hidden: true, key: 'recordDate', value: '' },
     { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -39,7 +39,7 @@ import {
     { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
     { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率/脉搏', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 10) },
     { key: 'breath', event: keyf1, value: '', next: '次/分', name: '呼吸', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 60 }, 
+    { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: '血压', textarea: { width: 60 },
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -55,6 +55,9 @@ import {
     { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量量', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
     { key: 'discharge', event: keyf1, value: '', next: '', name: '出量', textarea: { width: 80 }, change: (e, td) => limitChange(e, td, 16) },
     { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量量', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 11) },
+    { key: 'custom1', event: keyf1, value: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+    { key: 'custom2', event: keyf1, value: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
+    { key: 'custom3', event: keyf1, value: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 6) },
     {
       key: "description", //特殊情况记录
       value: "",
@@ -80,6 +83,5 @@ import {
     { hidden:true, key:'auditorName', value:''},
     { hidden:true, key:'empNo', value:''},
     { hidden:true, key:'multiSign', value:''}
-    
+
   ]
-  

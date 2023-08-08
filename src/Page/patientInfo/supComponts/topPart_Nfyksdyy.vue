@@ -47,7 +47,7 @@
               </el-row>
             </router-link>
           </el-dropdown-item>
-          <!-- <el-dropdown-item :class="{ active: $route.path == '/sheet' }">
+      <el-dropdown-item :class="{ active: $route.path == '/sheet' }">
             <router-link
               :to="{
                 path: '/sheet',
@@ -61,7 +61,7 @@
             </router-link>
           </el-dropdown-item>
 
-          <el-dropdown-item :class="{ active: $route.path == '/bloodSugar' }">
+              <!-- <el-dropdown-item :class="{ active: $route.path == '/bloodSugar' }">
             <router-link
               :to="{
                 path: '/bloodSugar',
@@ -104,7 +104,7 @@
           </el-dropdown-item> -->
         </el-dropdown-menu>
       </el-dropdown>
-      <router-link
+      <!-- <router-link
         :to="{
           path: '/record',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -112,6 +112,15 @@
         tag="span"
       >
         <div class="nav-item">护理文书</div>
+      </router-link> -->
+      <router-link
+        :to="{
+          path: '/temperature',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">体温单</div>
       </router-link>
       <div
         class="nav-item"
@@ -630,7 +639,7 @@ export default {
     // 南方医科大学顺德医院项目病历
     onnfyksdyyEmrWeb() {
       const { patientId, inpNo, visitId } = this.patient;
-      let url = `http://192.168.8.174:8090/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&pcid=${inpNo}`;
+      let url = `http://192.168.8.174:8000/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&ids=${inpNo}`;
       window.open(url);
     },
     toBloodSugar() {

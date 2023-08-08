@@ -35,7 +35,7 @@ export default {
         { "name": "用药", "colspan": "5", "rowspan": "1" },
 
 
-        { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "490px", "maxWidth": "490px" } },
+        { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "435px", "maxWidth": "435px" } },
         { "name": "护士签名", "colspan": "1", "rowspan": "3", "style": { "minWidth": "50px", "maxWidth": "50px" } },
         {"name":"查房签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
       ]

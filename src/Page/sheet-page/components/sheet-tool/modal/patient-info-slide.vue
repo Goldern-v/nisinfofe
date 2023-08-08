@@ -189,8 +189,24 @@ export default {
     return {
       bus: bus(this),
       show: false,
-      extraList:(()=>{
-        switch(process.env.HOSPITAL_ID) {
+    };
+  },
+  computed: {
+     ...mapState({
+      patient: (state) => state.patient.currentPatient
+    }),
+    empNo() {
+      try {
+        return JSON.parse(localStorage.user).empNo;
+      } catch (error) { }
+    },
+    empName() {
+      try {
+        return JSON.parse(localStorage.user).empName;
+      } catch (error) { }
+    },
+    extraList() {
+      switch(this.HOSPITAL_ID) {
         case 'lyxrm':
         case "stmz":
           return [
@@ -223,23 +239,11 @@ export default {
         default:
           return []
       }
-      })()
-    };
-  },
-  computed: {
-     ...mapState({
-      patient: (state) => state.patient.currentPatient
-    }),
-    empNo() {
-      try {
-        return JSON.parse(localStorage.user).empNo;
-      } catch (error) { }
     },
-    empName() {
-      try {
-        return JSON.parse(localStorage.user).empName;
-      } catch (error) { }
-    },
+    query() {
+      let query = this.$route.query;
+      return query;
+    }
   },
   methods: {
     skip360() {
@@ -250,6 +254,15 @@ export default {
     },
     open() {
       this.show = true;
+      this.$nextTick(this.openLastModal);
+    },
+    openLastModal() {
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        const lastOpenModal = this.$store.state.patient.slideModal;
+        if (lastOpenModal) {
+          this.$refs[lastOpenModal].open();
+        }
+      }
     },
     close() {
       this.show = false;
@@ -260,6 +273,7 @@ export default {
     },
     openModal(name,feature, data = null) {
       this.$refs[name].open(feature, data);
+      this.$store.commit('setSlideModal', name);
     },
     url360() {
       const { patientId = '' } = this.$route.query
@@ -280,23 +294,30 @@ export default {
     },
     patientRecord() {
       const { inpNo ='' } = this.$route.query
-      return `http://192.168.8.174:8090/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&pcid=${inpNo}`;
+      return `http://192.168.8.174:8000/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&ids=${inpNo}`;
     },
   },
   mounted() {},
-  watch: {},
+  watch: {
+    query: {
+      deep: true,
+      handler() {
+        this.$store.commit('setSlideModal', '');
+      }
+    },
+    patient: {
+      deep: true,
+      handler() {
+        this.$store.commit('setSlideModal', '');
+      }
+    }
+  },
   components: {
     inspectModal,
     testModal,
     adviceModal,
     doctorEmrModal,
     iframeModal,
-  },
-  computed: {
-    query() {
-      let query = this.$route.query;
-      return query;
-    }
   },
 };
 </script>
