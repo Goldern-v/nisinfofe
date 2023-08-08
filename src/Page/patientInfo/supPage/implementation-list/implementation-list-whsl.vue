@@ -9,7 +9,7 @@
           format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择入院起始时间"
           v-model="startDate"
-          style="width:170px"
+          style="width:180px"
         ></el-date-picker>
         &nbsp;--&nbsp; 
         <el-date-picker
@@ -17,7 +17,7 @@
           format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择终止时间"
           v-model="endDate"
-          style="width:170px"
+          style="width:180px"
         ></el-date-picker>
 
         <span class="label">类型:</span>

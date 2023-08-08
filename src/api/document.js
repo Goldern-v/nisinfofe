@@ -87,6 +87,16 @@ export function handleExport(params) {
       responseType: "blob"
     })
 }
+// 威海市立导出 
+export function handleExport_whsl(params) {
+  return axios.post(
+    `${apiPath}patient/exportPatEmrList`,
+    params,
+    {
+      responseType: "blob"
+    })
+}
+
 /**同步出院患者 */
 export const syncDischargedPatient = (params) => {
   return axios.post(`${apiPath}patient/getDisChargePatients`, params)
