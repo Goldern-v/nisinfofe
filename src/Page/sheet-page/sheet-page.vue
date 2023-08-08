@@ -137,6 +137,7 @@
       @TableVisible="(val) => dialogDeptNameVisible = val"
       @savedata="(val) => {val &&  getSheetData()}"
     ></changeMajorCheckbox>
+    <confirm-modal ref="confirmModal"></confirm-modal>
   </div>
 </template>
 
@@ -329,6 +330,7 @@ import $ from "jquery";
 import moment from "moment";
 import HjModal from "./components/modal/hj-modal.vue";
 import HdModal from "./components/modal/hd-modal.vue";
+import confirmModal from "@/components/confirm/index.vue";
 import SDYYModal from "@/Page/sheet-page/components/modal/sdyy-modal.vue";
 import GuizhouModal from "./components/modal/guizhou-modal.vue";
 import signModal from "@/components/modal/sign.vue";
@@ -755,17 +757,41 @@ export default {
         !this.$route.path.includes("singleTemperatureChart")&&
         !this.findBlockContextModal
       ) {
-        window.app
+        if(this.HOSPITAL_ID == 'nfyksdyy'){
+          let config = {
+            warmtlt : "请确认记录单已保存，如未保存离开将会丢失数据",
+            buttonList : [
+              {label:"取消",fun:()=>{this.$refs.confirmModal.close()}},
+              {label:"离开",fun:()=>{
+                this.bus.$emit("clearClickRow")
+                this.$refs.confirmModal.close(),
+                this.$refs.confirmModal.close(),
+                next()
+              }},
+              {label:"保存并离开",type:"primary",fun:()=>{
+                this.bus.$emit("clearClickRow")
+                this.bus.$emit('saveSheetPage', 'noSaveSign')
+                this.$refs.confirmModal.close(),
+                next()
+              }}
+            ]
+          }
+          this.$refs.confirmModal.open(config)
+        }else {
+          window.app
           .$confirm("请确认记录单已保存，如未保存离开将会丢失数据", "提示", {
-            confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
+            confirmButtonText: "离开",
             cancelButtonText: "取消",
             type: "warning",
           })
           .then((res) => {
-            this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
+            this.bus.$emit("clearClickRow")
+            // this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
             next();
           });
+        }
       } else {
+        this.bus.$emit("clearClickRow")
         next();
       }
     },
@@ -1438,18 +1464,41 @@ export default {
       !this.sheetInfo.isSave &&
       !from.fullPath.includes("singleTemperatureChart") //去除体温单切换未保存提示
     ) {
-      window.app
-        .$confirm("护理记录单，离开将会丢失数据", "提示", {
-           confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
-          cancelButtonText: "取消",
-          type: "warning",
-        })
-        .then((res) => {
-          this.sheetInfo.selectBlock = {}
-          cleanData();
-          this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
-          next();
-        });
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+        let config = {
+          warmtlt : "护理记录单，离开将会丢失数据",
+          buttonList : [
+            {label:"取消",fun:()=>{this.$refs.confirmModal.close()}},
+            {label:"离开",fun:()=>{
+              this.sheetInfo.selectBlock = {}
+              cleanData();
+              this.$refs.confirmModal.close(),
+              next()
+            }},
+            {label:"保存并离开",type:"primary",fun:()=>{
+              this.bus.$emit('saveSheetPage', 'noSaveSign')
+              this.sheetInfo.selectBlock = {}
+              cleanData();
+              this.$refs.confirmModal.close()
+              next()
+            }}
+          ]
+        }
+        this.$refs.confirmModal.open(config)
+      }else{
+        window.app
+          .$confirm("护理记录单，离开将会丢失数据", "提示", {
+             confirmButtonText: "离开",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+          .then((res) => {
+            this.sheetInfo.selectBlock = {}
+            cleanData();
+            // this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
+            next();
+          });
+      }
     } else {
       next();
     }
@@ -1509,7 +1558,8 @@ export default {
     sheetTable_prenatal_ytll,
     changeMajorRadio,
     changeMajorCheckbox,
-    SheetTags
+    SheetTags,
+    confirmModal
   },
 };
 </script>

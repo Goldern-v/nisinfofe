@@ -265,7 +265,7 @@
     >
     <div
       class="search-btn2"
-      v-if="['wujing'].includes(HOSPITAL_ID)"
+      v-if="['wujing', 'whsl'].includes(HOSPITAL_ID)"
       @click="handleExport"
       v-touch-ripple
     >
