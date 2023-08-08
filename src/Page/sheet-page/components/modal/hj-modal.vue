@@ -273,9 +273,10 @@ export default {
     }
   },
   computed: {
-    isPost(){
-      return ['whsl'].includes(this.HOSPITAL_ID) &&  (JSON.parse(localStorage.user).deptCode || localStorage.selectDeptValue) != this.sheetInfo.selectBlock.deptCode
-    }
+    // isPost(){
+    //   return ['whsl'].includes(this.HOSPITAL_ID) &&  JSON.parse(localStorage.user).deptCode  != this.sheetInfo.selectBlock.deptCode
+
+    // }
   },
   components: {
 
