@@ -7,7 +7,9 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-
+import {
+  getDictItemValueList
+} from "../../../api/index";
 let ysList = ['昏迷', '清醒', '嗜睡', '模糊','昏睡','未醒','镇静','麻醉未醒','昏迷镇静']
 let xinlv = ['窦性', '房颤', '房扑', '逸搏', '停搏','室上速','室速','室颤','起搏','交界性']
 let tongkongX = ['5','4.5','4','3.5','3','2.5','2','1.5','1']
@@ -16,7 +18,7 @@ let tongqi = ['SIMV','PCV ','VCV','PS/CPAP','PRVC','NIVPS','S/T','IPPV','CPAP','
 let huxiyin = ['粗','清 ','低','痰鸣音','湿啰音','干啰音']
 let wowei = ['平卧','左侧 ','右侧','头低足高']
 let taitou = ['','√']
-
+let ruList = [], chuList = [];
 const colors = [
   {value:"",label:""},
   {value:"淡黄色",label:"淡黄色"},
@@ -236,6 +238,9 @@ export default [
     textarea: {
       width: 160
     },
+    autoComplete: {
+      data: ruList
+    },
     outFixedList:true,
     style:{"text-align":"left"}
   },
@@ -257,6 +262,9 @@ export default [
     name: "排出物",
     textarea: {
       width: 50
+    },
+    autoComplete: {
+      data: chuList
     },
     style:{"text-align":"left"},
     outFixedList:true,
@@ -518,3 +526,34 @@ export default [
     value: false
   }
 ];
+
+
+export function getListData() {
+  let list = [
+    "record:critical2_weihai:入量名称",
+    "record:critical2_weihai:出量名称",
+  ];
+  const deptCode = localStorage.getItem("selectDeptValue");
+  const promiseList = [];
+  for (let i = 0; i < list.length; i++) {
+    promiseList.push(getDictItemValueList(list[i], deptCode));
+  }
+  Promise.all(promiseList).then(([r1, r2]) => {
+    setList(ruList, r1.data.data);
+    setList(chuList, r2.data.data);
+  });
+}
+
+getListData();
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} key 对应的key
+ * @param {*} data 数据源
+ */
+function setList(list, data) {
+  list.splice(0, list.length);
+  for (let item of data) {
+    list.push(item);
+  }
+}
