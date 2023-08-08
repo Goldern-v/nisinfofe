@@ -100,6 +100,7 @@
       @TableVisible="(val) => dialogDeptNameVisible = val"
       @savedata="(val) => {val &&  getSheetData()}"
     ></changeMajorCheckbox>
+    <confirm-modal ref="confirmModal"></confirm-modal>
   </div>
 </template>
 
@@ -283,6 +284,7 @@ import specialModal2 from "@/Page/sheet-page/components/modal/special-modal2.vue
 import setPageModal from "@/Page/sheet-page/components/modal/setPage-modal.vue";
 import pizhuModal from "@/Page/sheet-page/components/modal/pizhu-modal.vue";
 import evalModel from "@/Page/sheet-page/components/modal/eval-model/eval-model.vue";
+import confirmModal from "@/components/confirm/index.vue";
 import evalModelPaging from "@/Page/sheet-page/components/modal/eval-model/eval-model-paging.vue"
 import { getHomePage } from "@/Page/sheet-page/api/index.js";
 import { decodeRelObj } from "@/Page/sheet-page/components/utils/relObj";
@@ -635,16 +637,35 @@ export default {
         !this.sheetInfo.isSave&&
         this.sheetInfo.selectBlock.id
       ) {
-        window.app
-          .$confirm("请确认记录单已保存，如未保存离开将会丢失数据", "提示", {
-            confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(res => {
-             this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
-            next();
-          });
+        if(this.HOSPITAL_ID == 'nfyksdyy'){
+          let config = {
+            warmtlt : "请确认记录单已保存，如未保存离开将会丢失数据",
+            buttonList : [
+              {label:"取消",fun:()=>{this.$refs.confirmModal.close()}},
+              {label:"离开",fun:()=>{
+                this.$refs.confirmModal.close(),
+                next()
+              }},
+              {label:"保存并离开",type:"primary",fun:()=>{
+                this.bus.$emit('saveSheetPage', 'noSaveSign'),
+                this.$refs.confirmModal.close(),
+                next()
+              }}
+            ]
+          }
+          this.$refs.confirmModal.open(config)
+        }else{
+          window.app
+            .$confirm("请确认记录单已保存，如未保存离开将会丢失数据", "提示", {
+              confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
+              cancelButtonText: "取消",
+              type: "warning"
+            })
+            .then(res => {
+              //  this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
+              next();
+            });
+        }
       } else {
         next();
       }
@@ -1342,7 +1363,8 @@ export default {
     sheetTable_cardiology_lcey,
     sheetTable_prenatal_ytll,
     SheetTags,
-    changeMajorCheckbox
+    changeMajorCheckbox,
+    confirmModal
   }
 };
 </script>

@@ -27,7 +27,10 @@
   * {
     pointer-events: none;
   }
-
+.sheet-page-container .sheet-table .body-con.clickRow td, 
+.sheet-excel-container .sheet-table .body-con.clickRow td{
+  background: transparent;
+}
   overflow: hidden;
 
   .contant {

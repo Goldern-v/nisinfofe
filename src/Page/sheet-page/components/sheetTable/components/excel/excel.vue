@@ -3369,6 +3369,9 @@ export default {
     ) {
       this.$set(this.sheetInfo.selectBlock, "relSignInfo", {});
     }
+    this.bus.$on("clearClickRow", () => {
+      this.sdyyRow = ""
+    })
   },
   components: {
     signModal,

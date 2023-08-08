@@ -104,7 +104,9 @@ import {
   listNurseAdtHd,
   listNurseAdtFuYou,
   handleExport,
+  handleExport_whsl
 } from "@/api/document";
+import moment from "moment";
 import { del } from "@/api/record";
 export default {
   data() {
@@ -270,9 +272,21 @@ export default {
       if(this.HOSPITAL_ID === 'wujing'){
         params.scene="WuJing";
       }
+      if (this.HOSPITAL_ID === 'whsl') {
+        params = {...params,  pageIndex: this.page.pageIndex, pageNum: this.page.pageNum }
+        if (params.status === '3') {
+          params = {
+            ...params, 
+            admissionDateBegin: moment(params.startDate).format('YYYY-MM-DD'), 
+            admissionDateEnd: moment(params.endDate).format('YYYY-MM-DD'), 
+          }
+          delete params.startDate
+          delete params.endDate
+        }
+      }
        try {
         this.pageLoadng = true;
-        let res = await handleExport(params);
+        let res = this.HOSPITAL_ID === 'whsl' ? await handleExport_whsl(params) : await handleExport(params);
         let fileName = res.headers["content-disposition"]
           ? decodeURIComponent(
               res.headers["content-disposition"].replace(

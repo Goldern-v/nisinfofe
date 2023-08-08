@@ -118,7 +118,8 @@
             <span v-else-if="HOSPITAL_ID == 'guizhou'">科室：{{ resDeptName|| patientInfo.wardName || patientInfo.deptName }}</span>
             <span v-else>科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span>
             <!-- <span>入院日期：{{patientInfo.admissionDate | toymd}}</span> -->
-            <span>床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
+            <span v-if="HOSPITAL_ID === 'whsl'">床号：{{ patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
+            <span v-else>床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
             <!-- <span class="diagnosis-con">诊断：{{patientInfo.diagnosis}}</span> -->
             <span v-if="HOSPITAL_ID == 'liaocheng'">病案号：{{ patientInfo.inpNo }}</span>
             <span v-else-if="HOSPITAL_ID == 'whsl'">病案号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
@@ -724,7 +725,7 @@ if(this.selected.expand2!==undefined){
       this.resAge = res.data.data.age;
       ////表头用户信息通过获取用户信息接口获取的医院
       (this.hisUserTitLeList.includes(this.HOSPITAL_ID)) && (this.sugarUserInfo = res.data.data);
-      if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
+      if(['guizhou', 'whsl'].includes(this.HOSPITAL_ID) && this.$route.path.includes('nursingPreview')){
         this.resName = res.data.data.name;
         this.resGender = res.data.data.gender;
         this.resDeptName = res.data.data.deptName;
