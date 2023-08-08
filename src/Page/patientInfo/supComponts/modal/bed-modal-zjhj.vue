@@ -146,84 +146,78 @@
         <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
       </div>
     </div>
-    <div
-      class="bed-card-wrapper bed-card-wrapper-h"
-      v-loading="modalLoading"
-      ref="printCon"
-      v-else
-    >
-      <div class="header">
-        <!-- {{ HOSPITAL_NAME }} -->
-        <div style="border:1px dashed #ccc;margin-bottom: 5px;">
-          <div class="title" style="display:inline-block;border-right:1px dashed #ccc;font-size: 16px;">
-            <div class="left-title" style="border-bottom:1px dashed #ccc;"> 中国人民</div>
-            <div class="left-title" >解 放 军</div>
-          </div >
-          <div style="display:inline-block;font-size: 35px;position: relative;top: -7px" >联勤保障部队第九二五医院</div>
-        </div>
-      </div>
-      <div class="dept-name">
-        {{ query.deptName }}
-        <span style="float:right">床号：{{ query.bedLabel }}</span>
-      </div>
-      <div class="patient-name">{{ query.name }}</div>
-      <div class="other-info ">
-        <span>住院号：{{ query.inpNo }}</span>
-        <span>{{ query.sex }}</span>
-        <span>{{ query.age }}</span>
-        过敏史： <input
-          type="text"
-          style="
-            font-size: 20px;
-            padding-left: 0px;
-            font-weight: 900;
-            width: 50px;
-          "
-          flex-box="1"
-          class="bottom-line"
-          :value="formData.drugGms"
-        />
+    <div class="bed-card-warpper" 
+    v-else
+    v-loading="modalLoading" ref="printCon">
+        <div
+          class="bed-card-con"
+          flex
+          :class="{ remarkCon: formData.remarkPrint,itemHeight:HOSPITAL_ID=='sdlj' }"
+        >
 
-      </div>
-      <div class="diagnosis">
-        <span>诊断：</span>
-        <textarea class="diagnosis-content" v-model="formData.remark" rows="3" />
-      </div>
-
-      <div class="dn-title">
-        <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
-        <!-- <span>管床医生</span>
-        <span>责任护士</span> -->
-      </div>
-      <div class="dn-box ">
-        <div >
-          <span class="label">管床医生:</span>
-          <input
-            noWidth
-            type="text"
-            class="bottom-line"
-            v-model="formData.mainDoctors"
-          />
+          <div style="width: 0" flex-box="1" flex="dir:top main:justify">
+            <div flex="cross:center" class="qr-code-item" style="height:150px;">
+              <p v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" style="line-height: 80px;" class="name">
+                <span>{{nameYing}}</span><br>
+                <span>{{nameAfter}}</span>
+              </p>
+              <p v-else class="name">{{query.name}}</p>
+              <img
+                class="qr-code"
+                :class="{ hasRemark: hasRemark }"
+                :src="qrCode"
+              />
+            </div>
+            <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}"
+            class="input-item input-item-row">
+              <div class="fontSize-50">{{query.sex}}</div>
+              <div class="fontSize-50" v-if="HOSPITAL_ID!='sdlj'">{{query.age}}</div>
+              <div class="fontSize-50" v-else-if="HOSPITAL_ID=='sdlj' ">{{query.age}}</div>
+              <div>{{wardName}}</div>
+            </div>
+            <div v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="input-item">
+              <div>身高:</div><div style="width: 100px;">{{query.height}}</div>
+              <div>体重:</div><div style="width: 100px;">{{query.weight}}</div>
+            </div>
+            <div flex="cross:center" class="input-item" style="width:auto;height:50px">
+              <div style="display:flex">
+                <span :class="{'label-nowidth':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="label">住院号:</span>
+                <input
+                  type="text"
+                  nowidth
+                  style="font-size: 26px;width:200px"
+                  flex-box="1"
+                  class="bottom-line"
+                  v-model="query.patientId"
+                />
+              </div>
+              <div class="bedNum">{{query.bedLabel + '床'}}</div>
+            </div>
+            <div flex="cross:center" class="input-item">
+              <span class="label">{{HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')!=-1?'出生时间:':'入院日期:'}}</span>
+              <input
+                type="text"
+                nowidth
+                style="font-size: 26px"
+                flex-box="1"
+                class="bottom-line"
+                :value="moment(query.admissionDate).format('YYYY-MM-DD HH:mm:ss')"
+              />
+            </div>
+            <div v-if="!(HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0)" flex="cross:center" class="input-item">
+              <span class="label">主治医生:</span>
+              <input
+                type="text"
+                nowidth
+                style="font-size: 26px"
+                flex-box="1"
+                class="bottom-line"
+                v-model="formData.mainDoctors"
+              />
+            </div>
+          </div>
         </div>
       </div>
-      <div class="dn-box mb200">
-        <div >
-          <span class="label">责任护士:</span>
-          <input
-            noWidth
-            type="text"
-            class="bottom-line"
-            v-model="formData.dutyNurses"
-          />
-        </div>
-      </div>
-      <div class="admission-date">
-        <span>入院时间：</span>
-        <span>
-          {{ moment(query.admissionDate).format("YYYY-MM-DD") }}
-        </span>
-      </div>
-    </div>
     <div slot="button">
       <!-- <span style="position: absolute; left: 10px; padding-top: 4px">
         <span>显示诊断</span>
@@ -235,7 +229,7 @@
       </span> -->
 
       <el-button class="modal-btn" @click="close">取消</el-button>
-      <el-button class="modal-btn" @click="switchBed" v-if="printMode=='h'||printMode=='h-small'">切换</el-button>
+      <!-- <el-button class="modal-btn" @click="switchBed" v-if="printMode=='h'||printMode=='h-small'">切换</el-button> -->
       <!-- <el-button class="modal-btn" type="primary" @click="post">保存</el-button> -->
       <el-button class="modal-btn" type="info" @click="onPrint">打印</el-button>
     </div>
