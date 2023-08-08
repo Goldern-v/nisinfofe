@@ -62,17 +62,9 @@
                 病重：
                 <b>{{record.seriousTotal || 0}}</b>人，
               </span>
-              <span v-if="HOSPITAL_ID != 'xiegang'">
+              <span>
                 手术：
                 <b>{{record.operationTotal || 0}}</b>人
-              </span>
-              <span v-if="HOSPITAL_ID == 'zhzxy'">
-                死亡：
-                <b>{{record.patientDead || 0}}</b>人
-              </span>
-              <span v-if="HOSPITAL_ID == 'zhzxy'">
-                分娩：
-                <b>{{record.patientNewBorn || 0}}</b>人
               </span>
               <span>
                 交班日期：
@@ -139,7 +131,7 @@
             @input-keydown="onTableInputKeydown"
           >
             <tr class="empty-row" v-if="!patients.length">
-              <td colspan="7" style="padding: 0">
+              <td colspan="11" style="padding: 0">
                 <Placeholder
                   black
                   size="small"
@@ -182,70 +174,10 @@
               </td>
             </tr>
           </ExcelTable>
-          <!-- <div class="foot" v-if="record" data-print-style="padding-bottom: 25px">
-            <div data-print-style="width: auto">
-              <span>A班签名：</span>
-              <span data-print-style="display: none">
-                <button
-                  v-if="record.autographNameA"
-                  @click="onDelSignModalOpen('A', record.autographEmpNoA)"
-                >{{record.autographNameA}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('A')">点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameA"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoA}?${token}`"
-                :alt="record.autographNameA"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-            <div data-print-style="width: auto" v-if="HOSPITAL_ID != 'weixian'">
-              <span>P班签名：</span>
-              <span data-print-style="display: none">
-                <button
-                  v-if="record.autographNameP"
-                  @click="onDelSignModalOpen('P',record.autographEmpNoP)"
-                >{{record.autographNameP}}</button>
-                <button v-else :disabled="isEmpty" @click="onSignModalOpen('P')">点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameP"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoP}?${token}`"
-                :alt="record.autographNameP"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-            <div data-print-style="width: auto">
-              <span>N班签名：</span>
-              <span data-print-style="display: none">
-                <button
-                  v-if="record.autographNameN"
-                  @click="onDelSignModalOpen('N', record.autographEmpNoN)"
-                >{{record.autographNameN}}</button>
-                <button
-                  v-else
-                  :disabled="isEmpty"
-                  @click="onSignModalOpen('N', record.autographEmpNoN)"
-                >点击签名</button>
-              </span>
-              <FallibleImage
-                class="img"
-                v-if="record.autographNameN"
-                :src="`/crNursing/api/file/signImage/${record.autographEmpNoN}?${token}`"
-                :alt="record.autographNameN"
-                data-print-style="display: inline-block; width: 52px; height: auto;"
-              />
-              <span v-else style="display: none;" data-print-style="display: inline-block;">未签名</span>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
-    <PatientsModal ref="patientsModal" @confirm="onPatientsModalConfirm" @save="onSave3"/>
+    <PatientsModal ref="patientsModal"  @save="onSave3"/>
     <PatientModal
       ref="patientModal"
       :date="record ? record.changeShiftDate : ''"
@@ -328,7 +260,6 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       });
-
       this.$refs.table.selectRow(-1);
     }
 
@@ -349,7 +280,7 @@ export default {
             {
               label: "类型",
               prop: "patientStatus",
-              width: this.HOSPITAL_ID=="whsl"? "45" : "53",
+              width: "45",
               align: "center",
             },
             {
@@ -357,7 +288,7 @@ export default {
               prop: "bedLabel",
               editable: true,
               align: "center",
-              width: this.HOSPITAL_ID=="hengli"?"45":"35"
+              width: "35"
             },
             {
               label: "姓名、年龄",
@@ -378,17 +309,17 @@ export default {
               label: "主要诊断",
               prop: "diagnosis",
               editable: true,
-              width: this.HOSPITAL_ID=="whsl"? "50" : "80"
+              width:  "50"
             },
             {
               label: "护理诊断及主要问题",
               prop: "mainComplaint",
               editable: true,
-              width: this.HOSPITAL_ID=="whsl"? "60" : "90"
+              width: "60"
             }
           ]
         },
-        this.HOSPITAL_ID == "whsl" ? {
+        {
           label: "B（背景）",
           columns: [
             {
@@ -396,17 +327,6 @@ export default {
               prop: "background",
               editable: true,
               width: '200'
-            }
-          ]
-        } :
-        {
-          label: "B（背景）",
-          columns: [
-            {
-              label: "既往病史、治疗经过、治疗效果跟踪",
-              prop: "background",
-              editable: true,
-              width: "180"
             }
           ]
         },
@@ -428,7 +348,7 @@ export default {
               label: "交给下一班观察重点 ",
               prop: "proposal",
               editable: true,
-              width: this.HOSPITAL_ID=="whsl"? "180" : "200"
+              width: "180"
             }
           ]
         },
@@ -485,7 +405,6 @@ export default {
     },
     allSigned() {
       const record = this.record;
-      if(this.HOSPITAL_ID == 'weixian') return !!( record && record.autographNameA && record.autographNameN);
       return !!(
         record &&
         record.autographNameA &&
@@ -510,6 +429,7 @@ export default {
     }
   },
   mounted() {
+    this.load()
     if (this.deptCode) {
       this.loadDepts();
     }
@@ -662,15 +582,11 @@ export default {
               data["name"] = remoteDate["name"];
               data["age"] = remoteDate["age"];
               data["patientStatus"] = remoteDate["patientStatus"];
-
-
-              if(this.HOSPITAL_ID != "hj"){
-                selectedRow["bedLabel"] = data["bedLabel"];
-                selectedRow["name"] = data["name"];
-                selectedRow["age"] = data["age"];
-                selectedRow["patientStatus"] = data["patientStatus"];
-                selectedRow["diagnosis"] = data["diagnosis"];
-              }
+              selectedRow["bedLabel"] = data["bedLabel"];
+              selectedRow["name"] = data["name"];
+              selectedRow["age"] = data["age"];
+              selectedRow["patientStatus"] = data["patientStatus"];
+              selectedRow["diagnosis"] = data["diagnosis"];
               selectedRow["mainComplaint"] = data["mainComplaint"];
               selectedRow["background"] = data["background"];
               selectedRow["assessmentSituation"] = data["assessmentSituation"];
@@ -731,29 +647,6 @@ export default {
             }
           }
         ];
-
-        const addOthers=[//新增操作类型
-          {
-            name: "移动至首行",
-            icon: "xiangxiacharuyihang",
-            click: async () => {
-              // this.modified = true
-              this.$refs.table.moveRowFirst();
-              await this.onSave();
-            }
-          },
-          {
-            name: "移动至末行",
-            icon: "charuxinhang",
-            click: async () => {
-              // this.modified = true
-              this.$refs.table.moveRowLast();
-              await this.onSave();
-            }
-          }
-        ];
-        //谢岗添加新增操作类型
-        (['xiegang'].includes(this.HOSPITAL_ID)) && (others.splice(2,0,...addOthers));
         menus = menus.concat(others);
       }
 
@@ -854,6 +747,7 @@ export default {
       this.$refs.patientsModal.open({ deptCode, date, id, selectedKeys });
     },
     onPatientsModalConfirm(patients) {
+      console.log(patients, patients);
       for (let p of patients) {
         let obj = {...p};
         obj["mainComplaint"] = obj.complaint || "";
@@ -974,28 +868,6 @@ export default {
         return this.$message.warning("请先保存后再签名");
       }
 
-      // if (type === "P" && !this.record.autographNameA) {
-      //   return this.$message.warning("需要A班先签名");
-      // }
-
-      // if (type === "N" && !this.record.autographNameP) {
-      //   return this.$message.warning("需要P班先签名");
-      // }
-
-      // this.$refs.signModal.open({
-      //   callback: async ({ username, password }) => {
-      //     await apis.signShiftRecord(this.record.id, type, username, password);
-
-      //     this.load();
-      //     this.$refs.signModal.close();
-      //     this.$message.success("签名成功");
-
-      //     if (type === "N") {
-      //       this.reloadSideList();
-      //     }
-      //   }
-      // });
-
       window.openSignModal(async (password, username) => {
         await apis.signShiftRecord(this.record.id, type, username, password);
 
@@ -1009,23 +881,6 @@ export default {
       });
     },
     onDelSignModalOpen(type, sourceEmpNo) {
-      // this.$refs.signModal.open({
-      //   title: "取消签名确认",
-      //   callback: async ({ username, password }) => {
-      //     await apis.delSignShiftRecord(
-      //       this.record.id,
-      //       username,
-      //       password,
-      //       type,
-      //       sourceEmpNo
-      //     );
-
-      //     this.load();
-      //     this.$refs.signModal.close();
-      //     this.$message.success("已取消签名");
-      //     this.reloadSideList();
-      //   }
-      // });
       window.openSignModal(async (password, username) => {
         await apis.delSignShiftRecord(
           this.record.id,

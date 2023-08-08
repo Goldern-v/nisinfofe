@@ -3,7 +3,7 @@
     <div v-if="route" class="tool-con" flex-box="1">
       <sheetTool :formCodeFy='formCode' ref="sheetHospitalAdmissionTool"></sheetTool>
     </div>
-    <div :class="[route&&'sheetTable-contain']">
+    <div :class="[route&&'sheetTable-contain']" @click="handleIsLeaveTip">
       <div :class="fileJSON ? 'pages':'no-page'" ref="sheetPage">
         <div
           v-if="isShowLoadingLayout"
@@ -33,6 +33,7 @@ import sheetTool from "@/Page/sheet-hospital-admission/components/sheet-tool/she
 import BusFactory from "vue-happy-bus";
 import common from "@/common/mixin/common.mixin.js";
 import { getPatientInfo } from '../../api'
+import form from '@/store/module/form';
 
 export default {
   name: "page",
@@ -499,8 +500,42 @@ export default {
           }
         }
       }
+    },
+    // 点击使用是修改，就将他设置为没有保存
+    handleIsLeaveTip(){
+      // 离开表单是否保存
+      this.$store.commit("upIsLeaveTip", false);
     }
-  }
+  },
+
+  beforeRouteLeave(to, from, next) {
+    if(this.HOSPITAL_ID == 'nfyksdyy' && from.path == '/admissionPageAdult2' && !this.$store.state.admittingSave.isLeaveTip ){
+    window.app
+      .$confirm("入院评估（成人），离开将会丢失数据", "提示", {
+        confirmButtonText: "离开",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+      .then((res) => {
+        this.$store.commit("upIsLeaveTip", true);
+        next();
+      });
+    }else if(this.HOSPITAL_ID == 'foshanrenyi' && !this.$store.state.admittingSave.isLeaveTip ){
+      window.app
+      .$confirm("是否保存一体化评估内容", "提示", {
+        confirmButtonText: "保存",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+      .then((res) => {
+        this.bus.$emit("tosave")
+        this.$store.commit("upIsLeaveTip", true);
+        next();
+      });
+    }else{
+       next();
+    }
+  },
 };
 </script>
 

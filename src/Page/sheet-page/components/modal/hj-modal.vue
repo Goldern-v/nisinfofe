@@ -1,10 +1,15 @@
 <template>
-  <div
     <sweet-modal ref="modal" :modalWidth="500" title="出入量统计">
       <div class="time-type-button" v-if="HOSPITAL_ID=='liaocheng'">
         <el-button-group>
           <el-button :class="[active=='today'?'active-btn':'']" @click="initTime('today')">白班小结</el-button>
           <el-button :class="[active=='yesterday'?'active-btn':'']" @click="initTime('yesterday')">24小时小结</el-button>
+        </el-button-group>
+      </div>
+      <div class="time-type-button" v-if="sheetInfo.sheetType=='critical2_weihai'">
+        <el-button-group>
+          <el-button :class="[active=='critical2today'?'active-btn':'']" @click="initTime('critical2today')">白班小结</el-button>
+          <el-button :class="[active=='yesterday1'?'active-btn':'']" @click="initTime('yesterday1')">24小时小结</el-button>
         </el-button-group>
       </div>
       <div class="time-type-button" v-if="HOSPITAL_ID=='liaocheng'|| HOSPITAL_ID=='nfyksdyy'">
@@ -38,6 +43,7 @@
       type="datetime"
       format="yyyy-MM-dd HH:mm"
       placeholder="选择开始日期">
+
       </el-date-picker>
       <span style="padding: 0 15px; width: 30px">至</span>
       <el-date-picker
@@ -50,16 +56,16 @@
       <div flex="cross:center main:center" style="margin:0 15px 20px" v-else>
         <cr-date-picker
           v-model="date[0]"
-          type="datetime"
           format="yyyy-MM-dd HH:mm"
           placeholder="选择开始日期"
+          style="width: 135px;"
         ></cr-date-picker>
         <span style="padding: 0 15px; width: 30px">至</span>
         <cr-date-picker
           v-model="date[1]"
-          type="datetime"
           format="yyyy-MM-dd HH:mm"
           placeholder="选择结束日期"
+          style="width: 135px;"
         ></cr-date-picker>
       </div>
       <p for class="name-title" flex="cross:center main:justify">
@@ -71,10 +77,9 @@
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post()">计算</el-button>
+        <el-button class="modal-btn" type="primary" :disabled="isPost" @click="post()">计算</el-button>
       </div>
     </sweet-modal>
-  </div>
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
@@ -132,6 +137,7 @@ export default {
       this.active = type
       let timeObject = {
         'today':[moment().format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 17:00")],
+        'critical2today':[moment().format("YYYY-MM-DD 07:01"),moment().format("YYYY-MM-DD 15:59")],
         'yesterday':[moment().subtract(1,'days').format("YYYY-MM-DD 07:00"),moment().format("YYYY-MM-DD 07:00")],
         'today1':[moment().format("YYYY-MM-DD 07:01"),moment().format("YYYY-MM-DD 15:00")],
         'today2':[moment().format("YYYY-MM-DD 15:01"),moment().format("YYYY-MM-DD 23:00")],
@@ -202,7 +208,7 @@ export default {
         let recordCode = sheetInfo.sheetType;
         //默认0统计出量和入量；1只统计出量；2只统计入量
         let type=0
-        if(this.sheetInfo.sheetType=='operating_fk'||this.HOSPITAL_ID==="925"){
+        if(this.sheetInfo.sheetType=='operating_fk'|| ['925', 'whsl'].includes(this.HOSPITAL_ID)){
            type=1
         }
         outputSum(
@@ -243,7 +249,7 @@ export default {
       }
       //默认0统计出量和入量；1只统计出量；2只统计入量
       let type=0
-      if(this.sheetInfo.sheetType=='operating_fk'||this.HOSPITAL_ID==="925"){
+      if(this.sheetInfo.sheetType=='operating_fk'|| ['925', 'whsl'].includes(this.HOSPITAL_ID)){
           type=1
       }
       putGroupCount(
@@ -266,6 +272,14 @@ export default {
       });
     }
   },
-  components: {}
+  computed: {
+    // isPost(){
+    //   return ['whsl'].includes(this.HOSPITAL_ID) &&  JSON.parse(localStorage.user).deptCode  != this.sheetInfo.selectBlock.deptCode
+
+    // }
+  },
+  components: {
+
+  }
 };
 </script>

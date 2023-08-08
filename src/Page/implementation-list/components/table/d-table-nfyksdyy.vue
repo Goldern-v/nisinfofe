@@ -442,7 +442,7 @@
   >>>.el-table__body-wrapper {
     // overflow-x hidden
     &::-webkit-scrollbar {
-      height: 10px;
+      height: 14px;
     }
 
     &::-webkit-scrollbar-thumb {

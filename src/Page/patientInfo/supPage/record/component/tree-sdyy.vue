@@ -334,7 +334,8 @@ export default {
       isPersonage: false, //是否为个人详情打开
       hisLeftList: ["wujing", "huadu"], //是否要开放左侧收缩功能医院
       batchAuditDialog: false, // 批量审核表单弹框
-      batchAuditForms: {} // 批量审核节点数据
+      batchAuditForms: {}, // 批量审核节点数据
+      isdefault: false, //默认展开护记和评估单
     };
   },
   computed: {
@@ -352,7 +353,7 @@ export default {
       if (this.$route.path == "/formPage" || this.filterObj) {
         return `${this.wih - 120 - this.tagsViewHeight}px`;
       } else {
-        return `${this.wih - 180 - this.tagsViewHeight}px`;
+        return `${this.wih - 162 - this.tagsViewHeight}px`;
       }
     },
     openLeft() {
@@ -422,15 +423,22 @@ export default {
         this.bus.$emit("activeAllButons");
         window.app.$CRMessageBox.notifyBox.close();
       } catch (error) {}
-      let typelsit = ["sheet", "bloodSugar", "healthEducation"];
+      let typelsit = ["sheet", "bloodSugar", "healthEducation", "temperature", "diagnosis"];
       if (typelsit.includes(data.type)) {
         if (
           node.level === 2 ||
           (node.level == 1 && data.type == "bloodSugar") ||
+          (node.level == 1 && data.type == "temperature") ||
+          (node.level == 1 && data.type == "diagnosis") ||
           (node.level == 1 && !data.children.length)
         ) {
           let isopenSheetTag = false;
-          if (data.type == "sheet" && node.level == 2) isopenSheetTag = true;
+          if (
+            (data.type == "sheet" || data.type == "healthEducation" && node.level == 2)
+            || data.type == "bloodSugar" || data.type == "temperature" || data.type == "diagnosis"
+          ) {
+            isopenSheetTag = true;
+          }
           this.bus.$emit("openOtherPage", data, isopenSheetTag);
         }
       } else {
@@ -476,6 +484,11 @@ export default {
       }
     },
     renderContent(h, { node, data, store }) {
+      if(this.isdefault){
+        if(node.data.type == 'sheet' || data.label == '护理评估单'){
+          node.expanded = true;
+        }
+      }
       //未签名
       let hasSave =
         node.childNodes.filter(item => {
@@ -540,7 +553,7 @@ export default {
         icon = fileicon;
       }
       let viewDom = h();
-      let typelsit = ["sheet", "bloodSugar", "healthEducation"];
+      let typelsit = ["sheet", "bloodSugar", "healthEducation", "temperature","diagnosis"];
       if (node.level == 1) {
         if (typelsit.includes(node.data.type)) {
           return h(
@@ -599,12 +612,16 @@ export default {
       }
     },
     getTreeData() {
-      this.treeLoading = true;
       let params = {
         patientId: this.$route.query.patientId,
         visitId: this.$route.query.visitId,
         deptCode: this.$store.state.lesion.deptCode
       };
+      if (!params.patientId || !params.visitId) {
+        this.regions = [];
+        return
+      }
+      this.treeLoading = true;
       Promise.all([
         groupList(params.patientId, params.visitId),
         blockList(params.patientId, params.visitId, params.deptCode),
@@ -684,6 +701,14 @@ export default {
             label: "血糖单",
             type: "bloodSugar"
           };
+          let list_5 = {
+            label: "体温单",
+            type: "temperature"
+          };
+          let list_6 = {
+            label: "护理计划单",
+            type: "diagnosis"
+          };
           let list_4 = res[2].data.data.map(item => {
             return {
               label: `健康教育单 ${item.creatDate}`,
@@ -739,12 +764,14 @@ export default {
                 type: "sheet",
                 children: [...list_2]
               },
+              { ...list_5 },
               { ...list_3 },
               {
                 label: "健康教育单",
                 type: "healthEducation",
                 children: [...list_4]
-              }
+              },
+              { ...list_6 },
             ];
           } else {
             this.$nextTick(() => {
@@ -761,6 +788,9 @@ export default {
                   index: (index += 1)
                 },
                 {
+                  ...list_5
+                },
+                {
                   ...list_3
                 },
                 {
@@ -768,6 +798,9 @@ export default {
                   type: "healthEducation",
                   children: [...list_4],
                   index: (index += 1)
+                },
+                {
+                  ...list_6
                 }
               ];
             });
@@ -790,13 +823,17 @@ export default {
     newRecordOpen() {
       this.$refs.newForm.open(this.filterObj);
     },
-    refreshTree(isAllRefresh = false) {
+    refreshTree(isAllRefresh = false, isopenLeft = false) {
       if (isAllRefresh) {
         this.expandList = [];
         this.expandListCopy = [];
       } else {
         this.expandList = this.expandListCopy;
         this.bus.$emit("refreshFormPagePatientList");
+      }
+      if(isopenLeft) {
+        this.$store.commit("upOpenFormTree", false);
+        this.isdefault = true
       }
       this.ifTree = false;
       this.getTreeData();

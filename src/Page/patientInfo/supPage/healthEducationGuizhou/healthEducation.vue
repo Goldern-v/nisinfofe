@@ -1,12 +1,12 @@
 <template>
 <div class="ealth-education">
-  <div class="health-education-list">
+  <div class="health-education-list" v-if="!isPreview">
     <div class="treeTitle">健康教育单</div>
     <baseTree :configList="configList" class="baseTree"></baseTree>
   </div>
-  <div class="health-education-table" v-loading="pageLoading">
+  <div :class="['health-education-table', { 'preview_education-table': isPreview }]" v-loading="pageLoading">
     <!-- 无推送内容 -->
-    <div v-if="isData === 2" style="height:100%">
+    <div v-if="isData === 2 && !isPreview " style="height:100%">
       <NullBg></NullBg>
       <div class="addBtn">
         <WhiteButton text="添加健康教育单" @click="addEducation" />
@@ -16,7 +16,7 @@
     <!-- 有推送内容 -->
     <!-- 操作按钮 -->
     <div class="main">
-      <div class="tool-con" v-show="isData === 1">
+      <div class="tool-con" v-show="isData === 1 && !isPreview">
         <div class="tool-fix">
           <WhiteButton text="添加" @click="onAdd"></WhiteButton>
           <WhiteButton text="修改" @click="onEdit" :disabled="!selected"></WhiteButton>
@@ -30,7 +30,7 @@
         </div>
       </div>
       <!-- 教育单表单 -->
-      <div class="healthContent">
+      <div :class="['healthContent', { 'preview_healthContent': isPreview }]">
       <div v-show="isData === 1" ref="HealthEducation" class="healthEducation health-page">
         <div v-for="(item, index) in printTableData" :key="index + 'print'">
         <!-- 表单头部信息 -->
@@ -39,12 +39,12 @@
           <div class="hospital">{{HOSPITAL_NAME_SPACE}}</div>
           <div class="title">住院患者健康教育评估及实施记录单</div>
           <div class="info">
-                <span>病人姓名：{{patientInfo.name}}</span>
-                <span>性别：{{patientInfo.sex}}</span>
-                <span>年龄：{{patientInfo.age}}</span>
-                <span>科室：{{patientInfo.wardName}}</span>
-                <span>床号：{{patientInfo.bedLabel}}</span>
-                <span>住院号：{{patientInfo.inpNo}}</span>
+                <span>病人姓名：{{patientInfo.name || patientInfoPreview.name}}</span>
+                <span>性别：{{patientInfo.sex|| patientInfoPreview.sex}}</span>
+                <span>年龄：{{patientInfo.age|| patientInfoPreview.age}}</span>
+                <span>科室：{{patientInfo.wardName|| patientInfoPreview.wardName}}</span>
+                <span>床号：{{patientInfo.bedLabel|| patientInfoPreview.bedLabel}}</span>
+                <span>住院号：{{patientInfo.inpNo|| patientInfoPreview.inpNo}}</span>
           </div>
           </div>
           <!-- 表单内容 -->
@@ -72,6 +72,7 @@ import { homedir } from 'os';
 import formatter from "./right-print-formatter";
 import baseTree from "@/components/baseTree/baseTree";
 import common from "@/common/mixin/common.mixin.js";
+import BusFactory from "vue-happy-bus";
 
 export default {
   mixins: [common],
@@ -85,6 +86,7 @@ export default {
   },
   data() {
     return {
+      bus: BusFactory(this),
       pageLoading: false,
       selectValue: '',
       sheetBlockList: [],
@@ -95,16 +97,28 @@ export default {
       array: [],
       pageParam: [], // 表格数据
       selected: null, // 选择某行
-      configList: []
+      configList: [],
+      patientInfoPreview: {}
     };
   },
   computed: {
     patientInfo () {
       return this.$route.query;
-    }
+    },
+    //是否为预览状态不可编辑
+    isPreview() {
+      return (
+        this.$route.query &&
+        this.$route.path.includes("nursingPreview")
+      );
+    },
   },
   created () {
     this.init()
+    this.bus.$on('getTableData_Preview', (id) => {
+      this.getTableData(id)
+    })
+    this.patientInfoPreview = this.$store.state.sheet.patientInfo
   },
   methods:{
     // 获取下拉框数据列表
@@ -160,10 +174,10 @@ export default {
       this.getTableData()
     },
     // 获取表格数据
-    getTableData () {
+    getTableData (id = "") {
       this.pageLoading = true
       let { visitId, patientId } = this.$route.query
-      getAllByPatientInfo(this.blockId).then(res => {
+      getAllByPatientInfo(id || this.blockId).then(res => {
         let data = res.data.data
         this.pageParam = data.slice()
         this.total = data.length
@@ -424,6 +438,14 @@ export default {
         height: calc(100vh - 105px);
         width: 100%;
       }
+      .preview_healthContent{
+        height: calc(100vh);
+      }
+    }
+    .preview_education-table{
+      width: 100%;
+      height: calc(100vh);
+      margin: 0;
     }
     .main{
       background: #eaeaea;

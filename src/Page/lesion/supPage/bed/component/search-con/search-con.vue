@@ -148,6 +148,7 @@
         :isAdl="isAdl"
         :tubingShedding="tubingShedding"
         :selfCare="selfCare"
+        :nutritionalRisk="nutritionalRisk"
       ></footerBar>
     </div>
   </div>
@@ -510,6 +511,10 @@ export default {
     hasVteDanger() {
       return this.bedList.filter((item) => item.hasVteDanger);
     },
+    // 营养风险
+    nutritionalRisk() {
+      return this.bedList.filter((item) => item.nutritionalRisk);
+    },
     // 发热
     isFever() {
       return this.bedList.filter((item) => item.isFever == "1");
@@ -729,6 +734,7 @@ export default {
         'whsl',
         'whhk',
         'zhzxy',
+        'zjhj',
         'nfyksdyy',
         '925',
         'dglb',
@@ -746,7 +752,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt","liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925','dglb', 'stmz'
+        "whfk","foshanrenyi","fsxt",'zjhj',"liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925','dglb', 'stmz'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -1057,6 +1063,11 @@ export default {
             } else {
               this.$parent.bedList = this.hasVteDanger;
             }
+          }
+          break;
+        case "营养风险":
+          {
+            this.$parent.bedList = this.nutritionalRisk;
           }
           break;
         case "压疮高风险":

@@ -170,6 +170,9 @@ export default {
     this.bus.$on("openPizhuModalBox", (tr, td, callback = null) => {
       this.$refs.pizhuModal.open(tr, td, callback);
     });
+    this.bus.$on("changeOriginTemptp", (flag) => {
+      this.$emit("changeOriginTemptp",flag)
+    });
   },
   mounted() {
     window.cleanAllMark = this.cleanAllMark;
@@ -410,6 +413,12 @@ export default {
           hospitalRules[this.HOSPITAL_ID]
         ) {
           wid.document.querySelector(".top-bar").style = "display: flex;";
+          wid.document.querySelector("body").style = "padding-top:50px;";
+        }else if( wid.document.querySelector(".top-bar") && this.HOSPITAL_ID == 'whsl'){
+          wid.document.querySelector(".top-bar").style = "display: flex;";
+          wid.document.querySelector(".top-bar .page-bar_right button:nth-child(1)").style = "display:none;";
+          wid.document.querySelector(".top-bar .page-bar_right button:nth-child(3)").style = "display:none;";
+          wid.document.querySelector(".top-bar .page-bar_left").style = "display:none;";
           wid.document.querySelector("body").style = "padding-top:50px;";
         }
       }

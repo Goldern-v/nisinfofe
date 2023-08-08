@@ -47,10 +47,6 @@
         住院号:
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.inpNo}}</div>
       </span>
-      <span>
-        诊断:
-        <div  class="bottom-line" style="min-width: 163px">{{patientInfo.diagnosis}}</div>
-      </span>
       <!-- <span>
         ID号:
         <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientId}}</div>
@@ -70,6 +66,12 @@
         {{patientInfo.admissionDate | toymd}}
       </span> -->
      </div>
+     <div class="info">
+      <span @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+        诊断:
+        <div  class="bottom-line" style="min-width: 163px">{{diagnosis}}</div>
+      </span>
+     </div>
       </div>
       <headCon v-if="isFirst"></headCon>
       <excel
@@ -79,6 +81,7 @@
         :scrollY="scrollY"
         :hasFiexHeader="true"
         :isInPatientDetails="isInPatientDetails"
+         @onModalChange="(e,tr,x,y,index)=>$emit('onModalChange',e,tr,x,y,index)"
       ></excel>
       <div class="bottomCon">
         <div class="showModal showModal2">
@@ -322,6 +325,7 @@ import headCon from "./components/headCon/headCon";
 import { updateSheetHeadInfo } from "../../api/index";
 import { multiDictInfo } from "../../api/index";
 import { getLastDetail } from "./api/index";
+import { queryDianosisList } from "@/api/sheet.js";
 /**
  *
  * @param {*} list 原数组
@@ -432,31 +436,66 @@ export default {
           }
         }
       });
-    }
+    },
+    async setDiagnosis() {
+      if (!this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]) {
+        try {
+          const res = await queryDianosisList({
+            patientId: this.patientInfo.patientId,
+            visitId: this.patientInfo.visitId
+          });
+          const data = res.data.data || [];
+          if (data.length) {
+            this.$set(
+              this.sheetInfo.relObj,
+              `PageIndex_diagnosis_${this.index}`,
+              data[0].diagnosisDesc
+            );
+          }
+        } catch (error) {
+          throw new Error(error);
+        }
+      }
+    },
+    updateDiagnosis(key, label, autoText) {
+      window.openSetTextModal(
+        text => {
+          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          this.$message.success(`修改诊断成功`);
+          this.bus.$emit("saveSheetPage", false);
+        },
+        this.diagnosis,
+        `修改诊断`
+      );
+    },
   },
   computed: {
     patientInfo() {
-      // return this.sheet.patientInfo
       return this.sheetInfo.masterInfo || {};
+    },
+    diagnosis() {
+      return (
+        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${this.index}`] ||
+        this.patientInfo.diagnosis
+      );
     },
     /** 只读模式 */
     readOnly() {
-      // if(this.HOSPITAL_ID == "fuyou"){
-      //   let controlReadOnly = this.sheetInfo.masterInfo.readOnly //后端控制readOnly为true只能查阅，不能修改
-      //   if (controlReadOnly) {
-      //     return true
-      //   }
-      // }
-
       return !this.userDeptList
         .map(item => item.code)
         .includes(this.sheetInfo.selectBlock.deptCode);
     }
   },
-  created() {},
+  watch:{
+    "patientInfo.patientId"() {
+      this.setDiagnosis();
+    }
+  },
+  created() {
+    this.setDiagnosis();
+  },
   update() {},
   mounted() {
-    console.dir(this.sheetInfo);
     // 获取分娩方式
     this.getData();
     if (this.sheetInfo.relObj && !this.sheetInfo.relObj["yyc_" + this.index]) {

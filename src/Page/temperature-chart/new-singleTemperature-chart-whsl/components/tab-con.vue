@@ -991,15 +991,8 @@ export default {
         const babyDic = []
         let data = [];
         let obj = [];
-        const babyType = [
-          "01",
-          "aurigo",
-          "funicle",
-          "breast",
-          "milk",
-          "033",
-          "3",
-        ]; //婴儿显示项目
+        const babyType = ["01","28","29","30","31","32","033","vaccine","3",]; //婴儿显示项目
+        const withOutbabyType = ['28','29','30','32'] //成年人不显示项目
         if (this.isBaby) {
           res.data.data.map((list) => {
             if (babyType.includes(list.vitalCode))
@@ -1022,12 +1015,17 @@ export default {
           }
           switch (item.signType) {
             case "base":
-            if(!["表顶注释","表底注释"].includes(item.vitalSign))
+            if(!["表顶注释","表底注释","自定义"].includes(item.vitalSign)){
+              //新生儿体温单屏蔽掉成年人录入项目
+              if(!withOutbabyType.includes(item.vitalCode))
               baseDic[item.vitalSign] = item.vitalCode;
+            }
               break;
             case "other":
-            if(!["表顶注释","表底注释"].includes(item.vitalSign))
-              otherDic[item.vitalSign] = item.vitalCode;
+              if(!["表顶注释","表底注释","自定义"].includes(item.vitalSign)){
+            if(!withOutbabyType.includes(item.vitalCode))
+            otherDic[item.vitalSign] = item.vitalCode;
+              }
               break;
             default:
               break;

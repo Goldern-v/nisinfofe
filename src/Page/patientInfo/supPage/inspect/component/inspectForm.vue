@@ -27,7 +27,7 @@
             <td class="value" v-else>{{ data.patientId }}</td>
             <td class="key">住院号</td>
             <td class="value" v-if="HOSPITAL_ID == 'huadu'">{{ data.patientId }}</td>
-            <td class="value" v-else>{{ $route.query.inpNo }}</td>
+            <td class="value" v-else>{{ $route.query.inpNo || data.inpNo || (originData || {}).inpNo }}</td>
           </tr>
           <tr>
             <td class="key">姓名</td>
@@ -35,7 +35,10 @@
             <td class="key">性别</td>
             <td class="value">{{ data.sex }}</td>
             <td class="key">年龄</td>
-            <td class="value">{{ routeQuery.age }}</td>
+            <td class="value" v-if="HOSPITAL_ID == 'nfyksdyy'">
+              {{ getAge }}
+            </td>
+            <td class="value" v-else>{{ routeQuery.age }}</td>
           </tr>
           <tr>
             <td class="key">科室</td>
@@ -176,6 +179,9 @@ td {
 import { examResult,examResultWhsl, pic, picNum, getExamTestUrl } from "@/api/patientInfo";
 // import imgModal from '../modal/imgModal.vue'
 export default {
+  props: {
+    originData: Object
+  },
   data() {
     return {
       data: {},
@@ -203,6 +209,9 @@ export default {
         return this.$store.state.sheet.patientInfo
       }
     },
+    getAge() {
+      return this.data.age || (this.originData || {}).age || this.routeQuery.age;
+    }
   },
   filters: {
     dataForm(value) {
@@ -221,7 +230,7 @@ export default {
     open(data) {
       if (data) {
         this.data = data;
-        this.data.name = this.$route.query.name || this.$store.state.sheet.patientInfo.name
+        this.data.name = this.data.name || this.$route.query.name || this.$store.state.sheet.patientInfo.name
         this.loading = true;
         this.data1 = {};
         this.showImg = false;
@@ -255,7 +264,7 @@ export default {
           }else{
             examResult(this.data.examNo)
               .then((res) => {
-                this.data1 = res.data.data; 
+                this.data1 = res.data.data;
                 this.loading = false;
                 // picNum(this.data.examNo, this.data.name).then(res => {
                 //     this.picNum = res.data.data.picNum

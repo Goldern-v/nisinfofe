@@ -56,11 +56,11 @@
               tag="span"
             >
               <el-row class="menu-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i>护理评估单
+                <i class="nursingAssessment"></i>护理文书
               </el-row>
             </router-link>
           </el-dropdown-item>
-          <el-dropdown-item :class="{ active: $route.path == '/sheet' }">
+          <!-- <el-dropdown-item :class="{ active: $route.path == '/sheet' }">
             <router-link
               :to="{
                 path: '/sheet',
@@ -114,7 +114,7 @@
                 <i class="sheetHospitalAdmission"></i>护理计划单</el-row
               >
             </router-link>
-          </el-dropdown-item>
+          </el-dropdown-item> -->
         </el-dropdown-menu>
       </el-dropdown>
       <router-link
@@ -180,6 +180,7 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
+        v-if="HOSPITAL_ID != 'nfyksdyy'"
       >
         <div class="nav-item">体温单</div>
       </router-link>
@@ -657,7 +658,7 @@ export default {
     // 南方医科大学顺德医院项目病历
     onnfyksdyyEmrWeb() {
       const { patientId, inpNo, visitId } = this.patient;
-      let url = `http://192.168.8.174:8090/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&mdt=H&pcid=${inpNo}`;
+      let url = `http://192.168.8.174:8000/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&ids=${inpNo}`;
       window.open(url);
     },
     toBloodSugar() {

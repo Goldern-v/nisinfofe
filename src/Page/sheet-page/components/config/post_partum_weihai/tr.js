@@ -25,6 +25,14 @@ export default [
     }
   },
   {
+    key: "pulse", value: "", event: keyf1,
+      change: (e, td) => limitChange(e, td, 6),
+    name: '脉搏',
+    textarea: {
+      width: 80
+    }
+  },
+  {
     key: "fieldTwo", //宫缩
     name: '宫缩',
     value: "",

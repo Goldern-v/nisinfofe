@@ -57,6 +57,15 @@ export const getWardExecuteZXY = ( params ) => {
   return axios.post(
     `${apiPath}execute/getWardExecuteZXY`, params);
 };
+
+export const respiratorData = ( params ) => {
+  return axios.post(
+    `${apiPath}respiratorData/getList`, params);
+};
+export const monitorData = ( params ) => {
+  return axios.post(
+    `${apiPath}monitorData/getList`, params);
+};
 // 护记PC体征同步
 export const weihaiVitalSignPost = ( params ) => {
   return axios.post(
@@ -103,3 +112,25 @@ record/titleTempalate/list
 export const addTitleTemplateType = (param)=>{
   return axios.post(`${apiPath}record/titleTempalate/addTitleTemplateType`, param)
 }
+
+
+
+/**
+ * 转科获取科室/record/block/adtExchangeModifyLog/{patientId}/{visitId}/{blockId}
+ * @param {*} params
+ * @returns
+ */
+export const adtExchangeModifyLog = (params) => {
+  return axios.get(
+    `${apiPath}record/block/adtExchangeModifyLog/${params.patientId}/${params.visitId}/${params.formId}`,
+  );
+};
+
+/**
+ * 保存转科，病区/record/block/updateRecordAdtInfo
+ * @param {*} params
+ * @returns
+ */
+export const updateBlockInfo = (data) => {
+  return axios.post(`${apiPath}record/block/updateRecordAdtInfo`, data);
+};

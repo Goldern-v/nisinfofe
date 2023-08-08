@@ -120,7 +120,8 @@
             class="icon-center"
           >
             <ElOption
-              v-for="item in [{ name: '拒测', value: '拒测' }, { name: '外出', value: '外出' }]"
+              v-for="item in [{ name: '拒测', value: '拒测' }, { name: '外出', value: '外出' },
+               { name: '动态', value: '动态' }, { name: '自测', value: '自测' }]"
               :key="item.name"
               :label="item.name"
               :value="item.value"
@@ -369,7 +370,7 @@ export default {
         this.oldRecordDate = form ? form.recordDate : "";
         return;
       }
-      // form.patientId 代表是新建  不然佛一的form都有值传出来
+      // form.patientId 代表是新建  不然佛一的form都有值传出
       if (form && form.patientId) {
         this.form = {
           recordDate: new Date(form.recordDate || new Date()),
@@ -386,7 +387,7 @@ export default {
         this.form = {
           recordDate: new Date(),
           recordTime: new Date(),
-          sugarItem: form.sugarItem || defaultSugarItem,
+          sugarItem:  defaultSugarItem,
           sugarValue: 0,
           riValue: 0,
           remarks:'',

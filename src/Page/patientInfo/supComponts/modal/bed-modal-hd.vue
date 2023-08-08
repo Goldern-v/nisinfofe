@@ -209,6 +209,53 @@
         </div>
       </div>
       </template>
+      <template v-if="['liaocheng'].includes(HOSPITAL_ID)">
+      <div
+        class="bed-card-warpper wrist-strap-print"
+        ref="printCon3"
+        v-show="printMode == 'wrist'"
+      >
+        <div class="bed-card-vert-con">
+          <div>
+            <div class="top">
+              <span style="margin-left: -20px;">科室：{{ query.deptName }}</span>
+            </div>
+            <div>
+              <div style="margin-left: -30px;">
+                <span>{{ query.name }}</span>
+                <span>{{ query.sex }}</span>
+                <span>{{ query.age }}</span>
+                <span>{{ query.bedLabel }}床</span>
+              </div>
+              <div style="margin-left: -30px;">
+                <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+              </div>
+              <div
+                class="allergy"
+              >
+                <p
+                  :class="[allergy1 || drugGms || allergy2 ? 'gm' : '']"
+                  style="margin-left: -20px;"
+                >
+                  过敏信息：
+                  <span v-if="allergy1">{{ allergy1 }};</span>
+                  <span v-if="drugGms">{{ drugGms }};</span>
+                  <span v-if="allergy2">{{ allergy2 }}</span>
+                  <span v-if="!(allergy1 || drugGms || allergy2)">无</span>
+                </p>
+              </div>
+            </div>
+          </div>
+             <img
+               style="right: 130px; margin-top: -81px"
+               class="qr-code"
+               :class="{ hasRemark: hasRemark }"
+               :src="qrCode"
+              />
+            <span style="position: absolute;right: 135px;top: 66px;}">{{ query.patientId }}</span>
+        </div>
+      </div>
+      </template>
       <template v-else>
          <div
         class="bed-card-warpper wrist-strap-print"
@@ -1024,6 +1071,7 @@ export default {
       isDglb: 'dglb' === this.HOSPITAL_ID,
       isWhhk: 'whhk' === this.HOSPITAL_ID,
       isZhzxy: 'zhzxy' === this.HOSPITAL_ID,
+      isliaocheng : 'liaocheng' === this.HOSPITAL_ID
     };
   },
   computed: {

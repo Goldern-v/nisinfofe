@@ -2,7 +2,7 @@
   <div>
     <!-- <div class="no-do-bg" v-show="show" @click="close"></div> -->
     <transition name="el-zoom-in-left">
-      <div class="slide-con" v-show="show">
+      <div class="slide-con" v-show="show" >
         <div class="head-con" flex="cross:center main:justify">
           <span class="title">自定义标题模版</span>
           <span class="close-btn" @click="close">
@@ -25,6 +25,7 @@
             <templateItem
               :listData="filterData"
               :sdyylistData="sdyyFilterData"
+              ref="templateItem"
             ></templateItem>
             <!-- </div> -->
           </div>
@@ -153,7 +154,10 @@ export default {
       listMap: [],
       listMapSdyy: {},
       typeList: [],
-      selectWidth: 100
+      selectWidth: 100,
+      tableTh:{},
+      isSaveFill: false,
+      callback: null,
     };
   },
   computed: {
@@ -211,7 +215,7 @@ export default {
       if (!opstObj.wardCode) return;
       let res = await titleTemplateList(opstObj);
       if (res.data.code == "200") {
-        if (['nfyksdyy','whhk'].includes(this.HOSPITAL_ID)) {
+        if (['nfyksdyy','whhk','foshanrenyi'].includes(this.HOSPITAL_ID)) {
           let typeListData = {};
           if (this.isTemperature) {
             //如果是体温单界面  就只查询体温单的自定义标题

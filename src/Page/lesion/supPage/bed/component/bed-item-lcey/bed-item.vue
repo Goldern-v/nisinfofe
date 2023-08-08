@@ -44,13 +44,14 @@ export default {
   methods: {
      // 右键事件
     openContextMenuBed(e,patientId) {
+      if(['nfyksdyy'].includes(this.HOSPITAL_ID)){
       let style = {
         top: `${Math.min(e.clientY - 20, window.innerHeight - 180)}px`,
         left: `${Math.min(e.clientX + 20, window.innerWidth - 180)}px`,
       };
       let data = patientId ? [
         {
-          name: "批量打印床头卡",
+          name: "批量打换印床头卡",
           icon: "xiangxiacharuyihang",
           click: () => {
             this.$emit('openBatchPrints' ,'bedside')
@@ -79,8 +80,10 @@ export default {
           },
         }
       ]
+  
       e.preventDefault();
-      window.openContextMenu({ style, data });
+      window.openContextMenu({ style, data }); 
+       }
     },
     inToday(date) {
       return (

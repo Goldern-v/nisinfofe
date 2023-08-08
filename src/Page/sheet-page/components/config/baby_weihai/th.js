@@ -17,7 +17,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px"
+          minWidth: "40px"
         },
       },
       {
@@ -27,7 +27,7 @@ export default {
         colspan: "1",
         rowspan: "2",
         style: {
-          minWidth: "28px"
+          minWidth: "40px"
         },
       },
       {
@@ -39,60 +39,60 @@ export default {
         colspan: '5',
         rowspan: '1'
       },
-      {
-        name: '反应',
-        style: {
-          minWidth: '35px',
-          maxWidth: '35px',
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: '哭声',
-        style: {
-          minWidth: '25px',
-          maxWidth: '25px',
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: '肌张力',
-        style: {
-          minWidth: '25px',
-          maxWidth: '25px',
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: '皮肤',
-        style: {
-          minWidth: '50px',
-          maxWidth: '50px',
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: '呼吸',
-        style: {
-          minWidth: '60px',
-          maxWidth: '60px',
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
-      {
-        name: '末梢',
-        style: {
-          minWidth: '40px',
-          maxWidth: '40px',
-        },
-        colspan: '1',
-        rowspan: '2'
-      },
+      // {
+      //   name: '反应',
+      //   style: {
+      //     minWidth: '35px',
+      //     maxWidth: '35px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '2'
+      // },
+      // {
+      //   name: '哭声',
+      //   style: {
+      //     minWidth: '25px',
+      //     maxWidth: '25px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '2'
+      // },
+      // {
+      //   name: '肌张力',
+      //   style: {
+      //     minWidth: '25px',
+      //     maxWidth: '25px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '2'
+      // },
+      // {
+      //   name: '皮肤',
+      //   style: {
+      //     minWidth: '50px',
+      //     maxWidth: '50px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '2'
+      // },
+      // {
+      //   name: '呼吸',
+      //   style: {
+      //     minWidth: '45px',
+      //     maxWidth: '45px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '2'
+      // },
+      // {
+      //   name: '末梢',
+      //   style: {
+      //     minWidth: '40px',
+      //     maxWidth: '40px',
+      //   },
+      //   colspan: '1',
+      //   rowspan: '2'
+      // },
       {
         name: '氧疗方式',
         style: {
@@ -154,7 +154,7 @@ export default {
         colspan: '1',
         rowspan: '2',
         style: {
-          minWidth: '150px'
+          minWidth: '370px'
         },
       },
       {
@@ -383,7 +383,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "60px"
+          minWidth: "50px"
         },
       },
       {
@@ -393,7 +393,7 @@ export default {
         colspan: "1",
         rowspan: "1",
         style: {
-          minWidth: "60px"
+          minWidth: "45px"
         },
       },
       {

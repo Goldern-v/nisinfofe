@@ -145,8 +145,8 @@
         </div>
       </span>
     </div>
-    <bedRecordModal ref="bedRecordModal"></bedRecordModal>
-    <setTextModalFuyou ref="modalName"></setTextModalFuyou>
+    <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
+    <setTextModalFuyou v-if="!routePath.includes('print')" ref="modalName"></setTextModalFuyou>
   </div>
 </template>
 
@@ -174,6 +174,9 @@ export default {
   },
   mounted() {},
   computed: {
+    routePath(){
+      return window.location.href
+    },
     diagnosis() {
       /** 最接近的index */
       let realIndex = 0;

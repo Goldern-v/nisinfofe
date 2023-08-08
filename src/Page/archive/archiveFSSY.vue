@@ -30,7 +30,7 @@
           size="small"
           placeholder="全部"
           @change="selectedStatus"
-         >
+        >
           <el-option value>全部</el-option>
           <el-option
             :key="item.id"
@@ -43,12 +43,22 @@
 
         <template v-if="['beihairenyi'].includes(this.HOSPITAL_ID)">
           <span class="type-label">姓名:</span>
-          <el-input v-model="query.patientName" placeholder="请输入患者姓名"   size="small" style="width:190px"/>
+          <el-input
+            v-model="query.patientName"
+            placeholder="请输入患者姓名"
+            size="small"
+            style="width:190px"
+          />
           <span class="type-label">住院号:</span>
-          <el-input v-model="query.inpNo" placeholder="请输入患者住院号"   size="small" style="width:190px"/>
+          <el-input
+            v-model="query.inpNo"
+            placeholder="请输入患者住院号"
+            size="small"
+            style="width:190px"
+          />
         </template>
         <button @click.stop="search">查询</button>
-        <button @click.stop="allArchive">批量归档</button>
+        <button @click.stop="allArchive" v-if="!isSdyyHOS">批量归档</button>
         <button @click.stop="allturnPDF">批量转pdf</button>
       </div>
       <div
@@ -77,7 +87,10 @@
         align="center"
         stripe
         highlight-current-row
+        @selection-change="handleSelectionChange"
       >
+        <el-table-column v-if="isSdyyHOS" type="selection" width="55">
+        </el-table-column>
         <el-table-column
           label="序号"
           header-align="center"
@@ -115,6 +128,7 @@
           align="center"
           label="住院号"
           min-width="120px"
+          v-if="HOSPITAL_ID != 'foshanrenyi'"
         ></el-table-column>
         <el-table-column
           header-align="center"
@@ -147,6 +161,7 @@
         ></el-table-column>
 
         <el-table-column
+          v-if="!isSdyyHOS"
           prop="applyName"
           header-align="center"
           align="center"
@@ -155,6 +170,7 @@
         ></el-table-column>
 
         <el-table-column
+          v-if="!isSdyyHOS"
           prop="applyTime"
           header-align="center"
           align="center"
@@ -221,11 +237,9 @@
                 v-if="scope.row.resultStatus == 1 && !isArchive"
                 >预览</el-button
               >
-              <el-button
-                type="text"
-                @click="openDetail(scope.row)">
+              <el-button type="text" @click="openDetail(scope.row)">
                 查看
-                </el-button>
+              </el-button>
               <!-- 上传 -->
               <el-button
                 type="text"
@@ -246,22 +260,34 @@
               >
               <el-button
                 type="text"
-                v-if="scope.row.recallApplyStatus ==1 && scope.row.canApplyAndCancel"
-                @click="cancelRecall(scope.row)">
+                v-if="
+                  scope.row.recallApplyStatus == 1 &&
+                    scope.row.canApplyAndCancel
+                "
+                @click="cancelRecall(scope.row)"
+              >
                 撤销申请
-                </el-button>
+              </el-button>
               <el-button
                 type="text"
                 v-if="scope.row.canAudit"
-                @click="audit(scope.row)">
+                @click="audit(scope.row)"
+              >
                 审核
-                </el-button>
+              </el-button>
               <el-button
                 type="text"
-                v-if="scope.row.uploadStatus == 2 && (scope.row.recallApplyStatus == '' || scope.row.recallApplyStatus == '0') && scope.row.canApplyAndCancel"
-                @click="applyForRecall(scope.row, scope.$index)">
+                v-if="
+                  !isSdyyHOS &&
+                    scope.row.uploadStatus == 2 &&
+                    (scope.row.recallApplyStatus == '' ||
+                      scope.row.recallApplyStatus == '0') &&
+                    scope.row.canApplyAndCancel
+                "
+                @click="applyForRecall(scope.row, scope.$index)"
+              >
                 申请召回
-                </el-button>
+              </el-button>
             </div>
           </template>
         </el-table-column>
@@ -281,7 +307,11 @@
       :modalWidth="800"
       :title="preview.title"
     >
-      <div v-if="printDetailList.length > 0" class="archive-detail-modal" v-loading="pageLoading2">
+      <div
+        v-if="printDetailList.length > 0"
+        class="archive-detail-modal"
+        v-loading="pageLoading2"
+      >
         <div
           class="arrow"
           :class="{ isFullMode: modalObj.infull }"
@@ -312,18 +342,39 @@
       <div v-else>该患者暂无文书信息</div>
       <div slot="button" class="button">
         <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" @click="print" v-if="printDetailList.length > 0">打印</el-button>
+        <el-button
+          class="modal-btn"
+          @click="print"
+          v-if="printDetailList.length > 0"
+          >打印</el-button
+        >
       </div>
     </sweet-modal>
-    <cancel-recall-modal ref="cancelRecallRef" :loading.sync="pageLoading" :item="curItem" @refresh="handleRefresh" />
-    <apply-for-recall-modal ref="applyForRecallRef" :loading.sync="pageLoading" :item="curItem" @refresh="handleRefresh"/>
-    <audit-modal ref="audioRef" :loading.sync="pageLoading" :item="curItem" @refresh="handleRefresh"/>
+    <cancel-recall-modal
+      ref="cancelRecallRef"
+      :loading.sync="pageLoading"
+      :item="curItem"
+      @refresh="handleRefresh"
+    />
+    <apply-for-recall-modal
+      ref="applyForRecallRef"
+      :loading.sync="pageLoading"
+      :item="curItem"
+      @refresh="handleRefresh"
+    />
+    <audit-modal
+      ref="audioRef"
+      :loading.sync="pageLoading"
+      :item="curItem"
+      @refresh="handleRefresh"
+    />
+    <BatchArchiveModal ref="BatchArchiveRef" @batchPost="handleBatchPost" />
+    <infomodal ref="infomodalRef" :getArchiveList="getArchiveList" />
   </div>
 </template>
 
 <script>
 var moment = require("moment"); //使用时间插件
-import Cookie from "js-cookie";
 import {
   getArchiveList,
   uploadBatch,
@@ -333,16 +384,20 @@ import {
   uploadFileArchive,
   getConfig,
   canCancelArchive,
-  getAchivePrintConfig
+  getAchivePrintConfig,
+  uploadBatchSelect,
+  genDocBatchSelect
 } from "./api/index";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
 import nullText from "@/components/null/null-text.vue";
 import mixin from "./mixins";
 import pagination from "@/components/pagination/pagination.vue";
-import CancelRecallModal from './modal/cancel-recall-modal.vue'
-import ApplyForRecallModal from './modal/apply-for-recall-modal.vue'
-import AuditModal from './modal/audit-modal.vue'
+import CancelRecallModal from "./modal/cancel-recall-modal.vue";
+import ApplyForRecallModal from "./modal/apply-for-recall-modal.vue";
+import AuditModal from "./modal/audit-modal.vue";
+import BatchArchiveModal from "./modal/batch-archive-modal.vue";
+import infomodal from "./modal/info-1-modal.vue";
 
 export default {
   mixins: [common, mixin],
@@ -352,6 +407,8 @@ export default {
     CancelRecallModal,
     ApplyForRecallModal,
     AuditModal,
+    BatchArchiveModal,
+    infomodal
   },
   data() {
     return {
@@ -371,8 +428,8 @@ export default {
         dischargeDateEnd: "", //出院结束时间
         wardCode: "", //科室代码
         showStatus: "", //状态查找：-2=归档失败,-1=生成pdf失败,0=待生成pdf,1=待归档,2=已归档
-        patientName:"",//患者姓名
-        inpNo:""//住院号
+        patientName: "", //患者姓名
+        inpNo: "" //住院号
       },
       total: 0,
       patientArchiveList: [], //科室患者归档列表
@@ -394,12 +451,17 @@ export default {
       showAutoPrint: true, // 是否开启自动归档按钮
       curItem: null, // 选中行的数据,
       curIndex: -1,
-
+      multipleSelection: [],
+      isSdyyHOS: process.env.HOSPITAL_ID == "nfyksdyy"
     };
   },
   methods: {
+    handleBatchPost(from) {},
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
     close() {
-      this.preview.title = ''
+      this.preview.title = "";
       this.$refs["preview-modal"].close();
     },
     print() {
@@ -410,21 +472,26 @@ export default {
     },
     // 文件归档上传
     uploadFileArchive(item) {
-      this.$confirm("是否归档?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        let patientId = this.HOSPITAL_ID=='huadu'?item.inpNo:item.patientId
-        let visitId = item.visitId
-        uploadFileArchive(patientId, visitId).then(rep => {
-          this.$message({
-            type: "success",
-            message: "文件上传成功"
+      if (this.isSdyyHOS) {
+        this.$refs.infomodalRef.open(item);
+      } else {
+        this.$confirm("是否归档?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }).then(() => {
+          let patientId =
+            this.HOSPITAL_ID == "huadu" ? item.inpNo : item.patientId;
+          let visitId = item.visitId;
+          uploadFileArchive(patientId, visitId).then(rep => {
+            this.$message({
+              type: "success",
+              message: "文件上传成功"
+            });
+            this.getArchiveList();
           });
-          this.getArchiveList();
         });
-      });
+      }
     },
     tablesHeight() {
       try {
@@ -445,47 +512,95 @@ export default {
       this.query.pageSize = 20;
       this.getArchiveList();
     },
-    allArchive(){
+    allArchive() {
       let params = {
-        pageSize:"",
-        pageIndex:"",
-        dischargeDateBegin:moment(
-          this.query.dischargeDateBegin
-        ).format("YYYY-MM-DD"),
-        dischargeDateEnd:moment(this.query.dischargeDateEnd).format("YYYY-MM-DD"),
-        wardCode:this.deptCode,
-        showStatus:"",
-        patientName:"",
-        inpNo:""
-      }
-      uploadBatch(params).then(res=>{
-        this.$message({
-          type: "success",
-          message: "正在批量归档，请稍等"
+        pageSize: "",
+        pageIndex: "",
+        dischargeDateBegin: moment(this.query.dischargeDateBegin).format(
+          "YYYY-MM-DD"
+        ),
+        dischargeDateEnd: moment(this.query.dischargeDateEnd).format(
+          "YYYY-MM-DD"
+        ),
+        wardCode: this.deptCode,
+        showStatus: "",
+        patientName: "",
+        inpNo: ""
+      };
+      if (this.HOSPITAL_ID == "nfyksdyy") {
+        if (!this.multipleSelection.length)
+          return this.$message({
+            type: "warning",
+            message: "目前未选择患者，请选择患者！"
+          });
+        let list = [];
+        this.multipleSelection.map(item => {
+          list.push({ patientId: item.patientId, visitId: item.visitId });
         });
-        this.getArchiveList()
-      })
+        params = { list, ...params };
+        uploadBatchSelect(params).then(res => {
+          this.$message({
+            type: "success",
+            message: "正在批量归档，请稍等"
+          });
+          this.getArchiveList();
+        });
+      } else {
+        // this.$refs.BatchArchiveRef.dialogVisible = true;
+        // this.$refs.BatchArchiveRef.title = '确认批量归档时间段';
+        uploadBatch(params).then(res => {
+          this.$message({
+            type: "success",
+            message: "正在批量归档，请稍等"
+          });
+          this.getArchiveList();
+        });
+      }
     },
-    allturnPDF(){
+    allturnPDF() {
       let params = {
-        pageSize:"",
-        pageIndex:"",
-        dischargeDateBegin:moment(
-          this.query.dischargeDateBegin
-        ).format("YYYY-MM-DD"),
-        dischargeDateEnd:moment(this.query.dischargeDateEnd).format("YYYY-MM-DD"),
-        wardCode:this.deptCode,
-        showStatus:"",
-        patientName:"",
-        inpNo:""
-      }
-      genDocBatch(params).then(res=>{
-        this.$message({
-          type: "success",
-          message: "正在批量转pdf，请稍等"
+        pageSize: "",
+        pageIndex: "",
+        dischargeDateBegin: moment(this.query.dischargeDateBegin).format(
+          "YYYY-MM-DD"
+        ),
+        dischargeDateEnd: moment(this.query.dischargeDateEnd).format(
+          "YYYY-MM-DD"
+        ),
+        wardCode: this.deptCode,
+        showStatus: "",
+        patientName: "",
+        inpNo: ""
+      };
+      if (this.HOSPITAL_ID == "nfyksdyy") {
+        if (!this.multipleSelection.length)
+          return this.$message({
+            type: "warning",
+            message: "目前未选择患者，请选择患者！"
+          });
+        let list = [];
+        this.multipleSelection.map(item => {
+          list.push({ patientId: item.patientId, visitId: item.visitId });
         });
-        this.getArchiveList()
-      })
+        params = { list, ...params };
+        genDocBatchSelect(params).then(res => {
+          this.$message({
+            type: "success",
+            message: "正在批量归档，请稍等"
+          });
+          this.getArchiveList();
+        });
+      } else {
+        // this.$refs.BatchArchiveRef.dialogVisible = true;
+        // this.$refs.BatchArchiveRef.title = '确认批量pdf时间段';
+        genDocBatch(params).then(res => {
+          this.$message({
+            type: "success",
+            message: "正在批量转pdf，请稍等"
+          });
+          this.getArchiveList();
+        });
+      }
     },
     //科室患者归档列表
     getArchiveList() {
@@ -668,36 +783,50 @@ export default {
     },
     // 跳转至电子病历
     openDetail(row) {
-      const { patientId, visitId } = row
-      if (['foshanrenyi', 'lyxrm','zhzxy', 'whhk','nfyksdyy', 'stmz'].includes(this.HOSPITAL_ID)) {
+      const { patientId, visitId } = row;
+      if (
+        [
+          "foshanrenyi",
+          "lyxrm",
+          "zjhj",
+          "zhzxy",
+          "whhk",
+          "nfyksdyy",
+          "stmz"
+        ].includes(this.HOSPITAL_ID)
+      ) {
         const { href } = this.$router.resolve({
           path: "/home",
           query: { patientId, visitId }
         });
         window.open(href, "_blank");
       } else {
-        this.$router.push({path: '/home', query: {
-          patientId, visitId
-        }})
+        this.$router.push({
+          path: "/home",
+          query: {
+            patientId,
+            visitId
+          }
+        });
       }
     },
     // 撤销申请
     cancelRecall(row) {
-      this.curItem = row
+      this.curItem = row;
       // this.curIndex = index
-      this.$refs.cancelRecallRef.open()
+      this.$refs.cancelRecallRef.open();
     },
     // 审核
     audit(row) {
-      this.curItem = row
+      this.curItem = row;
       // this.curIndex = index
-      this.$refs.audioRef.open()
+      this.$refs.audioRef.open();
     },
     // 申请召回
     applyForRecall(row, index) {
-      this.curItem = row
+      this.curItem = row;
       // this.curIndex = index
-      this.$refs.applyForRecallRef.open()
+      this.$refs.applyForRecallRef.open();
     },
     handleRefresh(row) {
       this.getArchiveList();
@@ -734,34 +863,39 @@ export default {
     deptCode() {
       this.getArchiveList();
     },
-    "query.dischargeDateBegin":{
-      handler(newVal,oldVal) {
-        if(['whhk'].includes(this.HOSPITAL_ID)){
-          if(moment(newVal).diff(moment(this.query.dischargeDateEnd), 'days' )>0){
-            this.query.dischargeDateBegin = oldVal
+    "query.dischargeDateBegin": {
+      handler(newVal, oldVal) {
+        if (["whhk"].includes(this.HOSPITAL_ID)) {
+          if (
+            moment(newVal).diff(moment(this.query.dischargeDateEnd), "days") > 0
+          ) {
+            this.query.dischargeDateBegin = oldVal;
             return this.$message({
-              message: '开始时间不可大于结束时间',
-              type: 'warning'
+              message: "开始时间不可大于结束时间",
+              type: "warning"
             });
           }
         }
         this.search();
-      },
+      }
     },
-    "query.dischargeDateEnd":{
-      handler(newVal,oldVal) {
-        if(['whhk'].includes(this.HOSPITAL_ID)){
-          if(moment(newVal).diff(moment(this.query.dischargeDateBegin), 'days' )<0){
-            this.query.dischargeDateEnd = oldVal
+    "query.dischargeDateEnd": {
+      handler(newVal, oldVal) {
+        if (["whhk"].includes(this.HOSPITAL_ID)) {
+          if (
+            moment(newVal).diff(moment(this.query.dischargeDateBegin), "days") <
+            0
+          ) {
+            this.query.dischargeDateEnd = oldVal;
             return this.$message({
-              message: '开始时间不可大于结束时间',
-              type: 'warning'
+              message: "开始时间不可大于结束时间",
+              type: "warning"
             });
           }
         }
         this.search();
-      },
-    },
+      }
+    }
   }
 };
 </script>
@@ -879,6 +1013,10 @@ export default {
   >>>.el-table::after, .el-table::before {
     background: #cbd5dd;
     display: none;
+  }
+
+  >>>.el-table th {
+    text-align: center;
   }
 
   >>>.el-table__row td:first-child .cell, >>>.el-table__row td:last-child .cell {

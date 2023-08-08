@@ -5,7 +5,7 @@
     :style="{ ' height': containHeight }"
   >
     <div ref="Contain" @mousewheel="(e) => onScroll(e)">
-      <div v-show="!isChart" class="blood-sugar-con" :style="$route.path == '/formPage' && HOSPITAL_ID =='nfyksdyy' ? 'overflow: auto; height: calc(100vh - 105px);' : '' ">
+      <div v-show="!isChart" class="blood-sugar-con" :style="$route.path == '/formPage'  ? 'overflow: auto; height: calc(100vh - 105px);' : '' ">
         <div
           class="sugr-page"
           v-for="(item, index) in listMap"
@@ -28,12 +28,12 @@
             <span>姓名：{{ patientInfo.name ||tableHeaderInfo.name}}</span>
             <span style="margin-left: 20px;">性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span style="margin-left: 20px;">年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
-            <span style="margin-left: 20px;">床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
+            <span style="margin-left: 20px;">床号：<input type="text" :value="resBedNol.split(',')[index]" style="width:128px; border:none;resize: none; outline:none;" @blur="onResBedNo($event,index+1)" :data-value="resBedNol.split(',')[index]"></span>
             <span style="margin-left: 20px;">住院号：{{patientInfo.inpNo}}</span>
           </div>
           <div class="info" style="border-bottom: 1px solid #000;">
-            <span>科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span>
-            <span style="margin-left: 80px;">病区:{{$route.query.wardName}}</span>
+            <span>科室：{{ resDeptName }}</span>
+            <span style="margin-left: 80px;">病区:{{ resWardName || patientInfo.wardName}}</span>
 
           </div>
 
@@ -79,19 +79,13 @@
         :sugarItem.sync="typeList"
       ></sugarChart>
     </div>
-    <div class="tool-con" v-show="listMap.length" :class="[HOSPITAL_ID=='guizhou'?'guizhou-btn':'']">
+    <div class="tool-con" v-show="listMap.length">
       <div class="tool-fix" flex="dir:top">
         <whiteButton text="添加" @click="hisDisabled()&&onAdd()" :disabled="isPreview"></whiteButton>
-        <whiteButton
-        text="保存"
-        @click="saveActiveSugar()"
-        v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='whfk'"
-         :disabled="!selected || !selected.recordDate"></whiteButton>
         <whiteButton
           text="修改"
           @click="hisDisabled()&&onEdit()"
           :disabled="!selected || !selected.recordDate||isPreview"
-          v-if="HOSPITAL_ID != 'lingcheng'"
         ></whiteButton>
         <whiteButton
           text="删除"
@@ -105,50 +99,9 @@
         ></whiteButton>
         <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()" :disabled="isPreview"></whiteButton>
         <whiteButton
-          :text="!isChart ? '查看曲线' : HOSPITAL_ID=='guizhou'?'返回':'查看表格'"
+          :text="!isChart ? '查看曲线' : '查看表格'"
           @click="openChart"
-          v-if="HOSPITAL_ID != 'gy'"
         ></whiteButton>
-        <whiteButton
-          v-if="['guizhou'].includes(HOSPITAL_ID)"
-          :text="'血糖登记数'+registNum"
-          @click="()=>{}"
-        ></whiteButton>
-        <el-select
-         v-if=" HOSPITAL_ID == 'whfk' "
-          v-model="printRecordValue"
-          value-key="id"
-          size="small"
-          placeholder=""
-          class="select-con"
-          @visible-change="getPrintRecordData()"
-        >
-          <div class="sheetSelect-con-sheet">
-            <div class="head-con" flex="cross:stretch">
-              <div class="col-1">打印人</div>
-              <div class="col-2">打印时间</div>
-
-            </div>
-            <el-option
-              v-for="item in printRecord"
-              :key="item.id"
-              :label="item.printName+' '+item.printTime"
-              :value="item"
-            >
-              <div class="list-con" flex="cross:stretch" v-if="!item.nodData">
-                <div class="col-1" :title="item.printName">
-                  {{ item.printName }}
-                </div>
-                <div class="col-2" :title="item.printTime">
-                  {{ item.printTime }}
-                </div>
-              </div>
-              <div v-if="item.nodData" style="text-align: center;width: 562px;height: 100px;padding-top: 50px;background:#fff;background: rgb(255, 255, 255);color: #000">
-                  暂无打印记录
-                </div>
-            </el-option>
-          </div>
-        </el-select>
       </div>
     </div>
     <editModal ref="editModal" :sugarItem.sync="typeList" @confirm="onSave" />
@@ -414,8 +367,8 @@ import {
   getPvHomePage,
   getSugarItemDict,
   getEditAge,
-  getFormHeadData,
-  getPrintRecord
+  getBedExchangeInfo,
+  updateBedExchangeInfo
 } from "./api/index.js";
 import whiteButton from "@/components/button/white-button.vue";
 import sugarChart from "./components/sugar-chart.vue";
@@ -447,14 +400,10 @@ export default {
       typeList: [],
       formAge: 0,
       resAge: 0,
-      resName:'',
-      resGender:'',
       resDeptName:'',
+      resWardName:'',
       resBedNol:'',
-      resInHosId:'',
-      tDeptName: "",
       registNum:0,//血糖登记次数
-      hisUserTitLeList:['huadu'],//表头用户信息通过获取用户信息接口获取的医院
       sugarUserInfo:{},//患者基础信息
       printRecord:[],
       printRecordValue:''
@@ -471,14 +420,7 @@ export default {
     isPreview(){
       return (this.$route.query && this.$route.path.includes("nursingPreview") && this.$route.query.nursingPreviewIsShow=='1');
     },
-    //是否为表头用户信息通过获取用户信息接口获取的医院且为调阅接口
-    isPreviewUserInfo(){
-      return this.hisUserTitLeList.includes(this.HOSPITAL_ID) && this.$route.path.includes("nursingPreview");
-    },
     Toppx(){
-      if(this.HOSPITAL_ID==='whfk'){
-        return '16px'
-      }
       return '30px'
     }
   },
@@ -487,90 +429,8 @@ export default {
       this.load();
       this.getSugarItemDict();
   },
-  async  saveActiveSugar(){
-    if(this.HOSPITAL_ID==='whfk'){
-      if(!this.selected.sugarItem){
-        this.$message({
-          message: '请填写项目再保存',
-          type: 'error',
-          duration:"1500"
-        })
-        return
-      }
-      if(!this.selected.sugarValue){
-        this.$message({
-          message: '请填写血糖值再保存',
-          type: 'error',
-          duration:"1500"
-        })
-        return
-      }
-    }
-    const user=JSON.parse(localStorage.getItem("user"))
-       let item = {
-        patientId: this.patientInfo.patientId,
-        visitId: this.patientInfo.visitId,
-        name:this.patientInfo.name,
-        bedLabel:this.patientInfobedLabel,
-        recordDate: this.selected.recordDate,
-        sugarItem: this.selected.sugarItem,
-        sugarValue: this.selected.sugarValue,
-        riValue:this.selected.riValue,
-        oldRecordDate:"",
-        nurseEmpNo:user.empNo,
-        nurse:user.empNo,
-        expand1:"",
-        expand2:1,
-        wardCode:this.patientInfo.wardCode,
-        time:this.selected.time,
-        date:this.selected.date||""
-      };
-        const DateArr=item.recordDate.split(" ")
-        const timeArr=DateArr[1].split(":")
-        const firstTime=`${timeArr[0]}:${timeArr[1]}`
-
-if(this.selected.expand2!==undefined){
-        item.expand2=2
-        item.oldRecordDate=item.recordDate
-        const fulltime=`${DateArr[0]} ${item.time}:00`
-        await removeSugar(item);
-        item.recordDate=fulltime
-      }
-        // 判断时间
-        if(firstTime!==item.time){
-           item.recordDate=`${DateArr[0]} ${item.time}:00`
-        }
-        // 判断日期
-        const formatArr=DateArr[0].split("-")
-        const notYearDate=`${formatArr[1]}-${formatArr[2]}`
-        const YearDate=`${formatArr[0]}-${formatArr[1]}-${formatArr[2]}`
-        if(item.date&&notYearDate!==item.date&&this.HOSPITAL_ID==='liaocheng'){
-            //聊城显示时间是没有年份的（显示月日时分）。
-            item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
-        }
-        if(item.date&&YearDate!==item.date&&this.HOSPITAL_ID==='whfk'){
-            //武汉肺科显示时间（显示年月日时分）。
-            item.recordDate=`${formatArr[0]}-${item.date} ${item.time}:00`
-        }
-        // if(item.date&&YearDate!==item.date&&this.HOSPITAL_ID==='whfk'){
-        //     //显示时间是有年份的（显示年月日）。
-        //     item.recordDate=`${item.date} ${item.time}:00`
-        // }
-      await saveSugarList([item])
-      this.$message.success("保存成功");
-      this.load()
-      this.getSugarItemDict();
-
-    },
     hisDisabled(){
       return  !this.$route.path.includes('nursingPreview')
-    },
-    async getFormHead() {
-      const res = await getFormHeadData(
-        this.patientInfo.patientId,
-        this.patientInfo.visitId
-      );
-      this.formAge = res.data.data.itemMap.age;
     },
     async load() {
       this.pageLoading = true;
@@ -578,29 +438,20 @@ if(this.selected.expand2!==undefined){
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
-      if( this.HOSPITAL_ID === 'whfk'){
-        this.getPrintRecordData();
-      }
+
       this.tableHeaderInfo=res.data.data
       if(res.data.data.hisPatSugarList.length != 0){
         this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel
       }
       this.resAge = res.data.data.age;
-      ////表头用户信息通过获取用户信息接口获取的医院
-      (this.hisUserTitLeList.includes(this.HOSPITAL_ID)) && (this.sugarUserInfo = res.data.data);
-      if(this.HOSPITAL_ID=='guizhou'&&this.$route.path.includes('nursingPreview')){
-        this.resName = res.data.data.name;
-        this.resGender = res.data.data.gender;
-        this.resDeptName = res.data.data.deptName;
-        this.resBedNol = res.data.data.bedNo;
-        this.resInHosId = res.data.data.inHosId;
-      }
-      if (this.HOSPITAL_ID == "fuyou") this.tDeptName = res.data.data.deptName;
+
       (res.data.data.registNum) && (this.registNum = res.data.data.registNum);//血糖登记次数
       this.pageLoading = false;
 
+      this.resDeptName = res.data.data.deptName;
+      this.resWardName = res.data.data.wardName;
+
       this.hisPatSugarList = res.data.data.hisPatSugarList;
-      console.log('this.hisPatSugarList',this.hisPatSugarList)
       /** 时间排序 */
       let list = res.data.data.hisPatSugarList.sort(
         (a, b) =>
@@ -626,32 +477,36 @@ if(this.selected.expand2!==undefined){
           this.startPage = 1;
         }
       });
+      this.getBedExchange()
+
+    },
+    async getBedExchange(){
+       let resBedNolList = []
+      // 获取动态床号数据
+      if(this.listMap.length){
+        for(let i = 1 ; i <=  this.listMap.length; i++){
+          let bedData = {
+              bedLabelNew: this.resBedNol.split(',')[i-1] || this.patientInfo.bedLabel,
+              moduleCode: 'sugar',
+              pageNo: i,
+              patientId: this.patientInfo.patientId,
+              visitId: this.patientInfo.visitId
+          }
+          const resBedNolRes = await getBedExchangeInfo(bedData)
+          resBedNolList.push(resBedNolRes.data.data.bedExchangeLog)
+        }
+      }
+      this.resBedNol = resBedNolList.length ? resBedNolList.join(',') : this.patientInfo.bedLabel
     },
     toPrint() {
-      if (this.HOSPITAL_ID === 'sdlj') {
-        window.localStorage.sugarModel = $(this.$refs.Contain).html();
-        this.$router.push(`/print/sugar`);
-      } else {
-        const fromParams = {
-          patientId:this.patientInfo.patientId,
-          visitId:this.patientInfo.visitId,
-          // formId:this.patientInfo.formId,
-          formType: "sugar",
-          formCode: "procedure",
-          formName:'血糖监测单',
-        }
         window.localStorage.sugarModel = $(this.$refs.Contain).html();
         if (process.env.NODE_ENV === "production") {
           let newWid = window.open();
-          if(this.HOSPITAL_ID === 'whfk'){
-            newWid.location.href = `/crNursing/print/sugar?patientId=${this.patientInfo.patientId}&visitId=${this.patientInfo.visitId}&formType=${"sugar"}&formCode=${"procedure"}&formName=${'血糖监测单'}`;
-          }else{
-            newWid.location.href = "/crNursing/print/sugar";
-          }
+          newWid.location.href = "/crNursing/print/sugar";
         } else {
           this.$router.push(`/print/sugar`);
         }
-      }
+
     },
 
     openChart() {
@@ -696,23 +551,10 @@ if(this.selected.expand2!==undefined){
         recordId: this.selected.recordId || "",
       };
 
-      if (this.HOSPITAL_ID == "fuyou") {
-        item = {
-          ...item,
-          riValue: this.selected.riValue || "",
-          oldRecordDate: this.selected.oldRecordDate || "",
-          nurseEmpNo: this.empNo || "", //护士工号
-          nurse: this.empName || "", //护士姓名
-          wardCode: this.patientInfo.wardCode || "",
-        };
-      }
 
       await removeSugar(item);
       await this.load();
       this.selected = null;
-      if (this.HOSPITAL_ID === "sdlj" && this.listMap.length === 0) {
-        this.$emit('removeSugar')
-      }
     },
     async onSave(item) {
       item.recordDate =
@@ -744,7 +586,6 @@ if(this.selected.expand2!==undefined){
       });
       this.load();
       this.$refs.editAge.close();
-      this.getFormHead();
       this.$message.success("保存成功");
     },
     openSetPageModal(length) {
@@ -767,52 +608,32 @@ if(this.selected.expand2!==undefined){
           Number(this.$refs.Contain.style.top.split("px")[0]) + 20 + "px";
       }
     },
-    getPrintRecordData(){
-      const fromParams = {
-        patientId:this.patientInfo.patientId,
-        visitId:this.patientInfo.visitId,
-        formId:this.patientInfo.formId,
-        formType: "sugar",
-        formCode: "procedure",
-        formName:'血糖监测单',
-      }
-      getPrintRecord(fromParams)
-      .then(res => {
-        this.printRecord = res.data.data&&res.data.data.length>0?res.data.data:[{printName:'',printTime:'',nodData:true}];
-        this.printRecordValue = this.printRecord[0]? this.printRecord[0]['printName']+' '+this.printRecord[0]['printTime']:'';
-      }, err => {
-
-      });
+    async onResBedNo(e,index){
+      let bedData = {
+           bedLabelNew: e.target.value,
+           moduleCode: 'sugar',
+           pageNo: index,
+           patientId: this.patientInfo.patientId,
+           visitId: this.patientInfo.visitId
+       }
+      updateBedExchangeInfo(bedData).then((res)=>{
+        this.$message({
+          message: '保存转床床号成功',
+          type: 'success'
+        })
+      })
     },
   },
   mounted(){
-    if( this.HOSPITAL_ID === 'whfk' &&this.patientInfo.patientId){
-      this.getPrintRecordData();
-    }
   },
   async created() {
     if (this.$route.query.patientId) {
       await this.load();
     }
 
-    // 为了处理顺德龙江选择儿童单子立马创建表单问题
-    if (this.HOSPITAL_ID === "sdlj" && this.listMap.length == 0 && !this.isPreview) {
-      this.onAddTable()
-    }
-    if (this.HOSPITAL_ID != "hj" && this.HOSPITAL_ID != "huadu") {
-      this.getSugarItemDict();
-    }
-
-    if (this.HOSPITAL_ID == "lingcheng") {
-      this.getFormHead();
-    }
+    this.getSugarItemDict();
   },
   watch: {
-    "patientInfo.patientId"(nVal, oVal) {
-      if (this.HOSPITAL_ID == "lingcheng") {
-        this.getFormHead();
-      }
-    },
     startPage() {
       let contont = this.$refs.Contain.children
         ? this.$refs.Contain.children[0]

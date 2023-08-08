@@ -1,5 +1,5 @@
 <template>
-  <sweet-modal ref="modalName" title="同步医嘱" class="modal-con">
+  <sweet-modal ref="modalName" :title="title" class="modal-con">
     <advice ref="advice" :isMulti="true" @handleCheckbox="handleCheckbox" />
     <div slot="button">
       <el-button class="modal-btn" @click="$refs.modalName.close()"
@@ -25,11 +25,15 @@ export default {
   props: {},
   data() {
     return {
-      selected: []
+      selected: [],
+      title: '同步医嘱'
     };
   },
   methods: {
-    open() {
+    open(data) {
+      if (data && data.modalTitle) {
+        this.title = data.modalTitle;
+      }
       this.selected = []
       this.$refs.modalName.open();
       this.$refs.advice.getData()

@@ -203,7 +203,7 @@
   }
 
   ::-webkit-scrollbar {
-    width: 7px;
+    width: 14px;
     height: 14px;
     background-color: #EAEAEA;
   }

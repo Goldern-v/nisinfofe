@@ -264,7 +264,7 @@ export default {
                 );
               }
 
-              if(['lyxrm','huadu', 'stmz', 'wujing', 'zhzxy','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+              if(['lyxrm','huadu', 'stmz', 'wujing', 'zhzxy','nfyksdyy', 'fuyou'].includes(this.HOSPITAL_ID)) {
                 addCSS(
                   window,
                   `
@@ -302,6 +302,9 @@ export default {
                     }
                     #sheetPagePrint .iframe > div:nth-of-type(n) .sheet-table td[datakey="description"] textarea{
                       letter-spacing: -1.21px;
+                    }
+                    #sheetPagePrint .iframe .sign-img img{
+                      height: 20px;
                     }
                     @media print {
                       .iframe > div:nth-of-type(n) {

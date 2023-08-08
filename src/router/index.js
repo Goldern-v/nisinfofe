@@ -383,6 +383,7 @@ import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue";
 import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; // 杏坛
 import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_foshanrenyi.vue"; // 佛医
 import bloodSugarZhuHaiZhongXiYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_zhzxy.vue"; // 珠海中西
+import bloodSugarZjhj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_zjhj.vue"; // 珠海中西
 import bloodSugarGdtj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_gdtj.vue"; // 同江
 import bloodSugarNfyksdyy from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_nfyksdyy"; // 顺德
 import bloodSugarWeiXian from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_weixian.vue"; // 威县
@@ -454,6 +455,7 @@ const StatisticalBlood = () => import("@/Page/statistical-query/statistical-bloo
 const statisticalNutritionalRisk = () => import("@/Page/statistical-query/statistical-nutritionalRisk")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
+const StatisticalTumbleSdyy = () => import("@/Page/statistical-query/statistical-tumble-sdyy")
 
 // 925 设备使用记录
 const EquipmentManagement = () => import("@/Page/equipment-management/index.vue")
@@ -465,6 +467,7 @@ const Inventory = () => import("@/Page/equipment-management/inventory")
 const StatisticalUnplanned = () => import("@/Page/statistical-query/statistical-unplanned")
 const StatisticalAdultFall = () => import("@/Page/statistical-query/statistical-adult-fall")
 const StatisticalChildrenFall = () => import("@/Page/statistical-query/statistical-children-fall")
+
 Vue.use(Router);
 const HOSPITAL_ID = process.env.HOSPITAL_ID;
 // 执行单路由
@@ -660,11 +663,12 @@ const router = new Router({
         }
       })(),
       name: "体温单"
-    },{
+    },
+    {
       path: 'implementationList',
       component: getImplementation(),
       name: '执行单'
-    }
+    },
     ]
   },
   {
@@ -734,6 +738,7 @@ const router = new Router({
         component: (() => {
           switch(HOSPITAL_ID) {
             case 'lyxrm':
+            case 'zjhj':
             case 'ytll':
             case 'foshanrenyi':
             case 'zhzxy':
@@ -1222,6 +1227,8 @@ const router = new Router({
               case "stmz":
               case "925":
                 return allCatheter
+              case "qhwy":
+                return allCatheterQHWY
               default:
                 return catheter
             }
@@ -1258,6 +1265,8 @@ const router = new Router({
               case 'zhzxy':
               case 'whhk':
                 return bloodSugarZhuHaiZhongXiYi
+                case 'zjhj':
+                return bloodSugarZjhj
               default:
                 return bloodSugar
             }
@@ -1344,14 +1353,16 @@ const router = new Router({
             name: "执行单",
             alias: "执行单"
           },
-        {
-          path: "/previousHistory",
-          component: previousHistory,
-          name: '既往护理病历',
-          alias: "既往护理病历",
-        }
+          {
+            path: "/previousHistory",
+            component: previousHistory,
+            name: '既往护理病历',
+            alias: "既往护理病历",
+          },
         ]
       },
+
+
       {
         path: "/nursingDocumentation",
         component: nursingDocumentation,
@@ -1658,6 +1669,7 @@ const router = new Router({
             case 'nfyksdyy':
             case 'zhzxy':
             case 'qhwy':
+            case 'zjhj':
               return allTemperatureChartFSRY
             case 'lyyz':
             case 'whhk':
@@ -1693,6 +1705,7 @@ const router = new Router({
               return newSingleTemperatureChartJmfy;
             case "foshanrenyi":
             case 'nfyksdyy':
+            case 'zjhj':
               return newSingleTemperatureChartFSSY;
             case "nanfangzhongxiyi":
               return newSingleTemperatureChartZhongXiYi;
@@ -1976,9 +1989,16 @@ const router = new Router({
             path: "statisticalTumble",
             name: "statisticalTumble",
             meta: {
-              title: '跌倒统计'
+              title: ['nfyksdyy'].includes(HOSPITAL_ID) ? '跌倒风险统计' : '跌倒统计'
             },
-            component: StatisticalTumble
+            component: (()=>{
+              switch (HOSPITAL_ID) {
+                case 'nfyksdyy':
+                  return StatisticalTumbleSdyy
+                default:
+                  return StatisticalTumble;
+              }
+            })(),
           },
           {
             path: "statisticalScanCodeDetails",

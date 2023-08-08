@@ -52,7 +52,7 @@
           <span v-if="item.key == 'recordYear'">{{
             recordYear()
           }}</span>
-          <span v-else v-html="item.name"></span>
+          <span v-else v-html="item.name" :style="setStyle(item.name, item.canSet)"></span>
           <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
             <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
               <input
@@ -118,7 +118,7 @@
           @click="item.canSet && setTitle(item, data.titleModel)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
-          <span v-else v-html="item.name"></span>
+          <span v-else v-html="item.name" :style="setStyle(item.name, item.canSet)"></span>
           <template v-if="sheetInfo.sheetType == 'cardiology_tj'">
             <template v-if="item.checkbox && item.checkbox === '沙袋压迫描述'">
               <input
@@ -171,13 +171,13 @@
               tr.find((item) => item.key == 'recordDate').value,
             noSignRow: tr.find((item) => item.key == 'status').value === '0',
             multiSign: tr.find((item) => item.key == 'multiSign').value,
-            selectedTr: sheetInfo.selectRow.includes(tr),
-            clickRow: sheetInfo.clickRow === tr,
+            selectedTr: HOSPITAL_ID != 'nfyksdyy' && sheetInfo.selectRow.includes(tr),
+            clickRow: sdyyRow == `${index}_${y}`,
             redText:
               tr.find((item) => {
                 return item.key == 'recordSource';
               }).value == '5',
-            onlyTdredText:tr.find((item) => {
+            onlyTdredText:['whsl'].includes(HOSPITAL_ID)&& tr.find((item) => {
               return item.key == 'recordSource';
             }).onlyTdredText && tr.find((item) => {
               return item.key == 'food';
@@ -206,7 +206,7 @@
           },
         ]"
         :key="y"
-        @click="selectRow(tr, $event)"
+        @click="selectRows(tr, $event, index, y)"
         @mouseover="markTip($event, tr)"
         @mouseout="closeMarkTip"
         :recordId="tr.find((item) => item.key == 'id').value"
@@ -782,6 +782,7 @@ import {
   markDelete,
   saveTitleOptions,
   findListByBlockId,
+  delSameRecordRow
 } from "@/api/sheet.js";
 import signModal from "@/components/modal/sign.vue";
 import whhkSignModal from "@/components/modal/whhk-sign.vue";
@@ -813,6 +814,7 @@ import moment from "moment";
 import { getUser,saveRecordAllSign } from "@/api/common.js";
 import bottomRemark from "./remark";
 import { GetUserList} from "@/api/caCardApi";
+import { hisMatch } from '@/utils/tool'
 export default {
   props: {
     data: Object,
@@ -825,6 +827,7 @@ export default {
     listData: Array,
     specialLis: Array,
     sheetTagsHeight: Number,
+    evalTagHeight: Number
   },
   mixins: [common],
   data() {
@@ -838,6 +841,7 @@ export default {
       multiSign: false,
       selectType: false, //时间日期鼠标选中修改控制限制
       flag:true,
+      sdyyRow: '',
       //底部签名
       auditArr: [
         "com_lc",
@@ -1056,11 +1060,28 @@ export default {
     whhkCaOrUsbSignIn(){
       return window.localStorage.getItem("whhkCaOrUsbSignIn")?JSON.parse(window.localStorage.getItem("whhkCaOrUsbSignIn")):null
     },
+    tagHeight() {
+      let pathnameArr = window.location.pathname.split("/")
+      let pathname = pathnameArr[pathnameArr.length-1]
+      const extraHeight = pathname == 'formPage' ? 20 : 8;
+      return ['formPage', 'record'].includes(pathname)
+        ? (this.evalTagHeight + extraHeight) + this.sheetTagsHeight
+        : this.sheetTagsHeight;
+    },
     fixedTop() {
-      return (this.isInPatientDetails ? 45 : 55) + (this.sheetTagsHeight || 0)
+      return (this.isInPatientDetails ? 45 : 55) + (this.tagHeight || 0)
     },
   },
   methods: {
+    // 自定义标题根据内容字数缩小
+    setStyle(text, canSet) {
+      if (!canSet || this.HOSPITAL_ID !== 'nfyksdyy') {
+        return {};
+      }
+      text = text || '';
+      const scale = Math.min(1, 1 - (text.length - 10) * 0.03);
+      return { zoom: scale };
+    },
     customCallBack(e,tr,x,y,index){
       if(!this.splitSave) return
       //这个方法是处理  自定义标题 每次选择 没有自动调用查询是否更改的方法的BUG
@@ -1181,12 +1202,11 @@ export default {
         }, 300);
       }
     },
-    async onBlur(e, bind, tr,td){
+    onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
-      if ( this.sheetInfo.sheetType == 'common_gzry' || this.sheetInfo.sheetType == 'waiting_birth_gzry' || this.sheetInfo.sheetType == 'newborn_care_gzry'|| this.sheetInfo.sheetType == 'orthopaedic_sdry' || this.sheetInfo.sheetType == 'baby2_sdry') {
-        let confirmRes = '';
+      if ( ['common_gzry','oxytocin_sdry', 'waiting_birth_gzry', 'newborn_care_gzry','orthopaedic_sdry','baby2_sdry'].includes(this.sheetInfo.sheetType) ) {
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
-          confirmRes = await this.$confirm(
+          this.$confirm(
             " 体温的填写范围是35～42，您的填写超出录入范围,请重新填写",
             "错误",
             {
@@ -1198,7 +1218,7 @@ export default {
             td.value ='';
         }
         if((td.key === 'pulse'||td.key === 'heartRate'||td.key === 'fetalRate')&&td.value !== ''&&(isNaN(td.value)||td.value<30||td.value>300)){
-          confirmRes = await this.$confirm(
+          this.$confirm(
             td.name+ "的填写范围是30～300，您的填写超出录入范围,是否确定填写?",
             "提示",
             {
@@ -1206,13 +1226,12 @@ export default {
               cancelButtonText: "取消",
               type: "warning",
             }
-          ).catch(() => {});
-          if (confirmRes !== "confirm") {
+          ).catch(() => {
             td.value ='';
-          }
+          });
         }
         if((td.key === 'spo2')&&td.value !== ''&&(isNaN(td.value)||td.value<50||td.value>100)){
-          confirmRes = await this.$confirm(
+          this.$confirm(
             td.name+ "的填写范围是50～100，您的填写超出录入范围,是否确定填写?",
             "提示",
             {
@@ -1220,17 +1239,16 @@ export default {
               cancelButtonText: "取消",
               type: "warning",
             }
-          ).catch(() => {});
-          if (confirmRes !== "confirm") {
+          ).catch(() => {
             td.value ='';
-          }
+          });
         }
         if((td.key === 'bloodPressure') && td.value !== ''&&!td.value.split('/')[1] && sheetInfo.sheetType !== 'common_gzry' && this.HOSPITAL_ID != 'nfyksdyy'){
           td.value ='';
         }
         if((td.key === 'bloodPressure')&&td.value !== ''&&(isNaN(td.value.split('/')[0])||!td.value.split('/')[1]
         ||(td.value.split('/')[0]>250||td.value.split('/')[0]<50)||td.value.split('/')[1]>200||td.value.split('/')[1]<0)){
-          confirmRes = await this.$confirm(
+          this.$confirm(
             td.name+ "的收缩压的填写范围50~250,舒张压的填写范围0~200，您的填写超出录入范围,是否确定填写?",
             "提示",
             {
@@ -1238,18 +1256,14 @@ export default {
               cancelButtonText: "取消",
               type: "warning",
             }
-          ).catch(() => {});
-          if (confirmRes !== "confirm") {
+          ).catch(() => {
             td.value ='';
-          }
-
+          });
         }
       }
       if(this.sheetInfo.sheetType == 'body_temperature_Hd'){
-        let confirmRes = '';
         if(td.key === 'topComment' && td.value == '入院|'  ){
-        // if((td.key === 'topComment' && td.key == 'recordHour') && td.value !== ''&& (isNaN(td.value)|| (td.value == '入院|' && td.value !== '')) ){
-          confirmRes = await this.$confirm(
+          this.$confirm(
             " 请核对体温单录入入院时间是否正确",
 
             {
@@ -1257,15 +1271,12 @@ export default {
               showCancelButton: false,
               type: "warning",
             }
-          ).catch(() => {});
-           if (confirmRes !== "confirm") {
+          ).catch(() => {
             td.value ='';
-          }
-          console.log(td.value);
+          });
         }
           if(td.key === 'topComment' &&  td.value == '出院|'  ){
-        // if((td.key === 'topComment' && td.key == 'recordHour') && td.value !== ''&& (isNaN(td.value)|| (td.value == '入院|' && td.value !== '')) ){
-          confirmRes = await this.$confirm(
+          this.$confirm(
             " 请核对体温单录入出院时间是否正确",
 
             {
@@ -1273,11 +1284,9 @@ export default {
               showCancelButton: false,
               type: "warning",
             }
-          ).catch(() => {});
-           if (confirmRes !== "confirm") {
-            td.value ='';
-          }
-          console.log(td.value);
+          ).catch(() => {
+             td.value ='';
+          });
         }
       }
       onBlurToAutoComplete(e, bind);
@@ -1361,6 +1370,7 @@ export default {
     //
     setTitleFS(item) {
       let self = this
+
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
           let { list = [], id = '' } = obj  || {}
@@ -2388,6 +2398,40 @@ export default {
         return false;
       }
     },
+    deleteSameRecord(e, index, row) {
+      const id = row.find((item) => item.key == "id").value;
+      const isRead = this.isRead(row, index);
+      const onDeleteSuccess = () => {
+        this.$notify.success({
+          title: "提示",
+          message: "删除成功",
+          duration: 1000,
+        });
+        this.bus.$emit("saveSheetPage", true);
+      }
+      if (id && isRead) {
+        this.$parent.$parent.$refs.signModal.open((password, empNo) => {
+          delSameRecordRow(id, password, empNo).then((res) => {
+            onDeleteSuccess();
+          });
+        });
+      } else {
+        this.$confirm("你确定删除该行相同时间所有数据吗", "提示", {
+          confirmButtonText: "删除",
+          cancelButtonText: "取消",
+          type: "warning",
+        }).then((res) => {
+          if (id) {
+            delSameRecordRow(id, "", "").then((res) => {
+              onDeleteSuccess();
+            });
+          } else {
+            // this.delRow(index);
+            // onDeleteSuccess();
+          }
+        });
+      }
+    },
     // 右键菜单
     openContextMenu(e, index, row, cell,datas) {
       $(e.target).parents("tr").addClass("selectedRow");
@@ -2395,6 +2439,7 @@ export default {
         top: `${Math.min(e.clientY - 15, window.innerHeight - 280)}px`,
         left: `${Math.min(e.clientX + 15, window.innerWidth - 180)}px`,
       };
+      const hasId = row.find((item) => item.key == "id").value;
       let data = [
         {
           name: "向上插入新行",
@@ -2424,7 +2469,10 @@ export default {
                   item.key == "id" ||
                   item.key == "sign" ||
                   item.key == "signerName" ||
-                  item.key == "status"
+                  item.key == "status" ||
+                  (this.HOSPITAL_ID == 'nfyksdyy' && (item.key == "recordMonth" ||
+                  item.key == "recordHour" ||
+                  item.key == "recordDate"))
                 ) {
                   obj = { value: "" };
                 }
@@ -2456,6 +2504,18 @@ export default {
             this.$emit('onModalChange', e,this.data.bodyModel[index], datas.x, datas.y, datas.index)
           },
         },
+        ...hisMatch({
+          map: {
+            whhk: hasId ? [
+              {
+                name: '删除整段记录',
+                icon: 'shanchuzhenghang',
+                click: () => this.deleteSameRecord(e, index, row)
+              }
+            ] : [],
+            other: []
+          },
+        }),
         {
           name: "删除整行",
           icon: "shanchuzhenghang",
@@ -3002,12 +3062,11 @@ export default {
       window.closeMarkTip();
     },
     // 按下commmand多选
-    selectRow(tr, e) {
+    selectRows(tr, e, index, y) {
       if (sheetInfo.model == "print") return;
-      if (this.HOSPITAL_ID == "weixian") {
-        this.sheetInfo.clickRow = tr;
-      }
-      this.sheetInfo.clickRow = tr;
+      // this.sheetInfo.clickRow = `${index}_${y}`;
+      this.sdyyRow = `${index}_${y}`;
+      // console.log('this.sheetInfo.clickRow',this.sheetInfo.clickRow);
       if (this.sheetInfo.downControl) {
         this.sheetInfo.downControl = e.ctrlKey;
         let index = this.sheetInfo.selectRow.indexOf(tr);
@@ -3310,6 +3369,9 @@ export default {
     ) {
       this.$set(this.sheetInfo.selectBlock, "relSignInfo", {});
     }
+    this.bus.$on("clearClickRow", () => {
+      this.sdyyRow = ""
+    })
   },
   components: {
     signModal,

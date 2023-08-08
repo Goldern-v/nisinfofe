@@ -112,6 +112,20 @@ export default {
         }),
         ...hisMatch({
           map: {
+            nfyksdyy: [
+              {
+                name: "statisticalTumble",
+                meta: {
+                  title: '跌倒风险统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
+            ],
+            other: []
+          }
+        }),
+        ...hisMatch({
+          map: {
             gdtj: [],
             zhzxy: [],
             wujing: [],

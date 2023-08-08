@@ -347,26 +347,28 @@ export default {
                 ~~this.$root.$refs[this.formCode][r.height].currentValue ||
                 0;
               let weight =
+              this.formObj.model[r.weight] ||
                 ~~this.$root.$refs[this.formCode][r.weight].currentValue ||
-                this.formObj.model[r.weight] ||
                 0;
-              if (
-                r.weight2 &&
-                this.$root.$refs[this.formCode][r.weight2] &&
-                ["NaN", "0"].indexOf(
-                  Number(
-                    this.$root.$refs[this.formCode][r.weight2].currentValue
-                  ) + ""
-                ) == -1
-              ) {
-                weight =
-                  ~~this.$root.$refs[this.formCode][r.weight2].currentValue ||
-                  this.formObj.model[r.weight2] ||
-                  ~~this.$root.$refs[this.formCode][r.weight].currentValue ||
-                  this.formObj.model[r.weight] ||
-                  0;
-              }
+              // if (
+              //   r.weight2 &&
+              //   this.$root.$refs[this.formCode][r.weight2] &&
+              //   ["NaN", "0"].indexOf(
+              //     Number(
+              //       this.$root.$refs[this.formCode][r.weight2].currentValue
+              //     ) + ""
+              //   ) == -1
+              // ) {
+              //   weight =
+              //     ~~this.$root.$refs[this.formCode][r.weight2].currentValue ||
+              //     this.formObj.model[r.weight2] ||
+              //     ~~this.$root.$refs[this.formCode][r.weight].currentValue ||
+              //     this.formObj.model[r.weight] ||
+              //     0;
+              // }
               let result = '';
+              // console.log(weight);
+              // console.log(height);
               if(isNaN(Number(height)) && isNaN(Number(weight)) ){
                 result = this.formObj.model[r.result]
                 this.$root.$refs[this.formCode][r.result].setCurrentValue(
@@ -374,12 +376,14 @@ export default {
                 );
                 this.formObj.model[r.result] = result
                 }else{
-                result = weight / Math.pow(height / 100, 2).toFixed(2);
+                result = weight / Math.pow(height / 100, 2);
+                // console.log(Math.pow(height / 100, 2).toFixed(2));
+                // console.log(weight.toFixed(2));
                 result = isNaN(Number(result)) || !isFinite(result) ? 0 : result;
                 this.$root.$refs[this.formCode][r.result].setCurrentValue(
-                result ? result.toFixed(2) : ""
+                result ? result.toFixed(1) : ""
                 );
-                this.formObj.model[r.result] = result ? result.toFixed(2) : "";
+                this.formObj.model[r.result] = result ? result.toFixed(1) : "";
                 if (r.relate && r.relateRule) {
                   const relateItem = r.relateRule.find(rl => {
                     if (!rl.min && rl.max) {

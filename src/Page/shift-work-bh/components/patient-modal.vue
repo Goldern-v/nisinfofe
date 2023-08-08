@@ -95,8 +95,14 @@
         </ElTabPane>
       </ElTabs>
     </div>
+    <ElButton slot="button" @click="tbYesterday" v-if="['nfyksdyy'].includes(this.HOSPITAL_ID)">同步昨日交班</ElButton>
     <ElButton slot="button" @click="onClose">取消</ElButton>
     <ElButton slot="button" type="primary" @click="onConfirm">保存</ElButton>
+    <template v-if="showAPN">
+      <ElButton slot="button" @click="setString('【A】')" :disabled="isSignedN">A</ElButton>
+      <ElButton slot="button" @click="setString('【P】')" :disabled="isSignedN">P</ElButton>
+      <ElButton slot="button" @click="setString('【N】')" :disabled="isSignedN">N</ElButton>
+    </template>
   </SweetModal>
   <advice-modal
     v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
@@ -178,6 +184,9 @@
             return false;
         }
       },
+      showAPN() {
+        return ['nfyksdyy'].includes(this.HOSPITAL_ID) && ['2', '3'].includes(this.tab);
+      }
     },
     watch: {
       syncRecord: {
@@ -192,6 +201,39 @@
       }
     },
     methods: {
+      tbYesterday(){
+        function xie(doc,str) {
+          if (doc) {
+            doc += "\n" + str;
+          } else {
+            doc = str;
+          }
+          return doc
+        }
+        let { patientId,visitId } = this.form , id = this.$route.params.id;
+        apis.getPreviousPatient({patientId,visitId,id}).then(res=>{
+          let arr = ["proposal","assessmentSituation","background","mainComplaint","diagnosis"];
+          let {data:{data}}= res
+          arr.forEach(code=>{
+            let str = data[code] || ""
+            this.form[code] = xie(this.form[code],str)
+          })
+        })
+      },
+      setString(value) {
+        value = value || '';
+        const tabMap = {
+          '2': () => {
+            this.form.background = (this.form.background || '') + value;
+            this.$refs.background.$refs.textarea.focus();
+          },
+          '3': () => {
+            this.form.assessmentSituation = (this.form.assessmentSituation || '') + value;
+            this.$refs.assessmentSituation.$refs.textarea.focus();
+          }
+        }
+        tabMap[this.tab] && tabMap[this.tab]();
+      },
       handleDiagnosis({ item, key }) {
         switch (this.tab) {
           case "2":
@@ -218,11 +260,18 @@
 
       },
       openModal(key) {
-        this.$refs[key] && this.$refs[key].open();
+        const modalData = ['nfyksdyy'].includes(this.HOSPITAL_ID) && {
+          modalTitle: `
+          同步医嘱 <span style="margin-left: 12px">
+            ${this.form.name}&nbsp;${this.form.age}&nbsp;${this.form.inpNo || ''}
+          </span>
+          `
+        }
+        this.$refs[key] && this.$refs[key].open(modalData);
       },
       openPISlide(type) {
-        // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
-        this.bus.$emit("openclosePatientInfo", type, false, true);
+        // 四个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能 第四个参数患者基本信息（交班志基本信息  从交班志打开【检查报告】没有拿到基本信息）
+        this.bus.$emit("openclosePatientInfo", type, false, true, this.form);
       },
       async open (tab, form, autoFocus, isSignedN) {
         const id = this.$route.params.id;

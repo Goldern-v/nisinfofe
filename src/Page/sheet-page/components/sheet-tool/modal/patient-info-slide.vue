@@ -27,12 +27,12 @@
             <div class="label">患者医嘱</div>
             <el-button @click="openModal('adviceModal')">查看</el-button>
           </div>
-          <div class="item-box" v-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID)">
+          <div class="item-box" v-if="['nanfangzhongxiyi','whsl'].includes(HOSPITAL_ID)">
             <img src="../images/toset.png" alt class="label-icon" />
             <div class="label">患者360</div>
             <el-button @click="skip360">跳转</el-button>
           </div>
-          <div class="item-box" v-if="['lingcheng','lyxrm','foshanrenyi', 'stmz'].includes(HOSPITAL_ID)">
+          <div class="item-box" v-if="['lingcheng','lyxrm','foshanrenyi', 'stmz','whsl'].includes(HOSPITAL_ID)">
             <img src="../images/检验报告@2x.png" alt class="label-icon" />
             <div class="label">病历</div>
             <el-button @click="openModal('doctorEmrModal')">查看</el-button>
@@ -240,6 +240,10 @@ export default {
           return []
       }
     },
+    query() {
+      let query = this.$route.query;
+      return query;
+    }
   },
   methods: {
     skip360() {
@@ -250,6 +254,15 @@ export default {
     },
     open() {
       this.show = true;
+      this.$nextTick(this.openLastModal);
+    },
+    openLastModal() {
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        const lastOpenModal = this.$store.state.patient.slideModal;
+        if (lastOpenModal) {
+          this.$refs[lastOpenModal].open();
+        }
+      }
     },
     close() {
       this.show = false;
@@ -258,8 +271,9 @@ export default {
     toggle() {
       this.show = !this.show;
     },
-    openModal(name,feature) {
-      this.$refs[name].open(feature);
+    openModal(name,feature, data = null) {
+      this.$refs[name].open(feature, data);
+      this.$store.commit('setSlideModal', name);
     },
     url360() {
       const { patientId = '' } = this.$route.query
@@ -280,23 +294,30 @@ export default {
     },
     patientRecord() {
       const { inpNo ='' } = this.$route.query
-      return `http://192.168.8.174:8090/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&pcid=${inpNo}`;
+      return `http://192.168.8.174:8000/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&ids=${inpNo}`;
     },
   },
   mounted() {},
-  watch: {},
+  watch: {
+    query: {
+      deep: true,
+      handler() {
+        this.$store.commit('setSlideModal', '');
+      }
+    },
+    patient: {
+      deep: true,
+      handler() {
+        this.$store.commit('setSlideModal', '');
+      }
+    }
+  },
   components: {
     inspectModal,
     testModal,
     adviceModal,
     doctorEmrModal,
     iframeModal,
-  },
-  computed: {
-    query() {
-      let query = this.$route.query;
-      return query;
-    }
   },
 };
 </script>

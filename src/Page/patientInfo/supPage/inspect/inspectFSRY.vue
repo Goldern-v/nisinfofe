@@ -80,7 +80,13 @@
         <!--佛一检查报告-->
         <inspectFormFSRY v-if="['foshanrenyi'].includes(HOSPITAL_ID)" v-show="rightData.examNo" ref="inspectForm" ></inspectFormFSRY>
         <inspectFormNFZXY v-else-if="['nanfangzhongxiyi'].includes(HOSPITAL_ID)" v-show="rightData.examNo" ref="inspectForm" ></inspectFormNFZXY>
-        <inspectForm v-else v-show="rightData.examNo" ref="inspectForm"  @changeExamResult="changeExamResultdata"></inspectForm>
+        <inspectForm
+          v-else
+          v-show="rightData.examNo"
+          ref="inspectForm"
+          @changeExamResult="changeExamResultdata"
+          :originData="originData"
+        ></inspectForm>
 
       </div>
       </el-row>
@@ -211,6 +217,9 @@ import inspectFormNFZXY from "./component/inspectForm_nfzxy";
 import { examList, getExamList } from "@/api/patientInfo";
 import bus from "vue-happy-bus";
 export default {
+  props: {
+    originData: Object
+  },
   data() {
     return {
       list: [],

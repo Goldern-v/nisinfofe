@@ -4,22 +4,10 @@ import { model } from "../diagnosisViewModel";
 import qs from "qs";
 
 //获取评估列表信息
-export function nursingDiagsSearch(
-  patientId,
-  visitId,
-  keyword,
-  pageIndex,
-  pageSize
-) {
+export function nursingDiagsSearch(obj) {
   return axios.post(
     `${apiPath}nursingDiags/search`,
-    qs.stringify({
-      patientId,
-      visitId,
-      keyword,
-      pageIndex,
-      pageSize
-    })
+    qs.stringify(obj)
   );
 }
 
@@ -31,6 +19,13 @@ export function measure(code) {
 // 保存护理诊断
 export function nursingDiagsSave(obj) {
   return axios.post(`${apiPath}nursingDiags/save`, obj);
+}
+
+export function editDiagnosis(obj) {
+  return axios.post(`${apiPath}diagnosis/editDiagnosis`, obj);
+}
+export function deleteDiagnosis(obj) {
+  return axios.post(`${apiPath}diagnosis/deleteDiagnosis`, qs.stringify(obj));
 }
 // 更新护理诊断
 export function nursingDiagsUpdate(obj) {

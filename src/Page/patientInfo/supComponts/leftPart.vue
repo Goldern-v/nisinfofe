@@ -145,7 +145,8 @@
                 HOSPITAL_ID == 'gdtj' ||
                 HOSPITAL_ID == 'whhk' ||
                 HOSPITAL_ID == 'lyyz' ||
-                HOSPITAL_ID == 'dglb'
+                HOSPITAL_ID == 'dglb' ||
+                HOSPITAL_ID == 'zjhj'
             "
           >
             {{ HOSPITAL_ID == "beihairenyi" ? "成人腕带打印" : "腕带打印" }}
@@ -265,6 +266,7 @@
     <bedModalXiegang ref="bedModalXiegang" v-if="HOSPITAL_ID == 'xiegang'" />
     <bedModalHj ref="bedModalHj" v-if="HOSPITAL_ID == 'hj'" />
     <bedModal925 ref="bedModal925" v-if="HOSPITAL_ID == '925'" />
+    <bedModalZjhj ref="bedModalZjhj" v-if="HOSPITAL_ID == 'zjhj'" />
     <bedModalstmz ref="bedModalstmz" v-if="HOSPITAL_ID == 'stmz'" />
     <bedModalGDTJ
       ref="bedModalGDTJ"
@@ -435,6 +437,7 @@ import bedModalWhfk from "./modal/bed-modal-whfk.vue";
 import bedModalXiegang from "./modal/bed-modal_xiegang.vue";
 import bedModalHj from "./modal/bed-modal_hj";
 import bedModal925 from "./modal/bed-modal-925";
+import bedModalZjhj from "./modal/bed-modal-zjhj";
 import bedModalstmz from "./modal/bed-modal-stmz";
 import bedModalWhsl from "./modal/bed-modal_whsl";
 import printModal from "./print-modal/print-modal";
@@ -506,6 +509,7 @@ export default {
         hj: "bedModalHj",
         ytll: "bedModalYtLL",
         925: "bedModal925",
+        zjhj:"bedModalZjhj",
         stmz: "bedModalstmz",
         whsl: "bedModalWhsl"
         // nanfangzhongxiyi:'bedModalNfzxy',
@@ -535,6 +539,8 @@ export default {
         this.$refs.bedModalXiegang.open(printMode);
       } else if (["925"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModal925.open(printMode);
+      } else if (["zjhj"].includes(this.HOSPITAL_ID)) {
+        this.$refs.bedModalZjhj.open(printMode);
       } else if (["stmz"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalstmz.open(printMode);
       } else if (["gdtj"].includes(this.HOSPITAL_ID)) {
@@ -616,6 +622,7 @@ export default {
     bedModalHj,
     bedModalYtLL,
     bedModal925,
+    bedModalZjhj,
     bedModalstmz,
     bedModalGDTJ,
     bedModalWhsl,

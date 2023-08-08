@@ -119,9 +119,12 @@ import bloodSugarNfyksdyy from "@/Page/patientInfo/supPage/blood-sugar/blood-sug
 import bloodSugarGdtj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_gdtj"; // 广东同江
 import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_foshanrenyi"; // 佛山市一
 import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; //血糖
+import bloodSugarZjhj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_zjhj.vue"; //血糖
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj.vue"; //血糖
 import bloodOxygen from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
+import healthEducationGuizhou from "@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation";
+
 import { getPatientInfo } from "@/api/common.js";
 import { getPatientForm } from "@/Page/patientInfo/supPage/blood-sugar-sdlj/api/index.js"; //获取患者存在表单id
 
@@ -141,12 +144,18 @@ export default {
     this.getPatientForm();
     this.$store.commit("closeFullPageRecord");
     this.bus.$on("openOtherForm", data => {
-      this.otherComponent =
-        data.component == "temperature"
-          ? this.getTemplate()
-          : data.component == "bloodSugar"
-          ? this.getBloodSugar()
-          : data.component;
+      const comp = {
+        temperature: () => this.getTemplate(),
+        bloodSugar: () => this.getBloodSugar(),
+        healthEducation: () => healthEducationGuizhou
+      }
+      this.otherComponent = comp[data.component] ? comp[data.component]() : data.component;
+      // this.otherComponent = 
+      //   data.component == "temperature"
+      //     ? this.getTemplate()
+      //     : data.component == "bloodSugar"
+      //     ? this.getBloodSugar()
+      //     : data.component;
     });
     this.bus.$on("openAssessmentBox", data => {
       this.otherComponent = null;
@@ -182,6 +191,8 @@ export default {
           return bloodSugarBhry;
         case "fsxt":
           return bloodSugarFsxt;
+        case "zjhj":
+          return bloodSugarZjhj;
         case "zhzxy":
           return bloodSugarZhzxy;
           case "nfyksdyy":
@@ -263,7 +274,7 @@ export default {
         //优化访问crNursing/nursingPreview无数据问题问题（由于无admissionDate造成）
         patientInfo.admissionDate = data.admissionDate;
         patientInfo.wardCode = data.wardCode;
-        this.$store.commit("upPatientInfo", patientInfo);
+        this.$store.commit("upPatientInfo", { ...patientInfo, ...data });
       });
     }
   },
@@ -280,6 +291,7 @@ export default {
     bloodSugar,
     bloodSugarBhry,
     bloodSugarFsxt,
+    bloodSugarZjhj,
     bloodSugarGdtj,
     bloodSugarFoShanRenYi,
     bloodSugarSdlj,

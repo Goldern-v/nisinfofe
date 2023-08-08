@@ -27,7 +27,10 @@
   * {
     pointer-events: none;
   }
-
+.sheet-page-container .sheet-table .body-con.clickRow td, 
+.sheet-excel-container .sheet-table .body-con.clickRow td{
+  background: transparent;
+}
   overflow: hidden;
 
   .contant {
@@ -139,7 +142,8 @@
       flex: 1;
       height: 30px;
       object-fit: contain;
-      margin: 0 -5px;
+      // margin: 0 -5px;
+      width: min(50px, 100%);
     }
 
     span {
@@ -275,6 +279,7 @@ import common from "@/common/mixin/common.mixin.js";
 import { addCSS } from "@/utils/css";
 import { formatSub } from "@/utils/sup";
 import sheetInfo from "@/Page/sheet-page/components/config/sheetInfo/index.js";
+import { readTxt } from "@/Page/sheet-page/components/sheet-tool/sheetPageModal.js"
 export default {
   props: ["qoSelect"],
   mixins: [common],
@@ -285,6 +290,7 @@ export default {
       pageLoading: true,
       bus: bus(this),
       sheetInfo,
+      sheetModel:"",
       // 需要扩大行距的记录单code
       lineSpacingArr: [
         "icu_qz", // 曲周_重症护理记录单
@@ -334,7 +340,8 @@ export default {
     }
     this.url = `${host}/sheet-page-print.html`;
   },
-  mounted() {
+  async mounted() {
+    await this.getData()
     console.log(
       "this.sheetInfo.sheetType",
       this.sheetInfo.sheetType,
@@ -445,7 +452,7 @@ export default {
             size:A4;
           }
           .iframe > div:nth-of-type(n){
-            transform: rotateZ(90deg) scaleX(.9) scaleY(1.35) translateY(615px) !important;
+            transform: rotateZ(90deg) scaleX(.9) scaleY(1.33) translateY(615px) !important;
             margin-top: 30px !important;
             transform-origin: center center !important;
             height: 1620px !important;
@@ -518,15 +525,16 @@ export default {
         `
       );
     }else if (["extracardi_three_weihai"].includes(this.query.sheetType)) {
+    // }else if (this.sheetInfo.sheetType ==  "extracardi_three_weihai") {
       addCSS(
         window,
         `
         @media print {
           .iframe > div:nth-of-type(n) {
             height: ${sheetTableWidth * 0.755}px !important;
-            transform: scaleX(0.99) scaleY(1.2);
-            transform-origin: top center;
-            margin-top: -40px;
+            transform: scaleX(0.99) scaleY(1.2) !important;
+            transform-origin: top center !important;
+            margin-top: -40px !important;
           }
         }
         `
@@ -919,6 +927,23 @@ export default {
         `
       );
     }
+    //骨科护理记录单
+    if (this.query.sheetType === "orthopaedic_sdlj" ) {
+      addCSS(
+        window,
+        `
+        .info-con{
+            font-size:14px!improtant;
+          }
+          @media print {
+            #sheetPagePrint .body-con{ height: 40px !important; }
+            #sheetPagePrint .body-con td input { font-size: 14px !important;}
+            #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
+            #sheetPagePrint .body-con td[datakey="description"]  textarea{ font-size: 12px !important;}
+          }
+        `
+      );
+    }
     if (this.HOSPITAL_ID === "nfyksdyy") {
       addCSS(
         window,
@@ -956,7 +981,7 @@ export default {
         `
       );
     }
-    // 
+    //
     if (sheetInfo.sheetType == "baby_sdry" || sheetInfo.sheetType == "postpartum2_sdry" ) {
       addCSS(
         window,
@@ -976,6 +1001,26 @@ export default {
         `
       );
     }
+    if (sheetInfo.sheetType == "critical_new_weihai" ) {
+      addCSS(
+        window,
+        `
+        .info-con{
+            font-size:14px!improtant;
+          }
+
+          #sheetPagePrint td[datakey="signerNo"] .sign-img img{
+              transform:scale(0.81)
+          }
+          @media print {
+            #sheetPagePrint .body-con{ height: 40px !important; }
+            #sheetPagePrint .body-con td input { font-size: 14px !important;}
+            #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
+            #sheetPagePrint .body-con td[datakey="description"]  textarea{ font-size: 14px !important;}
+          }
+        `
+      );
+    }
     if (sheetInfo.sheetType == "postpartum_sdry") {
       addCSS(
         window,
@@ -989,6 +1034,26 @@ export default {
           }
           @media print {
             #sheetPagePrint .body-con{ height: 35px !important; }
+            #sheetPagePrint .body-con td input { font-size: 14px !important;}
+            #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
+            #sheetPagePrint .contant{margin-top:-30px !important;}
+          }
+        `
+      );
+    }
+    if (sheetInfo.sheetType == "oxytocin_sdry") {
+      addCSS(
+        window,
+        `
+        .info-con{
+            font-size:16px!improtant;
+          }
+
+          #sheetPagePrint td[datakey="signerNo"] .sign-img img{
+              transform:scale(0.81)
+          }
+          @media print {
+            #sheetPagePrint .body-con{ height: 34px !important; }
             #sheetPagePrint .body-con td input { font-size: 14px !important;}
             #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
             #sheetPagePrint .contant{margin-top:-30px !important;}
@@ -1164,6 +1229,22 @@ export default {
     }
   },
   methods: {
+    getData(){
+      return new Promise((resolve)=>{
+        if(this.HOSPITAL_ID === "whhk"){
+          readTxt().then(res=>{
+            var reg = /data-value/g;
+            this.sheetModel = res.replace(reg, "value");
+            resolve(true)
+          });
+        }else {
+          let html = window.localStorage.sheetModel;
+          var reg = /data-value/g;
+          this.sheetModel = html.replace(reg, "value");
+          resolve(true)
+        }
+      })
+    },
     print() {
       if (
         Array.from(window.document.querySelectorAll("img")).every(
@@ -1181,13 +1262,13 @@ export default {
   computed: {
     overflowAuto(){
       if(['critical2_weihai','extracardi_three_weihai'].includes(this.query.sheetType)) return true
-      return false 
+      return false
     },
-    sheetModel() {
-      let html = window.localStorage.sheetModel;
-      var reg = /data-value/g;
-      return html.replace(reg, "value");
-    },
+    // sheetModel() {
+    //     let html = window.localStorage.sheetModel;
+    //     var reg = /data-value/g;
+    //     return html.replace(reg, "value");
+    // },
     query() {
       return this.$route.query;
     },

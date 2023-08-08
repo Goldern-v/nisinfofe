@@ -116,33 +116,10 @@
     <!-- <div class="info-con" v-if="['extracardi_two_weihai', 'extracardi_three_weihai'].includes(sheetInfo.sheetType)">
       <span class="diagnosis-con" :title="patientInfo.diagnosis" >诊断：{{patientInfo.diagnosis}}</span>
     </div> -->
-
     <div class="info-con  container" v-if="['extracardi_one_weihai','extracardi_two_weihai', 'extracardi_three_weihai'].includes(sheetInfo.sheetType)" style="flex: 2;">
-      <span class="diagnosis-con left" :title="patientInfo.diagnosis" >诊断：<div class="bottom-line">{{patientInfo.diagnosis}}</div></span>
-      <span class="right">手术名称：
-        <input
-        style="flex: 1;font-size:13px;text-align: left;"
-        class="bottom-line"
-        :data-value="sheetInfo.relObj[`ssmc`]"
-        v-model="sheetInfo.relObj[`ssmc`]"
-      /></span>
+      <span class="diagnosis-con left" :title="patientInfo.diagnosis" >诊断：<div class="bottom-line">{{patientInfo.diagnosis }}</div></span>
+      <div><span class="diagnosis-con right" :title="patientInfo.operation">手术名称：<div class="bottom-line" style="overflow: visible;">{{patientInfo.operation }}</div></span></div>
     </div>
-    <!-- <div
-      class="info-con"
-      style="display: flex;align-items: center"
-      v-if="[
-      'extracardi_two_weihai',
-      'extracardi_three_weihai'
-      ].includes(sheetInfo.sheetType)"
-    >
-      <span>手术名称：</span>
-      <input
-        style="flex: 1;font-size:13px;text-align: left;"
-        class="bottom-line"
-        :data-value="sheetInfo.relObj[`ssmc`]"
-        v-model="sheetInfo.relObj[`ssmc`]"
-      />
-    </div> -->
     <div
       class="info-con"
       style="display: flex;align-items: center"
@@ -269,6 +246,7 @@ export default {
       let xy = offset(e.target);
 
       console.log(xy, autoComplete, obj, key, "autoComplete, obj, key");
+      console.log(patientInfo,'111111111111111111111111111');
 
       setTimeout(() => {
         window.openAutoComplete({
@@ -321,6 +299,7 @@ export default {
       sheetInfo.relObj.age = this.patientInfo.age;
     }
   },
+
   watch: {
     // relObj: {
     //   deep: true,

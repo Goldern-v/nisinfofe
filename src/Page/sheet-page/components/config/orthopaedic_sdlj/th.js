@@ -14,13 +14,13 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1500px"
+      width: "1520px"
     },
     th: {
         top:
             [
-                {"name":"日期","colspan":"1","rowspan":"3"},
-                {"name":"时间","colspan":"1","rowspan":"3"},
+                { "name": "日期", "colspan": "1", "rowspan": "3", "style": { "minWidth": "35px", "maxWidth": "35px" } },
+                { "name": "时间", "colspan": "1", "rowspan": "3", "style": { "minWidth": "35px", "maxWidth": "35px" } },
                 {"name":"T<br/>℃","colspan":"1","rowspan":"3"},
                 {"name":"P/HR<br/>次/分","colspan":"1","rowspan":"3"},
                 {"name":"R<br/>次/分","colspan":"1","rowspan":"3"},
@@ -34,9 +34,9 @@ export default {
                 {"name":"功<br/>能<br/>锻<br/>炼<br/>⑿","colspan":"1","rowspan":"3"},
                 {"name":"皮<br/>肤<br/>完<br/>整<br/>性<br/>⒀","colspan":"1","rowspan":"3"},
                 {"name":"护<br/>理<br/>措<br/>施<br/>⒁","colspan":"1","rowspan":"3"},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom1", style: {minWidth: "30px", maxWidth: "30px"}},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom2", style: {minWidth: "30px", maxWidth: "30px"}},
-                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom3", style: {minWidth: "30px", maxWidth: "30px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom1", style: {minWidth: "35px", maxWidth: "35px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom2", style: {minWidth: "35px", maxWidth: "35px"}},
+                {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"custom3", style: {minWidth: "35px", maxWidth: "35px"}},
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"150px","maxWidth":"150px"}},
                 {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
                 {"name":"上级签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}}

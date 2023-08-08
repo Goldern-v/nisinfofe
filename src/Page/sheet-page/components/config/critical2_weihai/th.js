@@ -341,7 +341,7 @@ export default {
     },
     {
       name: `
-        FiO2
+        FiO2(%)
       `,
       style: {
         minWidth: "40px",
@@ -385,7 +385,7 @@ export default {
     },
     {
       name: `
-      气囊<br/>压力<br/>(cmH2)
+      气囊<br/>压力<br/>(cmH2o)
       `,
       style: {
         minWidth: "30px",

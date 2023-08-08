@@ -6,6 +6,13 @@ import qs from "qs";
 export function listDepartment(parentCode) {
   return axios.get(`${apiPath}wardDaily/getDeptWithWardcode/${parentCode}`);
 }
+
+export function getPreviousPatient({id,patientId,visitId}) {
+  return axios.get(
+    `${apiPath}changeShiftBHMaster/getPreviousPatient/${id}/${patientId}/${visitId}`
+  );
+}
+
 export function shiftgetPatient(id,patientId,visitId) {
   return axios.get(
     `${apiPath}changeShiftMaster/getPatient/${id}/${patientId}/${visitId}`
@@ -255,4 +262,9 @@ export function updateShiftRecordICU(data) {
 // 同步护记
 export const getRecordData = (patientId, visitId, recordDate) => {
   return axios.get(`${apiPath}changeShiftMaster/getRecordData/${patientId}/${visitId}/${recordDate}`);
+}
+
+// 按床排序
+export const sortByBed = (shiftId) => {
+  return axios.get(`${apiPath}changeShiftBHMaster/changeSort/${shiftId}`);
 }

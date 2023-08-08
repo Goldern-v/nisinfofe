@@ -2,7 +2,7 @@
   <SweetModal
     ref="modal"
     title="请选择交班病人"
-    :modal-width="900"
+    :modal-width="HOSPITAL_ID == 'nfyksdyy' ? 1200 : 900"
   >
     <div class="container">
       <div class="group">
@@ -212,6 +212,7 @@
     margin-top: 5px;
     display: inline-block;
     width: 20%;
+    overflow: hidden;
   }
 
   .title {

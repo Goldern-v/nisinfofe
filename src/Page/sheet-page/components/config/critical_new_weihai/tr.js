@@ -173,7 +173,8 @@ export default [{
     key: "fieldFour", //出量-颜色性状
     value: "",
     event: keyf1,
-    name: "出量-颜色性状"
+    name: "出量-颜色性状",
+    autoComplete: { data: ["Ⅰ","Ⅱ","Ⅲ"] },
   },
   // {
   //   key: "rassScore", //标题1

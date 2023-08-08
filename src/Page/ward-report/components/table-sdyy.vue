@@ -1,17 +1,25 @@
 <template>
   <table class="in-table">
     <colgroup>
-      <col width="50px" />
+      <col width="45px" />
       <col width="40px" />
       <col width="60px" />
       <col width="60px" />
-      <col width="120px" />
+      <col width="125px" />
       <col width="90px" />
-      <col />
+
+      <col width="50px"/>
+      <col width="40px"/>
+      <col width="60px"/>
+      <col width="60px"/>
+      <col width="120px"/>
+      <col width="30px"/>
+      <col width="90px"/>
     </colgroup>
     <thead>
       <tr>
         <th colspan="6">入院（转入）病人一览表</th>
+        <th colspan="7">出院（转出）病人一览表</th>
       </tr>
       <tr>
         <th>入院时间</th>
@@ -20,10 +28,18 @@
         <th>住院号</th>
         <th>诊断</th>
         <th>何科转入</th>
+
+        <th>出院时间</th>
+        <th>床号</th>
+        <th>姓名</th>
+        <th>住院号</th>
+        <th>诊断</th>
+        <th>死亡</th>
+        <th>转往何科</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item) of data" :key="item.name">
+      <tr v-for="(item, index) of data" :key="item.name">
         <td>{{ item.logDateTime }}</td>
         <td>{{ item.bedLabel }}</td>
         <td
@@ -34,6 +50,18 @@
         <td>{{ item.patientId }}</td>
         <td>{{ item.diagnosis }}</td>
         <td>{{ item.transferFrom }}</td>
+
+        <td>{{ dataOut[index].dischargeDateTime }}</td>
+        <td>{{ dataOut[index].bedLabel }}</td>
+        <td
+          @click="dataOut[index].patientId && toPatientHome(dataOut[index].patientId, dataOut[index].visitId)"
+          style="cursor: pointer"
+        >{{ dataOut[index].name }}
+        </td>
+        <td>{{ dataOut[index].patientId }}</td>
+        <td>{{ dataOut[index].diagnosis }}</td>
+        <td>{{ dataOut[index].deadFlag === '1' ? '√' : ''}}</td>
+        <td>{{ dataOut[index].transferTo }}</td>
       </tr>
     </tbody>
   </table>
@@ -44,7 +72,8 @@ import common from "@/common/mixin/common.mixin.js";
 export default {
   props: {
     data: Array,
-    index: Number
+    index: Number,
+    dataOut: Array,
   },
   mixins: [common],
   data() {

@@ -26,6 +26,12 @@
         >保存</Button
       >
       <Button :disabled="isEmpty" @click="onPrint">打印预览</Button>
+      <Button
+        :disabled="isEmpty"
+        @click="onSortByBedNo"
+        v-if="HOSPITAL_ID == 'nfyksdyy'"
+      >按床排序
+      </Button>
       <div class="empty"></div>
       <Button :disabled="isEmpty || !!record.autographNameA" @click="onRemove"
         >删除交班志</Button
@@ -334,7 +340,7 @@
     <SignModal ref="signModal" />
     <!-- 系统层级乱套了，无奈，只能放到这里，勿喷 -->
     <SyncRecord ref="syncRecordRef" @on-select="onRecordSelect" />
-    <patientInfo v-if="['nfyksdyy'].includes(HOSPITAL_ID)"></patientInfo>
+    <!-- <patientInfo v-if="['nfyksdyy'].includes(HOSPITAL_ID)"></patientInfo> -->
   </div>
 </template>
 
@@ -599,6 +605,16 @@ export default {
     });
   },
   methods: {
+    async onSortByBedNo() {
+      const id = this.$route.params.id;
+      if (!id) return;
+      try {
+        await apis.sortByBed(id);
+        this.load();
+      } catch (e) {
+        throw new Error(e);
+      }
+    },
     onRecordSelect(value) {
       if (this.panelTab == "2") {
         this.syncRecord.background = value;
@@ -928,7 +944,6 @@ export default {
       // if (this.allSigned) {
       //   return
       // }
-
       const tabMap = {
         background: "2",
         assessmentSituation: "3",

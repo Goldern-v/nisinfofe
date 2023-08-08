@@ -556,7 +556,7 @@ export default {
         }
         await saveSyncRecord(params)
       }
-      if(this.HOSPITAL_ID === 'whsl' && ['critical_weihai', 'critical2_weihai'].includes(this.sheetInfo.sheetType)){
+      if(this.HOSPITAL_ID === 'whsl' && ['critical_weihai', 'critical2_weihai','extracardi_one_weihai'].includes(this.sheetInfo.sheetType)){
         let newTemArr=temArr.map((item)=>{
           return {...item,executeType:this.executeType,recordCodes:[this.sheetInfo.sheetType]}
         })
@@ -772,7 +772,7 @@ export default {
     },
     // 一行选中
     handleRowClick(row, column, event) {
-      if (!["foshanrenyi",'zhzxy', '925','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)) return;
+      if (!["foshanrenyi",'zhzxy', '925','nanfangzhongxiyi','whsl'].includes(this.HOSPITAL_ID)) return;
       this.$refs["zxdtb-table"].toggleRowSelection(row);
     },
     changeRecordDate(row, type, newVal) {
@@ -827,7 +827,7 @@ export default {
       ]
     },
     allType() {
-      if (["liaocheng", "lyxrm", "qhwy","whhk", 'stmz','ytll','whsl','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (["liaocheng", "lyxrm", "qhwy","whhk", 'stmz','ytll','nfyksdyy'].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",
@@ -846,7 +846,34 @@ export default {
             name: "口服药",
           },
         ];
-      } else if (['gdtj',"wujing"].includes(this.HOSPITAL_ID)) {
+      } else if(['whsl'].includes(this.HOSPITAL_ID)){
+        return [
+          {
+            id: "",
+            name: "全部",
+          },
+          {
+            id: "输液",
+            name: "输液类",
+          },
+          {
+            id: "注射",
+            name: "注射类",
+          },
+          {
+            id: "口服",
+            name: "口服药",
+          },
+          {
+            id: "输血",
+            name: "输血类",
+          },
+          {
+            id: "雾化",
+            name: "雾化类",
+          },
+        ];
+      }else if (['gdtj',"wujing"].includes(this.HOSPITAL_ID)) {
         return [
           {
             id: "",

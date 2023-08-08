@@ -106,7 +106,7 @@ export default {
     },
     showFoodAndOut(){
       if(['whsl'].includes(this.HOSPITAL_ID)){
-        return ['critical2_weihai'].includes(this.sheetInfo.sheetType)
+        return ['critical2_weihai','critical_new_weihai'].includes(this.sheetInfo.sheetType)
       }
       return false
     }
@@ -116,12 +116,12 @@ export default {
     patientInfoOutFood
   },
   created(){
-    // 三个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能
-    this.bus.$on("openclosePatientInfo",(type,close,feature)=>{
+    // 四个参数 type打开哪个类型,close是否关闭弹窗,feature是否有回填护记特殊情况功能 data(传值时 data:Object) 患者基本信息（交班志基本信息  从交班志打开【检查报告】没有拿到基本信息）
+    this.bus.$on("openclosePatientInfo",(type,close,feature, data = null)=>{
       this.onToggle()
       if(close) return
       setTimeout(()=>{
-         this.$refs.patientInfoSlide.openModal(type,feature)
+         this.$refs.patientInfoSlide.openModal(type,feature, data)
       },800)
     });
   }

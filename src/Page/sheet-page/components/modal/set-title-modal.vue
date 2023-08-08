@@ -25,7 +25,7 @@
             :fetch-suggestions="querySearch"
             placeholder="输入标题名称"
             @select="handleSelect"
-            @input="HOSPITAL_ID == 'whhk' && handleInput($event)"
+            @input="handleInput($event)"
           ></el-autocomplete>
           <el-select v-model="selectedVal" placeholder="请选择" style="width: 100%;margin-top:20px;" v-if="options">
             <el-option
@@ -89,6 +89,8 @@ export default {
       templateList: [],
       // 已选标题模板id
       selectedTempId: '',
+      // 自定义标题模板分类
+      templateClassify: [],
     };
   },
   computed: {
@@ -97,6 +99,10 @@ export default {
     }),
     isTemperature(){
       return this.$route.path.includes('newSingleTemperatureChart')||this.$route.path.includes("temperature")
+    },
+    // 是否是分类的模板
+    hasClassify() {
+      return ['nfyksdyy', 'whhk', 'foshanrenyi'].includes(this.HOSPITAL_ID);
     }
   },
   methods: {
@@ -116,7 +122,7 @@ export default {
           setTimeout(() => {
             this.$refs.titleInput.querySelector("input").focus();
           }, 200);
-          if(this.HOSPITAL_ID == 'whhk'){
+          if(this.HOSPITAL_ID == 'whhk' || this.HOSPITAL_ID == 'nfyksdyy' || this.HOSPITAL_ID == 'foshanrenyi'){
             this.openTitleTemplateSlide()
           }
         });
@@ -162,7 +168,7 @@ export default {
       this.$refs.titleTemplateSlideFS.close();
     },
     async querySearch(queryString, cb) {
-      if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['fsxt', 'gdtj'].includes(this.HOSPITAL_ID)) {
         let list = []
         if (!queryString) {
           list = this.templateList.map(item => ({value: item.title, id: item.id, list: item.list || []}))
@@ -179,6 +185,16 @@ export default {
         }
         this.fstitle = queryString
         cb(list)
+      } else if (this.hasClassify) {
+        let list = [];
+        for (const classify of this.templateClassify) {
+          classify.map((item) => {
+            if (item.title.includes(queryString)) {
+              list.push({ value: item.title, id: item.id, list: item.list || [] })
+            }
+          })
+        }
+        cb(list);
       } else if (this.cellObj && this.cellObj.titleList) {
         cb(
           this.cellObj.titleList.map((item) => {
@@ -229,16 +245,34 @@ export default {
      * 获取自定义标题模板列表
      */
     async getTemplateList() {
+      this.templateClassify = []
       try {
         const res = await titleTemplateList({
           wardCode: this.deptCode
         })
         if (res.data.code === '200') {
           if(this.isTemperature){
-            //如果是体温单界面  就只查询体温单的自定义标题
-          this.templateList = res.data.data.filter((x)=>x.recordCode==="bodyTemperature")
+            if (this.hasClassify) {
+              for (const [key, value] of Object.entries(res.data.data || {})) {
+                if (value) {
+                  this.templateClassify.push(value.filter(v => v.recordCode === 'bodyTemperature'));
+                }
+              }
+            } else {
+              //如果是体温单界面  就只查询体温单的自定义标题
+              this.templateList = res.data.data.filter((x)=>x.recordCode==="bodyTemperature")
+            }
           }else{
-          this.templateList = res.data.data.filter((x)=>x.recordCode!=="bodyTemperature")
+            // 分类格式返回的标题模板
+            if (this.hasClassify) {
+              for (const [key, value] of Object.entries(res.data.data || {})) {
+                if (value) {
+                  this.templateClassify.push(value.filter(v => v.recordCode !== 'bodyTemperature'));
+                }
+              }
+            } else {
+              this.templateList = res.data.data.filter((x)=>x.recordCode!=="bodyTemperature")
+            }
           }
         }
       } catch (e) {

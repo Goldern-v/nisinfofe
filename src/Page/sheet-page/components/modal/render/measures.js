@@ -24,3 +24,26 @@ export const toUseList = [
 export const defaultFood = {
     food:"",foodSize:"",expand2:""
 }
+
+export const jianhuColoums = [
+    {label:"日期",prop:"recordDate",width:100},
+    {label:"时间",prop:"recordDate",width:80},
+    // {label:"体温℃",prop:"temperature",width:80},
+    {label:"心率次/分",prop:"heartrate",width:80},
+    // {label:"脉搏次/分",prop:"pulse",width:80},
+    // {label:"心律",prop:"heartRhythm",width:80},
+    {label:"呼吸次/分",prop:"breath",width:80},
+    {label:"血压mmHg",prop:"bloodPressure",width:80},
+    {label:"SPO2(%)",prop:"spo2",width:80},
+]
+
+export const huxiColoums = [
+    {label:"日期",prop:"recordDate",width:100},
+    {label:"时间",prop:"recordDate",width:80},
+    {label:"通气方式",prop:"breathWay",width:80},
+    {label:"FiO2",prop:"fio2",width:80},
+    {label:"Vti/Vte(ml)",prop:"vit",width:80},
+    {label:"P+PEEP/Ppeak(cmH2O)",prop:"peep",width:100},
+    {label:"气管插管深度(cm)",prop:"depth",width:100},
+    {label:"气囊压力(cmH2)",prop:"bagPressure",width:100},
+]

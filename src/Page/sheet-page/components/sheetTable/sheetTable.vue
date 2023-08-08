@@ -30,6 +30,7 @@
         :specialLis="specialLis"
         @onModalChange="(e,tr,x,y,index)=>$emit('onModalChange',e,tr,x,y,index)"
         :sheetTagsHeight="sheetTagsHeight"
+        :evalTagHeight="evalTagHeight"
       ></excel>
     </div>
   </div>
@@ -180,6 +181,7 @@ export default {
     listData: Array,
     specialLis: Array,
     sheetTagsHeight: Number,
+    evalTagHeight: Number,
   },
   mixins: [common],
   data() {

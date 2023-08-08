@@ -330,6 +330,7 @@
       </div>
       <div
         class="item-box"
+        :class="[(['whsl'].includes(HOSPITAL_ID)) && 'page-select']"
         @click="toPrint"
         v-if="
           (!['guizhou', '925'].includes(HOSPITAL_ID) && !isDeputy && isShow()) ||
@@ -1214,7 +1215,7 @@ export default {
         case "nfyksdyy":{
           this.bus.$emit("checkChange",()=>{
             this.bus.$emit('saveSheetPage', 'noSaveSign')
-          },()=>{this.bus.$emit("openHJModal")})
+          },()=>{this.bus.$emit("openSDYYModal")})
         }
           break;
         default: {
@@ -1708,8 +1709,24 @@ export default {
               );
             });
           }
+          const whichBlock = this.HOSPITAL_ID === 'whhk' ? 0 : this.sheetBlockList.length - 1;
           //选择接口最后一个护记
-          this.sheetInfo.selectBlock =this.sheetBlockList[this.sheetBlockList.length - 1] || {};
+          this.sheetInfo.selectBlock =this.sheetBlockList[whichBlock] || {};
+          // 护记嵌套在评估单模块
+          const isInFormPage = ['/formPage', '/record'].includes(this.$route.path);
+          if (isInFormPage && this.sheetBlockList.length ) {
+            // 从评估单模块第一次打开护记时，打开选中的护记，而不是最后一张
+            const tagInfo = this.$store.state.sheet.sheetTagInfo;
+            if (tagInfo) {
+              this.sheetInfo.selectBlock = this.sheetBlockList.find(block => block.id == tagInfo.id) || this.sheetBlockList[this.sheetBlockList.length - 1] || {};
+              let tagdata = {
+                label: `${this.sheetInfo.selectBlock.recordName} ${this.sheetInfo.selectBlock.createTime}`,
+                type: "sheet",
+                ...this.sheetInfo.selectBlock
+              }
+              this.bus.$emit("mountTag", tagdata);
+            }
+          }
           if (!this.sheetBlockList.length) {
             this.sheetInfo.relObj = {}
             this.bus.$emit('clearSheetModel')
@@ -1777,7 +1794,7 @@ export default {
     },
     openTitleTemplateSlide() {
       if (['nfyksdyy'].includes(this.HOSPITAL_ID)) {
-        this.$refs.titleTemplateSlideFS.open();
+          this.$refs.titleTemplateSlideFS.open();
         return
       }
       this.$refs.titleTemplateSlide.open();
@@ -1819,6 +1836,7 @@ export default {
         type: "warning",
       }).then(() => {
         this.$emit('sheetDelete', this.sheetInfo.selectBlock)
+        this.bus.$emit("delCurrentTag", this.sheetInfo.selectBlock.id)
         blockDelete(this.sheetInfo.selectBlock.id).then((res) => {
           this.$message({
             type: "success",
@@ -2011,7 +2029,7 @@ export default {
     },
     blockId: {
       get() {
-        return this.sheetInfo.selectBlock.id;
+        return this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.id;
       },
       set() {},
     },
@@ -2167,7 +2185,7 @@ export default {
           this.pageBlockId = val.id;
         }
         cleanData();
-        this.sheetInfo.sheetType = this.sheetInfo.selectBlock.recordCode;
+        this.sheetInfo.sheetType = this.sheetInfo.selectBlock && this.sheetInfo.selectBlock.recordCode;
         this.initSheetPageSize()
       },
     },

@@ -84,13 +84,18 @@ export default {
         oDiv.onmousedown = (ev) => {
           const disX = ev.clientX - dragNode.offsetLeft;
           const disY = ev.clientY - dragNode.offsetTop;
+          // 顶部距离最小值(由于dragNode使用了transform，0.4是 translateY的值);
+          const limitTop = dragNode.offsetHeight * 0.4;
           const [iframeDom] = document.getElementsByClassName("iframeDom");
           iframeDom.style['pointer-events'] = 'none'
           if (el.getBoundingClientRect().width !== window.innerWidth) {
             // 非“全屏”下才能拖动
             document.onmousemove = (ev) => {
               const l = ev.clientX - disX;
-              const t = ev.clientY - disY;
+              let t = ev.clientY - disY;
+              if (t <= limitTop && ['nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
+                t = limitTop;
+              }
               dragNode.style.left = l + "px";
               dragNode.style.top = t + "px";
             };
@@ -305,7 +310,7 @@ export default {
         this.fileUrl = `http://192.168.99.72:8099/?hospital_no=45607379-3&patient_id=${this.$route.query.patientId}&visit_id=${this.$route.query.visitId}`
           break;
         case 'nfyksdyy':
-        this.fileUrl = `http://192.168.8.174:8090/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&pcid=${this.$route.query.inpNo}`
+        this.fileUrl = `http://192.168.8.174:8000/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&ids=${this.$route.query.inpNo}`
         break;
         default:
         this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.$route.query.inpNo}`;

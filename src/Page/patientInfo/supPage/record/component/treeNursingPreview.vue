@@ -49,6 +49,10 @@
           <span class="name">血氧</span>
         </div>
       </div>
+      <div v-if="showHealthEdu.includes(HOSPITAL_ID)">
+        <div class="title" style="cursor:pointer" @click="setItemShow('six')">健康宣教</div>
+        <baseTree v-if="isShowObj.six" :configList="configList" class="baseTree"></baseTree>
+      </div>
     </div>
     <!-- 弹出框 -->
     <newForm ref="newForm"></newForm>
@@ -196,6 +200,8 @@ import newForm from "../modal/new-form.vue";
 import commonMixin from "@/common/mixin/common.mixin";
 import { getFormConfig } from "../config/form-config.js";
 import templateSide from '@/Page/sheet-page/components/modal/template-slide.vue'
+import baseTree from "@/components/baseTree/baseTree";
+import {  getEduFormList, getAllByPatientInfo } from '@/Page/patientInfo/supPage/healthEducationGuizhou/api/healthApi.js'
 
 export default {
   mixins: [commonMixin],
@@ -212,14 +218,17 @@ export default {
         two: false,
         three: true,//默认显示体温单模块
         four:false,
-        five:false
+        five:false,
+        six: false,
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
       showBloodSugar:['guizhou','hengli','huadu','whfk', 'beihairenyi', 'nanfangzhongxiyi', 'sdlj' , 'foshanrenyi', 'fsxt', 'zhzxy', 'lyyz','whsl','ytll','dglb','whhk','nfyksdyy'], // 是否开放血糖模块
       showBloodOxygen:['whfk'] ,// 是否开放血氧模块
       hiddenTemperature: [], // 隐藏体温单模块
-      timer:null
+      showHealthEdu: ['guizhou'],
+      timer:null,
+      configList: [], // 健康教育
     };
   },
   computed: {
@@ -242,6 +251,38 @@ export default {
     }
   },
   methods: {
+    getSelectData () {
+      let { visitId, patientId } = this.$route.query
+      let params = {
+        visitId,
+        patientId
+      }
+      getEduFormList(params).then(res => {
+        if (res.data.code === '200') {
+          let that = this
+          let array = []
+          res.data.data.map(item => {
+            array.push({
+              label: `健康教育单 ${item.creatDate}`,
+              onClick () {
+                that.changeEducation(item.id)
+                that.showForm('healthEducation')
+              }
+            })
+          })
+          this.configList = [
+            {
+              label: '健康教育单',
+              children: array
+            }
+          ]
+        }
+      })
+    },
+    // 切换教育单
+    changeEducation (id) {
+      this.bus.$emit('getTableData_Preview', id)
+    },
     // 控制右边表单
     showForm (type) {
       this.bus.$emit("openOtherForm", { component: type });
@@ -404,6 +445,7 @@ export default {
   created() {
     if (!(this.$route.query.patientId && this.$route.query.visitId)) return;
     this.getTreeData(true);
+    this.getSelectData()
   },
   async mounted() {
     let isOk = this.$route.query.nursingPreviewIsShow;
@@ -434,7 +476,8 @@ export default {
     SweetModal,
     SweetModalTab,
     newForm,
-    templateSide
+    templateSide,
+    baseTree
   }
 };
 </script>

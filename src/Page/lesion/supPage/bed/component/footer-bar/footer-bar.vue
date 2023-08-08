@@ -75,7 +75,8 @@ export default {
     isAdl:Array,
     isPain:Array,
     tubingShedding:Array,
-    selfCare:Array
+    selfCare:Array,
+    nutritionalRisk: Array,
   },
   data() {
     return {};
@@ -93,7 +94,7 @@ export default {
         },
         {
           key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ?"已有压力性损伤": ['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID) ?"已有压力性损伤风险" : this.HOSPITAL_ID == 'nfyksdyy'?'VTE高危' : "已有压疮",
-          length:  this.HOSPITAL_ID == 'nfyksdyy'? this.hasVteDanger.length : this.hasYachuang.length
+          length:  this.HOSPITAL_ID == 'nfyksdyy'? this.dangerInVteLy.length : this.hasYachuang.length
         },
         {
           key: "新入",
@@ -135,10 +136,16 @@ export default {
           length: this.isFever.length
         });
       }
-      if (['liaocheng','lyyz','qhwy','ytll','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['liaocheng','lyyz','qhwy','ytll'].includes(this.HOSPITAL_ID)) {
         arr.push({
           key: "VTE高风险",
           length: this.hasVteDanger.length
+        });
+      }
+      if (['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+        arr.push({
+          key: '营养风险',
+          length: this.nutritionalRisk.length
         });
       }
       if (['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {

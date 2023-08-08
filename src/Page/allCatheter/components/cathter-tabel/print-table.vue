@@ -14,7 +14,7 @@
       </div>
       <div class="info">
         <div v-for="(con, conIn) in info2" :key="conIn + 'info2'">
-          {{ con.label + "：" + tableInfo[con.code] }}
+          {{ con.label + "：" + (tableInfo[con.code] || '') }}
         </div>
       </div>
       <table>
@@ -39,7 +39,9 @@
             </div>
           </td>
           <td>
-            <div>{{ tr.signerName }}</div>
+            <!-- <div>{{ tr.signerName }}</div> -->
+            <img class='img' v-if="tr.signerNo" :src="`/crNursing/api/file/signImage/${tr.signerNo}?${token}`" alt="">
+            <span v-else>{{tr.signerName}}</span>
           </td>
         </tr>
       </table>
@@ -62,7 +64,12 @@
     width: 100%;
     border-collapse: collapse;
     text-align: center;
-
+    .img{
+      width: 65px;
+      height: 30px;
+      display: block;
+      margin: auto;
+    }
     tr {
       td,
       th {
@@ -105,6 +112,8 @@
 }
 </style>
 <script>
+import common from "@/common/mixin/common.mixin.js";
+
 export default {
   props: {
     tableInfo: {
@@ -120,6 +129,7 @@ export default {
       value: [],
     },
   },
+  mixins: [common],
   data() {
     return {
       info: [
@@ -132,6 +142,7 @@ export default {
       info2: [
         { label: "导管名称", code: "formTitle" },
         { label: "置管时间", code: "intubationTime" },
+        { label: "置管来源", code: "catheterSource" },
       ],
     };
   },

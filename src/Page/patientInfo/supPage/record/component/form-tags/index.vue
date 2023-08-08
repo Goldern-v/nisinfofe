@@ -5,13 +5,17 @@
         v-for="(tag, index) in tagsList"
         :id="tag.id"
         ref="tag"
-        :key="index + tag.formCode"
+        :key="index + '-' + tag.formCode"
         :class="isActive(tag) ? 'active' : ''"
         class="tags-view-item"
         @click="onOpenTagForm(tag)"
       >
         {{ formatTagName(tag) }}
-        <span class="el-icon-close" @click.prevent.stop="onCloseTag(tag)"></span>
+        <span
+          v-if="tagsList && (tagsList.length > 1 || tagsList[0].type !== 'sheet')"
+          class="el-icon-close"
+          @click.prevent.stop="onCloseTag(tag)"
+        ></span>
       </span>
     </div>
   </div>
@@ -34,6 +38,7 @@ export default {
     return {
       bus: BusFactory(this),
       selectedTag: this.currentTag,
+      types: ["bloodSugar", 'temperature', "diagnosis"]
     }
   },
   computed: {
@@ -41,10 +46,20 @@ export default {
   },
   methods: {
     formatTagName(tag) {
+      const tagName = {
+        sheet: 'recordName',
+        bloodSugar: 'label',
+        temperature: 'label',
+        diagnosis: 'label',
+        healthEducation: 'label'
+      }
+      if (tag.type) {
+        return tag[tagName[tag.type]];
+      }
       return tag.pageUrl.replace('.html', '') + ' ' + tag.evalDate;
     },
     isActive(item) {
-      return this.selectedTag && item.id === this.selectedTag.id;
+      return this.selectedTag && (this.types.includes(item.type) ? item.label === this.selectedTag.label : item.id === this.selectedTag.id) ;
     },
     onScrollX(e) {
       // console.log(e)
@@ -56,10 +71,20 @@ export default {
     },
     // 打开评估单
     onOpenTagForm(tag) {
+      const type = this.selectedTag.type;
       this.selectedTag = tag;
       this.$emit('updateCurrentTag', tag);
-      this.bus.$emit("openAssessmentBox", tag);
       this.bus.$emit('highlightTreeNode', tag);
+      if (tag.type) {
+
+        if (type !== 'sheet' ||  this.types.includes(tag.type)) {
+          this.bus.$emit('openOtherPage', tag, true);
+        } else {
+          this.bus.$emit('openSheetTag', tag);
+        }
+        return;
+      }
+      this.bus.$emit("openAssessmentBox", tag);
     },
     // 关闭标签
     onCloseTag(tag) {
@@ -117,7 +142,11 @@ export default {
   watch: {
     currentTag: {
       handler(val) {
-        if (!this.selectedTag || (val && val.id !== this.selectedTag.id)) {
+        if (
+          !this.selectedTag
+          || (val && val.id !== this.selectedTag.id)
+          || this.types.includes(val.type)
+        ) {
           this.onOpenTagForm(val);
           this.moveToCurrentTag(val);
         }

@@ -117,23 +117,12 @@
           label="姓名"
           min-width="100px"
         ></el-table-column>
-
-        <el-table-column
-          header-align="center"
-          align="center"
-          label="住院号"
-          prop="patientId"
-          min-width="160px"
-          v-if="HOSPITAL_ID == 'huadu'"
-        ></el-table-column>
-
         <el-table-column
           header-align="center"
           align="center"
           label="住院号"
           prop="inpNo"
           min-width="160px"
-          v-else
         ></el-table-column>
 
         <el-table-column
@@ -179,7 +168,7 @@
           min-width="150px"
         >
           <template slot-scope="scope">
-            <div class="justify" v-if="HOSPITAL_ID !== 'guizhou'">
+            <div class="justify">
               <!-- 打印生成pdf文件 -->
               <el-button
                 type="text"
@@ -220,40 +209,10 @@
               >
 <!--           花都医院需要 ----归档按钮判断与重转pdf按钮一致 -->
               <el-button
-                type="text"
-                @click="uploadFileArchive(scope.row)"
-                v-if="
-                  HOSPITAL_ID == 'huadu' && scope.row.printStatus != 0 &&
-                  scope.row.printStatus != 1 &&
-                  scope.row.uploadStatus != 1 &&
-                  scope.row.uploadStatus != 2 &&
-                  !isArchive ">归档</el-button >
-              <el-button
                   type="text"
                   @click="uploadFileArchive(scope.row)"
-                  v-if=" (HOSPITAL_ID !== 'huadu' &&isArchive && scope.row.uploadStatus != 2) ||(HOSPITAL_ID !== 'huadu' &&scope.row.resultStatus == 1
-                  &&scope.row.uploadStatus != 1 &&scope.row.uploadStatus != 2)">归档</el-button>
-            </div>
-            <div class="justify" v-if="HOSPITAL_ID == 'guizhou'">
-              <el-button
-                type="text"
-                @click="cancelArchive(scope.row)"
-                :v-if="
-                  isNewAdminOrNursingDepartment &&
-                  scope.row.uploadStatus == 2 &&
-                  scope.row.resultStatus == 1
-                "
-                >取消归档</el-button
-              >
-              <el-button
-                type="text"
-                @click="uploadFileArchive(scope.row)"
-                :v-if="
-                  scope.row.uploadStatus == 3 ||
-                  (scope.row.resultStatus == 0 && scope.row.printStatus == 0)
-                "
-                >归档</el-button
-              >
+                  v-if=" (isArchive && scope.row.uploadStatus != 2) || (scope.row.resultStatus == 1
+                  && scope.row.uploadStatus != 1 && scope.row.uploadStatus != 2)">归档</el-button>
             </div>
           </template>
         </el-table-column>
@@ -644,9 +603,7 @@ export default {
   },
   mounted() {
     this.tablesHeight();
-    if (!this.query.dischargeDateBegin && this.HOSPITAL_ID == "beihairenyi") {
-      this.query.dischargeDateBegin = this.getDateStr(-7);
-    } else if (!this.query.dischargeDateBegin) {
+    if (!this.query.dischargeDateBegin) {
       this.query.dischargeDateBegin = this.getDateStr(-2);
     }
     this.query.dischargeDateEnd = this.query.dischargeDateEnd
@@ -665,14 +622,6 @@ export default {
     this.getUserConfig();
     // 是否开启自动归档
     this.getPrintConfig();
-    if (this.HOSPITAL_ID === "guizhou") {
-      this.statusList = [
-        { id: -2, name: "归档失败" },
-        { id: 0, name: "待归档" },
-        { id: 3, name: "取消归档" },
-        { id: 2, name: "已归档" },
-      ];
-    }
   },
   updated() {
     this.tablesHeight();

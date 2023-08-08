@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="['70*80', '7*7', '7*5', '8*7'].includes(newModalSize) && HOSPITAL_ID != 'whhk'"
+    v-if="['70*80', '7*7', '7*5', '8*7'].includes(newModalSize) "
     class="new-print-modal new-print-modal--large"
     :class="{ size3: isSize3 }"
     :style="sizeStyle"
@@ -63,82 +63,6 @@
         </span>
     </div>
   </div>
-
-<!-- 区别汉口医院 -->
-  <div
-    v-else-if="['8*7'].includes(newModalSize) && HOSPITAL_ID == 'whhk' "
-    class="new-print-modal new-print-modal--large"
-    :class="{ size3: isSize3 }"
-    :style="sizeStyle"
-  >
-    <div class="new-print-modal__title">
-      <span>{{ currentBottle.printFlag ? "补" : "" }}</span>
-      <span class="center">{{ hospitalName }}</span>
-      <span>{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}</span>
-    </div>
-    <div class="new-print-modal__second_whhk">
-      <div class="flex">
-        <div>
-          姓名:<span>{{ currentBottle.name }}</span>
-        </div>
-        <div >
-              <img :src="currentBottle.qcSrc || ''" />
-        </div>
-          <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
-      </div>
-      <div class="flex">
-        <div style="margin-top: -5px;">床号:<span>{{ currentBottle.bedLabel }}</span></div>
-        <div style="padding-left: 110px;">{{ `${'7*5' === newModalSize ? '' : '年龄:'}${currentBottle.age}` }}</div>
-      </div>
-      <div class="flex" >
-        <div>{{ `住院号:${currentBottle.patientId || ""}` }}</div>
-        <div>{{ `${currentBottle.deptName}` }}</div>
-      </div>
-    </div>
-
-    <div class="new-print-modal__content_whhk">
-      <div class="flex" >
-        <div style="width: 66%; text-align: center;">药品名称</div>
-        <div style="width: 10%;">规格</div>
-        <div style="width: 10%;">数量</div>
-        <div style="width: 10%;">剂量</div>
-      </div>
-      <div v-for="(item, index) in this.itemObj"
-            :key="index" :class="'table-cell'"  style="line-height: 1.2;">
-        <span style="width: 66%;white-space: pre-wrap;" :class="'table-cell-span'">{{ item.orderText }}</span>
-        <span style="width: 10%;" :class="'table-cell-span1'">{{ item.expand2 }}</span>
-        <span style="width: 10%; text-align: center;" >{{ item.expand3 }}</span>
-        <span style="width: 10%;" :class="'table-cell-span3'">{{ currentBottle.dosageDosageUnits[index] }}</span>
-      </div>
-    </div>
-    <div class="new-print-modal__tip">
-      <div>医生说明:{{ freqDetail }}</div>
-      <div class="warm-icon">
-        <img v-for="v in currentBottle.tipIcons" :key="v" :src="warmUrl(v)" />
-      </div>
-    </div>
-
-      <div class="new-print-modal__tip ">
-        <div >
-          <!-- <span> {{ frequency1 }} </span> -->
-          <!-- 途径 -->
-          <span style="font-weight: 900;">{{currentBottle.frequency2}}</span>
-          <!-- 频次 -->
-          <span style="font-weight: 900; padding-left: 10px;">{{currentBottle.frequency1}}</span>
-          <span style="padding-left: 10px;">{{ currentBottle.executeDate.substr(0, 16) }}</span>
-        </div>
-      </div>
-
-    <div class="new-print-modal__tip_whhk">
-      <span>配药人：</span>
-      <span style="margin-left: 100px;">配药时间：</span>
-    </div>
-  </div>
-
-
-
-
-
   <div v-else class="new-print-modal new-modal-small" :style="sizeStyle">
     <div class="new-modal-small-top">
       <div class="new-modal-small-top__left">
@@ -221,16 +145,6 @@
           }
         }
       }
-      // 区别汉口
-      .new-print-modal__second_whhk {
-        height: 56px;
-        .flex {
-          height: 15px;
-          &:first-child {
-            height: 26px;
-          }
-        }
-      }
       .new-print-modal__content div {
         line-height: 14px;
       }
@@ -298,49 +212,6 @@
       font-weight: 900;
     }
   }
-
-  // 区别汉口
-  .new-print-modal__second_whhk{
-        height: 63px;
-    @extend .bb;
-    .flex {
-      display: flex;
-
-      height: 18px;
-      div {
-        flex: 3;
-        white-space: nowrap;
-      }
-      div:last-child {
-        flex: 2;
-      }
-      > div > span {
-        font-size: 24px;
-        line-height: 24px;
-        display: inline-block;
-        font-weight: 900;
-        white-space: nowrap;
-      }
-      &:first-child {
-        height: 26px;
-      }
-      img {
-      width: 40%;
-      height: auto;
-      object-fit: cover;
-      padding-left: 10px;
-    }
-    }
-    div {
-      flex: 62%;
-      text-indent: 3px;
-    }
-
-    > div:nth-child(2) > span {
-      font-size: 22px;
-      font-weight: 900;
-    }
-  }
   .qc-box {
     width: 50px;
     overflow: hidden;
@@ -363,33 +234,12 @@
       white-space: nowrap;
     }
   }
-  //汉口
-    .new-print-modal__content_whhk {
-    flex: 1;
-    div {
-      display: flex;
-      justify-content: space-between;
-      line-height: 12px;
-      text-align: left;
-    }
-    span {
-      white-space: nowrap;
-    }
-  }
   .new-print-modal__tip {
     display: flex;
     justify-content: space-between;
     min-height: 18px;
     overflow: hidden;
     @extend .bb;
-  }
-  //汉口
-  .new-print-modal__tip_whhk {
-    display: flex;
-    // justify-content: space-between;
-    min-height: 18px;
-    overflow: hidden;
-
   }
   .warm-icon {
     img {

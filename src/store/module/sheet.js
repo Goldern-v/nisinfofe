@@ -19,7 +19,8 @@ export default {
       endPageIndex:null
     },
     pageIndexs:1,
-    openWritTreeLeft: false //评估单-护理文书tree-侧边栏
+    openWritTreeLeft: false, //评估单-护理文书tree-侧边栏
+    sheetTagInfo: null, // 护记信息-从评估单模块第一次打开护记时，打开选中的护记，而不是最后一张
   },
   mutations: {
     upPatientInfo(state, val) {
@@ -36,6 +37,9 @@ export default {
     },
     upWritTreeLeft(state) {
       state.openWritTreeLeft = !state.openWritTreeLeft
+    },
+    upOpenFormTree(state, value) {
+      state.openWritTreeLeft = value
     },
     upSheetPageFullpage(state, val) {
       state.fullpage = val
@@ -64,5 +68,8 @@ export default {
     upPageIndexs(state, val) {
       state.pageIndexs = val
     },
+    upSheetTagInfo(state, val) {
+      state.sheetTagInfo = val
+    }
   }
 }

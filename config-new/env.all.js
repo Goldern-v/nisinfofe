@@ -227,7 +227,7 @@ module.exports = {
   qhwy: {
     HOSPITAL_ID: '"qhwy"',
     HOSPITAL_NAME: '"青海省第五人民医院"',
-    HOSPITAL_NAME_SPACE: '"青 海 省 第 五 人 民 医 院"',
+    HOSPITAL_NAME_SPACE: '"青 海 省 第 五 人 民 医 院(青海省肿瘤医院)"',
     COMPANY_NAME: '"百辰源(广州)科技有限公司"',
     ABOUT_INFO: '"关于百辰源"',
     title: '"智慧护理信息系统"',
@@ -311,8 +311,8 @@ module.exports = {
   },
   "zjhj": {
     HOSPITAL_ID: '"zjhj"',
-    HOSPITAL_NAME: '"湛江海军医院"',
-    HOSPITAL_NAME_SPACE: '"湛 江 海 军 医 院"',
+    HOSPITAL_NAME: '"中国人民解放军南部战区海军第一医院"',
+    HOSPITAL_NAME_SPACE: '"中 国 人 民 解 放 军 南 部 战 区 海 军 第 一 医 院"',
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
     ABOUT_INFO: '"关于宸瑞普惠"',
     title: '"智慧护理信息系统"',

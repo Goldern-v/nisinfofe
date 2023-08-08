@@ -89,7 +89,7 @@ export default [
     next: "ml",
     name: "入量1",
     change: (e, td) => limitChange(e, td, 10),
-    textarea: { width: 50 },
+    textarea: { width: 42 },
   },
   {
     key: "inputTwo",
@@ -97,7 +97,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量2",
-    textarea: { width: 50 },
+    textarea: { width: 42 },
   },
   {
     key: "inputThree",
@@ -105,7 +105,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量3",
-    textarea: { width: 50 },
+    textarea: { width: 42 },
   },
   {
     key: "inputFout",
@@ -113,7 +113,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量4",
-    textarea: { width: 50 },
+    textarea: { width: 42 },
   },
   {
     key: "inputFive",
@@ -121,7 +121,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量5",
-    textarea: { width: 50 },
+    textarea: { width: 42 },
   },
   {
     key: "inputSix",
@@ -129,7 +129,7 @@ export default [
     value: "",
     next: "ml",
     name: "入量6",
-    textarea: { width: 50 },
+    textarea: { width: 42 },
   },
   {
     key: "inputSeven",
@@ -137,14 +137,15 @@ export default [
     value: "",
     next: "ml",
     name: "口服/鼻饲",
-    textarea: { width: 50 },
+    textarea: { width: 42 },
   },
   {
     key: "inputEight",
     event: keyf1,
     value: "",
     name: "入量每时",
-    textarea: { width: 50 },
+    statBottomLine: true,
+    textarea: { width: 42 },
   },
   // {
   //   key: "totalInput",
@@ -165,7 +166,8 @@ export default [
     event: keyf1,
     value: "",
     name: "出量每时",
-    textarea: { width: 50 },
+    statBottomLine: true,
+    textarea: { width: 42 },
   },
   {
     key: "outputOne",
@@ -173,7 +175,8 @@ export default [
     value: "",
     next: "ml",
     name: "尿量",
-    textarea: { width: 50 },
+    statBottomLine: true,
+    textarea: { width: 42 },
    },
   // {
   //   key: "outputTwo",
@@ -197,7 +200,8 @@ export default [
     value: "",
     next: "ml",
     name: "心包胸骨后",
-    textarea: { width: 50 },
+    statBottomLine: true,
+    textarea: { width: 45 },
   },
   {
     key: "outputFive",
@@ -205,7 +209,8 @@ export default [
     value: "",
     next: "ml",
     name: "胸腔闭式引流",
-    textarea: { width: 50 },
+    statBottomLine: true,
+    textarea: { width: 45 },
   },
   {
     key: "outputSix",
@@ -213,6 +218,7 @@ export default [
     value: "",
     next: "ml",
     name: "其他",
+    statBottomLine: true,
     textarea: { width: 50 },
   },
   {
@@ -221,7 +227,8 @@ export default [
     value: "",
     next: "μg/kg/min",
     name: "升压药物血管药物",
-    textarea: { width: 70 },
+    textarea: { width: 125},
+    style:{"text-align":"left"},
     outChoseItem:outChoseItem1,
     // change: (e, td) => limitChange(e, td, 16)
   },
@@ -232,7 +239,8 @@ export default [
     next: "ml",
     name: "强心利尿其他特殊药物",
     outChoseItem:outChoseItem2,
-    textarea: { width: 130 },
+    style:{"text-align":"left"},
+    textarea: { width: 150 },
     // change: (e, td) => limitChange(e, td, 10)
   },
   {
@@ -245,9 +253,10 @@ export default [
       bottom: "1px",
       left: "1px",
       width: "200px",
-      background: "transparent"
+      background: "transparent",
+      // text-align: "left"
     },
-    textarea: { width: 200 },
+    textarea: { width: 200},
     event: function(e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
@@ -263,7 +272,7 @@ export default [
   { hidden: true, key: "signerName", value: "" },
   { hidden: true, key: "signerName2", value: "" },
   { hidden: true, key: "status", value: "" },
-  { hidden: true, key: "recordSource", value: "" },
+  { hidden: true, key: "recordSource", value: "", },
   { hidden: true, key: "recordYear", value: "" },
   { hidden: true, key: "dataHash", value: "" },
   { hidden: true, key: "recordDate", value: "" },

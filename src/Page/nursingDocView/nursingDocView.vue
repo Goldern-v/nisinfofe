@@ -101,6 +101,7 @@ import temperatureWHFK from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureFSXT from "@/Page/patientInfo/supPage/temperature/temperature-fsxt";
 import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-sdlj";
 import temperatureLYXRM from "@/Page/patientInfo/supPage/temperature/temperature-lyxrm";
+import temperatureWHHK from "@/Page/patientInfo/supPage/temperature/temperature-whhk";
 import temperatureLYYZ from "@/Page/patientInfo/supPage/temperature/temperature-lyyz";
 import temperatureWHSL from "@/Page/patientInfo/supPage/temperature/temperature-whsl";
 import temperatureNFZXY from "@/Page/patientInfo/supPage/temperature/temperature-nanfangzhongxiyi";
@@ -116,6 +117,7 @@ import bloodSugarZhzxy from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_
 import bloodSugarNfyksdyy from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_nfyksdyy.vue"; //血糖
 import bloodSugarGdtj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_gdtj"; // 广东同江
 import bloodSugarFsxt from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_fsxt.vue"; //血糖
+import bloodSugarZjhj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_zjhj.vue"; //血糖
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj.vue"; //血糖
 import bloodOxygen from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
@@ -162,6 +164,8 @@ export default {
           return bloodSugarBhry;
         case "fsxt":
           return bloodSugarFsxt;
+        case "zjhj":
+          return bloodSugarZjhj;
         case "zhzxy":
           return bloodSugarZhzxy;
         case "gdtj":
@@ -199,7 +203,6 @@ export default {
         case "whfk":
           return temperatureWHFK;
         case "lyxrm":
-        case "whhk":
         case "stmz":
           return temperatureLYXRM;
         case "sdlj":
@@ -208,6 +211,8 @@ export default {
           return temperatureFSXT;
         case "nanfangzhongxiyi":
           return temperatureNFZXY;
+          case "whhk":
+          return temperaturewhhk;
         case "foshanrenyi":
           return temperatureFSSY;
         case "xiegang":
@@ -470,6 +475,7 @@ export default {
     bloodSugar,
     bloodSugarBhry,
     bloodSugarFsxt,
+    bloodSugarZjhj,
     bloodSugarGdtj,
     bloodSugarSdlj,
     bloodSugarZhzxy,
@@ -485,6 +491,7 @@ export default {
     temperatureWHFK,
     temperatureLYXRM,
     temperatureLYYZ,
+    temperatureWHHK,
     temperatureSDLJ,
     temperatureFSXT,
     temperatureNFZXY,

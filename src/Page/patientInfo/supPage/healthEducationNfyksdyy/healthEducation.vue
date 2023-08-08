@@ -1,20 +1,20 @@
 <template>
   <div class="health-education">
-    <div class="health-education-list" v-if="$route.path !== '/formPage'">
+    <div class="health-education-list" v-if="['formPage', 'record'].includes($route.path)">
       <div class="treeTitle">健康教育单</div>
       <baseTree :configList="configList" class="baseTree"></baseTree>
     </div>
     <div
       class="health-education-table"
       :style="
-        $route.path == '/formPage' && HOSPITAL_ID == 'nfyksdyy'
+        !['formPage', 'record'].includes($route.path)
           ? 'width:100%;margin:0;'
           : ''
       "
       v-loading="pageLoading"
     >
       <!-- 无推送内容 -->
-      <div v-if="isData === 2" style="height:100%">
+      <div v-if="isData === 2 || isEmpty()" style="height:100%">
         <NullBg></NullBg>
         <div class="addBtn">
           <WhiteButton text="添加健康教育单" @click="addEducation" />
@@ -41,7 +41,6 @@
               text="推送"
               @click="onPush"
               :disabled="!selected"
-              v-if="HOSPITAL_ID != 'beihairenyi'"
             ></WhiteButton>
           </div>
           <div class="tool-fix tool-right">
@@ -70,38 +69,39 @@
                   <div class="sdyyinfo">
                     <span
                       >姓名：{{
-                        patientInfo.name || tableHeaderInfo.name
+                        patientInfo.name
                       }}</span
                     >
                     <span style="margin-left: 20px;"
                       >性别：{{
-                        patientInfo.sex || tableHeaderInfo.gender
+                        patientInfo.sex
                       }}</span
                     >
                     <span style="margin-left: 20px;"
                       >年龄：{{
-                        patientInfo.age || tableHeaderInfo.gender
+                        patientInfo.age
                       }}</span
                     >
                     <span style="margin-left: 20px;"
                       >床号：{{
-                        patientInfo.bedExchange ||  patientInfo.bedLabel || tableHeaderInfo.bedLabel
+                        configList[0]? configList[0].children[index].bedExchange :  patientInfo.bedLabel
                       }}</span
                     >
                     <span
                       >住院号：{{
-                        patientInfo.inpNo || tableHeaderInfo.bedNo
+                        patientInfo.inpNo
                       }}</span
                     >
                   </div>
                   <div class="sdyyinfo" style="border-bottom: 1px solid #000;">
                     <span
                       >科室：{{
-                         patientInfo.deptExchange || patientInfo.deptName || tableHeaderInfo.deptName
+                         configList[0] ? configList[0].children[index].deptExchange : patientInfo.deptName
                       }}</span
                     >
-                    <span style="margin-left: 20px;width: 372px;" >病区:{{  patientInfo.wardExchange || $route.query.wardName }}</span
-                    >
+                    <span style="margin-left: 20px;width: 372px;" >病区:{{
+                      configList[0] ? configList[0].children[index].wardExchange : $route.query.wardName }}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -147,10 +147,13 @@ import dayjs from "dayjs";
 import { setTimeout } from "timers";
 import baseTree from "@/components/baseTree/baseTree";
 import common from "@/common/mixin/common.mixin.js";
-
+import bus from "vue-happy-bus";
 export default {
   mixins: [common],
   name: "healthEducation",
+  props: {
+    hasTagsView: Boolean,
+  },
   components: {
     Table,
     WhiteButton,
@@ -161,6 +164,7 @@ export default {
   },
   data() {
     return {
+      bus: bus(this),
       pageLoading: false,
       selectValue: "",
       sheetBlockList: [],
@@ -183,6 +187,9 @@ export default {
     this.init();
   },
   methods: {
+    isEmpty() {
+      return ['/formPage', '/record'].includes(this.$route.path) && !this.hasTagsView;
+    },
     // 获取下拉框数据列表
     init() {
       this.getSelectData(1);
@@ -212,6 +219,9 @@ export default {
           res.data.data.map(item => {
             array.push({
               label: `健康教育单 ${item.creatDate}`,
+              bedExchange: item.bedExchange,
+              deptExchange: item.deptExchange,
+              wardExchange: item.wardExchange,
               onClick() {
                 that.changeEducation(item.id);
               }
@@ -223,6 +233,14 @@ export default {
               children: array
             }
           ];
+          this.bus.$emit('refreshTree');
+          if (res.data.data && res.data.data.length && !index) {
+            this.bus.$emit("mountTag", {
+              label: `健康教育单 ${res.data.data[0].creatDate}`,
+              type: "healthEducation",
+              ...res.data.data[0]
+            });
+          }
           if (index) {
             // 初始化默认第一张单子
             this.changeEducation(res.data.data[0].id);
@@ -310,6 +328,7 @@ export default {
         }
       );
       await deleteBlock(this.blockId);
+      this.bus.$emit("formTagClose", { id: this.blockId });
       this.pullData();
       this.getSelectData(1);
       this.$message.success("删除成功！");

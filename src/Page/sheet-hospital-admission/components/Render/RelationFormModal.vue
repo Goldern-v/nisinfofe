@@ -37,7 +37,7 @@
         type="primary"
         @click="handleSign"
         :disabled="loading"
-        v-show="showSignBtn"
+        v-show="showSignBtn && HOSPITAL_ID != 'nfyksdyy' "
         >签名</el-button
       >
     </div>
@@ -85,6 +85,7 @@ export default {
     this.bus.$on("showRelationFormModal", this.handleOpen);
     this.bus.$on("saveSuccess", this.handleSaveSuccess);
     this.bus.$on("signSuccess", this.handleSignSuccess);
+    this.bus.$on("handleRedirectSrc", this.handleRedirectSrc);
 
     let $methods = {
       busEmit: this.bus.$emit,
@@ -112,6 +113,21 @@ export default {
   methods: {
     dropDownValue(data) {
       console.log("关联表单下拉值", data)
+    },
+    handleRedirectSrc(){
+        /* 关联表单，从左侧删除后。主表再进入会报errorCode=='305',这个时候把拼接src去除id。重定向页面 */
+        // 当前iframe的url   
+        const currentUrl= this.$refs.iframe.src
+        // 使用URLSearchParams解析URL参数
+        const urlParams = new URLSearchParams(currentUrl.slice(currentUrl.indexOf('?')));
+        // 删除id参数
+        urlParams.delete('id');
+        // 获取原始URL中的部分（去除参数部分）
+        const baseUrl = currentUrl.slice(0, currentUrl.indexOf('?'));
+        // 重新构建URL
+        const newUrl = baseUrl + '?' + urlParams.toString();
+        // 重定向到新的URL
+        this.$refs.iframe.setAttribute("src", newUrl);
     },
     handleOpen(payload) {
       this.$refs.modal.open();
@@ -238,6 +254,10 @@ export default {
           // this.formObj.modal[this.callbackInfo.id] = data.master.id
           this.formObj.model[this.callbackInfo.code] = (this.callbackInfo.openKeyName ? this.selectedValue + ',' : '') + resVal
         }
+      }else if(!data.master.evalScore && this.callbackInfo.noEvalScoreSuffix){
+        //没分数的情况下 拿默认尾部字符串
+        let resVal = this.callbackInfo.prefix + this.callbackInfo.noEvalScoreSuffix
+        this.formObj.model[this.callbackInfo.code] = (this.callbackInfo.openKeyName ? this.selectedValue + ',' : '') + resVal
       }
       if (this.callbackInfo.defaultName) {
         this.formObj.model[this.callbackInfo.code] = this.callbackInfo.prefix

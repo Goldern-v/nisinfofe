@@ -36,6 +36,8 @@ const Braden_cuoshi = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 const diedao_cuoshi = ['A', 'B', 'C', 'D', 'E', 'F']
 const fjhxbg_cuoshi = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 const tt_cuoshi = ['A', 'B', 'C', 'D', 'E']
+const dongjingmai = ['右颈内静脉','右锁骨下静脉','左肱动脉','左足背动脉','左桡动脉']
+const yinliuguan = ['心包胸骨后引流','左胸腔闭式引流','左胸腔引流']
 
 const check = ["√"]
 
@@ -129,7 +131,7 @@ export default [
     value: "",
     name: "痰液颜色",
     textarea: { width: 35 },
-    autoComplete: { data: tanyeColor },
+    autoComplete: { data: [{name: 'A白色', value: 'A'},{name: 'B黄色', value: 'B'},{name: 'C绿色', value: 'C'}]},
   },
   {
     key: "breatheFout",
@@ -137,8 +139,7 @@ export default [
     value: "",
     name: "痰液性状",
     textarea: { width: 35 },
-    autoComplete: { data: tanye2 },
-    splitFlag:" "
+    autoComplete: { data: [{name: 'A稀薄', value: 'A'},{name: 'B粘稠', value: 'B'},{name: 'C血性', value: 'C'}] },
   },
   {
     key: "breatheFive",
@@ -146,15 +147,16 @@ export default [
     value: "",
     name: "痰液量",
     textarea: { width: 35 },
-    autoComplete: { data: tanyeSize },
+    autoComplete: { data:[{name: 'A少量', value: 'A'},{name: 'B中量', value: 'B'},{name: 'C大量', value: 'C'}] },
   },
   {
     key: "pipingOne",
     event: keyf1,
     value: "",
-    next: "ml",
+    next: "",
     name: "动静脉置管:名称",
     outChoseItem:outChoseItem1,
+    autoComplete:{data:dongjingmai},
     textarea: { width: 60 },
     change: (e, td) => limitChange(e, td, 10)
   },
@@ -181,6 +183,7 @@ export default [
     event: keyf1,
     value: "",
     name: "引流管:名称",
+    autoComplete:{data:yinliuguan},
     outChoseItem:outChoseItem2,
     textarea: { width: 60 },
   },
@@ -191,7 +194,7 @@ export default [
     name: "引流液颜色",
     textarea: { width: 35 },
     outChoseItem:outChoseItem2,
-    autoComplete: { data: yinliuyeColor },
+    autoComplete: { data: [{name: 'A鲜红色', value: 'A'},{name: 'B暗红色', value: 'B'},{name: 'C淡红色', value: 'C'},{name: 'D淡黄色', value: 'D'},{name: ' E黄绿色', value: 'E'},{name: 'F黄褐色', value: 'F'},{name: 'G无色', value: 'G'}] },
   },
   {
     key: "pipingSix",
@@ -200,8 +203,7 @@ export default [
     name: "引流液性质",
     outChoseItem:outChoseItem2,
     textarea: { width: 35 },
-    autoComplete: { data: yinliuyexingzhi },
-    splitFlag:" "
+    autoComplete: { data: [{name: 'A血性', value: 'A'},{name: 'B澄清', value: 'B'},{name: 'C浑浊', value: 'C'},{name: 'D云絮状沉淀', value: 'D'},{name: ' E乳糜状', value: 'E'},{name: 'F脓性', value: 'F'},{name: 'G有气体溢出', value: 'G'}] },
   },
   {
     key: "pipingSeven",
@@ -218,13 +220,13 @@ export default [
     value: "",
     name: "尿管尿色",
     textarea: { width: 35 },
-    autoComplete: { data: niaose },
+    autoComplete: { data:[{name: 'A淡黄', value: 'A'},{name: 'B深黄', value: 'B'},{name: 'C酱油色', value: 'C'},{name: 'D血性', value: 'D'}] },
   },
   {
     key: "skin",
     event: keyf1,
     value: "",
-    next: "ml",
+    next: "",
     name: "皮肤护理",
     textarea: { width: 40 },
     autoComplete: { data: check },
@@ -240,11 +242,11 @@ export default [
     key: "riskTwo",
     event: keyf1,
     value: "",
-    next: "ml",
+    next: "",
     name: "Braden压疮护理措施",
     textarea: { width: 60 },
     splice: '.',
-    autoComplete: { data: Braden_cuoshi },
+    autoComplete: { data: [{name: 'A体位变换', value: 'A'},{name: 'B气垫床', value: 'B'},{name: 'C皮肤护理', value: 'C'},{name: 'D预防性敷料', value: 'D'},{name: 'E预防医疗器械性压疮', value: 'E'},{name: 'G营养评估支持', value: 'G'},{name: 'H健康宣教', value: 'H'},{name: 'I悬挂警示标识牌', value: 'I'}] },
   },
   {
     key: "riskThree",
@@ -257,11 +259,11 @@ export default [
     key: "riskFout",
     event: keyf1,
     value: "",
-    next: "ml",
+    next: "",
     name: "跌倒护理措施",
     textarea: { width: 60 },
     splice: '.',
-    autoComplete: { data: diedao_cuoshi },
+    autoComplete: { data: [{name: 'A及时发现并满足患者需要', value: 'A'},{name: 'B使用床档', value: 'B'},{name: 'C使用约束带', value: 'C'},{name: 'D悬挂防跌倒、防坠床警示牌', value: 'D'},{name: 'E告知患者寻找协助的方法', value: 'E'},{name: 'F加强营养', value: 'F'}]},
   },
   {
     key: "riskFive",
@@ -274,11 +276,11 @@ export default [
     key: "riskSix",
     event: keyf1,
     value: "",
-    next: "ml",
+    next: "",
     name: "非计划性拔管护理措施",
     textarea: { width: 60 },
     splice: '.',
-    autoComplete: { data: fjhxbg_cuoshi },
+    autoComplete: { data:  [{name: 'A保持通畅', value: 'A'},{name: 'B严格交接班', value: 'B'},{name: 'C妥善固定', value: 'C'},{name: 'D约束带', value: 'D'},{name: 'E药物镇静镇痛', value: 'E'},{name: 'F评估耐受性及依从性', value: 'F'},{name: 'G管路标识', value: 'G'},{name: 'H健康教育', value: 'H'}] },
   },
   {
     key: "rass",
@@ -292,17 +294,18 @@ export default [
     event: keyf1,
     value: "",
     name: "疼痛评估工具/评分",
+    autoComplete: { data: [{name: 'A,NRS', value: 'A/'},{name: 'B,CPOT量表', value: 'B/'}] },
     textarea: { width: 50 },
   },
   {
     key: "painTwo",
     event: keyf1,
     value: "",
-    next: "ml",
+    next: "",
     name: "疼痛评估护理措施",
     textarea: { width: 60 },
     splice: '.',
-    autoComplete: { data: tt_cuoshi },
+    autoComplete: { data: [{name: 'A取舒适卧位', value: 'A'},{name: 'B心理护理', value: 'B'},{name: 'C理疗', value: 'C'},{name: 'D通知医生', value: 'D'},{name: 'E药物治疗', value: 'E'}] },
   },
   {
     key: "description", //特殊情况记录

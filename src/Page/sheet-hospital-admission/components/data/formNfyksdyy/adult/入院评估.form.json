@@ -2184,7 +2184,6 @@
               "name": "计算BMI",
               "height": "I100009",
               "weight": "I100010",
-              "weight2": "I1001883",
               "result": "I100011",
               "relate": "I233204",
               "relateRule": [{
@@ -4571,7 +4570,7 @@
                 "openKey": "产科妊娠期预防静脉血栓护理单",
                 "cleanKey": "无",
                 "params": {
-                  "formCode": "NYSD_E0068",
+                  "formCode": "NYSD_E0077",
                   "showSignBtn": true,
                   "title": "产科妊娠期预防静脉血栓护理单",
                   "formUrl": "产科妊娠期预防静脉血栓护理单.html",
@@ -5583,7 +5582,19 @@
                     "needScore": true,
                     "code": "S2332157",
                     "prefix": "营养风险筛查单",
-                    "suffix": "分"
+                    "noEvalScoreSuffix":"，无风险",
+                    "suffix":[
+                      {
+                        "max": 2,
+                        "min": 0,
+                        "value": "分，无风险"
+                      },
+                      {
+                        "max": 40,
+                        "min": 3,
+                        "value": "分，有风险"
+                      }
+                    ]
                   }
                 }
               }

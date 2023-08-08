@@ -26,18 +26,12 @@ export default [{
     value: "",
     event: event_date,
     click: click_date,
-    style: {
-      minWidth: "28px"
-    },
   },
   {
     key: "recordHour", //时间
     value: "",
     event: event_time,
     click: click_time,
-    style: {
-      minWidth: "28px"
-    },
   },
   {
     key: "temperature", //体温-数值
@@ -68,10 +62,7 @@ export default [{
       keyf1(e, td);
     },
     textarea: {
-      minWidth: 48
-    },
-    style: {
-      'line-height': '30px'
+      width: 45
     },
     name: "血压(mmHg)"
   },
@@ -89,80 +80,84 @@ export default [{
   //     minWidth: 48
   //   }
   // },
-  {
-    key: "fieldOne", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList
-    },
-    style: {
-      minWidth: '35px',
-      maxWidth: '35px',
-    },
-    name: "反应"
-  },
-  {
-    key: "fieldTwo", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList2
-    },
-    style: {
-      minWidth: '25px',
-      maxWidth: '25px',
-    },
-    name: "哭声"
-  },
-  {
-    key: "fieldThree", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList3
-    },
-    style: {
-      minWidth: '25px',
-      maxWidth: '25px',
-    },
-    name: "肌张力"
-  },
-  {
-    key: "fieldFour", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList4
-    },
-    style: {
-      minWidth: '50px',
-      maxWidth: '50px',
-    },
-    name: "皮肤"
-  },
-  {
-    key: "fieldFive", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList5
-    },
-    name: "呼吸"
-  },
-  {
-    key: "fieldSix", //意识
-    value: "",
-    event: keyf1,
-    autoComplete: {
-      data: ysList6
-    },
-    style: {
-      minWidth: '40px',
-      maxWidth: '40px',
-    },
-    name: "末梢"
-  },
+  // {
+  //   key: "fieldOne", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList
+  //   },
+  //   style: {
+  //     minWidth: '35px',
+  //     maxWidth: '35px',
+  //   },
+  //   name: "反应"
+  // },
+  // {
+  //   key: "fieldTwo", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList2
+  //   },
+  //   style: {
+  //     minWidth: '25px',
+  //     maxWidth: '25px',
+  //   },
+  //   name: "哭声"
+  // },
+  // {
+  //   key: "fieldThree", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList3
+  //   },
+  //   style: {
+  //     minWidth: '25px',
+  //     maxWidth: '25px',
+  //   },
+  //   name: "肌张力"
+  // },
+  // {
+  //   key: "fieldFour", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList4
+  //   },
+  //   style: {
+  //     minWidth: '50px',
+  //     maxWidth: '50px',
+  //   },
+  //   name: "皮肤"
+  // },
+  // {
+  //   key: "fieldFive", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList5
+  //   },
+  //   name: "呼吸",
+  //   textarea: {
+  //     width: 45
+  //   },
+  // },
+
+  // {
+  //   key: "fieldSix", //意识
+  //   value: "",
+  //   event: keyf1,
+  //   autoComplete: {
+  //     data: ysList6
+  //   },
+  //   style: {
+  //     minWidth: '40px',
+  //     maxWidth: '40px',
+  //   },
+  //   name: "末梢"
+  // },
   {
     key: "fieldSeven", //意识
     value: "",
@@ -324,10 +319,9 @@ export default [{
     autoComplete: {
       data: ysList12
     },
-    style: {
-      minWidth: "100px",
-      maxWidth: "100px"
-    },
+    textarea: {
+      width: 100,
+    }
   },
   {
     key: "description", //护理记录
@@ -338,7 +332,7 @@ export default [{
       top: "1px",
       bottom: "1px",
       left: "1px",
-      minWidth: "150px",
+      minWidth: "370px",
       background: "transparent"
     },
     event: function (e, td) {

@@ -100,6 +100,7 @@
     <delPageModal ref="delPageModal" :index="sheetModelData.length"></delPageModal>
     <HjModal ref="HjModal"></HjModal>
     <HdModal ref="HdModal"></HdModal>
+    <SDYYModal ref="SDYYModal"></SDYYModal>
     <GuizhouModal ref="GuizhouModal"></GuizhouModal>
     <signModal ref="signModal" title="需要该行签名者确认"></signModal>
     <signModal ref="signModal2" title="签名者确认"></signModal>
@@ -113,8 +114,9 @@
     <syncExamTestModal ref="syncExamTestModal"></syncExamTestModal>
     <syncExamAmountModal ref="syncExamAmountModal"></syncExamAmountModal>
     <!-- 电子病例弹窗 -->
-    <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt','dglb','nfyksdyy'].includes(HOSPITAL_ID)" />
+    <doctorEmr v-if="['foshanrenyi','huadu','zhzxy','fsxt','dglb','nfyksdyy','whsl'].includes(HOSPITAL_ID)" />
     <changeMajorRadio
+      v-if="HOSPITAL_ID != 'nfyksdyy'"
       :dialogTableVisibleTrue="dialogDeptNameVisible"
       :majorData="{
         patientId:  patientInfo.patientId,
@@ -124,6 +126,18 @@
       @TableVisible="(val) => dialogDeptNameVisible = val"
       @savedata="(val) => {val &&  getSheetData()}"
     ></changeMajorRadio>
+    <changeMajorCheckbox
+      v-else
+      ref="changeMajorCheckbox"
+      :majorData="{
+        patientId:  patientInfo.patientId,
+        visitId: patientInfo.visitId,
+        id: sheetInfo.selectBlock.id
+      }"
+      @TableVisible="(val) => dialogDeptNameVisible = val"
+      @savedata="(val) => {val &&  getSheetData()}"
+    ></changeMajorCheckbox>
+    <confirm-modal ref="confirmModal"></confirm-modal>
   </div>
 </template>
 
@@ -201,7 +215,7 @@
   box-sizing: border-box;
   margin: 0 auto 20px;
   position: relative;
-  scrollBar(7px, 14px);
+  scrollBar(14px, 14px);
 }
 
 .null-btn {
@@ -316,6 +330,8 @@ import $ from "jquery";
 import moment from "moment";
 import HjModal from "./components/modal/hj-modal.vue";
 import HdModal from "./components/modal/hd-modal.vue";
+import confirmModal from "@/components/confirm/index.vue";
+import SDYYModal from "@/Page/sheet-page/components/modal/sdyy-modal.vue";
 import GuizhouModal from "./components/modal/guizhou-modal.vue";
 import signModal from "@/components/modal/sign.vue";
 import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
@@ -334,8 +350,10 @@ import testSheet from './testSheet.json'
 //解锁
 import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import changeMajorRadio from '@/Page/sheet-page/components/modal/changeMajorRadio.vue'
+import changeMajorCheckbox from '@/Page/sheet-page/components/modal/changeMajorCheckbox.vue'
 import SheetTags from './components/sheet-tags/index.vue';
 import qs from 'qs'
+import { saveModal } from "./components/sheet-tool/sheetPageModal.js"
 
 export default {
   mixins: [common],
@@ -739,16 +757,41 @@ export default {
         !this.$route.path.includes("singleTemperatureChart")&&
         !this.findBlockContextModal
       ) {
-        window.app
+        if(this.HOSPITAL_ID == 'nfyksdyy'){
+          let config = {
+            warmtlt : "请确认记录单已保存，如未保存离开将会丢失数据",
+            buttonList : [
+              {label:"取消",fun:()=>{this.$refs.confirmModal.close()}},
+              {label:"离开",fun:()=>{
+                this.bus.$emit("clearClickRow")
+                this.$refs.confirmModal.close(),
+                this.$refs.confirmModal.close(),
+                next()
+              }},
+              {label:"保存并离开",type:"primary",fun:()=>{
+                this.bus.$emit("clearClickRow")
+                this.bus.$emit('saveSheetPage', 'noSaveSign')
+                this.$refs.confirmModal.close(),
+                next()
+              }}
+            ]
+          }
+          this.$refs.confirmModal.open(config)
+        }else {
+          window.app
           .$confirm("请确认记录单已保存，如未保存离开将会丢失数据", "提示", {
             confirmButtonText: "离开",
             cancelButtonText: "取消",
             type: "warning",
           })
           .then((res) => {
+            this.bus.$emit("clearClickRow")
+            // this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
             next();
           });
+        }
       } else {
+        this.bus.$emit("clearClickRow")
         next();
       }
     },
@@ -830,7 +873,6 @@ export default {
       this.bus.$emit("refreshImg");
     },
     onModalChange(e,tr,x,y,index){
-      console.log(e,tr,x,y,index,'dddddddd');
       // 改变当前行状态,如果数据变化 就拿到当行的数据
       tr[`isChange`] = true
       // // 获取recordDate的下标
@@ -1089,7 +1131,20 @@ export default {
         }
       }
     );
-    this.bus.$on('handleDeptNameChoose',(val)=>{this.dialogDeptNameVisible = val})
+    this.bus.$on('handleDeptNameChoose',(val)=>{
+      this.dialogDeptNameVisible = val;
+    })
+    this.bus.$on('openMajorCheckbox',(val, deptType, index)=>{
+      let data = {
+        deptType,
+        patientId: this.patientInfo.patientId,
+        visitId: this.patientInfo.visitId,
+        formId: this.sheetInfo.selectBlock.id
+      }
+      this.$refs.changeMajorCheckbox.majorData = data
+      this.$refs.changeMajorCheckbox.dialogVisible = val
+      this.$refs.changeMajorCheckbox.activeIndex = index
+    })
     this.bus.$on("refreshSheetPage", () => {
       this.getSheetData()
     });
@@ -1133,7 +1188,7 @@ export default {
         this.bus.$emit('saveSheetPage', 'noSaveSign')
       }
     });
-    this.bus.$on("toSheetPrintPage", (newWid) => {
+    this.bus.$on("toSheetPrintPage", async (newWid) => {
       if ($(".sign-text").length) {
         // 判断是否存在标记
         if ($(".mark-mark-mark").length) {
@@ -1178,7 +1233,8 @@ export default {
 
       // 对存储空间不够做处理
       try {
-        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+        if(this.HOSPITAL_ID ==="whhk") await saveModal($(this.$refs.sheetTableContain).html())
+        else window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       } catch (err) {
         // 可能要预留下来的 暂时不移除
         let keys = [
@@ -1193,7 +1249,8 @@ export default {
             localStorage.removeItem(key);
           }
         }
-        window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
+        if(this.HOSPITAL_ID ==="whhk") await saveModal($(this.$refs.sheetTableContain).html())
+        else window.localStorage.sheetModel = $(this.$refs.sheetTableContain).html();
       }
       if (
         process.env.HOSPITAL_ID == "fuyou" ||
@@ -1206,9 +1263,7 @@ export default {
         this.$router.push(`/print/sheetPage`);
       } else {
         if (process.env.NODE_ENV === "production") {
-          if(["whsl","nfyksdyy",'hj',"whhk"].includes(this.HOSPITAL_ID)){
             newWid.location.href = `/crNursing/print/sheetPage?sheetType=${this.sheetInfo.sheetType}`;
-          }else newWid.location.href = `/crNursing/print/sheetPage`;
         } else {
           this.$router.push(`/print/sheetPage`);
         }
@@ -1290,6 +1345,9 @@ export default {
     });
     this.bus.$on("openHDModal", () => {
       this.$refs.HdModal.open();
+    });
+    this.bus.$on("openSDYYModal", () => {
+      this.$refs.SDYYModal.open();
     });
     this.bus.$on("openGuizhouModal", () => {
       this.$refs.GuizhouModal.open();
@@ -1406,17 +1464,41 @@ export default {
       !this.sheetInfo.isSave &&
       !from.fullPath.includes("singleTemperatureChart") //去除体温单切换未保存提示
     ) {
-      window.app
-        .$confirm("护理记录单，离开将会丢失数据", "提示", {
-          confirmButtonText: "离开",
-          cancelButtonText: "取消",
-          type: "warning",
-        })
-        .then((res) => {
-          this.sheetInfo.selectBlock = {}
-          cleanData();
-          next();
-        });
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+        let config = {
+          warmtlt : "护理记录单，离开将会丢失数据",
+          buttonList : [
+            {label:"取消",fun:()=>{this.$refs.confirmModal.close()}},
+            {label:"离开",fun:()=>{
+              this.sheetInfo.selectBlock = {}
+              cleanData();
+              this.$refs.confirmModal.close(),
+              next()
+            }},
+            {label:"保存并离开",type:"primary",fun:()=>{
+              this.bus.$emit('saveSheetPage', 'noSaveSign')
+              this.sheetInfo.selectBlock = {}
+              cleanData();
+              this.$refs.confirmModal.close()
+              next()
+            }}
+          ]
+        }
+        this.$refs.confirmModal.open(config)
+      }else{
+        window.app
+          .$confirm("护理记录单，离开将会丢失数据", "提示", {
+             confirmButtonText: "离开",
+            cancelButtonText: "取消",
+            type: "warning",
+          })
+          .then((res) => {
+            this.sheetInfo.selectBlock = {}
+            cleanData();
+            // this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
+            next();
+          });
+      }
     } else {
       next();
     }
@@ -1428,6 +1510,7 @@ export default {
     delPageModal,
     HjModal,
     HdModal,
+    SDYYModal,
     GuizhouModal,
     signModal,
     specialModal,
@@ -1474,7 +1557,9 @@ export default {
     sheetTable_cardiology_lcey,
     sheetTable_prenatal_ytll,
     changeMajorRadio,
-    SheetTags
+    changeMajorCheckbox,
+    SheetTags,
+    confirmModal
   },
 };
 </script>

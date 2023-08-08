@@ -51,6 +51,12 @@
             v-touch-ripple
             @click="openImportModal"
           >导入</el-button>
+          <el-button
+            type="primary"
+            v-if="isImportModuleDevSuccess && hasWHzhenduan.includes(HOSPITAL_ID)"
+            v-touch-ripple
+            @click="openWHzhenduanModal"
+          >维护诊断</el-button>
         </div>
       </div>
     </sweet-modal>
@@ -85,6 +91,8 @@
         </div>
       </div>
     </div>
+    <whzdModal ref="whzdModal" @refresh="search"></whzdModal>
+    <whzdSettingModal ref="whzdSettingModal" @refresh="search"></whzdSettingModal>
   </div>
 </template>
 
@@ -187,7 +195,14 @@
 import { apiPath } from "@/api/apiConfig";
 import { nursingDiagsSearch,getTemplateApi } from "../api/index";
 import diagnosisList from "./list/diagnosisList.vue";
+import whzdModal from "./slide/slideWhzdModal.vue";
+import whzdSettingModal from "./slide/slideWhzdSetting.vue";
 export default {
+  provide() {
+    return {
+      openWHSettingModal:this.openWHSettingModal
+    };
+  },
   data() {
     return {
       searchWord: "",
@@ -199,7 +214,8 @@ export default {
       cacheSearchList: localStorage.diagnosisCacheSearchList
         ? JSON.parse(localStorage.diagnosisCacheSearchList)
         : [],
-      hasImport:['liaocheng','guizhou','foshanrenyi','zhzxy'],
+      hasImport:['liaocheng','guizhou','foshanrenyi','zhzxy',"whsl"],
+      hasWHzhenduan:['foshanrenyi'],
       isConfirm:false,
       fileList:[],
       isImportModuleDevSuccess:true,
@@ -227,14 +243,17 @@ export default {
       // if (!this.searchWord) {
       //   return;
       // }
+      let {pageIndex,pageSize,wardCode,searchWord} = this,{patientId,visitId} = this.$route.query
+      let params = {
+        patientId,
+        visitId,
+        searchWord,
+        pageIndex,
+        pageSize,
+        wardCode
+      }
       this.searchLoading = true;
-      nursingDiagsSearch(
-        this.$route.query.patientId,
-        this.$route.query.visitId,
-        this.searchWord,
-        this.pageIndex,
-        this.pageSize
-      ).then(res => {
+      nursingDiagsSearch(params).then(res => {
         this.searchLoading = false;
         this.totalCount = res.data.data.totalCount;
         this.list = res.data.data.list;
@@ -272,6 +291,12 @@ export default {
     },
     openImportModal(){
       this.isConfirm = true
+    },
+    openWHzhenduanModal(){
+      this.$refs.whzdModal.open()
+    },
+    openWHSettingModal(config){
+      this.$refs.whzdSettingModal.open(config)
     },
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -314,11 +339,13 @@ export default {
     }
   },
   components: {
-    diagnosisList
+    diagnosisList,
+    whzdModal,
+    whzdSettingModal
   },
   computed:{
     wardCode(){
-      let code = localStorage.getItem('wardCode')
+      let code = localStorage.getItem('selectDeptValue')
       return code
     },
     importHeaders(){

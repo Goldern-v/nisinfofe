@@ -44,11 +44,11 @@ let sshUpload = (
     威海市立医院: "weihai",
     临沂沂州医院: 'yizhou',
     珠海市中西医结合医院: "zhuhaizhongxiyi",
-    武汉汉口医院: "wuhanhankou",
+    武汉市汉口医院: "wuhanhankou",
     南方医科大学顺德医院: "nanfangyikeshundeyiyuan",
     中国人民解放军联勤保障部队第九二五医院: '925',
     东莞市寮步医院: 'dglb',
-    湛江海军医院: 'zjhj',
+    中国人民解放军南部战区海军第一医院: 'zjhj',
     青海省第五人民医院: 'qinghaiwuyuan',
   };
   let hospitalEN = "dongguanhoujie";

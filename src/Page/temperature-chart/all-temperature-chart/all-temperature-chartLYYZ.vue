@@ -33,14 +33,15 @@
           v-model="searchWord"
         ></el-input>
       </div>
-      <!-- <div style="margin: 0px 10px 0px 10px">
+      <div style="margin: 0px 10px 0px 10px" v-if="HOSPITAL_ID=='whhk'">
         <el-radio-group v-model="admitted" size="small">
           <el-radio-button label="所有患者"></el-radio-button>
           <el-radio-button label="危重患者"></el-radio-button>
           <el-radio-button label="三天超37.5"></el-radio-button>
-          <el-radio-button label="入院四天"></el-radio-button>
+          <el-radio-button label="入院七天"></el-radio-button>
+          <el-radio-button label= "术后三天"></el-radio-button>
         </el-radio-group>
-      </div> -->
+      </div>
       <el-button @click="debounceSave">保存</el-button>
       <!-- <el-button @click="onPrint">打印</el-button> -->
     </div>
@@ -1059,6 +1060,21 @@ export default {
         }
         var reg = /[a-zA-Z]+/;  //[a-zA-Z]表示匹配字母，g表示全局匹配
         if(this.HOSPITAL_ID=='fsxt') data.sort((a, b) => Number(a.bedLabel.replace(reg,'')) - Number(b.bedLabel.replace(reg,'')));
+        if(this.HOSPITAL_ID==="whhk"){
+          return Array.from(new Set([...data])).filter(item=>{
+            return this.admitted === "所有患者" 
+            ? item.patientId 
+            : this.admitted === "危重患者"
+            ? item.patientCondition === "病重"
+            : this.admitted === "三天超37.5"
+            ? item.temperatureFlag==1
+            : this.admitted === "术后三天"
+            ? item.operationFlag==1
+            : moment(item.admissionDate.slice(0, 10)).isAfter(
+                moment().subtract(7, "days").format("YYYY-MM-DD")
+              )
+          })
+        }
          return Array.from(new Set([...data]))
       },
       set(value) {

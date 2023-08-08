@@ -35,6 +35,8 @@ export function getRowNum(index) {
     return 26;
   } else if (sheetInfo.sheetType == "icu_qz" || sheetInfo.sheetType == "iabp_fs" || sheetInfo.sheetType == "labor_con_ytll"|| sheetInfo.sheetType == "labor_ytll") {
     return 33;
+  } else if (sheetInfo.sheetType == "fetal_heart_weihai") {
+    return 32;
   } else if (sheetInfo.sheetType == "icu_lc") {
     return 22;
   } else if (sheetInfo.sheetType == "special"|| sheetInfo.sheetType == "premiumcare_ytll") {

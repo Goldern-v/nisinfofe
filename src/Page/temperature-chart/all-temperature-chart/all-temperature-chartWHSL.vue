@@ -143,20 +143,35 @@
             align="center"
           >
             <template slot-scope="scope">
+              <el-popover
+                placement="right"
+                width="100px"
+                trigger="focus"
+                :disabled="!(breathOption && breathOption.length > 0)"
+              >
+                <div
+                  class="selection-dict-item"
+                  v-for="(option, index) in breathOption"
+                  :key="index"
+                  @click.prevent="
+                    () => {
+                      scope.row.breath = option;
+                    }
+                  "
+                >
+                  {{ option }}
+                </div>
               <input
+              slot="reference"
                 v-model="scope.row.breath"
                 :class="className"
                 class="breath"
-                type="number"
-                @mousewheel="
-                  (e) => {
-                    e.preventDefault();
-                  }
-                "
+                type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
+            </el-popover>
             </template>
           </el-table-column>
           <el-table-column
@@ -173,7 +188,7 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -196,10 +211,28 @@
                 "
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
+          <!-- <el-table-column
+            prop="spo2"
+            label="spo2"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.spo2"
+                :class="className"
+                class="sp02"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                 @click="toRow"
+              />
+            </template>
+          </el-table-column> -->
           <el-table-column
             prop="physicalCooling"
             label="物理降温"
@@ -214,7 +247,25 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                 @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="spo2"
+            label="血氧饱和度Spo2"
+            min-width="120"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.spo2"
+                :class="className"
+                class="sp02"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -232,7 +283,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -251,7 +302,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -294,7 +345,7 @@
                   type="text"
                   @keydown="handleKeyDown"
                   @keyup="handleKeyUp"
-                  @click="toRow"
+                   @click="toRow"
                 />
               </el-popover>
             </template>
@@ -313,7 +364,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column> -->
@@ -331,7 +382,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column> -->
@@ -349,7 +400,7 @@
                 type="text"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -367,7 +418,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -386,7 +437,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column>
@@ -404,7 +455,7 @@
                 type="text"
                 @keyup="handleKeyUp"
                 @keydown="handleKeyDown"
-                @click="toRow"
+                 @click="toRow"
               />
             </template>
           </el-table-column> -->
@@ -496,7 +547,16 @@
               <el-input v-model="scope.row.heartRate"></el-input>
             </template>
           </el-table-column>
-
+          <!-- <el-table-column
+            prop="spo2"
+            label="spo2"
+            min-width="50"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.spo2"></el-input>
+            </template>
+          </el-table-column> -->
           <el-table-column
             prop="physicalCooling"
             label="物理降温"
@@ -789,6 +849,7 @@ export default {
       patientList: [],
       isSelectedNurs: "",
       handleKeyCode: [37, 38, 39, 40, 13],
+      breathOption: ["R"],
       colClass: "",
       // pickerOptions: {
       //   disabledDate(time) {
@@ -1037,6 +1098,7 @@ export default {
         foodSize: "",
         id: "",
         physicalCooling: "",
+        spo2: "",
         monthHour: "",
         multiSign: "",
         pulse: "",
@@ -1141,8 +1203,8 @@ export default {
       }
     },
     toRow(e) {
-      let rowIndex = e.path[3].rowIndex;
-      var trs = e.path[4].getElementsByTagName("tr");
+      let rowIndex = e.target.parentElement.parentElement.parentElement.rowIndex;
+      var trs = e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("tr");
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
           trs[i].style.backgroundColor = "green";
@@ -1152,8 +1214,8 @@ export default {
       }
     },
     handleKeyUp(e) {
-      let rowIndex = e.path[3].rowIndex;
-      var trs = e.path[4].getElementsByTagName("tr");
+     let rowIndex = e.target.parentElement.parentElement.parentElement.rowIndex;
+      var trs = e.target.parentElement.parentElement.parentElement.parentElement.getElementsByTagName("tr");
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
           trs[i].style.backgroundColor = "green";

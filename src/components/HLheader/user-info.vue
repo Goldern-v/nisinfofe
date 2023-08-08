@@ -64,7 +64,7 @@
         <el-button size="mini" @click="onPrint" style="margin-left:110px">打印二维码</el-button>
       </div>
     </div>
-    <div style="padding-bottom: 10px">
+    <div style="padding-bottom: 10px" v-if="HOSPITAL_ID != 'nfyksdyy'">
       <el-switch
         v-model="showScaleTip"
         active-color="#4BB08D"
@@ -88,7 +88,7 @@
       <p><label>IP代理地址:</label><span>{{proxyIP}}</span></p>-->
     </div>
     <div class="footer-con" flex="cross:center">
-      <span v-if="!['whsl','whfk','ytll'].includes(HOSPITAL_ID)">
+      <span v-if="!['whfk','ytll'].includes(HOSPITAL_ID)">
         <span @click="$emit('setPassword')">修改密码</span>&nbsp;&nbsp;|&nbsp;&nbsp;
       </span>
       <span>个人档案</span>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -289,7 +289,7 @@ export default {
       ca_name: "",
       ca_isLogin: "",
       strUserCertID: "",
-      showScaleTip:['huadu'].includes(this.HOSPITAL_ID),
+      showScaleTip:['huadu', 'nfyksdyy'].includes(this.HOSPITAL_ID),
       userName: "",
       passWord: "",
       fuyouCaData:null,//江门妇幼ca签名认证数据

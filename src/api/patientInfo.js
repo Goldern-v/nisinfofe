@@ -247,7 +247,6 @@ export function ordersPage(query) {
 }
 // 获取执行单类型
 function getExecuteType() {
-  console.log('hjm发请求')
   return axios.post(`${apiPath}procedure/pdaExecute/type`)
 }
 // 健康教育的下拉列表
