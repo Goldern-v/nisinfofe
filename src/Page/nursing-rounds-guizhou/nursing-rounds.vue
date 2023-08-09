@@ -214,6 +214,10 @@ export default {
     if(this.$route.path !== '/nursingMakeItem'){
       this.onLoad();
     }
+    if(this.$route.query.bedLabel){
+      this.query.bedLabel = this.$route.query.bedLabel
+      this.search();
+    }
     this.getNursingClass();
   },
   computed:{

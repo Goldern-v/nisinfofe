@@ -212,7 +212,7 @@
         }
         let { patientId,visitId } = this.form , id = this.$route.params.id;
         apis.getPreviousPatient({patientId,visitId,id}).then(res=>{
-          let arr = ["proposal","assessmentSituation","background","mainComplaint","diagnosis"];
+          let arr = ["proposal","assessmentSituation","background"];
           let {data:{data}}= res
           arr.forEach(code=>{
             let str = data[code] || ""
