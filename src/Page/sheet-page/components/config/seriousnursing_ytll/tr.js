@@ -162,7 +162,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width:  35
+      width:  45
     },
     name: "出量-颜色性状"
   },

@@ -14,6 +14,26 @@
           clearable
         />
       </span>
+      <div
+        class="times"
+        v-if="isZjhj"
+      >
+        <label :for="`time${item.id}`"
+        v-for="item in timesEven"
+        :key="item.id"
+        :style="{color:item.value  == query.entryTime ? 'red' : '#000'}"
+        >
+          <input
+            type="radio"
+            name="time"
+            v-model="query.entryTime"
+            :id="`time${item.id}`"
+            :value="item.value"
+          />
+          {{ item.value }}
+        </label>
+      </div>
+      <template v-if="!isZjhj">
       <div class="times">
         <label
           :for="`time${item.id}`"
@@ -115,6 +135,7 @@
           </el-radio-group>
         </template>
       </div>
+      </template>
       <el-button @click="saveAllTemperture">保存</el-button>
       <el-button @click="onPrint">打印</el-button>
     </div>
@@ -1056,6 +1077,32 @@ export default {
           }
         })() //录入时间
       },
+      timesEven: [
+        {
+          id: 0,
+          value: "04",
+        },
+        {
+          id: 1,
+          value: "08",
+        },
+        {
+          id: 2,
+          value: "12",
+        },
+        {
+          id: 3,
+          value: "16",
+        },
+        {
+          id: 4,
+          value: "20",
+        },
+        {
+          id: 5,
+          value: "23",
+        },
+      ],
       timesPoint: (() => {
         switch (this.HOSPITAL_ID) {
           case "foshanrenyi":
@@ -1134,7 +1181,8 @@ export default {
         { name: "转入", value: "转入" }
       ],
       patientGroup: "", // 病人分组
-      isNfyksdyy: this.HOSPITAL_ID === "nfyksdyy"
+      isNfyksdyy: this.HOSPITAL_ID === "nfyksdyy",
+      isZjhj: this.HOSPITAL_ID === "zjhj"
     };
   },
   computed: {

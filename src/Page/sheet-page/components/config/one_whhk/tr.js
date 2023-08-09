@@ -291,12 +291,14 @@ export default [
     textarea: {
       width: 50
     },
+    multiple:true
   },
   {
     key: "education", // 健康教育
     value: "",
     event: keyf1,
     name: "健康教育",
+    multiple:true,
     next: '',
     autoComplete: { data: jkjyList },
     splice: '',

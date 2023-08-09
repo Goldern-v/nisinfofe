@@ -1255,6 +1255,7 @@ const router = new Router({
               case 'beihairenyi':
                 return bloodSugarBeiHaiRenYi
               case 'fsxt':
+              case 'zjhj':
                 return bloodSugarFsxt
                 case 'gdtj':
                 return bloodSugarGdtj
