@@ -195,6 +195,11 @@
       >
         <div class="nav-item">执行记录</div>
       </router-link>
+      <router-link to="/nursingMakeItem" tag="span">
+        <el-row class="nav-item" type="flex" align="middle">
+          <i class="nursingMakeItem"></i>巡视记录
+        </el-row>
+      </router-link>
     </div>
     <el-row class="right-part" type="flex" align="middle">
       <span class="big-1250-con">

@@ -1072,6 +1072,11 @@ const router = new Router({
           component: operation
         },
         {
+          path: "/nursingMakeItem",
+          name: "巡视记录",
+          component: nursingRoundsGuizhou
+        },
+        {
           path: "/test",
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
@@ -1255,6 +1260,7 @@ const router = new Router({
               case 'beihairenyi':
                 return bloodSugarBeiHaiRenYi
               case 'fsxt':
+              case 'zjhj':
                 return bloodSugarFsxt
                 case 'gdtj':
                 return bloodSugarGdtj
