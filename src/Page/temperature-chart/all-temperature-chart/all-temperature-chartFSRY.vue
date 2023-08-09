@@ -1080,27 +1080,27 @@ export default {
       timesEven: [
         {
           id: 0,
-          value: "04",
+          value: "02",
         },
         {
           id: 1,
-          value: "08",
+          value: "06",
         },
         {
           id: 2,
-          value: "12",
+          value: "10",
         },
         {
           id: 3,
-          value: "16",
+          value: "14",
         },
         {
           id: 4,
-          value: "20",
+          value: "18",
         },
         {
           id: 5,
-          value: "23",
+          value: "22",
         },
       ],
       timesPoint: (() => {

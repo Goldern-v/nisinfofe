@@ -343,13 +343,11 @@
   </div>
 </template>
 <style lang='stylus' rel='stylesheet/stylus' type='text/stylus' scoped>
-.label {
-  font-size: 16px;
-  color: #000000;
-  font-weight: bold;
-}
-
-.mask-input {
+.label
+  font-size 16px
+  color #000000
+  font-weight bold
+.mask-input
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -365,21 +363,13 @@
   line-height: 1;
   outline: none;
   padding: 3px 10px;
-  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: border-color .2s cubic-bezier(.645,.045,.355,1);
   width: 128px;
-  margin-right: 20px;
-}
-
-.table-con {
-  margin-top: 20px;
-
-  >>>.el-table .cell, >>>.el-table th > div {
-    padding: 0 5px;
-  }
-  >>>.el-table__row.noselect td.el-table-column--selection > .cell{
-    display:none
-  }
-}
+  margin-right 20px
+.table-con
+  margin-top 20px
+  >>>.el-table .cell, >>>.el-table th > div
+    padding 0 5px
 </style>
 <script>
 import whiteButton from "@/components/button/white-button";
