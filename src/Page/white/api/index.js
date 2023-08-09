@@ -193,6 +193,13 @@ export const getTodayNurse = (deptCode) => {
   return axios.get(`${apiPath}whiteboardManage/deptSetting/getTodayNurse?deptCode=${deptCode}`)
 }
 
+/**获取排班 武汉汉口**/
+export const getListByDeptCodeWhhk = (obj) => {
+  return axios.post(`${apiPath}/whiteboard/patientGroup/viewListByDeptCodeWhhk/${obj.deptCode}`,{
+    startSendTime:obj.startSendTime,
+    groupsList:obj.groupsList
+  })
+}
 /* 根据组号查询当日班次值班护士，每天只同步一次！ */
 export const getviewListByDeptCodeZhzxy = (deptCode,data) => {
   return axios.post(`${apiPath}/whiteboard/patientGroup/viewListByDeptCodeZhzxy/${deptCode}`,data)

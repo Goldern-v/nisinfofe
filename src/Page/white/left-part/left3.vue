@@ -59,7 +59,7 @@
             <span style="width: 100px; text-align: center" v-else-if="['gdtj', 'zhzxy', 'xiegang'].includes(HOSPITAL_ID)">
               <input  style="width: 60px;margin-right: 20px" v-model="item.groupCode" @blur="update">
             </span>
-            <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi',"nfyksdyy"].includes(HOSPITAL_ID)? index+1 : index}}：</span>
+            <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi',"nfyksdyy",'whhk'].includes(HOSPITAL_ID)? index+1 : index}}：</span>
             <input v-if="HOSPITAL_ID !== 'liaocheng'" flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
             <!-- 聊城二院 床位 添加 下拉选项 -->
             <el-select
@@ -197,7 +197,16 @@ input {
 <script>
 import boxBase from "../base/box-base.vue";
 import { userDictInfo, getAllPatient,leftBedlist } from "@/api/common";
-import { viewListByDeptCode, viewListByDeptCodeLC, updateByDeptCodeAndGroupCode,updateByDeptCodeAndGroupCodeLC, deletePatientGroupById, saveOrUpdateHL,getviewListByDeptCodeZhzxy } from "../api";
+import {
+  viewListByDeptCode,
+  viewListByDeptCodeLC,
+  updateByDeptCodeAndGroupCode,
+  updateByDeptCodeAndGroupCodeLC,
+  deletePatientGroupById,
+  saveOrUpdateHL,
+  getviewListByDeptCodeZhzxy,
+  getListByDeptCodeWhhk
+} from "../api";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
 import left3Modal from '../modal/letf3-modal.vue'
@@ -388,8 +397,17 @@ export default {
         this.renderItem(4),
       ];
       this.pageLoading = true;
-      let http = this.HOSPITAL_ID === 'liaocheng' ? viewListByDeptCodeLC : viewListByDeptCode
-      http(this.deptCode).then((res) => {
+      const resultArray = [];
+      for (let i = 1; i <= this.value; i++) {
+        resultArray.push(`A${i}`);
+      }
+      let http = this.HOSPITAL_ID === 'liaocheng' ? viewListByDeptCodeLC  : this.HOSPITAL_ID === 'whhk'? getListByDeptCodeWhhk:  viewListByDeptCode
+      let whhkParams={
+        startSendTime:moment().format('YYYY-MM-DD'),
+        groupsList:resultArray,
+        deptCode:this.deptCode
+      }
+      http(this.HOSPITAL_ID =='whhk'? whhkParams: this.deptCode).then((res) => {
         // this.list = this.mergeData(groupdList, res.data.data);
         this.list = res.data.data;
         this.value = this.list.length > this.minGroupValue ? this.list.length : this.minGroupValue;
