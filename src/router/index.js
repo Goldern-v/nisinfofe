@@ -448,6 +448,7 @@ const statisticalScanCodeDetails = () => import("@/Page/statistical-query/statis
 const statisticalScanRate = () => import("@/Page/statistical-query/statistical-scan-rate/index.vue")
 
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
+const statisticalEvaluateVTE = () => import("@/Page/statistical-query/statistical-VTE-evaluate/index.vue")
 const StatisticalConsultation = () => import("@/Page/statistical-query/statistical-consultation/index.vue")
 const StatisticalConsultationZhzxy = () => import("@/Page/statistical-query/statistical-consultation-zhzxy/index.vue")
 const statisticalIncrease = () => import("@/Page/statistical-query/statistical-increase/index.vue")
@@ -1933,6 +1934,14 @@ const router = new Router({
               title: 'VTE统计'
             },
             component: statisticalVTE,
+          },
+          {
+            path: "statisticalEvaluateVTE",
+            name: "statisticalEvaluateVTE",
+            meta: {
+              title: 'VTE评估率'
+            },
+            component: statisticalEvaluateVTE,
           },
           {
             path: "statisticalUnplanned",

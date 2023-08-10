@@ -377,6 +377,13 @@
           <span :title="scope.row.freqDetail">{{ scope.row.freqDetail }}</span>
         </template>
       </u-table-column>
+       <u-table-column prop="cancelReason" label="不执行的原因"  min-width="200px">
+        <template slot-scope="scope">
+          <div>
+            {{ scope.row.cancelReason }}
+          </div>
+        </template>
+      </u-table-column>
 
       <u-table-column label="操作" min-width="100px" align="center">
         <template slot-scope="scope">
@@ -400,11 +407,11 @@
               "
               >修改</el-button
             >
-            <!-- <el-button
+            <el-button
             type="text"
             @click="cancelOrderExecute(scope.row)"
-            >取消</el-button
-          > -->
+            >不执行</el-button
+          >
           </div>
         </template>
       </u-table-column>
