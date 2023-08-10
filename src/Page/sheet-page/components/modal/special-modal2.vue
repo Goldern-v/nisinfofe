@@ -1374,8 +1374,8 @@ function autoComplete(el, bind) {
             if (data) {
               if (typeof obj[key] == "object") {
                 // 多选
-                if (splice) {
-                  const split = typeof splice === 'string' ? splice : ','
+                if (typeof(splice) === 'string') {
+                  const split = splice
                   const oldValue =  obj[key].value ? obj[key].value.split(split) : []
                   const index = oldValue.findIndex(v => v === data)
                   if (index > -1) {
@@ -1383,14 +1383,14 @@ function autoComplete(el, bind) {
                   } else {
                     oldValue.push(data.trim())
                   }
-                  obj[key].value = oldValue.join()
+                  obj[key].value = oldValue.join(split)
                 } else { // 单选
                   obj[key].value = data.trim();
                 }
               } else {
                 // 多选
-                if (splice) {
-                  const split = typeof splice === 'string' ? splice : ','
+                if (typeof(splice) === 'string') {
+                  const split = splice 
                   const oldValue =  obj[key] ? obj[key].split(split) : []
                   const index = oldValue.findIndex(v => v === data)
                   if (index > -1) {
@@ -1398,7 +1398,7 @@ function autoComplete(el, bind) {
                   } else {
                     oldValue.push(data.trim())
                   }
-                  obj[key] = oldValue.join()
+                  obj[key] = oldValue.join(split)
                 } else { // 单选
                   obj[key] = data.trim();
                 }

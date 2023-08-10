@@ -247,7 +247,7 @@ export default {
       let params = {
         patientId,
         visitId,
-        searchWord,
+        keyword: searchWord,
         pageIndex,
         pageSize,
         wardCode

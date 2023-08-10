@@ -29,7 +29,7 @@
         <span>{{ query.age }}</span>&nbsp;
         <span>床号:{{ query.bedLabel }}</span>&nbsp;
         <span>ID:{{ query.patientId }}</span>
-       
+
       </div>
       <div class="wrist-line2">
         <div>
@@ -45,7 +45,7 @@
           <span>{{ query.inpNo }}</span>
         </div> -->
       </div>
-      
+
       <div class="wrist-line2">
         <div>
           <span>诊断：</span>
@@ -59,94 +59,8 @@
       </div>
       <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
     </div>
-    <div
-        class="bed-card-warpper printRef  wrist-strap-print children-wrist"
-        ref="printCon4"
-        :class="{ zhzxyStyle: ['zhzxy'].includes(HOSPITAL_ID) }"
-        v-else-if="printMode == 'wrist-children'"
-      >
-        <div class="bed-card-vert-con">
-          <div class="top">
-            <span>科室：{{ query.wardName }}</span>
-          </div>
-          <div>
-            <div>
-              <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
-                >床位：{{ query.bedLabel }}</span
-              >
-              <span>住院号：{{ 'dglb' === HOSPITAL_ID ? query.inpNo : query.patientId }}</span>
-            </div>
-            <div>
-              <span>{{ query.name }}</span>
-              <span>{{ query.sex }}</span>
-              <span>{{ query.age }}</span>
-            </div>
-          </div>
-          <div>
-            <div>
-              <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
-            </div>
-          </div>
-          <img
-            class="qr-code"
-            :class="{ hasRemark: hasRemark }"
-            :src="qrCode"
-          />
-        </div>
-    </div>
-    <div
-      class="bed-card-wrapper bed-card-wrapper-h-small"
-      v-loading="modalLoading"
-      ref="printConHS"
-      v-else-if="printMode === 'h-small'"
-    >
-      <div class="hs-content">
-
-        <div class="hs-header">床头卡</div>
-        <div>
-          <span  style="margin-right:5px">科别：{{ query.deptName }}</span>
-          <span>入院时间：{{ moment(query.admissionDate).format("YYYY-MM-DD") }}</span>
-        </div>
-        <div class="hs-line1 flex-between">
-          <span>住院号：{{ query.inpNo }}</span>
-          <span>床号：{{ query.bedLabel }}</span>
-        </div>
-        <div class="hs-line2 flex-between">
-          <span >姓名：{{ query.name }}</span>
-          <span style="flex:0.7">性别：{{ query.sex }}</span>
-          <span>年龄：{{ query.age }}</span>
-        </div>
-        <div class="hs-line2">
-          <span>诊断：</span>
-          <input type="text" v-model="formData.remark" />
-        </div>
-        <div class="hs-line2">
-          <span>过敏信息：</span>
-          <input type="text" />
-        </div>
-        <div class="hs-line2 flex-between">
-          <div class="input-item">
-            <span class="label">主管医生：</span>
-            <input
-              noWidth
-              type="text"
-              v-model="formData.mainDoctors"
-            />
-          </div>
-          <div class="input-item">
-            <span class="label">责任护士：</span>
-            <input
-              noWidth
-              type="text"
-              v-model="formData.dutyNurses"
-            />
-          </div>
-
-        </div>
-        <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
-      </div>
-    </div>
-    <div class="bed-card-warpper" 
+    <!-- 床头卡 -->
+    <div class="bed-card-warpper"
     v-else
     v-loading="modalLoading" ref="printCon">
         <div
@@ -154,14 +68,9 @@
           flex
           :class="{ remarkCon: formData.remarkPrint,itemHeight:HOSPITAL_ID=='sdlj' }"
         >
-
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div flex="cross:center" class="qr-code-item" style="height:150px;">
-              <p v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" style="line-height: 80px;" class="name">
-                <span>{{nameYing}}</span><br>
-                <span>{{nameAfter}}</span>
-              </p>
-              <p v-else class="name">{{query.name}}</p>
+              <p  class="name">{{query.name}}</p>
               <img
                 class="qr-code"
                 :class="{ hasRemark: hasRemark }"
@@ -171,66 +80,61 @@
             <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}"
             class="input-item input-item-row">
               <div class="fontSize-50">{{query.sex}}</div>
-              <div class="fontSize-50" v-if="HOSPITAL_ID!='sdlj'">{{query.age}}</div>
-              <div class="fontSize-50" v-else-if="HOSPITAL_ID=='sdlj' ">{{query.age}}</div>
+              <div class="fontSize-50" >{{query.age}}</div>
               <div>{{wardName}}</div>
             </div>
-            <div v-if="HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0" flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="input-item">
-              <div>身高:</div><div style="width: 100px;">{{query.height}}</div>
-              <div>体重:</div><div style="width: 100px;">{{query.weight}}</div>
-            </div>
             <div flex="cross:center" class="input-item" style="width:auto;height:50px">
-              <div style="display:flex">
-                <span :class="{'label-nowidth':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}" class="label">住院号:</span>
+              <div style="display:flex " >
+                <span  class="label">ID:</span>
                 <input
                   type="text"
                   nowidth
-                  style="font-size: 26px;width:200px"
+                  style="font-size: 26px;width:65px"
+                  flex-box="1"
+                  class="bottom-line"
+                  v-model="query.inpNo"
+                />
+              </div>
+              <div style="display: flex;">
+                <span  class="label">住院号:</span>
+                <input
+                  type="text"
+                  nowidth
+                  style="font-size: 26px;width:100px"
                   flex-box="1"
                   class="bottom-line"
                   v-model="query.patientId"
                 />
-              </div>
+                </div>
               <div class="bedNum">{{query.bedLabel + '床'}}</div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label">{{HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')!=-1?'出生时间:':'入院日期:'}}</span>
+              <span class="label_admission">入院日期:</span>
               <input
                 type="text"
                 nowidth
-                style="font-size: 26px"
+                style="font-size: 26px;"
                 flex-box="1"
                 class="bottom-line"
-                :value="moment(query.admissionDate).format('YYYY-MM-DD HH:mm:ss')"
+                :value="moment(query.admissionDate).format('YYYY-MM-DD ')"
               />
             </div>
-            <div v-if="!(HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0)" flex="cross:center" class="input-item">
-              <span class="label">主治医生:</span>
+            <div flex="cross:center" class="input-item">
+              <span class="label">诊断:</span>
               <input
                 type="text"
                 nowidth
                 style="font-size: 26px"
                 flex-box="1"
                 class="bottom-line"
-                v-model="formData.mainDoctors"
+                v-model="formData.diagnosis"
               />
             </div>
           </div>
         </div>
       </div>
     <div slot="button">
-      <!-- <span style="position: absolute; left: 10px; padding-top: 4px">
-        <span>显示诊断</span>
-        <el-switch
-          on-text="是"
-          off-text="否"
-          v-model="formData.remarkPrint"
-        ></el-switch>
-      </span> -->
-
       <el-button class="modal-btn" @click="close">取消</el-button>
-      <!-- <el-button class="modal-btn" @click="switchBed" v-if="printMode=='h'||printMode=='h-small'">切换</el-button> -->
-      <!-- <el-button class="modal-btn" type="primary" @click="post">保存</el-button> -->
       <el-button class="modal-btn" type="info" @click="onPrint">打印</el-button>
     </div>
   </sweet-modal>
@@ -405,19 +309,113 @@
   display: inline-block;
   font-size: 16px;
 
-  &.zhzxyStyle {
-    font-size: 20px;
-  }
-
-  .bed-card-con {
-    width: 9cm;
-    height: 5.7cm;
-  }
-
   >>> * {
     font-family: 'SimHei', 'Microsoft Yahei' !important;
     font-weight: bold;
   }
+}
+
+.bed-card-con {
+  margin: 20px;
+  width: 511px;
+  height: 335px;
+  // padding: 5px 8px;
+  box-sizing: border-box;
+  border-right: 5px solid #fff;
+  position: relative;
+  // border: 1px solid #000;
+  height: 370px;
+  &.itemHeight{
+    .input-item{
+      height:50px;
+    }
+  }
+  .bed-card-con-top{
+    height: 150px;
+  }
+  // &.remarkCon
+  .name{
+    line-height: 160px;
+    white-space: nowrap;
+    height: 160px;
+    width: 360px;
+    text-align: center;
+    font-size: 88px;
+    z-index: 10;
+  }
+  .qr-code {
+    position: absolute;
+    top: -12px;
+    right: -15px;
+    height: 175px;
+    width: 200px;
+
+    &.hasRemark {
+      width: 96px;
+      height: 96px;
+    }
+  }
+
+  .qr-code-num {
+    position: absolute;
+    top: 92px;
+    left: 0px;
+    width: 96px;
+    text-align: center;
+    z-index: 2;
+    font-size: 16px;
+
+    &.hasRemark {
+      top: 78px;
+      left: 0px;
+      width: 84px;
+      font-size: 14px;
+    }
+  }
+}
+.qr-code-item {
+  height: 40px;
+  padding-right: 12px;
+  font-size: 22px;
+  font-weight: bold;
+  position: relative;
+  z-index: 2;
+
+  .input-item-left {
+    display: inline-block;
+
+    width 75px {
+      .input-item-left-label {
+        margin-right: 2px;
+      }
+    }
+  }
+}
+
+.input-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  width: auto
+  &.input-item-nopadding{
+    padding:0;
+  }
+  .fontSize-50{
+    height: 50px;
+    font-size: 43px;
+    font-weight: bold;
+    line-height: 50px;
+  }
+}
+.bedNum{
+  position: absolute;
+  top: 0;
+  right: 10px;
+  min-width: 100px;
+  font-size: 50px;
+  text-align: right;
+  height: 50px;
+  line-height: 50px;
 }
 .wrist-strap-print {
   .bed-card-vert-con {
@@ -543,7 +541,7 @@
   font-size: 13px;
   font-weight: normal;
   padding: 10px 20px 24px;
- 
+
   .hs-content {
     position: relative;
     padding: 1px;
@@ -641,7 +639,7 @@
   text-align: left;
   padding-left: 5px;
   outline: none;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .remark {
@@ -672,6 +670,7 @@
       margin-right: 2px;
     }
   }
+
 }
 .flex-between {
   display: flex;
@@ -707,24 +706,6 @@ export default {
       moment,
       qrCode: "" /** 二维码 */,
       qrCodeNum: "" /** 二维码 */,
-      // tipList: [
-      //   {
-      //     label: "小心跌倒",
-      //     img: require("./images/Group 6.png"),
-      //   },
-      //   {
-      //     label: "小心烫伤",
-      //     img: require("./images/Group 7.png"),
-      //   },
-      //   {
-      //     label: "防止压疮",
-      //     img: require("./images/Group 9.png"),
-      //   },
-      //   {
-      //     label: "防止偷盗",
-      //     img: require("./images/Group 10.png"),
-      //   },
-      // ],
       modalLoading: false,
       formData: {
         diet: "",
@@ -748,6 +729,9 @@ export default {
   computed: {
     query() {
       return this.$route.query;
+    },
+     wardName() {
+      return this.$store.state.lesion.deptName;
     },
     hasRemark() {
       return this.formData.remarkPrint;
@@ -780,9 +764,6 @@ export default {
         let diagnosis = textOver(this.query.diagnosis, 52);
         this.formData = {
           diet: resData.diet || "",
-          // registCare: resData.registCare
-          //   ? (resData.registCare || "").split(",")
-          //   : this.getRegistCare(),
           mainDoctors: resData.mainDoctors || "",
           dutyNurses: resData.dutyNurses || "",
           remark: diagnosis,
@@ -791,24 +772,9 @@ export default {
         };
         this.modalLoading = false;
         this.isOpen();
-        // if (
-        //   JSON.parse(localStorage.user) &&
-        //   JSON.parse(localStorage.user).post != "护长"
-        // ) {
-        //   if (resData.isPrint == 1) {
-        //     this.$message({
-        //       type: "warning",
-        //       message: "该患者已打印床头卡",
-        //     });
-        //     return;
-        //   } else {
-        //     this.isOpen();
-        //   }
-        // }
+
       });
-      // multiDictInfo(["床头卡饮食"]).then((res) => {
-      //   this.ysList = res.data.data.床头卡饮食.map((item) => item.name);
-      // });
+
       if (this.printMode === "wrist") {
         getOperationName(
           this.query.patientId,
@@ -819,41 +785,10 @@ export default {
         });
       }
     },
-    // getRegistCare() {
-    //   let data = [];
-    //   if (this.query.nursingClass == "特级护理") {
-    //     data.push("特");
-    //   }
-    //   if (this.query.nursingClass == "一级护理") {
-    //     data.push("一");
-    //   }
-    //   if (this.query.nursingClass == "二级护理") {
-    //     data.push("二");
-    //   }
-    //   if (this.query.nursingClass == "三级护理") {
-    //     data.push("三");
-    //   }
-    //   if (this.query.patientCondition == "普通") {
-    //     data.push("普");
-    //   }
-    //   if (this.query.patientCondition == "病危") {
-    //     data.push("危");
-    //   }
-    //   if (this.query.patientCondition == "病重") {
-    //     data.push("重");
-    //   }
-    //   return data;
-    // },
     open(printMode = "h") {
       this.printMode = printMode;
       this.init();
       this.isOpen();
-      // if (
-      //   JSON.parse(localStorage.user) &&
-      //   JSON.parse(localStorage.user).post == "护长"
-      // ) {
-      //   this.isOpen();
-      // }
     },
     isOpen() {
       this.$refs.modal.open();
@@ -909,25 +844,6 @@ export default {
               }
             `;
             break;
-          case "wrist-children":
-            printRef = this.$refs.printCon4;
-            css = `
-            .bed-card-warpper {
-                box-shadow: none !important;
-                width:560px!important;
-                // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
-                transform: rotate(-90deg) translateY(30%) translateX(-97%) scale(0.8);
-                transform-origin: 0 0;
-              }
-            `;
-            break;
-          case 'h-small':
-            printRef = this.$refs.printConHS
-            css = `
-              .bed-card-wrapper {
-                box-shadow: none !important;
-              }`
-            break
           default:
             printRef = this.$refs.printCon;
             css = `
@@ -949,9 +865,9 @@ export default {
               .dept-name {
                 font-size: 28px !important;
               }
-              .patient-name {
+              .name {
                 padding: 10px 0 20px !important;
-                font-size: 160px !important;
+                font-size: 100px !important;
               }
               .dn-title {
                 line-height: 150px !important;
@@ -961,17 +877,19 @@ export default {
               }
               .input-item pre {
                 font-size: 28px !important;
+                width: 150px !important;
                 line-height: 36px !important;
               }
               .qr-code {
-                position: absolute;
-                top: 2px;
-                right: 8px;
-                height:400px!important;
-                width: 400px!important;
+                    position: absolute;
+                    top: -12px !important;
+                    right: -15px !important;
+                    height: 175px !important;
+                    width: 200px !important;
               }
-              .input-item .label {
+              .input-item .label  input {
                 font-size: 28px !important;
+                width: 300px !important;
                 line-height: 36px !important;
               }
               .diagnosis-content {

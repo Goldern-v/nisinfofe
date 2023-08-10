@@ -132,6 +132,18 @@
               >删除</el-button
             >
           </template>
+          <template v-else-if="['ytll'].includes(HOSPITAL_ID)">
+            <span
+              :class="scope.row.deleteToF ? 'btn-text' : 'no-special'"
+              @click="scope.row.deleteToF ? openViewModal(scope.row) : () => {}"
+              >修改</span
+            >
+            <span
+              :class="scope.row.deleteToF ? 'btn-text' : 'no-special'"
+              @click="scope.row.deleteToF ? deleteData(scope.row) : () => {}"
+              >删除</span
+            >
+          </template>
           <template v-else>
             <span
               :class="scope.row.num == '0' ? 'no-special' : 'btn-text'"

@@ -259,6 +259,7 @@ export default [
     name: "护理措施",
     autoComplete: { data: hlcsList },
     splice: '',
+    multiple:true,
     change: (e, td) => limitChange(e, td, 8),
     textarea: {
       width: 50
@@ -269,6 +270,7 @@ export default [
     value: "",
     event: keyf1,
     name: "健康教育",
+    multiple:true,
     next: '',
     autoComplete: { data: jkjyList },
     splice: '',
