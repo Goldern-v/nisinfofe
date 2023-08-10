@@ -7136,14 +7136,13 @@
                   "title": "佛山人医营养风险筛查表一（初筛）",
                   "formUrl": "佛山人医营养风险筛查表一（初筛）.html",
                   "callbackInfo": {
-                    "needScore": false
+                    "needScore": false,
+                    "defaultName": true,
+                    "code": "S2332157",
+                    "prefix": "有，营养风险筛查表一（初筛）"
                   }
                 }
               }
-            },
-            {
-              "equal": "有",
-              "style": "color:red"
             }
           ],
           "style": null,

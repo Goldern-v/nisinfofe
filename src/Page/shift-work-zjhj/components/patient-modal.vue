@@ -2,7 +2,7 @@
   <div class="patientModal">
   <SweetModal
     :ref="'modal'"
-    title="患者ISBAR交班内容"
+    title="患者交班内容"
     :modal-width="760"
     @close="onPanelClose"
   >
@@ -24,20 +24,12 @@
         <span>姓名：</span>
         <ElInput type="text" ref="name" style="width:100px;" v-model="form.name" :disabled="!isSignedN"/>
       </label>
-      <label>
-        <span>年龄：</span>
-        <ElInput type="text" style="width:50px;" v-model="form.age" :disabled="!isSignedN"/>
-      </label>
-      <label>
-        <span>事件：</span>
-        <ElInput type="text" style="width:100px;" v-model="form.patientStatus" :disabled="!isSignedN"/>
-      </label>
       <a v-if="!isSignedN" class="action" @click="onPanelOpen">+ 模板</a>
     </div>
     <div class="content">
       <div class="buttonBox">
         <el-button
-          v-if="showAdviceBtn"
+          v-if="(tab == '2' || tab == '4') "
           size="mini"
           type="primary"
           @click="openPISlide('testModal')"
@@ -45,7 +37,7 @@
           检验报告
         </el-button>
         <el-button
-          v-if="showAdviceBtn"
+          v-if="(tab == '2' || tab == '4')"
           type="primary"
           size="mini"
           @click="openPISlide('inspectModal')"
@@ -53,7 +45,7 @@
           检查报告
         </el-button>
         <el-button
-          v-if="showAdviceBtn"
+          v-if="['1'].includes(this.tab)"
           size="mini"
           @click="openModal('adviceModalRef')"
           >同步医嘱</el-button
@@ -67,45 +59,16 @@
         </el-button>
       </div>
       <ElTabs class="tabs" v-model="tab" type="card" @input="onTabChange">
-        <ElTabPane label="S现状" name="1">
-          <div class="label">主要症状</div>
-          <ElInput type="textarea" ref="diagnosis" :rows="4" v-model="form.diagnosis" :disabled="isSignedN"/>
-          <div class="label">主诉及现存主要问题</div>
-          <ElInput type="textarea" ref="mainComplaint" :rows="4" v-model="form.mainComplaint" :disabled="isSignedN"/>
-        </ElTabPane>
-        <ElTabPane label="B背景" name="2">
-          <div class="label">既往病史、治疗经过、护理评估情况、治疗效果跟踪</div>
-          <ElInput type="textarea" ref="background" v-model="form.background" class="textarea" :disabled="isSignedN"/>
-        </ElTabPane>
-        <ElTabPane label="A评估" name="3">
-          <template v-if="HOSPITAL_ID == 'ytll'">
-            <div class="label">跌：<ElInput type="text" ref="fall" style="width:100px;" v-model="form.fall" :disabled="isSignedN"/></div>
-            <div class="label">VTE：<ElInput type="text" ref="VTE" style="width:100px;" v-model="form.vte" :disabled="isSignedN"/></div>
-            <div class="label">压：<ElInput type="text" ref="ulcer" style="width:100px;" v-model="form.ulcer" :disabled="isSignedN"/></div>
-            <div class="label">管：<ElInput type="text" ref="conduit" style="width:100px;" v-model="form.conduit" :disabled="isSignedN"/></div>
-          </template>
-          <template v-else>
-            <div class="label">交班前最后一次护理评估情况</div>
-            <ElInput type="textarea" ref="assessmentSituation" v-model="form.assessmentSituation" class="textarea" :disabled="isSignedN"/>
-          </template>
-          </ElTabPane>
-        <ElTabPane label="R建议" name="4">
-          <div class="label">交给下班需注意的</div>
-          <ElInput type="textarea" ref="proposal" v-model="form.proposal" class="textarea" :disabled="isSignedN"/>
+        <ElTabPane label="交班事由" name="1">
+          <div class="label">交班护理评估情况</div>
+          <ElInput type="textarea" ref="handoverContent" v-model="form.handoverContent" class="textarea" :disabled="isSignedN"/>
         </ElTabPane>
       </ElTabs>
     </div>
-    <ElButton slot="button" @click="tbYesterday" v-if="['nfyksdyy'].includes(this.HOSPITAL_ID)">同步昨日交班</ElButton>
     <ElButton slot="button" @click="onClose">取消</ElButton>
     <ElButton slot="button" type="primary" @click="onConfirm">保存</ElButton>
-    <template v-if="showAPN">
-      <ElButton slot="button" @click="setString('【A】')" :disabled="isSignedN">A</ElButton>
-      <ElButton slot="button" @click="setString('【P】')" :disabled="isSignedN">P</ElButton>
-      <ElButton slot="button" @click="setString('【N】')" :disabled="isSignedN">N</ElButton>
-    </template>
   </SweetModal>
   <advice-modal
-    v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
     ref="adviceModalRef"
     @handleOk="handleDiagnosis"
   />
@@ -128,7 +91,7 @@
     diagnosis: '',
     mainComplaint: '',
     background: '',
-    assessmentSituation: '',
+    handoverContent: '',
     proposal: ''
   }
 
@@ -150,14 +113,8 @@
     created(){
       this.bus.$on("syncReportFSSY", (str) => {
         switch (this.tab) {
-          case "2":
-            this.form.background = xie(this.form.background)
-            break;
-          case "3":
-            this.form.assessmentSituation = xie(this.form.assessmentSituation)
-            break;
-          case "4":
-            this.form.proposal = xie(this.form.proposal)
+          case "1":
+            this.form.handoverContent = xie(this.form.handoverContent)
             break;
           default:
             break;
@@ -173,20 +130,6 @@
       });
     },
     computed: {
-      hasSyncRecord() {
-        return ['nfyksdyy'].includes(this.HOSPITAL_ID);
-      },
-      showAdviceBtn() {
-        switch (process.env.HOSPITAL_ID) {
-          case "nfyksdyy":
-            return ['2','3','4'].includes(this.tab);
-          default:
-            return false;
-        }
-      },
-      showAPN() {
-        return ['nfyksdyy'].includes(this.HOSPITAL_ID) && ['2', '3'].includes(this.tab);
-      }
     },
     watch: {
       syncRecord: {
@@ -201,66 +144,30 @@
       }
     },
     methods: {
-      tbYesterday(){
-        function xie(doc,str) {
-          if (doc) {
-            doc += "\n" + str;
-          } else {
-            doc = str;
-          }
-          return doc
-        }
-        let { patientId,visitId } = this.form , id = this.$route.params.id;
-        apis.getPreviousPatient({patientId,visitId,id}).then(res=>{
-          let arr = ["proposal","assessmentSituation","background"];
-          let {data:{data}}= res
-          arr.forEach(code=>{
-            let str = data[code] || ""
-            this.form[code] = xie(this.form[code],str)
-          })
-        })
-      },
-      setString(value) {
-        value = value || '';
-        const tabMap = {
-          '2': () => {
-            this.form.background = (this.form.background || '') + value;
-            this.$refs.background.$refs.textarea.focus();
-          },
-          '3': () => {
-            this.form.assessmentSituation = (this.form.assessmentSituation || '') + value;
-            this.$refs.assessmentSituation.$refs.textarea.focus();
-          }
-        }
-        tabMap[this.tab] && tabMap[this.tab]();
-      },
       handleDiagnosis({ item, key }) {
+        console.log(item, key, this.tab,this.form.handoverContent);
         switch (this.tab) {
-          case "2":
-            this.form.background = xie(this.form.background)
-            break;
-          case "3":
-            this.form.assessmentSituation = xie(this.form.assessmentSituation)
-            break;
-          case "4":
-            this.form.proposal = xie(this.form.proposal)
+          case "1":
+            this.form.handoverContent = xie(this.form.handoverContent || '')
             break;
           default:
             break;
         }
-        function xie(doc) {
-           item.forEach((v) => {
+        function xie(doc = '') {
+           console.log(doc, 'this.form.handoverContent');
+          item.forEach((v) => {
             if (doc && v[key]) {
               doc += "\n";
             }
             doc += v[key];
           });
+              console.log(doc, 'this.form.handoverContent');
           return doc
         }
 
       },
       openModal(key) {
-        const modalData = ['nfyksdyy'].includes(this.HOSPITAL_ID) && {
+        const modalData = {
           modalTitle: `
           同步医嘱 <span style="margin-left: 12px">
             ${this.form.name}&nbsp;${this.form.age}&nbsp;${this.form.inpNo || ''}
@@ -300,13 +207,7 @@
       },
       applyTemplate (tab, item) {
         if (tab === '1') {
-          this.form.mainComplaint = (this.form.mainComplaint || '') + item.content
-        } else if (tab === '2') {
-          this.form.background = (this.form.background || '') + item.content
-        } else if (tab === '3') {
-          this.form.assessmentSituation = (this.form.assessmentSituation || '') + item.content
-        } else if (tab === '4') {
-          this.form.proposal = (this.form.proposal || '') + item.content
+          this.form.handoverContent = (this.form.handoverContent || '') + item.content
         }
       },
       onClose () {

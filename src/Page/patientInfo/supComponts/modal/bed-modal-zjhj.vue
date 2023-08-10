@@ -95,7 +95,7 @@
                   v-model="query.inpNo"
                 />
               </div>
-              <div>
+              <div style="display: flex;">
                 <span  class="label">住院号:</span>
                 <input
                   type="text"
@@ -109,14 +109,14 @@
               <div class="bedNum">{{query.bedLabel + '床'}}</div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label">入院日期:</span>
+              <span class="label_admission">入院日期:</span>
               <input
                 type="text"
                 nowidth
-                style="font-size: 26px"
+                style="font-size: 26px;"
                 flex-box="1"
                 class="bottom-line"
-                :value="moment(query.admissionDate).format('YYYY-MM-DD HH:mm:ss')"
+                :value="moment(query.admissionDate).format('YYYY-MM-DD ')"
               />
             </div>
             <div flex="cross:center" class="input-item">
@@ -639,7 +639,7 @@
   text-align: left;
   padding-left: 5px;
   outline: none;
-  font-size: 28px;
+  font-size: 24px;
 }
 
 .remark {
@@ -670,6 +670,7 @@
       margin-right: 2px;
     }
   }
+
 }
 .flex-between {
   display: flex;
@@ -864,9 +865,9 @@ export default {
               .dept-name {
                 font-size: 28px !important;
               }
-              .patient-name {
+              .name {
                 padding: 10px 0 20px !important;
-                font-size: 160px !important;
+                font-size: 100px !important;
               }
               .dn-title {
                 line-height: 150px !important;
@@ -876,7 +877,7 @@ export default {
               }
               .input-item pre {
                 font-size: 28px !important;
-                width: 100px !important;
+                width: 150px !important;
                 line-height: 36px !important;
               }
               .qr-code {
@@ -886,9 +887,9 @@ export default {
                     height: 175px !important;
                     width: 200px !important;
               }
-              .input-item .label {
+              .input-item .label  input {
                 font-size: 28px !important;
-                width: 100px !important;
+                width: 300px !important;
                 line-height: 36px !important;
               }
               .diagnosis-content {

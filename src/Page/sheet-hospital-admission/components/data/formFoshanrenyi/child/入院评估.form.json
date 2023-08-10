@@ -6776,9 +6776,9 @@
                   "formUrl": "佛山人医营养风险筛查表一（初筛）.html",
                   "callbackInfo": {
                     "needScore": false,
+                    "defaultName": true,
                     "code": "I2333165",
-                    "prefix": "营养风险筛查表一（初筛）:",
-                    "suffix": "分"
+                    "prefix": "有，营养风险筛查表一（初筛）"
                   }
                 }
               }

@@ -82,8 +82,10 @@ const shiftWorkDetailGdtj = () => import("@/Page/shift-work-gdtj/shift-work-deta
 const shiftWorkGdtjNew = () => import("@/Page/shift-work-gdtj-new/shift-work.vue");
 const shiftWorkDetailGdtjNew = () => import("@/Page/shift-work-gdtj-new/shift-work-detail.vue");
 const shiftWorkBh = () => import("@/Page/shift-work-bh/shift-work.vue");
+const shiftWorkZJHJ = () => import("@/Page/shift-work-zjhj/shift-work.vue");
 const shiftWorkWhhk = () => import("@/Page/shift-work-whhk/shift-work.vue");
 const shiftWorkDetailBh = () => import("@/Page/shift-work-bh/shift-work-detail.vue");
+const shiftWorkDetailZJHJ = () => import("@/Page/shift-work-zjhj/shift-work-detail.vue");
 const shiftWorkDetailWhhk = () => import("@/Page/shift-work-whhk/shift-work-detail.vue");
 const shiftWorkWhsl = () => import("@/Page/shift-work-whsl/shift-work.vue");
 const shiftWorkDetailWhsl = () => import("@/Page/shift-work-whsl/shift-work-detail.vue");
@@ -896,6 +898,8 @@ const router = new Router({
             case 'huadu':
             case 'ytll':
               return shiftWorkBh
+            case 'zjhj':
+              return shiftWorkZJHJ
             case 'fqfybjy':
               return shiftWorkFq
             case 'wujing':
@@ -936,6 +940,8 @@ const router = new Router({
               case 'ytll':
               case 'huadu':
                 return shiftWorkDetailBh
+              case 'zjhj':
+                return shiftWorkDetailZJHJ
               case 'gdtj':
                 // return  shiftWorkDetailGdtj
                 return  shiftWorkDetailGdtjNew
@@ -1070,6 +1076,11 @@ const router = new Router({
         {
           path: "/operation",
           component: operation
+        },
+        {
+          path: "/nursingMakeItem",
+          name: "巡视记录",
+          component: nursingRoundsGuizhou
         },
         {
           path: "/test",
