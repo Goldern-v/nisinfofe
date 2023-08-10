@@ -354,7 +354,7 @@ export default {
   },
   computed: {
     infoData() {
-      return this.$route.query;
+      return this.$route.query || this.$route.params ;
     },
     tableDataSelect() {
       let data = this.tableData;
