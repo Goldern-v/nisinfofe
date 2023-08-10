@@ -1123,6 +1123,21 @@ export default {
         `
       );
     }
+    if (sheetInfo.sheetType == "record_common_zjhj") {
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height: ${sheetTableWidth * 0.755}px !important;
+            transform: scaleX(0.99) scaleY(1.22) !important;
+            transform-origin: top center !important;
+            margin-top: -40px ;
+          }
+        }
+        `
+      );
+    }
     // 陵城打印
     if (this.HOSPITAL_ID == "lingcheng") {
       addCSS(
