@@ -1295,7 +1295,29 @@ export default {
       this.destroyUnlock()
     }
     if (!sheetInfo.isSave) {
-      window.app
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+        let config = {
+          warmtlt : "护理记录单，离开将会丢失数据",
+          buttonList : [
+            {label:"取消",fun:()=>{this.$refs.confirmModal.close()}},
+            {label:"离开",fun:()=>{
+              this.sheetInfo.selectBlock = {}
+              cleanData();
+              this.$refs.confirmModal.close(),
+              next()
+            }},
+            {label:"保存并离开",type:"primary",fun:()=>{
+              this.bus.$emit('saveSheetPage', 'noSaveSign')
+              this.sheetInfo.selectBlock = {}
+              cleanData();
+              this.$refs.confirmModal.close()
+              next()
+            }}
+          ]
+        }
+        this.$refs.confirmModal.open(config)
+      }else{
+        window.app
         .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
           confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
           cancelButtonText: "取消",
@@ -1306,6 +1328,7 @@ export default {
           this.sheetInfo.relObj = {}
           next();
         });
+      }
     } else {
       next();
     }
