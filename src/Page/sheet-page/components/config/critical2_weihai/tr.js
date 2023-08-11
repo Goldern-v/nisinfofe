@@ -301,6 +301,9 @@ export default [
     autoComplete: {
       data: tongqi
     },
+    textarea: {
+      width: 50
+    },
   },
   {
     key: "fio2", // SPO2（%）
