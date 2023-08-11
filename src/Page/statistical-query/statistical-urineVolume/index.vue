@@ -4,7 +4,7 @@
     :deptList="deptList"
     :loading.sync="loading"
     :formData="formData"
-
+    :recordList="recordList"
     @handleExport="handleExport"
     @handleQuery="handleQuery">
     <template>
@@ -68,11 +68,17 @@ export default {
         beginTime: '',
         endTime: '',
         wardCode: '',
+        recordName: '出入量记录表',
         status: 0,
         timing: '',
         nrineMin: 0,
         nrineMax: 500,
       },
+      recordList: [
+        { name: '出入量记录表', value: '出入量记录表' },
+        { name: '病重（病危）患者护理记录单', value: '病重（病危）患者护理记录单' },
+        { name: '重症医学科监护记录单', value: '重症医学科监护记录单' },
+      ],
       columns: [
         {
 					key: 'index',

@@ -37,6 +37,12 @@
           <ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
       </ElSelect>
       </div>
+      <div class="search-con__ctx__item" v-if="formData.recordName != undefined">
+        表单：
+        <ElSelect style="width: 150px;" size="small" :value="formData.recordName" @input="handleQuery({recordName: $event})">
+          <ElOption v-for="val in recordList" :key="val.name" :label="val.name" :value="val.name" />
+        </ElSelect>
+      </div>
       <div class="search-con__ctx__item" v-if="formData.status != undefined">
         患者状态：
         <ElSelect style="width: 90px;" size="small" :value="formData.status" @input="handleQuery({status: $event})">
@@ -119,7 +125,10 @@ export default {
       type: Boolean,
       default: false,
     },
-
+    recordList: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
