@@ -385,9 +385,9 @@
         </template>
       </u-table-column>
 
-      <u-table-column label="操作" min-width="100px" align="center">
+      <u-table-column label="操作" min-width="150px" align="center">
         <template slot-scope="scope">
-          <div v-show="scope.row.executeDateTime">
+          <div v-show="scope.row.executeDateTime" style="display:flex">
             <el-button
               type="text"
               @click="backTracking(scope.row)"
@@ -638,9 +638,9 @@ export default {
     // 取消执行
     cancelOrderExecute(item) {
       let user = JSON.parse(localStorage.getItem("user"));
-      if (!["护长", "护士长"].includes(user.job)) {
-        this.$message.error("没有权限！");
-      } else {
+      // if (!["护长", "护士长"].includes(user.job)) {
+      //   this.$message.error("没有权限！");
+      // } else {
         this.$prompt("请输入取消的原因", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
@@ -661,7 +661,7 @@ export default {
           .catch((err) => {
             this.$message.success(err.data.desc);
           });
-      }
+      // }
     },
     // 补录
     backTracking(item) {
