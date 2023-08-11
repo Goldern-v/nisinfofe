@@ -106,6 +106,13 @@ export default {
                   img: require("../images/VTE.png"),
                 }
               },
+               {
+                name: 'statisticalEvaluateVTE',
+                meta: {
+                  title: 'VTE评估率',
+                  img: require("../images/VTE.png"),
+                }
+              },
             ],
             other: []
           }

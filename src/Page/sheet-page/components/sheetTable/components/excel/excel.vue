@@ -433,7 +433,8 @@
                   minWidth: td.textarea.width + 'px',
                   maxWidth: td.textarea.width + 'px',
                 },
-                td.isDisabed && { cursor: 'not-allowed' }
+                td.isDisabed && { cursor: 'not-allowed' },
+                HOSPITAL_ID=='wujing' && td.key=='food' &&  tr.barCodeIdentification && {marginLeft:'-33px'}
               )
             "
             @keydown="
