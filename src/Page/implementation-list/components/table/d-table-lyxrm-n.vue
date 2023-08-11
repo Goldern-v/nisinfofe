@@ -1,7 +1,7 @@
 <template>
   <div class="d-table">
     <u-table
-    :data="tableData"
+      :data="tableData"
       v-loading="pageLoading"
       :row-class-name="addRowClass"
       class="d-table-liaocheng"
@@ -13,7 +13,12 @@
       row-id="id"
       border
       ref="uTable"
+      @select="handleSelectionChange"
     >
+      <u-table-column
+        type="selection"
+        width="55">
+      </u-table-column>
       <u-table-column
         prop="bedLabel"
         label="床号"
@@ -578,6 +583,11 @@ export default {
     editModal,
   },
   methods: {
+    // 多选
+    handleSelectionChange(row) {
+      if(this.HOSPITAL_ID != 'lyxrm') return
+      this.$emit("onSelection", row)
+    },
     // 取消执行
     cancelOrderExecute(item) {
       let user = JSON.parse(localStorage.getItem("user"));
