@@ -1123,6 +1123,42 @@ export default {
         `
       );
     }
+    if (["zjhj"].includes(this.HOSPITAL_ID)) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='记录人签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签  名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='记录人<br/>签  名']{
+             min-width: 90px !important;
+              max-width: 90px !important;
+          }
+          
+        `
+      );
+    }
+    if (sheetInfo.sheetType == "record_common_zjhj") {
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height: ${sheetTableWidth * 0.755}px !important;
+            transform: scaleX(0.98) scaleY(1.2) !important;
+            transform-origin: top center !important;
+            margin-top: -40px ;
+          }
+        }
+        `
+      );
+    }
     // 陵城打印
     if (this.HOSPITAL_ID == "lingcheng") {
       addCSS(

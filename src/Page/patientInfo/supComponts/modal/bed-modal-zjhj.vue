@@ -16,20 +16,27 @@
       <!-- <div class="wrist-header">
         {{ HOSPITAL_NAME }}
       </div> -->
-      <div class="wrist-line1">
-        <span>{{ query.wardName }}</span>
+      <!-- <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" /> -->
+      <div class="wrist-line2">
+        <span>{{ query.wardName }}</span>&nbsp;
         <span>
           入院时间：{{ moment(query.admissionDate).format("YYYY-MM-DD") }}
         </span>
+        <div>
         血型：
+        <input type="text" />
       </div>
-      <div class="wrist-lin1">
+      </div>
+      <div class="wrist-line2">
       <span>{{ query.name }}</span>&nbsp;
         <span>{{ query.sex }}</span>&nbsp;
         <span>{{ query.age }}</span>&nbsp;
         <span>床号:{{ query.bedLabel }}</span>&nbsp;
-        <span>ID:{{ query.patientId }}</span>
-
+        <span>ID:{{ query.patientId }}</span>&nbsp;
+        <div>
+          <span>过敏：</span>
+          <input type="text" />
+        </div>
       </div>
       <div class="wrist-line2">
         <div>
@@ -49,12 +56,8 @@
       <div class="wrist-line2">
         <div>
           <span>诊断：</span>
-          <span>{{ query.diagnosis }}</span>
-          <!-- <input type="text" v-model="formData.remark" /> -->
-        </div>
-        <div>
-          <span>过敏：</span>
-          <input type="text" />
+          <!-- <span>{{ query.diagnosis }}</span> -->
+          <input type="text" v-model="query.diagnosis" />
         </div>
       </div>
       <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
@@ -396,9 +399,10 @@
   }
 }
 .wrist {
-  padding: 20px 30px;
+  padding: 20px 0px;
   font-size: 19px;
   line-height: 26px;
+  font-weight: bold;
 
   .wrist-line1, .wrist-line2 {
     width: calc(100% - 100px);
@@ -421,9 +425,9 @@
     position: absolute;
     right: 10px;
     top: 50%;
-    margin-top: -50px;
-    height: 100px;
-    width: 100px;
+    margin-top: -60px;
+    height: 120px;
+    width: 120px;
 
     &.hasRemark {
       width: 96px;
@@ -744,10 +748,11 @@ export default {
       if (this.printMode == 'h') {
         return this.printMode = 'h-small'
       }
-      this.printMode = 'h'
+      this.printMode = 'h'   
     }
   },
   mounted() {},
   components: {},
 };
 </script>
+ 
