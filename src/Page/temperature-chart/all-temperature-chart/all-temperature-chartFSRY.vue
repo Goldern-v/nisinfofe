@@ -1601,7 +1601,11 @@ export default {
       var trs = tableElement.getElementsByClassName("el-table__row");
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
-          trs[i].style.backgroundColor = "green";
+          if(this.isNfyksdyy){
+            trs[i].style.backgroundColor = "#eef6f5";
+          }else{
+            trs[i].style.backgroundColor = "green";
+          }
         } else {
           trs[i].style.backgroundColor = "";
         }
@@ -1630,7 +1634,11 @@ export default {
       var trs = tableElement.getElementsByClassName("el-table__row");
       for (let i = 0; i < trs.length; i++) {
         if (rowIndex === i) {
-          trs[i].style.backgroundColor = "green";
+          if(this.isNfyksdyy){
+            trs[i].style.backgroundColor = "#eef6f5";
+          }else{
+            trs[i].style.backgroundColor = "green";
+          }
         } else {
           trs[i].style.backgroundColor = "";
         }

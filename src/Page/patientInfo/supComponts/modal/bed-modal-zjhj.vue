@@ -100,7 +100,7 @@
                 <input
                   type="text"
                   nowidth
-                  style="font-size: 26px;width:100px"
+                  style="font-size: 26px;width:120px"
                   flex-box="1"
                   class="bottom-line"
                   v-model="query.patientId"
@@ -169,143 +169,11 @@
   }
 }
 
-.bed-card-wrapper-h {
-  padding: 30px 20px;
-  font-size: 20px;
-  // height: 720px
-  line-height: 32px;
-
-  .header {
-    font-size: 26px;
-    line-height: 42px;
-    .left-title{
-      height: 30px;
-      line-height: 30px;
-      padding: 0 5px;
-    }
-  }
-
-  .dept-name {
-    border-top: 5px solid #000;
-    font-size: 20px;
-    line-height: 58px;
-  }
-
-  .patient-name {
-    font-size: 60px;
-    line-height: 1;
-    padding: 50px 0 60px;
-    text-align: center;
-  }
-
-  .other-info {
-    display: flex;
-    justify-content: space-between;
-    span {
-      margin-right: 20px;
-    }
-    textarea {
-      width: 100%;
-      font-size: 20px;
-      line-height: 26px;
-      outline: none;
-      border: none;
-      padding: 0;
-      height: 234px;
-      resize: none;
-    }
-  }
-
-  .diagnosis {
-    margin: 10px 0;
-    border-top: 3px solid #000;
-
-    span {
-      background: #000;
-      color: #fff;
-    }
-    textarea {
-      width: 100%;
-      font-size: 20px;
-      line-height: 26px;
-      outline: none;
-      border: none;
-      padding: 0;
-      height: 80px;
-      resize: none;
-    }
-  }
-
-  .dn-title {
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    border-top: 5px solid #000;
-    padding-right: 100px;
-    align-items: center;
-
-    span {
-      background: #000;
-      color: #fff;
-      line-height: 35px;
-      font-size: 30px;
-    }
-  }
-
-  .dn-box {
-    display: flex;
-    padding-right: 100px;
-    margin-top: 22px;
-    >div {
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-
-    input.bottom-line {
-      flex: 1;
-    }
-  }
-
-  .admission-date {
-    margin: 50px 0 20px;
-    text-align: center;
-    position: relative;
-    background: linear-gradient(90deg, #000 47%, #fff 47%, #fff 98%, #000 98%);
-    border: 2px solid #000;
-    color: #fff;
-
-    span {
-      display: inline-block;
-      mix-blend-mode: difference;
-    }
-
-    &::after {
-      position: absolute;
-      content: '';
-      left: 0;
-      bottom: -20px;
-      width: 100%;
-      border-bottom: 5px solid #000;
-    }
-  }
-
-  .qr-code {
-    position: absolute;
-    top: 2px;
-    right: 8px;
-    height: 150px;
-    width: 150px;
-
-    &.hasRemark {
-      width: 96px;
-      height: 96px;
-    }
-  }
-}
 .bed-card-warpper {
-  background: #fff;
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid #000;
+  box-sizing: border-box;
+  background: #fff;
   display: inline-block;
   font-size: 16px;
 
@@ -319,17 +187,9 @@
   margin: 20px;
   width: 511px;
   height: 335px;
-  // padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
-  // border: 1px solid #000;
-  height: 370px;
-  &.itemHeight{
-    .input-item{
-      height:50px;
-    }
-  }
   .bed-card-con-top{
     height: 150px;
   }
@@ -535,59 +395,6 @@
     }
   }
 }
-.bed-card-wrapper-h-small {
-  width:9.3cm;
-  height:4.3cm;
-  font-size: 13px;
-  font-weight: normal;
-  padding: 10px 20px 24px;
-
-  .hs-content {
-    position: relative;
-    padding: 1px;
-    border: 1px solid #000;
-  }
-  .hs-header {
-    font-size: 24px;
-    letter-spacing: 15px;
-    line-height: 30px;
-    text-align: center;
-  }
-  .hs-line1 {
-  width: calc(100% - 50px);
-  height:24px;
-  }
-  .hs-line2 {
-    width: calc(100% - 95px);
-    display: flex;
-    height:24px;
-    div.input-item {
-      display: flex;
-      height: 24px;
-      padding-right: 2px;
-      font-size: 13px;
-    }
-    .label {
-      margin-right: 0px;
-      line-height: 24px;
-    }
-
-    input {
-      padding: 0px;
-      flex: 1;
-      font-size: 13px;
-      line-height: 26px;
-    }
-  }
-  .qr-code {
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-    height: 100px;
-    width: 100px;
-  }
-}
-
 .wrist {
   padding: 20px 30px;
   font-size: 19px;
@@ -829,8 +636,8 @@ export default {
       });
     },
     onPrint() {
-      this.$nextTick(() => {
-        let printRef, css;
+      let printRef, css;
+        console.log('this.printMode:' ,this.printMode);
         switch (this.printMode) {
           case "wrist":
             printRef = this.$refs.printConW;
@@ -847,15 +654,28 @@ export default {
           default:
             printRef = this.$refs.printCon;
             css = `
-              .bed-card-wrapper {
-                margin-top: 40px;
+              .bed-card-con {
+                height：370px !important;
+                border: 1px solid #000 !important;
+                box-sizing: border-box !important;
                 box-shadow: none !important;
+                margin-top: 20px;
                 font-size: 28px !important;
-                line-height: 36px !important;
+                line-height: 20px !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
                 color-adjust: exact;
               }
+              .bedNum{
+                  position: absolute;
+                  top: 0 !important;
+                  right: 10px !important;
+                  min-width: 100px !important;
+                  font-size: 30px !important;
+                  text-align: right !important;
+                  height: 100px !important;
+                  line-height: 20px !important;
+                }
               .header {
                 font-size: 36px !important;
               }
@@ -867,30 +687,29 @@ export default {
               }
               .name {
                 padding: 10px 0 20px !important;
-                font-size: 100px !important;
-              }
-              .dn-title {
-                line-height: 150px !important;
-              }
-              .mb200 {
-                margin-bottom: 300px !important;
+                font-size: 70px !important;
               }
               .input-item pre {
                 font-size: 28px !important;
                 width: 150px !important;
-                line-height: 36px !important;
+                line-height: 20px !important;
               }
               .qr-code {
-                    position: absolute;
-                    top: -12px !important;
-                    right: -15px !important;
-                    height: 175px !important;
-                    width: 200px !important;
+                position: absolute;
+                top: -12px !important;
+                right: -15px !important;
+                height: 175px !important;
+                width: 200px !important;
+                transform-origin:top center !important;
+                transform:scaleY(.8) scaleX(.8) !important;
               }
               .input-item .label  input {
                 font-size: 28px !important;
                 width: 300px !important;
-                line-height: 36px !important;
+                line-height: 20px !important;
+              }
+              .input-item{
+              height: 85px !important;
               }
               .diagnosis-content {
                 display: block;
@@ -898,13 +717,15 @@ export default {
                 white-space: pre-wrap;
                 word-break: break-all;
                 word-wrap: break-word;
-                height: 120px;
+                height: 80px;
               }
               `;
               break
         }
+      this.$nextTick(() => {
+
         // this.post();
-        printing(printRef, {
+        printing.preview(printRef, {
           // direction: "horizontal",
           injectGlobalCss: true,
           scanStyles: false,

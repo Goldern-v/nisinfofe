@@ -263,3 +263,19 @@ export function getPdaExecuteTypeApi() {
   return axios.post(
     `${apiPath}procedure/pdaExecute/type`)
 }
+/**
+ * 批量补执行
+ * @returns
+ */
+export function batchUpdateOrderExecutePcApi(data) {
+  return axios.post(
+    `${apiPath}procedure/webExecute/batchUpdateOrderExecutePc`, data)
+}
+/**
+ * 批量备注
+ * @returns
+ */
+export function batchOrderRemarkApi(data) {
+  return axios.post(
+    `${apiPath}procedure/webExecute/batchOrderExecuteSupplementary`, data)
+}
