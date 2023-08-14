@@ -260,6 +260,8 @@ const allTemperatureChartWHYX = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHYX.vue"); //武汉亚心量录入体温单
 const allTemperatureChartFSRY = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSRY.vue"); //佛山人医量录入体温单
+const allTemperatureChartSDYY = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartSDYY.vue"); //顺德人医量录入体温单
 const allTemperatureChartGDTJ= () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartGDTJ.vue"); //广东同江医院量录入体温单
 const allTemperatureChartFSXT= () =>
@@ -1679,11 +1681,12 @@ const router = new Router({
             case 'whyx':
               return allTemperatureChartWHYX
             case 'foshanrenyi':
-            case 'nfyksdyy':
             case 'zhzxy':
             case 'qhwy':
-            case 'zjhj':
+            
               return allTemperatureChartFSRY
+            case 'nfyksdyy':
+              return allTemperatureChartSDYY
             case 'lyyz':
             case 'whhk':
             case 'zzwy':
@@ -1693,6 +1696,7 @@ const router = new Router({
             case 'gdtj':
             return allTemperatureChartGDTJ
             case 'fsxt':
+              case 'zjhj':
             return allTemperatureChartFSXT
             default:
               return allTemperatureChart
