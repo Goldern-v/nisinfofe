@@ -46,7 +46,7 @@
           <div
             class="bottom-line"
             style="
-              width: 1200px;
+              width: 1230px;
               height: 11px;
               text-overflow: ellipsis;
               white-space: nowrap;
