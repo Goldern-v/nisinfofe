@@ -54,7 +54,7 @@
       </div>
 
       <div class="wrist-line2">
-        <div>
+        <div style="margin-left: 59px;">
           <span>诊断：</span>
           <!-- <span>{{ query.diagnosis }}</span> -->
           <input type="text" v-model="query.diagnosis" />
@@ -425,7 +425,7 @@
     position: absolute;
     right: 10px;
     top: 50%;
-    margin-top: -60px;
+    margin-top: -70px;
     height: 120px;
     width: 120px;
 
