@@ -54,7 +54,7 @@
       </div>
 
       <div class="wrist-line2">
-        <div style="margin-left: 59px;">
+        <div>
           <span>诊断：</span>
           <!-- <span>{{ query.diagnosis }}</span> -->
           <input type="text" v-model="query.diagnosis" />
@@ -110,7 +110,7 @@
                   v-model="query.patientId"
                 />
                 </div>
-              <div class="bedNum">{{query.bedLabel + '床'}}</div>
+              <!-- <div class="bedNum">{{query.bedLabel + '床'}}</div> -->
             </div>
             <div flex="cross:center" class="input-item">
               <span class="label">入院日期:</span>
@@ -123,12 +123,12 @@
                 :value="moment(query.admissionDate).format('YYYY-MM-DD ')"
               />
             </div>
-            <div flex="cross:center" class="input-item">
+            <div flex="cross:center" class="input-item input-item2">
               <span class="label">诊断:</span>
               <input
                 type="text"
                 nowidth
-                style="font-size: 26px"
+                style="font-size: 26px;"
                 flex-box="1"
                 class="bottom-line"
                 v-model="query.diagnosis"
@@ -241,16 +241,6 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
-
-  .input-item-left {
-    display: inline-block;
-
-    width 75px {
-      .input-item-left-label {
-        margin-right: 2px;
-      }
-    }
-  }
 }
 
 .input-item-row {
@@ -425,7 +415,7 @@
     position: absolute;
     right: 10px;
     top: 50%;
-    margin-top: -70px;
+    margin-top: -60px;
     height: 120px;
     width: 120px;
 
@@ -472,15 +462,6 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
-
-  .input-item-left {
-    display: inline-block;
-    width: 75px;
-
-    .input-item-left-label {
-      margin-right: 2px;
-    }
-  }
 
 }
 .flex-between {
@@ -702,6 +683,12 @@ export default {
                 width: 150px !important;
                 line-height: 34px !important;
               }
+            .input-item2 pre {
+                font-size: 32px !important;
+                width: 475px !important;
+                line-height: 45px !important;
+                border-bottom: 2px solid #000 !important;
+              }
               .qr-code {
                 position: absolute;
                 top: 5px !important;
@@ -735,7 +722,7 @@ export default {
       this.$nextTick(() => {
 
         // this.post();
-        printing(printRef, {
+        printing.preview(printRef, {
           // direction: "horizontal",
           injectGlobalCss: true,
           scanStyles: false,
