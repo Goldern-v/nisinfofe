@@ -13,7 +13,7 @@
       stripe
       :data="tableData"
       border
-      :height="wih - 222"
+      :height="wih - 182"
       :columns="columns"/>
     <pagination
       :pageIndex="pageIndex"

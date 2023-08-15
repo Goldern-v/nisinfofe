@@ -23,11 +23,18 @@
       </span>
       <span>
         孕周：
-        <input
+        <!-- <input
           style="width: 60px;font-size:13px;text-align: center;"
           class="bottom-line"
           :data-value="sheetInfo.relObj[`yunzhou`]"
           v-model="sheetInfo.relObj[`yunzhou`]"
+        /> -->
+        <input
+          style="width: 60px;font-size:13px;text-align: center;"
+          class="bottom-line"
+          :readonly="index !== 0"
+          :data-value="pregnantWeek"
+          v-model="pregnantWeek"
         />
       </span>
       <span>
@@ -143,6 +150,7 @@ import { updateSheetHeadInfo } from "../../../../api/index";
 import sheetInfo from "../../../config/sheetInfo";
 import { listItem } from "@/api/common.js";
 import sheetData from "../../../../sheet.js";
+import { getRowNum } from '../../../utils/sheetRow.js';
 export default {
   props: {
     patientInfo: Object,
@@ -157,6 +165,40 @@ export default {
     };
   },
   computed: {
+    // 自动计算孕周，只有第一页可以修改，其他页的根据当前页第一条记录的日期减去第一页第一条记录的日期计算，
+    pregnantWeek: {
+      get() {
+        const suffix = this.index === 0 ? '' : this.index;
+        // 第一页第一条记录日期
+        const pageOneFirstDate = sheetData[0]
+          ? sheetData[0].bodyModel[0].find(td => td.key === 'recordDate').value
+          : sheetInfo.masterInfo.list[0].recordDate;
+        if (sheetInfo.relObj.yunzhou && pageOneFirstDate && this.index > 0) {
+          // 当前页第一条记录日期
+          const currentPageFirstDate = sheetData[this.index]
+            ? sheetData[this.index].bodyModel[0].find(td => td.key === 'recordDate').value
+            : sheetInfo.masterInfo.list[this.index * getRowNum()].recordDate;
+          if (currentPageFirstDate) {
+            let [week, day] = sheetInfo.relObj.yunzhou.split('+');
+            week = parseInt(week);
+            day = day ? parseInt(day) : 0;
+            // 天数差
+            const dayDiff = moment(currentPageFirstDate).diff(moment(pageOneFirstDate), 'days');
+            // 进位
+            const carry = Math.floor((dayDiff + day) / 7);
+            // 孕周天数
+            day = (dayDiff + day) % 7;
+            // 孕周周数
+            week += carry;
+            return day !== 0 ? `${week}+${day}周` : `${week}周`;
+          }
+        }
+        return sheetInfo.relObj[`yunzhou${suffix}`];
+      },
+      set(value) {
+        sheetInfo.relObj[`yunzhou`] = value;
+      }
+    },
     neonatology2Age() {
       if (this.index == 0) {
         return sheetInfo.relObj.age || this.patientInfo.age;

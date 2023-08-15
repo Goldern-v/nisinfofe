@@ -66,7 +66,7 @@ import {
       event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
     },
     { key: "sign", value: "" },//单签
-    // { key: "sign2", value: "" },//双签
+    { key: "sign2", value: "" },//双签
     // { key: "audit", value: "" },//审核签名
     { hidden:true, key:'id', value:''},
     { hidden:true, key:'signerName', value:''},
