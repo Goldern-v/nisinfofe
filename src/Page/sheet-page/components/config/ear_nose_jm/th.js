@@ -9,7 +9,7 @@ function currYear() {
 }
 export default {
   style: {
-    width: '1200px'
+    width: '1280px'
   },
   deptType: '',
   th: {
@@ -180,6 +180,16 @@ export default {
       },
       {
         name: `护士签名`,
+        style: {},
+        colspan: '1',
+        rowspan: '3',
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
+      },
+      {
+        name: `上级护士签名`,
         style: {},
         colspan: '1',
         rowspan: '3',
