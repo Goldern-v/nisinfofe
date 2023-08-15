@@ -722,7 +722,7 @@ export default {
       this.$nextTick(() => {
 
         // this.post();
-        printing(printRef, {
+        printing.preview(printRef, {
           // direction: "horizontal",
           injectGlobalCss: true,
           scanStyles: false,
