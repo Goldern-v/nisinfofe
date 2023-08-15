@@ -946,6 +946,20 @@ export default {
         `
       );
     }
+    //普通护记
+      // if (this.query.sheetType === "ordinary_sdlj" ) {
+      if (this.sheetInfo.sheetType == "ordinary_sdlj" ) {
+      addCSS(
+        window,
+        `
+          @media print {
+            #sheetPagePrint .contant{
+              margin-top:-35px !important;
+            }
+          }
+        `
+      );
+    }
     if (this.HOSPITAL_ID === "nfyksdyy") {
       addCSS(
         window,

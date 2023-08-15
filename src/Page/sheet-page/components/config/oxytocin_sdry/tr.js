@@ -72,6 +72,9 @@ export default [
     name: "胎心",
     autoComplete: {
       data: []
+    },
+    textarea:{
+      width:36
     }
   }, {
     key: "fieldSeven", //宫口扩张
@@ -171,6 +174,9 @@ export default [
     name: "膀胱充盈度",
     textarea: {
       width: 44
+    },
+    autoComplete:{
+      data:['空虚','轻度','中度','重点']
     }
   },
   {
