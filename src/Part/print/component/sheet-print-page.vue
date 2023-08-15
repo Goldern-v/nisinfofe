@@ -1146,7 +1146,7 @@ export default {
         `
       );
     }
-    if (sheetInfo.sheetType == "record_common_zjhj") {
+    if (this.query.sheetType === "record_common_zjhj") {
       addCSS(
         window,
         `
