@@ -947,8 +947,8 @@ export default {
       );
     }
     //普通护记
-      // if (this.query.sheetType === "ordinary_sdlj" ) {
-      if (this.sheetInfo.sheetType == "ordinary_sdlj" ) {
+      if (this.query.sheetType === "ordinary_sdlj" ) {
+      // if (this.sheetInfo.sheetType == "ordinary_sdlj" ) {
       addCSS(
         window,
         `
