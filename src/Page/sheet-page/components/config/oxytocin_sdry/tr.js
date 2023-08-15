@@ -62,7 +62,8 @@ export default [
     //   }
     //   keyf1(e, td);
     // }
-    textarea:{width:38}
+    textarea:{width:38},
+    autoComplete:{data:['无','间有','不规则','强直','xx"/xx']}
   },
   {
     key: "fieldSix", //胎心
@@ -76,14 +77,23 @@ export default [
     key: "fieldSeven", //宫口扩张
     value: "",
     event: keyf1,
-    name: "宫口扩张"
+    name: "宫口扩张",
+    textarea:{
+      width:36
+    },
+    autoComplete:{
+      data:['未查','未开','全开']
+    }
   }, {
     key: "fieldEight", //先露高低
     value: "",
     event: keyf1,
     name: "先露高低",
     autoComplete: {
-      data: []
+      data: ['高浮','-3','-2','-1','=0','+1','+2','+3']
+    },
+    textarea:{
+      width:36
     }
   }, {
     key: "bloodPressure", //血压mmHg
@@ -137,7 +147,10 @@ export default [
     key: "membranes", //胎膜
     value: "",
     event: keyf1,
-    name: "胎膜"
+    name: "胎膜",
+    autoComplete:{
+      data:['已破','未破','自破','人工破']
+    }
   },
   {
     key: "amnion", //羊水性质
@@ -146,6 +159,9 @@ export default [
     name: "羊水性质",
     textarea: {
       width: 44
+    },
+    autoComplete:{
+      data: ['清', 'Ⅰ°', 'Ⅱ°','Ⅲ°','血性','未见']
     }
   },
   {

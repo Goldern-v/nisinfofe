@@ -4800,7 +4800,8 @@
                 {
                   "clean": [
                     "鼻咽癌",
-                    "产科"
+                    "产科",
+                    "眼科"
                   ]
                 },
                 {
@@ -4820,7 +4821,8 @@
                 {
                   "clean": [
                     "鼻咽癌",
-                    "妇科"
+                    "妇科",
+                    "眼科"
                   ]
                 },
                 {
@@ -4842,11 +4844,33 @@
                 {
                   "clean": [
                     "妇科",
-                    "产科"
+                    "产科",
+                    "眼科"
                   ]
                 },
                 {
                   "show": "鼻咽癌"
+                }
+              ]
+            },
+            {
+              "name": "I2332092",
+              "type": "radio",
+              "title": "眼科",
+              "elementStyle": "margin: 3px 5px 0 0;",
+              "elementClass": "el-radio_fs",
+              "style": null,
+              "class": null,
+              "tasks": [
+                {
+                  "clean": [
+                    "妇科",
+                    "产科",
+                    "鼻咽癌"
+                  ]
+                },
+                {
+                  "show": "眼科"
                 }
               ]
             }
@@ -7019,6 +7043,395 @@
                   "readOnly": null
                 }
               ]
+            }
+          ]
+        }
+      ]
+    },
+
+
+    {
+      "name": "I2332260",
+      "type": "formGroupColBox",
+      "col": 1,
+      "title": "眼科",
+      "parentKey": "I2332092",
+      "message": "",
+      "require": "false",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": null,
+      "titleStyle": "margin-top: 7px;",
+      "boxStyle": "height:auto!important",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I2332260",
+          "type": "",
+          "title": "视力：右眼视力",
+          "titleStyle": "width:150px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332260",
+              "type": "",
+              "title": "",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null,
+              "children": [
+                {
+                  "name": "I2332260",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "120px",
+                  "suffixDesc": " ;  矫正视力",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                },
+                {
+                  "name": "I2332261",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "120px",
+                  "suffixDesc": "",
+                  "prefixDesc": "",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "I2332262",
+          "type": "",
+          "title": "左眼视力",
+          "titleStyle": "width:150px!important;transform:translateX(42px)",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin:8px;",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332262",
+              "type": "",
+              "title": "",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null,
+              "children": [
+                {
+                  "name": "I2332262",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "120px",
+                  "suffixDesc": " ;  矫正视力",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                },
+                {
+                  "name": "I2332263",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "120px",
+                  "suffixDesc": "",
+                  "prefixDesc": "",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "I2332264",
+          "type": "",
+          "title": "眼压：右眼",
+          "titleStyle": "width:150px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332264",
+              "type": "",
+              "title": "",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null,
+              "children": [
+                {
+                  "name": "I2332264",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "120px",
+                  "suffixDesc": " mmHg,  左眼",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                },
+                {
+                  "name": "I2332265",
+                  "type": "input",
+                  "title": "",
+                  "titleStyle": "width:90px!important",
+                  "inputStyle": "width:100%!important; margin: 0px 5px 8px 0px",
+                  "inputWidth": "120px",
+                  "suffixDesc": "mmHg",
+                  "prefixDesc": "",
+                  "style": null,
+                  "class": null,
+                  "labelLeft": true,
+                  "hiddenTips": true,
+                  "readOnly": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "I2332266",
+          "type": "",
+          "title": "眼睑肿物",
+          "titleStyle": "width:106px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332266",
+              "type": "radio",
+              "title": "有",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I2332266",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332267",
+              "type": "radio",
+              "title": "右眼",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332267",
+              "type": "radio",
+              "title": "左眼",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332268",
+              "type": "radio",
+              "title": "上睑",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332268",
+              "type": "radio",
+              "title": "下睑",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            }
+          ]
+        },
+        {
+          "name": "I2332269",
+          "type": "",
+          "title": "倒睫",
+          "titleStyle": "width:106px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332269",
+              "type": "radio",
+              "title": "有",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I2332269",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332270",
+              "type": "radio",
+              "title": "右眼",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332270",
+              "type": "radio",
+              "title": "左眼",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            }
+          ]
+        },
+        {
+          "name": "I2332271",
+          "type": "",
+          "title": "球结膜充血",
+          "titleStyle": "width:106px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332271",
+              "type": "radio",
+              "title": "有",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I2332271",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332272",
+              "type": "radio",
+              "title": "右眼",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332272",
+              "type": "radio",
+              "title": "左眼",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            }
+          ]
+        },
+        {
+          "name": "I2332273",
+          "type": "",
+          "title": "眼球运动受限",
+          "titleStyle": "width:106px!important",
+          "class": "radio_input",
+          "boxStyle": "height:auto!important; display: flex",
+          "elementsStyle": "margin-top:8px",
+          "labelLeft": true,
+          "hiddenTips": true,
+          "children": [
+            {
+              "name": "I2332273",
+              "type": "radio",
+              "title": "有",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs",
+              "class": null
+            },
+            {
+              "name": "I2332273",
+              "type": "radio",
+              "title": "无",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332274",
+              "type": "radio",
+              "title": "右眼",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332274",
+              "type": "radio",
+              "title": "左眼",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332275",
+              "type": "radio",
+              "title": "震颤",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
+            },
+            {
+              "name": "I2332275",
+              "type": "radio",
+              "title": "斜视",
+              "elementStyle": "margin: 8px 5px 0 0px;",
+              "elementClass": "el-radio_fs itemRadio",
+              "class": null
             }
           ]
         }

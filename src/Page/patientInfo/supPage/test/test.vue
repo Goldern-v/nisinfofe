@@ -172,10 +172,15 @@
       },
       height() {
         return `${this.wih - 255}px`
+      },
+      selectPatient() {
+        return this.$store.state.patient.currentPatient;
       }
     },
     created() {
-      testList(this.infoData.patientId, this.infoData.visitId).then((res) => {
+      const patientId = this.selectPatient ? this.selectPatient.patientId : this.infoData.patientId;
+      const visitId = this.selectVisit ? this.selectVisit.visitId : this.infoData.visitId;
+      testList(patientId, visitId).then((res) => {
         this.loading = false
         this.list = res.data.data || []
         if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
@@ -196,7 +201,7 @@
           if (this.$route.query.id) {
             this.rightData['testNo'] = this.$route.query.id || ''
             this.toRight(this.rightData)
-          } else 
+          } else
             this.toRight(this.list[0])
         }
       })
