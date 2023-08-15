@@ -27,7 +27,7 @@
   * {
     pointer-events: none;
   }
-.sheet-page-container .sheet-table .body-con.clickRow td, 
+.sheet-page-container .sheet-table .body-con.clickRow td,
 .sheet-excel-container .sheet-table .body-con.clickRow td{
   background: transparent;
 }
@@ -321,6 +321,8 @@ export default {
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
         "postpartumnursing_jm", //江门妇幼_产后护理记录单
         "entdepartment_jm", //江门妇幼_耳鼻喉科护理记录单
+        "ear_nose_jm", //江门妇幼_耳鼻喉科护理记录单-成人
+        "internalCareRecord", //江门妇幼_内科护理记录单
         "catheterplacement_jm", //江门妇幼_深静脉导管置入术后维护单
         "safemetachysis_jm", //江门妇幼_输血护理记录单
         "internal_eval_lcey", //聊城_一般患者护理记录单
@@ -1140,7 +1142,7 @@ export default {
              min-width: 90px !important;
               max-width: 90px !important;
           }
-          
+
         `
       );
     }
