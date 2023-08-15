@@ -78,13 +78,14 @@
                 class="qr-code"
                 :class="{ hasRemark: hasRemark }"
                 :src="qrCode"
+                style="transform-origin: top center;transform: scaleY(0.77) scaleX(.8); "
               />
             </div>
             <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}"
-            class="input-item input-item-row">
+            class="input-item input-item-row" >
               <div class="fontSize-50">{{query.sex}}</div>
               <div class="fontSize-50" >{{query.age}}</div>
-              <div>{{wardName}}</div>
+              <div class="fontSize-50-1">{{wardName}}</div>
             </div>
             <div flex="cross:center" class="input-item" style="width:auto;height:50px">
               <div style="display:flex " >
@@ -112,7 +113,7 @@
               <div class="bedNum">{{query.bedLabel + '床'}}</div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label_admission">入院日期:</span>
+              <span class="label">入院日期:</span>
               <input
                 type="text"
                 nowidth
@@ -130,7 +131,7 @@
                 style="font-size: 26px"
                 flex-box="1"
                 class="bottom-line"
-                v-model="formData.diagnosis"
+                v-model="query.diagnosis"
               />
             </div>
           </div>
@@ -174,7 +175,6 @@
 
 .bed-card-warpper {
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
-  border: 1px solid #000;
   box-sizing: border-box;
   background: #fff;
   display: inline-block;
@@ -189,14 +189,12 @@
 .bed-card-con {
   margin: 20px;
   width: 511px;
-  height: 335px;
+  height: 277px;
   box-sizing: border-box;
-  border-right: 5px solid #fff;
   position: relative;
   .bed-card-con-top{
     height: 150px;
   }
-  // &.remarkCon
   .name{
     line-height: 160px;
     white-space: nowrap;
@@ -264,10 +262,12 @@
     padding:0;
   }
   .fontSize-50{
-    height: 50px;
-    font-size: 43px;
+    font-size: 35px;
     font-weight: bold;
     line-height: 50px;
+  }
+  .fontSize-50-1{
+    line-height: 30px;
   }
 }
 .bedNum{
@@ -275,10 +275,10 @@
   top: 0;
   right: 10px;
   min-width: 100px;
-  font-size: 50px;
+  font-size: 40px;
   text-align: right;
   height: 50px;
-  line-height: 50px;
+  line-height: 40px;
 }
 .wrist-strap-print {
   .bed-card-vert-con {
@@ -658,8 +658,12 @@ export default {
           default:
             printRef = this.$refs.printCon;
             css = `
+              .bed-card-warpper{
+                box-shadow: none !important;
+              }
               .bed-card-con {
-                height：370px !important;
+                width:600px !important;
+                height:300px !important;
                 border: 1px solid #000 !important;
                 box-sizing: border-box !important;
                 box-shadow: none !important;
@@ -675,10 +679,10 @@ export default {
                   top: 0 !important;
                   right: 10px !important;
                   min-width: 100px !important;
-                  font-size: 30px !important;
+                  font-size: 35px !important;
                   text-align: right !important;
                   height: 100px !important;
-                  line-height: 20px !important;
+                  line-height: 32px !important;
                 }
               .header {
                 font-size: 36px !important;
@@ -696,16 +700,16 @@ export default {
               .input-item pre {
                 font-size: 28px !important;
                 width: 150px !important;
-                line-height: 20px !important;
+                line-height: 34px !important;
               }
               .qr-code {
                 position: absolute;
-                top: -12px !important;
+                top: 5px !important;
                 right: -15px !important;
                 height: 175px !important;
                 width: 200px !important;
                 transform-origin:top center !important;
-                transform:scaleY(.8) scaleX(.8) !important;
+                transform:scaleY(.77) scaleX(.8) !important;
               }
               .input-item .label  input {
                 font-size: 28px !important;
@@ -713,7 +717,9 @@ export default {
                 line-height: 20px !important;
               }
               .input-item{
-              height: 85px !important;
+              font-size:32px !important;
+              height:45px !important;
+              padding-left:30px !important;
               }
               .diagnosis-content {
                 display: block;
@@ -729,7 +735,7 @@ export default {
       this.$nextTick(() => {
 
         // this.post();
-        printing.preview(printRef, {
+        printing(printRef, {
           // direction: "horizontal",
           injectGlobalCss: true,
           scanStyles: false,
@@ -748,11 +754,10 @@ export default {
       if (this.printMode == 'h') {
         return this.printMode = 'h-small'
       }
-      this.printMode = 'h'   
+      this.printMode = 'h'
     }
   },
   mounted() {},
   components: {},
 };
 </script>
- 
