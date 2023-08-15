@@ -314,6 +314,36 @@ export default {
               correlationID: "I2332126"
             },
             {
+              id: 'I2332266',
+              value: '有',
+              correlationID: "I2332267"
+            }, 
+            {
+              id: 'I2332266',
+              value: '有',
+              correlationID: "I2332268"
+            },
+            {
+              id: 'I2332269',
+              value: '有',
+              correlationID: "I2332270"
+            },
+            {
+              id: 'I2332271',
+              value: '有',
+              correlationID: "I2332272"
+            },
+            {
+              id: 'I2332273',
+              value: '有',
+              correlationID: "I2332274"
+            },
+            {
+              id: 'I2332273',
+              value: '有',
+              correlationID: "I2332275"
+            },
+            {
               id: 'I2332127',
               value: '异常：',
               correlationID: "I2332212"
