@@ -279,6 +279,9 @@ export default {
     },
     isGuizhou() {
       return ['guizhou'].includes(process.env.HOSPITAL_ID)
+    },
+    selectPatient() {
+      return this.$store.state.patient.currentPatient;
     }
   },
   created() {
@@ -301,7 +304,7 @@ export default {
       this.rightData['examNo'] = this.$route.query.id || ''
       this.toRight(this.rightData)
     }
-    
+
   },
   methods: {
     // 查看原报告
@@ -332,8 +335,9 @@ export default {
         })
         return
       }
+      const patientId = this.selectPatient ? this.selectPatient.patientId : this.infoData.patientId;
       examList(
-        this.infoData.patientId,
+        patientId,
         this.visitId == "门诊" ? 0 : this.visitId
       ).then((res) => {
         this.list = res.data.data;
@@ -352,6 +356,7 @@ export default {
   },
   watch: {
     visitId() {
+      console.log('watch', this.visitId)
       this.getData();
     },
   },
