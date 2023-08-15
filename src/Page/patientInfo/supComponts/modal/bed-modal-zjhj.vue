@@ -85,7 +85,7 @@
             class="input-item input-item-row" >
               <div class="fontSize-50">{{query.sex}}</div>
               <div class="fontSize-50" >{{query.age}}</div>
-              <div>{{wardName}}</div>
+              <div class="fontSize-50-1">{{wardName}}</div>
             </div>
             <div flex="cross:center" class="input-item" style="width:auto;height:50px">
               <div style="display:flex " >
@@ -113,7 +113,7 @@
               <div class="bedNum">{{query.bedLabel + '床'}}</div>
             </div>
             <div flex="cross:center" class="input-item">
-              <span class="label_admission">入院日期:</span>
+              <span class="label">入院日期:</span>
               <input
                 type="text"
                 nowidth
@@ -131,7 +131,7 @@
                 style="font-size: 26px"
                 flex-box="1"
                 class="bottom-line"
-                v-model="formData.diagnosis"
+                v-model="query.diagnosis"
               />
             </div>
           </div>
@@ -265,6 +265,9 @@
     font-size: 35px;
     font-weight: bold;
     line-height: 50px;
+  }
+  .fontSize-50-1{
+    line-height: 30px;
   }
 }
 .bedNum{
@@ -659,7 +662,8 @@ export default {
                 box-shadow: none !important;
               }
               .bed-card-con {
-                height：277px !important;
+                width:600px !important;
+                height:300px !important;
                 border: 1px solid #000 !important;
                 box-sizing: border-box !important;
                 box-shadow: none !important;
@@ -675,7 +679,7 @@ export default {
                   top: 0 !important;
                   right: 10px !important;
                   min-width: 100px !important;
-                  font-size: 30px !important;
+                  font-size: 35px !important;
                   text-align: right !important;
                   height: 100px !important;
                   line-height: 32px !important;
@@ -713,7 +717,9 @@ export default {
                 line-height: 20px !important;
               }
               .input-item{
-              height: 40px !important;
+              font-size:32px !important;
+              height:45px !important;
+              padding-left:30px !important;
               }
               .diagnosis-content {
                 display: block;
@@ -748,11 +754,10 @@ export default {
       if (this.printMode == 'h') {
         return this.printMode = 'h-small'
       }
-      this.printMode = 'h'   
+      this.printMode = 'h'
     }
   },
   mounted() {},
   components: {},
 };
 </script>
- 
