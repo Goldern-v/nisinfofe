@@ -62,7 +62,7 @@ export default {
   computed: {
     listconHeight(){
       let str=""
-      if(this.HOSPITAL_ID==='liaocheng' || this.HOSPITAL_ID==='wujing'||this.HOSPITAL_ID==='huadu'||this.HOSPITAL_ID==='foshanrenyi'|| this.HOSPITAL_ID==='nfyksdyy'){
+      if(this.HOSPITAL_ID==='liaocheng' || this.HOSPITAL_ID==='wujing'||this.HOSPITAL_ID==='huadu'||this.HOSPITAL_ID==='foshanrenyi'|| this.HOSPITAL_ID==='nfyksdyy'|| this.HOSPITAL_ID==='zjhj'){
         str='height: calc(100vh - 250px)'
       }
       return str

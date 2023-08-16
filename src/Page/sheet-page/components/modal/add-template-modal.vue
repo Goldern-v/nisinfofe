@@ -6,7 +6,7 @@
       :title="modalTitle"
       :enable-mobile-fullscreen="false"
     >
-      <div style="margin-bottom: 20px" v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='wujing'||HOSPITAL_ID==='huadu'||HOSPITAL_ID==='foshanrenyi'||HOSPITAL_ID==='nfyksdyy'">
+      <div style="margin-bottom: 20px" v-if="HOSPITAL_ID==='liaocheng'||HOSPITAL_ID==='wujing'||HOSPITAL_ID==='huadu'||HOSPITAL_ID==='foshanrenyi'||HOSPITAL_ID==='nfyksdyy'||HOSPITAL_ID==='zjhj'">
         <span for class="title" style="margin-right: 10px">模板分类：</span>
         <el-radio v-model="templateType" label="dept">科室</el-radio>
         <el-radio v-model="templateType" label="common">公共</el-radio>
