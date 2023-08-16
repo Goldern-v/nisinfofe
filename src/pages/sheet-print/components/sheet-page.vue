@@ -240,27 +240,27 @@ export default {
                 addCSS(
                   window,
                   `
-    @media print {
-       .iframe > div:nth-of-type(2n) {
-         height: ${sheetTableWidth * 0.755}px !important;
-       }
-    }
-    `
+                  @media print {
+                    .iframe > div:nth-of-type(2n) {
+                      height: ${sheetTableWidth * 0.755}px !important;
+                    }
+                  }
+                  `
                 );
               } else {
                 printDir("v");
                 addCSS(
                   window,
                   `
-        @media print {
-          #sheetPagePrint .iframe > div{
-           padding-top: 40px !important;
-           }
-           .iframe > div:nth-of-type(2n) {
-               transform: rotate(0) !important;
-          }
-       }
-        `
+                @media print {
+                  #sheetPagePrint .iframe > div{
+                  padding-top: 40px !important;
+                  }
+                  .iframe > div:nth-of-type(2n) {
+                      transform: rotate(0) !important;
+                  }
+              }
+                `
                 );
               }
 

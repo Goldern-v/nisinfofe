@@ -114,12 +114,15 @@
         ></el-input>
         <el-input style="width: 0px; padding: 0px; height: 0px; overflow: hidden;" />
         <el-button size="small" type="primary" @click="search">查询</el-button>
+        <el-button size="small" @click="onBatchOrder(true)">补执行</el-button>
+        <el-button size="small" @click="onBatchOrder(false)">备注</el-button>
       </div>
 
       <dTable
         :tableData="tableData"
         :currentType="type"
         :pageLoading="pageLoading"
+        @onSelection="onSelection"
         ref="plTable"
       ></dTable>
       <!-- <div class="pagination-con" flex="main:justify cross:center">
@@ -270,7 +273,7 @@
 <script>
 import dTable from "./components/table/d-table-lyxrm-n";
 import pagination from "./components/common/pagination";
-import { getExecuteWithWardCodeLyxrm } from "./api/index";
+import { getExecuteWithWardCodeLyxrm, batchUpdateOrderExecutePcApi, batchOrderRemarkApi } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -395,9 +398,54 @@ export default {
           name: '已核对'
         },
       ],
+      selectData:[]
     };
   },
   methods: {
+    onBatchOrder(isExecute){
+      if(!this.selectData.length) {
+        this.$message({
+          message: '请选择执行条数',
+          type: 'warning'
+        });
+      }else {
+        let user = JSON.parse(localStorage.getItem("user"));
+        this.$prompt("请输入取消的原因", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+        })
+          .then(({ value }) => {
+            let data = []
+            this.selectData.forEach(item => {
+              data.push(isExecute ? {
+                barcode: item.barCode, //条码号
+                empNO: user.empNo, //执行人
+                type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
+                typeReason: value, //补执行的原因填写
+              } : {
+                patientId: item.patientId,
+                visitId: item.visitId,
+                orderNo: item.orderNo, //医嘱号
+                barcode: item.barCode, //条码号
+                executeNurse: this.empNo, //执行人
+                verifyNurse: "", //核对人
+                supplementaryRes: value, //备注的原因填写
+              })
+            })
+            const getBatchOrder = isExecute ? batchUpdateOrderExecutePcApi : batchOrderRemarkApi
+            getBatchOrder(data).then(res => {
+              this.$message.success(res.data.desc);
+              this.onLoad();
+            })
+          })
+          .catch((err) => {
+            this.$message.success(err.data.desc);
+          });
+      }
+    },
+    onSelection(row){
+      this.selectData = row
+    },
     handleSizeChange(newSize) {
       this.page.pageNum = newSize;
     },

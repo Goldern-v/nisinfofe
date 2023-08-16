@@ -254,10 +254,10 @@ export default [
     key: "sign",
     value: ""
   },
-  // {
-  //   key: "sign2",
-  //   value: ""
-  // },
+  {
+    key: "sign2",
+    value: ""
+  },
   // {
   //   key: "audit",
   //   value: ""

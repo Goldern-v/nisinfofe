@@ -353,6 +353,12 @@ export default {
     },
   },
   computed: {
+    inFormPage() {
+      return ['/record', '/formPage'].includes(this.$route.path);
+    },
+    selectPatient() {
+      return this.$store.state.patient.currentPatient;
+    },
     infoData() {
       return this.$route.query || this.$route.params ;
     },
@@ -455,7 +461,7 @@ export default {
           yangchunzhongyi:"adviceTableYc",
           'sdlj,ytll,,qhwy,zhzxy,925,gdtj':"adviceTableSDLJ",
           whsl:"adviceTableWHSL",
-nfyksdyy:'adviceTableNFYKSDYY',
+          nfyksdyy:'adviceTableNFYKSDYY',
           default:"adviceTable",
         }
       })
@@ -510,9 +516,12 @@ nfyksdyy:'adviceTableNFYKSDYY',
     },
     getData() {
       this.tableLoading = true;
+      const useSelectPatient = this.inFormPage && this.selectPatient && this.selectPatient.patientId;
+      const patientId = useSelectPatient ? this.selectPatient.patientId : this.infoData.patientId;
+      const visitId = useSelectPatient ? this.selectPatient.visitId : this.infoData.visitId;
       //是否有模糊查询功能
       if(this.searchHisList.includes(this.HOSPITAL_ID)){
-        newOrders(this.infoData.patientId, this.infoData.visitId,this.orderText).then((res) => {
+        newOrders(patientId, visitId,this.orderText).then((res) => {
           this.tableLoading = false;
           this.tableData = res.data.data;
           this.dataRes = res.data.data;
@@ -521,7 +530,7 @@ nfyksdyy:'adviceTableNFYKSDYY',
           //this.getStatusList();
         });
       }else {
-        orders(this.infoData.patientId, this.infoData.visitId).then((res) => {
+        orders(patientId, visitId).then((res) => {
           this.tableLoading = false;
           this.tableData = res.data.data;
           this.dataRes = res.data.data

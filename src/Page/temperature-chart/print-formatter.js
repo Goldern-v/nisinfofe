@@ -17,7 +17,7 @@ export default function(win) {
     return row.innerText.trim() !== "";
   });
   let page, row, newTbody, box;
-  const isHorizontal = process.env.HOSPITAL_ID === 'nanfangzhongxiyi';
+  const isHorizontal = ['nanfangzhongxiyi', 'nfyksdyy'].includes(process.env.HOSPITAL_ID);
   const limitHeight = isHorizontal ? 780 : 950;
   while ((row = patients.shift())) {
     const h = row.offsetHeight;

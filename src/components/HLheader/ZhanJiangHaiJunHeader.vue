@@ -36,7 +36,7 @@
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>体温
+                <i class="iconfont icon-hulijiludan"></i>体温单
               </el-row>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
@@ -76,6 +76,11 @@
             <router-link to="/sugarPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-xuetang"></i> 血糖
+              </el-row>
+            </router-link>
+            <router-link to="/implementationList" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="catheterPage"></i>执行单
               </el-row>
             </router-link>
             <router-link to="/MEWS" tag="span">

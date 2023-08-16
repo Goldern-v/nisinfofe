@@ -102,13 +102,11 @@ export default {
             message: "文件上传成功"
           });
           this.getArchiveList();
-          this.details.dutyNurse = '',
-          this.details.qcNurse = ''
         });
     },
     confirm() {
-      this.close();
       this.uploadFileArchive();
+      this.close();
     }
   },
   components: {}

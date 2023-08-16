@@ -5,7 +5,7 @@
       type="flex"
       align="middle"
     >
-      <img src="../../../common/images/logo_fuyou.png" height="60" width="60" />
+      <img src="../../../common/images/logo_fuyou_New.png" height="60" width="60" />
       <span>
         江门市妇幼保健院
         <br />智慧护理信息系统

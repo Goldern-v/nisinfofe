@@ -27,7 +27,7 @@
   * {
     pointer-events: none;
   }
-.sheet-page-container .sheet-table .body-con.clickRow td, 
+.sheet-page-container .sheet-table .body-con.clickRow td,
 .sheet-excel-container .sheet-table .body-con.clickRow td{
   background: transparent;
 }
@@ -321,6 +321,8 @@ export default {
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
         "postpartumnursing_jm", //江门妇幼_产后护理记录单
         "entdepartment_jm", //江门妇幼_耳鼻喉科护理记录单
+        "ear_nose_jm", //江门妇幼_耳鼻喉科护理记录单-成人
+        "internalCareRecord", //江门妇幼_内科护理记录单
         "catheterplacement_jm", //江门妇幼_深静脉导管置入术后维护单
         "safemetachysis_jm", //江门妇幼_输血护理记录单
         "internal_eval_lcey", //聊城_一般患者护理记录单
@@ -944,6 +946,20 @@ export default {
         `
       );
     }
+    //普通护记
+      if (this.query.sheetType === "ordinary_sdlj" ) {
+      // if (this.sheetInfo.sheetType == "ordinary_sdlj" ) {
+      addCSS(
+        window,
+        `
+          @media print {
+            #sheetPagePrint .contant{
+              margin-top:-35px !important;
+            }
+          }
+        `
+      );
+    }
     if (this.HOSPITAL_ID === "nfyksdyy") {
       addCSS(
         window,
@@ -1120,6 +1136,42 @@ export default {
            height: 46px !important;
            font-size:15px !important;
             }
+        `
+      );
+    }
+    if (["zjhj"].includes(this.HOSPITAL_ID)) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='记录人签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签  名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='记录人<br/>签  名']{
+             min-width: 90px !important;
+              max-width: 90px !important;
+          }
+
+        `
+      );
+    }
+    if (this.query.sheetType === "record_common_zjhj") {
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height: ${sheetTableWidth * 0.755}px !important;
+            transform: scaleX(0.98) scaleY(1.2) !important;
+            transform-origin: top center !important;
+            margin-top: -40px ;
+          }
+        }
         `
       );
     }

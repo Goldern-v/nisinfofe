@@ -1411,7 +1411,7 @@ export default {
       let rest_num_lyxm = this.sheetInfo.sheetStartPage % 20;
       let num_lyxm = Math.max(Math.ceil(length / 20), 1);
 
-      if(process.env.HOSPITAL_ID == "lyxrm" && sheetInfo.sheetType == 'babymonitor_linyi'){
+      if(sheetInfo.sheetType == 'babymonitor_linyi' || sheetInfo.sheetType == 'critical2_weihai'){
         for (let i = 0; i <= num_lyxm; i++) {
         if (i * 20 + rest_num_lyxm >= length) {
           pagelist.push(length);

@@ -195,7 +195,15 @@
       >
         <div class="nav-item">执行记录</div>
       </router-link>
-      <router-link to="/nursingMakeItem" tag="span">
+      <router-link
+        :to="{
+          path: '/nursingMakeItem',
+          query: {
+            bedLabel: query.bedLabel
+          }
+        }"
+        tag="span"
+      >
         <el-row class="nav-item" type="flex" align="middle">
           <i class="nursingMakeItem"></i>巡视记录
         </el-row>

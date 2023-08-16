@@ -207,8 +207,8 @@ const currentTargetUrl = (() => {
       // return "http://192.168.1.54:9890" // 内网测试
       // return "http://222.133.53.230:9093" // 临邑正式
       // return "http://222.133.53.230:9091" // 临邑正式
-      // return "http://120.24.240.231:19097"  // 临邑正式(临邑本地)
-      return "http://192.168.20.158:9091"  // 陈齐本地
+      return "http://120.24.240.231:19097"  // 临邑正式(临邑本地)
+      // return "http://192.168.20.158:9091"  // 陈齐本地
 
 
     // 烟台玲珑
@@ -280,10 +280,10 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.3.154:8080'
       // return 'http://192.168.1.54:9883'
           // return 'http://192.168.1.54:9901'  //
-          return  'http://59.38.110.189:9092'
+          // return  'http://59.38.110.189:9092'
           // return  'http://192.168.20.158:9091'
       // return 'http://192.168.5.127:9091'
-      // return  'https://info.cr-health.com:20215'
+      return  'https://info.cr-health.com:20215'
       // return 'http://10.108.4.45:9091/'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭

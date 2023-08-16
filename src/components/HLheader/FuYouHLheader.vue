@@ -13,7 +13,7 @@
               align="middle"
             >
               <img
-                src="../../common/images/logo_fuyou.png"
+                src="../../common/images/logo_fuyou_New.png"
                 height="63"
                 width="63"
               />

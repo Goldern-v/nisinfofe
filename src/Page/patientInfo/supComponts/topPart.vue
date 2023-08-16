@@ -228,12 +228,12 @@
           path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
-        v-if="HOSPITAL_ID != 'nfyksdyy'"
+        v-if="!(['gdtj', 'nfyksdyy'].includes(HOSPITAL_ID))"
         tag="span"
       >
         <div class="nav-item">血糖</div>
       </router-link>
-      <!-- <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toBloodSugar')">血糖</div> -->
+      <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toBloodSugar')">血糖</div>
 
       <router-link
         :to="{

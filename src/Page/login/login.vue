@@ -450,7 +450,7 @@ a {
     top: 4px;
     font-size: 20px;
     letter-spacing: 1px;
-    left: 130px;
+    left: 22px;
   }
 
   .sys-name {

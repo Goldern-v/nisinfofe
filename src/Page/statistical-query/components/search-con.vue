@@ -33,9 +33,38 @@
       </div>
       <div class="search-con__ctx__item" v-else-if="formData.wardCodeList != undefined && deptMultiple">
         病区：
-        <ElSelect multiple style="width: 150px;" size="small" :value="formData.wardCodeList" @input="deptChange" filterable>
+        <el-select
+          :value="formData.wardCodeList"
+          @input="deptChange"
+          placeholder="请选择"
+          style="width: 400px;"
+          size="small"
+          multiple
+        >
+          <el-checkbox-group v-model="formData.wardCodeList">
+            <el-option
+              v-for="dept in deptList"
+              :key="dept.code"
+              :label="dept.name"
+              :value="dept.code"
+            >
+              <el-checkbox
+                style="pointer-events: none"
+                :label="dept.code"
+              > {{ dept.name }}
+              </el-checkbox>
+            </el-option>
+          </el-checkbox-group>
+        </el-select>
+        <!-- <ElSelect multiple style="width: 150px;" size="small" :value="formData.wardCodeList" @input="deptChange" filterable>
           <ElOption v-for="val in deptList" :key="val.code" :label="val.name" :value="val.code" />
-      </ElSelect>
+      </ElSelect> -->
+      </div>
+      <div class="search-con__ctx__item" v-if="formData.recordName != undefined">
+        表单：
+        <ElSelect style="width: 150px;" size="small" :value="formData.recordName" @input="handleQuery({recordName: $event})">
+          <ElOption v-for="val in recordList" :key="val.name" :label="val.name" :value="val.name" />
+        </ElSelect>
       </div>
       <div class="search-con__ctx__item" v-if="formData.status != undefined">
         患者状态：
@@ -88,6 +117,24 @@
     height: 30px;
   }
 }
+/deep/ .el-select {
+  & .el-select__tags {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  & input {
+    height: 30px!important;
+  }
+  .el-tag {
+    height: 20px!important;
+    line-height: 18px!important;
+    padding: 0 6px;
+    & .el-icon-close {
+      display: none!important;
+    }
+  }
+}
 </style>
 <script>
 import moment from 'moment';
@@ -119,7 +166,10 @@ export default {
       type: Boolean,
       default: false,
     },
-
+    recordList: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
     return {
