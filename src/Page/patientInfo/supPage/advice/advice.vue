@@ -514,7 +514,7 @@ export default {
     getData() {
       this.tableLoading = true;
       const patientId = this.selectPatient ? this.selectPatient.patientId : this.infoData.patientId;
-      const visitId = this.selectVisit ? this.selectVisit.visitId : this.infoData.visitId;
+      const visitId = this.selectPatient ? this.selectPatient.visitId : this.infoData.visitId;
       //是否有模糊查询功能
       if(this.searchHisList.includes(this.HOSPITAL_ID)){
         newOrders(patientId, visitId,this.orderText).then((res) => {

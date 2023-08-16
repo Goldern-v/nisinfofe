@@ -179,7 +179,7 @@
     },
     created() {
       const patientId = this.selectPatient ? this.selectPatient.patientId : this.infoData.patientId;
-      const visitId = this.selectVisit ? this.selectVisit.visitId : this.infoData.visitId;
+      const visitId = this.selectPatient ? this.selectPatient.visitId : this.infoData.visitId;
       testList(patientId, visitId).then((res) => {
         this.loading = false
         this.list = res.data.data || []

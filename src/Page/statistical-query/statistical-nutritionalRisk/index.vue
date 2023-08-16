@@ -98,7 +98,7 @@ export default {
 					width: 70,
 				},
         {
-					key: 'sunSum2',
+					key: 'sunCount',
 					title: '阳性次数',
           align: 'center',
 					width: 70,

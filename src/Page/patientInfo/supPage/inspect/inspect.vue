@@ -299,7 +299,7 @@ export default {
       }
     }
 
-    this.visitId = this.infoData.visitId;
+    this.visitId = this.selectPatient ? this.selectPatient.visitId : this.infoData.visitId;
     if (this.$route.query.id) {
       this.rightData['examNo'] = this.$route.query.id || ''
       this.toRight(this.rightData)
@@ -356,7 +356,6 @@ export default {
   },
   watch: {
     visitId() {
-      console.log('watch', this.visitId)
       this.getData();
     },
   },
