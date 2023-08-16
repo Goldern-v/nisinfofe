@@ -282,7 +282,10 @@ export default {
     },
     selectPatient() {
       return this.$store.state.patient.currentPatient;
-    }
+    },
+    inFormPage() {
+      return ['/record', '/formPage'].includes(this.$route.path);
+    },
   },
   created() {
     if (this.infoData.visitId > 20) {
@@ -298,8 +301,9 @@ export default {
         });
       }
     }
-
-    this.visitId = this.selectPatient ? this.selectPatient.visitId : this.infoData.visitId;
+    this.visitId = this.inFormPage && this.selectPatient && this.selectPatient.patientId
+        ? this.selectPatient.visitId
+        : this.infoData.visitId;
     if (this.$route.query.id) {
       this.rightData['examNo'] = this.$route.query.id || ''
       this.toRight(this.rightData)
@@ -335,7 +339,8 @@ export default {
         })
         return
       }
-      const patientId = this.selectPatient ? this.selectPatient.patientId : this.infoData.patientId;
+      const useSelectPatient = this.inFormPage && this.selectPatient && this.selectPatient.patientId;
+      const patientId = useSelectPatient ? this.selectPatient.patientId : this.infoData.patientId;
       examList(
         patientId,
         this.visitId == "门诊" ? 0 : this.visitId
