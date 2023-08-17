@@ -35,7 +35,7 @@
       </tr>
       <tr
         class="head-con"
-        :id="[sheetInfo.sheetType == 'common_wj' || HOSPITAL_ID=='nfyksdyy' ?'bigFonstSize':'']"
+        :id="[['common_wj', 'waiting_birth_wj'].includes(sheetInfo.sheetType) || HOSPITAL_ID=='nfyksdyy' ?'bigFonstSize':'']"
         v-for="(th, index) in data.titleModel.th"
         :key="index"
       >
@@ -489,7 +489,7 @@
           <div
             v-else-if="
               td.key === 'description' &&
-             (HOSPITAL_ID === 'nfyksdyy' || sheetInfo.sheetType === 'common_wj') &&
+             (HOSPITAL_ID === 'nfyksdyy' || ['common_wj', 'waiting_birth_wj'].includes(sheetInfo.sheetType)) &&
               sheetInfo.selectBlock.openRichText
             "
             v-html="td.value"

@@ -624,7 +624,7 @@ export default {
         `
       );
     }
-    if (this.sheetInfo.sheetType == "common_wj") {
+    if (['common_wj', 'waiting_birth_wj'].includes(sheetInfo.sheetType)) {
       addCSS(
         window,
         `
