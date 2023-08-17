@@ -7,6 +7,7 @@
         border
         :height="wih - 290"
         @row-click="selectedRow"
+        @cell-click="onCellClick"
         :row-class-name="tableRowClassName"
       >
         <el-table-column label="序号" width="60" align="center">
@@ -45,6 +46,13 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column
+          v-if="HOSPITAL_ID == 'beihairenyi'"
+          prop="signerName"
+          label="填表人签名"
+          width="90"
+          align="center"
+        ></el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="90" align="center"></el-table-column>
@@ -57,7 +65,13 @@
           align="center"
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" min-width="100px" header-align="center"></el-table-column>
-
+        <el-table-column
+          v-if="HOSPITAL_ID == 'beihairenyi'"
+          prop="evalContentSign"
+          label="评价者签名"
+          width="90"
+          align="center"
+        ></el-table-column>
         <el-table-column label="操作" width="95" header-align="center">
           <template slot-scope="scope">
             <div class="tool-con">
@@ -146,6 +160,13 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column
+          v-if="HOSPITAL_ID == 'beihairenyi'"
+          prop="signerName"
+          label="填表人签名"
+          width="90"
+          align="center"
+        ></el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="90" align="center"></el-table-column>
@@ -158,6 +179,13 @@
           align="center"
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" min-width="100px" header-align="center"></el-table-column>
+        <el-table-column
+          v-if="HOSPITAL_ID == 'beihairenyi'"
+          prop="evalContentSign"
+          label="评价者签名"
+          width="90"
+          align="center"
+        ></el-table-column>
       </el-table>
     </div>
     <stopDiagnosisModal ref="stopDiagnosisModal"></stopDiagnosisModal>
@@ -168,7 +196,7 @@
 import common from "@/common/mixin/common.mixin";
 import { nursingDiagsPatient } from "../../api/index";
 import { model } from "../../diagnosisViewModel";
-import { nursingDiagsDel, savePlanForm } from "../../api/index";
+import { nursingDiagsDel, savePlanForm, doDiagsSign } from "../../api/index";
 import stopDiagnosisModal from "../../modal/stopDiagnosisModal";
 export default {
   mixins: [common],
@@ -180,6 +208,24 @@ export default {
     };
   },
   methods: {
+    onCellClick(row, column, cell, event) {
+      if (['signerName', 'evalContentSign'].includes(column.property)) {
+        const type = column.property == 'signerName' ? '1' : '2';
+        let text = row[column.property] ? '取消签名' : '签名';
+        this.onSign({ id: row.id, type }, text);
+      }
+    },
+    onSign(data = {}, text) {
+      window.openSignModal((password, empNo) => {
+        const params = { ...data, empNo, password }
+        doDiagsSign(params).then(() => {
+          this.$message.success(`${text}成功`);
+          model.refreshTable();
+        }).catch((error) => {
+          this.$message.error(`${text}失败`)
+        })
+      }, text);
+    },
     selectedRow(row) {
       // model.selectedRow = row;
     },
