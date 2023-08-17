@@ -1,9 +1,9 @@
 <template>
-  <div :class="['header-con',sheetInfo.sheetType === 'common_wj'?'wujing-big-title':'']">
+  <div :class="['header-con',['common_wj', 'waiting_birth_wj'].includes(sheetInfo.sheetType)?'wujing-big-title':'']">
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <div v-if="sheetInfo.sheetType === 'waiting_birth_wj'">
-      <div class="info-con" flex="main:justify" >
+      <div class="info-con big-header" flex="main:justify" >
         <span
           @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
         >
@@ -68,7 +68,7 @@
           /> -->
         <!-- </span> -->
       </div>
-      <div class="info-con">
+      <div class="info-con big-header">
         <span
           @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
         >

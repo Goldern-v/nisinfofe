@@ -35,7 +35,7 @@
       </tr>
       <tr
         class="head-con"
-        :id="[sheetInfo.sheetType == 'common_wj' || HOSPITAL_ID=='nfyksdyy' ?'bigFonstSize':'']"
+        :id="[['common_wj', 'waiting_birth_wj'].includes(sheetInfo.sheetType) || HOSPITAL_ID=='nfyksdyy' ?'bigFonstSize':'']"
         v-for="(th, index) in data.titleModel.th"
         :key="index"
       >
@@ -115,7 +115,7 @@
           :rowspan="item.rowspan"
           :style="item.style"
           :class="{ canSet: item.canSet,'no-print':item.noPrint}"
-          @click="item.canSet && setTitle(item, data.titleModel)"
+          @click="item.canSet && setTitle(item, index)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
           <span v-else v-html="item.name" :style="setStyle(item.name, item.canSet)"></span>
@@ -489,7 +489,7 @@
           <div
             v-else-if="
               td.key === 'description' &&
-             (HOSPITAL_ID === 'nfyksdyy' || sheetInfo.sheetType === 'common_wj') &&
+             (HOSPITAL_ID === 'nfyksdyy' || ['common_wj', 'waiting_birth_wj'].includes(sheetInfo.sheetType)) &&
               sheetInfo.selectBlock.openRichText
             "
             v-html="td.value"
@@ -1342,7 +1342,7 @@ export default {
         }
       }
     },
-    setTitle(item,item2) {
+    setTitle(item) {
       if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy','whhk'].includes(this.HOSPITAL_ID)) {
 
         this.setTitleFS(item)
@@ -1371,7 +1371,6 @@ export default {
     //
     setTitleFS(item) {
       let self = this
-
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
           let { list = [], id = '' } = obj  || {}
@@ -1399,6 +1398,7 @@ export default {
         },
         item.name,
         item,
+        this.index
       );
     },
     getLastRecordDate(index,row,direction){

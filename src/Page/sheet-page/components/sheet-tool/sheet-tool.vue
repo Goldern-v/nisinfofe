@@ -752,6 +752,7 @@
     <tztbModal ref="tztbModal"></tztbModal>
     <rltbModal ref="rltbModal" :blockId="blockId"></rltbModal>
     <selectPageModal ref="tmpModal" @setAsTemplate="setAsTemplate"></selectPageModal>
+    <selectPageModalNew ref="tmpModalNew" @setAsTemplate="setAsTemplate" @openAduitPageModal="openAduitPageModal"></selectPageModalNew>
     <zxdtbModal
       ref="zxdtbModal"
       :blockId="blockId"
@@ -784,6 +785,7 @@
     ></PreviewPDF> -->
     <!-- </sweet-modal> -->
     <MarkModal ref='markModal' :sheetType='sheetInfo.sheetType' :blockId="blockId"></MarkModal>
+    <aduitPageModel ref="aduitPageModel" />
   </div>
 </template>
 
@@ -794,6 +796,7 @@ import templateSlide from "@/Page/sheet-page/components/modal/template-slide.vue
 import templateSlideFSRY from "@/Page/sheet-page/components/modal/template-slide-fsry.vue";
 import titleTemplateSlideFS from "@/Page/sheet-page/components/modal/title-template-slide-fssy";
 import setPageModal from "../modal/setPage-modal.vue";
+import aduitPageModel from "./modal/aduit-page-model.vue";
 import searchPageByDateModal from "@/Page/sheet-page/components/modal/searchPageByDate-modal.vue";
 import sheetModel, { cleanData, cleanDataOnly } from "../../sheet.js";
 import sheetInfo from "../config/sheetInfo/index.js";
@@ -817,6 +820,7 @@ import RltbNfzxyModal from "../modal/rltb-nfzxy-modal.vue";
 import patientInfoModal from "./modal/patient-info-modal";
 
 import selectPageModal from './modal/selectPageModal.vue'
+import selectPageModalNew from './modal/selectPageModalNew.vue'
 import dayjs from "dayjs";
 // import lodopPrint from "./lodop/lodopPrint";
 import patientInfo from "./patient-info";
@@ -1777,9 +1781,14 @@ export default {
       if (!this.patientInfo.patientId) {
         return this.$message.info("请选择一名患者");
       }
+      console.log(this.sheetTitleData.FieldSetting, this.sheetInfo)
       if (this.sheetTitleData.FieldSetting && this.sheetTitleData.FieldSetting.length) {
         //设置起始页后  页码要从起始页开始
-        this.$refs.tmpModal.open(this.sheetInfo.maxPageIndex,this.sheetInfo.sheetStartPage)
+        if(this.HOSPITAL_ID == "nfyksdyy"){
+          this.$refs.tmpModalNew.open(this.sheetInfo.maxPageIndex,this.sheetInfo.sheetStartPage)
+        }else{
+           this.$refs.tmpModal.open(this.sheetInfo.maxPageIndex,this.sheetInfo.sheetStartPage)
+        }
       } else {
         return this.$message.info("无自定义表头，无法设置为模板");
       }
@@ -1801,25 +1810,52 @@ export default {
     },
     // 设为模板
     async setAsTemplate(selectPage) {
-      //设置模板 需要把开头的
-      selectPage = selectPage - this.sheetInfo.sheetStartPage
-      const list = this.sheetTitleData.FieldSetting.filter(
-        item => item.pageIndex === selectPage
-      ).map((item, index) => {
-        const options = this.sheetTitleData.Options.filter(
-          (op) => op.fieldEn === item.fieldEn && op.pageIndex === selectPage
-        ).map((op) => op.options).join(',')
-        return {
-          recordCode: this.sheetInfo.sheetType,
-          deptCode: this.deptCode,
-          fieldEn: item.fieldEn,
-          fieldCn: item.fieldCn,
-          options
-        }
-      })
-      const res = await setSheetTemplate(list)
-      this.$refs.tmpModal.close()
-      this.$message.success('设置成功')
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+        //设置模板 需要把开头的
+        selectPage.pageIndex = selectPage.pageIndex - this.sheetInfo.sheetStartPage
+        const list = this.sheetTitleData.FieldSetting.filter(
+          item => item.pageIndex === selectPage.pageIndex
+        ).map((item, index) => {
+          const options = this.sheetTitleData.Options.filter(
+            (op) => op.fieldEn === item.fieldEn && op.pageIndex === selectPage.pageIndex
+          ).map((op) => op.options).join(',')
+          return {
+            recordCode: this.sheetInfo.sheetType,
+            deptCode: this.deptCode,
+            fieldEn: item.fieldEn,
+            fieldCn: item.fieldCn,
+            options,
+            templateName: selectPage.templateName
+          }
+        })
+        const res = await setSheetTemplate(list)
+        this.$refs.tmpModalNew.close()
+        this.$message.success('设置成功')
+      }else{
+        //设置模板 需要把开头的
+        selectPage = selectPage - this.sheetInfo.sheetStartPage
+        const list = this.sheetTitleData.FieldSetting.filter(
+          item => item.pageIndex === selectPage
+        ).map((item, index) => {
+          const options = this.sheetTitleData.Options.filter(
+            (op) => op.fieldEn === item.fieldEn && op.pageIndex === selectPage
+          ).map((op) => op.options).join(',')
+          return {
+            recordCode: this.sheetInfo.sheetType,
+            deptCode: this.deptCode,
+            fieldEn: item.fieldEn,
+            fieldCn: item.fieldCn,
+            options
+          }
+        })
+        const res = await setSheetTemplate(list)
+        this.$refs.tmpModal.close()
+        this.$message.success('设置成功')
+      }
+    },
+    // 打开科室管理模板弹窗
+    openAduitPageModal(){
+      this.$refs.aduitPageModel.open()
     },
     createTemperature() {
       this.$refs.newFormModal.open();
@@ -2254,8 +2290,10 @@ export default {
     RltbNfzxyModal,
     demonstarationLevca,
     selectPageModal,
+    selectPageModalNew,
     searchPageByDateModal,
     titleTemplateSlideFS,
+    aduitPageModel,
     // PreviewPDF,
     MarkModal
   },
