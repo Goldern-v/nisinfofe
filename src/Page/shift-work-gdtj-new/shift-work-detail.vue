@@ -890,7 +890,7 @@ export default {
       // } else {
       //   this.$refs.table.addRow(data);
       // }
-      this.onSave2(true);
+      this.onSave2(true,data);
       this.$refs.patientModal.close();
       // this.modified = true
     },
@@ -976,10 +976,10 @@ export default {
         this.$message.success("保存成功");
       }
     },
-    async onSave2(tip,patients) {
+    async onSave2(tip,data) {
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
-      let changeShiftPatients = [this.$refs.table.selectedRow].filter(p => p.name || p.id).map((p, i) => ({ ...p, sortValue: i + 1 }));
+      let changeShiftPatients = [{...this.$refs.table.selectedRow,...data}]
       const shiftWithWardcodes = [this.shiftWithWardcodes]
 
       await apis.savePatient({
