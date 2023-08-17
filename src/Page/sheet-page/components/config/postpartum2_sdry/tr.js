@@ -227,7 +227,7 @@ export default [
       minWidth:"50px",
       maxWidth:"50px"
     },
-    click: (e, td) => click_letter(e, td, "A")
+    click: (e, td) => click_letter(e, td, "B")
   },
   {
     key: "intravenous",
@@ -249,7 +249,7 @@ export default [
     value: "",
     next: "",
     name: "肌注",
-    click: (e, td) => click_letter(e, td, "B"),
+    click: (e, td) => click_letter(e, td, "A"),
     style: {
       minWidth: "60px",
       maxWidth: "60px"
