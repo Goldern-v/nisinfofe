@@ -130,7 +130,7 @@
         }))
 
         const groups = groupBy(patients, 'patientType')
-        
+
         let status
         if(this.HOSPITAL_ID=='hj'){
            status= ['新', '转入', '今日手术', '明日手术', '明出', '病重', '病危']

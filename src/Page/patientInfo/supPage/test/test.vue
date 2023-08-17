@@ -175,11 +175,15 @@
       },
       selectPatient() {
         return this.$store.state.patient.currentPatient;
-      }
+      },
+      inFormPage() {
+        return ['/record', '/formPage'].includes(this.$route.path);
+      },
     },
     created() {
-      const patientId = this.selectPatient ? this.selectPatient.patientId : this.infoData.patientId;
-      const visitId = this.selectPatient ? this.selectPatient.visitId : this.infoData.visitId;
+      const useSelectPatient = this.inFormPage && this.selectPatient && this.selectPatient.patientId;
+      const patientId = useSelectPatient ? this.selectPatient.patientId : this.infoData.patientId;
+      const visitId = useSelectPatient ? this.selectPatient.visitId : this.infoData.visitId;
       testList(patientId, visitId).then((res) => {
         this.loading = false
         this.list = res.data.data || []
