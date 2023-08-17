@@ -115,7 +115,7 @@
           :rowspan="item.rowspan"
           :style="item.style"
           :class="{ canSet: item.canSet,'no-print':item.noPrint}"
-          @click="item.canSet && setTitle(item, data.titleModel)"
+          @click="item.canSet && setTitle(item, index)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
           <span v-else v-html="item.name" :style="setStyle(item.name, item.canSet)"></span>
@@ -1342,7 +1342,7 @@ export default {
         }
       }
     },
-    setTitle(item,item2) {
+    setTitle(item) {
       if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy','whhk'].includes(this.HOSPITAL_ID)) {
 
         this.setTitleFS(item)
@@ -1371,7 +1371,6 @@ export default {
     //
     setTitleFS(item) {
       let self = this
-
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
           let { list = [], id = '' } = obj  || {}
@@ -1399,6 +1398,7 @@ export default {
         },
         item.name,
         item,
+        this.index
       );
     },
     getLastRecordDate(index,row,direction){
