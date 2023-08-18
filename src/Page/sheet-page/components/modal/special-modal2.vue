@@ -2786,7 +2786,14 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            }else {
+            }else if(this.HOSPITAL_ID == 'hj'){
+              if (GetLength(text) > 23) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            } else {
               // if (GetLength(text) > 23) {
               //   result.push(text);
               //   text = allDoc[i];
