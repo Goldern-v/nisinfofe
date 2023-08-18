@@ -21,6 +21,12 @@
               >{{ isUpdate ? "更新" : "保存" }}
               </el-button
             >
+            <el-button
+              class="save-btn-top"
+              type="primary"
+              @click="syncPatientList"
+              >同步医嘱</el-button
+            >
         </div>
         <div class="times">
           <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
@@ -544,6 +550,7 @@ import {
   saveAll,
   deleteRecord,
   getViSigsByReDate,
+  getOrdersWithSync
 } from "../../api/api";
 export default {
   props: { patientInfo: Object },
@@ -718,6 +725,16 @@ export default {
     },
   },
   methods: {
+    // 同步医嘱
+    syncPatientList() {
+      this.$message.info("正在同步数据...");
+      getOrdersWithSync(this.patientInfo.patientId, this.patientInfo.visitId).then(
+        (res) => {
+          this.$message.success("同步数据成功");
+          this.getVitalList()
+        }
+      );
+    },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
         let baseLength = document.getElementsByClassName("pathological").length;
@@ -1448,9 +1465,7 @@ export default {
     width: 100px;
   }
   .save-btn-top {
-    position: relative;
-    margin-top: 10px;
-    left:10px;
+    text-align: center;
     width: 80px;
   }
 
