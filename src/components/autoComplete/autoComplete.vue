@@ -25,7 +25,7 @@
               class
               @click.stop="post(item.value, index)"
               v-for="(item, index) in data"
-              :key="item.value"
+              :key="item.value + index"
               :class="{ autoSelected: index == selectIndex }"
             >
               {{ item.name }}
@@ -47,7 +47,7 @@
               class
               @click.stop="post(item, index)"
               v-for="(item, index) in data"
-              :key="item"
+              :key="item + index"
               :class="{ autoSelected: index == selectIndex }"
             >
               {{ item }}
@@ -70,7 +70,7 @@
               class
               @click.stop="post(item)"
               v-for="(item, index) in childData"
-              :key="item"
+              :key="item + index"
               :class="{ autoSelected: index == selectIndex }"
             >
               {{ item }}
