@@ -96,7 +96,7 @@
                   style="font-size: 26px;width:65px"
                   flex-box="1"
                   class="bottom-line"
-                  v-model="query.inpNo"
+                  v-model="query.patientId"
                 />
               </div>
               <div style="display: flex;">
@@ -107,7 +107,7 @@
                   style="font-size: 26px;width:120px"
                   flex-box="1"
                   class="bottom-line"
-                  v-model="query.patientId"
+                  v-model="query.inpNo"
                 />
                 </div>
               <!-- <div class="bedNum">{{query.bedLabel + '床'}}</div> -->

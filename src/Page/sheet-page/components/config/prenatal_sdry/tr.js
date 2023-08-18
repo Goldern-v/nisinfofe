@@ -208,8 +208,8 @@ export default [
     value: "",
     next: "次/分",
     name: "胎动/2h",
-    textarea: { width: 25 },
-    change: (e, td) => limitChange(e, td, 2)
+    textarea: { width: 35 },
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: "cohesion",
@@ -239,7 +239,7 @@ export default [
     value: "",
     next: "秒/分",
     name: "持续/间歇",
-    textarea: { width: 60 },
+    textarea: { width: 50 },
     autoComplete:{data:["无","偶有","不规则"]},
     change: (e, td) => limitChange(e, td, 4)
   },
