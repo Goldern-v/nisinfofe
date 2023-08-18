@@ -1390,7 +1390,7 @@ function autoComplete(el, bind) {
               } else {
                 // 多选
                 if (typeof(splice) === 'string') {
-                  const split = splice 
+                  const split = splice
                   const oldValue =  obj[key] ? obj[key].split(split) : []
                   const index = oldValue.findIndex(v => v === data)
                   if (index > -1) {
@@ -2787,12 +2787,12 @@ export default {
                 text += allDoc[i];
               }
             }else {
-              if (GetLength(text) > 23) {
-                result.push(text);
-                text = allDoc[i];
-              } else {
+              // if (GetLength(text) > 23) {
+              //   result.push(text);
+              //   text = allDoc[i];
+              // } else {
                 text += allDoc[i];
-              }
+              // }
             }
           }
         }
@@ -3048,25 +3048,25 @@ export default {
         }
       }else{
         for (let i = 0; i < result.length; i++) {
-        if (i == 0) {
-          // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
-          if (this.sheetInfo.sheetType === 'common_gzry') {
-            const fieldOne = this.fixedList.fieldOne
-            const fieldTwo = this.fixedList.fieldTwo
-            let bloodPressure = ''
-            if (fieldOne.value && fieldTwo.value) {
-              bloodPressure = fieldOne.value + '/' + fieldTwo.value
-            } else {
-              bloodPressure = fieldOne.value || fieldTwo.value
+          if (i == 0) {
+            // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
+            if (this.sheetInfo.sheetType === 'common_gzry') {
+              const fieldOne = this.fixedList.fieldOne
+              const fieldTwo = this.fixedList.fieldTwo
+              let bloodPressure = ''
+              if (fieldOne.value && fieldTwo.value) {
+                bloodPressure = fieldOne.value + '/' + fieldTwo.value
+              } else {
+                bloodPressure = fieldOne.value || fieldTwo.value
+              }
+              this.fixedList.bloodPressure = {
+                ...fieldOne,
+                key: 'bloodPressure',
+                name: '血压',
+                value: bloodPressure
+              }
             }
-            this.fixedList.bloodPressure = {
-              ...fieldOne,
-              key: 'bloodPressure',
-              name: '血压',
-              value: bloodPressure
-            }
-          }
-          mergeTr(this.record[0], this.staticObj, this.fixedList);
+            mergeTr(this.record[0], this.staticObj, this.fixedList);
           }
           if (this.record[i]) {
             this.record[i].find(
