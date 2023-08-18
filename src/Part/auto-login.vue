@@ -44,6 +44,7 @@ export default {
   },
   mounted() {
     let autoLogin_token = this.$route.query.autoLogin_token;
+    if(this.HOSPITAL_ID == 'zhzxy'){ localStorage.setItem("fuyouUseCaSign", true)}
     // let token = this.$route.query.token;
     autoLogin(autoLogin_token).then(res => {
       // 存下token 和用户信息 Auth-Token-Nursing
