@@ -926,6 +926,8 @@ export default {
         "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
         "gynaecology_jm", //江门妇幼_妇科护理记录单
         "tcm_pediatrics_jm", //江门妇幼_中医儿科护理记录单
+        "internalCareRecord", //江门妇幼_内科护理记录单
+        "ear_nose_jm", //江门妇幼_耳鼻喉科护理记录单(成人）
         "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
         "obstetricnursing_jm", //江门妇幼_产科护理记录单
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单

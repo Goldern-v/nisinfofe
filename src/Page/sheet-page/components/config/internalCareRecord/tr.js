@@ -82,6 +82,6 @@ import {
     { hidden:false, key:'auditorNo', value:''},//审核签名
     { hidden:true, key:'auditorName', value:''},
     { hidden:true, key:'empNo', value:''},
-    { hidden:true, key:'multiSign', value:''}
+    { hidden:true, key:'multiSign', value: false}
 
   ]
