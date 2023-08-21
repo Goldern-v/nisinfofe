@@ -261,6 +261,24 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="urinate"
+            label="小便次数"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.urinate"
+                :class="className"
+                class="urinate"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="heartRate"
             label="心率"
             min-width="70"
@@ -924,6 +942,7 @@ export default {
         recordSource: 2,
         heartRate: "",
         stoolNum: "",
+        urinate: "",
         fieldThree: "",
         height: "",
       };
