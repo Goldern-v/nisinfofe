@@ -397,7 +397,7 @@ export default {
     },
     title: {
       type: String,
-      value: "执行单同步",
+      value: "执行12单同步",
     },
     modalWidth: {
       type: Number,
