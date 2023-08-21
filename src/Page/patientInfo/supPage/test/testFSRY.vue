@@ -44,9 +44,6 @@
         </div>
         <div class="right-part">
           <testFormFSRY ref="testForm" :tableHeaderInfo="tableHeaderInfo" :info="info" :checkNum='radio'></testFormFSRY>
-          <!-- <testForm v-if="rightData.testNo&&!['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testForm> -->
-          <!--右边的检验报告单部分，花都的testFormHD组件，因为事件与其他医院不一样-->
-          <!-- <testFormHD v-if="rightData.testNo&&['huadu'].includes(this.HOSPITAL_ID)" ref="testForm"></testFormHD> -->
         </div>
       </el-row>
     </div>
@@ -124,7 +121,7 @@
 </style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
- .select .el-input__inner
+.select .el-input__inner
   height 30px
   width 126px
   font-size: 12px;
@@ -144,8 +141,6 @@
 </style>
 
 <script>
-// import testForm from './component/testForm'
-// import testFormHD from './component/testFormHD'
 import testFormFSRY from './component/testFormFSRY'
 //佛一的接口数据 json对象 可以直接在created this.list = res.data.data上更改
 import tessData from '../test/testData.json'
@@ -263,9 +258,9 @@ export default {
             // 当前按钮的数组的项
             const nowItem = activeCheckList[i]
             if (i == 0) {
-              const strDate = moment(this.listByFilter[this.radio].resultDate).format("YYYY-MM-DD")
+              const strDate = this.listByFilter[this.radio].resultDate ? moment(this.listByFilter[this.radio].resultDate).format("YYYY-MM-DD"): ''
               str += `${this.listByFilter[this.radio].subject},`
-              str += `${strDate},`
+              str += strDate ? `${strDate},` : ''
               str += `${res.data.data[nowItem].itemName},`
               str += `${res.data.data[nowItem].result}`
               str += `${res.data.data[nowItem].units},`

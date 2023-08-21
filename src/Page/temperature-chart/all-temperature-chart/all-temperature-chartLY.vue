@@ -171,6 +171,24 @@
             </template>
           </el-table-column>
           <el-table-column
+            prop="spo2"
+            label="SPO2"
+            min-width="70"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <input
+                v-model="scope.row.spo2"
+                :class="className"
+                class="sp02"
+                type="text"
+                @keydown="handleKeyDown"
+                @keyup="handleKeyUp"
+                @click="toRow"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="painScore"
             label="疼痛"
             min-width="70"
@@ -882,6 +900,7 @@ export default {
         empNo: "",
         food: "",
         foodSize: "",
+        spo2: "",
         id: "",
         physicalCooling: "",
         monthHour: "",
