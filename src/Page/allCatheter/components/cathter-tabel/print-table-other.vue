@@ -141,6 +141,7 @@ export default {
       info2: [
         { label: "导管名称", code: "formTitle" },
         { label: "置管时间", code: "intubationTime" },
+        { label: "拔管时间", code: "extubationTime" },
         { label: "置管来源", code: "catheterSource" },
       ],
     };
