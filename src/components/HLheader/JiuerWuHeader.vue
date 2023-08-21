@@ -123,7 +123,7 @@
                 >护理诊断计划</el-row
               >
             </router-link>
-             <el-dropdown
+             <!-- <el-dropdown
               menu-align="start"
               :class="{ 'router-link-active': isActiveShiftWork }"
             >
@@ -155,7 +155,12 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
+            <router-link to="/shiftWork" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-jiaobanzhi"></i> ISBAR交班
+              </el-row>
+            </router-link>
             <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-baiban"></i> 白板

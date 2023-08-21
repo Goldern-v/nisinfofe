@@ -1,7 +1,7 @@
 <template>
   <div class="doctor-emr-wrapper" v-if="routeQuery.patientId">
     <div
-      v-if="show && !['zhzxy', 'fsxt','dglb'].includes(HOSPITAL_ID)"
+      v-if="show && !['zhzxy', 'fsxt','dglb','whsl'].includes(HOSPITAL_ID)"
       v-loading="pageLoading"
       class="doctor-emr-content dragNode2"
     >
@@ -24,7 +24,7 @@
         </div>
       </el-tooltip>
     </template>
-    <template v-if="!['zhzxy','dglb'].includes(HOSPITAL_ID)">
+    <template v-if="!['zhzxy','dglb','whsl'].includes(HOSPITAL_ID)">
       <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left" :enterable="true">
         <div @click="onload" class="doctor-emr-icon">
           <img src="./img.png" alt/>
