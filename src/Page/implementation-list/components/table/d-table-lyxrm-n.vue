@@ -306,7 +306,7 @@
         </template>
       </u-table-column>
     </u-table>
-    <editModal ref="editModal"></editModal>
+    <editModal ref="editModal" @resetScrollTop="resetScrollTop"></editModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -603,7 +603,6 @@ export default {
             let { empNo } = user;
             let { barCode } = item;
             let cancelReason = value;
-            console.log(cancelReason);
             cancelOrderExecuteApi({
               empNO: empNo,
               barcode: barCode,
@@ -623,7 +622,7 @@ export default {
     },
     // 补录
     backTracking(item) {
-      if(this.HOSPITAL_ID == '925'){
+      if(['925', 'lyxrm'].includes(this.HOSPITAL_ID)){
         this.$refs.editModal.open(item,'补执行');
       }else{
       this.$prompt("请输入补执行的原因", "提示", {
@@ -667,6 +666,12 @@ export default {
           });
         })
         .catch(() => {});
+      }
+    },
+    // 恢复位置
+    resetScrollTop(){
+      if (this.$refs.uTable.$refs.singleTable.$refs.bodyWrapper) {
+        this.tableScrollTop = this.$refs.uTable.$refs.singleTable.$refs.bodyWrapper.scrollTop;
       }
     },
     addRowClass(row) {

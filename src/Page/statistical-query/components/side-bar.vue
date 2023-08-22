@@ -128,6 +128,22 @@ export default {
                 },
               },
             ],
+            lyxrm: [
+              {
+                name: "statisticalTumble",
+                meta: {
+                  title: '跌倒统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
+              {
+                name: 'statisticalUnplanned',
+                meta: {
+                  title: '非计划性拔管统计',
+                  img: require("../images/VTE.png"),
+                }
+              },
+            ],
             other: []
           }
         }),
@@ -254,6 +270,7 @@ export default {
   },
   mounted() {
     this.actIndex = this.$route.name
+    console.log(this.bars, 'bars');
     // let details = ['/main', '/statisticalQuery']
     // this.bars = this.getBars(this.$router.options.routes, details)
   },
