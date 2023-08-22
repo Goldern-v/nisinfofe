@@ -46,7 +46,7 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          :class="{ canSet: item.canSet}"
+          :class="{ canSet: item.canSet,'no-print':item.noPrint}"
           @click="item.canSet && setTitle(item)"
         >
           <span v-if="item.key == 'recordYear'">{{

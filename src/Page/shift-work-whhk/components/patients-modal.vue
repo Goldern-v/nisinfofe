@@ -59,14 +59,20 @@
     </div>
     <div class="footer" slot="button">
       <div class="left">
-        <ElCheckbox :disabled="!patients" :value="patients.length === selectedItems.length" @change="onCheckAll">全部</ElCheckbox>
-        <ElCheckbox :disabled="!groups['新']" :value="isAllCheck('新')" @change="onCheckStatus($event, '新')">新入</ElCheckbox>
-        <ElCheckbox :disabled="!groups['转入']" :value="isAllCheck('转入')" @change="onCheckStatus($event, '转入')">转入</ElCheckbox>
-        <ElCheckbox :disabled="!groups['今手']" :value="isAllCheck('今手')" @change="onCheckStatus($event, '今手')">今手</ElCheckbox>
-        <ElCheckbox :disabled="!groups['明手']" :value="isAllCheck('明手')" @change="onCheckStatus($event, '明手')">明手</ElCheckbox>
-        <ElCheckbox :disabled="!groups['明出']" :value="isAllCheck('明出')" @change="onCheckStatus($event, '明出')">明出</ElCheckbox>
-        <ElCheckbox :disabled="!groups['病重']" :value="isAllCheck('病重')" @change="onCheckStatus($event, '病重')">病重</ElCheckbox>
-        <ElCheckbox :disabled="!groups['病危']" :value="isAllCheck('病危')" @change="onCheckStatus($event, '病危')">病危</ElCheckbox>
+        <ElCheckbox
+          :disabled="!patients"
+          :value="patients.length === selectedItems.length"
+          @change="onCheckAll"
+        >全部
+        </ElCheckbox>
+        <ElCheckbox
+          v-for="item in statusList"
+          :key="item.label"
+          :disabled="!groups[item.value]"
+          :value="isAllCheck(item.value)"
+          @change="onCheckStatus($event, item.value)"
+        >{{ item.label }}
+        </ElCheckbox>
       </div>
       <div class="right">
         <ElButton @click="onClose">取消</ElButton>
@@ -89,7 +95,17 @@
       patients: [],
       selectedKeys: [],
       selectedItems: [],
-      groups: {}
+      groups: {},
+      statusList: [
+        { label: '新入', value: '新' },
+        { label: '转入', value: '转入' },
+        { label: '今手', value: '今手' },
+        { label: '明手', value: '明手' },
+        { label: '明出', value: '明出' },
+        { label: '病重', value: '病重' },
+        { label: '病危', value: '病危' },
+        { label: '出院', value: '出院' },
+      ]
     }),
     methods: {
       open ({
@@ -124,10 +140,12 @@
         }))
 
         const groups = groupBy(patients, 'patientType')
-        const status = ['新', '转入', '今手', '明手', '明出', '病重', '病危']
-
+        const status = ['新', '转入', '今手', '明手', '明出', '病重', '病危', '出院']
+        if (groups['出院']) {
+          const {'出院': arr2 = []} = groups
+          groups['已出院\已转出'] = [...arr2].filter(item => this.selectedKeys.includes(item.key))
+        }
         this.patients = patients.filter((p) => !this.selectedKeys.includes(p.key))
-
         status.forEach((s) => {
           const group = this.patients.filter((p) => p.patientStatus.split('、').includes(s))
           groups[s] = group.length ? group: undefined
@@ -135,19 +153,19 @@
 
         if (groups['转出'] || groups['出院']) {
           const {'转出': arr1 = [], '出院': arr2 = []} = groups
-          groups['已出院\已转出'] = [...arr1, ...arr2]
+          groups['已出院\已转出'] = groups['已出院\已转出'] && groups['已出院\已转出'].length
+            ? [...groups['已出院\已转出'], ...arr1, ...arr2]
+            : [...arr1, ...arr2]
 
           delete groups['转出']
-          delete groups['出院']
+          // delete groups['出院']
         }
-
         if (groups['新'] || groups['新入']) {
           const {'新': arr1 = [], '新入': arr2 = []} = groups
           groups['新'] = [...arr1, ...arr2]
 
           delete groups['新入']
         }
-
         this.groups = groups
       },
       isChecked (item) {

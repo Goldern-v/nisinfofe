@@ -342,6 +342,7 @@ const planList = () => import("@/Page/plan-list/plan-list.vue");
 
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
+import Nfyksdyy_360 from "@/Page/patientInfo/supPage/360_Nfyksdyy";
 import sheetPage from "@/Page/sheet-page/sheet-page.vue"; // 护理记录单页面
 import sheetNursingOrderPage from "@/Page/sheet-nursing-order/sheet-page.vue"; // 护嘱记录单页面
 import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"; // 护嘱记录单页面
@@ -1069,6 +1070,10 @@ const router = new Router({
         children: [{
           path: "/information",
           component: information
+        },
+        {
+          path: "/view360",
+          component: Nfyksdyy_360
         },
         {
           path: "/advice",

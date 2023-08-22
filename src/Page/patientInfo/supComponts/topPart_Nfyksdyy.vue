@@ -208,6 +208,16 @@
           <i class="nursingMakeItem"></i>巡视记录
         </el-row>
       </router-link>
+      <router-link
+        :to="{
+          path: '/view360',
+        }"
+        tag="span"
+      >
+        <el-row class="nav-item" type="flex" align="middle">
+          <i class="nursingMakeItem"></i>360视图
+        </el-row>
+      </router-link>
     </div>
     <el-row class="right-part" type="flex" align="middle">
       <span class="big-1250-con">
@@ -622,31 +632,6 @@ export default {
       console.log(this.patient);
       const { patientId } = this.patient;
       let url = `http://192.168.10.63/EmrWeb/WebForm.aspx?flag=thirdPlat&codePi=${patientId}`;
-      window.open(url);
-    },
-    gotoView() {
-      const { patientId, deptCode } = this.patient;
-      const obj = {
-        ViewType: 3,
-        patientId: patientId,
-        userName: this.empName,
-        Hash: md5(patientId + this.empName + "wego2022"),
-        patientType: 1,
-        userData: `{"userCode":"${
-          this.empNo
-        }","orgCode":"${deptCode}","key":"${md5(this.empNo + "@wego2022")}"}`,
-        isExternal: 1
-      };
-      // http://10.101.1.159/pdv-ui/medicalLeportList/?ViewType=3&patientId=2022642569&userName=周文强&Hash=6e5e7a5294c128d99adf1598012c02fb&patientType=&userData={"userCode":"199852","orgCode":"10010201","key":"b31e71cfee6e9fba03019b353203545b"}&isExternal=1
-      let url = `http://10.108.1.33/pdv-ui/medicalLeportList/?ViewType=3&patientId=${patientId}&userName=${
-        this.empName
-      }&Hash=${md5(
-        patientId + this.empName + "wego2022"
-      )}&patientType=&userData={"userCode":"${
-        this.empNo
-      }","orgCode":"${deptCode}","key":"${md5(
-        this.empNo + "@wego2022"
-      )}"}&isExternal=1`;
       window.open(url);
     },
     // 南方医科大学顺德医院项目病历
