@@ -32,6 +32,7 @@
                     </div>
                 </div>
                 <div class="tool-btns">
+                    <button @click="toPrint" v-if="HOSPITAL_ID == 'lyxrm'">打印</button>
                     <button @click="delAll">删除整单</button>
                     <button @click="saveTable">保存</button>
                 </div>
@@ -296,6 +297,9 @@ return {
 methods: {
     show(){
         // console.log(111);
+    },
+    toPrint(){
+        this.$emit("toPrint")
     },
     handleSelect(){},
     querySearch(queryString, cb,arr){

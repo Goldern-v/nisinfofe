@@ -44,7 +44,7 @@ export default {
           { "name": "", "colspan": "1", "rowspan": "3", "canSet": true, "key": "armValue2", "style": { "minWidth": "45px", "maxWidth": "45px" } },
             { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", "style": { "minWidth": "225px",  "maxWidth": "225px"}, },
           { "name": "护士签名", "colspan": "1", "rowspan": "3", style: { minWidth: "50px", maxWidth: "50px" } },
-          { "name": "查房签名", "colspan": "1", "rowspan": "3", style: { minWidth: "50px", maxWidth: "50px" } },
+          { "name": "查房签名", "colspan": "1", "rowspan": "3", noPrint:true,style: { minWidth: "50px", maxWidth: "50px" } },
 
             // { "name": "质控护士", "colspan": "1", "rowspan": "3"}
          ],
