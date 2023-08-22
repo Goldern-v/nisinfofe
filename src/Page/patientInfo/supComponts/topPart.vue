@@ -368,7 +368,7 @@
         <div class="nav-item">护理巡视</div>
       </router-link>
       <router-link
-        v-if="HOSPITAL_ID === 'ytll'"
+        v-if="HOSPITAL_ID === 'ytll' || HOSPITAL_ID === 'hj'"
         :to="{
           path: '/implementationPerson',
           query: {
