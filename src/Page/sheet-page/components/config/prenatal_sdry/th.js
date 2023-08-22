@@ -48,7 +48,7 @@ export default {
 
                 {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"200px","maxWidth":"200px"}},
                 {"name":"护士签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
-                {"name":"查房签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"}},
+                {"name":"查房签名","colspan":"1","rowspan":"3","style":{"minWidth":"50px","maxWidth":"50px"},noPrint:true},
             ]
         ,
         mid:

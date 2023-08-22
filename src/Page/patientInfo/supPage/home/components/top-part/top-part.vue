@@ -54,6 +54,15 @@
         ></i>
       </div>
     </div>
+    <div class="top-box" flex-box="1">
+      <div class="head-con">
+        <div class="title">剩余余额</div>
+      </div>
+      <div class="body-con">
+        <div class="value">{{ needPay | toMoney }}</div>
+        <div class="aside">RMB</div>
+      </div>
+    </div>
 
     <div class="top-box" flex-box="1">
       <div class="head-con">
@@ -194,7 +203,8 @@ export default {
     return {
       DrugFeePercent: "",
       total: "",
-      prePay: ""
+      prePay: "",
+      needPay: ""
     };
   },
   computed: {
@@ -218,6 +228,7 @@ export default {
       ).then(res => {
         this.total = res.data.data.total;
         this.prePay = res.data.data.prePay;
+        this.needPay = res.data.data.needPay
       });
   },
   components: {}

@@ -2,7 +2,8 @@
   <div class="right-con">
     <div class="row-top">
       <div class="column-right">
-        <div>
+        <div style="display:flex;justify-content: space-between;margin-bottom: 10px;">
+         <div>
           <ElDatePicker
           id="date-picker"
           type="date"
@@ -17,16 +18,20 @@
               :disabled="isDisable()"
               class="save-btn-top"
               :type="isUpdate ? 'warning' : 'primary'"
+              style="margin-left: 30px;"
               @click="saveVitalSign(vitalSignObj)"
               >{{ isUpdate ? "更新" : "保存" }}
               </el-button
             >
-            <el-button
+        </div>
+        <div>
+          <el-button
               class="save-btn-top"
               type="primary"
               @click="syncPatientList"
               >同步医嘱</el-button
             >
+        </div>
         </div>
         <div class="times">
           <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
@@ -729,9 +734,10 @@ export default {
     syncPatientList() {
       this.$message.info("正在同步数据...");
       getOrdersWithSync(this.patientInfo.patientId, this.patientInfo.visitId).then(
-        (res) => {
+         async (res) => {
+          await this.getVitalList()
+          this.bus.$emit("refreshImg");
           this.$message.success("同步数据成功");
-          this.getVitalList()
         }
       );
     },
