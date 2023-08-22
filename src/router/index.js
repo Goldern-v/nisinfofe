@@ -407,6 +407,8 @@ import implementationPersonytll
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-ytll";
 import implementationPersonwhsl
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-whsl";
+import implementationPerson
+  from "@/Page/patientInfo/supPage/implementation-list/implementation-list";
 const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-form/index.vue")
 const medicalCheck = () => import("@/Page/patientInfo/supPage/medical-check/index.vue")
 // 患者个人护理巡视
@@ -1340,6 +1342,8 @@ const router = new Router({
                 return implementationPersonytll
               case 'whsl':
                 return implementationPersonwhsl
+              case 'hj':
+                return implementationPerson
               default:
                 return implementationPersonLiaocheng
             }
@@ -1701,7 +1705,7 @@ const router = new Router({
             case 'gdtj':
             return allTemperatureChartGDTJ
             case 'fsxt':
-              
+
             return allTemperatureChartFSXT
             default:
               return allTemperatureChart
