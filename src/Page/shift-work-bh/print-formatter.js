@@ -57,11 +57,21 @@ export default function(win) {
         page.appendChild(header.cloneNode(true));
       } else {
         let cloneHeader = header.cloneNode(true);
-        cloneHeader.removeChild(cloneHeader.children[3]);
+        if(["ytll"].includes(process.env.HOSPITAL_ID)){
+          cloneHeader.removeChild(cloneHeader.children[4]);
+          cloneHeader.removeChild(cloneHeader.children[3]);
+          cloneHeader.removeChild(cloneHeader.children[2]);
+          cloneHeader.children[1].style.marginBottom = "5px";
+        }else{
+          cloneHeader.removeChild(cloneHeader.children[3]);
+        }
         page.appendChild(cloneHeader);
       }
       page.appendChild(newTable);
-      page.appendChild(footer.cloneNode(true));
+      if(!["ytll"].includes(process.env.HOSPITAL_ID)){
+        // 不是烟台玲珑的医院在这里加页脚，烟台玲珑在后面加
+        page.appendChild(footer.cloneNode(true));
+      }
 
       root.appendChild(page);
     }
@@ -86,6 +96,9 @@ export default function(win) {
         while (page.offsetHeight + 30 < 700) {
           newTableBody.insertBefore(emptyRow.cloneNode(true), target);
         }
+      }
+      if(["ytll"].includes(process.env.HOSPITAL_ID)){
+        page.appendChild(footer.cloneNode(true));
       }
     } else {
       // 病人信息
