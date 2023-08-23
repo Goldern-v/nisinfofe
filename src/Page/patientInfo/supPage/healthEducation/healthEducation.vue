@@ -130,6 +130,7 @@ export default {
 
     getSelectData (index) {
       let { visitId, patientId } = this.$route.query
+      if(!visitId || !patientId) return
       let params = {
         visitId,
         patientId

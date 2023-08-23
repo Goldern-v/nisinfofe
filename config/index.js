@@ -210,7 +210,6 @@ const currentTargetUrl = (() => {
       return "http://120.24.240.231:19097"  // 临邑正式(临邑本地)
       // return "http://192.168.20.158:9091"  // 陈齐本地
 
-
     // 烟台玲珑
     case 'ytll':
       // return "http://221.214.210.170:39094"  // 正式
@@ -281,9 +280,6 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.1.54:9883'
           // return 'http://192.168.1.54:9901'  //
           return  'http://59.38.110.189:9092'
-          // return  'http://192.168.20.158:9091'
-      // return 'http://192.168.5.127:9091'
-      return  'https://info.cr-health.com:20215'
       // return 'http://10.108.4.45:9091/'
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭

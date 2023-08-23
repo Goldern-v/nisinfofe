@@ -427,7 +427,8 @@ methods: {
                 this.$message.error(err.desc)
             })
         }else if(this.delType==='extubation'){
-            this.extubation(extubationTime)
+            let formatTime= moment(extubationTime).format('YYYY-MM-DD HH:mm');
+            this.extubation(formatTime)
         }
     },
     saveTable(){

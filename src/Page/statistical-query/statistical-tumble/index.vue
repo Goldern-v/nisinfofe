@@ -66,7 +66,7 @@ export default {
         wardCode: '',
         status: 0,
         fallDownScoreMin: 0,
-        fallDownScoreMax: 5,
+        fallDownScoreMax: process.env.HOSPITAL_ID == 'lyxrm' ? 50 : 5,
       },
       columns: [
         {

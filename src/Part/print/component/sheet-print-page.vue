@@ -777,6 +777,19 @@ export default {
         `
       );
     }
+    if (
+      this.sheetInfo.sheetType == "neonatal_care_qhwy"
+    ) {
+      addCSS(
+        window,
+        `
+           #sheetPagePrint th[dataname="护士签名"] {
+              min-width: 70px !important;
+              max-width: 70px !important;
+            }
+        `
+      );
+    }
     if (this.HOSPITAL_ID === "gdtj") {
       addCSS(
         window,
@@ -998,7 +1011,7 @@ export default {
       );
     }
     //
-    if (sheetInfo.sheetType == "baby_sdry" || sheetInfo.sheetType == "postpartum2_sdry" ) {
+    if (this.query.sheetType === "baby_sdry" || this.query.sheetType === "postpartum2_sdry" ) {
       addCSS(
         window,
         `
@@ -1037,7 +1050,7 @@ export default {
         `
       );
     }
-    if (sheetInfo.sheetType == "postpartum_sdry") {
+    if (this.query.sheetType === "postpartum_sdry") {
       addCSS(
         window,
         `

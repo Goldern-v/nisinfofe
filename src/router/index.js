@@ -343,6 +343,7 @@ const planList = () => import("@/Page/plan-list/plan-list.vue");
 
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
+import Nfyksdyy_360 from "@/Page/patientInfo/supPage/360_Nfyksdyy";
 import sheetPage from "@/Page/sheet-page/sheet-page.vue"; // 护理记录单页面
 import sheetNursingOrderPage from "@/Page/sheet-nursing-order/sheet-page.vue"; // 护嘱记录单页面
 import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"; // 护嘱记录单页面
@@ -407,6 +408,8 @@ import implementationPersonytll
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-ytll";
 import implementationPersonwhsl
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-whsl";
+import implementationPerson
+  from "@/Page/patientInfo/supPage/implementation-list/implementation-list";
 const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-form/index.vue")
 const medicalCheck = () => import("@/Page/patientInfo/supPage/medical-check/index.vue")
 // 患者个人护理巡视
@@ -1072,6 +1075,10 @@ const router = new Router({
           component: information
         },
         {
+          path: "/view360",
+          component: Nfyksdyy_360
+        },
+        {
           path: "/advice",
           component: advice
         },
@@ -1338,6 +1345,8 @@ const router = new Router({
                 return implementationPersonytll
               case 'whsl':
                 return implementationPersonwhsl
+              case 'hj':
+                return implementationPerson
               default:
                 return implementationPersonLiaocheng
             }
