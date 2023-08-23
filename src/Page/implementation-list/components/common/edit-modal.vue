@@ -5,34 +5,62 @@
       :modalWidth="500"
       title="提示"
       class="modal-record padding-0"
-      v-if="type =='补执行'"
+      v-if="type == '补执行'"
     >
-      <div class="group">
-        <span>开始执行时间：</span>
-        <el-date-picker
-          type="datetime"
-          format="yyyy-MM-dd HH:mm:ss"
-          placeholder="选择开始执行时间"
-          size="small"
-          v-model="afterStartExecuteTime"
-          style="width:120px"
-        ></el-date-picker>
-      </div>
-      <div class="group">
-        <span>结束执行时间：</span>
-        <el-date-picker
-          type="datetime"
-          format="yyyy-MM-dd HH:mm:ss"
-          placeholder="选择结束执行时间"
-          size="small"
-          v-model="afterEndExecuteTime"
-          style="width:120px"
-        ></el-date-picker>
-      </div>
+      <template v-if="HOSPITAL_ID == 'lyxrm'">
+        <div class="group" v-if="eidtRowData.freqDetail.indexOf('补') != -1">
+          <span>开始执行时间ssss：</span>
+          <el-date-picker
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择开始执行时间"
+            size="small"
+            v-model="afterStartExecuteTime"
+            style="width:120px"
+          ></el-date-picker>
+        </div>
+        <div class="group" v-if="eidtRowData.freqDetail.indexOf('补') != -1">
+          <span>结束执行时间：</span>
+          <el-date-picker
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择结束执行时间"
+            size="small"
+            v-model="afterEndExecuteTime"
+            style="width:120px"
+          ></el-date-picker></div
+      ></template>
+      <template v-else>
+        <div class="group">
+          <span>开始执行时间：</span>
+          <el-date-picker
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择开始执行时间"
+            size="small"
+            v-model="afterStartExecuteTime"
+            style="width:120px"
+          ></el-date-picker>
+        </div>
+        <div class="group">
+          <span>结束执行时间：</span>
+          <el-date-picker
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择结束执行时间"
+            size="small"
+            v-model="afterEndExecuteTime"
+            style="width:120px"
+          ></el-date-picker></div
+      ></template>
       <div class="group">
         <span>补执行的原因：</span>
-        <el-input   size="small"  style="width:200px" placeholder="请输入补执行的原因" v-model="reason"></el-input>
-
+        <el-input
+          size="small"
+          style="width:200px"
+          placeholder="请输入补执行的原因"
+          v-model="reason"
+        ></el-input>
       </div>
       <div slot="button">
         <el-button class="modal-btn" @click="close">关闭</el-button>
@@ -44,14 +72,15 @@
     <sweet-modal
       ref="newRecord"
       :modalWidth="500"
-      :title="HOSPITAL_ID == 'nfyksdyy' ? '补执行原因' :'修改时间'"
+      :title="HOSPITAL_ID == 'nfyksdyy' ? '补执行原因' : '修改时间'"
       class="modal-record padding-0"
       v-if="type == '补执行-sdyy'"
     >
-       <div class="group">
+      <div class="group">
         <span>补执行的原因：</span>
         <el-autocomplete
-          size="small"  style="width:280px"
+          size="small"
+          style="width:280px"
           v-model="reason"
           :fetch-suggestions="querySearch"
           placeholder="请输入内容"
@@ -102,7 +131,6 @@
       </div>
     </sweet-modal>
   </div>
-
 </template>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -131,7 +159,7 @@ import moment from "moment";
 import {
   addRecord,
   cancelOrderExecuteApi,
-  updateOrderExecutePc,
+  updateOrderExecutePc
 } from "../../api/index";
 import { updateExecuteTime } from "../../api/index";
 import bus from "vue-happy-bus";
@@ -143,39 +171,39 @@ export default {
       afterStartExecuteTime: moment().format("YYYY-MM-DD HH:mm"),
       afterEndExecuteTime: moment().format("YYYY-MM-DD HH:mm"),
       bus: bus(this),
-      type:'',
-      reason:'',
-      callback:null
+      type: "",
+      reason: "",
+      callback: null
     };
   },
   methods: {
-    openEdit(data,type, callback) {
+    openEdit(data, type, callback) {
       this.type = type;
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.$refs.newRecordEdit.open();
-      })
+      });
       this.afterStartExecuteTime = data.realExecuteDateTime;
       this.afterEndExecuteTime = data.endDateTime || data.endInfusionTime;
       this.eidtRowData = data;
-      this.callback = callback
+      this.callback = callback;
     },
-    open(data,type, callback) {
+    open(data, type, callback) {
       this.type = type;
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.$refs.newRecord.open();
-      })
+      });
       this.afterStartExecuteTime = data.realExecuteDateTime;
       this.afterEndExecuteTime = data.endDateTime || data.endInfusionTime;
       this.eidtRowData = data;
-      this.callback = callback
+      this.callback = callback;
     },
     closeEdit() {
       this.$refs.newRecordEdit.close();
-      this.reason = '';
+      this.reason = "";
     },
     close() {
       this.$refs.newRecord.close();
-      this.reason = '';
+      this.reason = "";
     },
     post() {
       let data = {
@@ -198,14 +226,14 @@ export default {
           : this.afterEndExecuteTime //需要修改后的实际结束时间
       };
       updateExecuteTime(data).then(res => {
-        this.$message.success('修改成功！');
+        this.$message.success("修改成功！");
         this.bus.$emit("loadImplementationList");
         this.close();
       });
     },
-    postReason(){
+    postReason() {
       let data = {
-        barcode:  this.eidtRowData.barCode, //条码号
+        barcode: this.eidtRowData.barCode, //条码号
         empNO: this.empNo, //执行人
         type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
         typeReason: this.reason, //补执行的原因填写
@@ -216,84 +244,83 @@ export default {
           ? moment(this.afterEndExecuteTime).format("YYYY-MM-DD HH:mm:ss")
           : this.afterEndExecuteTime //需要修改后的实际结束时间
       };
-      updateOrderExecutePc(data).then((res) => {
+      updateOrderExecutePc(data).then(res => {
         this.$message.success("补录成功");
         this.bus.$emit("loadImplementationList");
+        this.$emit('resetScrollTop')
         this.close();
       });
     },
-    postReasonSdyy(){
+    postReasonSdyy() {
       let data = {
-        barcode:  this.eidtRowData.barCode, //条码号
+        barcode: this.eidtRowData.barCode, //条码号
         empNO: this.empNo, //执行人
         type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
-        typeReason: this.reason, //补执行的原因填写
+        typeReason: this.reason //补执行的原因填写
       };
-      updateOrderExecutePc(data).then((res) => {
+      updateOrderExecutePc(data).then(res => {
         this.$message.success("补录成功");
         this.bus.$emit("loadImplementationList");
-        this.callback && this.callback()
+        this.callback && this.callback();
         this.close();
       });
     },
     cancelOrderExecute(item) {
       let user = JSON.parse(localStorage.getItem("user"));
-      // console.log(user);
       if (!["护长", "护士长"].includes(user.job)) {
         this.$message.error("没有权限！");
       } else {
         this.$prompt("请输入取消的原因", "提示", {
           confirmButtonText: "确定",
-          cancelButtonText: "取消",
+          cancelButtonText: "取消"
         })
           .then(({ value }) => {
             let { empNo } = user;
             let { barCode } = item;
             let cancelReason = value;
-            console.log(cancelReason);
             cancelOrderExecuteApi({
               empNO: empNo,
               barcode: barCode,
-              cancelReason,
-            }).then((res) => {
+              cancelReason
+            }).then(res => {
               this.$message.success(res.data.desc);
               this.bus.$emit("loadImplementationList");
               this.close();
             });
           })
-          .catch((err) => {
+          .catch(err => {
             this.$message.success(err.data.desc);
           });
       }
     },
     querySearch(queryString, cb) {
-        let restaurants = [
-          {
-            value: '患者外出检查'
-          },
-          {
-            value: '患者抢救、补录执行信息'
-          },
-          {
-            value: '二维码不清晰，扫码失败'
-          },
-          {
-            value: '网络故障'
-          },
-          {
-            value: '已遵医生口头医嘱执行，现补执行'
-          },
-          {
-            value: '输血暂无二维码可扫'
-          },
-        ]
-        // 过滤所填写的项
-        // let results = queryString ? restaurants.filter((restaurant) => {
-        //   return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-        // }) : restaurants;
-        // 调用 callback 返回建议列表的数据
-        cb(restaurants);
-      },
+      let restaurants = [
+        {
+          value: "患者外出检查"
+        },
+        {
+          value: "患者抢救、补录执行信息"
+        },
+        {
+          value: "二维码不清晰，扫码失败"
+        },
+        {
+          value: "网络故障"
+        },
+        {
+          value: "已遵医生口头医嘱执行，现补执行"
+        },
+        {
+          value: "输血暂无二维码可扫"
+        }
+      ];
+      // 过滤所填写的项
+      // let results = queryString ? restaurants.filter((restaurant) => {
+      //   return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      // }) : restaurants;
+      // 调用 callback 返回建议列表的数据
+      cb(restaurants);
+    }
   },
   created() {},
   mounted() {},

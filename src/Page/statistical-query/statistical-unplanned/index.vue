@@ -69,7 +69,7 @@ export default {
         wardCode: '',
         status: 0,
         scoreMin: 0,
-        scoreMax: 3,
+        scoreMax:  process.env.HOSPITAL_ID == 'lyxrm' ? 100 : 3,
       },
       columns: [
         {
