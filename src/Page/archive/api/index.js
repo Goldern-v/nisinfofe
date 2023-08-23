@@ -1,5 +1,6 @@
 import axios from "@/api/axios";
 import { apiPath } from "@/api/apiConfig";
+import qs from 'qs';
 
 // 科室患者归档列表
 export function getArchiveList(data) {
@@ -104,7 +105,8 @@ export function genDocBatchSelect(params) {
   return axios.post(`${apiPath}print/archive/genDocBatchSelect`, params)
 }
 
-// 校验签名
-export function getVerifyUser(params) {
-  return axios.post(`${apiPath}user/getUser`, params);
-}
+//获取护士列表
+export const getAllNurseNamePinyin = (list) => {
+  return axios.post(`${apiPath}user/getAllNurseNamePinyin`,
+  {deptCodeMultiple:list});
+};
