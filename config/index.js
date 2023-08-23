@@ -154,7 +154,7 @@ const currentTargetUrl = (() => {
       // return "http://192.168.20.223:8080" // 初升本地
     // 北海人医
     case 'beihairenyi':
-      return "http://219.159.198.37:9094"  // 正式地址 bhrmyy 123456  admin/Bhry123456
+      // return "http://219.159.198.37:9094"  // 正式地址 bhrmyy 123456  admin/Bhry123456
       // return "http://192.168.20.136:8080" // 地
       // return "http://192.168.1.54:9877" // 公司内网测试环境
       // return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
@@ -291,6 +291,9 @@ const currentTargetUrl = (() => {
     case 'zjhj':
       // return 'http://192.168.1.54:9866'  // 湛江海军医院 这个医院就先做表单 基本版本搬哪一个还没有确定
       return "https://info.cr-health.com:20217" //公司外网
+    // 顺德和平骨科
+    case 'sdhpwk':
+      return 'http://192.168.1.54:9866'
 
     /** 默认公司本地内网厚街测试环境 */
     default:
