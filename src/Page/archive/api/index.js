@@ -103,3 +103,8 @@ export function uploadBatchSelect(params) {
 export function genDocBatchSelect(params) {
   return axios.post(`${apiPath}print/archive/genDocBatchSelect`, params)
 }
+
+// 校验签名
+export function getVerifyUser(params) {
+  return axios.post(`${apiPath}user/getUser`, params);
+}

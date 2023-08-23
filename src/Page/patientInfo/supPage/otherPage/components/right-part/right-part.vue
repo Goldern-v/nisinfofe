@@ -20,7 +20,9 @@
 import bus from "vue-happy-bus";
 import nullBg from "@/components/null/null-bg";
 import { getPatient360View } from './../../api';
+import common from "@/common/mixin/common.mixin";
 export default {
+  mixins: [common],
   data() {
     return {
       fileUrl: "",
@@ -36,16 +38,9 @@ export default {
     nullBg
   },
   created() {
-    // this.bus.$on("openDoctorEmr", fileUrl => {
-    //   this.fileUrl = fileUrl;
-    //   this.show = false;
-    // });
-    // window.addEventListener("message", (data)=>{
-    //   console.log(data);
-    // }, false);
     let vid=window.app.$store.state.patient.currentPatient.inpNo;
     const currentPatient=window.app.$store.state.patient.currentPatient;//patientId
-    // console.log("window.app",window.app,window.app.$store.state.patient.currentPatient)
+    let cutInpNo = vid && vid.split('_')[0]
     if(this.HOSPITAL_ID && vid){
       this.show = false;
       //const personInfoUrl="http://172.16.8.41:5402";
@@ -69,6 +64,9 @@ export default {
           break;
         case "nanfangzhongxiyi":
           this.fileUrl = `http://10.158.220.54:8081/view/#/timeline?patientNo=${this.$route.query.inpNo}&visitTypeCode=03&doctorCode=${this.$route.query.doctorCode}&doctorName=${this.$route.query.doctorName}`;
+          break;
+        case "nfyksdyy":
+          this.fileUrl = `http://192.168.5.74:8000/cdr-c/cdrView.do?type=102&attribute=${cutInpNo}&emplCode=${this.empNo}&authCode=df10814b-fa20-4978-5782-587c6f54f8e7&module=`;
           break;
         default:
           break;

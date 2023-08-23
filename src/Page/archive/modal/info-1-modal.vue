@@ -8,14 +8,16 @@
     >
       <div class="list-con">
         <span class="key">责任护士：</span>
-        <div class="value">
-          <el-input v-model="details.dutyNurse" placeholder="请输入名字"></el-input>
+        <div class="value" @click="onSign('dutyNurse')">
+          {{details.dutyNurse}}
+          <!-- <el-input v-model="details.dutyNurse" placeholder="请输入名字" ></el-input> -->
         </div>
       </div>
       <div class="list-con">
         <span class="key">质控护士：</span>
-        <div class="value">
-          <el-input v-model="details.qcNurse" placeholder="请输入名字"></el-input>
+        <div class="value" @change="onSign('qcNurse')">
+          {{ details.qcNurse }}
+          <!-- <el-input v-model="details.qcNurse" placeholder="请输入名字" ></el-input> -->
         </div>
       </div>
       <div slot="button">
@@ -38,6 +40,10 @@
 
   .value {
     color: #333333;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    border-bottom: 1px solid #000;
   }
 }
 
@@ -65,7 +71,7 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import mixin from "../mixins/index.js";
-import { uploadFileArchive } from "../api/index.js";
+import { uploadFileArchive, getVerifyUser } from "../api/index.js";
 export default {
   mixins: [common, mixin],
   data() {
@@ -80,6 +86,21 @@ export default {
     getArchiveList: Function
   },
   methods: {
+    onSign(key) {
+      window.openSignModal((password, empNo) => {
+        let post = {
+          empNo,
+          password,
+        };
+        getVerifyUser(post).then((res) => {
+          let {data:{data}} = res;
+          this.$set(this.details, key, data.empName)
+          this.$message.success("签名成功");
+        }).catch(err => {
+          this.$message.success("签名失败" + err.data.desc);
+        })
+       })
+    },
     open(data) {
       this.item = data;
       this.$refs.modal.open();
