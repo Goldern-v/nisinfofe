@@ -26,8 +26,8 @@
             <span style="left: 130px; top: 30%">情况</span>
           </td>
         </template>
-        <td 
-          v-for="(tdItem, tdIndex) in trItem" 
+        <td
+          v-for="(tdItem, tdIndex) in trItem"
           :key="trIndex + '-' + tdIndex"
           :colspan="tdItem.colspan || 1"
           :style="{ width: tdItem.width + 'px' }"
@@ -70,8 +70,8 @@
             <span style="left: 130px; top: 30%">情况</span>
           </td>
         </template>
-        <td 
-          v-for="(tdItem, tdIndex) in trItem" 
+        <td
+          v-for="(tdItem, tdIndex) in trItem"
           :key="trIndex + '-' + tdIndex"
           :colspan="tdItem.colspan || 1"
           :style="{ width: tdItem.width + 'px' }"
@@ -91,8 +91,16 @@
       <colgroup>
         <col v-for="col of bodyColumns" :key="col.label" :width="col.width">
       </colgroup>
-      
+
       <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{ shiftWithWardcodes.A.summary }}</td>
+          <td>{{ shiftWithWardcodes.P.summary }}</td>
+          <td>{{ shiftWithWardcodes.N.summary }}</td>
+        </tr>
         <tr
           v-for="(row, rowIndex) of data"
           :class="[{selected: row === selectedRow}]"
