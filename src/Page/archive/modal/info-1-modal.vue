@@ -8,15 +8,38 @@
     >
       <div class="list-con">
         <span class="key">责任护士：</span>
-        <div class="value" @click="onSign('dutyNurse')">
-          {{details.dutyNurse}}
-          <!-- <el-input v-model="details.dutyNurse" placeholder="请输入名字" ></el-input> -->
+        <div class="value">
+           <el-select
+              class="select-multi"
+              filterable
+              v-model="details.dutyNurse"
+              placeholder="请选择"
+            >
+              <el-option
+                v-for="item in memberLists"
+                :key="item"
+                :label="item"
+                :value="item"
+              ></el-option>
+            </el-select>
         </div>
       </div>
       <div class="list-con">
         <span class="key">质控护士：</span>
-        <div class="value" @change="onSign('qcNurse')">
-          {{ details.qcNurse }}
+        <div class="value">
+           <el-select
+              class="select-multi"
+              filterable
+              v-model="details.qcNurse"
+              placeholder="请选择"
+            >
+              <el-option
+                v-for="item in memberLists"
+                :key="item"
+                :label="item"
+                :value="item"
+              ></el-option>
+            </el-select>
           <!-- <el-input v-model="details.qcNurse" placeholder="请输入名字" ></el-input> -->
         </div>
       </div>
@@ -40,10 +63,6 @@
 
   .value {
     color: #333333;
-    width: 150px;
-    height: 30px;
-    text-align: center;
-    border-bottom: 1px solid #000;
   }
 }
 
@@ -71,7 +90,7 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import mixin from "../mixins/index.js";
-import { uploadFileArchive, getVerifyUser } from "../api/index.js";
+import { uploadFileArchive, getAllNurseNamePinyin } from "../api/index.js";
 export default {
   mixins: [common, mixin],
   data() {
@@ -79,27 +98,27 @@ export default {
       data: {},
       details: {},
       iconLoading: false,
-      item: {}
+      item: {},
+      memberLists:[]
     };
   },
   props: {
     getArchiveList: Function
   },
+  created() {
+   this.getMemberLists()
+  },
+  watch:{
+    deptCode(newVal){
+      this.getMemberLists()
+    }
+  },
   methods: {
-    onSign(key) {
-      window.openSignModal((password, empNo) => {
-        let post = {
-          empNo,
-          password,
-        };
-        getVerifyUser(post).then((res) => {
-          let {data:{data}} = res;
-          this.$set(this.details, key, data.empName)
-          this.$message.success("签名成功");
-        }).catch(err => {
-          this.$message.success("签名失败" + err.data.desc);
-        })
-       })
+    getMemberLists() {
+      console.log('ddddddddddddddddd');
+      getAllNurseNamePinyin([this.deptCode]).then((res) => {
+        this.memberLists = res.data.data || [];
+      });
     },
     open(data) {
       this.item = data;
