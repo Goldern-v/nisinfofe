@@ -777,6 +777,19 @@ export default {
         `
       );
     }
+    if (
+      this.sheetInfo.sheetType == "neonatal_care_qhwy"
+    ) {
+      addCSS(
+        window,
+        `
+           #sheetPagePrint th[dataname="护士签名"] {
+              min-width: 70px !important;
+              max-width: 70px !important;
+            }
+        `
+      );
+    }
     if (this.HOSPITAL_ID === "gdtj") {
       addCSS(
         window,

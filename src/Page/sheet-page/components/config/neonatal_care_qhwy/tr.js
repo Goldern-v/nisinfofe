@@ -96,11 +96,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "190px",
+      width: "240px",
       background: "transparent",
     },
     textarea: {
-      width: 190
+      width: 240
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -114,8 +114,8 @@ export default [
   {
     key: "sign", //护士签名
     style: {
-      minWidth: '72px',
-      maxWidth: '72px',
+      minWidth: '50px',
+      maxWidth: '50px',
     },
     value: ""
   },
