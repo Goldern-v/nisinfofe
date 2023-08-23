@@ -161,15 +161,12 @@ export default {
   watch:{
     "sheetInfo.masterInfo.patientId":{
       handler(val,oldVal){
-        if(val !== oldVal){
-          data.initEveryFormData(this.sheetInfo.masterInfo.relObj);
-          this.patientInfo = this.sheetInfo.masterInfo || {}
-          // this.$set(this,'patientInfo',val||{})
-        } 
+        data.initEveryFormData(this.sheetInfo.masterInfo.relObj);
+        this.patientInfo = this.sheetInfo.masterInfo || {}
       },
       immediate: true,
       deep:true
-    }
+    },
   },
   computed: {
     // patientInfo() {
