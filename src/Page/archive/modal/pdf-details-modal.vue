@@ -169,6 +169,7 @@ export default {
         formType: data.formType,
         formId: data.formId,
       }
+      this.$message.success('正在重转PDF...');
       try {
         await generateArchiveNewSingle(params);
         this.queryPDFInfoList();
@@ -190,6 +191,7 @@ export default {
       return '';
     },
     close() {
+      this.$emit('refresh')
       this.pdfModalVisible = false;
       this.onlyPDFFailures = false;
       this.pdfList = [];
