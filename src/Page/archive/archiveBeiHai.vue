@@ -323,6 +323,7 @@
       ref="pdfDetails"
       @onTransformAll="generateArchive"
       @update-reload="onUpdateReload"
+      @refresh="getArchiveList"
       :reloadPDFList="reloadPDFList"
     ></PDFDetailsModal>
   </div>
