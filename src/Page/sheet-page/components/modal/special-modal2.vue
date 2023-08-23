@@ -2702,7 +2702,8 @@ export default {
               this.sheetInfo.sheetType === "cardiac_lcey" ||
               this.sheetInfo.sheetType === "labor_lcey" ||
               this.sheetInfo.sheetType === "caseamount_wx"||
-              this.sheetInfo.sheetType === "chemotherapy_qhwy"
+              this.sheetInfo.sheetType === "chemotherapy_qhwy"||
+              this.sheetInfo.sheetType === "neonatal_care_qhwy"
             ) {
               if (GetLength(text) > 36) {
                 result.push(text);
@@ -2744,7 +2745,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (["ultrasound_fs","baby_tj","baby_whhk","insulin_whhk","labor_whhk","intravenous_whhk", "neonatal_care_qhwy"].includes(this.sheetInfo.sheetType)) {
+            } else if (["ultrasound_fs","baby_tj","baby_whhk","insulin_whhk","labor_whhk","intravenous_whhk"].includes(this.sheetInfo.sheetType)) {
               if (GetLength(text) > 30) {
                 result.push(text);
                 text = allDoc[i];

@@ -97,8 +97,8 @@ export default {
       {
         name: `病 情 记 录 `,
         style: {
-          minWidth: '190px',
-          maxWidth: '190px'
+          minWidth: '240px',
+          maxWidth: '240px'
         },
         colspan: '1',
         rowspan: '3'
@@ -108,7 +108,7 @@ export default {
         护士签名
         `,
         style: {
-          minWidth: '100px',
+          minWidth: '50px',
           // maxWidth: '72px',
         },
         colspan: '1',
