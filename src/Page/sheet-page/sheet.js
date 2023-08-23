@@ -149,7 +149,7 @@ export function cleanDataOnly() {
     // 当审核完，就出现问题，下拉还是会出现。 用this.isDisabed解决
     // 这里主要是给弹窗做判断isRead
     if (
-      ['foshanrenyi','925'].includes(process.env.HOSPITAL_ID)
+      ['foshanrenyi','925','nfyksdyy'].includes(process.env.HOSPITAL_ID)
     ) {
         // 佛山医院表示禁用掉该功能  禅道ID 14369
         const user = JSON.parse(localStorage.getItem("user"));
@@ -192,7 +192,7 @@ export function cleanDataOnly() {
     }
 
     // 临邑日期时间禁用符号，识别该行已经被占用
-    if (['whhk', 'stmz','foshanrenyi'].includes(process.env.HOSPITAL_ID)) {
+    if (['whhk', 'stmz','foshanrenyi','nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
       if (listData[nowX]) {
         // 第一条记录
         const firstEqualIndex = listData.findIndex(

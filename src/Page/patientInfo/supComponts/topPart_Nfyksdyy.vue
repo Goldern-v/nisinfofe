@@ -209,14 +209,10 @@
         </el-row>
       </router-link>
       <router-link
-        :to="{
-          path: '/view360',
-        }"
+        :to="{path:'/otherPage', query: {patientId:query.patientId, visitId: query.visitId}}"
         tag="span"
       >
-        <el-row class="nav-item" type="flex" align="middle">
-          <i class="nursingMakeItem"></i>360视图
-        </el-row>
+        <div class="nav-item">360视图</div>
       </router-link>
     </div>
     <el-row class="right-part" type="flex" align="middle">

@@ -169,6 +169,7 @@ const puerperantSituation = () =>
 const archive = () => import("@/Page/archive/archive.vue"); //归档
 const archiveFuyou = () => import("@/Page/archive/archiveFuyou.vue"); //归档
 const archiveFSSY = () => import("@/Page/archive/archiveFSSY.vue"); //归档
+const archiveBeiHai = () => import("@/Page/archive/archiveBeiHai.vue"); //归档
 const familyBigScreen = () =>
   import("@/Page/family-big-screen/family-big-screen.vue"); //家属大屏
 const videoListSetting = () =>
@@ -757,6 +758,8 @@ const router = new Router({
               return archiveFSSY
             case "fuyou":
               return archiveFuyou
+            case "beihairenyi":
+              return archiveBeiHai
             default:
               return archive
           }

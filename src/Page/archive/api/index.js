@@ -1,5 +1,6 @@
 import axios from "@/api/axios";
 import { apiPath } from "@/api/apiConfig";
+import qs from 'qs';
 
 // 科室患者归档列表
 export function getArchiveList(data) {
@@ -17,7 +18,19 @@ export function genDocBatch(data) {
     `${apiPath}print/archive/genDocBatch`, data
   );
 }
-
+// 获取pdf详情信息
+export function pdfInfoList(data) {
+  return axios.post(`${apiPath}print/archive/info/list`, data)
+}
+// 单个表单重转pdf
+export function generateArchiveNewSingle(data) {
+  return axios.post(`${apiPath}print/archive/genDocSingle`, data);
+}
+//  生成归档文件-新版
+export function generateArchiveNew(patientId, visitId) {
+  return axios.get(
+    `${apiPath}print/archive/genDocNew/${patientId}/${visitId}`);
+}
 //  生成归档文件
 export function generateArchive(patientId, visitId) {
   return axios.get(
@@ -91,3 +104,9 @@ export function uploadBatchSelect(params) {
 export function genDocBatchSelect(params) {
   return axios.post(`${apiPath}print/archive/genDocBatchSelect`, params)
 }
+
+//获取护士列表
+export const getAllNurseNamePinyin = (list) => {
+  return axios.post(`${apiPath}user/getAllNurseNamePinyin`,
+  {deptCodeMultiple:list});
+};

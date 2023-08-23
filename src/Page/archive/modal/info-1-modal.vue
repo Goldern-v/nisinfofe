@@ -9,13 +9,38 @@
       <div class="list-con">
         <span class="key">责任护士：</span>
         <div class="value">
-          <el-input v-model="details.dutyNurse" placeholder="请输入名字"></el-input>
+           <el-select
+              class="select-multi"
+              filterable
+              v-model="details.dutyNurse"
+              placeholder="请选择"
+            >
+              <el-option
+                v-for="item in memberLists"
+                :key="item"
+                :label="item"
+                :value="item"
+              ></el-option>
+            </el-select>
         </div>
       </div>
       <div class="list-con">
         <span class="key">质控护士：</span>
         <div class="value">
-          <el-input v-model="details.qcNurse" placeholder="请输入名字"></el-input>
+           <el-select
+              class="select-multi"
+              filterable
+              v-model="details.qcNurse"
+              placeholder="请选择"
+            >
+              <el-option
+                v-for="item in memberLists"
+                :key="item"
+                :label="item"
+                :value="item"
+              ></el-option>
+            </el-select>
+          <!-- <el-input v-model="details.qcNurse" placeholder="请输入名字" ></el-input> -->
         </div>
       </div>
       <div slot="button">
@@ -65,7 +90,7 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import mixin from "../mixins/index.js";
-import { uploadFileArchive } from "../api/index.js";
+import { uploadFileArchive, getAllNurseNamePinyin } from "../api/index.js";
 export default {
   mixins: [common, mixin],
   data() {
@@ -73,13 +98,28 @@ export default {
       data: {},
       details: {},
       iconLoading: false,
-      item: {}
+      item: {},
+      memberLists:[]
     };
   },
   props: {
     getArchiveList: Function
   },
+  created() {
+   this.getMemberLists()
+  },
+  watch:{
+    deptCode(newVal){
+      this.getMemberLists()
+    }
+  },
   methods: {
+    getMemberLists() {
+      console.log('ddddddddddddddddd');
+      getAllNurseNamePinyin([this.deptCode]).then((res) => {
+        this.memberLists = res.data.data || [];
+      });
+    },
     open(data) {
       this.item = data;
       this.$refs.modal.open();

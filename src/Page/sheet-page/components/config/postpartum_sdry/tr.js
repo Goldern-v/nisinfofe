@@ -48,7 +48,7 @@ export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time,  click: click_time, value: ''},
-  { key: 'expand', event: keyf1, value: '', next: '', name: '意识',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete: { data: yishi }},
+  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) ,autoComplete: { data: yishi }},
   { key: 'temperature', event: keyf1, value: '', next: '°C', name: 'T',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pulse', event: keyf1, value: '',next: '次/分', name: 'P',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) , },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },

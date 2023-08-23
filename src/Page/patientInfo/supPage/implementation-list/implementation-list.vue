@@ -50,6 +50,7 @@
       <dTable
         :pageLoadng="pageLoadng"
         :currentType="query.itemType"
+        :tableData="tableData"
         ref="plTable"
       ></dTable>
 
@@ -135,6 +136,7 @@ export default {
         pageNum: 100,
         total: 0
       },
+      tableData: [],
       startDate: moment().format("YYYY-MM-DD") + " 00:00:00",
       endDate:
         moment(
@@ -192,8 +194,8 @@ export default {
         startDate: moment(this.startDate).format("YYYY-MM-DD"),
         endDate: moment(this.endDate).format("YYYY-MM-DD"),
         repeatIndicator: this.repeatIndicator,
-        type: this.type,
-        status: this.status,
+        executeType: this.type,
+        executeStatus: this.status,
         patientId: this.$route.query.patientId,
         visitId: this.$route.query.visitId,
         pageIndex: this.page.pageIndex,
@@ -201,7 +203,7 @@ export default {
       };
       getOrdersExecuteWithPatinetIdNew(obj)
         .then(res => {
-          let tableData = res.data.data.map((item, index, array) => {
+          this.tableData = res.data.data.map((item, index, array) => {
             let prevRowId =
               array[index - 1] &&
               array[index - 1].patientId +
@@ -238,7 +240,7 @@ export default {
             this.$refs.plTable.$children[0] &&
             this.$refs.plTable.$children[0].reloadData
           ) {
-            this.$refs.plTable.$children[0].reloadData(tableData);
+            this.$refs.plTable.$children[0].reloadData(R);
           }
           this.page.total = Number(res.data.pageCount) * this.page.pageNum;
           this.pageLoadng = false;

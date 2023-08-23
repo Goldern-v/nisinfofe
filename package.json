@@ -44,6 +44,7 @@
     "dev:dglb": "npm run dev --dglb",
     "dev:stmz": "npm run dev --stmz",
     "dev:zjhj": "npm run dev --zjhj",
+    "dev:sdhpwk": "npm run dev --sdhpwk",
     "buildNew": "node --max_old_space_size=4096 build-new/build.js",
     "buildNew:": "npm run buildNew",
     "buildNew:hj": "npm run buildNew: houjie",
@@ -82,6 +83,7 @@
     "buildNew:dglb": "npm run buildNew: dglb",
     "buildNew:stmz": "npm run buildNew: stmz",
     "buildNew:zjhj": "npm run buildNew: zjhj",
+    "buildNew:sdhpwk": "npm run buildNew: sdhpwk",
     "deploy": "npm run buildNew",
     "lint": "eslint --ext .js,.vue src",
     "toSvn": "svn commit -m 前端代码更新svn"
