@@ -185,10 +185,184 @@
       "readOnly": ""
     },
     {
+      "name": "一、患者状态",
+      "type": "formGroupVerticalBox",
+      "level": "1",
+      "title": "一、患者状态",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I164101",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "I164101",
+          "type": "checkbox",
+          "title": "瘫痪",
+          "code": "瘫痪",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164101",
+          "type": "checkbox",
+          "title": "肿瘤晚期",
+          "code": "肿瘤晚期",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164101",
+          "type": "checkbox",
+          "title": "长期卧床",
+          "code": "长期卧床",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164101",
+          "type": "checkbox",
+          "title": "营养不良",
+          "code": "营养不良",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164101",
+          "type": "checkbox",
+          "title": "＞65岁",
+          "code": "＞65岁",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164101",
+          "type": "checkbox",
+          "title": "其他",
+          "code": "其他",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "二、神  志",
+      "type": "formGroupHorizontalBox",
+      "level": "1",
+      "title": "二、神  志",
+      "titleStyle": "text-align:left",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I164102",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "I164102",
+          "type": "radio",
+          "title": "清醒",
+          "code": "清醒",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164102",
+          "type": "radio",
+          "title": "嗜睡",
+          "code": "嗜睡",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164102",
+          "type": "radio",
+          "title": "混乱",
+          "code": "混乱",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164102",
+          "type": "radio",
+          "title": "木僵",
+          "code": "木僵",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164102",
+          "type": "radio",
+          "title": "嗜睡",
+          "code": "嗜睡",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
       "name": "",
       "type": "formGroupTitle",
       "level": "1",
-      "title": "一、评估内容",
+      "title": "三、评估内容",
       "prefixDesc": "",
       "suffixDesc": "",
       "keys": "",
@@ -699,6 +873,275 @@
             }
           ]
         }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupTitle",
+      "level": "1",
+      "title": "四、预防措施",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "1.告知患者及家属可能出现压疮的危险性，讲解注意事项，定时翻身，更换体位，减轻皮肤受压、",
+      "type": "formGroupVerticalBox",
+      "level": "1",
+      "title": "1.告知患者及家属可能出现压疮的危险性，讲解注意事项，定时翻身，更换体位，减轻皮肤受压、",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "titleStyle": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "避免摩擦。",
+      "type": "formGroupVerticalBox",
+      "level": "1",
+      "title": "避免摩擦。",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I164116",
+      "titleStyle": "",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "I164116",
+          "type": "checkbox",
+          "title": "√",
+          "code": "",
+          "score": 0,
+          "titleStyle": "",
+          "style": "",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "notShow":true
+        }
+      ]
+    },
+    {
+      "name": "2.使用（1）气圈（2）气垫床（3）棉垫(4)保护膜（5）水袋等工具",
+      "type": "formGroupVerticalBox",
+      "level": "1",
+      "title": "2.使用（1）气圈（2）气垫床（3）棉垫(4)保护膜（5）水袋等工具",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I164117",
+      "titleStyle": "",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "I164117",
+          "type": "input",
+          "label": "",
+          "inputWidth": "100px",
+          "style": null,
+          "class": null,
+          "readOnly": null,
+          "options": [
+            {
+              "name": "（1）",
+              "code": "（1）"
+            },
+            {
+              "name": "（2）",
+              "code": "（2）"
+            },
+            {
+              "name": "（3）",
+              "code": "（3）"
+            },
+            {
+              "name": "（4）",
+              "code": "（4）"
+            },
+            {
+              "name": "（5）",
+              "code": "（5）"
+            }
+          ],
+          "selectOnly": true
+        }
+      ]
+    },
+    {
+      "name": "3.保护皮肤及床单清洁、干燥",
+      "type": "formGroupVerticalBox",
+      "level": "1",
+      "title": "3.保护皮肤及床单清洁、干燥",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I164118",
+      "titleStyle": "",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "I164118",
+          "type": "checkbox",
+          "title": "√",
+          "code": "",
+          "score": 0,
+          "titleStyle": "",
+          "style": "",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "notShow":true
+        }
+      ]
+    },
+    {
+      "name": "4.指导及协助患者移位时，避免牵拉及摩擦皮肤",
+      "type": "formGroupVerticalBox",
+      "level": "1",
+      "title": "4.指导及协助患者移位时，避免牵拉及摩擦皮肤",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I164119",
+      "titleStyle": "",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "I164119",
+          "type": "checkbox",
+          "title": "√",
+          "code": "",
+          "score": 0,
+          "titleStyle": "",
+          "style": "",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "notShow":true
+        }
+      ]
+    },
+    {
+      "name": "5.指导患者及家属合理膳食、增加营养",
+      "type": "formGroupVerticalBox",
+      "level": "1",
+      "title": "5.指导患者及家属合理膳食、增加营养",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I164124",
+      "titleStyle": "",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "I164124",
+          "type": "checkbox",
+          "title": "√",
+          "code": "",
+          "score": 0,
+          "titleStyle": "",
+          "style": "float: right;",
+          "class": null,
+          "html": null,
+          "readOnly": null,
+          "notShow":true
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHR",
+      "title": "---hr---",
+      "line": "dashed",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "",
+      "style": "",
+      "classes": "",
+      "readOnly": ""
+    },
+    {
+      "name": "五、预防效果",
+      "type": "formGroupHorizontalBox",
+      "level": "1",
+      "title": "五、预防效果",
+      "titleStyle": "text-align:left",
+      "prefixDesc": "",
+      "suffixDesc": "",
+      "keys": "I164121",
+      "style": "",
+      "classes": "",
+      "readOnly": "",
+      "children": [
+        {
+          "name": "I164121",
+          "type": "radio",
+          "title": "无异常",
+          "code": "无异常",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164121",
+          "type": "radio",
+          "title": "局部出现红肿热痛",
+          "code": "局部出现红肿热痛",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I164121",
+          "type": "radio",
+          "title": "皮肤出现水泡、破溃",
+          "code": "皮肤出现水泡、破溃",
+          "score": 0,
+          "style": null,
+          "class": null,
+          "html": null,
+          "readOnly": null
+        }
+
       ]
     }
   ],

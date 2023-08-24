@@ -15,7 +15,7 @@
       :label="obj.code || obj.title"
       :class="obj.class"
       :style="obj.style"
-    >{{obj.title}}</el-checkbox>
+    >{{ obj.notShow ? '' : obj.title }}</el-checkbox>
     <!-- </TipsBox> -->
   </span>
 </template>
