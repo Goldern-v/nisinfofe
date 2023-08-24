@@ -116,7 +116,7 @@ export default {
   methods: {
     getMemberLists() {
       console.log('ddddddddddddddddd');
-      getAllNurseNamePinyin([this.deptCode]).then((res) => {
+      getAllNurseNamePinyin([]).then((res) => {
         this.memberLists = res.data.data || [];
       });
     },
