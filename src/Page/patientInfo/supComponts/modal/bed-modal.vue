@@ -1239,6 +1239,7 @@ export default {
             "P" + "|" + this.query.patientId + "|" + this.query.visitId;
           break;
         case "qhwy":
+        case "dglb":
           qr_png_value =this.query.inpNo;
           break;
         default:

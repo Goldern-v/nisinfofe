@@ -291,7 +291,7 @@ const currentTargetUrl = (() => {
     case 'zjhj':
       // return 'http://192.168.1.54:9866'  // 湛江海军医院 这个医院就先做表单 基本版本搬哪一个还没有确定
       return "https://info.cr-health.com:20217" //公司外网
-    // 顺德和平骨科
+    // 顺德和平外科
     case 'sdhpwk':
       return 'http://192.168.1.54:9866'
 
