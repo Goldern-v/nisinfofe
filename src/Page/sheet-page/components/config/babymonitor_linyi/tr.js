@@ -77,7 +77,7 @@ export default [
   // ['①左侧卧位','②右侧卧位','③平卧位','④俯卧位']
   { key: 'overRecords', event: keyf1, value: '', next: '', name: '翻身记录',textarea: { width: 27 },  autoComplete:{data:[{name:'①左侧卧位',value:'①'},{name:'②右侧卧位',value:'②'},{name:'③平卧位',value:'③'},{name:'④俯卧位',value:'④'}]} },
   // ['①' , '②', '③', '④',  '⑤' , '⑥', '⑦' ,'⑧']
-  { key: 'nursingMeasures', event: keyf1, value: '', next: '℃', name: '护理措施', textarea: { width: 55 },  autoComplete:{data:[{name:'①脐部护理',value:'①'},{name:'②口腔护理',value:'②'},{name:'③臀部护理',value:'③'},{name:'④眼部护理',value:'④'},{name:'⑤擦浴式洗澡',value:'⑤'},{name:'⑥沐浴',value:'⑥'},{name:'⑦吸痰',value:'⑦'},{name:'⑧雾化吸入',value:'⑧'}]}, splice: true,  },
+  { key: 'nursingMeasures', event: keyf1, value: '', next: '℃', name: '护理措施', textarea: { width: 55 },  autoComplete:{data:[{name:'①脐部护理',value:'①'},{name:'②口腔护理',value:'②'},{name:'③臀部护理',value:'③'},{name:'④眼部护理',value:'④'},{name:'⑤擦浴式洗澡',value:'⑤'},{name:'⑥沐浴',value:'⑥'},{name:'⑦吸痰',value:'⑦'},{name:'⑧雾化吸入',value:'⑧'}]}, splice: '', multiple:true },
   {
     key: "description", //特殊情况记录
     value: "",

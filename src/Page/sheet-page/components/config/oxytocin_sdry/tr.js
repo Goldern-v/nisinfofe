@@ -85,7 +85,7 @@ export default [
       width:36
     },
     autoComplete:{
-      data:['未查','未开','全开']
+      data:['未查','未开','开全']
     }
   }, {
     key: "fieldEight", //先露高低

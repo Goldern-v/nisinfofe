@@ -50,7 +50,7 @@
           <span>执行时间:</span>
           <div>{{ currentBottle.executeDate.substr(0, 16) }}</div>
         </div>
-        <div class="qc-box">
+        <div class="qc-box" style="margin-top:5px">
           <img :src="currentBottle.qcSrc || ''" />
         </div>
       </div>

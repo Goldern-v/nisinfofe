@@ -58,8 +58,8 @@
           />
         </template>
         <button @click.stop="search">查询</button>
-        <button @click.stop="allArchive">批量归档</button>
-        <button @click.stop="allturnPDF">批量转pdf</button>
+        <!-- <button @click.stop="allArchive">批量归档</button>
+        <button @click.stop="allturnPDF">批量转pdf</button> -->
       </div>
       <div
         class="filterItem"

@@ -706,7 +706,7 @@ export default {
               .input-item{
               font-size:32px !important;
               height:45px !important;
-              padding-left:30px !important;
+              padding-left:88px !important;
               }
               .diagnosis-content {
                 display: block;

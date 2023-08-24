@@ -5,7 +5,7 @@
     :style="{ ' height': containHeight }"
   >
     <div ref="Contain" @mousewheel="(e) => onScroll(e)">
-      <div v-show="!isChart" class="blood-sugar-con" :style="$route.path == '/formPage'  ? 'overflow: auto; height: calc(100vh - 105px);' : '' ">
+      <div v-show="!isChart" class="blood-sugar-con" id="blood-sugar-con" :style="$route.path == '/formPage'  ? 'overflow: auto; height: calc(100vh - 105px);' : '' ">
         <div
           class="sugr-page"
           v-for="(item, index) in listMap"
@@ -499,6 +499,11 @@ export default {
       this.resBedNol = resBedNolList.length ? resBedNolList.join(',') : this.patientInfo.bedLabel
     },
     toPrint() {
+        const printDom=document.getElementById('blood-sugar-con')
+        // 上面的判断:style="$route.path == '/formPage'  ? 'overflow: auto; height: calc(100vh - 105px);' : '' "
+        // 在formPage跳转的时候，直接移除即可。返回的时候不会直接进入血糖单。所以再次进入不会有问题。
+        printDom.style.removeProperty('overflow'); // 移除 overflow 属性
+        printDom.style.removeProperty('height'); // 移除 height 属性
         window.localStorage.sugarModel = $(this.$refs.Contain).html();
         if (process.env.NODE_ENV === "production") {
           let newWid = window.open();

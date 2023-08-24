@@ -1075,14 +1075,14 @@ export default {
         window,
         `
         .info-con{
-            font-size:16px!improtant;
+            font-size:15px!improtant;
           }
 
           #sheetPagePrint td[datakey="signerNo"] .sign-img img{
               transform:scale(0.81)
           }
           @media print {
-            #sheetPagePrint .body-con{ height: 34px !important; }
+            #sheetPagePrint .body-con{ height: 33px !important; }
             #sheetPagePrint .body-con td input { font-size: 14px !important;}
             #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
             #sheetPagePrint .contant{margin-top:-30px !important;}
