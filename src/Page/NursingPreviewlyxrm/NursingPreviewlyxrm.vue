@@ -70,6 +70,14 @@
       height: 41px;
     }
   }
+  &.beihairenyi {
+    >>> .blood-sugar-table.table-box .noPrint {
+      display: none;
+    }
+    >>> .blood-sugar-table.table-box .inPrint {
+      display: block;
+    }
+  }
   .left-part {
     float: left;
     width: 240px;
