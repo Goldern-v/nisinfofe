@@ -64,9 +64,19 @@ export default [
   {
     key: "description", //特殊情况记录
     value: "",
-    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "180px", background: "transparent" },
+    style: {
+      textAlign: "left",
+      position: "absolute",
+      top: "1px", bottom: "1px",
+      left: "1px", width: "180px",
+      background: "transparent" },
     textarea: { width: 180 },
-    event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
+    event: function (e, td) {
+      if (e.keyCode == 9) {
+         td.value = "    " + td.value;
+         e.preventDefault()
+        }
+         keyf1(e, td) }
   },
   { key: "sign", value: "" },//单签
   // { key: "sign2", value: "" },//双签
