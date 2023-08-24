@@ -1165,6 +1165,9 @@ export default {
           #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签  名']{
             display:none !important;
           }
+          #sheetPagePrint#sheetPagePrint th[dataname='审核人<br/>签  名']{
+            display:none !important;
+          }
           #sheetPagePrint#sheetPagePrint th[dataname='记录人<br/>签  名']{
              min-width: 90px !important;
               max-width: 90px !important;
@@ -1173,7 +1176,7 @@ export default {
         `
       );
     }
-    if (this.query.sheetType === "record_common_zjhj") {
+    if (["record_common_zjhj" , "neonatology_zjhj"].includes(this.query.sheetType) ) {
       addCSS(
         window,
         `

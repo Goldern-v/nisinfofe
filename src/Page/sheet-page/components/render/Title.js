@@ -2645,6 +2645,13 @@ export default function Title(
     );
   }
   break;
+  case "neonatology_zjhj": {
+    // 湛江海军医院 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_zjhj/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)

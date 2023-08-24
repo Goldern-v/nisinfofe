@@ -2003,6 +2003,11 @@ function switchSheetType(type) {
       schema = require("../config/record_common_zjhj/tr.js").default;
     }
       break;
+    case "neonatology_zjhj": {
+      // 湛江海军医院 - 新生儿护理记录单
+      schema = require("../config/neonatology_zjhj/tr.js").default;
+    }
+      break;
   }
   return schema;
 }
