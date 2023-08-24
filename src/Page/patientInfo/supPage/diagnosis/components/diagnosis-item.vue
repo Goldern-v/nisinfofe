@@ -23,14 +23,14 @@
     margin 0 15px
     .title
       font-size: 18px;
-      color: #333333;  
+      color: #333333;
       margin-bottom 8px
     .aside
       font-size: 13px;
       color: #687179;
-      letter-spacing: 0.26px;  
+      letter-spacing: 0.26px;
 .disabled .title
-  color: #687179 !important   
+  color: #687179 !important
 </style>
 <script>
   export default {

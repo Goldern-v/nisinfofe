@@ -168,6 +168,7 @@ export function click_double (e, td) {
 export function click_letter(e, td, key) {
   if (td.value == "") {
     td.value = key
+    tr.isChange = true
   }
   else {
     td.value = ""
@@ -181,6 +182,6 @@ const arr1 = []
 export function click_double1(e, td, arr1) {
   let curIndex = arr1.findIndex(v => v === td.value)
   let nextIndex = curIndex >= arr1.length - 1 || curIndex == -1 ? 0 : curIndex + 1
-
+  // tr.isChange = true
   td.value = arr1[nextIndex]
 }

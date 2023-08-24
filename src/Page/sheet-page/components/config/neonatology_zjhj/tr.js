@@ -1,8 +1,3 @@
-
-/**
-  佛山同江 - 护理记录单（全院通用）
-*/
-
 /**
  * @description: 开发注意事项:
     1、textarea: { width:45 }, change: (e, td) => limitChange(e, td, 6) 的意思是宽度设置45，字数限制6个。
@@ -40,43 +35,35 @@ export default [
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
   { key: "recordHour", event: event_time, value: ''},
   { key: 'temperature', event: keyf1, value: '', next: '℃', name: 'T', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pulse', event: keyf1, value: '', next: '次/分', name: 'P', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: 'HR', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'Bp', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SpO₂', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'oxygenRate', event: keyf1, value: '', next: 'L/min', name: '氧流量', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'consciousness', event: keyf1, value: '', next: '', name: '意识', autoComplete: { data: ysList }, textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pupilLeft', event: keyf1, value: '', next: '', name: '瞳孔大小左', textarea: { width: 33 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'pupilRight', event: keyf1, value: '', next: '', name: '瞳孔大小右', textarea: { width: 33 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'reflectionLeft', event: keyf1, value: '', next: '', name: '光反射左', autoComplete: { data: dgfyList }, textarea: { width: 33 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'reflectionRight', event: keyf1, value: '', next: '', name: '光反射右', autoComplete: { data: dgfyList }, textarea: { width: 33 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 75 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SpO₂', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 12) },
   { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 75 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 12) },
   { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'colorTraits', event: keyf1, value: '', next: '', name: '颜色性状', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4)},
-  { key: 'fieldOne', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'fieldTwo', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'fieldThree', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'fieldFour', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'fieldFive', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'fieldSix', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'react', event: keyf1, value: '', next: '', name: '反应', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'cry', event: keyf1, value: '', next: '', name: '哭声', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'suckingForce', event: keyf1, value: '', next: '', name: '吸吮力', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'feedingWay', event: keyf1, value: '', next: '', name: '喂养方式', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'feedingType', event: keyf1, value: '', next: '', name: '喂养种类', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'oxygenMethod', event: keyf1, value: '', next: '', name: '吸氧方式', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'oxygenFlow', event: keyf1, value: '', next: '', name: '吸氧流量', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'skinColor', event: keyf1, value: '', next: '', name: '皮肤颜色', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'umbilicus', event: keyf1, value: '', next: '', name: '脐部情况', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'boxTemperature', event: keyf1, value: '', next: '', name: '箱温', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'weight', event: keyf1, value: '', next: '', name: '体重', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'bloodSugar', event: keyf1, value: '', next: '', name: '血糖', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'babyCare', event: keyf1, value: '', next: '', name: '新生儿护理', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'customItem2', event: keyf1, value: '', next: '', name: '', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
   {
     key: "description", //特殊情况记录
     value: "",
-    style: {
-      textAlign: "left",
-      position: "absolute",
-      top: "1px", bottom: "1px",
-      left: "1px", width: "180px",
-      background: "transparent" },
+    style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "180px", background: "transparent" },
     textarea: { width: 180 },
-    event: function (e, td) {
-      if (e.keyCode == 9) {
-         td.value = "    " + td.value;
-         e.preventDefault()
-        }
-         keyf1(e, td) }
+    event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
   },
   { key: "sign", value: "" },//单签
   // { key: "sign2", value: "" },//双签

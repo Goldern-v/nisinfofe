@@ -87,10 +87,10 @@
         <div class="showModal showModal2">
           催产素使用总量：
           <input
-            v-if="sheetInfo.sheetType==='oxytocin_dglb'"
+            v-if="sheetInfo.sheetType==='oxytocin_dglb'  "
             type="text"
             class="bottomInput bottom-line"
-            :data-value="sheetInfo.relObj[index+'totalOxytocin']"
+            :data-value="sheetInfo.relObj[index+'totalOxytocin'] "
             v-model="sheetInfo.relObj[index+'totalOxytocin']"
             @focus="onFocus($event,'totalOxytocin')"
             @blur="onBlur($event,'totalOxytocin')"
@@ -116,13 +116,12 @@
         <div class="showModal">
           分娩方式：
            <input
-            v-if="sheetInfo.sheetType==='oxytocin_dglb'"
+            v-if=" sheetInfo.sheetType==='oxytocin_dglb'||sheetInfo.sheetType==='oxytocin_sdry' "
             type="text"
             class="bottomInput bottom-line"
             :data-value="sheetInfo.relObj[index+'deliveryWay']"
             v-model="sheetInfo.relObj[index+'deliveryWay']"
-            @focus="onFocus($event)"
-            @blur="onBlur($event)"
+            @change="updateDeliveryWay($event)"
           />
           <input
             v-else
@@ -468,6 +467,12 @@ export default {
         `修改诊断`
       );
     },
+    updateDeliveryWay(e) {
+      this.sheetInfo.relObj[this.index+'deliveryWay'] = e.target.value;
+    },
+    isDeliveryWay(){
+
+    }
   },
   computed: {
     patientInfo() {
@@ -501,15 +506,18 @@ export default {
     if (this.sheetInfo.relObj && !this.sheetInfo.relObj["yyc_" + this.index]) {
       this.getDetail();
     }
-    if(this.sheetInfo.sheetType==='oxytocin_dglb'&&this.index!=0){
+    if(this.sheetInfo.sheetType==='oxytocin_sdry'  &&this.index!=0){
       // 催产素使用总量
       if(!this.sheetInfo.relObj[`${this.index}totalOxytocin`]){
          this.sheetInfo.relObj[`${this.index}totalOxytocin`]= this.sheetInfo.relObj[`${this.index-1}totalOxytocin`]
       }
       // 分娩方式     sheetInfo.relObj[index+'deliveryWay']
-      if(!this.sheetInfo.relObj[`${this.index}deliveryWay`]){
-         this.sheetInfo.relObj[`${this.index}deliveryWay`]= this.sheetInfo.relObj[`${this.index-1}deliveryWay`]
-      }
+      // if(!this.sheetInfo.relObj[`${this.index}deliveryWay`]){
+      //    this.sheetInfo.relObj[`${this.index}deliveryWay`]= this.sheetInfo.relObj[`${this.index-1}deliveryWay`]
+      // }
+    }
+    if(this.sheetInfo.relObj['deliveryWay']){
+      this.sheetInfo.relObj[index+'deliveryWay'] =  this.sheetInfo.relObj['deliveryWay']
     }
   },
   destroyed() {} /* fix vue-happy-bus bug */,
