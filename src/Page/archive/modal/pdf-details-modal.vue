@@ -17,8 +17,8 @@
           </el-checkbox>
         </div>
         <div class="pdf-details__title-right">
-          <el-button @click="queryPDFInfoList">刷新</el-button>
           <el-button @click="onTransformAll" v-if="isComplete">重转PDF</el-button>
+          <el-button @click="queryPDFInfoList">刷新</el-button>
         </div>
       </div>
       <div class="pdf-details__body">
@@ -220,6 +220,10 @@ export default {
     .el-dialog__header {
       text-align: center;
     }
+    // .el-dialog__body {
+    //   height: calc(100vh - 140px);
+    //   overflow: auto;
+    // }
   }
   .pdf-details__wrapper {
     width: 100%;

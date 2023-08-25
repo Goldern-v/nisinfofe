@@ -16,7 +16,7 @@
 
 
           <div class="sup-title" style = "border-bottom: 1px solid #000;">
-            血糖记录单
+            科内血糖记录单
           </div>
 
           <div class="info" style="margin-top: 0px">
@@ -24,11 +24,11 @@
             <span style="margin-left: 20px;">性别：{{ patientInfo.sex || tableHeaderInfo.gender }}</span>
             <span style="margin-left: 20px;">年龄：{{ resAge ? resAge : patientInfo.age||tableHeaderInfo.gender}}</span>
             <span style="margin-left: 20px;">床号：{{ resBedNol || patientInfo.bedLabel || tableHeaderInfo.bedLabel}}</span>
-            <span style="margin-left: 20px;">住院号：{{patientInfo.inpNo}}</span>
+            <span style="margin-left: 20px;">住院号：{{ tableHeaderInfo.inpNo || patientInfo.inpNo}}</span>
           </div>
           <div class="info" style="border-bottom: 1px solid #000;">
             <span>科室：{{ patientInfo.deptName || patientInfo.deptName ||tableHeaderInfo.deptName}}</span>
-            <span style="margin-left: 80px;">病区:{{$route.query.wardName}}</span>
+            <span style="margin-left: 80px;">病区:{{tableHeaderInfo.wardName || $route.query.wardName}}</span>
 
           </div>
 
@@ -364,7 +364,7 @@ export default {
       hisUserTitLeList:['huadu'],//表头用户信息通过获取用户信息接口获取的医院
       sugarUserInfo:{},//患者基础信息
       printRecord:[],
-      printRecordValue:''
+      printRecordValue:'',
     };
   },
   computed: {
@@ -436,7 +436,7 @@ export default {
         const timeArr=DateArr[1].split(":")
         const firstTime=`${timeArr[0]}:${timeArr[1]}`
 
-if(this.selected.expand2!==undefined){
+      if(this.selected.expand2!==undefined){
         item.expand2=2
         item.oldRecordDate=item.recordDate
         const fulltime=`${DateArr[0]} ${item.time}:00`

@@ -170,6 +170,7 @@ const archive = () => import("@/Page/archive/archive.vue"); //归档
 const archiveFuyou = () => import("@/Page/archive/archiveFuyou.vue"); //归档
 const archiveFSSY = () => import("@/Page/archive/archiveFSSY.vue"); //归档
 const archiveBeiHai = () => import("@/Page/archive/archiveBeiHai.vue"); //归档
+const archiveSDYY = () => import("@/Page/archive/archiveSDYY.vue"); //归档
 const familyBigScreen = () =>
   import("@/Page/family-big-screen/family-big-screen.vue"); //家属大屏
 const videoListSetting = () =>
@@ -752,12 +753,14 @@ const router = new Router({
             case 'foshanrenyi':
             case 'zhzxy':
             case 'whhk':
-            case 'nfyksdyy':
             case "stmz":
-            case "nfyksdyy":
               return archiveFSSY
+            // nfyksdyy本来是 archiveFSSY，改版归档用archiveSDYY，用archiveFSSY那些医院也要改就用archiveSDYY
+            case "nfyksdyy":
+              return archiveSDYY
             case "fuyou":
               return archiveFuyou
+            // beihairenyi本来是 archive，改版归档用archiveBeiHai，用archive那些医院也要改就用archiveBeiHai
             case "beihairenyi":
               return archiveBeiHai
             default:

@@ -66,11 +66,14 @@
       padding-top:0 ;
       // margin-top:0;
     }
-    >>> .blood-sugar-table.table-box td{
+    >>> .blood-sugar-table.table-box td {
       height: 41px;
+      .cell {
+        font-size: 14px;
+      }
     }
   }
-  &.beihairenyi {
+  &.beihairenyi, &.nfyksdyy {
     >>> .blood-sugar-table.table-box .noPrint {
       display: none;
     }
