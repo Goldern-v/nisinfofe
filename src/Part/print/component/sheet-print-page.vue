@@ -384,7 +384,8 @@ export default {
       this.HOSPITAL_ID === "lyyz" ||
       this.HOSPITAL_ID === "hj" ||
       this.HOSPITAL_ID === "nfyksdyy" ||
-      this.HOSPITAL_ID === "dglb"
+      this.HOSPITAL_ID === "dglb" ||
+      this.HOSPITAL_ID === "beihairenyi"
     ) {
       printDir("h");
       addCSS(
