@@ -46,30 +46,30 @@ export default [
       maxWidth:"45px"
     },
     textarea: { width: 50 },
-    autoComplete: { data: ["反应"] },
+    autoComplete: { data: ["好"] },
     change: (e, td) => limitChange(e, td, 8)
     // change: (e, td) => limitChange(e, td, 8)click: (e, td) => click_letter(e, td, "好"),
 },
   { key: 'cry', event: keyf1, value: '', next: '', name: '哭声',
-  textarea: { width: 50 },
+  textarea: { width: 45 },
   autoComplete: { data: ["响亮","弱"] },
   change: (e, td) => limitChange(e, td, 8)
     // click: (e, td) => click_double1(e, td, ["响亮","弱",""]) ,
 },
   { key: 'skinColor', event: keyf1, value: '', next: '', name: '皮肤颜色',
-  textarea: { width: 50 },
+  textarea: { width: 45 },
   autoComplete: { data: ["红润"," 黄染"] },
   change: (e, td) => limitChange(e, td, 8)
     // click: (e, td) => click_double1(e, td, ["红润"," 黄染",""]),
 },
   { key: 'suckingForce', event: keyf1, value: '', next: '', name: '吸吮力',
-  textarea: { width: 50 },
+  textarea: { width: 45 },
   autoComplete: { data: ["好", "一般","差"] },
   change: (e, td) => limitChange(e, td, 8)
     // click: (e, td) => click_double1(e, td, ["好", "一般","差",'']),
 },
   { key: 'breastFeeding', event: keyf1, value: '', next: '', name: '母乳喂养',
-  textarea: { width: 50 },
+  textarea: { width: 45 },
   autoComplete: { data: ["√"] },
   change: (e, td) => limitChange(e, td, 8)
     // click: (e, td) => click_letter(e, td, "√"),
