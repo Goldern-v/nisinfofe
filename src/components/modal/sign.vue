@@ -48,7 +48,7 @@
           :disabled="['nanfangzhongxiyi' ].includes(HOSPITAL_ID) && nanfangCa"
           placeholder="输入用户名或者工号"
           v-model="username"
-          :readonly="['foshanrenyi','weixian', 'fuyou'].includes(HOSPITAL_ID)"
+          :readonly="['foshanrenyi','weixian'].includes(HOSPITAL_ID)"
         ></el-input>
       </div>
     </span>
@@ -79,7 +79,7 @@
         </div>
       </div>
     </span>
-    <span v-else-if="(!['foshanrenyi','weixian', 'fuyou'].includes(HOSPITAL_ID)) || pw ">
+    <span v-else-if="(!['foshanrenyi','weixian'].includes(HOSPITAL_ID)) || pw ">
       <p for class="name-title">{{ label }}</p>
       <div ref="passwordInput">
         <el-input
@@ -102,7 +102,7 @@
       </p>
     </span>
 
-    <div v-if="['foshanrenyi','weixian', 'fuyou'].includes(HOSPITAL_ID)" style="margin-top: 5px">
+    <div v-if="['foshanrenyi','weixian'].includes(HOSPITAL_ID)" style="margin-top: 5px">
       <span @click="openCaSignModal" class="loginCa" v-if="!ca_isLogin"
         >登录证书</span
       >
@@ -380,7 +380,7 @@ export default {
         }else this.pw = false;
 
       // 如果已经是ca签名的情况下 点开签名弹窗 默认开启ca签名
-      if(['hj'].includes(this.HOSPITAL_ID)){
+      if(['hj', 'fuyou'].includes(this.HOSPITAL_ID)){
         if(this.fuyouCaData && this.fuyouCaData.userName) {
           this.isCaSign = true
           this.pw = true
