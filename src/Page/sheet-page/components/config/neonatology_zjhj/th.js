@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1280px"
+      width: "1320px"
     },
     th: {
         top:
@@ -30,6 +30,7 @@ export default {
                 {"name":"SpO₂<br/>%","colspan":"1","rowspan":"3"},
                 {"name":"入","colspan":"2","rowspan":"1"},
                 {"name":"出","colspan":"2","rowspan":"1"},
+                {"name":"颜<br/>色<br/>性<br/>状","colspan":"1","rowspan":"3"},
                 {"name":"反应","colspan":"1","rowspan":"3"},
                 {"name":"哭声","colspan":"1","rowspan":"3"},
                 {"name":"吸吮力","colspan":"1","rowspan":"3"},
