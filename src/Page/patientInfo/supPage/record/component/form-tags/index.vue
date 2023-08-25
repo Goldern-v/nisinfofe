@@ -76,8 +76,11 @@ export default {
       this.$emit('updateCurrentTag', tag);
       this.bus.$emit('highlightTreeNode', tag);
       if (tag.type) {
-
         if (type !== 'sheet' ||  this.types.includes(tag.type)) {
+          if (type === 'healthEducation') {
+            this.bus.$emit('openHealthEducation', tag);
+            return;
+          }
           this.bus.$emit('openOtherPage', tag, true);
         } else {
           this.bus.$emit('openSheetTag', tag);
