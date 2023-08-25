@@ -173,7 +173,7 @@ export default [
     value: "",
     next: "",
     name: "膀胱区",
-    autoComplete: { data: ["空虚", "轻度充盈", "中度轻盈","重度轻盈"] },
+    autoComplete: { data: ["空虚", "轻度充盈", "中度充盈","重度充盈"] },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
