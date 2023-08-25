@@ -279,6 +279,18 @@ export default {
                   `
                 );
               }
+              if(['internal_eval_linyi'].includes(this.sheetInfo.sheetType)){
+                addCSS(
+                  window,
+                  `
+                    @media print {
+                      .iframe > div:nth-of-type(2n) {
+                        height: ${sheetTableWidth * 0.7}px !important;
+                      }
+                    }
+                  `
+                );
+              }
               if(['common_wj'].includes(this.sheetInfo.sheetType)) {
                 addCSS(
                   window,
