@@ -384,21 +384,8 @@ export default {
     }
   },
     diagnosis() {
-      /** 最接近的index */
-      let realIndex = 0;
-      let keys = Object.keys(sheetInfo.relObj || {});
-      for (let i = 0; i < keys.length; i++) {
-        let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
-        if (keyIndex !== undefined) {
-          if (this.index >= keyIndex) {
-            if (this.index - keyIndex <= this.index - realIndex) {
-              realIndex = keyIndex;
-            }
-          }
-        }
-      }
       return (
-        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        (this.sheetInfo.relObj || {})[`PageIndex_diagnosis_${this.index}`] ||
         this.patientInfo.diagnosis
       );
     },
