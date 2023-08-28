@@ -264,7 +264,7 @@ export default {
                 );
               }
 
-              if(['lyxrm','huadu', 'stmz', 'wujing', 'zhzxy','nfyksdyy', 'fuyou'].includes(this.HOSPITAL_ID)) {
+              if(['lyxrm','huadu', 'stmz', 'wujing', 'zhzxy','nfyksdyy', 'fuyou', 'beihairenyi'].includes(this.HOSPITAL_ID)) {
                 addCSS(
                   window,
                   `
