@@ -183,6 +183,9 @@ export default {
       return this.$route.query;
     }
   },
+  mounted() {
+    this.bus.$on('openHealthEducation', this.getTableData);
+  },
   created() {
     this.init();
   },
@@ -254,10 +257,14 @@ export default {
       (this.blockId = id), this.getTableData();
     },
     // 获取表格数据
-    getTableData() {
+    getTableData(form) {
+      let blockId = this.blockId;
+      if (form && form.id) {
+        blockId = form.id;
+      }
       this.pageLoading = true;
       let { visitId, patientId } = this.$route.query;
-      getAllByPatientInfo(this.blockId)
+      getAllByPatientInfo(blockId)
         .then(res => {
           let data = res.data.data;
           this.pageParam = data.slice();

@@ -673,7 +673,7 @@ export default {
       },
       timesEven:  (() => {
         switch (this.HOSPITAL_ID) {
-          case "fsxy":
+          case "fsxt":
             return [
         {
           id: 0,

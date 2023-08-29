@@ -1290,6 +1290,7 @@ export default {
     }
   },
   beforeRouteLeave (to, from, next) {
+    console.log('beforeRouteLeave', to, from)
     /* 除了体温单模块和登出页面都触发解锁 */
     if(this.lockHospitalList.includes(this.HOSPITAL_ID) && from.fullPath.includes("sheet") && !to.fullPath.includes("login")){
       this.destroyUnlock()

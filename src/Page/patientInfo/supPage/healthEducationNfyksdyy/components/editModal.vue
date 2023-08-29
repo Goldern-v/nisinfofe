@@ -204,6 +204,9 @@ export default {
         this.form.signature = form["签名"] || "";
       } else {
         this.modalStatus = false;
+        if (this.HOSPITAL_ID === 'nfyksdyy') {
+          this.modalStatus = true;
+        }
         this.title = title;
         this.isOk = false;
         // 添加时清空表单

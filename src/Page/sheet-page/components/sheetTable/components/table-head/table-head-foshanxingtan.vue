@@ -386,7 +386,7 @@ export default {
     diagnosis() {
       /** 最接近的index */
       let realIndex = 0;
-      let keys = Object.keys(sheetInfo.relObj || {});
+      let keys = Object.keys(this.sheetInfo.relObj || {});
       for (let i = 0; i < keys.length; i++) {
         let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
         if (keyIndex !== undefined) {
@@ -398,7 +398,7 @@ export default {
         }
       }
       return (
-        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
+        (this.sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
         this.patientInfo.diagnosis
       );
     },
@@ -516,7 +516,7 @@ export default {
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
         (text) => {
-          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
           this.$message.success(`修改诊断成功`);
           this.bus.$emit("saveSheetPage", false);
         },

@@ -170,6 +170,7 @@ const archive = () => import("@/Page/archive/archive.vue"); //归档
 const archiveFuyou = () => import("@/Page/archive/archiveFuyou.vue"); //归档
 const archiveFSSY = () => import("@/Page/archive/archiveFSSY.vue"); //归档
 const archiveBeiHai = () => import("@/Page/archive/archiveBeiHai.vue"); //归档
+const archiveSDYY = () => import("@/Page/archive/archiveSDYY.vue"); //归档
 const familyBigScreen = () =>
   import("@/Page/family-big-screen/family-big-screen.vue"); //家属大屏
 const videoListSetting = () =>
@@ -232,6 +233,7 @@ const implementationListHengli = () =>
   import("@/Page/implementation-list/implementation-list-hengli.vue"); //横沥执行单
 const implementationListNanfangzhongxiyi = () =>
   import("@/Page/implementation-list/implementation-list-nanfangzhongxiyi.vue"); //横沥执行单
+const implementationListWhhk = () => import("@/Page/implementation-list/implementation-list-whhk.vue");
 
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 const bottleLabelByProgram = () => import("@/Page/implementation-list/bottle-sign-print.vue"); //瓶签打印
@@ -494,7 +496,6 @@ const getImplementation = () => {
     case 'zhongshanqi':
       return implementationListZhongshanqi
     case 'lyxrm':
-    case 'whhk':
     case '925':
     case 'zhzxy':
     case "stmz":
@@ -502,6 +503,8 @@ const getImplementation = () => {
     case 'dglb':
     case 'qhwy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
+    case 'whhk':
+      return implementationListWhhk;
     case 'wujing':
     case 'sdlj':
       return implementationListWujing
@@ -752,12 +755,14 @@ const router = new Router({
             case 'foshanrenyi':
             case 'zhzxy':
             case 'whhk':
-            case 'nfyksdyy':
             case "stmz":
-            case "nfyksdyy":
               return archiveFSSY
+            // nfyksdyy本来是 archiveFSSY，改版归档用archiveSDYY，用archiveFSSY那些医院也要改就用archiveSDYY
+            case "nfyksdyy":
+              return archiveSDYY
             case "fuyou":
               return archiveFuyou
+            // beihairenyi本来是 archive，改版归档用archiveBeiHai，用archive那些医院也要改就用archiveBeiHai
             case "beihairenyi":
               return archiveBeiHai
             default:

@@ -26,10 +26,18 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let ysList = ['清醒','嗜睡','昏睡','浅昏迷','深昏迷','谵妄','麻醉未醒', '其他']
-let dgfyList = ['灵敏（+）','迟钝（±）','消失（—）']
-const jkxjList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩']
-const ysxzList = ['棕黄粘稠', '墨绿粘稠', '淡黄澄清', '淡红血性', '鲜红血性', '暗红血性', '白色浑浊']
+const foodList = ["液体","糖水","母乳","配方奶","温开水","口服药","其他"]
+const dischargeList = ["尿","大便","痰","胃内容物","其他出量"]
+const fyList = ["好","一般","差", "无", "其他"]
+const ysxzList = ["淡黄色", "酱油色", "血尿", "胎粪", "黄色软便", "绿色软便", "黄色稀便", "绿色稀便", "白陶土样软便", "其他"]
+const ksList = ["无","低弱","响亮","其他"]
+const xslList = ["好","一般","差", "其他"]
+const wyfsList = ["奶瓶喂养","母乳喂养","口饲","泵奶","其他"]
+const wyzlList = ["母乳","配方奶","其他"]
+const xyList = ["头罩","暖箱内","面罩","鼻导管","其他"]
+const llList = ["1","2","3","4","5","6","7","8","9","10","其他"]
+const pfysList = ["红润","发绀","苍白","黄染","花斑纹","其他"]
+const qbqkList = ["脱痂","未脱痂","干洁","渗液","渗血","脐瘘","脐疝","其他"]
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -39,19 +47,20 @@ export default [
   { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP', textarea: { width: 50 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: 'SpO₂', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'food', event: keyf1, value: '', next: '', name: '入量内容', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 12), autoComplete: { data: foodList}, },
   { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '入量', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 12) },
+  { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 12), autoComplete: { data: dischargeList} },
   { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'react', event: keyf1, value: '', next: '', name: '反应', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'cry', event: keyf1, value: '', next: '', name: '哭声', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'suckingForce', event: keyf1, value: '', next: '', name: '吸吮力', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'feedingWay', event: keyf1, value: '', next: '', name: '喂养方式', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'feedingType', event: keyf1, value: '', next: '', name: '喂养种类', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'oxygenMethod', event: keyf1, value: '', next: '', name: '吸氧方式', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'oxygenFlow', event: keyf1, value: '', next: '', name: '吸氧流量', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'skinColor', event: keyf1, value: '', next: '', name: '皮肤颜色', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'umbilicus', event: keyf1, value: '', next: '', name: '脐部情况', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'colorTraits', event: keyf1, value: '', next: '', name: '颜色性状', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: ysxzList} },
+  { key: 'react', event: keyf1, value: '', next: '', name: '反应', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: fyList} },
+  { key: 'cry', event: keyf1, value: '', next: '', name: '哭声', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: ksList} },
+  { key: 'suckingForce', event: keyf1, value: '', next: '', name: '吸吮力', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: xslList} },
+  { key: 'feedingWay', event: keyf1, value: '', next: '', name: '喂养方式', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: wyfsList} },
+  { key: 'feedingType', event: keyf1, value: '', next: '', name: '喂养种类', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: wyzlList} },
+  { key: 'oxygenMethod', event: keyf1, value: '', next: '', name: '吸氧方式', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: xyList} },
+  { key: 'oxygenFlow', event: keyf1, value: '', next: '', name: '吸氧流量', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: llList} },
+  { key: 'skinColor', event: keyf1, value: '', next: '', name: '皮肤颜色', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: pfysList} },
+  { key: 'umbilicus', event: keyf1, value: '', next: '', name: '脐部情况', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8), autoComplete: { data: qbqkList} },
   { key: 'boxTemperature', event: keyf1, value: '', next: '', name: '箱温', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'weight', event: keyf1, value: '', next: '', name: '体重', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'bloodSugar', event: keyf1, value: '', next: '', name: '血糖', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
