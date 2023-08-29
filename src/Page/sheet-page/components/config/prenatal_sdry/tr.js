@@ -96,7 +96,7 @@ export default [
     value: "",
     next: "℃",
     name: "体温",
-    textarea: { width: 30 },
+    textarea: { width: 35 },
     change: (e, td) => limitChange(e, td, 2)
   },
   {
@@ -388,10 +388,10 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "210px",
+      width: "220px",
       background: "transparent"
     },
-    textarea: { width: 200 },
+    textarea: { width: 210 },
     event: function(e, td) {
       if (e.keyCode == 9) {
         td.value = "    " + td.value;
