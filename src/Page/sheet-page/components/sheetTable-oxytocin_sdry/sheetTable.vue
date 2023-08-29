@@ -41,7 +41,7 @@
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号:
-        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+        <div class="bottom-line" style="min-width: 55px">{{patientInfo.bedLabel}}</div>
       </span>
       <span>
         住院号:

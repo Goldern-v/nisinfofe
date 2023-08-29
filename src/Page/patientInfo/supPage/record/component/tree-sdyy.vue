@@ -313,7 +313,7 @@ import { getFormConfig } from "../config/form-config.js";
 import { hadTransferToWard } from "../api/index.js";
 import { DATA_CHANGE } from "@/utils/localStorage";
 import { blockList } from "@/Page/sheet-page/api/index";
-
+import { getPvHomePage } from "@/Page/patientInfo/supPage/blood-sugar/api/index.js"
 export default {
   props: {
     filterObj: Object,
@@ -625,7 +625,8 @@ export default {
       Promise.all([
         groupList(params.patientId, params.visitId),
         blockList(params.patientId, params.visitId, params.deptCode),
-        getEduFormList({ patientId: params.patientId, visitId: params.visitId })
+        getEduFormList({ patientId: params.patientId, visitId: params.visitId }),
+        getPvHomePage(params.patientId, params.visitId)
       ])
         .then(res => {
           let index = 0;
@@ -723,7 +724,17 @@ export default {
           list_1 = list_1.filter(
             item => item.formCode != "form_transfusion_safety"
           );
-
+          // 顺德人医血糖模块需要创建标识(折叠图标，点击1级菜单就打开也是他们确定过的)
+          if (['nfyksdyy'].includes(this.HOSPITAL_ID) && res[3].data.data) {
+            list_3 = {
+              label: "血糖单",
+              type: "bloodSugar",
+              children: [{
+                label: "血糖单",
+                type: "bloodSugar"
+              }]
+            }
+          }
           //区分患者转科------------------------------------------------------------------------------------------------------
           if (process.env.formPage_change_major) {
             let newList = [];

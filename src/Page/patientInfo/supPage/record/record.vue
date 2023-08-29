@@ -72,7 +72,6 @@ import templateSlideFoshanshiyi from '@/Page/sheet-hospital-admission/components
 import diagnosisSlide from "@/Page/sheet-hospital-eval/components/Render/modal/diagnosisSlide.vue";
 import diagnosisModal from "@/Page/sheet-hospital-admission/components/Render/modal/diagnosis-modal.vue";
 import TreeSdyy from './component/tree-sdyy.vue';
-import { format } from 'element-ui/lib/utils/date';
 export default {
   props: {
     filterObj: Object
