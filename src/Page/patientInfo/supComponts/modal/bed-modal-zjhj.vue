@@ -18,7 +18,7 @@
       </div> -->
       <!-- <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" /> -->
       <div class="wrist-line2">
-        <span>{{ query.wardName }}</span>&nbsp;
+        <span>{{ query.deptName }}</span>&nbsp;
         <span>
           入院时间：{{ moment(query.admissionDate).format("YYYY-MM-DD") }}
         </span>
@@ -85,7 +85,7 @@
             class="input-item input-item-row" >
               <div class="fontSize-50">{{query.sex}}</div>
               <div class="fontSize-50" >{{query.age}}</div>
-              <div class="fontSize-50-1">{{wardName}}</div>
+              <div class="fontSize-50-1">{{deptName}}</div>
             </div>
             <div flex="cross:center" class="input-item" style="width:auto;height:50px">
               <div style="display:flex " >

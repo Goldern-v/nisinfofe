@@ -35,7 +35,10 @@
           <div class="aside" :style="inToday(data.admissionDate) && {color:'red'}">
             入院：{{`${FormatData(data.admissionDate)}（第${data.inpDay}天）`}}
           </div>
-          <div class="aside"><span class="doctor">医生：{{data.doctorInCharge}}</span><span class="nurse" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">责任护士：{{data.dutyNurse}}</span></div>
+          <div class="aside"><span class="doctor">医生：{{data.doctorInCharge}}</span>
+            <span class="nurse" v-if="HOSPITAL_ID == 'zjhj'">过敏史：{{data.drugGms}}</span>
+            <span class="nurse" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">责任护士：{{data.dutyNurse}}</span>
+          </div>
           <div class="aside">诊断：{{data.diagnosis}}</div>
         </div>
         <el-row class="card-footer" type="flex" justify="space-between" align="middle" flex="cross: center">
