@@ -192,7 +192,7 @@ export function cleanDataOnly() {
     }
 
     // 临邑日期时间禁用符号，识别该行已经被占用
-    if (['whhk', 'stmz','foshanrenyi','nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
+    if (['whhk', 'stmz','foshanrenyi'].includes(process.env.HOSPITAL_ID)) {
       if (listData[nowX]) {
         // 第一条记录
         const firstEqualIndex = listData.findIndex(

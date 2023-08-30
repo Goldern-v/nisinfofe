@@ -6,47 +6,35 @@
       title="归档打印"
       :enable-mobile-fullscreen="false"
     >
-      <div class="list-con">
-        <span class="key">责任护士：</span>
-        <div class="value">
-           <el-select
-              class="select-multi"
-              filterable
-              v-model="details.dutyNurse"
-              placeholder="请选择"
-            >
-              <el-option
+    <el-form  :rules="rules" 
+    :model="form" label-width="100px" 
+    ref="ruleForm" class="demo-form-inline">
+      <el-form-item label="责任护士：" prop="dutyNurse">
+        <el-select class="select-multi" v-model="form.dutyNurse" filterable placeholder="请选择">
+          <el-option
                 v-for="item in memberLists"
                 :key="item"
                 :label="item"
                 :value="item"
               ></el-option>
-            </el-select>
-        </div>
-      </div>
-      <div class="list-con">
-        <span class="key">质控护士：</span>
-        <div class="value">
-           <el-select
-              class="select-multi"
-              filterable
-              v-model="details.qcNurse"
-              placeholder="请选择"
-            >
-              <el-option
+        </el-select>
+      </el-form-item>
+      <el-form-item label="质控护士：" prop="qcNurse">
+        <el-select class="select-multi" filterable v-model="form.qcNurse" placeholder="请选择">
+          <el-option
                 v-for="item in memberLists"
                 :key="item"
                 :label="item"
                 :value="item"
               ></el-option>
-            </el-select>
-          <!-- <el-input v-model="details.qcNurse" placeholder="请输入名字" ></el-input> -->
-        </div>
-      </div>
-      <div slot="button">
-        <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" @click="confirm">确定</el-button>
-      </div>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+          <el-button class="modal-btn" @click="close">取消</el-button>
+          <el-button class="modal-btn" @click="confirm('ruleForm')">确定</el-button>
+      </el-form-item>
+    </el-form>
+     
     </sweet-modal>
   </div>
 </template>
@@ -99,7 +87,19 @@ export default {
       details: {},
       iconLoading: false,
       item: {},
-      memberLists:[]
+      memberLists:[],
+      form:{
+        dutyNurse: '', //责任护士
+        qcNurse:'' //质控护士
+      },
+      rules: {
+        dutyNurse: [
+          { required: true, message: '请选择责任护士',  trigger: "change"},
+        ],
+        qcNurse: [
+          { required: true, message: '请选择质控护士',  trigger: "change"}
+        ],
+      },
     };
   },
   props: {
@@ -125,6 +125,7 @@ export default {
       this.$refs.modal.open();
     },
     close() {
+      this.$refs.ruleForm.resetFields();
       this.$refs.modal.close();
       this.details.dutyNurse = '',
       this.details.qcNurse = ''
@@ -145,8 +146,16 @@ export default {
         });
     },
     confirm() {
-      this.uploadFileArchive();
-      this.close();
+      this.$refs['ruleForm'].validate((valid) => {
+          if (valid) {
+            this.uploadFileArchive();
+            this.close();
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      
     }
   },
   components: {}

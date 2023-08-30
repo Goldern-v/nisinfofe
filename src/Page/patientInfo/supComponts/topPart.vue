@@ -358,7 +358,7 @@
         360视图
       </div>
       <router-link
-        v-if="HOSPITAL_ID === 'whsl'"
+        v-if="HOSPITAL_ID === 'whsl' || HOSPITAL_ID === 'fsxt'"
         :to="{
           path: '/patientNursingRound',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -368,21 +368,7 @@
         <div class="nav-item">护理巡视</div>
       </router-link>
       <router-link
-        v-if="HOSPITAL_ID === 'ytll' || HOSPITAL_ID === 'hj'"
-        :to="{
-          path: '/implementationPerson',
-          query: {
-            patientId: query.patientId,
-            visitId: query.visitId,
-            bedLabel: query.bedLabel
-          }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">执行记录</div>
-      </router-link>
-      <router-link
-        v-if="['whsl', 'nfyksdyy'].includes(HOSPITAL_ID)"
+        v-if=" ['whsl', 'nfyksdyy', 'fsxt', 'ytll', 'hj'].includes(HOSPITAL_ID)"
         :to="{
           path: '/implementationPerson',
           query: {

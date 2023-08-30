@@ -90,7 +90,7 @@
               v-if="
                 isEdit &&
                 scope.row.executeDateTime &&
-                scope.row.executeFlag != 4
+                scope.row.executeFlag != 4 && scope.row.executeFlag != 8
               "
               >补执行</el-button
             >
@@ -267,7 +267,7 @@
     }
 
     .pink {
-      background-color: pink;
+      background-color: #FFFFc6;
     }
     .red {
       background-color: #ec7373;
@@ -641,7 +641,7 @@ export default {
       }
       if (row.row.executeFlag == 4) {
         return "green";
-      } else if (row.row.executeFlag == 1) {
+      } else if (row.row.executeFlag == 8) {
         return "pink";
       }
       return ''

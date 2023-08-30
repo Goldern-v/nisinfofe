@@ -41,6 +41,8 @@
           class="record-tree"
           :data="regions"
           highlight-current
+          render-after-expand
+          render-after-load
           :render-content="renderContent"
           :default-expand-all="HOSPITAL_ID == 'whfk' && !isPersonage"
           @node-click="nodeClick"
@@ -334,7 +336,7 @@ import fileiconYellow from "@/common/images/record/文件黄点.png";
 import fileboxYellow from "@/common/images/record/文件夹黄点.png";
 
 import { SweetModal, SweetModalTab } from "@/plugin/sweet-modal-vue";
-import BatchAuditForm from '../modal/BatchAuditForm.vue'
+import BatchAuditForm from "../modal/BatchAuditForm.vue";
 import {
   listPatientRecord,
   emrList,
@@ -342,7 +344,7 @@ import {
   groupListHuadu,
   getInstanceByPatientInfo,
   listRecord,
-  getBlockByPV,
+  getBlockByPV
 } from "@/api/patientInfo";
 import moment from "moment";
 import commonData from "@/api/commonData"; //入院HIS数据等
@@ -351,12 +353,12 @@ import newForm from "../modal/new-form.vue";
 import commonMixin from "@/common/mixin/common.mixin";
 import { getFormConfig } from "../config/form-config.js";
 import { hadTransferToWard } from "../api/index.js";
-import { DATA_CHANGE } from '@/utils/localStorage'
+import { DATA_CHANGE } from "@/utils/localStorage";
 
 export default {
   props: {
     filterObj: Object,
-    hasTagsView: Boolean,
+    hasTagsView: Boolean
   },
   mixins: [commonMixin],
   data() {
@@ -371,16 +373,16 @@ export default {
       isShow: true, //护理文书菜单列是否展示
       isActive: false, //是否点击收起图标
       isPersonage: false, //是否为个人详情打开
-      hisLeftList: ["wujing", 'huadu'], //是否要开放左侧收缩功能医院
+      hisLeftList: ["wujing", "huadu"], //是否要开放左侧收缩功能医院
       batchAuditDialog: false, // 批量审核表单弹框
       batchAuditForms: {}, // 批量审核节点数据
-      lockHospitalList:['huadu'],//配置了评估单锁定功能的医院
+      lockHospitalList: ["huadu"], //配置了评估单锁定功能的医院
     };
   },
   computed: {
     // 标签高度
     tagsViewHeight() {
-      return this.hasTagsView ? 35 : 0
+      return this.hasTagsView ? 35 : 0;
     },
     wih() {
       return this.$store.state.common.wih;
@@ -397,7 +399,7 @@ export default {
     },
     openLeft() {
       return this.$store.state.sheet.openWritTreeLeft;
-    },
+    }
   },
   watch: {
     "$route.params"() {
@@ -405,7 +407,7 @@ export default {
         this.regions = [];
         this.bus.$emit("closeAssessment");
       }
-    },
+    }
   },
   methods: {
     toOpenLeft() {
@@ -438,7 +440,7 @@ export default {
         formCode: "form_transfusion_safety",
         nooForm: 2,
         pageUrl: "输血安全护理记录单.html",
-        children: this.formTransfusionSafety.map((option) => {
+        children: this.formTransfusionSafety.map(option => {
           return {
             status: option.status,
             label: `${option.creatDate}
@@ -450,9 +452,9 @@ export default {
                   }`,
             // ${option.status == 0 ? "T" : option.status}`,
             form_id: option.id,
-            formName: "输血安全护理记录单",
+            formName: "输血安全护理记录单"
           };
-        }),
+        })
       };
     },
     createListHd() {
@@ -461,30 +463,34 @@ export default {
         formCode: "E0314",
         nooForm: 2,
         pageUrl: "输血安全护理记录单.html",
-        children: this.formTransfusionSafety.map((option) => {
+        children: this.formTransfusionSafety.map(option => {
           return {
             status: option.status,
             label: `${option.evalDate.substring(0, 16)}
                   ${option.signerNo}`,
             // ${option.status == 0 ? "T" : option.status}`,
             form_id: option.entityId,
-            formName: "输血安全护理记录单",
+            formName: "输血安全护理记录单"
           };
-        }),
+        })
       };
     },
     async nodeClick(data, node) {
-      let isChange = localStorage.getItem(DATA_CHANGE)
-      isChange = isChange ? JSON.parse(isChange) : false
-      if (isChange && node.level == 2 && ['925','nfyksdyy'].includes(this.HOSPITAL_ID)) {
-      // if (node.level == 2) {
+      let isChange = localStorage.getItem(DATA_CHANGE);
+      isChange = isChange ? JSON.parse(isChange) : false;
+      if (
+        isChange &&
+        node.level == 2 &&
+        ["925", "nfyksdyy"].includes(this.HOSPITAL_ID)
+      ) {
+        // if (node.level == 2) {
         const comfirm = await this.$confirm(
           "入院评估单还未保存，是否需要离开页面?",
           "提示",
           {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
-            type: "warning",
+            type: "warning"
           }
         )
           .then(() => {
@@ -493,13 +499,13 @@ export default {
             //   message: "退出成功!",
             // });
             // this.$store.state.admittingSave.admittingSave = true;
-            localStorage.setItem(DATA_CHANGE, false)
+            localStorage.setItem(DATA_CHANGE, false);
             return true;
           })
           .catch(() => {
             this.$message({
               type: "info",
-              message: "已取消",
+              message: "已取消"
             });
             return false;
           });
@@ -507,36 +513,38 @@ export default {
       }
 
       // 临邑评估单保存前的滚动定位
-      if (node.level === 1 && ['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
-        sessionStorage.removeItem('evalScrollTop')
+      if (node.level === 1 && ["lyxrm", "stmz"].includes(this.HOSPITAL_ID)) {
+        sessionStorage.removeItem("evalScrollTop");
       }
 
       try {
         this.bus.$emit("activeAllButons");
         window.app.$CRMessageBox.notifyBox.close();
-      } catch (error) {
-      }
+      } catch (error) {}
       if (node.level === 2) {
         // 当点击2级栏目就是这里做操作，不知道是否能进入。所以先清空
-        if(this.lockHospitalList.includes(this.HOSPITAL_ID)){
-         localStorage.setItem("lockForm",'')
+        if (this.lockHospitalList.includes(this.HOSPITAL_ID)) {
+          localStorage.setItem("lockForm", "");
         }
         if (node.parent.label != "记录单") {
-          this.$emit('openFormTag', Object.assign({}, getFormConfig(node.data.formName), {
-            id: node.data.form_id,
-            formCode: node.parent.data.formCode,
-            showCurve: node.parent.data.showCurve,
-            creator: node.parent.data.creator,
-            listPrint: node.parent.data.listPrint,
-            nooForm: node.parent.data.nooForm,
-            pageUrl: node.parent.data.pageUrl,
-            pageItem: data.pageTitle,
-            status: data.status,
-            missionId: data.missionId,
-            pageIndex: node.data.pageIndex,
-            evalDate: node.data.label.slice(0, 16),
-            node,
-          }))
+          this.$emit(
+            "openFormTag",
+            Object.assign({}, getFormConfig(node.data.formName), {
+              id: node.data.form_id,
+              formCode: node.parent.data.formCode,
+              showCurve: node.parent.data.showCurve,
+              creator: node.parent.data.creator,
+              listPrint: node.parent.data.listPrint,
+              nooForm: node.parent.data.nooForm,
+              pageUrl: node.parent.data.pageUrl,
+              pageItem: data.pageTitle,
+              status: data.status,
+              missionId: data.missionId,
+              pageIndex: node.data.pageIndex,
+              evalDate: node.data.label.slice(0, 16),
+              node
+            })
+          );
           this.bus.$emit(
             "openAssessmentBox",
             Object.assign({}, getFormConfig(node.data.formName), {
@@ -561,7 +569,7 @@ export default {
           Object.assign({}, getFormConfig(node.data.formName), {
             pageUrl: node.data.pageUrl,
             nooForm: node.data.nooForm,
-            islink: node.data.islink,
+            islink: node.data.islink
           })
         );
       }
@@ -569,288 +577,352 @@ export default {
     renderContent(h, { node, data, store }) {
       //未签名
       let hasSave =
-        node.childNodes.filter((item) => {
+        node.childNodes.filter(item => {
           return item.data.status == "0";
         }).length > 0;
 
       //已签名
       let hasSign =
-        node.childNodes.filter((item) => {
+        node.childNodes.filter(item => {
           return item.data.status == "1";
         }).length > 0;
 
       let fileHasSave = node.data.status == 0;
       let fileHasSign = node.data.status == 1;
-      let fileHasAudit = node.data.status == 2;
-      let icon;
-      let box;
-
-      let formNoSign = node.data.formTreeRemindType == "0"; // 无签名
+      let icon, box;
       let formSign = node.data.formTreeRemindType == "1"; // 责任（多人签名）
       let formAudit = node.data.formTreeRemindType == "2"; // 责任 + 审核
-
-      let isNoicon = node.data.status && (node.data.formTreeRemindType ==  node.data.status)
-      // 花都特殊处理
-      if (
-        this.HOSPITAL_ID == "huadu" ||
-        this.HOSPITAL_ID == "liaocheng" ||
-        this.HOSPITAL_ID == "zhongshanqi" ||
-        this.HOSPITAL_ID == "foshanrenyi" ||
-        this.HOSPITAL_ID == "weixian" ||
-        this.HOSPITAL_ID == "zzwy" ||
-        this.HOSPITAL_ID === "hj"
-      ) {
+      if (this.HOSPITAL_ID == "foshanrenyi") {
         // 文件夹
         // 责任 + 审核的情况
         if (formAudit) {
           // 责任 + 审核的情况
-          if (this.HOSPITAL_ID == "zhongshanqi") {
-            // 中山七颜色处理
-            if (hasSave) {
-              box = fileboxYellow;
-            } // 未签名
-            else if (hasSign) {
-              box = fileboxRed;
-            } // 责任 + 审核的情况 责任签名
-            else if (fileHasSave) {
-              icon = fileiconYellow;
-            } // 未签名
-            else if (fileHasSign) {
-              icon = fileiconRed;
-            } // 未签名
-            else {
-              box = fileboxGreen;
-              icon = fileiconGreen;
-            } // 未签名
-          } else {
-            if (hasSave) {
-              box = fileboxRed;
-            } // 未签名
-            else if (hasSign) {
-              box = fileboxGreen;
-              if(['E1671','E1670','E0136'].includes(data.formCode) && this.HOSPITAL_ID === "hj"){
-              /*儿童的跌倒单特殊处理，护士签名后不显示绿点*/
-              /*成人的跌倒单特殊处理，护士签名后不显示绿点*/
-              /*躁动-镇静评分（RASS）单特殊处理，护士签名后不显示绿点*/
-                box = filebox;
-              }
-            } // 责任 + 审核的情况 责任签名
-            else if (fileHasSave) {
-              icon = fileiconRed;
-            } // 未签名
-            else if (fileHasSign) {
-              icon = fileiconGreen;
-              if(( data.formName=='东莞厚街 Morse跌倒评估及护理记录'||data.formName=='躁动-镇静评分（RASS）'||data.formName=='东莞厚街儿童跌倒、坠床护理单' && this.HOSPITAL_ID === "hj")){
-                /*儿童的跌倒单特殊处理，护士签名后不显示绿点*/
-                /*成人的跌倒单特殊处理，护士签名后不显示绿点*/
-                /*躁动-镇静评分（RASS）单特殊处理，护士签名后不显示绿点*/
-                icon = fileicon;
-              }
-            } //责任签名
-            else {
-              box = filebox;
-              icon = fileicon;
-            }
+          if (hasSave) {
+            box = fileboxRed;
+          } // 未签名
+          else if (hasSign) {
+            box = fileboxGreen;
+          } // 责任 + 审核的情况 责任签名
+          else if (fileHasSave) {
+            icon = fileiconRed;
+          } // 未签名
+          else if (fileHasSign) {
+            icon = fileiconGreen;
+          } //责任签名
+          else {
+            box = filebox;
+            icon = fileicon;
           }
         }
         // 责任（多人签名）的情况
         else if (formSign) {
-          if (this.HOSPITAL_ID == "zhongshanqi") {
-            // 责任（多人签名）的情况 未签名
-            if (hasSave) {
-              box = fileboxYellow;
-            } // 未签名
-            else if (hasSign) {
-              box = fileboxGreen;
-            } // // 责任（多人签名）的情况 责任签名
-            else if (fileHasSave) {
-              icon = fileiconYellow;
-            } else if (fileHasSign) {
-              icon = fileiconGreen;
-            } else {
-              box = fileboxGreen;
-              icon = fileiconGreen;
-            } // // 责任（多人签名）的情况 责任签名
+          if (hasSave) {
+            box = fileboxRed;
+          } // 未签名
+          else if (hasSign) {
+            box = filebox;
+          } // 责任（多人签名）的情况 责任签名
+          else if (fileHasSave) {
+            icon = fileiconRed;
+          } else if (fileHasSign) {
+            icon = fileicon;
           } else {
-            if (hasSave) {
-              box = fileboxRed;
-            } // 未签名
-            else if (hasSign) {
-              box = filebox;
-            } // 责任（多人签名）的情况 责任签名
-            else if (fileHasSave) {
-              icon = fileiconRed;
-            } else if (fileHasSign) {
-              icon = fileicon;
-            } else {
-              box = filebox;
-              icon = fileicon;
-            }
+            box = filebox;
+            icon = fileicon;
           }
         } else {
           // 没有签名的情况
           box = filebox;
           icon = fileicon;
         }
-      } else {
-        // 文件夹
-        if (hasSave) {
-          box = fileboxRed;
-        } else if (hasSign) {
-          box = fileboxGreen;
-        }
-        else {
-          box = filebox;
-        }
-        // 内容
-        if (fileHasSave) {
-          icon = fileiconRed;
-        } else if (fileHasSign) {
-          icon = fileiconGreen;
-        } else {
-          icon = fileicon;
-        }
-      }
-      // 多行表单签名状态（佛医）
-      const style = {} // 文件夹
-      const pageStyle = {} // 每张表单
-      if (this.HOSPITAL_ID === 'foshanrenyi') {
+        // 多行表单签名状态（佛医）
+        const style = {}; // 文件夹
+        const pageStyle = {}; // 每张表单
         // signStatus: 0 - 完成，1 - 未签名（责任签名），2 - 未审核
         // 多行表单（表内多行签名状态判断）
         if (data.multiLine) {
           const formsSign = node.data.fillRemindType == "1"; // 只有一个签名（责任签名）
           const formsAudit = node.data.fillRemindType == "2"; // 责任 + 审核
           // 是否有表单多行内未签名（责任签名）
-          const hasPageNotSign = node.childNodes.filter((item) => {
-            return item.data.signStatus === "1";
-          }).length > 0;
+          const hasPageNotSign =
+            node.childNodes.filter(item => {
+              return item.data.signStatus === "1";
+            }).length > 0;
           // 是否有表单多行内未审核
-          const hasPageNotAudit = node.childNodes.filter((item) => {
-            return item.data.signStatus === "2";
-          }).length > 0;
-          const currentPageNotSign = node.data.signStatus === '1' // 当前表单多行内未签名（责任签名）
-          const currentPageNotAudit = node.data.signStatus === '2' // 当前表单多行内未审核
-          if (formsSign) { // 表单多行内只有签名（责任）
-            if (hasPageNotSign) { // 存在表单目录下有表单多行内未签名（责任签名）
-              style.color = 'red'
+          const hasPageNotAudit =
+            node.childNodes.filter(item => {
+              return item.data.signStatus === "2";
+            }).length > 0;
+          const currentPageNotSign = node.data.signStatus === "1"; // 当前表单多行内未签名（责任签名）
+          const currentPageNotAudit = node.data.signStatus === "2"; // 当前表单多行内未审核
+          if (formsSign) {
+            // 表单多行内只有签名（责任）
+            if (hasPageNotSign) {
+              // 存在表单目录下有表单多行内未签名（责任签名）
+              style.color = "red";
             }
-            if (currentPageNotSign) { // 当前表单多行内未签名（责任签名）
-              pageStyle.color = 'red'
+            if (currentPageNotSign) {
+              // 当前表单多行内未签名（责任签名）
+              pageStyle.color = "red";
             }
-          } else if (formsAudit) { // 表单多行内有两个签名，责任 + 审核
-            if (hasPageNotSign) { // 存在表单目录下有表单多行内未签名（责任签名）
-              style.color = 'red'
-            } else if (hasPageNotAudit) { // 存在表单目录下有表单多行内未审核
-              style.color = '#27a45e'
+          } else if (formsAudit) {
+            // 表单多行内有两个签名，责任 + 审核
+            if (hasPageNotSign) {
+              // 存在表单目录下有表单多行内未签名（责任签名）
+              style.color = "red";
+            } else if (hasPageNotAudit) {
+              // 存在表单目录下有表单多行内未审核
+              style.color = "#27a45e";
             }
-            if (currentPageNotSign) { // 当前表单多行内未签名（责任签名）
-              pageStyle.color = 'red'
-            } else if (currentPageNotAudit) { // 当前表单多行内未审核
-              pageStyle.color = '#27a45e'
+            if (currentPageNotSign) {
+              // 当前表单多行内未签名（责任签名）
+              pageStyle.color = "red";
+            } else if (currentPageNotAudit) {
+              // 当前表单多行内未审核
+              pageStyle.color = "#27a45e";
             }
           }
         }
-      }
-      let viewDom = h();
-      if (this.HOSPITAL_ID === "liaocheng" || this.HOSPITAL_ID === "quzhou") {
-        viewDom = h(
-          "div",
-          {
-            class: { view: true },
-            on: { click: (e) => this.handleViewClick(e, node, data) },
-          },
-          [h("i", { class: { "el-icon-view": true } })]
-        );
-      }
-      if (node.level !== 2) {
-        if (["foshanrenyi","lyxrm", 'whhk', 'stmz', 'gdtj'].includes(this.HOSPITAL_ID)) {
-          this.batchAuditForms = node.data
+        if (node.level !== 2) {
+          this.batchAuditForms = node.data;
           return (
             <span class="tree-box-node2">
               <span class="box-label">
-                <img src={box}/>
-                <span style={ style }>{node.label}</span>
+                <img src={box} />
+                <span style={style}>{node.label}</span>
               </span>
-              {
-                node.data.canBatchAudit &&
+              {node.data.canBatchAudit && (
                 <el-button
                   type="text"
                   size="mini"
-                  on-click={
-                    (e) => this.batchAudit(e, node,this.$route.query)
-                  }
+                  on-click={e => this.batchAudit(e, node, this.$route.query)}
                 >
                   批量审核
                 </el-button>
-              }
+              )}
             </span>
-          )
+          );
         } else {
-           /* 逻辑一直没改过。但是有一次发包过去厚街，医院非说这两张表以前没有状态的。直接强制去掉 */
-          if( (node.label=="生长发育评估量表"||node.label=="住院病人处理单") && this.HOSPITAL_ID=='hj'){
-            box = filebox;
-          }
-          return h("span", { class: { "tree-box-node": true }, attrs: { title: node.label } }, [
-            h("img", { attrs: { src: box } }),
-            h("span", {}, node.label),
-            viewDom,
-          ]);
-        }
-      } else {
-        if (this.HOSPITAL_ID == "foshanrenyi") {
-
           let pageIndex = node.parent.childNodes.map((item, index) => {
             if (item.id == data.$treeNodeId) {
               return index - node.parent.childNodes.length;
             }
           });
           let pages = String(
-            pageIndex.find((item) => item !== undefined)
+            pageIndex.find(item => item !== undefined)
           ).substring(1);
           return h("span", { class: { "tree-node": true }, style: pageStyle }, [
             h("img", { attrs: { src: icon } }),
             h("span", {}, `第${pages}页`),
-            h("span", {}, node.label),
-          ]);
-        } else {
-          /* 逻辑一直没改过。但是有一次发包过去厚街，医院非说这两张表以前没有状态的。直接强制去掉 */
-          if( (data.formName=="生长发育评估量表"||data.formName=="住院病人处理单") && this.HOSPITAL_ID=='hj'){
-             icon = fileicon;
-          }
-          return h("span", { class: { "tree-node": true } }, [
-            h("img", { attrs: { src: icon } }),
-            h("span", {}, node.label),
+            h("span", {}, node.label)
           ]);
         }
+      } else {
+        if (
+          ["huadu", "liaocheng", "zhongshanqi", "weixian", "zzwy", "hj"].includes(
+            this.HOSPITAL_ID
+          )
+        ) {
+          // 文件夹
+          // 责任 + 审核的情况
+          if (formAudit) {
+            // 责任 + 审核的情况
+            if (this.HOSPITAL_ID == "zhongshanqi") {
+              // 中山七颜色处理
+              if (hasSave) {
+                box = fileboxYellow;
+              } // 未签名
+              else if (hasSign) {
+                box = fileboxRed;
+              } // 责任 + 审核的情况 责任签名
+              else if (fileHasSave) {
+                icon = fileiconYellow;
+              } // 未签名
+              else if (fileHasSign) {
+                icon = fileiconRed;
+              } // 未签名
+              else {
+                box = fileboxGreen;
+                icon = fileiconGreen;
+              } // 未签名
+            } else {
+              if (hasSave) {
+                box = fileboxRed;
+              } // 未签名
+              else if (hasSign) {
+                box = fileboxGreen;
+                if (
+                  ["E1671", "E1670", "E0136"].includes(data.formCode) &&
+                  this.HOSPITAL_ID === "hj"
+                ) {
+                  /*儿童的跌倒单特殊处理，护士签名后不显示绿点*/
+                  /*成人的跌倒单特殊处理，护士签名后不显示绿点*/
+                  /*躁动-镇静评分（RASS）单特殊处理，护士签名后不显示绿点*/
+                  box = filebox;
+                }
+              } // 责任 + 审核的情况 责任签名
+              else if (fileHasSave) {
+                icon = fileiconRed;
+              } // 未签名
+              else if (fileHasSign) {
+                icon = fileiconGreen;
+                if (
+                  data.formName == "东莞厚街 Morse跌倒评估及护理记录" ||
+                  data.formName == "躁动-镇静评分（RASS）" ||
+                  (data.formName == "东莞厚街儿童跌倒、坠床护理单" &&
+                    this.HOSPITAL_ID === "hj")
+                ) {
+                  /*儿童的跌倒单特殊处理，护士签名后不显示绿点*/
+                  /*成人的跌倒单特殊处理，护士签名后不显示绿点*/
+                  /*躁动-镇静评分（RASS）单特殊处理，护士签名后不显示绿点*/
+                  icon = fileicon;
+                }
+              } //责任签名
+              else {
+                box = filebox;
+                icon = fileicon;
+              }
+            }
+          }
+          // 责任（多人签名）的情况
+          else if (formSign) {
+            if (this.HOSPITAL_ID == "zhongshanqi") {
+              // 责任（多人签名）的情况 未签名
+              if (hasSave) {
+                box = fileboxYellow;
+              } // 未签名
+              else if (hasSign) {
+                box = fileboxGreen;
+              } // // 责任（多人签名）的情况 责任签名
+              else if (fileHasSave) {
+                icon = fileiconYellow;
+              } else if (fileHasSign) {
+                icon = fileiconGreen;
+              } else {
+                box = fileboxGreen;
+                icon = fileiconGreen;
+              } // // 责任（多人签名）的情况 责任签名
+            } else {
+              if (hasSave) {
+                box = fileboxRed;
+              } // 未签名
+              else if (hasSign) {
+                box = filebox;
+              } // 责任（多人签名）的情况 责任签名
+              else if (fileHasSave) {
+                icon = fileiconRed;
+              } else if (fileHasSign) {
+                icon = fileicon;
+              } else {
+                box = filebox;
+                icon = fileicon;
+              }
+            }
+          } else {
+            // 没有签名的情况
+            box = filebox;
+            icon = fileicon;
+          }
+        } else {
+          // 文件夹
+          if (hasSave) {
+            box = fileboxRed;
+          } else if (hasSign) {
+            box = fileboxGreen;
+          } else {
+            box = filebox;
+          }
+          // 内容
+          if (fileHasSave) {
+            icon = fileiconRed;
+          } else if (fileHasSign) {
+            icon = fileiconGreen;
+          } else {
+            icon = fileicon;
+          }
+        }
+        let viewDom = h();
+        if (this.HOSPITAL_ID === "liaocheng" || this.HOSPITAL_ID === "quzhou") {
+          viewDom = h(
+            "div",
+            {
+              class: { view: true },
+              on: { click: e => this.handleViewClick(e, node, data) }
+            },
+            [h("i", { class: { "el-icon-view": true } })]
+          );
+        }
+        if (
+          ["lyxrm", "whhk", "stmz", "gdtj"].includes(
+            this.HOSPITAL_ID && node.level !== 2
+          )
+        ) {
+            this.batchAuditForms = node.data;
+            return (
+              <span class="tree-box-node2">
+                <span class="box-label">
+                  <img src={box} />
+                  <span style={style}>{node.label}</span>
+                </span>
+                {node.data.canBatchAudit && (
+                  <el-button
+                    type="text"
+                    size="mini"
+                    on-click={e => this.batchAudit(e, node, this.$route.query)}
+                  >
+                    批量审核
+                  </el-button>
+                )}
+              </span>
+            );
+          } else {
+            /* 逻辑一直没改过。但是有一次发包过去厚街，医院非说这两张表以前没有状态的。直接强制去掉 */
+            if (
+              (node.label == "生长发育评估量表" ||
+                node.label == "住院病人处理单") &&
+              this.HOSPITAL_ID == "hj"
+            ) {
+              box = filebox;
+            }
+            return h(
+              "span",
+              { class: { "tree-box-node": true }, attrs: { title: node.label } },
+              [
+                h("img", { attrs: { src: box } }),
+                h("span", {}, node.label),
+                viewDom
+              ]
+            );
+          }
       }
     },
     // 表单里面的按钮直接调用。会传formCode过来做处理。拿到当前的表单
-    handleBatchAudit(e,formCode){
-        const node= this.regions.find(formMsg=>{
-         return formMsg.formCode==formCode
-        })
-        if(node && node.canBatchAudit){
-          this.batchAudit(e,node,this.$route.query,false)
-          return
-        }
-        this.$message.error('你无权批量审核')
+    handleBatchAudit(e, formCode) {
+      const node = this.regions.find(formMsg => {
+        return formMsg.formCode == formCode;
+      });
+      if (node && node.canBatchAudit) {
+        this.batchAudit(e, node, this.$route.query, false);
+        return;
+      }
+      this.$message.error("你无权批量审核");
     },
     /*
     isNode el-tree中的节点
      */
-    batchAudit(e, node,query,isNode=true) {
-      if(isNode){
-        e.stopPropagation()
-        this.batchAuditForms = {...node.data,query}
-      }else{
-        this.batchAuditForms = {...node,query}
+    batchAudit(e, node, query, isNode = true) {
+      if (isNode) {
+        e.stopPropagation();
+        this.batchAuditForms = { ...node.data, query };
+      } else {
+        this.batchAuditForms = { ...node, query };
       }
-      this.batchAuditDialog = true
+      this.batchAuditDialog = true;
     },
     handleCloseBatchAudit(refresh) {
-      this.batchAuditDialog = false
+      this.batchAuditDialog = false;
       if (refresh) {
-        this.refreshTree(true)
+        this.refreshTree(true);
       }
     },
     handleViewClick(e, node) {
@@ -868,7 +940,7 @@ export default {
           listPrint: node.parent.data.listPrint,
           nooForm: node.parent.data.nooForm,
           pageUrl: node.parent.data.pageUrl,
-          isPrintPreview: true,
+          isPrintPreview: true
         })
       );
     },
@@ -878,14 +950,14 @@ export default {
         getBlockByPV(
           this.$route.query.patientId,
           this.$route.query.visitId
-        ).then((res) => {
+        ).then(res => {
           this.formTransfusionSafety = res.data.data || [];
         });
       } else if (this.HOSPITAL_ID == "huadu") {
         groupListHuadu(
           this.$route.query.patientId,
           this.$route.query.visitId
-        ).then((res) => {
+        ).then(res => {
           this.formTransfusionSafety = res.data.data || [];
         });
       }
@@ -898,12 +970,12 @@ export default {
         //   this.$route.query.patientId,
         //   this.$route.query.visitId
         // ),
-        this.getBlockByPV(),
+        this.getBlockByPV()
       ])
-        .then((res) => {
+        .then(res => {
           let index = 0;
           window.app.$store.commit("cleanFormLastId");
-          let list_1 = res[0].data.data.map((item) => {
+          let list_1 = res[0].data.data.map(item => {
             index += 1;
             return {
               label: item.formName,
@@ -932,7 +1004,7 @@ export default {
                       id: option.id,
                       patientId: this.$route.query.patientId,
                       visitId: this.$route.query.visitId,
-                      evalDate: option.evalDate,
+                      evalDate: option.evalDate
                     });
                   }
                   // formName: "疼痛护理单"
@@ -953,7 +1025,13 @@ export default {
                   ${option.countSize ? option.countSize + "条" : ""}
                   ${option.evalScore ? option.evalScore + "分" : ""}
                   ${option.pusherName ? option.pusherName : option.creatorName}
-                  ${this.HOSPITAL_ID == 'whfk' ? '' : option.status == 0 ? "T" : option.status}`,
+                  ${
+                    this.HOSPITAL_ID == "whfk"
+                      ? ""
+                      : option.status == 0
+                      ? "T"
+                      : option.status
+                  }`,
                     form_id: option.id,
                     formName: item.formName,
                     formTreeRemindType: item.formTreeRemindType,
@@ -962,46 +1040,13 @@ export default {
                     fillRemindType: item.fillRemindType,
                     signStatus: option.signStatus
                   };
-                }),
+                })
             };
           });
-          //
           // upFormTree
           if (list_1) {
             window.app.$store.commit("upFormTree", [...list_1]);
           }
-          //
-          let list_2 = (info) => {
-            index += 1;
-            info = info.filter((opt) => opt.status != "-1");
-            return {
-              label: "健康教育单",
-              index: index,
-              formCode: "eduMission",
-              // showCurve: item.showCurve,
-              // creator: item.creator,
-              // listPrint: item.listPrint,
-              nooForm: 1,
-              pageUrl: "健康教育单.html",
-              children: info.map((option) => {
-                return {
-                  status: option.status,
-                  label:
-                    "健康教育单 " +
-                    `${moment(option.creatDate).format("YYYY-MM-DD HH:mm")} ${
-                      option.evalScore ? option.evalScore + "分" : ""
-                    } ${option.creatorName} ${
-                      option.status == 0 ? "T" : option.status
-                    }`,
-                  form_id: option.id,
-                  formName: "健康教育单",
-                  pageTitle: option.title,
-                  missionId: option.missionId,
-                };
-              }),
-            };
-          };
-
           let list_3 = [];
           switch (this.HOSPITAL_ID) {
             case "hj":
@@ -1014,37 +1059,42 @@ export default {
               break;
           }
           list_1 = list_1.filter(
-            (item) => item.formCode != "form_transfusion_safety"
+            item => item.formCode != "form_transfusion_safety"
           );
           if (this.formTransfusionSafety.length) {
             list_1.push(list_3);
           }
 
           //区分患者转科------------------------------------------------------------------------------------------------------
-          if(process.env.formPage_change_major){
-            let newList = []
-            list_1.map((item,index)=>{
+          if (process.env.formPage_change_major) {
+            let newList = [];
+            list_1.map((item, index) => {
               //处理患者转科前的表单
               //每个科室对应的表单数组
-              let dptObj = {}
-              item.children.map((childrenItem,childrenIdx)=>{
-                !dptObj[childrenItem.deptName] ? dptObj[childrenItem.deptName] = [childrenItem] : dptObj[childrenItem.deptName] = [...dptObj[childrenItem.deptName],childrenItem]
-              })
-              for (let i in dptObj){
-                let newObj = {}
-                newObj = JSON.parse(JSON.stringify(item))
-                newObj.label = list_1[index].label + "(" + i + ")"
-                newObj.children = dptObj[i]
-                newList.push(newObj)
+              let dptObj = {};
+              item.children.map((childrenItem, childrenIdx) => {
+                !dptObj[childrenItem.deptName]
+                  ? (dptObj[childrenItem.deptName] = [childrenItem])
+                  : (dptObj[childrenItem.deptName] = [
+                      ...dptObj[childrenItem.deptName],
+                      childrenItem
+                    ]);
+              });
+              for (let i in dptObj) {
+                let newObj = {};
+                newObj = JSON.parse(JSON.stringify(item));
+                newObj.label = list_1[index].label + "(" + i + ")";
+                newObj.children = dptObj[i];
+                newList.push(newObj);
               }
-            })
-            list_1 = [...newList]
+            });
+            list_1 = [...newList];
           }
 
           //区分患者转科------------------------------------------------------------------------------------------------------
           if (this.filterObj) {
             this.regions = list_1.filter(
-              (item) => item.label == this.filterObj.label
+              item => item.label == this.filterObj.label
             );
           } else {
             this.regions = list_1;
@@ -1053,7 +1103,7 @@ export default {
             this.isTransferToWard();
           }
         })
-        .then((res) => {
+        .then(res => {
           this.treeLoading = false;
         });
     },
@@ -1097,7 +1147,7 @@ export default {
     toLoadPatientDetial(callback = null, query = this.$route.query) {
       commonData
         .loadPatient(query.patientId, query.visitId)
-        .then((res) => {
+        .then(res => {
           try {
             if (res && res.data && res.data.data["admissionDateTime"]) {
               res.data.data["admissionDateTime"] = moment(
@@ -1109,15 +1159,14 @@ export default {
             localStorage["patientInfo" + query.patientId] = JSON.stringify(
               this.$route.query["patientInfo"]
             );
-          } catch (error) {
-          }
+          } catch (error) {}
           if (callback && res) {
             callback(res);
           }
 
           return res;
         })
-        .catch((err) => {
+        .catch(err => {
           if (callback && err) {
             callback(err);
           }
@@ -1127,7 +1176,7 @@ export default {
     isTransferToWard() {
       let patientId = this.$route.query.patientId;
       let visitId = this.$route.query.visitId;
-      hadTransferToWard(patientId, visitId, "610102").then((res) => {
+      hadTransferToWard(patientId, visitId, "610102").then(res => {
         if (res.data.data) {
           let index = this.regions.length
             ? ++this.regions[this.regions.length - 1].index
@@ -1137,7 +1186,7 @@ export default {
             index,
             pageUrl: `http://10.35.0.82/op.html?patientid=${patientId}&visitId=${visitId}`,
             nooForm: 2,
-            islink: true,
+            islink: true
           };
           this.regions.push(obj);
         }
@@ -1149,17 +1198,18 @@ export default {
       this.$nextTick(() => {
         if (form && form.node) {
           // 1.x版本的el-tree没有 setCurrentKey 方法，使用 store.setCurrentNode 方法
-          this.$refs.formTree && this.$refs.formTree.store.setCurrentNode(form.node || null);
+          this.$refs.formTree &&
+            this.$refs.formTree.store.setCurrentNode(form.node || null);
           // 未展开
           if (!form.node.expanded) {
             form.node.parent.expand();
           }
         }
-      })
+      });
     }
   },
   created() {
-    if(!this.$route.name){
+    if (!this.$route.name) {
       this.isPersonage = true;
     }
     if (!(this.$route.query.patientId && this.$route.query.visitId)) return;
@@ -1172,18 +1222,18 @@ export default {
     this.bus.$on("updateTreeData", this.updateTreeData);
     this.bus.$on("refreshTree", this.refreshTree);
     this.bus.$on("updateTree", this.updateTree);
-    this.bus.$on("getTreeRaw", (callback) => {
+    this.bus.$on("getTreeRaw", callback => {
       if (callback) {
         callback(this.regions);
       }
     });
-    this.bus.$on('highlightTreeNode', this.onHighlightTreeNode);
+    this.bus.$on("highlightTreeNode", this.onHighlightTreeNode);
   },
   components: {
     SweetModal,
     SweetModalTab,
     newForm,
-    BatchAuditForm,
-  },
+    BatchAuditForm
+  }
 };
 </script>
