@@ -834,6 +834,33 @@ export default {
       ).then(async (res) => {
           if(res.data.code == 200){
             this.bus.$emit('initSheetPageSize')
+            let isdischarge = decodeAyncVisttedData.list.find(item => item.topComment == '出院|')
+          if(this.sheetInfo.sheetType == 'body_temperature_Hd' && isdischarge){
+            this.$nextTick(()=>{
+              this.$confirm(
+                `体温单出院时间已填写为：${isdischarge.recordYear}-${isdischarge.recordMonth} ${isdischarge.recordHour}，请及时完成应归档记录!`,
+                {
+                  confirmButtonText: "确定",
+                  showCancelButton: false,
+                  type: "warning",
+                }
+              ).then((res)=>{
+                this.pageLoading = false;
+                this.$notify.success({
+                  title: "提示",
+                  message: "保存成功",
+                  duration: 1000,
+                });
+              }).catch(()=>{
+                this.pageLoading = false;
+                this.$notify.success({
+                  title: "提示",
+                  message: "保存成功",
+                  duration: 1000,
+                });
+              })
+            })
+          }else{
             this.$nextTick(()=>{
               this.pageLoading = false;
               this.$notify.success({
@@ -842,6 +869,7 @@ export default {
               duration: 1000,
             });
             })
+          }
           }
           if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
             GetUserList().then(res=>{
