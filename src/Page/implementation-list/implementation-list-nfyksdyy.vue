@@ -395,6 +395,10 @@ export default {
           id: 0,
           name: "未执行"
         },
+        {
+          id: 8,
+          name: "不执行"
+        },
       ],
       whslstatusList: [
 
