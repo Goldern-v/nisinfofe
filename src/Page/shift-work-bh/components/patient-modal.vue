@@ -70,11 +70,11 @@
         <ElTabPane label="S现状" name="1">
           <div class="label">主要症状</div>
           <ElInput type="textarea" ref="diagnosis" :rows="4" v-model="form.diagnosis" :disabled="isSignedN"/>
-          <div class="label">主诉及现存主要问题</div>
+          <div class="label">{{HOSPITAL_ID == 'ytll'?'主诉':'主诉及现存主要问题'}}</div>
           <ElInput type="textarea" ref="mainComplaint" :rows="4" v-model="form.mainComplaint" :disabled="isSignedN"/>
         </ElTabPane>
         <ElTabPane label="B背景" name="2">
-          <div class="label">既往病史、治疗经过、护理评估情况、治疗效果跟踪</div>
+          <div class="label">{{HOSPITAL_ID == 'ytll'?'各班次护理诊断、护理措施、效果追踪评价':'既往病史、治疗经过、护理评估情况、治疗效果跟踪'}}</div>
           <ElInput type="textarea" ref="background" v-model="form.background" class="textarea" :disabled="isSignedN"/>
         </ElTabPane>
         <ElTabPane label="A评估" name="3">
