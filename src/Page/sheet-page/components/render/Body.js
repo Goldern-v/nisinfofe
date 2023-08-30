@@ -1099,6 +1099,11 @@ function switchSheetType(type) {
       schema = require("../config/recordicu3_zxy/tr.js").default;
     }
       break;
+    case "preventvap_zxy": {
+      // 南方中西医 - 预防VAP评估单
+      schema = require("../config/preventvap_zxy/tr.js").default;
+    }
+      break;
     case "waiting_birth_wj": {
       // 武警 - 待产护理记录单
       schema = require("../config/waiting_birth_wj/tr.js").default;
