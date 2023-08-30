@@ -11,10 +11,12 @@
         <div class="save-btn" @click="save" v-if="status === '0'">
           <div v-touch-ripple>保存</div>
         </div>
-        <div class="save-btn" @click="save" v-if="status === '1'">
-          <div v-touch-ripple>更新</div>
-        </div>
-        <div class="save-btn disabled" v-if="status === '2'">
+          <template v-if="status === '1' || (HOSPITAL_ID=='beihairenyi'&&status == '2' )" >
+          <div class="save-btn"  @click="save" >
+            <div v-touch-ripple>更新</div>
+          </div>
+        </template>
+        <div class="save-btn disabled" v-if="status === '2' && HOSPITAL_ID != 'beihairenyi'">
           <div>已停止</div>
         </div>
         <div class="contain">
@@ -36,7 +38,7 @@
                   :indeterminate="isMeasuresIndeterminate"
                   v-model="checkMeasuresAll"
                   @change="handleMeasuresCheckAllChange"
-                  :disabled="status === '2'"
+                  :disabled="status === '2' && HOSPITAL_ID != 'beihairenyi'"
                 >全选</el-checkbox>
               </span>
             </div>
@@ -50,7 +52,7 @@
               <div class="m-10" v-for="item in measures" :key="item.id">
                 <el-checkbox
                   :label="item.serialNo"
-                  :disabled="status === '2'"
+                  :disabled="status === '2' && (HOSPITAL_ID != 'beihairenyi')"
                 >{{item.measureDetail}}</el-checkbox>
               </div>
             </el-checkbox-group>
@@ -63,14 +65,14 @@
                   :indeterminate="isTargetIndeterminate"
                   v-model="checkTargetAll"
                   @change="handleTargetCheckAllChange"
-                  :disabled="status === '2'"
+                  :disabled="status === '2' && HOSPITAL_ID != 'beihairenyi'"
                 >全选</el-checkbox>
               </span>
             </div>
 
             <el-checkbox-group v-model="resultTargetList" @change="handleTargetCheckedChange">
               <div class="m-10" v-for="item in targetList" :key="item.id">
-                <el-checkbox :label="item.serialNo" :disabled="status === '2'">{{item.parameter}}</el-checkbox>
+                <el-checkbox :label="item.serialNo" :disabled="status === '2' && (HOSPITAL_ID != 'beihairenyi')">{{item.parameter}}</el-checkbox>
               </div>
             </el-checkbox-group>
           </div>
@@ -82,14 +84,14 @@
                   :indeterminate="isFactorIndeterminate"
                   v-model="checkFactorAll"
                   @change="handleFactorCheckAllChange"
-                  :disabled="status === '2'"
+              :disabled="status === '2' && HOSPITAL_ID != 'beihairenyi'"
                 >全选</el-checkbox>
               </span>
             </div>
 
             <el-checkbox-group v-model="resultFactorList" @change="handleFactorCheckedChange">
               <div class="m-10" v-for="item in factorList" :key="item.id">
-                <el-checkbox :label="item.id" :disabled="status === '2'">{{item.factor}}</el-checkbox>
+                <el-checkbox :label="item.id" :disabled="status === '2' && (HOSPITAL_ID != 'beihairenyi') ">{{item.factor}}</el-checkbox>
               </div>
             </el-checkbox-group>
           </div>
@@ -237,6 +239,7 @@ let bindDataClone = { ...bindData };
 export default {
   data() {
     return bindData;
+
   },
   methods: {
     open(item) {
@@ -307,7 +310,6 @@ export default {
         ? this.measures.map(item => item.serialNo)
         : [];
       this.isTargetIndeterminate = false;
-      console.log( this.measures)
     },
     handleTargetCheckedChange(value) {
       let checkedCount = value.filter(item => item).length;;

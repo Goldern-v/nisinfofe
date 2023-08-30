@@ -55,7 +55,22 @@
         ></el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
-        <el-table-column prop="endTime" label="停止时间" width="90" align="center"></el-table-column>
+        <el-table-column prop="endTime" label="停止时间" width="90" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.endTime }}
+            <el-date-picker
+              v-if="scope.row.endTime"
+              v-model="endTime"
+              :default-value="scope.row.endTime"
+              type="datetime"
+              placeholder="选择日期时间"
+              value-format="yyyy-MM-dd HH:mm"
+              :clearable="false"
+              @focus="() => choseId(scope.row)"
+              @change="val => timeChange(val, scope.row, 'endTime')">
+            </el-date-picker>
+          </template>
+        </el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="operatorName" label="停止人" width="90" align="center"></el-table-column>
         <el-table-column
           prop="evalType"
@@ -82,7 +97,7 @@
                 @click="stop(scope.row)"
               >停止</div>
               <div
-                v-if="scope.row.status == 1"
+                v-if="scope.row.status == 1 ||  ['beihairenyi'].includes(HOSPITAL_ID)"
                 class="tool-btn"
                 style="color: red"
                 @click="del(scope.row)"
@@ -196,7 +211,7 @@
 import common from "@/common/mixin/common.mixin";
 import { nursingDiagsPatient } from "../../api/index";
 import { model } from "../../diagnosisViewModel";
-import { nursingDiagsDel, savePlanForm, doDiagsSign } from "../../api/index";
+import { nursingDiagsDel, savePlanForm, doDiagsSign , nursingDiagsUpdate} from "../../api/index";
 import stopDiagnosisModal from "../../modal/stopDiagnosisModal";
 export default {
   mixins: [common],
@@ -204,7 +219,14 @@ export default {
   inject: ["openSlideCon",'openSlideContant'],
   data() {
     return {
-      model
+      model,
+      endTime: '',
+      choseID: '',
+      choseName: '',
+      choseCode: '',
+      choseDiagFactor: '',
+      measureStr2: '',
+      factorStr2: '',
     };
   },
   methods: {
@@ -225,6 +247,43 @@ export default {
           this.$message.error(`${text}失败`)
         })
       }, text);
+    },
+     choseId(row) {
+      this.choseID = row.id
+      this.choseName = row.diagName
+      this.choseCode = row.diagCode
+      this.choseDiagFactor = row.diagFactor
+      this.measureStr2 = (row.measuresName.length > 0 && row.measuresName.join(" ")) || row.diagMeasures
+      this.factorStr2 = (row.targetsName.length > 0 && row.targetsName.join(" ")) || row.diagTarget
+    },
+    timeChange(val, row, type) {
+      window.openSignModal((password, empNo) => {
+        const params = {
+          creator: password,
+          empNo,
+          id:this.choseID,
+          patientId: this.$route.query.patientId,
+          visitId: this.$route.query.visitId,
+          patientName: this.$route.query.name,
+          bedLabel: this.$route.query.bedLabel,
+          code: this.choseCode,
+          name: this.choseName,
+          measureStr: this.measureStr2,
+          targetStr: this.factorStr2,
+          factorStr: this.choseDiagFactor,
+          wardCode: model.selectedBlock.wardCode,
+        };
+        params.endTime = val
+        nursingDiagsUpdate(params).then(res => {
+          this.$message.success("保存成功");
+          model.newDiagnosisModal.close();
+          model.refreshTable();
+          this.$store.commit("upMeasureGuizhou", {
+            measure: "",
+            target: ""
+          });
+        });
+      })
     },
     selectedRow(row) {
       // model.selectedRow = row;
@@ -303,6 +362,23 @@ export default {
   } */
   /deep/ .el-table {
     border: 1px solid #000 !important;
+        .el-date-editor--datetime{
+      .el-input__icon{
+        display: none;
+      }
+      .el-input__inner{
+        width: 100%;
+        padding-right: 0 !important;
+      }
+    }
+    .el-date-editor.el-input{
+      width: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50% );
+      opacity: 0;
+    }
     th {
       border-left: 1px solid #000 !important;
       border-right: 1px solid #000 !important;

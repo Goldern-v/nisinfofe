@@ -125,6 +125,7 @@ import slideCon from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideCon"
 // import slideConRight from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideConRight";
 import slideContant from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideContant.vue"
 import slideContantQHWY from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideContantQHWY.vue"
+import slideContantBHRY from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideContantBHRY.vue"
 
 import slideConRightGuizhou from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
 import slideConRightQHWY from "@/Page/patientInfo/supPage/diagnosis/modal/slide/slideRightQHWY.vue";
@@ -217,6 +218,9 @@ export default {
     isslideContant(){
       if(['qhwy'].includes(this.HOSPITAL_ID)){
         return slideContantQHWY
+      }
+      else if(['beihairenyi'].includes(this.HOSPITAL_ID)){
+        return slideContantBHRY
       }else return slideContant
     },
     getDate() {
@@ -290,6 +294,7 @@ export default {
     slideConRightLiaoCheng,
     slideContant,
     slideContantQHWY,
+    slideContantBHRY,
   }
 };
 </script>

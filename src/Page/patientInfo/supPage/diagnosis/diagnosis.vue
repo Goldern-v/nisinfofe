@@ -25,6 +25,7 @@ import slideConRightQHWY from "./modal/slide/slideRightQHWY.vue";
 import slideConRightLiaoCheng from "./modal/slide/slideRightLiaoCheng.vue";
 import slideContant from "./modal/slide/slideContant.vue"
 import slideContantQHWY from "./modal/slide/slideContantQHWY.vue"
+import slideContantBHRY from "./modal/slide/slideContantBHRY.vue"
 import { model } from "./diagnosisViewModel";
 import { getPlanFormListByPV } from "./api";
 import common from "@/common/mixin/common.mixin";
@@ -72,7 +73,11 @@ export default {
     isslideContant(){
       if(['qhwy'].includes(this.HOSPITAL_ID)){
         return slideContantQHWY
-      }else return slideContant
+      } else if(['beihairenyi'].includes(this.HOSPITAL_ID)){
+        return slideContantBHRY
+      }else {
+      return slideContant
+      }
     },
     refreshBlock() {
       getPlanFormListByPV(
@@ -112,6 +117,7 @@ export default {
     slideConRightLiaoCheng,
     slideContant,
     slideContantQHWY,
+    slideContantBHRY,
     tableCon
   }
 };
