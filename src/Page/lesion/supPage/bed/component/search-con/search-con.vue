@@ -1058,7 +1058,7 @@ export default {
           break;
         case "VTE高风险":
           {
-            if (['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
+            if (['lyxrm', 'whhk', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
               this.$parent.bedList = this.dangerInVteLy;
             } else {
               this.$parent.bedList = this.hasVteDanger;

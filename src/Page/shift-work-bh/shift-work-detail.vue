@@ -466,7 +466,14 @@ export default {
               width: "80"
             },
             {
-              label: "主诉及现存主要问题",
+              label: (() => {
+                 switch (process.env.HOSPITAL_ID) {
+                    case "ytll":
+                     return "主诉";
+                    default:
+                     return "主诉及现存主要问题";
+                 }
+              })(),
               prop: "mainComplaint",
               editable: true,
               width: "90"
@@ -477,7 +484,14 @@ export default {
           label: "B（背景）",
           columns: [
             {
-              label: "既往病史、治疗经过、护理评估情况、治疗效果跟踪",
+              label: (() => {
+                 switch (process.env.HOSPITAL_ID) {
+                    case "ytll":
+                     return "各班次护理诊断、护理措施、效果追踪评价";
+                    default:
+                     return "既往病史、治疗经过、护理评估情况、治疗效果跟踪";
+                 }
+              })(),
               prop: "background",
               editable: true,
               width: "180"

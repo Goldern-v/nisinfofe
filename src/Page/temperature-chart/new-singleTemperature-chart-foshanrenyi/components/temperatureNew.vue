@@ -267,7 +267,7 @@ export default {
             this.getDataFromPage(e.data.value);
             break;
           case "tipMessage":
-            this.$message.success('保存转床床号成功')
+          this.$message.success(e.data.value)
             break;
           default:
             break;
