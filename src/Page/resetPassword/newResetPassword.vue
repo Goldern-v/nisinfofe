@@ -539,7 +539,7 @@ export default {
         rule:"^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S{8,}$",
         ruleMsg: "字母大写，字母小写，特殊字符，数字四组中两种以上的随机组合,且长度不能少于8位"
       }
-    }else if(['beihairenyi'].includes(this.HOSPITAL_ID)){
+    }else if(['beihairenyi', 'zhzxy'].includes(this.HOSPITAL_ID)){
       this.reg = {
         flag: true,
         rule:"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[^]{8,}$",

@@ -1384,6 +1384,13 @@ export default function Title(
     );
   }
   break;
+  case "preventvap_zxy": {
+    //  南方中西医 - 预防VAP评估单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/preventvap_zxy/th").default)
+    );
+  }
+  break;
   case "waiting_birth_wj": {
     // 武警 - 待产护理记录单
     Th = JSON.parse(

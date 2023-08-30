@@ -785,7 +785,7 @@ export default {
         this.$router.push("/resetpassword");
         return;
       } else if (
-        ["beihairenyi"].includes(this.HOSPITAL_ID) &&
+        ["beihairenyi", 'zhzxy'].includes(this.HOSPITAL_ID) &&
         !regOnlyLetterNum.test(this.password)
       ) {
         this.$message({
