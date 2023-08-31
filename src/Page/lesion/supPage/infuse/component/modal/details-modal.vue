@@ -31,6 +31,13 @@
           <span>{{data[0].speed}}滴/分</span>
         </div>
       </div>
+      <div v-if="HOSPITAL_ID === 'nfyksdyy'" style="font-size: 14px;color: #000;margin-bottom: 15px;">
+          <span style="margin-left: 20px;">执行人：</span>
+          <span
+          >{{data[0].startNurse}} </span>
+          <span style="margin-left: 20px;">开始时间：</span>
+          <span>{{data[0].startDateTime}}</span>
+      </div>
       <div class="footer-con">
         <div class="aside">距预计输液结束还剩</div>
         <div class="time" flex="cross:center main:center">
