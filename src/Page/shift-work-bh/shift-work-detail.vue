@@ -133,6 +133,9 @@
               <tableHeader
                 :columns="shiftWithWardcodes"
                 @changeShiftWithWardcodes="changeShiftWithWardcodes"
+                @getShiftWithWardcode="getShiftWithWardcode"
+                @saveShiftWithWardcode="saveShiftWithWardcode"
+                :dynamic='dynamic'
               />
             </div>
           </div>
@@ -560,7 +563,8 @@ export default {
         background: "",
         proposal: ""
       },
-      isYTLL: process.env.HOSPITAL_ID == 'ytll'
+      isYTLL: process.env.HOSPITAL_ID == 'ytll',
+      dynamic:{} //每一个单项的数据。
     };
   },
   computed: {
@@ -644,6 +648,36 @@ export default {
     },
     changeShiftWithWardcodes(index, key, value) {
       this.shiftWithWardcodes[index][key] = value;
+    },
+    //获取单个交班志病区动态
+   async getShiftWithWardcode(index, key){
+      let shiftType
+      if (index === 0) {
+          shiftType = 'A';
+      } else if (index === 1) {
+          shiftType = 'P';
+      } else if (index === 2) {
+          shiftType = 'N';
+      }
+      // 去获取获取数据
+      const changeShiftTimeId = this.$route.params.id;
+      const code=key
+      const res= await apis.seachDynamic({
+          changeShiftTimeId,
+          code,
+          shiftType
+         });
+      if(res.data.code!=200){
+        this.dynamic={}
+        return
+      }
+      this.$set(this.shiftWithWardcodes[index], key, res.data.data.content);
+      this.dynamic=JSON.parse(JSON.stringify(res.data.data))
+    },
+    async saveShiftWithWardcode(dynamic,value){
+      await apis.saveDynamic({
+       ...dynamic,content:value,
+      })
     },
     async loadDepts() {
       const parentCode = this.deptCode;
@@ -1065,19 +1099,22 @@ export default {
     async onSave3(tip) {
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
-      const [
-        shiftWithWardcodesA,
-        shiftWithWardcodesP,
-        shiftWithWardcodesN
-      ] = this.shiftWithWardcodes;
-      await apis.updateShiftRecord({
-        changeShiftTimes: changeShiftTime,
-        // changeShiftPatients,
-        shiftWithWardcodesA: [shiftWithWardcodesA],
-        shiftWithWardcodesP: [shiftWithWardcodesP],
-        shiftWithWardcodesN: [shiftWithWardcodesN]
-      });
-
+      if(['ytll'].includes(this.HOSPITAL_ID)){
+          await apis.saveChangeShiftMaster(changeShiftTime)
+        }else{
+          const [
+            shiftWithWardcodesA,
+            shiftWithWardcodesP,
+            shiftWithWardcodesN
+          ] = this.shiftWithWardcodes;
+          await apis.updateShiftRecord({
+             changeShiftTimes: changeShiftTime,
+             // changeShiftPatients,
+             shiftWithWardcodesA: [shiftWithWardcodesA],
+             shiftWithWardcodesP: [shiftWithWardcodesP],
+             shiftWithWardcodesN: [shiftWithWardcodesN]
+           });
+      }
       this.load();
       if (tip) {
         this.$message.success("保存成功");
