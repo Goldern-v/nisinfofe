@@ -108,6 +108,23 @@ export function createShiftRecord(
 export function updateShiftRecord(data) {
   return axios.post(`${apiPath}changeShiftBHMaster/saveContent`, data);
 }
+
+//  交班志保存交班主表。玲珑需求23526,只是保存changeShiftTimes
+export function saveChangeShiftMaster(data) {
+  return axios.post(`${apiPath}changeShiftMaster/saveChangeShiftMaster`, data);
+}
+
+// 交班志病区动态单项查询
+export function seachDynamic(data) {
+  return axios.post(`${apiPath}changeShiftMaster/seachDynamic`, data);
+}
+
+// 交班志病区动态单项保存
+export function saveDynamic(data) {
+  return axios.post(`${apiPath}changeShiftMaster/saveDynamic`, data);
+}
+
+
 export function savePatient(data) {
   return axios.post(`${apiPath}changeShiftMaster/savePatient`, data);
 }

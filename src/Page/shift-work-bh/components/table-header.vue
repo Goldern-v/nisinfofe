@@ -57,7 +57,8 @@
               v-html="shift[key]"
               contenteditable="true"
               style="outline:none;"
-              @blur="e => change(e, index, key)"
+              @blur='e => handleBlur(e)'
+              @click="e => handleFocus(index, key)"
             ></div>
           </td>
         </template>
@@ -150,6 +151,10 @@ export default {
     columns: {
       type: Array,
       value: []
+    },
+    dynamic:{
+      type:Object,
+      value:{}
     }
   },
   data() {
@@ -241,7 +246,15 @@ export default {
     change(e, index, key) {
       let value = e.currentTarget.innerText;
       this.$emit("changeShiftWithWardcodes", index, key, value);
-    }
+    },
+    handleFocus(index, key){
+      console.log(key)
+      this.$emit("getShiftWithWardcode", index, key);
+    },
+    handleBlur(e){
+      let value = e.currentTarget.innerText;
+      this.$emit("saveShiftWithWardcode", this.dynamic,value);
+    },
   },
   created() {
   },
