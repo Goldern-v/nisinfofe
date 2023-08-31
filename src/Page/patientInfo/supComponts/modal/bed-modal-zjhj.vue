@@ -85,7 +85,7 @@
             class="input-item input-item-row" >
               <div class="fontSize-50">{{query.sex}}</div>
               <div class="fontSize-50" >{{query.age}}</div>
-              <div class="fontSize-50-1">{{deptName}}</div>
+              <div class="fontSize-50-1">{{query.deptName}}</div>
             </div>
             <div flex="cross:center" class="input-item" style="width:auto;height:50px">
               <div style="display:flex " >
