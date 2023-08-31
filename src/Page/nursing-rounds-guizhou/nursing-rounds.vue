@@ -28,6 +28,7 @@
           style="margin-right: 15px;display:none;"
         >权限分配</el-button>
         <el-input
+          v-if="!isUsePatientToSearch"
           size="small"
           style="width: 150px;margin-right: 15px;"
           placeholder="输入床号进行搜索"
@@ -173,7 +174,12 @@ export default {
       if (!this.deptCode) return;
       this.pageLoadng = true;
       this.query.deptCode = this.deptCode;
-      (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")), //操作日期
+      (this.query.operateDate = moment(this.startDate).format("YYYY-MM-DD")) //操作日期
+      if (this.isUsePatientToSearch) {
+        this.query.patientId = this.$route.query.patientId || this.$store.state.patient.currentPatient.patientId
+        this.query.visitId = this.$route.query.visitId || this.$store.state.patient.currentPatient.visitId
+        delete this.query.bedLabel;
+      }
         getNursingVisitLc(this.query).then(res => {
           this.tableData = res.data.data.list.map((item, index, array) => {
             let prevRowId = array[index - 1] && array[index - 1].patientId;
@@ -223,6 +229,9 @@ export default {
   computed:{
     makePatient(){
       return this.$store.state.sheet.makePatient
+    },
+    isUsePatientToSearch() {
+      return ['nfyksdyy'].includes(this.HOSPITAL_ID);
     }
   },
   watch: {

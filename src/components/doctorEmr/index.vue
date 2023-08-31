@@ -271,6 +271,7 @@ export default {
       this.close();
       // 电子病历会触发当是顺德人医的就不触发刷新
       if((this.$route.path.includes('/formPage') && this.HOSPITAL_ID == 'nfyksdyy')|| !(this.$route.query.patientId && this.$route.query.visitId)) return
+      if(this.HOSPITAL_ID == 'foshanrenyi') return
       this.bus.$emit('refreshTree')
     },
   },
