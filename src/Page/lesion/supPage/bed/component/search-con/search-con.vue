@@ -660,7 +660,7 @@ export default {
         });
       }
       if (
-          ["nfyksdyy","qhwy"].includes(this.HOSPITAL_ID)
+          ["nfyksdyy","qhwy",'zjhj'].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
           name: "我的管床",
