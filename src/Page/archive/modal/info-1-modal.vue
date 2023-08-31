@@ -127,16 +127,16 @@ export default {
     close() {
       this.$refs.ruleForm.resetFields();
       this.$refs.modal.close();
-      this.details.dutyNurse = '',
-      this.details.qcNurse = ''
+      this.form.dutyNurse = '',
+      this.form.qcNurse = ''
     },
     // 文件归档上传
     uploadFileArchive() {
         uploadFileArchive(
           this.item.patientId,
           this.item.visitId,
-          this.details.dutyNurse,
-          this.details.qcNurse
+          this.form.dutyNurse,
+          this.form.qcNurse
         ).then(rep => {
           this.$message({
             type: "success",
