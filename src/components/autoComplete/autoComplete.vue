@@ -103,7 +103,7 @@
               v-for="(item, index) in data"
               @mouseleave="handlerLeave(id)"
               @click="post(item)"
-              :key="item + index"
+              :key="index"
               :class="{
                 autoSelected:
                   index == selectIndex || selectedList.indexOf(item.code) > -1
@@ -359,7 +359,7 @@ export default {
         return this.show;
       };
       window.addEventListener("mousewheel", e => {
-        if (e.target.tagName != "LI") {
+        if (e.target.tagName != "LI" && e.target.tagName != "SPAN" && e.target.tagName != "UI") {
           this.show = false;
         }
       });
