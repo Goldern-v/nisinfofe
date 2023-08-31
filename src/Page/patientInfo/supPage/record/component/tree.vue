@@ -581,15 +581,11 @@ export default {
 
       let fileHasSave = node.data.status == 0;
       let fileHasSign = node.data.status == 1;
-      let fileHasAudit = node.data.status == 2;
       let icon;
       let box;
-
-      let formNoSign = node.data.formTreeRemindType == "0"; // 无签名
       let formSign = node.data.formTreeRemindType == "1"; // 责任（多人签名）
       let formAudit = node.data.formTreeRemindType == "2"; // 责任 + 审核
 
-      let isNoicon = node.data.status && (node.data.formTreeRemindType ==  node.data.status)
       // 花都特殊处理
       if (
         this.HOSPITAL_ID == "huadu" ||
@@ -798,18 +794,17 @@ export default {
         }
       } else {
         if (this.HOSPITAL_ID == "foshanrenyi") {
-
-          let pageIndex = node.parent.childNodes.map((item, index) => {
-            if (item.id == data.$treeNodeId) {
-              return index - node.parent.childNodes.length;
-            }
-          });
-          let pages = String(
-            pageIndex.find((item) => item !== undefined)
-          ).substring(1);
+          // let pageIndex = node.parent.childNodes.map((item, index) => {
+          //   if (item.id == data.$treeNodeId) {
+          //     return index - node.parent.childNodes.length;
+          //   }
+          // });
+          // let pages = String(
+          //   pageIndex.find((item) => item !== undefined)
+          // ).substring(1);
           return h("span", { class: { "tree-node": true }, style: pageStyle }, [
             h("img", { attrs: { src: icon } }),
-            h("span", {}, `第${pages}页`),
+            h("span", {}, `第${data.pageIndex}页`),
             h("span", {}, node.label),
           ]);
         } else {
@@ -898,7 +893,7 @@ export default {
         //   this.$route.query.patientId,
         //   this.$route.query.visitId
         // ),
-        this.getBlockByPV(),
+        this.HOSPITAL_ID != 'foshanrenyi' && this.getBlockByPV(),
       ])
         .then((res) => {
           let index = 0;
@@ -970,37 +965,6 @@ export default {
           if (list_1) {
             window.app.$store.commit("upFormTree", [...list_1]);
           }
-          //
-          let list_2 = (info) => {
-            index += 1;
-            info = info.filter((opt) => opt.status != "-1");
-            return {
-              label: "健康教育单",
-              index: index,
-              formCode: "eduMission",
-              // showCurve: item.showCurve,
-              // creator: item.creator,
-              // listPrint: item.listPrint,
-              nooForm: 1,
-              pageUrl: "健康教育单.html",
-              children: info.map((option) => {
-                return {
-                  status: option.status,
-                  label:
-                    "健康教育单 " +
-                    `${moment(option.creatDate).format("YYYY-MM-DD HH:mm")} ${
-                      option.evalScore ? option.evalScore + "分" : ""
-                    } ${option.creatorName} ${
-                      option.status == 0 ? "T" : option.status
-                    }`,
-                  form_id: option.id,
-                  formName: "健康教育单",
-                  pageTitle: option.title,
-                  missionId: option.missionId,
-                };
-              }),
-            };
-          };
 
           let list_3 = [];
           switch (this.HOSPITAL_ID) {
@@ -1013,9 +977,11 @@ export default {
             default:
               break;
           }
-          list_1 = list_1.filter(
-            (item) => item.formCode != "form_transfusion_safety"
-          );
+          if(this.HOSPITAL_ID != 'foshanrenyi'){
+            list_1 = list_1.filter(
+              (item) => item.formCode != "form_transfusion_safety"
+            );
+          }
           if (this.formTransfusionSafety.length) {
             list_1.push(list_3);
           }
@@ -1052,10 +1018,8 @@ export default {
           if (this.HOSPITAL_ID == "hj") {
             this.isTransferToWard();
           }
-        })
-        .then((res) => {
           this.treeLoading = false;
-        });
+        })
     },
     node_expand(curNode) {
       if (this.expandListCopy.indexOf(curNode.index) == -1) {
