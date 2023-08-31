@@ -275,12 +275,13 @@ export default {
         case "zhzxy":
         case "whhk":
         case "nfyksdyy":
+        case "zjhj":
         case "stmz":
         return bedItemLcey;
         case "beihairenyi":
         return bedItemBhry;
         case "foshanrenyi":
-        case "zjhj":
+        
         case "925":
         return bedItemFsry;
         default:

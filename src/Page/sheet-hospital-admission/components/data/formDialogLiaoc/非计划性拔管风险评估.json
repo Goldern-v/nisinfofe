@@ -338,7 +338,7 @@
         {
           "name": "I620011",
           "type": "checkbox",
-          "title": "专科非高危导管(2分)",
+          "title": "专科非高危导管1(2分)",
           "code": "2",
           "score": "2",
           "class": null,
@@ -348,6 +348,97 @@
         },
         {
           "name": "I620009",
+          "type": "input",
+          "style": "width:100px",
+          "inputWidth": "100px",
+          "class": null
+        }
+      ]
+    },
+    {
+      
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "suffixDesc": "",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620012",
+          "type": "checkbox",
+          "title": "专科非高危导管2(2分)",
+          "code": "2",
+          "score": "2",
+          "class": null,
+          "style": "margin-top:6px",
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620010",
+          "type": "input",
+          "style": "width:100px",
+          "inputWidth": "100px",
+          "class": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "suffixDesc": "",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620035",
+          "type": "checkbox",
+          "title": "专科非高危导管3(2分)",
+          "code": "2",
+          "score": "2",
+          "class": null,
+          "style": "margin-top:6px",
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620034",
+          "type": "input",
+          "style": "width:100px",
+          "inputWidth": "100px",
+          "class": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "suffixDesc": "",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620037",
+          "type": "checkbox",
+          "title": "专科非高危导管4(2分)",
+          "code": "2",
+          "score": "2",
+          "class": null,
+          "style": "margin-top:6px",
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620036",
           "type": "input",
           "style": "width:100px",
           "inputWidth": "100px",
@@ -460,7 +551,7 @@
         {
           "name": "I620021",
           "type": "checkbox",
-          "title": "专科高危导管(5分)",
+          "title": "专科高危导管1(5分)",
           "code": "2",
           "score": "5",
           "class": null,
@@ -470,6 +561,96 @@
         },
         {
           "name": "I620019",
+          "type": "input",
+          "style": "width:100px",
+          "inputWidth": "100px",
+          "class": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "suffixDesc": "",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620022",
+          "type": "checkbox",
+          "title": "专科高危导管2(5分)",
+          "code": "2",
+          "score": "5",
+          "class": null,
+          "style": "margin-top:6px",
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620020",
+          "type": "input",
+          "style": "width:100px",
+          "inputWidth": "100px",
+          "class": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "suffixDesc": "",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620031",
+          "type": "checkbox",
+          "title": "专科高危导管3(5分)",
+          "code": "2",
+          "score": "5",
+          "class": null,
+          "style": "margin-top:6px",
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620030",
+          "type": "input",
+          "style": "width:100px",
+          "inputWidth": "100px",
+          "class": null
+        }
+      ]
+    },
+    {
+      "name": "",
+      "type": "formGroupHorizontalBox",
+      "title": "",
+      "message": "",
+      "require": "false",
+      "suffixDesc": "",
+      "classes": null,
+      "readOnly": null,
+      "children": [
+        {
+          "name": "I620033",
+          "type": "checkbox",
+          "title": "专科高危导管4(5分)",
+          "code": "2",
+          "score": "5",
+          "class": null,
+          "style": "margin-top:6px",
+          "html": null,
+          "readOnly": null
+        },
+        {
+          "name": "I620032",
           "type": "input",
           "style": "width:100px",
           "inputWidth": "100px",
