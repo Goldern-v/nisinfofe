@@ -467,6 +467,7 @@ const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 const StatisticalBlood = () => import("@/Page/statistical-query/statistical-blood")
 const statisticalNutritionalRisk = () => import("@/Page/statistical-query/statistical-nutritionalRisk")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
+const StatisticalIntakeOutputVolume = () => import("@/Page/statistical-query/statistical-intakeOutputVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
 const StatisticalTumbleSdyy = () => import("@/Page/statistical-query/statistical-tumble-sdyy")
 
@@ -2030,6 +2031,14 @@ const router = new Router({
               title: '尿量统计'
             },
             component: StatisticalUrineVolume
+          },
+          {
+            path: "StatisticalIntakeOutputVolume",
+            name: "StatisticalIntakeOutputVolume",
+            meta: {
+              title: '出入量总结统计'
+            },
+            component: StatisticalIntakeOutputVolume
           },
           {
             path: "statisticalTumble",

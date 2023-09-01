@@ -236,6 +236,13 @@ export default {
                   img: require("../images/VTE.png"),
                 },
               },
+              {
+                name: "StatisticalIntakeOutputVolume",
+                meta: {
+                  title: '出入量总结统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
             ],
             nfyksdyy:[
               {

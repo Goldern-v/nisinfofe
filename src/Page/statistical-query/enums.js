@@ -21,6 +21,23 @@ export const PATIENT_STATUS = [
     code: 'out'
   },
 ]
+export const TIME_OUTPUT = [
+  {
+    label: '全部',
+    key: '',
+    code: 'all'
+  },
+  {
+    label: '07',
+    key: '07',
+    code: '07'
+  },
+  {
+    label: '16',
+    key: '16',
+    code: '16'
+  },
+]
 export const TIME_POINT = [
   {
     label: '全部',
