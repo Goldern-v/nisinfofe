@@ -313,6 +313,8 @@ const newSingleTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-whyx/new-singleTemperature-chart.vue");//武汉亚心新版体温单单人录入
   const newSingleTemperatureChartGDTJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-gdtj/new-singleTemperature-chart.vue");//同江新版体温单单人录入
+  const newSingleTemperatureChartSDHPWK = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-sdhpwk/new-singleTemperature-chart.vue");//和平外科新版体温单单人录入
   const newSingleTemperatureChartZHZXY = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-zhzxy/new-singleTemperature-chart.vue");//珠海中西医新版体温单单人录入
   const newSingleTemperatureChartYTLL = () =>
@@ -1771,6 +1773,8 @@ const router = new Router({
               return newSingleTemperatureChartWHHK;
             case "gdtj":
               return newSingleTemperatureChartGDTJ
+            case "sdhpwk":
+              return newSingleTemperatureChartSDHPWK;
             case "zhzxy":
               return newSingleTemperatureChartZHZXY
             case "ytll":
