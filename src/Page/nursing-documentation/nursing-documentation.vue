@@ -1,8 +1,14 @@
 <template lang="pug">
 div
   .main-contain
-    changeMaJorTable(
+    //- changeMaJorTable(
+    //-   v-if="hospitalTransfer && isChangeMajor",
+    //-   :tableData="tableData",
+    //-   :pageLoadng="pageLoadng"
+    //- )
+    component(
       v-if="hospitalTransfer && isChangeMajor",
+      :is="whichChangeMajorTable",
       :tableData="tableData",
       :pageLoadng="pageLoadng"
     )
@@ -98,9 +104,11 @@ import changeMaJorTable from "./components/table/change-major-table";
 import wjDTable from "./components/table/wj-d-table";
 import wjDisTable from "./components/table/wj-dis-table";
 import pagination from "./components/common/pagination";
+import changeMajorTableSdyy from './components/table/change-major-table-sdyy.vue';
+
 import {
   patEmrList,
-  patEmrListZSQm,
+  patEmrListZSQ,
   listNurseAdtHd,
   listNurseAdtFuYou,
   handleExport,
@@ -225,6 +233,10 @@ export default {
         obj.dischargeDateBegin = "";
         obj.dischargeDateEnd = "";
       }
+      // 顺德人医转科接口修改
+      if (this.HOSPITAL_ID === 'nfyksdyy' && this.isChangeMajor) {
+        obj.status = data.sign || '0';
+      }
       return obj;
     },
     getData() {
@@ -276,9 +288,9 @@ export default {
         params = {...params,  pageIndex: this.page.pageIndex, pageNum: this.page.pageNum }
         if (params.status === '3') {
           params = {
-            ...params, 
-            admissionDateBegin: moment(params.startDate).format('YYYY-MM-DD'), 
-            admissionDateEnd: moment(params.endDate).format('YYYY-MM-DD'), 
+            ...params,
+            admissionDateBegin: moment(params.startDate).format('YYYY-MM-DD'),
+            admissionDateEnd: moment(params.endDate).format('YYYY-MM-DD'),
           }
           delete params.startDate
           delete params.endDate
@@ -345,6 +357,14 @@ export default {
     isNewDcharged() {
       return ["wujing"].includes(this.HOSPITAL_ID) && this.fatherStatus == 1;
     },
+    whichChangeMajorTable() {
+      const table = {
+        nfyksdyy: changeMajorTableSdyy,
+        other: changeMaJorTable
+      }
+      console.log('table: ', table[this.HOSPITAL_ID])
+      return table[this.HOSPITAL_ID] || table.other;
+    }
   },
   components: {
     searchCon,
