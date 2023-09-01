@@ -24,6 +24,8 @@ export function listNurseAdtHd(data,HOSPITAL_ID) {
     return axios.post(`${apiPath}nurseAdtLog/listNurseAdtNFZXY`,data);
   } else if(HOSPITAL_ID && HOSPITAL_ID == 'beihairenyi') {
     return axios.post(`${apiPath}nurseAdtLog/listNurseAdtBh`,data);
+  } else if (HOSPITAL_ID && HOSPITAL_ID == 'nfyksdyy') {
+    return axios.post(`${apiPath}/nurseAdtLog/listNurseAdtSd`, data);
   } else {
     return axios.post(`${apiPath}nurseAdtLog/listNurseAdtHd`,data);
   }
@@ -87,7 +89,7 @@ export function handleExport(params) {
       responseType: "blob"
     })
 }
-// 威海市立导出 
+// 威海市立导出
 export function handleExport_whsl(params) {
   return axios.post(
     `${apiPath}patient/exportPatEmrList`,
