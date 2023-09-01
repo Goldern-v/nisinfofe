@@ -181,7 +181,7 @@ export default {
         total: 0,
       },
       //初始化日期
-       orderTimeStr: process.env.HOSPITAL_ID == 'fsxt' ? [moment().format("YYYY-MM-DD")+' 07:30:00',moment().format("YYYY-MM-DD")+' 17:30:00']:[moment().format("YYYY-MM-DD")+' 00:00:00',moment().format("YYYY-MM-DD")+' 23:59:59'] ,
+       orderTimeStr: process.env.HOSPITAL_ID != 'fsxt' ? [moment().format("YYYY-MM-DD")+' 07:30:00',moment().format("YYYY-MM-DD")+' 17:30:00']:[moment().format("YYYY-MM-DD")+' 00:00:00',moment().format("YYYY-MM-DD")+' 23:59:59'] ,
       repeatIndicator: "",
       type: "",
       status: "",
