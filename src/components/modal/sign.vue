@@ -331,7 +331,7 @@ export default {
       }
     }
     if(type){
-      let signType = {sign:'1',audit:'2'};
+      let signType = {sign:'1',audit:'2' , cancel: '3'};
       this.signType = signType[type];
     };
     if(sheetType){

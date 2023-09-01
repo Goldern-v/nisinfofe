@@ -262,6 +262,7 @@ export function cleanDataOnly() {
         listData[nowX])||
       (process.env.HOSPITAL_ID == "sdlj" && listData && listData[nowX])||
       (process.env.HOSPITAL_ID == "dglb" && listData && listData[nowX])||
+      // (process.env.HOSPITAL_ID == "zjhj" && listData && listData[nowX])||
       // (process.env.HOSPITAL_ID == "lyxrm" && listData && listData[nowX])||
       (process.env.HOSPITAL_ID == "qhwy" && listData && listData[nowX])||
       (process.env.HOSPITAL_ID == "nfyksdyy" && listData && listData[nowX])
