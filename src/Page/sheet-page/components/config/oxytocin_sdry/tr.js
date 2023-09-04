@@ -280,14 +280,14 @@ export default [
   }
 ];
 
-export function getListData4() {
+// export function getListData4() {
 
-  multiDictInfo(list).then(res => {
+//   multiDictInfo(list).then(res => {
 
-  });
-}
+//   });
+// }
 
-getListData4();
+// getListData4();
 /**
  *
  * @param {*} list 原数组

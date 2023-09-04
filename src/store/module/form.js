@@ -20,11 +20,14 @@ export default {
     },
     getPreFormId: (state) => (formCode, formId, pageIndex) => {
       let formList = state.formTree.find(form => (form.formCode == formCode))
-      if (formId && formList && formList.children && formList.children.length > 0) {
+      const isFirst = formList.children && formList.children.length
+        ? formList.children[formList.children.length - 1].form_id == formId
+        : false;
+      if (formId && formList && formList.children && formList.children.length > 0 && !isFirst) {
         // formList = formList.children.filter(form => { return form.form_id != formId && form.evalScore })
         formList = formList.children.filter(form => {
-          return form.form_id != formId && (isNaN(pageIndex) ? true : form.pageIndex < pageIndex) }
-        )
+          return form.form_id != formId && (isNaN(pageIndex) ? true : form.pageIndex < pageIndex)
+        })
         if (formList && formList.length > 0) {
           return formList[0]
         }
