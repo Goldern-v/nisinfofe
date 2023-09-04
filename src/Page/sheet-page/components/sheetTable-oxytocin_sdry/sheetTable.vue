@@ -99,8 +99,8 @@
             v-else
             type="text"
             class="bottomInput bottom-line"
-            :data-value="sheetInfo.relObj.totalOxytocin"
-            v-model="sheetInfo.relObj.totalOxytocin"
+            :data-value="sheetInfo.relObj[`totalOxytocin${suffix}`]"
+            v-model="sheetInfo.relObj[`totalOxytocin${suffix}`]"
             @focus="onFocus($event,'totalOxytocin')"
             @blur="onBlur($event,'totalOxytocin')"
           />
@@ -109,7 +109,7 @@
               v-for="item in totalOxytocin"
               :key="item"
               :class="{active: sheetInfo.relObj.totalOxytocin == item}"
-              @click="selectedItem(item,'totalOxytocin')"
+              @click="selectedItem(item, 'totalOxytocin' + suffix)"
             >{{item}}</li>
           </ul>
         </div>
@@ -403,8 +403,9 @@ export default {
       }
     },
     selectedItem(val, type) {
-      if (type == "totalOxytocin") {
-        sheetInfo.relObj.totalOxytocin = val;
+      if (type == "totalOxytocin" + this.suffix) {
+        console.log('Total', val)
+        sheetInfo.relObj[`totalOxytocin${this.suffix}`] = val;
         this.showModal2 = false;
       } else {
         sheetInfo.relObj.deliveryWay = val;
@@ -484,6 +485,9 @@ export default {
         this.patientInfo.diagnosis
       );
     },
+    suffix() {
+      return this.index === 0 ? '' : this.index;
+    },
     /** 只读模式 */
     readOnly() {
       return !this.userDeptList
@@ -517,7 +521,7 @@ export default {
       // }
     }
     if(this.sheetInfo.relObj['deliveryWay']){
-      this.sheetInfo.relObj[index+'deliveryWay'] =  this.sheetInfo.relObj['deliveryWay']
+      this.sheetInfo.relObj[this.index+'deliveryWay'] =  this.sheetInfo.relObj['deliveryWay']
     }
   },
   destroyed() {} /* fix vue-happy-bus bug */,

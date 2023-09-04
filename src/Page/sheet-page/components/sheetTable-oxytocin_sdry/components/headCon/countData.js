@@ -37,17 +37,19 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix1"
+        name: "cervix1",
+        score: '0',
       },
       {
         type: "text",
-        value: "1-2"
+        value: "1-2",
       },
       {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix1"
+        name: "cervix1",
+        score: '1',
       },
       {
         type: "text",
@@ -57,7 +59,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix1"
+        name: "cervix1",
+        score: '2',
       },
       {
         type: "text",
@@ -67,7 +70,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix1"
+        name: "cervix1",
+        score: '3',
       }
     ],
     [{
@@ -82,7 +86,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix2"
+        name: "cervix2",
+        score: '0',
       },
       {
         type: "text",
@@ -92,7 +97,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix2"
+        name: "cervix2",
+        score: '1',
       },
       {
         type: "text",
@@ -102,7 +108,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix2"
+        name: "cervix2",
+        score: '2',
       },
       {
         type: "text",
@@ -112,7 +119,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix2"
+        name: "cervix2",
+        score: '3',
       }
     ],
     [{
@@ -127,7 +135,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix3"
+        name: "cervix3",
+        score: '0',
       },
       {
         type: "text",
@@ -137,7 +146,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix3"
+        name: "cervix3",
+        score: '1',
       },
       {
         type: "text",
@@ -147,7 +157,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix3"
+        name: "cervix3",
+        score: '2',
       },
       {
         type: "text",
@@ -157,7 +168,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix3"
+        name: "cervix3",
+        score: '3',
       }
     ],
     [{
@@ -172,7 +184,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix4"
+        name: "cervix4",
+        score: '0',
       },
       {
         type: "text",
@@ -182,7 +195,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix4"
+        name: "cervix4",
+        score: '1',
       },
       {
         type: "text",
@@ -192,7 +206,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix4"
+        name: "cervix4",
+        score: '2',
       },
       {
         type: "text",
@@ -215,7 +230,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix5"
+        name: "cervix5",
+        score: '0',
       },
       {
         type: "text",
@@ -225,7 +241,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix5"
+        name: "cervix5",
+        score: '1',
       },
       {
         type: "text",
@@ -235,7 +252,8 @@ export let countData = {
         type: "text",
         value: "",
         isChecked: true,
-        name: "cervix5"
+        name: "cervix5",
+        score: '2',
       },
       {
         type: "text",

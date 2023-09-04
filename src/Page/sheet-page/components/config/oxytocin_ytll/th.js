@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "1300px"
+    width: "800px"
   },
   th: {
     top: [{name: '用  药  后', colspan: 14, rowspan: 1}],
@@ -17,17 +17,17 @@ export default {
       {
         name: '剂量',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
       },
       {
-        name: '滴数',
+        name: '滴数<br>(滴/分)',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -35,8 +35,8 @@ export default {
       {
         name: '血压',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -44,8 +44,8 @@ export default {
       {
         name: '衔接',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -62,8 +62,8 @@ export default {
       {
         name: '宫缩',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -71,8 +71,8 @@ export default {
       {
         name: '胎膜',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -80,8 +80,8 @@ export default {
       {
         name: '宫口<br />扩张',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '50px',
+          maxWidth: '50px',
         },
         colspan: '1',
         rowspan: '2'
@@ -89,8 +89,8 @@ export default {
       {
         name: '检查<br />方式',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '2'
@@ -98,8 +98,8 @@ export default {
       {
         name: '备注',
         style: {
-          minWidth: '366px',
-          maxWidth: '366px',
+          minWidth: '190px',
+          maxWidth: '190px',
         },
         colspan: '1',
         rowspan: '2'
@@ -119,8 +119,8 @@ export default {
       {
         name: '日期',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '40px',
+          maxWidth: '40px',
         },
         colspan: '1',
         rowspan: '1'
@@ -128,8 +128,8 @@ export default {
       {
         name: '时间',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '40px',
+          maxWidth: '40px',
         },
         colspan: '1',
         rowspan: '1'
@@ -137,22 +137,22 @@ export default {
       {
         name: '位置',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '1'
       },
       {
-        name: '速率',
+        name: '速率<br>(次/分)',
         style: {
-          minWidth: '60px',
-          maxWidth: '60px',
+          minWidth: '45px',
+          maxWidth: '45px',
         },
         colspan: '1',
         rowspan: '1'
       },
-      
+
     ]
   }
 }

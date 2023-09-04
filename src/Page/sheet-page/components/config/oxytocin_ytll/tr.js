@@ -29,7 +29,7 @@ export default [
     event: event_time,
     click: click_time
   },
-  
+
   {
     key: "fieldTwo", //剂量
     value: "",
@@ -62,7 +62,7 @@ export default [
     value: "",
     event: keyf1,
     textarea: {
-      width: 52
+      width: 50
     },
     name: "衔接"
   },
@@ -106,7 +106,7 @@ export default [
     key: "description", //备注
     value: "",
     style: { textAlign: "left", position: "absolute", top: "1px", bottom: "1px", left: "1px", width: "150px", background: "transparent" },
-    textarea: { width: 366 },
+    textarea: { width: 190 },
     event: keyf1,
   },
   {
