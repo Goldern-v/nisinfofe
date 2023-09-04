@@ -367,6 +367,9 @@
                   sheetInfo.sheetType === 'pediatrics_jm' ||
                   sheetInfo.sheetType === 'child_recovery_jm' ||
                   sheetInfo.sheetType === 'gynaecology_jm' ||
+                  sheetInfo.sheetType === 'generalsurgery_jm' ||
+                  sheetInfo.sheetType === 'neonatology_jm' ||
+                  sheetInfo.sheetType === 'antenatalwaiting_jm' ||
                   sheetInfo.sheetType === 'tcm_pediatrics_jm' ||
                   sheetInfo.sheetType === 'antenatalwaiting_jm' ||
                   sheetInfo.sheetType === 'breastkenursing_jm' ||
@@ -925,6 +928,9 @@ export default {
         "pediatrics_jm", //江门妇幼_儿科护理记录单
         "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
         "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "generalsurgery_jm", //江门妇幼_普外科护理记录单
+        "neonatology_jm", //江门妇幼_产科新生儿护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产记录单
         "tcm_pediatrics_jm", //江门妇幼_中医儿科护理记录单
         "internalCareRecord", //江门妇幼_内科护理记录单
         "ear_nose_jm", //江门妇幼_耳鼻喉科护理记录单(成人）

@@ -246,7 +246,7 @@ export default {
         }).catch((error) => {
           this.$message.error(`${text}失败`)
         })
-      }, text);
+      }, text,undefined,undefined,undefined,{});
     },
      choseId(row) {
       this.choseID = row.id
@@ -283,7 +283,7 @@ export default {
             target: ""
           });
         });
-      })
+      }, "",undefined,undefined,undefined,{})
     },
     selectedRow(row) {
       // model.selectedRow = row;
@@ -318,7 +318,7 @@ export default {
           model.refreshTable();
           model.selectedRow = null;
         });
-      }, "你确定要删除诊断？");
+      }, "你确定要删除诊断？",undefined,undefined,undefined,{});
     },
     stop(row) {
       // if (!this.verify()) return;

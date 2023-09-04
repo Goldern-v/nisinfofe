@@ -70,6 +70,9 @@ export default {
         "pediatrics_jm", //江门妇幼_儿科护理记录单
         "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
         "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "generalsurgery_jm", //江门妇幼_普外科护理记录单
+        "neonatology_jm", //江门妇幼_产科新生儿护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产记录单
         "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
         "obstetricnursing_jm", //江门妇幼_产科护理记录单
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单

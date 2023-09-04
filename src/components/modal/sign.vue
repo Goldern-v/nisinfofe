@@ -375,7 +375,7 @@ export default {
         }else if(['nanfangzhongxiyi','zhzxy' ].includes(this.HOSPITAL_ID)){
           this.verifySignObj = verifySignObj
         }
-        if([].includes(this.HOSPITAL_ID) && !this.nanfangCa){
+        if(!this.nanfangCa){
           this.pw = true
         }else this.pw = false;
 
@@ -391,9 +391,8 @@ export default {
       // this.showMessage = showMessage;
       this.message = message;
       this.password = "";
-
       this.$refs.modalName.open();
-      if (!['foshanrenyi','weixian', 'fuyou'].includes(this.HOSPITAL_ID)) {
+      if (!['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         this.$nextTick(() => {
           if(showDate){
             let dateInput = this.$refs.dateInput.querySelector("input");
@@ -434,7 +433,7 @@ export default {
     post() {
       this.btnLoading = true
       this.setCloseCallback(null);
-      if (['foshanrenyi','weixian', 'fuyou'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         if (this.pw) {
           if (this.password == "") {
             return this.$message({
