@@ -375,9 +375,7 @@ export default {
         }else if(['nanfangzhongxiyi','zhzxy' ].includes(this.HOSPITAL_ID)){
           this.verifySignObj = verifySignObj
         }
-        if(!this.nanfangCa){
-          this.pw = true
-        }else this.pw = false;
+        this.pw = false;
 
       // 如果已经是ca签名的情况下 点开签名弹窗 默认开启ca签名
       if(['hj', 'fuyou'].includes(this.HOSPITAL_ID)){
