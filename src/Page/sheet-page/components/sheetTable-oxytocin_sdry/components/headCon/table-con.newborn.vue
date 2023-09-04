@@ -305,7 +305,7 @@
   .page-print {
     border: 0px;
     border-top: 1px black solid;
-    page-break-after: always;
+    // page-break-after: always;
     width: 100%;
     height: 40px;
     display: block;
