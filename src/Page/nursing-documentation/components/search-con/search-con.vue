@@ -439,7 +439,8 @@ export default {
         'liaocheng',
         '925',
         'qhwy',
-        'whhk'
+        'whhk',
+        'zjhj'
       ].includes(this.HOSPITAL_ID);
     },
     useSelect() {

@@ -1099,6 +1099,8 @@ export default {
           return require("../../common/images/logo_zhzxy_login.png");
         case "dglb":
           return require("../../common/images/logo_dglb_login.png");
+        case "zjhj":
+          return require("../../common/images/logo_zjhj.jpg");
         case "nfyksdyy":
           return require("../../common/images/logo_nfyksdyy.png");
         default:
@@ -1125,6 +1127,7 @@ export default {
           "fsxt",
           "qhwy",
           "nfyksdyy",
+          "zjhj"
         ].includes(this.HOSPITAL_ID)
       ) {
         logoName = "智慧护理信息系统";
