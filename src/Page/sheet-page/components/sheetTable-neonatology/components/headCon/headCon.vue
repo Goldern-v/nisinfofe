@@ -84,7 +84,7 @@ export default {
           });
         }
         this.bus.$emit("saveSheetPage", true);
-      }, title);
+      }, title, null,false,'',this.sheetInfo.selectBlock);
     }
   },
   filters: {
