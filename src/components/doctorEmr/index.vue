@@ -333,11 +333,11 @@ export default {
     -ms-transform: translate(-50%, -40%);
     -moz-transform: translate(-50%, -40%);
     position: fixed;
-    top: 61%;
+    top: 50%;
     left: 56%;
     z-index: 999;
-    width: 960px;
-    height: 555px;
+    width: 1200px;
+    height: 650px;
     background: #ffffff;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 
