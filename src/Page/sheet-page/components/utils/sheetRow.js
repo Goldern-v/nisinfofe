@@ -121,6 +121,12 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType == 'third_round_records' || sheetInfo.sheetType == 'follow_doctor_check_records') {
     return 27
+  } else if (sheetInfo.sheetType == 'insulin_pump_sdry') {
+    if (index === 0) {
+      return 15;
+    } else {
+      return 22;
+    }
   } else {
     return 17;
   }

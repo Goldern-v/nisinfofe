@@ -583,7 +583,7 @@
         </td>
       </tr>
     </table>
-    <span>3.每天观察记录表(局部情况编码：1=正常，2=红肿，3=硬结，4=出血，5=瘀斑，6=疼痛，7=针头脱出，8=针头堵塞)</span>
+    <div style="margin-top:5px">3.每天观察记录表(局部情况编码：1=正常，2=红肿，3=硬结，4=出血，5=瘀斑，6=疼痛，7=针头脱出，8=针头堵塞)</div>
   </div>
 </template>
 
@@ -802,7 +802,7 @@ export default {
         border: 1px solid #000;
         margin: 0;
         padding: 1px;
-        line-height: 20px;
+        line-height: 19px;
          vertical-align: middle;
         // height: 28px;//需保留否则td内div没有内容
 

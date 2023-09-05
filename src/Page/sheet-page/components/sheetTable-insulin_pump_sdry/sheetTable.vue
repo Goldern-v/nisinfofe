@@ -23,7 +23,7 @@
           </span>
           <span>
             病区:
-            <div class="bottom-line" style="min-width: 135px">{{patientInfo.deptName}}</div>
+            <div class="bottom-line" style="min-width: 266px">{{patientInfo.deptName}}</div>
           </span>
         </div>
         <div class="info-con" >
@@ -48,9 +48,9 @@
             <div class="bottom-line" style="min-width: 70px">{{patientInfo.inpNo}}</div>
           </span>
         </div>
-        <div class="info-con" flex>
+        <div class="info-con" flex style="margin-bottom: 5px">
           <span>诊断:</span>
-          <div  class="bottom-line" style="flex: 1">{{patientInfo.diagnosis}}</div>
+          <div class="bottom-line" style="flex: 1">{{patientInfo.diagnosis}}</div>
         </div>
       </div>
       <infoTable v-if="isFirst" :patientInfo='patientInfo'></infoTable>
