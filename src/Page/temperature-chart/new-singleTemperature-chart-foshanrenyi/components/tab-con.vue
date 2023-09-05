@@ -935,7 +935,9 @@ export default {
     // 下拉选项触发查询
     changeVal(newVal, oldVal) {
       if (newVal && newVal.split(":").length == 2) {
-        this.query.entryTime = newVal + ":00";
+        if (newVal !== this.query.entryTime.substring(0, 5)) {
+          this.query.entryTime = newVal + ":00";
+        }
         this.dateInp = newVal;
       }
     },
