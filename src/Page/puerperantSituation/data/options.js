@@ -56,5 +56,15 @@ export const filterOptions = [
   { code: "急产", name: "急产" },
   { code: "切开", name: "切开" },
   { code: "剖宫产", name: "剖宫产" },
-  { code: "顺产", name: "顺产" }
+  { code: "顺产", name: "顺产" },
+  { code: "早产", name: "早产" },
+  { code: "巨大儿", name: "巨大儿" },
+  { code: "初产妇", name: "初产妇" },
+  { code: "新生儿窒息", name: "新生儿窒息" },
+  { code: "严重产后出血", name: "严重产后出血" },
+  { code: "会阴一度裂伤", name: "会阴一度裂伤" },
+  { code: "会阴二度裂伤", name: "会阴二度裂伤" },
+  { code: "静滴催产素", name: "静滴催产素" },
+  { code: "女活产儿数", name: "女活产儿数" },
+  { code: "男活产数", name: "男活产数" },
 ];
