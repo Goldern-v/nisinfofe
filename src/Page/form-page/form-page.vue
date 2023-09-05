@@ -155,7 +155,7 @@ export default {
     // 这里监听路由变化，如果是同一个页面，就不执行更新逻辑
     if (to.path === from.path) {
       if(!this.$store.state.admittingSave.admittingSave){
-      return this.$confirm('入院评估单还未保存，是否需要离开页面?', '提示', {
+      return this.$confirm('护理文书还未保存，是否需要离开页面?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
