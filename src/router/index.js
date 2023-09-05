@@ -387,6 +387,7 @@ import temperatureWHYX from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureGDTJ from "@/Page/patientInfo/supPage/temperature/temperature-gdtj";
 import temperatureZHZYX from "@/Page/patientInfo/supPage/temperature/temperature-zhzxy";
 import temperatureYTLL from "@/Page/patientInfo/supPage/temperature/temperature-linlong";
+import temperatureSDHPWK from "@/Page/patientInfo/supPage/temperature/temperature-sdhpWK";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import oxygenSugar from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar.vue"; // 厚街
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
@@ -673,6 +674,8 @@ const router = new Router({
               return temperatureZHZYX
           case 'ytll':
               return temperatureYTLL
+          case 'sdhpwk':
+            return temperatureSDHPWK
           default:
             return temperature
         }
@@ -1223,6 +1226,8 @@ const router = new Router({
                   return temperatureZHZYX
               case 'ytll':
                 return temperatureYTLL
+              case 'sdhpwk':
+                return temperatureSDHPWK
               default:
                 return temperature
             }
