@@ -111,6 +111,11 @@ export default [
     value: "",
   },
   {
+    hidden: false,
+    key: "signerNo",
+    value: ""
+  },
+  {
     key: "evaluation", // 撤机评估(医生)
     value: "",
     event: keyf1,
@@ -172,11 +177,6 @@ export default [
   {
     hidden: true,
     key: "monthHour",
-    value: ""
-  },
-  {
-    hidden: false,
-    key: "signerNo",
     value: ""
   },
   {
