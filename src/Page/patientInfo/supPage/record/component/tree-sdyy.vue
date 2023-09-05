@@ -419,6 +419,31 @@ export default {
         if (!comfirm) return;
       }
 
+     // 编辑器统一做的离开提示
+     if ((!this.$store.state.admittingSave.admittingSave) && node.level == 3){
+       const comfirm = await this.$confirm(
+          "护理文书还未保存，是否需要离开页面?",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }
+        )
+          .then(() => {
+            this.$store.commit("upAdmittingSave", true);
+            return true;
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消"
+            });
+            return false;
+          });
+        if (!comfirm) return;
+     }
+
       try {
         this.bus.$emit("activeAllButons");
         window.app.$CRMessageBox.notifyBox.close();
