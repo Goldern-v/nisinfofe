@@ -140,7 +140,9 @@ function onFocusToAutoComplete(e, bind, cb) {
     }
   }
   let list = td.value ? td.value.split(',') : [];
-  let isCriticallycareBh = sheetInfo.sheetType == "criticallycare_bh" && td.key == "pipeCare";
+  let sheetTypeList = ["criticallycare_bh" , "additional_count_hd"];
+  let tdKeyList = ["pipeCare" , "nursingOperationItem"];
+  let isCriticallycareBh = sheetTypeList.includes(sheetInfo.sheetType) && tdKeyList.includes(td.key);
   setTimeout(() => {
     window.openAutoComplete({
       style: {
