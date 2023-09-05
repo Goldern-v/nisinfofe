@@ -4,7 +4,7 @@ import { apiPath } from "@/api/apiConfig";
 
 // 获取数据
 export function getNursingVisitLc(obj) {
-  return axios.post(`${apiPath}nursingVisitLc/listLingChenPc`, obj); 
+  return axios.post(`${apiPath}nursingVisitLc/listLingChenPc`, obj);
 }
 export function exportExcel(obj) {
   return axios.post(
@@ -25,7 +25,10 @@ export function deleteOperateDateLingChen(obj) {
 export function updateOperateDateLingChen(obj) {
   return axios.post(`${apiPath}nursingVisitLc/updateOperateDateLingChen`, obj);
 }
-
+//pc巡视录入
+export function addNursingVisitPda(obj) {
+  return axios.post(`${apiPath}nursingVisit/addNursingVisitPda`, obj);
+}
 // 查看科室巡视管理员权限
 export function findRoleList(deptCode) {
   let obj = {

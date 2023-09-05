@@ -18,27 +18,25 @@
       </div> -->
       <!-- <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" /> -->
       <div class="wrist-line2">
-        <span>{{ query.deptName }}</span>&nbsp;
-        <span>
-          入院时间：{{ moment(query.admissionDate).format("YYYY-MM-DD") }}
-        </span>
         <div>
+        <span>{{ query.deptName }}</span>&nbsp;</div>
+        <div style="margin-left: -110px;"><span>
+          入院时间：
+        </span>
+        <span>{{ moment(query.admissionDate).format("YYYY-MM-DD") }}</span></div>
+        <!-- <div>
         血型：
         <input type="text" />
+      </div> -->
       </div>
+      <div class="wrist-line1">
+      <span>{{ query.name }}</span>
+        <span>{{ query.sex }}</span>
+        <span>{{ query.age }}</span>
+        <span>床号:{{ query.bedLabel }}</span>
+        <span>ID:{{ query.patientId }}</span>
       </div>
-      <div class="wrist-line2">
-      <span>{{ query.name }}</span>&nbsp;
-        <span>{{ query.sex }}</span>&nbsp;
-        <span>{{ query.age }}</span>&nbsp;
-        <span>床号:{{ query.bedLabel }}</span>&nbsp;
-        <span>ID:{{ query.patientId }}</span>&nbsp;
-        <div>
-          <span>过敏：</span>
-          <input type="text" />
-        </div>
-      </div>
-      <div class="wrist-line2">
+      <!-- <div class="wrist-line2">
         <div>
           <span>手术名称：</span>
           <input type="text" v-model="operationName" />
@@ -47,12 +45,14 @@
           <span>手术部位：</span>
           <input type="text" v-model="operationName1" />
         </div>
-        <!-- <div>
-          <span>住院号：</span>
-          <span>{{ query.inpNo }}</span>
-        </div> -->
-      </div>
+      </div> -->
 
+      <div class="wrist-line2">
+        <div>
+          <span>过敏：</span>
+          <input type="text" />
+        </div>
+      </div>
       <div class="wrist-line2">
         <div>
           <span>诊断：</span>
@@ -93,26 +93,28 @@
                 <input
                   type="text"
                   nowidth
-                  style="font-size: 26px;width:65px"
+                  style="font-size: 26px;width:140px"
                   flex-box="1"
                   class="bottom-line"
                   v-model="query.patientId"
                 />
               </div>
+
               <div style="display: flex;">
-                <span  class="label">住院号:</span>
+                <span  class="label">入院日期:</span>
                 <input
-                  type="text"
-                  nowidth
-                  style="font-size: 26px;width:120px"
-                  flex-box="1"
-                  class="bottom-line"
-                  v-model="query.inpNo"
-                />
+                type="text"
+                nowidth
+                style="font-size: 26px;width: 186px;"
+
+                flex-box="1"
+                class="bottom-line"
+                :value="moment(query.admissionDate).format('YYYY-MM-DD ')"
+              />
                 </div>
               <!-- <div class="bedNum">{{query.bedLabel + '床'}}</div> -->
             </div>
-            <div flex="cross:center" class="input-item">
+            <!-- <div flex="cross:center" class="input-item">
               <span class="label">入院日期:</span>
               <input
                 type="text"
@@ -122,7 +124,7 @@
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD ')"
               />
-            </div>
+            </div> -->
             <div flex="cross:center" class="input-item input-item2">
               <span class="label">诊断:</span>
               <input
@@ -160,7 +162,7 @@
   font-size: 20px;
   line-height: 26px;
   >>> * {
-    font-family: 'SimHei', 'Microsoft Yahei' !important;
+    font-family: 'SimHei', 'Microsoft Yahei','黑体' !important;
     font-weight: bold;
   }
   input {
@@ -181,7 +183,7 @@
   font-size: 16px;
 
   >>> * {
-    font-family: 'SimHei', 'Microsoft Yahei' !important;
+    font-family: 'SimHei', 'Microsoft Yahei','黑体' !important;
     font-weight: bold;
   }
 }
@@ -252,7 +254,7 @@
     padding:0;
   }
   .fontSize-50{
-    font-size: 35px;
+    font-size: 44px;
     font-weight: bold;
     line-height: 50px;
   }
@@ -390,17 +392,20 @@
 }
 .wrist {
   padding: 20px 0px;
-  font-size: 19px;
+  font-size: 22px;
   line-height: 26px;
   font-weight: bold;
 
-  .wrist-line1, .wrist-line2 {
+  .wrist-line1{
     width: calc(100% - 100px);
-    display: flex;
+    // display: flex;
     justify-content: space-between;
   }
 
   .wrist-line2 {
+    width: calc(100% - 100px);
+    display: flex;
+    justify-content: space-between;
     div {
       flex: 1;
       display: flex;
@@ -425,7 +430,7 @@
     }
   }
   input {
-    font-size: 19px;
+    font-size: 22px;
     line-height: 26px;
   }
 }
