@@ -44,7 +44,7 @@ export default [
     event: keyf1,
     name: "孕周",
     textarea: {
-      width: 40
+      width: 35
     }
   },
   {
@@ -54,7 +54,7 @@ export default [
     name: "体温",
     next: "℃",
     textarea: {
-      width: 35
+      width: 28
     }
   },
   {
@@ -93,24 +93,24 @@ export default [
       width: 30
     }
   },
-  {
-    key: "bloodSugar", //血糖
-    value: "",
-    event: keyf1,
-    name: "血糖",
-    next:"mol/L",
-    textarea: {
-      width: 32
-    }
-  },
+  // {
+  //   key: "bloodSugar", //血糖
+  //   value: "",
+  //   event: keyf1,
+  //   name: "血糖",
+  //   next:"mol/L",
+  //   textarea: {
+  //     width: 32
+  //   }
+  // },
   {
     key: "preInputOne", //胎方位
     value: "",
     event: keyf1,
     name: "胎方位",
     textarea: {
-      width: 40
-    }, 
+      width: 30
+    },
     autoComplete: {
       data: ['LOA','LOT','ROA','ROT','LST','RST','LSCA','RSCA']
     },
@@ -131,7 +131,7 @@ export default [
     event: keyf1,
     name: "强度",
     textarea: {
-      width: 30
+      width: 28
     },
     autoComplete: {
       data: gsqdList
@@ -144,7 +144,7 @@ export default [
     name: "持续",
     next: "s",
     textarea: {
-      width: 30
+      width: 28
     }
   },
   {
@@ -154,7 +154,7 @@ export default [
     name: "间歇",
     next: "min",
     textarea: {
-      width: 30
+      width: 28
     },
   },
   {
@@ -164,7 +164,7 @@ export default [
     name: "扩张",
     next: "cm",
     textarea: {
-      width: 30
+      width: 28
     },
   },
   {
@@ -173,7 +173,7 @@ export default [
     event: keyf1,
     name: "评分",
     textarea: {
-      width: 30
+      width: 28
     },
   },
   {
@@ -182,7 +182,7 @@ export default [
     event: keyf1,
     name: "先露高低",
     textarea: {
-      width: 30
+      width: 28
     },
     autoComplete: {
       data: xlgdList
@@ -197,7 +197,7 @@ export default [
       data: tmList
     },
     textarea: {
-      width: 30
+      width: 28
     }
   },
   {
@@ -206,7 +206,7 @@ export default [
     event: keyf1,
     name: "羊水性质",
     textarea: {
-      width: 30
+      width: 28
     },
     autoComplete: {
       data: ysxzList
@@ -219,7 +219,7 @@ export default [
     name: "胎动",
     next: "次/h",
     textarea: {
-      width: 40
+      width: 28
     }
   },
   {
@@ -228,7 +228,7 @@ export default [
     event: keyf1,
     name: "排尿情况",
     textarea: {
-      width: 40
+      width: 28
     },
   },
   {
@@ -237,7 +237,7 @@ export default [
     event: event_time,
     name: "破膜时间",
     textarea: {
-      width: 40,
+      width: 35,
     },
   },
   {
@@ -282,6 +282,50 @@ export default [
     },
   },
   {
+    key: "vein", //静脉
+    value: "",
+    event: keyf1,
+    name: "静脉",
+    next: "ml",
+    textarea: {
+      width: 30,
+      maxLength: 4
+    },
+  },
+  {
+    key: "oral", //口服
+    value: "",
+    event: keyf1,
+    name: "口服",
+    next: "ml",
+    textarea: {
+      width: 30,
+      maxLength: 4
+    },
+  },
+  {
+    key: "blood", //滴数
+    value: "",
+    event: keyf1,
+    name: "血",
+    next: "ml",
+    textarea: {
+      width: 30,
+      maxLength: 4
+    },
+  },
+  {
+    key: "urine", //尿
+    value: "",
+    event: keyf1,
+    name: "尿",
+    next: "ml",
+    textarea: {
+      width: 30,
+      maxLength: 4
+    },
+  },
+  {
     key: "armValue", //自定义1
     value: "",
     event: keyf1,
@@ -289,14 +333,14 @@ export default [
       width: 40,
     },
   },
-  {
-    key: "armValue2", //自定义12
-    value: "",
-    event: keyf1,
-    textarea: {
-      width: 40,
-    },
-  },
+  // {
+  //   key: "armValue2", //自定义12
+  //   value: "",
+  //   event: keyf1,
+  //   textarea: {
+  //     width: 40,
+  //   },
+  // },
   {
     key: "description", //特殊情况记录
     value: "",

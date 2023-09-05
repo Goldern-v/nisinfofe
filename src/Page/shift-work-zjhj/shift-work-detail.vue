@@ -133,15 +133,15 @@
               <span>/</span>
               <span data-print-style="display: none">
                 <button
-                  v-if="record.autographEmpNoA2"
-                  @click="onDelSignModalOpen('A', record.autographNameA2)"
+                  v-if="record.autographNameA2"
+                  @click="onDelSignModalOpen('A2', record.autographNameA2)"
                 >
-                  {{ record.autographEmpNoA2 }}
+                  {{ record.autographNameA2 }}
                 </button>
                 <button
                   v-else
                   :disabled="isEmpty"
-                  @click="onSignModalOpen('A')"
+                  @click="onSignModalOpen('A2')"
                 >
                   点击签名
                 </button>
@@ -197,26 +197,26 @@
               <span>/</span>
               <span data-print-style="display: none">
                 <button
-                  v-if="record.autographEmpNoP2"
-                  @click="onDelSignModalOpen('A', record.autographNameP2)"
+                  v-if="record.autographNameP2"
+                  @click="onDelSignModalOpen('P2', record.autographEmpNoP2)"
                 >
-                  {{ record.autographEmpNoP2 }}
+                  {{ record.autographNameP2 }}
                 </button>
                 <button
                   v-else
                   :disabled="isEmpty"
-                  @click="onSignModalOpen('A')"
+                  @click="onSignModalOpen('P2')"
                 >
                   点击签名
                 </button>
               </span>
               <FallibleImage
                 class="img"
-                v-if="record.autographEmpNoP2"
+                v-if="record.autographNameP2"
                 :src="
-                  `/crNursing/api/file/signImage/${record.autographNameP2}?${token}`
+                  `/crNursing/api/file/signImage/${record.autographEmpNoP2}?${token}`
                 "
-                :alt="record.autographEmpNoP2"
+                :alt="record.autographNameP2"
                 data-print-style="display: inline-block; width: 52px; height: auto;"
               />
               <span
@@ -262,14 +262,14 @@
               <span data-print-style="display: none">
                 <button
                   v-if="record.autographNameN2"
-                  @click="onDelSignModalOpen('N', record.autographEmpNoN2)"
+                  @click="onDelSignModalOpen('N2', record.autographEmpNoN2)"
                 >
                   {{ record.autographNameN2 }}
                 </button>
                 <button
                   v-else
                   :disabled="isEmpty"
-                  @click="onSignModalOpen('N', record.autographEmpNoN2)"
+                  @click="onSignModalOpen('N2', record.autographEmpNoN2)"
                 >
                   点击签名
                 </button>

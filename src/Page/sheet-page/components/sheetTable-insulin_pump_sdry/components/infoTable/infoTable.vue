@@ -2,12 +2,12 @@
   <div class="cardiac_intervent-info-contain">
     <!-- {{relObj}} -->
     <span>1.患者相关检查指标</span>
-    <table style="width: 50%; margin-bottom: 5px;">
+    <table style="margin-bottom: 5px;">
       <colgroup>
-        <col width="15%" />
-        <col width="20%" />
-        <col width="35%" />
-        <col width="30%" />
+        <col width="19%" />
+        <col width="27%" />
+        <col width="27%" />
+        <col width="27%" />
       </colgroup>
       <tr>
         <td>项目</td>
@@ -75,7 +75,6 @@
           <input
             type="text"
             class="bottom-line"
-            style="border-bottom: 1px solid;"
             v-model="relObj.sysA"
             :data-value="relObj.sysA"
           />
@@ -206,7 +205,6 @@
           <input
             type="text"
             class="bottom-line"
-            style="border-bottom: 1px solid;"
             v-model="relObj.sysA1"
             :data-value="relObj.sysA1"
           />
@@ -337,7 +335,6 @@
           <input
             type="text"
             class="bottom-line"
-            style="border-bottom: 1px solid;"
             v-model="relObj.sysA2"
             :data-value="relObj.sysA2"
           />
@@ -468,7 +465,6 @@
           <input
             type="text"
             class="bottom-line"
-            style="border-bottom: 1px solid;"
             v-model="relObj.sysA3"
             :data-value="relObj.sysA3"
           />
@@ -587,6 +583,7 @@
         </td>
       </tr>
     </table>
+    <span>3.每天观察记录表(局部情况编码：1=正常，2=红肿，3=硬结，4=出血，5=瘀斑，6=疼痛，7=针头脱出，8=针头堵塞)</span>
   </div>
 </template>
 
@@ -805,7 +802,7 @@ export default {
         border: 1px solid #000;
         margin: 0;
         padding: 1px;
-        line-height: 28px;
+        line-height: 20px;
          vertical-align: middle;
         // height: 28px;//需保留否则td内div没有内容
 

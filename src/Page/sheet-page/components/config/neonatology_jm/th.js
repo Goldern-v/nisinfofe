@@ -162,6 +162,17 @@ export default {
         },
         colspan: "1",
         rowspan: "3"
+      },
+      {
+        name: `
+        上级护士签名
+        `,
+        style: {
+          minWidth: "40px",
+          maxWidth: "40px"
+        },
+        colspan: "1",
+        rowspan: "3"
       }
     ],
     mid: [

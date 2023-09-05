@@ -177,7 +177,20 @@
           <el-input v-model="data.inpNo" placeholder="请输入住院号"></el-input>
         </div>
         <div class="input-con">
-          <el-input v-model="data.bedLabel" placeholder="请输入床号"></el-input>
+          <el-select
+            v-if="useSelect"
+            v-model="data.sign"
+            placeholder="请选择标志"
+            clearable
+          >
+            <el-option
+              v-for="item in signList"
+              :key="item.name"
+              :label="item.name"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+          <el-input v-else v-model="data.bedLabel" placeholder="请输入床号"></el-input>
         </div>
         <div class="input-con" v-if="HOSPITAL_ID == 'zhongshanqi'">
           <el-input
@@ -387,11 +400,17 @@ export default {
         dischargeDate: [moment().subtract(30, "days"), new Date()],
         dateTime: [moment().subtract(30, "days"), new Date()],
         diagnosis: "", //病种
+        sign: '', // 转科标志
         // hospitalTransfer:['huadu','fuyou']//转科医院名字
       },
       ifCanTobu: true,
       ifCanFKtongbu: true,
       hasSynchronize: ["hengli", "fuyou", "beihairenyi", "nanfangzhongxiyi"],
+      signList: [
+        { name: '转病区', value: '1' },
+        { name: '转科', value: '2' },
+        { name: '飞床', value: '3' },
+      ]
     };
   },
   computed: {
@@ -420,9 +439,13 @@ export default {
         'liaocheng',
         '925',
         'qhwy',
-        'whhk'
+        'whhk',
+        'zjhj'
       ].includes(this.HOSPITAL_ID);
     },
+    useSelect() {
+      return ['nfyksdyy'].includes(this.HOSPITAL_ID) && this.data.status == 3;
+    }
   },
   watch: {
     deptCode() {},

@@ -375,9 +375,7 @@ export default {
         }else if(['nanfangzhongxiyi','zhzxy' ].includes(this.HOSPITAL_ID)){
           this.verifySignObj = verifySignObj
         }
-        if([].includes(this.HOSPITAL_ID) && !this.nanfangCa){
-          this.pw = true
-        }else this.pw = false;
+        this.pw = false;
 
       // 如果已经是ca签名的情况下 点开签名弹窗 默认开启ca签名
       if(['hj', 'fuyou'].includes(this.HOSPITAL_ID)){
@@ -391,9 +389,8 @@ export default {
       // this.showMessage = showMessage;
       this.message = message;
       this.password = "";
-
       this.$refs.modalName.open();
-      if (!['foshanrenyi','weixian', 'fuyou'].includes(this.HOSPITAL_ID)) {
+      if (!['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         this.$nextTick(() => {
           if(showDate){
             let dateInput = this.$refs.dateInput.querySelector("input");
@@ -434,7 +431,7 @@ export default {
     post() {
       this.btnLoading = true
       this.setCloseCallback(null);
-      if (['foshanrenyi','weixian', 'fuyou'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','weixian'].includes(this.HOSPITAL_ID)) {
         if (this.pw) {
           if (this.password == "") {
             return this.$message({

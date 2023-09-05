@@ -313,6 +313,8 @@ const newSingleTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-whyx/new-singleTemperature-chart.vue");//武汉亚心新版体温单单人录入
   const newSingleTemperatureChartGDTJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-gdtj/new-singleTemperature-chart.vue");//同江新版体温单单人录入
+  const newSingleTemperatureChartSDHPWK = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-sdhpwk/new-singleTemperature-chart.vue");//和平外科新版体温单单人录入
   const newSingleTemperatureChartZHZXY = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-zhzxy/new-singleTemperature-chart.vue");//珠海中西医新版体温单单人录入
   const newSingleTemperatureChartYTLL = () =>
@@ -465,6 +467,7 @@ const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 const StatisticalBlood = () => import("@/Page/statistical-query/statistical-blood")
 const statisticalNutritionalRisk = () => import("@/Page/statistical-query/statistical-nutritionalRisk")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
+const StatisticalIntakeOutputVolume = () => import("@/Page/statistical-query/statistical-intakeOutputVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
 const StatisticalTumbleSdyy = () => import("@/Page/statistical-query/statistical-tumble-sdyy")
 
@@ -1771,6 +1774,8 @@ const router = new Router({
               return newSingleTemperatureChartWHHK;
             case "gdtj":
               return newSingleTemperatureChartGDTJ
+            case "sdhpwk":
+              return newSingleTemperatureChartSDHPWK;
             case "zhzxy":
               return newSingleTemperatureChartZHZXY
             case "ytll":
@@ -2026,6 +2031,14 @@ const router = new Router({
               title: '尿量统计'
             },
             component: StatisticalUrineVolume
+          },
+          {
+            path: "StatisticalIntakeOutputVolume",
+            name: "StatisticalIntakeOutputVolume",
+            meta: {
+              title: '出入量总结统计'
+            },
+            component: StatisticalIntakeOutputVolume
           },
           {
             path: "statisticalTumble",

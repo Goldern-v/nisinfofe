@@ -28,7 +28,7 @@
         </el-button-group>
       </div>
       <!-- 北海 -->
-      <div class="time-type-button" v-else-if="HOSPITAL_ID=='beihairenyi'">
+      <div class="time-type-button" v-else-if="HOSPITAL_ID=='beihairenyi'|| HOSPITAL_ID=='zjhj'">
           <el-button-group>
             <el-button :class="[active=='A'?'active-btn':'']" @click="beihaiInitTime('A')">A班小结</el-button>
             <el-button :class="[active=='P'?'active-btn':'']" @click="beihaiInitTime('P')">P班小结</el-button>

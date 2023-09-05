@@ -128,7 +128,7 @@
         <div class="nav-item">护理文书</div>
       </router-link>
       <router-link
-        v-if="['hj', 'fuyou', 'liaocheng', 'sdlj'].includes(HOSPITAL_ID)"
+        v-if="['hj', 'fuyou', 'liaocheng', 'sdlj', 'ytll'].includes(HOSPITAL_ID)"
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }

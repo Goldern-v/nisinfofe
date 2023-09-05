@@ -264,7 +264,7 @@ export function cleanDataOnly() {
       (process.env.HOSPITAL_ID == "dglb" && listData && listData[nowX])||
       // (process.env.HOSPITAL_ID == "zjhj" && listData && listData[nowX])||
       // (process.env.HOSPITAL_ID == "lyxrm" && listData && listData[nowX])||
-      (process.env.HOSPITAL_ID == "qhwy" && listData && listData[nowX])||
+      (process.env.HOSPITAL_ID == "qhwy" && listData && listData[nowX]) ||
       (process.env.HOSPITAL_ID == "nfyksdyy" && listData && listData[nowX])
     ) {
       return !listData[nowX].canModify;
@@ -344,11 +344,6 @@ export function cleanDataOnly() {
       if (process.env.HOSPITAL_ID == 'foshanrenyi') {
         // 佛山人医表示取消该功能 禅道ID 14369
         return false
-        const lastIndex = findLastIndex(
-          listData,
-          item => item && listData[nowX] && item.recordDate == listData[nowX].recordDate
-        )
-        return lastIndex != -1 && nowX !== lastIndex
       } else {
         return false
       }
