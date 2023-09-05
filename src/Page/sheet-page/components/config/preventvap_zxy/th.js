@@ -71,7 +71,7 @@ export default {
         rowspan: "1"
       },
       {
-        name: '签名',
+        name: '签 名',
         style: {
           minWidth: "60px",
           maxWidth: "60px"
