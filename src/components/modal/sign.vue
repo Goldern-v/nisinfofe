@@ -262,7 +262,7 @@ export default {
       // hasQrCaSignHos:['fuyou','hj'],
       hasQrCaSignHos:['fuyou','hj','guizhou','zhzxy','whsl'],
       // caSignHasNoSignType:['hj'],
-      caSignHasNoSignType:['hj','guizhou'],
+      caSignHasNoSignType:['hj','guizhou', 'fuyou'],
       btnLoading:false,
       verifySignObj:{},
       SigndataObj:{},
@@ -554,80 +554,80 @@ export default {
         }
       }
     },
-	/**处理漳州五院的签名，登录首次签名需要口令，其它不需要口令 */
-	turnToDealzzwy(){
-		if(this.zzwyNoHasCaSign){
-			// 没有签过名,要口令
-			if (this.caPassword == "" ) {
-			this.$message({
-				message: "请输入口令",
-				type: "warning",
-				showClose: true
-			});
-			return this.btnLoading = false
-			}
-			zzwyVerifySign({
-				empNo:this.username,
-				password:this.caPassword
-			}).then(res=>{
-				// console.log(res.data.data.password)
-				if(res.data.data.resultCode=='0'){
-				localStorage.setItem('zzwyHasCaSign','1')
-				// 口令正确 保存数据
-				this.$refs.modalName.close();
-					if (this.signDate) {
-					return this.callback(
-						res.data.data.password,
-						this.username,
-						this.signDate,
-					);
-					} else {
-					return this.callback(res.data.data.password, this.username);
-					}
-				}else{
+    /**处理漳州五院的签名，登录首次签名需要口令，其它不需要口令 */
+    turnToDealzzwy(){
+      if(this.zzwyNoHasCaSign){
+        // 没有签过名,要口令
+        if (this.caPassword == "" ) {
+        this.$message({
+          message: "请输入口令",
+          type: "warning",
+          showClose: true
+        });
+        return this.btnLoading = false
+        }
+        zzwyVerifySign({
+          empNo:this.username,
+          password:this.caPassword
+        }).then(res=>{
+          // console.log(res.data.data.password)
+          if(res.data.data.resultCode=='0'){
+          localStorage.setItem('zzwyHasCaSign','1')
+          // 口令正确 保存数据
+          this.$refs.modalName.close();
+            if (this.signDate) {
+            return this.callback(
+              res.data.data.password,
+              this.username,
+              this.signDate,
+            );
+            } else {
+            return this.callback(res.data.data.password, this.username);
+            }
+          }else{
 
-				this.$message({
-					message: "口令错误，请重试",
-					type: "error",
-					showClose: true
-				});
-				}
-				this.btnLoading = false
-			}).catch(err=>{
-				this.btnLoading = false
-			})
-		}else{
-      // debugger
-			// 不需要口令
-			zzwyVerifySignNoPw({
-				empNo:this.username,
-			}).then(res=>{
-				// console.log(res.data.data.password)
-				if(res.data.data.resultCode=='0'){
-				// 保存数据
-				this.$refs.modalName.close();
-					if (this.signDate) {
-					return this.callback(
-						res.data.data.password,
-						this.username,
-						this.signDate,
-					);
-					} else {
-					return this.callback(res.data.data.password, this.username);
-					}
-				}else{
-					this.$message({
-						message: "数据错误",
-						type: "error",
-						showClose: true
-					});
-				}
-				this.btnLoading = false
-			}).catch(err=>{
-				this.btnLoading = false
-			})
-		}
-	},
+          this.$message({
+            message: "口令错误，请重试",
+            type: "error",
+            showClose: true
+          });
+          }
+          this.btnLoading = false
+        }).catch(err=>{
+          this.btnLoading = false
+        })
+      }else{
+        // debugger
+        // 不需要口令
+        zzwyVerifySignNoPw({
+          empNo:this.username,
+        }).then(res=>{
+          // console.log(res.data.data.password)
+          if(res.data.data.resultCode=='0'){
+          // 保存数据
+          this.$refs.modalName.close();
+            if (this.signDate) {
+            return this.callback(
+              res.data.data.password,
+              this.username,
+              this.signDate,
+            );
+            } else {
+            return this.callback(res.data.data.password, this.username);
+            }
+          }else{
+            this.$message({
+              message: "数据错误",
+              type: "error",
+              showClose: true
+            });
+          }
+          this.btnLoading = false
+        }).catch(err=>{
+          this.btnLoading = false
+        })
+      }
+    },
     openCaSignModal() {
       window.openCaSignModal();
       this.$refs.modalName.close();

@@ -319,7 +319,7 @@ export default {
           model.refreshTable();
           model.selectedRow = null;
         });
-      }, "你确定要删除诊断？",undefined,undefined,undefined,{});
+      }, "你确定要删除诊断？",undefined,undefined,undefined,row, 'cancel');
     },
     stop(row) {
       // if (!this.verify()) return;
