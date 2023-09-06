@@ -1791,7 +1791,6 @@ export default {
                 }
             }
             window.openSignModal((password, empNo) => {
-
               let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
@@ -1977,8 +1976,8 @@ export default {
             });
           },'',null,false,'',
           ['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:
-          ['hj'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
-          undefined,undefined,undefined,SigndataObj,verifySignObj);
+          ['hj','fuyou'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
+          'cancle',undefined,undefined,SigndataObj,verifySignObj);
       }
     },
     toAudit(trArr, index, bodyModel, showAudit, e) {
