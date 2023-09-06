@@ -192,7 +192,7 @@ function onFocusToAutoComplete(e, bind, cb) {
               let index = list.indexOf(data);
               list.splice(index, 1);
             }
-            td.value = isCriticallycareBh ? list.join(',') : data
+            td.value = splice ? list.join(',') : data
           }
 
           // if (typeof (splice) == 'string') {
