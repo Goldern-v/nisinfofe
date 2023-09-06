@@ -162,7 +162,7 @@ export default {
           model.refreshTable();
           this.close();
         });
-      },undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
+      },undefined,undefined,undefined,undefined,{},undefined,undefined,undefined,SigndataObj,verifySignObj);
     }
   },
   mounted() {},

@@ -498,10 +498,9 @@ export default {
         this.scrollTop = this.$refs.scrollCon.scrollTop;
         saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode(ayncVisitedData))
           .then((res) => {
-             let isdischarge = decodeAyncVisttedData.list.find(item => item.topComment == '出院|')
+             let isdischarge = decode(ayncVisitedData).list.find(item => item.topComment == '出院|')
               if(this.sheetInfo.sheetType == 'body_temperature_Hd' && isdischarge){
-                this.$nextTick(()=>{
-                  this.$confirm(
+                this.$confirm(
                     `体温单出院时间已填写为：${isdischarge.recordYear}-${isdischarge.recordMonth} ${isdischarge.recordHour}，请及时完成应归档记录!`,
                     {
                       confirmButtonText: "确定",
@@ -516,16 +515,12 @@ export default {
                       duration: 1000,
                     });
                   })
-                })
               }else{
-                this.$nextTick(()=>{
-                  // this.pageLoading = false;
-                  this.$notify.success({
+                this.$notify.success({
                   title: "提示",
                   message: "保存成功",
                   duration: 1000,
                 });
-                })
               }
             // this.$notify.success({
             //   title: "提示",

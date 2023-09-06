@@ -1853,7 +1853,7 @@ export default {
               });
             },'',null,false,'',
             ['guizhou', '925'].includes(this.HOSPITAL_ID)?{}
-            :['hj',"zhzxy"].includes(this.HOSPITAL_ID)?trObj:null,
+            :['hj',"zhzxy","fuyou"].includes(this.HOSPITAL_ID)?trObj:null,
             undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
           }
         };
@@ -2164,7 +2164,7 @@ export default {
             );
           },['guizhou', '925'].includes(this.HOSPITAL_ID)?"":null,"",
           undefined,undefined,
-          ["zhzxy",'hj'].includes(this.HOSPITAL_ID)?trObj:undefined,
+          ["zhzxy",'hj', 'fuyou'].includes(this.HOSPITAL_ID)?trObj:undefined,
           undefined,undefined,undefined,undefined,parmas);
         }
       } else {
@@ -3189,7 +3189,7 @@ export default {
             this.$message.warning("非审核本人不可取消");
           }
         });
-      }, "取消签名确认","","","","","","","",SigndataObj,verifySignObj);
+      }, "取消签名确认","","","","","cancel","","",SigndataObj,verifySignObj);
     },
     /** 右侧主管护士签名 */
     sign2() {

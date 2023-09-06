@@ -928,7 +928,7 @@ export default {
         this.$refs.signModal.close();
         this.$message.success("已取消签名");
         this.reloadSideList();
-      },"取消签名",undefined,undefined,undefined,{});
+      },"取消签名",undefined,undefined,undefined,{},'cancel');
     },
     async onRemove() {
       // this.$refs.signModal.open({

@@ -457,7 +457,7 @@ export default {
           // this.close();
           model.refreshTable();
         });
-      }, undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
+      }, undefined,undefined,undefined,undefined,{},undefined,undefined,undefined,SigndataObj,verifySignObj);
     },
     edit(row) {
       // if (!this.verify()) return;

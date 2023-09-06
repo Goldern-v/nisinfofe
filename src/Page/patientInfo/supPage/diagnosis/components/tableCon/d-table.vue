@@ -234,10 +234,11 @@ export default {
       if (['signerName', 'evalContentSign'].includes(column.property)) {
         const type = column.property == 'signerName' ? '1' : '2';
         let text = row[column.property] ? '取消签名' : '签名';
-        this.onSign({ id: row.id, type }, text);
+        this.onSign({ id: row.id, type }, text, row);
       }
     },
-    onSign(data = {}, text) {
+    onSign(data = {}, text, row) {
+      console.log(row);
       window.openSignModal((password, empNo) => {
         const params = { ...data, empNo, password }
         doDiagsSign(params).then(() => {
@@ -246,7 +247,7 @@ export default {
         }).catch((error) => {
           this.$message.error(`${text}失败`)
         })
-      }, text,undefined,undefined,undefined,{});
+      }, text,undefined,undefined,undefined,row);
     },
      choseId(row) {
       this.choseID = row.id
