@@ -604,7 +604,7 @@ export default {
                 target:""
       });
           });
-      },undefined,undefined,undefined,undefined,this.data,undefined,undefined,undefined,SigndataObj,verifySignObj);
+      },undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
     },
     openSlideRight() {
       this.openSlideCon({

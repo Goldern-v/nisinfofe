@@ -9,7 +9,7 @@
     >
       <template v-if="HOSPITAL_ID == 'lyxrm'">
         <div class="group" v-if="eidtRowData.freqDetail.indexOf('补') != -1">
-          <span>开始执行时间ssss：</span>
+          <span>开始执行时间：</span>
           <el-date-picker
             type="datetime"
             format="yyyy-MM-dd HH:mm:ss"
@@ -54,7 +54,7 @@
           ></el-date-picker></div
       ></template>
       <div class="group">
-        <span>补执行的原因：</span>
+        <span :style="{marginLeft: HOSPITAL_ID == 'hj' && '30px'}">{{HOSPITAL_ID == 'hj'? '备注：'  : '补执行的原因：'}}</span>
         <el-input
           size="small"
           style="width:200px"
@@ -193,7 +193,7 @@ export default {
         this.$refs.newRecord.open();
       });
       this.afterStartExecuteTime = data.realExecuteDateTime;
-      this.afterEndExecuteTime = data.endDateTime || data.endInfusionTime;
+      this.afterEndExecuteTime = data.endDateTime || data.endInfusionTime || moment().format("YYYY-MM-DD HH:mm");
       this.eidtRowData = data;
       this.callback = callback;
     },

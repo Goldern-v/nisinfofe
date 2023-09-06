@@ -1852,7 +1852,7 @@ export default {
               });
             },'',null,false,'',
             ['guizhou', '925'].includes(this.HOSPITAL_ID)?{}
-            :['hj',"zhzxy","fuyou"].includes(this.HOSPITAL_ID)?trObj:null,
+            :['hj',"zhzxy"].includes(this.HOSPITAL_ID)?trObj:null,
             undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
           }
         };
@@ -1976,7 +1976,7 @@ export default {
             });
           },'',null,false,'',
           ['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:
-          ['hj','fuyou'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
+          ['hj'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
           'cancle',undefined,undefined,SigndataObj,verifySignObj);
       }
     },
@@ -2163,7 +2163,7 @@ export default {
             );
           },['guizhou', '925'].includes(this.HOSPITAL_ID)?"":null,"",
           undefined,undefined,
-          ["zhzxy",'hj', 'fuyou'].includes(this.HOSPITAL_ID)?trObj:undefined,
+          ["zhzxy",'hj'].includes(this.HOSPITAL_ID)?trObj:undefined,
           undefined,undefined,undefined,undefined,parmas);
         }
       } else {

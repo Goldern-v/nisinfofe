@@ -61,21 +61,18 @@
           ></el-option>
         </el-select>
         <span class="label">床号:</span>
-        <el-input
+        <!-- <el-input
           size="small"
           style="width: 75px;margin-right: 15px;"
           placeholder=""
           v-model="bedLabel"
-        ></el-input>
-        <!-- <el-input
-          style="width: 0px; padding: 0px; height: 0px; overflow: hidden;"
-        /> -->
+        ></el-input> -->
          <el-select
           v-model="bedLabel"
           multiple
           placeholder="请选择"
           size="small"
-          style="width:180px"
+          style="width:180px;margin-right:10px;"
         >
           <el-option
             :label="bedItem"
@@ -84,6 +81,7 @@
             :key="bedItem"
           ></el-option>
         </el-select>
+
         <el-button size="small" type="primary" @click="search">查询</el-button>
         <el-button size="small" v-if="HOSPITAL_ID == 'whsl'" @click="onPrint"
           >打印</el-button

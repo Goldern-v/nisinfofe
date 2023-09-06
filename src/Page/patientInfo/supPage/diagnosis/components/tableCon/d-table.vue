@@ -234,11 +234,10 @@ export default {
       if (['signerName', 'evalContentSign'].includes(column.property)) {
         const type = column.property == 'signerName' ? '1' : '2';
         let text = row[column.property] ? '取消签名' : '签名';
-        this.onSign({ id: row.id, type }, text, row);
+        this.onSign({ id: row.id, type }, text);
       }
     },
-    onSign(data = {}, text, row) {
-      console.log(row);
+    onSign(data = {}, text) {
       window.openSignModal((password, empNo) => {
         const params = { ...data, empNo, password }
         doDiagsSign(params).then(() => {
@@ -247,7 +246,7 @@ export default {
         }).catch((error) => {
           this.$message.error(`${text}失败`)
         })
-      }, text,undefined,undefined,undefined,row);
+      }, text);
     },
      choseId(row) {
       this.choseID = row.id
@@ -284,7 +283,7 @@ export default {
             target: ""
           });
         });
-      }, "",undefined,undefined,undefined,{})
+      })
     },
     selectedRow(row) {
       // model.selectedRow = row;
@@ -319,7 +318,7 @@ export default {
           model.refreshTable();
           model.selectedRow = null;
         });
-      }, "你确定要删除诊断？",undefined,undefined,undefined,row, 'cancel');
+      }, "你确定要删除诊断？");
     },
     stop(row) {
       // if (!this.verify()) return;
