@@ -14,7 +14,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1320px"
+      width: "1370px"
     },
     th: {
         top:
@@ -44,7 +44,7 @@ export default {
                 // {"name":"健康宣教","colspan":"1","rowspan":"3"},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"fieldOne","style":{"minWidth":"30px","maxWidth":"30px"}},
                 {"name":"","colspan":"1","rowspan":"3","canSet":true,"key":"fieldTwo","style":{"minWidth":"30px","maxWidth":"30px"}},
-                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"130px","maxWidth":"150px"}},
+                {"name":"特殊情况记录","colspan":"1","rowspan":"3","style":{"minWidth":"180px","maxWidth":"180px"}},
                 {"name":"护士<br/>签  名","colspan":"1","rowspan":"3","style":{"minWidth":"42px","maxWidth":"42px"}},
                 {"name":"审核人<br/>签  名","colspan":"1","rowspan":"3","style":{"minWidth":"42px","maxWidth":"42px"}},
             ]

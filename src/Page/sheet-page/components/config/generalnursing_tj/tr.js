@@ -54,7 +54,7 @@ export default [
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量内容', textarea: { width: 75 }, change: (e, td) => limitChange(e, td, 12) },
   { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '出量', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'outputColor', event: keyf1, value: '', next: '', name: '颜色性状', textarea: { width: 30 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: ysxzList } },
-  { key: 'customItem7', event: keyf1, value: '', next: '', name: '健康宣教', autoComplete: { data: jkxjList }, textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 4), splice: ',' },
+  { key: 'customItem7', event: keyf1, value: '', next: '', name: '健康宣教', autoComplete: { data: jkxjList }, textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 4), splice: ' ' },
   { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'customItem2', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'customItem3', event: keyf1, value: '', next: '', name: '', textarea: { width: 40 }, change: (e, td) => limitChange(e, td, 8) },

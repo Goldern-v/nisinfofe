@@ -170,6 +170,7 @@
                 'lyyz',
                 'dglb',
                 '925',
+                'zjhj',
                 'stmz',
                 'whhk'
               ].includes(HOSPITAL_ID)
