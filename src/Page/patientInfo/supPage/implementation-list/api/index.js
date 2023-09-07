@@ -32,6 +32,9 @@ export function getExportOrdersExecuteByPatient(obj) {
   // 通过执行时间段获取
   return axios.post(
     `${apiPath}procedure/webExecute/exportOrdersExecuteByPatient`,
-    obj
+    obj,
+    {
+      responseType: "blob"
+    }
   );
 }

@@ -122,7 +122,7 @@
 <script>
 import dTable from "@/Page/implementation-list/components/table/d-table.vue";
 import { handleWebExecuteBatch } from "@/Page/implementation-list/api/index.js";
-import { getOrdersExecuteWithPatinetIdNew, getExportOrdersExecuteByPatien } from "./api/index";
+import { getOrdersExecuteWithPatinetIdNew, getExportOrdersExecuteByPatient } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -258,21 +258,42 @@ export default {
     },
     // 导出
     handleExport(){
-       let obj = {
-        wardCode: this.deptCode,
-        startDate: moment(this.startDate).format("YYYY-MM-DD"),
-        endDate: moment(this.endDate).format("YYYY-MM-DD"),
-        repeatIndicator: this.repeatIndicator,
-        executeType: this.type,
-        executeStatus: this.status,
-        patientId: this.$route.query.patientId,
-        visitId: this.$route.query.visitId,
-        pageIndex: this.page.pageIndex,
-        pageSize: this.page.pageNum
-      };
-      getExportOrdersExecuteByPatien(obj).then(res=>{
-        console.log(res)
-      })
+      if (this.pageLoadng) return
+      try {
+        this.pageLoadng = true
+        let obj = {
+          wardCode: this.deptCode,
+          startDate: moment(this.startDate).format("YYYY-MM-DD"),
+          endDate: moment(this.endDate).format("YYYY-MM-DD"),
+          repeatIndicator: this.repeatIndicator,
+          executeType: this.type,
+          executeStatus: this.status,
+          patientId: this.$route.query.patientId,
+          visitId: this.$route.query.visitId,
+          pageIndex: this.page.pageIndex,
+          pageSize: this.page.pageNum
+        };
+        getExportOrdersExecuteByPatient(obj).then(res=>{
+          let fileName = res.headers["content-disposition"]
+          ? decodeURIComponent(
+            res.headers["content-disposition"].replace("attachment;filename=", "")
+          ) : this.$route.meta.title + '.xls';
+          let blob = new Blob([res.data], {
+            type: res.data.type
+          });
+          let a = document.createElement('a')
+          let href = window.URL.createObjectURL(blob) // 创建链接对象
+          a.href = href
+          a.download = fileName // 自定义文件名
+          document.body.appendChild(a)
+          a.click()
+          window.URL.revokeObjectURL(href)
+          document.body.removeChild(a) // 移除a元素
+          this.pageLoadng = false
+        })
+      } catch (e) {
+        this.pageLoadng = false
+      }
     },
     // 全选
     allSelection() {
