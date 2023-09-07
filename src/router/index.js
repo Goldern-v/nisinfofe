@@ -507,6 +507,8 @@ const getImplementation = () => {
     case 'dglb':
     case 'qhwy':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
+      case 'zjhj':
+        return () => import("@/Page/implementation-list/implementation-list-zjhj.vue")
     case 'whhk':
       return implementationListWhhk;
     case 'wujing':
@@ -992,6 +994,8 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'huadu':
               return shiftWorkHd
+              case 'zjhj':
+              return shiftWorkFsxt
             default:
               return shiftWorkGuizhou
           }
@@ -1003,6 +1007,8 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'huadu':
                 return shiftWorkDetailHd
+                case 'zjhj':
+                  return shiftWorkDetailFsxt
               default:
                 return shiftWorkDetailGuizhou
             }

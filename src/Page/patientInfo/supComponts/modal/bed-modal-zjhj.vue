@@ -13,53 +13,36 @@
       ref="printConW"
       v-if="printMode == 'wrist'"
     >
-      <!-- <div class="wrist-header">
-        {{ HOSPITAL_NAME }}
-      </div> -->
-      <!-- <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" /> -->
-      <div class="wrist-line2">
-        <div>
-        <span>{{ query.deptName }}</span>&nbsp;</div>
-        <div style="margin-left: -110px;"><span>
-          入院时间：
+      <div class="wrist-header" style="font-size: 19px;">
+        <span>{{ query.wardName }}</span>
+        &nbsp;
+        <span>
+        入院时间:
         </span>
-        <span>{{ moment(query.admissionDate).format("YYYY-MM-DD") }}</span></div>
-        <!-- <div>
-        血型：
-        <input type="text" />
-      </div> -->
+        <span>{{ moment(query.admissionDate).format("YYYY-MM-DD") }}</span>
       </div>
       <div class="wrist-line1">
-      <span>{{ query.name }}</span>
+
+        <span>{{ query.name }}</span>
         <span>{{ query.sex }}</span>
         <span>{{ query.age }}</span>
         <span>床号:{{ query.bedLabel }}</span>
         <span>ID:{{ query.patientId }}</span>
       </div>
-      <!-- <div class="wrist-line2">
-        <div>
-          <span>手术名称：</span>
-          <input type="text" v-model="operationName" />
-        </div>
-        <div>
-          <span>手术部位：</span>
-          <input type="text" v-model="operationName1" />
-        </div>
-      </div> -->
-
       <div class="wrist-line2">
         <div>
-          <span>过敏：</span>
+          <span>诊断:</span>
+          <!-- <span>{{ query.diagnosis }}</span> -->
+          <input type="text" v-model="formData.remark" />
+        </div>
+      </div>
+      <div class="wrist-line2">
+        <div style="margin-left: 76px;">
+          <span>过敏:</span>
           <input type="text" />
         </div>
       </div>
-      <div class="wrist-line2">
-        <div>
-          <span>诊断：</span>
-          <!-- <span>{{ query.diagnosis }}</span> -->
-          <input type="text" v-model="query.diagnosis" />
-        </div>
-      </div>
+
       <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
     </div>
     <!-- 床头卡 -->

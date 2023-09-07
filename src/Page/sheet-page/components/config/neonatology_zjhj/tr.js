@@ -38,6 +38,7 @@ const xyList = ["头罩","暖箱内","面罩","鼻导管","其他"]
 const llList = ["1","2","3","4","5","6","7","8","9","10","其他"]
 const pfysList = ["红润","发绀","苍白","黄染","花斑纹","其他"]
 const qbqkList = ["脱痂","未脱痂","干洁","渗液","渗血","脐瘘","脐疝","其他"]
+const xseList = ["√"]
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -64,7 +65,7 @@ export default [
   { key: 'boxTemperature', event: keyf1, value: '', next: '', name: '箱温', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'weight', event: keyf1, value: '', next: '', name: '体重', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'bloodSugar', event: keyf1, value: '', next: '', name: '血糖', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
-  { key: 'babyCare', event: keyf1, value: '', next: '', name: '新生儿护理', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
+  { key: 'babyCare', event: keyf1, value: '', next: '', name: '新生儿护理', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8),autoComplete: { data: xseList}},
   { key: 'customItem1', event: keyf1, value: '', next: '', name: '', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
   { key: 'customItem2', event: keyf1, value: '', next: '', name: '', textarea: { width: 38 }, change: (e, td) => limitChange(e, td, 8) },
   {
