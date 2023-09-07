@@ -54,7 +54,7 @@
           ></el-date-picker></div
       ></template>
       <div class="group">
-        <span :style="{marginLeft: HOSPITAL_ID == 'hj' && '30px'}">{{HOSPITAL_ID == 'hj'? '备注：'  : '补执行的原因：'}}</span>
+        <span :style="{marginLeft: HOSPITAL_ID == 'hj' && '56px'}">{{HOSPITAL_ID == 'hj'? '备注：'  : '补执行的原因：'}}</span>
         <el-input
           size="small"
           style="width:200px"
@@ -233,7 +233,7 @@ export default {
     },
     postReason() {
       let data = {
-        barcode: this.eidtRowData.barCode, //条码号
+        barcode: this.HOSPITAL_ID == 'hj'? this.eidtRowData.barcode : this.eidtRowData.barCode, //条码号
         empNO: this.empNo, //执行人
         type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
         typeReason: this.reason, //补执行的原因填写

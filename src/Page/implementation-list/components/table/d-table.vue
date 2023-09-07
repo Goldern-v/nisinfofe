@@ -64,7 +64,12 @@
       <el-table-column prop="performSchedule" label="开医嘱时间" min-width="90px" align="center"></el-table-column>
       <el-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center"></el-table-column>
       <el-table-column prop="startNurse" label="校对护士" min-width="80px" align="center"></el-table-column>
-      <el-table-column label="操作" min-width="100px" align="center">
+      <el-table-column prop="typeReason" label="补执行的原因"   v-if="HOSPITAL_ID=='hj'" min-width="200px">
+        <template slot-scope="scope">
+            {{ scope.row.typeReason }}
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" min-width="100px" align="center" v-if="isEdit && HOSPITAL_ID=='hj'">
         <template slot-scope="scope">
           <div v-show="scope.row.executeDateTime">
             <el-button
@@ -215,6 +220,11 @@ export default {
   filters: {
     ymdhm(val) {
       return val ? moment(val).format("HH:mm") : "";
+    }
+  },
+  computed:{
+    isEdit(){
+      return this.$route.path.indexOf('/implementationPerson') != -1
     }
   },
   methods:{

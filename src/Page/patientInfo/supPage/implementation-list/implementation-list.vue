@@ -46,6 +46,9 @@
           <el-button size="small" type="primary" @click="search"
             >查询</el-button
           >
+          <el-button size="small" type="primary" @click="handleExport"
+            >导出</el-button
+          >
       </div>
       <dTable
         :pageLoadng="pageLoadng"
@@ -119,7 +122,7 @@
 <script>
 import dTable from "@/Page/implementation-list/components/table/d-table.vue";
 import { handleWebExecuteBatch } from "@/Page/implementation-list/api/index.js";
-import { getOrdersExecuteWithPatinetIdNew } from "./api/index";
+import { getOrdersExecuteWithPatinetIdNew, getExportOrdersExecuteByPatien } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -252,6 +255,24 @@ export default {
     search() {
       this.page.pageIndex = 1;
       this.onLoad();
+    },
+    // 导出
+    handleExport(){
+       let obj = {
+        wardCode: this.deptCode,
+        startDate: moment(this.startDate).format("YYYY-MM-DD"),
+        endDate: moment(this.endDate).format("YYYY-MM-DD"),
+        repeatIndicator: this.repeatIndicator,
+        executeType: this.type,
+        executeStatus: this.status,
+        patientId: this.$route.query.patientId,
+        visitId: this.$route.query.visitId,
+        pageIndex: this.page.pageIndex,
+        pageSize: this.page.pageNum
+      };
+      getExportOrdersExecuteByPatien(obj).then(res=>{
+        console.log(res)
+      })
     },
     // 全选
     allSelection() {

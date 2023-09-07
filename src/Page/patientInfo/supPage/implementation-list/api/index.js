@@ -18,11 +18,20 @@ export function getExecuteWithWardCodeLyxrm(obj) {
   );
 }
 
-// 获取执行单 
+// 获取执行单
 export function getOrdersExecuteWithPatinetIdNew(obj) {
   // 通过执行时间段获取
   return axios.post(
     `${apiPath}procedure/webExecute/getOrdersExecuteWithPatinetIdNew`,
+    obj
+  );
+}
+
+// 导出执行单
+export function getExportOrdersExecuteByPatien(obj) {
+  // 通过执行时间段获取
+  return axios.post(
+    `${apiPath}procedure/webExecute/exportOrdersExecuteByPatien`,
     obj
   );
 }
