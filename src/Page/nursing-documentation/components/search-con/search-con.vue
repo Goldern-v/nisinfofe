@@ -247,6 +247,14 @@
     </div>
     <div
       class="search-btn2"
+      v-if="['huadu'].includes(HOSPITAL_ID)"
+      @click="onSyncHuadu"
+      v-touch-ripple
+    >
+      同步
+    </div>
+    <div
+      class="search-btn2"
       v-if="data.status === '1' && ['sdlj'].includes(HOSPITAL_ID)"
       @click="syncGetNurseBedRecData"
       v-touch-ripple
@@ -374,7 +382,7 @@
 }
 </style>
 <script>
-import { nursingUnit, syncGetNurseBedRecJiangMenFSSY } from "@/api/lesion";
+import { nursingUnit, syncGetNurseBedRecJiangMenFSSY, syncPatListHd } from "@/api/lesion";
 import {_throttle} from './throttle'
 import {
   synchronizeHengLi,
@@ -536,6 +544,46 @@ export default {
           this.ifCanFKtongbu = true;
         }
       );
+    },
+    // 患者出院因为要抽取，耗能很大 所以增加节流
+    /**同步出院患者 */
+    onSyncHuadu:_throttle('syncDischargedPatientHD',30*1000),
+    async syncDischargedPatientHD() {
+      console.log('您触发了')
+      try {
+        let obj = {
+          pageIndex: this.$parent.page.pageIndex,
+          pageNum: this.$parent.page.pageNum,
+          status: this.data.status,
+          dischargeDateBegin: this.data.status == '2' ? moment(this.data.dischargeDate[0]).format('YYYY-MM-DD') : '',
+          dischargeDateEnd: this.data.status == '2' ?  moment(this.data.dischargeDate[1]).format('YYYY-MM-DD') : '',
+          admissionDateBegin:  this.data.status == '1' ? moment(this.data.admissionDate[0]).format('YYYY-MM-DD') : '',
+          admissionDateEnd: this.data.status == '1' ? moment(this.data.admissionDate[1]).format('YYYY-MM-DD') : '',
+          wardCode: this.data.deptValue || this.data.deptList.join(",")
+        }
+        let res = null
+        if(this.data.status == '3'){
+          let newObj = JSON.parse(JSON.stringify(obj));
+          delete newObj.admissionDateBegin;
+          delete newObj.admissionDateEnd;
+          delete newObj.dischargeDateBegin;
+          delete newObj.dischargeDateEnd;
+          newObj.pageSize = newObj.pageNum;
+          newObj.startDate = moment(this.data.dateTime[0]).format('YYYY-MM-DD')
+          newObj.endDate = moment(this.data.dateTime[1]).format('YYYY-MM-DD')
+          res = await syncPatListHd(newObj);
+        }else{
+          res = await syncPatListHd(obj);
+        }
+        if (res.data.code === '200') {
+          this.$message.success("患者同步成功");
+          this.search()
+          return
+        }
+        this.$message.error(res.data.desc || "患者同步失败");
+      } catch (error) {
+        console.log(error, this.$parent);
+      }
     },
     syncMajor() {
       this.$parent.page.pageIndex = 1;

@@ -190,7 +190,7 @@
       </ElFormItem>
     </ElForm>
     <ElButton slot="button" @click="onClose">取消</ElButton>
-    <ElButton slot="button" type="primary" @click="onConfirm">保存</ElButton>
+    <ElButton slot="button" type="primary" @click="onConfirm" v-if="isLock">保存</ElButton>
   </SweetModal>
 </template>
 
@@ -202,6 +202,9 @@ import patientInfoVue from "../../../patientInfo.vue";
 import moment from "moment";
 const defaultForm = {};
 export default {
+  inject:[
+    'isLock'
+  ],
   mixins: [common],
   data: () => ({
     title: "",

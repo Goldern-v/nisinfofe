@@ -72,9 +72,9 @@ export default {
       data: {
         bedList: [],
       },
-      patientListLoading: true,
+      patientListLoading: false,
       bus: bus(this),
-      lockHospitalList:['huadu']//配置了评估单锁定功能的医院
+      lockHospitalList:['huadu','nfyksdyy']//配置了评估单锁定功能的医院
     };
   },
   computed: {

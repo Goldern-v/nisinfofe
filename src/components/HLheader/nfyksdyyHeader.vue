@@ -215,7 +215,7 @@
                   </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown> 
+            </el-dropdown>
             <!-- <router-link to="/healthEdu" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="healthEdu"></i>健康教育单
@@ -1017,7 +1017,6 @@ import { nursingUnit } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
 import bus from "vue-happy-bus";
-
 export default {
   mixins: [common],
   data() {
@@ -1029,12 +1028,13 @@ export default {
       deptList: [],
       isTip: false, //是否mews高亮
       mewsMd5: "",
-      mewsId: ""
+      mewsId: "",
       // showBadEvent:
       //   (localStorage["showBadEvent"] &&
       //     localStorage["showBadEvent"] === "true") ||
       //   this.isDev ||
       //   false
+      lockHospitalList:['nfyksdyy']//配置锁定评估单功能的医院
     };
   },
   computed: {
@@ -1123,7 +1123,10 @@ export default {
     toAdmin() {
       window.location.href = "/crNursing/admin";
     },
-    quit(ifRelogin) {
+   async quit(ifRelogin) {
+      // 登出前调用解锁
+      await this.destroyUnlock()
+      //登出操作
       logout(Cookies.get("NURSING_USER"));
       console.log(ifRelogin, "ifRelogin");
       Cookies.remove("password");
