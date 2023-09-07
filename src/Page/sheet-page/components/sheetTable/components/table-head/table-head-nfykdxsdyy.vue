@@ -603,13 +603,14 @@ export default {
         /*  每页独立床号功能 */
         let beforeBed = this.patientInfo.bedLabel;
         let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`];
+        let newBedId = this.sheetInfo.relObj[`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`];
         if (
           this.index != 0 &&
-          this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]
+          this.sheetInfo.relObj[`bedLabel_${this.index-1}_${this.sheetInfo.selectBlock.id}`]
         ) {
           // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
           beforeBed = this.sheetInfo.relObj[
-            `PageIndex_bedLabel_${this.index - 1}`
+            `bedLabel_${this.index-1}_${this.sheetInfo.selectBlock.id}`
           ];
         }
 
@@ -642,7 +643,7 @@ export default {
         }
         return {
           ...this.patientInfo,
-          [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed
+          [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: newBedId ? newBedId : nowBed
             ? nowBed
             : beforeBed,
           [`realDeptName_${this.index}_${this.sheetInfo.selectBlock.id}`]: newrealDept
@@ -656,7 +657,7 @@ export default {
     },
     diagnosis() {
       return (
-        (this.sheetInfo.relObj || {})[`PageIndex_diagnosis_${this.index}`] ||
+         (this.sheetInfo.relObj || {})[`diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`]  || (this.sheetInfo.relObj || {})[`PageIndex_diagnosis_${this.index}`] ||
         this.patientInfo.diagnosis
       );
     },
@@ -870,7 +871,7 @@ export default {
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
         text => {
-          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          sheetInfo.relObj[`diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`] = text;
           this.$message.success(`修改诊断成功`);
           this.bus.$emit("saveSheetPage", false);
         },
@@ -879,22 +880,30 @@ export default {
       );
     },
     async setDiagnosis() {
-      if (!this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]) {
-        try {
-          const res = await queryDianosisList({
-            patientId: this.patientInfo.patientId,
-            visitId: this.patientInfo.visitId
-          });
-          const data = res.data.data || [];
-          if (data.length) {
-            this.$set(
-              this.sheetInfo.relObj,
-              `PageIndex_diagnosis_${this.index}`,
-              data[0].diagnosisDesc
-            );
+      if (!this.sheetInfo.relObj[`diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`]) {
+        if(!this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]){
+          try {
+            const res = await queryDianosisList({
+              patientId: this.patientInfo.patientId,
+              visitId: this.patientInfo.visitId
+            });
+            const data = res.data.data || [];
+            if (data.length) {
+              this.$set(
+                this.sheetInfo.relObj,
+                `diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`,
+                data[0].diagnosisDesc
+              );
+            }
+          } catch (error) {
+            throw new Error(error);
           }
-        } catch (error) {
-          throw new Error(error);
+        }else{
+          this.$set(
+            this.sheetInfo.relObj,
+            `diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`,
+            this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]
+          );
         }
       }
     }
@@ -917,10 +926,17 @@ export default {
     customSelectCanRepeat
   },
   async created() {
-    if (!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]) {
-      this.sheetInfo.relObj[
-        `PageIndex_bedLabel_${this.index}`
+    if (!this.sheetInfo.relObj[`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]) {
+      if(!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]){
+        this.sheetInfo.relObj[
+        `bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`
       ] = this.patientInfo.bedLabel;
+      }else{
+        this.sheetInfo.relObj[
+        `bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`
+      ] = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`];
+      }
+
     }
     // if (!this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`]) {
     //   this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`] = this.patientInfo.realDeptName

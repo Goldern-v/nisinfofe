@@ -28,10 +28,10 @@ export function getOrdersExecuteWithPatinetIdNew(obj) {
 }
 
 // 导出执行单
-export function getExportOrdersExecuteByPatien(obj) {
+export function getExportOrdersExecuteByPatient(obj) {
   // 通过执行时间段获取
   return axios.post(
-    `${apiPath}procedure/webExecute/exportOrdersExecuteByPatien`,
+    `${apiPath}procedure/webExecute/exportOrdersExecuteByPatient`,
     obj
   );
 }
