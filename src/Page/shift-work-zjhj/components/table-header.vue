@@ -57,7 +57,7 @@
               v-html="shift['orders7']"
               contenteditable="true"
               style="outline:none;"
-              @blur="e => change(e, index, key)"
+              @blur="e => change(e, index, 'orders7')"
             ></div>
           </td>
         </tr>
@@ -68,7 +68,7 @@
               v-html="shift['orders8']"
               contenteditable="true"
               style="outline:none;"
-              @blur="e => change(e, index, key)"
+              @blur="e => change(e, index, 'orders8')"
             ></div>
           </td>
         </tr>
