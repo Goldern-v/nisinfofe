@@ -279,11 +279,12 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.3.152:8080'
       // return 'http://192.168.1.54:9883'
           // return 'http://192.168.1.54:9901'  //
-          return  'http://59.38.110.189:9092'
+          // return  'http://59.38.110.189:9092'
           // return  'http://192.168.20.158:9091'
       // return 'http://192.168.5.127:9091'
       // return  'https://info.cr-health.com:20215'
       // return 'http://10.108.4.45:9091/'
+      return 'http://192.168.20.89:8080' //华渊哥本地
     case 'zzwy':
       // return 'http://192.168.1.90:22550'//信铭
       return 'http://192.168.3.187:9091'
@@ -392,7 +393,7 @@ module.exports = {
                 // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
                 // target: "http://120.197.141.41:9094", //东莞正式库的测试
                 // target: "http://192.168.2.144:8062",
-                target: "http://localhost:8088", //测试
+              target: "http://192.168.1.54:9901", //测试
 
                 changeOrigin: true,
                 pathRewrite: {

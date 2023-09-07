@@ -380,7 +380,7 @@ import { getPatientInfo } from "@/api/common";
 import bus from "vue-happy-bus";
 import FollowList from "../follow/index";
 //解锁
-// import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
+import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import { mapState } from "vuex";
 export default {
   props: {
@@ -410,7 +410,7 @@ export default {
       noClearCurrentPatient: ["guizhou"], // 不需要清空当前选中患者的医院
       isGroup: false, // 是否选中管床
       makePatient: "", // 贵州护理巡视表的点击患者
-      lockHospitalList: ["huadu"], //有锁定功能的医院
+      lockHospitalList: ["huadu",'nfyksdyy'], //有锁定功能的医院
       levelColor: {},
       isRefresh:
         ["whsl"].includes(this.HOSPITAL_ID) &&

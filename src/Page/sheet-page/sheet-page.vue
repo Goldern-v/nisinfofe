@@ -386,7 +386,8 @@ export default {
         "wujing",
       ], // 患者列表点击前往体温单录入的医院
       lockHospitalList:[
-        'huadu'
+        'huadu',
+        'nfyksdyy'
       ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
       isLock:false,
       isLoad:false,  //如果主页数据多接口就返回慢，在数据没回来之前切换了副页，副页的数据会被后回来的主页数据覆盖。
@@ -660,7 +661,7 @@ export default {
         }else{
           const formConfig={
             formId:this.sheetInfo.selectBlock.id,
-            type:'record',
+            type:'form',
             initTime:Date.now()
           }
           this.isLock=false

@@ -102,6 +102,7 @@ export default {
       contentData: "",
       isContent: false,
       isPrints: false,
+      lockHospitalList:['nfyksdyy'],
       theadData: [
         [
           { rowspan: 2, text: "教育时间", width: 80 },

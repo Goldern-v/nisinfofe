@@ -266,6 +266,7 @@ export default {
     },
     // 表单解锁
     async destroyUnlock(){
+      // debugger
       const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
       /* 判断是否已经自动解锁 */
       if(lockForm && lockForm.initTime){
@@ -284,6 +285,7 @@ export default {
           return
         }
        }
+      console.log(lockForm,'lockForm');
        if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
           unLock(lockForm.type,lockForm.formId).then(res=>{
              localStorage.setItem('lockForm','')

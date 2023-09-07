@@ -319,9 +319,7 @@ export default {
       bedAndDeptChange: {},
       foshanshiyiIFca:false,//佛山CA签名key的状态
       listData: [],
-      lockHospitalList:[
-        'huadu'
-      ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
+      lockHospitalList:['huadu','nfyksdyy'], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
       isLock:false,
       isLoad:false,
       sheetTitleData: {}, // 自定义表头数据
