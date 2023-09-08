@@ -32,6 +32,9 @@ export default {
     }
   },
   filters: {
+    tomenny(val) {
+      return val.toFixed(2)
+    }
     // showfirst(val) {
     //   for (let i in val) {
     //     if (val.charCodeAt(i) >= 255) {
@@ -80,9 +83,9 @@ export default {
           },
         }
       ]
-  
+
       e.preventDefault();
-      window.openContextMenu({ style, data }); 
+      window.openContextMenu({ style, data });
        }
     },
     inToday(date) {

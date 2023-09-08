@@ -237,6 +237,10 @@
       <div class="key">费用合计：</div>
       <div class="value">{{ data.totalCosts }}</div>
     </div>
+    <div flex="" class="table-line" v-if="HOSPITAL_ID == 'lyxrm'">
+      <div class="key">剩余金额：</div>
+      <div class="value">{{ (data.prepayments - data.totalCosts) | tomenny }}</div>
+    </div>
 
     <!-- <div flex="" class="table-line">
       <div class="key">预交金：</div>
