@@ -247,6 +247,11 @@ export default [
 },
 {
   hidden: true,
+  key: "signerName2",
+  value: ""
+},
+{
+  hidden: true,
   key: "status",
   value: ""
 },
@@ -278,6 +283,11 @@ export default [
 {
   hidden: false,
   key: "signerNo",
+  value: ""
+},
+{
+  hidden: true,
+  key: "signerNo2",
   value: ""
 },
 {

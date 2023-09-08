@@ -556,6 +556,18 @@ export default {
           recordId:"",
           signData:strSignData,
         }
+        // 妇幼ca所需记录
+        let fyobj = {
+          measureStr: this.measureStr,
+          targetStr: this.targetStr,
+          factorStr: this.factorStr||'',
+          wardCode:
+            !this.$route.path.includes('newSingleTemperatureChart')
+              ? (model.selectedBlock.wardCode || this.$route.query.wardCode)
+              : this.$store.state.sheet.patientInfo.wardCode,
+          beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm"),
+          ...this.data
+        };
         window.openSignModal((password, empNo) => {
         let obj = {
           creator: password,
@@ -604,7 +616,7 @@ export default {
                 target:""
       });
           });
-      },undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
+      },undefined,undefined,undefined,undefined,process.env.HOSPITAL_ID  == 'fuyou' ? fyobj : undefined,undefined,undefined,undefined,SigndataObj,verifySignObj,'planForm');
     },
     openSlideRight() {
       this.openSlideCon({

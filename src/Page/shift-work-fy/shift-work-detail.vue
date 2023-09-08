@@ -894,7 +894,7 @@ export default {
         if (type === "N") {
           this.reloadSideList();
         }
-      });
+      },undefined,undefined,undefined,undefined,process.env.HOSPITAL_ID == 'fuyou' ? this.record : undefined,undefined,undefined,undefined,undefined,undefined,'changeShfit');
     },
     onDelSignModalOpen(type, sourceEmpNo) {
       // this.$refs.signModal.open({
@@ -928,7 +928,7 @@ export default {
         this.$refs.signModal.close();
         this.$message.success("已取消签名");
         this.reloadSideList();
-      });
+      },undefined,undefined,undefined,undefined,process.env.HOSPITAL_ID == 'fuyou' ? this.record : undefined,'cancel',undefined,undefined,undefined,undefined,'changeShfit');
     },
     async onRemove() {
       // this.$refs.signModal.open({
@@ -958,7 +958,7 @@ export default {
         this.patients = [];
         this.$router.push({ path: `/shiftWork/${code}` });
         this.reloadSideList();
-      });
+      },undefined,undefined,undefined,undefined,process.env.HOSPITAL_ID == 'fuyou' ? this.record : undefined,undefined,undefined,undefined,undefined,undefined,'changeShfit');
     },
     setIsSelectPatient(flag){
       this.isSelectPatient = flag
