@@ -1088,8 +1088,22 @@ export default {
         return {};
       }
       text = text || '';
-      const scale = Math.min(1, 1 - (text.length - 10) * 0.03);
+      let length = this.GetLength(text)
+      const scale = Math.min(1, 1 - (length - 27) * 0.03);
       return { zoom: scale };
+    },
+    GetLength(str) {
+      var realLength = 0,
+        len = str.length,
+        charCode = -1;
+      for (var i = 0; i < len; i++) {
+        charCode = str.charCodeAt(i);
+        // 字符串^(String.fromCharCode([Unicode Value,]);可还原原字符.例如String.fromCharCode(94))
+        if (charCode == 94) realLength += 0;
+        else if (charCode >= 0 && charCode <= 128) realLength += 1;
+        else realLength += 2;
+      }
+      return realLength;
     },
     customCallBack(e,tr,x,y,index){
       if(!this.splitSave) return
