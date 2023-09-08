@@ -138,7 +138,7 @@
 </style>
 <script>
 import moment from 'moment';
-import { PATIENT_STATUS, TIME_POINT, TIME_OUTPUT } from "../enums";
+import { PATIENT_STATUS, TIME_POINT, TIME_OUTPUT,NURSING_LEVEL_SDYY } from "../enums";
 import { nursingUnit } from "@/api/lesion"
 export default {
   props: {
@@ -179,6 +179,7 @@ export default {
     return {
       patientStatus: PATIENT_STATUS,
       timePoint: this.isItme ? TIME_OUTPUT :  TIME_POINT,
+      // patientLevelSdyy: NURSING_LEVEL_SDYY,
       pickerOptions: {
         shortcuts: [{
           text: '上月',
@@ -247,6 +248,7 @@ export default {
     },
     handleExport () {
       this.$emit('handleExport')
+      // console.log('formData',this.formData);
     },
     async defaultData() {
       let obj = {}
