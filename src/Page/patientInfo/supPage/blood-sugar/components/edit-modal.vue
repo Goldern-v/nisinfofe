@@ -190,7 +190,7 @@
       </ElFormItem>
     </ElForm>
     <ElButton slot="button" @click="onClose">取消</ElButton>
-    <ElButton slot="button" type="primary" @click="onConfirm" v-if="isLock">保存</ElButton>
+    <ElButton slot="button" type="primary" @click="onConfirm" v-if="HOSPITAL_ID != 'nfyksdyy' || isLock">保存</ElButton>
   </SweetModal>
 </template>
 
