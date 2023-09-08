@@ -231,9 +231,22 @@ export default {
         });
       }
     },
+    GetLength(str) {
+      var realLength = 0,
+        len = str.length,
+        charCode = -1;
+      for (var i = 0; i < len; i++) {
+        charCode = str.charCodeAt(i);
+        // 字符串^(String.fromCharCode([Unicode Value,]);可还原原字符.例如String.fromCharCode(94))
+        if (charCode == 94) realLength += 0;
+        else if (charCode >= 0 && charCode <= 128) realLength += 1;
+        else realLength += 2;
+      }
+      return realLength;
+    },
     post() {
+      let titleLength = this.GetLength(this.fstitle)
       if(this.activeName == 'second'){
-        console.log('dddddddddd', this.pageIndex);
         let data = {
           blockId:sheetInfo.selectBlock.id,
           indexNo:this.pageIndex ,
@@ -250,10 +263,26 @@ export default {
             this.HOSPITAL_ID
           )
         ) {
-          this.callback(this.fstitle, {
-            list: this.options || [],
-            id: this.selectedTempId
-          });
+          if(this.HOSPITAL_ID == 'nfyksdyy' && titleLength >= 35){
+            this.$confirm('当前标题超过最大限制字数，如继续请点击确认', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.callback(this.fstitle, {
+                list: this.options || [],
+                id: this.selectedTempId
+              });
+              this.close();
+            }).catch(() => {
+              return
+            });
+          }else{
+            this.callback(this.fstitle, {
+              list: this.options || [],
+              id: this.selectedTempId
+            });
+          }
         } else {
           this.callback(this.title);
         }
@@ -266,7 +295,7 @@ export default {
           //体温单保存自定义标题刷新
         }
       }
-      this.close();
+      if( this.activeName == 'second' || (this.HOSPITAL_ID != 'nfyksdyy' || titleLength < 35)) this.close();
     },
     close() {
       this.reset();

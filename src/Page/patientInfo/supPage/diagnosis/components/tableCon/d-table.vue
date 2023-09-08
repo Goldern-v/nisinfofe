@@ -318,7 +318,7 @@ export default {
           model.refreshTable();
           model.selectedRow = null;
         });
-      }, "你确定要删除诊断？");
+      }, "你确定要删除诊断？",undefined,undefined,undefined,process.env.HOSPITAL_ID  == 'fuyou' ? row : undefined,undefined,undefined,undefined,undefined,undefined,'planForm');
     },
     stop(row) {
       // if (!this.verify()) return;

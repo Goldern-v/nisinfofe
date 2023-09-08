@@ -359,7 +359,7 @@ export const updateBlockInfo = (obj = {}) => {
 // 同步his的分娩记录单数据
 export const  getDeliveryInfo= ( patientId ) => {
   return axios.get(
-    `${apiPath}/form/design/getfyinfo/${patientId}`
+    `${apiPath}form/design/getfyinfo/${patientId}`
   );
 };
 

@@ -1088,8 +1088,22 @@ export default {
         return {};
       }
       text = text || '';
-      const scale = Math.min(1, 1 - (text.length - 10) * 0.03);
+      let length = this.GetLength(text)
+      const scale = Math.min(1, 1 - (length - 27) * 0.03);
       return { zoom: scale };
+    },
+    GetLength(str) {
+      var realLength = 0,
+        len = str.length,
+        charCode = -1;
+      for (var i = 0; i < len; i++) {
+        charCode = str.charCodeAt(i);
+        // 字符串^(String.fromCharCode([Unicode Value,]);可还原原字符.例如String.fromCharCode(94))
+        if (charCode == 94) realLength += 0;
+        else if (charCode >= 0 && charCode <= 128) realLength += 1;
+        else realLength += 2;
+      }
+      return realLength;
     },
     customCallBack(e,tr,x,y,index){
       if(!this.splitSave) return
@@ -1790,8 +1804,16 @@ export default {
                 signData:JSON.stringify(strSignData)
                 }
             }
+            // 为了妇幼ca签名需要传的参数
+            if(this.HOSPITAL_ID=="fuyou") {
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
+              }
+              trObj['recordDate'] =  `${trObj['recordYear']}-${trObj['recordMonth']} ${trObj['recordHour']}`;
+              trObj.recordCode = this.sheetInfo.sheetType;
+              trObj.blockId = this.sheetInfo.selectBlock.id;
+            }
             window.openSignModal((password, empNo) => {
-              let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
               }
@@ -1852,8 +1874,8 @@ export default {
               });
             },'',null,false,'',
             ['guizhou', '925'].includes(this.HOSPITAL_ID)?{}
-            :['hj',"zhzxy"].includes(this.HOSPITAL_ID)?trObj:null,
-            undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
+            :['hj',"zhzxy", 'fuyou'].includes(this.HOSPITAL_ID)?trObj:null,
+            undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)?p7SignObj:parmas, 'record');
           }
         };
         let reverseList = [...decode().list].reverse();
@@ -1891,11 +1913,13 @@ export default {
       } else {
         // 删除签名
         let SigndataObj = {}, verifySignObj={}, strSignDataOBJ = {}
-        if(['foshanrenyi','hj'].includes(this.HOSPITAL_ID)){
+        if(['foshanrenyi','hj', 'fuyou'].includes(this.HOSPITAL_ID)){
           let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
             }
+            trObj.recordCode = this.sheetInfo.sheetType;
+            trObj.blockId = this.sheetInfo.selectBlock.id;
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
             strSignDataOBJ =
                 Object.assign({}, trObj, {
@@ -1956,28 +1980,28 @@ export default {
                 recordId:strSignData.id,
                 signData:JSON.stringify(strSignData)
                 }
-            }
-          this.$refs.delsignModal.open((password, empNo) => {
-            let id = trArr.find((item) => {
-              return item.key == "id";
-            }).value;
-            cancelSign({
-              id,
-              empNo,
-              password,
-              multiSign: this.multiSign,
-              // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-              signType:
-                this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
-                  ? this.signType
-                  : "",
-            }).then((res) => {
-              this.bus.$emit("saveSheetPage", true);
-            });
-          },'',null,false,'',
-          ['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:
-          ['hj'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
-          'cancle',undefined,undefined,SigndataObj,verifySignObj);
+        }
+        this.$refs.delsignModal.open((password, empNo) => {
+          let id = trArr.find((item) => {
+            return item.key == "id";
+          }).value;
+          cancelSign({
+            id,
+            empNo,
+            password,
+            multiSign: this.multiSign,
+            // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
+            signType:
+              this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
+                ? this.signType
+                : "",
+          }).then((res) => {
+            this.bus.$emit("saveSheetPage", true);
+          });
+        },'',null,false,'',
+        ['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:
+        ['hj', 'fuyou'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
+        'cancle',undefined,undefined,SigndataObj,verifySignObj, 'record');
       }
     },
     toAudit(trArr, index, bodyModel, showAudit, e) {
@@ -2114,6 +2138,9 @@ export default {
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
             }
+            trObj['recordDate'] =  `${trObj['recordYear']}-${trObj['recordMonth']} ${trObj['recordHour']}`;
+            trObj.recordCode = this.sheetInfo.sheetType;
+            trObj.blockId = this.sheetInfo.selectBlock.id;
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
             let data = {
               empNo,
@@ -2163,17 +2190,19 @@ export default {
             );
           },['guizhou', '925'].includes(this.HOSPITAL_ID)?"":null,"",
           undefined,undefined,
-          ["zhzxy",'hj'].includes(this.HOSPITAL_ID)?trObj:undefined,
-          undefined,undefined,undefined,undefined,parmas);
+          ["zhzxy",'hj', 'fuyou'].includes(this.HOSPITAL_ID)?trObj:undefined,
+          undefined,undefined,undefined,undefined,parmas,'record');
         }
       } else {
         // 删除签名
         let SigndataObj = {}, verifySignObj={},strSignDataOBJ = {}
-        if(['foshanrenyi','hj'].includes(this.HOSPITAL_ID)){
+        if(['foshanrenyi','hj','fuyou'].includes(this.HOSPITAL_ID)){
           let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
             }
+            trObj.recordCode = this.sheetInfo.sheetType;
+            trObj.blockId = this.sheetInfo.selectBlock.id;
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
             strSignDataOBJ =
                 Object.assign({}, trObj, {
@@ -3095,7 +3124,7 @@ export default {
     openAduitModal(pageIndexs) {
       // 需要批量审核签名
       this.$store.commit('upPageIndexs', pageIndexs)
-      let verifySignObj = "",SigndataObj=""
+      let verifySignObj = "",SigndataObj="", recodeObj=null;
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
             SigndataObj = {
               Patient_ID:this.patientInfo.patientId,
@@ -3114,6 +3143,14 @@ export default {
               recordId:"strSignData.id",
               signData:"JSON.stringify(strSignData)",
             }
+      }
+      if(['fuyou'].includes(this.HOSPITAL_ID)){
+        recodeObj = {
+          recordDate: moment().format("YYYY-MM-DD HH:mm:ss"),
+          recordCode: this.sheetInfo.sheetType,
+          blockId: this.sheetInfo.selectBlock.id,
+          ...this.sheetInfo.selectBlock
+        }
       }
       window.openSignModal((password, empNo,auditDate=moment().format("YYYY-MM-DD HH:mm:ss")) => {
           getUser(password, empNo).then((res) => {
@@ -3146,11 +3183,11 @@ export default {
             this.bus.$emit("saveSheetPage", false);
           });
 
-      }, "审核签名确认","","","","","","",this.sheetInfo.sheetType,SigndataObj,verifySignObj);
+      }, "审核签名确认","","","",["fuyou"].includes(this.HOSPITAL_ID)? recodeObj : "","","",this.sheetInfo.sheetType,SigndataObj,verifySignObj,'record');
     },
     /** 取消审核整页 */
     cancelAduitModal() {
-      let verifySignObj = "",SigndataObj=""
+      let verifySignObj = "",SigndataObj="", recodeObj=null;
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
             SigndataObj = {
               Patient_ID:this.patientInfo.patientId,
@@ -3170,6 +3207,14 @@ export default {
               signData:"JSON.stringify(strSignData)",
             }
       }
+      if(['fuyou'].includes(this.HOSPITAL_ID)){
+        recodeObj = {
+          recordDate: moment().format("YYYY-MM-DD HH:mm:ss"),
+          recordCode: this.sheetInfo.sheetType,
+          blockId: this.sheetInfo.selectBlock.id,
+          ...this.sheetInfo.selectBlock
+        }
+      }
       window.openSignModal((password, empNo) => {
         getUser(password, empNo).then((res) => {
           let { empNo, empName } = res.data.data;
@@ -3188,7 +3233,7 @@ export default {
             this.$message.warning("非审核本人不可取消");
           }
         });
-      }, "取消签名确认","","","","","cancel","","",SigndataObj,verifySignObj);
+      }, "取消签名确认","","","",["fuyou"].includes(this.HOSPITAL_ID)? recodeObj : "","cancel","","",SigndataObj,verifySignObj, 'record');
     },
     /** 右侧主管护士签名 */
     sign2() {

@@ -13,6 +13,14 @@
         <input-num-range :value="[formData.scoreMin, formData.scoreMax]" @change="(e) => handleIptNum(e,['scoreMin', 'scoreMax'])"/>
       </div>
     </template>
+    <template>
+      <div class="search-con__ctx__item" v-if="formData.riskGrade != undefined &&  HOSPITAL_ID == 'nfyksdyy'">
+        风险等级：
+        <ElSelect style="width: 120px;" size="small" :value="formData.riskGrade" @input="handleQuery({riskGrade: $event})" filterable>
+          <ElOption v-for="val in nursingLvs" :key="val.key" :label="val.label" :value="val.key" />
+      </ElSelect>
+      </div>
+    </template>
   </search-con>
   <div class="statistical-pressure__content default-content" v-loading.sync="loading">
     <iview-table
@@ -54,6 +62,7 @@ import SearchCon from '../components/search-con.vue'
 import InputNumRange from '../components/input-num-range.vue'
 import indexMixins from '../mixins/index.mixins'
 import Pagination from '@/components/pagination/pagination.vue'
+import { NURSING_LEVEL_SDYY } from '../enums';
 
 export default {
   mixins: [commonMixin, indexMixins],
@@ -67,7 +76,9 @@ export default {
         status: 0,
         scoreMin: 0,
         scoreMax: 5,
+        riskGrade: '',
       },
+       nursingLvs: NURSING_LEVEL_SDYY,
       columns: [
         {
 					key: 'index',

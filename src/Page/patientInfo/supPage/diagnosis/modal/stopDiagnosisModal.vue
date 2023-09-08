@@ -162,7 +162,7 @@ export default {
           model.refreshTable();
           this.close();
         });
-      },undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
+      },undefined,undefined,undefined,undefined,process.env.HOSPITAL_ID == 'fuyou' ? this.data : undefined,undefined,undefined,undefined,SigndataObj,verifySignObj,'planForm');
     }
   },
   mounted() {},

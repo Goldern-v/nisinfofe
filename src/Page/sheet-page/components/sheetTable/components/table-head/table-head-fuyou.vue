@@ -262,7 +262,7 @@ export default {
         if(paintID.includes("_")){
           paintID=this.patientInfo.patientId.split("_")[0]
         }
-        const res = await  getDeliveryInfo(paintID)
+        const res = await getDeliveryInfo(paintID)
         if(res.data.data.length!=0){
            const dateOfBirth=res.data.data[0].DateOfBirth
            const date=dateOfBirth.split(" ")[0].split("/")
