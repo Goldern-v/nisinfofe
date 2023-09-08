@@ -154,6 +154,7 @@
         >确认</el-button
       >
       <el-button
+        v-if="hasCaSign()&&showSignBtn()"
         class="modal-btn"
         type="primary"
         @dblclick.stop="caPost"
