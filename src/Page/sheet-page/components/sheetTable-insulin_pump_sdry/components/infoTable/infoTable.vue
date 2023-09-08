@@ -20,7 +20,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
+            class="input-style"
             v-model="relObj.FBG"
             :data-value="relObj.FBG"
           />
@@ -28,7 +28,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
+            class="input-style"
             v-model="relObj.PBG"
             :data-value="relObj.PBG"
           />
@@ -36,7 +36,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
+            class="input-style"
             v-model="relObj.HbA"
             :data-value="relObj.HbA"
           />
@@ -74,7 +74,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
+            class="input-style"
             v-model="relObj.sysA"
             :data-value="relObj.sysA"
           />
@@ -204,7 +204,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
+            class="input-style"
             v-model="relObj.sysA1"
             :data-value="relObj.sysA1"
           />
@@ -334,7 +334,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
+            class="input-style"
             v-model="relObj.sysA2"
             :data-value="relObj.sysA2"
           />
@@ -464,7 +464,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
+            class="input-style"
             v-model="relObj.sysA3"
             :data-value="relObj.sysA3"
           />
@@ -690,7 +690,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.bottom-line {
+.input-style {
     border: 0;
     width: 96%;
     outline: none;
