@@ -68,7 +68,7 @@
         <div class="text-con">保存</div>
       </div>
     </template>
-    <template v-else-if="HOSPITAL_ID == 'huadu'">
+    <template v-else-if="HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'nfyksdyy'">
       <div
         class="item-box"
         @click="emit('addSheetPage')"
@@ -130,13 +130,16 @@
           <div class="text-con">删除整单</div>
        </div>
       </template>
+      <template v-if="!isLock">
       <div
         class="item-box"
         @click.stop="createSheet"
         v-if="!isSingleTem && !isDeputy && isShow()"
       >
-        <div class="text-con">新建记录单</div>
+      <div class="text-con">新建记录单</div>
       </div>
+      </template>
+
     </template>
     <template v-else-if="isGeneralCareWj">
     </template>
@@ -378,21 +381,21 @@
       <div
         class="item-box"
         @click.stop="openTemplateSlider"
-        v-if='!isSingleTem && !isDeputy && isShow() && HOSPITAL_ID === "nfyksdyy"'
+        v-if='!isLock && !isSingleTem && !isDeputy && isShow() && HOSPITAL_ID === "nfyksdyy"'
       >
         <div class="text-con">特殊情况模板</div>
       </div>
       <div
         class="item-box"
         @click.stop="openTitleTemplateSlide"
-        v-if='!isSingleTem && !isDeputy && isShow() && HOSPITAL_ID === "nfyksdyy"'
+        v-if='!isLock && !isSingleTem && !isDeputy && isShow() && HOSPITAL_ID === "nfyksdyy"'
       >
         <div class="text-con">自定义标题模板</div>
       </div>
       <div
         class="item-box"
         @click="lookMark"
-        v-if='blockId && HOSPITAL_ID === "nfyksdyy"'
+        v-if='!isLock && blockId && HOSPITAL_ID === "nfyksdyy"'
       >
         <div class="text-con">痕迹</div>
       </div>
@@ -713,7 +716,19 @@
         class="right-btn"
         @click.stop="openZxdtbModal"
         v-if="
-           ['wujing', 'quzhou', 'weixian', 'liaocheng', 'whfk', 'whhk', 'gdtj', 'lyxrm', 'stmz', 'lyyz','ytll','whsl', 'nfyksdyy'].includes(HOSPITAL_ID)
+           ['wujing', 'quzhou', 'weixian', 'liaocheng', 'whfk', 'whhk', 'gdtj', 'lyxrm', 'stmz', 'lyyz','ytll','whsl'].includes(HOSPITAL_ID)
+        "
+      >
+        <div class="text-con">
+          <img src="./images/评估.png" alt />
+          执行单同步
+        </div>
+      </div>
+        <div
+        class="right-btn"
+        @click.stop="openZxdtbModal"
+        v-if="
+           ['nfyksdyy'].includes(HOSPITAL_ID) && !isLock
         "
       >
         <div class="text-con">

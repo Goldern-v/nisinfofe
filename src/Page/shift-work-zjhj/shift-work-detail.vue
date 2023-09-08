@@ -148,11 +148,11 @@
               </span>
               <FallibleImage
                 class="img"
-                v-if="record.autographEmpNoA2"
+                v-if="record.autographNameA2"
                 :src="
-                  `/crNursing/api/file/signImage/${record.autographNameA2}?${token}`
+                  `/crNursing/api/file/signImage/${record.autographEmpNoA2}?${token}`
                 "
-                :alt="record.autographEmpNoA2"
+                :alt="record.autographNameA2"
                 data-print-style="display: inline-block; width: 52px; height: auto;"
               />
               <span
@@ -732,24 +732,24 @@ export default {
               await this.onSave();
             }
           },
-          {
-            name: "向上移动行",
-            icon: "charuxinhang",
-            click: async () => {
-              // this.modified = true
-              this.$refs.table.moveRowUp();
-              await this.onSave();
-            }
-          },
-          {
-            name: "向下移动行",
-            icon: "xiangxiacharuyihang",
-            click: async () => {
-              // this.modified = true
-              this.$refs.table.moveRowDown();
-              await this.onSave();
-            }
-          },
+          // {
+          //   name: "向上移动行",
+          //   icon: "charuxinhang",
+          //   click: async () => {
+          //     // this.modified = true
+          //     this.$refs.table.moveRowUp();
+          //     await this.onSave();
+          //   }
+          // },
+          // {
+          //   name: "向下移动行",
+          //   icon: "xiangxiacharuyihang",
+          //   click: async () => {
+          //     // this.modified = true
+          //     this.$refs.table.moveRowDown();
+          //     await this.onSave();
+          //   }
+          // },
           {
             name: "向上插入新行",
             icon: "charuxinhang",

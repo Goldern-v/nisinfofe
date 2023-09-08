@@ -374,7 +374,7 @@ export default {
       hisLeftList: ["wujing", 'huadu'], //是否要开放左侧收缩功能医院
       batchAuditDialog: false, // 批量审核表单弹框
       batchAuditForms: {}, // 批量审核节点数据
-      lockHospitalList:['huadu'],//配置了评估单锁定功能的医院
+      lockHospitalList:['huadu','nfyksdyy'],//配置了评估单锁定功能的医院
     };
   },
   computed: {

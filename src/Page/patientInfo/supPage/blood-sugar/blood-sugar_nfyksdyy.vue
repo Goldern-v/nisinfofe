@@ -81,26 +81,31 @@
     </div>
     <div class="tool-con" v-show="listMap.length">
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="hisDisabled()&&onAdd()" :disabled="isPreview"></whiteButton>
+        <whiteButton text="添加" @click="hisDisabled()&&onAdd()"
+        v-if="isLock" :disabled="isPreview"></whiteButton>
         <whiteButton
           text="修改"
           @click="hisDisabled()&&onEdit()"
           :disabled="!selected || !selected.recordDate||isPreview"
+          v-if="isLock"
         ></whiteButton>
         <whiteButton
           text="删除"
           @click="hisDisabled()&&onRemove()"
           :disabled="!selected || !selected.recordDate||isPreview"
+          v-if="isLock"
         ></whiteButton>
         <whiteButton
           :text="`设置起始页(${startPage})`"
           @click="hisDisabled()&&openSetPageModal(listMap.length)"
           :disabled="isPreview"
+          v-if="isLock"
         ></whiteButton>
         <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()" :disabled="isPreview"></whiteButton>
         <whiteButton
           :text="!isChart ? '查看曲线' : '查看表格'"
           @click="openChart"
+          v-if="isLock"
         ></whiteButton>
       </div>
     </div>
@@ -386,6 +391,11 @@ export default {
     showBorder: {
       type: Boolean,
       default: false
+    },
+    provide(){
+      return {
+        isLock:this.isLock
+      }
     }
   },
   data() {
@@ -406,7 +416,12 @@ export default {
       registNum:0,//血糖登记次数
       sugarUserInfo:{},//患者基础信息
       printRecord:[],
-      printRecordValue:''
+      printRecordValue:'',
+      lockHospitalList:['nfyksdyy'],//配置了健康教育单锁定功能的配置
+      isLock:{           //健康教育单是否被锁定
+      type:Boolean,
+      default:true
+      },
     };
   },
   computed: {
@@ -438,7 +453,28 @@ export default {
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
-
+      console.log("res",res);
+        /* 判断健康教育单是否被锁定 */
+          if(res.data.errorCode=='3001' && res.data.desc.indexOf('锁定')!=-1 && this.lockHospitalList.includes(this.HOSPITAL_ID)){
+            console.log("弹窗");
+            localStorage.setItem('lockForm','')
+            this.isLock=false
+            window.app && window.app.$message({
+              showClose: true,
+              message: res.data.desc,
+              type: 'error',
+              duration:5000
+            })
+          }else{
+            console.log("else");
+            const formConfig={
+              formId:this.patientInfo.patientId,
+              type:'suger',
+              initTime:Date.now()
+            }
+            this.isLock=true
+            localStorage.setItem('lockForm',JSON.stringify(formConfig))
+          }
       this.tableHeaderInfo=res.data.data
       if(res.data.data.hisPatSugarList.length != 0){
         this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel

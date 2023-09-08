@@ -78,7 +78,7 @@ export default {
   },
   data() {
     return {
-      lockHospitalList:['huadu'],//配置了表单锁定的医院
+      lockHospitalList:['huadu','nfyksdyy'],//配置了表单锁定的医院
       bus: bus(this),
       tagsList: [],
       currentTag: null,
