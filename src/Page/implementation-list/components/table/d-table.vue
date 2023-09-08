@@ -77,7 +77,7 @@
               @click="backTracking(scope.row)"
               v-if="
                 scope.row.executeDateTime &&
-                scope.row.executeFlag != '未执行'
+                scope.row.executeFlag == '未执行'
               "
               >补执行</el-button
             >
