@@ -16,7 +16,7 @@
           <img src='./images/hospital-name.png' height="60" width="300"/>
         </div>
         <div class="title">{{patientInfo.recordName}}</div>
-        <div class="info-con">
+        <div class="info-con__pump">
           <span>
             科室:
             <div class="bottom-line" style="min-width: 266px">{{patientInfo.realDeptName}}</div>
@@ -26,7 +26,7 @@
             <div class="bottom-line" style="min-width: 266px">{{patientInfo.deptName}}</div>
           </span>
         </div>
-        <div class="info-con" >
+        <div class="info-con__pump" >
           <span @click="updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)">
             姓名:
             <div class="bottom-line" style="min-width: 70px">{{patientInfo.patientName}}</div>
@@ -48,7 +48,7 @@
             <div class="bottom-line" style="min-width: 70px">{{patientInfo.inpNo}}</div>
           </span>
         </div>
-        <div class="info-con" flex style="margin-bottom: 5px">
+        <div class="info-con__pump" flex style="margin-bottom: 5px">
           <span>诊断:</span>
           <div class="bottom-line" style="flex: 1">{{patientInfo.diagnosis}}</div>
         </div>
@@ -107,7 +107,7 @@
       color: #000;
     }
 
-    .info-con {
+    .info-con__pump {
       padding-top: 5px;
       padding-bottom: 5px;
       text-align: left;
