@@ -394,7 +394,7 @@ export default {
         repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
         executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
         executeType: this.type.length > 0 ? this.type.join(",") : "全部", //执行单类型:输液,口服、治疗、雾化、注射
-        bedLabel: this.bedLabel, //床号
+        bedLabelList: this.bedLabel, //床号
         patientName: this.patientName, //患者姓名
         administration: this.administration, // //途径
         dispenseFlag: this.dispenseFlag
