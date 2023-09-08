@@ -150,7 +150,7 @@ export default {
         healthEducation: () => healthEducationGuizhou
       }
       this.otherComponent = comp[data.component] ? comp[data.component]() : data.component;
-      // this.otherComponent = 
+      // this.otherComponent =
       //   data.component == "temperature"
       //     ? this.getTemplate()
       //     : data.component == "bloodSugar"
@@ -243,6 +243,7 @@ export default {
           return temperatureNFZXY;
         case "foshanrenyi":
         case 'nfyksdyy':
+        case 'zjhj':
           return temperatureFSSY;
         case "xiegang":
         case "qhwy":
@@ -318,7 +319,7 @@ export default {
     temperatureGDTJ,
     temperatureZHZXY,
     temperatureYTLL
-    
+
   }
 };
 </script>
