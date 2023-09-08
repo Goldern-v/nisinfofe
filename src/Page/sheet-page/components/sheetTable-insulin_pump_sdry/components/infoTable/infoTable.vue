@@ -2,7 +2,7 @@
   <div class="cardiac_intervent-info-contain">
     <!-- {{relObj}} -->
     <span>1.患者相关检查指标</span>
-    <table style="margin-bottom: 5px;">
+    <table style="margin-bottom: 5px;" class="info-table__pump">
       <colgroup>
         <col width="19%" />
         <col width="27%" />
@@ -45,7 +45,7 @@
     </table>
 
     <span> 2.安装及更换胰岛素泵记录表（由当班责任护士观察并打“√”）</span>
-    <table style="margin-top: 5px">
+    <table style="margin-top: 5px" class="info-table__pump">
       <colgroup>
         <col width="20%" />
         <col width="20%" />
@@ -791,7 +791,7 @@ export default {
     display: flex;
     margin-bottom: 10px;
   }
-  table {
+  .info-table__pump {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
