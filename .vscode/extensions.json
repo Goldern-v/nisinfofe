@@ -7,6 +7,7 @@
     "octref.vetur",
     "christian-kohler.path-intellisense",
     "sysoev.language-stylus",
+    "ms-ceintl.vscode-language-pack-zh-hans"
   ],
   // "orta.vscode-jest",
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
