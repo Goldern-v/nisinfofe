@@ -71,7 +71,7 @@
         <div action @keyup.13="post" ref="titleInput">
           <template
             v-if="
-              ['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy', 'whhk'].includes(
+              ['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy', 'whhk','zjhj'].includes(
                 HOSPITAL_ID
               )
             "
@@ -183,7 +183,7 @@ export default {
     },
     // 是否是分类的模板
     hasClassify() {
-      return ["nfyksdyy", "whhk", "foshanrenyi"].includes(this.HOSPITAL_ID);
+      return ["nfyksdyy", "whhk", "foshanrenyi",'zjhj'].includes(this.HOSPITAL_ID);
     }
   },
   methods: {
@@ -195,7 +195,7 @@ export default {
      */
     open(callback, title, item, pageIndex) {
       if (
-        ["foshanrenyi", "fsxt", "gdtj", "nfyksdyy", "whhk"].includes(
+        ["foshanrenyi", "fsxt", "gdtj", "nfyksdyy", "whhk",'zjhj'].includes(
           this.HOSPITAL_ID
         )
       ) {
@@ -212,6 +212,7 @@ export default {
           if (
             this.HOSPITAL_ID == "whhk" ||
             this.HOSPITAL_ID == "nfyksdyy" ||
+            this.HOSPITAL_ID == "zjhj" ||
             this.HOSPITAL_ID == "foshanrenyi"
           ) {
             this.openTitleTemplateSlide();
@@ -259,7 +260,7 @@ export default {
       }else{
         if (
           this.fstitle &&
-          ["foshanrenyi", "fsxt", "gdtj", "nfyksdyy", "whhk"].includes(
+          ["foshanrenyi", "fsxt", "gdtj", "nfyksdyy", "whhk",'zjhj'].includes(
             this.HOSPITAL_ID
           )
         ) {
@@ -388,7 +389,7 @@ export default {
     },
     openTitleTemplateSlide() {
       if (
-        ["foshanrenyi", "fsxt", "gdtj", "lyyz", "nfyksdyy", "whhk"].includes(
+        ["foshanrenyi", "fsxt", "gdtj", "lyyz", "nfyksdyy", "whhk","zjhj"].includes(
           this.HOSPITAL_ID
         )
       ) {
@@ -500,7 +501,7 @@ export default {
     });
     // 刷新标题模板列表
     if (
-      ["foshanrenyi", "fsxt", "gdtj", "nfyksdyy", "whhk"].includes(
+      ["foshanrenyi", "fsxt", "gdtj", "nfyksdyy", "whhk","zjhj"].includes(
         this.HOSPITAL_ID
       )
     ) {

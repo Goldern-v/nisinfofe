@@ -740,7 +740,8 @@ export default {
         '925',
         'dglb',
         'stmz',
-        'guizhou'
+        'guizhou',
+        'sdhpwk'
         ].includes(
         this.HOSPITAL_ID
       );

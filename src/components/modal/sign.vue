@@ -732,7 +732,7 @@ export default {
         patientName: this.formData.patientName, //-- 患者名称
         patientSex: this.formData.sex, // -- 患者性别
         patientCardType: "QT", //-- 患者证件类型
-        // openId: this.fuyouCaData.openId, // -- 当前用户唯一标识
+        openId: this.fuyouCaData.openId, // -- 当前用户唯一标识
         patientAge: this.formData.age, //-- 患者年龄
         patientCard: "", // -- 患者证件号
         templateId: "hash", //-- 模板id
