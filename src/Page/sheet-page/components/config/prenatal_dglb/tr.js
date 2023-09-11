@@ -31,7 +31,7 @@ export default [
   {
     key: "recordMonth", //日期
     value: "",
-    event: event_date, 
+    event: event_date,
     click: click_date
   },
   {
@@ -98,7 +98,7 @@ export default [
     next: "mmHg",
     change: (e, td) => limitChange(e, td, 6),
     textarea: {
-      width: 43
+      width: 45
     },
   },
   {
@@ -190,7 +190,7 @@ export default [
     }
   },
   {
-    key: "fieldNine", 
+    key: "fieldNine",
     value: "",
     event: keyf1,
     name: "胎方位",
@@ -205,7 +205,7 @@ export default [
   },
 
   {
-    key: "fieldTen", 
+    key: "fieldTen",
     value: "",
     event: keyf1,
     name: "胎心",
@@ -216,7 +216,7 @@ export default [
     },
   },
   {
-    key: "fieldOne", 
+    key: "fieldOne",
     value: "",
     event: keyf1,
     name: "无",
@@ -231,7 +231,7 @@ export default [
     click: click_cancel
   },
   {
-    key: "fieldEleven", 
+    key: "fieldEleven",
     value: "",
     event: keyf1,
     name: "强度",
@@ -245,7 +245,7 @@ export default [
     },
   },
   {
-    key: "fieldTwelve", 
+    key: "fieldTwelve",
     value: "",
     event: keyf1,
     name: "持续",
@@ -259,7 +259,7 @@ export default [
     },
   },
   {
-    key: "fieldThirteen", 
+    key: "fieldThirteen",
     value: "",
     event: keyf1,
     name: "间歇",
@@ -273,7 +273,7 @@ export default [
     },
   },
   {
-    key: "fieldFourteen", 
+    key: "fieldFourteen",
     value: "",
     event: keyf1,
     name: "胎动",
@@ -284,7 +284,7 @@ export default [
     },
   },
   {
-    key: "fieldFifteen", 
+    key: "fieldFifteen",
     value: "",
     event: keyf1,
     name: "宫颈扩张",
@@ -298,7 +298,7 @@ export default [
     },
   },
   {
-    key: "fieldSixteen", 
+    key: "fieldSixteen",
     value: "",
     event: keyf1,
     name: "先露高低",
@@ -312,7 +312,7 @@ export default [
     },
   },
   {
-    key: "fieldSeventeen", 
+    key: "fieldSeventeen",
     value: "",
     event: keyf1,
     name: "胎膜",
@@ -326,7 +326,7 @@ export default [
     },
   },
   // {
-  //   key: "fieldEighteen", 
+  //   key: "fieldEighteen",
   //   value: "",
   //   event: keyf1,
   //   name: "宫颈疼痛评分",
@@ -337,7 +337,7 @@ export default [
   //   },
   // },
   // {
-  //   key: "fieldNineteen", 
+  //   key: "fieldNineteen",
   //   value: "",
   //   event: keyf1,
   //   name: "非药物减痛方法",
@@ -351,7 +351,7 @@ export default [
   //   },
   // },
   {
-    key: "fieldTwenty", 
+    key: "fieldTwenty",
     value: "",
     event: keyf1,
     name: "膀胱充盈度",
@@ -365,7 +365,7 @@ export default [
     },
   },
   {
-    key: "fieldTwentyOne", 
+    key: "fieldTwentyOne",
     value: "",
     event: keyf1,
     name: "膝反射",
@@ -405,11 +405,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      width: "148px",
       background: "transparent"
     },
     textarea: {
-      width: 150
+      width: 148
     },
     event: function (e, td) {
       console.log(e.keyCode);
