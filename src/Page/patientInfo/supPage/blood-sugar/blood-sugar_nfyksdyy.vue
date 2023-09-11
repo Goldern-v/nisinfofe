@@ -384,7 +384,6 @@ import setPageModal from "./components/setPage-modal.vue";
 import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin.js";
-
 export default {
   mixins: [common],
    props: {
@@ -394,7 +393,7 @@ export default {
     },
     provide(){
       return {
-        isLock:this.isLock
+        isLock: this.isLock
       }
     }
   },
@@ -453,10 +452,8 @@ export default {
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
-      console.log("res",res);
-        /* 判断健康教育单是否被锁定 */
+         /* 判断健康教育单是否被锁定 */
           if(res.data.errorCode=='3001' && res.data.desc.indexOf('锁定')!=-1 && this.lockHospitalList.includes(this.HOSPITAL_ID)){
-            console.log("弹窗");
             localStorage.setItem('lockForm','')
             this.isLock=false
             window.app && window.app.$message({
@@ -466,7 +463,6 @@ export default {
               duration:5000
             })
           }else{
-            console.log("else");
             const formConfig={
               formId:this.patientInfo.patientId,
               type:'suger',

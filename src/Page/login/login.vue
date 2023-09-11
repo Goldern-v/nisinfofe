@@ -1103,6 +1103,8 @@ export default {
           return require("../../common/images/logo_zjhj.jpg");
         case "nfyksdyy":
           return require("../../common/images/logo_nfyksdyy.png");
+          case "sdhpwk":
+          return require("../../common/images/logo_sdhp.png");
         default:
           return require("../../common/images/logo.png");
       }
