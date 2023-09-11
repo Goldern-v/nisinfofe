@@ -582,6 +582,21 @@ export default {
         `
       );
     }
+    if (this.HOSPITAL_ID === "whsl") {
+      addCSS(
+        window,
+        `
+        @media print {
+          #sheetPagePrint .iframe > div{
+           padding-top: 100px !important;
+          }
+          .body-con{
+            height: 35px !important;
+          }
+        }
+        `
+      );
+    }
     /* 护理记录单行高 */
     if (
       this.HOSPITAL_ID === "quzhou" &&
