@@ -49,7 +49,7 @@
         :list="bedList"
       ></printView>
       <batchPrints
-        v-if="['nfyksdyy','zjhj'].includes(HOSPITAL_ID)"
+        v-if="['nfyksdyy','zjhj', 'sdhpwk'].includes(HOSPITAL_ID)"
         ref="batchPrints"
         :list="bedList"
       ></batchPrints>
@@ -277,11 +277,12 @@ export default {
         case "nfyksdyy":
         case "zjhj":
         case "stmz":
+        case "sdhpwk":
         return bedItemLcey;
         case "beihairenyi":
         return bedItemBhry;
         case "foshanrenyi":
-        
+
         case "925":
         return bedItemFsry;
         default:

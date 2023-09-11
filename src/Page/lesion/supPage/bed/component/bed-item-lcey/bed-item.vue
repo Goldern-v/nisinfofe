@@ -44,7 +44,7 @@ export default {
   methods: {
      // 右键事件
     openContextMenuBed(e,patientId) {
-      if(['nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)){
+      if(['nfyksdyy','zjhj', 'sdhpwk'].includes(this.HOSPITAL_ID)){
       let style = {
         top: `${Math.min(e.clientY - 20, window.innerHeight - 180)}px`,
         left: `${Math.min(e.clientX + 20, window.innerWidth - 180)}px`,
@@ -80,9 +80,9 @@ export default {
           },
         }
       ]
-  
+
       e.preventDefault();
-      window.openContextMenu({ style, data }); 
+      window.openContextMenu({ style, data });
        }
     },
     inToday(date) {
