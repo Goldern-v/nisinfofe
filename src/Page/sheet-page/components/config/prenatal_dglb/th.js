@@ -297,8 +297,8 @@ export default {
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          minWidth: "150px",
+          maxWidth: "150px"
         },
         colspan: "1",
         rowspan: "3"

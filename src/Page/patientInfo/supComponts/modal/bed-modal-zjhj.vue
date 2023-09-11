@@ -45,6 +45,42 @@
 
       <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
     </div>
+    <div
+        class="bed-card-warpper printRef  wrist-strap-print children-wrist"
+        ref="printCon4"
+        v-else-if="printMode == 'wrist-children'"
+      >
+        <div class="bed-card-vert-con">
+          <div class="top">
+            <span>{{ query.wardName }}</span>
+          </div>
+          <div>
+            <div>
+              <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
+                >床位：{{ query.bedLabel }}</span
+              >
+              <span>ID:{{ query.patientId }}</span>
+            </div>
+            <div>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+              <span>过敏:</span>
+              <input style="border:none" type="text" />
+            </div>
+          </div>
+          <div>
+            <div>
+              <span>入院日期：{{moment(query.admissionDate).format("YYYY-MM-DD")  }}</span>
+            </div>
+          </div>
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
+        </div>
+    </div>
     <!-- 床头卡 -->
     <div class="bed-card-warpper"
     v-else
@@ -620,6 +656,18 @@ export default {
                 width:560px!important;
                 // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
                 transform: rotate(-90deg) translateY(30%) translateX(-97%) scale(0.8)!important;
+                transform-origin: 0 0;
+              }
+            `;
+            break;
+            case "wrist-children":
+            printRef = this.$refs.printCon4;
+            css = `
+            .bed-card-warpper {
+                box-shadow: none !important;
+                width:560px!important;
+                // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
+                transform: rotate(-90deg) translateY(30%) translateX(-97%) scale(0.8);
                 transform-origin: 0 0;
               }
             `;

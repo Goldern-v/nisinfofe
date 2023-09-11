@@ -66,10 +66,12 @@ const currentTargetUrl = (() => {
 
     /** 花都 */
     case "huadu":
-      return "http://120.238.239.27:9094" //花都正式
+      // return "http://120.238.239.27:9094" //花都正式
       // return "https://info.cr-health.com:20206" // 公司-花都测试-外网
       // return "http://192.168.1.54:9883" //公司-花都测试-内网
       // return "http://192.168.20.112:8080" //公司-花都测试-内网
+      return 'http://192.168.1.54:9901'  // 公司测试网
+
 
 
     /** 贵州医科大正式 */
