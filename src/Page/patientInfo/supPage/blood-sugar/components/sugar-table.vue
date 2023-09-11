@@ -292,7 +292,7 @@ export default {
       let renderData = [];
       let firstDate = "";
       for (let i = 0; i < this.data.length; i++) {
-        if(this.HOSPITAL_ID == 'lingcheng' || this.HOSPITAL_ID == 'whfk' || this.HOSPITAL_ID == 'lyyz'|| this.HOSPITAL_ID == 'whsl' || this.HOSPITAL_ID == 'ytll'){
+        if(this.HOSPITAL_ID == 'lingcheng' || this.HOSPITAL_ID == 'whfk' || this.HOSPITAL_ID == 'lyyz'|| this.HOSPITAL_ID == 'whsl' || this.HOSPITAL_ID == 'ytll' || this.HOSPITAL_ID == 'nfyksdyy'){
           this.data[i].md = new Date(this.data[i].recordDate).Format("yyyy-MM-dd hh:mm");
         }else{
           this.data[i].md = new Date(this.data[i].recordDate).Format("MM-dd hh:mm");

@@ -922,8 +922,8 @@ const router = new Router({
             case 'huadu':
             case 'ytll':
               return shiftWorkBh
-            case 'zjhj':
-              return shiftWorkZJHJ
+            // case 'zjhj':
+            //   return shiftWorkZJHJ
             case 'fqfybjy':
               return shiftWorkFq
             case 'wujing':
@@ -964,8 +964,8 @@ const router = new Router({
               case 'ytll':
               case 'huadu':
                 return shiftWorkDetailBh
-              case 'zjhj':
-                return shiftWorkDetailZJHJ
+              // case 'zjhj':
+              //   return shiftWorkDetailZJHJ
               case 'gdtj':
                 // return  shiftWorkDetailGdtj
                 return  shiftWorkDetailGdtjNew
@@ -996,8 +996,9 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'huadu':
               return shiftWorkHd
-              case 'zjhj':
-              return shiftWorkFsxt
+            case 'zjhj':
+              return shiftWorkZJHJ
+
             default:
               return shiftWorkGuizhou
           }
@@ -1010,7 +1011,8 @@ const router = new Router({
               case 'huadu':
                 return shiftWorkDetailHd
                 case 'zjhj':
-                  return shiftWorkDetailFsxt
+                return shiftWorkDetailZJHJ
+
               default:
                 return shiftWorkDetailGuizhou
             }

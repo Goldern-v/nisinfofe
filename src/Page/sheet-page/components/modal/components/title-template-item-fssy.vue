@@ -2,7 +2,7 @@
   <div>
     <div class="item-con">
       <el-tree
-        v-if="['nfyksdyy','whhk', 'foshanrenyi'].includes(this.HOSPITAL_ID)"
+        v-if="['nfyksdyy','whhk', 'foshanrenyi','zjhj'].includes(this.HOSPITAL_ID)"
         :data="datalist"
         :render-content="renderContentsdyy"
         @node-click="addTemplateAtDoc"
@@ -140,7 +140,7 @@ export default {
     }
   },
   mounted() {
-    if (['nfyksdyy','whhk','foshanrenyi'].includes(this.HOSPITAL_ID)) {
+    if (['nfyksdyy','whhk','foshanrenyi','zjhj'].includes(this.HOSPITAL_ID)) {
       this.datalist = [];
       for (let key in this.sdyylistData) {
         let treeList = {
