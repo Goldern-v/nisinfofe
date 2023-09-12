@@ -1,5 +1,5 @@
 <template>
-  <div :class="['header-con',['common_wj', 'waiting_birth_wj'].includes(sheetInfo.sheetType)?'wujing-big-title':'']">
+  <div :class="['header-con',['common_wj', 'waiting_birth_wj','postpartum_nurse_wj'].includes(sheetInfo.sheetType)?'wujing-big-title':'']">
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <div v-if="sheetInfo.sheetType === 'waiting_birth_wj'">
