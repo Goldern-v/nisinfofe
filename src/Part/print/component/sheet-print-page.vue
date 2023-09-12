@@ -582,7 +582,7 @@ export default {
         `
       );
     }
-    if (this.HOSPITAL_ID === "whsl") {
+    if (this.HOSPITAL_ID === "whsl" && this.query.sheetType !== "critical2_weihai") {
       addCSS(
         window,
         `
