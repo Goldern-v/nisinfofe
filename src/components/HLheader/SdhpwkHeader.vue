@@ -28,11 +28,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 血透排班
               </el-row>
             </router-link>
-            <router-link to="/archive" tag="span">
+            <!-- <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
               </el-row>
-            </router-link>
+            </router-link> -->
             <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-baiban"></i> 白板
@@ -151,37 +151,6 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <!-- <router-link to="/formPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-dongtairizhi"></i> 护理评估
-              </el-row>
-            </router-link>-->
-            <!-- <router-link to="/evalFormPage" tag="span" v-show="isDev">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-dongtairizhi"></i> (新)护理评估
-              </el-row>
-            </router-link>-->
-            <!-- <router-link to="/catheterPage" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-dongtairizhi"></i> 导管
-              </el-row>
-            </router-link> -->
-
-            <!-- <router-link to="/infuse" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
-              </el-row>
-            </router-link>-->
-            <!-- <router-link to="/wardReport" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-dongtairizhi"></i> 病房日报
-              </el-row>
-            </router-link>
-            <router-link to="/nursingDocumentation" tag="span">
-              <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-huliwenshu"></i> 患者查询
-              </el-row>
-            </router-link>-->
 
             <router-link to="/formPage" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
@@ -226,11 +195,11 @@
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown> -->
-            <router-link to="/shiftWork" tag="span">
+            <!-- <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班志
               </el-row>
-            </router-link>
+            </router-link> -->
             <router-link to="/implementationList" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 执行单
@@ -308,7 +277,7 @@
                   </router-link>
                 </el-dropdown-item>
 
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
                 >
                   <router-link to="/wardReport" tag="span">
@@ -329,14 +298,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <!-- <el-dropdown-item :class="{active: $route.path == '/badEvent'}">
-                  <router-link to="/badEvent" tag="span" >
 
-                    <el-row class="menu-item" type="flex" align="middle">
-                      <i class="badEvent"></i>不良事件
-                    </el-row>
-                  </el-dropdown-item>
-                </el-dropdown-item>-->
                 <el-dropdown-item
                   :class="{ active: $route.path == '/nursingRules' }"
                 >
@@ -373,7 +335,7 @@
                       <i class="flatManagement"></i>扁平管理
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <el-dropdown-item
                   v-if="deptCode.match('051102')"
                   :class="{ active: $route.path == '/puerperantSituation' }"
@@ -411,7 +373,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item  v-if="HOSPITAL_ID !=='hj'">
+                <!-- <el-dropdown-item  v-if="HOSPITAL_ID !=='hj'">
                   <router-link to="/dcList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>疫情记录查询
@@ -424,7 +386,7 @@
                       <i class="birthCertificate"></i>住院补登记
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <el-dropdown-item>
                   <el-dropdown
                     class="menuSecond-item"
@@ -456,7 +418,7 @@
                   </el-dropdown>
                 </el-dropdown-item>
 
-                <el-dropdown-item>
+                <!-- <el-dropdown-item>
                   <router-link to="/patientFlowList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
                       <i class="birthCertificate"></i>患者流转
@@ -470,7 +432,7 @@
                       <i class="birthCertificate"></i>患者流转统计
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
           </el-row>

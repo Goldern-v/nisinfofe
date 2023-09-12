@@ -686,7 +686,8 @@
           sheetInfo.sheetType == 'baby_sdry' ||
           sheetInfo.sheetType == 'baby2_sdry' ||
           sheetInfo.sheetType == 'postpartum2_sdry' ||
-          sheetInfo.sheetType == 'prenatal_sdry'
+          sheetInfo.sheetType == 'prenatal_sdry' ||
+          sheetInfo.sheetType == 'record_common_sdhp'
 
         "
           >质控护士签名：</span
@@ -912,7 +913,8 @@ export default {
         'baby_obs_dglb',
         'cardiology_tj',
         'cardiac_therapy_tj',
-        'critical_new_lc'
+        'critical_new_lc',
+        'record_common_sdhp'
       ],
       // 需要双签名的记录单code
       multiSignArr: [

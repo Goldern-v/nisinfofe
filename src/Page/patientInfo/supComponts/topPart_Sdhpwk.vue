@@ -57,7 +57,7 @@
         <div class="nav-item">体温单</div>
       </router-link>
 
-      <router-link
+      <!-- <router-link
         :to="{
           path: '/diagnosis',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -74,7 +74,7 @@
         tag="span"
       >
         <div class="nav-item">血糖</div>
-      </router-link>
+      </router-link> -->
 
       <router-link
         :to="{
