@@ -442,7 +442,7 @@ export default {
               prop: "bedLabel",
               editable: true,
               align: "center",
-              width: "35"
+              width: "45"
             },
             {
               label: "姓名、性别、年龄",
