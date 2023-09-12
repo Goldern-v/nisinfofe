@@ -1812,6 +1812,9 @@ export default {
               trObj['recordDate'] =  `${trObj['recordYear']}-${trObj['recordMonth']} ${trObj['recordHour']}`;
               trObj.recordCode = this.sheetInfo.sheetType;
               trObj.blockId = this.sheetInfo.selectBlock.id;
+              trObj.patientName = this.sheetInfo.masterInfo.patientName;
+              trObj.sex = this.sheetInfo.masterInfo.sex;
+              trObj.age = this.sheetInfo.masterInfo.age;
             }
             window.openSignModal((password, empNo) => {
               for (let i = 0; i < trArr.length; i++) {
@@ -1920,6 +1923,9 @@ export default {
             }
             trObj.recordCode = this.sheetInfo.sheetType;
             trObj.blockId = this.sheetInfo.selectBlock.id;
+            trObj.patientName = this.sheetInfo.masterInfo.patientName;
+            trObj.sex = this.sheetInfo.masterInfo.sex;
+            trObj.age = this.sheetInfo.masterInfo.age;
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
             strSignDataOBJ =
                 Object.assign({}, trObj, {
@@ -2133,14 +2139,22 @@ export default {
                   formCode:sheetInfo.sheetType,// -- 表单ID
                 };
               }
+            if(this.HOSPITAL_ID == 'fuyou'){
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
+              }
+              trObj['recordDate'] =  `${trObj['recordYear']}-${trObj['recordMonth']} ${trObj['recordHour']}`;
+              trObj.recordCode = this.sheetInfo.sheetType;
+              trObj.blockId = this.sheetInfo.selectBlock.id;
+              trObj.patientName = this.sheetInfo.masterInfo.patientName;
+              trObj.sex = this.sheetInfo.masterInfo.sex;
+              trObj.age = this.sheetInfo.masterInfo.age;
+            }
             window.openSignModal((password, empNo) => {
             let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
             }
-            trObj['recordDate'] =  `${trObj['recordYear']}-${trObj['recordMonth']} ${trObj['recordHour']}`;
-            trObj.recordCode = this.sheetInfo.sheetType;
-            trObj.blockId = this.sheetInfo.selectBlock.id;
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
             let data = {
               empNo,
@@ -2203,6 +2217,9 @@ export default {
             }
             trObj.recordCode = this.sheetInfo.sheetType;
             trObj.blockId = this.sheetInfo.selectBlock.id;
+            trObj.patientName = this.sheetInfo.masterInfo.patientName;
+            trObj.sex = this.sheetInfo.masterInfo.sex;
+            trObj.age = this.sheetInfo.masterInfo.age;
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
             strSignDataOBJ =
                 Object.assign({}, trObj, {
@@ -2255,7 +2272,7 @@ export default {
           });
         },'',null,false,'',
         ['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:
-        ['hj'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
+        ['hj','fuyou'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
         null,null,null,SigndataObj,verifySignObj);
       }
     },
@@ -3149,6 +3166,9 @@ export default {
           recordDate: moment().format("YYYY-MM-DD HH:mm:ss"),
           recordCode: this.sheetInfo.sheetType,
           blockId: this.sheetInfo.selectBlock.id,
+          patientName: this.sheetInfo.masterInfo.patientName,
+          sex: this.sheetInfo.masterInfo.sex,
+          age: this.sheetInfo.masterInfo.age,
           ...this.sheetInfo.selectBlock
         }
       }
@@ -3212,6 +3232,9 @@ export default {
           recordDate: moment().format("YYYY-MM-DD HH:mm:ss"),
           recordCode: this.sheetInfo.sheetType,
           blockId: this.sheetInfo.selectBlock.id,
+          patientName: this.sheetInfo.masterInfo.patientName,
+          sex: this.sheetInfo.masterInfo.sex,
+          age: this.sheetInfo.masterInfo.age,
           ...this.sheetInfo.selectBlock
         }
       }

@@ -312,6 +312,9 @@ export default {
     del(row) {
       // if (!this.verify()) return;
       model.selectedRow = row;
+      row.patientName = this.$route.query.name;
+      row.sex = this.$route.query.sex;
+      row.age = this.$route.query.age;
       window.openSignModal((password, empNo) => {
         nursingDiagsDel(password, empNo, model.selectedRow.id).then(res => {
           this.$message.success("删除成功");

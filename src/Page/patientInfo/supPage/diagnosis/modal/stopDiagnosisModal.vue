@@ -146,6 +146,9 @@ export default {
         recordId:"",
         signData:strSignData,
       }
+      this.data.patientName = this.$route.query.name;
+      this.data.sex = this.$route.query.sex;
+      this.data.age = this.$route.query.age;
       window.openSignModal((password, username) => {
         nursingDiagsStop(
           password,
@@ -162,7 +165,7 @@ export default {
           model.refreshTable();
           this.close();
         });
-      },undefined,undefined,undefined,undefined,process.env.HOSPITAL_ID == 'fuyou' ? this.data : undefined,undefined,undefined,undefined,SigndataObj,verifySignObj,'planForm');
+      },undefined,undefined,undefined,undefined,process.env.HOSPITAL_ID == 'fuyou' ?  this.data : undefined,undefined,undefined,undefined,SigndataObj,verifySignObj,'planForm');
     }
   },
   mounted() {},

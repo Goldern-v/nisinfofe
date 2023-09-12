@@ -566,7 +566,10 @@ export default {
               ? (model.selectedBlock.wardCode || this.$route.query.wardCode)
               : this.$store.state.sheet.patientInfo.wardCode,
           beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm"),
-          ...this.data
+          ...this.data,
+          patientName: this.$route.query.name || '',
+          sex: this.$route.query.sex || '',
+          age: this.$route.query.age || '',
         };
         window.openSignModal((password, empNo) => {
         let obj = {
