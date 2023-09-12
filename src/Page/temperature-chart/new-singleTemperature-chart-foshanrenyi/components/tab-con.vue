@@ -700,7 +700,7 @@ export default {
           let y = {
             脉搏: {
               value: val,
-              reg: [0, 220],
+              reg: [0, 240],
             },
           };
           return y;

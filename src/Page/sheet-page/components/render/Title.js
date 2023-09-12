@@ -2659,6 +2659,13 @@ export default function Title(
     );
   }
   break;
+  case "record_common_sdhp": {
+    // 顺德和平外科 - 护理记录单（全院通用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/record_common_sdhp/th").default)
+    );
+  }
+  break;
   default: {
     Th = JSON.parse(
       JSON.stringify(require("../config/default/th").default)
