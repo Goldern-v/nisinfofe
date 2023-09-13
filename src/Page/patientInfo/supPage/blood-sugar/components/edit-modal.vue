@@ -316,6 +316,8 @@ export default {
       { name: '门冬胰岛素30注射液' },
       { name: '门冬胰岛素注射液' },
       { name: '人胰岛素注射液' },
+      { name: '（国采）谷赖胰岛素注射液' },
+      { name: '胰岛素注射液（普通）' },
     ],
     SigndataObj:{},
     verifySignObj:{}
