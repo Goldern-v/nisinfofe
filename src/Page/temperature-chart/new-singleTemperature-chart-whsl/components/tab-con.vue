@@ -134,6 +134,8 @@
                   <div class="rowItemText">
                     <span>{{ index }}</span>
                   </div>
+                  <div class="input_icon">
+                    <span @click="openNewDiagnosis(vitalSignObj[j])" style="color: red;position: absolute;" v-if="checkDiagnose(vitalSignObj[j], i + 1)" :title="`${vitalSignObj[j].vitalSigns}数值异常`"><i class="el-icon-information" ></i></span>
                   <el-tooltip
                     placement="top"
                     popper-class="custom-temp-dict-select"
@@ -209,6 +211,7 @@
                       </div>
                     </template>
                   </el-tooltip>
+                </div>
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
@@ -551,6 +554,10 @@
         </div>
       </div>
     </div>
+    <newDiagnosisModal ref="newDiagnosisModal"></newDiagnosisModal>
+      <slideContant ref="slideContant"></slideContant>
+      <slideConRight ref="slideConRight"></slideConRight>
+    <stopDiagnosisModal ref="stopDiagnosisModal"></stopDiagnosisModal>
   </div>
 </template>
 <script>
@@ -558,6 +565,11 @@ import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
 import { validForm } from "../../validForm/validForm";
+import newDiagnosisModal from "../../../../Page/patientInfo/supPage/diagnosis/modal/newDiagnosisModal.vue";
+import slideContant from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideContant.vue"
+import slideConRight from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
+import stopDiagnosisModal from "../../../../Page/patientInfo/supPage/diagnosis/modal/stopDiagnosisModal";
+import { model } from "../../../../Page/patientInfo/supPage/diagnosis/diagnosisViewModel.js";
 import {
   getmultiDict,
   getVitalSignListByDate,
@@ -570,6 +582,16 @@ import {
 } from "../../api/api";
 export default {
   props: { patientInfo: Object },
+      provide() {
+    return {
+      openSlideCon: item => {
+          this.$refs.slideConRight.open(item)
+      },
+      openSlideContant: async (item)=>{
+        this.$refs.slideContant.open(item)
+      }
+    };
+  },
   data() {
     // 初始化筛选时间
     let initTimeArea = {
@@ -598,6 +620,7 @@ export default {
     return {
       bus: bus(this),
       editableTabsValue: "2",
+      model,
       timeVal: new Date(
         new Date().getFullYear(),
         new Date().getMonth() + 1,
@@ -678,6 +701,7 @@ export default {
     };
   },
   async mounted() {
+    this.model.newDiagnosisModal = this.$refs.newDiagnosisModal;
     await this.getVitalList();
     this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate=dateTime.slice(0,10)
@@ -700,6 +724,11 @@ export default {
         this.query.entryTime = moment(admissionDate).format("HH:mm");
       }
     });
+  },
+    beforeRouteLeave(){
+    this.$refs.slideConRight.show=false
+    this.$refs.newDiagnosisModal.show=false
+    this.$refs.slideContant.show=false
   },
   computed: {
     isBaby(){
@@ -1355,7 +1384,7 @@ export default {
     },
     //设置体温单是否可编辑
   },
-  components: { nullBg },
+  components: { nullBg, stopDiagnosisModal , newDiagnosisModal , slideContant ,slideConRight, },
 };
 </script>
 
@@ -1494,7 +1523,7 @@ export default {
   .rowBox {
     width: 45%;
     float: left;
-    over-flow:hidden;
+
 
     input {
       width: 95%;
@@ -1508,7 +1537,11 @@ export default {
       width: 85px;
     }
   }
-
+  .input_icon {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+  }
   .el-collapse-item__header__arrow {
     position: relative !important;
     left: 80% !important;
