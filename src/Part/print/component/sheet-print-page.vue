@@ -643,7 +643,7 @@ export default {
         `
       );
     }
-    if (['common_wj', 'waiting_birth_wj'].includes(sheetInfo.sheetType)) {
+    if (['common_wj'].includes(sheetInfo.sheetType)) {
       addCSS(
         window,
         `
