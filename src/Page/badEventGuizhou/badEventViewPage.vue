@@ -424,7 +424,7 @@ export default {
       itemDataMap:{}, //表单数据
       stepNext: {}, // 下一步
       // 是否贵州
-      isGZ: ["guizhou", '925'].includes(this.HOSPITAL_ID)
+      isGZ: ["guizhou", '925', 'qhwy'].includes(this.HOSPITAL_ID)
     };
   },
   computed: {

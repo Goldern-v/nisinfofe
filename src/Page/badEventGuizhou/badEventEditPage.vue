@@ -298,7 +298,7 @@ export default {
           )}`;
         } else {
           const host = window.location.host;
-          if((this.HOSPITAL_ID == 'nys' && ( host == 'info.cr-health.com:20201' || host == '192.168.1.54:8062') ) || ["guizhou", '925'].includes(this.HOSPITAL_ID)){
+          if((this.HOSPITAL_ID == 'nys' && ( host == 'info.cr-health.com:20201' || host == '192.168.1.54:8062') ) || ["guizhou", '925', 'qhwy'].includes(this.HOSPITAL_ID)){
             formHTMLName += '.html';
           }
           this.url = `${formUrl}/${formHTMLName}?${devStr}${qs.stringify(
