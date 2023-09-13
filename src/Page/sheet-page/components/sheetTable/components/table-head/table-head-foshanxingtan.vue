@@ -396,7 +396,8 @@ export default {
       let realIndex = 0;
       let keys = Object.keys(this.sheetInfo.relObj || {});
       for (let i = 0; i < keys.length; i++) {
-        let [base, keyIndex] = keys[i].split("diagnosis_");
+        let keyId = keys[i].split("diagnosis_")[1]
+        let keyIndex = keyId &&  keyId.split('_')[0];
         if (keyIndex !== undefined) {
           if (this.index >= keyIndex) {
             if (this.index - keyIndex <= this.index - realIndex) {
