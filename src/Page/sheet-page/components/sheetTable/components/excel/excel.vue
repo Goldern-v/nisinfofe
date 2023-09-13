@@ -359,6 +359,7 @@
                   sheetInfo.sheetType === 'postpartum_hd' ||
                   sheetInfo.sheetType === 'neurosurgery_hd' ||
                   sheetInfo.sheetType === 'wait_delivery_hd' ||
+                  sheetInfo.sheetType === 'wait_delivery_zjhj' ||
                   sheetInfo.sheetType === 'neonatology_hd' ||
                   sheetInfo.sheetType === 'neonatology2_hd' ||
                   sheetInfo.sheetType === 'prenatal_hd' ||
@@ -855,6 +856,7 @@ export default {
         'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
+        "wait_delivery_zjhj",
         "neurosurgery_hd",
         "postpartum2_dglb",
         "neonatology_hd",
@@ -924,6 +926,7 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
+        "wait_delivery_zjhj", // 湛江_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单

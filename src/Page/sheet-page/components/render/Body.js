@@ -2013,6 +2013,11 @@ function switchSheetType(type) {
       schema = require("../config/neonatology_zjhj/tr.js").default;
     }
       break;
+    case "wait_delivery_zjhj": {
+      // 湛江海军医院 - 候产记录单
+      schema = require("../config/wait_delivery_zjhj/tr.js").default;
+    }
+      break;
     case "record_common_sdhp": {
       // 顺德和平外科 - 护理记录单（全院通用）
       schema = require("../config/record_common_sdhp/tr.js").default;

@@ -2659,6 +2659,13 @@ export default function Title(
     );
   }
   break;
+  case "wait_delivery_zjhj": {
+    // 湛江海军医院 - 候产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/wait_delivery_zjhj/th").default)
+    );
+  }
+  break;
   case "record_common_sdhp": {
     // 顺德和平外科 - 护理记录单（全院通用）
     Th = JSON.parse(
