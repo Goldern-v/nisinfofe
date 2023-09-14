@@ -156,9 +156,9 @@ const currentTargetUrl = (() => {
       // return "http://192.168.20.223:8080" // 初升本地
     // 北海人医
     case 'beihairenyi':
-      return "http://219.159.198.37:9094"  // 正式地址 bhrmyy 123456  admin/Bhry123456
+      // return "http://219.159.198.37:9094"  // 正式地址 bhrmyy 123456  admin/Bhry123456
       // return "http://192.168.20.136:8080" // 地
-      // return "http://192.168.1.54:9877" // 公司内网测试环境
+      return "http://192.168.1.54:9877" // 公司内网测试环境
       // return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
 
     // 佛山市医
@@ -224,9 +224,9 @@ const currentTargetUrl = (() => {
     case 'zhzxy':
       // return "http://192.168.1.54:9883" //珠海中西医测试
     // return "http://218.13.87.27:9094"
-      // return "http://183.234.20.149:19094"//正式
+      return "http://183.234.20.149:19094"//正式
       // return "http://192.168.20.20:9092"//正式
-      return "https://info.cr-health.com:20217"
+      // return "https://info.cr-health.com:20217"
 
     // 青海五院
     case 'qhwy':
