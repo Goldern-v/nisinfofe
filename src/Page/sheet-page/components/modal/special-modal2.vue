@@ -2787,7 +2787,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            }else if(this.HOSPITAL_ID == 'hj'){
+            }else if (['hj','wujing'].includes(this.HOSPITAL_ID )){
               if (GetLength(text) > 23) {
                 result.push(text);
                 text = allDoc[i];
