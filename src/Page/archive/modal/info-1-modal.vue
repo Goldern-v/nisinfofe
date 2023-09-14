@@ -6,8 +6,8 @@
       title="归档打印"
       :enable-mobile-fullscreen="false"
     >
-    <el-form  :rules="rules" 
-    :model="form" label-width="100px" 
+    <el-form  :rules="rules"
+    :model="form" label-width="100px"
     ref="ruleForm" class="demo-form-inline">
       <el-form-item label="责任护士：" prop="dutyNurse">
         <el-select class="select-multi" v-model="form.dutyNurse" filterable placeholder="请选择">
@@ -34,7 +34,7 @@
           <el-button class="modal-btn" @click="confirm('ruleForm')">确定</el-button>
       </el-form-item>
     </el-form>
-     
+
     </sweet-modal>
   </div>
 </template>
@@ -115,7 +115,6 @@ export default {
   },
   methods: {
     getMemberLists() {
-      console.log('ddddddddddddddddd');
       getAllNurseNamePinyin([]).then((res) => {
         this.memberLists = res.data.data || [];
       });
@@ -155,7 +154,7 @@ export default {
             return false;
           }
         });
-      
+
     }
   },
   components: {}
