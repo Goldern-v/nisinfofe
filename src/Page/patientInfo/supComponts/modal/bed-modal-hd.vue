@@ -268,15 +268,31 @@
             <div class="top">
               <span  v-if="isDglb">科室：{{ query.deptName }}</span>
               <span  v-else-if="['whhk'].includes(HOSPITAL_ID)" style="margin-left: 0px;">科室：{{ query.wardName }}</span>
+              <span  v-else-if="['huadu'].includes(HOSPITAL_ID)">病区：{{ query.wardName }}</span>
               <span  v-else>科室：{{ query.wardName }}</span>
-              <span
-                v-if="!['zhzxy', 'whhk'].includes(HOSPITAL_ID)"
-                :style="{
-                  margin: '4px',
-                  'margin-left': ['zhzxy'].includes(HOSPITAL_ID) ? '20px' : '',
-                }"
-                >床位：{{ query.bedLabel }}</span
-              >
+
+              <template v-if="['huadu'].includes(HOSPITAL_ID)">
+                  <span>
+                    科室:{{query.deptName}}
+                  </span>
+                  <span
+                    :style="{
+                      margin: '4px',
+                    }"
+                  >
+                    床位：{{ query.bedLabel }}
+                  </span>
+              </template>
+               <template v-else>
+                 <span
+                   v-if="!['zhzxy', 'whhk'].includes(HOSPITAL_ID)"
+                   :style="{
+                   margin: '4px',
+                   'margin-left': ['zhzxy'].includes(HOSPITAL_ID) ? '20px' : '',
+                  }"
+                  >床位：{{ query.bedLabel }}</span
+                  >
+               </template>
             </div>
             <div>
               <div v-if="['fsxt'].includes(HOSPITAL_ID)">
@@ -369,8 +385,8 @@
             </div>
           </div>
           <img
-            :style="{right: HOSPITAL_ID === 'whhk' ? '50px': '25px' }"
-            class="qr-code"
+            :style="{right: imgRight }"
+             class="qr-code"
             :class="{ hasRemark: hasRemark }"
             :src="qrCode"
           />
@@ -484,7 +500,11 @@
         <div class="bed-card-vert-con">
           <div class="top">
             <span  v-if="isDglb">科室：{{ query.deptName }}</span>
+            <span  v-else-if="['huadu'].includes(HOSPITAL_ID)">病区：{{ query.wardName }}</span>
             <span  v-else>科室：{{ query.wardName }}</span>
+            <span v-if="['huadu'].includes(HOSPITAL_ID)">
+               科室:{{query.deptName}}
+            </span>
           </div>
           <div>
             <div>
@@ -506,7 +526,7 @@
           </div>
           <img
             class="qr-code"
-            :class="[{ hasRemark: hasRemark }, {'abs-img': this.isDglb}]"
+            :class="[{ hasRemark: hasRemark }, {'abs-img': this.isDglb},{'qr-code-huadu':['huadu'].includes(HOSPITAL_ID)}]"
             :src="qrCode"
           />
           <span :class="{'abs-text': this.isDglb}" v-if="!isWhhk">{{ query.inpNo }}</span>
@@ -735,6 +755,10 @@
       width: 112px;
       &.abs-img {
         top: 42% !important;
+      }
+      &.qr-code-huadu{
+        margin-top: -44px;
+        transform: scale(0.9);
       }
     }
     .abs-text {
@@ -1081,6 +1105,16 @@ export default {
     hasRemark() {
       return this.formData.remarkPrint;
     },
+    imgRight(){
+       switch (this.HOSPITAL_ID) {
+         case 'whhk':
+            return '50px'
+         case 'huadu':
+            return '-19px'  
+         default:
+            return  '10px'  
+      }
+    }
   },
   methods: {
     init() {
