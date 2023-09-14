@@ -5,7 +5,7 @@
 		:class="{'new-print-modal--s': !isLargeType,
     'pageBreak':isLargeType, 
     'new-print-modal--s1': !isLargeType && 'qhwy' === HOSPITAL_ID, 
-    'zoom-qhwy-5x8': newModalSize === '5*8' && 'qhwy' === HOSPITAL_ID}"
+    'zoom-qhwy-5x8': ['5*8','8*8'].includes(newModalSize) && 'qhwy' === HOSPITAL_ID}"
   >
     <div class="new-modal-top">
       <div class="new-modal-top-right">
@@ -52,9 +52,9 @@
         </div>
     </div>
     <div class="new-modal-bottom-second">
-      <div style="width: 20%" v-if="newModalSize == '5*8'">{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}医嘱</div>
+      <div style="width: 20%" v-if="['5*8','8*8'].includes(newModalSize)">{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}医嘱</div>
       <div style="width: 26%" v-else>频次途径</div>
-      <div style="flex: 1" v-if="newModalSize == '5*8'">
+      <div style="flex: 1" v-if="['5*8','8*8'].includes(newModalSize)">
         {{ currentBottle.frequency }} 
         <span>{{`${currentBottle.administration} ${currentBottle.executeDate}`}}</span>
       </div>
@@ -381,6 +381,8 @@ export default {
           return { width: '7cm', height: '4.5cm'}
         case '5*8':
           return { width: '8cm', height: '4.9cm'}
+        case '8*8':
+          return { width: '8cm', height: '7.9cm'}  
         default:
         // case '3*5':
           return { width: '10cm', height: '5.9cm'}
@@ -391,6 +393,8 @@ export default {
         return { height: '100px' }
       } else if (this.newModalSize === '5*8'){
         return { height: '105px' }
+      }else if (this.newModalSize === '8*8'){
+        return { height: '240px' }
       }
       return {}
     }
