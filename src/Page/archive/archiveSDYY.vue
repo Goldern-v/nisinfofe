@@ -23,7 +23,22 @@
           clearable
         />
       </div>
+
       <div class="filterItem">
+        <span class="type-label">姓名:</span>
+        <el-input
+          v-model="query.patientName"
+          placeholder="请输入患者姓名"
+          size="small"
+          style="width:190px"
+        />
+        <span class="type-label">住院号:</span>
+        <el-input
+          v-model="query.inpNo"
+          placeholder="请输入患者住院号"
+          size="small"
+          style="width:190px"
+        />
         <span class="type-label">状态:</span>
         <el-select
           v-model="isSelectedStatus"
@@ -42,20 +57,7 @@
         <!--北海的查询条件-->
 
         <template v-if="['beihairenyi'].includes(this.HOSPITAL_ID)">
-          <span class="type-label">姓名:</span>
-          <el-input
-            v-model="query.patientName"
-            placeholder="请输入患者姓名"
-            size="small"
-            style="width:190px"
-          />
-          <span class="type-label">住院号:</span>
-          <el-input
-            v-model="query.inpNo"
-            placeholder="请输入患者住院号"
-            size="small"
-            style="width:190px"
-          />
+
         </template>
         <button @click.stop="search">查询</button>
         <!-- <button @click.stop="allArchive" v-if="!isSdyyHOS">批量归档</button> -->
