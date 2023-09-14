@@ -63,7 +63,7 @@
         <template slot-scope="scope">
           <!-- {{scope.row.status}} -->
           <div :class="{'nopass-row':scope.row.status==-2}">
-            <span>{{HOSPITAL_ID =='guizhou' ? scope.row.currentNodeName : getStatus(scope.row)}}</span>
+            <span>{{isGZ ? scope.row.currentNodeName : getStatus(scope.row)}}</span>
           </div>
         </template>
       </el-table-column>
@@ -159,7 +159,8 @@ export default {
   data() {
     return {
       bus: BusFactory(this),
-      currentRow: localStorage["BadEvent-CurrentRow"] || -1
+      currentRow: localStorage["BadEvent-CurrentRow"] || -1,
+      isGZ: ["guizhou", 'qhwy'].includes(this.HOSPITAL_ID)
     };
   },
   computed: {

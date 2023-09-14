@@ -308,6 +308,7 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
+        "wait_delivery_zjhj", // 湛江海军_候产记录单
         "wait_delivery_zhzxy", // 珠海中西医_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
         "neonatal_care_jm", //江门妇幼_新生儿监护单
@@ -333,7 +334,7 @@ export default {
         "critical2_lcey", //聊城_病重（危）患者护理记录单
         "critical_lcey", //聊城_病重（病危）患者护理记录单（带瞳孔）
       ],
-      heightAdjuthd: ["postpartum_hd", "wait_delivery_hd", "prenatal_hd"],
+      heightAdjuthd: ["postpartum_hd", "wait_delivery_hd", "prenatal_hd", 'wait_delivery_zjhj'],
     };
   },
   created() {

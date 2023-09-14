@@ -1047,6 +1047,7 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
             case '925':
+            case 'qhwy':
               return badEventGz
             case 'hj':
               return badEvent
@@ -1062,6 +1063,7 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'guizhou':
               case '925':
+              case 'qhwy':
                 return badEventEditPageGz
               case 'hj':
                 return badEventEditPage
@@ -1077,6 +1079,7 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'guizhou':
               case '925':
+              case 'qhwy':
                 return badEventViewPageGz
               case 'hj':
                 return badEventViewPage

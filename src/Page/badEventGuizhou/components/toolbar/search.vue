@@ -256,7 +256,7 @@ export default {
       user: localStorage.getItem("user")
         ? JSON.parse(localStorage.getItem("user"))
         : {},
-      isGZ: ["guizhou", '925'].includes(this.HOSPITAL_ID)
+      isGZ: ["guizhou", '925', 'qhwy'].includes(this.HOSPITAL_ID)
     };
   },
   mounted() {
