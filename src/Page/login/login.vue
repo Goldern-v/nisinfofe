@@ -2,6 +2,7 @@
   <div>
     <div class="login-bg" v-loading="loginLoading">
       <vue-particles
+        v-if="HOSPITAL_ID != 'guizhou'"
         color="#dedede"
         :moveSpeed="2"
         :particlesNumber="10"
