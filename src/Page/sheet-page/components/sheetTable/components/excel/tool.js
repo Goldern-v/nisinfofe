@@ -179,7 +179,7 @@ function onFocusToAutoComplete(e, bind, cb) {
           if(typeof (splice) == 'string'){
             let index = td.value.split(splice).findIndex(val=>val===data)
             if(index<0){
-              td.value = td.value + splice + data
+              td.value = td.value + (td.value?splice:"") + data
             }else{
               let arr = td.value.split(splice)
               arr.splice(index,1)
