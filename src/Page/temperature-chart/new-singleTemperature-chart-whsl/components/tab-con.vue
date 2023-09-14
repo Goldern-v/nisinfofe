@@ -135,7 +135,14 @@
                     <span>{{ index }}</span>
                   </div>
                   <div class="input_icon">
-                    <span @click="openNewDiagnosis(vitalSignObj[j])" style="color: red;position: absolute;" v-if="checkDiagnose(vitalSignObj[j], i + 1)" :title="`${vitalSignObj[j].vitalSigns}数值异常`"><i class="el-icon-information" ></i></span>
+                    <span
+                      @click="openNewDiagnosis(vitalSignObj[j])"
+                      style="color: red;position: absolute;"
+                      v-if="checkDiagnose(vitalSignObj[j], i + 1)"
+                      :title="`${vitalSignObj[j].vitalSigns}数值异常`"
+                      >
+                       <i class="el-icon-information" ></i>
+                    </span>
                   <el-tooltip
                     placement="top"
                     popper-class="custom-temp-dict-select"
@@ -212,7 +219,7 @@
                     </template>
                   </el-tooltip>
                 </div>
-                </div>
+              </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
             </div>
@@ -758,6 +765,37 @@ export default {
     },
   },
   methods: {
+    openNewDiagnosis(diagnose) {
+      this.$refs.newDiagnosisModal.open();
+      this.$refs.newDiagnosisModal.searchWord=`${diagnose.vitalSigns}`;
+    },
+    checkDiagnose(diagnose,i){
+      const { vitalCode, vitalValue } = diagnose
+      if (!['01','02','04','062','20'].includes(vitalCode)) {
+        return
+      } else {
+        if(vitalValue){
+                  let setCheckValue = (vitalCode, vitalValue) => {
+          switch (Number(vitalCode)) {
+            case 1:
+              return Number(vitalValue) < 35 || Number(vitalValue) > 37.5
+            case 2:
+            case 20:
+              return vitalValue < 60 || vitalValue > 100
+            case 4:
+              return vitalValue < 16 || vitalValue > 20
+            case 62:
+            const Contract = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[0]:vitalValue
+            const Diastolic = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[1]:""
+              return (Contract < 90 || Contract > 139)||Diastolic&&(Diastolic<60||Diastolic>89)
+            default:
+              break;
+          }
+        }
+        return setCheckValue(vitalCode, vitalValue)
+        }
+      }
+    },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
         let baseLength = document.getElementsByClassName("pathological").length;
@@ -1384,7 +1422,7 @@ export default {
     },
     //设置体温单是否可编辑
   },
-  components: { nullBg, stopDiagnosisModal , newDiagnosisModal , slideContant ,slideConRight, },
+  components: { nullBg,  newDiagnosisModal , slideContant ,slideConRight, },
 };
 </script>
 
