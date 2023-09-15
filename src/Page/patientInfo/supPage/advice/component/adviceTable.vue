@@ -24,7 +24,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.orderNo }}</span
           >
         </template>
@@ -33,7 +32,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.orderNo }}</span
           >
         </template>
@@ -42,7 +40,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.startDate }}</span
           >
         </template>
@@ -75,7 +72,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.administration }}</span
           >
         </template>
@@ -89,7 +85,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.frequency }}</span
           >
         </template>
@@ -110,7 +105,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.performSchedule }}</span
           >
         </template>
@@ -119,7 +113,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.freqDetail }}</span
           >
         </template>
@@ -148,7 +141,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.doctorNo }}</span
           >
         </template>
@@ -162,7 +154,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.nurse }}</span
           >
         </template>
@@ -176,7 +167,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.orderStatusName }}</span
           >
         </template>
@@ -190,7 +180,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.stopDate }}</span
           >
         </template>
@@ -204,7 +193,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.stopDoctor }}</span
           >
         </template>
@@ -218,7 +206,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.stopNurse }}</span
           >
         </template>
@@ -227,7 +214,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.skinWay }}</span
           >
         </template>
@@ -236,7 +222,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.skinResult }}</span
           >
         </template>
@@ -245,7 +230,6 @@
         <template slot-scope="scope">
           <span
             :class="type(scope.row.orderStatusName)"
-            v-show="Number(scope.row.orderSubNo) <= 1"
             >{{ scope.row.skinDate }}</span
           >
         </template>
