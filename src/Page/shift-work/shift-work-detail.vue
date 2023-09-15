@@ -650,6 +650,7 @@
           <div class="head shift-paper">
             <!-- <img :src="hospitalLogo" alt="logo" class="logo"> -->
             <h1 class="title">{{deptName}}</h1>
+            <div v-if="HOSPITAL_ID == 'xiegang'" style="text-align: right; position: absolute; right: -15px;top: -15px;font-size: 14px;">交班志统计时间范围:前一天8点-第二天8点</div>
             <h2 class="sub-title">ISBAR交班记录卡</h2>
             <div class="details">
               <span>
