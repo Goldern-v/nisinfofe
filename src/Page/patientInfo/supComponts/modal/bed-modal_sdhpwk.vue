@@ -18,13 +18,6 @@
             class="qr-code hasRemark"
             :src="qrCode"
           />
-          <!-- <div
-            class="qr-code-num"
-            :class="{ hasRemark: hasRemark, }"
-            :style="HOSPITAL_ID == 'liaocheng' ? 'width: 110px' : HOSPITAL_ID == 'hengli' ? 'line-height: 13px;' : ''"
-          >
-            {{ qrCodeNum }}
-          </div> -->
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div
               flex="cross:center"
@@ -36,63 +29,33 @@
             </div>
             <div flex="cross:center" class="input-item">
               <span style="width: 130px;"></span>
-              <span>{{query.bedLabel}}床 </span>
-              <span>{{query.sex}}</span>
-              <span>{{query.age}}</span>
-            </div>
-
-            <!-- <div style="margin-top: 30px;" flex="cross:center" class="input-item">
-              <span class="label">住 院 号：</span>
+              <span>{{query.bedLabel}}床 </span>&nbsp;
+              <span>{{query.sex}}</span>&nbsp;
+              <span>{{query.age}}</span>&nbsp;
+              <span>住院号:</span>&nbsp;
               <span>{{query.inpNo}}</span>
             </div>
-            <div  flex="cross:center" class="input-item">
-              <span class="label">主管医生：</span>
-              <span>{{formData.mainDoctors}}</span>
 
-            </div>
             <div style="padding-bottom: 20px;" flex="cross:center" class="input-item">
               <span class="label">入院时间：</span>
               <span>{{moment(query.admissionDate).format('YYYY-MM-DD')}}</span>
-            </div> -->
-          </div>
+            </div>
+            <div flex="cross:center" class="input-item input-item2">
+              <span class="label">诊断:</span>
+              <input
+                type="text"
+                nowidth
+                style="font-size: 26px;"
+                flex-box="1"
+                class="bottom-line"
+                v-model="query.diagnosis"
+              />
+            </div>
 
+          </div>
         </div>
-        <div>
-            <div style="margin-top: 30px;" flex="cross:center" class="input-item">
-              <span class="label">住 院 号：</span>
-              <span>{{query.inpNo}}</span>
-            </div>
-            <div  flex="cross:center" class="input-item">
-              <span class="label">主管医生：</span>
-              <span>{{formData.mainDoctors}}</span>
-
-            </div>
-            <div style="padding-bottom: 20px;" flex="cross:center" class="input-item">
-              <span class="label">入院时间：</span>
-              <span>{{moment(query.admissionDate).format('YYYY-MM-DD')}}</span>
-            </div>
-          </div>
       </div>
-      <div slot="button">
-        <span
-          style="position: absolute; left: 10px; padding-top: 4px"
-        >
-          <span>显示诊断</span>
-          <el-switch
-            on-text="是"
-            off-text="否"
-            v-model="formData.remarkPrint"
-          ></el-switch>
-        </span>
 
-        <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" type="primary" @click="post"
-          >保存</el-button
-        >
-        <el-button class="modal-btn" type="info" @click="onPrint"
-          >打印</el-button
-        >
-      </div>
     </sweet-modal>
   </div>
 </template>
@@ -119,10 +82,6 @@
 }
 
 .bed-card-con {
-  // margin: 5px;
-  // width: 511px;
-  // height: 335px;
-  // padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
