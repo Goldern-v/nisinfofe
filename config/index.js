@@ -156,9 +156,9 @@ const currentTargetUrl = (() => {
       // return "http://192.168.20.223:8080" // 初升本地
     // 北海人医
     case 'beihairenyi':
-      return "http://219.159.198.37:9094"  // 正式地址 bhrmyy 123456  admin/Bhry123456
+      // return "http://219.159.198.37:9094"  // 正式地址 bhrmyy 123456  admin/Bhry123456
       // return "http://192.168.20.136:8080" // 地
-      // return "http://192.168.1.54:9877" // 公司内网测试环境
+      return "http://192.168.1.54:9877" // 公司内网测试环境
       // return "http://192.168.1.54:9866" // 默认公司本地内网厚街测试环境
 
     // 佛山市医

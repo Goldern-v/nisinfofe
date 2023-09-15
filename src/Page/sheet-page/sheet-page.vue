@@ -617,7 +617,7 @@ export default {
       if(startPageIndex == null||endPageIndex == null) return
       this.tableLoading = true;
       sheetInfo.isDone = false;
-      if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
           this.bus.$emit("refreshTitleTemplate", this.getTemplateList);
         }
       if(["guizhou", 'huadu', '925', 'wujing'].includes(this.HOSPITAL_ID)){
@@ -638,7 +638,7 @@ export default {
         list('全部',this.patientInfo.wardCode),
       ]
       // 佛山市一 获取自定义标题数据
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
         fnArr.shift()
         fnArr.unshift(findListByBlockId(startPageIndex,endPageIndex))
       }
@@ -975,7 +975,7 @@ export default {
       this.sheetModelData=[]
     })
     // 针对贵州体温单如果选中病人，切换到护记。不显示病人护记问题
-    if(["guizhou", '925','zhzxy', 'foshanrenyi','gdtj'].includes(this.HOSPITAL_ID)){
+    if(["guizhou", '925','zhzxy', 'foshanrenyi','gdtj','zjhj'].includes(this.HOSPITAL_ID)){
       /* 不知道贵州切换副页的问题是不是这个影响的，以后有机会可以删除 侦听watch $route.path这个试试*/
       this.$store.commit("upPatientInfo", {});
     }

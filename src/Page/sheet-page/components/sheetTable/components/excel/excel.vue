@@ -1467,7 +1467,7 @@ export default {
     addNullRow(index, row,direction) {
       let newRow = nullRow();
       newRow.find((item) => item.key == "recordMonth").addRowDate = this.getLastRecordDate(index, row,direction);
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
         // 发送请求。有自定义标题且含下拉的。放进去
         const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
         findListByBlockId(startPageIndex,endPageIndex).then(res=>{
