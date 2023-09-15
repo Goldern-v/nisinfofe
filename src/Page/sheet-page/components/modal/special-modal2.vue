@@ -1600,6 +1600,7 @@ export default {
         case "stmz":
         case "zjhj":
         case "nfyksdyy":
+        case "hzly":
           return this.activeTab === "3";
         default:
           return false;

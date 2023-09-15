@@ -300,6 +300,9 @@ const currentTargetUrl = (() => {
     // 顺德和平外科
     case 'sdhpwk':
       return 'http://192.168.1.54:9866'
+    // 惠州市第六人民医院
+    case 'hzly':
+      return 'http://192.168.1.54:9866'
 
     /** 默认公司本地内网厚街测试环境 */
     default:
