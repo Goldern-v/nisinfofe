@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="new-modal-bottom" :style="modalBStyle">
+    <div class="new-modal-bottom" :style="modalBStyle" v-if="!['8*8'].includes(newModalSize)">
         <div
           v-for="(item, index) in currentBottle.orderText"
           :key="index"
@@ -50,6 +50,22 @@
         >
           {{ item }}
         </div>
+    </div>
+    <div class="new-modal-bottom" :style="[modalBStyle,{'display' :'flex'},{'flex-direction': 'column'},{'justify-content': 'space-between'}]" v-else>
+      <div  >
+        <div
+          v-for="(item, index) in currentBottle.orderText"
+          :key="index"
+          :style="[{'padding': '5px'},{'font-size':'20px'}]"
+        >
+          {{ item }}
+        </div>
+      </div>
+      <div >
+        <div :style="[{'padding': '5px'},{'font-size':'20px'}]">
+          医生说明:{{currentBottle.freqDetail || ''}}
+        </div>
+      </div>
     </div>
     <div class="new-modal-bottom-second">
       <div style="width: 20%" v-if="['5*8','8*8'].includes(newModalSize)">{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}医嘱</div>
@@ -62,7 +78,7 @@
         {{ currentBottle.frequency }} 
         <span>{{currentBottle.administration}}</span>
       </div>
-      <div>{{ currentBottle.freqDetail }}</div>
+      <div v-if="!['8*8'].includes(newModalSize)">{{ currentBottle.freqDetail }}</div>
     </div>
   </div>
 </template>
