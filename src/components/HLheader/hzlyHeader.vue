@@ -274,7 +274,7 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
-            <el-dropdown
+            <!-- <el-dropdown
               menu-align="start"
               :hide-on-click="false"
               :class="{ 'router-link-active': isActivePage }"
@@ -303,7 +303,7 @@
                       <i class="puerperantSituation"></i>产科分娩登记表
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/vaccineManagement' }"
                   v-if="deptName.includes('产科')"
@@ -314,7 +314,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item> -->
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/birthCertificate' }"
                   v-if="deptCode.match('051102')"
                 >
@@ -330,7 +330,7 @@
                       <i class="birthCertificate"></i>健康宣教查询
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item>
                   <router-link to="/dcList" tag="span">
                     <el-row class="menu-item" type="flex" align="middle">
@@ -375,8 +375,8 @@
                     </el-dropdown-menu>
                   </el-dropdown>
                 </el-dropdown-item> -->
-              </el-dropdown-menu>
-            </el-dropdown>
+              <!-- </el-dropdown-menu>
+            </el-dropdown> -->
           </el-row>
           <el-row class="right-part" type="flex" align="middle">
             <span class="big-1250-con">
