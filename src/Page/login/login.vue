@@ -2,6 +2,7 @@
   <div>
     <div class="login-bg" v-loading="loginLoading">
       <vue-particles
+        v-if="HOSPITAL_ID != 'guizhou'"
         color="#dedede"
         :moveSpeed="2"
         :particlesNumber="10"
@@ -1103,8 +1104,10 @@ export default {
           return require("../../common/images/logo_zjhj.jpg");
         case "nfyksdyy":
           return require("../../common/images/logo_nfyksdyy.png");
-          case "sdhpwk":
+        case "sdhpwk":
           return require("../../common/images/logo_sdhp.png");
+        case "hzly":
+          return require("../../common/images/logo_hzly_login.png");
         default:
           return require("../../common/images/logo.png");
       }

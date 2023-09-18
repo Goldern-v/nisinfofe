@@ -1204,7 +1204,7 @@ export default {
         case "whsl":
           return ["3*5", "6*8"];
         case "qhwy":
-          return ["5*8","3*5"];
+          return ["5*8","8*8","3*5"];
         default:
           return ["6*8","3*5"];
       }
@@ -1212,7 +1212,7 @@ export default {
     // 打印缩放的尺寸
     printScaleText() {
       if (
-        ["70*80", "6*8", "5*8", "7*7", '7*5','8*7'].includes(this.newModalSize) ||
+        ["70*80", "6*8", "5*8", "7*7", '7*5','8*7','8*8'].includes(this.newModalSize) ||
         ["whfk"].includes(this.HOSPITAL_ID)
       ){
         return "";

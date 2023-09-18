@@ -265,19 +265,11 @@ export default {
           )
         ) {
           if(this.HOSPITAL_ID == 'nfyksdyy' && titleLength >= 35){
-            this.$confirm('当前标题超过最大限制字数，如继续请点击确认', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
+            this.$alert('当前标题超过最大限制字数!', '提示', {
+              confirmButtonText: '取消',
               type: 'warning'
-            }).then(() => {
-              this.callback(this.fstitle, {
-                list: this.options || [],
-                id: this.selectedTempId
-              });
-              this.close();
-            }).catch(() => {
-              return
             });
+
           }else{
             this.callback(this.fstitle, {
               list: this.options || [],

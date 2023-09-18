@@ -3,6 +3,7 @@
     <div class="head">
       <!-- <img class="logo" :src="hospitalLogo" alt="logo"> -->
       <h1 class="title">{{HOSPITAL_NAME_SPACE}}</h1>
+      <div v-if="HOSPITAL_ID == 'xiegang'" style="font-size: 14px;position: absolute; top: -5px; right: -15px;">病房日报统计时间范围: 前一天0点-第二天0点</div>
       <h2 class="sub-title">病 房 工 作 日 报</h2>
       <div class="details">
         <div class="left">病房：{{name}}</div>
