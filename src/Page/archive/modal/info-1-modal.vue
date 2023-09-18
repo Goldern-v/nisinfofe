@@ -12,8 +12,8 @@
       <el-form-item label="责任护士：" prop="dutyNurse">
         <el-select class="select-multi" v-model="form.dutyNurse" filterable placeholder="请选择">
           <el-option
-                v-for="item in memberLists"
-                :key="item"
+                v-for="(item,index) in memberLists"
+                :key="item+index"
                 :label="item"
                 :value="item"
               ></el-option>
@@ -22,8 +22,8 @@
       <el-form-item label="质控护士：" prop="qcNurse">
         <el-select class="select-multi" filterable v-model="form.qcNurse" placeholder="请选择">
           <el-option
-                v-for="item in memberLists"
-                :key="item"
+                v-for="(item,index) in memberLists"
+                :key="item+index"
                 :label="item"
                 :value="item"
               ></el-option>
@@ -105,9 +105,7 @@ export default {
   props: {
     getArchiveList: Function
   },
-  created() {
-   this.getMemberLists()
-  },
+  created() {},
   watch:{
     deptCode(newVal){
       this.getMemberLists()
@@ -121,6 +119,7 @@ export default {
     },
     open(data) {
       this.item = data;
+      this.getMemberLists()
       this.$refs.modal.open();
     },
     close() {

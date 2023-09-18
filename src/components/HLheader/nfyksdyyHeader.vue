@@ -415,7 +415,7 @@
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>其他
+                <i class="iconfont icon-hulijiludan"></i>日报
               </el-row>
               <el-dropdown-menu slot="dropdown">
                 <!-- <el-dropdown-item
@@ -502,7 +502,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{
                     active: $route.path.indexOf('/healthEducationList') > -1
                   }"
@@ -512,8 +512,8 @@
                       <i class="birthCertificate"></i>健康宣教查询
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item
+                </el-dropdown-item> -->
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/departmentSharedFile' }"
                 >
                   <router-link to="/departmentSharedFile" tag="span">
@@ -530,7 +530,7 @@
                       <i class="nursingRules"></i>护理制度
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <!-- <el-dropdown-item
                   :class="{ active: $route.path.indexOf('/bedRecord') > -1 }"
                 >
