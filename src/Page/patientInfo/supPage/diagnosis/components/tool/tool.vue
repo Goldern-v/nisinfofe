@@ -29,6 +29,15 @@
       >
         <div class="text-con" flex="cross:center">删除整单</div>
       </div>
+      <div
+        v-if="hasExecutionRecord"
+        class="item-box"
+        flex="cross:center main:center"
+        @click="toExecutionRecord"
+        :class="{disabled: !model.selectedBlockId}"
+      >
+        <div class="text-con" flex="cross:center">执行记录</div>
+      </div>
 
       <!-- <div
         class="item-box"
@@ -202,10 +211,14 @@ export default {
       model,
       bus: bus(this),
       selectBlock: "",
-      sheetBlockList: []
+      sheetBlockList: [],
+      hasExecutionRecord: ['lyxrm'].includes(this.HOSPITAL_ID)
     };
   },
   methods: {
+    toExecutionRecord() {
+      this.$emit('toExecutionRecordPage');
+    },
     changeSelectBlock() {},
     openNewDiagnosis() {
       this.$refs.newDiagnosisModal.open();

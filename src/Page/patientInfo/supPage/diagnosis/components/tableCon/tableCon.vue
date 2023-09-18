@@ -39,7 +39,7 @@
         </span>
       </div>
     </div>
-    <component :is="tableComplate" :tableData="tableData"></component>
+    <component :is="tableComplate" :tableData="tableData" @onReload="getData"></component>
     <!-- <DTable :tableData="tableData"></DTable> -->
   </div>
 </template>
@@ -53,8 +53,9 @@ import DTableQHWY from "./d-tableQHWY";
 import { nursingDiagsPatient } from "../../api/index";
 import { model } from "../../diagnosisViewModel";
 import bus from "vue-happy-bus";
-import hospitalEval from '@/store/module/hospitalEval';
+// import hospitalEval from '@/store/module/hospitalEval';
 import DTableZhzxy from './d-table-zhzxy.vue';
+import DTableLYXRM from './d-table-LYXRM.vue';
 export default {
   data() {
     return {
@@ -75,6 +76,7 @@ export default {
         "foshanrenyi":DTableFSSY,
         "qhwy":DTableQHWY,
         "zhzxy": DTableZhzxy,
+        "lyxrm": DTableLYXRM,
         default:DTable
       }
       return ID_Component[this.HOSPITAL_ID]||ID_Component.default
@@ -97,7 +99,84 @@ export default {
         this.tableLoading = false;
       });
     },
+    pagePrint4Lyxrm() {
+      const printable = this.$refs.printable;
+      const header = printable.querySelector(".header-con");
+      const ivHeader = printable.querySelector('.print-table .ivu-table-header');
+      const wrap = printable.querySelector('.print-table .ivu-table-body');
+      const colgroup = wrap.querySelector('table colgroup');
+      const tbody = wrap.querySelector('tbody');
+      let printRowsArr = tbody.querySelectorAll('tr');
+      printRowsArr = Array.from(printRowsArr);
+      let newTbody = tbody.cloneNode();
+      let box = document.createElement("div");
+      box.className = "box";
+      let pageH = 0,
+        otherH = 115 + 40;
+
+      const addPage = () => {
+        let newWrap = wrap.cloneNode(true);
+        let newTable = newWrap.children[0];
+        newTable.innerHTML = "";
+        newTable.appendChild(colgroup);
+        newTable.appendChild(newTbody);
+
+        let elTable = document.createElement("div");
+        elTable.className = "el-table";
+        elTable.appendChild(ivHeader.cloneNode(true));
+        elTable.appendChild(newWrap.cloneNode(true));
+
+        let page = document.createElement("div");
+        page.className = "containter";
+        page.appendChild(header.cloneNode(true));
+        page.appendChild(elTable);
+
+        box.appendChild(page);
+      };
+      let allRowH = [];
+      printRowsArr.forEach((row, index) => {
+        allRowH.push(row.offsetHeight);
+      });
+      printRowsArr.forEach((row, index) => {
+        pageH += allRowH[index];
+        newTbody.appendChild(row);
+        if (pageH + otherH >= 1000) {
+          if (pageH + otherH > 1000) {
+            newTbody.removeChild(row);
+          }
+          addPage();
+          newTbody = document.createElement("tbody");
+          if (pageH + otherH > 1000) {
+            newTbody.appendChild(row);
+            pageH = allRowH[index];
+          } else {
+            pageH = 0;
+          }
+        }
+        if (index == printRowsArr.length - 1) {
+          addPage();
+        }
+      });
+      // 添加页码
+      const children = Array.from(box.children);
+      children.forEach((child, i, children) => {
+        const pageNum = document.createElement("div");
+        pageNum.style =
+          "position: absolute; bottom: 20px; left: 0; width: 100%; text-align: center; font-size: 12px; font-family: SimSun";
+        pageNum.innerHTML = `第 ${i + 1} / ${children.length} 页`;
+        child.appendChild(pageNum);
+      });
+
+      window.localStorage.diagnosisModel = box.innerHTML;
+      if (box.innerHTML) {
+        this.$store.commit('upPreRouter',location.href)
+        this.$router.push(`/print/diagnosis`);
+      }
+    },
     pagePrint() {
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        return this.pagePrint4Lyxrm();
+      }
       let printable = this.$refs.printable;
       let header = printable.querySelector(".header-con");
 
@@ -225,6 +304,7 @@ export default {
     DTableFSSY,
     DTableQHWY,
     DTableZhzxy,
+    DTableLYXRM
   }
 };
 </script>
@@ -235,6 +315,7 @@ export default {
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
   padding: 20px 20px 10px;
   margin: 10px 20px 10px;
+  height: calc(100% - 50px);
   .header-con {
     text-align: center;
     margin-bottom: 10px;
