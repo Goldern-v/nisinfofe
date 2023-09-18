@@ -22,10 +22,10 @@
   }
 
   .containter {
-    .el-table th {
+    .el-table th, .ivu-table th {
       height: 30px;
 
-      .cell {
+      .cell, .ivu-table-cell {
         font-size: 12px;
         font-weight: 400;
         color: #000;
@@ -33,7 +33,7 @@
       }
     }
 
-    .el-table {
+    .el-table, .ivu-table {
       border: none;
 
       &::before, &::after {
@@ -55,10 +55,10 @@
         border-bottom: 1px solid #000 !important;
       }
 
-      .cell {
+      .cell, .ivu-table-cell {
         padding: 0 5px;
       }
-      .gutter{
+      .gutter {
         border:none !important;
       }
 
@@ -66,12 +66,12 @@
         background: #fff8b1 !important;
       }
 
-      .el-table__header-wrapper, .el-table__body-wrapper {
+      .el-table__header-wrapper, .el-table__body-wrapper, .ivu-table-header, .ivu-table-body {
         // margin-top: -1px;
         margin-left: 0;
       }
 
-      .el-table__body-wrapper {
+      .el-table__body-wrapperm .ivu-table-body {
         height: auto !important;
       }
     }

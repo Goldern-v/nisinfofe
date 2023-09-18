@@ -247,7 +247,6 @@ export default {
           }
           return hour <= max && hour >= min;
         });
-        console.log(hour, text, Object.keys(text[0]));
         return Object.keys(text[0]) || "今日好";
       })();
       let texts = [
