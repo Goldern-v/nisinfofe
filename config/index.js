@@ -399,7 +399,7 @@ module.exports = {
                 // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
                 // target: "http://120.197.141.41:9094", //东莞正式库的测试
                 // target: "http://192.168.2.144:8062",
-              target: "http://192.168.1.54:9901", //测试
+                target: "http://localhost:8088", //测试
 
                 changeOrigin: true,
                 pathRewrite: {
