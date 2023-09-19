@@ -214,8 +214,8 @@ const currentTargetUrl = (() => {
 
     // 烟台玲珑
     case 'ytll':
-      return "http://221.214.210.170:39094"  // 正式
-      // return 'http://192.168.1.54:9866'
+      // return "http://221.214.210.170:39094"  // 正式
+      return 'http://192.168.1.54:9866'
       // return 'http://192.168.1.54:9893' // 烟台玲珑测试环境
       // return "http://218.13.87.27:9094" //
 
@@ -399,7 +399,7 @@ module.exports = {
                 // target: "http://192.168.2.229:8084", // 厚街内网俊涛ip测试
                 // target: "http://120.197.141.41:9094", //东莞正式库的测试
                 // target: "http://192.168.2.144:8062",
-              target: "http://192.168.1.54:9901", //测试
+                target: "http://localhost:8088", //测试
 
                 changeOrigin: true,
                 pathRewrite: {

@@ -646,6 +646,8 @@ export default {
       }
     },
     async onResBedNo(e,index){
+      // 防止修改完床号立刻点预览，导致没及时更新
+      e.target.setAttribute('data-value',e.target.value)
       let bedData = {
            bedLabelNew: e.target.value,
            moduleCode: 'sugar',

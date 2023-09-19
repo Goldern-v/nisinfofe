@@ -292,13 +292,6 @@
                   <span>
                     科室:{{query.deptName}}
                   </span>
-                  <span
-                    :style="{
-                      margin: '4px',
-                    }"
-                  >
-                    床位：{{ query.bedLabel }}
-                  </span>
               </template>
                <template v-else>
                  <span
@@ -335,16 +328,31 @@
                   <span>住院号：{{ query.inpNo }}</span>
                 </div>
               </div>
+              <div v-else-if="['huadu'].includes(HOSPITAL_ID)" >
+                <span>{{ query.name }}</span>
+                <span>{{ query.sex }}</span>
+                <span>{{ query.age }}</span>
+                <span
+                    :style="{
+                      margin: '4px',
+                    }"
+                  >
+                    床位：{{ query.bedLabel }}
+                </span>
+              </div>
               <div v-else>
                 <span>{{ query.name }}</span>
                 <span>{{ query.sex }}</span>
                 <span>{{ query.age }}</span>
                 <span>住院号：{{ isDglb ? query.inpNo : query.patientId }}</span>
               </div>
-              <div v-if="!['whhk'].includes(HOSPITAL_ID)">
+              <div v-if="!['whhk','huadu'].includes(HOSPITAL_ID)">
                 <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
               </div>
-
+               <div v-if="['huadu'].includes(HOSPITAL_ID)">
+                <span>入院日期：{{ query.admissionDate | ymdhm }}</span>
+                <span>住院号：{{  query.patientId }}</span>
+              </div>
               <div
                 flex="cross:center"
                 class="input-item"
@@ -1137,7 +1145,7 @@ export default {
          case 'whhk':
             return '50px'
          case 'huadu':
-            return '-19px'  
+            return '0px'  
          default:
             return  '10px'  
       }

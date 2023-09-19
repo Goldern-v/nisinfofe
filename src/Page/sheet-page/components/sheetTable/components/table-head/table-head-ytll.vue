@@ -264,13 +264,24 @@ export default {
       /*  每页独立床号功能 */
       let beforeBed = this.patientInfo.bedLabel
       let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]
-      if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]){
+      let newBedId = this.sheetInfo.relObj[`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`];
+      if (
+        this.index != 0 &&
+        this.sheetInfo.relObj[`bedLabel_${this.index-1}_${this.sheetInfo.selectBlock.id}`]
+      ) {
         // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
-        beforeBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index-1}`]
+        beforeBed = this.sheetInfo.relObj[
+          `bedLabel_${this.index-1}_${this.sheetInfo.selectBlock.id}`
+        ];
       }
+
       return {
         ...this.patientInfo,
-        [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
+          [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: newBedId ? newBedId : nowBed
+            ? nowBed
+            : beforeBed,
+        // ...this.patientInfo,
+        // [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
       }
     }
   },
