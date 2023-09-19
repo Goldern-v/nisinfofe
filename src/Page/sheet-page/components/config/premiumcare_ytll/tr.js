@@ -69,7 +69,7 @@ import {
       statBottomLine: true
     },
     {
-      key: "discharge", //出量 - 名称 
+      key: "discharge", //出量 - 名称
       value: "",
       event: keyf1,
       // autoComplete: {
@@ -117,7 +117,7 @@ import {
         width: 25
       },
     },
-  
+
     {
       key: "leftReflex", // 瞳孔mm/对光反应 左1
       value: "",
@@ -296,6 +296,9 @@ import {
       value: "",
       event: keyf1,
       name: "多重耐药",
+      autoComplete: {
+        data: ['无', '有']
+      },
       textarea: {
         width: 40
       }
@@ -461,10 +464,10 @@ import {
       value: false
     }
   ];
-  
+
   let filterKey = '威县' + ':';
   let filterKey2 = '统一护理记录单' + ':';
-  
+
   // export function getListData4() {
   //   let list = [
   //     "意识",
@@ -489,7 +492,7 @@ import {
   //     setList(吸氧方式, "吸氧方式", data);
   //   });
   // }
-  
+
   // getListData4();
   // /**
   //  *
@@ -519,4 +522,3 @@ import {
   //     }
   //   }
   // }
-  

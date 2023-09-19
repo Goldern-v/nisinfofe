@@ -54,7 +54,13 @@
           {{ patientInfo.bedLabel }}
         </div>
       </span>
-      <span>
+      <span v-if="sheetInfo.sheetType == 'observation_hd'">
+        留观号：
+        <div class="bottom-line" style="min-width: 80px">
+          {{ patientInfo.patientId }}
+        </div>
+      </span>
+      <span v-else>
         住院号：
         <div class="bottom-line" style="min-width: 80px">
           {{ patientInfo.patientId }}
