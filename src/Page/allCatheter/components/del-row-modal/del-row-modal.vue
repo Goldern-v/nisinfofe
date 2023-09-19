@@ -8,21 +8,13 @@
                 <!-- 是否确定删除？ -->
             </div>
             <div class="username" v-if="modalTitle=='拔管'" style="margin-top:20px;">
-                <div style="width:80px;">拔管时间：</div>
-                <!-- <cr-date-picker
+                <div style="width:140px;">拔管时间：</div>
+                <cr-date-picker
+                    style=" width: 172px;margin-top: 6px;"
                     v-model="extubationTime"
                     format="yyyy-MM-dd HH:mm"
                     placeholder="选择拔管日期"
-                    style="width: 200px"
-                ></cr-date-picker> -->
-                <el-date-picker
-                  size='small'
-                  align="left"
-                  v-model="extubationTime"
-                  type="datetime"
-                  format="yyyy-MM-dd HH:mm"
-                  placeholder="请输入选择拔管日期"
-                ></el-date-picker>
+                ></cr-date-picker>
             </div>
             <!-- <div class="password">
                 <div style="width:100px;">密码：</div><el-input placeholder="请输入密码" v-model="password" type="password"></el-input>
@@ -92,9 +84,7 @@
         line-height: 37px;
         /deep/ .el-input__inner{
             border: 1px solid #c2cbd2;
-            /* width: 240px; */
-            text-align: left;
-            padding-left: 10px;
+            width: 240px;
         }
     }
     .username{
@@ -132,4 +122,3 @@ methods: {
 components: {}
 };
 </script>
-
