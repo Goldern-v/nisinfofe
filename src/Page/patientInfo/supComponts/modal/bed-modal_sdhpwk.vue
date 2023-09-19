@@ -22,7 +22,7 @@
             :class="{ hasRemark: hasRemark }"
             :src="qrCode"
           />
-          <div style="width: 0" flex-box="1" flex="dir:top main:justify">
+          <div style="width: 0" flex-box="1" >
             <div
               class="title-name"
               flex="cross:center"
@@ -53,26 +53,16 @@
                 :value="moment(query.admissionDate).format('YYYY-MM-DD')"
               />
             </div>
-            <div
-              flex="cross:center"
-              class="input-item"
-            >
+            <div flex="cross:center" class="input-item input-item2">
               <span class="label">住院号:</span>
-              <div
+              <input
+                type="text"
                 nowidth
-                class="check-con"
+                style="font-size: 26px;"
                 flex-box="1"
-                flex="main:justify cross:center"
-              >
-                <input
-                  type="text"
-                  nowidth
-                  flex-box="1"
-                  class="bottom-line"
-                  :value="query.inpNo"
-                  @blur="onBlurToAutoComplete"
-                />
-              </div>
+                class="bottom-line"
+                v-model="query.inpNo"
+              />
             </div>
             <div flex="cross:center" class="input-item input-item2">
               <span class="label">诊断:</span>
@@ -88,7 +78,7 @@
           </div>
 
           <div
-            style="width: 131px"
+            style="width: 140px"
           >
             <div class="tip">温馨提示</div>
             <div style="height: 2px"></div>
@@ -96,7 +86,6 @@
             >
               <div
                 class="tip-item-con"
-                flex="cross:center main:justify"
                 v-for="item in tipList"
                 :key="item.label"
               >
@@ -220,7 +209,7 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
-  width: 350px;
+  width: 383px;
 
   .input-item-left {
     display: inline-block;
@@ -404,59 +393,6 @@ label {
   }
 }
 
-
-
-.bed-card-wrapper.wrapper--zhzxy {
-  .bed-card-con {
-    width: 182mm !important;
-    height: 113mm !important;
-
-    .qr-code {
-      top: 0px;
-      left: 0px;
-      height: 98px;
-      width: 98px;
-
-      &.hasRemark {
-        width: 90px;
-        height: 90px;
-      }
-    }
-
-    .qr-code-num {
-      top: 87px;
-      height: 22px;
-    }
-
-    .title-name {
-      height: 68px !important;
-
-      input {
-        font-weight: 500;
-        font-size: 46px !important;
-        text-shadow: 1px 0px #000, -1px 0px #000, 0px 1px #000, 0px -1px #000;
-      }
-    }
-
-    .title-bed {
-      .title-bed__1, .title-bed__2 {
-        font-size: 28px;
-      }
-    }
-
-    .input-item {
-      width: auto;
-    }
-
-    .title-sign {
-      display: flex;
-    }
-
-    input {
-      background: transparent;
-    }
-  }
-}
 </style>
 
 <script>

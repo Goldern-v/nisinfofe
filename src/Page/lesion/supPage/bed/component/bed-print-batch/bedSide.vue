@@ -7,6 +7,7 @@
         v-loading="modalLoading"
         ref="printCon"
         v-for="item in printData"
+        style="display: inline-block;"
         :key="item.patientId">
         <div
           class="bed-card-con1"
@@ -18,7 +19,7 @@
             <div
               class="title-name"
               flex="cross:center"
-              style="height: 43px"
+              style="height: 55px"
             >
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
@@ -510,8 +511,8 @@
 }
 .bed-card-con1 {
   margin: 20px;
-  width: 14.3cm;
-  height: 6cm;
+  width: 18.25cm;
+  height: 7.5cm;
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
@@ -522,7 +523,7 @@
   // &.remarkCon
   .qr-code {
     position: absolute;
-    top: -5px;
+    top: 5px;
     left: 5px;
     height: 112px;
     width: 112px;
@@ -580,7 +581,7 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
-  width: 350px;
+  width: 600px;
 
   .input-item-left {
     display: inline-block;

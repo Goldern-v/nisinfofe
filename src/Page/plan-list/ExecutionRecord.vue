@@ -99,7 +99,7 @@
           min-width="90"
         >
           <template slot-scope="scope">
-            {{ scope.row.status | formatDate }}
+            {{ scope.row.expectedExecuteTime | formatDate }}
           </template>
         </el-table-column>
 

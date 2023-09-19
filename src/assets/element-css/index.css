@@ -7425,7 +7425,7 @@
 .el-message__group p {
   font-size: 14px;
   margin: 0 34px 0 0;
-  color: rgb(131, 165, 158);
+  color: rgb(0, 0, 0);
   text-align: justify
 }
 
@@ -7455,7 +7455,7 @@
   right: 0;
   position: absolute;
   cursor: pointer;
-  color: rgb(191, 217, 210);
+  color: rgb(0, 0, 0);
   font-size: 14px
 }
 
