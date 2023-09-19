@@ -1903,6 +1903,11 @@ function switchSheetType(type) {
       schema = require("../config/premiumcare_ytll/tr.js").default;
     }
       break;
+    case "neurosurgery_ytll": {
+      // 烟台玲珑 - 神经外科ICU护理记录单
+      schema = require("../config/neurosurgery_ytll/tr.js").default;
+    }
+      break;
     case "labor_ytll": {
       // 烟台玲珑 - 产程记录单
       schema = require("../config/labor_ytll/tr.js").default;

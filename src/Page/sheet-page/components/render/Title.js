@@ -2498,6 +2498,13 @@ export default function Title(
     );
   }
   break;
+  case "neurosurgery_ytll": {
+    // 烟台玲珑 - 神经外科ICU护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurosurgery_ytll/th").default)
+    );
+  }
+  break;
   case "seriousnursing_ytll": {
     // 烟台玲珑-病重（病危）患者评估与护理记录单
     Th = JSON.parse(
