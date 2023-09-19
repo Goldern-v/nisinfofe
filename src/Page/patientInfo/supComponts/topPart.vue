@@ -358,7 +358,7 @@
         360视图
       </div>
       <router-link
-        v-if="HOSPITAL_ID === 'whsl' || HOSPITAL_ID === 'fsxt'"
+        v-if=" ['whsl', 'fsxt','ytll'].includes(HOSPITAL_ID)"
         :to="{
           path: '/patientNursingRound',
           query: { patientId: query.patientId, visitId: query.visitId }
