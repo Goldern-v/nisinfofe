@@ -35,7 +35,7 @@ export default [
     value: "",
     next: "",
     name: "入量名称",
-    textarea: { width: 70 },
+    textarea: { width: 100 },
     change: (e, td) => limitChange(e, td, 12)
   },
   {
@@ -65,7 +65,7 @@ export default [
     value: "",
     next: "",
     name: "出量名称",
-    textarea: { width: 38 },
+    textarea: { width: 60 },
     change: (e, td) => limitChange(e, td, 12),
     autoComplete: {
       data: ["尿量", "痰量", "呕吐量", "引流量", "大便", "胃肠减压"]
@@ -86,7 +86,7 @@ export default [
     value: "",
     next: "",
     name: "颜色性状",
-    textarea: { width: 38 },
+    textarea: { width: 60 },
     change: (e, td) => limitChange(e, td, 12)
   },
   {
@@ -368,7 +368,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "120px",
+      width: "150px",
       background: "transparent"
     },
     event: function(e, td) {
