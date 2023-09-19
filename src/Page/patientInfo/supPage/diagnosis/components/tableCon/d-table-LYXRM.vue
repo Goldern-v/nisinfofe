@@ -182,7 +182,7 @@ export default {
           minWidth: 160,
           render: (h, { row, column, index }) => {
             return (
-              <div>
+              <div style="text-align: left">
                 {row.targetsName.length
                   ? row.targetsName.map((item) => {
                       return (
@@ -192,7 +192,7 @@ export default {
                   : h(
                       'span',
                       { domProps: {
-                          innerHtml: `${row.diagTarget && (row.diagTarget.replace(/\n/g, '<br><br>'))}`
+                          innerHTML: `${row.diagTarget && (row.diagTarget.replace(/\n/g, '<br><br>'))}`
                         }
                       }
                     )
