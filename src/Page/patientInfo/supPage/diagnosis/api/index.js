@@ -121,3 +121,26 @@ export const getMatchVital = (params) => {
 export const doDiagsSign = (params) => {
   return axios.post(`${apiPath}nursingDiags/sign`, params)
 }
+
+/**
+ * 查询诊断措施计划执行明细列表
+ * @param {*} params
+ * @returns
+ */
+export const getDiagPlanDetails = (params) => {
+  return axios.post(`${apiPath}diagPlan/getDiagPlanDetails`, params)
+}
+
+/**
+ * 执行护理诊断措施计划（支持批量执行）
+ */
+export const executeDiagPlan = (params) => {
+  return axios.post(`${apiPath}diagPlan/executeDiagPlan`, params);
+}
+
+/***
+ * 新增、停止、删除护理诊断措施计划
+ */
+export const updateDiagPlan = (params) => {
+  return axios.post(`${apiPath}diagPlan/updatDiagPlanMaster`, params);
+}

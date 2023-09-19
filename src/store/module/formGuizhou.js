@@ -3,6 +3,7 @@ export default {
       measureGuizhou: "",
       targetGuizhou:"",
       factorStrGuizhou:"",
+      measureList: []
     },
     getters: {
     },
@@ -11,11 +12,13 @@ export default {
         state.measureGuizhou = value.measure
         state.targetGuizhou = value.target
         state.factorStrGuizhou = value.factor
+        state.measureList = value.measureList
       },
       cleanMeasureGuizhouAll(state) {
         state.measureGuizhou = ""
         state.targetGuizhou=""
         state.factorStrGuizhou=""
+        state.measureList = []
       },
   }
 }

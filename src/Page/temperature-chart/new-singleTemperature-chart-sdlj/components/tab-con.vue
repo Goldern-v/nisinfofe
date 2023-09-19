@@ -547,11 +547,13 @@ async mounted() {
           this.getList();
           this.bus.$emit("dateChangePage", this.query.entryDate);
         }
+        this.bus.$emit("watchQueryDate", this.query);
       },
       deep: true,
     },
         patientInfo() {
       //切换患者重新获得时间
+      this.bus.$emit("watchQueryDate", this.query);
       this.timeVal = new Date(
         new Date().getFullYear(),
         new Date().getMonth() + 1,
@@ -939,6 +941,8 @@ async mounted() {
         let otherDic = [];
         let data = [];
         let obj = [];
+        let baseDictMap = {};
+        let otherDictMap = {};
         res.data.data.map((item, index) => {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
@@ -949,10 +953,12 @@ async mounted() {
             case "base":
             if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
+              baseDictMap[item.vitalCode] = item.vitalSign;
               break;
             case "other":
             if(!["表顶注释","表底注释"].includes(item.vitalSign))
               otherDic[item.vitalSign] = item.vitalCode;
+              otherDictMap[item.vitalCode] = item.vitalSign;
               break;
             default:
               break;
@@ -974,6 +980,11 @@ async mounted() {
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
         this.init();
+        this.bus.$emit('getMultiDict', {
+          baseDictMap,
+          otherDictMap,
+          customDictMap: this.fieldList,
+        });
       });
     },
         //进入更新记录模式

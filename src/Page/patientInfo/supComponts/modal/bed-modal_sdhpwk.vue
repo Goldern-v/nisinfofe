@@ -2,43 +2,77 @@
   <div>
     <sweet-modal
       ref="modal"
-      :modalWidth="600"
+      :modalWidth="isZhzxy ? 770 : 600"
       title="编辑床头卡"
       :enable-mobile-fullscreen="false"
       class="modal"
     >
-      <div class="bed-card-warpper" v-loading="modalLoading" ref="printCon">
+      <div
+        class="bed-card-wrapper"
+        v-loading="modalLoading"
+        ref="printCon"
+      >
         <div
-          ref="printCon"
           class="bed-card-con"
           flex
           :class="{ remarkCon: formData.remarkPrint }"
         >
           <img
-            class="qr-code hasRemark"
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
             :src="qrCode"
           />
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div
+              class="title-name"
               flex="cross:center"
-              class="input-item inputItemHeight"
-              style="height: 110px;padding-top: 10px;"
+              style="height: 43px"
             >
-              <span style="width: 130px;"></span>
-              <span style="width: 100%;text-align: center;padding-left: 10px;">{{query.name}}</span>
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <input
+                type="text"
+                nowidth
+                style="font-size: 32px; padding-left: 5px"
+                flex-box="1"
+                class="bottom-line"
+                :value="query.name + ' ' + query.sex + ' ' + query.age"
+              />
             </div>
-            <div flex="cross:center" class="input-item">
-              <span style="width: 130px;"></span>
-              <span>{{query.bedLabel}}床 </span>&nbsp;
-              <span>{{query.sex}}</span>&nbsp;
-              <span>{{query.age}}</span>&nbsp;
-              <span>住院号:</span>&nbsp;
-              <span>{{query.inpNo}}</span>
+            <div flex="cross:center" class="input-item title-bed">
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <input
+                type="text"
+                class="bottom-line title-bed__1"
+                :value="query.bedLabel + '床'"
+              />
+              <input
+                type="text"
+                flex-box="1"
+                nowidth
+                class="bottom-line title-bed__2"
+                :value="moment(query.admissionDate).format('YYYY-MM-DD')"
+              />
             </div>
-
-            <div style="padding-bottom: 20px;" flex="cross:center" class="input-item">
-              <span class="label">入院时间：</span>
-              <span>{{moment(query.admissionDate).format('YYYY-MM-DD')}}</span>
+            <div
+              flex="cross:center"
+              class="input-item"
+            >
+              <span class="label">住院号:</span>
+              <div
+                nowidth
+                class="check-con"
+                flex-box="1"
+                flex="main:justify cross:center"
+              >
+                <input
+                  type="text"
+                  nowidth
+                  flex-box="1"
+                  class="bottom-line"
+                  :value="query.inpNo"
+                  @blur="onBlurToAutoComplete"
+                />
+              </div>
             </div>
             <div flex="cross:center" class="input-item input-item2">
               <span class="label">诊断:</span>
@@ -51,11 +85,37 @@
                 v-model="query.diagnosis"
               />
             </div>
+          </div>
 
+          <div
+            style="width: 131px"
+          >
+            <div class="tip">温馨提示</div>
+            <div style="height: 2px"></div>
+            <div
+            >
+              <div
+                class="tip-item-con"
+                flex="cross:center main:justify"
+                v-for="item in tipList"
+                :key="item.label"
+              >
+                <img :src="item.img" alt />
+                <span>{{ item.label }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
+      <div slot="button">
+        <el-button class="modal-btn" @click="close">取消</el-button>
+        <el-button class="modal-btn" type="primary" @click="post"
+          >保存</el-button
+        >
+        <el-button class="modal-btn" type="info" @click="onPrint"
+          >打印</el-button
+        >
+      </div>
     </sweet-modal>
   </div>
 </template>
@@ -69,12 +129,12 @@
   }
 }
 
-.bed-card-warpper {
+.bed-card-wrapper {
   background: #fff;
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
   display: inline-block;
   font-size: 16px;
-  padding:5px ;
+
   >>> * {
     font-family: 'SimHei', 'Microsoft Yahei' !important;
     font-weight: bold;
@@ -82,25 +142,27 @@
 }
 
 .bed-card-con {
+  margin: 20px;
+  width: 14.3cm;
+  height: 6cm;
+  padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
-  width: 14.3cm;
-  height: 6cm;
   border: 1px solid #000;
   // height: 370px;
 
   // &.remarkCon
   .qr-code {
     position: absolute;
-    top: 1px;
-    left: 1px;
+    top: -5px;
+    left: -5px;
     height: 112px;
     width: 112px;
 
     &.hasRemark {
-      width: 155px;
-      height: 155px;
+      width: 96px;
+      height: 96px;
     }
   }
 
@@ -108,10 +170,12 @@
     position: absolute;
     top: 92px;
     left: 0px;
-    width: 96px;
+    width: 120px;
     text-align: center;
     z-index: 2;
     font-size: 16px;
+
+
 
     &.hasRemark {
       top: 78px;
@@ -125,6 +189,8 @@
 [nowidth] {
   width: 0;
 }
+
+
 
 .bottom-line {
   border: 0;
@@ -148,17 +214,14 @@
 }
 
 .input-item {
-  height: 30px;
-  // padding-right: 12px;
+  height: 40px;
+  padding-right: 12px;
   font-size: 22px;
   font-weight: bold;
   position: relative;
-  padding-left:10px;
   z-index: 2;
-  &.inputItemHeight{
-      line-height: 85px;
-      font-size: 80px;
-  }
+  width: 350px;
+
   .input-item-left {
     display: inline-block;
 
@@ -167,6 +230,22 @@
         margin-right: 2px;
       }
     }
+  }
+}
+
+
+.title-bed {
+  .title-bed__1 {
+    width: 94px;
+    font-size: 24px;
+    padding-left: 5px;
+    line-height: 24px;
+  }
+
+  .title-bed__2 {
+    width: 0px;
+    font-size: 24px;
+    padding-left: 2px;
   }
 }
 
@@ -274,17 +353,21 @@ input[type='checkbox']:checked:after {
   line-height: 32px;
   white-space: nowrap;
 }
-.aliCenter{
-    display: flex;
-    flex-direction: column;
-    height: 299px;
-    .tip-item-con{
-      margin-bottom: 0;
-      &:first-of-type{
+
+.aliCenter {
+  display: flex;
+  flex-direction: column;
+  height: 299px;
+
+  .tip-item-con {
+    margin-bottom: 0;
+
+    &:first-of-type {
       margin: 35px 0 105px;
-      }
     }
+  }
 }
+
 .tip-item-con {
   border: 1px solid #000;
   border-radius: 8px;
@@ -292,7 +375,7 @@ input[type='checkbox']:checked:after {
   height: 51px;
   padding: 0 5px 0 5px;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   font-size: 17px;
 
   img {
@@ -320,21 +403,73 @@ label {
     font-size: 17px;
   }
 }
+
+
+
+.bed-card-wrapper.wrapper--zhzxy {
+  .bed-card-con {
+    width: 182mm !important;
+    height: 113mm !important;
+
+    .qr-code {
+      top: 0px;
+      left: 0px;
+      height: 98px;
+      width: 98px;
+
+      &.hasRemark {
+        width: 90px;
+        height: 90px;
+      }
+    }
+
+    .qr-code-num {
+      top: 87px;
+      height: 22px;
+    }
+
+    .title-name {
+      height: 68px !important;
+
+      input {
+        font-weight: 500;
+        font-size: 46px !important;
+        text-shadow: 1px 0px #000, -1px 0px #000, 0px 1px #000, 0px -1px #000;
+      }
+    }
+
+    .title-bed {
+      .title-bed__1, .title-bed__2 {
+        font-size: 28px;
+      }
+    }
+
+    .input-item {
+      width: auto;
+    }
+
+    .title-sign {
+      display: flex;
+    }
+
+    input {
+      background: transparent;
+    }
+  }
+}
 </style>
 
 <script>
-import {
-  getEntity,
-  saveOrUpdate,
-  findByKeyword,
-  findByKeywordNur,
-  saveBed
-} from "./api/index.js";
-import print from "printing";
+import { getEntity, saveBed } from "./api/index.js";
+import print from "./tool/print";
 var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
+import bedModalCtxDglb from "./bed-modal-ctx-dglb.vue";
+import bedModalBabyCtxDglb from "./bed-modal-baby-ctx-dglb.vue";
+import { hisMatch } from "@/utils/tool.js";
+
 export default {
   data() {
     return {
@@ -342,22 +477,14 @@ export default {
       qrCode: "" /** 二维码 */,
       qrCodeNum: "" /** 二维码 */,
       tipList: [
-        // {
-        //   label: "小心跌倒",
-        //   img: require("./images/Group 6.png")
-        // },
         {
           label: "小心烫伤",
-          img: require("./images/Group 7.png")
+          img: require("./images/Group 7.png"),
         },
-        // {
-        //   label: "防止压疮",
-        //   img: require("./images/Group 9.png")
-        // },
         {
           label: "防止偷盗",
-          img: require("./images/Group 10.png")
-        }
+          img: require("./images/Group 10.png"),
+        },
       ],
       modalLoading: false,
       formData: {
@@ -366,18 +493,38 @@ export default {
         mainDoctors: "",
         dutyNurses: "",
         remark: "",
-        remarkPrint: true
+        remarkPrint: true,
+
       },
-      ysList: []
+      ysList: [],
+      /**打印类型
+       * 默认床头卡
+       * baby 新生儿
+       */
+      printMode: '',
+      isPrint: false,
     };
   },
   computed: {
+    guominshi: {
+      get() {
+        if (this.formData.aField5) return this.formData.aField5;
+        else {
+          const arr = [this.formData.allergy1, this.formData.allergy2];
+          return arr.join("");
+        }
+      },
+      set(val) {
+        console.log(val, "val");
+        this.formData.aField5 = val;
+      },
+    },
     query() {
       return this.$route.query;
     },
     hasRemark() {
       return this.formData.remarkPrint;
-    }
+    },
   },
   methods: {
     init() {
@@ -386,9 +533,11 @@ export default {
         registCare: [],
         mainDoctors: "",
         dutyNurses: "",
-        remark: ""
+        remark: "",
+        aField2:"",//科主任
+        aField3:""//护士长
       };
-      getEntity(this.query.patientId, this.query.visitId).then(res => {
+      getEntity(this.query.patientId, this.query.visitId).then((res) => {
         let resData = res.data.data;
         let diagnosis = textOver(this.query.diagnosis, 52);
         this.formData = {
@@ -399,48 +548,43 @@ export default {
           mainDoctors: resData.mainDoctors || "",
           dutyNurses: resData.dutyNurses || "",
           remark: diagnosis,
-          remarkPrint: resData.remarkPrint
+          remarkPrint: resData.remarkPrint,
+          aField2:resData.aField2,//科主任
+          aField3:resData.aField3//护士长
         };
+        if (this.isZhzxy) {
+          this.formData = {
+            ...this.formData,
+            aField1: resData.aField1,
+            aField2: resData.aField2,
+            aField3: resData.aField3,
+            aField4: resData.aField4,
+            aField5: resData.aField5,
+            allergy1: resData.allergy1,
+            allergy2: resData.allergy2,
+          };
+        }
+        else if (this.isDglb) {
+          this.formData = {
+            ...this.formData,
+            aField5: resData.aField5,
+            weight: resData.weight
+          };
+        }
         this.modalLoading = false;
       });
-      multiDictInfo(["床头卡饮食"]).then(res => {
-        this.ysList = res.data.data.床头卡饮食.map(item => item.name);
+      multiDictInfo(["床头卡饮食"]).then((res) => {
+        this.ysList = res.data.data.床头卡饮食.map((item) => item.name);
       });
     },
-    getRegistCare() {
-      let data = [];
-      if (this.query.nursingClass == "特级护理") {
-        data.push("特");
-      }
-      if (this.query.nursingClass == "一级护理") {
-        data.push("一");
-      }
-      if (this.query.nursingClass == "二级护理") {
-        data.push("二");
-      }
-      if (this.query.nursingClass == "三级护理") {
-        data.push("三");
-      }
-      if (this.query.patientCondition == "普通") {
-        data.push("普");
-      }
-      if (this.query.patientCondition == "病危") {
-        data.push("危");
-      }
-      if (this.query.patientCondition == "病重") {
-        data.push("重");
-      }
-      return data;
-    },
-    open() {
+    open(printMode = '') {
+      this.printMode = printMode
       this.init();
-      // const printCare = document.querySelectorAll(".printCare")
-      // console.log(printCare)
       if (
-        (['lyxrm'].includes(this.HOSPITAL_ID) &&
+        (["lyxrm", "stmz"].includes(this.HOSPITAL_ID) &&
           JSON.parse(localStorage.user) &&
           JSON.parse(localStorage.user).post == "护长") ||
-        !['lyxrm'].includes(this.HOSPITAL_ID)
+        !["lyxrm", "stmz"].includes(this.HOSPITAL_ID)
       ) {
         this.isOpen();
       }
@@ -449,29 +593,18 @@ export default {
       this.$refs.modal.open();
       let qr_png_value = "";
       switch (this.HOSPITAL_ID) {
-        case "liaocheng":
-          qr_png_value = this.query.patientId + "|" + this.query.visitId;
-          break;
-        case "shannan":
-          qr_png_value = this.query.inpNo;
-          break;
-        case "hengli":
-          qr_png_value = this.query.expand1;
-          break;
-        case "foshanrenyi":
-          qr_png_value = '1001|' + this.query.patientId;
-          break;
-        case "nanfangzhongxiyi":
-          qr_png_value = this.query.patientId + '|' + this.query.visitId;
-          break;
-        case "ytll":
-          qr_png_value ='ZY' + this.query.patientId;
+        case "dglb":
+          qr_png_value =this.query.inpNo;
           break;
         default:
           qr_png_value = this.query.patientId;
           break;
+
       }
-      var qr_png = qr.imageSync(qr_png_value, { type: "png" });
+      var qr_png = qr.imageSync(qr_png_value, {
+        type: "png",
+        margin: this.isZhzxy ? 2 : 4,
+      });
       function arrayBufferToBase64(buffer) {
         var binary = "";
         var bytes = new Uint8Array(buffer);
@@ -483,7 +616,6 @@ export default {
       }
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
-      this.qrCodeNum = qr_png_value;
     },
     close() {
       this.$refs.modal.close();
@@ -506,51 +638,64 @@ export default {
       data.mainDoctors = this.formData.mainDoctors;
       data.dutyNurses = this.formData.dutyNurses;
       data.remarkPrint = this.formData.remarkPrint;
+      data.aField2 = this.formData.aField2; //科主任
+      data.aField3 = this.formData.aField3;//护士长
       data.remark = this.formData.remark.slice(0, 24);
-
-      saveBed(data).then(res => {
+      if (this.isDglb) {
+        data.aField5 = this.formData.aField5;
+      }
+      saveBed(data).then((res) => {
         this.$message.success("保存成功");
         this.close();
       });
     },
     onPrint() {
+      const printCare = document.querySelectorAll(".printCare");
+      let arr = [];
+      for (let i = 0; i < printCare.length; i++) {
+        arr = printCare[i].className.split(" ");
+        if (!arr.includes("active")) printCare[i].style.display = "none";
+      }
+      this.isPrint = true
       this.$nextTick(() => {
         this.post();
-        print(this.$refs.printCon, {
-            injectGlobalCss: true,
-            scanStyles: false,
-            css: `
-            @page {
-              margin: 0.5cm 0.5cm 0;
+        const ref = hisMatch({
+          map: {
+            dglb: this.$refs.printCon.$el,
+            other: this.$refs.printCon,
+          },
+        });
+        print(
+          ref,
+          (el) => {
+            if (this.isZhzxy) {
+              el.style.marginTop = "17mm";
+              el.style.marginLeft = "0mm";
+            } else if (this.isDglb && this.printMode === 'baby') {
+              el.style.marginLeft = "10mm";
+              el.style.marginTop = "10mm";
+              const els = el.querySelectorAll('.bed-modal-ctx')
+              for (let i = 0; i < els.length; i++) {
+                i > 0 && (els[i].style.marginTop = "20px");
+                els[i].style.borderColor = '#000'
+              }
+            }else {
+              el.style.marginLeft = "194mm";
             }
-            .bed-card-con{
-              transform-origin: 0 0;
-              transform: scale(1.2，1.1);
-            }
-          `
-          });
+          },
+          this.isZhzxy ? "v" : ""
+        );
+
+        for (let i = 0; i < printCare.length; i++) {
+          printCare[i].style.display = "block";
+        }
+        this.isPrint = false
       });
     },
     querySearchAsyncDoc(queryString, cb) {
-      // findByKeyword(queryString).then(res => {
-      //   cb(res.data.data.map(item => {
-      //     return {value: item}
-      //   }));
-      // })
       cb([]);
     },
-    // handleSelectDoc(item) {
-    //     console.log(item);
-    //     return {
-    //       value: item + 123
-    //     }
-    // },
     querySearchAsyncNur(queryString, cb) {
-      // findByKeywordNur(queryString).then(res => {
-      //   cb(res.data.data.map(item => {
-      //     return {value: item}
-      //   }));
-      // })
       cb([]);
     },
 
@@ -559,7 +704,7 @@ export default {
         let { top, left } = ele.getBoundingClientRect();
         return {
           left: left,
-          top: top
+          top: top,
         };
       }
       let { autoComplete, obj, key } = bind;
@@ -571,11 +716,10 @@ export default {
         window.openAutoComplete({
           style: {
             top: `${xy.top + 40}px`,
-            left: `${xy.left}px`
+            left: `${xy.left}px`,
           },
           data: autoComplete,
-          callback: function(data) {
-            console.log(data, "data");
+          callback: function (data) {
             if (data) {
               if (obj[key]) {
                 obj[key] += "," + data;
@@ -584,7 +728,49 @@ export default {
               }
             }
           },
-          id: `bedModal`
+          id: `bedModal`,
+        });
+      });
+    },
+    onFocusToAutoComplete2(e, bind) {
+      function offset(ele) {
+        let { top, left } = ele.getBoundingClientRect();
+        return {
+          left: left,
+          top: top,
+        };
+      }
+      let { autoComplete, obj, key } = bind;
+      let xy = offset(e.target);
+
+      setTimeout(() => {
+        window.openAutoComplete({
+          style: {
+            top: `${xy.top + 40}px`,
+            left: `${xy.left}px`,
+          },
+          data: autoComplete,
+          callback: function (data) {
+            console.log(data, "data", obj[key]);
+            if (data) {
+              if (obj[key]) {
+                if (obj[key].indexOf(",") < 0) {
+                  if (obj[key] == data) obj[key] = "";
+                  else obj[key] += "," + data;
+                } else {
+                  let oldVal = obj[key];
+                  let oldValArr = oldVal.split(",");
+                  let idx = oldValArr.indexOf(data);
+                  if (idx >= 0) oldValArr.splice(idx, 1);
+                  else oldValArr.push(data);
+                  obj[key] = oldValArr.filter((str) => str).join(",");
+                }
+              } else {
+                obj[key] += data;
+              }
+            }
+          },
+          id: `bedModal`,
         });
       });
     },
@@ -592,9 +778,12 @@ export default {
       setTimeout(() => {
         window.closeAutoComplete(`bedModal`);
       }, 400);
-    }
+    },
   },
   mounted() {},
-  components: {}
+  components: {
+    bedModalCtxDglb,
+    bedModalBabyCtxDglb
+  },
 };
 </script>

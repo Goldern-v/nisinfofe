@@ -215,16 +215,34 @@
         ref="printCon3"
         v-show="printMode == 'wrist'"
       >
-        <div class="bed-card-vert-con">
+        <div class="bed-card-vert-con bed-card-vert-con_liaocheng">
           <div>
-            <div class="top">
-              <span style="margin-left: -20px;">科室：{{ query.deptName }}</span>
+            <div class="top" style="margin-left: -30px;">
+              <span>姓名: {{ query.name }}</span>
+              <span>性别: {{ query.sex }}</span>
+              <!-- <span style="margin-left: -20px;">科室：{{ query.deptName }}</span> -->
             </div>
-            <div>
+            <div style="margin-left: -30px;">
+              <span>科室: {{ query.deptName }}</span>
+              <span>年龄: {{ query.age }}</span>
+
+            </div>
+            <div style="margin-left: -30px;">
+              <span>病案号: {{ query.patientId }}</span>
+              <span>床号: {{ query.bedLabel }}</span>
+            </div>
+            <div style="margin-left: -30px;">
+              <span>过敏信息: </span>
+              <span v-if="allergy1">{{ allergy1 }};</span>
+              <span v-if="drugGms">{{ drugGms }};</span>
+              <span v-if="allergy2">{{ allergy2 }}</span>
+              <span v-if="!(allergy1 || drugGms || allergy2)">无</span>
+            </div>
+            <!-- <div>
               <div style="margin-left: -30px;">
                 <span>{{ query.name }}</span>
                 <span>{{ query.sex }}</span>
-                <span>{{ query.age }}</span>
+                
                 <span>{{ query.bedLabel }}床</span>
               </div>
               <div style="margin-left: -30px;">
@@ -244,15 +262,14 @@
                   <span v-if="!(allergy1 || drugGms || allergy2)">无</span>
                 </p>
               </div>
-            </div>
+            </div> -->
           </div>
              <img
-               style="right: 130px; margin-top: -81px"
+               style="right: 10px; margin-top: -70px"
                class="qr-code"
                :class="{ hasRemark: hasRemark }"
                :src="qrCode"
               />
-            <span style="position: absolute;right: 135px;top: 66px;}">{{ query.patientId }}</span>
         </div>
       </div>
       </template>
@@ -729,6 +746,16 @@
     svg {
       height: 60px !important;
       margin-left: 15px;
+    }
+  }
+  .bed-card-vert-con_liaocheng{
+    span {
+      font-size: 17px;
+    }
+    .top{
+      span{
+        font-size: 22px;
+      }
     }
   }
 

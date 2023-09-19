@@ -661,7 +661,7 @@ export default {
         }else{
           const formConfig={
             formId:this.sheetInfo.selectBlock.id,
-            type:'form',
+            type:'record',
             initTime:Date.now()
           }
           this.isLock=false

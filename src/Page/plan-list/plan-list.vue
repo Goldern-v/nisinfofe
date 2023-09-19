@@ -5,10 +5,10 @@
       id="sheet_body_con"
       :style="{ height: containHeight }"
     >
-      <div class="head-con" flex>
+      <div class="head-con" flex  v-if="showWhichPage === 0">
         <div class="dept-select-con" v-show="openLeft"></div>
         <div class="tool-con" flex-box="1">
-          <tool></tool>
+          <tool @toExecutionRecordPage="switchPage"></tool>
         </div>
       </div>
       <div class="left-part">
@@ -24,7 +24,12 @@
         :class="openLeft ? 'isLeft' : 'isRight'"
       >
         <div class="sheetTable-contain">
-          <tableCon v-if="model.selectedBlockId"></tableCon>
+          <!-- <tableCon v-if="model.selectedBlockId"></tableCon> -->
+          <component
+            @toPlanList="switchPage"
+            v-if="model.selectedBlockId"
+            :is="whichPage"
+          ></component>
           <nullBg v-else text="暂无数据～"></nullBg>
           <slideCon ref="slideCon"></slideCon>
           <!-- <slideConRight ref="slideConRight"></slideConRight> -->
@@ -137,6 +142,7 @@ import common from "@/common/mixin/common.mixin";
 import moment from "moment";
 import { patients } from "@/api/lesion";
 import bus from "vue-happy-bus";
+import ExecutionRecord from './ExecutionRecord.vue';
 export default {
   provide() {
     return {
@@ -161,15 +167,17 @@ export default {
         pageSize: 10
       },
       tableLoading: false,
-      patientListLoading: true
+      patientListLoading: true,
+      showWhichPage: 0, // 0：护理计划表，1：执行记录
     };
   },
   computed: {
     containHeight() {
+      const deptSelectConHeight = this.showWhichPage === 1 ? 41 : 0;
       if (this.fullpage) {
-        return this.wih - 44 + "px";
+        return this.wih - 44 + deptSelectConHeight + "px";
       } else {
-        return this.wih - 104 + "px";
+        return this.wih - 104 + deptSelectConHeight + "px";
       }
     },
     patientInfo() {
@@ -187,6 +195,9 @@ export default {
     // 接收左侧患者栏子组件传来的是否左靠的值
     openLeft() {
       return this.$store.state.sheet.openSheetLeft;
+    },
+    whichPage() {
+      return ['tableCon', 'ExecutionRecord'][this.showWhichPage];
     }
   },
   watch: {
@@ -206,6 +217,9 @@ export default {
     }
   },
   methods: {
+    switchPage() {
+      this.showWhichPage ^= 1;
+    },
     slideConRight(){
       if(['liaocheng'].includes(this.HOSPITAL_ID)){
         return slideConRightLiaoCheng
@@ -236,6 +250,7 @@ export default {
     },
 
     isSelectPatient(item) {
+      this.showWhichPage = 0;
       this.$router.replace({
         path: "/planList",
         query: item
@@ -295,6 +310,7 @@ export default {
     slideContant,
     slideContantQHWY,
     slideContantBHRY,
+    ExecutionRecord
   }
 };
 </script>

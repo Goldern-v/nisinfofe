@@ -10,7 +10,7 @@
     <div class="new-modal-top">
       <div class="new-modal-top-right">
         <div class="new-modal-top-right-top">
-          <img :src="currentBottle.qcSrc || ''" />
+          <img :src="currentBottle.qcSrc || ''"  :style="[['8*8'].includes(newModalSize)?{'margin-left': '20px'}:{}]"/>
         </div>
       </div>
       <div class="new-modal-top-left">
@@ -137,7 +137,7 @@
 
       .new-modal-top-right-top {
         box-sizing: border-box;
-        overflow: hidden;
+        // overflow: hidden;
         img {
 					margin-top: 6px;
           width: 100%;
