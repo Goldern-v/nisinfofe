@@ -43,7 +43,8 @@
               <span>{{ item.bedLabel }}</span>
             </td>
             <td center p3>
-              <span>{{ item.nameOrigin }}</span>
+              <span v-if="HOSPITAL_ID == 'xiegang'">{{ item.name }}</span>
+              <span v-else>{{ item.nameOrigin }}</span>
             </td>
             <td left p4>
               <span>{{ item.examItem }}</span>
