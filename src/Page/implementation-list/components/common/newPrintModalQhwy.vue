@@ -8,14 +8,11 @@
     'zoom-qhwy-5x8': ['5*8','8*8'].includes(newModalSize) && 'qhwy' === HOSPITAL_ID}"
   >
     <div class="new-modal-top" v-if="newModalSize === '8*8'" style="display: flex;">
-      <div class="new-modal-top-left" style="border-right: none;width: 175px;">
-        <div class="new-modal-top-left-first first-one"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}" style="border-bottom: none;width: 90px;" >
-          <div v-if="HOSPITAL_ID == 'qhwy'">{{ $store.state.lesion.deptName }} </div>
-        </div>
-        <div class="new-modal-top-left-first8"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}" >
+      <div class="new-modal-top-left" style="border-right: none;width: 125px;">
+        <div class="new-modal-top-left-first8"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}" style="line-height: 45px" >
           <div>{{ currentBottle.name }}</div>
         </div>
-        <div class="new-modal-top-left-first"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}" style="line-height: 40px;border: none;">
+        <div class="new-modal-top-left-first"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}" style="line-height: 55px;border: none;">
           <div>
             {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
           </div>
@@ -26,14 +23,17 @@
           <img :src="currentBottle.qcSrc || ''" />
         </div>
       </div>
-      <div class="new-modal-top-left" style="line-height: 45px;">
+      <div class="new-modal-top-left" style="line-height: 45px; width: 160px">
         <div class="new-modal-top-left-second" style="border-bottom: none;text-indent: 15px;line-height: 38px;">
           <div style="text-indent: 5px">{{ isLargeType?currentBottle.deptName:currentBottle.patientId }}</div>
           <div>{{ isLargeType?(currentBottle.patientId || ""):currentBottle.deptName }}</div>
         </div>
-        <div class="new-modal-top-left-second" style="text-indent: 10px;line-height: 38px;">
+        <div class="new-modal-top-left-second" style="text-indent: 10px;line-height: 38px;border-bottom: none">
           <div>{{ currentBottle.sex || "" }}</div>
           <div>{{ currentBottle.age }}</div>
+        </div>
+        <div class="new-modal-top-left-first first-one1"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}" style="border-bottom: none;line-height: 40px" >
+          <div v-if="HOSPITAL_ID == 'qhwy'">{{ $store.state.lesion.deptName }} </div>
         </div>
       </div>
     </div>
@@ -359,6 +359,14 @@
           >div{
               font-size: 12px;
               line-height: 12px;
+              height: 12px;
+          }
+        }
+      &.first-one1{
+          height: 18px !important;
+          >div{
+              font-size: 12px;
+              line-height: 45px;
               height: 12px;
           }
         }
