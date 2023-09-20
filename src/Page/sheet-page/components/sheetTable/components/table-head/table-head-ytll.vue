@@ -4,7 +4,7 @@
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
-    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'seriousnursing_ytll'||sheetInfo.sheetType === 'premiumcare_ytll'">
+    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'seriousnursing_ytll'||sheetInfo.sheetType === 'premiumcare_ytll' || sheetInfo.sheetType === 'neurosurgery_ytll'">
        <span>
         姓名：
         <div class="bottom-line" style="min-width: 70px">
@@ -23,7 +23,7 @@
           {{ patientInfo.age }}
         </div>
       </span>
-      <span v-if="sheetInfo.sheetType === 'premiumcare_ytll'">
+      <span v-if="sheetInfo.sheetType !== 'seriousnursing_ytll'">
         病区：
         <div class="bottom-line" style="min-width: 70px">
           {{ patientInfo.deptName }}

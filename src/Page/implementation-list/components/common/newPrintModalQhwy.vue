@@ -3,11 +3,41 @@
     :style="sizeStyle"
     class="new-print-modal"
 		:class="{'new-print-modal--s': !isLargeType,
-    'pageBreak':isLargeType, 
-    'new-print-modal--s1': !isLargeType && 'qhwy' === HOSPITAL_ID, 
+    'pageBreak':isLargeType,
+    'new-print-modal--s1': !isLargeType && 'qhwy' === HOSPITAL_ID,
     'zoom-qhwy-5x8': ['5*8','8*8'].includes(newModalSize) && 'qhwy' === HOSPITAL_ID}"
   >
-    <div class="new-modal-top">
+    <div class="new-modal-top" v-if="newModalSize === '8*8'" style="display: flex;">
+      <div class="new-modal-top-left" style="border-right: none;width: 125px;">
+        <div class="new-modal-top-left-first8"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}" style="line-height: 45px" >
+          <div>{{ currentBottle.name }}</div>
+        </div>
+        <div class="new-modal-top-left-first"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}" style="line-height: 55px;border: none;">
+          <div>
+            {{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
+          </div>
+        </div>
+      </div>
+      <div class="new-modal-top-right">
+        <div class="new-modal-top-right-top">
+          <img :src="currentBottle.qcSrc || ''" />
+        </div>
+      </div>
+      <div class="new-modal-top-left" style="line-height: 45px; width: 160px">
+        <div class="new-modal-top-left-second" style="border-bottom: none;text-indent: 15px;line-height: 38px;">
+          <div style="text-indent: 5px">{{ isLargeType?currentBottle.deptName:currentBottle.patientId }}</div>
+          <div>{{ isLargeType?(currentBottle.patientId || ""):currentBottle.deptName }}</div>
+        </div>
+        <div class="new-modal-top-left-second" style="text-indent: 10px;line-height: 38px;border-bottom: none">
+          <div>{{ currentBottle.sex || "" }}</div>
+          <div>{{ currentBottle.age }}</div>
+        </div>
+        <div class="new-modal-top-left-first first-one1"  :class="{'whhk-new-modal-top-left-first':['whhk'].includes(HOSPITAL_ID)}" style="border-bottom: none;line-height: 40px" >
+          <div v-if="HOSPITAL_ID == 'qhwy'">{{ $store.state.lesion.deptName }} </div>
+        </div>
+      </div>
+    </div>
+    <div class="new-modal-top" v-else>
       <div class="new-modal-top-right">
         <div class="new-modal-top-right-top">
           <img :src="currentBottle.qcSrc || ''"  :style="[['8*8'].includes(newModalSize)?{'margin-left': '20px'}:{}]"/>
@@ -71,11 +101,11 @@
       <div style="width: 20%" v-if="['5*8','8*8'].includes(newModalSize)">{{ currentBottle.repeatIndicator | repeatIndicatorFilter }}医嘱</div>
       <div style="width: 26%" v-else>频次途径</div>
       <div style="flex: 1" v-if="['5*8','8*8'].includes(newModalSize)">
-        {{ currentBottle.frequency }} 
+        {{ currentBottle.frequency }}
         <span>{{`${currentBottle.administration} ${currentBottle.executeDate}`}}</span>
       </div>
       <div style="flex: 1" v-else>
-        {{ currentBottle.frequency }} 
+        {{ currentBottle.frequency }}
         <span>{{currentBottle.administration}}</span>
       </div>
       <div v-if="!['8*8'].includes(newModalSize)">{{ currentBottle.freqDetail }}</div>
@@ -108,6 +138,21 @@
         display: flex;
         box-sizing: border-box;
         border-bottom: 1px solid #000;
+        & > div {
+          text-align: center;
+          line-height: 29px;
+          font-size: 25px;
+          font-weight: 900;
+          height:29px;
+        }
+        div + div {
+          margin-left: 8px;
+        }
+      }
+        .new-modal-top-left-first8 {
+        display: flex;
+        box-sizing: border-box;
+        // border-bottom: 1px solid #000;
         & > div {
           text-align: center;
           line-height: 29px;
@@ -263,6 +308,10 @@
         padding-left: 4px;
         height: 35px !important;
       }
+      .new-modal-top-left-first8 {
+        padding-left: 4px;
+        height: 25px !important;
+      }
 
       .new-modal-top-left-second {
         height: 25px !important;
@@ -302,7 +351,7 @@
       .new-modal-top-right-top{
         width: 62px!important;
       }
-    }   
+    }
     .new-modal-top-left{
       .new-modal-top-left-first{
         &.first-one{
@@ -310,6 +359,14 @@
           >div{
               font-size: 12px;
               line-height: 12px;
+              height: 12px;
+          }
+        }
+      &.first-one1{
+          height: 18px !important;
+          >div{
+              font-size: 12px;
+              line-height: 45px;
               height: 12px;
           }
         }
@@ -398,7 +455,7 @@ export default {
         case '5*8':
           return { width: '8cm', height: '4.9cm'}
         case '8*8':
-          return { width: '8cm', height: '7.9cm'}  
+          return { width: '8cm', height: '7.9cm'}
         default:
         // case '3*5':
           return { width: '10cm', height: '5.9cm'}
