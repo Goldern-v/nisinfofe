@@ -35,7 +35,7 @@ export default [
     value: "",
     next: "",
     name: "入量名称",
-    textarea: { width: 100 },
+    textarea: { width: 120 },
     change: (e, td) => limitChange(e, td, 12)
   },
   {
@@ -392,7 +392,7 @@ export default [
   { hidden: true, key: "dataHash", value: "" },
   { hidden: true, key: "recordDate", value: "" },
   { hidden: true, key: "monthHour", value: "" },
-  { hidden: true, key: "signerNo", value: "" },
+  { hidden: false, key: "signerNo", value: "" },
   { hidden: true, key: "signerNo2", value: "" },
   { hidden: true, key: "auditorNo", value: "" },
   { hidden: true, key: "auditorName", value: "" },
