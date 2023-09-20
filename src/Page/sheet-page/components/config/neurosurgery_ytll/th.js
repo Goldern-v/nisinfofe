@@ -61,7 +61,7 @@ export default {
             [
                 {"name": "鼻导管", "colspan": "1", "rowspan": "1"},
                 {"name": "面罩", "colspan": "1", "rowspan": "1"},
-                {"name": "", "colspan": "1", "rowspan": "1"},
+                {"name": "", "colspan": "1", "rowspan": "1","canSet":true,"key":"customize",},
                 {"name": "类别", "colspan": "1", "rowspan": "1"},
                 {"name": "畅否", "colspan": "1", "rowspan": "1"},
                 {"name": "左", "colspan": "2", "rowspan": "1"},

@@ -36,7 +36,7 @@ export default [
     next: "",
     name: "入量名称",
     textarea: { width: 120 },
-    change: (e, td) => limitChange(e, td, 12)
+    change: (e, td) => limitChange(e, td, 20)
   },
   {
     key: "way",
@@ -45,7 +45,7 @@ export default [
     next: "",
     name: "途径",
     textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 20),
     autoComplete: {
       data: ["静滴", "皮下", "静推", "肌注", "口入", "鼻饲", "泵入"]
     }
@@ -57,7 +57,8 @@ export default [
     next: "ml",
     name: "实入量",
     textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12)
+    change: (e, td) => limitChange(e, td, 12),
+    statBottomLine: true
   },
   {
     key: "discharge",
@@ -78,7 +79,8 @@ export default [
     next: "ml",
     name: "出量",
     textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12)
+    change: (e, td) => limitChange(e, td, 12),
+    statBottomLine: true
   },
   {
     key: "colorTraits",

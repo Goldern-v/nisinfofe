@@ -617,7 +617,7 @@ export default {
     },
     // 患者出院因为要抽取，耗能很大 所以增加节流
     /**同步出院患者 */
-    onSyncHuadu:_throttle('syncDischargedPatientHD',0*1000),
+    onSyncHuadu:_throttle('syncDischargedPatientHD',30*1000),
     async syncDischargedPatientHD() {
       console.log('您触发了')
       try {
@@ -625,7 +625,6 @@ export default {
         obj.pageIndex = this.$parent.page.pageIndex;
         obj.pageNum = this.$parent.page.pageNum;
         obj.status = this.data.status;
-        obj.wardCode = this.data.deptValue || this.data.deptList.join(",");
         let res = null;
         if (this.data.status == 3) {
           let newObj = JSON.parse(JSON.stringify(obj));
