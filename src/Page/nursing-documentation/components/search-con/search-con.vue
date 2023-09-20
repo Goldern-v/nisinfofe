@@ -495,6 +495,76 @@ export default {
       //   this.$store.commit("upDeptCode", value);
       // }
     },
+    handleParams() {
+      let data = this.data;
+      let obj = {};
+      if (data.deptValue) {
+        obj.wardCode = data.deptValue || data.deptList.join(",");
+      }
+      if (data.status) {
+        obj.status = data.status;
+      }
+      if (data.name) {
+        obj.name = data.name;
+      }
+      if (data.patientId) {
+        obj.patientId = data.patientId;
+      }
+      if (data.inpNo) {
+        obj.inpNo = data.inpNo;
+      }
+      if (data.bedLabel) {
+        obj.bedLabel = data.bedLabel;
+      }
+
+      if (data.admissionDate[0]) {
+        obj.admissionDateBegin = new Date(data.admissionDate[0]).Format(
+          "yyyy-MM-dd"
+        );
+      }
+      if (data.admissionDate[1]) {
+        obj.admissionDateEnd = new Date(data.admissionDate[1]).Format(
+          "yyyy-MM-dd"
+        );
+      }
+      if (data.dischargeDate[0]) {
+        obj.dischargeDateBegin = new Date(data.dischargeDate[0]).Format(
+          "yyyy-MM-dd"
+        );
+      }
+      if (data.dischargeDate[1]) {
+        obj.dischargeDateEnd = new Date(data.dischargeDate[1]).Format(
+          "yyyy-MM-dd"
+        );
+      }
+
+      if (data.status == 1) {
+        obj.dischargeDateBegin = "";
+        obj.dischargeDateEnd = "";
+        this.isChangeMajor = false;
+      }
+      if (data.status == 2) {
+        obj.admissionDateBegin = "";
+        obj.admissionDateEnd = "";
+        this.isChangeMajor = false;
+      }
+      if (data.status == 3) {
+        this.isChangeMajor = true;
+        obj.startDate =
+          new Date(data.dateTime[0]).Format("yyyy-MM-dd") + " 00:00:00";
+        obj.endDate =
+          new Date(data.dateTime[1]).Format("yyyy-MM-dd") + " 23:59:59";
+        obj.admissionDateBegin = "";
+        obj.admissionDateEnd = "";
+        obj.dischargeDateBegin = "";
+        obj.dischargeDateEnd = "";
+      }
+      // 顺德人医转科接口修改
+      if (this.HOSPITAL_ID === 'nfyksdyy' && this.isChangeMajor) {
+        obj.status = data.sign || '0';
+      }
+      return obj;
+    },
     syncGetNurseBedRecData() {
       if (!this.ifCanTobu) return;
       this.ifCanTobu = false;
@@ -547,30 +617,23 @@ export default {
     },
     // 患者出院因为要抽取，耗能很大 所以增加节流
     /**同步出院患者 */
-    onSyncHuadu:_throttle('syncDischargedPatientHD',30*1000),
+    onSyncHuadu:_throttle('syncDischargedPatientHD',0*1000),
     async syncDischargedPatientHD() {
       console.log('您触发了')
       try {
-        let obj = {
-          pageIndex: this.$parent.page.pageIndex,
-          pageNum: this.$parent.page.pageNum,
-          status: this.data.status,
-          dischargeDateBegin: this.data.status == '2' ? moment(this.data.dischargeDate[0]).format('YYYY-MM-DD') : '',
-          dischargeDateEnd: this.data.status == '2' ?  moment(this.data.dischargeDate[1]).format('YYYY-MM-DD') : '',
-          admissionDateBegin:  this.data.status == '1' ? moment(this.data.admissionDate[0]).format('YYYY-MM-DD') : '',
-          admissionDateEnd: this.data.status == '1' ? moment(this.data.admissionDate[1]).format('YYYY-MM-DD') : '',
-          wardCode: this.data.deptValue || this.data.deptList.join(",")
-        }
-        let res = null
-        if(this.data.status == '3'){
+        let obj = this.handleParams();
+        obj.pageIndex = this.$parent.page.pageIndex;
+        obj.pageNum = this.$parent.page.pageNum;
+        obj.status = this.data.status;
+        obj.wardCode = this.data.deptValue || this.data.deptList.join(",");
+        let res = null;
+        if (this.data.status == 3) {
           let newObj = JSON.parse(JSON.stringify(obj));
           delete newObj.admissionDateBegin;
           delete newObj.admissionDateEnd;
           delete newObj.dischargeDateBegin;
           delete newObj.dischargeDateEnd;
           newObj.pageSize = newObj.pageNum;
-          newObj.startDate = moment(this.data.dateTime[0]).format('YYYY-MM-DD')
-          newObj.endDate = moment(this.data.dateTime[1]).format('YYYY-MM-DD')
           res = await syncPatListHd(newObj);
         }else{
           res = await syncPatListHd(obj);
