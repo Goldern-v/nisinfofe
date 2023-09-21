@@ -439,7 +439,7 @@ export default {
   data() {
     // 初始化筛选时间
     let initTimeArea = {
-       ["04"]: ["00:00", "04:59"],
+      ["04"]: ["00:00", "04:59"],
       ["08"]: ["05:00", "08:59"],
       ["12"]: ["09:00", "12:59"],
       ["16"]: ["13:00", "16:59"],
@@ -529,11 +529,11 @@ export default {
       timesOdd1: [
       {
           id: 0,
-          value: "4",
+          value: "04",
         },
         {
           id: 1,
-          value: "8",
+          value: "08",
         },
       {
           id: 2,
@@ -541,15 +541,15 @@ export default {
         },
       {
           id: 3,
-          value: "4",
+          value: "16",
         },
         {
           id: 4,
-          value: "8",
+          value: "20",
         },
         {
           id: 5,
-          value: "12",
+          value: "23",
         },
       ],
       bottomContextList: [""],
