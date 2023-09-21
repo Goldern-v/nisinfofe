@@ -324,6 +324,7 @@ export default {
       SigndataObj,
       verifySignObj,
       fromType = 'evel',
+      showAduit = false,
     ) {
       //formData为表单数据
       console.log(
@@ -401,6 +402,7 @@ export default {
       fromType && (this.fromType = fromType); //设置表单类型
       this.initFuyouCaData();
       this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
+      this.aduitDate= dayjs().format("YYYY-MM-DD HH:mm") || "";
       if (isHengliNursingForm && title !== "删除验证") {
         if (title === "签名确认" && this.HOSPITAL_ID == "hengli") {
           showDate = true;
@@ -450,6 +452,7 @@ export default {
       }
 
       this.showDate = showDate;
+      this.showAduit = showAduit;
       // this.showMessage = showMessage;
       this.message = message;
       this.password = "";

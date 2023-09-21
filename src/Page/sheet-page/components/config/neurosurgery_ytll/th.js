@@ -13,7 +13,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1350px"
+      width: "1500px"
     },
     th: {
         top:
@@ -22,7 +22,7 @@ export default {
                 {"name": "入量", "colspan": "3", "rowspan": "1"},
                 {"name": "出量", "colspan": "3", "rowspan": "1"},
                 {"name": "病情评估", "colspan": "25", "rowspan": "1"},
-                { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "120px",  maxWidth: "120px"}, },
+                { "name": "特殊情况记录", "colspan": "1", "rowspan": "3", style: { minWidth: "150px",  maxWidth: "150px"}, },
                 { "name": "签 名", "colspan": "1", "rowspan": "3", style: { minWidth: "50px",  maxWidth: "50px"},},
             ]
         ,
@@ -61,7 +61,7 @@ export default {
             [
                 {"name": "鼻导管", "colspan": "1", "rowspan": "1"},
                 {"name": "面罩", "colspan": "1", "rowspan": "1"},
-                {"name": "", "colspan": "1", "rowspan": "1"},
+                {"name": "", "colspan": "1", "rowspan": "1","canSet":true,"key":"customize",},
                 {"name": "类别", "colspan": "1", "rowspan": "1"},
                 {"name": "畅否", "colspan": "1", "rowspan": "1"},
                 {"name": "左", "colspan": "2", "rowspan": "1"},

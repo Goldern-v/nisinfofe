@@ -268,6 +268,7 @@
     <bedModalHj ref="bedModalHj" v-if="HOSPITAL_ID == 'hj'" />
     <bedModal925 ref="bedModal925" v-if="HOSPITAL_ID == '925'" />
     <bedModalSdhpwk ref="bedModalSdhpwk" v-if="HOSPITAL_ID == 'sdhpwk'" />
+    <bedModalXG ref="bedModalXG" v-if="HOSPITAL_ID == 'xiegang'" />
     <bedModalZjhj ref="bedModalZjhj" v-if="HOSPITAL_ID == 'zjhj'" />
     <bedModalstmz ref="bedModalstmz" v-if="HOSPITAL_ID == 'stmz'" />
     <bedModalGDTJ
@@ -442,6 +443,7 @@ import bedModal925 from "./modal/bed-modal-925";
 import bedModalZjhj from "./modal/bed-modal-zjhj";
 import bedModalstmz from "./modal/bed-modal-stmz";
 import bedModalWhsl from "./modal/bed-modal_whsl";
+import bedModalXG from "./modal/bed-modal_xg";
 import bedModalSdhpwk from "./modal/bed-modal_sdhpwk";
 import printModal from "./print-modal/print-modal";
 import archiveModal from "./modal/archive-modal";
@@ -515,7 +517,8 @@ export default {
         zjhj:"bedModalZjhj",
         stmz: "bedModalstmz",
         whsl: "bedModalWhsl",
-        sdhpwk: "bedModalSdhpwk"
+        sdhpwk: "bedModalSdhpwk",
+        xiegang: "bedModalXG"
         // nanfangzhongxiyi:'bedModalNfzxy',
       };
       if (hospital_left[this.HOSPITAL_ID]) {
@@ -631,7 +634,8 @@ export default {
     bedModalGDTJ,
     bedModalWhsl,
     bedPrtingModal,
-    bedModalSdhpwk
+    bedModalSdhpwk,
+    bedModalXG
   }
 };
 </script>

@@ -142,7 +142,7 @@ export default {
           this.$message.success("保存成功");
           this.close();
           this.bus.$emit("refreshSheetPageOne",this.multipleSelection);
-          if(['nfyksdyy','fsxt'].includes(this.HOSPITAL_ID)){
+          if(['nfyksdyy','fsxt', 'ytll'].includes(this.HOSPITAL_ID)){
             sheetInfo.relObj[`bedLabel_${this.activeIndex}_${this.sheetInfo.selectBlock.id}`] = res.data.data.bedLabel;
           }else{
             sheetInfo.relObj[`PageIndex_bedLabel_${this.activeIndex}`] = res.data.data.bedLabel;

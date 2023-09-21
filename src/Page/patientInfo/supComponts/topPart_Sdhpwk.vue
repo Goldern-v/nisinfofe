@@ -65,7 +65,7 @@
         tag="span"
       >
         <div class="nav-item">护理计划</div>
-      </router-link>
+      </router-link> -->
       <router-link
         :to="{
           path: '/bloodSugar',
@@ -74,7 +74,7 @@
         tag="span"
       >
         <div class="nav-item">血糖</div>
-      </router-link> -->
+      </router-link>
 
       <router-link
         :to="{

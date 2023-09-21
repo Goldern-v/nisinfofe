@@ -35,8 +35,8 @@ export default [
     value: "",
     next: "",
     name: "入量名称",
-    textarea: { width: 70 },
-    change: (e, td) => limitChange(e, td, 12)
+    textarea: { width: 120 },
+    change: (e, td) => limitChange(e, td, 20)
   },
   {
     key: "way",
@@ -45,7 +45,7 @@ export default [
     next: "",
     name: "途径",
     textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12),
+    change: (e, td) => limitChange(e, td, 20),
     autoComplete: {
       data: ["静滴", "皮下", "静推", "肌注", "口入", "鼻饲", "泵入"]
     }
@@ -57,7 +57,8 @@ export default [
     next: "ml",
     name: "实入量",
     textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12)
+    change: (e, td) => limitChange(e, td, 12),
+    statBottomLine: true
   },
   {
     key: "discharge",
@@ -65,7 +66,7 @@ export default [
     value: "",
     next: "",
     name: "出量名称",
-    textarea: { width: 38 },
+    textarea: { width: 60 },
     change: (e, td) => limitChange(e, td, 12),
     autoComplete: {
       data: ["尿量", "痰量", "呕吐量", "引流量", "大便", "胃肠减压"]
@@ -78,7 +79,8 @@ export default [
     next: "ml",
     name: "出量",
     textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12)
+    change: (e, td) => limitChange(e, td, 12),
+    statBottomLine: true
   },
   {
     key: "colorTraits",
@@ -86,7 +88,7 @@ export default [
     value: "",
     next: "",
     name: "颜色性状",
-    textarea: { width: 38 },
+    textarea: { width: 60 },
     change: (e, td) => limitChange(e, td, 12)
   },
   {
@@ -368,7 +370,7 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "120px",
+      width: "150px",
       background: "transparent"
     },
     event: function(e, td) {
@@ -392,7 +394,7 @@ export default [
   { hidden: true, key: "dataHash", value: "" },
   { hidden: true, key: "recordDate", value: "" },
   { hidden: true, key: "monthHour", value: "" },
-  { hidden: true, key: "signerNo", value: "" },
+  { hidden: false, key: "signerNo", value: "" },
   { hidden: true, key: "signerNo2", value: "" },
   { hidden: true, key: "auditorNo", value: "" },
   { hidden: true, key: "auditorName", value: "" },
