@@ -38,13 +38,29 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 25px; padding-left: 5px"
+                style="font-size: 28px; padding-left: 5px"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
               />
+
             </div>
-            <div class="title-sign" style="margin-top: 62px;">
+            <div
+              class="title-name"
+              flex="cross:center"
+              style="height: 43px"
+            >
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <input
+                type="text"
+                flex-box="1"
+                nowidth
+                class="bottom-line title-bed__2"
+                :value="moment(query.admissionDate).format('YYYY-MM-DD')"
+              />
+
+            </div>
+            <div class="title-sign" style="margin-top: 17px;">
               <div
                 flex="cross:center"
                 class="input-item"
@@ -82,7 +98,7 @@
               class="is-xiegang"
             >
               <div class="tip">温馨提示</div>
-              <div style="height: 2px"></div>
+              <div class="aliCenter">
                 <div
                   class="tip-item-con"
                   v-for="item in tipList"
@@ -91,6 +107,7 @@
                   <img :src="item.img" alt />
                   <span>{{ item.label }}</span>
                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -142,8 +159,8 @@
 
 .bed-card-con {
   margin: 20px;
-  width: 520px;
-  height: 318px;
+  width: 360px;
+  height: 350px;
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
@@ -210,7 +227,7 @@
 .input-item {
   height: 40px;
   padding-right: 12px;
-  font-size: 22px;
+  font-size: 25px;
   font-weight: bold;
   position: relative;
   z-index: 2;
@@ -351,33 +368,28 @@ input[type='checkbox']:checked:after {
 .aliCenter {
   display: flex;
   flex-direction: column;
-  height: 299px;
+
 
   .tip-item-con {
-    margin-bottom: 0;
-
-    &:first-of-type {
-      margin: 35px 0 105px;
+    border: 1px solid #000;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-around;
+    padding: 2px 10px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 17px;
+    align-items: center;
+    margin: 2px;
+    height: 50px;
+    width: 150px;
+    img {
+      width: 40px;
+      padding: 2px;
     }
   }
 }
 
-.tip-item-con {
-  //
-  border: 1px solid #000;
-  border-radius: 8px;
-  display: flex;
-  padding: 0 5px 0 5px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 17px;
-  align-items: center;
-  margin-right: 5px;
-
-  img {
-    width: 46px;
-  }
-}
 
 label {
   cursor: pointer;
@@ -691,7 +703,7 @@ export default {
           (el) => {
             // el.style.marginLeft = "194mm";
           },
-          this.isZhzxy ? "v" : ""
+          "v"
         );
 
         for (let i = 0; i < printCare.length; i++) {

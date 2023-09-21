@@ -93,7 +93,7 @@
               </el-row>
 
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/sheetHospitalAdmission' }"
                 >
                   <router-link to="/sheetHospitalAdmission" tag="span">
@@ -110,7 +110,7 @@
                       <i class="sheetHospitalEval"></i> 住院评估
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
 
                 <el-dropdown-item
                   :class="{ active: $route.path == '/sugarPage' }"
@@ -122,7 +122,7 @@
                   </router-link>
                 </el-dropdown-item>
 
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/oxygenPage' }"
                 >
                   <router-link to="/oxygenPage" tag="span">
@@ -130,7 +130,7 @@
                       <i class="healthEducation"></i> 血氧
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
                 <el-dropdown-item
                   :class="{ active: $route.path == '/healthEdu' }"
                 >
@@ -140,7 +140,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item
+                <!-- <el-dropdown-item
                   :class="{ active: $route.path == '/handlingPage' }"
                 >
                   <router-link to="/handlingPage" tag="span">
@@ -148,7 +148,7 @@
                       <i class="healthEducation"></i>住院病人处理单
                     </el-row>
                   </router-link>
-                </el-dropdown-item>
+                </el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
 

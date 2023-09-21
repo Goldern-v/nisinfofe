@@ -22,75 +22,14 @@ import {
   event_date,
   event_time,
   click_date,
-  click_time
+  click_time,
+  click_cancel
 } from "../keyEvent/date";
 
 export default [
   { hidden: true, key: "recordDate", value: "" },
   { key: "recordMonth", event: event_date, click: click_date, value: "" },
   { key: "recordHour", event: event_time, click: click_time, value: "" },
-  {
-    key: "food",
-    event: keyf1,
-    value: "",
-    next: "",
-    name: "入量名称",
-    textarea: { width: 120 },
-    change: (e, td) => limitChange(e, td, 20)
-  },
-  {
-    key: "way",
-    event: keyf1,
-    value: "",
-    next: "",
-    name: "途径",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 20),
-    autoComplete: {
-      data: ["静滴", "皮下", "静推", "肌注", "口入", "鼻饲", "泵入"]
-    }
-  },
-  {
-    key: "foodSize",
-    event: keyf1,
-    value: "",
-    next: "ml",
-    name: "实入量",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12),
-    statBottomLine: true
-  },
-  {
-    key: "discharge",
-    event: keyf1,
-    value: "",
-    next: "",
-    name: "出量名称",
-    textarea: { width: 60 },
-    change: (e, td) => limitChange(e, td, 12),
-    autoComplete: {
-      data: ["尿量", "痰量", "呕吐量", "引流量", "大便", "胃肠减压"]
-    }
-  },
-  {
-    key: "dischargeSize",
-    event: keyf1,
-    value: "",
-    next: "ml",
-    name: "出量",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12),
-    statBottomLine: true
-  },
-  {
-    key: "colorTraits",
-    event: keyf1,
-    value: "",
-    next: "",
-    name: "颜色性状",
-    textarea: { width: 60 },
-    change: (e, td) => limitChange(e, td, 12)
-  },
   {
     key: "temperature",
     event: keyf1,
@@ -108,6 +47,18 @@ export default [
     name: "心率/脉搏",
     textarea: { width: 48 },
     change: (e, td) => limitChange(e, td, 12)
+  },
+  {
+    key: "heartRhythm",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "示波心律",
+    textarea: { width: 30 },
+    change: (e, td) => limitChange(e, td, 12),
+    autoComplete: {
+      data: ["窦性", "房颤", "房扑", "逸搏", "停搏", "室上速", "室速", "室颤", "起搏", "交界性", "异位"]
+    }
   },
   {
     key: "breath",
@@ -137,41 +88,20 @@ export default [
     change: (e, td) => limitChange(e, td, 12)
   },
   {
-    key: "heartRhythm",
+    key: "cvp",
     event: keyf1,
     value: "",
-    next: "",
-    name: "示波心律",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12),
-    autoComplete: {
-      data: ["窦性", "房颤"]
-    }
-  },
-  {
-    key: "nasalCannula",
-    event: keyf1,
-    value: "",
-    next: "",
-    name: "鼻导管",
+    next: "mmHg",
+    name: "CVP",
     textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 12)
   },
   {
-    key: "faceMask",
+    key: "fio2",
     event: keyf1,
     value: "",
-    next: "",
-    name: "面罩",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12)
-  },
-  {
-    key: "customize",
-    event: keyf1,
-    value: "",
-    next: "",
-    name: "",
+    next: "%",
+    name: "FIO2",
     textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 12)
   },
@@ -245,6 +175,18 @@ export default [
     }
   },
   {
+    key: "gcs",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "GCS",
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 12),
+    autoComplete: {
+      data: ["EMV"]
+    }
+  },
+  {
     key: "pupilSizeLeft",
     event: keyf1,
     value: "",
@@ -293,28 +235,114 @@ export default [
     }
   },
   {
-    key: "gcs",
+    key: "pattern",
     event: keyf1,
     value: "",
     next: "",
-    name: "GCS",
-    textarea: { width: 40 },
+    name: "模式",
+    textarea: { width: 25 },
     change: (e, td) => limitChange(e, td, 12),
     autoComplete: {
-      data: ["EMV"]
+      data: ["SIMV", "PCV", "VCV","PS/CPAP", "PRVC", "NIVPS","S/T", "IPPV", "CPAP","鼻导管", "面罩", "给氧"]
     }
   },
   {
-    key: "multiDrug",
+    key: "frequency",
+    event: keyf1,
+    value: "",
+    next: "次/分",
+    name: "频率",
+    textarea: { width: 25 },
+    change: (e, td) => limitChange(e, td, 12),
+  },
+  {
+    key: "svt",
+    event: keyf1,
+    value: "",
+    next: "次/分",
+    name: "SVT/VT",
+    textarea: { width: 25 },
+    change: (e, td) => limitChange(e, td, 12),
+  },
+  {
+    key: "ps",
+    event: keyf1,
+    value: "",
+    next: "(cmH2O)",
+    name: "PS/PEEP",
+    textarea: { width: 25 },
+    change: (e, td) => limitChange(e, td, 12),
+  },
+  {
+    key: "airwayPressure",
+    event: keyf1,
+    value: "",
+    next: "(cmH2O)",
+    name: "气道压力",
+    textarea: { width: 25 },
+    change: (e, td) => limitChange(e, td, 12),
+  },
+  {
+    key: "food",
     event: keyf1,
     value: "",
     next: "",
-    name: "多重耐药",
+    name: "入量名称",
+    textarea: { width: 120 },
+    change: (e, td) => limitChange(e, td, 20)
+  },
+  {
+    key: "way",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "途径",
+    textarea: { width: 30 },
+    change: (e, td) => limitChange(e, td, 20),
+    autoComplete: {
+      data: ["静滴", "皮下", "静推", "肌注", "口入", "鼻饲", "泵入"]
+    }
+  },
+  {
+    key: "foodSize",
+    event: keyf1,
+    value: "",
+    next: "ml",
+    name: "实入量",
     textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 12),
+    statBottomLine: true
+  },
+  {
+    key: "discharge",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "出量名称",
+    textarea: { width: 60 },
+    change: (e, td) => limitChange(e, td, 12),
     autoComplete: {
-      data: ["有", "无"]
+      data: ["尿量", "痰量", "呕吐量", "引流量", "大便", "胃肠减压"]
     }
+  },
+  {
+    key: "dischargeSize",
+    event: keyf1,
+    value: "",
+    next: "ml",
+    name: "出量",
+    textarea: { width: 30 },
+    change: (e, td) => limitChange(e, td, 12),
+    statBottomLine: true
+  },
+  {
+    key: "colorTraits",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "颜色性状",
+    textarea: { width: 60 },
+    change: (e, td) => limitChange(e, td, 12)
   },
   {
     key: "constraint",
@@ -322,11 +350,10 @@ export default [
     value: "",
     next: "",
     name: "约束",
-    textarea: { width: 30 },
-    change: (e, td) => limitChange(e, td, 12),
-    autoComplete: {
-      data: ["是", "否"]
-    }
+    style: {
+      width: '24px'
+    },
+    click: click_cancel,
   },
   {
     key: "recumbentPosition",
@@ -350,15 +377,15 @@ export default [
     change: (e, td) => limitChange(e, td, 12)
   },
   {
-    key: "mentalState",
+    key: "multiDrug",
     event: keyf1,
     value: "",
     next: "",
-    name: "心理状态",
+    name: "多重耐药",
     textarea: { width: 30 },
     change: (e, td) => limitChange(e, td, 12),
     autoComplete: {
-      data: ["好", "差", "无法评估"]
+      data: ["有", "无"]
     }
   },
   {

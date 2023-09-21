@@ -482,22 +482,22 @@ export default {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           if (this.getHours() >= 0 && this.getHours() <= 4) {
-            return "02";
+            return "04";
           }
           if (this.getHours() > 4 && this.getHours() <= 8) {
-            return "06";
+            return "08";
           }
           if (this.getHours() > 8 && this.getHours() <= 12) {
-            return "10";
+            return "12";
           }
           if (this.getHours() > 12 && this.getHours() <= 16) {
-            return "14";
+            return "16";
           }
           if (this.getHours() > 16 && this.getHours() <= 20) {
-            return "18";
+            return "20";
           }
           if (this.getHours() > 20 && this.getHours() <= 23) {
-            return "22";
+            return "23";
           }
           //录入时间
         })(), //录入时间
@@ -529,27 +529,27 @@ export default {
       timesOdd1: [
       {
           id: 0,
-          value: "02",
+          value: "04",
         },
         {
           id: 1,
-          value: "06",
+          value: "08",
         },
       {
           id: 2,
-          value: "10",
+          value: "12",
         },
       {
           id: 3,
-          value: "14",
+          value: "16",
         },
         {
           id: 4,
-          value: "18",
+          value: "20",
         },
         {
           id: 5,
-          value: "22",
+          value: "23",
         },
       ],
       bottomContextList: [""],

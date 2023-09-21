@@ -101,7 +101,7 @@ export function getRowNum(index) {
     sheetInfo.sheetType === 'insulin_whhk'
   ) {
     return 19
-  }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz' || sheetInfo.sheetType == "seriousnursing_ytll" || sheetInfo.sheetType === 'neonatalspecialty2_xt' || sheetInfo.sheetType == "neurosurgery_ytll" ) {
+  }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz' || sheetInfo.sheetType == "seriousnursing_ytll" || sheetInfo.sheetType === 'neonatalspecialty2_xt' || sheetInfo.sheetType == "neurosurgery_ytll" || sheetInfo.sheetType == "critical_ytll") {
     return 21
   }else if (
     sheetInfo.sheetType === 'neonate_sdlj' ||
