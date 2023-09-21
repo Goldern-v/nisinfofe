@@ -224,19 +224,19 @@
             </div>
             <div style="margin-left: -30px;">
               <span>科室: {{ query.deptName }}</span>
-              <span>年龄: {{ query.age }}</span>
-
             </div>
             <div style="margin-left: -30px;">
               <span>病案号: {{ query.patientId }}</span>
               <span>床号: {{ query.bedLabel }}</span>
             </div>
             <div style="margin-left: -30px;">
+              <span>年龄: {{ query.age }}</span>
+
               <span>过敏信息: </span>
               <span v-if="allergy1">{{ allergy1 }};</span>
               <span v-if="drugGms">{{ drugGms }};</span>
               <span v-if="allergy2">{{ allergy2 }}</span>
-              <span v-if="!(allergy1 || drugGms || allergy2)">无</span>
+              <!-- <span v-if="!(allergy1 || drugGms || allergy2)"></span> -->
             </div>
             <!-- <div>
               <div style="margin-left: -30px;">
@@ -265,7 +265,7 @@
             </div> -->
           </div>
              <img
-               style="right: 10px; margin-top: -70px"
+               style="right: 110px; margin-top: -60px; width: 102px; height: 102px"
                class="qr-code"
                :class="{ hasRemark: hasRemark }"
                :src="qrCode"

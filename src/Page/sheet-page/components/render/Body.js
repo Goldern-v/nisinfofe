@@ -1908,6 +1908,11 @@ function switchSheetType(type) {
       schema = require("../config/neurosurgery_ytll/tr.js").default;
     }
       break;
+    case "critical_ytll": {
+      // 烟台玲珑 - 重症医学科记录单
+      schema = require("../config/critical_ytll/tr.js").default;
+    }
+      break;
     case "labor_ytll": {
       // 烟台玲珑 - 产程记录单
       schema = require("../config/labor_ytll/tr.js").default;
