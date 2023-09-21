@@ -170,6 +170,44 @@
           {{ diagnosis }}
         </div>
       </span>
+      <template v-if=" sheetInfo.sheetType === 'critical_ytll'">
+        <input
+          type="checkbox"
+          class="checkbox"
+          value="zr"
+          :ischecked="sheetInfo.relObj['zr']"
+          v-model="checkedzr"
+        />转入
+        <input
+          type="checkbox"
+          class="checkbox"
+          value="xr"
+          :ischecked="sheetInfo.relObj['xr']"
+          v-model="checkedxr"
+        />新入
+        <input
+          type="checkbox"
+          class="checkbox"
+          value="ss"
+          :ischecked="sheetInfo.relObj['ss']"
+          v-model="checkedss"
+        />手术
+        <input
+          type="checkbox"
+          class="checkbox"
+          value="bw"
+          :ischecked="sheetInfo.relObj['bw']"
+          v-model="checkedbw"
+        />病危
+        <input
+          type="checkbox"
+          class="checkbox"
+          value="bz"
+          :ischecked="sheetInfo.relObj['bz']"
+          v-model="checkedbz"
+        />病重
+      </template>
+
     </div>
     <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
   </div>
@@ -283,6 +321,48 @@ export default {
         // ...this.patientInfo,
         // [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
       }
+    },
+    ...{
+      'checkedzr':{
+        get(){
+          return this.sheetInfo.relObj[`zr`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`zr`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedxr':{
+        get(){
+          return this.sheetInfo.relObj[`xr`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`xr`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedss':{
+        get(){
+          return this.sheetInfo.relObj[`ss`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`ss`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedbw':{
+        get(){
+          return this.sheetInfo.relObj[`bw`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`bw`] = nVal ? "true" : "false"
+        }
+      },
+      'checkedbz':{
+        get(){
+          return this.sheetInfo.relObj[`bz`] === 'true'
+        },
+        set(nVal){
+          this.sheetInfo.relObj[`bz`] = nVal ? "true" : "false"
+        }
+      },
     }
   },
   methods: {

@@ -38,7 +38,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 25px; padding-left: 5px"
+                style="font-size: 28px; padding-left: 5px"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
@@ -160,7 +160,7 @@
 .bed-card-con {
   margin: 20px;
   width: 360px;
-  height: 480px;
+  height: 350px;
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
@@ -227,7 +227,7 @@
 .input-item {
   height: 40px;
   padding-right: 12px;
-  font-size: 22px;
+  font-size: 25px;
   font-weight: bold;
   position: relative;
   z-index: 2;
@@ -369,19 +369,23 @@ input[type='checkbox']:checked:after {
   display: flex;
   flex-direction: column;
 
+
   .tip-item-con {
     border: 1px solid #000;
     border-radius: 8px;
     display: flex;
+    justify-content: space-around;
     padding: 2px 10px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-size: 17px;
     align-items: center;
     margin: 2px;
-
+    height: 50px;
+    width: 150px;
     img {
-      width: 46px;
+      width: 40px;
+      padding: 2px;
     }
   }
 }
