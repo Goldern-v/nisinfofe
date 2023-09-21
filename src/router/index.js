@@ -508,6 +508,7 @@ const getImplementation = () => {
     case 'beihairenyi':
     case 'dglb':
     case 'qhwy':
+    case 'hzly':  
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
       case 'zjhj':
         return () => import("@/Page/implementation-list/implementation-list-zjhj.vue")
