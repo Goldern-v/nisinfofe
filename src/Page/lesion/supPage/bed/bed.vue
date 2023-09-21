@@ -278,6 +278,7 @@ export default {
         case "zjhj":
         case "stmz":
         case "sdhpwk":
+        case "hzly":  
         return bedItemLcey;
         case "beihairenyi":
         return bedItemBhry;

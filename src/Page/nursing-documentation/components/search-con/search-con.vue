@@ -448,7 +448,8 @@ export default {
         '925',
         'qhwy',
         'whhk',
-        'zjhj'
+        'zjhj',
+        'hzly'
       ].includes(this.HOSPITAL_ID);
     },
     useSelect() {

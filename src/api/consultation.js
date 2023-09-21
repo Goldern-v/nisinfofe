@@ -71,6 +71,9 @@ export const addConsultation = (data) => {
 export const listConsultationNurse = (data) => {
     return axios.get(`${apiPath}nursingConsultation/listConsultationNurse?${qs.stringify(data)}`)
 }
+export const listConsultationNurseNew = (data) => {
+    return axios.post(`${apiPath}/nursingConsultation/listConsultationNurseNew`, data);
+}
 
 // 获取病人会诊列表
 export const getPatientListNew = (patientId) => {
