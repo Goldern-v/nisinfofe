@@ -14,20 +14,25 @@
     <span v-show="showDate">
       <p for class="name-title">记录时间</p>
       <div action class="sign-input" ref="dateInput">
-        <el-date-picker
-          popper-class="picker-dropdown"
-          v-model="signDate"
-          type="datetime"
-          align="center"
-          format="yyyy-MM-dd HH:mm"
-          placeholder="输入签名时间"
-        ></el-date-picker>
-        <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
+        <template v-if="!['nfyksdyy'].includes(this.HOSPITAL_ID)">
+           <el-date-picker
+            popper-class="picker-dropdown"
+            v-model="signDate"
+            type="datetime"
+            align="center"
+            format="yyyy-MM-dd HH:mm"
+            placeholder="输入签名时间"
+          ></el-date-picker>
+        </template>
+        <template v-else>
+         <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input>
+        </template>
       </div>
     </span>
     <span v-show="showAduit">
       <p for class="name-title">审核时间</p>
       <div action class="sign-input" ref="dateInput">
+        <template v-if="!['nfyksdyy'].includes(this.HOSPITAL_ID)">
         <el-date-picker
           popper-class="picker-dropdown"
           v-model="aduitDate"
@@ -36,7 +41,10 @@
           format="yyyy-MM-dd HH:mm"
           placeholder="输入审核时间"
         ></el-date-picker>
-        <!-- <el-input size="small" type="text" placeholder="输入签名时间" v-model="signDate"></el-input> -->
+        </template>
+        <template v-else>
+        <el-input size="small" type="text" placeholder="输入签名时间" v-model="aduitDate"></el-input>
+        </template>
       </div>
     </span>
     <span>
@@ -401,8 +409,14 @@ export default {
       formData && (this.formData = formData); //设置表单数据
       fromType && (this.fromType = fromType); //设置表单类型
       this.initFuyouCaData();
-      this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //改
-      this.aduitDate= dayjs().format("YYYY-MM-DD HH:mm") || "";
+      if(showDate){
+        this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //
+        this.aduitDate=''
+      }
+      if(showAduit){
+        this.aduitDate= dayjs().format("YYYY-MM-DD HH:mm") || "";
+        this.signDate=''
+      }
       if (isHengliNursingForm && title !== "删除验证") {
         if (title === "签名确认" && this.HOSPITAL_ID == "hengli") {
           showDate = true;
@@ -579,6 +593,7 @@ export default {
       } else if (["zzwy"].includes(this.HOSPITAL_ID)) {
         this.turnToDealzzwy();
       } else {
+
         if (this.password == "" && !this.nanfangCa) {
           this.$message({
             message: "请输入密码",
@@ -647,7 +662,13 @@ export default {
                 ? md5(this.password)
                 : this.password;
             return this.callback(requestPW, this.username, this.signDate);
-          } else {
+          } if(this.aduitDate){
+            let requestPW =
+              this.HOSPITAL_ID == "zhzxy" && this.password != "Bcy@23nr"
+                ? md5(this.password)
+                : this.password;
+            return this.callback(requestPW, this.username, this.aduitDate);
+          }else {
             return this.callback(this.password, this.username);
           }
         }

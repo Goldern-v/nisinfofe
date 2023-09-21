@@ -650,7 +650,7 @@ export default {
           [
             "zhongshanqi", "liaocheng",  "beihairenyi",'ytll',
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
-            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','zhzxy', 'nanfangzhongxiyi','whsl','925','whhk'
+            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','zhzxy', 'nanfangzhongxiyi','whsl','925','whhk','hzly'
           ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
@@ -741,7 +741,8 @@ export default {
         'dglb',
         'stmz',
         'guizhou',
-        'sdhpwk'
+        'sdhpwk',
+        'hzly'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -754,7 +755,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt",'zjhj',"liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925','dglb', 'stmz', 'sdhpwk'
+        "whfk","foshanrenyi","fsxt",'zjhj',"liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925','dglb', 'stmz', 'sdhpwk','hzly'
         ].includes(
         this.HOSPITAL_ID
       );
