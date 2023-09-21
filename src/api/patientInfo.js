@@ -20,6 +20,11 @@ function ordersByCondition(data) {
   return  axios.post(`${apiPath}patient/getPatientOrders`, data);
 }
 
+// 执行时间范围查询医嘱
+function ordersByTime(data) {
+  return  axios.post(`${apiPath}patient/ordersNew`, data);
+}
+
 // 手术模块 手术列表
 function operationList(patientId, visitId) {
   return axios.get(`${apiPath}operation/getOperationWithPatientId/${patientId}/${visitId}`);
@@ -284,5 +289,6 @@ export {
   ordersByCondition,
   getExecuteType,
   operationList,
-  operationResult
+  operationResult,
+  ordersByTime
 };
