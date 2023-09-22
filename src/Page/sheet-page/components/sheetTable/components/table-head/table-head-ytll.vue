@@ -23,7 +23,7 @@
           {{ patientInfo.age }}
         </div>
       </span>
-      <span v-if="sheetInfo.sheetType !== 'seriousnursing_ytll'">
+      <span v-if="sheetInfo.sheetType == 'premiumcare_ytll' || sheetInfo.sheetType == 'neurosurgery_ytll'">
         病区：
         <div class="bottom-line" style="min-width: 70px">
           {{ patientInfo.deptName }}
@@ -441,6 +441,10 @@ input {
     width: 100%;
     height: 100%;
   }
+}
+
+/deep/.el-checkbox + .el-checkbox{
+  margin-left: 0;
 }
 
 </style>

@@ -67,7 +67,8 @@
         </div>
       </div>
       <!-- 弹框 -->
-      <EditModal :blockId="blockId" ref="editModal" @confirm="pullData" :pageParam="pageParam"/>
+      <EditModalJew :blockId="blockId" ref="editModal" @confirm="pullData" :pageParam="pageParam" v-if="HOSPITAL_ID == '925'"/>
+      <EditModal :blockId="blockId" ref="editModal" @confirm="pullData" :pageParam="pageParam" v-else/>
       </div>
     </div>
   </div>
@@ -79,6 +80,7 @@ import WhiteButton from "@/components/button/white-button.vue"; // 添加按钮
 import NullBg from "@/components/null/null-bg.vue"; // 页面初始化背景
 import Table from './components/table' // 表单
 import EditModal from "./components/editModal"; // 添加修改弹窗
+import EditModalJew from "./components/editModal-925"; // 添加修改弹窗 925
 import { getMissionPageParamById, getAllByPatientInfo, saveEducation, deleteMission, pushMission, getEduFormList, deleteBlock } from './api/healthApi'
 import dayjs from 'dayjs'
 import print from "printing";
@@ -95,6 +97,7 @@ export default {
     Table,
     WhiteButton,
     EditModal,
+    EditModalJew,
     NullBg,
     baseTree
   },

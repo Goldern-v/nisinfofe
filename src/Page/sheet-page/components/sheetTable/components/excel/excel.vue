@@ -952,6 +952,15 @@ export default {
         "critical2_lcey",//聊城_病重（危）患者护理记录单
         "critical_lcey",//聊城_病重（病危）患者护理记录单（带瞳孔）
       ],
+      // 底部签名签上后锁表的记录单code
+      bottomSignedLockPageCode: [
+        'orthopaedic_sdry',
+        'prenatal_sdry',
+        'baby2_sdry',
+        'postpartum_sdry',
+        'postpartum2_sdry',
+        'baby_sdry'
+      ],
       // 底部两个签名的其中一个自定义字段
       doubleSignArr: [],
       accessOptionList: [], //下拉列表数据（贵州人医）
@@ -1124,8 +1133,17 @@ export default {
     },
     // 护士职称权限判断处理
     onCanModify(data, index, y){
-      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData && this.listData.length>0 && this.listData[ y + (index* data.length)]){
-        return this.listData[ y + (index* data.length)].canModify ? false : true;
+      // 顺德人医护记底部签名后该页锁表禁止任何人修改
+      if (this.bottomSignedLockPageCode.includes(this.sheetInfo.sheetType)) {
+        return !!this.auditorNo;
+      }
+      if (
+        ['nfyksdyy'].includes(this.HOSPITAL_ID)
+        && this.listData
+        && this.listData.length > 0
+        && this.listData[ y + (index * data.length)]
+      ) {
+        return this.listData[y + (index * data.length)].canModify ? false : true;
       }else{
         return false
       }
