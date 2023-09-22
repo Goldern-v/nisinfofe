@@ -330,6 +330,9 @@
     .red {
       background-color: #ec7373;
     }
+    .blue {
+      background-color: #008000;
+    }
     tr.hover-row.current-row > td, tr.hover-row.el-table__row--striped.current-row > td, tr.hover-row.el-table__row--striped > td, tr.hover-row > td, tr.current-row > td {
       background-color: initial !important;
     }
@@ -559,7 +562,7 @@ export default {
     },
     // 补执行或备注信息操作完需要定位到操作前位置
     fixedToScrollTop() {
-      return ['lyxrm'].includes(this.HOSPITAL_ID);
+      return ['lyxrm','925'].includes(this.HOSPITAL_ID);
     }
   },
   watch: {
@@ -682,6 +685,8 @@ export default {
         return "green";
       } else if (row.row.executeFlag == 1) {
         return "pink";
+      } else if (row.row.type == 1) {
+        return "blue";
       }
       return ''
     },
