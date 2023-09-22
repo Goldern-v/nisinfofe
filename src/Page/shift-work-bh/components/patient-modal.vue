@@ -3,6 +3,8 @@
   <SweetModal
     :ref="'modal'"
     title="患者ISBAR交班内容"
+    :showTitleSideBtn="['nfyksdyy'].includes(HOSPITAL_ID)?'患者病历':''"
+    :titleSideBtnCallback="['nfyksdyy'].includes(HOSPITAL_ID)?openDoctorEmrModal:()=>{}"
     :modal-width="760"
     @close="onPanelClose"
   >
@@ -109,6 +111,23 @@
     ref="adviceModalRef"
     @handleOk="handleDiagnosis"
   />
+  <div
+      v-if="show && ['nfyksdyy'].includes(HOSPITAL_ID)"
+      v-loading="pageLoading"
+      class="doctor-emr-content dragNode2"
+    >
+      <div class="content_title" v-drag="{ target: 'dragNode2' }">
+        <div class="close-button" @click="close">
+          <i class="el-icon-close"></i>
+        </div>
+      </div>
+      <div class="iframeDom" style="height: 100%;">
+        <iframe :src="fileUrl"></iframe>
+      </div>
+      <div class="se-resize" v-seResize="{ target: 'dragNode2' }"></div>
+      <div class="e-resize" v-eResize="{ target: 'dragNode2' }"></div>
+      <div class="s-resize" v-sResize="{ target: 'dragNode2' }"></div>
+    </div>
   </div>
 </template>
 
@@ -145,6 +164,9 @@
       isSignedN: false,
       form: {...defaultForm},
       bus: bus(this),
+      show:false,
+      fileUrl:"",
+      pageLoading: false,
       }
     },
     created(){
@@ -320,6 +342,10 @@
       },
       onPanelClose () {
         this.$emit('panel-close')
+        if(['nfyksdyy'].includes(this.HOSPITAL_ID)){
+          // 关闭医嘱同步弹窗时电子病历也关闭
+          this.show = false
+        }
       },
       onTabChange (tab) {
         this.$emit('tab-change', tab)
@@ -346,12 +372,203 @@
       },
       onSyncRecord() {
         this.$emit('sync-open', this.form);
+      },
+      openDoctorEmrModal(){
+        this.show=true
+        switch (this.HOSPITAL_ID) {
+          case 'nfyksdyy':
+           this.fileUrl = `http://192.168.8.174:8000/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&ids=${this.form.inpNo}`
+          break;
+          default:
+            this.fileUrl = `http://172.16.4.53/EmrView/Index.aspx?hospital_no=45539427X44011411A1001&patient_id=${this.form.inpNo}`;
+          break;
       }
+      },
+      close() {
+        this.show = false;
+      },
     },
     components: {
       Button,
       AdviceModal
-    }
+    },
+    directives: {
+    // 添加窗口移动指令
+    drag: {
+      // 指令的定义
+      inserted: (el, binding) => {
+        el.style.cursor = "move";
+        // 防止选中文字
+        el.onselectstart = () => {
+          return false;
+        };
+        const oDiv = el;
+        // 拖动目标组件
+        const dragNodes = document.getElementsByClassName(binding.value.target);
+        let dragNode = null;
+        if (dragNodes.length > 0) {
+          dragNode = dragNodes[0];
+        } else {
+          return;
+        }
+        oDiv.onmousedown = (ev) => {
+          const disX = ev.clientX - dragNode.offsetLeft;
+          const disY = ev.clientY - dragNode.offsetTop;
+          // 顶部距离最小值(由于dragNode使用了transform，0.4是 translateY的值);
+          const limitTop = dragNode.offsetHeight * 0.4;
+          const [iframeDom] = document.getElementsByClassName("iframeDom");
+          iframeDom.style['pointer-events'] = 'none'
+          if (el.getBoundingClientRect().width !== window.innerWidth) {
+            // 非“全屏”下才能拖动
+            document.onmousemove = (ev) => {
+              const l = ev.clientX - disX;
+              let t = ev.clientY - disY;
+              if (t <= limitTop && ['nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
+                t = limitTop;
+              }
+              dragNode.style.left = l + "px";
+              dragNode.style.top = t + "px";
+            };
+            document.onmouseup = (ev) => {
+              document.onmousemove = null;
+              document.onmouseup = null;
+              iframeDom.style['pointer-events'] = 'auto'
+            };
+          }
+        };
+      },
+    },
+    // 右下方拉伸
+    seResize: {
+      // 指令的定义
+      inserted: (el, binding) => {
+        el.style.cursor = "se-resize";
+        // 防止选中文字
+        el.onselectstart = () => {
+          return false;
+        };
+        const oDiv = el;
+        // 拉伸的目标组件
+        const dragNodes = document.getElementsByClassName(binding.value.target);
+        let dragNode = null;
+        if (dragNodes.length > 0) {
+          dragNode = dragNodes[0];
+        } else {
+          return;
+        }
+        oDiv.onmousedown = (ev) => {
+          const disX = ev.clientX;
+          const disY = ev.clientY;
+          let oWidth = dragNode.offsetWidth;
+          let oHeight = dragNode.offsetHeight;
+          const [iframeDom] = document.getElementsByClassName("iframeDom");
+          iframeDom.style['pointer-events'] = 'none'
+          if (el.getBoundingClientRect().width !== window.innerWidth) {
+            // 非“全屏”下才能拖动
+            document.onmousemove = (ev) => {
+              const w = ev.clientX - disX;
+              const h = ev.clientY - disY;
+              dragNode.style.width = oWidth + w + "px";
+              dragNode.style.height = oHeight + h + "px";
+              document.body.style.cursor = "se-resize";
+            };
+            document.onmouseup = (ev) => {
+              iframeDom.style['pointer-events'] = 'auto'
+              document.onmousemove = null;
+              document.onmouseup = null;
+              document.body.style.cursor = "default";
+            };
+          }
+        };
+      },
+    },
+    // 下方拉伸
+    sResize: {
+      // 指令的定义
+      inserted: (el, binding) => {
+        el.style.cursor = "s-resize";
+        // 防止选中文字
+        el.onselectstart = () => {
+          return false;
+        };
+        const oDiv = el;
+        // 拉伸的目标组件
+        const dragNodes = document.getElementsByClassName(binding.value.target);
+        let dragNode = null;
+        if (dragNodes.length > 0) {
+          dragNode = dragNodes[0];
+        } else {
+          return;
+        }
+        oDiv.onmousedown = (ev) => {
+          const disX = ev.clientX;
+          const disY = ev.clientY;
+          let oWidth = dragNode.offsetWidth;
+          let oHeight = dragNode.offsetHeight;
+          const [iframeDom] = document.getElementsByClassName("iframeDom");
+          iframeDom.style['pointer-events'] = 'none'
+          if (el.getBoundingClientRect().width !== window.innerWidth) {
+            // 非“全屏”下才能拖动
+            document.onmousemove = (ev) => {
+              const w = ev.clientX - disX;
+              const h = ev.clientY - disY;
+              dragNode.style.height = oHeight + h + "px";
+              document.body.style.cursor = "s-resize";
+            };
+            document.onmouseup = (ev) => {
+              iframeDom.style['pointer-events'] = 'auto'
+              document.onmousemove = null;
+              document.onmouseup = null;
+              document.body.style.cursor = "default";
+            };
+          }
+        };
+      },
+    },
+    // 右方拉伸
+    eResize: {
+      // 指令的定义
+      inserted: (el, binding) => {
+        el.style.cursor = "e-resize";
+        // 防止选中文字
+        el.onselectstart = () => {
+          return false;
+        };
+        const oDiv = el;
+        // 拉伸的目标组件
+        const dragNodes = document.getElementsByClassName(binding.value.target);
+        let dragNode = null;
+        if (dragNodes.length > 0) {
+          dragNode = dragNodes[0];
+        } else {
+          return;
+        }
+        oDiv.onmousedown = (ev) => {
+          const disX = ev.clientX;
+          const disY = ev.clientY;
+          let oWidth = dragNode.offsetWidth;
+          let oHeight = dragNode.offsetHeight;
+          const [iframeDom] = document.getElementsByClassName("iframeDom");
+          iframeDom.style['pointer-events'] = 'none'
+          if (el.getBoundingClientRect().width !== window.innerWidth) {
+            // 非“全屏”下才能拖动
+            document.onmousemove = (ev) => {
+              const w = ev.clientX - disX;
+              const h = ev.clientY - disY;
+              document.body.style.cursor = "e-resize";
+              dragNode.style.width = oWidth + w + "px";
+            };
+            document.onmouseup = (ev) => {
+              iframeDom.style['pointer-events'] = 'auto'
+              document.onmousemove = null;
+              document.onmouseup = null;
+              document.body.style.cursor = "default";
+            };
+          }
+        };
+      },
+    },
+  },
   }
 </script>
 
@@ -417,4 +634,47 @@
     .textarea
       >>>.el-textarea__inner
         height:232px
+
+  .doctor-emr-content {
+    position: fixed;
+    // top: 500px;
+    // left: 100px;
+    transform: translate(-50%, -40%);
+    -webkit-transform: translate(-50%, -40%);
+    -ms-transform: translate(-50%, -40%);
+    -moz-transform: translate(-50%, -40%);
+    position: fixed;
+    top: 50%;
+    left: 56%;
+    z-index: 20000;
+    width: 1200px;
+    height: 650px;
+    background: #ffffff;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+
+    .content_title {
+      height: 20px;
+      position: relative;
+      cursor: move;
+
+      .close-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        border: none;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 20px;
+        font-size: 10px;
+        cursor: pointer;
+      }
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100% - 20px);
+    }
+  }  
 </style>
