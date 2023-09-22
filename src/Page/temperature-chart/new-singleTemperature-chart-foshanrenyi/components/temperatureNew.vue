@@ -94,6 +94,8 @@ export default {
           // return "http://localhost:8080" // 本地
         case 'hzly':
           return "http://172.20.110.13:9091" //医院内网
+          // return "http://localhost:8080" // 本地
+
         default:
           break;
       }

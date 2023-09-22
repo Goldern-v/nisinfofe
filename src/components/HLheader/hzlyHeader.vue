@@ -47,7 +47,7 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   :class="{
-                    active: $route.path.includes('singleTemperatureChart')
+                    active: $route.path.includes('newSingleTemperatureChart')
                   }"
                 >
                   <router-link to="/newSingleTemperatureChart" tag="span">
