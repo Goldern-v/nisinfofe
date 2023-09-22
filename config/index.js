@@ -299,7 +299,9 @@ const currentTargetUrl = (() => {
       return "https://info.cr-health.com:20217" //公司外网
     // 顺德和平外科
     case 'sdhpwk':
-      return 'http://192.168.1.54:9866'
+      // return 'http://192.168.1.54:9866'
+      return 'http://202.104.27.221:9091'
+
     // 惠州市第六人民医院
     case 'hzly':
       return 'http://192.168.1.54:9866'

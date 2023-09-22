@@ -169,6 +169,7 @@ export default {
           || this.HOSPITAL_ID === "fuyou"
           || this.sheetInfo.sheetType === "ventilation_hl"
           || this.HOSPITAL_ID === "wujing"
+          || this.HOSPITAL_ID === "zjhj"
           || this.HOSPITAL_ID === "fsxt"
           || this.HOSPITAL_ID === "gdtj"
           || this.HOSPITAL_ID === "whfk"
