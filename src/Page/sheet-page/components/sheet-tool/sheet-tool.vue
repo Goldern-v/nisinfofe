@@ -68,7 +68,7 @@
         <div class="text-con">保存</div>
       </div>
     </template>
-    <template v-else-if="HOSPITAL_ID == 'huadu' || HOSPITAL_ID == 'nfyksdyy'">
+    <template v-else-if="HOSPITAL_ID == 'huadu'">
       <div
         class="item-box"
         @click="emit('addSheetPage')"

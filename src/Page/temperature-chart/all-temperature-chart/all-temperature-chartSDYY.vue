@@ -878,6 +878,7 @@ export default {
         { name: "三天未大便", value: "三天未大便" },
         { name: "昨日入院", value: "昨日入院" },
         { name: "入院三天内", value: "入院三天内" },
+        { name: "术前一天", value: "术前一天" },
         { name: "术后三天", value: "术后三天" },
         { name: "发热患者", value: "发热患者" },
         { name: "病危病重", value: "病危病重" },
@@ -933,11 +934,14 @@ export default {
             昨日入院: item.expand2 == 1,
             入院三天内: item.inpDay == 1,
             发热患者: item.temperatureFlag == 1,
+            // 这里加个字段就可以
+            术前一天: item.operationOneDay == 1,
             术后三天: item.operationFlag == 1,
             新入: item.newInFlag == 1,
             转入: item.transInFlag == 1,
             病危病重: item.patientCondition != "普通"
           };
+          // 上面加好判断，这里就会自己循环
           const judgeList = this.admitted.map(items => admObj[items]);
           return this.admitted.length
             ? judgeList.includes(true)

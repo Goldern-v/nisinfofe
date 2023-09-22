@@ -92,6 +92,8 @@ export default {
         case 'zjhj':
           return "http://192.168.0.209:9091" // 医院内网
           // return "http://localhost:8080" // 本地
+        case 'hzly':
+          return "http://172.20.110.13:9091" //医院内网
         default:
           break;
       }
