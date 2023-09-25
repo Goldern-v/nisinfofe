@@ -38,7 +38,7 @@
               <input
                 type="text"
                 nowidth
-                style="font-size: 28px; padding-left: 5px"
+                style="font-size: 32px; padding-left: 5px"
                 flex-box="1"
                 class="bottom-line"
                 :value="query.name + ' ' + query.sex + ' ' + query.age"
@@ -70,7 +70,7 @@
                   type="text"
                   nowidth
                   :style="{
-                    'font-size': '18px',
+                    'font-size': '23px',
                   }"
                   flex-box="1"
                   class="bottom-line"
@@ -88,7 +88,7 @@
                   flex-box="1"
                   class="bottom-line"
                   :style="{
-                    'font-size': '18px',
+                    'font-size': '23px',
                   }"
                   v-model="formData.dutyNurses"
                 />
@@ -159,8 +159,8 @@
 
 .bed-card-con {
   margin: 20px;
-  width: 360px;
-  height: 350px;
+  width: 400px;
+  height: 500px;
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
@@ -254,7 +254,7 @@
 
   .title-bed__2 {
     width: 0px;
-    font-size: 24px;
+    font-size: 32px;
     padding-left: 2px;
   }
 }
