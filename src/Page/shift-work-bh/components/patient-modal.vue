@@ -676,5 +676,30 @@
       width: 100%;
       height: calc(100% - 20px);
     }
+
+    .se-resize {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    }
+
+    .e-resize {
+    position: absolute;
+    bottom: 8px;
+    top: 20px;
+    right: 0;
+    width: 10px;
+    height: calc(100% - 28px);
+    }
+
+    .s-resize {
+    position: absolute;
+    bottom: 0;
+    right: 8px;
+    width: calc(100% - 8px);
+    height: 10px;
+    }
   }  
 </style>
