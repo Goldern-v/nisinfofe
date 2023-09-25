@@ -1453,9 +1453,19 @@ function switchSheetType(type) {
       schema = require("../config/orthopaedic_sdry/tr.js").default;
     }
     break;
+    case "orthopaedic_hzly": {
+      //惠州六院 - 护理记录单（骨科）
+      schema = require("../config/orthopaedic_hzly/tr.js").default;
+    }
+      break;
     case "postpartum2_sdry": {
       //顺德人医 - 产后产房观察记录单
       schema = require("../config/postpartum2_sdry/tr.js").default;
+    }
+      break;
+    case "postpartum2_hzly": {
+      //惠州六院 - 产后产房观察记录单
+      schema = require("../config/postpartum2_hzly/tr.js").default;
     }
       break;
     case "magnesiumsulphate_sdry": {
@@ -1468,6 +1478,11 @@ function switchSheetType(type) {
       schema = require("../config/oxytocin_sdry/tr.js").default;
     }
     break;
+    case "oxytocin_hzly": {
+      // 惠州六院,"催产素静脉点滴观察表",
+      schema = require("../config/oxytocin_hzly/tr.js").default;
+    }
+      break;
     case "insulin_pump_sdry": {
       // 顺德人医,"胰岛素泵观察记录表",
       schema = require("../config/insulin_pump_sdry/tr.js").default;
@@ -1653,6 +1668,11 @@ function switchSheetType(type) {
          schema = require("../config/prenatal_sdry/tr.js").default;
        }
          break;
+    case "prenatal_hzly": {
+      // 惠州六院 - 产前护理记录
+      schema = require("../config/prenatal_hzly/tr.js").default;
+    }
+      break;
     case "baby2_sdry": {
       // 顺德人医 - 护理记录单（儿科）
       schema = require("../config/baby2_sdry/tr.js").default;
@@ -1786,6 +1806,11 @@ function switchSheetType(type) {
     case "postpartum_sdry": {
       // 顺德人医 - 产后护理记录
       schema = require("../config/postpartum_sdry/tr.js").default;
+    }
+    break;
+      case "postpartum_hzly": {
+      // 惠州六院 - 产后护理记录
+      schema = require("../config/postpartum_hzly/tr.js").default;
     }
     break;
     case "critical_new_weihai": {

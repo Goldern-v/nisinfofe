@@ -1882,10 +1882,24 @@ export default function Title(
     );
   }
   break;
+    case "orthopaedic_hzly": {
+      // 惠州六院 - 护理记录单（骨科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/orthopaedic_hzly/th.js").default)
+      );
+    }
+      break;
     case "postpartum2_sdry": {
       // 顺德人医 - 产后产房观察记录单
       Th = JSON.parse(
         JSON.stringify(require("../config/postpartum2_sdry/th.js").default)
+      );
+    }
+      break;
+    case "postpartum2_hzly": {
+      // 惠州六院 - 产后产房观察记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/postpartum2_hzly/th.js").default)
       );
     }
       break;
@@ -1903,6 +1917,13 @@ export default function Title(
     );
   }
   break;
+    case "oxytocin_hzly": {
+      // ,"催产素静脉点滴观察表",
+      Th = JSON.parse(
+        JSON.stringify(require("../config/oxytocin_hzly/th.js").default)
+      );
+    }
+      break;
   case "insulin_pump_sdry": {
     // 顺德胰岛素泵观察记录表",
     Th = JSON.parse(
@@ -2155,6 +2176,13 @@ export default function Title(
     );
   }
   break;
+    case "prenatal_hzly": {
+      // 惠州六院 - 产前护理记录
+      Th = JSON.parse(
+        JSON.stringify(require("../config/prenatal_hzly/th.js").default)
+      );
+    }
+      break;
     case "baby2_sdry": {
       // 顺德人医 - 护理记录单（儿科）
       Th = JSON.parse(
@@ -2341,6 +2369,13 @@ export default function Title(
     // // 顺德人医 - 产后护理记录
     Th = JSON.parse(
       JSON.stringify(require("../config/postpartum_sdry/th.js").default)
+    );
+  }
+    break;
+    case "postpartum_hzly": {
+    // // 惠州六院 - 产后护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_hzly/th.js").default)
     );
   }
     break;

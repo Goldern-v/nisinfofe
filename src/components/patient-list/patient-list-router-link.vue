@@ -123,7 +123,7 @@
               ['lyxrm', 'stmz', '925', 'qhwy'].includes(HOSPITAL_ID) &&
               makePatient
                 ? isActive(item)
-                : false
+                : false,
           }"
           @click.native="
             () => {
@@ -170,7 +170,8 @@
             :class="{
               red: item.formLowestStatus == 0,
               green: item.formLowestStatus == 1,
-              isImg2: img2Show
+              isImg2: img2Show,
+              'zjhj-point': HOSPITAL_ID == 'zjhj'
             }"
           ></span>
           <div
@@ -366,6 +367,18 @@
   &.isImg2 {
     left: 14px;
   }
+}
+.zjhj-point{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    border: 1px solid #eaeef1;
+    margin-left: 5px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(0%, -50%);
 }
 .el-button-group{
   display: flex;

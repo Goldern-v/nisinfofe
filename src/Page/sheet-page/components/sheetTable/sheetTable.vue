@@ -247,7 +247,8 @@ export default {
         return tableHeadBeiHaiRenYi;
       } else if (this.HOSPITAL_ID == "foshanrenyi") {
         return tableHeadFoShanRenYi;
-      } else if (this.HOSPITAL_ID == "nfyksdyy") {
+      // } else if (this.HOSPITAL_ID == "nfyksdyy") {
+      } else if (['nfyksdyy', 'hzly'].includes(this.HOSPITAL_ID)) {
         return tableHeadNfykdxsdyy;
       } else if (this.HOSPITAL_ID == "hengli") {
         return tableHeadHengLi;
