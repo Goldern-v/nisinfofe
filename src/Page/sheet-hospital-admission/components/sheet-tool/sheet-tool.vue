@@ -1355,11 +1355,13 @@ export default {
         };
         let showDate = true
         let showAduit= false
+        let aduitDate=''
         if (config && config.type && config.type === "audit") {
           signType = { audit: true };
           titleModal = "审核护士签名";
           showDate = false
           showAduit= true
+          aduitDate=window.formObj.model.I2332233?window.formObj.model.I2332233:''
         }
         if(config && config.type && config.type === "other") {
           signType = { other: true }
@@ -1454,7 +1456,11 @@ export default {
           },
           titleModal,
           showDate,undefined,  undefined, undefined, undefined ,undefined,undefined,
-          SigndataObj,verifySignObj,undefined,showAduit
+          SigndataObj,verifySignObj,undefined,
+          {
+             showAduit,
+             aduitDate
+          }
         );
       }
     },

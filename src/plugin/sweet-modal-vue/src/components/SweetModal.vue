@@ -113,6 +113,14 @@
             </span>
             <span v-html="title"></span>
             <slot name="title-bar"></slot>
+            <el-button
+              v-if="showTitleSideBtn"
+              size="mini"
+              type="primary"
+              @click="titleSideBtnCallback"
+            >
+              {{showTitleSideBtn}}
+           </el-button>
           </h2>
           <slot name="title"></slot>
         </template>
@@ -251,6 +259,14 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    showTitleSideBtn:{
+      type: String,
+      default: ""
+    },
+    titleSideBtnCallback:{
+      type: Function,
+      default: () => {}
     }
   },
   mounted() {

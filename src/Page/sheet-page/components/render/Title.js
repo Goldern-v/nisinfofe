@@ -2617,6 +2617,13 @@ export default function Title(
     );
   }
   break;
+  case "gastroentery_whhk": {
+    // 武汉汉口 - 静脉治疗使用维护记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/gastroentery_whhk/th").default)
+    );
+  }
+  break;
   case "baby_whhk": {
     // 武汉汉口 - 新生儿护理记录单
     Th = JSON.parse(

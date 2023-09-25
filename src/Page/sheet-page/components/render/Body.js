@@ -1948,6 +1948,11 @@ function switchSheetType(type) {
       schema = require("../config/intravenous_whhk/tr.js").default;
     }
       break;
+    case "gastroentery_whhk": {
+        // 武汉汉口 - 胃病护理记录单
+        schema = require("../config/gastroentery_whhk/tr.js").default;
+      }
+        break;
     case "baby_whhk": {
       // 武汉汉口 - 新生儿护理记录单
       schema = require("../config/baby_whhk/tr.js").default;
