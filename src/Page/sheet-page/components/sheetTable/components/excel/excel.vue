@@ -688,8 +688,11 @@
           sheetInfo.sheetType == 'baby2_sdry' ||
           sheetInfo.sheetType == 'postpartum2_sdry' ||
           sheetInfo.sheetType == 'prenatal_sdry' ||
-          sheetInfo.sheetType == 'record_common_sdhp'
-
+          sheetInfo.sheetType == 'record_common_sdhp' ||
+          sheetInfo.sheetType == 'orthopaedic_hzly' ||
+          sheetInfo.sheetType == 'prenatal_hzly' ||
+          sheetInfo.sheetType == 'postpartum_hzly' ||
+          sheetInfo.sheetType == 'postpartum2_hzly'
         "
           >质控护士签名：</span
         >
@@ -881,10 +884,14 @@ export default {
         "maternity_sn",
         "waiting_birth_wj",
         'orthopaedic_sdry',
+        'orthopaedic_hzly',
         'postpartum_sdry',
+        'postpartum_hzly',
         'baby_sdry',
         "postpartum2_sdry",
+        "postpartum2_hzly",
         "prenatal_sdry",
+        "prenatal_hzly",
         "baby2_sdry",
         "internal_eval_lcey", //一般或者护理记录单
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
@@ -954,6 +961,12 @@ export default {
       ],
       // 底部签名签上后锁表的记录单code
       bottomSignedLockPageCode: [
+        //惠州六院
+        'orthopaedic_hzly',
+        'prenatal_hzly',
+        'postpartum_hzly',
+        'postpartum2_hzly',
+        //顺德人医
         'orthopaedic_sdry',
         'prenatal_sdry',
         'baby2_sdry',
@@ -1250,7 +1263,7 @@ export default {
     },
     onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
-      if ( ['common_gzry','oxytocin_sdry', 'waiting_birth_gzry', 'newborn_care_gzry','orthopaedic_sdry','baby2_sdry'].includes(this.sheetInfo.sheetType) ) {
+      if ( ['common_gzry','oxytocin_sdry','oxytocin_hzly', 'waiting_birth_gzry', 'newborn_care_gzry','orthopaedic_sdry','baby2_sdry','orthopaedic_hzly'].includes(this.sheetInfo.sheetType) ) {
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           this.$confirm(
             " 体温的填写范围是35～42，您的填写超出录入范围,请重新填写",
