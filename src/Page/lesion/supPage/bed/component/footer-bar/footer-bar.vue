@@ -89,7 +89,7 @@ export default {
           length: this.dangerInMorse.length
         },
         {
-          key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ? "压力性损伤高风险" : ['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID) ?"压力性损伤高风险":"压疮高风险",
+          key: this.HOSPITAL_ID=="whfk"?"压疮风险":this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ? "压力性损伤高风险" : ['lyxrm', 'stmz'].includes(this.HOSPITAL_ID) ?"压力性损伤高风险":"压疮高风险",
           length: this.HOSPITAL_ID=="whfk" ? this.hasYachuang.length : this.dangerInYachuang.length
         },
         {
@@ -149,11 +149,19 @@ export default {
           length: this.nutritionalRisk.length
         });
       }
-      if (['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
+      if (['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)) {
         arr.splice(1,0,
           {
           key: "VTE高风险",
           length: this.dangerInVteLy.length
+          }
+        );
+      }
+      if (['whhk'].includes(this.HOSPITAL_ID)) {
+        arr.splice(1,0,
+          {
+          key: "VTE高风险",
+          length: this.hasVteDanger.length
           }
         );
       }
@@ -195,6 +203,8 @@ export default {
       if (this.HOSPITAL_ID === 'lyyz') {
         arr = arr.filter(item => item.key !== '已有压疮')
       }
+
+      console.log(arr,'ddddddddd');
       return arr;
     }
   },
