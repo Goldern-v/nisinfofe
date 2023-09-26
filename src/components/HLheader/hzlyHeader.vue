@@ -178,6 +178,11 @@
                 <i class="iconfont icon-baiban"></i> 白板
               </el-row>
             </router-link>
+             <router-link to="/infuse" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
+              </el-row>
+            </router-link>
             <!-- <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告

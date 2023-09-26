@@ -1,7 +1,8 @@
 <template>
   <div class="header-con">
     <div class="his-name">
-      <img src="./images/hospital-name.png" height="60" width="300" />
+      <img v-if="HOSPITAL_ID == 'nfyksdyy'" src="./images/hospital-name.png" height="60" width="300" />
+      <img v-else src="./images/hzly_logo.png" height="60" width="300" />
     </div>
     <div class="title" style="font-size: 30px;">
       {{ patientInfo.recordName }}
@@ -105,7 +106,7 @@
     <div v-else>
       <div
         class="info-con"
-        v-if="sheetInfo.sheetType !== 'postpartum2_sdry'"
+        v-if="sheetInfo.sheetType !== 'postpartum2_sdry' || sheetInfo.sheetType !== 'postpartum2_hzly'"
         style="display: flex; justify-content: start; align-items: center;"
       >
         <span @click="handleDeptNameChoose(0)">
@@ -114,7 +115,8 @@
             class="bottom-line"
             :style="{
               minWidth:
-                sheetInfo.sheetType == 'prenatal_sdry' ? '373px' : '336px'
+                // sheetInfo.sheetType == 'prenatal_sdry'  ? '373px' : '336px'
+                ['prenatal_sdry','prenatal_hzly'].includes(sheetInfo.sheetType)  ? '373px' : '336px'
             }"
           >
             <!-- {{ patientInfo.realDeptName }} -->
@@ -134,7 +136,7 @@
             }}
           </div>
         </span>
-        <template v-if="sheetInfo.sheetType == 'prenatal_sdry'">
+        <template v-if="sheetInfo.sheetType == 'prenatal_sdry' || sheetInfo.sheetType == 'prenatal_hzly'">
           <span>
             特殊情况:
             <input
@@ -163,7 +165,7 @@
             />
           </span>
         </template>
-        <template v-if="sheetInfo.sheetType == 'postpartum_sdry'">
+        <template v-if="sheetInfo.sheetType == 'postpartum_sdry' || sheetInfo.sheetType == 'postpartum_hzly'">
           <span style="margin-left: 17px;"> 特殊情况：</span>
           <customSelectCanRepeat
             :options="specialCases"
@@ -220,7 +222,7 @@
         <span
           @click="updateTetxInfo('sex', '性别', patientInfo.sex)"
           v-if="
-            !['postpartum2_sdry', 'baby_sdry'].includes(sheetInfo.sheetType)
+            !['postpartum2_sdry', 'baby_sdry','postpartum2_hzly'].includes(sheetInfo.sheetType)
           "
         >
           性别:
@@ -243,11 +245,11 @@
           <div
             :class="['bottom-line', 'has-background']"
             :style="{
-              minWidth: ['oxytocin_sdry', 'insulin_pump_sdry'].includes(
+              minWidth: ['oxytocin_sdry', 'insulin_pump_sdry','oxytocin_hzly',].includes(
                 sheetInfo.sheetType
               )
                 ? '55px'
-                : ['orthopaedic_sdry'].includes(sheetInfo.sheetType)
+                : ['orthopaedic_sdry','orthopaedic_hzly'].includes(sheetInfo.sheetType)
                 ? '45px'
                 : '60px',
               paddingRight: '5px'
@@ -286,7 +288,7 @@
         </span>
 
          <!-- 产后护理记录单分娩方式 -->
-        <template v-if="sheetInfo.sheetType == 'postpartum_sdry'">
+        <template v-if="sheetInfo.sheetType == 'postpartum_sdry' || sheetInfo.sheetType == 'postpartum_hzly'">
           <span
             style="margin-left:60px;"
           >
@@ -311,7 +313,7 @@
             />
           </customSelectCanRepeat>
         </template>
-        <template v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
+        <template v-if="sheetInfo.sheetType == 'postpartum2_sdry' || sheetInfo.sheetType == 'postpartum2_hzly'">
           <!-- 顺德人医产后产房观察记录单 -->
           <span>
             分娩时间:
@@ -344,7 +346,7 @@
           </customSelectCanRepeat>
         </template>
 
-        <template v-if="sheetInfo.sheetType == 'prenatal_sdry'">
+        <template v-if="sheetInfo.sheetType == 'prenatal_sdry' || sheetInfo.sheetType == 'prenatal_hzly'">
           <span>
             孕产史:孕
             <input
@@ -392,7 +394,8 @@
         <template
           v-if="
             sheetInfo.sheetType == 'postpartum2_sdry' ||
-              sheetInfo.sheetType == 'baby_sdry'
+              sheetInfo.sheetType == 'baby_sdry' ||
+            sheetInfo.sheetType == 'postpartum2_hzly'
           "
         >
           <span
@@ -577,6 +580,11 @@ export default {
       admissionDateList: ["blood_tj", "generalnursing_tj"],
       //不需要诊断的表单postpartum_sdry  baby_sdry    prenatal_sdry
       diagnosisList: [
+        //惠州六院
+        "prenatal_hzly",
+        "postpartum_hzly",
+        "postpartum2_hzly",
+        //顺德人医
         "prenatal_sdry",
         "postpartum_sdry",
         "baby_sdry",

@@ -27,6 +27,7 @@ export const detailHl = (params,hospitalId) => {
         case "hengli":
         case "wujing":
         case "nfyksdyy":
+        case "hzly":
             return axios.post(`${apiPath}procedure/pdaExecute/detail`,params)
         default:
             return axios.post(`${apiPath}execute/detail`,params)

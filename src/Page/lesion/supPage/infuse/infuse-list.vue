@@ -196,7 +196,7 @@ export default {
       }
     },
     getDetail(data) {
-      if(!['hengli','wujing','nfyksdyy'].includes(this.HOSPITAL_ID)) return
+      if(!['hengli','wujing','nfyksdyy','hzly'].includes(this.HOSPITAL_ID)) return
       this.pageLoading = true;
       let barCode = data.barCode;
       detailHl({barCode},this.HOSPITAL_ID).then(res => {
