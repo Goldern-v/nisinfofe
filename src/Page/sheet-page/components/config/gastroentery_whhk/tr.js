@@ -42,8 +42,8 @@ export default [
   { key: 'spo2', event: keyf1, value: '', next: '%', name: '血氧饱和度',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4), autoComplete1:{data:["好","一般","稍差","差"]} },
   { key: 'heartRate', event: keyf1, value: '', next: '次/分', name: '心率', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'foodSize', event: keyf1, value: 'ml', next: '', name: '入量项目', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6)},
-  { key: 'residual', event: keyf1, value: '', next: 'ml', name: '量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) },
+  { key: 'food', event: keyf1, value: 'ml', next: '', name: '入量项目', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6)},
+  { key: 'foodSize', event: keyf1, value: '', next: 'ml', name: '量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'discharge', event: keyf1, value: '', next: '', name: '出量项目', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6), autoComplete1:{data:["大便","小便","采血量", "引流液","痰液量"]} },
   { key: 'dischargeSize', event: keyf1, value: '', next: 'ml', name: '量', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6), autoComplete1:{data:["1次"]} },
   { key: 'outputColor', event: keyf1, value: '', next: '', name: '颜色', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 6) , autoComplete1:{data:["响亮","一般","弱",'稍弱', '声嘶', '插管']}},
@@ -70,7 +70,7 @@ export default [
   },
   { key: "sign", value: "" },//单签
   // { key: "sign2", value: "" },//双签
-  { key: "audit", value: "" },//审核签名
+  // { key: "audit", value: "" },//审核签名
   { hidden:true, key:'id', value:''},
   { hidden:true, key:'signerName', value:''},
   { hidden:true, key:'signerName2', value:''},
