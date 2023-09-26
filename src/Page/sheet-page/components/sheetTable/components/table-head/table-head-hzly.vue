@@ -1,111 +1,15 @@
 <template>
   <div class="header-con">
     <div class="his-name">
-      <img  src="./images/hospital-name.png" height="60" width="300" />
+      <img  src="./images/hzly_logo.png" height="60" width="300" />
     </div>
     <div class="title" style="font-size: 30px;">
       {{ patientInfo.recordName }}
     </div>
-    <div
-      v-if="
-        sheetInfo.sheetType === 'contraction_inhibitor_sdry' ||
-          sheetInfo.sheetType === 'magnesiumsulphate_sdry'
-      "
-    >
-      <div class="info-con">
-        <span @click="handleDeptNameChoose(0)">
-          科室:
-          <div class="bottom-line" style="min-width: 266px">
-            <!-- {{ patientInfo.realDeptName }} -->
-            {{
-              newPatientInfo[
-                `realDeptName_${index}_${sheetInfo.selectBlock.id}`
-              ]
-            }}
-          </div>
-        </span>
-        <span @click="handleDeptNameChoose(1)">
-          病区:
-          <div class="bottom-line" style="min-width: 135px">
-            <!-- {{ patientInfo.deptName }} -->
-            {{
-              newPatientInfo[`deptName_${index}_${sheetInfo.selectBlock.id}`]
-            }}
-          </div>
-        </span>
-      </div>
-      <div class="info-con">
-        <span
-          @click="
-            updateTetxInfo('patientName', '病人姓名', patientInfo.patientName)
-          "
-        >
-          姓名:
-          <div class="bottom-line" style="min-width: 70px">
-            {{ patientInfo.patientName }}
-          </div>
-        </span>
-        <span @click="updateTetxInfo('sex', '性别', patientInfo.sex)">
-          性别:
-          <div class="bottom-line" style="min-width: 35px">
-            {{ patientInfo.sex }}
-          </div>
-        </span>
-        <!-- <span @click="updateNeonatology2Age" v-if="sheetInfo.sheetType == 'neonatology2'">
-        年龄:
-        <div class="bottom-line" style="min-width: 50px">{{neonatology2Age}}</div>
-      </span> -->
-        <span @click="updateTetxInfo('age', '年龄', patientInfo.age)">
-          年龄:
-          <div class="bottom-line" style="min-width: 40px">
-            {{ patientInfo.age }}
-          </div>
-        </span>
-        <span>
-          床号：
-          <div
-            :class="['bottom-line', 'has-background']"
-            :style="{ minWidth: '55px', paddingRight: '5px' }"
-            @dblclick.stop="openBedRecordModal"
-          >
-            <!-- {{ patientInfo.bedLabel }} -->
-            {{
-              newPatientInfo[`bedLabel_${index}_${sheetInfo.selectBlock.id}`]
-            }}
-          </div>
-        </span>
-        <span>
-          住院号:
-          <div class="bottom-line" style="min-width: 70px; padding-right: 5px;">
-            {{ patientInfo.inpNo }}
-          </div>
-        </span>
-        <!-- <span>
-        诊断:
-        <div  class="bottom-line" style="min-width: 163px">{{patientInfo.diagnosis}}</div>
-      </span> -->
-        <span
-          @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
-        >
-          诊断：
-          <div
-            class="bottom-line"
-            style="
-            width: 163px;
-            height: 11px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          "
-          >
-            {{ diagnosis }}
-          </div>
-        </span>
-      </div>
-    </div>
-    <div v-else>
+    <div >
       <div
         class="info-con"
-        v-if="sheetInfo.sheetType !== 'postpartum2_sdry' "
+        v-if="sheetInfo.sheetType !== 'postpartum2_hzly'"
         style="display: flex; justify-content: start; align-items: center;"
       >
         <span @click="handleDeptNameChoose(0)">
@@ -114,10 +18,9 @@
             class="bottom-line"
             :style="{
               minWidth:
-                sheetInfo.sheetType == 'prenatal_sdry'  ? '373px' : '336px'
+                ['prenatal_hzly'].includes(sheetInfo.sheetType)  ? '373px' : '336px'
             }"
           >
-            <!-- {{ patientInfo.realDeptName }} -->
             {{
               newPatientInfo[
                 `realDeptName_${index}_${sheetInfo.selectBlock.id}`
@@ -134,7 +37,7 @@
             }}
           </div>
         </span>
-        <template v-if="sheetInfo.sheetType == 'prenatal_sdry'">
+        <template v-if="sheetInfo.sheetType == 'prenatal_hzly'">
           <span>
             特殊情况:
             <input
@@ -163,7 +66,7 @@
             />
           </span>
         </template>
-        <template v-if="sheetInfo.sheetType == 'postpartum_sdry' ">
+        <template v-if="sheetInfo.sheetType == 'postpartum_hzly'">
           <span style="margin-left: 17px;"> 特殊情况：</span>
           <customSelectCanRepeat
             :options="specialCases"
@@ -187,21 +90,6 @@
             />
           </span>
         </template>
-
-        <template v-if="sheetInfo.sheetType == 'baby_sdry'">
-          <span style="margin-left: 17px;"> 羊水情况：</span>
-          <customSelectCanRepeat
-            :options="specialCasesYangShuis"
-            @onSelect="val => setRelValue('specialCasesYangShui', val)"
-            multiple
-          >
-            <input
-              :data-value="sheetInfo.relObj.specialCasesYangShui"
-              v-model="sheetInfo.relObj.specialCasesYangShui"
-              style="width:180px;"
-            />
-          </customSelectCanRepeat>
-        </template>
       </div>
       <div
         class="info-con"
@@ -220,7 +108,7 @@
         <span
           @click="updateTetxInfo('sex', '性别', patientInfo.sex)"
           v-if="
-            !['postpartum2_sdry', 'baby_sdry'].includes(sheetInfo.sheetType)
+            !['postpartum2_hzly'].includes(sheetInfo.sheetType)
           "
         >
           性别:
@@ -228,7 +116,7 @@
             {{ patientInfo.sex }}
           </div>
         </span>
-
+<!--
         <span
           @click="updateTetxInfo('age', '年龄', patientInfo.age)"
           v-if="sheetInfo.sheetType !== 'baby_sdry'"
@@ -237,17 +125,17 @@
           <div class="bottom-line" style="min-width: 50px">
             {{ patientInfo.age }}
           </div>
-        </span>
+        </span> -->
         <span>
           床号:
           <div
             :class="['bottom-line', 'has-background']"
             :style="{
-              minWidth: ['oxytocin_sdry', 'insulin_pump_sdry'].includes(
+              minWidth: ['oxytocin_hzly',].includes(
                 sheetInfo.sheetType
               )
                 ? '55px'
-                : ['orthopaedic_sdry'].includes(sheetInfo.sheetType)
+                : ['orthopaedic_hzly'].includes(sheetInfo.sheetType)
                 ? '45px'
                 : '60px',
               paddingRight: '5px'
@@ -286,12 +174,12 @@
         </span>
 
          <!-- 产后护理记录单分娩方式 -->
-        <template v-if="sheetInfo.sheetType == 'postpartum_sdry' ">
+        <template v-if="sheetInfo.sheetType == 'postpartum_hzly'">
           <span
             style="margin-left:60px;"
           >
             分娩时间:
-            <input
+            <crDatePicker
               :data-value="sheetInfo.relObj.laborTime"
               v-model="sheetInfo.relObj.laborTime"
               @click="handleLaborTime($event)"
@@ -311,7 +199,7 @@
             />
           </customSelectCanRepeat>
         </template>
-        <template v-if="sheetInfo.sheetType == 'postpartum2_sdry' ">
+        <template v-if="sheetInfo.sheetType == 'postpartum2_hzly'">
           <!-- 顺德人医产后产房观察记录单 -->
           <span>
             分娩时间:
@@ -344,7 +232,7 @@
           </customSelectCanRepeat>
         </template>
 
-        <template v-if="sheetInfo.sheetType == 'prenatal_sdry' ">
+        <template v-if="sheetInfo.sheetType == 'prenatal_hzly'">
           <span>
             孕产史:孕
             <input
@@ -391,15 +279,10 @@
         <!-- 顺德人医产后产房表头处理 -->
         <template
           v-if="
-            sheetInfo.sheetType == 'postpartum2_sdry' ||
-              sheetInfo.sheetType == 'baby_sdry'
+            sheetInfo.sheetType == 'postpartum2_hzly'
           "
         >
-          <span
-            :style="{
-               minWidth: sheetInfo.sheetType === 'baby_sdry' && '50px',  marginLeft: sheetInfo.sheetType == 'baby_sdry' ? '35px' : ''
-            }"
-          >
+          <span>
             分娩方式：</span
           >
           <customSelectCanRepeat
@@ -449,20 +332,6 @@ export default {
       bus: bus(this),
       sheetInfo,
       bedShow: false,
-      hulicuoshis: [
-        {
-          value: "防跌倒",
-          name: "防跌倒"
-        },
-        {
-          value: "防血栓",
-          name: "防血栓"
-        },
-        {
-          value: "其他",
-          name: "其他"
-        }
-      ],
       options: [
         {
           value: "顺产",
@@ -566,31 +435,14 @@ export default {
         { name: "血小板减少", value: "血小板减少" },
         { name: "其他", value: "其他" }
       ],
-      specialCasesYangShuis: [
-        { name: "清", value: "清" },
-        { name: "I°", value: "I°" },
-        { name: "II°", value: "II°" },
-        { name: "III°", value: "III°" },
-        { name: "血性", value: "血性" }
-      ],
       //不需要入院日期的表单
-      admissionDateList: ["blood_tj", "generalnursing_tj"],
       //不需要诊断的表单postpartum_sdry  baby_sdry    prenatal_sdry
       diagnosisList: [
         //惠州六院
-        // "prenatal_hzly",
-        // "postpartum_hzly",
-        // "postpartum2_hzly",
-        //顺德人医
-        "prenatal_sdry",
-        "postpartum_sdry",
-        "baby_sdry",
-        "postpartum2_sdry"
+        "prenatal_hzly",
+        "postpartum_hzly",
+        "postpartum2_hzly",
       ]
-      // 不需要显示科室的表单
-      // realDeptNameList:[
-      //   postpartum2_sdry
-      // ],
     };
   },
   mounted() {},
