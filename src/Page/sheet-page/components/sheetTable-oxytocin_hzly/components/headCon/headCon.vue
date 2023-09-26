@@ -257,7 +257,7 @@ export default {
   height: 30px;
   .sign-null-box {
     cursor: pointer;
-    margin: auto;
+    // margin: auto;
     height: 30px;
     width: 80px;
   }
