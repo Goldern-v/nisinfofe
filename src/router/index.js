@@ -950,7 +950,7 @@ const router = new Router({
         })(),
         children: [{
           name: "shiftWork",
-          path: "/shiftWork/:code?/:id?",
+          path: "/shiftWork/:code?/:id?/:patientId?/:visitId?",
           component: (() => {
             switch (HOSPITAL_ID) {
               case 'lingcheng':
