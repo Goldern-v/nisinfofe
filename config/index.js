@@ -304,8 +304,8 @@ const currentTargetUrl = (() => {
 
     // 惠州市第六人民医院
     case 'hzly':
-      // return 'http://192.168.1.54:9866'
-      return "https://info.cr-health.com:20217" //公司外网
+      return 'http://192.168.1.54:9866'
+      // return "https://info.cr-health.com:20217" //公司外网
       // return 'http://192.168.20.158:9091'//陈齐本地
 
 
