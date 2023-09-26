@@ -97,9 +97,30 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>{{ shiftWithWardcodes.A.summary }}</td>
-          <td>{{ shiftWithWardcodes.P.summary }}</td>
-          <td>{{ shiftWithWardcodes.N.summary }}</td>
+          <td>
+            <el-input
+              autosize
+              class="textarea"
+              type="textarea"
+              v-model="shiftWithWardcodes.A.summary"
+            />
+          </td>
+          <td>
+            <el-input
+              autosize
+              class="textarea"
+              type="textarea"
+              v-model="shiftWithWardcodes.P.summary"
+            />
+          </td>
+          <td>
+            <el-input
+              autosize
+              class="textarea"
+              type="textarea"
+              v-model="shiftWithWardcodes.N.summary"
+            />
+          </td>
         </tr>
         <tr
           v-for="(row, rowIndex) of data"
@@ -341,7 +362,7 @@ export default {
       overflow-y hidden
       text-align inherit
       cursor auto !important
-
+      line-height: 1;
       &:disabled
         color black
         background none
