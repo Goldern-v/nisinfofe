@@ -37,10 +37,8 @@
     <div class="container">
       <router-view ref="child"></router-view>
     </div>
-    <!-- 患者资料 -->
-    <patientInfo
-      :notNurseRecordList="true"
-    ></patientInfo>
+    <!-- 电子病例弹窗 -->
+    <doctorEmr  />
     <CreateShiftWorkModal
       ref="createModal"
       @confirm="onCreateModalConfirm"
@@ -54,8 +52,7 @@
   import * as apis from './apis'
   import CreateShiftWorkModal from './components/create-shift-work-modal'
   import PrimaryButton from './components/primary-button'
-  import patientInfo from "@/Page/sheet-page/components/sheet-tool/patient-info";
-
+  import doctorEmr from "@/components/doctorEmr";
   export default {
     mixins: [common],
     provide () {
@@ -180,7 +177,7 @@
     components: {
       CreateShiftWorkModal,
       PrimaryButton,
-      patientInfo
+      doctorEmr
     }
   }
 </script>

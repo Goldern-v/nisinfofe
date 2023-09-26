@@ -126,7 +126,7 @@
           v-for="(row, rowIndex) of data"
           :class="[{selected: row === selectedRow}]"
           :key="row.id + '' + rowIndex"
-          @click="onClick(rowIndex)"
+          @click="onClick(rowIndex, row)"
         >
           <td
             v-for="(col, colIndex) of bodyColumns"
@@ -210,8 +210,17 @@ export default {
   computed: {
   },
   methods: {
-    onClick(rowIndex) {
+    onClick(rowIndex, row) {
       this.selectRow(rowIndex);
+      this.$router.push({
+        name:"shiftWork",
+        params:{
+          code: this.$route.params.code,
+          id: this.$route.params.id,
+          patientId: row.patientId,
+          visitId: row.visitId,
+        }
+      })
     },
     onDblClick(data) {
       this.$emit("dblclick", data);

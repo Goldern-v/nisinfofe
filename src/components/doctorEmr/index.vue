@@ -1,7 +1,7 @@
 <template>
   <div class="doctor-emr-wrapper" v-if="routeQuery.patientId">
     <div
-      v-if="show && !['zhzxy', 'fsxt','dglb','whsl'].includes(HOSPITAL_ID)"
+      v-if="show && !['zhzxy', 'fsxt','dglb','whsl', 'whhk'].includes(HOSPITAL_ID)"
       v-loading="pageLoading"
       class="doctor-emr-content dragNode2"
     >
@@ -17,7 +17,7 @@
       <div class="e-resize" v-eResize="{ target: 'dragNode2' }"></div>
       <div class="s-resize" v-sResize="{ target: 'dragNode2' }"></div>
     </div>
-    <template v-if="!['dglb'].includes(HOSPITAL_ID)">
+    <template v-if="!['dglb','whhk'].includes(HOSPITAL_ID)">
       <el-tooltip class="item" effect="dark" content="患者资料" placement="left">
         <div class="fixed-icon" :class="{ open: open }" @click="onToggle">
           <img src="./images/患者资料@2x.png" alt />
@@ -298,7 +298,7 @@ export default {
     },
     async onload() {
       this.show = true;
-      if(['zhzxy','fsxt','dglb'].includes(this.HOSPITAL_ID)){
+      if(['zhzxy','fsxt','dglb','whhk'].includes(this.HOSPITAL_ID)){
         this.openModal('doctorEmrModal')
       }else await this.getTreeData();
     },
