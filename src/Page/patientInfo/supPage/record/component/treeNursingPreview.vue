@@ -312,7 +312,7 @@ export default {
       }
     },
     allFormList() {
-      if(this.HOSPITAL_ID == 'whsl'){
+      if(['whsl','foshanrenyi'].includes(this.HOSPITAL_ID)){
         return [...this.regions, ...this.otherFormList];
       }else{
          let newRegions = this.regions.filter(item => !item.label.includes('入院评估'))
