@@ -2453,7 +2453,7 @@ export default {
       ) {
         return false;
       }
-      if(this.HOSPITAL_ID == "nfyksdyy"){
+      if(this.HOSPITAL_ID == "nfyksdyy" ){
         return this.onCanModify(this.data.bodyModel, this.index, y)
       }
       let status = tr.find((item) => item.key == "status").value;

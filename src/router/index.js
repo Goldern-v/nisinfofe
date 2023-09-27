@@ -950,7 +950,7 @@ const router = new Router({
         })(),
         children: [{
           name: "shiftWork",
-          path: "/shiftWork/:code?/:id?",
+          path: "/shiftWork/:code?/:id?/:patientId?/:visitId?",
           component: (() => {
             switch (HOSPITAL_ID) {
               case 'lingcheng':
@@ -1679,7 +1679,7 @@ const router = new Router({
             case 'nanfangzhongxiyi':
             case 'gdtj':
             case 'nfyksdyy':
-            case 'hzly': 
+            case 'hzly':
               return nursingMakeListGuizhou
             default:
               return nursingRounds
@@ -1731,6 +1731,7 @@ const router = new Router({
             case 'zjhj':
               return allTemperatureChartZJHJ
             case 'nfyksdyy':
+            case 'hzly':
               return allTemperatureChartSDYY
             case 'lyyz':
             case 'whhk':
@@ -1739,7 +1740,6 @@ const router = new Router({
             case 'ytll':
               return allTemperatureChartYTLL
             case 'gdtj':
-            case 'hzly':
             return allTemperatureChartGDTJ
             case 'fsxt':
             return allTemperatureChartFSXT

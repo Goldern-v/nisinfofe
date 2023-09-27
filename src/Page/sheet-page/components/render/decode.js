@@ -202,7 +202,8 @@ function decode(ayncVisitedData) {
     process.env.HOSPITAL_ID == "stmz"||
     process.env.HOSPITAL_ID == "lyyz"||
     process.env.HOSPITAL_ID == "nfyksdyy"||
-    process.env.HOSPITAL_ID == "dglb"
+    process.env.HOSPITAL_ID == "dglb" ||
+    process.env.HOSPITAL_ID == "hzly"
   ) {
     auditorMapData.auditorMap = sheetInfo.auditorMap;
   }

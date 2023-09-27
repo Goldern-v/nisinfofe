@@ -82,8 +82,10 @@ export default {
             this.treeLoading = false;
           });
         }else{
+          let patientId  = this.$route.query.patientId || this.$route.params.patientId
+          let visitId  = this.$route.query.visitId || this.$route.params.visitId
           Promise.all([
-          getDoctorEmr(this.$route.query.patientId, this.$route.query.visitId)]).then(res => {
+          getDoctorEmr(patientId, visitId)]).then(res => {
             let resDataArr = res[0].data.data;
             let keys = Object.keys(resDataArr);
             let regions = [];

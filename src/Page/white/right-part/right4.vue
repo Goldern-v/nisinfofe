@@ -127,13 +127,12 @@ export default {
     geClassP(){
       switch(this.HOSPITAL_ID){
         case "wujing":
-          return "A班："
         case "nanfangzhongxiyi":
         case "yangchunzhongyi":
-          return "A班："
         case "fsxt":
-          case "925":
-            case "hj":
+        case "925":
+        case "whhk":
+        case "hj":
           return "A班："
         default:
           return "P班："
