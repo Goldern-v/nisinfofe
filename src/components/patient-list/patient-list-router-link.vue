@@ -555,7 +555,34 @@ export default {
           }
           next();
         });
-      }else {
+      } else if (
+        !this.$store.state.admittingSave.isLeaveTip &&
+        this.HOSPITAL_ID == "925")
+      {
+        window.app
+        .$confirm("体温单数据未保存，离开将会丢失数据", "提示", {
+          confirmButtonText: "确认",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+        .then((res) => {
+          this.$store.commit("upIsLeaveTip", true);
+          this.selectPatientId = patient.patientId;
+          if (this.callFunction) {
+            this.$route.query.patientId = patient.patientId;
+            this.$route.query.visitId = patient.visitId;
+            this.$route.query.inpNo = patient.inpNo;
+            patient.formId = this.$route.params.formId || "";
+            //
+            this.$store.commit("upCurrentPatientObj", patient);
+            this.$store.commit("upWardCode", patient.wardCode || "");
+            this.$store.commit("upWardName", patient.wardName || "");
+            //patient 参数 true是否要滚动到最后一页
+            this.callFunction(patient, true);
+            //
+          }
+        });
+      } else {
         this.selectPatientId = patient.patientId;
         if (this.callFunction) {
           this.$route.query.patientId = patient.patientId;
