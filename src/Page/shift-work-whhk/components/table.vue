@@ -97,15 +97,36 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>{{ shiftWithWardcodes.A.summary }}</td>
-          <td>{{ shiftWithWardcodes.P.summary }}</td>
-          <td>{{ shiftWithWardcodes.N.summary }}</td>
+          <td>
+            <el-input
+              autosize
+              class="textarea"
+              type="textarea"
+              v-model="shiftWithWardcodes.A.summary"
+            />
+          </td>
+          <td>
+            <el-input
+              autosize
+              class="textarea"
+              type="textarea"
+              v-model="shiftWithWardcodes.P.summary"
+            />
+          </td>
+          <td>
+            <el-input
+              autosize
+              class="textarea"
+              type="textarea"
+              v-model="shiftWithWardcodes.N.summary"
+            />
+          </td>
         </tr>
         <tr
           v-for="(row, rowIndex) of data"
           :class="[{selected: row === selectedRow}]"
           :key="row.id + '' + rowIndex"
-          @click="onClick(rowIndex)"
+          @click="onClick(rowIndex, row)"
         >
           <td
             v-for="(col, colIndex) of bodyColumns"
@@ -189,8 +210,17 @@ export default {
   computed: {
   },
   methods: {
-    onClick(rowIndex) {
+    onClick(rowIndex, row) {
       this.selectRow(rowIndex);
+      this.$router.push({
+        name:"shiftWork",
+        params:{
+          code: this.$route.params.code,
+          id: this.$route.params.id,
+          patientId: row.patientId,
+          visitId: row.visitId,
+        }
+      })
     },
     onDblClick(data) {
       this.$emit("dblclick", data);
@@ -341,7 +371,7 @@ export default {
       overflow-y hidden
       text-align inherit
       cursor auto !important
-
+      line-height: 1;
       &:disabled
         color black
         background none

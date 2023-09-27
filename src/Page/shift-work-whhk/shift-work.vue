@@ -37,6 +37,8 @@
     <div class="container">
       <router-view ref="child"></router-view>
     </div>
+    <!-- 电子病例弹窗 -->
+    <doctorEmr  />
     <CreateShiftWorkModal
       ref="createModal"
       @confirm="onCreateModalConfirm"
@@ -50,7 +52,7 @@
   import * as apis from './apis'
   import CreateShiftWorkModal from './components/create-shift-work-modal'
   import PrimaryButton from './components/primary-button'
-
+  import doctorEmr from "@/components/doctorEmr";
   export default {
     mixins: [common],
     provide () {
@@ -174,7 +176,8 @@
     },
     components: {
       CreateShiftWorkModal,
-      PrimaryButton
+      PrimaryButton,
+      doctorEmr
     }
   }
 </script>

@@ -92,6 +92,10 @@ export default {
         case 'zjhj':
           return "http://192.168.0.209:9091" // 医院内网
           // return "http://localhost:8080" // 本地
+        case 'hzly':
+          return "http://172.20.110.13:9091" //医院内网
+          // return "http://localhost:8080" // 本地
+
         default:
           break;
       }
@@ -124,9 +128,9 @@ export default {
   methods: {
     openSignList() {
       const params = {
-        patientId: this.patientInfo.patientId,
-        visitId: this.patientInfo.visitId,
-        wardCode: this.patientInfo.wardCode,
+        patientId: this.patientInfo.patientId || this.queryInfo.patientId,
+        visitId: this.patientInfo.visitId || this.queryInfo.visitId,
+        wardCode: this.patientInfo.wardCode || this.queryInfo.cpIncludeDeptCode,
         recordDate: this.queryDate
       }
       this.$refs.vitalSignRef.open(params);
@@ -348,10 +352,13 @@ export default {
       return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
     isDisable(){
-    return (
-      this.$route.path.includes("newSingleTemperatureChart") ||
-      this.$route.path.includes("temperature")
-    )
+      return (
+        this.$route.path.includes("newSingleTemperatureChart") ||
+        this.$route.path.includes("temperature")
+      )
+    },
+    queryInfo() {
+      return this.$route.query;
     }
   },
   beforeDestroy() {

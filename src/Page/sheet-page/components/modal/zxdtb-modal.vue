@@ -469,6 +469,11 @@ export default {
         return this.$message.warning("请选择一名患者");
       }
       if ('wujing' === this.HOSPITAL_ID) this.reset()
+      if(['ytll'].includes(this.HOSPITAL_ID)){
+        //打开日期设置当天00:00:00-当天23:59:59
+       this.$set(this.longDate,0,moment(this.longDate[0]).startOf('day'))
+       this.$set(this.longDate,1,moment(this.longDate[1]).endOf('day'))
+      }
       this.searchDate = moment().format("YYYY-MM-DD");
       this.getData();
       this.$refs.modal.open();

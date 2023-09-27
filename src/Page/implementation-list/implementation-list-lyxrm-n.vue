@@ -410,7 +410,7 @@ export default {
         });
       }else {
         let user = JSON.parse(localStorage.getItem("user"));
-        this.$prompt("请输入取消的原因", "提示", {
+        this.$prompt("请输入补录的原因", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
         })

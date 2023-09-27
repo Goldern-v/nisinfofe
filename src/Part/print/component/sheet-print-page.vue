@@ -598,6 +598,21 @@ export default {
         `
       );
     }
+        if ( this.query.sheetType === "post_partum_weihai") {
+      addCSS(
+        window,
+        `
+        @media print {
+          #sheetPagePrint .iframe > div{
+           padding-top: 50px !important;
+          }
+          // .body-con{
+          //   height: 35px !important;
+          // }
+        }
+        `
+      );
+    }
     /* 护理记录单行高 */
     if (
       this.HOSPITAL_ID === "quzhou" &&

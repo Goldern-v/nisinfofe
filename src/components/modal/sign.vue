@@ -332,7 +332,10 @@ export default {
       SigndataObj,
       verifySignObj,
       fromType = 'evel',
-      showAduit = false,
+      aduitObj={
+        showAduit:false,
+        aduitDate:''
+      }
     ) {
       //formData为表单数据
       console.log(
@@ -413,8 +416,8 @@ export default {
         this.signDate = dayjs().format("YYYY-MM-DD HH:mm") || ""; //
         this.aduitDate=''
       }
-      if(showAduit){
-        this.aduitDate= dayjs().format("YYYY-MM-DD HH:mm") || "";
+      if(aduitObj.showAduit){
+        this.aduitDate= aduitObj.aduitDate ?aduitObj.aduitDate: dayjs().format("YYYY-MM-DD HH:mm")
         this.signDate=''
       }
       if (isHengliNursingForm && title !== "删除验证") {
@@ -466,7 +469,7 @@ export default {
       }
 
       this.showDate = showDate;
-      this.showAduit = showAduit;
+      this.showAduit = aduitObj.showAduit;
       // this.showMessage = showMessage;
       this.message = message;
       this.password = "";

@@ -29,7 +29,7 @@ export default {
         }),
         ...hisMatch({
           map: {
-            lyxrm: [{
+            'lyxrm,qhwy': [{
               name:"statisticalIncrease",
               meta: {
                 title:'工作量细项统计',
@@ -128,7 +128,7 @@ export default {
                 },
               },
             ],
-            lyxrm: [
+            'lyxrm,qhwy': [
               {
                 name: "statisticalTumble",
                 meta: {

@@ -2746,7 +2746,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (["ultrasound_fs","baby_tj","baby_whhk","insulin_whhk","labor_whhk","intravenous_whhk"].includes(this.sheetInfo.sheetType)) {
+            } else if (["ultrasound_fs","baby_tj","baby_whhk","insulin_whhk","labor_whhk","intravenous_whhk","gastroentery_whhk"].includes(this.sheetInfo.sheetType)) {
               if (GetLength(text) > 30) {
                 result.push(text);
                 text = allDoc[i];
@@ -2788,7 +2788,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            }else if (['hj','wujing'].includes(this.HOSPITAL_ID )){
+            }else if (['hj','wujing','guizhou'].includes(this.HOSPITAL_ID )){
               if (GetLength(text) > 23) {
                 result.push(text);
                 text = allDoc[i];

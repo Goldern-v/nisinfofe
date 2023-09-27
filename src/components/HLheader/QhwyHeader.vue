@@ -230,6 +230,11 @@
                 <i class="iconfont icon-guidang"></i> 归档
               </el-row>
             </router-link>
+             <router-link to="/statisticalQuery" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 统计查询
+              </el-row>
+            </router-link>
 
             <el-dropdown
               menu-align="start"

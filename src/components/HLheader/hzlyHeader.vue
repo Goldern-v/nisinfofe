@@ -47,7 +47,7 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
                   :class="{
-                    active: $route.path.includes('singleTemperatureChart')
+                    active: $route.path.includes('newSingleTemperatureChart')
                   }"
                 >
                   <router-link to="/newSingleTemperatureChart" tag="span">
@@ -176,6 +176,11 @@
             <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-baiban"></i> 白板
+              </el-row>
+            </router-link>
+             <router-link to="/infuse" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
               </el-row>
             </router-link>
             <!-- <router-link to="/shiftWork" tag="span">

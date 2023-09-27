@@ -46,7 +46,7 @@ export default data;
 export async function addSheetPage(callback) {
   let Options = []
   let FieldTitle = []
-  if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
+  if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(process.env.HOSPITAL_ID)) {
     // let formatCustomObj = {}
     let params = {
       pageIndex: + endPage - sheetStartPage + 1,
@@ -359,7 +359,7 @@ export function cleanDataOnly() {
   sheetInfo.masterInfo = bodyData;// 主表信息
   listData=listDataList
   try {
-    if (['foshanrenyi','fsxt','gdtj'].includes(process.env.HOSPITAL_ID)) {
+    if (['foshanrenyi','fsxt','gdtj','zjhj'].includes(process.env.HOSPITAL_ID)) {
       titleList = titleData.FieldSetting
       customOptions = titleData.Options
     }else if(['nfyksdyy'].includes(process.env.HOSPITAL_ID) && window.location.href.indexOf('sheet-print')==-1){

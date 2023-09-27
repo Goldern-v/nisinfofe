@@ -260,7 +260,7 @@
               v-if="
                 isEdit &&
                 scope.row.executeDateTime &&
-                scope.row.executeFlag != 4
+                scope.row.executeFlag != 4 && scope.row.type != 1
               "
               >补执行</el-button
             >
@@ -329,6 +329,9 @@
     }
     .red {
       background-color: #ec7373;
+    }
+    .blue1 {
+      background-color: #0BD;
     }
     tr.hover-row.current-row > td, tr.hover-row.el-table__row--striped.current-row > td, tr.hover-row.el-table__row--striped > td, tr.hover-row > td, tr.current-row > td {
       background-color: initial !important;
@@ -559,7 +562,7 @@ export default {
     },
     // 补执行或备注信息操作完需要定位到操作前位置
     fixedToScrollTop() {
-      return ['lyxrm'].includes(this.HOSPITAL_ID);
+      return ['lyxrm','925'].includes(this.HOSPITAL_ID);
     }
   },
   watch: {
@@ -585,7 +588,7 @@ export default {
   methods: {
     // 多选
     handleSelectionChange(row) {
-      if(this.HOSPITAL_ID != 'lyxrm') return
+      if(!['lyxrm','925'].includes(this.HOSPITAL_ID)) return
       this.$emit("onSelection", row)
     },
     // 取消执行
@@ -678,10 +681,12 @@ export default {
       if (row.row.nurseMemo) {
         return 'red'
       }
-      if (row.row.executeFlag == 2) {
-        return "green";
+      if (row.row.type == 1) {
+        return "blue1";
       } else if (row.row.executeFlag == 1) {
         return "pink";
+      } else if (row.row.executeFlag == 2) {
+        return "green";
       }
       return ''
     },

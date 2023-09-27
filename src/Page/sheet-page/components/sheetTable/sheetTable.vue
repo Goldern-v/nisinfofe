@@ -171,6 +171,7 @@ import tableHeadDglb from "./components/table-head/table-head-dglb.vue"
 import tableHeadWhhk from './components/table-head/table-head-whhk.vue'
 import tableHeadZjhj from './components/table-head/table-head-zjhj.vue'
 import tableHeadSdhpwk from './components/table-head/table-head-sdhpwk.vue';
+import tableHeadHzly from './components/table-head/table-head-hzly.vue';
 export default {
   props: {
     data: Object,
@@ -248,6 +249,7 @@ export default {
       } else if (this.HOSPITAL_ID == "foshanrenyi") {
         return tableHeadFoShanRenYi;
       } else if (this.HOSPITAL_ID == "nfyksdyy") {
+      // } else if (['nfyksdyy', 'hzly'].includes(this.HOSPITAL_ID)) {
         return tableHeadNfykdxsdyy;
       } else if (this.HOSPITAL_ID == "hengli") {
         return tableHeadHengLi;
@@ -289,6 +291,8 @@ export default {
         return tableHeadZjhj
       } else if (this.HOSPITAL_ID == 'sdhpwk') {
         return tableHeadSdhpwk
+      } else if (this.HOSPITAL_ID == 'hzly') {
+        return tableHeadHzly
       } else {
         return tableHead;
       }

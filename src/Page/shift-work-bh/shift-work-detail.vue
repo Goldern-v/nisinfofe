@@ -1037,7 +1037,7 @@ export default {
           p.name && p.patientId === data.patientId && p.visitId === data.visitId
       );
 
-      if (isExisted && isExisted !== selectedRow) {
+      if (isExisted && isExisted !== selectedRow && !['nfyksdyy'].includes(this.HOSPITAL_ID)) {
         return this.$message.error("已存在该患者");
       }
       this.onSave2(true, data);
