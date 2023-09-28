@@ -3,14 +3,17 @@ export function decoder_title(th) {
     return item.key && item.key != 'recordYear'
   });
   let customTitleListMid = th.th.mid.filter(item => {
-    return item.key 
+    return item.key
+  });
+  let customTitleListBottom = th.th.bottom.filter(item => {
+    return item.key
   });
 
-  return [...customTitleListMid, ...customTitleListTop];
+  return [...customTitleListMid, ...customTitleListTop, ...customTitleListBottom];
 }
 
 /**
- * 
+ *
  * @param {*} record 当前选中的行数据
  * @param {*} customTitle 自定义列数据
  */
@@ -34,7 +37,7 @@ export function decoder_record(record, customTitle) {
 }
 
 /**
- * 
+ *
  * @param {*} record 当前选中的行数据
  * @param {*} customTitle 自定义列数据
  */
@@ -69,16 +72,16 @@ function renderFixItem(fixedList) {
   delete fixedList.sign
   delete fixedList.audit
   delete fixedList.signerNo
-  delete fixedList.auditorNo 
-  delete fixedList.description 
-  delete fixedList.pupilSizeLeft 
-  delete fixedList.pupilSizeRight 
-  delete fixedList.pupilReflexLeft 
-  delete fixedList.pupilReflexRight 
-  delete fixedList.foodSize 
-  delete fixedList.food 
-  delete fixedList.discharge 
-  delete fixedList.dischargeSize 
+  delete fixedList.auditorNo
+  delete fixedList.description
+  delete fixedList.pupilSizeLeft
+  delete fixedList.pupilSizeRight
+  delete fixedList.pupilReflexLeft
+  delete fixedList.pupilReflexRight
+  delete fixedList.foodSize
+  delete fixedList.food
+  delete fixedList.discharge
+  delete fixedList.dischargeSize
   for(let key in fixedList) {
     if(fixedList[key].hidden) {
       delete fixedList[key]

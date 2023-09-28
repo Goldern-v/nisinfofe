@@ -3026,6 +3026,7 @@ export default {
       }
       // 能否保存()
       const canNotSave = tr.find(item => item.key == 'recordMonth').isDisabed
+      console.log(data.titleModel,'ddddddddddddddddddddd')
       let thead = data.titleModel;
       let table = data.bodyModel;
       // 数组重组

@@ -528,7 +528,7 @@ async mounted() {
     this.bus.$on("syncInAndOutHospital", (type) => {
       this.syncInAndOutHospital(type);
     });
-        this.bus.$on("getDataFromPage", (dateTime) => {
+      this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate = dateTime.slice(0, 10);
       this.query.entryTime = dateTime.slice(11, 16) + ":00";
       this.dateInp = dateTime.slice(11, 16);
