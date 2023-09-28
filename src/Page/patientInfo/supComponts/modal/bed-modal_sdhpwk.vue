@@ -2,7 +2,7 @@
   <div>
     <sweet-modal
       ref="modal"
-      :modalWidth="isZhzxy ? 770 : 600"
+      :modalWidth="isZhzxy ? 770 : 700"
       title="编辑床头卡"
       :enable-mobile-fullscreen="false"
       class="modal"
@@ -24,18 +24,26 @@
           />
           <div style="width: 0" flex-box="1" >
             <div
-              class="title-name"
+              class="title-name title-bed"
               flex="cross:center"
-              style="height: 43px"
+              style="height: 100px"
             >
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <input
+                type="text"
+                nowidth
+                style="font-size: 90px; padding-left: 5px"
+                flex-box="1"
+                class="bottom-line title-bed__3"
+                :value="query.name + ' '"
+              />
               <input
                 type="text"
                 nowidth
                 style="font-size: 32px; padding-left: 5px"
                 flex-box="1"
                 class="bottom-line"
-                :value="query.name + ' ' + query.sex + ' ' + query.age"
+                :value=" query.sex + ' ' + query.age"
               />
             </div>
             <div flex="cross:center" class="input-item title-bed">
@@ -48,9 +56,10 @@
               <input
                 type="text"
                 flex-box="1"
+                 style="font-size: 26px"
                 nowidth
                 class="bottom-line title-bed__2"
-                :value="moment(query.admissionDate).format('YYYY-MM-DD')"
+                :value="moment(query.admissionDate).format('YYYY-MM-DD HH:mm:ss')"
               />
             </div>
             <div flex="cross:center" class="input-item input-item2">
@@ -77,7 +86,7 @@
             </div>
           </div>
 
-          <div
+          <!-- <div
             style="width: 140px"
           >
             <div class="tip">温馨提示</div>
@@ -93,7 +102,7 @@
                 <span>{{ item.label }}</span>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div slot="button">
@@ -132,8 +141,8 @@
 
 .bed-card-con {
   margin: 20px;
-  width: 14.3cm;
-  height: 6cm;
+  width: 15.3cm;
+  height: 7cm;
   padding: 5px 8px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
@@ -209,7 +218,7 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
-  width: 383px;
+  width: 560px;
 
   .input-item-left {
     display: inline-block;
@@ -226,7 +235,7 @@
 .title-bed {
   .title-bed__1 {
     width: 94px;
-    font-size: 24px;
+    font-size: 25px;
     padding-left: 5px;
     line-height: 24px;
   }
@@ -235,6 +244,9 @@
     width: 0px;
     font-size: 24px;
     padding-left: 2px;
+  }
+    .title-bed__3 {
+    width: 94px;
   }
 }
 

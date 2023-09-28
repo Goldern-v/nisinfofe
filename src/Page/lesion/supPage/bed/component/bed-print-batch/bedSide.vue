@@ -17,18 +17,26 @@
         <img class="qr-code" :style="{ opacity: '1' }" :src="item.qrCode" />
           <div style="width: 0" flex-box="1" flex="dir:top main:justify">
             <div
-              class="title-name"
+              class="title-name title-bed"
               flex="cross:center"
-              style="height: 55px"
+              style="height: 100px"
             >
               <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
                 nowidth
-                style="font-size: 32px; padding-left: 10px;margin-left: 20px;"
+                style="font-size: 90px; padding-left: 75px"
+                flex-box="1"
+                class="bottom-line title-bed__3"
+                :value="item.name "
+              />
+              <input
+                type="text"
+                nowidth
+                style="font-size: 32px; padding-left: 10px;"
                 flex-box="1"
                 class="bottom-line"
-                :value="item.name + ' ' + item.sex + ' ' + item.age"
+                :value="' ' + item.sex + ' ' + item.age"
               />
             </div>
             <div flex="cross:center" class="input-item title-bed">
@@ -43,7 +51,7 @@
                 flex-box="1"
                 nowidth
                 class="bottom-line title-bed__2"
-                :value="moment(item.admissionDate).format('YYYY-MM-DD')"
+                :value="moment(item.admissionDate).format('YYYY-MM-DD HH:mm:ss')"
               />
             </div>
             <div
@@ -79,7 +87,7 @@
             </div>
           </div>
 
-          <div
+          <!-- <div
             style="width: 131px"
           >
             <div class="tip">温馨提示</div>
@@ -96,7 +104,7 @@
                 <span>{{ item.label }}</span>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -475,6 +483,9 @@
         font-size: 18px;
         padding-left: 2px;
       }
+    .title-bed__3 {
+    width: 94px;
+  }
     }
   }
 }

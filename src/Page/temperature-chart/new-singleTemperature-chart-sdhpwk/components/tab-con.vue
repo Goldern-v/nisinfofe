@@ -12,15 +12,44 @@
           v-model="query.entryDate"
           clearable
         />
-            <el-button
+        <div class="times" @keydown.stop="(e) => show(e)">
+          <el-time-select
+            v-model="dateInp"
+            value-format="HH:mm"
+            format="HH:mm"
+            ref="timeSelect"
+            @blur="changeDate"
+            @change="changeVal"
+          @focus="getSelectionStart"
+          @keydown.native="getSelectionStartInput"
+            :picker-options="{
+              start: '02:00',
+              step: '04:00',
+              end: '22:00',
+            }"
+            class="new-time-select"
+            placeholder="选择时间"
+          >
+          </el-time-select>
+        </div>
+        <div class="save-btn-top" v-if="patientInfo.patientId">
+         <el-button
+            :disabled="isDisable()"
+            :type="isUpdate ? 'warning' : 'primary'"
+            class="save-btn"
+            @click="saveVitalSign(vitalSignObj)"
+            >{{ isUpdate ? "更新" : "保存" }}</el-button
+          >
+        </div>
+            <!-- <el-button
               :disabled="isDisable()"
               class="save-btn-top"
               :type="isUpdate ? 'warning' : 'primary'"
               @click="saveVitalSign(vitalSignObj)"
               >{{ isUpdate ? "更新" : "保存" }}
               </el-button
-            >
-        <div class="times">
+            > -->
+        <!-- <div class="times">
           <el-radio-group v-model="query.entryTime" @change="changeEntryTime">
             <el-radio
               size="mini"
@@ -29,7 +58,7 @@
               :label="item.value"
             ></el-radio>
           </el-radio-group>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="row-bottom">
@@ -42,7 +71,7 @@
                 [
                   'recordList',
                   item.recordDate.match(
-                    `${formatDate(query.entryDate)}  ${query.entryTime}`
+                    `${formatDate(query.entryDate)}  ${dateInp}`
                   )
                     ? 'active'
                     : '',
@@ -480,27 +509,28 @@ export default {
       ),
       query: {
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
-        entryTime: (() => {
-          if (this.getHours() >= 0 && this.getHours() <= 4) {
-            return "04";
-          }
-          if (this.getHours() > 4 && this.getHours() <= 8) {
-            return "08";
-          }
-          if (this.getHours() > 8 && this.getHours() <= 12) {
-            return "12";
-          }
-          if (this.getHours() > 12 && this.getHours() <= 16) {
-            return "16";
-          }
-          if (this.getHours() > 16 && this.getHours() <= 20) {
-            return "20";
-          }
-          if (this.getHours() > 20 && this.getHours() <= 23) {
-            return "23";
-          }
-          //录入时间
-        })(), //录入时间
+        entryTime: moment().format("HH:mm") + ":00", //录入时间
+        // entryTime: (() => {
+        //   if (this.getHours() >= 0 && this.getHours() <= 4) {
+        //     return "04";
+        //   }
+        //   if (this.getHours() > 4 && this.getHours() <= 8) {
+        //     return "08";
+        //   }
+        //   if (this.getHours() > 8 && this.getHours() <= 12) {
+        //     return "12";
+        //   }
+        //   if (this.getHours() > 12 && this.getHours() <= 16) {
+        //     return "16";
+        //   }
+        //   if (this.getHours() > 16 && this.getHours() <= 20) {
+        //     return "20";
+        //   }
+        //   if (this.getHours() > 20 && this.getHours() <= 23) {
+        //     return "23";
+        //   }
+        //   //录入时间
+        // })(), //录入时间
       },
       updateData: {
         entryDate: "", //更新录入日期
@@ -517,7 +547,10 @@ export default {
       tabsData: [], // 日期列表
       vitalSignObj: {}, // 单个体征对象
       vitalSignList: [], // 固定项目列表
+       timeStrFormat: "",
       bottomIndex: [],
+      dateInp: moment().format("HH:mm"),
+
       checkItem: [
         "体温",
         "脉搏",
@@ -562,9 +595,13 @@ export default {
   },
   async mounted() {
     await this.getVitalList();
-          this.bus.$on("getDataFromPage", (dateTime) => {
-      this.query.entryDate=dateTime.slice(0,10)
-        this.query.entryTime=dateTime.slice(11,13)
+    this.bus.$on("syncInAndOutHospital", (type) => {
+      this.syncInAndOutHospital(type);
+    });
+      this.bus.$on("getDataFromPage", (dateTime) => {
+        this.query.entryDate=dateTime.slice(0,10)
+        this.query.entryTime=dateTime.slice(11,16) + ":00";
+        this.dateInp = dateTime.slice(11, 16);
     });
 
   },
@@ -600,6 +637,11 @@ export default {
     },
   },
   methods: {
+    show(e) {
+      if (e.keyCode == 13) {
+        this.changeDate(this.$refs.timeSelect);
+      }
+    },
     changeNext(e) {
       if (e.target.className === "el-tooltip") {
         let baseLength = document.getElementsByClassName("pathological").length;
@@ -760,8 +802,7 @@ export default {
         recordDate:
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
           "  " +
-          this.query.entryTime +
-          ":00:00",
+          this.query.entryTime,
       }).then((res) => {
         res.data.data.list.map((item) => {
           if (this.vitalSignObj[item.vitalCode])
@@ -772,6 +813,97 @@ export default {
        let list = document.getElementsByTagName('input')
       for(let i = 0;i<list.length;i++){
         list[i].style.outline = ""
+      }
+    },
+    //聚焦默认聚焦前两个字符串
+    getSelectionStart(e) {
+      const input = e.$el.children[1]
+      setTimeout(() => {
+        input.focus()
+        if ((input.selectionStart == 0 && input.selectionEnd == 0) || (input.selectionStart == 5 && input.selectionEnd == 5))
+          input.setSelectionRange(0, 2)
+      })
+    },
+        //时间组件失去焦点
+    changeDate(val) {
+      let numberVal
+      if (val.$el.children[1].value.includes('：') || val.$el.children[1].value.includes('；') || val.$el.children[1].value.includes(';')) {
+        numberVal = val.$el.children[1].value.replace('：', ':').replace('；', ':').replace(';', ':');
+        this.dateInp = numberVal
+      } else {
+        numberVal = val.$el.children[1].value
+      }
+      if (
+        (numberVal.indexOf(":") == -1 && numberVal.length == 4) ||
+        (numberVal.indexOf(":") != -1 && numberVal.length == 5)
+      ) {
+        let time =
+          numberVal.indexOf(":") == -1
+            ? `${numberVal.substring(0, 2)}:${numberVal.substring(2, 4)}`
+            : `${numberVal.substring(0, 2)}:${numberVal.substring(3, 5)}`;
+        let [hours, min] = time.split(":");
+        if (0 <= hours && hours < 24 && 0 <= min && min <= 59) {
+          this.query.entryTime = time + ":00";
+          this.dateInp = time;
+        } else {
+          this.$message.error("请输入正确时间数值，例如23:25, 2325");
+          val.$el.children[1].focus()
+          if(hours >= 24){
+            val.$el.children[1].setSelectionRange(0,2)
+          }else{
+            val.$el.children[1].setSelectionRange(3,6)
+          }
+        }
+      } else if (numberVal.indexOf(":") != -1 && numberVal.length <= 4) {
+        let [hours, min] = numberVal.split(":");
+        if (hours < 10 && hours.toString().length < 2) hours = `0${hours}`
+        if (min < 10 && min.toString().length < 2) min = `0${min}`
+        this.query.entryTime = `${hours}:${min}:00`
+        this.dateInp = `${hours}:${min}`;
+      } else {
+        this.query.entryTime = val.$el.children[1].value;
+        this.dateInp = val.$el.children[1].value;;
+      }
+    },
+    // 下拉选项触发查询
+    async changeVal(newVal, oldVal) {
+      //操作时间
+      await this.formatTimeFun(newVal);
+      this.timeStrFormat = "";
+    },
+    formatTimeFun(newVal) {
+      if (newVal.split(":").length == 2) {
+        if (this.timeStrFormat === "00" || this.timeStrFormat === "") {
+          this.query.entryTime = newVal + ":00";
+        } else {
+          this.query.entryTime = newVal + `:${this.timeStrFormat}`;
+        }
+      }
+    },
+    getSelectionStartInput(e) {
+      if (e.target.value.length >= "2" && e.target.value.indexOf(":") == -1 && e.keyCode != 8) {
+        setTimeout(() => {
+          e.target.value = this.insert_flg(e.target.value, ":");
+        }, 10);
+      }
+      const smallKeyCode = [96, 105]
+      const numberKeyCode = [48, 57]
+      //如果按的是数字，说明在录入时间 录完前面给他定位到后面
+      if ((e.keyCode >= smallKeyCode[0] && e.keyCode <= smallKeyCode[1]) || (e.keyCode >= numberKeyCode[0] && e.keyCode <= numberKeyCode[1])) {
+        if (e.target.value) {
+          const input = e.target;
+          setTimeout(() => {
+            input.focus();
+            if (input.selectionStart == 2) {
+              input.setSelectionRange(3, 6);
+            }
+          });
+          setTimeout(()=>{
+      e.target.value = e.target.value.substring(0, 5);
+      if(e.target.value.length==5)
+      this.changeDate(this.$refs.timeSelect)
+          }, 100)
+        }
       }
     },
     /* 日期搜索功能 */
@@ -802,14 +934,17 @@ export default {
     changeQuery(value) {
       let temp = value;
       this.query.entryDate = temp.slice(0, 10);
+      this.query.entryTime = value.slice(12, 20);
+      this.timeStrFormat = temp.slice(18, 20);
+      this.dateInp = value.slice(12, 17);
 
       // 北海在记录单那边同步数据,时间直接取点击的
-      if (
-        this.$route.path.includes("newSingleTemperatureChart") ||
-        this.$route.path.includes("temperature")
-      ) {
-        this.query.entryTime = temp.slice(12, 14);
-      }
+      // if (
+      //   this.$route.path.includes("newSingleTemperatureChart") ||
+      //   this.$route.path.includes("temperature")
+      // ) {
+      //   this.query.entryTime = temp.slice(12, 14);
+      // }
       if (this.isUpdate) {
         this.updateData.entryDate = value.slice(0, 10);
         this.updateData.entryTime = value.slice(12, 20);
@@ -834,7 +969,7 @@ export default {
           : moment(new Date(this.patientInfo.admissionDate)).format(
               "YYYY-MM-DD"
             ),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime ,
         wardCode: this.patientInfo.wardCode,
       };
       getViSigsByReDate(data).then((res) => {
@@ -899,6 +1034,11 @@ export default {
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
         this.init();
+        //   this.bus.$emit('getMultiDict', {
+        //   baseDictMap,
+        //   otherDictMap,
+        //   customDictMap: this.fieldList,
+        // });
       });
     },
     //右键更新记录
@@ -1020,7 +1160,7 @@ export default {
         item.recordDate =
           moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
           "  " +
-          this.query.entryTime +
+          this.query.entryTime+
           ":00:00";
         switch (item.vitalSigns) {
           case "表顶注释":
@@ -1031,9 +1171,7 @@ export default {
                 this.topExpandDate; //表顶用录入日期+选择的时间来显示
             } else {
               item.expand2 =
-                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +
-                " " +
-                moment(this.nowTimeVal).format("HH:mm:ss"); //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
+                moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +" " +this.query.entryTime;; //存在用户把时间控件时间删除不选择的情况，把时间转换为string类型拼接
             }
             break;
           case "表底注释":
@@ -1055,7 +1193,7 @@ export default {
       });
       let data = {
         dateStr: moment(new Date(this.query.entryDate)).format("YYYY-MM-DD"),
-        timeStr: this.query.entryTime + ":00:00",
+        timeStr: this.query.entryTime+ ":00:00",
         vitalSignList: obj,
         patientId: this.patientInfo.patientId,
         visitId: this.patientInfo.visitId,
@@ -1135,6 +1273,7 @@ export default {
     display: inline-block;
     height: 70px;
     overflow: auto;
+    width: 100%;
   }
 
   .row-top {
@@ -1222,6 +1361,7 @@ export default {
 
   .times {
     display: inline-block;
+    width: 100px;
     margin: 00px 0px 0px 3px;
 
     .el-radio {
@@ -1301,13 +1441,11 @@ export default {
     margin-top: 10px;
     width: 100px;
   }
-  .save-btn-top {
-    position: relative;
-    margin-top: 10px;
-    left:10px;
-    width: 80px;
-  }
 
+  .save-btn-top {
+    width: 50px;
+    display: inline-block;
+  }
   .inputter-region::-webkit-scrollbar {
     display: none;
   }
