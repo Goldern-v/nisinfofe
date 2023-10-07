@@ -670,6 +670,8 @@ export default {
           localStorage.setItem('lockForm',JSON.stringify(formConfig))
         }
 
+
+
         // let bodyData = testSheet.data;
         let bodyData = res[1].data.data;
         sheetInfo.extraData = res[1].data.data.extraData
@@ -705,6 +707,7 @@ export default {
             deptNameChange: bodyData.deptName,
           };
         }
+        sheetInfo.relObj = null;
         sheetInfo.relObj = decodeRelObj(bodyData.relObj) || {};
 
         // 获取到特殊情况列表内容
