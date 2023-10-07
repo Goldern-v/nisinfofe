@@ -516,8 +516,8 @@ export default {
               分娩方式: pageMap.form_childbirth_temcfs_option
                 ? [pageMap.form_childbirth_temcfs_option]
                 : [],
-              羊水: pageMap.form_childbirth_pmsys_option
-                ? [pageMap.form_childbirth_pmsys_option.replace("°", "")]
+              羊水: pageMap.form_childbirth_ys_option
+                ? [pageMap.form_childbirth_ys_option.replace("°", "")]
                 : [],
               皮肤: pageMap.form_childbirth_pifu_option
                 ? [pageMap.form_childbirth_pifu_option]
@@ -552,10 +552,10 @@ export default {
              if(sheetInfo.relObj[index] instanceof Array){
                 /* relobj有数据，不做处理，没有数据就赋值 */
                 if(sheetInfo.relObj[index].length!=0) return
-                sheetInfo.relObj[index]=[...lastEvalData[index]]   
+                sheetInfo.relObj[index]=[...lastEvalData[index]]
               }else{
                 sheetInfo.relObj[index] =sheetInfo.relObj[index] ? sheetInfo.relObj[index] : lastEvalData[index]
-              }        
+              }
           }
           let obj = Object.assign(
             {},

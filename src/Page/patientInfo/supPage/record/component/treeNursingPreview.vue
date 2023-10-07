@@ -1,7 +1,70 @@
 <template>
   <div>
     <div class="body" :style="{ height: height }" v-loading="treeLoading">
-      <div>
+      <template v-if="['whsl'].includes(HOSPITAL_ID)">
+          <div>
+            <div @click="setItemShow('three')" class="title">体温单</div>
+            <div v-if="isShowObj.three" @click="showForm('temperature')" class='fromCss'>
+              <img src='@/common/images/record/文件.png' class="img"/>
+              <span class="name">体温单</span>
+            </div>
+          </div>
+          <div>
+            <div @click="setItemShow('two')" class="title">护理记录单</div>
+            <div v-if="isShowObj.two" @click="showForm('sheet')" class='fromCss'>
+              <img src='@/common/images/record/文件.png' class="img"/>
+              <span class="name">护理记录单</span>
+            </div>
+          </div>
+          <div>
+            <div
+               @click="setItemShow('seven')"
+               class="title"
+            >入院评估单</div>
+            <div>
+              <el-tree
+                v-if="isShowObj.seven"
+                class="record-tree"
+                :data="admissionFormList"
+                highlight-current
+                :render-content="renderContent"
+                @node-click="nodeClick"
+                node-key="index"
+                :default-expanded-keys="expandList"
+                @node-expand="node_expand"
+                @node-collapse="node_collapse"
+              ></el-tree>
+          </div>
+          </div>
+          <div>
+            <div
+              class="title"
+              style="cursor:pointer"
+              @click="setItemShow('one')"
+            >其他评估单</div>
+            <el-tree
+              v-if="isShowObj.one"
+              class="record-tree"
+              :data="allFormList"
+              highlight-current
+              :render-content="renderContent"
+              @node-click="nodeClick"
+              node-key="index"
+              :default-expanded-keys="expandList"
+              @node-expand="node_expand"
+              @node-collapse="node_collapse"
+            ></el-tree>
+          </div>
+           <div>
+            <div @click="setItemShow('four')" class="title">血糖</div>
+            <div v-if="isShowObj.four" @click="showForm('bloodSugar')" class='fromCss'>
+              <img src='@/common/images/record/文件.png' class="img"/>
+              <span class="name">血糖</span>
+            </div>
+          </div>
+      </template>
+      <template v-else>
+         <div>
         <div
           class="title"
           style="cursor:pointer"
@@ -53,6 +116,7 @@
         <div class="title" style="cursor:pointer" @click="setItemShow('six')">健康宣教</div>
         <baseTree v-if="isShowObj.six" :configList="configList" class="baseTree"></baseTree>
       </div>
+      </template>
     </div>
     <!-- 弹出框 -->
     <newForm ref="newForm"></newForm>
@@ -220,10 +284,11 @@ export default {
         four:false,
         five:false,
         six: false,
+        seven: false,
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
-      showBloodSugar:['guizhou','hengli','huadu','whfk', 'beihairenyi', 'nanfangzhongxiyi', 'sdlj' , 'foshanrenyi', 'fsxt', 'zhzxy', 'lyyz','whsl','ytll','dglb','whhk','nfyksdyy'], // 是否开放血糖模块
+      showBloodSugar:['guizhou','hengli','huadu','whfk', 'beihairenyi', 'nanfangzhongxiyi', 'sdlj' , 'foshanrenyi', 'fsxt', 'zhzxy', 'lyyz','whsl','ytll','dglb','whhk','nfyksdyy','zjhj','hzly'], // 是否开放血糖模块
       showBloodOxygen:['whfk'] ,// 是否开放血氧模块
       hiddenTemperature: [], // 隐藏体温单模块
       showHealthEdu: ['guizhou'],
@@ -247,7 +312,16 @@ export default {
       }
     },
     allFormList() {
-      return [...this.regions, ...this.otherFormList];
+      if(['whsl','foshanrenyi'].includes(this.HOSPITAL_ID)){
+        return [...this.regions, ...this.otherFormList];
+      }else{
+         let newRegions = this.regions.filter(item => !item.label.includes('入院评估'))
+        return [...newRegions, ...this.otherFormList];
+      }
+
+    },
+    admissionFormList() {
+      return [this.regions.find(item => item.label.includes('入院评估'))]
     }
   },
   methods: {

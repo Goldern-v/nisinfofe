@@ -65,7 +65,7 @@
             </div>
             <div v-else>
               <label v-if="td.prev">{{ td.prev }}</label>
-              <span>{{ td.value }}</span>
+              <span>{{ td.value ? td.value : (td.score == sheetInfo.relObj[td.name] ? '√' : '') }}</span>
             </div>
           </td>
         </tr>
@@ -114,11 +114,9 @@ export default {
         return;
       }
       // 累计评分
-      var allGrade = [null, null, 0, null, 1, null, 2, null, 3];
-      var currentGrade =
-        Number(allGrade[tdIndex]) != NaN ? Number(allGrade[tdIndex]) : 0;
-      this.sheetInfo.relObj.totalCervixGrade =
-        this.sheetInfo.relObj.totalCervixGrade || 0;
+      const allGrade = [null, null, 0, null, 1, null, 2, null, 3];
+      const currentGrade = +allGrade[tdIndex];
+      this.sheetInfo.relObj.totalCervixGrade = +this.sheetInfo.relObj.totalCervixGrade || 0;
       if (!td.value) {
         tr.map((item, index) => {
           if (
@@ -167,7 +165,7 @@ export default {
 
   created() {},
   mounted() {
-    var allGrade = [null, null, 0, null, 1, null, 2, null, 3];
+    const allGrade = [null, null, 0, null, 1, null, 2, null, 3];
     this.tableData.tbody.map(tr => {
       tr.map((td, tdIndex) => {
         if (td.name && this.sheetInfo.relObj[td.name] == allGrade[tdIndex]) {
@@ -235,7 +233,7 @@ export default {
     td {
       border: 1px solid #000;
       min-width: 50px;
-      padding: 10px 3px;
+      padding: 8px 3px;
       text-align: center;
       &:first-of-type {
         text-align: left;

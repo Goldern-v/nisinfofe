@@ -5,7 +5,7 @@ import { apiPath } from '@/api/apiConfig'
 export function save (data) {
   return axios.post(`${apiPath}badEvent/save`,data)
 }
-const isGZ = ["guizhou", '925'].includes(process.env.HOSPITAL_ID)
+const isGZ = ["guizhou", '925', 'qhwy'].includes(process.env.HOSPITAL_ID)
 // 根据事件id删除不良事件
 export function del (id) {
   if(isGZ){

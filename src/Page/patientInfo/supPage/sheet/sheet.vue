@@ -240,6 +240,8 @@ import sheetTable_cardiology_lcey from "@/Page/sheet-page/components/sheetTable-
 import sheetTable_oxytocin_hl from "@/Page/sheet-page/components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_oxytocin_sdlj from "@/Page/sheet-page/components/sheetTable-oxytocin_sdlj/sheetTable";
 import sheetTable_oxytocin_sdry from "@/Page/sheet-page/components/sheetTable-oxytocin_sdry/sheetTable";
+import sheetTable_oxytocin_hzly from "@/Page/sheet-page/components/sheetTable-oxytocin_hzly/sheetTable";
+
 import sheetTable_insulin_pump_sdry from "@/Page/sheet-page/components/sheetTable-insulin_pump_sdry/sheetTable";
 import sheetTable_oxytocin_dglb from "@/Page/sheet-page/components/sheetTable-oxytocin_dglb/sheetTable";
 import sheetTable_oxytocinck_dglb from "@/Page/sheet-page/components/sheetTable_oxytocinck_dglb/sheetTable";
@@ -319,9 +321,7 @@ export default {
       bedAndDeptChange: {},
       foshanshiyiIFca:false,//佛山CA签名key的状态
       listData: [],
-      lockHospitalList:[
-        'huadu'
-      ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
+      lockHospitalList:['huadu','nfyksdyy'], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
       isLock:false,
       isLoad:false,
       sheetTitleData: {}, // 自定义表头数据
@@ -419,6 +419,8 @@ export default {
         return sheetTable_oxytocin_sdlj;
       } else if (sheetInfo.sheetType == "oxytocin_sdry") {
         return sheetTable_oxytocin_sdry;
+      } else if (sheetInfo.sheetType == "oxytocin_hzly") {
+        return sheetTable_oxytocin_hzly;
       } else if (sheetInfo.sheetType == "insulin_pump_sdry") {
         return sheetTable_insulin_pump_sdry;
       }else if (sheetInfo.sheetType == "oxytocin_dglb") {
@@ -498,7 +500,7 @@ export default {
         list('全部',this.patientInfo.wardCode),
       ]
       // 佛山市一 获取自定义标题数据
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
         fnArr.shift()
         fnArr.unshift(findListByBlockId(startPageIndex,endPageIndex))
       }
@@ -940,6 +942,26 @@ export default {
           .then(res => {
             if (res.data.code == 200) {
               this.bus.$emit('initSheetPageSize')
+              let isdischarge = decodeAyncVisttedData.list.find(item => item.topComment == '出院|')
+              if(this.sheetInfo.sheetType == 'body_temperature_Hd' && isdischarge){
+                this.$nextTick(()=>{
+                  this.$confirm(
+                    `体温单出院时间已填写为：${isdischarge.recordYear}-${isdischarge.recordMonth} ${isdischarge.recordHour}，请及时完成应归档记录!`,
+                    {
+                      confirmButtonText: "确定",
+                      showCancelButton: false,
+                      type: "warning",
+                    }
+                  ).then((res)=>{
+                    this.pageLoading = false;
+                    this.$notify.success({
+                      title: "提示",
+                      message: "保存成功",
+                      duration: 1000,
+                    });
+                  })
+                })
+              }else{
                 this.$nextTick(()=>{
                   this.pageLoading = false;
                   this.$notify.success({
@@ -948,6 +970,7 @@ export default {
                   duration: 1000,
                 });
                 })
+              }
             }
             if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
               GetUserList().then(res=>{
@@ -1290,22 +1313,44 @@ export default {
     }
   },
   beforeRouteLeave (to, from, next) {
+    console.log('beforeRouteLeave', to, from)
     /* 除了体温单模块和登出页面都触发解锁 */
     if(this.lockHospitalList.includes(this.HOSPITAL_ID) && from.fullPath.includes("sheet") && !to.fullPath.includes("login")){
       this.destroyUnlock()
     }
     if (!sheetInfo.isSave) {
-      window.app
+      if(this.HOSPITAL_ID == 'nfyksdyy'){
+        let config = {
+          warmtlt : "记录单还未保存，离开将会丢失数据",
+          buttonList : [
+            {label:"取消",fun:()=>{this.$refs.confirmModal.close()}},
+            {label:"离开",fun:()=>{
+              this.sheetInfo.relObj = {}
+              this.$refs.confirmModal.close(),
+              next()
+            }},
+            {label:"保存并离开",type:"primary",fun:()=>{
+              this.bus.$emit('saveSheetPage', 'noSaveSign')
+              this.sheetInfo.relObj = {}
+              this.$refs.confirmModal.close()
+              next()
+            }}
+          ]
+        }
+        this.$refs.confirmModal.open(config)
+      }else{
+        window.app
         .$confirm("记录单还未保存，离开将会丢失数据", "提示", {
-          confirmButtonText: this.HOSPITAL_ID == 'nfyksdyy' ? "保存并离开" :  "离开",
+          confirmButtonText: "离开",
           cancelButtonText: "取消",
           type: "warning"
         })
         .then(res => {
-          this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
+          // this.HOSPITAL_ID == 'nfyksdyy' && this.bus.$emit('saveSheetPage', 'noSaveSign')
           this.sheetInfo.relObj = {}
           next();
         });
+      }
     } else {
       next();
     }
@@ -1355,6 +1400,7 @@ export default {
     sheetTable_oxytocin_hl,
     sheetTable_oxytocin_sdlj,
     sheetTable_oxytocin_sdry,
+    sheetTable_oxytocin_hzly,
     sheetTable_insulin_pump_sdry,
     sheetTable_oxytocin_dglb,
     sheetTable_oxytocinck_dglb,

@@ -1390,7 +1390,7 @@ function autoComplete(el, bind) {
               } else {
                 // 多选
                 if (typeof(splice) === 'string') {
-                  const split = splice 
+                  const split = splice
                   const oldValue =  obj[key] ? obj[key].split(split) : []
                   const index = oldValue.findIndex(v => v === data)
                   if (index > -1) {
@@ -1600,6 +1600,7 @@ export default {
         case "stmz":
         case "zjhj":
         case "nfyksdyy":
+        case "hzly":
           return this.activeTab === "3";
         default:
           return false;
@@ -2084,7 +2085,7 @@ export default {
         config.recordDate ||
         record[0].find((item) => item.key == "recordDate").value || ""
       //佛一的修改日期  如果新增记录(也就是无日期时间传到这里)就默认当前时间  并且允许修改，也为后面批量签名做日期准备
-      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll','925','nfyksdyy','whsl'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'gdtj', 'zhzxy', 'ytll','925','nfyksdyy','whsl','zjhj'].includes(this.HOSPITAL_ID)) {
         const firstDate = record[0].find((item) => item.key == "recordDate")
         const itemListTime = config.recordDate || firstDate.value
           record[0].find((item) => item.key == "recordDate").value
@@ -2702,7 +2703,8 @@ export default {
               this.sheetInfo.sheetType === "cardiac_lcey" ||
               this.sheetInfo.sheetType === "labor_lcey" ||
               this.sheetInfo.sheetType === "caseamount_wx"||
-              this.sheetInfo.sheetType === "chemotherapy_qhwy"
+              this.sheetInfo.sheetType === "chemotherapy_qhwy"||
+              this.sheetInfo.sheetType === "neonatal_care_qhwy"
             ) {
               if (GetLength(text) > 36) {
                 result.push(text);
@@ -2744,7 +2746,7 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (["ultrasound_fs","baby_tj","baby_whhk","insulin_whhk","labor_whhk","intravenous_whhk", "neonatal_care_qhwy"].includes(this.sheetInfo.sheetType)) {
+            } else if (["ultrasound_fs","baby_tj","baby_whhk","insulin_whhk","labor_whhk","intravenous_whhk","gastroentery_whhk"].includes(this.sheetInfo.sheetType)) {
               if (GetLength(text) > 30) {
                 result.push(text);
                 text = allDoc[i];
@@ -2786,13 +2788,20 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            }else {
+            }else if (['hj','wujing','guizhou'].includes(this.HOSPITAL_ID )){
               if (GetLength(text) > 23) {
                 result.push(text);
                 text = allDoc[i];
               } else {
                 text += allDoc[i];
               }
+            } else {
+              // if (GetLength(text) > 23) {
+              //   result.push(text);
+              //   text = allDoc[i];
+              // } else {
+                text += allDoc[i];
+              // }
             }
           }
         }
@@ -3048,25 +3057,25 @@ export default {
         }
       }else{
         for (let i = 0; i < result.length; i++) {
-        if (i == 0) {
-          // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
-          if (this.sheetInfo.sheetType === 'common_gzry') {
-            const fieldOne = this.fixedList.fieldOne
-            const fieldTwo = this.fixedList.fieldTwo
-            let bloodPressure = ''
-            if (fieldOne.value && fieldTwo.value) {
-              bloodPressure = fieldOne.value + '/' + fieldTwo.value
-            } else {
-              bloodPressure = fieldOne.value || fieldTwo.value
+          if (i == 0) {
+            // 贵州省医-common_gzry，血压弹框分开为收缩压和舒张压
+            if (this.sheetInfo.sheetType === 'common_gzry') {
+              const fieldOne = this.fixedList.fieldOne
+              const fieldTwo = this.fixedList.fieldTwo
+              let bloodPressure = ''
+              if (fieldOne.value && fieldTwo.value) {
+                bloodPressure = fieldOne.value + '/' + fieldTwo.value
+              } else {
+                bloodPressure = fieldOne.value || fieldTwo.value
+              }
+              this.fixedList.bloodPressure = {
+                ...fieldOne,
+                key: 'bloodPressure',
+                name: '血压',
+                value: bloodPressure
+              }
             }
-            this.fixedList.bloodPressure = {
-              ...fieldOne,
-              key: 'bloodPressure',
-              name: '血压',
-              value: bloodPressure
-            }
-          }
-          mergeTr(this.record[0], this.staticObj, this.fixedList);
+            mergeTr(this.record[0], this.staticObj, this.fixedList);
           }
           if (this.record[i]) {
             this.record[i].find(

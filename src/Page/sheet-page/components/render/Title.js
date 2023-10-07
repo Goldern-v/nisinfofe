@@ -1384,6 +1384,13 @@ export default function Title(
     );
   }
   break;
+  case "preventvap_zxy": {
+    //  南方中西医 - 预防VAP评估单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/preventvap_zxy/th").default)
+    );
+  }
+  break;
   case "waiting_birth_wj": {
     // 武警 - 待产护理记录单
     Th = JSON.parse(
@@ -1875,10 +1882,24 @@ export default function Title(
     );
   }
   break;
+    case "orthopaedic_hzly": {
+      // 惠州六院 - 护理记录单（骨科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/orthopaedic_hzly/th.js").default)
+      );
+    }
+      break;
     case "postpartum2_sdry": {
       // 顺德人医 - 产后产房观察记录单
       Th = JSON.parse(
         JSON.stringify(require("../config/postpartum2_sdry/th.js").default)
+      );
+    }
+      break;
+    case "postpartum2_hzly": {
+      // 惠州六院 - 产后产房观察记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/postpartum2_hzly/th.js").default)
       );
     }
       break;
@@ -1896,6 +1917,13 @@ export default function Title(
     );
   }
   break;
+    case "oxytocin_hzly": {
+      // ,"催产素静脉点滴观察表",
+      Th = JSON.parse(
+        JSON.stringify(require("../config/oxytocin_hzly/th.js").default)
+      );
+    }
+      break;
   case "insulin_pump_sdry": {
     // 顺德胰岛素泵观察记录表",
     Th = JSON.parse(
@@ -2148,6 +2176,13 @@ export default function Title(
     );
   }
   break;
+    case "prenatal_hzly": {
+      // 惠州六院 - 产前护理记录
+      Th = JSON.parse(
+        JSON.stringify(require("../config/prenatal_hzly/th.js").default)
+      );
+    }
+      break;
     case "baby2_sdry": {
       // 顺德人医 - 护理记录单（儿科）
       Th = JSON.parse(
@@ -2337,6 +2372,13 @@ export default function Title(
     );
   }
     break;
+    case "postpartum_hzly": {
+    // // 惠州六院 - 产后护理记录
+    Th = JSON.parse(
+      JSON.stringify(require("../config/postpartum_hzly/th.js").default)
+    );
+  }
+    break;
   case "critical_new_weihai": {
     // // 威海市立 - 病重（病危）患者护理记录单（新）
     Th = JSON.parse(
@@ -2491,6 +2533,20 @@ export default function Title(
     );
   }
   break;
+  case "neurosurgery_ytll": {
+    // 烟台玲珑 - 神经外科ICU护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neurosurgery_ytll/th").default)
+    );
+  }
+  break;
+  case "critical_ytll": {
+    // 烟台玲珑 - 神经外科ICU护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_ytll/th").default)
+    );
+  }
+  break;
   case "seriousnursing_ytll": {
     // 烟台玲珑-病重（病危）患者评估与护理记录单
     Th = JSON.parse(
@@ -2596,6 +2652,13 @@ export default function Title(
     );
   }
   break;
+  case "gastroentery_whhk": {
+    // 武汉汉口 - 静脉治疗使用维护记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/gastroentery_whhk/th").default)
+    );
+  }
+  break;
   case "baby_whhk": {
     // 武汉汉口 - 新生儿护理记录单
     Th = JSON.parse(
@@ -2642,6 +2705,27 @@ export default function Title(
     // 湛江海军医院 - 护理记录单
     Th = JSON.parse(
       JSON.stringify(require("../config/record_common_zjhj/th").default)
+    );
+  }
+  break;
+  case "neonatology_zjhj": {
+    // 湛江海军医院 - 新生儿护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/neonatology_zjhj/th").default)
+    );
+  }
+  break;
+  case "wait_delivery_zjhj": {
+    // 湛江海军医院 - 候产记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/wait_delivery_zjhj/th").default)
+    );
+  }
+  break;
+  case "record_common_sdhp": {
+    // 顺德和平外科 - 护理记录单（全院通用）
+    Th = JSON.parse(
+      JSON.stringify(require("../config/record_common_sdhp/th").default)
     );
   }
   break;

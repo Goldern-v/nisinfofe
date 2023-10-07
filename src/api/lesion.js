@@ -130,6 +130,10 @@ function syncGetNursePatientWHFKRecData(deptCode) {
 function synchronizationPatientByBedNo(deptCode,bedNo) {
   return axios.get(`${apiPath}/bed/syncBedPatInHospital/${deptCode}/${bedNo}`)
 }
+//花都床位同步患者
+function syncPatListHd(data) {
+  return axios.post(`${apiPath}patient/syncPatListHd`,data)
+}
 
 
 
@@ -158,5 +162,6 @@ export {
   syncGetNursePatientWHFKRecData,
   syncGetNurseBedRecWHHKExecute,
   synchronizationPatientByBedNo,
-  endAutoSign
+  endAutoSign,
+  syncPatListHd
 }

@@ -6,22 +6,35 @@
       title="归档打印"
       :enable-mobile-fullscreen="false"
     >
-      <div class="list-con">
-        <span class="key">责任护士：</span>
-        <div class="value">
-          <el-input v-model="details.dutyNurse" placeholder="请输入名字"></el-input>
-        </div>
-      </div>
-      <div class="list-con">
-        <span class="key">质控护士：</span>
-        <div class="value">
-          <el-input v-model="details.qcNurse" placeholder="请输入名字"></el-input>
-        </div>
-      </div>
-      <div slot="button">
-        <el-button class="modal-btn" @click="close">取消</el-button>
-        <el-button class="modal-btn" @click="confirm">确定</el-button>
-      </div>
+    <el-form  :rules="rules"
+    :model="form" label-width="100px"
+    ref="ruleForm" class="demo-form-inline">
+      <el-form-item label="责任护士：" prop="dutyNurse">
+        <el-select class="select-multi" v-model="form.dutyNurse" filterable placeholder="请选择">
+          <el-option
+                v-for="(item,index) in memberLists"
+                :key="item+index"
+                :label="item"
+                :value="item"
+              ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="质控护士：" prop="qcNurse">
+        <el-select class="select-multi" filterable v-model="form.qcNurse" placeholder="请选择">
+          <el-option
+                v-for="(item,index) in memberLists"
+                :key="item+index"
+                :label="item"
+                :value="item"
+              ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+          <el-button class="modal-btn" @click="close">取消</el-button>
+          <el-button class="modal-btn" @click="confirm('ruleForm')">确定</el-button>
+      </el-form-item>
+    </el-form>
+
     </sweet-modal>
   </div>
 </template>
@@ -65,7 +78,7 @@
 <script>
 import common from "@/common/mixin/common.mixin.js";
 import mixin from "../mixins/index.js";
-import { uploadFileArchive } from "../api/index.js";
+import { uploadFileArchive, getAllNurseNamePinyin } from "../api/index.js";
 export default {
   mixins: [common, mixin],
   data() {
@@ -73,42 +86,74 @@ export default {
       data: {},
       details: {},
       iconLoading: false,
-      item: {}
+      item: {},
+      memberLists:[],
+      form:{
+        dutyNurse: '', //责任护士
+        qcNurse:'' //质控护士
+      },
+      rules: {
+        dutyNurse: [
+          { required: true, message: '请选择责任护士',  trigger: "change"},
+        ],
+        qcNurse: [
+          { required: true, message: '请选择质控护士',  trigger: "change"}
+        ],
+      },
     };
   },
   props: {
     getArchiveList: Function
   },
+  created() {},
+  watch:{
+    deptCode(newVal){
+      this.getMemberLists()
+    }
+  },
   methods: {
+    getMemberLists() {
+      getAllNurseNamePinyin([]).then((res) => {
+        this.memberLists = res.data.data || [];
+      });
+    },
     open(data) {
       this.item = data;
+      this.getMemberLists()
       this.$refs.modal.open();
     },
     close() {
+      this.$refs.ruleForm.resetFields();
       this.$refs.modal.close();
-      this.details.dutyNurse = '',
-      this.details.qcNurse = ''
+      this.form.dutyNurse = '',
+      this.form.qcNurse = ''
     },
     // 文件归档上传
     uploadFileArchive() {
         uploadFileArchive(
           this.item.patientId,
           this.item.visitId,
-          this.details.dutyNurse,
-          this.details.qcNurse
+          this.form.dutyNurse,
+          this.form.qcNurse
         ).then(rep => {
           this.$message({
             type: "success",
             message: "文件上传成功"
           });
           this.getArchiveList();
-          this.details.dutyNurse = '',
-          this.details.qcNurse = ''
         });
     },
     confirm() {
-      this.close();
-      this.uploadFileArchive();
+      this.$refs['ruleForm'].validate((valid) => {
+          if (valid) {
+            this.uploadFileArchive();
+            this.close();
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+
     }
   },
   components: {}

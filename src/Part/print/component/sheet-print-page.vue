@@ -27,7 +27,7 @@
   * {
     pointer-events: none;
   }
-.sheet-page-container .sheet-table .body-con.clickRow td, 
+.sheet-page-container .sheet-table .body-con.clickRow td,
 .sheet-excel-container .sheet-table .body-con.clickRow td{
   background: transparent;
 }
@@ -308,6 +308,7 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
+        "wait_delivery_zjhj", // 湛江海军_候产记录单
         "wait_delivery_zhzxy", // 珠海中西医_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
         "neonatal_care_jm", //江门妇幼_新生儿监护单
@@ -315,12 +316,17 @@ export default {
         "pediatrics_jm", //江门妇幼_儿科护理记录单
         "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
         "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "generalsurgery_jm", //江门妇幼_普外科护理记录单
+        "neonatology_jm", //江门妇幼_产科新生儿护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产记录单
         "tcm_pediatrics_jm", //江门妇幼_中医儿科护理记录单
         "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
         "obstetricnursing_jm", //江门妇幼_产科护理记录单
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
         "postpartumnursing_jm", //江门妇幼_产后护理记录单
         "entdepartment_jm", //江门妇幼_耳鼻喉科护理记录单
+        "ear_nose_jm", //江门妇幼_耳鼻喉科护理记录单-成人
+        "internalCareRecord", //江门妇幼_内科护理记录单
         "catheterplacement_jm", //江门妇幼_深静脉导管置入术后维护单
         "safemetachysis_jm", //江门妇幼_输血护理记录单
         "internal_eval_lcey", //聊城_一般患者护理记录单
@@ -328,7 +334,7 @@ export default {
         "critical2_lcey", //聊城_病重（危）患者护理记录单
         "critical_lcey", //聊城_病重（病危）患者护理记录单（带瞳孔）
       ],
-      heightAdjuthd: ["postpartum_hd", "wait_delivery_hd", "prenatal_hd"],
+      heightAdjuthd: ["postpartum_hd", "wait_delivery_hd", "prenatal_hd", 'wait_delivery_zjhj'],
     };
   },
   created() {
@@ -382,7 +388,8 @@ export default {
       this.HOSPITAL_ID === "lyyz" ||
       this.HOSPITAL_ID === "hj" ||
       this.HOSPITAL_ID === "nfyksdyy" ||
-      this.HOSPITAL_ID === "dglb"
+      this.HOSPITAL_ID === "dglb" ||
+      this.HOSPITAL_ID === "beihairenyi"
     ) {
       printDir("h");
       addCSS(
@@ -576,6 +583,36 @@ export default {
         `
       );
     }
+    if (this.HOSPITAL_ID === "whsl" && this.query.sheetType !== "critical2_weihai") {
+      addCSS(
+        window,
+        `
+        @media print {
+          #sheetPagePrint .iframe > div{
+           padding-top: 100px !important;
+          }
+          .body-con{
+            height: 35px !important;
+          }
+        }
+        `
+      );
+    }
+        if ( this.query.sheetType === "post_partum_weihai") {
+      addCSS(
+        window,
+        `
+        @media print {
+          #sheetPagePrint .iframe > div{
+           padding-top: 50px !important;
+          }
+          // .body-con{
+          //   height: 35px !important;
+          // }
+        }
+        `
+      );
+    }
     /* 护理记录单行高 */
     if (
       this.HOSPITAL_ID === "quzhou" &&
@@ -622,7 +659,7 @@ export default {
         `
       );
     }
-    if (this.sheetInfo.sheetType == "common_wj") {
+    if (['common_wj'].includes(sheetInfo.sheetType)) {
       addCSS(
         window,
         `
@@ -772,6 +809,19 @@ export default {
               transform: scale(0.8);
             }
 
+        `
+      );
+    }
+    if (
+      this.sheetInfo.sheetType == "neonatal_care_qhwy"
+    ) {
+      addCSS(
+        window,
+        `
+           #sheetPagePrint th[dataname="护士签名"] {
+              min-width: 70px !important;
+              max-width: 70px !important;
+            }
         `
       );
     }
@@ -944,6 +994,20 @@ export default {
         `
       );
     }
+    //普通护记
+      if (this.query.sheetType === "ordinary_sdlj" ) {
+      // if (this.sheetInfo.sheetType == "ordinary_sdlj" ) {
+      addCSS(
+        window,
+        `
+          @media print {
+            #sheetPagePrint .contant{
+              margin-top:-35px !important;
+            }
+          }
+        `
+      );
+    }
     if (this.HOSPITAL_ID === "nfyksdyy") {
       addCSS(
         window,
@@ -982,7 +1046,7 @@ export default {
       );
     }
     //
-    if (sheetInfo.sheetType == "baby_sdry" || sheetInfo.sheetType == "postpartum2_sdry" ) {
+    if (this.query.sheetType === "baby_sdry" || this.query.sheetType === "postpartum2_sdry" ) {
       addCSS(
         window,
         `
@@ -1021,7 +1085,7 @@ export default {
         `
       );
     }
-    if (sheetInfo.sheetType == "postpartum_sdry") {
+    if (this.query.sheetType === "postpartum_sdry") {
       addCSS(
         window,
         `
@@ -1046,14 +1110,14 @@ export default {
         window,
         `
         .info-con{
-            font-size:16px!improtant;
+            font-size:15px!improtant;
           }
 
           #sheetPagePrint td[datakey="signerNo"] .sign-img img{
               transform:scale(0.81)
           }
           @media print {
-            #sheetPagePrint .body-con{ height: 34px !important; }
+            #sheetPagePrint .body-con{ height: 33px !important; }
             #sheetPagePrint .body-con td input { font-size: 14px !important;}
             #sheetPagePrint .body-con td  textarea{ font-size: 14px !important;}
             #sheetPagePrint .contant{margin-top:-30px !important;}
@@ -1120,6 +1184,45 @@ export default {
            height: 46px !important;
            font-size:15px !important;
             }
+        `
+      );
+    }
+    if (["zjhj"].includes(this.HOSPITAL_ID)) {
+      addCSS(
+        window,
+        `
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='记录人签名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签  名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='审核人<br/>签  名']{
+            display:none !important;
+          }
+          #sheetPagePrint#sheetPagePrint th[dataname='记录人<br/>签  名']{
+             min-width: 90px !important;
+              max-width: 90px !important;
+          }
+
+        `
+      );
+    }
+    if (["record_common_zjhj" , "neonatology_zjhj"].includes(this.query.sheetType) ) {
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height: ${sheetTableWidth * 0.755}px !important;
+            transform: scaleX(0.98) scaleY(1.2) !important;
+            transform-origin: top center !important;
+            margin-top: -40px ;
+          }
+        }
         `
       );
     }

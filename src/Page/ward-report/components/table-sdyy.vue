@@ -40,7 +40,7 @@
     </thead>
     <tbody>
       <tr v-for="(item, index) of data" :key="item.name">
-        <td>{{ item.logDateTime }}</td>
+        <td>{{ item.admissionDateTime }}</td>
         <td>{{ item.bedLabel }}</td>
         <td
           @click="item.patientId && toPatientHome(item.patientId, item.visitId)"

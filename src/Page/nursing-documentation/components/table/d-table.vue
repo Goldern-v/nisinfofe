@@ -221,31 +221,27 @@ export default {
       );
     },
     onRecall(row) {
-      this.pageLoadng = true;
       let data =  {
         patientId: row.patientId,
         visitId: row.visitId,
         status: "1"
       }
       medicalRecall(data).then((res) => {
-        if(res.data.errorCode == '1'){
-          this.$message.success(res.data.errorMsg);
+        if(res.data.data.errorCode){
+          this.$message.success(res.data.data.errorMsg);
         }
-        this.pageLoadng = false
       })
     },
     onAgain(row) {
-       this.pageLoadng = true;
       let data =  {
         patientId: row.patientId,
         visitId: row.visitId,
         status: "2"
       }
       medicalRecall(data).then((res) => {
-        if(res.data.errorCode == '1'){
-          this.$message.success(res.data.errorMsg);
+        if(res.data.data.errorCode == '1'){
+          this.$message.success(res.data.data.errorMsg);
         }
-        this.pageLoadng = false
       })
     },
   },

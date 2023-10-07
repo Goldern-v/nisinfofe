@@ -245,7 +245,7 @@ export default [
     next: "",
     name: "Braden压疮护理措施",
     textarea: { width: 60 },
-    splice: '.',
+    splice: ' ',
     autoComplete: { data: [{name: 'A体位变换', value: 'A'},{name: 'B气垫床', value: 'B'},{name: 'C皮肤护理', value: 'C'},{name: 'D预防性敷料', value: 'D'},{name: 'E预防医疗器械性压疮', value: 'E'},{name: 'G营养评估支持', value: 'G'},{name: 'H健康宣教', value: 'H'},{name: 'I悬挂警示标识牌', value: 'I'}] },
   },
   {
@@ -262,8 +262,10 @@ export default [
     next: "",
     name: "跌倒护理措施",
     textarea: { width: 60 },
-    splice: '.',
+    change: (e, td) => limitChange(e, td, 20),
     autoComplete: { data: [{name: 'A及时发现并满足患者需要', value: 'A'},{name: 'B使用床档', value: 'B'},{name: 'C使用约束带', value: 'C'},{name: 'D悬挂防跌倒、防坠床警示牌', value: 'D'},{name: 'E告知患者寻找协助的方法', value: 'E'},{name: 'F加强营养', value: 'F'}]},
+    splice: ' ',
+
   },
   {
     key: "riskFive",
@@ -279,7 +281,7 @@ export default [
     next: "",
     name: "非计划性拔管护理措施",
     textarea: { width: 60 },
-    splice: '.',
+    splice: ' ',
     autoComplete: { data:  [{name: 'A保持通畅', value: 'A'},{name: 'B严格交接班', value: 'B'},{name: 'C妥善固定', value: 'C'},{name: 'D约束带', value: 'D'},{name: 'E药物镇静镇痛', value: 'E'},{name: 'F评估耐受性及依从性', value: 'F'},{name: 'G管路标识', value: 'G'},{name: 'H健康教育', value: 'H'}] },
   },
   {
@@ -304,7 +306,7 @@ export default [
     next: "",
     name: "疼痛评估护理措施",
     textarea: { width: 60 },
-    splice: '.',
+    splice: ' ',
     autoComplete: { data: [{name: 'A取舒适卧位', value: 'A'},{name: 'B心理护理', value: 'B'},{name: 'C理疗', value: 'C'},{name: 'D通知医生', value: 'D'},{name: 'E药物治疗', value: 'E'}] },
   },
   {

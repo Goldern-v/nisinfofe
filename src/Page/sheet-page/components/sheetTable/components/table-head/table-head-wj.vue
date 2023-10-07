@@ -1,9 +1,9 @@
 <template>
-  <div :class="['header-con',sheetInfo.sheetType === 'common_wj'?'wujing-big-title':'']">
+  <div :class="['header-con',['common_wj', 'waiting_birth_wj','postpartum_nurse_wj'].includes(sheetInfo.sheetType)?'wujing-big-title':'']">
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <div v-if="sheetInfo.sheetType === 'waiting_birth_wj'">
-      <div class="info-con" flex="main:justify" >
+      <div class="info-con big-header" flex="main:justify" >
         <span
           @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
         >
@@ -68,7 +68,7 @@
           /> -->
         <!-- </span> -->
       </div>
-      <div class="info-con">
+      <!-- <div class="info-con big-header">
         <span
           @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
         >
@@ -78,6 +78,33 @@
             style="min-width: 1100px;max-width: 620px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
           >
             {{ diagnosis }}
+          </div>
+        </span>
+      </div> -->
+      <div class="info-con" :class="{'big-header':sheetInfo.sheetType=='common_wj'}">
+        <span
+          @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)"
+        >
+          诊断：
+          <div
+            class="bottom-line"
+            style="min-width: 1080px;max-width: 1150px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+              >
+            {{ processedDiagnosis1[0] }}
+          </div>
+          <div
+            class="bottom-line"
+            style="margin-left:46px;min-width: 1080px;max-width: 1150px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+            v-if="processedDiagnosis1[1]"
+          >
+            {{ processedDiagnosis1[1] }}
+          </div>
+          <div
+            class="bottom-line"
+            style="margin-left:46px;min-width: 1080px;max-width: 1150px;min-height:13px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"
+            v-if="processedDiagnosis1[2]"
+          >
+            {{ processedDiagnosis1[2] }}
           </div>
         </span>
       </div>
@@ -238,6 +265,22 @@ export default {
       let text = ''
       strArr.map(str=>{
        if(this.GetLength(text + str)>140){
+          arr.push(text)
+          text = str
+        }else{
+          text += str
+        }
+      })
+      arr.push(text)
+      text = ''
+      return arr
+    },
+    processedDiagnosis1(){
+      let strArr = this.diagnosis.split('')
+      let arr = []
+      let text = ''
+      strArr.map(str=>{
+       if(this.GetLength(text + str)>176){
           arr.push(text)
           text = str
         }else{

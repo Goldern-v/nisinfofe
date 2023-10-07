@@ -862,28 +862,6 @@ export default {
         return this.$message.warning("请先保存后再签名");
       }
 
-      // if (type === "P" && !this.record.autographNameA) {
-      //   return this.$message.warning("需要A班先签名");
-      // }
-
-      // if (type === "N" && !this.record.autographNameP) {
-      //   return this.$message.warning("需要P班先签名");
-      // }
-
-      // this.$refs.signModal.open({
-      //   callback: async ({ username, password }) => {
-      //     await apis.signShiftRecord(this.record.id, type, username, password);
-
-      //     this.load();
-      //     this.$refs.signModal.close();
-      //     this.$message.success("签名成功");
-
-      //     if (type === "N") {
-      //       this.reloadSideList();
-      //     }
-      //   }
-      // });
-
       window.openSignModal(async (password, username) => {
         await apis.signShiftRecord(this.record.id, type, username, password);
 
@@ -894,27 +872,9 @@ export default {
         if (type === "N") {
           this.reloadSideList();
         }
-      });
+      },undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,'changeShfit');
     },
     onDelSignModalOpen(type, sourceEmpNo) {
-      // this.$refs.signModal.open({
-      //   title: "取消签名确认",
-      //   callback: async ({ username, password }) => {
-      //     await apis.delSignShiftRecord(
-      //       this.record.id,
-      //       username,
-      //       password,
-      //       type,
-      //       sourceEmpNo
-      //     );
-
-      //     this.load();
-      //     this.$refs.signModal.close();
-      //     this.$message.success("已取消签名");
-      //     this.reloadSideList();
-      //   }
-      // });
-
       window.openSignModal(async (password, username) => {
         await apis.delSignShiftRecord(
           this.record.id,
@@ -928,24 +888,10 @@ export default {
         this.$refs.signModal.close();
         this.$message.success("已取消签名");
         this.reloadSideList();
-      });
+      },undefined,undefined,undefined,undefined,undefined,'cancel',undefined,undefined,undefined,undefined,'changeShfit');
     },
     async onRemove() {
-      // this.$refs.signModal.open({
-      //   callback: async ({ username, password }) => {
-      //     await apis.removeShiftRecord(this.record.id, username, password);
 
-      //     const code = this.$route.params.code;
-
-      //     this.$message.success("删除成功");
-      //     this.$refs.signModal.close();
-      //     this.modified = false;
-      //     this.record = null;
-      //     this.patients = [];
-      //     this.$router.push({ path: `/shiftWork/${code}` });
-      //     this.reloadSideList();
-      //   }
-      // });
       window.openSignModal(async (password, username) => {
         await apis.removeShiftRecord(this.record.id, username, password);
 
@@ -958,7 +904,7 @@ export default {
         this.patients = [];
         this.$router.push({ path: `/shiftWork/${code}` });
         this.reloadSideList();
-      });
+      },undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,'changeShfit');
     },
     setIsSelectPatient(flag){
       this.isSelectPatient = flag

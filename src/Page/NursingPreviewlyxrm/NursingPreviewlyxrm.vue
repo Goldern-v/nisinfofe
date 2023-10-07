@@ -66,8 +66,19 @@
       padding-top:0 ;
       // margin-top:0;
     }
-    >>> .blood-sugar-table.table-box td{
+    >>> .blood-sugar-table.table-box td {
       height: 41px;
+      .cell {
+        font-size: 14px;
+      }
+    }
+  }
+  &.beihairenyi, &.nfyksdyy {
+    >>> .blood-sugar-table.table-box .noPrint {
+      display: none;
+    }
+    >>> .blood-sugar-table.table-box .inPrint {
+      display: block;
     }
   }
   .left-part {

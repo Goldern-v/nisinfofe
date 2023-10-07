@@ -25,7 +25,7 @@
               class
               @click.stop="post(item.value, index)"
               v-for="(item, index) in data"
-              :key="item.value"
+              :key="item.value + index"
               :class="{ autoSelected: index == selectIndex }"
             >
               {{ item.name }}
@@ -47,7 +47,7 @@
               class
               @click.stop="post(item, index)"
               v-for="(item, index) in data"
-              :key="item"
+              :key="item + index"
               :class="{ autoSelected: index == selectIndex }"
             >
               {{ item }}
@@ -70,7 +70,7 @@
               class
               @click.stop="post(item)"
               v-for="(item, index) in childData"
-              :key="item"
+              :key="item + index"
               :class="{ autoSelected: index == selectIndex }"
             >
               {{ item }}
@@ -103,7 +103,7 @@
               v-for="(item, index) in data"
               @mouseleave="handlerLeave(id)"
               @click="post(item)"
-              :key="item + index"
+              :key="index"
               :class="{
                 autoSelected:
                   index == selectIndex || selectedList.indexOf(item.code) > -1
@@ -359,7 +359,7 @@ export default {
         return this.show;
       };
       window.addEventListener("mousewheel", e => {
-        if (e.target.tagName != "LI") {
+        if (e.target.tagName != "LI" && e.target.tagName != "SPAN" && e.target.tagName != "UI") {
           this.show = false;
         }
       });

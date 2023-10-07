@@ -35,7 +35,7 @@
       </tr>
       <tr
         class="head-con"
-        :id="[sheetInfo.sheetType == 'common_wj' || HOSPITAL_ID=='nfyksdyy' ?'bigFonstSize':'']"
+        :id="[['common_wj', 'waiting_birth_wj'].includes(sheetInfo.sheetType) || HOSPITAL_ID=='nfyksdyy' ?'bigFonstSize':'']"
         v-for="(th, index) in data.titleModel.th"
         :key="index"
       >
@@ -46,7 +46,7 @@
           :colspan="item.colspan"
           :rowspan="item.rowspan"
           :style="item.style"
-          :class="{ canSet: item.canSet}"
+          :class="{ canSet: item.canSet,'no-print':item.noPrint}"
           @click="item.canSet && setTitle(item)"
         >
           <span v-if="item.key == 'recordYear'">{{
@@ -115,7 +115,7 @@
           :rowspan="item.rowspan"
           :style="item.style"
           :class="{ canSet: item.canSet,'no-print':item.noPrint}"
-          @click="item.canSet && setTitle(item, data.titleModel)"
+          @click="item.canSet && setTitle(item, index)"
         >
           <span v-if="item.key == 'recordYear'">{{ recordYear() }}</span>
           <span v-else v-html="item.name" :style="setStyle(item.name, item.canSet)"></span>
@@ -359,6 +359,7 @@
                   sheetInfo.sheetType === 'postpartum_hd' ||
                   sheetInfo.sheetType === 'neurosurgery_hd' ||
                   sheetInfo.sheetType === 'wait_delivery_hd' ||
+                  sheetInfo.sheetType === 'wait_delivery_zjhj' ||
                   sheetInfo.sheetType === 'neonatology_hd' ||
                   sheetInfo.sheetType === 'neonatology2_hd' ||
                   sheetInfo.sheetType === 'prenatal_hd' ||
@@ -367,6 +368,9 @@
                   sheetInfo.sheetType === 'pediatrics_jm' ||
                   sheetInfo.sheetType === 'child_recovery_jm' ||
                   sheetInfo.sheetType === 'gynaecology_jm' ||
+                  sheetInfo.sheetType === 'generalsurgery_jm' ||
+                  sheetInfo.sheetType === 'neonatology_jm' ||
+                  sheetInfo.sheetType === 'antenatalwaiting_jm' ||
                   sheetInfo.sheetType === 'tcm_pediatrics_jm' ||
                   sheetInfo.sheetType === 'antenatalwaiting_jm' ||
                   sheetInfo.sheetType === 'breastkenursing_jm' ||
@@ -433,7 +437,8 @@
                   minWidth: td.textarea.width + 'px',
                   maxWidth: td.textarea.width + 'px',
                 },
-                td.isDisabed && { cursor: 'not-allowed' }
+                td.isDisabed && { cursor: 'not-allowed' },
+                HOSPITAL_ID=='wujing' && td.key=='food' &&  tr.barCodeIdentification && {marginLeft:'-33px'}
               )
             "
             @keydown="
@@ -488,7 +493,7 @@
           <div
             v-else-if="
               td.key === 'description' &&
-             (HOSPITAL_ID === 'nfyksdyy' || sheetInfo.sheetType === 'common_wj') &&
+             (HOSPITAL_ID === 'nfyksdyy' || ['common_wj', 'waiting_birth_wj'].includes(sheetInfo.sheetType)) &&
               sheetInfo.selectBlock.openRichText
             "
             v-html="td.value"
@@ -682,8 +687,12 @@
           sheetInfo.sheetType == 'baby_sdry' ||
           sheetInfo.sheetType == 'baby2_sdry' ||
           sheetInfo.sheetType == 'postpartum2_sdry' ||
-          sheetInfo.sheetType == 'prenatal_sdry'
-
+          sheetInfo.sheetType == 'prenatal_sdry' ||
+          sheetInfo.sheetType == 'record_common_sdhp' ||
+          sheetInfo.sheetType == 'orthopaedic_hzly' ||
+          sheetInfo.sheetType == 'prenatal_hzly' ||
+          sheetInfo.sheetType == 'postpartum_hzly' ||
+          sheetInfo.sheetType == 'postpartum2_hzly'
         "
           >质控护士签名：</span
         >
@@ -850,6 +859,7 @@ export default {
         'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
+        "wait_delivery_zjhj",
         "neurosurgery_hd",
         "postpartum2_dglb",
         "neonatology_hd",
@@ -874,10 +884,14 @@ export default {
         "maternity_sn",
         "waiting_birth_wj",
         'orthopaedic_sdry',
+        'orthopaedic_hzly',
         'postpartum_sdry',
+        'postpartum_hzly',
         'baby_sdry',
         "postpartum2_sdry",
+        "postpartum2_hzly",
         "prenatal_sdry",
+        "prenatal_hzly",
         "baby2_sdry",
         "internal_eval_lcey", //一般或者护理记录单
         "critical_lcey", //病重（病危）患者护理记录单（带瞳孔）
@@ -908,7 +922,8 @@ export default {
         'baby_obs_dglb',
         'cardiology_tj',
         'cardiac_therapy_tj',
-        'critical_new_lc'
+        'critical_new_lc',
+        'record_common_sdhp'
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -918,13 +933,19 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
+        "wait_delivery_zjhj", // 湛江_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
         "pediatrics_jm", //江门妇幼_儿科护理记录单
         "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
         "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "generalsurgery_jm", //江门妇幼_普外科护理记录单
+        "neonatology_jm", //江门妇幼_产科新生儿护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产记录单
         "tcm_pediatrics_jm", //江门妇幼_中医儿科护理记录单
+        "internalCareRecord", //江门妇幼_内科护理记录单
+        "ear_nose_jm", //江门妇幼_耳鼻喉科护理记录单(成人）
         "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
         "obstetricnursing_jm", //江门妇幼_产科护理记录单
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
@@ -937,6 +958,21 @@ export default {
         "critical_new_lcey",//聊城_病重（危）患者护理记录单(带瞳孔）
         "critical2_lcey",//聊城_病重（危）患者护理记录单
         "critical_lcey",//聊城_病重（病危）患者护理记录单（带瞳孔）
+      ],
+      // 底部签名签上后锁表的记录单code
+      bottomSignedLockPageCode: [
+        //惠州六院
+        'orthopaedic_hzly',
+        'prenatal_hzly',
+        'postpartum_hzly',
+        'postpartum2_hzly',
+        //顺德人医
+        'orthopaedic_sdry',
+        'prenatal_sdry',
+        'baby2_sdry',
+        'postpartum_sdry',
+        'postpartum2_sdry',
+        'baby_sdry'
       ],
       // 底部两个签名的其中一个自定义字段
       doubleSignArr: [],
@@ -1079,8 +1115,22 @@ export default {
         return {};
       }
       text = text || '';
-      const scale = Math.min(1, 1 - (text.length - 10) * 0.03);
+      let length = this.GetLength(text)
+      const scale = Math.min(1, 1 - (length - 27) * 0.03);
       return { zoom: scale };
+    },
+    GetLength(str) {
+      var realLength = 0,
+        len = str.length,
+        charCode = -1;
+      for (var i = 0; i < len; i++) {
+        charCode = str.charCodeAt(i);
+        // 字符串^(String.fromCharCode([Unicode Value,]);可还原原字符.例如String.fromCharCode(94))
+        if (charCode == 94) realLength += 0;
+        else if (charCode >= 0 && charCode <= 128) realLength += 1;
+        else realLength += 2;
+      }
+      return realLength;
     },
     customCallBack(e,tr,x,y,index){
       if(!this.splitSave) return
@@ -1096,8 +1146,17 @@ export default {
     },
     // 护士职称权限判断处理
     onCanModify(data, index, y){
-      if(['nfyksdyy'].includes(this.HOSPITAL_ID) && this.listData && this.listData.length>0 && this.listData[ y + (index* data.length)]){
-        return this.listData[ y + (index* data.length)].canModify ? false : true;
+      // 顺德人医护记底部签名后该页锁表禁止任何人修改
+      if (this.bottomSignedLockPageCode.includes(this.sheetInfo.sheetType)) {
+        return !!this.auditorNo;
+      }
+      if (
+        ['nfyksdyy'].includes(this.HOSPITAL_ID)
+        && this.listData
+        && this.listData.length > 0
+        && this.listData[ y + (index * data.length)]
+      ) {
+        return this.listData[y + (index * data.length)].canModify ? false : true;
       }else{
         return false
       }
@@ -1204,7 +1263,7 @@ export default {
     },
     onBlur(e, bind, tr,td){
       if (sheetInfo.model == "print") return;
-      if ( ['common_gzry','oxytocin_sdry', 'waiting_birth_gzry', 'newborn_care_gzry','orthopaedic_sdry','baby2_sdry'].includes(this.sheetInfo.sheetType) ) {
+      if ( ['common_gzry','oxytocin_sdry','oxytocin_hzly', 'waiting_birth_gzry', 'newborn_care_gzry','orthopaedic_sdry','baby2_sdry','orthopaedic_hzly'].includes(this.sheetInfo.sheetType) ) {
         if(td.key === 'temperature'&&td.value !== ''&&(isNaN(td.value)||td.value<35||td.value>42)){
           this.$confirm(
             " 体温的填写范围是35～42，您的填写超出录入范围,请重新填写",
@@ -1341,7 +1400,7 @@ export default {
         }
       }
     },
-    setTitle(item,item2) {
+    setTitle(item) {
       if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy','whhk'].includes(this.HOSPITAL_ID)) {
 
         this.setTitleFS(item)
@@ -1370,7 +1429,6 @@ export default {
     //
     setTitleFS(item) {
       let self = this
-
       this.$parent.$parent.$refs.sheetTool.$refs.setTitleModal.open(
         (title, obj) => {
           let { list = [], id = '' } = obj  || {}
@@ -1398,6 +1456,7 @@ export default {
         },
         item.name,
         item,
+        this.index
       );
     },
     getLastRecordDate(index,row,direction){
@@ -1439,7 +1498,7 @@ export default {
     addNullRow(index, row,direction) {
       let newRow = nullRow();
       newRow.find((item) => item.key == "recordMonth").addRowDate = this.getLastRecordDate(index, row,direction);
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
         // 发送请求。有自定义标题且含下拉的。放进去
         const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
         findListByBlockId(startPageIndex,endPageIndex).then(res=>{
@@ -1781,9 +1840,19 @@ export default {
                 signData:JSON.stringify(strSignData)
                 }
             }
+            // 为了妇幼ca签名需要传的参数
+            if(this.HOSPITAL_ID=="fuyou") {
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
+              }
+              trObj['recordDate'] =  `${trObj['recordYear']}-${trObj['recordMonth']} ${trObj['recordHour']}`;
+              trObj.recordCode = this.sheetInfo.sheetType;
+              trObj.blockId = this.sheetInfo.selectBlock.id;
+              trObj.patientName = this.sheetInfo.masterInfo.patientName;
+              trObj.sex = this.sheetInfo.masterInfo.sex;
+              trObj.age = this.sheetInfo.masterInfo.age;
+            }
             window.openSignModal((password, empNo) => {
-
-              let trObj = {};
               for (let i = 0; i < trArr.length; i++) {
                 trObj[trArr[i].key] = trArr[i].value;
               }
@@ -1844,8 +1913,8 @@ export default {
               });
             },'',null,false,'',
             ['guizhou', '925'].includes(this.HOSPITAL_ID)?{}
-            :['hj',"zhzxy"].includes(this.HOSPITAL_ID)?trObj:null,
-            undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)?p7SignObj:parmas);
+            :['hj',"zhzxy", 'fuyou'].includes(this.HOSPITAL_ID)?trObj:null,
+            undefined,undefined,undefined ,undefined ,['nanfangzhongxiyi' ].includes(this.HOSPITAL_ID)?p7SignObj:parmas, 'record');
           }
         };
         let reverseList = [...decode().list].reverse();
@@ -1883,11 +1952,16 @@ export default {
       } else {
         // 删除签名
         let SigndataObj = {}, verifySignObj={}, strSignDataOBJ = {}
-        if(['foshanrenyi','hj'].includes(this.HOSPITAL_ID)){
+        if(['foshanrenyi','hj', 'fuyou'].includes(this.HOSPITAL_ID)){
           let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
             }
+            trObj.recordCode = this.sheetInfo.sheetType;
+            trObj.blockId = this.sheetInfo.selectBlock.id;
+            trObj.patientName = this.sheetInfo.masterInfo.patientName;
+            trObj.sex = this.sheetInfo.masterInfo.sex;
+            trObj.age = this.sheetInfo.masterInfo.age;
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
             strSignDataOBJ =
                 Object.assign({}, trObj, {
@@ -1948,28 +2022,28 @@ export default {
                 recordId:strSignData.id,
                 signData:JSON.stringify(strSignData)
                 }
-            }
-          this.$refs.delsignModal.open((password, empNo) => {
-            let id = trArr.find((item) => {
-              return item.key == "id";
-            }).value;
-            cancelSign({
-              id,
-              empNo,
-              password,
-              multiSign: this.multiSign,
-              // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
-              signType:
-                this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
-                  ? this.signType
-                  : "",
-            }).then((res) => {
-              this.bus.$emit("saveSheetPage", true);
-            });
-          },'',null,false,'',
-          ['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:
-          ['hj'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
-          undefined,undefined,undefined,SigndataObj,verifySignObj);
+        }
+        this.$refs.delsignModal.open((password, empNo) => {
+          let id = trArr.find((item) => {
+            return item.key == "id";
+          }).value;
+          cancelSign({
+            id,
+            empNo,
+            password,
+            multiSign: this.multiSign,
+            // multiSign: this.HOSPITAL_ID === "huadu" ? true : false,
+            signType:
+              this.HOSPITAL_ID === "huadu" || this.HOSPITAL_ID === "fuyou"||this.HOSPITAL_ID === "liaocheng"
+                ? this.signType
+                : "",
+          }).then((res) => {
+            this.bus.$emit("saveSheetPage", true);
+          });
+        },'',null,false,'',
+        ['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:
+        ['hj', 'fuyou'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
+        'cancle',undefined,undefined,SigndataObj,verifySignObj, 'record');
       }
     },
     toAudit(trArr, index, bodyModel, showAudit, e) {
@@ -2101,6 +2175,17 @@ export default {
                   formCode:sheetInfo.sheetType,// -- 表单ID
                 };
               }
+            if(this.HOSPITAL_ID == 'fuyou'){
+              for (let i = 0; i < trArr.length; i++) {
+                trObj[trArr[i].key] = trArr[i].value;
+              }
+              trObj['recordDate'] =  `${trObj['recordYear']}-${trObj['recordMonth']} ${trObj['recordHour']}`;
+              trObj.recordCode = this.sheetInfo.sheetType;
+              trObj.blockId = this.sheetInfo.selectBlock.id;
+              trObj.patientName = this.sheetInfo.masterInfo.patientName;
+              trObj.sex = this.sheetInfo.masterInfo.sex;
+              trObj.age = this.sheetInfo.masterInfo.age;
+            }
             window.openSignModal((password, empNo) => {
             let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
@@ -2155,17 +2240,22 @@ export default {
             );
           },['guizhou', '925'].includes(this.HOSPITAL_ID)?"":null,"",
           undefined,undefined,
-          ["zhzxy",'hj'].includes(this.HOSPITAL_ID)?trObj:undefined,
-          undefined,undefined,undefined,undefined,parmas);
+          ["zhzxy",'hj', 'fuyou'].includes(this.HOSPITAL_ID)?trObj:undefined,
+          undefined,undefined,undefined,undefined,parmas,'record');
         }
       } else {
         // 删除签名
         let SigndataObj = {}, verifySignObj={},strSignDataOBJ = {}
-        if(['foshanrenyi','hj'].includes(this.HOSPITAL_ID)){
+        if(['foshanrenyi','hj','fuyou'].includes(this.HOSPITAL_ID)){
           let trObj = {};
             for (let i = 0; i < trArr.length; i++) {
               trObj[trArr[i].key] = trArr[i].value;
             }
+            trObj.recordCode = this.sheetInfo.sheetType;
+            trObj.blockId = this.sheetInfo.selectBlock.id;
+            trObj.patientName = this.sheetInfo.masterInfo.patientName;
+            trObj.sex = this.sheetInfo.masterInfo.sex;
+            trObj.age = this.sheetInfo.masterInfo.age;
             let [allList, currIndex] = this.getAllListAndCurrIndex(trArr);
             strSignDataOBJ =
                 Object.assign({}, trObj, {
@@ -2218,7 +2308,7 @@ export default {
           });
         },'',null,false,'',
         ['guizhou','foshanrenyi', '925'].includes(this.HOSPITAL_ID)?{}:
-        ['hj'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
+        ['hj','fuyou'].includes(this.HOSPITAL_ID)?strSignDataOBJ:null,
         null,null,null,SigndataObj,verifySignObj);
       }
     },
@@ -2363,7 +2453,7 @@ export default {
       ) {
         return false;
       }
-      if(this.HOSPITAL_ID == "nfyksdyy"){
+      if(this.HOSPITAL_ID == "nfyksdyy" ){
         return this.onCanModify(this.data.bodyModel, this.index, y)
       }
       let status = tr.find((item) => item.key == "status").value;
@@ -2936,6 +3026,7 @@ export default {
       }
       // 能否保存()
       const canNotSave = tr.find(item => item.key == 'recordMonth').isDisabed
+      console.log(data.titleModel,'ddddddddddddddddddddd')
       let thead = data.titleModel;
       let table = data.bodyModel;
       // 数组重组
@@ -3087,7 +3178,7 @@ export default {
     openAduitModal(pageIndexs) {
       // 需要批量审核签名
       this.$store.commit('upPageIndexs', pageIndexs)
-      let verifySignObj = "",SigndataObj=""
+      let verifySignObj = "",SigndataObj="", recodeObj=null;
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
             SigndataObj = {
               Patient_ID:this.patientInfo.patientId,
@@ -3106,6 +3197,17 @@ export default {
               recordId:"strSignData.id",
               signData:"JSON.stringify(strSignData)",
             }
+      }
+      if(['fuyou'].includes(this.HOSPITAL_ID)){
+        recodeObj = {
+          recordDate: moment().format("YYYY-MM-DD HH:mm:ss"),
+          recordCode: this.sheetInfo.sheetType,
+          blockId: this.sheetInfo.selectBlock.id,
+          patientName: this.sheetInfo.masterInfo.patientName,
+          sex: this.sheetInfo.masterInfo.sex,
+          age: this.sheetInfo.masterInfo.age,
+          ...this.sheetInfo.selectBlock
+        }
       }
       window.openSignModal((password, empNo,auditDate=moment().format("YYYY-MM-DD HH:mm:ss")) => {
           getUser(password, empNo).then((res) => {
@@ -3138,11 +3240,11 @@ export default {
             this.bus.$emit("saveSheetPage", false);
           });
 
-      }, "审核签名确认","","","","","","",this.sheetInfo.sheetType,SigndataObj,verifySignObj);
+      }, "审核签名确认","","","",["fuyou"].includes(this.HOSPITAL_ID)? recodeObj : "","","",this.sheetInfo.sheetType,SigndataObj,verifySignObj,'record');
     },
     /** 取消审核整页 */
     cancelAduitModal() {
-      let verifySignObj = "",SigndataObj=""
+      let verifySignObj = "",SigndataObj="", recodeObj=null;
       if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
             SigndataObj = {
               Patient_ID:this.patientInfo.patientId,
@@ -3162,6 +3264,17 @@ export default {
               signData:"JSON.stringify(strSignData)",
             }
       }
+      if(['fuyou'].includes(this.HOSPITAL_ID)){
+        recodeObj = {
+          recordDate: moment().format("YYYY-MM-DD HH:mm:ss"),
+          recordCode: this.sheetInfo.sheetType,
+          blockId: this.sheetInfo.selectBlock.id,
+          patientName: this.sheetInfo.masterInfo.patientName,
+          sex: this.sheetInfo.masterInfo.sex,
+          age: this.sheetInfo.masterInfo.age,
+          ...this.sheetInfo.selectBlock
+        }
+      }
       window.openSignModal((password, empNo) => {
         getUser(password, empNo).then((res) => {
           let { empNo, empName } = res.data.data;
@@ -3180,7 +3293,7 @@ export default {
             this.$message.warning("非审核本人不可取消");
           }
         });
-      }, "取消签名确认","","","","","","","",SigndataObj,verifySignObj);
+      }, "取消签名确认","","","",["fuyou"].includes(this.HOSPITAL_ID)? recodeObj : "","cancel","","",SigndataObj,verifySignObj, 'record');
     },
     /** 右侧主管护士签名 */
     sign2() {

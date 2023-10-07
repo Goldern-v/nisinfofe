@@ -14,7 +14,7 @@
           <div class="name" flex="main:justify">
             <span flex="cross:center">
               <span>{{data.name}}</span>
-              <span v-if="HOSPITAL_ID == 'nfyksdyy'">
+              <span v-if="['nfyksdyy', 'sdhpwk'].includes(HOSPITAL_ID)">
                 | {{data.expand2}}房
               </span>
               <span class="point-box" v-show="data.formLowestStatus != '2'"
@@ -23,7 +23,7 @@
             <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病重'">病重</span>
             <span style="color:rgb(237, 85, 102)" v-if="data.patientCondition == '病危'">病危</span>
           </div>
-          <div class="info" v-if="HOSPITAL_ID == 'beihairenyi' || HOSPITAL_ID == 'whfk' ||HOSPITAL_ID == 'nfyksdyy'">
+          <div class="info" v-if="['beihairenyi','whfk','nfyksdyy', 'ytll', 'sdhpwk'].includes(HOSPITAL_ID)">
             {{data.sex}} | {{data.age}} | {{data.inpNo}} | {{data.chargeType
             || '--'}}
           </div>
@@ -35,7 +35,10 @@
           <div class="aside" :style="inToday(data.admissionDate) && {color:'red'}">
             入院：{{`${FormatData(data.admissionDate)}（第${data.inpDay}天）`}}
           </div>
-          <div class="aside"><span class="doctor">医生：{{data.doctorInCharge}}</span><span class="nurse" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">责任护士：{{data.dutyNurse}}</span></div>
+          <div class="aside"><span class="doctor">医生：{{data.doctorInCharge}}</span>
+            <span class="nurse" v-if="HOSPITAL_ID == 'zjhj'">过敏史：{{data.drugGms}}</span>
+            <span class="nurse" v-if="HOSPITAL_ID == 'nanfangzhongxiyi'">责任护士：{{data.dutyNurse}}</span>
+          </div>
           <div class="aside">诊断：{{data.diagnosis}}</div>
         </div>
         <el-row class="card-footer" type="flex" justify="space-between" align="middle" flex="cross: center">
@@ -78,7 +81,7 @@
           <div class="right-icon"></div>
         </el-row>
         <!--佛一处理床位一览卡的数据-->
-        <div v-if="['nfyksdyy'].includes(HOSPITAL_ID)" class="user-img-sdry" :style="{ backgroundColor: data.nursingClassColor }">
+        <div v-if="['nfyksdyy', 'sdhpwk'].includes(HOSPITAL_ID)" class="user-img-sdry" :style="{ backgroundColor: data.nursingClassColor }">
           <img v-if="data.sex==='女'" src="./images/女.png" height="46" width="46" />
           <img v-if="data.sex==='男'" src="./images/男.png" height="46" width="46" />
           <p>
@@ -233,6 +236,10 @@
     <div flex="" class="table-line">
       <div class="key">费用合计：</div>
       <div class="value">{{ data.totalCosts }}</div>
+    </div>
+    <div flex="" class="table-line" v-if="HOSPITAL_ID == 'lyxrm'">
+      <div class="key">剩余金额：</div>
+      <div class="value">{{ (data.prepayments - data.totalCosts) | tomenny }}</div>
     </div>
 
     <!-- <div flex="" class="table-line">

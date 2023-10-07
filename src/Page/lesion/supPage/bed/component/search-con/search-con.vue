@@ -650,7 +650,7 @@ export default {
           [
             "zhongshanqi", "liaocheng",  "beihairenyi",'ytll',
             "fuyou",  "huadu",  "foshanrenyi",  "fuyou",
-            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','zhzxy', 'nanfangzhongxiyi','whsl','925','whhk'
+            "huadu",  "whyx", "fsxt", "sdlj","whfk",'lyyz','zhzxy', 'nanfangzhongxiyi','whsl','925','whhk','hzly'
           ].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
@@ -660,7 +660,7 @@ export default {
         });
       }
       if (
-          ["nfyksdyy","qhwy"].includes(this.HOSPITAL_ID)
+          ["nfyksdyy","qhwy",'zjhj', 'sdhpwk'].includes(this.HOSPITAL_ID)
       ) {
         list.splice(3, 0, {
           name: "我的管床",
@@ -695,7 +695,7 @@ export default {
           type: "state",
         })
       }
-      if (['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['nfyksdyy', 'sdhpwk'].includes(this.HOSPITAL_ID)) {
         list.splice(4, 0, {
           name: "病人分组",
           type: 'select',
@@ -736,10 +736,13 @@ export default {
         'zhzxy',
         'zjhj',
         'nfyksdyy',
+        'sdhpwk',
         '925',
         'dglb',
         'stmz',
-        'guizhou'
+        'guizhou',
+        'sdhpwk',
+        'hzly'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -752,7 +755,7 @@ export default {
     // 同步患者数据
     showSyncPatientBtn() {
       return [
-        "whfk","foshanrenyi","fsxt",'zjhj',"liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925','dglb', 'stmz'
+        "whfk","foshanrenyi","fsxt",'zjhj',"liaocheng","beihairenyi","sdlj","nanfangzhongxiyi","lyxrm",'lyyz','qhwy','huadu','ytll', 'whsl', 'gdtj', 'whhk','zhzxy','nfyksdyy','925','dglb', 'stmz', 'sdhpwk','hzly'
         ].includes(
         this.HOSPITAL_ID
       );
@@ -1058,7 +1061,7 @@ export default {
           break;
         case "VTE高风险":
           {
-            if (['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID)) {
+            if (['lyxrm', 'whhk', 'stmz','nfyksdyy', 'sdhpwk'].includes(this.HOSPITAL_ID)) {
               this.$parent.bedList = this.dangerInVteLy;
             } else {
               this.$parent.bedList = this.hasVteDanger;

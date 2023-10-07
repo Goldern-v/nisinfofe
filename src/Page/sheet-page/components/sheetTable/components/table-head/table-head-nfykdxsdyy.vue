@@ -1,7 +1,7 @@
 <template>
   <div class="header-con">
     <div class="his-name">
-      <img src="./images/hospital-name.png" height="60" width="300" />
+      <img  src="./images/hospital-name.png" height="60" width="300" />
     </div>
     <div class="title" style="font-size: 30px;">
       {{ patientInfo.recordName }}
@@ -105,7 +105,7 @@
     <div v-else>
       <div
         class="info-con"
-        v-if="sheetInfo.sheetType !== 'postpartum2_sdry'"
+        v-if="sheetInfo.sheetType !== 'postpartum2_sdry' "
         style="display: flex; justify-content: start; align-items: center;"
       >
         <span @click="handleDeptNameChoose(0)">
@@ -114,7 +114,7 @@
             class="bottom-line"
             :style="{
               minWidth:
-                sheetInfo.sheetType == 'prenatal_sdry' ? '373px' : '336px'
+                sheetInfo.sheetType == 'prenatal_sdry'  ? '373px' : '336px'
             }"
           >
             <!-- {{ patientInfo.realDeptName }} -->
@@ -163,7 +163,7 @@
             />
           </span>
         </template>
-        <template v-if="sheetInfo.sheetType == 'postpartum_sdry'">
+        <template v-if="sheetInfo.sheetType == 'postpartum_sdry' ">
           <span style="margin-left: 17px;"> 特殊情况：</span>
           <customSelectCanRepeat
             :options="specialCases"
@@ -286,7 +286,7 @@
         </span>
 
          <!-- 产后护理记录单分娩方式 -->
-        <template v-if="sheetInfo.sheetType == 'postpartum_sdry'">
+        <template v-if="sheetInfo.sheetType == 'postpartum_sdry' ">
           <span
             style="margin-left:60px;"
           >
@@ -311,7 +311,7 @@
             />
           </customSelectCanRepeat>
         </template>
-        <template v-if="sheetInfo.sheetType == 'postpartum2_sdry'">
+        <template v-if="sheetInfo.sheetType == 'postpartum2_sdry' ">
           <!-- 顺德人医产后产房观察记录单 -->
           <span>
             分娩时间:
@@ -344,7 +344,7 @@
           </customSelectCanRepeat>
         </template>
 
-        <template v-if="sheetInfo.sheetType == 'prenatal_sdry'">
+        <template v-if="sheetInfo.sheetType == 'prenatal_sdry' ">
           <span>
             孕产史:孕
             <input
@@ -577,6 +577,11 @@ export default {
       admissionDateList: ["blood_tj", "generalnursing_tj"],
       //不需要诊断的表单postpartum_sdry  baby_sdry    prenatal_sdry
       diagnosisList: [
+        //惠州六院
+        // "prenatal_hzly",
+        // "postpartum_hzly",
+        // "postpartum2_hzly",
+        //顺德人医
         "prenatal_sdry",
         "postpartum_sdry",
         "baby_sdry",
@@ -603,13 +608,14 @@ export default {
         /*  每页独立床号功能 */
         let beforeBed = this.patientInfo.bedLabel;
         let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`];
+        let newBedId = this.sheetInfo.relObj[`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`];
         if (
           this.index != 0 &&
-          this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]
+          this.sheetInfo.relObj[`bedLabel_${this.index-1}_${this.sheetInfo.selectBlock.id}`]
         ) {
           // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
           beforeBed = this.sheetInfo.relObj[
-            `PageIndex_bedLabel_${this.index - 1}`
+            `bedLabel_${this.index-1}_${this.sheetInfo.selectBlock.id}`
           ];
         }
 
@@ -642,7 +648,7 @@ export default {
         }
         return {
           ...this.patientInfo,
-          [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed
+          [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: newBedId ? newBedId : nowBed
             ? nowBed
             : beforeBed,
           [`realDeptName_${this.index}_${this.sheetInfo.selectBlock.id}`]: newrealDept
@@ -655,25 +661,8 @@ export default {
       }
     },
     diagnosis() {
-      /** 最接近的index */
-      // let realIndex = 0;
-      // let keys = Object.keys(sheetInfo.relObj || {});
-      // for (let i = 0; i < keys.length; i++) {
-      //   let [base, keyIndex] = keys[i].split("PageIndex_diagnosis_");
-      //   if (keyIndex !== undefined) {
-      //     if (this.index >= keyIndex) {
-      //       if (this.index - keyIndex <= this.index - realIndex) {
-      //         realIndex = keyIndex;
-      //       }
-      //     }
-      //   }
-      // }
-      // return (
-      //   (sheetInfo.relObj || {})[`PageIndex_diagnosis_${realIndex}`] ||
-      //   this.patientInfo.diagnosis
-      // );
       return (
-        (sheetInfo.relObj || {})[`PageIndex_diagnosis_${this.index}`] ||
+         (this.sheetInfo.relObj || {})[`diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`]  || (this.sheetInfo.relObj || {})[`PageIndex_diagnosis_${this.index}`] ||
         this.patientInfo.diagnosis
       );
     },
@@ -887,7 +876,7 @@ export default {
     updateDiagnosis(key, label, autoText) {
       window.openSetTextModal(
         text => {
-          sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`] = text;
+          sheetInfo.relObj[`diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`] = text;
           this.$message.success(`修改诊断成功`);
           this.bus.$emit("saveSheetPage", false);
         },
@@ -896,22 +885,30 @@ export default {
       );
     },
     async setDiagnosis() {
-      if (!this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]) {
-        try {
-          const res = await queryDianosisList({
-            patientId: this.patientInfo.patientId,
-            visitId: this.patientInfo.visitId
-          });
-          const data = res.data.data || [];
-          if (data.length) {
-            this.$set(
-              this.sheetInfo.relObj,
-              `PageIndex_diagnosis_${this.index}`,
-              data[0].diagnosisDesc
-            );
+      if (!this.sheetInfo.relObj[`diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`]) {
+        if(!this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]){
+          try {
+            const res = await queryDianosisList({
+              patientId: this.patientInfo.patientId,
+              visitId: this.patientInfo.visitId
+            });
+            const data = res.data.data || [];
+            if (data.length) {
+              this.$set(
+                this.sheetInfo.relObj,
+                `diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`,
+                data[0].diagnosisDesc
+              );
+            }
+          } catch (error) {
+            throw new Error(error);
           }
-        } catch (error) {
-          throw new Error(error);
+        }else{
+          this.$set(
+            this.sheetInfo.relObj,
+            `diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`,
+            this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]
+          );
         }
       }
     }
@@ -934,10 +931,17 @@ export default {
     customSelectCanRepeat
   },
   async created() {
-    if (!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]) {
-      this.sheetInfo.relObj[
-        `PageIndex_bedLabel_${this.index}`
+    if (!this.sheetInfo.relObj[`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]) {
+      if(!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]){
+        this.sheetInfo.relObj[
+        `bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`
       ] = this.patientInfo.bedLabel;
+      }else{
+        this.sheetInfo.relObj[
+        `bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`
+      ] = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`];
+      }
+
     }
     // if (!this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`]) {
     //   this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`] = this.patientInfo.realDeptName

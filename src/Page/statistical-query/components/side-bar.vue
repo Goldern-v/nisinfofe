@@ -29,7 +29,7 @@ export default {
         }),
         ...hisMatch({
           map: {
-            lyxrm: [{
+            'lyxrm,qhwy': [{
               name:"statisticalIncrease",
               meta: {
                 title:'工作量细项统计',
@@ -106,6 +106,13 @@ export default {
                   img: require("../images/VTE.png"),
                 }
               },
+               {
+                name: 'statisticalEvaluateVTE',
+                meta: {
+                  title: 'VTE评估率',
+                  img: require("../images/VTE.png"),
+                }
+              },
             ],
             other: []
           }
@@ -119,6 +126,22 @@ export default {
                   title: '跌倒风险统计',
                   img: require("../images/VTE.png"),
                 },
+              },
+            ],
+            'lyxrm,qhwy': [
+              {
+                name: "statisticalTumble",
+                meta: {
+                  title: '跌倒统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
+              {
+                name: 'statisticalUnplanned',
+                meta: {
+                  title: '非计划性拔管统计',
+                  img: require("../images/VTE.png"),
+                }
               },
             ],
             other: []
@@ -213,6 +236,13 @@ export default {
                   img: require("../images/VTE.png"),
                 },
               },
+              {
+                name: "StatisticalIntakeOutputVolume",
+                meta: {
+                  title: '出入量总结统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
             ],
             nfyksdyy:[
               {
@@ -247,6 +277,7 @@ export default {
   },
   mounted() {
     this.actIndex = this.$route.name
+    console.log(this.bars, 'bars');
     // let details = ['/main', '/statisticalQuery']
     // this.bars = this.getBars(this.$router.options.routes, details)
   },

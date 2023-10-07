@@ -11,10 +11,10 @@
         <div class="save-btn" @click="save" v-if="status === '0'">
           <div v-touch-ripple>保存</div>
         </div>
-        <div class="save-btn" @click="save" v-if="status === '1'">
+        <div class="save-btn" @click="save" v-if="status === '1' ">
           <div v-touch-ripple>更新</div>
         </div>
-        <div class="save-btn disabled" v-if="status === '2'">
+        <div class="save-btn disabled" v-if="status === '2' ">
           <div>已停止</div>
         </div>
         <div class="contain">
@@ -63,14 +63,14 @@
                   :indeterminate="isTargetIndeterminate"
                   v-model="checkTargetAll"
                   @change="handleTargetCheckAllChange"
-                  :disabled="status === '2'"
+                  :disabled="status === '2' "
                 >全选</el-checkbox>
               </span>
             </div>
 
             <el-checkbox-group v-model="resultTargetList" @change="handleTargetCheckedChange">
               <div class="m-10" v-for="item in targetList" :key="item.id">
-                <el-checkbox :label="item.serialNo" :disabled="status === '2'">{{item.parameter}}</el-checkbox>
+                <el-checkbox :label="item.serialNo" :disabled="status === '2' ">{{item.parameter}}</el-checkbox>
               </div>
             </el-checkbox-group>
           </div>

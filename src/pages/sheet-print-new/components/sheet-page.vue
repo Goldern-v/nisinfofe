@@ -63,6 +63,7 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
+        "wait_delivery_zjhj", // 湛江海军_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
 
         "neonatal_care_jm", //江门妇幼_新生儿监护单
@@ -70,11 +71,17 @@ export default {
         "pediatrics_jm", //江门妇幼_儿科护理记录单
         "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
         "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "generalsurgery_jm", //江门妇幼_普外科护理记录单
+        "neonatology_jm", //江门妇幼_产科新生儿护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产记录单
         "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
         "obstetricnursing_jm", //江门妇幼_产科护理记录单
         "antenatalwaiting_jm", //江门妇幼_产前待产护理记录单
         "postpartumnursing_jm",//江门妇幼_产后护理记录单
         "entdepartment_jm",//江门妇幼_耳鼻喉科护理记录单
+        "tcm_pediatrics_jm", //江门妇幼_中医儿科护理记录单
+         "ear_nose_jm", //江门妇幼_耳鼻喉科护理记录单-成人
+        "internalCareRecord", //江门妇幼_内科护理记录单
         "catheterplacement_jm",//江门妇幼_深静脉导管置入术后维护单
         "safemetachysis_jm",//江门妇幼_输血护理记录单
         "internal_eval_lcey",//聊城_一般患者护理记录单
@@ -128,7 +135,7 @@ export default {
             markList(),
           ]
           // 佛山市一 获取自定义标题数据
-          if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+          if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
             fnArr.shift()
             fnArr.unshift(findListByBlockId(startPageIndex, endPageIndex))
           }
@@ -162,6 +169,7 @@ export default {
           || this.HOSPITAL_ID === "fuyou"
           || this.sheetInfo.sheetType === "ventilation_hl"
           || this.HOSPITAL_ID === "wujing"
+          || this.HOSPITAL_ID === "zjhj"
           || this.HOSPITAL_ID === "fsxt"
           || this.HOSPITAL_ID === "gdtj"
           || this.HOSPITAL_ID === "whfk"

@@ -700,7 +700,7 @@ export default {
           let y = {
             脉搏: {
               value: val,
-              reg: [0, 220],
+              reg: [0, 240],
             },
           };
           return y;
@@ -935,7 +935,9 @@ export default {
     // 下拉选项触发查询
     changeVal(newVal, oldVal) {
       if (newVal && newVal.split(":").length == 2) {
-        this.query.entryTime = newVal + ":00";
+        if (newVal !== this.query.entryTime.substring(0, 5)) {
+          this.query.entryTime = newVal + ":00";
+        }
         this.dateInp = newVal;
       }
     },

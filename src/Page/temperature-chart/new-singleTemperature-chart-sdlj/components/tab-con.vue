@@ -153,6 +153,7 @@
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
+                      
                     />
                     <template v-slot:content>
                       <div
@@ -433,7 +434,7 @@
               :type="isUpdate ? 'warning' : 'primary'"
               class="save-btn"
               @click="saveVitalSign(vitalSignObj)"
-              >{{ isUpdate ? "更新" : "保存" }}</el-button
+              >{{ isUpdate ? "更新" : "保存222" }}</el-button
             >
             <div class="clear" style="height: 130px"></div>
             <!--占位符-->
@@ -458,6 +459,7 @@ import {
   getViSigsByReDate,
 } from "../../api/api";
 import { validForm } from "../../validForm/validForm";
+
 export default {
   props: { patientInfo: Object },
   data() {
@@ -520,12 +522,13 @@ export default {
       totalDictInfo: {},
     };
   },
+  
 async mounted() {
     await this.getVitalList();
     this.bus.$on("syncInAndOutHospital", (type) => {
       this.syncInAndOutHospital(type);
     });
-        this.bus.$on("getDataFromPage", (dateTime) => {
+      this.bus.$on("getDataFromPage", (dateTime) => {
       this.query.entryDate = dateTime.slice(0, 10);
       this.query.entryTime = dateTime.slice(11, 16) + ":00";
       this.dateInp = dateTime.slice(11, 16);
@@ -547,11 +550,13 @@ async mounted() {
           this.getList();
           this.bus.$emit("dateChangePage", this.query.entryDate);
         }
+        this.bus.$emit("watchQueryDate", this.query);
       },
       deep: true,
     },
-        patientInfo() {
+    patientInfo() {
       //切换患者重新获得时间
+      this.bus.$emit("watchQueryDate", this.query);
       this.timeVal = new Date(
         new Date().getFullYear(),
         new Date().getMonth() + 1,
@@ -561,6 +566,7 @@ async mounted() {
       );
     },
   },
+  
   methods: {
     handleChange(val) {
       // console.log(val);
@@ -582,7 +588,7 @@ async mounted() {
         let otherLength =
           document.getElementsByClassName("otherPathological").length;
         this.otherDicListLength = otherLength;
-        console.log(e.target.id,baseLength)
+        // console.log(e.target.id,baseLength)
         if (Number(e.target.id) < baseLength) {
           document.getElementById(Number(e.target.id) + 1).focus();
         } else if (Number(e.target.id) === baseLength) {
@@ -895,8 +901,8 @@ async mounted() {
     },
     handlePopRefresh(target) {
       target.popVisible = false;
-
       setTimeout(() => (target.popVisible = true), 100);
+      this.$store.commit("upIsLeaveTip", false);
     },
     /* 获取患者某个时间点的体征信息--entryDate、entryTime变化就调查询接口  */
     getViSigs() {
@@ -939,6 +945,8 @@ async mounted() {
         let otherDic = [];
         let data = [];
         let obj = [];
+        let baseDictMap = {};
+        let otherDictMap = {};
         res.data.data.map((item, index) => {
           this.totalDictInfo[item.vitalSign] = {
             ...item,
@@ -949,10 +957,12 @@ async mounted() {
             case "base":
             if(!["表顶注释","表底注释"].includes(item.vitalSign))
               baseDic[item.vitalSign] = item.vitalCode;
+              baseDictMap[item.vitalCode] = item.vitalSign;
               break;
             case "other":
             if(!["表顶注释","表底注释"].includes(item.vitalSign))
               otherDic[item.vitalSign] = item.vitalCode;
+              otherDictMap[item.vitalCode] = item.vitalSign;
               break;
             default:
               break;
@@ -969,11 +979,16 @@ async mounted() {
             this.fieldList = { ...obj };
           }
         });
-        console.log('otherDic', otherDic)
+        // console.log('otherDic', otherDic)
         this.multiDictList = { ...data };
         this.baseMultiDictList = { ...baseDic };
         this.otherMultiDictList = { ...otherDic };
         this.init();
+        this.bus.$emit('getMultiDict', {
+          baseDictMap,
+          otherDictMap,
+          customDictMap: this.fieldList,
+        });
       });
     },
         //进入更新记录模式
@@ -1094,6 +1109,7 @@ async mounted() {
     },
     /* 录入体温单 */
     async saveVitalSign(value) {
+      this.$store.commit("upIsLeaveTip", true);
       let obj = Object.values(value);
       let recordDate =
         moment(new Date(this.query.entryDate)).format("YYYY-MM-DD") +

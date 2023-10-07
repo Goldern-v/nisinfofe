@@ -175,6 +175,16 @@ export default {
           minWidth: '60px',
           maxWidth: '60px',
         },
+      },
+      {
+        name: `上级护士签名
+        `,
+        colspan: "1",
+        rowspan: "3",
+        style: {
+          minWidth: '60px',
+          maxWidth: '60px',
+        },
       }
     ],
     mid: [{

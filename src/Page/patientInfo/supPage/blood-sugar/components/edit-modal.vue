@@ -3,7 +3,7 @@
     <ElForm
       class="edit-modal-form"
       style="margin-bottom: 20px"
-      :label-width="HOSPITAL_ID == 'fsxt' ? '120px' : '100px'"
+      :label-width="['fsxt','zjhj'].includes(HOSPITAL_ID) ? '120px' : '100px'"
     >
       <ElFormItem label="日期：" required>
         <ElDatePicker v-model="form.recordDate" :clearable="false" />
@@ -129,16 +129,16 @@
           </ElSelect>
           <span class="unit">(mmol/L)</span>
         </ElFormItem>
-        <ElFormItem v-else :label="`${HOSPITAL_ID == 'fsxt' ? '微量' : ''}血糖值：`" required>
+        <ElFormItem v-else :label="`${['fsxt','zjhj'].includes(HOSPITAL_ID) ? '微量' : ''}血糖值：`" required>
           <ElInput v-model="form.sugarValue" />
           <span class="unit">(mmol/L)</span>
         </ElFormItem>
       </template>
-      <ElFormItem v-if="HOSPITAL_ID == 'fsxt'" label="瞬感血糖值：" required>
+      <ElFormItem v-if="['zjhj','fsxt'].includes(HOSPITAL_ID)" label="瞬感血糖值：" required>
         <ElInput v-model="form.expand1" />
         <span class="unit">(mmol/L)</span>
       </ElFormItem>
-      <ElFormItem v-if="HOSPITAL_ID == 'fsxt'" label="胰岛素类型：" required>
+      <ElFormItem v-if="['zjhj','fsxt'].includes(HOSPITAL_ID)" label="胰岛素类型：" required>
         <!-- <ElInput v-model="form.expand3" /> -->
         <ElSelect v-model="form.expand3">
           <ElOption
@@ -190,7 +190,8 @@
       </ElFormItem>
     </ElForm>
     <ElButton slot="button" @click="onClose">取消</ElButton>
-    <ElButton slot="button" type="primary" @click="onConfirm">保存</ElButton>
+    <ElButton slot="button" type="primary" @click="onConfirm" v-if="isLock && HOSPITAL_ID == 'nfyksdyy'" >保存</ElButton>
+    <ElButton slot="button" type="primary" @click="onConfirm" v-else>保存</ElButton>
   </SweetModal>
 </template>
 
@@ -202,6 +203,7 @@ import patientInfoVue from "../../../patientInfo.vue";
 import moment from "moment";
 const defaultForm = {};
 export default {
+  inject: ['isLock'],
   mixins: [common],
   data: () => ({
     title: "",
@@ -314,6 +316,8 @@ export default {
       { name: '门冬胰岛素30注射液' },
       { name: '门冬胰岛素注射液' },
       { name: '人胰岛素注射液' },
+      { name: '（国采）谷赖胰岛素注射液' },
+      { name: '胰岛素注射液（普通）' },
     ],
     SigndataObj:{},
     verifySignObj:{}
@@ -401,7 +405,7 @@ export default {
         this.form.sugarValue = this.form.sugarValue || '';
         this.form.riValue = this.form.riValue || '';
       }
-      if (this.HOSPITAL_ID == 'fsxt') {
+      if (['fsxt','zjhj'].includes(this.HOSPITAL_ID)) {
         this.form.expand1 = this.form.expand1 || 0
       }
       if (form && this.HOSPITAL_ID == 'foshanrenyi') {

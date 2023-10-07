@@ -41,7 +41,7 @@
       </span>
       <span @click="updateTetxInfo('bedLabel', '床号', patientInfo.bedLabel)">
         床号:
-        <div class="bottom-line" style="min-width: 50px">{{patientInfo.bedLabel}}</div>
+        <div class="bottom-line" style="min-width: 55px">{{patientInfo.bedLabel}}</div>
       </span>
       <span>
         住院号:
@@ -87,10 +87,10 @@
         <div class="showModal showModal2">
           催产素使用总量：
           <input
-            v-if="sheetInfo.sheetType==='oxytocin_dglb'"
+            v-if="sheetInfo.sheetType==='oxytocin_dglb'  "
             type="text"
             class="bottomInput bottom-line"
-            :data-value="sheetInfo.relObj[index+'totalOxytocin']"
+            :data-value="sheetInfo.relObj[index+'totalOxytocin'] "
             v-model="sheetInfo.relObj[index+'totalOxytocin']"
             @focus="onFocus($event,'totalOxytocin')"
             @blur="onBlur($event,'totalOxytocin')"
@@ -99,8 +99,8 @@
             v-else
             type="text"
             class="bottomInput bottom-line"
-            :data-value="sheetInfo.relObj.totalOxytocin"
-            v-model="sheetInfo.relObj.totalOxytocin"
+            :data-value="sheetInfo.relObj[`totalOxytocin${suffix}`]"
+            v-model="sheetInfo.relObj[`totalOxytocin${suffix}`]"
             @focus="onFocus($event,'totalOxytocin')"
             @blur="onBlur($event,'totalOxytocin')"
           />
@@ -109,20 +109,19 @@
               v-for="item in totalOxytocin"
               :key="item"
               :class="{active: sheetInfo.relObj.totalOxytocin == item}"
-              @click="selectedItem(item,'totalOxytocin')"
+              @click="selectedItem(item, 'totalOxytocin' + suffix)"
             >{{item}}</li>
           </ul>
         </div>
         <div class="showModal">
           分娩方式：
            <input
-            v-if="sheetInfo.sheetType==='oxytocin_dglb'"
+            v-if=" sheetInfo.sheetType==='oxytocin_dglb'||sheetInfo.sheetType==='oxytocin_sdry' "
             type="text"
             class="bottomInput bottom-line"
             :data-value="sheetInfo.relObj[index+'deliveryWay']"
             v-model="sheetInfo.relObj[index+'deliveryWay']"
-            @focus="onFocus($event)"
-            @blur="onBlur($event)"
+            @change="updateDeliveryWay($event)"
           />
           <input
             v-else
@@ -404,8 +403,9 @@ export default {
       }
     },
     selectedItem(val, type) {
-      if (type == "totalOxytocin") {
-        sheetInfo.relObj.totalOxytocin = val;
+      if (type == "totalOxytocin" + this.suffix) {
+        console.log('Total', val)
+        sheetInfo.relObj[`totalOxytocin${this.suffix}`] = val;
         this.showModal2 = false;
       } else {
         sheetInfo.relObj.deliveryWay = val;
@@ -468,6 +468,12 @@ export default {
         `修改诊断`
       );
     },
+    updateDeliveryWay(e) {
+      this.sheetInfo.relObj[this.index+'deliveryWay'] = e.target.value;
+    },
+    isDeliveryWay(){
+
+    }
   },
   computed: {
     patientInfo() {
@@ -478,6 +484,9 @@ export default {
         (sheetInfo.relObj || {})[`PageIndex_diagnosis_${this.index}`] ||
         this.patientInfo.diagnosis
       );
+    },
+    suffix() {
+      return this.index === 0 ? '' : this.index;
     },
     /** 只读模式 */
     readOnly() {
@@ -501,15 +510,18 @@ export default {
     if (this.sheetInfo.relObj && !this.sheetInfo.relObj["yyc_" + this.index]) {
       this.getDetail();
     }
-    if(this.sheetInfo.sheetType==='oxytocin_dglb'&&this.index!=0){
+    if(this.sheetInfo.sheetType==='oxytocin_sdry'  &&this.index!=0){
       // 催产素使用总量
       if(!this.sheetInfo.relObj[`${this.index}totalOxytocin`]){
          this.sheetInfo.relObj[`${this.index}totalOxytocin`]= this.sheetInfo.relObj[`${this.index-1}totalOxytocin`]
       }
       // 分娩方式     sheetInfo.relObj[index+'deliveryWay']
-      if(!this.sheetInfo.relObj[`${this.index}deliveryWay`]){
-         this.sheetInfo.relObj[`${this.index}deliveryWay`]= this.sheetInfo.relObj[`${this.index-1}deliveryWay`]
-      }
+      // if(!this.sheetInfo.relObj[`${this.index}deliveryWay`]){
+      //    this.sheetInfo.relObj[`${this.index}deliveryWay`]= this.sheetInfo.relObj[`${this.index-1}deliveryWay`]
+      // }
+    }
+    if(this.sheetInfo.relObj['deliveryWay']){
+      this.sheetInfo.relObj[this.index+'deliveryWay'] =  this.sheetInfo.relObj['deliveryWay']
     }
   },
   destroyed() {} /* fix vue-happy-bus bug */,

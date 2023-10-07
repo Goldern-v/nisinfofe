@@ -32,6 +32,7 @@
                     </div>
                 </div>
                 <div class="tool-btns">
+                    <button @click="toPrint" v-if="HOSPITAL_ID == 'lyxrm'">打印</button>
                     <button @click="delAll">删除整单</button>
                     <button @click="saveTable">保存</button>
                 </div>
@@ -297,6 +298,9 @@ methods: {
     show(){
         // console.log(111);
     },
+    toPrint(){
+        this.$emit("toPrint")
+    },
     handleSelect(){},
     querySearch(queryString, cb,arr){
         if(arr&&arr.length){
@@ -423,7 +427,8 @@ methods: {
                 this.$message.error(err.desc)
             })
         }else if(this.delType==='extubation'){
-            this.extubation(extubationTime)
+            let formatTime= moment(extubationTime).format('YYYY-MM-DD HH:mm');
+            this.extubation(formatTime)
         }
     },
     saveTable(){

@@ -26,8 +26,8 @@
             <span style="left: 130px; top: 30%">情况</span>
           </td>
         </template>
-        <td 
-          v-for="(tdItem, tdIndex) in trItem" 
+        <td
+          v-for="(tdItem, tdIndex) in trItem"
           :key="trIndex + '-' + tdIndex"
           :colspan="tdItem.colspan || 1"
           :style="{ width: tdItem.width + 'px' }"
@@ -70,8 +70,8 @@
             <span style="left: 130px; top: 30%">情况</span>
           </td>
         </template>
-        <td 
-          v-for="(tdItem, tdIndex) in trItem" 
+        <td
+          v-for="(tdItem, tdIndex) in trItem"
           :key="trIndex + '-' + tdIndex"
           :colspan="tdItem.colspan || 1"
           :style="{ width: tdItem.width + 'px' }"
@@ -91,13 +91,42 @@
       <colgroup>
         <col v-for="col of bodyColumns" :key="col.label" :width="col.width">
       </colgroup>
-      
+
       <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <el-input
+              autosize
+              class="textarea"
+              type="textarea"
+              v-model="shiftWithWardcodes.A.summary"
+            />
+          </td>
+          <td>
+            <el-input
+              autosize
+              class="textarea"
+              type="textarea"
+              v-model="shiftWithWardcodes.P.summary"
+            />
+          </td>
+          <td>
+            <el-input
+              autosize
+              class="textarea"
+              type="textarea"
+              v-model="shiftWithWardcodes.N.summary"
+            />
+          </td>
+        </tr>
         <tr
           v-for="(row, rowIndex) of data"
           :class="[{selected: row === selectedRow}]"
           :key="row.id + '' + rowIndex"
-          @click="onClick(rowIndex)"
+          @click="onClick(rowIndex, row)"
         >
           <td
             v-for="(col, colIndex) of bodyColumns"
@@ -126,6 +155,7 @@
 
 
 <script>
+import BusFactory from "vue-happy-bus";
 import {
   tableConfig,
   bodyColumns
@@ -175,14 +205,25 @@ export default {
       selectedRowIndex: -1,
       selectedCol: null,
       tableConfig,
-      bodyColumns
+      bodyColumns,
+      bus: BusFactory(this)
     }
   },
   computed: {
   },
   methods: {
-    onClick(rowIndex) {
+    onClick(rowIndex, row) {
       this.selectRow(rowIndex);
+      this.$router.push({
+        name:"shiftWork",
+        params:{
+          code: this.$route.params.code,
+          id: this.$route.params.id,
+          patientId: row.patientId,
+          visitId: row.visitId,
+        }
+      })
+      this.bus.$emit('refreshTree')
     },
     onDblClick(data) {
       this.$emit("dblclick", data);
@@ -333,7 +374,7 @@ export default {
       overflow-y hidden
       text-align inherit
       cursor auto !important
-
+      line-height: 1;
       &:disabled
         color black
         background none

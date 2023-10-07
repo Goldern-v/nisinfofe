@@ -133,6 +133,9 @@
               <tableHeader
                 :columns="shiftWithWardcodes"
                 @changeShiftWithWardcodes="changeShiftWithWardcodes"
+                @getShiftWithWardcode="getShiftWithWardcode"
+                @saveShiftWithWardcode="saveShiftWithWardcode"
+                :dynamic='dynamic'
               />
             </div>
           </div>
@@ -439,7 +442,7 @@ export default {
               prop: "bedLabel",
               editable: true,
               align: "center",
-              width: "35"
+              width: "45"
             },
             {
               label: "姓名、性别、年龄",
@@ -466,7 +469,14 @@ export default {
               width: "80"
             },
             {
-              label: "主诉及现存主要问题",
+              label: (() => {
+                 switch (process.env.HOSPITAL_ID) {
+                    case "ytll":
+                     return "主诉";
+                    default:
+                     return "主诉及现存主要问题";
+                 }
+              })(),
               prop: "mainComplaint",
               editable: true,
               width: "90"
@@ -477,7 +487,14 @@ export default {
           label: "B（背景）",
           columns: [
             {
-              label: "既往病史、治疗经过、护理评估情况、治疗效果跟踪",
+              label: (() => {
+                 switch (process.env.HOSPITAL_ID) {
+                    case "ytll":
+                     return "各班次护理诊断、护理措施、效果追踪评价";
+                    default:
+                     return "既往病史、治疗经过、护理评估情况、治疗效果跟踪";
+                 }
+              })(),
               prop: "background",
               editable: true,
               width: "180"
@@ -546,7 +563,8 @@ export default {
         background: "",
         proposal: ""
       },
-      isYTLL: process.env.HOSPITAL_ID == 'ytll'
+      isYTLL: process.env.HOSPITAL_ID == 'ytll',
+      dynamic:{} //每一个单项的数据。
     };
   },
   computed: {
@@ -630,6 +648,36 @@ export default {
     },
     changeShiftWithWardcodes(index, key, value) {
       this.shiftWithWardcodes[index][key] = value;
+    },
+    //获取单个交班志病区动态
+   async getShiftWithWardcode(index, key){
+      let shiftType
+      if (index === 0) {
+          shiftType = 'A';
+      } else if (index === 1) {
+          shiftType = 'P';
+      } else if (index === 2) {
+          shiftType = 'N';
+      }
+      // 去获取获取数据
+      const changeShiftTimeId = this.$route.params.id;
+      const code=key
+      const res= await apis.seachDynamic({
+          changeShiftTimeId,
+          code,
+          shiftType
+         });
+      if(res.data.code!=200){
+        this.dynamic={}
+        return
+      }
+      this.$set(this.shiftWithWardcodes[index], key, res.data.data.content);
+      this.dynamic=JSON.parse(JSON.stringify(res.data.data))
+    },
+    async saveShiftWithWardcode(dynamic,value){
+      await apis.saveDynamic({
+       ...dynamic,content:value,
+      })
     },
     async loadDepts() {
       const parentCode = this.deptCode;
@@ -989,7 +1037,7 @@ export default {
           p.name && p.patientId === data.patientId && p.visitId === data.visitId
       );
 
-      if (isExisted && isExisted !== selectedRow) {
+      if (isExisted && isExisted !== selectedRow && !['nfyksdyy'].includes(this.HOSPITAL_ID)) {
         return this.$message.error("已存在该患者");
       }
       this.onSave2(true, data);
@@ -1051,19 +1099,22 @@ export default {
     async onSave3(tip) {
       const deptCode = this.deptCode;
       const changeShiftTime = this.record;
-      const [
-        shiftWithWardcodesA,
-        shiftWithWardcodesP,
-        shiftWithWardcodesN
-      ] = this.shiftWithWardcodes;
-      await apis.updateShiftRecord({
-        changeShiftTimes: changeShiftTime,
-        // changeShiftPatients,
-        shiftWithWardcodesA: [shiftWithWardcodesA],
-        shiftWithWardcodesP: [shiftWithWardcodesP],
-        shiftWithWardcodesN: [shiftWithWardcodesN]
-      });
-
+      if(['ytll'].includes(this.HOSPITAL_ID)){
+          await apis.saveChangeShiftMaster(changeShiftTime)
+        }else{
+          const [
+            shiftWithWardcodesA,
+            shiftWithWardcodesP,
+            shiftWithWardcodesN
+          ] = this.shiftWithWardcodes;
+          await apis.updateShiftRecord({
+             changeShiftTimes: changeShiftTime,
+             // changeShiftPatients,
+             shiftWithWardcodesA: [shiftWithWardcodesA],
+             shiftWithWardcodesP: [shiftWithWardcodesP],
+             shiftWithWardcodesN: [shiftWithWardcodesN]
+           });
+      }
       this.load();
       if (tip) {
         this.$message.success("保存成功");

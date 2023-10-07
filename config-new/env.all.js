@@ -316,6 +316,25 @@ module.exports = {
     COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
     ABOUT_INFO: '"关于宸瑞普惠"',
     title: '"智慧护理信息系统"',
+    ENABLE_BLUETOOTH_SIGN: false,
+    hasFollow:true
+  },
+  "sdhpwk": {
+    HOSPITAL_ID: '"sdhpwk"',
+    HOSPITAL_NAME: '"顺德和平外科医院"',
+    HOSPITAL_NAME_SPACE: '"顺 德 和 平 外 科 医 院"',
+    COMPANY_NAME: '"宸瑞普惠(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"',
+    ENABLE_BLUETOOTH_SIGN: false
+  },
+  "hzly": {
+    HOSPITAL_ID: '"hzly"',
+    HOSPITAL_NAME: '"惠州市第六人民医院"',
+    HOSPITAL_NAME_SPACE: '"惠 州 市 第 六 人 民 医 院"',
+    COMPANY_NAME: '"百辰源(广州)科技有限公司"',
+    ABOUT_INFO: '"关于宸瑞普惠"',
+    title: '"智慧护理信息系统"',
     ENABLE_BLUETOOTH_SIGN: false
   },
 }

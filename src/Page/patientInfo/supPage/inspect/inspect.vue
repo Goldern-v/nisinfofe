@@ -279,7 +279,13 @@ export default {
     },
     isGuizhou() {
       return ['guizhou'].includes(process.env.HOSPITAL_ID)
-    }
+    },
+    selectPatient() {
+      return this.$store.state.patient.currentPatient;
+    },
+    inFormPage() {
+      return ['/record', '/formPage'].includes(this.$route.path);
+    },
   },
   created() {
     if (this.infoData.visitId > 20) {
@@ -295,13 +301,14 @@ export default {
         });
       }
     }
-
-    this.visitId = this.infoData.visitId;
+    this.visitId = this.inFormPage && this.selectPatient && this.selectPatient.patientId
+        ? this.selectPatient.visitId
+        : this.infoData.visitId;
     if (this.$route.query.id) {
       this.rightData['examNo'] = this.$route.query.id || ''
       this.toRight(this.rightData)
     }
-    
+
   },
   methods: {
     // 查看原报告
@@ -332,8 +339,10 @@ export default {
         })
         return
       }
+      const useSelectPatient = this.inFormPage && this.selectPatient && this.selectPatient.patientId;
+      const patientId = useSelectPatient ? this.selectPatient.patientId : this.infoData.patientId;
       examList(
-        this.infoData.patientId,
+        patientId,
         this.visitId == "门诊" ? 0 : this.visitId
       ).then((res) => {
         this.list = res.data.data;

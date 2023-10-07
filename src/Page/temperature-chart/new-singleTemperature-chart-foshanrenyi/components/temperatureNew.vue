@@ -33,10 +33,10 @@
         <button @click="() => { this.bus.$emit('dateChangeEvent', 'next') }">
           下一日
         </button>
-<!--        <el-button-group :style="rightButton()" v-if="['nfyksdyy'].includes(HOSPITAL_ID)">-->
-<!--          <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '0'))" :disabled="!isDisable">同步入院</el-button>-->
-<!--          <el-button size="small" type="pxrimary" @click="syncInAndOutHospital((type = '1'))" :disabled="!isDisable">同步出院</el-button>-->
-<!--        </el-button-group>-->
+       <!-- <el-button-group :style="rightButton()" v-if="['zjhj'].includes(HOSPITAL_ID)">
+         <el-button size="small" type="primary" @click="syncInAndOutHospital((type = '0'))" :disabled="!isDisable">同步入院</el-button>
+     <el-button size="small" type="pxrimary" @click="syncInAndOutHospital((type = '1'))" :disabled="!isDisable">同步出院</el-button>
+       </el-button-group> -->
       </div>
       <moveContext :id="'detailChatBox'" :titlex="'曲详情线'" class="detailChatBox">
         <div class="button-context">
@@ -92,6 +92,10 @@ export default {
         case 'zjhj':
           return "http://192.168.0.209:9091" // 医院内网
           // return "http://localhost:8080" // 本地
+        case 'hzly':
+          return "http://172.20.110.13:9091" //医院内网
+          // return "http://localhost:8080" // 本地
+
         default:
           break;
       }
@@ -124,9 +128,9 @@ export default {
   methods: {
     openSignList() {
       const params = {
-        patientId: this.patientInfo.patientId,
-        visitId: this.patientInfo.visitId,
-        wardCode: this.patientInfo.wardCode,
+        patientId: this.patientInfo.patientId || this.queryInfo.patientId,
+        visitId: this.patientInfo.visitId || this.queryInfo.visitId,
+        wardCode: this.patientInfo.wardCode || this.queryInfo.cpIncludeDeptCode,
         recordDate: this.queryDate
       }
       this.$refs.vitalSignRef.open(params);
@@ -267,7 +271,7 @@ export default {
             this.getDataFromPage(e.data.value);
             break;
           case "tipMessage":
-            this.$message.success('保存转床床号成功')
+          this.$message.success(e.data.value)
             break;
           default:
             break;
@@ -348,10 +352,13 @@ export default {
       return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
     isDisable(){
-    return (
-      this.$route.path.includes("newSingleTemperatureChart") ||
-      this.$route.path.includes("temperature")
-    )
+      return (
+        this.$route.path.includes("newSingleTemperatureChart") ||
+        this.$route.path.includes("temperature")
+      )
+    },
+    queryInfo() {
+      return this.$route.query;
     }
   },
   beforeDestroy() {

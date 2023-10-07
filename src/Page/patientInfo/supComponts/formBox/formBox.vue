@@ -499,6 +499,7 @@ export default {
               this.close();
             });
           } else {
+            console.log('ddddddddddddddddddddddd');
             this.$refs.signModal.open((password, empNo) => {
               wid.signForm(empNo, password).then(res => {
                 console.log("signForm", res);
@@ -520,7 +521,7 @@ export default {
                 this.bus.$emit("refreshTree");
                 this.close();
               });
-            });
+            },  "", false, null ,"" ,{});
           }
           return;
         }

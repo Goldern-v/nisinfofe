@@ -58,6 +58,7 @@ export default {
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单
         "wait_delivery_hd", // 花都_候产记录单
+        "wait_delivery_zjhj", // 湛江海军_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
 
         "neonatal_care_jm", //江门妇幼_新生儿监护单
@@ -65,6 +66,9 @@ export default {
         "pediatrics_jm", //江门妇幼_儿科护理记录单
         "child_recovery_jm", //江门妇幼_儿童康复科护理记录单
         "gynaecology_jm", //江门妇幼_妇科护理记录单
+        "generalsurgery_jm", //江门妇幼_普外科护理记录单
+        "neonatology_jm", //江门妇幼_产科新生儿护理记录单
+        "antenatalwaiting_jm", //江门妇幼_产前待产记录单
         "tcm_pediatrics_jm", //江门妇幼_中医儿科护理记录单
         "breastkenursing_jm", //江门妇幼_乳腺科护理记录单
         "obstetricnursing_jm", //江门妇幼_产科护理记录单
@@ -240,31 +244,31 @@ export default {
                 addCSS(
                   window,
                   `
-    @media print {
-       .iframe > div:nth-of-type(2n) {
-         height: ${sheetTableWidth * 0.755}px !important;
-       }
-    }
-    `
+                  @media print {
+                    .iframe > div:nth-of-type(2n) {
+                      height: ${sheetTableWidth * 0.755}px !important;
+                    }
+                  }
+                  `
                 );
               } else {
                 printDir("v");
                 addCSS(
                   window,
                   `
-        @media print {
-          #sheetPagePrint .iframe > div{
-           padding-top: 40px !important;
-           }
-           .iframe > div:nth-of-type(2n) {
-               transform: rotate(0) !important;
-          }
-       }
-        `
+                @media print {
+                  #sheetPagePrint .iframe > div{
+                  padding-top: 40px !important;
+                  }
+                  .iframe > div:nth-of-type(2n) {
+                      transform: rotate(0) !important;
+                  }
+              }
+                `
                 );
               }
 
-              if(['lyxrm','huadu', 'stmz', 'wujing', 'zhzxy','nfyksdyy', 'fuyou'].includes(this.HOSPITAL_ID)) {
+              if(['lyxrm','huadu', 'stmz', 'wujing', 'zhzxy','nfyksdyy', 'fuyou', 'beihairenyi'].includes(this.HOSPITAL_ID)) {
                 addCSS(
                   window,
                   `
@@ -276,6 +280,18 @@ export default {
                         transform: rotate(0) !important;
                     }
                 }
+                  `
+                );
+              }
+              if(['internal_eval_linyi'].includes(this.sheetInfo.sheetType)){
+                addCSS(
+                  window,
+                  `
+                    @media print {
+                      .iframe > div:nth-of-type(2n) {
+                        height: ${sheetTableWidth * 0.7}px !important;
+                      }
+                    }
                   `
                 );
               }

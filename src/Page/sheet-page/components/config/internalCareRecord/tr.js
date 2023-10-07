@@ -33,8 +33,8 @@ import {
 
   export default [
     { hidden: true, key: 'recordDate', value: '' },
-    { key: "recordMonth", event: event_date, click: click_date, value: ''},
-    { key: "recordHour", event: event_time,  click: click_time, value: ''},
+    { key: "recordMonth", event: event_date, click: click_date, value: '', style: {minWidth: '42px' } },
+    { key: "recordHour", event: event_time,  click: click_time, value: '', style: {minWidth: '42px' } },
     // 生命体征
     { key: 'temperature', event: keyf1, value: '', next: '°C', name: '体温',textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
     { key: 'pulse', event: keyf1, value: '', next: '次/分', name: '心率/脉搏', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 10) },
@@ -66,7 +66,7 @@ import {
       event: function (e, td) {if (e.keyCode == 9) { td.value = "    " + td.value; e.preventDefault()} keyf1(e, td) }
     },
     { key: "sign", value: "" },//单签
-    // { key: "sign2", value: "" },//双签
+    { key: "sign2", value: "" },//双签
     // { key: "audit", value: "" },//审核签名
     { hidden:true, key:'id', value:''},
     { hidden:true, key:'signerName', value:''},
@@ -82,6 +82,6 @@ import {
     { hidden:false, key:'auditorNo', value:''},//审核签名
     { hidden:true, key:'auditorName', value:''},
     { hidden:true, key:'empNo', value:''},
-    { hidden:true, key:'multiSign', value:''}
+    { hidden:true, key:'multiSign', value: false}
 
   ]

@@ -4,7 +4,7 @@
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
-    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'seriousnursing_ytll'||sheetInfo.sheetType === 'premiumcare_ytll'">
+    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType === 'seriousnursing_ytll'||sheetInfo.sheetType === 'premiumcare_ytll' || sheetInfo.sheetType === 'neurosurgery_ytll' || sheetInfo.sheetType === 'critical_ytll'">
        <span>
         姓名：
         <div class="bottom-line" style="min-width: 70px">
@@ -23,7 +23,7 @@
           {{ patientInfo.age }}
         </div>
       </span>
-      <span v-if="sheetInfo.sheetType === 'premiumcare_ytll'">
+      <span v-if="sheetInfo.sheetType == 'premiumcare_ytll' || sheetInfo.sheetType == 'neurosurgery_ytll'">
         病区：
         <div class="bottom-line" style="min-width: 70px">
           {{ patientInfo.deptName }}
@@ -157,7 +157,7 @@
     </div>
     <div class="info-con">
       <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll', 'babymilk_ytll', 'oxytocin_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
-        诊断：
+        {{ sheetInfo.sheetType === 'critical_ytll' ? '主要诊断：' : '诊断：'}}
         <div
           class="bottom-line"
           style="
@@ -170,6 +170,16 @@
           {{ diagnosis }}
         </div>
       </span>
+      <template v-if=" sheetInfo.sheetType === 'critical_ytll'">
+      <el-checkbox-group v-model="checklist" @change="setRelValue" style="display:inline;">
+        <el-checkbox label="转入"></el-checkbox>
+        <el-checkbox label="新入"></el-checkbox>
+        <el-checkbox label="手术"></el-checkbox>
+        <el-checkbox label="病危"></el-checkbox>
+        <el-checkbox label="病重"></el-checkbox>
+      </el-checkbox-group>
+      </template>
+
     </div>
     <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
   </div>
@@ -215,6 +225,7 @@ export default {
           value: '臀牵引',
           name: '臀牵引'
         }],
+      checklist: []
     };
   },
   mounted() {},
@@ -264,19 +275,43 @@ export default {
       /*  每页独立床号功能 */
       let beforeBed = this.patientInfo.bedLabel
       let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]
-      if(this.index != 0 && this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index - 1}`]){
+      let newBedId = this.sheetInfo.relObj[`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`];
+      if (
+        this.index != 0 &&
+        this.sheetInfo.relObj[`bedLabel_${this.index-1}_${this.sheetInfo.selectBlock.id}`]
+      ) {
         // 除了第一页，其他页数。先拿bedLabel，如果上一页也有床位那就拿就拿上一页的
-        beforeBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index-1}`]
+        beforeBed = this.sheetInfo.relObj[
+          `bedLabel_${this.index-1}_${this.sheetInfo.selectBlock.id}`
+        ];
+      }
+
+      /* 单独每一页选择 */
+      let checkList = []
+      let newChecklist = this.sheetInfo.relObj[`checkList_${this.index}_${this.sheetInfo.selectBlock.id}`]
+
+      if (
+        this.index != 0 &&
+        this.sheetInfo.relObj[`checkList_${this.index-1}_${this.sheetInfo.selectBlock.id}`]
+      ) {
+        checkList = this.sheetInfo.relObj[
+          `checkList_${this.index-1}_${this.sheetInfo.selectBlock.id}`
+        ];
       }
       return {
         ...this.patientInfo,
-        [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
+          [`checkList_${this.index}_${this.sheetInfo.selectBlock.id}`]: newChecklist ? newChecklist : checkList,
+          [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: newBedId ? newBedId : nowBed
+            ? nowBed
+            : beforeBed,
+        // ...this.patientInfo,
+        // [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: nowBed ? nowBed : beforeBed,
       }
-    }
+    },
   },
   methods: {
-    setRelValue(code, val) {
-      this.$set(this.sheetInfo.relObj, code, val)
+    setRelValue(val) {
+      this.$set(this.sheetInfo.relObj, [`checkList_${this.index}_${this.sheetInfo.selectBlock.id}`], val)
     },
     // 转床记录弹窗事件
     openBedRecordModal(){
@@ -340,6 +375,10 @@ export default {
     if (!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]) {
       this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`] = this.patientInfo.bedLabel
     }
+
+    if (this.sheetInfo.relObj[`checkList_${this.index}_${this.sheetInfo.selectBlock.id}`]) {
+      this.checklist = this.sheetInfo.relObj[`checkList_${this.index}_${this.sheetInfo.selectBlock.id}`]
+    }
     // 江门市妇幼院新生儿监护单  需要修改日期，只要日期，不要时间
     if(sheetInfo.sheetType === 'neonatal_care_jm'){
       this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
@@ -402,6 +441,10 @@ input {
     width: 100%;
     height: 100%;
   }
+}
+
+/deep/.el-checkbox + .el-checkbox{
+  margin-left: 0;
 }
 
 </style>

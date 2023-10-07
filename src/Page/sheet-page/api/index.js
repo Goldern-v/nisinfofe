@@ -359,7 +359,7 @@ export const updateBlockInfo = (obj = {}) => {
 // 同步his的分娩记录单数据
 export const  getDeliveryInfo= ( patientId ) => {
   return axios.get(
-    `${apiPath}/form/design/getfyinfo/${patientId}`
+    `${apiPath}form/design/getfyinfo/${patientId}`
   );
 };
 
@@ -395,4 +395,19 @@ export const getDictItemValueList = (dictCode, itemCode) => {
 // 查看留痕
 export const getLogRecordOperate = (sheetType, params) => {
   return axios.post(`${apiPath}record/${sheetType}/getLogRecordOperate`, params)
+}
+
+// 查询科室模板
+export const getFieldTemplateListApi = (params) => {
+  return axios.post(`${apiPath}record/setting/getFieldTemplateList`, params)
+}
+
+// 删除科室模板
+export const deleteFieldTemplateApi = (params) => {
+  return axios.post(`${apiPath}record/setting/deleteFieldTemplate`, params)
+}
+
+// 保存科室模板到当前页
+export const setFieldTemplateApi = (params) => {
+  return axios.post(`${apiPath}record/setting/setFieldTemplate`, params)
 }

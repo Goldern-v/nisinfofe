@@ -313,6 +313,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 查房登记表
               </el-row>
             </router-link>
+            <router-link to="/nursingRounds" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingRounds"></i>护理巡视
+              </el-row>
+            </router-link>
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"

@@ -21,6 +21,23 @@ export const PATIENT_STATUS = [
     code: 'out'
   },
 ]
+export const TIME_OUTPUT = [
+  {
+    label: '全部',
+    key: '',
+    code: 'all'
+  },
+  {
+    label: '07',
+    key: '07',
+    code: '07'
+  },
+  {
+    label: '16',
+    key: '16',
+    code: '16'
+  },
+]
 export const TIME_POINT = [
   {
     label: '全部',
@@ -146,6 +163,54 @@ export const NURSING_LEVEL = [
     label: '三级',
     key: 3,
     code: 'lv3',
+  },
+]
+//顺德人医VTE等级筛选
+export const NURSING_LEVEL_SDYY = [
+  {
+    label: '全部',
+    key: '',
+    code: 'all',
+  },
+  {
+    label: '外科VTE低危',
+    key: 0,
+    code: 'lv0',
+  },
+  {
+    label: '外科VTE中危',
+    key: 1,
+    code: 'lv1',
+  },
+  {
+    label: '外科VTE高危',
+    key: 2,
+    code: 'lv2',
+  },
+  {
+    label: '内科VTE低危',
+    key: 3,
+    code: 'lv3',
+  },
+  {
+    label: '内科VTE中危',
+    key: 4,
+    code: 'lv4',
+  },
+  {
+    label: '内科VTE高危',
+    key: 5,
+    code: 'lv5',
+  },
+  {
+    label: '极低危',
+    key: 6,
+    code: 'lv6',
+  },
+  {
+    label: '极高危',
+    key: 7,
+    code: 'lv7',
   },
 ]
 export const INCREASE_SELECT= [

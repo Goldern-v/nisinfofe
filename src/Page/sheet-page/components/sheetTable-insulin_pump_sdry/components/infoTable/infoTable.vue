@@ -2,12 +2,12 @@
   <div class="cardiac_intervent-info-contain">
     <!-- {{relObj}} -->
     <span>1.患者相关检查指标</span>
-    <table style="width: 50%; margin-bottom: 5px;">
+    <table style="margin-bottom: 5px;" class="info-table__pump">
       <colgroup>
-        <col width="15%" />
-        <col width="20%" />
-        <col width="35%" />
-        <col width="30%" />
+        <col width="19%" />
+        <col width="27%" />
+        <col width="27%" />
+        <col width="27%" />
       </colgroup>
       <tr>
         <td>项目</td>
@@ -20,7 +20,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
+            class="input-style"
             v-model="relObj.FBG"
             :data-value="relObj.FBG"
           />
@@ -28,7 +28,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
+            class="input-style"
             v-model="relObj.PBG"
             :data-value="relObj.PBG"
           />
@@ -36,7 +36,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
+            class="input-style"
             v-model="relObj.HbA"
             :data-value="relObj.HbA"
           />
@@ -45,7 +45,7 @@
     </table>
 
     <span> 2.安装及更换胰岛素泵记录表（由当班责任护士观察并打“√”）</span>
-    <table style="margin-top: 5px">
+    <table style="margin-top: 5px" class="info-table__pump">
       <colgroup>
         <col width="20%" />
         <col width="20%" />
@@ -74,8 +74,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
-            style="border-bottom: 1px solid;"
+            class="input-style"
             v-model="relObj.sysA"
             :data-value="relObj.sysA"
           />
@@ -205,8 +204,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
-            style="border-bottom: 1px solid;"
+            class="input-style"
             v-model="relObj.sysA1"
             :data-value="relObj.sysA1"
           />
@@ -336,8 +334,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
-            style="border-bottom: 1px solid;"
+            class="input-style"
             v-model="relObj.sysA2"
             :data-value="relObj.sysA2"
           />
@@ -467,8 +464,7 @@
         <td>
           <input
             type="text"
-            class="bottom-line"
-            style="border-bottom: 1px solid;"
+            class="input-style"
             v-model="relObj.sysA3"
             :data-value="relObj.sysA3"
           />
@@ -587,6 +583,7 @@
         </td>
       </tr>
     </table>
+    <div style="margin-top:5px">3.每天观察记录表(局部情况编码：1=正常，2=红肿，3=硬结，4=出血，5=瘀斑，6=疼痛，7=针头脱出，8=针头堵塞)</div>
   </div>
 </template>
 
@@ -693,7 +690,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.bottom-line {
+.input-style {
     border: 0;
     width: 96%;
     outline: none;
@@ -794,7 +791,7 @@ export default {
     display: flex;
     margin-bottom: 10px;
   }
-  table {
+  .info-table__pump {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
@@ -805,7 +802,7 @@ export default {
         border: 1px solid #000;
         margin: 0;
         padding: 1px;
-        line-height: 28px;
+        line-height: 19px;
          vertical-align: middle;
         // height: 28px;//需保留否则td内div没有内容
 

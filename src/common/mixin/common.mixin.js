@@ -182,7 +182,7 @@ export default {
     // 护理巡视操作权限
     isNursingRoundsAuthority() {
       try {
-        if(['lyxrm', 'stmz','ytll'].includes(process.env.HOSPITAL_ID)) return true
+        if(['lyxrm', 'stmz','ytll','qhwy'].includes(process.env.HOSPITAL_ID)) return true
         let isOk = JSON.parse(localStorage.user).roleManageCodeList
           ? JSON.parse(localStorage.user).roleManageCodeList.filter(
             item => item == "LC_XS_001"
@@ -247,7 +247,6 @@ export default {
           }
           return hour <= max && hour >= min;
         });
-        console.log(hour, text, Object.keys(text[0]));
         return Object.keys(text[0]) || "今日好";
       })();
       let texts = [
@@ -266,6 +265,7 @@ export default {
     },
     // 表单解锁
     async destroyUnlock(){
+      // debugger
       const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
       /* 判断是否已经自动解锁 */
       if(lockForm && lockForm.initTime){
@@ -284,6 +284,7 @@ export default {
           return
         }
        }
+      console.log(lockForm,'lockForm');
        if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
           unLock(lockForm.type,lockForm.formId).then(res=>{
              localStorage.setItem('lockForm','')

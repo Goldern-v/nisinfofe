@@ -87,7 +87,9 @@
         align="center"
         stripe
         highlight-current-row
+        @selection-change="handleSelectionChange"
       >
+        <el-table-column v-if="isHuaduHOS" type="selection" width="55" ></el-table-column>
         <el-table-column
           label="序号"
           header-align="center"
@@ -322,6 +324,8 @@ import {
   getConfig,
   canCancelArchive,
   getAchivePrintConfig,
+  uploadBatchSelect,
+  genDocBatchSelect
 } from "./api/index";
 import { TSNeverKeyword } from "babel-types";
 import common from "@/common/mixin/common.mixin.js";
@@ -373,9 +377,14 @@ export default {
       isArchive: false, //是否直接一键归档
       showAutoPrintInfo: false, // 是否开启自动归档
       showAutoPrint: true, // 是否开启自动归档按钮
+      multipleSelection: [],
+      isHuaduHOS: process.env.HOSPITAL_ID == "huadu"
     };
   },
   methods: {
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
     allArchive(){
       let params = {
         pageSize:"",
@@ -389,13 +398,35 @@ export default {
         patientName:"",
         inpNo:""
       }
-      uploadBatch(params).then(res=>{
-        this.$message({
-          type: "success",
-          message: "正在批量归档，请稍等"
+       if (this.isHuaduHOS) {
+        if (!this.multipleSelection.length)
+          return this.$message({
+            type: "warning",
+            message: "目前未选择患者，请选择患者！"
+          });
+        let list = [];
+        this.multipleSelection.map(item => {
+          list.push({ patientId: item.patientId, visitId: item.visitId });
         });
-        this.getArchiveList()
-      })
+        params = { list, ...params };
+        uploadBatchSelect(params).then(res => {
+          this.$message({
+            type: "success",
+            message: "正在批量归档，请稍等"
+          });
+          this.getArchiveList();
+        });
+      } else {
+        // this.$refs.BatchArchiveRef.dialogVisible = true;
+        // this.$refs.BatchArchiveRef.title = '确认批量归档时间段';
+        uploadBatch(params).then(res => {
+          this.$message({
+            type: "success",
+            message: "正在批量归档，请稍等"
+          });
+          this.getArchiveList();
+        });
+      }
     },
     allturnPDF(){
       let params = {
@@ -410,13 +441,35 @@ export default {
         patientName:"",
         inpNo:""
       }
-      genDocBatch(params).then(res=>{
-        this.$message({
-          type: "success",
-          message: "正在批量转pdf，请稍等"
+      if (this.isHuaduHOS) {
+        if (!this.multipleSelection.length)
+          return this.$message({
+            type: "warning",
+            message: "目前未选择患者，请选择患者！"
+          });
+        let list = [];
+        this.multipleSelection.map(item => {
+          list.push({ patientId: item.patientId, visitId: item.visitId });
         });
-        this.getArchiveList()
-      })
+        params = { list, ...params };
+        genDocBatchSelect(params).then(res => {
+          this.$message({
+            type: "success",
+            message: "正在批量pdf，请稍等"
+          });
+          this.getArchiveList();
+        });
+      } else {
+        // this.$refs.BatchArchiveRef.dialogVisible = true;
+        // this.$refs.BatchArchiveRef.title = '确认批量pdf时间段';
+        genDocBatch(params).then(res => {
+          this.$message({
+            type: "success",
+            message: "正在批量转pdf，请稍等"
+          });
+          this.getArchiveList();
+        });
+      }
     },
     close() {
       this.$refs["preview-modal"].close();
@@ -801,6 +854,9 @@ export default {
   >>>.el-table::after, .el-table::before {
     background: #cbd5dd;
     display: none;
+  }
+  >>>.el-table th {
+    text-align: center;
   }
 
   >>>.el-table__row td:first-child .cell, >>>.el-table__row td:last-child .cell {

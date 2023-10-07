@@ -8,15 +8,24 @@
         <div class="close-btn" @click="close">
           <i class="el-icon-close"></i>
         </div>
-        <div class="save-btn" @click="save" v-if="status === '0'">
-          <div v-touch-ripple>保存</div>
-        </div>
-        <div class="save-btn" @click="save" v-if="status === '1'">
-          <div v-touch-ripple>更新</div>
-        </div>
-        <div class="save-btn disabled" v-if="status === '2'">
-          <div>已停止</div>
-        </div>
+        <template v-if="isCreate">
+          <div class="save-btn" @click="onSign">
+            <div v-touch-ripple>签名确认</div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="save-btn" @click="save" v-if="status === '0'">
+            <div v-touch-ripple>保存</div>
+          </div>
+          <template v-if="status === '1' || (HOSPITAL_ID=='beihairenyi'&&status == '2' )" >
+            <div class="save-btn"  @click="save" >
+              <div v-touch-ripple>更新</div>
+            </div>
+          </template>
+          <div class="save-btn disabled" v-if="status === '2' && HOSPITAL_ID != 'beihairenyi'">
+            <div>已停止</div>
+          </div>
+        </template>
         <div class="contain">
           <div class="date-con">
             <span>开始时间：</span>
@@ -36,7 +45,7 @@
                   :indeterminate="isMeasuresIndeterminate"
                   v-model="checkMeasuresAll"
                   @change="handleMeasuresCheckAllChange"
-                  :disabled="status === '2'"
+                  :disabled="status === '2' && HOSPITAL_ID != 'beihairenyi'"
                 >全选</el-checkbox>
               </span>
             </div>
@@ -50,12 +59,13 @@
               <div class="m-10" v-for="item in measures" :key="item.id">
                 <el-checkbox
                   :label="item.serialNo"
-                  :disabled="status === '2'"
-                >{{item.measureDetail}}</el-checkbox>
+                  :disabled="(status === '2' && HOSPITAL_ID != 'beihairenyi') || lyxrmDisabled(item.id)"
+                >{{item.measureDetail}}
+                </el-checkbox>
               </div>
             </el-checkbox-group>
           </div>
-          <div class="do-box">
+          <div class="do-box" v-if="!isCreate">
             <div class="label">
               <span>【预期目标】</span>
               <span class="checkAll-con">
@@ -63,18 +73,18 @@
                   :indeterminate="isTargetIndeterminate"
                   v-model="checkTargetAll"
                   @change="handleTargetCheckAllChange"
-                  :disabled="status === '2'"
+                  :disabled="status === '2' && HOSPITAL_ID != 'beihairenyi'"
                 >全选</el-checkbox>
               </span>
             </div>
 
             <el-checkbox-group v-model="resultTargetList" @change="handleTargetCheckedChange">
               <div class="m-10" v-for="item in targetList" :key="item.id">
-                <el-checkbox :label="item.serialNo" :disabled="status === '2'">{{item.parameter}}</el-checkbox>
+                <el-checkbox :label="item.serialNo" :disabled="status === '2' && (HOSPITAL_ID != 'beihairenyi')">{{item.parameter}}</el-checkbox>
               </div>
             </el-checkbox-group>
           </div>
-          <div class="do-box"   v-if="HOSPITAL_ID !== 'zhzxy'">
+          <div class="do-box"   v-if="HOSPITAL_ID !== 'zhzxy' && !isCreate">
             <div class="label">
               <span>【问题因素】</span>
               <span class="checkAll-con">
@@ -82,14 +92,14 @@
                   :indeterminate="isFactorIndeterminate"
                   v-model="checkFactorAll"
                   @change="handleFactorCheckAllChange"
-                  :disabled="status === '2'"
+              :disabled="status === '2' && HOSPITAL_ID != 'beihairenyi'"
                 >全选</el-checkbox>
               </span>
             </div>
 
             <el-checkbox-group v-model="resultFactorList" @change="handleFactorCheckedChange">
               <div class="m-10" v-for="item in factorList" :key="item.id">
-                <el-checkbox :label="item.id" :disabled="status === '2'">{{item.factor}}</el-checkbox>
+                <el-checkbox :label="item.id" :disabled="status === '2' && (HOSPITAL_ID != 'beihairenyi') ">{{item.factor}}</el-checkbox>
               </div>
             </el-checkbox-group>
           </div>
@@ -231,20 +241,46 @@ let bindData = {
   isFactorIndeterminate: false,
   checkTargetAll: false,
   checkFactorAll: false,
-  definition: ""
+  definition: "",
+  planDetails: [],
+  callback: null,
+  isCreate: false,
 };
 let bindDataClone = { ...bindData };
 export default {
   data() {
     return bindData;
+
   },
   methods: {
+    onSign() {
+      window.openSignModal((password, empNo) => {
+        this.close();
+        const selectedMeasureList = this.measures.filter(
+          item => this.resultMeasuresList.includes(item.serialNo)
+        )
+        this.callback && this.callback({
+          measureList: selectedMeasureList,
+          password,
+          empNo,
+          beginTime: this.beginTime
+        });
+      }, '签名确认');
+    },
+    lyxrmDisabled(measureId) {
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        return this.planDetails.some((item) => item.measureId === measureId);
+      }
+      return false;
+    },
     open(item) {
       Object.assign(bindData, bindDataClone);
       this.beginTime = moment().format("YYYY-MM-DD HH:mm");
       this.show = true;
       this.data = item;
       this.status = '0';
+      this.callback = item.callback;
+      this.isCreate = item.isCreate;
       measure(item.code).then(res => {
         this.measures = res.data.data.measures;
         this.targetList = res.data.data.targetList;
@@ -264,6 +300,7 @@ export default {
           this.resultFactorList = res.data.data.object.diagFactor
             .split("_")
             .map(item => Number(item));
+          this.planDetails = res.data.data.planDetails
         });
       }
     },
@@ -271,9 +308,10 @@ export default {
       this.show = false;
     },
     save() {
-      let measure = this.measures.filter(item=>{
-          return this.resultMeasuresList.includes(item.serialNo)
-      }).map(e=>e.measureDetail).join("\r\n")
+      const selectedMeasureList = this.measures.filter(
+        item => this.resultMeasuresList.includes(item.serialNo)
+      )
+      let measure = selectedMeasureList.map(e=>e.measureDetail).join("\r\n")
       let target = this.targetList.filter(item=>{
         return this.resultTargetList.includes(item.serialNo)
       }).map(e=>e.parameter).join("\r\n")
@@ -284,7 +322,7 @@ export default {
         this.$message.warning('当前字数已超过最大限制字数！');
         return
       }
-      this.$store.commit("upMeasureGuizhou",{measure,target,factor})
+      this.$store.commit("upMeasureGuizhou",{measure,target,factor, measureList: selectedMeasureList })
     },
     /** 全选措施 */
     handleMeasuresCheckAllChange(event) {
@@ -307,7 +345,6 @@ export default {
         ? this.measures.map(item => item.serialNo)
         : [];
       this.isTargetIndeterminate = false;
-      console.log( this.measures)
     },
     handleTargetCheckedChange(value) {
       let checkedCount = value.filter(item => item).length;;

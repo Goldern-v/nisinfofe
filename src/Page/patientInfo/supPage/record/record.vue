@@ -72,14 +72,13 @@ import templateSlideFoshanshiyi from '@/Page/sheet-hospital-admission/components
 import diagnosisSlide from "@/Page/sheet-hospital-eval/components/Render/modal/diagnosisSlide.vue";
 import diagnosisModal from "@/Page/sheet-hospital-admission/components/Render/modal/diagnosis-modal.vue";
 import TreeSdyy from './component/tree-sdyy.vue';
-import { format } from 'element-ui/lib/utils/date';
 export default {
   props: {
     filterObj: Object
   },
   data() {
     return {
-      lockHospitalList:['huadu'],//配置了表单锁定的医院
+      lockHospitalList:['huadu','nfyksdyy'],//配置了表单锁定的医院
       bus: bus(this),
       tagsList: [],
       currentTag: null,
@@ -247,22 +246,26 @@ export default {
     diagnosisModal,
     TreeSdyy
   },
-  // beforeRouteLeave: (to, from, next) => {
-  //   const isSave = localStorage.getItem('isSave')
-  //   if (!JSON.parse(isSave) && isSave != null) {
-  //     window.app
-  //       .$confirm("评估单还未保存，离开将会丢失数据", "提示", {
-  //         confirmButtonText: "离开",
-  //         cancelButtonText: "取消",
-  //         type: "warning"
-  //       })
-  //       .then(res => {
-  //         next();
-  //       });
-  //   } else {
-  //     next();
-  //   }
-  // },
+  beforeRouteLeave(to,from,next){
+     if(!this.$store.state.admittingSave.admittingSave){
+      return this.$confirm('护理文书还未保存，是否需要离开页面?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+           this.$store.commit("upAdmittingSave", true);
+           return next()
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+          return next(false)
+        });
+    }else{
+      next()
+    }
+  },
   beforeDestroy(){
     this.destroyUnlock()
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="modalWidth"  :title="title">
+    <sweet-modal ref="modal" :modalWidth="['ytll'].includes(HOSPITAL_ID) ? 850 : modalWidth"  :title="title">
       <div flex="cross:center">
         <div
           v-if="
@@ -14,7 +14,6 @@
               'whhk',
               '925',
               'gdtj',
-              'ytll',
               'whsl',
               'nfyksdyy',
               'nanfangzhongxiyi',
@@ -26,6 +25,20 @@
           <el-date-picker
             v-model="longDate"
             type="daterange"
+            size="small"
+            placeholder="选择日期范围"
+          >
+          </el-date-picker>
+        </div>
+        <div
+          v-else-if="
+            ['ytll'].includes(HOSPITAL_ID)
+          "
+        >
+          <span class="label">执行单日期：</span>
+          <el-date-picker
+            v-model="longDate"
+            type="datetimerange"
             size="small"
             placeholder="选择日期范围"
           >
@@ -56,7 +69,7 @@
             v-model="yizhuTypeItem"
             placeholder="请选择"
             size="small"
-            style="width: 150px"
+            style="width: 100px"
           >
             <el-option
               :label="typeItem.name"
@@ -94,7 +107,7 @@
             v-model="executeType"
             placeholder="请选择"
             size="small"
-            style="width: 150px"
+            :style="{width: '150px'}"
           >
             <el-option
               :label="typeItem.name"
@@ -110,7 +123,7 @@
             v-model="executeType"
             placeholder="请选择"
             size="small"
-            style="width: 100px"
+            style="width: 150px"
           >
             <el-option
               :label="typeItem.name"
@@ -397,7 +410,7 @@ export default {
     },
     title: {
       type: String,
-      value: "执行单同步",
+      value: "执行12单同步",
     },
     modalWidth: {
       type: Number,
@@ -456,6 +469,11 @@ export default {
         return this.$message.warning("请选择一名患者");
       }
       if ('wujing' === this.HOSPITAL_ID) this.reset()
+      if(['ytll'].includes(this.HOSPITAL_ID)){
+        //打开日期设置当天00:00:00-当天23:59:59
+       this.$set(this.longDate,0,moment(this.longDate[0]).startOf('day'))
+       this.$set(this.longDate,1,moment(this.longDate[1]).endOf('day'))
+      }
       this.searchDate = moment().format("YYYY-MM-DD");
       this.getData();
       this.$refs.modal.open();
@@ -662,10 +680,10 @@ export default {
         });
       } else if (["ytll"].includes(this.HOSPITAL_ID)) {
         let startDate = this.longDate[0]
-            ? moment(this.longDate[0]).format("YYYY-MM-DD")
+            ? moment(this.longDate[0]).format("YYYY-MM-DD HH:mm:ss")
             : "";
         let endDate = this.longDate[1]
-            ? moment(this.longDate[1]).format("YYYY-MM-DD")
+            ? moment(this.longDate[1]).format("YYYY-MM-DD HH:mm:ss")
             : "";
 
         getOrdersExecuteNew({

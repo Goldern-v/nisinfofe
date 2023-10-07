@@ -128,7 +128,7 @@
         <div class="nav-item">护理文书</div>
       </router-link>
       <router-link
-        v-if="['hj', 'fuyou', 'liaocheng', 'sdlj'].includes(HOSPITAL_ID)"
+        v-if="['hj', 'fuyou', 'liaocheng', 'sdlj', 'ytll'].includes(HOSPITAL_ID)"
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -228,12 +228,12 @@
           path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
-        v-if="HOSPITAL_ID != 'nfyksdyy'"
+        v-if="!(['gdtj', 'nfyksdyy'].includes(HOSPITAL_ID))"
         tag="span"
       >
         <div class="nav-item">血糖</div>
       </router-link>
-      <!-- <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toBloodSugar')">血糖</div> -->
+      <div class="nav-item" v-if="['gdtj'].includes(HOSPITAL_ID)" @click="openNewPage('toBloodSugar')">血糖</div>
 
       <router-link
         :to="{
@@ -358,7 +358,7 @@
         360视图
       </div>
       <router-link
-        v-if="HOSPITAL_ID === 'whsl'"
+        v-if=" ['whsl', 'fsxt','ytll', 'hj'].includes(HOSPITAL_ID)"
         :to="{
           path: '/patientNursingRound',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -368,21 +368,7 @@
         <div class="nav-item">护理巡视</div>
       </router-link>
       <router-link
-        v-if="HOSPITAL_ID === 'ytll'"
-        :to="{
-          path: '/implementationPerson',
-          query: {
-            patientId: query.patientId,
-            visitId: query.visitId,
-            bedLabel: query.bedLabel
-          }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">执行记录</div>
-      </router-link>
-      <router-link
-        v-if="['whsl', 'nfyksdyy'].includes(HOSPITAL_ID)"
+        v-if=" ['whsl', 'nfyksdyy', 'fsxt', 'ytll', 'hj'].includes(HOSPITAL_ID)"
         :to="{
           path: '/implementationPerson',
           query: {

@@ -13,7 +13,7 @@
       stripe
       :data="tableData"
       border
-      :height="wih - 222"
+      :height="wih - 182"
       :columns="columns"/>
     <pagination
       :pageIndex="pageIndex"
@@ -98,7 +98,7 @@ export default {
 					width: 70,
 				},
         {
-					key: 'sunSum2',
+					key: 'sunCount',
 					title: '阳性次数',
           align: 'center',
 					width: 70,

@@ -46,7 +46,7 @@ export default data;
 export async function addSheetPage(callback) {
   let Options = []
   let FieldTitle = []
-  if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
+  if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(process.env.HOSPITAL_ID)) {
     // let formatCustomObj = {}
     let params = {
       pageIndex: + endPage - sheetStartPage + 1,
@@ -68,7 +68,7 @@ export async function addSheetPage(callback) {
     Page(
       {
         titleData: [],
-        autoTitleData: ['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID) ? FieldTitle : autoTitleDataDisk.map(item => {
+        autoTitleData: ['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(process.env.HOSPITAL_ID) ? FieldTitle : autoTitleDataDisk.map(item => {
           item.pageIndex =  item.pageIndex + 1;
           return item;
         }),
@@ -192,7 +192,7 @@ export function cleanDataOnly() {
     }
 
     // 临邑日期时间禁用符号，识别该行已经被占用
-    if (['whhk', 'stmz','foshanrenyi'].includes(process.env.HOSPITAL_ID)) {
+    if (['whhk', 'stmz','foshanrenyi', 'nfyksdyy'].includes(process.env.HOSPITAL_ID)) {
       if (listData[nowX]) {
         // 第一条记录
         const firstEqualIndex = listData.findIndex(
@@ -262,8 +262,10 @@ export function cleanDataOnly() {
         listData[nowX])||
       (process.env.HOSPITAL_ID == "sdlj" && listData && listData[nowX])||
       (process.env.HOSPITAL_ID == "dglb" && listData && listData[nowX])||
+      (process.env.HOSPITAL_ID == "zjhj" && listData && listData[nowX])||
       // (process.env.HOSPITAL_ID == "lyxrm" && listData && listData[nowX])||
-      (process.env.HOSPITAL_ID == "qhwy" && listData && listData[nowX])
+      (process.env.HOSPITAL_ID == "qhwy" && listData && listData[nowX]) ||
+      (process.env.HOSPITAL_ID == "nfyksdyy" && listData && listData[nowX])
     ) {
       return !listData[nowX].canModify;
     }
@@ -342,11 +344,6 @@ export function cleanDataOnly() {
       if (process.env.HOSPITAL_ID == 'foshanrenyi') {
         // 佛山人医表示取消该功能 禅道ID 14369
         return false
-        const lastIndex = findLastIndex(
-          listData,
-          item => item && listData[nowX] && item.recordDate == listData[nowX].recordDate
-        )
-        return lastIndex != -1 && nowX !== lastIndex
       } else {
         return false
       }
@@ -362,11 +359,11 @@ export function cleanDataOnly() {
   sheetInfo.masterInfo = bodyData;// 主表信息
   listData=listDataList
   try {
-    if (['foshanrenyi','fsxt','gdtj'].includes(process.env.HOSPITAL_ID)) {
+    if (['foshanrenyi','fsxt','gdtj','zjhj'].includes(process.env.HOSPITAL_ID)) {
       titleList = titleData.FieldSetting
       customOptions = titleData.Options
     }else if(['nfyksdyy'].includes(process.env.HOSPITAL_ID) && window.location.href.indexOf('sheet-print')==-1){
-      /* 
+      /*
         用了自定义标题（有下拉） 护记归档打印，会报错 Cannot read properties of undefined (reading 'filter')
         因为归档数据不走sheet.vue和sheet-page.vue两个页面，接口拿的是普通自定义标题的接口，返回数据形式不一样，
         所以自定义标题数据应该是else的形式（用url的sheet-print来判断是否归档打印）

@@ -133,6 +133,8 @@ export default {
       this.selectRow(rowIndex);
     },
     onDblClick(data) {
+      let {rowIndex} = data
+      this.selectRow(rowIndex);
       this.$emit("dblclick", data);
     },
     async onContextMenu(e, rowIndex, col) {

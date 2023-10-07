@@ -14,26 +14,44 @@
           clearable
         />
       </span>
-      <div
-        class="times"
-        v-if="isZjhj"
-      >
-        <label :for="`time${item.id}`"
-        v-for="item in timesEven"
-        :key="item.id"
-        :style="{color:item.value  == query.entryTime ? 'red' : '#000'}"
+      <template v-if="isZjhj">
+        <div
+          class="times"
         >
-          <input
-            type="radio"
-            name="time"
-            v-model="query.entryTime"
-            :id="`time${item.id}`"
-            :value="item.value"
-          />
-          {{ item.value }}
-        </label>
-      </div>
-      <template v-if="!isZjhj">
+          <label :for="`time${item.id}`"
+          v-for="item in timesPoint"
+          :key="item.id"
+          :style="{color:item.value  == query.entryTime ? 'red' : '#000'}"
+          >
+            <input
+              type="radio"
+              name="time"
+              v-model="query.entryTime"
+              :id="`time${item.id}`"
+              :value="item.value"
+            />
+            {{ item.value }}
+          </label>
+        </div>
+        <div>
+          <span class="label">护理等级:</span>
+          <el-select
+            v-model="patientGroup"
+            placeholder="请选择"
+            size="small"
+            style="width: 120px; margin-right: 12px;"
+            clearable
+          >
+            <el-option
+              v-for="item in nurseClassGroup"
+              :key="item.name"
+              :label="item.name"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </div>
+      </template>
+      <template v-else>
       <div class="times">
         <label
           :for="`time${item.id}`"
@@ -51,83 +69,20 @@
           {{ item.value }}
         </label>
       </div>
-      <div class="search-box" v-if="isNfyksdyy">
-         <el-select
-          v-model="searchWord"
-          placeholder="请选择床号"
-          style="max-height:30px;"
-          size="small"
-          clearable
-          multiple
-        >
-          <el-option
-            v-for="item in searchWordlist"
-            :key="item.value"
-            :label="item.value"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-        <!-- <el-autocomplete
-          class="inline-input"
-          v-model="searchWord"
-          :fetch-suggestions="querySearch"
-          placeholder="请输入内容"
-        ></el-autocomplete> -->
-        <!-- <el-input
-        placeholder="床号/姓名/多选用空格隔开"
-          icon="search"
-          v-model="searchWord"
-        ></el-input> -->
-      </div>
-      <div class="search-box" v-else>
+      <div class="search-box">
         <el-input
           placeholder="床号/姓名/多选用空格隔开"
           icon="search"
           v-model="searchWord"
         ></el-input>
       </div>
-      <div v-if="isNfyksdyy">
-        <span class="label">病人分组:</span>
-        <el-select
-          v-model="patientGroup"
-          placeholder="请选择"
-          size="small"
-          style="width: 90px"
-          clearable
-        >
-          <el-option
-            v-for="item in patientGroup4Expand3"
-            :key="item.value"
-            :label="item.name"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </div>
-      <div class="filterButton" v-if="!isNfyksdyy">
+      <div class="filterButton">
         <span>时间筛选关</span>
         <el-switch v-model="query.startFiltering"> </el-switch>
         <span>时间筛选开</span>
       </div>
       <div style="margin: 0px 10px 0px 10px" v-if="!query.startFiltering">
-        <template v-if="isNfyksdyy">
-          <span>条件筛选：</span>
-          <el-select
-            v-model="admitted"
-            placeholder="请选择"
-            style="min-width: 250px; max-height:30px;"
-            size="small"
-            clearable
-            multiple
-          >
-            <el-option
-              v-for="item in admittedList"
-              :key="item.value"
-              :label="item.name"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </template>
-        <template v-else>
+        <template>
           <el-radio-group v-model="admitted" size="small">
             <el-radio-button label="所有患者"></el-radio-button>
             <el-radio-button label="一周体重"></el-radio-button>
@@ -1077,36 +1032,10 @@ export default {
           }
         })() //录入时间
       },
-      timesEven: [
-        {
-          id: 0,
-          value: "02",
-        },
-        {
-          id: 1,
-          value: "06",
-        },
-        {
-          id: 2,
-          value: "10",
-        },
-        {
-          id: 3,
-          value: "14",
-        },
-        {
-          id: 4,
-          value: "18",
-        },
-        {
-          id: 5,
-          value: "22",
-        },
-      ],
       timesPoint: (() => {
         switch (this.HOSPITAL_ID) {
           case "foshanrenyi":
-          case "nfyksdyy":
+          case "zjhj":
             return [
               {
                 id: 0,
@@ -1169,19 +1098,7 @@ export default {
       searchWord: "",
       pageLoadng: true,
       admitted: "所有患者",
-      admittedList: [
-        { name: "一周体重", value: "一周体重" },
-        { name: "三天未大便", value: "三天未大便" },
-        { name: "昨日入院", value: "昨日入院" },
-        { name: "入院三天内", value: "入院三天内" },
-        { name: "术后三天", value: "术后三天" },
-        { name: "发热患者", value: "发热患者" },
-        { name: "病危病重", value: "病危病重" },
-        { name: "新入", value: "新入" },
-        { name: "转入", value: "转入" }
-      ],
-      patientGroup: "", // 病人分组
-      isNfyksdyy: this.HOSPITAL_ID === "nfyksdyy",
+      patientGroup: "", // 护理等级
       isZjhj: this.HOSPITAL_ID === "zjhj"
     };
   },
@@ -1208,18 +1125,9 @@ export default {
             });
           });
         } else if (this.patientGroup) {
-          if(this.isNfyksdyy){
-            data = this.patientsInfoData.filter(
-            item => item.expand3 === this.patientGroup)
-          }else {
-             return  this.patientsInfoData.filter(
-            item => item.expand3 === this.patientGroup)
-          }
-        } else if (this.isNfyksdyy && this.searchWord.length){
-          data = this.patientsInfoData.filter(item => {
-            return  this.searchWord.some(beditem => item.bedLabel.match(beditem))
-          })
-        }else {
+            return  this.patientsInfoData.filter(
+            item =>  item.nursingClass === this.patientGroup )
+        } else {
           let searchWord = new RegExp(this.searchWord, "i");
           data = this.patientsInfoData.filter(item => {
             return (
@@ -1230,47 +1138,24 @@ export default {
           });
         }
         return data.filter(item => {
-          if (this.isNfyksdyy) {
-            let admObj = {
-              所有患者: item.patientId,
-              一周体重: item.noWeightFlag == 1,
-              三天未大便: item.notDefecateFlag == 1,
-              昨日入院: item.expand2 == 1,
-              入院三天内: item.inpDay == 1,
-              发热患者: item.temperatureFlag == 1,
-              术后三天: item.operationFlag == 1,
-              新入: item.newInFlag == 1,
-              转入: item.transInFlag == 1,
-              病危病重: item.patientCondition != "普通"
-            };
-            let judgeList = this.admitted.map(items => {
-              return admObj[items];
-            });
-            return this.admitted.length
-              ? judgeList.includes(true)
-              : item.patientId;
-          } else {
-            return {
-              所有患者: item.patientId,
-              一周体重: item.noWeightFlag == 1,
-              三天未大便: item.notDefecateFlag == 1,
-              发热患者: item.temperatureFlag == 1
-            }[this.admitted];
-          }
+          return {
+            所有患者: item.patientId,
+            一周体重: item.noWeightFlag == 1,
+            三天未大便: item.notDefecateFlag == 1,
+            发热患者: item.temperatureFlag == 1
+          }[this.admitted];
         });
       },
       set(value) {}
     },
-    patientGroup4Expand3() {
-      const result = Array.from(
-        new Set(this.patientsInfoData.map(item => item.expand3))
-      ).map(item => {
-        return {
-          name: item ? `分组${item}` : "无",
-          value: item
-        };
-      });
-      return result;
+    nurseClassGroup() {
+      return [
+        {name:'全部', value:''},
+        {name:'一级护理', value:'一级护理'},
+        {name:'二级护理', value:'二级护理'},
+        {name:'三级护理', value:'三级护理'},
+        {name:'特级护理', value:'特级护理'},
+      ];
     }
   },
   mounted() {

@@ -199,6 +199,11 @@
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告
               </el-row>
             </router-link>
+            <router-link to="/badEvent" tag="span">
+              <el-row class="nav-item" type="flex" align="middle"
+                >不良事件
+              </el-row>
+            </router-link>
             <router-link to="/nursingRounds" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理巡视
@@ -223,6 +228,11 @@
             <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
+              </el-row>
+            </router-link>
+             <router-link to="/statisticalQuery" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-allCatheter"></i> 统计查询
               </el-row>
             </router-link>
 

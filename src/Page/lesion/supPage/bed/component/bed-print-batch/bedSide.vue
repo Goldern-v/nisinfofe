@@ -2,6 +2,115 @@
   <div>
     <!-- 床头卡 -->
     <template v-if="category == 'bedside'">
+      <template v-if="HOSPITAL_ID == 'sdhpwk'">
+      <div class="bed-card-warpper"
+        v-loading="modalLoading"
+        ref="printCon"
+        v-for="item in printData"
+        style="display: inline-block;"
+        :key="item.patientId">
+        <div
+          class="bed-card-con1"
+          flex
+          :class="{ remarkCon: formData.remarkPrint }"
+        >
+        <img class="qr-code" :style="{ opacity: '1' }" :src="item.qrCode" />
+          <div style="width: 0" flex-box="1" flex="dir:top main:justify">
+            <div
+              class="title-name title-bed"
+              flex="cross:center"
+              style="height: 100px"
+            >
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <input
+                type="text"
+                nowidth
+                style="font-size: 90px; padding-left: 75px"
+                flex-box="1"
+                class="bottom-line title-bed__3"
+                :value="item.name "
+              />
+              <input
+                type="text"
+                nowidth
+                style="font-size: 32px; padding-left: 10px;"
+                flex-box="1"
+                class="bottom-line"
+                :value="' ' + item.sex + ' ' + item.age"
+              />
+            </div>
+            <div flex="cross:center" class="input-item title-bed">
+              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
+              <input
+                type="text"
+                class="bottom-line title-bed__1"
+                :value="item.bedLabel + '床'"
+              />
+              <input
+                type="text"
+                flex-box="1"
+                nowidth
+                class="bottom-line title-bed__2"
+                :value="moment(item.admissionDate).format('YYYY-MM-DD HH:mm:ss')"
+              />
+            </div>
+            <div
+              flex="cross:center"
+              class="input-item"
+            >
+              <span class="label">住院号:</span>
+              <div
+                nowidth
+                class="check-con"
+                flex-box="1"
+                flex="main:justify cross:center"
+              >
+                <input
+                  type="text"
+                  nowidth
+                  flex-box="1"
+                  class="bottom-line"
+                  :value="item.inpNo"
+                />
+              </div>
+            </div>
+            <div flex="cross:center" class="input-item input-item2">
+              <span class="label">诊断:</span>
+              <input
+                type="text"
+                nowidth
+                style="font-size: 26px;"
+                flex-box="1"
+                class="bottom-line"
+                v-model="item.diagnosis"
+              />
+            </div>
+          </div>
+
+          <!-- <div
+            style="width: 131px"
+          >
+            <div class="tip">温馨提示</div>
+            <div style="height: 2px"></div>
+            <div
+            >
+              <div
+                class="tip-item-con"
+                flex="cross:center main:justify"
+                v-for="item in tipList"
+                :key="item.label"
+              >
+                <img :src="item.img" alt />
+                <span>{{ item.label }}</span>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+
+
+      </template>
+      <template v-else>
         <div
           class="bed-card-wrapper"
           style="display: inline-block;"
@@ -210,7 +319,7 @@
                     "
                   />
                 </div>
-                
+
               </div>
               <div class="title-sign">
                 <div flex="cross:center" class="input-item">
@@ -259,6 +368,7 @@
             </div>
           </div>
         </div>
+      </template>
     </template>
     <!-- 床位卡 -->
     <template v-else>
@@ -279,7 +389,7 @@
               <div>
                 <div flex="cross:center;" class="title-bed">
                   <div>
-                    <span style="font-size: 14px; line-height:20px;">病区：{{ query.wardName }}</span>
+                    <span style="font-size: 14px; line-height:20px;">病区：{{ item.wardName }}</span>
                   </div>
                   <div>
                     <span style="font-size: 18px; line-height:20px;">床号： {{item.bedLabel + '床'}}</span>
@@ -307,6 +417,17 @@
   // display: inline-block;
   font-size: 16px;
 
+  >>> * {
+    font-family: 'SimHei', 'Microsoft Yahei' !important;
+    font-weight: bold;
+  }
+}
+.bed-card-warpper {
+  background: #fff;
+  // box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  // display: inline-block;
+  font-size: 16px;
+  padding:5px ;
   >>> * {
     font-family: 'SimHei', 'Microsoft Yahei' !important;
     font-weight: bold;
@@ -362,6 +483,9 @@
         font-size: 18px;
         padding-left: 2px;
       }
+    .title-bed__3 {
+    width: 94px;
+  }
     }
   }
 }
@@ -396,8 +520,50 @@
     font-size: 16px;
   }
 }
+.bed-card-con1 {
+  margin: 20px;
+  width: 18.25cm;
+  height: 7.5cm;
+  padding: 5px 8px;
+  box-sizing: border-box;
+  border-right: 5px solid #fff;
+  position: relative;
+  border: 1px solid #000;
+  // height: 370px;
+
+  // &.remarkCon
+  .qr-code {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 112px;
+    width: 112px;
+
+    &.hasRemark {
+      width: 96px;
+      height: 96px;
+    }
+  }
+
+  .qr-code-num {
+    position: absolute;
+    top: 92px;
+    left: 0px;
+    width: 120px;
+    text-align: center;
+    z-index: 2;
+    font-size: 16px;
 
 
+
+    &.hasRemark {
+      top: 78px;
+      left: 0px;
+      width: 84px;
+      font-size: 14px;
+    }
+  }
+}
 .bottom-line {
   border: 0;
   border-bottom: 1px solid #000;
@@ -426,7 +592,7 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
-  width: 350px;
+  width: 600px;
 
   .input-item-left {
     display: inline-block;
@@ -438,7 +604,28 @@
     }
   }
 }
+.input-itemhp {
+  height: 30px;
+  // padding-right: 12px;
+  font-size: 22px;
+  font-weight: bold;
+  position: relative;
+  padding-left:10px;
+  z-index: 2;
+  &.inputItemHeight{
+      line-height: 85px;
+      font-size: 80px;
+  }
+  .input-item-left {
+    display: inline-block;
 
+    width 75px {
+      .input-item-left-label {
+        margin-right: 2px;
+      }
+    }
+  }
+}
 .title-bed {
   .title-bed__1 {
     width: 94px;
@@ -644,19 +831,21 @@ export default {
     };
   },
   computed: {
-    query() {
+    item() {
       return {wardName: this.$store.state.lesion.deptName, wardCode: this.$store.state.lesion.deptCode};
     },
   },
   methods: {
+
+
     getqrCode(item) {
-      // qr_png_value = this.query.inpNo.substring(0,this.query.inpNo.lastIndexOf("_"));
+      // qr_png_value = this.item.inpNo.substring(0,this.item.inpNo.lastIndexOf("_"));
 
       let qr_png_value = item.inpNo.substring(0,item.inpNo.lastIndexOf("_"));
       var qr_png = qr.imageSync(
         this.category == "bedside"
           ? qr_png_value
-          : `B_${this.query.wardCode}_${item.bedLabel}`,
+          : `B_${this.item.wardCode}_${item.bedLabel}`,
         {
           type: "png",
           margin: 4,
@@ -674,6 +863,7 @@ export default {
       let base64 = arrayBufferToBase64(qr_png);
       return { qrCode: base64, qrCodeNum: qr_png_value };
     },
+
     selectRegistCare(item, data, key = false) {
       if (key) {
         data.nursingClass = data.nursingClass.includes(item) ? "" : item;

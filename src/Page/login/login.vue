@@ -2,6 +2,7 @@
   <div>
     <div class="login-bg" v-loading="loginLoading">
       <vue-particles
+        v-if="HOSPITAL_ID != 'guizhou'"
         color="#dedede"
         :moveSpeed="2"
         :particlesNumber="10"
@@ -450,7 +451,7 @@ a {
     top: 4px;
     font-size: 20px;
     letter-spacing: 1px;
-    left: 130px;
+    left: 22px;
   }
 
   .sys-name {
@@ -785,7 +786,7 @@ export default {
         this.$router.push("/resetpassword");
         return;
       } else if (
-        ["beihairenyi"].includes(this.HOSPITAL_ID) &&
+        ["beihairenyi", 'zhzxy'].includes(this.HOSPITAL_ID) &&
         !regOnlyLetterNum.test(this.password)
       ) {
         this.$message({
@@ -1099,8 +1100,14 @@ export default {
           return require("../../common/images/logo_zhzxy_login.png");
         case "dglb":
           return require("../../common/images/logo_dglb_login.png");
+        case "zjhj":
+          return require("../../common/images/logo_zjhj.jpg");
         case "nfyksdyy":
           return require("../../common/images/logo_nfyksdyy.png");
+        case "sdhpwk":
+          return require("../../common/images/logo_sdhp.png");
+        case "hzly":
+          return require("../../common/images/logo_hzly_login.png");
         default:
           return require("../../common/images/logo.png");
       }
@@ -1125,6 +1132,7 @@ export default {
           "fsxt",
           "qhwy",
           "nfyksdyy",
+          "zjhj"
         ].includes(this.HOSPITAL_ID)
       ) {
         logoName = "智慧护理信息系统";

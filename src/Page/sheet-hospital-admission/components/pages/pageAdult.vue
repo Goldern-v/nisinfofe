@@ -290,7 +290,7 @@ export default {
       this.isShow = false;
       this.initial();
     },
-    async openForm(config) {
+    async openForm(config,scrollHeight=0) {
       let isDevMode = config.isDevMode || false;
       let patient = config.patient;
       let formObj = config.formObj;
@@ -322,7 +322,7 @@ export default {
 
       if(!config.title){
          // 滚动到顶端
-      document.querySelector(".sheetTable-contain").scrollTop = 0;
+      document.querySelector(".sheetTable-contain").scrollTop = scrollHeight
       document.querySelector(".sheetTable-contain").style.background =
         "#DFDFDF";
       }

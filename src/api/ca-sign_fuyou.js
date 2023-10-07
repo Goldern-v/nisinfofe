@@ -70,6 +70,8 @@ export const getTrustUserInfo=(data)=>{
       return axios.post(`${apiPath}manufactor/zzwy/queryQRCode`,data)
     case 'whhk':
       return axios.post(`${apiPath}manufactor/whhk/getSignResult`,data)
+    case 'fuyou':
+      return axios.post(`${apiPath}caSignJmfy/tokeninfoCaJmfy`,data)
     default:
       return axios.get(`${apiPath}caSignJmfy/tokeninfoCaJmfy/${data.requestId}`)
   }

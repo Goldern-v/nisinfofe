@@ -13,51 +13,73 @@
       ref="printConW"
       v-if="printMode == 'wrist'"
     >
-      <!-- <div class="wrist-header">
-        {{ HOSPITAL_NAME }}
-      </div> -->
-      <div class="wrist-line1">
+      <div class="wrist-header" style="font-size: 19px;">
         <span>{{ query.wardName }}</span>
+        &nbsp;
         <span>
-          入院时间：{{ moment(query.admissionDate).format("YYYY-MM-DD") }}
+        入院时间:
         </span>
-        血型：
+        <span>{{ moment(query.admissionDate).format("YYYY-MM-DD") }}</span>
       </div>
-      <div class="wrist-lin1">
-      <span>{{ query.name }}</span>&nbsp;
-        <span>{{ query.sex }}</span>&nbsp;
-        <span>{{ query.age }}</span>&nbsp;
-        <span>床号:{{ query.bedLabel }}</span>&nbsp;
+      <div class="wrist-line1">
+
+        <span>{{ query.name }}</span>
+        <span>{{ query.sex }}</span>
+        <span>{{ query.age }}</span>
+        <span>床号:{{ query.bedLabel }}</span>
         <span>ID:{{ query.patientId }}</span>
-
       </div>
       <div class="wrist-line2">
         <div>
-          <span>手术名称：</span>
-          <input type="text" v-model="operationName" />
+          <span>诊断:</span>
+          <!-- <span>{{ query.diagnosis }}</span> -->
+          <input type="text" v-model="formData.remark" />
         </div>
-        <div>
-          <span>手术部位：</span>
-          <input type="text" v-model="operationName1" />
-        </div>
-        <!-- <div>
-          <span>住院号：</span>
-          <span>{{ query.inpNo }}</span>
-        </div> -->
       </div>
-
       <div class="wrist-line2">
-        <div>
-          <span>诊断：</span>
-          <span>{{ query.diagnosis }}</span>
-          <!-- <input type="text" v-model="formData.remark" /> -->
-        </div>
-        <div>
-          <span>过敏：</span>
+        <div style="margin-left: 76px;">
+          <span>过敏:</span>
           <input type="text" />
         </div>
       </div>
+
       <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
+    </div>
+    <div
+        class="bed-card-warpper printRef  wrist-strap-print children-wrist"
+        ref="printCon4"
+        v-else-if="printMode == 'wrist-children'"
+      >
+        <div class="bed-card-vert-con">
+          <div class="top">
+            <span>{{ query.wardName }}</span>
+          </div>
+          <div>
+            <div>
+              <span v-if="!['zhzxy'].includes(HOSPITAL_ID)"
+                >床位：{{ query.bedLabel }}</span
+              >
+              <span>ID:{{ query.patientId }}</span>
+            </div>
+            <div>
+              <span>{{ query.name }}</span>
+              <span>{{ query.sex }}</span>
+              <span>{{ query.age }}</span>
+              <span>过敏:</span>
+              <input style="border:none" type="text" />
+            </div>
+          </div>
+          <div>
+            <div>
+              <span>入院日期：{{moment(query.admissionDate).format("YYYY-MM-DD")  }}</span>
+            </div>
+          </div>
+          <img
+            class="qr-code"
+            :class="{ hasRemark: hasRemark }"
+            :src="qrCode"
+          />
+        </div>
     </div>
     <!-- 床头卡 -->
     <div class="bed-card-warpper"
@@ -75,13 +97,14 @@
                 class="qr-code"
                 :class="{ hasRemark: hasRemark }"
                 :src="qrCode"
+                style="transform-origin: top center;transform: scaleY(0.77) scaleX(.8); "
               />
             </div>
             <div flex="cross:center" :class="{'input-item-nopadding':HOSPITAL_ID=='sdlj' && query.patientId.indexOf('$')>=0}"
-            class="input-item input-item-row">
+            class="input-item input-item-row" >
               <div class="fontSize-50">{{query.sex}}</div>
               <div class="fontSize-50" >{{query.age}}</div>
-              <div>{{wardName}}</div>
+              <div class="fontSize-50-1">{{query.deptName}}</div>
             </div>
             <div flex="cross:center" class="input-item" style="width:auto;height:50px">
               <div style="display:flex " >
@@ -89,27 +112,29 @@
                 <input
                   type="text"
                   nowidth
-                  style="font-size: 26px;width:65px"
-                  flex-box="1"
-                  class="bottom-line"
-                  v-model="query.inpNo"
-                />
-              </div>
-              <div style="display: flex;">
-                <span  class="label">住院号:</span>
-                <input
-                  type="text"
-                  nowidth
-                  style="font-size: 26px;width:100px"
+                  style="font-size: 26px;width:140px"
                   flex-box="1"
                   class="bottom-line"
                   v-model="query.patientId"
                 />
+              </div>
+
+              <div style="display: flex;">
+                <span  class="label">入院日期:</span>
+                <input
+                type="text"
+                nowidth
+                style="font-size: 26px;width: 186px;"
+
+                flex-box="1"
+                class="bottom-line"
+                :value="moment(query.admissionDate).format('YYYY-MM-DD ')"
+              />
                 </div>
-              <div class="bedNum">{{query.bedLabel + '床'}}</div>
+              <!-- <div class="bedNum">{{query.bedLabel + '床'}}</div> -->
             </div>
-            <div flex="cross:center" class="input-item">
-              <span class="label_admission">入院日期:</span>
+            <!-- <div flex="cross:center" class="input-item">
+              <span class="label">入院日期:</span>
               <input
                 type="text"
                 nowidth
@@ -118,16 +143,16 @@
                 class="bottom-line"
                 :value="moment(query.admissionDate).format('YYYY-MM-DD ')"
               />
-            </div>
-            <div flex="cross:center" class="input-item">
+            </div> -->
+            <div flex="cross:center" class="input-item input-item2">
               <span class="label">诊断:</span>
               <input
                 type="text"
                 nowidth
-                style="font-size: 26px"
+                style="font-size: 26px;"
                 flex-box="1"
                 class="bottom-line"
-                v-model="formData.diagnosis"
+                v-model="query.diagnosis"
               />
             </div>
           </div>
@@ -156,7 +181,7 @@
   font-size: 20px;
   line-height: 26px;
   >>> * {
-    font-family: 'SimHei', 'Microsoft Yahei' !important;
+    font-family: 'SimHei', 'Microsoft Yahei','黑体' !important;
     font-weight: bold;
   }
   input {
@@ -169,148 +194,15 @@
   }
 }
 
-.bed-card-wrapper-h {
-  padding: 30px 20px;
-  font-size: 20px;
-  // height: 720px
-  line-height: 32px;
-
-  .header {
-    font-size: 26px;
-    line-height: 42px;
-    .left-title{
-      height: 30px;
-      line-height: 30px;
-      padding: 0 5px;
-    }
-  }
-
-  .dept-name {
-    border-top: 5px solid #000;
-    font-size: 20px;
-    line-height: 58px;
-  }
-
-  .patient-name {
-    font-size: 60px;
-    line-height: 1;
-    padding: 50px 0 60px;
-    text-align: center;
-  }
-
-  .other-info {
-    display: flex;
-    justify-content: space-between;
-    span {
-      margin-right: 20px;
-    }
-    textarea {
-      width: 100%;
-      font-size: 20px;
-      line-height: 26px;
-      outline: none;
-      border: none;
-      padding: 0;
-      height: 234px;
-      resize: none;
-    }
-  }
-
-  .diagnosis {
-    margin: 10px 0;
-    border-top: 3px solid #000;
-
-    span {
-      background: #000;
-      color: #fff;
-    }
-    textarea {
-      width: 100%;
-      font-size: 20px;
-      line-height: 26px;
-      outline: none;
-      border: none;
-      padding: 0;
-      height: 80px;
-      resize: none;
-    }
-  }
-
-  .dn-title {
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    border-top: 5px solid #000;
-    padding-right: 100px;
-    align-items: center;
-
-    span {
-      background: #000;
-      color: #fff;
-      line-height: 35px;
-      font-size: 30px;
-    }
-  }
-
-  .dn-box {
-    display: flex;
-    padding-right: 100px;
-    margin-top: 22px;
-    >div {
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-
-    input.bottom-line {
-      flex: 1;
-    }
-  }
-
-  .admission-date {
-    margin: 50px 0 20px;
-    text-align: center;
-    position: relative;
-    background: linear-gradient(90deg, #000 47%, #fff 47%, #fff 98%, #000 98%);
-    border: 2px solid #000;
-    color: #fff;
-
-    span {
-      display: inline-block;
-      mix-blend-mode: difference;
-    }
-
-    &::after {
-      position: absolute;
-      content: '';
-      left: 0;
-      bottom: -20px;
-      width: 100%;
-      border-bottom: 5px solid #000;
-    }
-  }
-
-  .qr-code {
-    position: absolute;
-    top: 2px;
-    right: 8px;
-    height: 150px;
-    width: 150px;
-
-    &.hasRemark {
-      width: 96px;
-      height: 96px;
-    }
-  }
-}
 .bed-card-warpper {
-  background: #fff;
   box-shadow: 0px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  background: #fff;
   display: inline-block;
   font-size: 16px;
 
   >>> * {
-    font-family: 'SimHei', 'Microsoft Yahei' !important;
+    font-family: 'SimHei', 'Microsoft Yahei','黑体' !important;
     font-weight: bold;
   }
 }
@@ -318,22 +210,12 @@
 .bed-card-con {
   margin: 20px;
   width: 511px;
-  height: 335px;
-  // padding: 5px 8px;
+  height: 277px;
   box-sizing: border-box;
-  border-right: 5px solid #fff;
   position: relative;
-  // border: 1px solid #000;
-  height: 370px;
-  &.itemHeight{
-    .input-item{
-      height:50px;
-    }
-  }
   .bed-card-con-top{
     height: 150px;
   }
-  // &.remarkCon
   .name{
     line-height: 160px;
     white-space: nowrap;
@@ -380,16 +262,6 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
-
-  .input-item-left {
-    display: inline-block;
-
-    width 75px {
-      .input-item-left-label {
-        margin-right: 2px;
-      }
-    }
-  }
 }
 
 .input-item-row {
@@ -401,10 +273,12 @@
     padding:0;
   }
   .fontSize-50{
-    height: 50px;
-    font-size: 43px;
+    font-size: 44px;
     font-weight: bold;
     line-height: 50px;
+  }
+  .fontSize-50-1{
+    line-height: 30px;
   }
 }
 .bedNum{
@@ -412,10 +286,10 @@
   top: 0;
   right: 10px;
   min-width: 100px;
-  font-size: 50px;
+  font-size: 40px;
   text-align: right;
   height: 50px;
-  line-height: 50px;
+  line-height: 40px;
 }
 .wrist-strap-print {
   .bed-card-vert-con {
@@ -535,71 +409,22 @@
     }
   }
 }
-.bed-card-wrapper-h-small {
-  width:9.3cm;
-  height:4.3cm;
-  font-size: 13px;
-  font-weight: normal;
-  padding: 10px 20px 24px;
-
-  .hs-content {
-    position: relative;
-    padding: 1px;
-    border: 1px solid #000;
-  }
-  .hs-header {
-    font-size: 24px;
-    letter-spacing: 15px;
-    line-height: 30px;
-    text-align: center;
-  }
-  .hs-line1 {
-  width: calc(100% - 50px);
-  height:24px;
-  }
-  .hs-line2 {
-    width: calc(100% - 95px);
-    display: flex;
-    height:24px;
-    div.input-item {
-      display: flex;
-      height: 24px;
-      padding-right: 2px;
-      font-size: 13px;
-    }
-    .label {
-      margin-right: 0px;
-      line-height: 24px;
-    }
-
-    input {
-      padding: 0px;
-      flex: 1;
-      font-size: 13px;
-      line-height: 26px;
-    }
-  }
-  .qr-code {
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-    height: 100px;
-    width: 100px;
-  }
-}
-
 .wrist {
-  padding: 20px 30px;
-  font-size: 19px;
+  padding: 20px 0px;
+  font-size: 22px;
   line-height: 26px;
+  font-weight: bold;
 
-  .wrist-line1, .wrist-line2 {
+  .wrist-line1{
     width: calc(100% - 100px);
-    display: flex;
+    // display: flex;
     justify-content: space-between;
   }
 
   .wrist-line2 {
+    width: calc(100% - 100px);
+    display: flex;
+    justify-content: space-between;
     div {
       flex: 1;
       display: flex;
@@ -614,9 +439,9 @@
     position: absolute;
     right: 10px;
     top: 50%;
-    margin-top: -50px;
-    height: 100px;
-    width: 100px;
+    margin-top: -60px;
+    height: 120px;
+    width: 120px;
 
     &.hasRemark {
       width: 96px;
@@ -624,7 +449,7 @@
     }
   }
   input {
-    font-size: 19px;
+    font-size: 22px;
     line-height: 26px;
   }
 }
@@ -661,15 +486,6 @@
   font-weight: bold;
   position: relative;
   z-index: 2;
-
-  .input-item-left {
-    display: inline-block;
-    width: 75px;
-
-    .input-item-left-label {
-      margin-right: 2px;
-    }
-  }
 
 }
 .flex-between {
@@ -829,8 +645,8 @@ export default {
       });
     },
     onPrint() {
-      this.$nextTick(() => {
-        let printRef, css;
+      let printRef, css;
+        console.log('this.printMode:' ,this.printMode);
         switch (this.printMode) {
           case "wrist":
             printRef = this.$refs.printConW;
@@ -844,18 +660,47 @@ export default {
               }
             `;
             break;
+            case "wrist-children":
+            printRef = this.$refs.printCon4;
+            css = `
+            .bed-card-warpper {
+                box-shadow: none !important;
+                width:560px!important;
+                // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
+                transform: rotate(-90deg) translateY(30%) translateX(-97%) scale(0.8);
+                transform-origin: 0 0;
+              }
+            `;
+            break;
           default:
             printRef = this.$refs.printCon;
             css = `
-              .bed-card-wrapper {
-                margin-top: 40px;
+              .bed-card-warpper{
                 box-shadow: none !important;
+              }
+              .bed-card-con {
+                width:600px !important;
+                height:300px !important;
+                border: 1px solid #000 !important;
+                box-sizing: border-box !important;
+                box-shadow: none !important;
+                margin-top: 20px;
                 font-size: 28px !important;
-                line-height: 36px !important;
+                line-height: 20px !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
                 color-adjust: exact;
               }
+              .bedNum{
+                  position: absolute;
+                  top: 0 !important;
+                  right: 10px !important;
+                  min-width: 100px !important;
+                  font-size: 35px !important;
+                  text-align: right !important;
+                  height: 100px !important;
+                  line-height: 32px !important;
+                }
               .header {
                 font-size: 36px !important;
               }
@@ -867,30 +712,37 @@ export default {
               }
               .name {
                 padding: 10px 0 20px !important;
-                font-size: 100px !important;
-              }
-              .dn-title {
-                line-height: 150px !important;
-              }
-              .mb200 {
-                margin-bottom: 300px !important;
+                font-size: 70px !important;
               }
               .input-item pre {
                 font-size: 28px !important;
                 width: 150px !important;
-                line-height: 36px !important;
+                line-height: 34px !important;
+              }
+            .input-item2 pre {
+                font-size: 32px !important;
+                width: 475px !important;
+                line-height: 45px !important;
+                border-bottom: 2px solid #000 !important;
               }
               .qr-code {
-                    position: absolute;
-                    top: -12px !important;
-                    right: -15px !important;
-                    height: 175px !important;
-                    width: 200px !important;
+                position: absolute;
+                top: 5px !important;
+                right: -15px !important;
+                height: 175px !important;
+                width: 200px !important;
+                transform-origin:top center !important;
+                transform:scaleY(.77) scaleX(.8) !important;
               }
               .input-item .label  input {
                 font-size: 28px !important;
                 width: 300px !important;
-                line-height: 36px !important;
+                line-height: 20px !important;
+              }
+              .input-item{
+              font-size:32px !important;
+              height:45px !important;
+              padding-left:88px !important;
               }
               .diagnosis-content {
                 display: block;
@@ -898,11 +750,13 @@ export default {
                 white-space: pre-wrap;
                 word-break: break-all;
                 word-wrap: break-word;
-                height: 120px;
+                height: 80px;
               }
               `;
               break
         }
+      this.$nextTick(() => {
+
         // this.post();
         printing(printRef, {
           // direction: "horizontal",

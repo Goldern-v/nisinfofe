@@ -52,8 +52,8 @@ export default {
         ,
         mid:
             [
-                {"name": "日期", "colspan": "1", "rowspan": "1"},
-                {"name": "时间", "colspan": "1", "rowspan": "1"},
+                {"name": "日期", "colspan": "1", "rowspan": "1","style": { "minWidth": "50px", "maxWidth": "50px" } },
+                {"name": "时间", "colspan": "1", "rowspan": "1","style": { "minWidth": "50px", "maxWidth": "50px" } },
                 {"name": "量ml", "colspan": "1", "rowspan": "1"},
                 {"name": "颜色<br/>性质", "colspan": "1", "rowspan": "1"},
             ],

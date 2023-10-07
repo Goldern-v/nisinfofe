@@ -1219,8 +1219,10 @@ export default {
           break;
         case "lyxrm":
         case "stmz":
-        case "gdtj":
           qr_png_value = "P" + this.query.patientId;
+          break;
+        case "gdtj":
+          qr_png_value ='P' + this.query.patientId +"|"+ this.query.visitId;
           break;
         case "whhk":
           qr_png_value = "P" + this.query.inpNo;
@@ -1237,6 +1239,7 @@ export default {
             "P" + "|" + this.query.patientId + "|" + this.query.visitId;
           break;
         case "qhwy":
+        case "dglb":
           qr_png_value =this.query.inpNo;
           break;
         default:

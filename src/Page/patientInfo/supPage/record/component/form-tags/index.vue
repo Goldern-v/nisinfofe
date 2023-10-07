@@ -70,14 +70,41 @@ export default {
       }
     },
     // 打开评估单
-    onOpenTagForm(tag) {
+   async onOpenTagForm(tag) {
+      // 编辑器统一做的离开提示
+      if ((!this.$store.state.admittingSave.admittingSave)){
+       const comfirm = await this.$confirm(
+          "护理文书还未保存，是否需要离开页面?",
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }
+        )
+          .then(() => {
+            this.$store.commit("upAdmittingSave", true);
+            return true;
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消"
+            });
+            return false;
+          });
+        if (!comfirm) return;
+     }
       const type = this.selectedTag.type;
       this.selectedTag = tag;
       this.$emit('updateCurrentTag', tag);
       this.bus.$emit('highlightTreeNode', tag);
       if (tag.type) {
-
         if (type !== 'sheet' ||  this.types.includes(tag.type)) {
+          if (type === 'healthEducation') {
+            this.bus.$emit('openHealthEducation', tag);
+            return;
+          }
           this.bus.$emit('openOtherPage', tag, true);
         } else {
           this.bus.$emit('openSheetTag', tag);

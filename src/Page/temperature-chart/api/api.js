@@ -143,3 +143,8 @@ export const getTemperatureList = (data) => {
 export const saveTemperatureList = (data) => {
   return axios.post(`${apiPath}record/bodyTemperatureLocal/saveTemperatureList`, data);
 }
+
+//  同步医嘱
+export const getOrdersWithSync = (patientId, visitId) => {
+  return axios.get(`${apiPath}patient/getOrdersWithSync/${patientId}/${visitId}`)
+}

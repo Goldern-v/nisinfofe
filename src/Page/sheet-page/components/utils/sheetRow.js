@@ -101,7 +101,7 @@ export function getRowNum(index) {
     sheetInfo.sheetType === 'insulin_whhk'
   ) {
     return 19
-  }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz' || sheetInfo.sheetType == "seriousnursing_ytll" ) {
+  }else if (sheetInfo.sheetType === 'nursingrecords_zxy' || sheetInfo.sheetType === 'generalnursing_xt' || sheetInfo.sheetType === 'baby_yz' || sheetInfo.sheetType == "seriousnursing_ytll" || sheetInfo.sheetType === 'neonatalspecialty2_xt' || sheetInfo.sheetType == "neurosurgery_ytll" || sheetInfo.sheetType == "critical_ytll") {
     return 21
   }else if (
     sheetInfo.sheetType === 'neonate_sdlj' ||
@@ -121,6 +121,12 @@ export function getRowNum(index) {
     }
   } else if (sheetInfo.sheetType == 'third_round_records' || sheetInfo.sheetType == 'follow_doctor_check_records') {
     return 27
+  } else if (sheetInfo.sheetType == 'insulin_pump_sdry') {
+    if (index === 0) {
+      return 15;
+    } else {
+      return 22;
+    }
   } else {
     return 17;
   }

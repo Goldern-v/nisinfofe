@@ -245,7 +245,7 @@ export function getListData4() {
   });
 }
 
-getListData4();
+// getListData4();
 /**
  *
  * @param {*} list 原数组

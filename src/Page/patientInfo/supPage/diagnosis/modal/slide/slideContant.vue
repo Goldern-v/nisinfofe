@@ -44,6 +44,7 @@
                 :autosize="{ minRows: 3, maxRows: 4 }"
                 :maxlength="textInputMaxLength2"
                 :show-word-limit="showWordLimit"
+                :readonly="isLyxrm"
                 @dblclick.native="openSlideRight()"
                 @input="(newValue)=>changemeasureStr(newValue,'measure')"
               ></el-input>
@@ -362,7 +363,8 @@ let bindData = {
   textInputMaxLength2: ['whsl'].includes(process.env.HOSPITAL_ID)?600:1000,
   evalFormList: [],
   evalForm: '',
-  diagnose: null
+  diagnose: null,
+  isLyxrm: ['lyxrm'].includes(process.env.HOSPITAL_ID)
 };
 let bindDataClone = { ...bindData };
 export default {
@@ -378,6 +380,7 @@ export default {
       measureStr: state => (state.formGuizhou.measureGuizhou ? state.formGuizhou.measureGuizhou : ""),
       targetStr: state => (state.formGuizhou.targetGuizhou ? state.formGuizhou.targetGuizhou : ""),
       factorStr: state => (state.formGuizhou.factorStrGuizhou ? state.formGuizhou.factorStrGuizhou : ""),
+      measureList: state => (state.formGuizhou.measureList ? state.formGuizhou.measureList : []),
       patientInfo: state => state.sheet.patientInfo
     })
   },
@@ -556,6 +559,21 @@ export default {
           recordId:"",
           signData:strSignData,
         }
+        // 妇幼ca所需记录
+        let fyobj = {
+          measureStr: this.measureStr,
+          targetStr: this.targetStr,
+          factorStr: this.factorStr||'',
+          wardCode:
+            !this.$route.path.includes('newSingleTemperatureChart')
+              ? (model.selectedBlock.wardCode || this.$route.query.wardCode)
+              : this.$store.state.sheet.patientInfo.wardCode,
+          beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm"),
+          ...this.data,
+          patientName: this.$route.query.name || '',
+          sex: this.$route.query.sex || '',
+          age: this.$route.query.age || '',
+        };
         window.openSignModal((password, empNo) => {
         let obj = {
           creator: password,
@@ -575,6 +593,9 @@ export default {
               : this.$store.state.sheet.patientInfo.wardCode,
           beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm")
         };
+        if (this.isLyxrm) {
+          obj.measureList = this.measureList;
+        }
         if (this.status === "1") {
           obj.id = this.data.id;
         }
@@ -604,7 +625,7 @@ export default {
                 target:""
       });
           });
-      },undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,SigndataObj,verifySignObj);
+      },undefined,undefined,undefined,undefined,process.env.HOSPITAL_ID  == 'fuyou' ? fyobj : undefined,undefined,undefined,undefined,SigndataObj,verifySignObj,'planForm');
     },
     openSlideRight() {
       this.openSlideCon({

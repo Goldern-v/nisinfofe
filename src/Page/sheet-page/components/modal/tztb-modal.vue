@@ -104,7 +104,7 @@ export default {
       multipleSelection: [],
       bus: bus(this),
       formlist:{},
-      splitPulseHospital:['nanfangzhongxiyi'], // 脉搏/心率的值仅有一个的时候不显示斜杠
+      splitPulseHospital:['nanfangzhongxiyi','zjhj'], // 脉搏/心率的值仅有一个的时候不显示斜杠
       date:(()=>{
         const dateStart = new Date()
         const dateEnd = new Date()

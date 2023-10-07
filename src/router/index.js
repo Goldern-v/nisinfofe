@@ -169,6 +169,8 @@ const puerperantSituation = () =>
 const archive = () => import("@/Page/archive/archive.vue"); //归档
 const archiveFuyou = () => import("@/Page/archive/archiveFuyou.vue"); //归档
 const archiveFSSY = () => import("@/Page/archive/archiveFSSY.vue"); //归档
+const archiveBeiHai = () => import("@/Page/archive/archiveBeiHai.vue"); //归档
+const archiveSDYY = () => import("@/Page/archive/archiveSDYY.vue"); //归档
 const familyBigScreen = () =>
   import("@/Page/family-big-screen/family-big-screen.vue"); //家属大屏
 const videoListSetting = () =>
@@ -231,6 +233,7 @@ const implementationListHengli = () =>
   import("@/Page/implementation-list/implementation-list-hengli.vue"); //横沥执行单
 const implementationListNanfangzhongxiyi = () =>
   import("@/Page/implementation-list/implementation-list-nanfangzhongxiyi.vue"); //横沥执行单
+const implementationListWhhk = () => import("@/Page/implementation-list/implementation-list-whhk.vue");
 
 const bottleLabel = () => import("@/Page/bottleLabel/index.vue"); //瓶签打印
 const bottleLabelByProgram = () => import("@/Page/implementation-list/bottle-sign-print.vue"); //瓶签打印
@@ -260,6 +263,12 @@ const allTemperatureChartWHYX = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartWHYX.vue"); //武汉亚心量录入体温单
 const allTemperatureChartFSRY = () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartFSRY.vue"); //佛山人医量录入体温单
+const allTemperatureChartZJHJ = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartZJHJ.vue"); //湛江海军量录入体温单
+const allTemperatureChartSDHPWK = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartSDHPWK.vue"); //湛江海军量录入体温单
+const allTemperatureChartSDYY = () =>
+  import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartSDYY.vue"); //顺德人医量录入体温单
 const allTemperatureChartGDTJ= () =>
   import("@/Page/temperature-chart/all-temperature-chart/all-temperature-chartGDTJ.vue"); //广东同江医院量录入体温单
 const allTemperatureChartFSXT= () =>
@@ -308,6 +317,8 @@ const newSingleTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-whyx/new-singleTemperature-chart.vue");//武汉亚心新版体温单单人录入
   const newSingleTemperatureChartGDTJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-gdtj/new-singleTemperature-chart.vue");//同江新版体温单单人录入
+  const newSingleTemperatureChartSDHPWK = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-sdhpwk/new-singleTemperature-chart.vue");//和平外科新版体温单单人录入
   const newSingleTemperatureChartZHZXY = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-zhzxy/new-singleTemperature-chart.vue");//珠海中西医新版体温单单人录入
   const newSingleTemperatureChartYTLL = () =>
@@ -340,6 +351,7 @@ const planList = () => import("@/Page/plan-list/plan-list.vue");
 
 const demo = () => import("@/demo/demo"); //demo
 /** 包含全局样式的页面，患者详情子页面不可代码切割 */
+import Nfyksdyy_360 from "@/Page/patientInfo/supPage/360_Nfyksdyy";
 import sheetPage from "@/Page/sheet-page/sheet-page.vue"; // 护理记录单页面
 import sheetNursingOrderPage from "@/Page/sheet-nursing-order/sheet-page.vue"; // 护嘱记录单页面
 import sheetNursingOrder from "@/Page/patientInfo/supPage/sheetNursingOrder/sheetNursingOrder.vue"; // 护嘱记录单页面
@@ -379,6 +391,7 @@ import temperatureWHYX from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureGDTJ from "@/Page/patientInfo/supPage/temperature/temperature-gdtj";
 import temperatureZHZYX from "@/Page/patientInfo/supPage/temperature/temperature-zhzxy";
 import temperatureYTLL from "@/Page/patientInfo/supPage/temperature/temperature-linlong";
+import temperatureSDHPWK from "@/Page/patientInfo/supPage/temperature/temperature-sdhpwk";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
 import oxygenSugar from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar.vue"; // 厚街
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; // 厚街
@@ -404,6 +417,8 @@ import implementationPersonytll
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-ytll";
 import implementationPersonwhsl
   from "@/Page/patientInfo/supPage/implementation-list/implementation-list-whsl";
+import implementationPerson
+  from "@/Page/patientInfo/supPage/implementation-list/implementation-list";
 const patientFlowForm = () => import("@/Page/patientInfo/supPage/patient-flow-form/index.vue")
 const medicalCheck = () => import("@/Page/patientInfo/supPage/medical-check/index.vue")
 // 患者个人护理巡视
@@ -448,6 +463,7 @@ const statisticalScanCodeDetails = () => import("@/Page/statistical-query/statis
 const statisticalScanRate = () => import("@/Page/statistical-query/statistical-scan-rate/index.vue")
 
 const statisticalVTE = () => import("@/Page/statistical-query/statistical-VTE/index.vue")
+const statisticalEvaluateVTE = () => import("@/Page/statistical-query/statistical-VTE-evaluate/index.vue")
 const StatisticalConsultation = () => import("@/Page/statistical-query/statistical-consultation/index.vue")
 const StatisticalConsultationZhzxy = () => import("@/Page/statistical-query/statistical-consultation-zhzxy/index.vue")
 const statisticalIncrease = () => import("@/Page/statistical-query/statistical-increase/index.vue")
@@ -456,6 +472,7 @@ const CriticalValue = () => import("@/Page/criticalValue/table.vue")
 const StatisticalBlood = () => import("@/Page/statistical-query/statistical-blood")
 const statisticalNutritionalRisk = () => import("@/Page/statistical-query/statistical-nutritionalRisk")
 const StatisticalUrineVolume = () => import("@/Page/statistical-query/statistical-urineVolume")
+const StatisticalIntakeOutputVolume = () => import("@/Page/statistical-query/statistical-intakeOutputVolume")
 const StatisticalTumble = () => import("@/Page/statistical-query/statistical-tumble")
 const StatisticalTumbleSdyy = () => import("@/Page/statistical-query/statistical-tumble-sdyy")
 
@@ -487,14 +504,18 @@ const getImplementation = () => {
     case 'zhongshanqi':
       return implementationListZhongshanqi
     case 'lyxrm':
-    case 'whhk':
     case '925':
     case 'zhzxy':
     case "stmz":
     case 'beihairenyi':
     case 'dglb':
     case 'qhwy':
+    case 'hzly':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
+      case 'zjhj':
+        return () => import("@/Page/implementation-list/implementation-list-zjhj.vue")
+    case 'whhk':
+      return implementationListWhhk;
     case 'wujing':
     case 'sdlj':
       return implementationListWujing
@@ -628,6 +649,7 @@ const router = new Router({
           case 'foshanrenyi':
           case 'nfyksdyy':
           case 'zjhj':
+          case 'hzly':
             return temperatureFSSY
           case 'wujing':
             return temperatureWuJing
@@ -660,6 +682,8 @@ const router = new Router({
               return temperatureZHZYX
           case 'ytll':
               return temperatureYTLL
+          case 'sdhpwk':
+            return temperatureSDHPWK
           default:
             return temperature
         }
@@ -745,12 +769,16 @@ const router = new Router({
             case 'foshanrenyi':
             case 'zhzxy':
             case 'whhk':
-            case 'nfyksdyy':
             case "stmz":
-            case "nfyksdyy":
               return archiveFSSY
+            // nfyksdyy本来是 archiveFSSY，改版归档用archiveSDYY，用archiveFSSY那些医院也要改就用archiveSDYY
+            case "nfyksdyy":
+              return archiveSDYY
             case "fuyou":
               return archiveFuyou
+            // beihairenyi本来是 archive，改版归档用archiveBeiHai，用archive那些医院也要改就用archiveBeiHai
+            case "beihairenyi":
+              return archiveBeiHai
             default:
               return archive
           }
@@ -898,8 +926,8 @@ const router = new Router({
             case 'huadu':
             case 'ytll':
               return shiftWorkBh
-            case 'zjhj':
-              return shiftWorkZJHJ
+            // case 'zjhj':
+            //   return shiftWorkZJHJ
             case 'fqfybjy':
               return shiftWorkFq
             case 'wujing':
@@ -922,7 +950,7 @@ const router = new Router({
         })(),
         children: [{
           name: "shiftWork",
-          path: "/shiftWork/:code?/:id?",
+          path: "/shiftWork/:code?/:id?/:patientId?/:visitId?",
           component: (() => {
             switch (HOSPITAL_ID) {
               case 'lingcheng':
@@ -940,8 +968,8 @@ const router = new Router({
               case 'ytll':
               case 'huadu':
                 return shiftWorkDetailBh
-              case 'zjhj':
-                return shiftWorkDetailZJHJ
+              // case 'zjhj':
+              //   return shiftWorkDetailZJHJ
               case 'gdtj':
                 // return  shiftWorkDetailGdtj
                 return  shiftWorkDetailGdtjNew
@@ -972,6 +1000,9 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'huadu':
               return shiftWorkHd
+            case 'zjhj':
+              return shiftWorkZJHJ
+
             default:
               return shiftWorkGuizhou
           }
@@ -983,6 +1014,9 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'huadu':
                 return shiftWorkDetailHd
+                case 'zjhj':
+                return shiftWorkDetailZJHJ
+
               default:
                 return shiftWorkDetailGuizhou
             }
@@ -1017,6 +1051,7 @@ const router = new Router({
           switch (HOSPITAL_ID) {
             case 'guizhou':
             case '925':
+            case 'qhwy':
               return badEventGz
             case 'hj':
               return badEvent
@@ -1032,6 +1067,7 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'guizhou':
               case '925':
+              case 'qhwy':
                 return badEventEditPageGz
               case 'hj':
                 return badEventEditPage
@@ -1047,6 +1083,7 @@ const router = new Router({
             switch (HOSPITAL_ID) {
               case 'guizhou':
               case '925':
+              case 'qhwy':
                 return badEventViewPageGz
               case 'hj':
                 return badEventViewPage
@@ -1064,6 +1101,10 @@ const router = new Router({
         children: [{
           path: "/information",
           component: information
+        },
+        {
+          path: "/view360",
+          component: Nfyksdyy_360
         },
         {
           path: "/advice",
@@ -1164,6 +1205,7 @@ const router = new Router({
               case 'foshanrenyi':
               case 'nfyksdyy':
               case 'zjhj':
+              case 'hzly':
                 return temperatureFSSY
               case 'nanfangzhongxiyi':
                 return temperatureNFZXY
@@ -1202,6 +1244,8 @@ const router = new Router({
                   return temperatureZHZYX
               case 'ytll':
                 return temperatureYTLL
+              case 'sdhpwk':
+                return temperatureSDHPWK
               default:
                 return temperature
             }
@@ -1300,7 +1344,6 @@ const router = new Router({
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
-              case '925':
                 return healthEducationGuizhou
               case 'beihairenyi':
                 return healthEducationBerhairenyi
@@ -1332,6 +1375,8 @@ const router = new Router({
                 return implementationPersonytll
               case 'whsl':
                 return implementationPersonwhsl
+              case 'hj':
+                return implementationPerson
               default:
                 return implementationPersonLiaocheng
             }
@@ -1633,13 +1678,14 @@ const router = new Router({
             case 'nanfangzhongxiyi':
             case 'gdtj':
             case 'nfyksdyy':
+            case 'hzly':
               return nursingMakeListGuizhou
             default:
               return nursingRounds
           }
         })(),
         name: "护理巡视",
-        children:['guizhou', 'nanfangzhongxiyi','zhzxy','gdtj','nfyksdyy'].includes(HOSPITAL_ID)?[
+        children:['guizhou', 'nanfangzhongxiyi','zhzxy','gdtj','nfyksdyy','hzly'].includes(HOSPITAL_ID)?[
           {
             path: "/nursingMakeItem",
             name: "nursingMakeItem",
@@ -1678,11 +1724,14 @@ const router = new Router({
             case 'whyx':
               return allTemperatureChartWHYX
             case 'foshanrenyi':
-            case 'nfyksdyy':
             case 'zhzxy':
             case 'qhwy':
-            case 'zjhj':
               return allTemperatureChartFSRY
+            case 'zjhj':
+              return allTemperatureChartZJHJ
+            case 'nfyksdyy':
+            case 'hzly':
+              return allTemperatureChartSDYY
             case 'lyyz':
             case 'whhk':
             case 'zzwy':
@@ -1693,6 +1742,9 @@ const router = new Router({
             return allTemperatureChartGDTJ
             case 'fsxt':
             return allTemperatureChartFSXT
+            case 'sdhpwk':
+
+              return allTemperatureChartSDHPWK
             default:
               return allTemperatureChart
           }
@@ -1718,6 +1770,7 @@ const router = new Router({
             case "foshanrenyi":
             case 'nfyksdyy':
             case 'zjhj':
+            case 'hzly':
               return newSingleTemperatureChartFSSY;
             case "nanfangzhongxiyi":
               return newSingleTemperatureChartZhongXiYi;
@@ -1749,6 +1802,8 @@ const router = new Router({
               return newSingleTemperatureChartWHHK;
             case "gdtj":
               return newSingleTemperatureChartGDTJ
+            case "sdhpwk":
+              return newSingleTemperatureChartSDHPWK;
             case "zhzxy":
               return newSingleTemperatureChartZHZXY
             case "ytll":
@@ -1935,6 +1990,14 @@ const router = new Router({
             component: statisticalVTE,
           },
           {
+            path: "statisticalEvaluateVTE",
+            name: "statisticalEvaluateVTE",
+            meta: {
+              title: 'VTE评估率'
+            },
+            component: statisticalEvaluateVTE,
+          },
+          {
             path: "statisticalUnplanned",
             name: "statisticalUnplanned",
             meta: {
@@ -1996,6 +2059,14 @@ const router = new Router({
               title: '尿量统计'
             },
             component: StatisticalUrineVolume
+          },
+          {
+            path: "StatisticalIntakeOutputVolume",
+            name: "StatisticalIntakeOutputVolume",
+            meta: {
+              title: '出入量总结统计'
+            },
+            component: StatisticalIntakeOutputVolume
           },
           {
             path: "statisticalTumble",

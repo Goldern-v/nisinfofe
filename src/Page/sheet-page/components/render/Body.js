@@ -19,7 +19,7 @@ export default function Body(data = [], index, customList = []) {
   let bodyModel = [];
     // 重新设置自定义选项
     let formatCustomObj = {}
-    if(['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(process.env.HOSPITAL_ID) && customList.length > 0) {
+    if(['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(process.env.HOSPITAL_ID) && customList.length > 0) {
       customList.reduce((total, cur) => {
         if (!cur.fieldEn) return total
         if (total[cur.fieldEn]) {
@@ -1099,6 +1099,11 @@ function switchSheetType(type) {
       schema = require("../config/recordicu3_zxy/tr.js").default;
     }
       break;
+    case "preventvap_zxy": {
+      // 南方中西医 - 预防VAP评估单
+      schema = require("../config/preventvap_zxy/tr.js").default;
+    }
+      break;
     case "waiting_birth_wj": {
       // 武警 - 待产护理记录单
       schema = require("../config/waiting_birth_wj/tr.js").default;
@@ -1448,9 +1453,19 @@ function switchSheetType(type) {
       schema = require("../config/orthopaedic_sdry/tr.js").default;
     }
     break;
+    case "orthopaedic_hzly": {
+      //惠州六院 - 护理记录单（骨科）
+      schema = require("../config/orthopaedic_hzly/tr.js").default;
+    }
+      break;
     case "postpartum2_sdry": {
       //顺德人医 - 产后产房观察记录单
       schema = require("../config/postpartum2_sdry/tr.js").default;
+    }
+      break;
+    case "postpartum2_hzly": {
+      //惠州六院 - 产后产房观察记录单
+      schema = require("../config/postpartum2_hzly/tr.js").default;
     }
       break;
     case "magnesiumsulphate_sdry": {
@@ -1463,6 +1478,11 @@ function switchSheetType(type) {
       schema = require("../config/oxytocin_sdry/tr.js").default;
     }
     break;
+    case "oxytocin_hzly": {
+      // 惠州六院,"催产素静脉点滴观察表",
+      schema = require("../config/oxytocin_hzly/tr.js").default;
+    }
+      break;
     case "insulin_pump_sdry": {
       // 顺德人医,"胰岛素泵观察记录表",
       schema = require("../config/insulin_pump_sdry/tr.js").default;
@@ -1648,6 +1668,11 @@ function switchSheetType(type) {
          schema = require("../config/prenatal_sdry/tr.js").default;
        }
          break;
+    case "prenatal_hzly": {
+      // 惠州六院 - 产前护理记录
+      schema = require("../config/prenatal_hzly/tr.js").default;
+    }
+      break;
     case "baby2_sdry": {
       // 顺德人医 - 护理记录单（儿科）
       schema = require("../config/baby2_sdry/tr.js").default;
@@ -1783,6 +1808,11 @@ function switchSheetType(type) {
       schema = require("../config/postpartum_sdry/tr.js").default;
     }
     break;
+      case "postpartum_hzly": {
+      // 惠州六院 - 产后护理记录
+      schema = require("../config/postpartum_hzly/tr.js").default;
+    }
+    break;
     case "critical_new_weihai": {
       // 威海市立 - 病重（病危）患者护理记录单（新）
       schema = require("../config/critical_new_weihai/tr.js").default;
@@ -1898,6 +1928,16 @@ function switchSheetType(type) {
       schema = require("../config/premiumcare_ytll/tr.js").default;
     }
       break;
+    case "neurosurgery_ytll": {
+      // 烟台玲珑 - 神经外科ICU护理记录单
+      schema = require("../config/neurosurgery_ytll/tr.js").default;
+    }
+      break;
+    case "critical_ytll": {
+      // 烟台玲珑 - 重症医学科记录单
+      schema = require("../config/critical_ytll/tr.js").default;
+    }
+      break;
     case "labor_ytll": {
       // 烟台玲珑 - 产程记录单
       schema = require("../config/labor_ytll/tr.js").default;
@@ -1933,6 +1973,11 @@ function switchSheetType(type) {
       schema = require("../config/intravenous_whhk/tr.js").default;
     }
       break;
+    case "gastroentery_whhk": {
+        // 武汉汉口 - 胃病护理记录单
+        schema = require("../config/gastroentery_whhk/tr.js").default;
+      }
+        break;
     case "baby_whhk": {
       // 武汉汉口 - 新生儿护理记录单
       schema = require("../config/baby_whhk/tr.js").default;
@@ -2001,6 +2046,21 @@ function switchSheetType(type) {
     case "record_common_zjhj": {
       // 湛江海军医院 - 护理记录单
       schema = require("../config/record_common_zjhj/tr.js").default;
+    }
+      break;
+    case "neonatology_zjhj": {
+      // 湛江海军医院 - 新生儿护理记录单
+      schema = require("../config/neonatology_zjhj/tr.js").default;
+    }
+      break;
+    case "wait_delivery_zjhj": {
+      // 湛江海军医院 - 候产记录单
+      schema = require("../config/wait_delivery_zjhj/tr.js").default;
+    }
+      break;
+    case "record_common_sdhp": {
+      // 顺德和平外科 - 护理记录单（全院通用）
+      schema = require("../config/record_common_sdhp/tr.js").default;
     }
       break;
   }

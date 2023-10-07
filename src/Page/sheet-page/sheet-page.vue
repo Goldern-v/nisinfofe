@@ -296,6 +296,7 @@ import sheetTable_oxytocin_sdlj from "./components/sheetTable-oxytocin_sdlj/shee
 import sheetTable_oxytocinck_dglb from "./components/sheetTable_oxytocinck_dglb/sheetTable";
 import sheetTable_insulin_pump_sdry from "./components/sheetTable-insulin_pump_sdry/sheetTable";
 import sheetTable_oxytocin_sdry from "./components/sheetTable-oxytocin_sdry/sheetTable";
+import sheetTable_oxytocin_hzly from "./components/sheetTable-oxytocin_hzly/sheetTable";
 import sheetTable_oxytocin_dglb from "./components/sheetTable-oxytocin_dglb/sheetTable";
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
@@ -386,7 +387,8 @@ export default {
         "wujing",
       ], // 患者列表点击前往体温单录入的医院
       lockHospitalList:[
-        'huadu'
+        'huadu',
+        'nfyksdyy'
       ], // 护记锁定功能医院（护士1占用了护记1，则护士2进入会报错和不让操作）
       isLock:false,
       isLoad:false,  //如果主页数据多接口就返回慢，在数据没回来之前切换了副页，副页的数据会被后回来的主页数据覆盖。
@@ -469,6 +471,7 @@ export default {
         "oxytocin_sdlj" : sheetTable_oxytocin_sdlj,
         "oxytocinck_dglb" : sheetTable_oxytocinck_dglb,
         "oxytocin_sdry" : sheetTable_oxytocin_sdry,
+        "oxytocin_hzly" : sheetTable_oxytocin_hzly,
         "insulin_pump_sdry" : sheetTable_insulin_pump_sdry,
         "oxytocin_dglb" : sheetTable_oxytocin_dglb,
         "dressing_count_hl" : sheetTable_dressing_count_hl,
@@ -616,7 +619,7 @@ export default {
       if(startPageIndex == null||endPageIndex == null) return
       this.tableLoading = true;
       sheetInfo.isDone = false;
-      if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
           this.bus.$emit("refreshTitleTemplate", this.getTemplateList);
         }
       if(["guizhou", 'huadu', '925', 'wujing'].includes(this.HOSPITAL_ID)){
@@ -637,7 +640,7 @@ export default {
         list('全部',this.patientInfo.wardCode),
       ]
       // 佛山市一 获取自定义标题数据
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
         fnArr.shift()
         fnArr.unshift(findListByBlockId(startPageIndex,endPageIndex))
       }
@@ -834,6 +837,33 @@ export default {
       ).then(async (res) => {
           if(res.data.code == 200){
             this.bus.$emit('initSheetPageSize')
+            let isdischarge = decodeAyncVisttedData.list.find(item => item.topComment == '出院|')
+          if(this.sheetInfo.sheetType == 'body_temperature_Hd' && isdischarge){
+            this.$nextTick(()=>{
+              this.$confirm(
+                `体温单出院时间已填写为：${isdischarge.recordYear}-${isdischarge.recordMonth} ${isdischarge.recordHour}，请及时完成应归档记录!`,
+                {
+                  confirmButtonText: "确定",
+                  showCancelButton: false,
+                  type: "warning",
+                }
+              ).then((res)=>{
+                this.pageLoading = false;
+                this.$notify.success({
+                  title: "提示",
+                  message: "保存成功",
+                  duration: 1000,
+                });
+              }).catch(()=>{
+                this.pageLoading = false;
+                this.$notify.success({
+                  title: "提示",
+                  message: "保存成功",
+                  duration: 1000,
+                });
+              })
+            })
+          }else{
             this.$nextTick(()=>{
               this.pageLoading = false;
               this.$notify.success({
@@ -842,6 +872,7 @@ export default {
               duration: 1000,
             });
             })
+          }
           }
           if(['foshanrenyi'].includes(this.HOSPITAL_ID)){
             GetUserList().then(res=>{
@@ -946,7 +977,7 @@ export default {
       this.sheetModelData=[]
     })
     // 针对贵州体温单如果选中病人，切换到护记。不显示病人护记问题
-    if(["guizhou", '925','zhzxy', 'foshanrenyi','gdtj'].includes(this.HOSPITAL_ID)){
+    if(["guizhou", '925','zhzxy', 'foshanrenyi','gdtj','zjhj'].includes(this.HOSPITAL_ID)){
       /* 不知道贵州切换副页的问题是不是这个影响的，以后有机会可以删除 侦听watch $route.path这个试试*/
       this.$store.commit("upPatientInfo", {});
     }
@@ -1551,6 +1582,7 @@ export default {
     sheetTable_oxytocin_sdlj,
     sheetTable_insulin_pump_sdry,
     sheetTable_oxytocin_sdry,
+    sheetTable_oxytocin_hzly,
     sheetTable_oxytocin_dglb,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,

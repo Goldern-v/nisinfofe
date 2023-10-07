@@ -20,32 +20,34 @@
           <WhiteButton text="添加健康教育单" @click="addEducation" />
         </div>
       </div>
-
       <!-- 有推送内容 -->
       <!-- 操作按钮 -->
       <div class="main">
         <div class="tool-con" v-show="isData === 1">
-          <div class="tool-fix">
-            <WhiteButton text="添加" @click="onAdd"></WhiteButton>
+          <div class="tool-fix" >
+            <WhiteButton text="添加" @click="onAdd" v-if="isLock"></WhiteButton>
             <WhiteButton
               text="修改"
               @click="onEdit"
               :disabled="!selected"
+              v-if="isLock"
             ></WhiteButton>
             <WhiteButton
               text="删除当条"
               @click="onRemove"
               :disabled="!selected"
+              v-if="isLock"
             ></WhiteButton>
             <WhiteButton
               text="推送"
               @click="onPush"
               :disabled="!selected"
+              v-if="isLock"
             ></WhiteButton>
           </div>
           <div class="tool-fix tool-right">
-            <WhiteButton text="新建教育单" @click="addEducation"></WhiteButton>
-            <WhiteButton text="删除整单" @click="delectBlock"></WhiteButton>
+            <WhiteButton text="新建教育单" @click="addEducation" v-if="isLock"></WhiteButton>
+            <WhiteButton text="删除整单" @click="delectBlock" v-if="isLock"></WhiteButton>
             <WhiteButton text="打印预览" @click="toPrint"></WhiteButton>
           </div>
         </div>
@@ -148,6 +150,7 @@ import { setTimeout } from "timers";
 import baseTree from "@/components/baseTree/baseTree";
 import common from "@/common/mixin/common.mixin.js";
 import bus from "vue-happy-bus";
+import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 export default {
   mixins: [common],
   name: "healthEducation",
@@ -176,6 +179,12 @@ export default {
       pageParam: [], // 表格数据
       selected: null, // 选择某行
       configList: [],
+      lockHospitalList:['nfyksdyy'],//配置了健康教育单锁定功能的配置
+      isLock:{           //健康教育单是否被锁定
+      type:Boolean,
+      default:true
+      },
+
     };
   },
   computed: {
@@ -183,10 +192,40 @@ export default {
       return this.$route.query;
     }
   },
+  mounted() {
+    this.bus.$on('openHealthEducation', this.getTableData);
+  },
   created() {
     this.init();
+    //初始化，进入页面就设置为空
+    localStorage.setItem('lockForm','')
   },
   methods: {
+   async destroyUnlock(){
+     const lockForm=localStorage.getItem("lockForm")?JSON.parse(localStorage.getItem("lockForm")) :localStorage.getItem("lockForm")
+     /* 判断是否已经自动解锁 */
+     if(lockForm && lockForm.initTime){
+        /* 默认是10分钟后自己解锁 ,后期可根据医院修改*/
+        let min=10
+        const res=await unLockTime()
+        if(res.data.code=="200" && res.data.data!="his_form_data_lock_timeout"){
+          min = +res.data.data
+        }
+        /* 评估单初始化时间 乘于多少分钟  1分钟=60000 */
+        const afterInitTime= +lockForm.initTime + 60000 * min
+        const nowTime=Date.now()
+        if(nowTime > afterInitTime ){
+          /* 超时间 */
+          localStorage.setItem('lockForm','')
+          return
+        }
+     }
+     if(lockForm && lockForm.formId && this.lockHospitalList.includes(this.HOSPITAL_ID)){
+        unLock(lockForm.type,lockForm.formId).then(res=>{
+          localStorage.setItem('lockForm','')
+        })
+     }
+    },
     isEmpty() {
       return ['/formPage', '/record'].includes(this.$route.path) && !this.hasTagsView;
     },
@@ -254,15 +293,40 @@ export default {
       (this.blockId = id), this.getTableData();
     },
     // 获取表格数据
-    getTableData() {
+    getTableData(form) {
+      let blockId = this.blockId;
+      if (form && form.id) {
+        blockId = form.id;
+      }
       this.pageLoading = true;
       let { visitId, patientId } = this.$route.query;
-      getAllByPatientInfo(this.blockId)
+      getAllByPatientInfo(blockId)
         .then(res => {
+          console.log('res',res)
           let data = res.data.data;
           this.pageParam = data.slice();
           this.total = data.length;
           this.pageLoading = false;
+          console.log("blockId",blockId);
+          /* 判断健康教育单是否被锁定 */
+          if(res.data.errorCode=='3001' && res.data.desc.indexOf('锁定')!=-1 && this.lockHospitalList.includes(this.HOSPITAL_ID)){
+            localStorage.setItem('lockForm','')
+            this.isLock=false
+            window.app && window.app.$message({
+              showClose: true,
+              message: res.data.desc,
+              type: 'error',
+              duration:5000
+            })
+          }else{
+            const formConfig={
+              formId:this.blockId,
+              type:'mission',
+              initTime:Date.now()
+            }
+            this.isLock=true
+            localStorage.setItem('lockForm',JSON.stringify(formConfig))
+          }
         })
         .catch(() => {
           this.pageLoading = false;

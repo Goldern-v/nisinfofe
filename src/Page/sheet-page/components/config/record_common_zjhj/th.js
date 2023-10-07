@@ -23,7 +23,7 @@ export default {
                 {"name":"日期","colspan":"1","rowspan":"3","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"时间","colspan":"1","rowspan":"3","style":{"minWidth":"35px","maxWidth":"35px"}},
                 {"name":"T<br/>℃","colspan":"1","rowspan":"3"},
-                {"name":"P<br/>次/分","colspan":"1","rowspan":"3"},
+                {"name":"P/HR<br/>次/分","colspan":"1","rowspan":"3"},
                 {"name":"R<br/>次/分","colspan":"1","rowspan":"3"},
                 // {"name":"呼吸<br/>次/分","colspan":"1","rowspan":"3"},
                 {"name":"Bp<br/>mmHg","colspan":"1","rowspan":"3"},

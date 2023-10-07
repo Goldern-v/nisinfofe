@@ -7,6 +7,7 @@
         border
         :height="wih - 290"
         @row-click="selectedRow"
+        @cell-click="onCellClick"
         :row-class-name="tableRowClassName"
       >
         <el-table-column label="序号" width="60" align="center">
@@ -45,9 +46,32 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column
+          v-if="HOSPITAL_ID == 'beihairenyi'"
+          prop="signerName"
+          label="填表人签名"
+          width="90"
+          align="center"
+        ></el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
-        <el-table-column prop="endTime" label="停止时间" width="90" align="center"></el-table-column>
+        <el-table-column prop="endTime" label="停止时间" width="90" align="center" v-if="HOSPITAL_ID == 'beihairenyi'">
+          <template slot-scope="scope">
+            {{ scope.row.endTime }}
+            <el-date-picker
+              v-if="scope.row.endTime"
+              v-model="endTime"
+              :default-value="scope.row.endTime"
+              type="datetime"
+              placeholder="选择日期时间"
+              value-format="yyyy-MM-dd HH:mm"
+              :clearable="false"
+              @focus="() => choseId(scope.row)"
+              @change="val => timeChange(val, scope.row, 'endTime')">
+            </el-date-picker>
+          </template>
+        </el-table-column>
+        <el-table-column prop="endTime" label="停止时间" width="90" align="center" v-else></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="operatorName" label="停止人" width="90" align="center"></el-table-column>
         <el-table-column
           prop="evalType"
@@ -57,7 +81,13 @@
           align="center"
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" min-width="100px" header-align="center"></el-table-column>
-
+        <el-table-column
+          v-if="HOSPITAL_ID == 'beihairenyi'"
+          prop="evalContentSign"
+          label="评价者签名"
+          width="90"
+          align="center"
+        ></el-table-column>
         <el-table-column label="操作" width="95" header-align="center">
           <template slot-scope="scope">
             <div class="tool-con">
@@ -68,7 +98,7 @@
                 @click="stop(scope.row)"
               >停止</div>
               <div
-                v-if="scope.row.status == 1"
+                v-if="scope.row.status == 1 ||  ['beihairenyi'].includes(HOSPITAL_ID)"
                 class="tool-btn"
                 style="color: red"
                 @click="del(scope.row)"
@@ -146,6 +176,13 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column
+          v-if="HOSPITAL_ID == 'beihairenyi'"
+          prop="signerName"
+          label="填表人签名"
+          width="90"
+          align="center"
+        ></el-table-column>
         <el-table-column prop="beginTime" label="开始时间" width="90" align="center"></el-table-column>
         <el-table-column v-if="HOSPITAL_ID=='fuyou'"  prop="creatorName" label="评估人" width="90" align="center"></el-table-column>
         <el-table-column prop="endTime" label="停止时间" width="90" align="center"></el-table-column>
@@ -158,6 +195,13 @@
           align="center"
         ></el-table-column>
         <el-table-column prop="evalContent" label="评价说明" min-width="100px" header-align="center"></el-table-column>
+        <el-table-column
+          v-if="HOSPITAL_ID == 'beihairenyi'"
+          prop="evalContentSign"
+          label="评价者签名"
+          width="90"
+          align="center"
+        ></el-table-column>
       </el-table>
     </div>
     <stopDiagnosisModal ref="stopDiagnosisModal"></stopDiagnosisModal>
@@ -168,7 +212,7 @@
 import common from "@/common/mixin/common.mixin";
 import { nursingDiagsPatient } from "../../api/index";
 import { model } from "../../diagnosisViewModel";
-import { nursingDiagsDel, savePlanForm } from "../../api/index";
+import { nursingDiagsDel, savePlanForm, doDiagsSign , nursingDiagsUpdate} from "../../api/index";
 import stopDiagnosisModal from "../../modal/stopDiagnosisModal";
 export default {
   mixins: [common],
@@ -176,10 +220,72 @@ export default {
   inject: ["openSlideCon",'openSlideContant'],
   data() {
     return {
-      model
+      model,
+      endTime: '',
+      choseID: '',
+      choseName: '',
+      choseCode: '',
+      choseDiagFactor: '',
+      measureStr2: '',
+      factorStr2: '',
     };
   },
   methods: {
+    onCellClick(row, column, cell, event) {
+      if (['signerName', 'evalContentSign'].includes(column.property)) {
+        const type = column.property == 'signerName' ? '1' : '2';
+        let text = row[column.property] ? '取消签名' : '签名';
+        this.onSign({ id: row.id, type }, text);
+      }
+    },
+    onSign(data = {}, text) {
+      window.openSignModal((password, empNo) => {
+        const params = { ...data, empNo, password }
+        doDiagsSign(params).then(() => {
+          this.$message.success(`${text}成功`);
+          model.refreshTable();
+        }).catch((error) => {
+          this.$message.error(`${text}失败`)
+        })
+      }, text);
+    },
+     choseId(row) {
+      this.choseID = row.id
+      this.choseName = row.diagName
+      this.choseCode = row.diagCode
+      this.choseDiagFactor = row.diagFactor
+      this.measureStr2 = (row.measuresName.length > 0 && row.measuresName.join(" ")) || row.diagMeasures
+      this.factorStr2 = (row.targetsName.length > 0 && row.targetsName.join(" ")) || row.diagTarget
+    },
+    timeChange(val, row, type) {
+      window.openSignModal((password, empNo) => {
+        const params = {
+          creator: password,
+          empNo,
+          id:this.choseID,
+          patientId: this.$route.query.patientId,
+          visitId: this.$route.query.visitId,
+          patientName: this.$route.query.name,
+          bedLabel: this.$route.query.bedLabel,
+          code: this.choseCode,
+          name: this.choseName,
+          measureStr: this.measureStr2,
+          targetStr: this.factorStr2,
+          factorStr: this.choseDiagFactor,
+          wardCode: model.selectedBlock.wardCode,
+        };
+        params.endTime = val
+        nursingDiagsUpdate(params).then(res => {
+          this.$message.success("保存成功");
+          model.newDiagnosisModal.close();
+          model.refreshTable();
+          this.$store.commit("upMeasureGuizhou", {
+            measure: "",
+            target: ""
+          });
+        });
+      })
+    },
     selectedRow(row) {
       // model.selectedRow = row;
     },
@@ -207,13 +313,16 @@ export default {
     del(row) {
       // if (!this.verify()) return;
       model.selectedRow = row;
+      row.patientName = this.$route.query.name;
+      row.sex = this.$route.query.sex;
+      row.age = this.$route.query.age;
       window.openSignModal((password, empNo) => {
         nursingDiagsDel(password, empNo, model.selectedRow.id).then(res => {
           this.$message.success("删除成功");
           model.refreshTable();
           model.selectedRow = null;
         });
-      }, "你确定要删除诊断？");
+      }, "你确定要删除诊断？",undefined,undefined,undefined,process.env.HOSPITAL_ID  == 'fuyou' ? row : undefined,undefined,undefined,undefined,undefined,undefined,'planForm');
     },
     stop(row) {
       // if (!this.verify()) return;
@@ -257,6 +366,23 @@ export default {
   } */
   /deep/ .el-table {
     border: 1px solid #000 !important;
+        .el-date-editor--datetime{
+      .el-input__icon{
+        display: none;
+      }
+      .el-input__inner{
+        width: 100%;
+        padding-right: 0 !important;
+      }
+    }
+    .el-date-editor.el-input{
+      width: 100%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50% );
+      opacity: 0;
+    }
     th {
       border-left: 1px solid #000 !important;
       border-right: 1px solid #000 !important;

@@ -40,11 +40,11 @@
           </td>
           <!-- 教育对象 -->
           <td v-for="o in object" :key="o + 'a'">
-            <span class="is-radio" v-if="data['教育对象'] === o">√</span>
+            <span class="is-radio" v-if="HOSPITAL_ID == '925' ? data['教育对象'].includes(o) :  data['教育对象'] === o">√</span>
           </td>
           <!-- 教育方法 -->
           <td v-for="p in method" :key="p + 'b'">
-            <span class="is-radio" v-if="data['教育方法'] === p">√</span>
+            <span class="is-radio" v-if="HOSPITAL_ID == '925' ? data['教育方法'].includes(p) :  data['教育方法'] === p">√</span>
           </td>
           <!-- 教育评估 -->
           <td v-for="q in assessment" :key="q + 'c'">

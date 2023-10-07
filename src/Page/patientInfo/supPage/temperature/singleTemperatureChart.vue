@@ -498,15 +498,40 @@ export default {
         this.scrollTop = this.$refs.scrollCon.scrollTop;
         saveBody(this.patientInfo.patientId, this.patientInfo.visitId, decode(ayncVisitedData))
           .then((res) => {
-            this.$notify.success({
-              title: "提示",
-              message: "保存成功",
-            });
+             let isdischarge = decode(ayncVisitedData).list.find(item => item.topComment == '出院|')
+              if(this.sheetInfo.sheetType == 'body_temperature_Hd' && isdischarge){
+                this.$confirm(
+                    `体温单出院时间已填写为：${isdischarge.recordYear}-${isdischarge.recordMonth} ${isdischarge.recordHour}，请及时完成应归档记录!`,
+                    {
+                      confirmButtonText: "确定",
+                      showCancelButton: false,
+                      type: "warning",
+                    }
+                  ).then((res)=>{
+                    // this.pageLoading = false;
+                    this.$notify.success({
+                      title: "提示",
+                      message: "保存成功",
+                      duration: 1000,
+                    });
+                  })
+              }else{
+                this.$notify.success({
+                  title: "提示",
+                  message: "保存成功",
+                  duration: 1000,
+                });
+              }
+            // this.$notify.success({
+            //   title: "提示",
+            //   message: "保存成功",
+            // });
             this.getSheetData().then((res) => {
               isInitSheetPageSize &&
                 setTimeout(() => {
                   this.bus.$emit("initSheetPageSize");
                 }, 100);
+
               this.$nextTick(() => {
                 this.$refs.scrollCon.scrollTop = this.scrollTop;
                 $(".red-border").removeClass("red-border");

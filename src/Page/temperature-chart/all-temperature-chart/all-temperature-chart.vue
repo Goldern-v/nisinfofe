@@ -80,9 +80,7 @@
             'nanfangzhongxiyi',
             'foshanrenyi',
             '925',
-            'zjhj',
             'dglb',
-            'nfyksdyy'
           ].includes(HOSPITAL_ID)
         "
       >
@@ -220,6 +218,7 @@
                 :class="className"
                 class="temperature"
                 type="number"
+                @change="change"
                 @keydown="handleKeyDown"
                 @keyup="handleKeyUp"
                 @click="toRow"
@@ -237,6 +236,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.pulse"
+                @change="change"
                 class="pulse"
                 :class="className"
                 type="number"
@@ -257,6 +257,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.breath"
+                @change="change"
                 :class="className"
                 class="breath"
                 type="text"
@@ -276,6 +277,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.bloodPressure"
+                @change="change"
                 :class="className"
                 class="bloodPressure"
                 type="text"
@@ -299,6 +301,7 @@
               <input
                 v-model="scope.row.amBp"
                 :class="className"
+                @change="change"
                 class="amBp"
                 type="text"
                 @keyup="handleKeyUp"
@@ -322,6 +325,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.pmBp"
+                @change="change"
                 :class="className"
                 class="pmBp"
                 type="text"
@@ -362,6 +366,7 @@
                 <input
                   slot="reference"
                   v-model="scope.row.stoolNum"
+                  @change="change"
                   :class="className"
                   class="stoolNum"
                   type="text"
@@ -406,6 +411,7 @@
                 <input
                   slot="reference"
                   v-model="scope.row.stoolNum"
+                  @change="change"
                   :class="className"
                   class="stoolNum"
                   type="text"
@@ -426,6 +432,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.painScore"
+                @change="change"
                 :class="className"
                 class="painScore"
                 type="text"
@@ -445,6 +452,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.heartRate"
+                @change="change"
                 :class="className"
                 class="heartRate"
                 type="number"
@@ -464,6 +472,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.heartRate"
+                @change="change"
                 :class="className"
                 class="heartRate"
                 type="number"
@@ -483,6 +492,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.fieldThree"
+                @change="change"
                 :class="className"
                 class="fieldThree"
                 type="text"
@@ -502,6 +512,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.drainage"
+                @change="change"
                 :class="className"
                 class="drainage"
                 type="text"
@@ -521,6 +532,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.foodSize"
+                @change="change"
                 :class="className"
                 class="foodSize"
                 type="text"
@@ -540,6 +552,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.foodSize"
+                @change="change"
                 :class="className"
                 class="foodSize"
                 type="text"
@@ -561,6 +574,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.dischargeSize"
+                @change="change"
                 :class="className"
                 class="dischargeSize"
                 type="text"
@@ -582,6 +596,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.dischargeSize"
+                @change="change"
                 :class="className"
                 class="dischargeSize"
                 type="text"
@@ -603,6 +618,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.height"
+                @change="change"
                 :class="className"
                 class="height"
                 type="text"
@@ -623,6 +639,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.curWeight"
+                @change="change"
                 :class="className"
                 class="curWeight"
                 type="text"
@@ -643,6 +660,7 @@
             <template slot-scope="scope">
               <input
                 v-model="scope.row.painScore"
+                @change="change"
                 :class="className"
                 class="painScore"
                 type="text"
@@ -686,6 +704,7 @@
                 <input
                   slot="reference"
                   v-model="scope.row.nursingEvent"
+                  @change="change"
                   :class="className"
                   class="nursingEvent"
                   type="text"
@@ -1141,9 +1160,7 @@ export default {
             case "quzhou":
             case "guizhou":
             case '925':
-            case 'zjhj':
             case 'dglb':
-            case 'nfyksdyy':
             case "wujing":
               if (this.getHours() >= 0 && this.getHours() <= 4) {
                 return "02";
@@ -1302,7 +1319,26 @@ export default {
   created() {
     window.addEventListener("keydown", this.keydownSave, false);
   },
+  beforeRouteLeave (to, from, next) {
+    if (!this.$store.state.admittingSave.isLeaveTip && ['925'].includes(this.HOSPITAL_ID)) {
+      window.app
+        .$confirm("体温单数据还未保存，离开将会丢失数据", "提示", {
+          confirmButtonText: "离开",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+        .then(res => {
+          this.$store.commit("upIsLeaveTip", true);
+          next();
+        });
+    } else {
+      next();
+    }
+  },
   methods: {
+    change(val) {
+      this.$store.commit("upIsLeaveTip", false);
+    },
     //行样式
     rowStyle(row) {
       if (!this.levelColorHis.includes(this.HOSPITAL_ID)) {
@@ -1388,6 +1424,7 @@ export default {
       }
     },
     saveAllTemperture() {
+      this.$store.commit("upIsLeaveTip", true);
       this.pageLoadng = true;
       let data = {
         blockId: "",
@@ -1631,7 +1668,7 @@ export default {
       }
     },
     async onBlur($event, key, value,name,scope){
-       console.log('first', key, value,name,scope);
+      //  console.log('first', key, value,name,scope);
       if(['guizhou'].includes(this.HOSPITAL_ID)){
         let confirmRes = '';
         if((key === 'temperature')&&value !== ''&&(isNaN(value)||value<35||value>42)){

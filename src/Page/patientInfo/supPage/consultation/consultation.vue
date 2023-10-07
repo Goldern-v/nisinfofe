@@ -30,10 +30,12 @@
 import newFormDialog from "./components/newFormDialog";
 import consultationForm from "./components/consultationForm";
 import consultationFormZhzxy from "./components/consultationFormZhzxy";
+import consultationFormBeiHai from "./components/consultationFormBeiHai";
 import { getPatientList, getPatientListNew } from "@/api/consultation";
 import listItem from "./components/item/listItem.vue";
 import BusFactory from "vue-happy-bus";
 import newFormDialogZhzxy from "./components/newFormDialogZhzxy.vue";
+import newFormDialogBeiHai from "./components/newFormDialogBeiHai.vue";
 export default {
   data() {
     return {
@@ -59,6 +61,9 @@ export default {
 		// 新增弹窗
     newDialogCon() {
       if (this.isNewType) {
+        if (['beihairenyi'].includes(this.HOSPITAL_ID)) {
+          return 'newFormDialogBeiHai';
+        }
         return "newFormDialogZhzxy";
       } else {
         return "newFormDialog";
@@ -67,6 +72,9 @@ export default {
 		// 详情
 		detailCon() {
       if (this.isNewType) {
+        if (['beihairenyi'].includes(this.HOSPITAL_ID)) {
+          return 'consultationFormBeiHai';
+        }
         return "consultationFormZhzxy";
       } else {
         return "consultationForm";
@@ -114,6 +122,8 @@ export default {
     newFormDialogZhzxy,
     consultationForm,
     consultationFormZhzxy,
+    newFormDialogBeiHai,
+    consultationFormBeiHai,
     listItem,
   },
 };

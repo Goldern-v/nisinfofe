@@ -123,7 +123,7 @@
               ['lyxrm', 'stmz', '925', 'qhwy'].includes(HOSPITAL_ID) &&
               makePatient
                 ? isActive(item)
-                : false
+                : false,
           }"
           @click.native="
             () => {
@@ -170,7 +170,8 @@
             :class="{
               red: item.formLowestStatus == 0,
               green: item.formLowestStatus == 1,
-              isImg2: img2Show
+              isImg2: img2Show,
+              'zjhj-point': HOSPITAL_ID == 'zjhj'
             }"
           ></span>
           <div
@@ -367,6 +368,18 @@
     left: 14px;
   }
 }
+.zjhj-point{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    border: 1px solid #eaeef1;
+    margin-left: 5px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
 .el-button-group{
   display: flex;
   justify-content: space-between;
@@ -380,7 +393,7 @@ import { getPatientInfo } from "@/api/common";
 import bus from "vue-happy-bus";
 import FollowList from "../follow/index";
 //解锁
-// import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
+import {unLock,unLockTime} from "@/Page/sheet-hospital-eval/api/index.js"
 import { mapState } from "vuex";
 export default {
   props: {
@@ -410,7 +423,7 @@ export default {
       noClearCurrentPatient: ["guizhou"], // 不需要清空当前选中患者的医院
       isGroup: false, // 是否选中管床
       makePatient: "", // 贵州护理巡视表的点击患者
-      lockHospitalList: ["huadu"], //有锁定功能的医院
+      lockHospitalList: ["huadu",'nfyksdyy'], //有锁定功能的医院
       levelColor: {},
       isRefresh:
         ["whsl"].includes(this.HOSPITAL_ID) &&
@@ -555,7 +568,34 @@ export default {
           }
           next();
         });
-      }else {
+      } else if (
+        !this.$store.state.admittingSave.isLeaveTip &&
+        this.HOSPITAL_ID == "925")
+      {
+        window.app
+        .$confirm("体温单数据未保存，离开将会丢失数据", "提示", {
+          confirmButtonText: "确认",
+          cancelButtonText: "取消",
+          type: "warning",
+        })
+        .then((res) => {
+          this.$store.commit("upIsLeaveTip", true);
+          this.selectPatientId = patient.patientId;
+          if (this.callFunction) {
+            this.$route.query.patientId = patient.patientId;
+            this.$route.query.visitId = patient.visitId;
+            this.$route.query.inpNo = patient.inpNo;
+            patient.formId = this.$route.params.formId || "";
+            //
+            this.$store.commit("upCurrentPatientObj", patient);
+            this.$store.commit("upWardCode", patient.wardCode || "");
+            this.$store.commit("upWardName", patient.wardName || "");
+            //patient 参数 true是否要滚动到最后一页
+            this.callFunction(patient, true);
+            //
+          }
+        });
+      } else {
         this.selectPatientId = patient.patientId;
         if (this.callFunction) {
           this.$route.query.patientId = patient.patientId;

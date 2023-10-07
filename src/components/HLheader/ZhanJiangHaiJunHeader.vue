@@ -17,7 +17,7 @@
             </el-row>
             <router-link to="/index" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-shouye"></i> 首页
+                <i class="iconfont icon-shouye"></i> 智能提醒
               </el-row>
             </router-link>
             <router-link to="/bed" tag="span">
@@ -36,7 +36,7 @@
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
-                <i class="iconfont icon-hulijiludan"></i>体温
+                <i class="iconfont icon-hulijiludan"></i>体温单
               </el-row>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
@@ -78,6 +78,36 @@
                 <i class="iconfont icon-xuetang"></i> 血糖
               </el-row>
             </router-link>
+            <el-dropdown
+              menu-align="start"
+              :hide-on-click="false"
+              :class="{ 'router-link-active': isImplementation }"
+            >
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>执行单
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{ active: ['/bottleLabelByProgram'].includes($route.path) }"
+                >
+                  <router-link to="/bottleLabelByProgram" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="wardReport"></i>执行瓶签打印
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path == '/implementationList' }"
+                >
+                  <router-link to="/implementationList" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="catheterPage"></i>执行记录
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
             <router-link to="/MEWS" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-news"></i> MEWS
@@ -90,22 +120,60 @@
             </router-link>
             <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
-                >护理诊断计划</el-row
+                >护理计划</el-row
               >
             </router-link>
-            <router-link to="/shiftWork" tag="span">
+            <!-- <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >交班志
               </el-row>
-            </router-link>
-            <router-link to="/allCatheter" tag="span">
+            </router-link> -->
+         <el-dropdown
+              menu-align="start"
+              :class="{ 'router-link-active': isActiveShiftWork }"
+            >
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-allCatheter"></i> 导管
+                <div class="before"></div>
+                <i class="iconfont icon-jiaobanzhi"></i>交班志
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  :class="{
+                    active:
+                      $route.path.includes('/shiftWork2') &&
+                      !$route.path.includes('/shiftWork')
+                  }"
+                >
+                  <router-link to="/shiftWork2" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                      >交班志
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path.includes('/shiftWork')&&!$route.path.includes('/shiftWork2') }"
+                >
+                  <router-link to="/shiftWork" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle"
+                      >ISBAR交班记录卡
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            <router-link to="/nursingRounds" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="nursingRounds"></i>护理巡视
               </el-row>
             </router-link>
             <router-link to="/archive" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-guidang"></i> 归档
+              </el-row>
+            </router-link>
+            <router-link to="/allCatheter" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="allCatheter"></i>导管
               </el-row>
             </router-link>
             <el-dropdown
@@ -127,7 +195,29 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
+                <el-dropdown-item
+                  :class="{ active: $route.path.indexOf('/wardReport') > -1 }"
+                >
+                  <router-link to="/wardReport" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="wardReport"></i>病房日报
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
+
+                <el-dropdown-item
+                  :class="{
+                    active: $route.path.indexOf('/inpatientReport') > -1
+                  }"
+                >
+                  <router-link to="/inpatientReport" tag="span">
+                    <el-row class="menu-item" type="flex" align="middle">
+                      <i class="inpatientReport"></i>住院日报
+                    </el-row>
+                  </router-link>
+                </el-dropdown-item>
               </el-dropdown-menu>
+
             </el-dropdown>
           </el-row>
           <el-row class="right-part" type="flex" align="middle">

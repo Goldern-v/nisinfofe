@@ -227,6 +227,7 @@
 <script>
 import dTable from "./components/table/d-table";
 import dTableLyxrm from "./components/table/d-table-lyxrm";
+import dTableZjhj from "./components/table/d-table-zjhj";
 import pagination from "./components/common/pagination";
 import printTable from "./components/print-table-sdlj";
 import { getNursingVisitLc, exportExcel } from "./api/index";
@@ -515,6 +516,8 @@ export default {
         case "stmz":
         case "ytll":
           return "dTableLyxrm";
+        case "zjhj":
+          return "dTableZjhj";
         default:
           return "dTable";
       }
@@ -523,6 +526,7 @@ export default {
   components: {
     dTable,
     dTableLyxrm,
+    dTableZjhj,
     pagination,
     authorityModal,
     printTable

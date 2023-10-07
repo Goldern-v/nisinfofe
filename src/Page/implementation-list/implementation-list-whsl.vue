@@ -61,15 +61,27 @@
           ></el-option>
         </el-select>
         <span class="label">床号:</span>
-        <el-input
+        <!-- <el-input
           size="small"
           style="width: 75px;margin-right: 15px;"
           placeholder=""
           v-model="bedLabel"
-        ></el-input>
-        <el-input
-          style="width: 0px; padding: 0px; height: 0px; overflow: hidden;"
-        />
+        ></el-input> -->
+         <el-select
+          v-model="bedLabel"
+          multiple
+          placeholder="请选择"
+          size="small"
+          style="width:180px;margin-right:10px;"
+        >
+          <el-option
+            :label="bedItem"
+            :value="bedItem"
+            v-for="bedItem in bedLabelList"
+            :key="bedItem"
+          ></el-option>
+        </el-select>
+
         <el-button size="small" type="primary" @click="search">查询</el-button>
         <el-button size="small" v-if="HOSPITAL_ID == 'whsl'" @click="onPrint"
           >打印</el-button
@@ -262,7 +274,7 @@
 import dTable from "./components/table/d-table-whsl";
 import pagination from "./components/common/pagination";
 import dTablePrint from "./components/table/d-table-whsl-print";
-import { getExecuteWithWardCodeLyxrm } from "./api/index";
+import { getExecuteWithWardCodeLyxrm, getBedLabelByWardCode } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
@@ -291,10 +303,11 @@ export default {
       repeatIndicator: "",
       type: ["全部"],
       status: "",
-      bedLabel: "",
+      bedLabel: [],
       patientName: "",
       administration: "", //途径
       isprint: false,
+      bedLabelList:[],
       allType: [
         {
           name: "全部",
@@ -381,12 +394,11 @@ export default {
         repeatIndicator: this.repeatIndicator, //医嘱类型:0临时 1长期  2单药处方
         executeStatus: this.status, //执行单状态:0-未执行、1-执行中（输液中）、2-暂停输液、3-继续执行  4-已完成（结束输液）
         executeType: this.type.length > 0 ? this.type.join(",") : "全部", //执行单类型:输液,口服、治疗、雾化、注射
-        bedLabel: this.bedLabel, //床号
+        bedLabelList: this.bedLabel, //床号
         patientName: this.patientName, //患者姓名
         administration: this.administration, // //途径
         dispenseFlag: this.dispenseFlag
       };
-
       getExecuteWithWardCodeLyxrm(obj)
         .then(res => {
           let tableData = res.data.data.map((item, index, array) => {
@@ -424,6 +436,11 @@ export default {
           }
         })
         .catch(err => (this.pageLoading = false));
+    },
+    onGetBedLabelBy(){
+      getBedLabelByWardCode(this.deptCode).then(res => {
+        this.bedLabelList = res.data.data
+      })
     },
     search() {
       this.page.pageIndex = 1;
@@ -481,6 +498,7 @@ export default {
   },
   created() {
     this.onLoad();
+    this.onGetBedLabelBy()
     this.bus.$on("loadImplementationList", () => {
       this.onLoad();
     });

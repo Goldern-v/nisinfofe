@@ -20,6 +20,7 @@ let chuList = [] // 出量
 let woweiList = [] // 卧位
 let shouyaList = [] // 受压皮肤
 let fangsheList = [] // 对光反射
+let xzList = [] // 性状
 
 export default [
   {
@@ -276,6 +277,7 @@ export default [
     event: keyf1,
     change: (e, td) => limitChange(e, td, 4),
     name: "性状",
+    autoComplete: { data: xzList },
     textarea: {
       width: 30
     },
@@ -463,8 +465,8 @@ export function getListData4() {
   //   chuList.push("阴道出血");
   // });
 
-  let list = ["意识", 'record:one_whhk:入量名称', 'record:one_whhk:出量名称', 
-  'record:one_whhk:卧位', 'record:one_whhk:受压皮肤', 'record:one_whhk:对光反射'];
+  let list = ["意识", 'record:one_whhk:入量名称', 'record:one_whhk:出量名称',
+  'record:one_whhk:卧位', 'record:one_whhk:受压皮肤', 'record:one_whhk:对光反射', 'record:one_whhk:性状'];
   multiDictInfo(list).then(res => {
     let data = res.data.data;
     setList(ysList, "意识", data);
@@ -473,6 +475,7 @@ export function getListData4() {
     setList(woweiList, "record:one_whhk:卧位", data);
     setList(shouyaList, "record:one_whhk:受压皮肤", data);
     setList(fangsheList, "record:one_whhk:对光反射", data);
+    setList(xzList, "record:one_whhk:性状", data);
   });
 }
 

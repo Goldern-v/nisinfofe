@@ -57,7 +57,7 @@
               v-html="shift['orders7']"
               contenteditable="true"
               style="outline:none;"
-              @blur="e => change(e, index, key)"
+              @blur="e => change(e, index, 'orders7')"
             ></div>
           </td>
         </tr>
@@ -68,7 +68,7 @@
               v-html="shift['orders8']"
               contenteditable="true"
               style="outline:none;"
-              @blur="e => change(e, index, key)"
+              @blur="e => change(e, index, 'orders8')"
             ></div>
           </td>
         </tr>
@@ -246,7 +246,8 @@ export default {
         transIn: "转入",
         patientNow: "现有",
         operation: "手术",
-        childbirth: "分娩军属",
+        childbirth: "分娩",
+        family: "军属",
         patientBw: "病危",
         patientBz: "病重",
         nurseClass0: "特护",

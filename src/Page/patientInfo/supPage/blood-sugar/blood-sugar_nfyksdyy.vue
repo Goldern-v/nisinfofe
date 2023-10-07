@@ -5,7 +5,7 @@
     :style="{ ' height': containHeight }"
   >
     <div ref="Contain" @mousewheel="(e) => onScroll(e)">
-      <div v-show="!isChart" class="blood-sugar-con" :style="$route.path == '/formPage'  ? 'overflow: auto; height: calc(100vh - 105px);' : '' ">
+      <div v-show="!isChart" class="blood-sugar-con" id="blood-sugar-con" :style="$route.path == '/formPage'  ? 'overflow: auto; height: calc(100vh - 105px);' : '' ">
         <div
           class="sugr-page"
           v-for="(item, index) in listMap"
@@ -81,26 +81,31 @@
     </div>
     <div class="tool-con" v-show="listMap.length">
       <div class="tool-fix" flex="dir:top">
-        <whiteButton text="添加" @click="hisDisabled()&&onAdd()" :disabled="isPreview"></whiteButton>
+        <whiteButton text="添加" @click="hisDisabled()&&onAdd()"
+        v-if="isLock" :disabled="isPreview"></whiteButton>
         <whiteButton
           text="修改"
           @click="hisDisabled()&&onEdit()"
           :disabled="!selected || !selected.recordDate||isPreview"
+          v-if="isLock"
         ></whiteButton>
         <whiteButton
           text="删除"
           @click="hisDisabled()&&onRemove()"
           :disabled="!selected || !selected.recordDate||isPreview"
+          v-if="isLock"
         ></whiteButton>
         <whiteButton
           :text="`设置起始页(${startPage})`"
           @click="hisDisabled()&&openSetPageModal(listMap.length)"
           :disabled="isPreview"
+          v-if="isLock"
         ></whiteButton>
         <whiteButton text="打印预览" @click="hisDisabled()&&toPrint()" :disabled="isPreview"></whiteButton>
         <whiteButton
           :text="!isChart ? '查看曲线' : '查看表格'"
           @click="openChart"
+          v-if="isLock"
         ></whiteButton>
       </div>
     </div>
@@ -379,13 +384,17 @@ import setPageModal from "./components/setPage-modal.vue";
 import $ from "jquery";
 import moment from "moment";
 import common from "@/common/mixin/common.mixin.js";
-
 export default {
   mixins: [common],
    props: {
     showBorder: {
       type: Boolean,
       default: false
+    },
+    provide(){
+      return {
+        isLock: this.isLock
+      }
     }
   },
   data() {
@@ -406,7 +415,12 @@ export default {
       registNum:0,//血糖登记次数
       sugarUserInfo:{},//患者基础信息
       printRecord:[],
-      printRecordValue:''
+      printRecordValue:'',
+      lockHospitalList:['nfyksdyy'],//配置了健康教育单锁定功能的配置
+      isLock:{           //健康教育单是否被锁定
+      type:Boolean,
+      default:true
+      },
     };
   },
   computed: {
@@ -438,7 +452,25 @@ export default {
         this.patientInfo.patientId,
         this.patientInfo.visitId
       );
-
+         /* 判断健康教育单是否被锁定 */
+          if(res.data.errorCode=='3001' && res.data.desc.indexOf('锁定')!=-1 && this.lockHospitalList.includes(this.HOSPITAL_ID)){
+            localStorage.setItem('lockForm','')
+            this.isLock=false
+            window.app && window.app.$message({
+              showClose: true,
+              message: res.data.desc,
+              type: 'error',
+              duration:5000
+            })
+          }else{
+            const formConfig={
+              formId:this.patientInfo.patientId,
+              type:'suger',
+              initTime:Date.now()
+            }
+            this.isLock=true
+            localStorage.setItem('lockForm',JSON.stringify(formConfig))
+          }
       this.tableHeaderInfo=res.data.data
       if(res.data.data.hisPatSugarList.length != 0){
         this.tableHeaderInfo.bedLabel=res.data.data.hisPatSugarList[0].bedLabel
@@ -499,6 +531,11 @@ export default {
       this.resBedNol = resBedNolList.length ? resBedNolList.join(',') : this.patientInfo.bedLabel
     },
     toPrint() {
+        const printDom=document.getElementById('blood-sugar-con')
+        // 上面的判断:style="$route.path == '/formPage'  ? 'overflow: auto; height: calc(100vh - 105px);' : '' "
+        // 在formPage跳转的时候，直接移除即可。返回的时候不会直接进入血糖单。所以再次进入不会有问题。
+        printDom.style.removeProperty('overflow'); // 移除 overflow 属性
+        printDom.style.removeProperty('height'); // 移除 height 属性
         window.localStorage.sugarModel = $(this.$refs.Contain).html();
         if (process.env.NODE_ENV === "production") {
           let newWid = window.open();
@@ -609,6 +646,8 @@ export default {
       }
     },
     async onResBedNo(e,index){
+      // 防止修改完床号立刻点预览，导致没及时更新
+      e.target.setAttribute('data-value',e.target.value)
       let bedData = {
            bedLabelNew: e.target.value,
            moduleCode: 'sugar',

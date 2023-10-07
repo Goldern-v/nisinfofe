@@ -62,13 +62,13 @@ export default {
         colspan: "1",
         rowspan: "3"
       },
-      {
-        name: `
-        血糖<br/>mmol<br/>/L
-        `,
-        colspan: "1",
-        rowspan: "3"
-      },
+      // {
+      //   name: `
+      //   血糖<br/>mmol<br/>/L
+      //   `,
+      //   colspan: "1",
+      //   rowspan: "3"
+      // },
       {
         name: `
         胎方位
@@ -156,19 +156,31 @@ export default {
         rowspan: "1",
       },
       {
+        name: `入量`,
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+      },
+      {
+        name: `出量`,
+        style: {},
+        colspan: "2",
+        rowspan: "1",
+      },
+      {
         name: ``,
         canSet:true,
         key:"armValue",
         colspan: "1",
         rowspan: "3",
       },
-      {
-        name: ``,
-        canSet:true,
-        key:"armValue2",
-        colspan: "1",
-        rowspan: "3",
-      },
+      // {
+      //   name: ``,
+      //   canSet:true,
+      //   key:"armValue2",
+      //   colspan: "1",
+      //   rowspan: "3",
+      // },
       {
         name: `
         特殊情况记录
@@ -223,19 +235,11 @@ export default {
         name: "强<br/>度",
         colspan: "1",
         rowspan: "2",
-        style: {
-          minWidth: '40px',
-          maxWidth: '40px',
-        },
       },
       {
         name: "持<br/>续<br/>s",
         colspan: "1",
         rowspan: "2",
-        style: {
-          minWidth: '40px',
-          maxWidth: '40px',
-        },
       },
       {
         name: "间<br/>歇<br/>min",
@@ -259,6 +263,26 @@ export default {
       },
       {
         name: "滴数<br/>滴/分",
+        colspan: "1",
+        rowspan: "2",
+      },
+      {
+        name: "静脉<br/>ml",
+        colspan: "1",
+        rowspan: "2",
+      },
+      {
+        name: "口服<br/>ml",
+        colspan: "1",
+        rowspan: "2",
+      },
+      {
+        name: "血<br/>ml",
+        colspan: "1",
+        rowspan: "2",
+      },
+      {
+        name: "尿<br/>ml",
         colspan: "1",
         rowspan: "2",
       },

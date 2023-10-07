@@ -622,7 +622,7 @@ export default {
       });
     },
     //获取当前表的填项数据
-    changeSelectBlock(item, title='') {
+    changeSelectBlock(item, title='',scrollHeight=0) {
       if (!this.selectBlock.id) return;
       // window.performance（监控网页与程序性能）
       // 可以精确计算程序执行时间
@@ -707,7 +707,8 @@ export default {
             patient: item,
             formObj: formObj,
             title
-          });
+          },
+          scrollHeight);
           // 解锁loading动画
           // this.bus.$emit("setHosptialAdmissionLoading", false);
 
@@ -1353,10 +1354,14 @@ export default {
           evalDate: dayjs().format("YYYY-MM-DD HH:mm"), //"2019-04-16 12:00",
         };
         let showDate = true
+        let showAduit= false
+        let aduitDate=''
         if (config && config.type && config.type === "audit") {
           signType = { audit: true };
           titleModal = "审核护士签名";
           showDate = false
+          showAduit= true
+          aduitDate=window.formObj.model.I2332233?window.formObj.model.I2332233:''
         }
         if(config && config.type && config.type === "other") {
           signType = { other: true }
@@ -1374,6 +1379,10 @@ export default {
 
             if (signType.hasOwnProperty("sign")) {
               signType["evalDate"] =
+                dayjs(signDate).format("YYYY-MM-DD HH:mm") || "";
+            }else if (signType.hasOwnProperty("audit")&&['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+              // 处理弹窗审核签名完后没有审核时间的问题
+              signType["I2332233"] =
                 dayjs(signDate).format("YYYY-MM-DD HH:mm") || "";
             } else if (signType.hasOwnProperty("audit")) {
               signType["auditTime"] =
@@ -1447,7 +1456,11 @@ export default {
           },
           titleModal,
           showDate,undefined,  undefined, undefined, undefined ,undefined,undefined,
-          SigndataObj,verifySignObj
+          SigndataObj,verifySignObj,undefined,
+          {
+             showAduit,
+             aduitDate
+          }
         );
       }
     },
@@ -1476,6 +1489,12 @@ export default {
      * title:保存成功后跳转到对饮位置
      */
     formSave(title = '') {
+      const sheetTableContain = document.querySelector('.sheetTable-contain');
+      let scrollHeight=0
+      if (sheetTableContain && ['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+        // 记录保存的时候滚动高度，保存后依然在当前位置
+        scrollHeight = sheetTableContain.scrollTop;
+      }
       if (this.patientInfo && this.patientInfo.hasOwnProperty("patientId")) {
         this.bus.$emit("setHosptialAdmissionLoading", {
           status: true,
@@ -1529,7 +1548,7 @@ export default {
             this.$message.success("保存成功");
             if (this.HOSPITAL_ID !== "foshanrenyi")
               this.selectBlock.status = "1";
-            this.changeSelectBlock(this.selectBlock,title);
+            this.changeSelectBlock(this.selectBlock,title,scrollHeight);
             this.showMeasureDetailBox(res);
             this.$store.commit("upIsLeaveTip", true);
             //

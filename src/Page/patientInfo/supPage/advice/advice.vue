@@ -36,6 +36,15 @@
             </el-radio>
           </el-radio-group>
         </el-row>
+        <el-row class="select-btn-list" type="flex" align="middle" style="padding:0">
+           <el-date-picker
+             v-model="searchTime"
+             type="datetimerange"
+             placeholder="选择查询时间范围"
+             @change="getData"
+             >
+           </el-date-picker>
+        </el-row>
         <!-- 模糊查询 -->
         <span class="newSearchBox" v-if="searchHisList.includes(HOSPITAL_ID)">
           <el-input
@@ -317,12 +326,13 @@ import adviceTableSDLJ from "./component/adviceTable_sdlj.vue";
 import adviceTableWHSL from "./component/adviceTable_whsl.vue";
 import standingOrderTable from "./component/print/standingOrderTable";
 import statOrderTable from "./component/print/statOrderTable";
-import { orders, newOrders } from "@/api/patientInfo";
+import { orders, newOrders , ordersByTime} from "@/api/patientInfo";
 import {getProcedureData} from '@/api/common'
 import { syncGetPatientOrders, getNurseOrderStatusDict,getOrdersWithSync } from "./api/index";
 import { hisMatch } from '@/utils/tool';
 import print from "printing";
 import formatter from "./print-formatter";
+import dayjs from 'dayjs';
 
 export default {
   data() {
@@ -340,6 +350,7 @@ export default {
       duplicateRemoval:['liaocheng','fuyou','hengli','guizhou','nanfangzhongxiyi','whfk','ytll', '925', 'whsl'], // 需要添加rowType(同一医嘱内第几条记录)的医院
       specialSymbolsHos:['fuyou','guizhou','nanfangzhongxiyi', '925', 'whsl'], // 需要添加分组符号的医院(须同时定义在duplicateRemoval中)
       showPrint: ['925'].includes(this.HOSPITAL_ID),
+      searchTime:[null,null]
     };
   },
   props: {
@@ -353,6 +364,12 @@ export default {
     },
   },
   computed: {
+    inFormPage() {
+      return ['/record', '/formPage'].includes(this.$route.path);
+    },
+    selectPatient() {
+      return this.$store.state.patient.currentPatient;
+    },
     infoData() {
       return this.$route.query || this.$route.params ;
     },
@@ -455,7 +472,7 @@ export default {
           yangchunzhongyi:"adviceTableYc",
           'sdlj,ytll,,qhwy,zhzxy,925,gdtj':"adviceTableSDLJ",
           whsl:"adviceTableWHSL",
-nfyksdyy:'adviceTableNFYKSDYY',
+          nfyksdyy:'adviceTableNFYKSDYY',
           default:"adviceTable",
         }
       })
@@ -510,9 +527,12 @@ nfyksdyy:'adviceTableNFYKSDYY',
     },
     getData() {
       this.tableLoading = true;
+      const useSelectPatient = this.inFormPage && this.selectPatient && this.selectPatient.patientId;
+      const patientId = useSelectPatient ? this.selectPatient.patientId : this.infoData.patientId;
+      const visitId = useSelectPatient ? this.selectPatient.visitId : this.infoData.visitId;
       //是否有模糊查询功能
       if(this.searchHisList.includes(this.HOSPITAL_ID)){
-        newOrders(this.infoData.patientId, this.infoData.visitId,this.orderText).then((res) => {
+        newOrders(patientId, visitId,this.orderText).then((res) => {
           this.tableLoading = false;
           this.tableData = res.data.data;
           this.dataRes = res.data.data;
@@ -520,8 +540,28 @@ nfyksdyy:'adviceTableNFYKSDYY',
           this.radio= "全部";
           //this.getStatusList();
         });
+      }else if(['nfyksdyy'].includes(this.HOSPITAL_ID)){
+        let startDate=''
+        let endDate=''
+        this.searchTime.map((dateTime,index) => {
+          if (dateTime !== null) {
+            if(index==0){
+              startDate=dayjs(dateTime).format('YYYY-MM-DD HH:mm:ss');
+            }
+            if(index==1){
+               endDate=dayjs(dateTime).format('YYYY-MM-DD HH:mm:ss');
+            }
+          }
+         });
+         ordersByTime({patientId, visitId,startDate,endDate}).then((res) => {
+          this.tableLoading = false;
+          this.tableData = res.data.data;
+          this.dataRes = res.data.data
+        }).catch((error)=>{
+          this.tableLoading = false;
+        });
       }else {
-        orders(this.infoData.patientId, this.infoData.visitId).then((res) => {
+        orders(patientId, visitId).then((res) => {
           this.tableLoading = false;
           this.tableData = res.data.data;
           this.dataRes = res.data.data

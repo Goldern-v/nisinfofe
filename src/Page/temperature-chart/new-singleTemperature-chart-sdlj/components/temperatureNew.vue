@@ -5,6 +5,7 @@
         <el-button-group>
         <el-button type="primary" @click="onPrint()">打印当周</el-button>
         <el-button type="primary" @click="printAll()">批量打印</el-button>
+        <el-button v-if="['925'].includes(HOSPITAL_ID)" type="primary" @click="openSignList()">体征列表</el-button>
       </el-button-group>
       <div :class="rightSheet === true ? 'pagination' : 'paginationRight'">
         <button
@@ -70,11 +71,16 @@
         ></iframe>
       </div>
     </div>
+    <VitalSignList
+      ref="vitalSignRef"
+      :patientInfo="patientInfo"
+    />
   </div>
 </template>
 
 <script>
 import nullBg from "../../../../components/null/null-bg";
+import VitalSignList from "@/Page/temperature-chart/commonCompen/VitalSignList.vue";
 import bus from "vue-happy-bus";
 import moment from "moment";
 export default {
@@ -111,6 +117,7 @@ export default {
       showTemp: true, //默认选择标准的体温单曲线
       visibled: false,
       isPrintAll: false, //是否打印所有
+      queryDate: moment().format('YYYY-MM-DD'),
       intranetUrl:
         // "http://192.168.1.72:8080/#/" /* 医院正式环境内网 导致跨域 */,
       `${baseUrl}/temperature/#/` /* 医院正式环境内网 导致跨域 */,
@@ -119,6 +126,15 @@ export default {
     };
   },
   methods: {
+    openSignList() {
+      const params = {
+        patientId: this.patientInfo.patientId || this.queryInfo.patientId,
+        visitId: this.patientInfo.visitId || this.queryInfo.visitId,
+        wardCode: this.patientInfo.wardCode || this.queryInfo.cpIncludeDeptCode,
+        recordDate: this.queryDate
+      }
+      this.$refs.vitalSignRef.open(params);
+    },
     onPrint() {
       this.isPrintAll = false;
       setTimeout(() => {
@@ -282,12 +298,16 @@ export default {
     authTokenNursing() {
       return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
+    queryInfo() {
+      return this.$route.query;
+    }
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);
   },
   components: {
     nullBg,
+    VitalSignList,
   },
 };
 </script>

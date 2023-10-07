@@ -27,7 +27,6 @@ function focusElement(x, y, z) {
     document.querySelector(`[position="${x},${y},${z}"]`).click();// 贵州需求:键盘切换时触发点击事件
     return true;
   } catch (e) {
-    console.log(e);
     return false;
   }
 }
@@ -140,8 +139,11 @@ function onFocusToAutoComplete(e, bind, cb) {
       }
     }
   }
+  let list = td.value ? td.value.split(',') : [];
+  let sheetTypeList = ["criticallycare_bh" , "additional_count_hd"];
+  let tdKeyList = ["pipeCare" , "nursingOperationItem"];
+  let isCriticallycareBh = sheetTypeList.includes(sheetInfo.sheetType) && tdKeyList.includes(td.key);
   setTimeout(() => {
-    // console.log(xy.left - scrollLeft - window.scrollX,xy.left,scrollLeft,window.scrollX);
     window.openAutoComplete({
       style: {
         top: `${xy.top - scrollTop - window.scrollY + 30}px`,
@@ -150,11 +152,13 @@ function onFocusToAutoComplete(e, bind, cb) {
         width: isSearch ? `${xy.width}px !important` : '120px'
       },
       data: autoCompleteData,
+      multiple: isCriticallycareBh,
+      selectedList: isCriticallycareBh ? list : [],
       callback: function (data) {
         cb && cb()
         // 威县下拉选项后一个选项依赖于前一个td的选择(威县这个功能已经废除，如果使用了下拉就用不了多选)（如果想要这个功能可参考 威县-重症护理记录单II（EICU））
         // 选择出量名称的时候和上次不一样 则清除出量性质
-          if ( ['guizhou', '925'].includes(process.env.HOSPITAL_ID)) {
+        if ( ['guizhou', '925'].includes(process.env.HOSPITAL_ID)) {
           tr.isChange = true
           if (td.value && td.value != data && td.childKey) {
             tr.map(item => {
@@ -169,19 +173,26 @@ function onFocusToAutoComplete(e, bind, cb) {
           return;
         }
 
+
         if (data) {
           // let preText = ""
           if(typeof (splice) == 'string'){
             let index = td.value.split(splice).findIndex(val=>val===data)
             if(index<0){
-              td.value = td.value + splice + data
+              td.value = td.value + (td.value?splice:"") + data
             }else{
               let arr = td.value.split(splice)
               arr.splice(index,1)
               td.value = arr.join(splice)
             }
           }else{
-            td.value = data
+            if (!list.includes(data)) {
+              list.push(data);
+            } else {
+              let index = list.indexOf(data);
+              list.splice(index, 1);
+            }
+            td.value = splice ? list.join(',') : data
           }
 
           // if (typeof (splice) == 'string') {
@@ -191,7 +202,7 @@ function onFocusToAutoComplete(e, bind, cb) {
           // }
           // if(typeof (splice)==='string' && !splice){
           //   td.value = preText + data
-          // }else td.value = (splice ? preText : '') + data} 
+          // }else td.value = (splice ? preText : '') + data}
         }
         ;
       },
@@ -296,7 +307,6 @@ function BlackTop(index) {
       flag = targetVal == '小结'
     }
     if (isMid) {
-      console.log(targetIndex);
       let targetVal = this.data.bodyModel[index][targetIndex + 2].value || ""
       flag = targetVal == '小结'
     }
