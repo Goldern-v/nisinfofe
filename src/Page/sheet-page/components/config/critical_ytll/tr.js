@@ -175,16 +175,31 @@ export default [
     }
   },
   {
-    key: "gcs",
+    key: "expand",
     event: keyf1,
     value: "",
     next: "",
-    name: "GCS",
-    textarea: { width: 40 },
+    name: "E",
+    textarea: { width: 15 },
     change: (e, td) => limitChange(e, td, 12),
-    autoComplete: {
-      data: ["EMV"]
-    }
+  },
+  {
+    key: "expand2",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "M",
+    textarea: { width: 15 },
+    change: (e, td) => limitChange(e, td, 12)
+  },
+  {
+    key: "expand3",
+    event: keyf1,
+    value: "",
+    next: "",
+    name: "V",
+    textarea: { width: 15 },
+    change: (e, td) => limitChange(e, td, 12)
   },
   {
     key: "pupilSizeLeft",
