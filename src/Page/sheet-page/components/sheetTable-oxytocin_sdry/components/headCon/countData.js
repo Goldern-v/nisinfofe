@@ -211,11 +211,11 @@ export let countData = {
       },
       {
         type: "text",
-        value: ""
+        value: " "
       },
       {
         type: "text",
-        value: ""
+        value: " "
       }
     ],
     [{
@@ -257,11 +257,11 @@ export let countData = {
       },
       {
         type: "text",
-        value: ""
+        value: " "
       },
       {
         type: "text",
-        value: ""
+        value: " "
       }
     ],
     [{
