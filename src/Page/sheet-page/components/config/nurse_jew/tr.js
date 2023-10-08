@@ -33,12 +33,14 @@ import {
       key: "recordMonth", //日期
       value: "",
       event: event_date,
-      click: click_date
+      click: click_date,
+      textarea:{ width:40},
     },
     {
       key: "recordHour", //时间
       value: "",
-      event: event_time
+      event: event_time,
+      textarea:{ width:40},
     },
 
     {
