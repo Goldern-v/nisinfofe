@@ -19,7 +19,7 @@ export default {
         top:
             [
                 {"name": '', style: {}, "colspan": "2", "rowspan": "1", key:'recordYear'},
-                {"name": "病情评估", "colspan": "19", "rowspan": "1"},
+                {"name": "病情评估", "colspan": "21", "rowspan": "1"},
                 {"name": "呼吸机工作条件", "colspan": "5", "rowspan": "1"},
                 {"name": "入量", "colspan": "3", "rowspan": "1"},
                 {"name": "出量", "colspan": "3", "rowspan": "1"},
@@ -48,7 +48,7 @@ export default {
                 {"name": "皮肤", "colspan": "1", "rowspan": "2"},
                 {"name": "镇静评分", "colspan": "1", "rowspan": "2"},
                 {"name": "输液通路", "colspan": "2", "rowspan": "1"},
-                {"name": "GCS", "colspan": "1", "rowspan": "2"},
+                {"name": "GCS", "colspan": "3", "rowspan": "1"},
                 {"name": "瞳孔mm/<br>对光反应", "colspan": "4", "rowspan": "1"},
                 {"name": "模式", "colspan": "1", "rowspan": "2"},
                 {"name": "频率次/分", "colspan": "1", "rowspan": "2"},
@@ -67,6 +67,9 @@ export default {
         [
                 {"name": "类别", "colspan": "1", "rowspan": "1"},
                 {"name": "畅否", "colspan": "1", "rowspan": "1"},
+                {"name": "E", "colspan": "1", "rowspan": "1"},
+                {"name": "M", "colspan": "1", "rowspan": "1"},
+                {"name": "V", "colspan": "1", "rowspan": "1"},
                 {"name": "左", "colspan": "2", "rowspan": "1"},
                 {"name": "右", "colspan": "2", "rowspan": "1"},
             ]

@@ -886,7 +886,6 @@ export default {
     },
     async setDiagnosis() {
       if (!this.sheetInfo.relObj[`diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`]) {
-        if(!this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]){
           try {
             const res = await queryDianosisList({
               patientId: this.patientInfo.patientId,
@@ -903,15 +902,8 @@ export default {
           } catch (error) {
             throw new Error(error);
           }
-        }else{
-          this.$set(
-            this.sheetInfo.relObj,
-            `diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`,
-            this.sheetInfo.relObj[`PageIndex_diagnosis_${this.index}`]
-          );
         }
       }
-    }
   },
   filters: {
     toymd(val) {
@@ -932,16 +924,9 @@ export default {
   },
   async created() {
     if (!this.sheetInfo.relObj[`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]) {
-      if(!this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`]){
         this.sheetInfo.relObj[
         `bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`
       ] = this.patientInfo.bedLabel;
-      }else{
-        this.sheetInfo.relObj[
-        `bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`
-      ] = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`];
-      }
-
     }
     // if (!this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`]) {
     //   this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`] = this.patientInfo.realDeptName
