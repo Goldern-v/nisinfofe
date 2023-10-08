@@ -646,7 +646,7 @@ export default {
     }
     if (
       this.HOSPITAL_ID === "wujing" &&
-      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+      this.lineSpacingArr.includes(this.query.sheetType)
     ) {
       addCSS(
         window,
@@ -674,7 +674,7 @@ export default {
         `
       );
     }
-    if (['oxytocin'].includes(sheetInfo.sheetType)&&this.HOSPITAL_ID === "wujing") {
+    if (['oxytocin'].includes(this.query.sheetType)&&this.HOSPITAL_ID === "wujing") {
       addCSS(
         window,
         `

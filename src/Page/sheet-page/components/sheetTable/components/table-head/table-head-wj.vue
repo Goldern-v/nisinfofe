@@ -148,7 +148,7 @@
       <span
         @click="updateTetxInfo('patientName', '姓名', patientInfo.patientName)"
       >
-        姓名111：
+        姓名：
         <div class="bottom-line" style="min-width: 40px">
           {{ patientInfo.patientName }}
         </div>
