@@ -58,7 +58,7 @@ export default {
         东莞市厚街医院: "HLheader",
         德州市陵城区人民医院: "LingChengHeader",
         广州市花都区人民医院: "HuaDuHeader",
-        武警广东省总队医院: "WuJingHeader",
+        武警广东总队医院: "WuJingHeader",
         江门市妇幼保健院: "FuYouHLheader",
         聊城市第二人民医院: "LiaoChengHeader",
         中山大学附属第七医院: "ZhongShanQiHeader",

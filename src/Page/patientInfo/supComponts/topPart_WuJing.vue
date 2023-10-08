@@ -8,7 +8,7 @@
     >
       <img src="../../../common/images/logo_hj.png" height="63" width="63" />
       <span>
-        武警广东省总队医院
+        武警广东总队医院
         <br />智慧护理信息系统
       </span>
     </el-row>
