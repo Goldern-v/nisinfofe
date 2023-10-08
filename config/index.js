@@ -281,10 +281,10 @@ const currentTargetUrl = (() => {
       // return 'http://192.168.3.152:8080'
       // return 'http://192.168.1.54:9883'
           // return 'http://192.168.1.54:9901'  //
-          return  'http://59.38.110.189:9092'
+          // return  'http://59.38.110.189:9092'
           // return  'http://192.168.20.158:9091'
       // return 'http://192.168.5.127:9091'
-      // return  'https://info.cr-health.com:20215'
+      return  'https://info.cr-health.com:20215'
       // return 'http://10.108.4.45:9091/'
       // return 'http://192.168.20.89:8080' //华渊哥本地
     case 'zzwy':
@@ -300,7 +300,8 @@ const currentTargetUrl = (() => {
     // 顺德和平外科
     case 'sdhpwk':
       // return 'http://192.168.1.54:9866'
-      return 'http://202.104.27.221:9091'
+      // return 'http://202.104.27.221:9091'
+      return "https://info.cr-health.com:20217" //公司外网
 
     // 惠州市第六人民医院
     case 'hzly':
