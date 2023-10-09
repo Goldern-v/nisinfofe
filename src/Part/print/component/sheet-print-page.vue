@@ -655,6 +655,12 @@ export default {
           .body-con{
             height: 30px !important;
           }
+          .his-name{
+            font-size: 32px !important;
+          }
+          .title{
+           font-size: 40px !important;
+          }
         }
         @page{
             margin-top: 30px;
@@ -680,7 +686,7 @@ export default {
         `
         @media print {
           @page{
-           margin-top: 30px;
+           margin-top: 50px;
           }
         }
         `
