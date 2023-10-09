@@ -20,7 +20,7 @@ let sshUpload = (
     德州市陵城区人民医院: "lingcheng",
     花都武警医院: "huaduwujing",
     广州市花都区人民医院: "huadu",
-    武警广东省总队医院: "wujing",
+    武警广东总队医院: "wujing",
     江门市妇幼保健院: "fuyou",
     聊城市第二人民医院: "liaocheng",
     青海五院: "qhwy",

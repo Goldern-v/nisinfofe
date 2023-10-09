@@ -16,15 +16,23 @@ export default {
   },
   th: {
     top: [
-      { 
-        name: `月/日`, 
+      {
+        name: `月/日`,
         colspan: "1",
-        rowspan: "3" 
+        rowspan: "3" ,
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
       },
-      { 
+      {
         name: `时间`,
-        colspan: "1", 
-        rowspan: "3" 
+        colspan: "1",
+        rowspan: "3" ,
+        style: {
+          minWidth: '40px',
+          maxWidth: '40px',
+        },
       },
       {
         name: '意识',
@@ -40,32 +48,32 @@ export default {
         name: '体温<br/>℃',
         colspan: '1',
         rowspan: '3'
-      },           
+      },
       {
         name: '脉搏<br/>次/分',
         colspan: '1',
         rowspan: '3'
-      },     
+      },
       {
         name: '呼吸<br/>次/分',
         colspan: '1',
         rowspan: '3'
-      },     
+      },
       {
         name: '血压<br/>mmHg',
         colspan: '1',
         rowspan: '3'
-      },    
+      },
       {
         name: '心率<br/>次/分',
         colspan: '1',
         rowspan: '3'
-      },     
+      },
       {
         name: '心律',
         colspan: '1',
         rowspan: '3'
-      },     
+      },
       {
         name: '血氧<br/>饱和度<br/>%',
         colspan: '1',
@@ -119,81 +127,81 @@ export default {
         name: '大小',
         colspan: '2',
         rowspan: '1'
-      },     
+      },
       {
         name: '反射',
         colspan: '2',
         rowspan: '1'
-      },    
+      },
       {
         name: '方式',
         colspan: '1',
         rowspan: '2'
-      },   
+      },
       {
         name: 'L/min',
         colspan: '1',
         rowspan: '2'
-      },   
+      },
       {
         name: '名称或用法',
         colspan: '1',
         rowspan: '2'
-      },   
+      },
       {
         name: '量',
         colspan: '1',
         rowspan: '2'
-      },   
+      },
       {
         name: '名称',
         colspan: '1',
         rowspan: '2'
-      },   
+      },
       {
         name: '量',
         colspan: '1',
         rowspan: '2'
-      },   
+      },
       {
         name: '体位',
         colspan: '1',
         rowspan: '2'
-      },   
+      },
       {
         name: '病情<br/>巡视',
         colspan: '1',
         rowspan: '2'
-      },   
+      },
       {
         name: '护理<br/>操作',
         colspan: '1',
         rowspan: '2'
-      },   
+      },
       {
         name: '',
         colspan: '1',
         rowspan: '2',
         canSet:true,
         key:"custom"
-      },   
+      },
     ],
     bottom: [
       {
         name: '左',
         colspan: '1',
         rowspan: '1'
-      },       
+      },
       {
         name: '右',
         colspan: '1',
         rowspan: '1'
-      },     
+      },
       {
         name: '左',
         colspan: '1',
         rowspan: '1'
-      },       
+      },
       {
         name: '右',
         colspan: '1',

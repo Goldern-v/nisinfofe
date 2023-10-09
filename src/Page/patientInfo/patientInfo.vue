@@ -152,7 +152,7 @@ export default {
         威县人民医院: "topPartWeiXian",
         东莞市厚街医院: "topPart",
         广州市花都区人民医院: "topPartHuaDu",
-        武警广东省总队医院: "topPartWuJing",
+        武警广东总队医院: "topPartWuJing",
         中山大学附属第七医院: "topPartZhongShanQi",
         聊城市第二人民医院: "topPartLiaoCheng",
         山南市人民医院: "topPartShanNan",

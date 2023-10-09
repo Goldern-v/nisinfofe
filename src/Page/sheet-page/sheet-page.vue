@@ -619,7 +619,7 @@ export default {
       if(startPageIndex == null||endPageIndex == null) return
       this.tableLoading = true;
       sheetInfo.isDone = false;
-      if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'fsxt', 'gdtj', 'nfyksdyy','zjhj','hzly','sdhpwk'].includes(this.HOSPITAL_ID)) {
           this.bus.$emit("refreshTitleTemplate", this.getTemplateList);
         }
       if(["guizhou", 'huadu', '925', 'wujing'].includes(this.HOSPITAL_ID)){
@@ -640,7 +640,7 @@ export default {
         list('全部',this.patientInfo.wardCode),
       ]
       // 佛山市一 获取自定义标题数据
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj','hzly','sdhpwk'].includes(this.HOSPITAL_ID)) {
         fnArr.shift()
         fnArr.unshift(findListByBlockId(startPageIndex,endPageIndex))
       }
@@ -1109,7 +1109,6 @@ export default {
           if([].includes(this.HOSPITAL_ID) && nanFangcaLogin){
             const nanFangcaToken = localStorage["nanFangcaToken"] || ""
             let userName = JSON.parse(localStorage.user).empNo
-            console.log(decodeAyncVisttedData,'decodeAyncVisttedData')
             let p7SignObj = decodeAyncVisttedData.list.length>0?(decodeAyncVisttedData.list[decodeAyncVisttedData.list.length-1]):{}
             let verifySignObj = {
               patientId:this.patientInfo.patientId,

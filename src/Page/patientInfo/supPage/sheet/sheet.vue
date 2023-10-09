@@ -500,7 +500,7 @@ export default {
         list('全部',this.patientInfo.wardCode),
       ]
       // 佛山市一 获取自定义标题数据
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj','hzly','sdhpwk'].includes(this.HOSPITAL_ID)) {
         fnArr.shift()
         fnArr.unshift(findListByBlockId(startPageIndex,endPageIndex))
       }

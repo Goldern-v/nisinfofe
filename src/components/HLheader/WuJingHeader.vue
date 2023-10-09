@@ -14,7 +14,7 @@
             >
               <img src="../../common/images/logo_wujing.png" />
               <span>
-                武警广东省总队医院
+                武警广东总队医院
                 <br />智慧护理信息系统
               </span>
             </el-row>

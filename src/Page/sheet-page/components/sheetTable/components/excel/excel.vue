@@ -1250,7 +1250,6 @@ export default {
       leftTopBottomRight(e, bind);
     },
     onFocus(e, bind) {
-
       if (sheetInfo.model == "print") return;
       if (!this.sheetInfo.downControl) {
         setTimeout(() => {
@@ -1401,7 +1400,7 @@ export default {
       }
     },
     setTitle(item) {
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy','whhk'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zzwy','whhk','hzly','zjhj','sdhpwk'].includes(this.HOSPITAL_ID)) {
 
         this.setTitleFS(item)
         return
@@ -1498,7 +1497,7 @@ export default {
     addNullRow(index, row,direction) {
       let newRow = nullRow();
       newRow.find((item) => item.key == "recordMonth").addRowDate = this.getLastRecordDate(index, row,direction);
-      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi','fsxt', 'gdtj', 'nfyksdyy','zjhj','hzly','sdhpwk'].includes(this.HOSPITAL_ID)) {
         // 发送请求。有自定义标题且含下拉的。放进去
         const {startPageIndex,endPageIndex} = this.$store.state.sheet.sheetPageArea
         findListByBlockId(startPageIndex,endPageIndex).then(res=>{
@@ -2356,7 +2355,6 @@ export default {
       let auditorName = trArr.find((item) => {
         return item.key == "auditorName";
       }).value;
-        // console.log("koaosdad",auditorName)
       if (status == "2" && sign) {
         if (this.HOSPITAL_ID == "foshanrenyi" || this.HOSPITAL_ID == "zzwy" || this.HOSPITAL_ID == "whhk") {
           return  `<img
@@ -2855,7 +2853,6 @@ export default {
         //         }
         //       })
         //     }
-        //     console.log(color, type)
         //   }
         // }
       ];
@@ -2987,7 +2984,6 @@ export default {
         this.isOpenEditModal = false;
       }, 1000);
       // 护理记录单特殊情况记录输入多行,签名后,其他项目不能在编辑
-      // console.log(tr,data);
       // if (
       //   this.HOSPITAL_ID == "huadu"
       //   // && tr.find(item => item.key == "status").value === "1"
@@ -3026,7 +3022,6 @@ export default {
       }
       // 能否保存()
       const canNotSave = tr.find(item => item.key == 'recordMonth').isDisabed
-      console.log(data.titleModel,'ddddddddddddddddddddd')
       let thead = data.titleModel;
       let table = data.bodyModel;
       // 数组重组
@@ -3157,7 +3152,6 @@ export default {
       if (sheetInfo.model == "print") return;
       // this.sheetInfo.clickRow = `${index}_${y}`;
       this.sdyyRow = `${index}_${y}`;
-      // console.log('this.sheetInfo.clickRow',this.sheetInfo.clickRow);
       if (this.sheetInfo.downControl) {
         this.sheetInfo.downControl = e.ctrlKey;
         let index = this.sheetInfo.selectRow.indexOf(tr);
@@ -3342,7 +3336,6 @@ export default {
           let copyArr = JSON.parse(JSON.stringify(this.defaultOptionList));
           this.defaultOptionList = Object.keys(copyArr);
         } else if (type == "[object Array]") {
-          // console.log(this.defaultOptionList);
         }
         this.accessOptionList = this.defaultOptionList.filter((item) => {
           return item.includes(query);

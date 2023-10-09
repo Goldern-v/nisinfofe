@@ -375,9 +375,14 @@ export default {
         });
     },
     search() {
-      this.query.pageIndex = 1;
-      this.onLoad();
-      this.onLoadAll();
+      const spacePattern = /\s/; // 匹配任何空白字符，包括空格、制表符、换行符等
+      if(spacePattern.test(this.query.bedLabel) && ['whhk'].includes(this.HOSPITAL_ID)){
+        this.$message.warning("输入内容无效,含有特殊字符,请检查。");
+      }else{
+        this.query.pageIndex = 1;
+        this.onLoad();
+        this.onLoadAll();
+      }
     },
     getNursingClass() {
       let list = ["nurse_nursing_class"];
