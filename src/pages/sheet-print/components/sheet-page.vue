@@ -330,6 +330,23 @@ export default {
 
                   `
                 );
+              }else if ("critical2_weihai" === this.sheetInfo.sheetType) {
+                addCSS(
+                  window,
+                  `
+                  @media print {
+                    @page{
+                      size:A4;
+                    }
+                    .iframe > div:nth-of-type(n){
+                      transform: rotateZ(90deg) scaleX(.9) scaleY(1.33) translateY(595px) !important;
+                      margin-top: 30px !important;
+                      transform-origin: center center !important;
+                      height: 1620px !important;
+                    }
+                  }
+                  `
+                );
               }
               /** 如果是威县超宽打印 */
               if (this.HOSPITAL_ID == "weixian") {
