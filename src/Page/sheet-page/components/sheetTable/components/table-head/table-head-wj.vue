@@ -1,7 +1,7 @@
 <template>
-  <div :class="['header-con',['common_wj', 'waiting_birth_wj','postpartum_nurse_wj'].includes(sheetInfo.sheetType)?'wujing-big-title':'']">
-    <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
-    <div class="title">{{ patientInfo.recordName }}</div>
+  <div :class="['header-con']">
+    <div class="his-name" style='font-size: 29px;font-weight: 700;'>{{HOSPITAL_NAME}}</div>
+    <div class="title" style='font-size: 34px;font-weight: 700;'>{{ patientInfo.recordName }}</div>
     <div v-if="sheetInfo.sheetType === 'waiting_birth_wj'">
       <div class="info-con big-header" flex="main:justify" >
         <span
@@ -408,11 +408,7 @@ export default {
       }
     }
   }
-}
-.wujing-big-title{
-  .title,.his-name{
-    font-size: 29px;
-  }
+ 
 }
 .big-header span{
   font-size: 15px!important;

@@ -128,9 +128,9 @@ export default {
   methods: {
     openSignList() {
       const params = {
-        patientId: this.patientInfo.patientId,
-        visitId: this.patientInfo.visitId,
-        wardCode: this.patientInfo.wardCode,
+        patientId: this.patientInfo.patientId || this.queryInfo.patientId,
+        visitId: this.patientInfo.visitId || this.queryInfo.visitId,
+        wardCode: this.patientInfo.wardCode || this.queryInfo.cpIncludeDeptCode,
         recordDate: this.queryDate
       }
       this.$refs.vitalSignRef.open(params);
@@ -298,6 +298,9 @@ export default {
     authTokenNursing() {
       return JSON.parse(localStorage.getItem("user")).token; //获取登录token
     },
+    queryInfo() {
+      return this.$route.query;
+    }
   },
   beforeDestroy() {
     window.removeEventListener("message", this.messageHandle, false);

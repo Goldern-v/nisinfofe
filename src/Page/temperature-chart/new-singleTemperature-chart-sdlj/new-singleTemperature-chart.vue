@@ -155,6 +155,22 @@ export default {
     }
   },
   mounted() {},
+  beforeRouteLeave (to, from, next) {
+    if (!this.$store.state.admittingSave.isLeaveTip && ['925'].includes(this.HOSPITAL_ID)) {
+      window.app
+        .$confirm("体温单数据还未保存，离开将会丢失数据", "提示", {
+          confirmButtonText: "离开",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+        .then(res => {
+          this.$store.commit("upIsLeaveTip", true);
+          next();
+        });
+    } else {
+      next();
+    }
+  },
   methods: {
     //关闭录入界面
     openRight() {

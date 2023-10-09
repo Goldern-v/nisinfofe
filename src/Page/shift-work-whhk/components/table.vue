@@ -155,6 +155,7 @@
 
 
 <script>
+import BusFactory from "vue-happy-bus";
 import {
   tableConfig,
   bodyColumns
@@ -204,7 +205,8 @@ export default {
       selectedRowIndex: -1,
       selectedCol: null,
       tableConfig,
-      bodyColumns
+      bodyColumns,
+      bus: BusFactory(this)
     }
   },
   computed: {
@@ -221,6 +223,7 @@ export default {
           visitId: row.visitId,
         }
       })
+      this.bus.$emit('refreshTree')
     },
     onDblClick(data) {
       this.$emit("dblclick", data);

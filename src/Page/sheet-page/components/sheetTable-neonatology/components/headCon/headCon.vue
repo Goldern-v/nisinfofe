@@ -76,14 +76,15 @@ export default {
           cancelSign(password, username).then(res => {
             this.sheetInfo.selectBlock.signerName = res.data.data.signerName;
             this.sheetInfo.selectBlock.signerNo = res.data.data.signerNo;
+            this.bus.$emit("saveSheetPage", true);
           });
         } else {
           signBlock(password, username).then(res => {
             this.sheetInfo.selectBlock.signerName = res.data.data.signerName;
             this.sheetInfo.selectBlock.signerNo = res.data.data.signerNo;
+            this.bus.$emit("saveSheetPage", true);
           });
         }
-        this.bus.$emit("saveSheetPage", true);
       }, title, null,false,'',this.sheetInfo.selectBlock);
     }
   },

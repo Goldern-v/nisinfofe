@@ -646,7 +646,7 @@ export default {
     }
     if (
       this.HOSPITAL_ID === "wujing" &&
-      this.lineSpacingArr.includes(this.sheetInfo.sheetType)
+      this.lineSpacingArr.includes(this.query.sheetType)
     ) {
       addCSS(
         window,
@@ -655,6 +655,9 @@ export default {
           .body-con{
             height: 30px !important;
           }
+        }
+        @page{
+            margin-top: 30px;
         }
         `
       );
@@ -666,6 +669,18 @@ export default {
         @media print {
           @page{
             margin:-55px 0 0;
+          }
+        }
+        `
+      );
+    }
+    if (['oxytocin'].includes(this.query.sheetType)&&this.HOSPITAL_ID === "wujing") {
+      addCSS(
+        window,
+        `
+        @media print {
+          @page{
+           margin-top: 30px;
           }
         }
         `

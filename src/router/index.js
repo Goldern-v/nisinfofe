@@ -1344,7 +1344,6 @@ const router = new Router({
           component: (() => {
             switch (process.env.HOSPITAL_ID) {
               case 'guizhou':
-              case '925':
                 return healthEducationGuizhou
               case 'beihairenyi':
                 return healthEducationBerhairenyi
@@ -2229,7 +2228,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   } else {
-    document.title = process.env.title || '百辰源智慧护理信息系统'
+    document.title = process.env.title || '智慧护理信息系统'
   }
   next();
 });

@@ -122,7 +122,7 @@ export default [
     change: (e, td) => limitChange(e, td, 4)
   },
   {
-    key: 'armValue1',
+    key: 'armValue19',
     event: keyf1,
     value: '',
     next: '',
@@ -131,7 +131,7 @@ export default [
     change: (e, td) => limitChange(e, td, 6)
   },
   {
-    key: 'armValue2',
+    key: 'armValue20',
     event: keyf1,
     value: '',
     next: '',
@@ -140,7 +140,7 @@ export default [
     change: (e, td) => limitChange(e, td, 6)
   },
   {
-    key: 'armValue3',
+    key: 'armValue15',
     event: keyf1,
     value: '',
     next: '',
@@ -149,7 +149,7 @@ export default [
     change: (e, td) => limitChange(e, td, 6)
   },
   {
-    key: 'armValue4',
+    key: 'armValue16',
     event: keyf1,
     value: '',
     next: '',
@@ -157,6 +157,60 @@ export default [
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
+
+  {
+    key: 'armValue17',
+    event: keyf1,
+    value: '',
+    next: '',
+    name: '',
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
+  }, {
+    key: 'armValue18',
+    event: keyf1,
+    value: '',
+    next: '',
+    name: '',
+    textarea: { width: 40 },
+    change: (e, td) => limitChange(e, td, 6)
+  },
+  // {
+  //   key: 'armValue1',
+  //   event: keyf1,
+  //   value: '',
+  //   next: '',
+  //   name: '',
+  //   textarea: { width: 40 },
+  //   change: (e, td) => limitChange(e, td, 6)
+  // },
+  // {
+  //   key: 'armValue2',
+  //   event: keyf1,
+  //   value: '',
+  //   next: '',
+  //   name: '',
+  //   textarea: { width: 40 },
+  //   change: (e, td) => limitChange(e, td, 6)
+  // },
+  // {
+  //   key: 'armValue3',
+  //   event: keyf1,
+  //   value: '',
+  //   next: '',
+  //   name: '',
+  //   textarea: { width: 40 },
+  //   change: (e, td) => limitChange(e, td, 6)
+  // },
+  // {
+  //   key: 'armValue4',
+  //   event: keyf1,
+  //   value: '',
+  //   next: '',
+  //   name: '',
+  //   textarea: { width: 40 },
+  //   change: (e, td) => limitChange(e, td, 6)
+  // },
   {
     key: 'armValue5',
     event: keyf1,
@@ -229,24 +283,8 @@ export default [
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
-  {
-    key: 'armValue13',
-    event: keyf1,
-    value: '',
-    next: '',
-    name: '',
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 6)
-  },
-  {
-    key: 'armValue14',
-    event: keyf1,
-    value: '',
-    next: '',
-    name: '',
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 6)
-  },
+
+
   {
     key: "description", //特殊情况记录
     value: "",

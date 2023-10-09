@@ -12,29 +12,31 @@
         v-loading="modalLoading"
         ref="printCon"
       >
+
         <div
           class="bed-card-con"
           flex
           :class="{ remarkCon: formData.remarkPrint }"
         >
-          <img
-            class="qr-code"
-            :class="{ hasRemark: hasRemark }"
-            :src="qrCode"
-          />
-          <div
-            class="qr-code-num"
-            :class="{ hasRemark: hasRemark }"
-          >
-            {{ qrCodeNum }}
+          <div>
+            <img
+              class="qr-code"
+              :class="{ hasRemark: hasRemark }"
+              :src="qrCode"
+            />
+            <div
+              class="qr-code-num"
+              :class="{ hasRemark: hasRemark }"
+            >
+              {{ qrCodeNum }}
+            </div>
           </div>
           <div style="width: 0" flex-box="1">
             <div
               class="title-name"
               flex="cross:center"
-              style="height: 43px"
+              style="height: 43px;margin-top:110px;"
             >
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
                 nowidth
@@ -50,7 +52,6 @@
               flex="cross:center"
               style="height: 43px"
             >
-              <span :style="`width: ${hasRemark ? 85 : 100}px`"></span>
               <input
                 type="text"
                 flex-box="1"
@@ -60,7 +61,7 @@
               />
 
             </div>
-            <div class="title-sign" style="margin-top: 17px;">
+            <div class="title-sign" >
               <div
                 flex="cross:center"
                 class="input-item"
@@ -159,9 +160,10 @@
 
 .bed-card-con {
   margin: 20px;
-  width: 400px;
-  height: 500px;
+  width: 370px;
+  height: 580px;
   padding: 5px 8px;
+  padding-top: 35px;
   box-sizing: border-box;
   border-right: 5px solid #fff;
   position: relative;
@@ -170,11 +172,11 @@
   // &.remarkCon
   .qr-code {
     position: absolute;
-    top: -5px;
-    left: -5px;
+    top: 20px;
+    left: 50%;
     height: 112px;
     width: 112px;
-
+    transform: translate(-50%, 0);
     &.hasRemark {
       width: 96px;
       height: 96px;
@@ -183,10 +185,11 @@
 
   .qr-code-num {
     position: absolute;
-    top: 92px;
-    left: 0px;
+    top: 120px;
+    left: 50%;
     width: 120px;
     text-align: center;
+    transform: translate(-50%, 0);
     z-index: 2;
     font-size: 16px;
 
@@ -223,15 +226,19 @@
   border: 0;
   padding: 0;
 }
+.title-name {
+  margin-bottom: 10px;
+}
 
 .input-item {
   height: 40px;
+  width: 350px;
   padding-right: 12px;
   font-size: 25px;
   font-weight: bold;
   position: relative;
   z-index: 2;
-  width: 350px;
+  margin-bottom: 10px;
 
   .input-item-left {
     display: inline-block;
@@ -380,9 +387,9 @@ input[type='checkbox']:checked:after {
     box-sizing: border-box;
     font-size: 17px;
     align-items: center;
-    margin: 2px;
     height: 50px;
     width: 150px;
+    margin: 10px;
     img {
       width: 40px;
       padding: 2px;
