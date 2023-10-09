@@ -51,7 +51,7 @@
         <td>{{ item.diagnosis }}</td>
         <td>{{ item.transferFrom }}</td>
 
-        <td>{{ dataOut[index].dischargeDateTime }}</td>
+        <td>{{ dataOut[index].logDateTime }}</td>
         <td>{{ dataOut[index].bedLabel }}</td>
         <td
           @click="dataOut[index].patientId && toPatientHome(dataOut[index].patientId, dataOut[index].visitId)"
