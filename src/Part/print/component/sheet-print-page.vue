@@ -656,10 +656,10 @@ export default {
             height: 30px !important;
           }
           .his-name{
-            font-size: 32px !important;
+            font-size: 24px !important;
           }
           .title{
-           font-size: 40px !important;
+           font-size: 33px !important;
           }
         }
         @page{
