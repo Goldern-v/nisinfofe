@@ -914,7 +914,14 @@ export default {
         path.includes("sheetHospitalEval") ||
         path.includes("MEWS")
       );
-    }
+    },
+    isImplementation(){
+      let path = this.$route.path;
+      return (
+        path.includes("bottleLabelByProgram") ||
+        path.includes("implementationList")
+      );
+    },
   },
   methods: {
     handleCommand(command) {

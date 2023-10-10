@@ -96,6 +96,7 @@ export default {
     },
     open(key) {
       this.category = key
+      // 床号排序
       this.optionList = key == 'bedthNull' ? this.list.sort((a, b) => a.bedNo - b.bedNo) : this.list.filter(item => item.patientId).sort((a, b) => a.bedNo - b.bedNo)
       this.$refs.modal.open();
     },

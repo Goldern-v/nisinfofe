@@ -1,7 +1,7 @@
 <template>
   <div :class="['header-con']">
-    <div class="his-name" style='font-size: 29px;font-weight: 700;'>{{HOSPITAL_NAME}}</div>
-    <div class="title" style='font-size: 34px;font-weight: 700;'>{{ patientInfo.recordName }}</div>
+    <div class="his-name" style='font-size: 21px;font-weight: 700;'>{{HOSPITAL_NAME}}</div>
+    <div class="title" style='font-size: 29px;font-weight: 700;'>{{ patientInfo.recordName }}</div>
     <div v-if="sheetInfo.sheetType === 'waiting_birth_wj'">
       <div class="info-con big-header" flex="main:justify" >
         <span

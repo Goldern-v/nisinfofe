@@ -170,6 +170,7 @@ const archive = () => import("@/Page/archive/archive.vue"); //归档
 const archiveFuyou = () => import("@/Page/archive/archiveFuyou.vue"); //归档
 const archiveFSSY = () => import("@/Page/archive/archiveFSSY.vue"); //归档
 const archiveBeiHai = () => import("@/Page/archive/archiveBeiHai.vue"); //归档
+const archiveHzly = () => import("@/Page/archive/archiveHzly.vue"); //归档
 const archiveSDYY = () => import("@/Page/archive/archiveSDYY.vue"); //归档
 const familyBigScreen = () =>
   import("@/Page/family-big-screen/family-big-screen.vue"); //家属大屏
@@ -779,6 +780,8 @@ const router = new Router({
             // beihairenyi本来是 archive，改版归档用archiveBeiHai，用archive那些医院也要改就用archiveBeiHai
             case "beihairenyi":
               return archiveBeiHai
+            case "hzly":
+              return archiveHzly
             default:
               return archive
           }
@@ -2228,7 +2231,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   } else {
-    document.title = process.env.title || '百辰源智慧护理信息系统'
+    document.title = process.env.title || '智慧护理信息系统'
   }
   next();
 });

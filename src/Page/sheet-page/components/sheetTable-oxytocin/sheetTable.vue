@@ -7,13 +7,13 @@
       <div class="header-con">
         <div class="his-name" :style="{
            'font-weight': HOSPITAL_ID === 'wujing' ? 'bold' : 'normal',
-           'font-size': HOSPITAL_ID === 'wujing' ? '29px' : 'inherit'
+           'font-size': HOSPITAL_ID === 'wujing' ? '21px' : 'inherit'
         }">
-          {{ HOSPITAL_NAME_SPACE }}
+          {{HOSPITAL_ID==='wujing' ? HOSPITAL_NAME : HOSPITAL_NAME_SPACE}}
         </div>
         <div class="title" :style="{
            'font-weight': HOSPITAL_ID === 'wujing' ? 'bold' : 'normal',
-           'font-size': HOSPITAL_ID === 'wujing' ? '34px' : 'inherit'
+           'font-size': HOSPITAL_ID === 'wujing' ? '29px' : 'inherit'
         }">
           {{patientInfo.recordName}}
         </div>
