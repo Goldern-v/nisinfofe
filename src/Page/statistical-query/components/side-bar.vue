@@ -41,13 +41,23 @@ export default {
         }),
         ...hisMatch({
           map: {
-            wujing: [{
-              name: "statisticalReport",
-              meta: {
-                title: '危重症病例统计表',
-                img: require("../images/workload.png"),
+            wujing: [
+              {
+                name: "statisticalReport",
+                meta: {
+                  title: '危重症病例统计表',
+                  img: require("../images/workload.png"),
+                },
               },
-            }],
+              {
+                name: "statisticalInfusion",
+                meta: {
+                  title: '输液巡视统计报表',
+                  img: require("../images/exit-adm.png"),
+                },
+              },
+
+            ],
             zhzxy: [
               {
                 name: "statisticalConsultation",

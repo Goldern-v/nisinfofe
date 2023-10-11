@@ -16,7 +16,7 @@
         <el-input placeholder="床号/姓名/多选用空格隔开" icon="search" v-model="searchWord"></el-input>
       </div>
       <div style="margin: 0px 10px 0px 10px">
-        <el-checkbox-group v-model="admitted" size="small"> 
+        <el-checkbox-group v-model="admitted" size="small">
           <el-checkbox-button v-for="option in checkOptions" :label="option" :key="option">{{ option }}
           </el-checkbox-button>
         </el-checkbox-group>
@@ -732,24 +732,25 @@ export default {
             : moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
           switch (this.HOSPITAL_ID) {
-            case "gdtj":
-              if (this.getHours() >= 0 && this.getHours() <= 2) {
-                return "02";
+            case "sdhpwk":
+              if (this.getHours() >= 1 && this.getHours() <= 4) {
+                return "04";
               }
-              if (this.getHours() > 2 && this.getHours() <= 6) {
-                return "06";
+              if (this.getHours() > 4 && this.getHours() <= 8) {
+                return "08";
               }
-              if (this.getHours() > 6 && this.getHours() <= 10) {
-                return "10";
+              if (this.getHours() > 8 && this.getHours() <= 12) {
+                return "12";
               }
-              if (this.getHours() > 10 && this.getHours() <= 14) {
-                return "14";
+              if (this.getHours() > 12 && this.getHours() <= 16) {
+                return "16";
               }
-              if (this.getHours() > 14 && this.getHours() <= 18) {
-                return "18";
+              if (this.getHours() > 16 && this.getHours() <= 20) {
+                return "20";
               }
-              if (this.getHours() > 18 && this.getHours() <= 23) {
-                return "22";
+              if (this.getHours() > 20 && this.getHours() <= 23 ||
+                this.getHours() === 0) {
+                return "24";
               }
             default:
               return "07";
@@ -759,27 +760,27 @@ export default {
       timesquZhou: [
         {
           id: 0,
-          value: "02",
+          value: "04",
         },
         {
           id: 1,
-          value: "06",
+          value: "08",
         },
         {
           id: 2,
-          value: "10",
+          value: "12",
         },
         {
           id: 3,
-          value: "14",
+          value: "16",
         },
         {
           id: 4,
-          value: "18",
+          value: "20",
         },
         {
           id: 5,
-          value: "22",
+          value: "24",
         },
       ],
       patientsInfoData: [],

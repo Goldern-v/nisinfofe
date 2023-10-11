@@ -336,6 +336,8 @@ const cognitiveStatistic = () =>
   import("@/Page/cognitive-statistic/cognitive-statistic.vue"); //住院病人认知情况统计表
 const statisticalReport = () =>
   import("@/Page/statistical-report/statistic-report.vue"); //危重症病例统计表
+const statisticalInfusion = () =>
+  import("@/Page/statistical-Infusion/statistic-infusion.vue"); //输液巡视统计报表
 const implementationReport = () =>
   import("@/Page/implementation-report/implementation-report.vue"); //执行单报表
 const bedRecord = () =>
@@ -1828,6 +1830,11 @@ const router = new Router({
         name: "危重症病例统计表"
       },
       {
+        path: "/statisticalInfusion",
+        component: statisticalInfusion,
+        name: "输液巡视统计报表"
+      },
+      {
         path: "/implementationReport",
         component: implementationReport,
         name: "执行单报表"
@@ -1888,6 +1895,11 @@ const router = new Router({
             path: "statisticalReport",
             component: statisticalReport,
             name: "statisticalReport",
+          },
+          {
+            path: "statisticalInfusion",
+            component: statisticalInfusion,
+            name: "statisticalInfusion",
           },
           {
             path: "statisticalOperation",
