@@ -6,7 +6,7 @@
       <el-tabs
         type="card"
         v-model="activeName"
-        v-if="['nfyksdyy'].includes(this.HOSPITAL_ID)"
+        v-if="['nfyksdyy','hzly'].includes(this.HOSPITAL_ID)"
       >
         <el-tab-pane label="设置自定义标题" name="first">
           <p for class="name-title" flex="main:justify">

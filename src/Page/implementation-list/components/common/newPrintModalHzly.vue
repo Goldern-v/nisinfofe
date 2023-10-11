@@ -3,15 +3,15 @@
   <div
     class="bottle-print-con"
     :style="{
-      width: `${newModalSize == '5*6' ? '5.4' : '12.8'}cm`,
-      height: `${newModalSize == '5*6' ? '6.2' : '3.3'}cm`
+      width: `${newModalSize == '5*6' ? '11' : '12.8'}cm`,
+      height: `${newModalSize == '5*6' ? '10' : '3.3'}cm`
     }"
   >
     <!-- 小瓶签一张纸需要打印3条数据数据间要留白 -->
     <div
       v-if="newModalSize == '5*6'"
       class="new-print-modal new-print-modal--large"
-      style="width:7.8cm;height:6.2cm;"
+      style="width:11cm;height:10cm;"
     >
       <div class="new-print-title">
         <div class="main-content">
@@ -43,8 +43,8 @@
       <table>
         <colgroup>
           <col />
-          <col width="40px" />
-          <col width="30px" />
+          <col width="60px" />
+          <col width="60px" />
         </colgroup>
         <tr>
           <td>药品名称</td>
@@ -165,15 +165,15 @@
       padding-top: 5px;
       .new-print-title {
         display: flex;
-        font-size: 12px;
+        font-size: 16px;
         justify-content: space-between;
-        line-height: 14px;
+        line-height: 21px;
         .main-content {
           display: flex;
           flex: 1;
           align-items: center;
           div>span{
-            font-size: 16px;
+            font-size: 25px;
             font-weight: 900;
           }
         }
@@ -182,12 +182,12 @@
         display: flex;
         justify-content: space-between;
         align-content: center;
-        font-size: 12px;
-        line-height: 14px;
+        font-size: 16px;
+        line-height: 21px;
         > div {
           > span {
             font-weight: 900;
-            font-size: 12px;
+            font-size: 25px;
           }
         }
         .qc-box {
@@ -248,25 +248,26 @@
 
       .new-print-modal__tip2 {
         position: relative;
-        font-size: 12px;
+        font-size: 16px;
         .sign_tip {
           display: flex;
           justify-content: flex-start;
           align-content: center;
+          line-height: 33px;
           > div:first-of-type {
-            width: 110px;
+            width: 155px;
           }
           .shoushu {
               border-bottom: 1px solid #000;
               display: inline-block;
-              width: 50px;
+              width: 75px;
             }
         }
         .qc-box {
           position: absolute;
           top: 0;
           right: 0;
-          width: 54px;
+          width: 80px;
           overflow: hidden;
           padding: 1px 1px 0px 0px;
           img {
@@ -283,7 +284,7 @@
       tr {
         td {
           border: 1px solid #000;
-          font-size: 12px;
+          font-size: 16px;
           text-align: center;
         }
         :first-child {
@@ -295,8 +296,8 @@
       }
       .reserved {
         td {
-          height: 125px;
-          font-size: 12px;
+          height: 180px;
+          font-size: 16px;
         }
       }
     }
