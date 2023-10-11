@@ -878,7 +878,7 @@ export default {
           `,
         })
           .then(() => {
-            // document.getElementById("new-print-box").style.display = "none";
+            document.getElementById("new-print-box").style.display = "none";
             this.search();
           })
           .catch((e) => {});
