@@ -735,7 +735,7 @@ export default {
           return item;
         });
         this.tableData = tableData;
-        console.log("table", tableData);
+        // console.log("table", tableData);
         this.pageDate();
         this.pageLoading = false;
       });
@@ -848,7 +848,7 @@ export default {
             for(let i = 0 ; i <= td.length-1; i++){
               td[0].childNodes.forEach((el,index) => {
                 if(i > 0){
-                  let height = el.clientHeight - ((el.clientHeight / 18) * 4 )
+                  let height = el.clientHeight;
                   td[i].childNodes[index].style.height = height + 'px'
                   td[i].childNodes[index].style.lineHeight = height + 'px'
                 }
