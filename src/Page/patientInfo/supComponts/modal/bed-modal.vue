@@ -1172,14 +1172,26 @@ export default {
       if (this.query.nursingClass == "三级护理") {
         data.push("三");
       }
-      if (this.query.patientCondition == "普通") {
-        data.push("普");
-      }
-      if (this.query.patientCondition == "病危") {
-        data.push("危");
-      }
-      if (this.query.patientCondition == "病重") {
-        data.push("重");
+      if(['whhk'].includes(this.HOSPITAL_ID)){
+        if (this.query.patientCondition.includes("普通")) {
+          data.push("普");
+        }
+        if (this.query.patientCondition.includes("病危")) {
+          data.push("危");
+        }
+        if (this.query.patientCondition.includes("病重")) {
+          data.push("重");
+        }
+      }else{
+        if (this.query.patientCondition == "普通") {
+          data.push("普");
+        }
+        if (this.query.patientCondition == "病危") {
+          data.push("危");
+        }
+        if (this.query.patientCondition == "病重") {
+          data.push("重");
+        }
       }
       return data;
     },

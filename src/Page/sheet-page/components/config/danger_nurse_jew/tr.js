@@ -24,21 +24,23 @@ import {
   click_date
 } from "../keyEvent/date";
 export default [
-  { 
-    key: "recordDate", 
+  {
+    key: "recordDate",
     value: "",
-    hidden:true 
+    hidden:true
   },
   {
     key: "recordMonth", //日期
     value: "",
     event: event_date,
-    click: click_date
+    click: click_date,
+    textarea:{ width:40},
   },
   {
     key: "recordHour", //时间
     value: "",
-    event: event_time
+    event: event_time,
+    textarea:{ width:40},
   },
   {
     key: "consciousness", //意识

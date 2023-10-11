@@ -242,7 +242,7 @@
               <div style="margin-left: -30px;">
                 <span>{{ query.name }}</span>
                 <span>{{ query.sex }}</span>
-                
+
                 <span>{{ query.bedLabel }}床</span>
               </div>
               <div style="margin-left: -30px;">
@@ -403,6 +403,9 @@
                     :maxlength="11"
                     v-model="phone"
                   />
+                  <span class="label" style="margin-left:30px;"
+                    >小心跌倒</span
+                  >
                 </div>
               </div>
 
@@ -1145,9 +1148,9 @@ export default {
          case 'whhk':
             return '50px'
          case 'huadu':
-            return '0px'  
+            return '0px'
          default:
-            return  '10px'  
+            return  '10px'
       }
     }
   },

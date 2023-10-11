@@ -19,12 +19,20 @@ export default {
         {
           name: `月/日`,
           colspan: "1",
-          rowspan: "3"
+          rowspan: "3",
+          style: {
+            minWidth: '40px',
+            maxWidth: '40px',
+          },
         },
         {
           name: `时间`,
           colspan: "1",
-          rowspan: "3"
+          rowspan: "3",
+          style: {
+            minWidth: '40px',
+            maxWidth: '40px',
+          },
         },
 
         {

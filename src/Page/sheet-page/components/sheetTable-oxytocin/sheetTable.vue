@@ -5,8 +5,18 @@
       src="../../../../common/images/his-logo/厚街医徽.png" />-->
       <img src="../../images/仅供查阅.jpg" class="readOnly-img no-print" v-if="readOnly" alt />
       <div class="header-con">
-        <div class="his-name">{{HOSPITAL_NAME_SPACE}}</div>
-        <div class="title">{{patientInfo.recordName}}</div>
+        <div class="his-name" :style="{
+           'font-weight': HOSPITAL_ID === 'wujing' ? 'bold' : 'normal',
+           'font-size': HOSPITAL_ID === 'wujing' ? '21px' : 'inherit'
+        }">
+          {{HOSPITAL_ID==='wujing' ? HOSPITAL_NAME : HOSPITAL_NAME_SPACE}}
+        </div>
+        <div class="title" :style="{
+           'font-weight': HOSPITAL_ID === 'wujing' ? 'bold' : 'normal',
+           'font-size': HOSPITAL_ID === 'wujing' ? '29px' : 'inherit'
+        }">
+          {{patientInfo.recordName}}
+        </div>
         <div class="info-con" flex="main:justify">
           <span>
             姓名：

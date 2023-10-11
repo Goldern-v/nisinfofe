@@ -77,9 +77,6 @@
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
-              :class="{
-                'router-link-active': isImplementation
-              }"
             >
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
@@ -917,7 +914,14 @@ export default {
         path.includes("sheetHospitalEval") ||
         path.includes("MEWS")
       );
-    }
+    },
+    isImplementation(){
+      let path = this.$route.path;
+      return (
+        path.includes("bottleLabelByProgram") ||
+        path.includes("implementationList")
+      );
+    },
   },
   methods: {
     handleCommand(command) {

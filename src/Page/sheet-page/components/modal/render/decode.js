@@ -1,15 +1,26 @@
-export function decoder_title(th) {
-  let customTitleListTop = th.th.top.filter(item => {
-    return item.key && item.key != 'recordYear'
-  });
-  let customTitleListMid = th.th.mid.filter(item => {
-    return item.key
-  });
-  let customTitleListBottom = th.th.bottom.filter(item => {
-    return item.key
-  });
 
-  return [...customTitleListMid, ...customTitleListTop, ...customTitleListBottom];
+export function decoder_title(th) {
+  if (process.env.HOSPITAL_ID == 'sdhpwk'){
+    let customTitleListTop = th.th.top.filter(item => {
+      return item.key && item.key != 'recordYear'
+    });
+    let customTitleListMid = th.th.mid.filter(item => {
+      return item.key
+    });
+    let customTitleListBottom = th.th.bottom.filter(item => {
+      return item.key
+    });
+    return [...customTitleListMid, ...customTitleListTop, ...customTitleListBottom]
+  }else{
+    let customTitleListTop = th.th.top.filter(item => {
+      return item.key && item.key != 'recordYear'
+    });
+    let customTitleListMid = th.th.mid.filter(item => {
+      return item.key
+    });
+    return [...customTitleListMid, ...customTitleListTop];
+  }
+
 }
 
 /**

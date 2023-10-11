@@ -171,7 +171,7 @@ export default [
     next: "",
     name: "",
     textarea: { width: 50 },
-    autoComplete: { data: Customizations },
+    // autoComplete: { data: Customizations },
 
     change: (e, td) => limitChange(e, td, 6)
 
@@ -184,7 +184,7 @@ export default [
     next: "",
     name: "",
     textarea: { width: 50 },
-    autoComplete: { data: Customizations },
+    // autoComplete: { data: Customizations },
     change: (e, td) => limitChange(e, td, 6)
   },
   {
@@ -193,7 +193,7 @@ export default [
     value: "",
     next: "",
     name: "",
-    autoComplete: { data: Customizations },
+    // autoComplete: { data: Customizations },
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -203,7 +203,7 @@ export default [
     value: "",
     next: "",
     name: "",
-    autoComplete: { data: Customizations },
+    // autoComplete: { data: Customizations },
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -213,7 +213,7 @@ export default [
     value: "",
     next: "",
     name: "",
-    autoComplete: { data: Customizations },
+    // autoComplete: { data: Customizations },
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -223,7 +223,7 @@ export default [
     value: "",
     next: "",
     name: "",
-    autoComplete: { data: Customizations },
+    // autoComplete: { data: Customizations },
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -233,7 +233,7 @@ export default [
     value: "",
     next: "",
     name: "",
-    autoComplete: { data: Customizations },
+    // autoComplete: { data: Customizations },
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -243,7 +243,7 @@ export default [
     value: "",
     next: "",
     name: "",
-    autoComplete: { data: Customizations },
+    // autoComplete: { data: Customizations },
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -253,7 +253,7 @@ export default [
     value: "",
     next: "",
     name: "",
-    autoComplete: { data: Customizations },
+    // autoComplete: { data: Customizations },
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -264,7 +264,7 @@ export default [
     next: "",
     name: "",
     // autoComplete: { data: ['/'] },
-    autoComplete: { data: Customizations },
+    // autoComplete: { data: Customizations },
     textarea: { width: 50 },
     change: (e, td) => limitChange(e, td, 6)
   },

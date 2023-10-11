@@ -211,27 +211,27 @@
               :disabled="status == '已执行'"
               >打印全部</el-button
             >
-          </template>
-          <template v-if="['whsl'].includes(HOSPITAL_ID)">
-            <span> &nbsp;&nbsp;&nbsp;</span>
+            <template v-if="['whsl'].includes(HOSPITAL_ID)">
+              <span> &nbsp;&nbsp;&nbsp;</span>
+                <el-button
+                size="small"
+                @click="fn('3*5')"
+                :disabled="status == '已执行'"
+                >3*5</el-button
+              >
               <el-button
-              size="small"
-              @click="fn('3*5')"
-              :disabled="status == '已执行'"
-              >3*5</el-button
-            >
-            <el-button
-              size="small"
-              @click="fn('5*8')"
-              :disabled="status == '已执行'"
-              >6*8</el-button
-            >
-            <el-button
-              size="small"
-              @click="onPrintAll"
-              :disabled="status == '已执行'"
-              >打印全部</el-button
-            >
+                size="small"
+                @click="fn('5*8')"
+                :disabled="status == '已执行'"
+                >6*8</el-button
+              >
+              <el-button
+                size="small"
+                @click="onPrintAll"
+                :disabled="status == '已执行'"
+                >打印全部</el-button
+              >
+            </template>
           </template>
           <template v-else>
             <el-button
@@ -250,7 +250,7 @@
             <el-button size="small" @click="createImplement"
               >生成执行</el-button
             >
-            <el-button v-if="['sdlj', 'lyxrm', 'ytll', '925', 'stmz','qhwy','zjhj'].includes(HOSPITAL_ID)"
+            <el-button v-if="['sdlj', 'lyxrm', 'ytll', '925', 'stmz','qhwy','zjhj','hzly'].includes(HOSPITAL_ID)"
                        size="small"
                        @click="syncData">同步医嘱
             </el-button>
@@ -312,6 +312,7 @@ import NewPrintModalWhhk from "./components/common/newPrintModalWhhk";
 import NewPrintModalWujing from "./components/common/newPrintModalWujing";
 import NewPrintModalYtll from "./components/common/newPrintModalYtll";
 import NewPrintModalZhzxy from "./components/common/newPrintModalZhzxy";
+import NewPrintModalHzly from "./components/common/newPrintModalHzly";
 import NewPrintModalQhwy from "./components/common/newPrintModalQhwy";
 
 import printing from "printing";
@@ -838,7 +839,25 @@ export default {
       await this.getPrintData();
       document.getElementById("new-print-box").style.display = "block";
       this.$nextTick(() => {
+        if(this.HOSPITAL_ID == 'hzly'){
+          let newPrint = document.getElementById("new-print-box");
+          let trAll = newPrint.getElementsByClassName('reserved')
+          for(let j = 0; j <= trAll.length-1; j++){
+            trAll[j].style.verticalAlign = 'top'
+            let td = trAll[j].getElementsByTagName('td')
+            for(let i = 0 ; i <= td.length-1; i++){
+              td[0].childNodes.forEach((el,index) => {
+                if(i > 0){
+                  let height = el.clientHeight - ((el.clientHeight / 18) * 4 )
+                  td[i].childNodes[index].style.height = height + 'px'
+                  td[i].childNodes[index].style.lineHeight = height + 'px'
+                }
+              })
+            }
+          }
+        }
         const printingFun = this.isPreview ? printing.preview :printing
+        // const printingFun = printing.preview
         printingFun(this.$refs.new_print_modal, {
           injectGlobalCss: true,
           scanStyles: false,
@@ -859,7 +878,7 @@ export default {
           `,
         })
           .then(() => {
-            document.getElementById("new-print-box").style.display = "none";
+            // document.getElementById("new-print-box").style.display = "none";
             this.search();
           })
           .catch((e) => {});
@@ -1147,10 +1166,6 @@ export default {
     this.onLoad();
   },
   computed: {
-    checkPrinting(){
-      // console.log(this.$route)
-      // return this.$route.query.checkPrinting
-    },
     newPrintCom() {
       switch (this.HOSPITAL_ID) {
         case "sdlj":
@@ -1176,8 +1191,9 @@ export default {
           return "NewPrintModalYtll";
         // case "whhk":
         case "zhzxy":
-        case "hzly":
           return "NewPrintModalZhzxy";
+        case "hzly":
+          return "NewPrintModalHzly";
         case "qhwy":
           return "NewPrintModalQhwy";
         default:
@@ -1195,8 +1211,9 @@ export default {
         case "whhk":
          return ["8*7"];
         case "zhzxy":
-        case "hzly":
           return ["7*7", "2*5", '7*5'];
+        case "hzly":
+          return ["5*6"];
         // case 'whsl':
         //   return ["7*8", "3*5"];
         case "wujing":
@@ -1318,6 +1335,7 @@ export default {
     NewPrintModalWujing,
     NewPrintModalYtll,
     NewPrintModalZhzxy,
+    NewPrintModalHzly,
     NewPrintModalQhwy,
   },
 };

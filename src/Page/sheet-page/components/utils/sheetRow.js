@@ -65,8 +65,7 @@ export function getRowNum(index) {
     sheetInfo.sheetType === 'record_icu_zzwy' ||
     sheetInfo.sheetType === 'obstetrics_new_zzwy' ||
     sheetInfo.sheetType === 'gynecology_new_zzwy' ||
-    sheetInfo.sheetType === 'baby_new_zzwy' ||
-    sheetInfo.sheetType == "postpartum_wj"
+    sheetInfo.sheetType === 'baby_new_zzwy' 
   ) {
     return 20;
   } else if (sheetInfo.sheetType == "cardiology_lcey" || sheetInfo.sheetType == "cardiology_tj") {
@@ -82,7 +81,7 @@ export function getRowNum(index) {
     } else {
       return 30;
     }
-  } else if (sheetInfo.sheetType === 'blood_circulation_hl' || sheetInfo.sheetType == "inout_ytll") {
+  } else if (sheetInfo.sheetType === 'blood_circulation_hl' || sheetInfo.sheetType == "inout_ytll"|| sheetInfo.sheetType == "postpartum_wj") {
     return 35
   } else if (sheetInfo.sheetType === 'intravenous_sdlj'|| sheetInfo.sheetType === 'criticaldisease_xt' || sheetInfo.sheetType === 'cardiovascular_xt' ) {
     return 20
