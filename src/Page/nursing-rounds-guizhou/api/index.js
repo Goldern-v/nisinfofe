@@ -4,7 +4,7 @@ import { apiPath } from "@/api/apiConfig";
 
 // 获取数据
 export function getNursingVisitLc(obj) {
-  if (process.env.HOSPITAL_ID === 'nfyksdyy') {
+  if (process.env.HOSPITAL_ID === 'nfyksdyy' || process.env.HOSPITAL_ID === 'hj') {
     return axios.post(`${apiPath}nursingVisitLc/listLingChenPcByPatient`, obj);
   }
   return axios.post(`${apiPath}nursingVisitLc/listLingChenPc`, obj);
