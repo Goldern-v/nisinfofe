@@ -274,6 +274,13 @@ export default {
         wardCode: this.deptCode,
         beginTime: moment(this.beginTime).format("YYYY-MM-DD HH:mm")
       };
+      if (['lyxrm'].includes(this.HOSPITAL_ID)) {
+        const measureList = [];
+        this.resultMeasuresList.map((item, index) => {
+          measureList.push(this.measures.find(v => v.serialNo === item));
+        });
+        obj.measureList = measureList;
+      }
       // return console.log(measureStr,this.resultMeasuresList,'post-resultMeasuresList')
       this.data.checked = true;
       this.data._checked = true;

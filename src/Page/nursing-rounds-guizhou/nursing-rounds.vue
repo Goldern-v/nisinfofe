@@ -231,7 +231,7 @@ export default {
       return this.$store.state.sheet.makePatient
     },
     isUsePatientToSearch() {
-      return ['nfyksdyy'].includes(this.HOSPITAL_ID);
+      return ['nfyksdyy', 'hj'].includes(this.HOSPITAL_ID);
     }
   },
   watch: {

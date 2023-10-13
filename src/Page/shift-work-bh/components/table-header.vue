@@ -62,6 +62,11 @@
             ></div>
           </td>
         </template>
+        <template v-else-if="['nfyksdyy'].includes(HOSPITAL_ID)">
+          <td v-for="(col, key) of keysZHZXY" :key="key">
+            <div v-text="shift[key]" style="outline:none;"></div>
+          </td>
+        </template>
         <template v-else>
           <td v-for="(col, key) of keysZHZXY" :key="key">
             <div
