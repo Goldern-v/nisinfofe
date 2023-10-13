@@ -49,7 +49,7 @@
         :list="bedList"
       ></printView>
       <batchPrints
-        v-if="['nfyksdyy','zjhj', 'sdhpwk'].includes(HOSPITAL_ID)"
+        v-if="['nfyksdyy','zjhj', 'sdhpwk','whhk'].includes(HOSPITAL_ID)"
         ref="batchPrints"
         :list="bedList"
       ></batchPrints>

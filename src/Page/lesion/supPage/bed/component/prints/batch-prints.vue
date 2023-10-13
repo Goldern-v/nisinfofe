@@ -71,6 +71,7 @@
 import bedSide from  '../bed-print-batch/bedSide.vue'
 import wristStrap from '../bed-print-batch/wristStrap.vue'
 import print from './tool/batchPrint'
+import { batchGetEntity } from "@/Page/patientInfo/supComponts/modal/api/index.js";
 export default {
   props: {
     list: {
@@ -100,12 +101,23 @@ export default {
       this.optionList = key == 'bedthNull' ? this.list.sort((a, b) => a.bedNo - b.bedNo) : this.list.filter(item => item.patientId).sort((a, b) => a.bedNo - b.bedNo)
       this.$refs.modal.open();
     },
-    post() {
+    async post() {
       if(!this.printSelect.length) return  this.$message({
           type: "warning",
           message: "请选择打印床号！",
         });
-      this.printData = this.optionList.filter(item => this.printSelect.includes(item.bedLabel));
+      if(['whhk'].includes(this.HOSPITAL_ID)){
+          const printArr=[]
+          this.optionList.map(item => {
+            if( this.printSelect.includes(item.bedLabel)){
+              printArr.push({patientId:item.patientId,visitId:item.visitId})
+            }
+          })
+          const res = await batchGetEntity(printArr)
+          this.printData=res.data.data
+      }else{
+         this.printData = this.optionList.filter(item => this.printSelect.includes(item.bedLabel))
+      }
       if(this.category == 'wristStrap'){
         this.$refs.wristStrapPrint.onPrint()
       }else if(this.category == 'bedthNull'){
