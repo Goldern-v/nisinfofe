@@ -83,7 +83,7 @@ export default {
       { name: "痰量", colspan: "1", rowspan: "1", style: { minWidth: "35px", maxWidth: "35px" } },
       { name: "名称", colspan: "1", rowspan: "1", style: { minWidth: "60px", maxWidth: "60px" } },
       {
-        name: "外露<br/>长度<br/>(ml)",
+        name: "外露<br/>长度<br/>(cm)",
         colspan: "1",
         rowspan: "1",
         style: { minWidth: "40px", maxWidth: "40px" }

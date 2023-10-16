@@ -52,7 +52,7 @@
           <td>频率</td>
         </tr>
         <tr class="reserved">
-          <td style="text-align:left;">
+          <td style="text-align:left;font-size: 21px;">
             <div
               v-for="(item, index) in currentBottle.orderText"
               :key="index"
@@ -173,7 +173,7 @@
           flex: 1;
           align-items: center;
           div>span{
-            font-size: 25px;
+            font-size: 30px;
             font-weight: 900;
           }
         }

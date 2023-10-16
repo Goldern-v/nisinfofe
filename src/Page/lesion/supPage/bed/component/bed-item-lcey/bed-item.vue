@@ -47,7 +47,7 @@ export default {
   methods: {
      // 右键事件
     openContextMenuBed(e,patientId) {
-      if(['nfyksdyy','zjhj','sdhpwk'].includes(this.HOSPITAL_ID)){
+      if(['nfyksdyy','zjhj','sdhpwk','whhk'].includes(this.HOSPITAL_ID)){
       let style = {
         top: `${Math.min(e.clientY - 20, window.innerHeight - 180)}px`,
         left: `${Math.min(e.clientX + 20, window.innerWidth - 180)}px`,
@@ -83,7 +83,25 @@ export default {
           },
         }
       ]
-
+      if(['whhk'].includes(this.HOSPITAL_ID)){
+        // 汉口值开放两个功能
+        data=[
+        {
+          name: "批量打印床头卡",
+          icon: "xiangxiacharuyihang",
+          click: () => {
+            this.$emit('openBatchPrints' ,'bedside')
+          },
+        },
+        {
+          name: "批量打印手腕带",
+          icon: "dongtairizhi",
+           click: () => {
+            this.$emit('openBatchPrints' ,'wristStrap')
+          },
+        }
+       ]
+      }
       e.preventDefault();
       window.openContextMenu({ style, data });
        }

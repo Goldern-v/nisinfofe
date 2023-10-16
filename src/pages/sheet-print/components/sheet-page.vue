@@ -330,6 +330,30 @@ export default {
 
                   `
                 );
+              }else if(['orthopaedic_hzly'].includes(this.sheetInfo.sheetType)) {
+                addCSS(
+                  window,
+                  `
+                    #sheetPagePrint .iframe{
+                      overflow: auto;
+                    }
+                    #sheetPagePrint .iframe > div:nth-of-type(n) {
+                        transform-origin:top center;
+                        transform:scaleX(0.97) translateX(-40px) rotate(0) !important;
+                    }
+                    #sheetPagePrint#sheetPagePrint th[dataname='护士签名'] {
+                      width: 120px !important;
+                    }
+                    #sheetPagePrint .iframe .sign-img img{
+                       height: 20px;
+                    }
+                    @media print {
+                      .iframe > div:nth-of-type(n) {
+                        height: ${sheetTableWidth * 0.75}px !important;
+                      }
+                    }
+                  `
+                );
               }else if ("critical2_weihai" === this.sheetInfo.sheetType) {
                 addCSS(
                   window,

@@ -6,7 +6,7 @@
     @close="handleClose"
     id="relation-form-modal-con"
   >
-    <div class="form-area" :class="{'form-area--full': '925' === HOSPITAL_ID}">
+    <div class="form-area" :class="{'form-area--full': [ '925', 'sdhpwk'].includes(HOSPITAL_ID) }">
       <div class="loading-mask" v-show="loading">
         <div class="loading-mask-info">
           <i class="el-icon-loading" v-show="iconVisible"></i>

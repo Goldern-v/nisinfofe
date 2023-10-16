@@ -111,6 +111,7 @@ import temperatureDGXG from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureGDTJ from "@/Page/patientInfo/supPage/temperature/temperature-gdtj.vue";
 import temperatureZHZXY from "@/Page/patientInfo/supPage/temperature/temperature-zhzxy.vue";
 import temperatureYTLL from "@/Page/patientInfo/supPage/temperature/temperature-linlong.vue";
+import temperatureSdhpwk from "@/Page/patientInfo/supPage/temperature/temperature-sdhpwk.vue";
 import sheet from "@/Page/patientInfo/supPage/sheet/sheet.vue"; //护理记录单
 import bloodSugar from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar.vue"; //血糖
 import bloodSugarBhry from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_bhry.vue"; //血糖
@@ -257,6 +258,8 @@ export default {
           return temperatureGDTJ;
         case "zhzxy":
           return temperatureZHZXY;
+        case "sdhpwk":
+          return temperatureSdhpwk
         case "ytll":
           return temperatureYTLL;
         default:
@@ -318,6 +321,7 @@ export default {
     temperatureWHSL,
     temperatureGDTJ,
     temperatureZHZXY,
+    temperatureSdhpwk,
     temperatureYTLL
 
   }
