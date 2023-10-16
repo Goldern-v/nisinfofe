@@ -768,13 +768,13 @@ const router = new Router({
           switch(HOSPITAL_ID) {
             case 'lyxrm':
             case 'zjhj':
-            case 'ytll':
             case 'foshanrenyi':
             case 'zhzxy':
             case 'whhk':
             case "stmz":
               return archiveFSSY
             // nfyksdyy本来是 archiveFSSY，改版归档用archiveSDYY，用archiveFSSY那些医院也要改就用archiveSDYY
+            case "ytll":
             case "nfyksdyy":
               return archiveSDYY
             case "fuyou":
