@@ -37,17 +37,9 @@
         </template>
       </u-table-column>
 
-      <u-table-column prop="adminstration" label="给药途径" min-width="80px" align="center">
-        <template slot-scope="scope">
-          <span :title="scope.row.dosage ">{{scope.row.dosage }}</span>
-        </template>
-      </u-table-column>
+      <u-table-column prop="adminstration" label="给药途径" min-width="80px" align="center"></u-table-column>
 
-      <u-table-column prop="frequency" label="频次" min-width="50px" align="center">
-        <template slot-scope="scope">
-          <span :title="scope.row.dosageUnits">{{scope.row.dosageUnits }}</span>
-        </template>
-      </u-table-column>
+      <u-table-column prop="frequency" label="频次" min-width="50px" align="center"></u-table-column>
 
       <u-table-column  label="开始时间" prop="startDate" min-width="120px" align="center"></u-table-column>
 
@@ -57,7 +49,7 @@
 
       <u-table-column label="执行护士" prop="startNurse" min-width="80px" align="center"></u-table-column>
 
-      <u-table-column label="巡视时间" prop="repeatIndicator"  min-width="70px" align="center"></u-table-column>
+      <u-table-column label="巡视时间" prop="operationDate"  min-width="70px" align="center"></u-table-column>
       <u-table-column prop="dropSpeed" label="滴速" min-width="70px" align="center"></u-table-column>
 
       <u-table-column  label="巡视内容"  prop="visitContent" min-width="100px" align="center"></u-table-column>
