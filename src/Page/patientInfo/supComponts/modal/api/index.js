@@ -24,6 +24,13 @@ export function getEntity(patientId, visitId) {
   );
 }
 
+// 根据数组对象patientId和visitId 批量查询病人床头标签
+export function batchGetEntity(data) {
+  return  axios.post(
+    `${apiPath}/patient/PatientBedLabel/batchPrint`,data
+  );
+}
+
 // 根据姓名、或者拼音首字母、或者空白查找主管医生姓名
 export function findByKeyword(keyword) {
   return axios.get(

@@ -10,6 +10,7 @@
           format="yyyy-MM-dd"
           placeholder="开始日期"
           v-model="query.dischargeDateBegin"
+          :editable="HOSPITAL_ID === 'whhk' ? false : true" 
           clearable
         />
         <span>-</span>
@@ -20,6 +21,7 @@
           format="yyyy-MM-dd"
           placeholder="结束日期"
           v-model="query.dischargeDateEnd"
+          :editable="HOSPITAL_ID === 'whhk' ? false : true" 
           clearable
         />
       </div>

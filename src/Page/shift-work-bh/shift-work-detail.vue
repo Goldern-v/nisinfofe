@@ -716,7 +716,7 @@ export default {
         const valueA = parseInt(a[key]) || 0;
         const valueP = parseInt(p[key]) || 0;
         const valueN = parseInt(n[key]) || 0;
-        if(['hospitalized','changeIn','leaveHospital','changeOut','childbirth','death'].includes(key)){
+        if(['hospitalized','changeIn','leaveHospital','changeOut','childbirth','death','todaySurgery','tomSurgery'].includes(key)){
           objAll[key] = valueA + valueP + valueN;
         }else{
           // 其余取N班的值

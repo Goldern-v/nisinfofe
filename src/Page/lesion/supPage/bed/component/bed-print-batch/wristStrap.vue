@@ -1,6 +1,47 @@
 <template>
   <div>
-    <div
+    <template v-if="['whhk'].includes(HOSPITAL_ID)">
+       <div
+         class="bed-card-warpper wrist-strap-print"
+         ref="printCon3"
+         v-show="isPrint"
+         v-for="item in printData"
+         :key="item.patientId"
+       >
+      <div class="bed-card-vert-con">
+        <div>
+          <div class="top">
+            <span>科室：{{ item.wardName }}</span>
+          </div>
+          <div>
+            <div>
+              <span>姓名：{{ item.name }}</span>
+              <span>性别：{{ item.sex }}</span>
+              <span>年龄：{{ item.age }}</span>
+       
+            </div>
+            <div>
+              <span>床位：{{ item.bedLabel }}</span>
+              <span>住院号：{{ item.patientId }}</span>
+            </div>
+           <div>
+              <span>科室联系电话</span>
+               <span style="width:100px">{{item.phone}}</span>
+                <span>小心跌倒</span>
+            </div>
+          </div>
+        </div>
+        <img
+          style="right: 40px;"
+          class="qr-code"
+          :class="{ hasRemark: hasRemark }"
+          :src="item.qrCode"
+        />
+      </div>
+    </div>
+    </template>
+    <template v-else>
+      <div
       class="bed-card-warpper wrist-strap-print"
       ref="printCon3"
       v-show="isPrint"
@@ -51,6 +92,7 @@
         />
       </div>
     </div>
+    </template>
   </div>
 </template>
 
