@@ -16,7 +16,8 @@
           姓名:<span>{{ currentBottle.name }}</span>
         </div>
         <div >
-              <img :src="currentBottle.qcSrc || ''" />
+              <img id="isbarcode" v-if="isBarcode == 'true'" />
+              <img :src="currentBottle.qcSrc || ''" v-else />
         </div>
           <div>{{ `性别:${currentBottle.sex || ""}` }}</div>
       </div>
@@ -253,6 +254,12 @@
       object-fit: cover;
       padding-left: 10px;
     }
+    #isbarcode{
+      width: 85%;
+      height: auto;
+      object-fit: cover;
+      padding-left: 10px;
+    }
     }
     div {
       flex: 62%;
@@ -406,6 +413,7 @@
 <script>
 import { cloneDeep } from "lodash";
 import moment from "moment";
+import JsBarcode from 'jsbarcode'
 var qr = require("qr-image");
 
 const arrayBufferToBase64 = (buffer) => {
@@ -422,11 +430,15 @@ export default {
   props: {
     itemObj: { type: Array, default: () => [] },
     newModalSize: { type: String, default: "6*8" },
+    isBarcode: { type: String, default: '' },
   },
   data() {
     return {
       isZhzxy: this.HOSPITAL_ID === "zhzxy",
     };
+  },
+  created(){
+
   },
   methods: {
     // 返回避光或者重症图片路径
@@ -443,7 +455,23 @@ export default {
       return url;
     },
   },
-  watch: {},
+  watch: {
+    currentBottle:{
+      handler(){
+        this.$nextTick(()=>{
+          JsBarcode("#isbarcode", this.itemObj[0].barCode, {
+            fORMat:"CODE128",//条形码的格式
+            width:1,//线宽
+            height: '60px',//条码高度
+            lineColor:"#000",//线条颜色
+            displayValue:false,//是否显示文字
+            margin:2//设置条形码周围的空白区域
+          })
+        })
+      },
+      immediate: true
+    }
+  },
   computed: {
     currentBottle() {
       let cloneObj = cloneDeep(this.itemObj[0]);
