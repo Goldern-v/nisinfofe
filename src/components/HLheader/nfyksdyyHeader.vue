@@ -629,6 +629,9 @@
                 </el-dropdown-item>-->
               </el-dropdown-menu>
             </el-dropdown>
+            <div class="nav-item" @click="openOtherPage">
+              健康宣教
+            </div>
           </el-row>
 
           <el-row class="right-part" type="flex" align="middle">
@@ -744,7 +747,7 @@
 }
 
 .nav-item {
-  height: 60px;
+  line-height: 60px;
   padding: 0 10px;
   font-size: 15px;
   color: #000;
@@ -1101,6 +1104,13 @@ export default {
     }
   },
   methods: {
+    openOtherPage() {
+      var { token } = JSON.parse(localStorage['user'])
+      let url = process.env.NODE_ENV === "production" ? 'http://192.168.5.127:9091' : 'http://192.168.1.54:9901'
+      window.open(
+        `${url}/#/setting/typeDict?token=${token}`
+      );
+    },
     userInfoOpen() {
       if (["nfyksdyy"].includes(this.HOSPITAL_ID))
         this.$refs.userInfo.getCaStatus();

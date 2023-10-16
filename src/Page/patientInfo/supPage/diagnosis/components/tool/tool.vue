@@ -36,7 +36,7 @@
         @click="toExecutionRecord"
         :class="{disabled: !model.selectedBlockId}"
       >
-        <div class="text-con" flex="cross:center">执行记录</div>
+        <div class="text-con" flex="cross:center">护理计划单落实情况</div>
       </div>
 
       <!-- <div
