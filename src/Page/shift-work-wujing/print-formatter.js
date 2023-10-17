@@ -15,7 +15,7 @@ export default function(win) {
   let rest = Array.prototype.slice.call(trs, -2); // 特殊情况（两行）
 
   const emptyRow = document.createElement("tr");
-  emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(7);
+  emptyRow.innerHTML = '<td style="border: 1px solid black;"></td>'.repeat(8);
   emptyRow.style.height = "30px";
 
   // 移除空行

@@ -438,7 +438,6 @@ export default {
     },
     filterSheetModel() {
       let resultModel =this.sheetModelData
-      console.log(this.sheetModelData, 'this.sheetModelData');
       return resultModel;
     },
     sheetTable() {

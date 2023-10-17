@@ -345,12 +345,12 @@ export default {
               prop: "bedLabel",
               editable: true,
               align: "center",
-              width: this.HOSPITAL_ID=="hengli"?"45":"35"
+              width: "28"
             },
             {
               label: "姓名、性别、年龄",
               prop: "name",
-              width: "53",
+              width: "70",
               render: row => {
                 const status = row.patientStatus
                   ? `(${row.patientStatus})`
@@ -372,7 +372,7 @@ export default {
               label: "主要诊断",
               prop: "diagnosis",
               editable: true,
-              width: "80"
+              width: "140"
             },
             {
               label: "主诉及现存主要问题",
@@ -389,7 +389,7 @@ export default {
               label: "既往病史、治疗经过、护理评估情况、治疗效果跟踪",
               prop: "background",
               editable: true,
-              width: "180"
+              width: "120"
             }
           ]
         },
@@ -422,7 +422,7 @@ export default {
               label: "护士签名",
               prop: "signature",
               editable: false,
-              width: "70",
+              width: "50",
               render: row => (
                 row.signature && row.id
                 ? <button
