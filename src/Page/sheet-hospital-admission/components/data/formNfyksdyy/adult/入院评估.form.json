@@ -865,7 +865,21 @@
           "style": null,
           "class": null,
           "readOnly": null,
-          "hiddenTips": true
+          "hiddenTips": true,
+          "rule": [
+            {
+              "min": "-Infinity",
+              "max": "35",
+              "style": "color: red; border-color",
+              "message": "体温过低"
+            },
+            {
+              "min": "37.6",
+              "max": "Infinity",
+              "style": "color: red; border-color",
+              "message": "体温过高"
+            }
+          ]
         },
         {
           "name": "I2332028",
