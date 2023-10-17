@@ -446,7 +446,33 @@ export default {
     onPrint() {
       this.isPrint = true;
       this.$nextTick(() => {
-          let styleSheet =  `
+        let styleSheet 
+        if(['whhk'].includes(this.HOSPITAL_ID)){
+          styleSheet = `
+              .bed-card-warpper {
+                box-shadow: none !important;
+                transform: rotate(90deg) translateY(-100%) translateX(40%);
+                transform-origin: 0 0;
+              }
+              .bed-card-vert-con {
+              }
+              .is_input_print{
+              font-size:20px !important;
+              }
+              .is_hide_textarea{
+              display:none;
+              }
+              .print-page__ptext{
+              display:block !important;
+              border:none !important;
+              padding:0 !important;
+              height:auto !important;
+              }
+              @page {
+                margin: 0;
+              }`
+        }else{
+          styleSheet =  `
               .bed-card-warpper {
                 box-shadow: none !important;
                 transform: rotate(90deg) translateY(-120%) translateX(25%);
@@ -469,7 +495,7 @@ export default {
               @page {
                 margin: 0;
               }`
-          ;
+          }
           printing(this.$refs.printCon3, {
             direction: "vertical",
             injectGlobalCss: true,

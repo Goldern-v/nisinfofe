@@ -123,7 +123,11 @@ export default {
       }else if(this.category == 'bedthNull'){
         this.$refs.bedSideNullPrint.onPrint()
       }else{
-        this.onPrint()
+        if(['whhk'].includes(this.HOSPITAL_ID)){
+          this.$refs.bedSideNullPrint.onPrintWhhk()
+        }else{
+          this.onPrint()
+        }
       }
     },
      onPrint() {
