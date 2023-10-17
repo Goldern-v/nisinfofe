@@ -95,6 +95,16 @@
         prop="frequency"
         min-width="50px"
         align="center"
+        v-if="HOSPITAL_ID != 'hzly'"
+      >
+      </u-table-column>
+
+      <u-table-column
+        label="频次"
+        prop="frequency"
+        min-width="150px"
+        align="center"
+        v-if="HOSPITAL_ID == 'hzly'"
       >
       </u-table-column>
 
