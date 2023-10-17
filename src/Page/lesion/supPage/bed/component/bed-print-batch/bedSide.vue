@@ -111,13 +111,13 @@
       <template v-else-if="HOSPITAL_ID == 'whhk'">
         <div
           class="bed-card-wrapper"
-          style="display: inline-block;"
+          style="display:block;"
           v-loading="modalLoading"
           ref="printCon"
           v-for="item in printData"
           :key="item.patientId"
         >
-          <div class="bed-card-con" flex>
+          <div class="bed-card-con" style="width:14cm;height:8cm" flex>
             <img class="qr-code" :style="{ opacity: '1' }" :src="item.qrCode" />
             <div class="qr-code-num">
               {{ item.qrCodeNum }}
@@ -287,6 +287,7 @@
               <div>
                 <div
                   class="tip-item-con"
+                  style="margin-bottom: 6px"
                   flex="cross:center main:justify"
                   v-for="items in  whhktipList"
                   :key="items.label"
@@ -1099,6 +1100,27 @@ export default {
             css: styleSheet
           });
 
+      });
+    },
+     onPrintWhhk() {
+      this.$nextTick(() => {
+          let styleSheet =  `
+              .bed-card-wrapper{
+                margin: 0mm  auto;
+                width: 15cm;
+                height: 7cm;
+                transform-origin: top left;
+                transform:scale(0.7,1);
+
+              }
+             `
+          ;
+          printing(this.$refs.printCon, {
+            direction: "horizontal",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: styleSheet
+          });
       });
     },
   },
