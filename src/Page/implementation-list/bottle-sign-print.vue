@@ -242,6 +242,13 @@
             >
             <el-button
               size="small"
+              @click="onPrint('true')"
+              :disabled="status == '已执行'"
+              v-if="['whhk'].includes(HOSPITAL_ID)"
+              >条码打印</el-button
+            >
+            <el-button
+              size="small"
               v-if="showPrintAll"
               @click="onPrintAll"
               :disabled="status == '已执行'"
@@ -291,6 +298,7 @@
             :is="newPrintCom"
             :newModalSize="newModalSize"
             :itemObj="itemBottleCard"
+            :isBarcode="isBar"
           />
         </div>
       </div>
@@ -569,6 +577,7 @@ export default {
       showPrintAll: ["sdlj", "gdtj", "fsxt", "ytll",'whhk'].includes(this.HOSPITAL_ID),
       cutPrintHospital:this.cutPrint(),
       barcodes: [],
+      isBar: ''
     };
   },
   mounted() {
@@ -751,7 +760,7 @@ export default {
     this.newModalSize = val
     this.PBonPrint()
   },
-    async onPrint() {
+    async onPrint(isBarcode = '') {
       this.selectedData = this.$refs.plTable.selectedData;
       // 处理打印
       this.selectedData = this.selectedData.filter(item => {
@@ -763,6 +772,7 @@ export default {
         }
       });
       this.barcodes = [];
+      this.isBar = isBarcode
 
       if ((this.selectedData || []).length <= 0)
         return this.$message("未选择勾选打印条目");

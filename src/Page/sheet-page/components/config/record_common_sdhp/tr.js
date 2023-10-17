@@ -92,7 +92,7 @@ export default [
     name: '意识',
     autoComplete: { data: ysList },
     textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 4)
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: 'painScore',
@@ -101,7 +101,7 @@ export default [
     next: '',
     name: '疼痛评分',
     textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 4)
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: 'dryClean',
@@ -110,7 +110,7 @@ export default [
     next: '',
     name: '干洁',
     textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 4)
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: 'bleeding',
@@ -119,7 +119,7 @@ export default [
     next: '',
     name: '渗血',
     textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 4)
+    change: (e, td) => limitChange(e, td, 6)
   },
   {
     key: 'armValue19',
