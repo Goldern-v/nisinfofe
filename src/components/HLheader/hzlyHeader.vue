@@ -180,6 +180,9 @@
                 <i class="iconfont icon-zhihuishuye"></i> 智慧输液
               </el-row>
             </router-link>
+            <div class="nav-item" @click="openOtherPage">
+              健康宣教
+            </div>
             <!-- <router-link to="/shiftWork" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-jiaobanzhi"></i> 交班报告
@@ -529,7 +532,7 @@
 }
 
 .nav-item {
-  height: 60px;
+  line-height: 60px;
   padding: 0 10px;
   font-size: 14px;
   color: #687179;
@@ -924,6 +927,13 @@ export default {
     },
   },
   methods: {
+    openOtherPage() {
+      var { token, deptCode } = JSON.parse(localStorage['user'])
+      let url = process.env.NODE_ENV === "production" ? 'http://192.168.108.13:9091' : 'http://192.168.1.54:9901' // 测试环境没有了 目前用的是南方医科大学顺德医院
+      window.open(
+        `${url}/crNursing/manage/#/setting/typeDict?token=${token}&deptCode=${deptCode}`
+      );
+    },
     handleCommand(command) {
       switch (command) {
         case "quit":
