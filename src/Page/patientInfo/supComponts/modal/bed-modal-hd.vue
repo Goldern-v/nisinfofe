@@ -422,7 +422,7 @@
       </div>
          <div
         class="bed-card-warpper wrist-strap-print"
-        ref="printCon3"
+        ref="printConB"
         v-show="printMode == 'wrist-BarCode'"
       >
         <div class="bed-card-vert-con">
@@ -1395,6 +1395,39 @@ export default {
             injectGlobalCss: true,
             scanStyles: false,
             css: styleSheet[this.HOSPITAL_ID] || styleSheet.default,
+          });
+        } else if (this.printMode == "wrist-BarCode") {
+          const translateStr= 'rotate(90deg) translateY(-110%) translateX(45%);';
+          let styleSheet = {
+            default: `
+              .bed-card-warpper {
+                box-shadow: none !important;
+                transform: ${translateStr}
+                transform-origin: 0 0;
+              }
+              .bed-card-vert-con {
+              }
+              .is_input_print{
+              font-size:20px !important;
+              }
+              .is_hide_textarea{
+              display:none;
+              }
+              .print-page__ptext{
+              display:block !important;
+              border:none !important;
+              padding:0 !important;
+              height:auto !important;
+              }
+              @page {
+                margin: 0;
+              }`
+          };
+          printing(this.$refs.printConB, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: styleSheet.default,
           });
         } else if (this.printMode == "fsxt-wrist-children") {
           let styleSheet = {
