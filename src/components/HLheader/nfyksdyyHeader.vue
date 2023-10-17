@@ -1108,7 +1108,7 @@ export default {
       var { token } = JSON.parse(localStorage['user'])
       let url = process.env.NODE_ENV === "production" ? 'http://192.168.5.127:9091' : 'http://192.168.1.54:9901'
       window.open(
-        `${url}/#/setting/typeDict?token=${token}`
+        `${url}/crNursing/manage/#/setting/typeDict?token=${token}`
       );
     },
     userInfoOpen() {
