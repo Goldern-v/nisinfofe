@@ -22,7 +22,7 @@
           <th v-for="col of columns" :key="col.label" :colspan="getColSpan(col)">{{col.label}}</th>
         </tr>
         <tr v-if="isMultiCol">
-          <th v-for="col of realColumns" :key="col.label">{{col.label}}</th>
+          <th v-for="col of realColumns" :key="col.label" v-html="col.label"></th>
         </tr>
       </thead>
       <tbody>
@@ -274,8 +274,6 @@ export default {
       background #f4f2f5
       font-weight 700
       text-align center
-      word-break keep-all
-      white-space nowrap
 
     tbody tr
       &:nth-child(2n)
@@ -314,6 +312,7 @@ export default {
       overflow-y hidden
       text-align inherit
       cursor auto !important
+      font-size 12px
 
       &:disabled
         color black

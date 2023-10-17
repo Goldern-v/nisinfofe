@@ -280,7 +280,7 @@ export default {
       let arr = []
       let text = ''
       strArr.map(str=>{
-       if(this.GetLength(text + str)>176){
+       if(this.GetLength(text + str)>174){
           arr.push(text)
           text = str
         }else{
@@ -408,7 +408,7 @@ export default {
       }
     }
   }
- 
+
 }
 .big-header span{
   font-size: 15px!important;
