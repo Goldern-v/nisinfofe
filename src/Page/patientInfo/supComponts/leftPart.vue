@@ -181,6 +181,16 @@
           <div
             class="print-btn"
             flex="cross:center main:center"
+            @click="openWristPrint('wrist-BarCode')"
+            v-if="
+              ['whhk'].includes(HOSPITAL_ID)
+            "
+          >
+            条形码腕带打印
+          </div>
+          <div
+            class="print-btn"
+            flex="cross:center main:center"
             @click="openOcx"
             v-if="cp_status===1"
           >

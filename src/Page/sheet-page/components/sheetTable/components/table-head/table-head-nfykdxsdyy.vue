@@ -436,7 +436,6 @@ import crDatePicker from "@/components/cr-date-picker/cr-date-pickerV2.vue";
 import customSelectCanRepeat from "@/components/customSelectCanRepeat/CustomSelectCanRepeat.vue";
 import bedRecordModal from "../../../modal/bedRecord-modal";
 import { saveBody, queryDianosisList } from "@/api/sheet.js";
-import { update } from "@/Page/sheet-hospital-admission/components/Render/api/template";
 
 export default {
   props: {
@@ -593,9 +592,7 @@ export default {
       // ],
     };
   },
-  mounted() {},
   computed: {
-    ...{
       checkedbzc: {
         get() {
           return this.sheetInfo.relObj[`bzc`] === "true";
@@ -607,7 +604,6 @@ export default {
       newPatientInfo() {
         /*  每页独立床号功能 */
         let beforeBed = this.patientInfo.bedLabel;
-        let nowBed = this.sheetInfo.relObj[`PageIndex_bedLabel_${this.index}`];
         let newBedId = this.sheetInfo.relObj[`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`];
         if (
           this.index != 0 &&
@@ -648,9 +644,7 @@ export default {
         }
         return {
           ...this.patientInfo,
-          [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: newBedId ? newBedId : nowBed
-            ? nowBed
-            : beforeBed,
+          [`bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`]: newBedId ? newBedId : beforeBed,
           [`realDeptName_${this.index}_${this.sheetInfo.selectBlock.id}`]: newrealDept
             ? newrealDept
             : beforerealDept,
@@ -658,12 +652,10 @@ export default {
             ? newDeptName
             : beforeDeptName
         };
-      }
-    },
+      },
     diagnosis() {
       return (
-         (this.sheetInfo.relObj || {})[`diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`]  || (this.sheetInfo.relObj || {})[`PageIndex_diagnosis_${this.index}`] ||
-        this.patientInfo.diagnosis
+         (this.sheetInfo.relObj || {})[`diagnosis_${this.index}_${this.sheetInfo.selectBlock.id}`]  || this.patientInfo.diagnosis
       );
     },
     childbirth() {
@@ -928,12 +920,6 @@ export default {
         `bedLabel_${this.index}_${this.sheetInfo.selectBlock.id}`
       ] = this.patientInfo.bedLabel;
     }
-    // if (!this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`]) {
-    //   this.sheetInfo.relObj[`PageIndex_realDeptName_${this.index}`] = this.patientInfo.realDeptName
-    // }
-    // if (!this.sheetInfo.relObj[`PageIndex_deptName_${this.index}`]) {
-    //   this.sheetInfo.relObj[`PageIndex_deptName_${this.index}`] = this.patientInfo.deptName
-    // }
     if (this.index != 0) {
       this.sheetInfo.relObj[`${this.index}pregnantWeeks`] = this.sheetInfo
         .relObj[`${this.index}pregnantWeeks`]
@@ -942,11 +928,6 @@ export default {
     }
     this.setDiagnosis();
   },
-  watch: {
-    "patientInfo.patientId"() {
-      this.setDiagnosis();
-    }
-  }
 };
 </script>
 

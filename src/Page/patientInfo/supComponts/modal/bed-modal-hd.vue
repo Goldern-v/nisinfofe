@@ -420,6 +420,35 @@
           />
         </div>
       </div>
+         <div
+        class="bed-card-warpper wrist-strap-print"
+        ref="printConB"
+        v-show="printMode == 'wrist-BarCode'"
+      >
+        <div class="bed-card-vert-con">
+          <div>
+            <div class="top">
+              <span>科室：{{ query.wardName }}</span>
+            </div>
+            <div>
+              <div>
+                <div >
+                  <span style="margin-left: 0px;">姓名：{{ query.name }}</span>
+                  <span>性别：{{ query.sex }}</span>
+                  <span>年龄：{{ query.age }}</span>
+                </div>
+                <div>
+                  <span  style="margin-left: 0px;">床号：{{ query.bedLabel }}</span>
+                  <span>住院号：{{ query.inpNo }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <img
+            id="barcode"
+          />
+        </div>
+      </div>
       </template>
       <div
         class="bed-card-warpper wrist-strap-print fsxt-wrist-children"
@@ -752,6 +781,14 @@
         width: 96px;
         height: 96px;
       }
+    }
+    #barcode {
+      position: absolute;
+      top: 50%;
+      margin-top: -22px;
+      right: 15px;
+      // height: 112px;
+      width: 150px;
     }
 
     svg {
@@ -1086,6 +1123,7 @@ var qr = require("qr-image");
 import moment from "moment";
 import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
+import JsBarcode from 'jsbarcode'
 export default {
   data() {
     return {
@@ -1248,12 +1286,24 @@ export default {
       }
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
+
+      JsBarcode("#barcode", qr_png_value, {
+        fORMat:"CODE128",//条形码的格式
+        width:1,//线宽
+        height: '30px',//条码高度
+        lineColor:"#000",//线条颜色
+        displayValue:false,//是否显示文字
+        margin:2//设置条形码周围的空白区域
+      })
+
       this.qrCodeNum = this.query.patientId;
       if (this.printMode == "wrist") {
         this.title = "成人腕带打印";
       } else if (this.printMode == "wrist-children") {
         this.title = "儿童腕带打印";
-      } else if (this.printMode == "v") {
+      } else if (this.printMode == "wrist-BarCode") {
+        this.title = "条形码腕带打印";
+      }else if (this.printMode == "v") {
         this.title = "打印床头卡";
       } else if (this.printMode == "fsxt-wrist-children") {
         this.title = "新生儿腕带打印";
@@ -1345,6 +1395,39 @@ export default {
             injectGlobalCss: true,
             scanStyles: false,
             css: styleSheet[this.HOSPITAL_ID] || styleSheet.default,
+          });
+        } else if (this.printMode == "wrist-BarCode") {
+          const translateStr= 'rotate(90deg) translateY(-110%) translateX(45%);';
+          let styleSheet = {
+            default: `
+              .bed-card-warpper {
+                box-shadow: none !important;
+                transform: ${translateStr}
+                transform-origin: 0 0;
+              }
+              .bed-card-vert-con {
+              }
+              .is_input_print{
+              font-size:20px !important;
+              }
+              .is_hide_textarea{
+              display:none;
+              }
+              .print-page__ptext{
+              display:block !important;
+              border:none !important;
+              padding:0 !important;
+              height:auto !important;
+              }
+              @page {
+                margin: 0;
+              }`
+          };
+          printing(this.$refs.printConB, {
+            direction: "vertical",
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: styleSheet.default,
           });
         } else if (this.printMode == "fsxt-wrist-children") {
           let styleSheet = {
