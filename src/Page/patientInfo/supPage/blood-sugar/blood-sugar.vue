@@ -132,10 +132,10 @@
           </p>
           <div v-if="HOSPITAL_ID == 'nfyksdyy'">
           <p flex="main:justify" style="
-      margin-right: 4px;
-      font-size: 13px;
-      color: #000;"
- >
+              margin-right: 4px;
+              font-size: 13px;
+              color: #000;"
+            >
             <span>住院号：{{ resInHosId || patientInfo.inpNo ||tableHeaderInfo.bedNo}}</span>
             <span>入院日期：{{$route.query.admissionDate}}</span>
             <span>病区{{$route.query.wardName}}</span>

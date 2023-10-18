@@ -1213,7 +1213,7 @@ export default {
     },
     // 是否显示设为模板
     showSetAsTemplate() {
-      if (this.HOSPITAL_ID === 'foshanrenyi' || this.HOSPITAL_ID === 'nfyksdyy' || this.HOSPITAL_ID === 'hzly') {
+      if (this.HOSPITAL_ID === 'foshanrenyi' || this.HOSPITAL_ID === 'nfyksdyy' || this.HOSPITAL_ID === 'hzly'  || this.HOSPITAL_ID == 'sdhpwk') {
         return this.isRoleManage || this.isNewAdminOrNursingDepartment
       } else {
         return false
@@ -1799,7 +1799,7 @@ export default {
       console.log(this.sheetTitleData.FieldSetting, this.sheetInfo)
       if (this.sheetTitleData.FieldSetting && this.sheetTitleData.FieldSetting.length) {
         //设置起始页后  页码要从起始页开始
-        if(this.HOSPITAL_ID == "nfyksdyy" || this.HOSPITAL_ID == 'hzly'){
+        if(this.HOSPITAL_ID == "nfyksdyy" || this.HOSPITAL_ID == 'hzly' || this.HOSPITAL_ID == 'sdhpwk'){
           this.$refs.tmpModalNew.open(this.sheetInfo.maxPageIndex,this.sheetInfo.sheetStartPage)
         }else{
            this.$refs.tmpModal.open(this.sheetInfo.maxPageIndex,this.sheetInfo.sheetStartPage)
@@ -1825,7 +1825,7 @@ export default {
     },
     // 设为模板
     async setAsTemplate(selectPage) {
-      if(this.HOSPITAL_ID == 'nfyksdyy' || this.HOSPITAL_ID == 'hzly'){
+      if(this.HOSPITAL_ID == 'nfyksdyy' || this.HOSPITAL_ID == 'hzly' || this.HOSPITAL_ID == 'sdhpwk'){
         //设置模板 需要把开头的
         selectPage.pageIndex = selectPage.pageIndex - this.sheetInfo.sheetStartPage
         const list = this.sheetTitleData.FieldSetting.filter(

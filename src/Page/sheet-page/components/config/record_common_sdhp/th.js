@@ -93,56 +93,88 @@ export default {
         "canSet": true,
         "key": "armValue5",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义6",
         "canSet": true,
         "key": "armValue6",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义7",
         "canSet": true,
         "key": "armValue7",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义8",
         "canSet": true,
         "key": "armValue8",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义9",
         "canSet": true,
         "key": "armValue9",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义10",
         "canSet": true,
         "key": "armValue10",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义11",
         "canSet": true,
         "key": "armValue11",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义12",
         "canSet": true,
         "key": "armValue12",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "特殊情况记录",
