@@ -117,36 +117,33 @@
           v-for="item in printData"
           :key="item.patientId"
         >
-          <div class="bed-card-con" style="width:14cm;height:8cm" flex>
-            <img class="qr-code" :style="{ opacity: '1' }" :src="item.qrCode" />
-            <div class="qr-code-num">
+          <div class="bed-card-con" style="width:14cm;height:8cm;overflow:hidden" flex>
+            <img class="qr-code" :style="{ opacity: '1' ,width:'20%' ,height:'30%',top:'-5px',left:'-5px'}" :src="item.qrCode" />
+            <div class="qr-code-num" style="top:75px;font-size:14px" >
               {{ item.qrCodeNum }}
             </div>
             <div style="width: 0" flex-box="1" flex="dir:top main:justify">
-              <div class="title-name" flex="cross:center" style="height: 43px">
-                <span :style="`width:130px`"></span>
+              <div class="title-name" style="height:30px;
+               width:205px;
+               border-bottom:1px solid #000;
+               font-size:26px;
+               transform:translateX(125px) scaleX(1.3);
+               padding-left:5px;">
                 <input
                   type="text"
-                  nowidth
-                  style="font-size: 32px; padding-left: 5px"
-                  flex-box="1"
-                  class="bottom-line"
                   :value="item.name + ' ' + item.sex + ' ' + item.age"
                 />
               </div>
-              <div flex="cross:center" class="input-item title-bed">
-                <span :style="`width: 100px`"></span>
+               <div  style="height:30px;
+               width:205px;
+               line-height:40px;
+               border-bottom:1px solid #000;
+               font-size:20px;
+               transform:translateX(125px) scaleX(1.3)
+               ;padding-left:5px;">
                 <input
                   type="text"
-                  class="bottom-line title-bed__1"
-                  :value="item.bedLabel + '床'"
-                />
-                <input
-                  type="text"
-                  flex-box="1"
-                  nowidth
-                  class="bottom-line title-bed__2"
-                  :value="moment(item.admissionDate).format('YYYY-MM-DD')"
+                  :value="item.bedLabel + '床' + '     '+ moment(item.admissionDate).format('YYYY-MM-DD')"
                 />
               </div>
 
@@ -155,25 +152,27 @@
                 <div
                   nowidth
                   class="check-con"
-                  flex-box="1"
                   flex="main:justify cross:center"
+                  style="width:310px;border-bottom:1px solid #000;font-size:18px;display:inline-block;height:23px;"
                 >
                   <input
                     type="text"
                     nowidth
                     flex-box="1"
                     class="bottom-line"
-                    v-model="item.diet"
+                    :value="item.diet"
                   />
                 </div>
               </div>
-              <div flex="cross:center" class="input-item">
+              <div flex="cross:center" class="input-item"  style="height:45px">
                 <span class="label">病情等级:</span>
                 <div nowidth flex-box="1" flex="main:left cross:center">
                   <img
                   style="max-width: 100%;
                   max-height: 100%;
-                  image-resolution: 300dpi;"
+                  image-resolution: 300dpi;
+                  width:55px;
+                  height:45px;"
                   class="dj-box printCare"
                   @click="selectRegistCare('重')"
                   :class="{ active: true }"
@@ -185,7 +184,9 @@
                 <img
                   style="max-width: 100%;
                   max-height: 100%;
-                  image-resolution: 300dpi;"
+                  image-resolution: 300dpi;
+                  width:55px;
+                  height:45px;"
                   class="dj-box printCare"
                   @click="selectRegistCare('危')"
                   :class="{ active: true }"
@@ -198,7 +199,9 @@
                 <img
                   style="max-width: 100%;
                   max-height: 100%;
-                  image-resolution: 300dpi;"
+                  image-resolution: 300dpi;
+                  width:55px;
+                  height:45px;"
                   class="dj-box printCare"
                   @click="selectRegistCare('普')"
                   :class="{ active: true }"
@@ -211,13 +214,15 @@
                 </div>
               </div>
 
-              <div flex="cross:center" class="input-item">
+              <div flex="cross:center" class="input-item" style="height:45px">
                 <span class="label">护理级别:</span>
                 <div nowidth flex-box="1" flex="main:left cross:center">
                    <img
                   style="max-width: 100%;
                   max-height: 100%;
-                  image-resolution: 300dpi;"
+                  image-resolution: 300dpi;
+                  width:55px;
+                  height:45px;"
                   class="dj-box printCare"
                   
                   :class="{ active: true }"
@@ -230,7 +235,9 @@
                   <img
                   style="max-width: 100%;
                   max-height: 100%;
-                  image-resolution: 300dpi;"
+                  image-resolution: 300dpi;
+                  width:55px;
+                  height:45px;"
                   class="dj-box printCare"
 
                   :class="{ active: true }"
@@ -243,7 +250,9 @@
                    <img
                   style="max-width: 100%;
                   max-height: 100%;
-                  image-resolution: 300dpi;"
+                  image-resolution: 300dpi;
+                  width:55px;
+                  height:45px;"
                   class="dj-box printCare"
                   :class="{ active: true }"
                    :src="
@@ -255,7 +264,9 @@
                    <img
                   style="max-width: 100%;
                   max-height: 100%;
-                  image-resolution: 300dpi;"
+                  image-resolution: 300dpi;
+                  width:55px;
+                  height:45px;"
                   class="dj-box printCare"
                   :class="{ active: true }"
                    :src="
@@ -267,32 +278,32 @@
                 </div>
               </div>
               <div class="title-sign">
-                <div flex="cross:center" class="input-item">
+                <div flex="cross:center" class="input-item" style="font-size:18px;height:30px">
                   <span class="label">主管医生:</span>
-                  <span class="label" style="border-bottom: 1px solid #000; font-size: 20px; display: inline-block; width: 90px;height:34px">{{item.mainDoctors}}</span>
+                  <span class="label" style="border-bottom: 1px solid #000; font-size: 18px; display: inline-block; width: 115px;height:28px">{{item.mainDoctors}}</span>
                   <span class="label">科主任:</span>
-                  <span class="label" style="border-bottom: 1px solid #000; font-size: 20px; display: inline-block; width: 90px;height:34px">{{item.aField2}}</span>
+                  <span class="label" style="border-bottom: 1px solid #000; font-size: 18px; display: inline-block; width: 115px;height:28px">{{item.aField2}}</span>
                 </div>
-                <div flex="cross:center" class="input-item">
+                <div flex="cross:center" class="input-item"  style="font-size:18px;height:30px">
                   <span class="label" >责任护士:</span>
-                  <span class="label" style="border-bottom: 1px solid #000; font-size: 20px; display: inline-block; width: 90px;height:34px">{{item.dutyNurses}}</span>
+                  <span class="label" style="border-bottom: 1px solid #000; font-size: 18px; display: inline-block; width: 115px;height:28px">{{item.dutyNurses}}</span>
                   <span class="label" >护士长:</span>
-                 <span class="label" style="border-bottom: 1px solid #000; font-size: 20px; display: inline-block; width: 90px;height:34px">{{item.aField3}}</span>
+                 <span class="label" style="border-bottom: 1px solid #000; font-size: 18px; display: inline-block; width: 115px;height:28px">{{item.aField3}}</span>
                 </div>
               </div>
             </div>
             <div style="width: 131px">
-              <div class="tip">温馨提示</div>
+              <div class="tip" style="font-size:24px;margin-bottom:2px; text-align: left;transform:translateX(20px) translateY(-5px) scaleX(1.3);">温馨提示</div>
               <div style="height: 2px"></div>
               <div>
                 <div
                   class="tip-item-con"
-                  style="margin-bottom: 6px"
+                  style="margin-bottom:9px;height:40px"
                   flex="cross:center main:justify"
                   v-for="items in  whhktipList"
                   :key="items.label"
                 >
-                  <img :src="items.img" alt />
+                  <img :src="items.img" style="width:46px;height:30px" alt />
                   <span>{{ items.label }}</span>
                 </div>
               </div>
@@ -1108,12 +1119,13 @@ export default {
               .bed-card-wrapper{
                 margin: 0mm  auto;
                 width: 15cm;
-                height: 7cm;
+                height: 6.9cm;
                 transform-origin: top left;
-                transform:scale(0.7,1);
+                transform:scale(0.7,0.97);
               }
               @page{
                  margin: 0;
+                 padding:0;
               }
              `
           ;
