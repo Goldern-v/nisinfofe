@@ -38,7 +38,8 @@
                 {{ currentBottle.age }}
               </span>
          </div>
-        <div style="width: 150px;text-align: center;font-size: 20px;">{{ currentBottle.frequency }}</div>
+        <div style="width: 175px;text-align: center;font-size: 25px;font-weight: 900;">{{ currentBottle.frequency }}</div>
+        <!-- <div style="width: 150px;text-align: center;font-size: 20px;">{{ 'bid(餐后)(1/3)' }}</div> -->
       </div>
       <table>
         <colgroup>

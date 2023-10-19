@@ -214,8 +214,8 @@ const currentTargetUrl = (() => {
 
     // 烟台玲珑
     case 'ytll':
-      // return "http://221.214.210.170:39094"  // 正式
-      return 'http://192.168.1.54:9866'
+      return "http://221.214.210.170:39094"  // 正式
+      // return 'http://192.168.1.54:9866'
       // return 'http://192.168.1.54:9893' // 烟台玲珑测试环境
       // return "http://218.13.87.27:9094" //
 
@@ -299,16 +299,16 @@ const currentTargetUrl = (() => {
       return "https://info.cr-health.com:20217" //公司外网
     // 顺德和平外科
     case 'sdhpwk':
-      return 'http://192.168.1.54:9866'
-      // return 'http://202.104.27.221:9091'
+      // return 'http://192.168.1.54:9866'
+      return 'http://202.104.27.221:9091'
       // return "https://info.cr-health.com:20217" //公司外网
 
     // 惠州市第六人民医院
     case 'hzly':
-      return 'http://192.168.1.54:9866'
+      // return 'http://192.168.1.54:9866'
       // return "https://info.cr-health.com:20217" //公司外网
       // return 'http://192.168.20.158:9091'//陈齐本地
-      // return 'http://120.24.240.231:16093'
+      return 'http://120.24.240.231:16093'
 
 
     /** 默认公司本地内网厚街测试环境 */

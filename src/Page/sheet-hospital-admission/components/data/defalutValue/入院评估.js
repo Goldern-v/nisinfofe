@@ -50,6 +50,7 @@ export const 入院默认值 = {
   I001501: "住院须知,物品管理,作息,探陪,订餐,介绍主管医生,介绍主管护士,住院押金管理",
   I001551: "指导∕协助刷牙",
   I001553: "其他",
+
   // I001554: "无",
   I001555: "入院护理",
   I001557: "无",
@@ -73,7 +74,7 @@ export const 入院默认值 = {
   I100129: "自我照顾",
   I001260: "无",
   I1001883: "/",
-  I100136: "无",
+  I100136: process.env.HOSPITAL_ID=='qhwy' ? "无风险" : "无",
   // "I2332047":process.env.HOSPITAL_ID=='nfyksdyy' && "经口进食",
   I100098: "普食",
   I001114:process.env.HOSPITAL_ID=='qhwy' && "既往体健",
@@ -82,7 +83,10 @@ export const 入院默认值 = {
   I001975:process.env.HOSPITAL_ID=='qhwy' && "正常",
   I2332188:process.env.HOSPITAL_ID=='nfyksdyy' && "住院须知,财物保管,作息时间,订餐,介绍主管医生,病房设施的使用",
   I2332189:process.env.HOSPITAL_ID=='nfyksdyy' && "大小便标本的留取方法,B超,采集血标本",
-  S0629: process.env.HOSPITAL_ID== 'qhwy' && "无"
+  S0629: process.env.HOSPITAL_ID== 'qhwy' && "无",
+  S0305_2: process.env.HOSPITAL_ID== 'qhwy' && "无风险",
+  I100127: process.env.HOSPITAL_ID== 'qhwy' && "无风险",
+  I100126: process.env.HOSPITAL_ID== 'qhwy' && "无风险"
 };
 
 export const defaultFS_adult = {
