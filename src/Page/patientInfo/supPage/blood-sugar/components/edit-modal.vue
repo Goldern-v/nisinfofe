@@ -154,7 +154,7 @@
         :required="HOSPITAL_ID !=='925'"
         v-if="
           !['zhzxy','gy','huadu','liaocheng','hengli',
-          'guizhou','sdlj','whfk','foshanrenyi', 'lyyz', 'ytll','whsl','nfyksdyy'].includes(HOSPITAL_ID)
+          'guizhou','sdlj','whfk','foshanrenyi', 'lyyz', 'ytll','whsl','nfyksdyy','sdhpwk'].includes(HOSPITAL_ID)
         "
       >
         <ElInput v-model="form.riValue" />
@@ -162,7 +162,7 @@
       </ElFormItem>
       <ElFormItem
         label="备注："
-        v-if="HOSPITAL_ID == 'beihairenyi'"
+        v-if="HOSPITAL_ID == 'beihairenyi' || HOSPITAL_ID == 'sdhpwk'"
       >
         <!-- <ElInput v-model="form.expand3" /> -->
         <el-input

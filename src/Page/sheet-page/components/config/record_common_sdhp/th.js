@@ -13,7 +13,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1320px"
+    width: "1340px"
   },
   th: {
     top: [
@@ -93,56 +93,88 @@ export default {
         "canSet": true,
         "key": "armValue5",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义6",
         "canSet": true,
         "key": "armValue6",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义7",
         "canSet": true,
         "key": "armValue7",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义8",
         "canSet": true,
         "key": "armValue8",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义9",
         "canSet": true,
         "key": "armValue9",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义10",
         "canSet": true,
         "key": "armValue10",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义11",
         "canSet": true,
         "key": "armValue11",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "自定义12",
         "canSet": true,
         "key": "armValue12",
         "colspan": "1",
-        "rowspan": "3"
+        "rowspan": "3",
+        "style": {
+          "minWidth": "45px",
+          "maxWidth": "45px"
+        }
       },
       {
         "name": "特殊情况记录",
@@ -190,42 +222,66 @@ export default {
         "canSet": true,
         "key": "armValue13",
         "colspan": "1",
-        "rowspan": "1"
+        "rowspan": "1",
+        "style": {
+          "minWidth": "41px",
+          "maxWidth": "41px"
+        }
       },
       {
         "name": "自定义14",
         "canSet": true,
         "key": "armValue14",
         "colspan": "1",
-        "rowspan": "1"
+        "rowspan": "1",
+        "style": {
+          "minWidth": "41px",
+          "maxWidth": "41px"
+        }
       },
       {
         "name": "自定义15",
         "canSet": true,
         "key": "armValue15",
         "colspan": "1",
-        "rowspan": "2"
+        "rowspan": "2",
+        "style": {
+          "minWidth": "41px",
+          "maxWidth": "41px"
+        }
       },
       {
         "name": "自定义16",
         "canSet": true,
         "key": "armValue16",
         "colspan": "1",
-        "rowspan": "2"
+        "rowspan": "2",
+        "style": {
+          "minWidth": "41px",
+          "maxWidth": "41px"
+        }
       },
       {
         "name": "自定义17",
         "canSet": true,
         "key": "armValue17",
         "colspan": "1",
-        "rowspan": "2"
+        "rowspan": "2",
+        "style": {
+          "minWidth": "41px",
+          "maxWidth": "41px"
+        }
       },
       {
         "name": "自定义18",
         "canSet": true,
         "key": "armValue18",
         "colspan": "1",
-        "rowspan": "2"
+        "rowspan": "2",
+        "style": {
+          "minWidth": "41px",
+          "maxWidth": "41px"
+        }
       },
     ],
     bottom: [{
@@ -243,14 +299,22 @@ export default {
         "canSet": true,
         "key": "armValue19",
         "colspan": "1",
-        "rowspan": "1"
+        "rowspan": "1",
+        "style": {
+          "minWidth": "41px",
+          "maxWidth": "41px"
+        }
       },
       {
         "name": "自定义20",
         "canSet": true,
         "key": "armValue20",
         "colspan": "1",
-        "rowspan": "1"
+        "rowspan": "1",
+        "style": {
+          "minWidth": "41px",
+          "maxWidth": "41px"
+        }
       },
     ],
   }

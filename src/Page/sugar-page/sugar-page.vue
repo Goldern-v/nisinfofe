@@ -66,6 +66,8 @@ import bloodSugarFoShanRenYi from "@/Page/patientInfo/supPage/blood-sugar/blood-
 import bloodSugarNfyksdyy from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_nfyksdyy";
 import bloodSugarZhuHaiZhongXiYi from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_zhzxy"; // 珠海中西医
 import bloodSugarZjhj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_zjhj"; // 湛江海军
+import bloodSugarSdhpwk from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_sdhpwk"; // 顺德和平
+
 import bloodSugarWHHK from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_whhk"; // 珠海中西医
 import bloodSugarGdtj from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar_gdtj"; // 广东同江
 import sugarBtn from "@/Page/patientInfo/supPage/blood-sugar-sdlj/components/sugar-btn.vue";
@@ -146,6 +148,7 @@ export default {
         中国人民解放军南部战区海军第一医院:'bloodSugarZjhj',
         武汉市汉口医院:'bloodSugarWHHK',
         广东同江医院:'bloodSugarGdtj',
+        顺德和平外科医院:'bloodSugarSdhpwk'
         // 佛山市顺德区龙江医院: 'bloodSugarSdlj'
       };
       return hisList[HisName] || "bloodSugar";
@@ -218,6 +221,7 @@ export default {
     bloodSugarNfyksdyy,
     bloodSugarZhuHaiZhongXiYi,
     bloodSugarZjhj,
+    bloodSugarSdhpwk,
     bloodSugarWHHK,
     bloodSugarGdtj,
     sugarBtn,

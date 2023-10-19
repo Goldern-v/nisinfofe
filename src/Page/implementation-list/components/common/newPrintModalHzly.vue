@@ -16,43 +16,38 @@
       <div class="new-print-title">
         <div class="main-content">
           <div>
-            床位：<span>{{ currentBottle.bedLabel }}</span>
+            <span>{{ currentBottle.bedLabel + '床' }}</span>
           </div>
         </div>
         <div class="main-content">
            <div>
-            <span>{{ currentBottle.name }}</span>
+            <span style="padding-left: 30px;">{{ currentBottle.name }}</span>
           </div>
         </div>
-        <div>
-           <div>{{ currentBottle.repeatIndicator == '1'? '长期' : '临时'  }}</div>
-           <div>性别：{{ currentBottle.sex }}</div>
+        <div style="font-size: 25px;display: inline-block;font-weight: 900;">
+           <div>{{ currentBottle.patientId || "" }}</div>
         </div>
       </div>
       <div class="new-print-modal__top">
-        <div>科室：{{ currentBottle.deptName }}</div>
-        <div>ID：{{ currentBottle.patientId || "" }}</div>
-        <div>年龄{{ currentBottle.age }}</div>
-      </div>
-      <div class="new-print-modal__top">
-        <div>
-          途径：<span>{{ currentBottle.administration }}</span>
-        </div>
-        <div>执行时间：{{ currentBottle.executeDate.substr(0, 16) }}</div>
+        <div>{{ currentBottle.deptName }}</div>
+         <div>
+               <span>
+                {{ currentBottle.sex }}
+              </span>
+              <span>
+                {{ currentBottle.age }}
+              </span>
+         </div>
+        <div style="width: 175px;text-align: center;font-size: 25px;font-weight: 900;">{{ currentBottle.frequency }}</div>
+        <!-- <div style="width: 150px;text-align: center;font-size: 20px;">{{ 'bid(餐后)(1/3)' }}</div> -->
       </div>
       <table>
         <colgroup>
           <col />
           <col width="60px" />
-          <col width="60px" />
         </colgroup>
-        <tr>
-          <td>药品名称</td>
-          <td>用量</td>
-          <td>频率</td>
-        </tr>
-        <tr class="reserved">
-          <td style="text-align:left;font-size: 21px;">
+        <tr class="reserved" style="line-height: 25px;">
+          <td style="text-align:left;font-size: 23px;">
             <div
               v-for="(item, index) in currentBottle.orderText"
               :key="index"
@@ -69,25 +64,19 @@
               {{ currentBottle.dosageDosageUnits[index] }}
             </div>
           </td>
-          <td>
-            <div
-              v-for="(item, index) in currentBottle.orderText"
-              :key="index"
-            >
-              {{ itemObj[index].frequency }}
-            </div>
-          </td>
         </tr>
       </table>
 
       <div class="new-print-modal__tip2">
         <div>医生说明：{{ currentBottle.freqDetail }}</div>
         <div class="sign_tip">
-          <div>核对者：<span class="shoushu"></span></div>
+         <div>
+          <span style="font-weight: 900; font-size: 25px;">{{ currentBottle.administration }}</span>
+        </div>
+         <div style="font-size: 23px;">{{ currentBottle.executeDate.substr(0, 10) }}</div>
         </div>
         <div class="sign_tip">
-          <div>配液者：<span class="shoushu"></span></div>
-          <div>配置时间：<span class="shoushu"></span></div>
+          <div style="width: 300px;">备注：<span class="shoushu" style="width: 250px;"></span></div>
         </div>
         <div class="qc-box">
           <img :src="currentBottle.qcSrc || ''" />
@@ -167,10 +156,10 @@
         display: flex;
         font-size: 16px;
         justify-content: space-between;
-        line-height: 21px;
+        line-height: 30px;
         .main-content {
           display: flex;
-          flex: 1;
+          // flex: 1;
           align-items: center;
           div>span{
             font-size: 30px;
@@ -182,8 +171,8 @@
         display: flex;
         justify-content: space-between;
         align-content: center;
-        font-size: 16px;
-        line-height: 21px;
+        font-size: 20px;
+        line-height: 30px;
         > div {
           > span {
             font-weight: 900;
@@ -255,7 +244,7 @@
           align-content: center;
           line-height: 33px;
           > div:first-of-type {
-            width: 155px;
+            width: 195px;
           }
           .shoushu {
               border-bottom: 1px solid #000;
@@ -267,7 +256,7 @@
           position: absolute;
           top: 0;
           right: 0;
-          width: 80px;
+          width: 75px;
           overflow: hidden;
           padding: 1px 1px 0px 0px;
           img {
@@ -296,8 +285,8 @@
       }
       .reserved {
         td {
-          height: 180px;
-          font-size: 16px;
+          height: 210px;
+          font-size: 23px;
         }
       }
     }

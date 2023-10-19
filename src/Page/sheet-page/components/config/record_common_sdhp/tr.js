@@ -217,62 +217,56 @@ export default [
     value: '',
     next: '',
     name: '',
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 6)
-  },
+    textarea: { width: 45 },
+    change: (e, td) => limitChange(e, td, 8)  },
   {
     key: 'armValue6',
     event: keyf1,
     value: '',
     next: '',
     name: '',
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 6)
-  },
+    textarea: { width: 45 },
+    change: (e, td) => limitChange(e, td, 8)  },
   {
     key: 'armValue7',
     event: keyf1,
     value: '',
     next: '',
     name: '',
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 6)
-  },
+    textarea: { width: 45 },
+    change: (e, td) => limitChange(e, td, 8)  },
   {
     key: 'armValue8',
     event: keyf1,
     value: '',
     next: '',
     name: '',
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 6)
-  },
+    textarea: { width: 45 },
+    change: (e, td) => limitChange(e, td, 8)  },
   {
     key: 'armValue9',
     event: keyf1,
     value: '',
     next: '',
     name: '',
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 6)
-  },
+    textarea: { width: 45 },
+    change: (e, td) => limitChange(e, td, 8)  },
   {
     key: 'armValue10',
     event: keyf1,
     value: '',
     next: '',
     name: '',
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 6)
-  },
+    textarea: { width: 45 },
+    change: (e, td) => limitChange(e, td, 8)  },
   {
     key: 'armValue11',
     event: keyf1,
     value: '',
     next: '',
     name: '',
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 6)
+    textarea: { width: 45 },
+    change: (e, td) => limitChange(e, td, 8)
   },
   {
     key: 'armValue12',
@@ -280,8 +274,8 @@ export default [
     value: '',
     next: '',
     name: '',
-    textarea: { width: 40 },
-    change: (e, td) => limitChange(e, td, 6)
+    textarea: { width: 45 },
+    change: (e, td) => limitChange(e, td, 8)
   },
 
 

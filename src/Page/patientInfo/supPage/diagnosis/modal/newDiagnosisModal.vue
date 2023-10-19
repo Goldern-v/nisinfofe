@@ -214,8 +214,8 @@ export default {
       cacheSearchList: localStorage.diagnosisCacheSearchList
         ? JSON.parse(localStorage.diagnosisCacheSearchList)
         : [],
-      hasImport:['liaocheng','guizhou','foshanrenyi','zhzxy',"whsl"],
-      hasWHzhenduan:['foshanrenyi'],
+      hasImport:['liaocheng','guizhou','foshanrenyi','zhzxy',"whsl",'nfyksdyy'],
+      hasWHzhenduan:['foshanrenyi','nfyksdyy'],
       isConfirm:false,
       fileList:[],
       isImportModuleDevSuccess:true,

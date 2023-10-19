@@ -6,7 +6,7 @@
       <el-tabs
         type="card"
         v-model="activeName"
-        v-if="['nfyksdyy','hzly'].includes(this.HOSPITAL_ID)"
+        v-if="['nfyksdyy','hzly','sdhpwk'].includes(this.HOSPITAL_ID)"
       >
         <el-tab-pane label="设置自定义标题" name="first">
           <p for class="name-title" flex="main:justify">
@@ -214,6 +214,7 @@ export default {
             this.HOSPITAL_ID == "nfyksdyy" ||
             this.HOSPITAL_ID == "zjhj" ||
             this.HOSPITAL_ID == "hzly" ||
+            this.HOSPITAL_ID == "sdhpwk" ||
             this.HOSPITAL_ID == "foshanrenyi"
           ) {
             this.openTitleTemplateSlide();
@@ -265,7 +266,7 @@ export default {
             this.HOSPITAL_ID
           )
         ) {
-          if(this.HOSPITAL_ID == 'nfyksdyy' && titleLength >= 35){
+          if((this.HOSPITAL_ID == 'nfyksdyy' || this.HOSPITAL_ID == 'sdhpwk') && titleLength >= 35){
             this.$alert('当前标题超过最大限制字数!', '提示', {
               confirmButtonText: '取消',
               type: 'warning'

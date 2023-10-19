@@ -1111,7 +1111,9 @@ export default {
                 height: 7cm;
                 transform-origin: top left;
                 transform:scale(0.7,1);
-
+              }
+              @page{
+                 margin: 0;
               }
              `
           ;
