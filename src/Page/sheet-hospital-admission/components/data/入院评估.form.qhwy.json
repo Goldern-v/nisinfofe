@@ -1932,14 +1932,15 @@
           "inputWidth": "160px",
           "class": null,
           "options": [
+            "无风险",
             "自理能力评估"
           ],
           "rule": [
             {
               "dialog": {
                 "openKey": "自理能力评估表",
-                "cleanKey": "无",
-                "openDiffKey": "无",
+                "cleanKey": "无风险",
+                "openDiffKey": "无风险",
                 "title": "自理能力评估表",
                 "default": "自理能力评估表",
                 "name": "I100126",
@@ -1964,14 +1965,14 @@
           "inputWidth": "160px",
           "class": null,
           "options": [
-            "无",
+            "无风险",
             "有,压疮危险评估表"
           ],
           "rule": [
             {
               "dialog": {
                 "openKey": "有,压疮危险评估表",
-                "cleanKey": "无",
+                "cleanKey": "无风险",
                 "title": "压疮危险评估表",
                 "default": "压疮危险评估表",
                 "type": "independent",
@@ -2020,7 +2021,7 @@
           "inputWidth": "350px",
           "class": null,
           "options": [
-            "无",
+            "无风险",
             "有,跌倒评估单(成人)",
             "有,儿科跌倒评估",
             "有,产科跌倒评估"
@@ -2029,7 +2030,7 @@
             {
               "dialog": {
                 "openKey": "有,跌倒评估单(成人)",
-                "cleanKey": "无",
+                "cleanKey": "无风险",
                 "title": "跌倒评估单",
                 "default": "跌倒评估单",
                 "name": "S0305_2",
@@ -2041,7 +2042,7 @@
             {
               "dialog": {
                 "openKey": "有,跌倒评估单(儿童)",
-                "cleanKey": "无",
+                "cleanKey": "无风险",
                 "title": "跌倒评估单(儿童)",
                 "default": "跌倒评估单(儿童)",
                 "name": "S0305_2",
@@ -2053,7 +2054,7 @@
             {
               "relationForm": {
                 "openKey": "有,儿科跌倒评估",
-                "cleanKey": "无",
+                "cleanKey": "无风险",
                 "params": {
                   "formCode": "E1867",
                   "showSignBtn": true,
@@ -2071,7 +2072,7 @@
             {
               "relationForm": {
                 "openKey": "有,产科跌倒评估",
-                "cleanKey": "无",
+                "cleanKey": "无风险",
                 "params": {
                   "formCode": "E1655",
                   "showSignBtn": true,
@@ -2102,32 +2103,45 @@
           "inputWidth": "180px",
           "class": null,
           "options": [
+            "无风险",
             "有,外科血栓风险评估量表（Caprini评估量表）",
             "有,内科血栓风险评估量表（Padua评估量表）"
           ],
           "rule": [
             {
-              "dialog": {
+              "relationForm": {
                 "openKey": "有,外科血栓风险评估量表（Caprini评估量表）",
-                "cleanKey": "无",
-                "title": "外科血栓风险评估量表（Caprini评估量表）",
-                "default": "外科血栓风险评估量表（Caprini评估量表）",
-                "name": "I100136",
-                "type": "independent",
-                "parentName": "I100136",
-                "showHead": "true"
+                "cleanKey": "无风险",
+                "params": {
+                  "formCode": "E1629",
+                  "showSignBtn": true,
+                  "title": "外科血栓风险评估量表（Caprini评估量表）",
+                  "formUrl": "外科血栓风险评估量表（Caprini评估量表）.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "I100136",
+                    "prefix": "有,外科血栓风险评估:",
+                    "suffix": "分"
+                  }
+                }
               }
             },
             {
-              "dialog": {
+              "relationForm": {
                 "openKey": "有,内科血栓风险评估量表（Padua评估量表）",
-                "cleanKey": "无",
-                "title": "内科血栓风险评估量表（Padua评估量表）",
-                "default": "内科血栓风险评估量表（Padua评估量表）",
-                "name": "I100136",
-                "type": "independent",
-                "parentName": "I100136",
-                "showHead": "true"
+                "cleanKey": "无风险",
+                "params": {
+                  "formCode": "E1627",
+                  "showSignBtn": true,
+                  "title": "内科血栓风险评估量表（Padua评估量表）",
+                  "formUrl": "内科血栓风险评估量表（Padua评估量表）.html",
+                  "callbackInfo": {
+                    "needScore": true,
+                    "code": "I100136",
+                    "prefix": "有,内科血栓风险评估:",
+                    "suffix": "分"
+                  }
+                }
               }
             },
             {
@@ -2144,7 +2158,7 @@
             {
               "dialog": {
                 "openKey": "有,疼痛评估单",
-                "cleanKey": "无",
+                "cleanKey": "无风险",
                 "title": "疼痛评估单",
                 "default": "疼痛评估单",
                 "name": "S0629",
@@ -2156,7 +2170,7 @@
             {
               "dialog": {
                 "openKey": "有,新生儿疼痛评估(CRIES)",
-                "cleanKey": "无",
+                "cleanKey": "无风险",
                 "title": "新生儿疼痛评估(CRIES)",
                 "default": "新生儿疼痛评估(CRIES)",
                 "name": "S0629",
@@ -2168,7 +2182,7 @@
             {
               "dialog": {
                 "openKey": "有,新生儿疼痛评估(NIPS)",
-                "cleanKey": "无",
+                "cleanKey": "无风险",
                 "title": "新生儿疼痛评估(NIPS)",
                 "default": "新生儿疼痛评估(NIPS)",
                 "name": "S0629",
