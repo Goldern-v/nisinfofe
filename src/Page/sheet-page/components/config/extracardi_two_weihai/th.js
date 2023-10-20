@@ -13,7 +13,7 @@ export default {
   // 科室的名称
   deptType: "",
   style: {
-    width: "1360px"
+    width: "1370px"
   },
   th: {
     top: [
@@ -57,7 +57,7 @@ export default {
       { name: "对光反射", colspan: "2", rowspan: "1", style: { minWidth: "80px", maxWidth: "80px" } },
       { name: "插管<br/>内置<br/>(cm)", colspan: "1", rowspan: "2", style: { minWidth: "50px", maxWidth: "50px" } },
       { name: "气囊压力<br/>(cmH2O)", colspan: "1", rowspan: "2", style: { minWidth: "60px", maxWidth: "60px" } },
-      { name: "辅助方式", colspan: "1", rowspan: "2", style: { minWidth: "60px", maxWidth: "60px" } },
+      { name: "辅助方式", colspan: "1", rowspan: "2", style: { minWidth: "70px", maxWidth: "70px" } },
       {
         name: "氧浓度%",
         colspan: "1",
