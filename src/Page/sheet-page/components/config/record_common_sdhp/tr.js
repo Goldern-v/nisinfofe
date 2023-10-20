@@ -38,7 +38,7 @@ const ysxzList = ['棕黄粘稠', '墨绿粘稠', '淡黄澄清', '淡红血性'
 export default [
   { hidden: true, key: 'recordDate', value: '' },
   { key: "recordMonth", event: event_date, click: click_date, value: ''},
-  { key: "recordHour", event: event_time, value: ''},
+  { key: "recordHour", event: event_time, click: click_time, value: ''},
   {
     key: 'temperature',
     event: keyf1,

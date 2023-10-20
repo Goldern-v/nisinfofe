@@ -34,8 +34,8 @@ const Customizations1 = ["√"]
 
 export default [
   { hidden: true, key: "recordDate", value: "" },
-  { key: "recordMonth", event: event_date, click: click_date, value: "" },
-  { key: "recordHour", event: event_time, click: click_time,value: "" },
+  { key: "recordMonth", event: event_date, click: click_date, value: "" ,style: { width: "40px"}},
+  { key: "recordHour", event: event_time, click: click_time,value: "" ,style: { width: "40px"}},
   {
     key: "consciousness",
     event: keyf1,

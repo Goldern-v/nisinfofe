@@ -36,7 +36,7 @@ const dgfs = [
   {name: 'B迟钝（±）', value: 'B'},
   {name: 'C消失（-）', value: 'C'},
 ];
-const fzfs = ["SIMV","PS/CPAP","SPONT","鼻导管","气管插管内吸氧","面罩"]
+const fzfs = ["SIMV", "PS/CPAP", "SPONT", "鼻导管", "气管插管内吸氧", "面罩", "高流量无创呼吸湿化治疗仪","无创呼吸机"]
 const huxiyin = ["粗","清","低","痰鸣音","湿啰音","干啰音"]
 const moshao = ['暖', '温', '凉']
 const xinlv = [
@@ -115,8 +115,8 @@ export default [
     event: keyf1,
     value: "",
     name: "辅助方式",
-    textarea: { width: 60 },
-    change: (e, td) => limitChange(e, td, 10),
+    textarea: { width: 70 },
+    change: (e, td) => limitChange(e, td, 12),
     autoComplete: { data: fzfs }
   },
   {
