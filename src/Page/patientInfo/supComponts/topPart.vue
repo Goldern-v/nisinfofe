@@ -203,7 +203,8 @@
             HOSPITAL_ID !== 'whsl' &&
             HOSPITAL_ID !== 'ytll' &&
             HOSPITAL_ID !== 'nfyksdyy' &&
-            HOSPITAL_ID !== 'dglb'
+            HOSPITAL_ID !== 'dglb' &&
+            HOSPITAL_ID !== 'dgdl'
         "
         :to="{
           path: '/hospitalEval',
@@ -273,7 +274,7 @@
         <div class="nav-item">医嘱</div>
       </router-link>
       <router-link
-        v-if="['dglb'].includes(HOSPITAL_ID)"
+        v-if="['dglb', 'dgdl'].includes(HOSPITAL_ID)"
         :to="{
           path: '/dev',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -311,7 +312,7 @@
         <div class="nav-item">手术</div>
       </router-link> -->
       <router-link
-        v-if="['fsxt', 'dglb'].includes(HOSPITAL_ID)"
+        v-if="['fsxt', 'dglb', 'dgdl'].includes(HOSPITAL_ID)"
         :to="{
           path: '/doctorEmr',
           query: { patientId: query.patientId, visitId: query.visitId }
