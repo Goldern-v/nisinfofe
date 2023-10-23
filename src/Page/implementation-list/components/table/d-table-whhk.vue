@@ -174,13 +174,13 @@
       </u-table-column>
 
       <u-table-column
-        prop="beiHeNurse"
+        prop="dispenseVerifyNurse"
         label="配药核对人/配药核对时间"
         min-width="190px"
         align="center"
       >
         <template slot-scope="scope">
-          {{ scope.row.beiHeNurse }} {{ scope.row.beiHeTime | ymdhm2 }}
+          {{ scope.row.dispenseVerifyNurse }} {{ scope.row.dispenseVerityDateTime | ymdhm2 }}
         </template>
       </u-table-column>
 
