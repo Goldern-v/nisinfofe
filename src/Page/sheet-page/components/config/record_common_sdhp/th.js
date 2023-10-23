@@ -54,42 +54,42 @@ export default {
       //   "rowspan": "3"
       // },
       {
-        "name": "自定义",
+        "name": "",
         "canSet": true,
         "key": "painScore",
         "colspan": "1",
         "rowspan": "1"
       },
       {
-        "name": "自定义",
+        "name": "",
         "canSet": true,
         "key": "armValue1",
         "colspan": "2",
         "rowspan": "1"
       },
       {
-        "name": "自定义",
+        "name": "",
         "canSet": true,
         "key": "armValue2",
         "colspan": "2",
         "rowspan": "1"
       },
       {
-        "name": "自定义3",
+        "name": "",
         "canSet": true,
         "key": "armValue3",
         "colspan": "2",
         "rowspan": "1"
       },
       {
-        "name": "自定义4",
+        "name": "",
         "canSet": true,
         "key": "armValue4",
         "colspan": "2",
         "rowspan": "1"
       },
       {
-        "name": "自定义5",
+        "name": "",
         "canSet": true,
         "key": "armValue5",
         "colspan": "1",
@@ -100,7 +100,7 @@ export default {
         }
       },
       {
-        "name": "自定义6",
+        "name": "",
         "canSet": true,
         "key": "armValue6",
         "colspan": "1",
@@ -111,7 +111,7 @@ export default {
         }
       },
       {
-        "name": "自定义7",
+        "name": "",
         "canSet": true,
         "key": "armValue7",
         "colspan": "1",
@@ -122,7 +122,7 @@ export default {
         }
       },
       {
-        "name": "自定义8",
+        "name": "",
         "canSet": true,
         "key": "armValue8",
         "colspan": "1",
@@ -133,7 +133,7 @@ export default {
         }
       },
       {
-        "name": "自定义9",
+        "name": "",
         "canSet": true,
         "key": "armValue9",
         "colspan": "1",
@@ -144,7 +144,7 @@ export default {
         }
       },
       {
-        "name": "自定义10",
+        "name": "",
         "canSet": true,
         "key": "armValue10",
         "colspan": "1",
@@ -155,7 +155,7 @@ export default {
         }
       },
       {
-        "name": "自定义11",
+        "name": "",
         "canSet": true,
         "key": "armValue11",
         "colspan": "1",
@@ -166,7 +166,7 @@ export default {
         }
       },
       {
-        "name": "自定义12",
+        "name": "",
         "canSet": true,
         "key": "armValue12",
         "colspan": "1",
@@ -218,7 +218,7 @@ export default {
         "rowspan": "1"
       },
       {
-        "name": "自定义13",
+        "name": "",
         "canSet": true,
         "key": "armValue13",
         "colspan": "1",
@@ -229,7 +229,7 @@ export default {
         }
       },
       {
-        "name": "自定义14",
+        "name": "",
         "canSet": true,
         "key": "armValue14",
         "colspan": "1",
@@ -240,7 +240,7 @@ export default {
         }
       },
       {
-        "name": "自定义15",
+        "name": "",
         "canSet": true,
         "key": "armValue15",
         "colspan": "1",
@@ -251,7 +251,7 @@ export default {
         }
       },
       {
-        "name": "自定义16",
+        "name": "",
         "canSet": true,
         "key": "armValue16",
         "colspan": "1",
@@ -262,7 +262,7 @@ export default {
         }
       },
       {
-        "name": "自定义17",
+        "name": "",
         "canSet": true,
         "key": "armValue17",
         "colspan": "1",
@@ -273,7 +273,7 @@ export default {
         }
       },
       {
-        "name": "自定义18",
+        "name": "",
         "canSet": true,
         "key": "armValue18",
         "colspan": "1",
@@ -295,7 +295,7 @@ export default {
         "rowspan": "1"
       },
       {
-        "name": "自定义19",
+        "name": "",
         "canSet": true,
         "key": "armValue19",
         "colspan": "1",
@@ -306,7 +306,7 @@ export default {
         }
       },
       {
-        "name": "自定义20",
+        "name": "",
         "canSet": true,
         "key": "armValue20",
         "colspan": "1",

@@ -1333,7 +1333,7 @@ export default {
       }
       this.isPrint = true
       this.$nextTick(() => {
-        this.post();
+        !this.HOSPITAL_ID == 'whhk' && this.post();
         const ref = hisMatch({
           map: {
             dglb: this.$refs.printCon.$el,
