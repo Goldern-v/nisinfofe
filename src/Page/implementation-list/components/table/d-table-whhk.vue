@@ -174,7 +174,7 @@
       </u-table-column>
 
       <u-table-column
-        prop="heNurse"
+        prop="beiHeNurse"
         label="配药核对人/配药核对时间"
         min-width="190px"
         align="center"
