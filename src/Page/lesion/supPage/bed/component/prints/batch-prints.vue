@@ -109,12 +109,51 @@ export default {
       if(['whhk'].includes(this.HOSPITAL_ID)){
           const printArr=[]
           this.optionList.map(item => {
-            if( this.printSelect.includes(item.bedLabel)){
-              printArr.push({patientId:item.patientId,visitId:item.visitId})
+            if(this.printSelect.includes(item.bedLabel)){
+              printArr.push(
+                {
+                  patientId:item.patientId,
+                  visitId:item.visitId,
+                  nursingClass:item.nursingClass,
+                  patientCondition:item.patientCondition,
+                })
             }
           })
           const res = await batchGetEntity(printArr)
           this.printData=res.data.data
+          this.printData=this.printData.map(item => {
+            if(!item.registCare){
+              // 空的字段，去拿原来的护理级别、病情等级去做默认值
+              printArr.map(patientItem=>{
+                if(patientItem.patientId==item.patientId){
+                   // 护理级别
+                  if (patientItem.nursingClass == "特级护理") {
+                     item.registCare=item.registCare?`${item.registCare},'特'`:`特`
+                  }
+                  if (patientItem.nursingClass == "一级护理") {
+                     item.registCare=item.registCare?`${item.registCare},'一'`:`一`
+                  }
+                  if (patientItem.nursingClass == "二级护理") {
+                     item.registCare=item.registCare?`${item.registCare},'二'`:`二`
+                  }
+                  if (patientItem.nursingClass == "三级护理") {
+                     item.registCare=item.registCare?`${item.registCare},'三'`:`三`
+                  }
+                  // 病情等级
+                  if (patientItem.patientCondition.includes("普通")) {
+                     item.registCare=item.registCare?`${item.registCare},'普'`:`普`
+                  }
+                  if (patientItem.patientCondition.includes("病危")) {
+                     item.registCare=item.registCare?`${item.registCare},'危'`:`危`
+                  }
+                  if (patientItem.patientCondition.includes("病重")) {
+                     item.registCare=item.registCare?`${item.registCare},'重'`:`重`
+                  } 
+                }
+              })
+            }
+            return item
+          })
       }else{
          this.printData = this.optionList.filter(item => this.printSelect.includes(item.bedLabel))
       }
