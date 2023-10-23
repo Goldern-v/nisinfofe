@@ -32,6 +32,7 @@
             HOSPITAL_ID != 'hengli'&&
             HOSPITAL_ID != 'fuyou'&&
             HOSPITAL_ID != 'sdlj'&&
+            HOSPITAL_ID != 'ytll'&&
             HOSPITAL_ID != 'guizhou'&&
             HOSPITAL_ID != 'whfk'
           "
