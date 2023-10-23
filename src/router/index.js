@@ -767,7 +767,6 @@ const router = new Router({
         path: "/archive",
         component: (() => {
           switch(HOSPITAL_ID) {
-            case 'lyxrm':
             case 'zjhj':
             case 'foshanrenyi':
             case 'zhzxy':
@@ -776,6 +775,7 @@ const router = new Router({
               return archiveFSSY
             // nfyksdyy本来是 archiveFSSY，改版归档用archiveSDYY，用archiveFSSY那些医院也要改就用archiveSDYY
             case "ytll":
+            case "lyxrm":
             case "nfyksdyy":
               return archiveSDYY
             case "fuyou":
