@@ -21,7 +21,7 @@ export function getRowNum(index) {
     return 11;
   } else if (sheetInfo.sheetType == "nicu_custody_hd") {
     return 23;
-  } else if (sheetInfo.sheetType == "oxytocin") {
+  } else if (["oxytocin","oxytocin_hzly"].includes(sheetInfo.sheetType)) {
     if (index === 0) {
       return 17;
     } else {

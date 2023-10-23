@@ -6,7 +6,7 @@
   >
     <div ref="Contain" @mousewheel="(e) => onScroll(e)">
       <div v-show="!isChart" class="blood-sugar-con">
-        <div class="sugr-page" v-for="(item, index) in listMap" :key="index">
+        <div class="sugr-page" v-for="(item, index) in listMap" :key="index" :style="{'paddingBottom':paddingBottom}">
           <!-- <img class="his-logo"
           src="../../../../common/images/his-logo/厚街医徽.png" />-->
           <div class="title" v-if="HOSPITAL_ID == 'whfk'">
@@ -480,10 +480,16 @@ export default {
       return this.hisUserTitLeList.includes(this.HOSPITAL_ID) && this.$route.path.includes("nursingPreview");
     },
     Toppx(){
-      if(this.HOSPITAL_ID==='whfk'){
+      if(['whfk','hzly'].includes(this.HOSPITAL_ID)){
         return '16px'
       }
       return '30px'
+    },
+    paddingBottom(){
+      if(['hzly'].includes(this.HOSPITAL_ID)){
+        return '40px'
+      }
+      return '20px'
     }
   },
   methods: {

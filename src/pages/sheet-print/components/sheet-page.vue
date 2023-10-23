@@ -3,13 +3,15 @@
     <div class="body-con">
       <div class="sheetTable-contain">
         <div ref="sheetTableContain" class="iframe">
-          <sheetTable
-            v-for="(item, index) in filterSheetModel"
+           <component
+             v-bind:is="sheetTable"
+             v-for="(item, index) in filterSheetModel"
             :key="index"
             :data="item.data"
             :index="item.index"
             :length="item.length"
-          ></sheetTable>
+            :isFirst="index==0"
+            ></component>
         </div>
       </div>
     </div>
@@ -24,6 +26,7 @@
 
 <script>
 import sheetTable from "@/Page/sheet-page/components/sheetTable/sheetTable.vue";
+import sheetTableOxytocinHzly from "@/Page/sheet-page/components/sheetTable-oxytocin_hzly/sheetTable.vue";
 import sheetModel, {
   initSheetPage,
   cleanData
@@ -121,6 +124,13 @@ export default {
       });
 
       return resultModel;
+    },
+    sheetTable() {
+        if(sheetInfo.sheetType=='oxytocin_hzly'){
+          return sheetTableOxytocinHzly
+        }else{
+          return sheetTable;
+        }
     }
   },
   methods: {
@@ -330,21 +340,54 @@ export default {
 
                   `
                 );
-              }else if(['orthopaedic_hzly'].includes(this.sheetInfo.sheetType)) {
-                addCSS(
+              }else if(this.HOSPITAL_ID == "hzly") { 
+                if(['orthopaedic_hzly'].includes(this.sheetInfo.sheetType)){
+                  addCSS(
                   window,
                   `
                     #sheetPagePrint .iframe{
                       overflow: auto;
                     }
                     #sheetPagePrint .iframe > div:nth-of-type(n) {
-                        transform-origin:top center;
-                        transform:scaleX(0.97) translateX(-40px) rotate(0) !important;
+                        transform-origin: top center !important;
+                        transform:scaleX(0.98) scaleY(1.2) !important;
+                        height: ${sheetTableWidth * 0.755}px !important;
+                        margin-top: -40px ;
                     }
-                    #sheetPagePrint#sheetPagePrint th[dataname='护士签名'] {
-                      width: 120px !important;
+                    #sheetPagePrint .iframe .sign-img img{#sheetPagePrint
+                       height: 20px;
                     }
-                    #sheetPagePrint .iframe .sign-img img{
+                    @media print {
+                      .iframe > div:nth-of-type(n) {
+                        height: ${sheetTableWidth * 0.75}px !important;
+                      }
+                      #sheetPagePrint#sheetPagePrint .iframe th[dataname='护士<br/>签名'] {
+                        width: 120px !important;
+                      }
+                       #sheetPagePrint#sheetPagePrint .iframe th[dataname='日期'] {
+                        width: 50px !important;
+                      }
+                       #sheetPagePrint#sheetPagePrint .iframe th[dataname='时间'] {
+                        width: 50px !important;
+                      }
+                    }
+                  `
+                 );
+                }
+                if(['prenatal_hzly','postpartum2_hzly'].includes(this.sheetInfo.sheetType)){
+                 addCSS(
+                  window,
+                  `
+                    #sheetPagePrint .iframe{
+                      overflow: auto;
+                    }
+                     #sheetPagePrint .iframe > div:nth-of-type(n) {
+                        transform-origin: top center !important;
+                        transform:scaleY(1.1) !important;
+                        height: ${sheetTableWidth * 0.75}px !important;
+                        margin-top: -40px ;
+                    }
+                    #sheetPagePrint .iframe .sign-img img{#sheetPagePrint
                        height: 20px;
                     }
                     @media print {
@@ -353,7 +396,32 @@ export default {
                       }
                     }
                   `
-                );
+                 );
+                }
+                if(['postpartum_hzly'].includes(this.sheetInfo.sheetType)){
+                 addCSS(
+                  window,
+                  `
+                   #sheetPagePrint .iframe{
+                      overflow: auto;
+                    }
+                     #sheetPagePrint .iframe > div:nth-of-type(n) {
+                        transform-origin: top center !important;
+                        height: ${sheetTableWidth * 0.75}px !important;
+                        transform:scaleY(1.05) !important;
+                        margin-top: -70px ;
+                    }
+                    #sheetPagePrint .iframe .sign-img img{#sheetPagePrint
+                       height: 20px;
+                    }
+                    @media print {
+                      .iframe > div:nth-of-type(n) {
+                        height: ${sheetTableWidth * 0.75}px !important;
+                      }
+                    }
+                  `
+                 );
+                }
               }else if ("critical2_weihai" === this.sheetInfo.sheetType) {
                 addCSS(
                   window,
@@ -392,7 +460,7 @@ export default {
                         transform: rotate(0deg) !important;
                       }
                     }
-                  #sheetPagePrint#sheetPagePrint th[dataname='护士签名'] {
+                  #sheetPagePrint#sheetPagePrint  th[dataname='护士签名'] {
                     width: 60px !important;
                   }
                   .sign-img img {
@@ -467,7 +535,8 @@ export default {
   watch: {},
   destroyed() {},
   components: {
-    sheetTable
+    sheetTable,
+    sheetTableOxytocinHzly
   }
 };
 </script>

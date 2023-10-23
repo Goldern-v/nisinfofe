@@ -42,6 +42,7 @@ import dglbHeader from "@/components/HLheader/LiaoBuHeader.vue"; //东莞寮步�
 import ZhanJiangHaiJunHeader from "@/components/HLheader/ZhanJiangHaiJunHeader"; //湛江海军医院
 import SdhpwkHeader from "@/components/HLheader/SdhpwkHeader.vue"; //湛江海军医院
 import hzlyHeader from "@/components/HLheader/hzlyHeader.vue"; //惠州市第六人民医院
+import dgdlHeader from "@/components/HLheader/dgdlHeader.vue"; //惠州市第六人民医院
 
 export default {
   data() {
@@ -89,7 +90,8 @@ export default {
         东莞市寮步医院: 'dglbHeader',
         中国人民解放军南部战区海军第一医院: 'ZhanJiangHaiJunHeader',
         顺德和平外科医院: 'SdhpwkHeader',
-        惠州市第六人民医院: 'hzlyHeader'
+        惠州市第六人民医院: 'hzlyHeader',
+        东莞市大朗医院: 'dgdlHeader'
       };
       return hisList[HisName] || "HLheader";
     },
@@ -130,7 +132,8 @@ export default {
     dglbHeader,
     ZhanJiangHaiJunHeader,
     SdhpwkHeader,
-    hzlyHeader
+    hzlyHeader,
+    dgdlHeader
   },
 };
 </script>

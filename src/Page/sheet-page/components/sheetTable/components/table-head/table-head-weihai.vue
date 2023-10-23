@@ -153,7 +153,7 @@
       <span>2、0.9%氯化钠注射液（泵入组）&nbsp;</span>
       <span>3、去白细胞悬浮红细胞&nbsp;</span>
       <span>4、病毒灭活冰冻血浆&nbsp;</span>
-      <span>5、自体血&nbsp;</span>
+      <span>5、机血/自体血&nbsp;</span>
       <span>6、其他</span>
     </div>
   </div>
