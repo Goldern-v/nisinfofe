@@ -840,6 +840,7 @@ export default {
           );
         })
         .catch(error => {
+          this.close();
           // this.$message({
           //   type:'warning',
           //   message:error.data.desc
