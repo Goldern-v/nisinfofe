@@ -165,7 +165,7 @@ export default {
           model.refreshTable();
           this.close();
         });
-      },undefined,undefined,undefined,undefined,process.env.HOSPITAL_ID == 'fuyou' ?  this.data : undefined,undefined,undefined,undefined,SigndataObj,verifySignObj,'planForm');
+      },undefined,undefined,undefined,undefined,['fuyou','zhzxy'].includes(process.env.HOSPITAL_ID)  ?  this.data : undefined,undefined,undefined,undefined,SigndataObj,verifySignObj,'planForm');
     }
   },
   mounted() {},
