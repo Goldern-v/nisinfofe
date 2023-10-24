@@ -43,16 +43,16 @@ export default {
         rowspan: "2",
         canSet: false
       },
-      {
-        name: `备注`,
-        style: {
-          minWidth: "60px",
-          maxWidth: "60px",
-          width:"60px"
-        },
-        colspan: "1",
-        rowspan: "2"
-      }
+      // {
+      //   name: `备注`,
+      //   style: {
+      //     minWidth: "60px",
+      //     maxWidth: "60px",
+      //     width:"60px"
+      //   },
+      //   colspan: "1",
+      //   rowspan: "2"
+      // }
     ],
     mid: [
       {
@@ -116,51 +116,6 @@ export default {
         rowspan: "1"
       }
     ]
-    // bottom: [
-    //   {
-    //     name: `
-    //     左
-    //     `,
-    //     colspan: "1",
-    //     rowspan: "1",
-    //     style: {
-    //       minWidth: "25px",
-    //       whiteSpace: "nowrap"
-    //     }
-    //   },
-    //   {
-    //     name: `
-    //     右
-    //     `,
-    //     colspan: "1",
-    //     rowspan: "1",
-    //     style: {
-    //       minWidth: "25px",
-    //       whiteSpace: "nowrap"
-    //     }
-    //   },
-    //   {
-    //     name: `
-    //     左
-    //     `,
-    //     colspan: "1",
-    //     rowspan: "1",
-    //     style: {
-    //       minWidth: "25px",
-    //       whiteSpace: "nowrap"
-    //     }
-    //   },
-    //   {
-    //     name: `
-    //     右
-    //     `,
-    //     colspan: "1",
-    //     rowspan: "1",
-    //     style: {
-    //       minWidth: "25px",
-    //       whiteSpace: "nowrap"
-    //     }
-    //   }
-    // ]
+
   }
 };
