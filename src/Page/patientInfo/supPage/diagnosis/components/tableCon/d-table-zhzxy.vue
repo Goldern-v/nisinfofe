@@ -263,6 +263,7 @@ export default {
       choseDiagFactor: '',
       measureStr2: '',
       factorStr2: '',
+      data:''
     };
   },
   methods: {
@@ -348,13 +349,39 @@ export default {
     del(row) {
       // if (!this.verify()) return;
       model.selectedRow = row;
+      let strSignData = ""
+      if(model.selectedRow.measuresName.length>0) model.selectedRow.measuresName.forEach(item=>{
+          strSignData += item.measureDetail+'/n'
+        })
+      else strSignData = model.selectedRow.diagMeasures
+      this.data = model.selectedRow;
+      let SigndataObj = {
+        Patient_ID:this.$route.query.patientId,
+        Visit_ID:this.$route.query.visitId,
+        Document_Title:"",
+        Document_ID:model.selectedRow.diagCode,
+        Section_ID:model.selectedRow.diagCode,
+        strSignData: strSignData,
+      };
+      let verifySignObj = {
+        patientId:this.$route.query.patientId,
+        visitId:this.$route.query.visitId,
+        formName:"",
+        formCode:model.selectedRow.diagCode,
+        instanceId:model.selectedRow.id,
+        recordId:"",
+        signData:strSignData,
+      }
+      this.data.patientName = this.$route.query.name;
+      this.data.sex = this.$route.query.sex;
+      this.data.age = this.$route.query.age;
       window.openSignModal((password, empNo) => {
         nursingDiagsDel(password, empNo, model.selectedRow.id).then(res => {
           this.$message.success("删除成功");
           model.refreshTable();
           model.selectedRow = null;
         });
-      }, "你确定要删除诊断？");
+      }, "你确定要删除诊断？",undefined,undefined,undefined,['zhzxy'].includes(process.env.HOSPITAL_ID)  ?  this.data : undefined,undefined,undefined,undefined,SigndataObj,verifySignObj,'planForm');
     },
     stop(row) {
       // if (!this.verify()) return;
