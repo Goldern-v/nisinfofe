@@ -1231,7 +1231,11 @@ export default {
         case "guizhou":
           this.bus.$emit("openGuizhouModal");
           break;
-        case "nfyksdyy":{
+        case "whhk":
+          this.bus.$emit("openWhhkModal");
+          break;
+        case "nfyksdyy":
+          {
           this.bus.$emit("checkChange",()=>{
             this.bus.$emit('saveSheetPage', 'noSaveSign')
           },()=>{this.bus.$emit("openSDYYModal")})

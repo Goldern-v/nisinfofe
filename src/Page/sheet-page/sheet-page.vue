@@ -101,6 +101,7 @@
     <HjModal ref="HjModal"></HjModal>
     <HdModal ref="HdModal"></HdModal>
     <SDYYModal ref="SDYYModal"></SDYYModal>
+    <WHHKModal ref="WHHKModal"></WHHKModal>
     <GuizhouModal ref="GuizhouModal"></GuizhouModal>
     <signModal ref="signModal" title="需要该行签名者确认"></signModal>
     <signModal ref="signModal2" title="签名者确认"></signModal>
@@ -333,6 +334,7 @@ import HjModal from "./components/modal/hj-modal.vue";
 import HdModal from "./components/modal/hd-modal.vue";
 import confirmModal from "@/components/confirm/index.vue";
 import SDYYModal from "@/Page/sheet-page/components/modal/sdyy-modal.vue";
+import WHHKModal from "@/Page/sheet-page/components/modal/whhk-modal.vue";
 import GuizhouModal from "./components/modal/guizhou-modal.vue";
 import signModal from "@/components/modal/sign.vue";
 import specialModal from "@/Page/sheet-page/components/modal/special-modal.vue";
@@ -1377,6 +1379,9 @@ export default {
     this.bus.$on("openHJModal", () => {
       this.$refs.HjModal.open();
     });
+    this.bus.$on("openWhhkModal", () => {
+      this.$refs.WHHKModal.open();
+    });
     this.bus.$on("openHDModal", () => {
       this.$refs.HdModal.open();
     });
@@ -1545,6 +1550,7 @@ export default {
     HjModal,
     HdModal,
     SDYYModal,
+    WHHKModal,
     GuizhouModal,
     signModal,
     specialModal,
