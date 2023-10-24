@@ -1020,7 +1020,7 @@
       @handleOk="handleDiagnosis"
     />
     <advice-modal
-      v-if="['lyxrm', 'whhk', 'stmz', 'nfyksdyy','zjhj'].includes(HOSPITAL_ID)"
+      v-if="['lyxrm', 'whhk', 'stmz', 'nfyksdyy','zjhj', 'hzly'].includes(HOSPITAL_ID)"
       ref="adviceModalRef"
       @handleOk="handleDiagnosis"
     />

@@ -1055,7 +1055,8 @@ export default {
         }
         let save = () => {
           // 审核签名（头部保存按钮auditorMap传空对象，不去修改审核签名数据，避免跨窗口审核签名丢失）
-          if (isInitSheetPageSize == "noSaveSign") {
+          // 顺德人医是前端接口传参数据传什么保存什么，是对保存的是避免保存其他没有的页码数据
+          if (isInitSheetPageSize == "noSaveSign" && this.HOSPITAL_ID != 'nfyksdyy') {
             sheetInfo.auditorMap = {};
           }
           isInitSheetPageSize =

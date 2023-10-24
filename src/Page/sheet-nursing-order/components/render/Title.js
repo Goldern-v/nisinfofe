@@ -1,13 +1,10 @@
-// import jointTh from '../config/joint/th.js'
-// import gynecologyTh from '../config/gynecology/th'
-// import endocrinologyTh from '../config/endocrinology/th.js'
-// import neurologyTh from '../config/neurology/th.js'
-import sheetInfo from '../config/sheetInfo/index'
-
 import genaralTh from "../config/general/th.js";
+import genaralThHzly from "../config/general/th_hzly.js";
+
 
 export default function Title(data = [], autoData = [], index) {
-  let Th = JSON.parse(JSON.stringify(genaralTh))
+  let obj = {hzly: genaralThHzly, default: genaralTh}
+  let Th =  JSON.parse(JSON.stringify(obj[process.env.HOSPITAL_ID]))
   // let Th
   // switch (sheetInfo.sheetType) {
   //   case 'jointnew': {

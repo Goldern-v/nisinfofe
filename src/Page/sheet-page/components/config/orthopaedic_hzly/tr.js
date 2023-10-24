@@ -41,7 +41,7 @@ export default [
     event: keyf1,
     value: "",
     next: "",
-    name: "意识",
+    name: "意识/GCS",
     textarea: { width: 50 },
     autoComplete: { data: yishi }
   },
