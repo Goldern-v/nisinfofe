@@ -133,7 +133,6 @@ function bindFocus(el, bind) {
       let scrollTop = document.querySelector('.sheetTable-contain').scrollTop
       let scrollLeft = document.querySelector('.sheetTable-contain').scrollLeft
       let xy = offset(e.target)
-      // console.log("-----bind.data",data)
       let queryString = e.target.value||""
       var results = queryString ? data.filter(createFilter(queryString,data)) : data;
       // console.log("=====onkeyup",e,e.target.value,results);
