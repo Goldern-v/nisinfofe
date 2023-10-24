@@ -61,7 +61,9 @@
           </div>
           <div class="right-icon"></div>
         </el-row>
-        <div class="user-img" :class="{
+        <div  :class="{
+                      'user-img-huadu': HOSPITAL_ID == 'huadu',
+                      'user-img': HOSPITAL_ID !== 'huadu',
                       'type-1': data.nursingClass == '一级护理',
                       'type-2': data.nursingClass == '二级护理',
                       'type-3': data.nursingClass == '三级护理',
