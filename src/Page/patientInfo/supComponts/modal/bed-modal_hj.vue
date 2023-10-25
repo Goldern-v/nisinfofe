@@ -314,26 +314,15 @@
             <div :class="{aliCenter:HOSPITAL_ID == 'lyxrm'}">
               <div
                   class="tip-item-con"
-                  flex="cross:center main:justify"
-                  v-for="item in tipList"
+                  flex="cross:center main:justify;justify-content"
+                  v-for="(item,index) in tipList"
                   :key="item.label"
+                  :style="index==3?'margin-top:20px':''"
               >
-                <img :src="item.img" alt/>
-                <span>{{ item.label }}</span>
+                <img :src="item.img" alt style="flex:5"/>
+                <span style="flex:9">{{ item.label }}</span>
               </div>
             </div>
-            <!-- 过敏史 -->
-            <div
-                :class="['tip-allergy',formData.glFlag?'hasGLtip-allergy':'']"
-                flex="cross:center main:justify"
-                style="margin-top:10px;"
-                v-if="formData.drugGms"
-            >
-              <img src="./images/drugGms.png" alt/>
-              <span>{{ formData.drugGms }}</span>
-            </div>
-            <!-- 隔离 -->
-            <img src="./images/quarantine.png" alt="" class="tip-quarantine" v-if="formData.glFlag">
           </div>
         </div>
       </div>
@@ -705,32 +694,32 @@ export default {
       moment,
       qrCode: "" /** 二维码 */,
       qrCodeNum: "" /** 二维码 */,
-      tipList: [
-        {
-          label: "小心烫伤",
-          img: require("./images/Group 7.png")
-        },
-        // {
-        //   label: "防止压疮",
-        //   img: require("./images/Group 9.png")
-        // },
-        {
-          label: "防止偷盗",
-          img: require("./images/Group 10.png")
-        },
-        {
-          label: "防止跌倒坠床",
-          img: require("./images/Group 6.png")
-        },
-        // {
-        //   label: "测试用的字测试用的字测试用的字测试用的字测试用的字",
-        //   img: require("./images/allergy.png")
-        // },
-        // {
-        //   label: "呼吸道隔离",
-        //   img: require("./images/quarantine.png")
-        // },
-      ],
+      // tipList: [
+      //   {
+      //     label: "小心烫伤",
+      //     img: require("./images/Group 7.png")
+      //   },
+      //   // {
+      //   //   label: "防止压疮",
+      //   //   img: require("./images/Group 9.png")
+      //   // },
+      //   {
+      //     label: "防止偷盗",
+      //     img: require("./images/Group 10.png")
+      //   },
+      //   {
+      //     label: "防止跌倒坠床",
+      //     img: require("./images/Group 6.png")
+      //   },
+      //   // {
+      //   //   label: "测试用的字测试用的字测试用的字测试用的字测试用的字",
+      //   //   img: require("./images/allergy.png")
+      //   // },
+      //   // {
+      //   //   label: "呼吸道隔离",
+      //   //   img: require("./images/quarantine.png")
+      //   // },
+      // ],
       modalLoading: false,
       formData: {
         diet: "",
@@ -749,6 +738,44 @@ export default {
     },
     hasRemark() {
       return this.formData.remarkPrint;
+    },
+    tipList(){
+      if(!this.formData.drugGms){
+        return [
+        {
+          label: "小心烫伤",
+          img: require("./images/Group 7.png")
+        },
+        {
+          label: "防止偷盗",
+          img: require("./images/Group 10.png")
+        },
+        {
+          label: "防止跌倒坠床",
+          img: require("./images/Group 6.png")
+        },
+        {
+          label: this.formData.drugGms,
+          img: require("./images/drugGms.png")
+        }
+        ]
+      }else{
+       return [
+        {
+          label: "小心烫伤",
+          img: require("./images/Group 7.png")
+        },
+        {
+          label: "防止偷盗",
+          img: require("./images/Group 10.png")
+        },
+        {
+          label: "防止跌倒坠床",
+          img: require("./images/Group 6.png")
+        }
+        ]
+      }
+      
     }
   },
   methods: {

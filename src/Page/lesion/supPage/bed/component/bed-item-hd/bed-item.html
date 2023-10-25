@@ -55,20 +55,24 @@
               @click.stop="toFormPage(data, item)">
               <span>{{item.iconText}}</span>
             </div>
-            <div v-if=" HOSPITAL_ID === 'dglb' && (data.expand3 === '1' || data.expand3 === '2')" class="table-name" :style="{background: data.expand3 === '1' ? 'rgb(225, 52, 48)' : 'green' }">
+            <div v-if="( HOSPITAL_ID === 'dglb' || HOSPITAL_ID === 'dgdl') && (data.expand3 === '1' || data.expand3 === '2')" class="table-name" :style="{background: data.expand3 === '1' ? 'rgb(225, 52, 48)' : 'green' }">
               <span>临</span>
             </div>
           </div>
           <div class="right-icon"></div>
         </el-row>
-        <div class="user-img" :class="{
+        <div  :class="{
+                      'user-img-huadu': HOSPITAL_ID == 'huadu',
+                      'user-img': HOSPITAL_ID !== 'huadu',
                       'type-1': data.nursingClass == '一级护理',
                       'type-2': data.nursingClass == '二级护理',
                       'type-3': data.nursingClass == '三级护理',
                       'type-4': data.nursingClass == '特级护理',
                       'type-5': data.nursingClass == '多重耐药',
                       }">
-          <img src="../../../../../../common/images/card/默认头像.png" height="46" width="46" />
+          <img v-if="HOSPITAL_ID != 'dgdl'" src="../../../../../../common/images/card/默认头像.png" height="46" width="46" />
+          <img v-if="data.sex==='女' && HOSPITAL_ID == 'dgdl'" src="./images/女.png" height="46" width="46" />
+          <img v-if="data.sex==='男' && HOSPITAL_ID == 'dgdl'" src="./images/男.png" height="46" width="46" />
           <p>
             <!-- {{data.nursingClass.substring(0, 2)}} -->
             <span style="font-size: 18px;font-weight: bold;"
