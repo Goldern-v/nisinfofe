@@ -19,7 +19,7 @@ export default {
     top: [
       {name:"",colspan:"2",rowspan:"1",key:"recordYear"},
 
-      { name: "意识/GCS", colspan: "1", rowspan: "3" },
+      { name: "意识/<br/>GCS", colspan: "1", rowspan: "3" },
       { name: "T<br/>℃", colspan: "1", rowspan: "3" },
       { name: "P<br/>次/分", colspan: "1", rowspan: "3" },
       { name: "HR<br/>次/分", colspan: "1", rowspan: "3" },

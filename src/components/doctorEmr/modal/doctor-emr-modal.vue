@@ -46,8 +46,8 @@ export default {
     open() {
       this.$refs.modalName.open();
     },
-    post() {}
-  },
+    post() {},
+   },
   components: {
     doctorEmr
   }
