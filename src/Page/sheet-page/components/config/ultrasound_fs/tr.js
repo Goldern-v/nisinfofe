@@ -13,7 +13,7 @@ import {
 } from "../keyEvent/date";
 // let ysList = ['母乳喂养','人工喂养','混合喂养','清淡饮食','禁食','禁饮','禁食禁饮'];
 let ymList = ['勃脉力500ml', 'NS250m1+缩宫素', '0.9%NS100+托烷司琼', '0.9%NS100+昂丹司琼', '5%GS500m1', '地米5mg', '力月西', '芬太尼', '造影剂']
-let yfList = ['点滴', 'iv', '肌注', '含服', '口服']
+let yfList = ['drip', 'iv', '肌注', '含服', '口服']
 let tcList = ['是', '否']
 let twList = ['俯卧位', '平卧位']
 let pfList = ['完整','皮损']

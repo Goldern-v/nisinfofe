@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'bed-hd': ['huadu','dglb'].includes(HOSPITAL_ID) }">
+  <div :class="{ 'bed-hd': ['huadu','dglb','dgdl'].includes(HOSPITAL_ID) }">
     <div class="right-part">
       <search-con ref="searchCon"></search-con>
     </div>
@@ -35,14 +35,14 @@
         </component>
       </el-row>
       <printsModal
-        v-if="['huadu','dglb'].includes(HOSPITAL_ID) "
+        v-if="['huadu','dglb','dgdl'].includes(HOSPITAL_ID) "
         v-show="pBtnShow"
         ref="printmodal"
         @toPrints="toPrints"
         @cancelPrints="cancelPrints"
       ></printsModal>
       <printView
-        v-if="['huadu','dglb'].includes(HOSPITAL_ID)"
+        v-if="['huadu','dglb','dgdl'].includes(HOSPITAL_ID)"
         v-show="pmodalShow"
         @cancelPrint="cancelPrint"
         @toPrints="surePrints"
@@ -257,6 +257,7 @@ export default {
       switch (this.HOSPITAL_ID) {
         case 'huadu':
         case "dglb":
+        case "dgdl":
         return bedItemHd;
         case "liaocheng":
         case "whfk":
@@ -278,7 +279,7 @@ export default {
         case "zjhj":
         case "stmz":
         case "sdhpwk":
-        case "hzly":  
+        case "hzly":
         return bedItemLcey;
         case "beihairenyi":
         return bedItemBhry;
@@ -377,7 +378,7 @@ export default {
       this.pmodalShow = true;
     },
     itemMouseRight(event) {
-      if (this.HOSPITAL_ID != "huadu"&&this.HOSPITAL_ID != "dglb") {
+      if (this.HOSPITAL_ID != "huadu"&&this.HOSPITAL_ID != "dglb"&&this.HOSPITAL_ID != "dgdl") {
         return;
       }
       this.$refs.printmodal.$el.style.top = event.clientY - 50 + "px";

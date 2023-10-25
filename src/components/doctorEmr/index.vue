@@ -297,7 +297,7 @@ export default {
       this.show = false;
     },
     async onload() {
-      this.show = true;
+      !['ytll'].includes(this.HOSPITAL_ID) && (this.show = true);
       if(['zhzxy','fsxt','dglb','whhk','ytll'].includes(this.HOSPITAL_ID)){
         this.openModal('doctorEmrModal')
       }else await this.getTreeData();
