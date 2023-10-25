@@ -270,6 +270,15 @@ export default [
     change: (e, td) => limitChange(e, td, 6),
   },
   {
+    key: "fieldEighteen", //标题2
+    value: "",
+    event: keyf1,
+    textarea: {
+      width: 45
+    },
+    change: (e, td) => limitChange(e, td, 6),
+  },
+  {
     key: "description", //特殊情况记录
     value: "",
     style: {
@@ -278,11 +287,11 @@ export default [
       top: "1px",
       bottom: "1px",
       left: "1px",
-      width: "150px",
+      width: "242px",
       background: "transparent"
     },
     textarea: {
-      width: 150
+      width: 242
     },
     event: function (e, td) {
       console.log(e.keyCode);
@@ -295,11 +304,17 @@ export default [
   },
   {
     key: "sign",
-    value: ""
+    value: "",
+    style: {
+      width: "60px",
+    },
   },
   {
     key: "sign2",
-    value: ""
+    value: "",
+    style: {
+      width: "60px",
+    },
   },
   // {
   //   key: "audit",
