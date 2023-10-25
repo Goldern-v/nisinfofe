@@ -61,21 +61,16 @@
           </div>
           <div class="right-icon"></div>
         </el-row>
-<<<<<<< Updated upstream
         <div  :class="{
                       'user-img-huadu': HOSPITAL_ID == 'huadu',
                       'user-img': HOSPITAL_ID !== 'huadu',
-=======
-        //头像
-        <div  class="user-img" :class="{
->>>>>>> Stashed changes
                       'type-1': data.nursingClass == '一级护理',
                       'type-2': data.nursingClass == '二级护理',
                       'type-3': data.nursingClass == '三级护理',
                       'type-4': data.nursingClass == '特级护理',
                       'type-5': data.nursingClass == '多重耐药',
                       }">
-          <img v-if="HOSPITAL_ID == 'dglb'" src="../../../../../../common/images/card/默认头像.png" height="46" width="46" />
+          <img v-if="HOSPITAL_ID != 'dgdl'" src="../../../../../../common/images/card/默认头像.png" height="46" width="46" />
           <img v-if="data.sex==='女' && HOSPITAL_ID == 'dgdl'" src="./images/女.png" height="46" width="46" />
           <img v-if="data.sex==='男' && HOSPITAL_ID == 'dgdl'" src="./images/男.png" height="46" width="46" />
           <p>
