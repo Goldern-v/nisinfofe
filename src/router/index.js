@@ -347,7 +347,7 @@ const changeMajorRecord = () =>
 const changeMajorRecordHd = () =>
   import("@/Page/change-major-record-huadu/change-major-record.vue"); //花都转科记录
 const rationalDoseStatistics = () =>
-  import("@/Page/rational-dose-statistics/rational-dose-statistics.vue"); //合理用药
+  import("@/Page/rational-dose-statistics/rational-dose-statistics.vue"); //合理用药dglb
 
 // 护理计划单
 const planList = () => import("@/Page/plan-list/plan-list.vue");
@@ -669,6 +669,7 @@ const router = new Router({
               return temperatureWHSL
           case 'sdlj':
           case 'dglb':
+          case 'dgdl':
           case '925':
             return temperatureSDLJ
           case 'fsxt':
@@ -1235,6 +1236,7 @@ const router = new Router({
                 return temperatureWHSL
               case 'sdlj':
               case 'dglb':
+              case 'dgdl':
               case '925':
                 return temperatureSDLJ
               case 'whfk':
@@ -1800,6 +1802,7 @@ const router = new Router({
               return newSingleTemperatureChartWHSL;
             case "sdlj":
             case "dglb":
+            case "dgdl":
             case '925':
               return newSingleTemperatureChartSDLJ;
             case "whyx":
