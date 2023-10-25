@@ -1235,6 +1235,7 @@ export default {
           this.bus.$emit("openWhhkModal");
           break;
         case "nfyksdyy":
+        case "sdhpwk":
           {
           this.bus.$emit("checkChange",()=>{
             this.bus.$emit('saveSheetPage', 'noSaveSign')
