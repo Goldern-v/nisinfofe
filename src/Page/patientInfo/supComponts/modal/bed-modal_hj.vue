@@ -740,7 +740,7 @@ export default {
       return this.formData.remarkPrint;
     },
     tipList(){
-      if(!this.formData.drugGms){
+      if(this.formData.drugGms){
         return [
         {
           label: "小心烫伤",
