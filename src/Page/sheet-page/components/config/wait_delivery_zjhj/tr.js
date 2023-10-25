@@ -309,17 +309,20 @@ export default [
       width: "60px",
     },
   },
+  // {
+  //   key: "sign2",
+  //   value: "",
+  //   style: {
+  //     width: "60px",
+  //   },
+  // },
   {
-    key: "sign2",
+    key: "audit",
     value: "",
     style: {
       width: "60px",
     },
   },
-  // {
-  //   key: "audit",
-  //   value: ""
-  // },
   {
     hidden: true,
     key: "id",
