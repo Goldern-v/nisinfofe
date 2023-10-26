@@ -143,7 +143,7 @@
                ;padding-left:5px;">
                 <input
                   type="text"
-                  :value="item.bedLabel + '床' + '     '+ moment(item.admissionDate).format('YYYY-MM-DD')"
+                  :value="item.bedLabel + '床' + '  '+ moment(item.admissionDate).format('YYYY-MM-DD')"
                 />
               </div>
 
