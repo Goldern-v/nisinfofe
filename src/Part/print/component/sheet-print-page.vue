@@ -1086,7 +1086,7 @@ export default {
         `
       );
     }
-    if (sheetInfo.sheetType == "critical_new_weihai" ) {
+    if (sheetInfo.sheetType == "critical_new_weihai"  || sheetInfo.sheetType == "baby2_weihai") {
       addCSS(
         window,
         `
@@ -1220,7 +1220,7 @@ export default {
           }
           #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签  名']{
             display:none !important;
-          } 
+          }
           #sheetPagePrint#sheetPagePrint th[dataname='质控护士']{
             display:none !important;
           }

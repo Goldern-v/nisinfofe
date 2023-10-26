@@ -1157,6 +1157,7 @@ export default {
           }
           break;
         case "疼痛":
+        case "已有疼痛":
           {
             this.$parent.bedList = this.isPain;
           }

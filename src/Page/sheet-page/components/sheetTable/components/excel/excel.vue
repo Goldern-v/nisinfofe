@@ -564,6 +564,7 @@
         sheetInfo.sheetType === 'rescue_hl' ||
         sheetInfo.sheetType === 'critical_new_linyi' ||
         sheetInfo.sheetType === 'critical_new_weihai' ||
+        sheetInfo.sheetType === 'baby2_weihai' ||
         sheetInfo.sheetType === 'ultrasound_fs' ||
         sheetInfo.sheetType === 'postpartum_nurse_wj'||
         sheetInfo.sheetType === 'internal_eval_yz'
@@ -696,7 +697,7 @@
         "
           >质控护士签名：</span
         >
-        <span v-else-if=" sheetInfo.sheetType == 'critical_new_weihai'"
+        <span v-else-if=" sheetInfo.sheetType == 'critical_new_weihai' || sheetInfo.sheetType == 'baby2_weihai'"
           ></span
         >
         <span
@@ -903,6 +904,7 @@ export default {
         "critical_linyi", //临邑人医_病重（病危）患者护理记录单（带瞳孔）
         "critical_new_linyi",
         "critical_new_weihai",
+        "baby2_weihai",
         "ultrasound_fs",
         "generalnursing_tj",
         "ecgmonitoring_tj",

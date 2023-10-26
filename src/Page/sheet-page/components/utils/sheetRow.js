@@ -54,6 +54,7 @@ export function getRowNum(index) {
     sheetInfo.sheetType == "critical_lc" ||
     sheetInfo.sheetType == "critical_new_linyi" ||
     sheetInfo.sheetType == 'critical_new_weihai' ||
+    sheetInfo.sheetType == 'baby2_weihai' ||
     sheetInfo.sheetType == 'critical_weihai' ||
     sheetInfo.sheetType == "critical_new_lc" ||
     sheetInfo.sheetType === 'babyarea_fs'||
@@ -65,7 +66,7 @@ export function getRowNum(index) {
     sheetInfo.sheetType === 'record_icu_zzwy' ||
     sheetInfo.sheetType === 'obstetrics_new_zzwy' ||
     sheetInfo.sheetType === 'gynecology_new_zzwy' ||
-    sheetInfo.sheetType === 'baby_new_zzwy' 
+    sheetInfo.sheetType === 'baby_new_zzwy'
   ) {
     return 20;
   } else if (sheetInfo.sheetType == "cardiology_lcey" || sheetInfo.sheetType == "cardiology_tj") {
