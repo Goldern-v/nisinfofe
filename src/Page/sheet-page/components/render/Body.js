@@ -396,6 +396,11 @@ function switchSheetType(type) {
       schema = require("../config/common_hd/tr.js").default;
     }
       break;
+    case "critical_hd": {
+        // 花都-病重（病危）患者护理记录单
+        schema = require("../config/critical_hd/tr.js").default;
+      }
+      break;  
     case "nursing_dglb": {
       // 东莞寮步-护理记录单
       schema = require("../config/nursing_dglb/tr.js").default;

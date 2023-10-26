@@ -399,6 +399,13 @@ export default function Title(
     );
   }
   break;
+  case "critical_hd": {
+    // 花都-病重（病危）患者护理记录单
+    Th = JSON.parse(
+      JSON.stringify(require("../config/critical_hd/th").default)
+    );
+  }
+  break;
   case "nursing_dglb": {
     // 东莞寮步-护理记录单
     Th = JSON.parse(
