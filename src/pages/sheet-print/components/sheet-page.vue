@@ -27,6 +27,7 @@
 <script>
 import sheetTable from "@/Page/sheet-page/components/sheetTable/sheetTable.vue";
 import sheetTableOxytocinHzly from "@/Page/sheet-page/components/sheetTable-oxytocin_hzly/sheetTable.vue";
+import sheetTableOxytocinSdry from "@/Page/sheet-page/components/sheetTable-oxytocin_sdry/sheetTable.vue";
 import sheetModel, {
   initSheetPage,
   cleanData
@@ -128,6 +129,8 @@ export default {
     sheetTable() {
         if(sheetInfo.sheetType=='oxytocin_hzly'){
           return sheetTableOxytocinHzly
+        }else if(sheetInfo.sheetType=='oxytocin_sdry'){
+          return sheetTableOxytocinSdry
         }else{
           return sheetTable;
         }
@@ -340,6 +343,15 @@ export default {
 
                   `
                 );
+              }else if(['oxytocin_sdry'].includes(this.sheetInfo.sheetType)){
+                  addCSS(
+                  window,
+                  `
+                    #sheetPagePrint .iframe .sign-img img{
+                      transform:scaleX(0.8) scaleY(0.9) !important;
+                    }
+                  `
+                 );
               }else if(this.HOSPITAL_ID == "hzly") { 
                 if(['orthopaedic_hzly'].includes(this.sheetInfo.sheetType)){
                   addCSS(

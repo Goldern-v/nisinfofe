@@ -652,7 +652,7 @@
                   <div class="label" style="min-width: 70px">
                     {{ item.name || key }}：
                   </div>
-                  <template v-if="HOSPITAL_ID == 'fuyou'">
+                  <template v-if="['fuyou','zhzxy'].includes(HOSPITAL_ID)">
                     <div class="fuyouDivInput">
                       <input
                         type="text"
@@ -3184,6 +3184,7 @@ export default {
         if (this.doc && v[key]) {
           this.doc += "\n";
         }
+        // 
         if (['fuyou', 'whsl', 'guizhou'].includes(this.HOSPITAL_ID))
           this.doc += `${v[key]},${v.diagMeasures}`;
         else

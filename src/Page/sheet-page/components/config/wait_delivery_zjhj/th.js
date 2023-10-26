@@ -1,10 +1,4 @@
 import moment from "moment";
-import {
-  limitChange
-} from "../keyEvent/f1.js";
-function currYear() {
-  return moment().format('YYYY')
-}
 export default {
   style: {
     width: "1250px"
@@ -27,10 +21,6 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          whiteSpace: "nowrap",
-          minWidth: "55px"
-        }
       },
       {
         name: `
@@ -39,9 +29,6 @@ export default {
         style: {},
         colspan: "1",
         rowspan: "3",
-        style: {
-          minWidth: "73px"
-        }
       },
       {
         name: `
@@ -55,10 +42,6 @@ export default {
         name: `
         衔接
         `,
-        style: {
-          minWidth: "25px",
-          maxWidth: "25px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -78,10 +61,6 @@ export default {
         name: `
         宫颈
         `,
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px",
-        },
         colspan: "3",
         rowspan: "1"
       },
@@ -89,10 +68,6 @@ export default {
         name: `
         先露高低<br/>S
         `,
-        style: {
-          minWidth: "20px",
-          maxWidth: "20px",
-        },
         colspan: "1",
         rowspan: "3"
       },
@@ -148,12 +123,20 @@ export default {
         key: "fieldSeventeen",
       },
       {
+        name: `标题3`,
+        style: {},
+        colspan: "1",
+        rowspan: "3",
+        canSet: true,
+        key: "fieldEighteen",
+      },
+      {
         name: `
         特殊情况记录
         `,
         style: {
-          minWidth: "153px",
-          maxWidth: "153px"
+          minWidth: "242px",
+          maxWidth: "242px"
         },
         colspan: "1",
         rowspan: "3"
@@ -163,14 +146,22 @@ export default {
         护士签名
         `,
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: "60px",
+          maxWidth: "60px"
+        },
       },
       {
         name: `
-        质控护士签名
+        质控护士
         `,
         colspan: "1",
-        rowspan: "3"
+        rowspan: "3",
+        style: {
+          minWidth: "60px",
+          maxWidth: "60px"
+        },
       }
     ],
     mid: [
@@ -199,64 +190,36 @@ export default {
       },
       {
         name: "心率<br/>次/分",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "间歇<br/>(min)",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "持续<br/>(s)",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "缩力",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "开张<br/>(cm)",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "均势",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },
       {
         name: "质",
-        style: {
-          minWidth: "36px",
-          maxWidth: "36px"
-        },
         colspan: "1",
         rowspan: "2"
       },

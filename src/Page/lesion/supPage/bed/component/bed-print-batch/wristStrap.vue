@@ -22,7 +22,7 @@
             </div>
             <div>
               <span>床位：{{ item.bedLabel }}</span>
-              <span>住院号：{{ item.patientId }}</span>
+              <span>住院号：{{ item.inpNo }}</span>
             </div>
            <div>
               <span>科室联系电话</span>

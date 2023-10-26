@@ -146,6 +146,7 @@
                 HOSPITAL_ID == 'whhk' ||
                 HOSPITAL_ID == 'lyyz' ||
                 HOSPITAL_ID == 'dglb' ||
+                HOSPITAL_ID == 'dgdl' ||
                 HOSPITAL_ID == 'zjhj'
             "
           >
@@ -172,6 +173,7 @@
                 '925',
                 'zjhj',
                 'stmz',
+                'dgdl',
                 'whhk'
               ].includes(HOSPITAL_ID)
             "
@@ -280,6 +282,7 @@
     <bedModalSdhpwk ref="bedModalSdhpwk" v-if="HOSPITAL_ID == 'sdhpwk'" />
     <bedModalXG ref="bedModalXG" v-if="HOSPITAL_ID == 'xiegang'" />
     <bedModalZjhj ref="bedModalZjhj" v-if="HOSPITAL_ID == 'zjhj'" />
+    <bedModalDgdl ref="bedModalDgdl" v-if="HOSPITAL_ID == 'dgdl'" />
     <bedModalstmz ref="bedModalstmz" v-if="HOSPITAL_ID == 'stmz'" />
     <bedModalGDTJ
       ref="bedModalGDTJ"
@@ -451,6 +454,7 @@ import bedModalXiegang from "./modal/bed-modal_xiegang.vue";
 import bedModalHj from "./modal/bed-modal_hj";
 import bedModal925 from "./modal/bed-modal-925";
 import bedModalZjhj from "./modal/bed-modal-zjhj";
+import bedModalDgdl from "./modal/bed-modal-dgdl";
 import bedModalstmz from "./modal/bed-modal-stmz";
 import bedModalWhsl from "./modal/bed-modal_whsl";
 import bedModalXG from "./modal/bed-modal_xg";
@@ -525,6 +529,7 @@ export default {
         ytll: "bedModalYtLL",
         925: "bedModal925",
         zjhj:"bedModalZjhj",
+        dgdl:"bedModalDgdl",
         stmz: "bedModalstmz",
         whsl: "bedModalWhsl",
         sdhpwk: "bedModalSdhpwk",
@@ -558,7 +563,9 @@ export default {
         this.$refs.bedModal925.open(printMode);
       } else if (["zjhj"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalZjhj.open(printMode);
-      } else if (["stmz"].includes(this.HOSPITAL_ID)) {
+      } else if (["dgdl"].includes(this.HOSPITAL_ID)) {
+        this.$refs.bedModalDgdl.open(printMode);
+      }else if (["stmz"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalstmz.open(printMode);
       } else if (["gdtj"].includes(this.HOSPITAL_ID)) {
         this.$refs.bedModalGDTJ.open(printMode);
@@ -640,6 +647,7 @@ export default {
     bedModalYtLL,
     bedModal925,
     bedModalZjhj,
+    bedModalDgdl,
     bedModalstmz,
     bedModalGDTJ,
     bedModalWhsl,

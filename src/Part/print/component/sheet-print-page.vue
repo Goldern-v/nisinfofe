@@ -1220,6 +1220,9 @@ export default {
           }
           #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签  名']{
             display:none !important;
+          } 
+          #sheetPagePrint#sheetPagePrint th[dataname='质控护士']{
+            display:none !important;
           }
           #sheetPagePrint#sheetPagePrint th[dataname='审核人<br/>签  名']{
             display:none !important;
@@ -1228,7 +1231,10 @@ export default {
              min-width: 90px !important;
               max-width: 90px !important;
           }
-
+          #sheetPagePrint#sheetPagePrint th[dataname='护士签名']{
+              min-width: 90px !important;
+              max-width: 90px !important;
+          }
         `
       );
     }
