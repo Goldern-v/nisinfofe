@@ -396,6 +396,11 @@ function switchSheetType(type) {
       schema = require("../config/common_hd/tr.js").default;
     }
       break;
+    case "critical_hd": {
+        // 花都-病重（病危）患者护理记录单
+        schema = require("../config/critical_hd/tr.js").default;
+      }
+      break;  
     case "nursing_dglb": {
       // 东莞寮步-护理记录单
       schema = require("../config/nursing_dglb/tr.js").default;
@@ -1817,7 +1822,12 @@ function switchSheetType(type) {
       // 威海市立 - 病重（病危）患者护理记录单（新）
       schema = require("../config/critical_new_weihai/tr.js").default;
     }
-    break;
+      break;
+    case "baby2_weihai": {
+      // 威海市立 - 病重（病危）患者护理记录单（新）
+      schema = require("../config/baby2_weihai/tr.js").default;
+    }
+      break;
     case "third_round_records": {
       // 威海市立--三级护理查房
       schema = require("../config/third_round_records/tr.js").default;
@@ -2051,6 +2061,11 @@ function switchSheetType(type) {
     case "neonatology_zjhj": {
       // 湛江海军医院 - 新生儿护理记录单
       schema = require("../config/neonatology_zjhj/tr.js").default;
+    }
+      break;
+    case "special_medicine_zjhj": {
+      // 湛江海军医院 -产科特殊用药观察记录表
+      schema = require("../config/special_medicine_zjhj/tr.js").default;
     }
       break;
     case "wait_delivery_zjhj": {

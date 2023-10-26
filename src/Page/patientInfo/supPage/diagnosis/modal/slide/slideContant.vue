@@ -95,7 +95,7 @@
               >
             </div>
           </div>
-          <div class="do-box"  v-if="HOSPITAL_ID == 'fuyou' && diagnose">
+          <div class="do-box"  v-if="['fuyou','zhzxy'].includes(HOSPITAL_ID) && diagnose">
             <div class="label">
               <span>【护理评估】</span>
             </div>
@@ -421,8 +421,9 @@ export default {
           })
           const { data } = result.data
           if (data && data.length) {
-            data.map(item => {
-              if (item.formUrl) {
+            if(this.HOSPITAL_ID=='fuyou'){
+               data.map(item => {
+               if (item.formUrl) {
                 Object.keys(item.formUrl).map(key => {
                   this.evalFormList = [
                     ...this.evalFormList,
@@ -433,8 +434,25 @@ export default {
                     }
                   ]
                 })
+               }
+              })
+            }
+            if(this.HOSPITAL_ID=='zhzxy'){
+              data.map(item => {
+                if (item.formUrl) {
+                Object.keys(item.formUrl).map(key => {
+                  this.evalFormList = [
+                    ...this.evalFormList,
+                    {
+                      formCode: key,
+                      formName: item.formUrl[key].replace('.html', ''),
+                      formHtml: item.formUrl[key]
+                    }
+                  ]
+                })
               }
-            })
+              })
+            }
           }
         } catch (error) {
           throw new Error(error)

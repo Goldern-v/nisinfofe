@@ -713,7 +713,7 @@ export default {
     },
     isOpen() {
       this.$refs.modal.open();
-      let qr_png_value = "w" + this.query.patientId;
+      let qr_png_value = "w" + this.query.inpNo;
       var qr_png = qr.imageSync(qr_png_value, { type: "png", margin: 2 });
       function arrayBufferToBase64(buffer) {
         var binary = "";
@@ -726,7 +726,7 @@ export default {
       }
       let base64 = arrayBufferToBase64(qr_png);
       this.qrCode = base64;
-      this.qrCodeNum = this.query.patientId;
+      this.qrCodeNum = this.query.inpNo;
     },
     close() {
       this.$refs.modal.close();

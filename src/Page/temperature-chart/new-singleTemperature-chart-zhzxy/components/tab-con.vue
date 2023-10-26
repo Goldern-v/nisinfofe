@@ -136,6 +136,8 @@
                   <div class="rowItemText">
                     <span>{{ index }}</span>
                   </div>
+                  <div class="input_icon" style="position:relative">
+                  <span @click="openNewDiagnosis(vitalSignObj[j])" style="color: red;position: absolute;"  :title="`${vitalSignObj[j].vitalSigns}数值异常`" v-if="checkDiagnose(vitalSignObj[j], i + 1)" :style="i % 2 === 1 ? { left: '-15px' } : {}"><i class="el-icon-information" ></i></span>
                   <el-tooltip
                     placement="top"
                     popper-class="custom-temp-dict-select"
@@ -209,6 +211,7 @@
                       </div>
                     </template>
                   </el-tooltip>
+                  </div>
                 </div>
                 <div class="bottom-box clear"></div>
               </el-collapse-item>
@@ -485,12 +488,18 @@
         </div>
       </div>
     </div>
+    <newDiagnosisModal ref="newDiagnosisModal"></newDiagnosisModal>
+    <slideContant ref="slideContant"></slideContant>
+    <slideConRight ref="slideConRight"></slideConRight>
   </div>
 </template>
 <script>
 import bus from "vue-happy-bus";
 import moment from "moment";
 import nullBg from "../../../../components/null/null-bg";
+import newDiagnosisModal from "../../../../Page/patientInfo/supPage/diagnosis/modal/newDiagnosisModal.vue";
+import slideContant from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideContant.vue"
+import slideConRight from "../../../../Page/patientInfo/supPage/diagnosis/modal/slide/slideRightGuizhou.vue";
 import {
   getVitalSignListByDate,
   getmultiDict,
@@ -504,6 +513,16 @@ import {
 import { validForm } from "../../validForm/validForm";
 export default {
   props: { patientInfo: Object },
+  provide() {
+    return {
+      openSlideCon: item => {
+        this.$refs.slideConRight.open(item)
+      },
+      openSlideContant: async (item)=>{
+        this.$refs.slideContant.open(item, this.diagnose)
+      }
+    };
+  },
   data() {
     // 初始化筛选时间
     let initTimeArea = {
@@ -608,6 +627,68 @@ async mounted() {
     },
   },
   methods: {
+    openNewDiagnosis(diagnose) {
+      this.diagnose = diagnose
+      this.$refs.newDiagnosisModal.open();
+      let endStr = ""
+      if(diagnose.vitalCode==='01'){
+        const {vitalValue} = diagnose
+        endStr = Number(vitalValue)<35?'过低':Number(vitalValue)>37.5?'过高':""
+      }
+       this.$refs.newDiagnosisModal.searchWord=`${diagnose.vitalSigns}`+endStr;
+    },
+     checkDiagnose(diagnose,i){
+      // 1 体温  11 脉搏 12 心率  13呼吸 14血压 
+      console.log(diagnose,i,'checkDiagnose')
+      const { vitalCode, vitalValue } = diagnose
+      if (process.env.NODE_ENV === 'development') {
+        return this.checkDiagnoseDev(diagnose, i);
+      }
+      if (!['1','11','12','13','14'].includes(vitalCode)) {
+        return
+      } else {
+        if(vitalValue){
+          let setCheckValue = (vitalCode, vitalValue) => {
+            switch (Number(vitalCode)) {
+              case 1:
+                return Number(vitalValue) < 35 || Number(vitalValue) > 37.5
+              case 11:
+              case 12:
+                return vitalValue < 60 || vitalValue > 100
+              case 13:
+                return vitalValue < 16 || vitalValue > 20
+              case 14:
+                const Contract = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[0]:vitalValue
+                const Diastolic = vitalValue.includes('/')?vitalValue.split('/').slice(0,2)[1]:""
+                return (Contract < 90 || Contract > 139)||Diastolic&&(Diastolic<60||Diastolic>89)
+              default:
+                break;
+            }
+          }
+          return setCheckValue(vitalCode, vitalValue)
+        }
+      }
+    },
+    // 测试环境规则
+    checkDiagnoseDev(diagnose, index) {
+      const { vitalCode, vitalValue } = diagnose
+      // 规则
+      const matchRule = {
+        '1': (value) => Number(value) < 35 || Number(value) > 37.5,
+        '11': (value) => +value < 60 || +value > 100,
+        '12': (value) => +value < 60 || +value > 100,
+        '13': (value) => +value < 16 || +value > 20,
+        '14': (value) => {
+          const Contract = value.includes('/') ? value.split('/').slice(0,2)[0] : value
+          const Diastolic = value.includes('/') ? value.split('/').slice(0,2)[1] : ""
+          return (Contract < 90 || Contract > 139) || Diastolic && (Diastolic < 60|| Diastolic > 89)
+        }
+      }
+      if (vitalValue) {
+        return matchRule[vitalCode] ? matchRule[vitalCode](vitalValue) : false;
+      }
+      return false
+    },
     getTimeInit(){
       const nowTime = Number(moment().format("HH"))
       if (nowTime >= 0 && nowTime <= 3) {
@@ -1211,7 +1292,7 @@ async mounted() {
       }
     },
   },
-  components: { nullBg },
+  components: { nullBg ,newDiagnosisModal, slideContant ,slideConRight},
 };
 </script>
 
@@ -1356,6 +1437,11 @@ async mounted() {
 
     .el-select {
       width: 85px;
+    }
+    .input_icon {
+     display: flex;
+     flex-direction: row-reverse;
+     align-items: center;
     }
   }
 

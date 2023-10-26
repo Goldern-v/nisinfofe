@@ -311,6 +311,7 @@ export default {
         "wait_delivery_zjhj", // 湛江海军_候产记录单
         "wait_delivery_zhzxy", // 珠海中西医_候产记录单
         "neonatology_hd", // 花都_新生儿科护理记录单
+        "critical_hd",
         "neonatal_care_jm", //江门妇幼_新生儿监护单
         "pediatric_surgery_jm", //江门妇幼_小儿外科护理记录单
         "pediatrics_jm", //江门妇幼_儿科护理记录单
@@ -1086,7 +1087,7 @@ export default {
         `
       );
     }
-    if (sheetInfo.sheetType == "critical_new_weihai" ) {
+    if (sheetInfo.sheetType == "critical_new_weihai"  || sheetInfo.sheetType == "baby2_weihai") {
       addCSS(
         window,
         `
@@ -1220,7 +1221,7 @@ export default {
           }
           #sheetPagePrint#sheetPagePrint th[dataname='质控人<br/>签  名']{
             display:none !important;
-          } 
+          }
           #sheetPagePrint#sheetPagePrint th[dataname='质控护士']{
             display:none !important;
           }
