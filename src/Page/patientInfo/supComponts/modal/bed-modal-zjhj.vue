@@ -6,7 +6,7 @@
     :enable-mobile-fullscreen="false"
     class="modal"
   >
-    <!-- 腕带 -->
+    <!-- 成人腕带 -->
     <div
       class="bed-card-wrapper wrist"
       v-loading="modalLoading"
@@ -45,6 +45,7 @@
 
       <img class="qr-code" :class="{ hasRemark: hasRemark }" :src="qrCode" />
     </div>
+    <!-- 儿童腕带 -->
     <div
         class="bed-card-warpper printRef  wrist-strap-print children-wrist"
         ref="printCon4"
@@ -365,7 +366,7 @@
     }
 
     span {
-      font-size: 20px;
+      font-size: 22px;
       line-height: 24px;
       margin-left: 10px;
     }

@@ -2386,6 +2386,13 @@ export default function Title(
     );
   }
     break;
+    case "baby2_weihai": {
+      // // 威海市立 - 病重（病危）患者护理记录单（新）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/baby2_weihai/th.js").default)
+      );
+    }
+      break;
     case "oxytocin_weihai": {
       // // 威海市立 -静脉点滴催产素引产观察表
       Th = JSON.parse(
@@ -2715,6 +2722,13 @@ export default function Title(
     );
   }
   break;
+    case "special_medicine_zjhj": {
+      // 湛江海军医院 -产科特殊用药观察记录表
+      Th = JSON.parse(
+        JSON.stringify(require("../config/special_medicine_zjhj/th").default)
+      );
+    }
+      break;
   case "wait_delivery_zjhj": {
     // 湛江海军医院 - 候产记录单
     Th = JSON.parse(
