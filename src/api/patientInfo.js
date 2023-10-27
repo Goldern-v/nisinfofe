@@ -161,8 +161,16 @@ function collectAssessmentForm(deptCode, collectionUser,formCode) {
     formCode
   }
 )}
+/**批量收藏表单 */
+function batchSaveForCollection(list) {
+  return axios.post(`${apiPath}form/batchSaveForCollection`,list
+)}
 
 
+/* 取消批量收藏表单 */
+function batchUnfollowCollection(list) {
+  return axios.post(`${apiPath}form/batchUnfollowCollection`,list
+)}
 /* 取消收藏表单 */
 function unCollectAssessmentForm(deptCode, collectionUser,formCode) {
   return axios.post(`${apiPath}form/unfollowCollection`,{
@@ -171,6 +179,12 @@ function unCollectAssessmentForm(deptCode, collectionUser,formCode) {
     formCode
   }
 )}
+/* 批量创建表单 */
+function createFormBatch(params) {
+  return axios.post(`${apiPath}multiForm/createFormBatch`,params
+)}
+
+
 
 
 export const groupList = (patientId, visitId, type, wardCode) => {
@@ -286,6 +300,9 @@ export {
   newOrders,
   collectAssessmentForm,
   unCollectAssessmentForm,
+  batchUnfollowCollection,
+  batchSaveForCollection,
+  createFormBatch,
   ordersByCondition,
   getExecuteType,
   operationList,

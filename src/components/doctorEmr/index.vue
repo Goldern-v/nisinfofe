@@ -20,14 +20,16 @@
     <template v-if="!['dglb','whhk'].includes(HOSPITAL_ID)">
       <el-tooltip class="item" effect="dark" content="患者资料" placement="left">
         <div class="fixed-icon" :class="{ open: open }" @click="onToggle">
-          <img src="./images/患者资料@2x.png" alt />
+          <img src="./images/患者资料@2x.png" alt v-if="HOSPITAL_ID != 'nfyksdyy'" />
+          <span v-else>资料</span>
         </div>
       </el-tooltip>
     </template>
     <template v-if="!['zhzxy','dglb','whsl'].includes(HOSPITAL_ID)">
       <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left" :enterable="true">
         <div @click="onload" class="doctor-emr-icon">
-          <img src="./img.png" alt/>
+          <img src="./img.png" v-if="HOSPITAL_ID != 'nfyksdyy'" alt/>
+          <span v-else>病历</span>
         </div>
       </el-tooltip>
     </template>
@@ -35,6 +37,18 @@
       <el-tooltip effect="dark" content="电子病历" placement="left" :enterable="true">
         <div @click="onload" class="doctor-emr-icon">
           <img src="./img.png" alt/>
+        </div>
+      </el-tooltip>
+    </template>
+    <template v-if="HOSPITAL_ID == 'nfyksdyy'">
+      <el-tooltip effect="dark" content="手麻" placement="left" :enterable="true">
+        <div @click="onOpenNewWin('手麻')" class="doctor-feel-icon">
+          <span>手麻</span>
+        </div>
+      </el-tooltip>
+      <el-tooltip effect="dark" content="重症" placement="left" :enterable="true">
+        <div @click="onOpenNewWin('重症')" class="doctor-severe-icon">
+          <span>重症</span>
         </div>
       </el-tooltip>
     </template>
@@ -318,6 +332,14 @@ export default {
           break;
       }
     },
+    onOpenNewWin(params){
+      let newInpNo = this.$route.query.inpNo.split('_')[0];
+      let selectUrl = {
+        '手麻': `http://192.168.8.109/interface/patient/doc.html?admissionNum=${newInpNo}`,
+        '重症': `http://192.168.5.131:8090/?look=1&&hisid=${newInpNo}&visitid=${this.$route.query.visitId}`
+      }
+      window.open(selectUrl[params])
+    }
   },
 };
 </script>
@@ -407,6 +429,36 @@ export default {
       width: 18px;
       height: 18px;
     }
+  }
+  .doctor-feel-icon {
+    position: fixed;
+    top: 260px;
+    right: 0;
+    width: 50px;
+    height: 42px;
+    z-index: 999;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: -3px 3px 5px 0px rgba(0, 0, 0, 0.05);
+    border-radius: 100px 0 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .doctor-severe-icon {
+    position: fixed;
+    top: 320px;
+    right: 0;
+    width: 50px;
+    height: 42px;
+    z-index: 999;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: -3px 3px 5px 0px rgba(0, 0, 0, 0.05);
+    border-radius: 100px 0 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .se-resize {

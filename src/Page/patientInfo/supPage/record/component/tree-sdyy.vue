@@ -18,6 +18,9 @@
           @dblclick="refreshTree(true)"
           >护理文书</span
         >
+        <el-button type="text" class="new-btn" @click="batchRecordOpen">
+          <i class="el-icon-plus"></i>批量创建
+        </el-button>
         <el-button type="text" class="new-btn" @click="newRecordOpen">
           <i class="el-icon-plus"></i>创建
         </el-button>
@@ -59,6 +62,7 @@
 
       <!-- 弹出框 -->
       <newForm ref="newForm"></newForm>
+      <batchForm ref="batchForm"></batchForm>
       <!-- 批量审核弹框 -->
       <BatchAuditForm
         :batchAuditDialog="batchAuditDialog"
@@ -308,6 +312,7 @@ import moment from "moment";
 import commonData from "@/api/commonData"; //入院HIS数据等
 import BusFactory from "vue-happy-bus";
 import newForm from "../modal/new-form.vue";
+import batchForm from "../modal/batch-form.vue";
 import commonMixin from "@/common/mixin/common.mixin";
 import { getFormConfig } from "../config/form-config.js";
 import { hadTransferToWard } from "../api/index.js";
@@ -859,6 +864,9 @@ export default {
     newRecordOpen() {
       this.$refs.newForm.open(this.filterObj);
     },
+    batchRecordOpen() {
+      this.$refs.batchForm.open(this.filterObj);
+    },
     refreshTree(isAllRefresh = false, isopenLeft = false) {
       if (isAllRefresh) {
         this.expandList = [];
@@ -959,6 +967,7 @@ export default {
     SweetModal,
     SweetModalTab,
     newForm,
+    batchForm,
     BatchAuditForm
   }
 };
