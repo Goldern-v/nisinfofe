@@ -277,7 +277,7 @@ export default {
     },
     url360() {
       const { patientId = '' } = this.$route.query
-      return `http://192.168.4.206:8082/TJEMRProject/visitRecordList?authorityId=49486019-X&patId=${patientId}`
+      return `http://192.168.4.166:8082/emr/#/medicalRecords/TJPT/TJPT/49486019-X/${patientId}`
     },
     urlRecord() {
       let { patientId = '', visitId = '' } = (this.$route.query || {})
