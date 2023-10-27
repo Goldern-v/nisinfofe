@@ -61,7 +61,7 @@
       <el-table-column prop="executeNurseName" label="执行人" min-width="80px" align="center"></el-table-column>
 
       <el-table-column prop="realExecuteDateTime" label="实际执行时间" min-width="150px" align="center"></el-table-column>
-      <el-table-column prop="performSchedule" label="开医嘱时间" min-width="90px" align="center"></el-table-column>
+      <el-table-column prop="startDateTime" label="开医嘱时间" min-width="90px" align="center"></el-table-column>
       <el-table-column prop="repeatIndicator" label="长/临" min-width="70px" align="center"></el-table-column>
       <el-table-column prop="startNurse" label="校对护士" min-width="80px" align="center"></el-table-column>
       <el-table-column prop="typeReason" label="补执行的原因"   v-if="HOSPITAL_ID=='hj'" min-width="200px">

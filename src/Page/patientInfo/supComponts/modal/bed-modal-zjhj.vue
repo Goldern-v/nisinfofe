@@ -366,7 +366,7 @@
     }
 
     span {
-      font-size: 22px;
+      font-size: 24px;
       line-height: 24px;
       margin-left: 10px;
     }
