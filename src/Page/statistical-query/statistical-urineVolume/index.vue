@@ -78,8 +78,75 @@ export default {
         { name: '出入量记录表', value: '出入量记录表' },
         { name: '病重（病危）患者护理记录单', value: '病重（病危）患者护理记录单' },
         { name: '重症医学科监护记录单', value: '重症医学科监护记录单' },
-      ],
-      columns: [
+      ]
+    };
+  },
+  methods: {
+  },
+  computed:{
+    columns(){
+      if (['whsl'].includes(this.HOSPITAL_ID)) {
+        return [
+        {
+					key: 'index',
+					title: '序号',
+          align: 'center',
+					width: 70,
+					render: (h, { index }) => {
+						return <span>{ (index + 1)  + ((this.pageIndex - 1) * this.pageNum) }</span>
+					}
+				},
+        {
+					key: 'wardName',
+					title: '病区',
+          align: 'center',
+					minWidth: 180,
+				},
+        {
+					key: 'bedNo',
+					title: '床号',
+          align: 'center',
+					minWidth: 70,
+				},
+        {
+					key: 'name',
+					title: '患者姓名',
+          align: 'center',
+					minWidth: 70,
+				},
+        {
+					key: 'sex',
+					title: '性别',
+          align: 'center',
+					width: 70,
+				},
+        {
+					key: 'age',
+					title: '年龄',
+          align: 'center',
+					width: 70,
+				},
+        {
+					key: 'patientId',
+					title: '病案号',
+          align: 'center',
+					minWidth: 100,
+				},
+        {
+					key: 'recordDate',
+					title: '日期',
+          align: 'center',
+					minWidth: 180,
+				},
+        {
+					key: 'urine',
+					title: '尿量(ml)',
+          align: 'center',
+					minWidth: 100,
+				},
+       ]
+      }else{
+        return [
         {
 					key: 'index',
 					title: '序号',
@@ -147,11 +214,9 @@ export default {
           align: 'center',
 					minWidth: 100,
 				},
-      ],
-    };
-  },
-  methods: {
-
+       ]
+      }
+    }
   },
   components: {
     SearchCon,

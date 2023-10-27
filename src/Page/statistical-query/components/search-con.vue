@@ -72,7 +72,7 @@
           <ElOption v-for="val in patientStatus" :key="val.key" :label="val.label" :value="val.key" />
         </ElSelect>
       </div>
-      <div class="search-con__ctx__item" v-if="formData.timing != undefined">
+      <div class="search-con__ctx__item" v-if="formData.timing != undefined && !['whsl'].includes(HOSPITAL_ID)">
         时间点：
         <ElSelect style="width: 120px;" size="small" :value="formData.timing" @input="handleQuery({timing: $event})">
           <ElOption v-for="val in timePoint" :key="val.key" :label="val.label" :value="val.key" />
