@@ -21,17 +21,17 @@ export function getRowNum(index) {
     return 11;
   } else if (sheetInfo.sheetType == "nicu_custody_hd") {
     return 23;
+  } else if (sheetInfo.sheetType == "oxytocin_sdry") {
+    if (index === 0) {
+      return 17;
+    } else {
+      return 24;
+    }
   } else if (["oxytocin","oxytocin_hzly"].includes(sheetInfo.sheetType)) {
     if (index === 0) {
       return 17;
     } else {
       return 28;
-    }
-  }  else if (['oxytocin_sdry'].includes(sheetInfo.sheetType)) {
-    if (index === 0) {
-      return 17;
-    } else {
-      return 24;
     }
   }else if (sheetInfo.sheetType == "com_lc") {
     return 22;

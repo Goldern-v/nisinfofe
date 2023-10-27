@@ -1127,7 +1127,7 @@ export default {
         `
       );
     }
-    if (sheetInfo.sheetType == "oxytocin_sdry") {
+    if (this.query.sheetType == "oxytocin_sdry") {
       addCSS(
         window,
         `
