@@ -462,23 +462,22 @@ export default {
       this.isMorePage = false;
       this.showTable = false;
       this.tableInfo = { ...this.tableInfo, ...res };
-      // if(['whsl'].includes(this.HOSPITAL_ID)){
-      //    let m1 = moment(this.tableInfo.replaceTime)
-      //    let m2 = moment()
-      //    let day = m1.diff(m2,'day') + 1;
-      //    if(day<=0){
-      //     //  this.$message.warning(`${this.tableInfo.formTitle}，已到拔除时间，请尽快处理`);
-      //      this.$confirm(`${this.tableInfo.formTitle}，已到拔除时间，请尽快处理`, {
-      //       confirmButtonText: '确定',
-      //       cancelButtonText: '忽略',
-      //       type: 'warning'
-      //     }).then(() => {
+      if(['whsl'].includes(this.HOSPITAL_ID)){
+         let m1 = moment(this.tableInfo.expectExtubationTime)
+         let m2 = moment()
+         let day = m1.diff(m2,'day') + 1
+         if(day<=0){
+          this.$confirm(`${this.tableInfo.formTitle}，已到拔除时间，请尽快处理`, {
+            confirmButtonText: '确定',
+            cancelButtonText: '忽略',
+            type: 'warning'
+          }).then(() => {
           
-      //     }).catch(() => {
+          }).catch(() => {
           
-      //     });
-      //    }  
-      // }
+          });
+         }  
+      }
       this.tabelConfig = [...this.tableInfo.list];
       console.log(this.tabelConfig);
       setTimeout(() => {
