@@ -153,7 +153,7 @@
                       @click="() => (vitalSignObj[j].popVisible = true)"
                       @blur="() => (vitalSignObj[j].popVisible = false)"
                       v-model="vitalSignObj[j].vitalValue"
-                      
+
                     />
                     <template v-slot:content>
                       <div
@@ -522,7 +522,7 @@ export default {
       totalDictInfo: {},
     };
   },
-  
+
 async mounted() {
     await this.getVitalList();
     this.bus.$on("syncInAndOutHospital", (type) => {
@@ -566,7 +566,7 @@ async mounted() {
       );
     },
   },
-  
+
   methods: {
     handleChange(val) {
       // console.log(val);
@@ -805,7 +805,7 @@ async mounted() {
           let o = {
             体温: {
               value: val,
-              reg: ['sdlj'].includes(this.HOSPITAL_ID)?[34, 42]:[35,42],
+              reg: ['sdlj','dgdl'].includes(this.HOSPITAL_ID)?[34, 42]:[35,42],
             },
           };
           return o;

@@ -3,7 +3,9 @@ import { keyf1 } from '../keyEvent/f1.js'
 import {
   multiDictInfo
 } from "@/Page/sheet-page/api/index.js";
-
+import {
+  $params
+} from '@/pages/sheet-print/tool/tool'
 import { event_date, event_time, click_date, click_time } from "../keyEvent/date";
 
 import { next } from '../oninput/next'
@@ -171,16 +173,19 @@ export function updateListData(data) {
   });
 }
 
-function getListData() {
+export function getListData() {
   let list = [
     "护嘱单频次",
     "护嘱单内容",
   ];
-  multiDictInfo(list).then(res => {
-    let data = res.data.data;
-    setList(frequencyList, "护嘱单频次", data);
-    setList(orderContentList, "护嘱单内容", data);
-  });
+  var token = (window.app && window.app.$getCookie && window.app.$getCookie('NURSING_USER').split('##')[1]) || (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).token) || $params.token
+  if(token){
+    multiDictInfo(list).then(res => {
+      let data = res.data.data;
+      setList(frequencyList, "护嘱单频次", data);
+      setList(orderContentList, "护嘱单内容", data);
+    });
+  }
 }
 
 getListData();
