@@ -27,10 +27,27 @@
               ></el-option>
              </el-select>
           </div>
+          <template v-if="['whsl'].includes(HOSPITAL_ID)">
+            <el-button
+              type="primary"
+              size="mini"
+              @click="writeDescription('description')"
+            >
+              所见
+            </el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              @click="writeDescription('impression')"
+            >
+             印象
+            </el-button>
+          </template>
           <el-button
              type="primary"
              size="mini"
              @click="writeDescription"
+             v-else
           >
             写入
           </el-button>
@@ -41,10 +58,11 @@
             class="item"
             v-for="(item,index) in listByFilter"
             :key="item.examNo"
-            @click="toRight(item)"
+            @click="toRight(item,index)"
             :class="{ active: item.examNo == rightData.examNo }"
           >
-            <el-checkbox :label="(index)" class="fscheckBox" ><br/></el-checkbox>
+            <el-radio v-model="checkIndex" :label="index" class="fscheckBox" v-if="['whsl'].includes(HOSPITAL_ID)"><br/></el-radio>
+            <el-checkbox :label="(index)" class="fscheckBox" v-else><br/></el-checkbox>
             <div class="title">{{ item.examItem }}</div>
             <div class="aside" v-if="['foshanrenyi'].includes(HOSPITAL_ID)">{{ item.examResult&&item.examResult.reportDateTime||'未出报告'  }}</div>
             <div class="aside" v-else>{{ item.reqDate }}</div>
@@ -214,7 +232,7 @@ import inspectForm from "./component/inspectForm";
 import inspectFormFSRY from "./component/inspectFormFSRY";
 import inspectFormNFZXY from "./component/inspectForm_nfzxy";
 // import inspectFormFuyou from "./component/inspectForm_fuyou";
-import { examList, getExamList } from "@/api/patientInfo";
+import { examList, getExamList} from "@/api/patientInfo";
 import bus from "vue-happy-bus";
 export default {
   props: {
@@ -234,6 +252,7 @@ export default {
       visitList: [],
       visitId: "",
       checkList:[],
+      checkIndex:'',//威海单选就可以
       pending:false,
       bus: bus(this),
     };
@@ -255,7 +274,7 @@ export default {
       return `${this.wih - 255}px`;
     },
     paddingLeft(){
-      if(['foshanrenyi','zhzxy','nanfangzhongxiyi'].includes(this.HOSPITAL_ID)){
+      if(['foshanrenyi','zhzxy','nanfangzhongxiyi','whsl'].includes(this.HOSPITAL_ID)){
         return '40px'
       }else{
         return '20px'
@@ -280,39 +299,48 @@ export default {
     this.visitId = this.infoData.visitId;
   },
   methods: {
-    async writeDescription(){
+    async writeDescription(type=''){
       this.pending=true
       let str=''
-      for(var i=0;i<this.checkList.length;i++){
-        let Date = '日期'
-        let projectStr='检查项目:'
-        let seeStr='检查所见:'
-        let impressionStr='印象:'
-        let nowItem = this.listByFilter[this.checkList[i]]
-        const projectDate = `${Date}:${(nowItem.examResult&&nowItem.examResult.reportDateTime)||'未出报告'}`
-        const clearseeStr = nowItem.examResult.description.replace(/[\n]/g, '')
-        seeStr = `${seeStr}${clearseeStr}`
-        const clearprojectStr = nowItem.examItem.replace(/[\n]/g, '')
-        projectStr = `${projectStr}${clearprojectStr}`
-        const clearimpressionStr = nowItem.examResult.impression.replace(/[\n]/g, '')
-        impressionStr = `${impressionStr}${clearimpressionStr}`
-        str += str ? '\n' : ''
-        str +=projectDate + '\n' + projectStr + '\n' + seeStr + '\n' + impressionStr
+      if(['whsl'].includes(this.HOSPITAL_ID)){
+       str=this.rightData[type]
+      }else{
+        for(var i=0;i<this.checkList.length;i++){
+         let Date = '日期'
+         let projectStr='检查项目:'
+         let seeStr='检查所见:'
+         let impressionStr='印象:'
+         let nowItem = this.listByFilter[this.checkList[i]]
+         const projectDate = `${Date}:${(nowItem.examResult&&nowItem.examResult.reportDateTime)||'未出报告'}`
+         const clearseeStr = nowItem.examResult.description.replace(/[\n]/g, '')
+         seeStr = `${seeStr}${clearseeStr}`
+         const clearprojectStr = nowItem.examItem.replace(/[\n]/g, '')
+         projectStr = `${projectStr}${clearprojectStr}`
+         const clearimpressionStr = nowItem.examResult.impression.replace(/[\n]/g, '')
+         impressionStr = `${impressionStr}${clearimpressionStr}`
+         str += str ? '\n' : ''
+         str +=projectDate + '\n' + projectStr + '\n' + seeStr + '\n' + impressionStr
+        }
       }
       this.pending=false
       this.$emit('closeSweet')
       this.bus.$emit("openclosePatientInfo",'',true)
       this.bus.$emit('syncReportFSSY',str)
     },
-    changeExamResultdata(data,examNo){
-       this.listByFilter.map((item)=>{
-         if(item.examNo ==examNo){
+    changeExamResultdata(data,examNo=''){
+       if(['whsl'].includes(this.HOSPITAL_ID)){
+           this.rightData={...this.rightData,...data}
+       }else{
+         this.listByFilter.map((item)=>{
+          if(item.examNo ==examNo){
            item.examResult =data;
          }
        })
+       }
     },
-    toRight(data) {
+    toRight(data,index) {
       if (!data) return;
+      this.checkIndex=index
       this.rightData = data;
       this.$nextTick(() => {
         this.$refs.inspectForm.open(data);

@@ -256,6 +256,7 @@ export default {
             .then((res) => {
               this.data1 = res.data.data;
               this.loading = false;
+              this.$emit('changeExamResult',this.data1)
             })
             .catch(() => {
               this.data1 = {};

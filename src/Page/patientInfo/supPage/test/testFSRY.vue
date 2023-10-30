@@ -145,7 +145,7 @@ import testFormFSRY from './component/testFormFSRY'
 //佛一的接口数据 json对象 可以直接在created this.list = res.data.data上更改
 import tessData from '../test/testData.json'
 import moment from "moment";
-import { testItems } from "@/api/patientInfo";
+import { testItems,testItemsWhsl } from "@/api/patientInfo";
 import {
   testList
 } from '@/api/patientInfo'
@@ -251,6 +251,16 @@ export default {
           }
           str += `${item.expand3}。\n`
         })
+      }else if(['whsl'].includes(this.HOSPITAL_ID)){
+        if (activeCheckList.length > 0) {
+         const res  = await testItemsWhsl(this.listByFilter[this.radio].testNo)
+         for (var i = 0; i < activeCheckList.length; i++) {
+           const nowItem = activeCheckList[i]
+           str += `${res.data.data[nowItem].itemName}`
+           str += `${res.data.data[nowItem].result}`
+           str += `${res.data.data[nowItem].units};`
+         }
+        }
       } else {
         if (activeCheckList.length > 0) {
           const res = await testItems(this.listByFilter[this.radio].testNo)
