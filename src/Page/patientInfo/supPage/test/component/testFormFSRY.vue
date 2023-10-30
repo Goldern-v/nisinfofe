@@ -232,7 +232,7 @@ th {
 </style>
 
 <script>
-import { testItems, getExamTestUrl } from "@/api/patientInfo";
+import { testItems, getExamTestUrl,testItemsWhsl } from "@/api/patientInfo";
 import lineChart from "./lineChart";
 import moment from 'moment';
 export default {
@@ -332,10 +332,28 @@ export default {
         });
         return;
       }
-      if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
+      if(!['foshanrenyi','whsl'].includes(this.HOSPITAL_ID)){
         testItems(this.data.testNo)
           .then((res) => {
             this.data1 = res.data.data;
+            this.loading = false;
+          })
+          .catch(() => {
+            this.data1 = [];
+            this.loading = false;
+          });
+      }else if(['whsl'].includes(this.HOSPITAL_ID)){
+       testItemsWhsl(this.data.testNo)
+          .then((res) => {
+            this.data1 = res.data.data;
+            // 先清空
+            this.checkList[this.checkNum]=[]
+            // 异常项赋值
+            this.data1.map((item,index)=>{
+                if(this.compare(item)){
+                  this.checkList[this.checkNum].push(index)
+                }
+            })
             this.loading = false;
           })
           .catch(() => {

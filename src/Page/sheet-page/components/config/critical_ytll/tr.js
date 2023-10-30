@@ -175,7 +175,7 @@ export default [
     }
   },
   {
-    key: "expand",
+    key: "gcsE",
     event: keyf1,
     value: "",
     next: "",
@@ -184,7 +184,7 @@ export default [
     change: (e, td) => limitChange(e, td, 12),
   },
   {
-    key: "expand2",
+    key: "gcsM",
     event: keyf1,
     value: "",
     next: "",
@@ -193,7 +193,7 @@ export default [
     change: (e, td) => limitChange(e, td, 12)
   },
   {
-    key: "expand3",
+    key: "gcsV",
     event: keyf1,
     value: "",
     next: "",
