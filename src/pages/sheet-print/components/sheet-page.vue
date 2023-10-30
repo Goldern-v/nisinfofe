@@ -548,7 +548,8 @@ export default {
   destroyed() {},
   components: {
     sheetTable,
-    sheetTableOxytocinHzly
+    sheetTableOxytocinHzly,
+    sheetTableOxytocinSdry
   }
 };
 </script>
