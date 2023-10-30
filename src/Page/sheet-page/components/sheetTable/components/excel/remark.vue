@@ -703,7 +703,7 @@
       备注：1、硫酸镁静脉滴注时每 2h 观察记录一次，有异常情况时随时记录；<br/>
       &nbsp;&nbsp;&nbsp;2、每 24h 或停止使用时统计尿量一次，统计时划双红线，并写清楚统计的起止时间和签名。
     </div>
-    <div v-if="sheetInfo.sheetType == 'postpartum2_dglb'" class="postpartum2_dglb nosign">
+    <div v-if="sheetInfo.sheetType == 'postpartum2_dglb' || sheetInfo.sheetType=='postpartum2_dgdl'" class="postpartum2_dglb nosign">
       <input
         type="checkbox"
         :ischecked="sheetInfo.relObj['qita1']"
@@ -730,7 +730,7 @@
       />
       ml
     </div>
-    <div v-if="sheetInfo.sheetType == 'postpartum2_dglb'" class="postpartum2_dglb sign">
+    <div v-if="sheetInfo.sheetType == 'postpartum2_dglb' || sheetInfo.sheetType=='postpartum2_dgdl'" class="postpartum2_dglb sign">
       指&nbsp;导&nbsp;者：
       <input
         v-model="sheetInfo.relObj['sign1']"

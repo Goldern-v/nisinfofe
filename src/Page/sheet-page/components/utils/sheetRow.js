@@ -103,6 +103,7 @@ export function getRowNum(index) {
   }else if (
     sheetInfo.sheetType === 'record_children_serious2_lc'||
     sheetInfo.sheetType === 'postpartum_dglb' ||
+    sheetInfo.sheetType === 'postpartum_dgdl' ||
     sheetInfo.sheetType === 'neonatology_whhk' ||
     sheetInfo.sheetType === 'insulin_whhk'
   ) {

@@ -400,7 +400,7 @@ function switchSheetType(type) {
         // 花都-病重（病危）患者护理记录单
         schema = require("../config/critical_hd/tr.js").default;
       }
-      break;  
+      break;
     case "nursing_dglb": {
       // 东莞寮步-护理记录单
       schema = require("../config/nursing_dglb/tr.js").default;
@@ -411,9 +411,19 @@ function switchSheetType(type) {
       schema = require("../config/postpartum_dglb/tr.js").default;
     }
       break;
+    case "postpartum_dgdl": {
+      // 东莞大朗-产后护理记录单
+      schema = require("../config/postpartum_dgdl/tr.js").default;
+    }
+      break;
     case "prenatal_dglb": {
       // 东莞寮步- 产前待产记录单
       schema = require("../config/prenatal_dglb/tr.js").default;
+    }
+      break;
+    case "prenatal_dgdl": {
+      // 东莞大朗- 产前待产记录单
+      schema = require("../config/prenatal_dgdl/tr.js").default;
     }
       break;
     case "postpartum2_dglb": {
@@ -421,14 +431,29 @@ function switchSheetType(type) {
       schema = require("../config/postpartum2_dglb/tr.js").default;
     }
       break;
+    case "postpartum2_dgdl": {
+      // 东莞大朗-产后产房观察表
+      schema = require("../config/postpartum2_dgdl/tr.js").default;
+    }
+      break;
     case "baby_dglb": {
-      // 东莞寮步-护理记录单（新生儿科）
+      // 东莞大朗-护理记录单（新生儿科）
       schema = require("../config/baby_dglb/tr.js").default;
+    }
+      break;
+    case "baby_dgdl": {
+      // 东莞大朗-护理记录单（新生儿科）
+      schema = require("../config/baby_dgdl/tr.js").default;
     }
       break;
     case "baby_obs_dglb": {
       // 东莞寮步-新生儿护理记录单(产科专用)
       schema = require("../config/baby_obs_dglb/tr.js").default;
+    }
+      break;
+    case "baby_obs_dgdl": {
+      // 东莞大朗-新生儿护理记录单(产科专用)
+      schema = require("../config/baby_obs_dgdl/tr.js").default;
     }
       break;
     case "picc_maintenance_hd": {
