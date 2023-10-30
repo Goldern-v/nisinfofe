@@ -1029,6 +1029,11 @@ export default {
             this.$parent.bedList = this.bz;
           }
           break;
+        case "军队医改":
+          {
+            this.$parent.bedList = this.chargetype;
+          }
+          break;
         case "有过敏史":
         case "过敏":
           {
