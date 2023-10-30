@@ -418,6 +418,9 @@ export default {
     bz() {
       return this.bedList.filter((item) => item.patientCondition == "病重");
     },
+    chargetype() {
+      return this.bedList.filter((item) => item.chargetype == "军队医改");
+    },
     gm() {
       let lists = []
       if(this.HOSPITAL_ID == "beihairenyi"){
@@ -668,6 +671,15 @@ export default {
           type: "heart",
         });
       }
+      if (
+          ['zjhj'].includes(this.HOSPITAL_ID)
+      ) {
+        list.splice(10, 0, {
+          name: "军队医改",
+          num: this.chargetype.length,
+          type: "state",
+        });
+      }
       if(this.HOSPITAL_ID == "huadu"){
           list.push({
             name: "今结明出",
@@ -707,6 +719,7 @@ export default {
         num: this.mrgc.length,
         type: "bed",
       })
+      console.log(list,'list');
       return list;
     },
     // 新医院注意
