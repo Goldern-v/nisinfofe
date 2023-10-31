@@ -70,9 +70,9 @@
                       'type-4': data.nursingClass == '特级护理',
                       'type-5': data.nursingClass == '多重耐药',
                       }">
-          <img v-if="HOSPITAL_ID != 'dgdl'" src="../../../../../../common/images/card/默认头像.png" height="46" width="46" />
-          <img v-if="data.sex==='女' && HOSPITAL_ID == 'dgdl'" src="./images/女.png" height="46" width="46" />
-          <img v-if="data.sex==='男' && HOSPITAL_ID == 'dgdl'" src="./images/男.png" height="46" width="46" />
+          <img v-if ="!['dglb','dgdl'].includes(HOSPITAL_ID)" src="../../../../../../common/images/card/默认头像.png" height="46" width="46" />
+          <img v-if="data.sex==='女' && (HOSPITAL_ID == 'dgdl' || HOSPITAL_ID == 'dglb')" src="./images/女.png" height="46" width="46" />
+          <img v-if="data.sex==='男' && (HOSPITAL_ID == 'dgdl' || HOSPITAL_ID == 'dglb')" src="./images/男.png" height="46" width="46" />
           <p>
             <!-- {{data.nursingClass.substring(0, 2)}} -->
             <span style="font-size: 18px;font-weight: bold;"

@@ -376,8 +376,8 @@
     }
 
     span {
-      font-size: 24px;
-      line-height: 19px;
+      font-size: 26px;
+      line-height: 24px;
       margin-left: 10px;
     }
 
@@ -403,7 +403,7 @@
 
   &.children-wrist {
     width: 10cm;
-    height: 3cm;
+    height: 3.5cm;
     box-sizing: border-box;
 
     .bed-card-vert-con {
@@ -682,7 +682,7 @@ export default {
                 transform-origin: 0 0;
               }
               span {
-                font-size: 24px !important;;
+                font-size: 26px !important;;
                 line-height: 24px !important;;
                 margin-left: 10px !important;;
               }
@@ -690,7 +690,7 @@ export default {
                 display: flex !important;
               }
               .bottom-line {
-                 font-size: 24px !important;
+                 font-size: 26px !important;
                 padding-left: 0px !important;
                 font-weight: 900 !important;
                 border:none !important;
