@@ -315,13 +315,13 @@ export default [
     key: "vit", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "Vti/Vte(ml)"
+    name: "Vte(ml)"
   },
   {
     key: "peep", // SPO2（%）
     value: "",
     event: keyf1,
-    name: "P+PEEP/Ppeak(cmH2O)"
+    name: "Ppeak(cmH2O)"
   },
   {
     key: "depth", // SPO2（%）
