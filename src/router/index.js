@@ -510,6 +510,7 @@ const getImplementation = () => {
     case 'lyxrm':
     case '925':
     case 'zhzxy':
+    case 'dgdl':
     case "stmz":
     case 'beihairenyi':
     case 'dglb':
