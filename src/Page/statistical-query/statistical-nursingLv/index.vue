@@ -64,7 +64,7 @@ export default {
         beginTime: '',
         endTime: '',
         wardCode: '',
-        // status: 0,
+        status: 0,
         nursingClass: '',
       },
       columns: [
