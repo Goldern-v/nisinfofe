@@ -32,14 +32,23 @@
       <div class="wrist-line2">
         <div>
           <span>诊断:</span>
-          <!-- <span>{{ query.diagnosis }}</span> -->
           <input type="text" v-model="formData.remark" />
         </div>
       </div>
       <div class="wrist-line2">
         <div style="margin-left: 76px;">
           <span>过敏:</span>
-          <input type="text" />
+          <input type="text"
+            style="
+              font-size: 24px;
+              padding-left: 0px;
+              font-weight: 900;
+              border:none;
+            "
+            flex-box="1"
+            class="bottom-line"
+            :value="formData.drugGms"
+          />
         </div>
       </div>
 
@@ -66,8 +75,21 @@
               <span>{{ query.name }}</span>
               <span>{{ query.sex }}</span>
               <span>{{ query.age }}</span>
-              <span>过敏:</span>
-              <input style="border:none" type="text" />
+            </div>
+            <div class="drugGms" >
+               <span>过敏:</span>
+              <input type="text"
+                style="
+                  font-size: 24px;
+                  padding-left: 0px;
+                  font-weight: 900;
+                  border:none;
+
+                "
+                flex-box="1"
+                class="bottom-line"
+                :value="formData.drugGms"
+              />
             </div>
           </div>
           <div>
@@ -132,19 +154,7 @@
                 :value="moment(query.admissionDate).format('YYYY-MM-DD ')"
               />
                 </div>
-              <!-- <div class="bedNum">{{query.bedLabel + '床'}}</div> -->
             </div>
-            <!-- <div flex="cross:center" class="input-item">
-              <span class="label">入院日期:</span>
-              <input
-                type="text"
-                nowidth
-                style="font-size: 26px;"
-                flex-box="1"
-                class="bottom-line"
-                :value="moment(query.admissionDate).format('YYYY-MM-DD ')"
-              />
-            </div> -->
             <div flex="cross:center" class="input-item input-item2">
               <span class="label">诊断:</span>
               <input
@@ -367,7 +377,7 @@
 
     span {
       font-size: 24px;
-      line-height: 24px;
+      line-height: 19px;
       margin-left: 10px;
     }
 
@@ -375,7 +385,7 @@
       position: absolute;
       right: 25px;
       top: 50%;
-      margin-top: -56px;
+      margin-top: -70px;
       height: 112px;
       width: 112px;
 
@@ -404,7 +414,7 @@
       position: absolute;
       right: 75px !important;
       top: 55% !important;
-      margin-top: -56px;
+      margin-top:-70px;
       height: 112px;
       width: 112px;
     }
@@ -670,6 +680,20 @@ export default {
                 // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
                 transform: rotate(-90deg) translateY(30%) translateX(-97%) scale(0.8);
                 transform-origin: 0 0;
+              }
+              span {
+                font-size: 24px !important;;
+                line-height: 24px !important;;
+                margin-left: 10px !important;;
+              }
+              .drugGms {
+                display: flex !important;
+              }
+              .bottom-line {
+                 font-size: 24px !important;
+                padding-left: 0px !important;
+                font-weight: 900 !important;
+                border:none !important;
               }
             `;
             break;

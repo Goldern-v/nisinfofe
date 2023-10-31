@@ -352,7 +352,7 @@ export default {
     },
     {
       name: `
-        Vti/<br/>Vte(ml)
+        Vte(ml)
       `,
       style: {
         minWidth: "45px",
@@ -363,7 +363,7 @@ export default {
     },
     {
       name: `
-      P+PEEP/<br/>Ppeak(cmH2<br/>O)
+      Ppeak(cmH2<br/>O)
       `,
       style: {
         minWidth: "40px",
