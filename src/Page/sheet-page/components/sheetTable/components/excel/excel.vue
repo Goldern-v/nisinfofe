@@ -864,7 +864,7 @@ export default {
         'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
-        "wait_delivery_zjhj",
+        // "wait_delivery_zjhj",
         "neurosurgery_hd",
         "postpartum2_dglb",
         "postpartum2_dgdl",
