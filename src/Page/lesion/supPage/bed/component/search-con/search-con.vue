@@ -418,8 +418,8 @@ export default {
     bz() {
       return this.bedList.filter((item) => item.patientCondition == "病重");
     },
-    chargetype() {
-      return this.bedList.filter((item) => item.chargetype == "军队医改");
+    charge() {
+      return this.bedList.filter((item) => item.chargeType == "军队医改");
     },
     gm() {
       let lists = []
@@ -676,7 +676,7 @@ export default {
       ) {
         list.splice(10, 0, {
           name: "军队医改",
-          num: this.chargetype.length,
+          num: this.charge.length,
           type: "state",
         });
       }
@@ -719,7 +719,6 @@ export default {
         num: this.mrgc.length,
         type: "bed",
       })
-      console.log(list,'list');
       return list;
     },
     // 新医院注意
@@ -1001,6 +1000,7 @@ export default {
       this.getData();
     },
     selectName(val) {
+      console.log(val);
       switch (val) {
         case "":
         case "全部床位":
@@ -1031,7 +1031,7 @@ export default {
           break;
         case "军队医改":
           {
-            this.$parent.bedList = this.chargetype;
+            this.$parent.bedList = this.charge;
           }
           break;
         case "有过敏史":

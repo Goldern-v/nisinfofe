@@ -154,6 +154,12 @@ import { UTable, UTableColumn } from 'umy-ui';
 Vue.use(UTableColumn);
 Vue.use(UTable);
 
+// 项目中一段时间无操作后自动登出
+import TimeOut from './utils/timeOut'
+if( process.env.HOSPITAL_ID == 'sdhpwk'){
+  TimeOut()
+}
+
 /** 环境变量 */
 Vue.prototype.HOSPITAL_ID = process.env.HOSPITAL_ID;
 Vue.prototype.HOSPITAL_NAME = process.env.HOSPITAL_NAME;
@@ -209,6 +215,7 @@ Vue.prototype.$setCookie = function setCookie(name, value, expiredays = 30) {
     (expiredays == null ? "" : ";expires=" + exdate.toGMTString());
 };
 Vue.prototype.$_ = _;
+
 
 Vue.prototype.$getCookie = function(Name) {
   var search = Name + "=";

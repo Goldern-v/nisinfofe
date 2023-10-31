@@ -203,8 +203,6 @@ export default {
       if (this.HOSPITAL_ID === 'lyyz') {
         arr = arr.filter(item => item.key !== '已有压疮')
       }
-
-      console.log(arr,'ddddddddd');
       return arr;
     }
   },

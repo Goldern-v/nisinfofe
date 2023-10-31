@@ -57,11 +57,32 @@
             </ul>
           </div>
           <div class="list-con" v-else :style="listconHeight">
-            <div v-for="(item, key) in filterData" :key="key">
-              <templateItem :data="item" :key="item.id" @openAddModal="openAddModal"></templateItem>
+            <div v-if="HOSPITAL_ID == 'sdhpwk'" class="test_wrapper" @dragover="dragover($event)">
+              <transition-group  class="transition-wrapper" name="sort">
+                <div
+                v-for="item in filterData"
+                :key="item.id"
+                :draggable="true"
+                @dragstart="dragstart(item)"
+                @dragenter="dragenter(item,$event)"
+                @dragend="dragend(item,$event)"
+                @dragover="dragover($event)"
+                >
+                  <templateItem
+                    :data="item"
+                    @openAddModal="data => $emit('openAddModal', data)"
+                  ></templateItem>
+                </div>
+              </transition-group>
+            </div>
+            <div v-else>
+              <div v-for="(item, key) in filterData" :key="key" >
+                <templateItem :data="item" :key="item.id" @openAddModal="openAddModal"></templateItem>
+
+              </div>
             </div>
           </div>
-          <div class="footer-con" flex="main:center cross:center" @click="openAddModal()">
+          <div class="footer-con" id="footer-isshow" flex="main:center cross:center" @click="openAddModal()" @dragover="dragover($event)">
             <i class="iconfont icon-tianjia"></i> 新建模板
           </div>
         </div>
@@ -225,7 +246,8 @@ import {
   typeListByDept,
   delByType,
   getPersonalTemplate,
-  getPersonalTypeList
+  getPersonalTypeList,
+   getBatchSaveOrUpdateByDept
 } from "@/Page/sheet-page/api/recordDesc.js";
 import addTemplateModal from "./add-template-modal.vue";
 import specificSymbolGuiZhou from "./eval-model/specificSymbolGuiZhou";
@@ -253,6 +275,8 @@ export default {
       specificSymbol: getSpecificSymbol,
       templateType:"dept",
       class_4_zhzyx: '0', // 珠海中西医模板分类
+      oldData:null, // 开始排序时按住的旧数据
+      newData:null, // 拖拽过程的数据
     };
   },
   computed: {
@@ -282,6 +306,46 @@ export default {
     }
   },
   methods: {
+    // 拖动事件（主要是为了拖动时鼠标光标不变为禁止）
+    dragover(e) {
+      e.preventDefault()
+    },
+    dragstart(value) {
+      this.oldData = value
+    },
+    // 记录移动过程中信息
+    dragenter(value, e) {
+      this.newData = value
+      e.preventDefault();
+        let usel =  document.querySelector('#footer-isshow')
+      if(e.screenY >= 1000){
+        usel.classList.add("isshow-footer")
+      }else{
+        usel.classList.remove("isshow-footer")
+      }
+    },
+     // 拖拽最终操作
+    dragend(value, e) {
+      if (this.oldData !== this.newData) {
+        let oldIndex = this.listMap.indexOf(this.oldData)
+        let newIndex = this.listMap.indexOf(this.newData)
+        let newItems = [...this.listMap]
+        let templist = newItems[newIndex].sorted;
+        newItems[newIndex].sorted = newItems[oldIndex].sorted;
+        newItems[oldIndex].sorted = templist;
+        // 删除老的节点
+        newItems.splice(oldIndex, 1)
+        // 在列表中目标位置增加新的节点
+        newItems.splice(newIndex, 0, this.oldData)
+        this.listMap = [...newItems]
+        setTimeout(()=>{ if(document.querySelector('#footer-isshow').classList.value.includes("isshow-footer")){
+          document.querySelector('#footer-isshow').classList.remove("isshow-footer")
+        }},0)
+
+        const user = JSON.parse(localStorage.getItem("user"));
+        getBatchSaveOrUpdateByDept(this.listMap, user.empNo).then(res => {})
+      }
+    },
     open() {
       this.class_4_zhzyx = '0'
       this.getData();
@@ -311,7 +375,8 @@ export default {
         if (this.selectedType) {
           const wordCode=this.templateType==="dept"? localStorage.wardCode:""
           list(this.selectedType,wordCode,this.HOSPITAL_ID).then(res => {
-            this.listMap = res.data.data.list;
+          res.data.data.list.map((item,index) => item.sorted = item.sorted ? item.sorted : index)
+          this.listMap = Array.from(res.data.data.list);
           });
         } else {
           this.selectedType = this.typeList[0];
