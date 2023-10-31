@@ -639,9 +639,13 @@
             sheetInfo.sheetType == 'common_sn' ||
             sheetInfo.sheetType == 'maternity_sn' ||
             sheetInfo.sheetType == 'postpartum_dglb' ||
+            sheetInfo.sheetType == 'postpartum_dgdl' ||
             sheetInfo.sheetType == 'prenatal_dglb'||
+            sheetInfo.sheetType == 'prenatal_dgdl'||
             sheetInfo.sheetType == 'baby_dglb' ||
-            sheetInfo.sheetType == 'baby_obs_dglb'
+            sheetInfo.sheetType == 'baby_dgdl' ||
+            sheetInfo.sheetType == 'baby_obs_dglb' ||
+            sheetInfo.sheetType == 'baby_obs_dgdl'
           "
           >审核人：</span
         >
@@ -679,7 +683,7 @@
         >
         <span v-else-if="sheetInfo.sheetType == 'intervention_cure_lcey'"
           >护士签名：</span>
-        <span v-else-if="sheetInfo.sheetType == 'postpartum2_dglb'"
+        <span v-else-if="sheetInfo.sheetType == 'postpartum2_dglb' || sheetInfo.sheetType == 'postpartum2_dgdl'"
           >审核者：</span>
         <span v-else-if="sheetInfo.sheetType == 'orthopaedic_sdry' ||
           sheetInfo.sheetType == 'cardiology_tj' ||
@@ -863,6 +867,7 @@ export default {
         "wait_delivery_zjhj",
         "neurosurgery_hd",
         "postpartum2_dglb",
+        "postpartum2_dgdl",
         "neonatology_hd",
         "neonatology2_hd",
         "Record_Children_Serious_Lc",
@@ -919,9 +924,13 @@ export default {
         'ops_linyi',
         'NICU_fs', // 佛一 新生儿NICU护理记录单
         'postpartum_dglb',
+        'postpartum_dgdl',
         'prenatal_dglb',
+        'prenatal_dgdl',
         'baby_dglb',
+        'baby_dgdl',
         'baby_obs_dglb',
+        'baby_obs_dgdl',
         'cardiology_tj',
         'cardiac_therapy_tj',
         'critical_new_lc',

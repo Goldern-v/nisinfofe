@@ -2,7 +2,7 @@
   <div class="header-con">
     <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
     <div class="title">{{ patientInfo.recordName }}</div>
-    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType == 'prenatal_dglb'">
+    <div class="info-con" flex="main:justify" v-if="sheetInfo.sheetType == 'prenatal_dglb' || sheetInfo.sheetType == 'prenatal_dgdl'">
       <span>
         姓名：
         <div class="bottom-line" style="min-width: 30px">
@@ -206,7 +206,9 @@ export default {
       //需要诊断的表单
       diagnosisList: [
         "postpartum_dglb", // 产后护理记录单
-        'prenatal_dglb'
+        "postpartum_dgdl", // 产后护理记录单
+        'prenatal_dglb',
+        'prenatal_dgdl'
       ],
       // 需要出身日期的表单
       birthdayList:[
@@ -215,9 +217,13 @@ export default {
       //需要入院日期的表单
       admissionDateList: [
         "postpartum_dglb", // 产后护理记录单
+        "postpartum_dgdl", // 产后护理记录单
         'prenatal_dglb',
         'baby_obs_dglb',
-        'baby_dglb'
+        'baby_obs_dgdl',
+        'baby_dglb',
+        'baby_dgdl',
+        'prenatal_dgdl'
       ]
     };
   },

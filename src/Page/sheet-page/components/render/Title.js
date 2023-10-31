@@ -420,6 +420,13 @@ export default function Title(
     );
   }
   break;
+    case "postpartum_dgdl": {
+      // 东莞大朗-产后护理记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/postpartum_dgdl/th").default)
+      );
+    }
+      break;
   case "prenatal_dglb": {
     // 东莞寮步-产前待产记录单
     Th = JSON.parse(
@@ -427,10 +434,24 @@ export default function Title(
     );
   }
   break;
-    case "postpartum2_dglb": {
+    case "prenatal_dgdl": {
+        // 东莞大朗-产前待产记录单
+        Th = JSON.parse(
+          JSON.stringify(require("../config/prenatal_dgdl/th").default)
+        );
+      }
+      break;
+  case "postpartum2_dglb": {
       // 东莞寮步-产后产房观察表
       Th = JSON.parse(
           JSON.stringify(require("../config/postpartum2_dglb/th").default)
+      );
+    }
+      break;
+  case "postpartum2_dgdl": {
+      // 东莞大朗-产后产房观察表
+      Th = JSON.parse(
+        JSON.stringify(require("../config/postpartum2_dgdl/th").default)
       );
     }
       break;
@@ -441,13 +462,27 @@ export default function Title(
     );
   }
   break;
+    case "baby_dgdl": {
+      // 东莞寮步-护理记录单（新生儿科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/baby_dgdl/th").default)
+      );
+    }
+      break;
   case "baby_obs_dglb": {
     // 东莞寮步-新生儿护理记录单(产科专用)
     Th = JSON.parse(
       JSON.stringify(require("../config/baby_obs_dglb/th").default)
     );
   }
-  break;
+      break;
+  case "baby_obs_dgdl": {
+      // 东莞大朗-新生儿护理记录单(产科专用)
+      Th = JSON.parse(
+        JSON.stringify(require("../config/baby_obs_dgdl/th").default)
+      );
+    }
+      break;
   case "picc_maintenance_hd": {
     // 花都-PICC维护记录单
     Th = JSON.parse(
