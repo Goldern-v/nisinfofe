@@ -217,8 +217,6 @@ function decode(ayncVisitedData) {
       !firstRecord.recordMonth && (firstRecord.recordMonth = month)
       !firstRecord.recordHour && (firstRecord.recordHour = hour)
     }
-
-  console.log(sheetInfo.auditorMap, 'ddddddddddddddddddddddddddd');
   return {
     list: allData,
     relObj: renderRelObj(sheetInfo.relObj),

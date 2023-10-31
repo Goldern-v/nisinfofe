@@ -181,7 +181,6 @@ export default {
       return window.location.href.indexOf("print") > -1;
     },
     auditorNo() {
-      console.log(this.sheetInfo.relObj["signerName2"], "dddddddddddd");
       return this.sheetInfo.relObj["signerName2"];
     }
   },

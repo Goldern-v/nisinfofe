@@ -74,7 +74,7 @@ export default [
   {
     key: "bloodPressure", //血压
     value: "",
-    change: (e, td) => limitChange(e, td, 6),
+    change: (e, td) => limitChange(e, td, 12),
     event: function (e, td) {
       if (e.keyCode == 32) {
         e.target.value += "/";
@@ -85,7 +85,7 @@ export default [
     name: "血压",
     next: "mmHg",
     textarea: {
-      width: 42
+      width: 55
     },
   },
   {
