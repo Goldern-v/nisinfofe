@@ -67,7 +67,7 @@
             <div>
               床号:{{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
             </div>
-            <div>姓名:{{ currentBottle.name }}({{currentBottle.sex || ""}})</div>
+            <div style="display: flex;">姓名:<span style="width:76px; overflow-x:hidden;">{{ currentBottle.name }}</span>({{currentBottle.sex || ""}})</div>
           </div>
 
           <div class="new-modal-top-left-second">
