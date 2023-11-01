@@ -1,4 +1,5 @@
 // 登录模块api
+import qs from 'qs'
 import axios from './axios'
 import {
   apiPath
@@ -134,6 +135,10 @@ function synchronizationPatientByBedNo(deptCode,bedNo) {
 function syncPatListHd(data) {
   return axios.post(`${apiPath}patient/syncPatListHd`,data)
 }
+//新系统单点登录接口验证
+function thirdLogin(params) {
+  return axios.post(`/crNursing/qc/system/auth/thirdLogin`,qs.stringify(params))
+}
 
 
 
@@ -141,6 +146,7 @@ export {
   nursingUnit,
   patients,
   getPatLevelAndStatus,
+  thirdLogin,
   follow,
   unfollow,
   getLink,

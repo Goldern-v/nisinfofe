@@ -629,9 +629,24 @@
                 </el-dropdown-item>-->
               </el-dropdown-menu>
             </el-dropdown>
-            <div class="nav-item" @click="openOtherPage">
-              健康宣教
-            </div>
+            <el-dropdown>
+              <el-row class="nav-item" type="flex" align="middle">
+                <div class="before"></div>
+                <i class="iconfont icon-hulijiludan"></i>系统跳转
+              </el-row>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <div class="menu-item" @click="openOtherPage">
+                    健康宣教
+                  </div>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <div class="menu-item" @click="openManage">
+                    护理管理
+                  </div>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </el-row>
 
           <el-row class="right-part" type="flex" align="middle">
@@ -1016,9 +1031,10 @@ import Cookies from "js-cookie";
 import { logout } from "@/api/login";
 import setPassword from "../modal/setPassword.vue";
 import userInfo from "./user-info.vue";
-import { nursingUnit } from "@/api/lesion";
+import { nursingUnit,thirdLogin } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
+import CryptoJS from "crypto-js"
 import bus from "vue-happy-bus";
 export default {
   mixins: [common],
@@ -1110,6 +1126,24 @@ export default {
       window.open(
         `${url}/crNursing/manage/#/setting/typeDict?token=${token}&deptCode=${deptCode}`
       );
+    },
+    openManage() {
+      const acount =  JSON.parse(localStorage.getItem('user')).empNo; // 待加密的明文数据
+        const base64SecretKey = 'DjENO3BQGhSCpkwBWghkyQ=='; // 提供的密钥
+        const secretKey = CryptoJS.enc.Base64.parse(base64SecretKey); // 将 Base64 字符串解析为密钥对象
+        const encrypted = CryptoJS.AES.encrypt(acount, secretKey, {
+          mode: CryptoJS.mode.ECB, 
+          padding: CryptoJS.pad.Pkcs7 
+        });
+        const encryptedText = encrypted.toString(); // 将加密后的数据转换为字符串形式
+
+        let params = {account:encryptedText}
+        thirdLogin(params).then(res2=>{
+          if(res2.data.data.accessToken){
+            let {data:{data:{accessToken:token}}} = res2
+            window.open(`/nursingManagementFront/?token=${token}`)
+          }
+        });
     },
     userInfoOpen() {
       if (["nfyksdyy"].includes(this.HOSPITAL_ID))
