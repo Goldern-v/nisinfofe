@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sweet-modal ref="modal" :modalWidth="['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID)?850:720" title="体征同步">
+    <sweet-modal ref="modal" :modalWidth="['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID) || isHOSPITAL ?850:720" title="体征同步">
       <div flex="cross:center">
         <span class="label">体征日期：</span>
         <masked-input
@@ -44,9 +44,10 @@
             </template>
           </el-table-column>
           <el-table-column prop="temperature" label="腋下体温(°C)" min-width="110px" align="center"></el-table-column>
-          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="!['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID)"></el-table-column>
-          <el-table-column prop="pulse" label="脉搏(次/min)" min-width="110px" align="center" v-if="['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID)"></el-table-column>
-          <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID)"></el-table-column>
+          <el-table-column prop="pulse" label="脉搏/心率(次/min)" min-width="150px" align="center" v-if="!['guizhou','foshanrenyi', '925','nfyksdyy','qhwy'].includes(HOSPITAL_ID) ||!isHOSPITAL "></el-table-column>
+          <el-table-column prop="pulse" label="脉搏(次/min)" min-width="110px" align="center" v-if="['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID) || isHOSPITAL"></el-table-column>
+          <el-table-column prop="heartRate" label="心率(次/min)" min-width="110px" align="center" v-if="['guizhou','foshanrenyi', '925','nfyksdyy'].includes(HOSPITAL_ID) || isHOSPITAL"></el-table-column>
+          <el-table-column  prop="spo2" label="血氧饱和度" min-width="110px" align="center" v-if="isHOSPITAL"></el-table-column>
           <el-table-column prop="breath" label="呼吸(次/min)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="bloodPressure" label="血压(mmHg)" min-width="110px" align="center"></el-table-column>
           <el-table-column prop="spo2" label="Spo2" min-width="110px" align="center" v-if="HOSPITAL_ID=='whsl'"></el-table-column>
@@ -209,7 +210,9 @@ export default {
       if(this.formlist != undefined){
         return this.formlist;
       }
-
+    },
+    isHOSPITAL(){
+      return this.sheetInfo.sheetType == 'nursing_qhwy';
     }
   },
   components: {
