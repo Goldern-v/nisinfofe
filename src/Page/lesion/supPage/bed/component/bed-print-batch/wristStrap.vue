@@ -18,7 +18,7 @@
               <span>姓名：{{ item.name }}</span>
               <span>性别：{{ item.sex }}</span>
               <span>年龄：{{ item.age }}</span>
-       
+
             </div>
             <div>
               <span>床位：{{ item.bedLabel }}</span>
@@ -425,7 +425,7 @@ export default {
   methods: {
      getqrCode(item) {
       let qr_png_value = item.inpNo;
-      var qr_png = qr.imageSync( item.patientId + "|" + item.visitId,
+      var qr_png = qr.imageSync( this.HOSPITAL_ID == 'whhk' ? `P${item.inpNo}` : item.patientId + "|" + item.visitId,
         {
           type: "png",
           margin: 4,
@@ -446,7 +446,7 @@ export default {
     onPrint() {
       this.isPrint = true;
       this.$nextTick(() => {
-        let styleSheet 
+        let styleSheet
         if(['whhk'].includes(this.HOSPITAL_ID)){
           styleSheet = `
               .bed-card-warpper {

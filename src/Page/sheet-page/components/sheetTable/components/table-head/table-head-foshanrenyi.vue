@@ -253,7 +253,7 @@
         <input
           type="checkbox"
           value="w"
-          :ischecked="sheetInfo.relObj['w']"
+          :ischecked="sheetInfo.relObj[`${index}w`]"
           v-model="checkedw"
         />无
         <input
@@ -591,13 +591,15 @@ export default {
     },
   },
   created() {
-    console.log();
+    let relList = ['PICC','dgqt','ng', 'oxygenUnit', 'oxygenWay', 'qjmdg', 'qt','w','wg']
+    relList.forEach(item =>{
+      if(!sheetInfo.relObj[`${this.index}${item}`] && this.index != 0){
+        // 当前页没有数据时， 获取上一页数据
+        sheetInfo.relObj[`${this.index}${item}`] = sheetInfo.relObj[`${this.index - 1}${item}`]
+      }
+    })
     if (!sheetInfo.relObj.age) {
       sheetInfo.relObj.age = this.patientInfo.age;
-    }
-    // 江门市妇幼院新生儿监护单  需要修改日期，只要日期，不要时间
-    if(sheetInfo.sheetType === 'neonatal_care_jm'){
-      this.patientInfo.admissionDate=this.patientInfo.admissionDate.split(" ")[0]
     }
   },
   watch: {},

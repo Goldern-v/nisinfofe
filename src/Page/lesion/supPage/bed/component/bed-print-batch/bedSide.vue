@@ -180,7 +180,7 @@
                      require('./images/重汉口.png'):
                      require('./images/重.png')
                   "
-                /> 
+                />
                 <img
                   style="max-width: 100%;
                   max-height: 100%;
@@ -224,7 +224,7 @@
                   width:55px;
                   height:45px;"
                   class="dj-box printCare"
-                  
+
                   :class="{ active: true }"
                    :src="
                       item.registCare && item.registCare.includes('特')
@@ -1059,12 +1059,11 @@ export default {
 
     getqrCode(item) {
       // qr_png_value = this.item.inpNo.substring(0,this.item.inpNo.lastIndexOf("_"));
-
       let qr_png_value = item.inpNo.substring(0,item.inpNo.lastIndexOf("_"));
-      var qr_png = qr.imageSync(
+      var qr_png  = qr.imageSync(
         this.category == "bedside"
-          ? qr_png_value
-          : `B_${this.item.wardCode}_${item.bedLabel}`,
+          ? this.HOSPITAL_ID == 'whhk' ? `P${item.inpNo}` : qr_png_value
+          : `B_${item.wardCode}_${item.bedLabel}`,
         {
           type: "png",
           margin: 4,
@@ -1079,6 +1078,8 @@ export default {
         }
         return "data:image/png;base64," + window.btoa(binary);
       }
+
+      console.log(qr_png, 'dddddddddddddddddddd');
       let base64 = arrayBufferToBase64(qr_png);
       return { qrCode: base64, qrCodeNum: qr_png_value };
     },
@@ -1145,7 +1146,7 @@ export default {
           const { qrCode, qrCodeNum } = this.getqrCode(item);
           item.qrCode = qrCode;
           if(['whhk'].includes(this.HOSPITAL_ID)){
-           item.qrCodeNum = item.inpNo
+           item.qrCodeNum = 'P' + item.inpNo;
           }else{
            item.qrCodeNum = qrCodeNum;
           }
