@@ -357,6 +357,7 @@
               v-if="
                 (sheetInfo.sheetType === 'common_hd' ||
                   sheetInfo.sheetType === 'postpartum_hd' ||
+                  sheetInfo.sheetType === 'critical_hd' ||
                   sheetInfo.sheetType === 'neurosurgery_hd' ||
                   sheetInfo.sheetType === 'wait_delivery_hd' ||
                   sheetInfo.sheetType === 'wait_delivery_zjhj' ||
@@ -633,6 +634,7 @@
             sheetInfo.sheetType == 'icu_lc' ||
             sheetInfo.sheetType == 'Record_Children_Serious_Lc' ||
             sheetInfo.sheetType == 'common_hd' ||
+            sheetInfo.sheetType == 'critical_hd' ||
             sheetInfo.sheetType == 'nursing_dglb' ||
             sheetInfo.sheetType == 'neurosurgery_hd' ||
             sheetInfo.sheetType == 'stress_injury_hd' ||
@@ -940,6 +942,7 @@ export default {
       multiSignArr: [
         "common_hd", // 花都_通用护理记录单
         "neurosurgery_hd", // 花都_神经外科护理记录单
+        "critical_hd", // 花都_神经外科护理记录单
         "prenatal_hd", // 花都_产前记录单
         "neonatology2_hd", // 花都_新生儿护理记录单
         "postpartum_hd", // 花都_产后记录单

@@ -36,7 +36,7 @@
           </td>
           <!-- 宣教内容 -->
           <td :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, data)" v-if="HOSPITAL_ID === 'qhwy'">
-            <span>{{data['宣教内容']}}</span>
+            <span>{{data['宣教12内容']}}</span>
           </td>
           <!-- 教育对象 -->
           <td v-for="o in object" :key="o + 'a'">
@@ -55,9 +55,9 @@
             <span class="remark-span">{{data[`${HOSPITAL_ID === 'whhk' ? '宣教情况' : '备注'}`]}}</span>
           </td>
           <!-- 签名 -->
-          <td v-if="['lingcheng','guizhou','foshanrenyi','qhwy'].includes(HOSPITAL_ID)" class="specialTd">
+          <td v-if="['lingcheng','guizhou','foshanrenyi','qhwy','925'].includes(HOSPITAL_ID)" class="specialTd">
             <img
-              v-if="['lingcheng','foshanrenyi','qhwy'].includes(HOSPITAL_ID)"
+              v-if="['lingcheng','foshanrenyi','qhwy','925'].includes(HOSPITAL_ID)"
               v-show="data['lc签名']"
               class="img"
               :src="`/crNursing/api/file/signImage/${data['lc签名']}?${token}`"

@@ -58,6 +58,7 @@ export default {
       // 需要双签名的记录单code
       multiSignArr: [
         "common_hd", // 花都_通用护理记录单
+        "critical_hd", // 花都_重症护理记录单
         "neurosurgery_hd", // 花都_神经外科护理记录单
         "prenatal_hd", // 花都_产前记录单
         "neonatology2_hd", // 花都_新生儿护理记录单
