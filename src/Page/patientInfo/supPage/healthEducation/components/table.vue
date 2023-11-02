@@ -36,7 +36,7 @@
           </td>
           <!-- 宣教内容 -->
           <td :class="['contentLeft', {'isPrint': !isPrints}]" @click="healthContent($event, data)" v-if="HOSPITAL_ID === 'qhwy'">
-            <span>{{data['宣教12内容']}}</span>
+            <span>{{data['宣教内容']}}</span>
           </td>
           <!-- 教育对象 -->
           <td v-for="o in object" :key="o + 'a'">
