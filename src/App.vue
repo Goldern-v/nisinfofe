@@ -88,7 +88,7 @@ export default {
   created() {
       document.addEventListener("visibilitychange", () => {
       // '窗口切换事件激活visible-显示，hidden-隐藏
-        if (document.visibilityState === "visible" && this.HOSPITAL_ID == 'nfyksdyy') {
+        if (document.visibilityState === "visible" && ['nfyksdyy', 'sdhpwk'].includes(this.HOSPITAL_ID)) {
           if(this.$store.state.common.user.empNo != JSON.parse(localStorage.getItem('user')).empNo){
             this.$router.push('/login')
           }
