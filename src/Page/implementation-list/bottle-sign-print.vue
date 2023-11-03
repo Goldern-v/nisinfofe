@@ -261,6 +261,10 @@
                        size="small"
                        @click="syncData">同步医嘱
             </el-button>
+            <el-button v-else-if="'whhk' === HOSPITAL_ID "
+                       size="small"
+                       @click="searchWHHK">同步医嘱
+            </el-button>
             <el-button v-else
                        size="small"
                        @click="search">同步医嘱
@@ -680,7 +684,7 @@ export default {
         }
       );
     },
-    onLoad() {
+    onLoad(obj) {
       if (!this.deptCode) return;
       this.pageLoading = true;
       this.query.wardCode = this.deptCode;
@@ -707,7 +711,9 @@ export default {
         this.HOSPITAL_ID === "whsl"
           ? webGetOrdersExecutePrintOld
           : getPrintExecuteWithWardcode;
-      api(this.query).then((res) => {
+      let params = this.query
+      if(obj.whhkOtherparm) params = {...this.query,isSync:1}
+      api(params).then((res) => {
         let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
             array[index - 1] &&
@@ -754,6 +760,12 @@ export default {
       // 查看打印效果可以注释掉此行
       // this.printObj = []
       this.onLoad();
+    },
+    searchWHHK() {
+      this.page.pageIndex = 1;
+      // 查看打印效果可以注释掉此行
+      // this.printObj = []
+      this.onLoad({whhkOtherparm:true});
     },
     // 打印
     async fn(val){
