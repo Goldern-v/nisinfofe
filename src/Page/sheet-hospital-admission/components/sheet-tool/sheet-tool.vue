@@ -73,6 +73,10 @@
     <doctorEmr
       v-if="['foshanrenyi','nfyksdyy'].includes(HOSPITAL_ID)"
     />
+    <patientInfo
+            :notNurseRecordList="true"
+            v-if="this.$route.query.patientId && (['lyxrm'].includes(HOSPITAL_ID))"
+          ></patientInfo>
   </div>
 </template>
 
@@ -211,6 +215,7 @@ import commom from "@/common/mixin/common.mixin.js";
 import dayjs from "dayjs";
 import qs from "qs";
 import doctorEmr from "@/components/doctorEmr";
+import patientInfo from "@/Page/sheet-page/components/sheet-tool/patient-info";
 import { adult_notCheckFill, child_notCheckFill } from "@/Page/sheet-hospital-admission/components/data/formFoshanrenyi/notCheckFill"
 import { adult_notCheckFill2, child_notCheckFill2 } from "@/Page/sheet-hospital-admission/components/data/formNfyksdyy/notCheckFill"
 import {
@@ -1725,7 +1730,8 @@ export default {
   components: {
     previewEvalModal,
     SynchronousModal,
-    doctorEmr
+    doctorEmr,
+    patientInfo
   },
 };
 </script>
