@@ -593,9 +593,10 @@ export default {
   created() {
     let relList = ['PICC','dgqt','ng', 'oxygenUnit', 'oxygenWay', 'qjmdg', 'qt','w','wg']
     relList.forEach(item =>{
-      if(!sheetInfo.relObj[`${this.index}${item}`] && this.index != 0){
+      let newItem = sheetInfo.relObj[`${this.index}${item}`];
+      if(sheetInfo.relObj[`${this.index - 1}${item}`] && this.index != 0){
         // 当前页没有数据时， 获取上一页数据
-        sheetInfo.relObj[`${this.index}${item}`] = sheetInfo.relObj[`${this.index - 1}${item}`]
+        sheetInfo.relObj[`${this.index}${item}`] = newItem ? newItem : sheetInfo.relObj[`${this.index - 1}${item}`]
       }
     })
     if (!sheetInfo.relObj.age) {
