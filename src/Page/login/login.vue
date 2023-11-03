@@ -52,14 +52,14 @@
             </div>
             <h1 class="name" v-html="logoName" v-if="!['dglb'].includes(this.HOSPITAL_ID)"></h1>
           </div>
-          <div :style="[{overflow:['nanfangzhongxiyi','guizhou' ].includes(HOSPITAL_ID)?'hidden':''},translate300COM,translateTypeCOM]">
-            <div class="nanfangCa-Box" v-if="['nanfangzhongxiyi','guizhou' ].includes(HOSPITAL_ID)">
+          <div :style="[{overflow:['nanfangzhongxiyi','guizhou1' ].includes(HOSPITAL_ID)?'hidden':''},translate300COM,translateTypeCOM]">
+            <div class="nanfangCa-Box" v-if="['nanfangzhongxiyi','guizhou1 ' ].includes(HOSPITAL_ID)">
               <div class="nanfangCa-choseline"><div class="translateType"></div></div>
               <div class="nanfangCa-con" @click="(e)=>changeLoginType(false,e)">密码登录</div>
               <div class="nanfangCa-con" @click="(e)=>changeLoginType(true,e)">ca扫码登录</div>
             </div>
-            <div class="tranSlate-300" :class="{'nanfangCa-loginBox':['nanfangzhongxiyi','guizhou' ].includes(HOSPITAL_ID)}">
-              <div :class="{'nanfangCa-Boxx':['nanfangzhongxiyi','guizhou' ].includes(HOSPITAL_ID)}">
+            <div class="tranSlate-300" :class="{'nanfangCa-loginBox':['nanfangzhongxiyi','guizhou1' ].includes(HOSPITAL_ID)}">
+              <div :class="{'nanfangCa-Boxx':['nanfangzhongxiyi','guizhou1' ].includes(HOSPITAL_ID)}">
                 <div class="input-con">
                   <input type="text" :disabled="caLoginFlag" placeholder="用户名" v-model="account" />
                   <img src="../../common/images/account.png" height="14" width="14" />
@@ -123,7 +123,7 @@
                   {{ !ajax ? "证书登录" : "登录中..." }}
                 </button>
               </div>
-              <div class="nanfangCa-Boxx" v-if="['nanfangzhongxiyi','guizhou' ].includes(HOSPITAL_ID)">
+              <div class="nanfangCa-Boxx" v-if="['nanfangzhongxiyi','guizhou1' ].includes(HOSPITAL_ID)">
                 <img alt="" :src="'data:text/html;base64,'+qrCodeBase64"  />
               </div>
             </div>
@@ -863,7 +863,7 @@ export default {
           window.openSignModal = window.commonSignModal
           // 登录进入首页后。弹窗进行CA和U盾认证。
           window.openWhhkCaSignModal(true);
-        }else if(["guizhou"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
+        }else if(["guizhou1"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
           window.openHjCaSignModal();
         }
       }
@@ -990,7 +990,7 @@ export default {
         console.error(e);
       }
     }
-    if(['nanfangzhongxiyi','guizhou' ].includes(this.HOSPITAL_ID)){
+    if(['nanfangzhongxiyi','guizhou1' ].includes(this.HOSPITAL_ID)){
         clearInterval(nanfanImgtimer);
         nanfanImgtimer = setInterval(() => {
           this.nanfangTime = ++this.nanfangTime
@@ -998,7 +998,7 @@ export default {
           getQrCodeStatus(this.qrCodeIdentity,"0",accessToken).then(async getQrCodeStatusRes=>{
             let checkEND = await this.checkStatus(getQrCodeStatusRes)
               if(checkEND && getQrCodeStatusRes.data.data.user){
-                if(['guizhou'].includes(this.HOSPITAL_ID)){
+                if(['guizhou1'].includes(this.HOSPITAL_ID)){
                   localStorage.setItem("fuyouCaData",JSON.stringify(getQrCodeStatusRes.data.data.caToken.data));
                   this.bus.$emit("updateFuyouCaData")
                 }else{
