@@ -182,6 +182,7 @@ export default {
           || this.HOSPITAL_ID === 'whsl'
           || this.HOSPITAL_ID === 'ytll'
           || this.HOSPITAL_ID === 'stmz'
+          || this.HOSPITAL_ID === 'sdhpwk'
           || this.HOSPITAL_ID === 'dglb') {
           printDir("h");
           addCSS(

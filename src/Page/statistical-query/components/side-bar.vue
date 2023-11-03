@@ -65,7 +65,21 @@ export default {
                   title: '会诊统计',
                   img: require("../images/exit-adm.png"),
                 },
-              }
+              },
+              {
+                name: "statisticalScanCodeDetails",
+                meta: {
+                  title: '扫码明细统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
+              {
+                name: "statisticalScanRate",
+                meta: {
+                  title: '扫码率统计',
+                  img: require("../images/VTE.png"),
+                },
+              },
             ],
             other: [
               {
