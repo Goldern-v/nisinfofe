@@ -394,7 +394,7 @@
                     >
                     </el-option>
                   </el-select>
-                  <el-time-picker
+                  <!-- <el-time-picker
                     size="mini"
                     :readonly="isDisable()"
                     v-model="timeVal"
@@ -402,7 +402,7 @@
                     style="width: 100%"
                     @change="formatTopExpandDate"
                   >
-                  </el-time-picker>
+                  </el-time-picker> -->
                 </div>
                 <div
                   class="rowBox"

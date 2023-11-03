@@ -3,8 +3,8 @@
     ref="modalName"
     title="病历"
     class="modal-con"
-    :colseShadow="['zhzxy','fsxt', 'dglb', 'whhk'].includes(HOSPITAL_ID)"
-    :modalWidth="['zhzxy','fsxt', 'dglb', 'whhk'].includes(HOSPITAL_ID) ? 1200 : 0"
+    :colseShadow="['zhzxy','fsxt', 'dglb', 'whhk','925'].includes(HOSPITAL_ID)"
+    :modalWidth="['zhzxy','fsxt', 'dglb', 'whhk','925'].includes(HOSPITAL_ID) ? 1200 : 0"
   >
     <doctorEmr></doctorEmr>
     <!-- <div slot="button">
