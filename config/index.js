@@ -250,9 +250,9 @@ const currentTargetUrl = (() => {
     // 中国人民解放军联勤保障部队第九二五医院
     case '925':
       // return 'http://192.168.5.127:9091'
-      // return 'http://218.204.204.90:9095'
+      return 'http://218.204.204.90:9095'
       // return 'http://120.24.240.231:19097'
-      return 'http://192.168.20.158:9091'
+      // return 'http://192.168.20.158:9091'
       // return 'http://192.168.3.191:9091'
       // return 'http://192.168.1.54:9883'
 
@@ -295,8 +295,8 @@ const currentTargetUrl = (() => {
       return 'http://192.168.1.54:9866'
 
     case 'zjhj':
-      // return 'http://192.168.1.54:9866'  // 湛江海军医院 这个医院就先做表单 基本版本搬哪一个还没有确定
-      return "https://info.cr-health.com:20217" //公司外网
+      return 'http://192.168.1.54:9866'  // 湛江海军医院 这个医院就先做表单 基本版本搬哪一个还没有确定
+      // return "https://info.cr-health.com:20217" //公司外网
     // 顺德和平外科
     case 'sdhpwk':
       // return 'http://192.168.1.54:9866'

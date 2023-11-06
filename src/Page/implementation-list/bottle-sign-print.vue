@@ -712,7 +712,7 @@ export default {
           ? webGetOrdersExecutePrintOld
           : getPrintExecuteWithWardcode;
       let params = this.query
-      if(obj.whhkOtherparm) params = {...this.query,isSync:1}
+      if(obj && obj.whhkOtherparm) params = {...this.query,isSync:1}
       api(params).then((res) => {
         let tableData = res.data.data.map((item, index, array) => {
           let prevRowId =
