@@ -109,7 +109,7 @@
             class="print-btn"
             flex="cross:center main:center"
             @click="openBedPrintModal()"
-            v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
+            v-if="['nfyksdyy', 'zhzxy'].includes(HOSPITAL_ID)"
           >
             打印床位卡
           </div>
