@@ -6273,7 +6273,9 @@
           "style": null,
           "class": null,
           "labelLeft": true,
-          "hiddenTips": true
+          "hiddenTips": true,
+          "inputMaxLen":16,
+          "dateFormat":true
         },
         {
           "name": "signerName",
@@ -6300,7 +6302,9 @@
           "style": null,
           "class": null,
           "labelLeft": true,
-          "hiddenTips": true
+          "hiddenTips": true,
+          "inputMaxLen": 16,
+          "dateFormat":true
         },
         {
           "name": "auditorName",

@@ -41,7 +41,7 @@
       :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
       :ref="obj.name"
       :name="obj.name"
-      v-if="obj.type==='input'"
+      v-if="obj.type==='input' && (!obj.dateFormat)"
       :placeholder="obj.dialog ? '点击评估' : (obj.placeholder?obj.placeholder:'空')"
       :class="model === 'development' ? 'development-model' : (obj.class||'')"
       :size="obj.size||''"
@@ -56,6 +56,33 @@
       @focus="inputFocus($event, obj)"
       @blur.stop="inputBlur"
       @keydown.native="inputKeyDown($event, obj)"
+      :maxlength="obj.inputMaxLen ? obj.inputMaxLen : null"
+    >
+      <span slot="append" class="suffixDesc-text" v-if="obj.postText">!!!{{obj.postText}}</span>
+    </el-input>
+     <el-input
+      :id="getUUID()"
+      :style="[obj.style, obj.inputWidth && {width: obj.inputWidth}]"
+      :ref="obj.name"
+      :name="obj.name"
+      v-if="obj.type==='input'&&(obj.dateFormat)"
+      :placeholder="obj.dialog ? '点击评估' : (obj.placeholder?obj.placeholder:'空')"
+      :class="model === 'development' ? 'development-model' : (obj.class||'')"
+      :size="obj.size||''"
+      :type="obj.inputType||'text'"
+      :rows="reactiveRows(obj.name, 54, 2, 200)"
+      :disabled="!!obj.disabled || isDisabled(obj)"
+      :readonly="obj.readOnly?obj.readOnly:false"
+      v-bind="obj.props"
+      @change="inputChange($event, obj)"
+      @dblclick.native.stop="inputClick($event, obj)"
+      @click.stop="inputFocus($event, obj); obj.readOnly && inputClick($event, obj)"
+      @focus="inputFocus($event, obj)"
+      @blur.stop="inputBlur"
+      @keydown.native="inputKeyDown($event, obj)"
+      :value="inputValue"
+      @input="handleInput"
+      :maxlength="obj.inputMaxLen ? obj.inputMaxLen : null"
     >
       <span slot="append" class="suffixDesc-text" v-if="obj.postText">!!!{{obj.postText}}</span>
     </el-input>
@@ -246,6 +273,41 @@ export default {
     }
   },
   methods: {
+    handleInput(e) {
+      console.log(this.$refs[this.obj.name].$el.children[0])
+      const inputString =e.toString()
+      if(inputString.length>16){
+        return
+      }
+  const cursorPosition = this.$refs[this.obj.name].$el.children[0].selectionStart;
+  console.log('cursorPositio',cursorPosition)
+      let str=''
+      const filterStr=inputString.replace(/[-: ]/g, '')
+      for (let i = 0; i < filterStr.length; i++) {
+          let char = filterStr[i];
+          //拼接str
+          if(i==4||i==6){
+            char=`-${char}`
+          }
+          if(i==8){
+            char=` ${char}`
+          }
+          if(i==10){
+            char=`:${char}`
+          }
+          str+=char
+       }
+      this.inputValue = str;
+      // 等待值更新后再设置新的光标位置
+      this.$nextTick(() => {
+      // 计算新的光标位置
+      const newCursorPosition = cursorPosition + (str.length - inputString.length);
+      // 确保新的光标位置不小于零
+      const finalCursorPosition = Math.max(0, newCursorPosition);
+      // 设置新的光标位置
+       this.$refs[this.obj.name].$el.children[0].setSelectionRange(finalCursorPosition, finalCursorPosition);
+      });
+    },
     reactiveRows(key, maxLength, minRows, maxRows) {
       if (this.formObj.model[key]) {
         let number = this.formObj.model[key].replace(/[^0-9]/ig,"");
