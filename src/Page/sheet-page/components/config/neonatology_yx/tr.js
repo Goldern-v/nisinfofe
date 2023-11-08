@@ -1,5 +1,5 @@
 
-/** 
+/**
   武汉亚心 -新生儿科护理记录单
 */
 
@@ -30,7 +30,7 @@ import {
     click_date,
     click_time
   } from "../keyEvent/date";
-  
+
   export default [
     { hidden: true, key: 'recordDate', value: '' },
     { key: "recordMonth", event: event_date, click: click_date, value: ''},
@@ -72,7 +72,7 @@ import {
     },
     { key: "sign", value: "" },//单签
     // { key: "sign2", value: "" },//双签
-    // { key: "audit", value: "" },//审核签名
+    { key: "audit", value: "" },//审核签名
     { hidden:true, key:'id', value:''},
     { hidden:true, key:'signerName', value:''},
     { hidden:true, key:'signerName2', value:''},
@@ -88,6 +88,5 @@ import {
     { hidden:true, key:'auditorName', value:''},
     { hidden:true, key:'empNo', value:''},
     { hidden:true, key:'multiSign', value:''}
-    
+
   ]
-  
