@@ -34,6 +34,7 @@
           </th>
         </tr>
       </thead>
+      <span v-show="false">{{num}}</span>
       <tbody>
         <tr v-for="(tr, trIndex) in tableData.tbody" :key="trIndex">
           <td
@@ -65,7 +66,10 @@
             </div>
             <div v-else>
               <label v-if="td.prev">{{ td.prev }}</label>
-              <span>{{ td.value ? td.value : (td.score == sheetInfo.relObj[td.name] ? '√' : '') }}</span>
+              <!-- {{td.score === sheetInfo.relObj[td.name]}} -->
+              <!-- {{td.score}} -->
+              <!-- {{sheetInfo.relObj[td.name]}} -->
+              <span>{{ !td.name ? td.value : (Number(td.score) == Number(sheetInfo.relObj[td.name]) ? '√' : '') }}</span>
             </div>
           </td>
         </tr>
@@ -104,7 +108,8 @@ export default {
     return {
       sheetInfo,
       bus: bus(this),
-      tableData: countData
+      tableData: countData,
+      num: 1
     };
   },
   methods: {
@@ -117,6 +122,7 @@ export default {
       const allGrade = [null, null, 0, null, 1, null, 2, null, 3];
       const currentGrade = +allGrade[tdIndex];
       this.sheetInfo.relObj.totalCervixGrade = +this.sheetInfo.relObj.totalCervixGrade || 0;
+      
       if (!td.value) {
         tr.map((item, index) => {
           if (
@@ -136,6 +142,11 @@ export default {
         this.sheetInfo.relObj[td.name] = "";
         this.sheetInfo.relObj.totalCervixGrade -= currentGrade;
       }
+      // 禅道id：25574
+      // 项目 this.sheetInfo.relObj 一直赋值不会触发页面更新  
+      // td.value = "√" 这样子赋值 切换不会刷新数据乱 
+      //（原来开发 mounted 做处理 但是mounted钩子不更新，尝试watch监听表单id处理初始化 页面展示一直都是上一页数据 如果有更好的办法改 可以告诉我一声）
+      this.num++
     },
     sign2(isCancel) {
       let title = isCancel ? "取消签名" : "确认签名";
@@ -165,16 +176,17 @@ export default {
 
   created() {},
   mounted() {
-    const allGrade = [null, null, 0, null, 1, null, 2, null, 3];
-    this.tableData.tbody.map(tr => {
-      tr.map((td, tdIndex) => {
-        if (td.name && this.sheetInfo.relObj[td.name] == allGrade[tdIndex]) {
-          td.value = "√";
-        } else if (td.isChecked) {
-          td.value = "";
-        }
-      });
-    });
+    this.num = 1
+    // const allGrade = [null, null, 0, null, 1, null, 2, null, 3];
+    // this.tableData.tbody.map(tr => {
+    //   tr.map((td, tdIndex) => {
+    //     if (td.name && this.sheetInfo.relObj[td.name] == allGrade[tdIndex]) {
+    //       td.value = "√";
+    //     } else if (td.isChecked) {
+    //       td.value = "";
+    //     }
+    //   });
+    // });
   },
   computed: {
     isPrint() {
@@ -184,7 +196,21 @@ export default {
       return this.sheetInfo.relObj["signerName2"];
     }
   },
-  watch: {},
+  watch: {
+    // 'sheetInfo.selectBlock.id'() {
+    //   console.log(this.sheetInfo)
+    //   const allGrade = [null, null, 0, null, 1, null, 2, null, 3];
+    //   this.tableData.tbody.map(tr => {
+    //     tr.map((td, tdIndex) => {
+    //       if (td.name && this.sheetInfo.relObj[td.name] == allGrade[tdIndex]) {
+    //         td.value = "√";
+    //       } else if (td.isChecked) {
+    //         td.value = "";
+    //       }
+    //     });
+    //   });
+    // }
+  },
   coponents: {}
 };
 </script>
