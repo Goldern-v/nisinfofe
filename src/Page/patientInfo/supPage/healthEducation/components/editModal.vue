@@ -19,6 +19,7 @@
             placeholder="请输入关键词"
             :remote-method="remoteMethod"
             :loading="loading"
+            @click.native="remoteMethod('')"
           >
             <el-option
               v-for="item in options"
@@ -275,6 +276,9 @@ export default {
     // 宣教内容下拉搜索框
     async remoteMethod(query) {
       if (query !== "" || ['zjhj'].includes(this.HOSPITAL_ID)) {
+        if (this.loading) {
+          return;
+        }
         this.name = query;
         this.loading = true;
         try {
