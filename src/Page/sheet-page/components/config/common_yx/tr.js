@@ -30,7 +30,6 @@ import {
     click_date,
     click_time
   } from "../keyEvent/date";
-
   export default [
     { hidden: true, key: 'recordDate', value: '' },
     { key: "recordMonth", event: event_date, click: click_date, value: ''},

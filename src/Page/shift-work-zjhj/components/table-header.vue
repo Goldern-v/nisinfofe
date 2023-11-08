@@ -13,12 +13,13 @@
         <tr v-for="(shift, index) in columns" :key="index">
           <td>{{ columnsKey[index] }}</td>
           <td v-for="(col, key) of keys" :key="key">
-            <div
+            <!-- <div
               v-html="shift[key]"
               contenteditable="true"
               style="outline:none;"
               @blur="e => change(e, index, key)"
-            ></div>
+            ></div> -->
+            <div v-text="shift[key]" style="outline:none;"></div>
           </td>
         </tr>
       </tbody>
