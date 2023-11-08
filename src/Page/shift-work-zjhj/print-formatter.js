@@ -75,7 +75,7 @@ export default function(win) {
       }
 
       if (shouldFillRows) {
-        const target = newTableBody.children[newTableBody.children.length - 2];
+        const target = newTableBody.children[newTableBody.children.length];
 
         while (page.offsetHeight + 30 < 1000) {
           newTableBody.insertBefore(emptyRow.cloneNode(true), target);
