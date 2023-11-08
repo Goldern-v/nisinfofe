@@ -31,11 +31,15 @@
             <h1 class="title">{{deptName}}</h1>
             <h2 class="sub-title">ISBAR交班记录卡</h2>
             <div class="details">
-              <!-- <span>
-                病区情况：总数：<b>{{ record.allTotal || 0 }}</b>人，
-              </span> -->
               <span>
-                病区情况：出院：<b>{{ record.outHospitalTotal || 0 }}</b>人，
+                病区情况：原有：<b>{{ record.patientTotal || 0 }}</b>人，
+              </span>
+              <span>
+                现有：
+                <b>{{ record.nowHospitalTotal || 0 }}</b>人，
+              </span>
+              <span>
+                出院：<b>{{ record.outHospitalTotal || 0 }}</b>人，
               </span>
               <span>
                 转出：<b>{{ record.transOutTotal || 0 }}</b>人，
@@ -56,7 +60,7 @@
                 明日手术：<b>{{ record.patientOperationTomorrow || 0 }}</b>人，
               </span>
               <span>
-                分娩：<b>{{ record.patientNewBorn || 0 }}</b>人
+                新生儿：<b>{{ record.patientNewBorn || 0 }}</b>人
               </span>
             </div>
             <div class="details" style="margin-top: 5px;">
@@ -66,18 +70,18 @@
               <span>
                 病重：<b>{{ record.seriousTotal || 0 }}</b>人，
               </span>
-              <!-- <span>
-                监护：<b>{{ record.patientCustody || 0 }}</b>人，
-              </span> -->
+              <span>
+                特级：<b>{{ record.patientSuper || 0 }}</b>人，
+              </span>
               <span>
                 一级：<b>{{ record.patientClass1 || 0 }}</b>人，
               </span>
-              <!-- <span>
-                吸氧：<b>{{ record.patientOxygen || 0 }}</b>人，
+              <span>
+                二级：<b>{{ record.patientClass2 || 0 }}</b>人，
               </span>
               <span>
-                危急值：<b>{{ record.patientCritical || 0 }}</b>人，
-              </span> -->
+                三级：<b>{{ record.patientClass3 || 0 }}</b>人，
+              </span>
               <span>
                 压力性损伤：<b>{{ record.patientPressure || 0 }}</b>人，
               </span>
