@@ -274,7 +274,7 @@ export default {
 
     // 宣教内容下拉搜索框
     async remoteMethod(query) {
-      if (query !== "") {
+      if (query !== "" || ['zjhj'].includes(this.HOSPITAL_ID)) {
         this.name = query;
         this.loading = true;
         try {

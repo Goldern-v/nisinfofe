@@ -31,7 +31,7 @@ import {
   click_time
 } from "../keyEvent/date";
 
-let ysList = ['清醒(一)', '嗜睡+', '浅昏迷++', '深昏迷+++']
+let ysList = [{ name: '清醒(一)', value: '(一)' }, { name: '嗜睡+', value: '+' }, { name: '浅昏迷++', value: '++' }, { name: '深昏迷+++' ,value:'+++'}]
 let dgfyList = ['灵敏','迟钝+','消失++']
 const jkxjList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩']
 const ysxzList = ['棕黄粘稠', '墨绿粘稠', '淡黄澄清', '淡红血性', '鲜红血性', '暗红血性', '白色浑浊']

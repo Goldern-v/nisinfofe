@@ -204,6 +204,7 @@ function decode(ayncVisitedData) {
     process.env.HOSPITAL_ID == "nfyksdyy"||
     process.env.HOSPITAL_ID == "dglb" ||
     process.env.HOSPITAL_ID == "hzly" ||
+    process.env.HOSPITAL_ID == "whyx" ||
     process.env.HOSPITAL_ID == "sdhpwk"
 
   ) {

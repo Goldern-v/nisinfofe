@@ -1,5 +1,5 @@
 
-/** 
+/**
   武汉亚心 -急诊留观记录单
 */
 
@@ -30,8 +30,9 @@
     click_date,
     click_time
   } from "../keyEvent/date";
-  
+
   export default [
+  { hidden: true, key: 'recordDate', value: '' },
     { key: "recordMonth", event: event_date, click: click_date, value: ''},
     { key: "recordHour", event: event_time, click: click_time ,value: ''},
     { key: 'temperature', event: keyf1, value: '', next: '℃', name: 'T',textarea: { width: 70 }, change: (e, td) => limitChange(e, td, 8) },
@@ -53,7 +54,7 @@
     },
     { key: "sign", value: "" },//单签
     // { key: "sign2", value: "" },//双签
-    // { key: "audit", value: "" },//审核签名
+    { key: "audit", value: "" },//审核签名
     { hidden:true, key:'id', value:''},
     { hidden:true, key:'signerName', value:''},
     { hidden:true, key:'signerName2', value:''},
@@ -70,4 +71,3 @@
     { hidden:true, key:'empNo', value:''},
     { hidden:true, key:'multiSign', value:''}
   ]
-  
