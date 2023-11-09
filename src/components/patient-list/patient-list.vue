@@ -471,14 +471,30 @@ export default {
     },
     // 病人分组（expand3字段）
     patientGroup4Expand3() {
+      // const result = Array.from(
+      //   new Set(this.data.map(item => item.expand3))
+      // ).map(item => {
+      //   return {
+      //     name: item ? `分组${item}` : '无',
+      //     value: item
+      //   }
+      // })
       const result = Array.from(
         new Set(this.data.map(item => item.expand3))
-      ).map(item => {
+      )
+      .sort()
+      .map((item) => {
         return {
           name: item ? `分组${item}` : '无',
           value: item
         }
       })
+      for(let i = 0 ; i <= result.length - 1; i++){
+        let temp = result[i];
+        result[i] = result[i + 1];
+        result[i + 1] = temp
+      }
+      // console.log(result,'patientGroup4Expand312132');
       return result;
     },
   },
