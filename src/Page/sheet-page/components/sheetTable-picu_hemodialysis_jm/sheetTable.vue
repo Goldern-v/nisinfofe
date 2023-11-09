@@ -33,7 +33,7 @@
             </span>
           </span>
           <span>
-            住院号：{{ patientInfo.patientId }}
+            住院号：{{ patientInfo.inpNo }}
           </span>
           <span>
             年龄：{{ patientInfo.age }}
@@ -286,7 +286,7 @@
       outline: none;
     }
   }
-  
+
 
   .bottomCon {
     position: relative;
