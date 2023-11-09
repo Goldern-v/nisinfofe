@@ -12,7 +12,7 @@
           v-model="data.message"
           ref="myQuillEditor"
           :options="editorOption"
-          v-if="HOSPITAL_ID == 'nfyksdyy'"
+          v-if="['nfyksdyy', 'sdhpwk'].includes(HOSPITAL_ID)"
         ></quill-editor>
         <el-input type="textarea" autosize v-model="data.message" v-else></el-input>
       </div>
