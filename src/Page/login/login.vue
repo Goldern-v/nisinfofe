@@ -863,6 +863,9 @@ export default {
           window.openSignModal = window.commonSignModal
           // 登录进入首页后。弹窗进行CA和U盾认证。
           window.openWhhkCaSignModal(true);
+        }else if (['huadu'].includes(this.HOSPITAL_ID)) {
+          // 用武汉的CA登录。然后屏蔽掉USB登录
+          window.openWhhkCaSignModal(true);
         }else if(["guizhou1"].includes(this.HOSPITAL_ID) && !localStorage["fuyouCaData"]){
           window.openHjCaSignModal();
         }

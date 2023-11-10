@@ -451,6 +451,7 @@
                 placement="bottom-end"
                 width="320"
                 trigger="click"
+                popper-class="user-info-main"
               >
                 <userInfo @setPassword="setPassword" @quit="quit"></userInfo>
               </el-popover>
@@ -511,6 +512,13 @@
     </div>
   </div>
 </template>
+<style lang='css'>
+  .user-info-main{
+    max-height: 90vh; 
+    overflow-y: auto;
+    top: 5px;
+  }
+</style>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
 .header-con {
@@ -803,7 +811,7 @@ import Cookies from "js-cookie";
 import { logout } from "@/api/login";
 import setPassword from "../modal/setPassword.vue";
 import userInfo from "./user-info.vue";
-import { nursingUnit } from "@/api/lesion";
+import { nursingUnit ,endAutoSign } from "@/api/lesion";
 import common from "@/common/mixin/common.mixin";
 import WebSocketService from "@/plugin/webSocket/index";
 import bus from "vue-happy-bus";
@@ -903,6 +911,18 @@ export default {
       window.location.href = "/crNursing/admin";
     },
    async quit() {
+     // 取消自动签名
+     if(localStorage.getItem('huaduSignTye') && localStorage.getItem('huaduSignTye')=='qrcode'){
+        endAutoSign({signToken:localStorage.getItem('signDataId') || 'SD_be2ae41c-6c9d-4594-ad7a-09a1b0b2e0ab',empNo:JSON.parse(localStorage.getItem("user")).empNo}).then(res=>{
+        }).catch(err=>{
+          console.log(err)
+        })
+      }
+     // 清理CA登录相关操作
+      localStorage.removeItem('huaduSignTye')
+      localStorage.removeItem('huaduCaOrUsbSignIn')
+      localStorage.removeItem('signDataId')
+      localStorage.removeItem("fuyouCaData");
       // 登出前调用解锁
       await this.destroyUnlock()
       // 登出操作

@@ -47,7 +47,8 @@
         </template>
       </div>
     </span>
-    <span>
+    <template v-if="!['huadu'].includes(HOSPITAL_ID)||(huaduCaSignIn ==false )">
+      <span>
       <p for class="name-title">输入用户名或者工号</p>
       <div action class="sign-input" ref="userInput">
         <el-input
@@ -94,6 +95,27 @@
         </span>
       </p>
     </span>
+    </template>
+    <template v-else>
+      <div v-if="huaduSignTye!=''">确定要{{title.indexOf('删除') > -1?'删除':''}}签名吗？</div>
+      <el-tabs v-model="activeName" v-else>
+      <el-tab-pane label="签名认证" name="first" style="text-align:center;">
+        <figure class="ewm-box" style="text-align:center;">
+          <div class="qrcode" ref="qrcodeContainer"></div>
+        </figure>
+        <div class="info-box1" v-if="authoState==='1'">请在登录CA移动端扫一扫登录</div>
+        <div class="info-box2"  v-if="authoState==='2'">二维码已过期</div>
+        <div style="height: 20px"></div>
+      </el-tab-pane>
+      </el-tabs>
+    </template>
+    <div 
+      v-if="['huadu'].includes(HOSPITAL_ID) && (huaduCaSignIn ==false )" 
+      style="margin-top: 10px;color:#4bb08d;font-weight:bold;" 
+      class="loginCa"
+      @click="openWhhkCaSign">
+      CA登录验证
+    </div>
     <div
       v-if="['foshanrenyi', 'weixian'].includes(HOSPITAL_ID)"
       style="margin-top: 5px"
@@ -152,7 +174,27 @@
     <div style="height: 20px"></div>
     <div slot="button">
       <el-button class="modal-btn" @click.stop="close">取消</el-button>
-      <el-button
+      <template v-if="['huadu'].includes(HOSPITAL_ID)">
+        <el-button
+          v-if="huaduCaSignIn&&huaduSignTye"
+          class="modal-btn"
+          type="primary"
+          @dblclick.stop="huaduCaPost"
+          @click.stop="huaduCaPost"
+          >ca签名确认</el-button
+         >
+        <el-button
+           class="modal-btn"
+           type="primary"
+           v-if="!huaduCaSignIn"
+          @dblclick.stop="post"
+          @click.stop="post"
+          :loading="btnLoading"
+        >确认</el-button
+        >
+      </template>
+      <template v-else>
+         <el-button
         class="modal-btn"
         type="primary"
         v-if="!showSignBtn()"
@@ -160,15 +202,16 @@
         @click.stop="post"
         :loading="btnLoading"
         >确认</el-button
-      >
-      <el-button
+        >
+       <el-button
         v-if="hasCaSign()&&showSignBtn()"
         class="modal-btn"
         type="primary"
         @dblclick.stop="caPost"
         @click.stop="caPost"
         >ca签名确认</el-button
-      >
+       >
+      </template>
     </div>
   </sweet-modal>
 </template>
@@ -211,6 +254,22 @@
     font-weight: bold;
   }
 }
+.ewm-box{
+  position:relative;
+  margin:0 auto;
+  padding:0;
+  text-align: center;
+}
+.qrcode {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    img {
+      width: 132px;
+      height: 132px;
+      background-color: #fff;
+      padding: 6px;
+    }
+  }
 </style>
 
 <script>
@@ -224,9 +283,12 @@ import {
 import dayjs from "dayjs";
 import bus from "vue-happy-bus";
 import { verifyCaSign } from "@/api/ca-sign_wx.js";
-import { getCaSignJmfy, verifyData } from "@/api/ca-sign_fuyou.js";
+import { getCaSignJmfy, verifyData,getTrustUserInfo } from "@/api/ca-sign_fuyou.js";
 import moment from "moment";
 import md5 from "md5";
+import axios from "@/api/axios";
+import { apiPath } from "@/api/apiConfig";
+import QRCode from "qrcodejs2";
 
 export default {
   props: {
@@ -292,7 +354,7 @@ export default {
         "internal_eval_yz"
       ],
       activeSheetType: "",
-      hasQrCaSignHos: ["fuyou", "hj", "guizhou", "zhzxy", "whsl"],
+      hasQrCaSignHos: ["fuyou", "hj", "guizhou", "zhzxy", "whsl","haudu"],
       caSignHasNoSignType: ["hj", "guizhou"],
       btnLoading: false,
       verifySignObj: {},
@@ -301,9 +363,28 @@ export default {
       caPassword: "", //zzwy口令
       zzwyNoHasCaSign: true, //zzwy 这次登录是否有ca签过名,没有就是true
       fromType: 'eval', //江门妇幼，表单区分默认评估单，评估单（eval），护记（record），交班志（changeShfit），护理计划单（planForm）
+      // 花都CA扫描
+      huaduCaSignIn:false,
+      authoState:"0",//0：初始化，1：已获取二维码，2：二维码过期
+      huaduSignTye:'',
+      setIntervalItem:null,//定时器对象
+      setIntervalApi:null,//轮训请求api对象
+      setIntervalApiTime:10,
+      commonTime:600,//默认倒数时间 10分钟=600秒
+      signDataId:'',//签名数据id
+	    userId:'',//用作后面扫码开启自动签接口中的入参
+      activeName:'first',
+      btnLoading:false,
     };
   },
   methods: {
+    openWhhkCaSign(){
+      window.openWhhkCaSignModal(true);
+      this.close()
+    },
+    ishuaduCaSignIn(){
+      console.log('hjm', localStorage.getItem('huaduCaSignIn'))
+    },
     showSignBtn() {
       if (this.hasQrCaSignHos.includes(this.HOSPITAL_ID)) {
         return this.isCaSign;
@@ -353,7 +434,19 @@ export default {
         fromType,
         "open"
       );
-
+      // 花都
+      this.huaduCaSignIn=localStorage.getItem("huaduCaSignIn")?true:false
+      if(this.huaduCaSignIn){
+        this.huaduSignTye=localStorage.getItem("huaduSignTye")?localStorage.getItem("huaduSignTye"):''
+        this.clearIntervalItem()
+        this.huaduSignTye = localStorage.getItem('huaduSignTye') || ''
+     
+        if(this.huaduSignTye==''){
+          // 如果是删除，就不用二维码
+          this.getAuthorizeApi()
+        }
+      }
+      
       if (["foshanrenyi"].includes(this.HOSPITAL_ID)) {
         GetUserList().then(
           res => {
@@ -474,7 +567,7 @@ export default {
       this.message = message;
       this.password = "";
       this.$refs.modalName.open();
-      if (!["foshanrenyi", "weixian"].includes(this.HOSPITAL_ID)) {
+      if (!["foshanrenyi", "weixian",'huadu'].includes(this.HOSPITAL_ID)) {
         this.$nextTick(() => {
           if (showDate) {
             let dateInput = this.$refs.dateInput.querySelector("input");
@@ -507,6 +600,9 @@ export default {
       this.showAduit = false;
       this.activeSheetType = "";
       this.formData = null;
+      if(['huadu'].includes(this.HOSPITAL_ID)){
+        this.clearIntervalItem()
+      }
       this.$refs.modalName.close();
     },
     setCloseCallback(closeCallback) {
@@ -841,12 +937,7 @@ export default {
         })
         .catch(error => {
           this.close();
-          // this.$message({
-          //   type:'warning',
-          //   message:error.data.desc
-          // })
         });
-      //window.openFuyouCaSignModal
     },
     //初始化江门妇幼签名数据
     initFuyouCaData() {
@@ -861,7 +952,160 @@ export default {
     },
     openHjCaSignModal() {
       window.openHjCaSignModal(true);
-    }
+    },
+    //清除信息
+    clearIntervalItem(){
+      clearInterval(this.setIntervalItem)
+      this.setIntervalItem=null;
+      this.authoState='0';
+      clearInterval(this.setIntervalApi)
+      this.setIntervalApi=null;
+      this.signDataId = ''
+      if(this.$refs.qrcodeContainer){
+        this.$refs.qrcodeContainer.innerHTML = ''//销毁二维码实例
+      } 
+    },
+    //获取授权二维码
+    getAuthorizeApi() {
+      this.clearIntervalItem()
+      axios.post(`${apiPath}manufactor/whhk/startAutoSign`,
+      { "empNo": JSON.parse(localStorage.getItem("user")).empNo}).then(res=>{
+        console.log('res',res)
+        let qrcode = new QRCode(this.$refs.qrcodeContainer, {
+        width: 180,// 二维码的宽
+        height: 180,// 二维码的高
+        //text: this.userName + " " + this.passWord , // 二维码的内容
+        text: res.data.data.qrCode , // 二维码的内容
+        colorDark: '#000',// 二维码的颜色
+        colorLight: '#fff',
+        correctLevel: QRCode.CorrectLevel.H,//容错级别
+      })
+	  	this.signDataId = res.data.data.signDataId
+      
+		  this.userId = res.data.data.userId
+	  	this.authoState='1'
+          this.startSetIntervalItem();
+		  //启动轮询
+      this.startRotationApi()
+      }).catch(err=>{
+
+      })
+    },
+    //启动倒数定时器
+    startSetIntervalItem(){
+      this.timeDate=this.commonTime;
+      this.setIntervalItem=setInterval(()=>{
+          if(this.timeDate>0){
+              this.timeDate--
+          }else {
+            clearInterval(this.setIntervalItem)
+            this.setIntervalItem=null;
+            this.authoState='2'
+          }
+      },1000)
+    },
+   //启动轮询定时器
+    startRotationApi(){
+      clearInterval(this.setIntervalApi)
+      this.setIntervalApi=null;
+      this.setIntervalApiTime=this.commonTime;
+      this.setIntervalApi=setInterval(()=>{
+          if(this.setIntervalApiTime>0){
+              this.getTrustUserInfoApi()
+              this.setIntervalApiTime=this.setIntervalApiTime-2;
+          }else {
+            clearInterval(this.setIntervalApi)
+            this.setIntervalApi=null;
+          }
+      },5000)
+    },
+    ////数字信息授权获取用户信息
+    getTrustUserInfoApi(){
+      getTrustUserInfo({signDataId:this.signDataId}).then(res=>{
+          //授权成功
+            if(res.data.data.jobStatus=='EXPIRE' || res.data.data.jobStatus=='REVOKE' || res.data.data.jobStatus=='REFUSE'){
+              this.$message({
+                type: "error",
+                message: "扫码失败，二维码无效或者被客户端拒绝！"
+              });
+              this.authoState='2'
+              //清除轮询定时器
+              clearInterval(this.setIntervalApi)
+              this.setIntervalApi=null;
+              setTimeout(() => {
+                clearInterval(this.setIntervalItem)
+                this.setIntervalItem=null;
+                this.authoState='0'
+                // this.close(true)
+              }, 5000);
+            }else if(res.data.data.jobStatus=='FINISH'){
+              this.$message({
+                type: "success",
+                message: 'CA签名认证成功'
+              });
+              // 就是成功 开启自动签名
+              this.turnToSign()
+              //清除轮询定时器
+              clearInterval(this.setIntervalApi)
+              this.setIntervalApi=null;
+              setTimeout(() => {
+                clearInterval(this.setIntervalItem)
+                this.setIntervalItem=null;
+                this.authoState='0'
+                // this.close(true)
+              }, 1000);
+            }
+        //   }
+      }).catch(error=>{
+        console.log(error);
+        this.close(true)
+        if(error.code!=200){
+         this.$message({
+            type: "info",
+            message: error.data.desc
+         });
+         clearInterval(this.setIntervalApi)
+         this.setIntervalApi=null;
+        }
+      })
+    },
+     /**扫码签名 */
+    turnToSign(){
+      axios.post(`${apiPath}manufactor/whhk/autoSign`,
+      { "signToken":this.signDataId || localStorage.getItem('signDataId'),empNo:JSON.parse(localStorage.getItem("user")).empNo }).then(res=>{
+        if(res.data.code=='200'){
+          // 签名成功
+          if(!localStorage.getItem('huaduSignTye')){
+            this.huaduSignTye='qrcode'
+            localStorage.setItem('signDataId',this.signDataId)//这个很重要
+            localStorage.setItem('huaduSignTye','qrcode')
+          }
+          // 口令正确 保存数据
+          this.$refs.modalName.close();
+          this.close()
+          this.clearIntervalItem()
+            if (this.signDate) {
+            return this.callback(
+              res.data.data.password || 'Bcy@22qw',
+              this.username,
+              this.signDate,
+            );
+            } else {
+            return this.callback(res.data.data.password || 'Bcy@22qw', this.username);
+            }
+        }
+      }).catch(err=>{
+
+      })
+    },
+    setCloseCallback(closeCallback) {
+      this.$refs.modalName.setCloseCallback(closeCallback);
+    },
+    huaduCaPost() {
+      this.btnLoading = true
+      this.setCloseCallback(null);
+      this.turnToSign()
+    },
   },
   watch: {
     isCaSign(val) {
