@@ -30,6 +30,17 @@ import {
     click_date,
     click_time
   } from "../keyEvent/date";
+  let cardiac = ['窦律', '窦速', '窦性心动过缓', '窦性心律不齐', '窦性停搏', '交界性心律', '室上速', '频发房早', '房扑', '房颤', '房速', '偶见室早', '频发室早', '短阵室速', '室颤', '室性自主心律', '室性逸搏', '心室停搏', 'Ⅲ度AVB', 'Ⅱ度AVB', 'Ⅰ度AVB', '起搏心律', '起搏与自主心律交替', '交界性逸搏', '心电机械分离', '停', '室速']
+  let lying = ['斜坡位', '平卧', '右侧', '左侧', '端坐', '俯卧位']
+  let ventilator = ['SIMV+ASB+Autoflow', 'BIPAP+ASB', 'CPAP+ASB', 'trpa+ap', 'BiPhasictr+Apnea', 'HFOV', 'SIMV+VG', 'PSV+VG', '面罩湿化吸氧', '鼻导管湿化吸氧','双氧法']
+  let catheterName = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R']
+  let catheterPosition = ['左颈内', '右颈内', '左上肢', '右上肢', '双上肢', '左下肢', '右下肢', '双下肢', '左锁骨下', '右锁骨下', '左股', '右股', '左肱', '右肱', '左桡', '右桡','头部']
+  let catheterMode = ['正常', '置管', '拔除', '封管', '带入']
+  let catheterColour = ['淡黄澄清', '肉眼血尿', '无色透明', '深黄', '洗肉水样', '鲜红色', '暗红', '浓茶色', '酱油色', '咖啡色', '墨绿色', '淡红色']
+  let catheterTraits = ['澄清', '浑浊', '血性', '絮状物', '洗肉水样']
+  let IndwellingNeedle = ['A左上肢N', 'A置入左上肢N', 'A拔除左上肢N', 'A右上肢N', 'A置入右上肢N', 'A拔除右上肢N', 'A左下肢N', 'A置入左下肢N', 'A拔除左下肢N', 'A右下肢N', 'A置入右下肢N', 'A拔除右下肢N', 'A头皮N', 'A置管头皮N', 'A拔除头皮N', '带入', 'A左股静脉N', 'A左股静脉置管N', 'A左股静脉拔除N', 'A右股静脉N', 'A右股静脉置管N', 'A右股静脉拔除N']
+  let DeepVeins = ['B左锁骨下N', 'B置入左锁骨下N', 'B拔除左锁骨下N', 'B左颈内N', 'B置入左颈内N', 'B拔除左颈内N', 'B右锁骨下N', 'B置入右锁骨下N', 'B拔除右锁骨下N', 'B右颈内N', 'B置入右颈内N', 'B拔除右颈内N', 'B左股静脉N', 'B置入左股静脉N', 'B拔除左股静脉N', 'B右股静脉N', 'B置入右股静脉N', 'B拔除右股静脉N', 'R左上肢N', 'R置入左上肢N', 'R拔除左上肢N', 'R右上肢N', 'R置入右上肢N', 'R拔除右上肢N', 'R头静脉N', 'R置入头静脉N', 'R拔除头静脉N', '带入']
+
 
   export default [
     { hidden: true, key: 'recordDate', value: '' },
@@ -40,22 +51,22 @@ import {
     { key: 'breath', event: keyf1, value: '', next: '次/分', name: 'R',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'spo2', event: keyf1, value: '', next: '%', name: 'Sp02',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'cardiac', event: keyf1, value: '', next: '', name: '心电监护',textarea: { width: 32}, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'lying', event: keyf1, value: '', next: '', name: '卧位',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'boxTemperature', event: keyf1, value: '', next: '℃', name: '箱温/暖床',textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
-    { key: 'ventilator', event: keyf1, value: '', next: '', name: '呼吸机模式',textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
+    { key: 'boxTemperature', event: keyf1, value: '', next: '℃', name: '箱温/暖床', textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
+    { key: 'cardiac', event: keyf1, value: '', next: '', name: '心电监测', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: cardiac } },
+    { key: 'lying', event: keyf1, value: '', next: '', name: '卧位', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: lying } },
+    { key: 'ventilator', event: keyf1, value: '', next: '', name: '呼吸机模式', textarea: { width: 60 }, change: (e, td) => limitChange(e, td, 6),autoComplete: { data: ventilator } },
     { key: 'frequency', event: keyf1, value: '', next: '次/分', name: '频率',textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
     { key: 'concentration', event: keyf1, value: '', next: '%', name: '氧浓度',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'intubation', event: keyf1, value: '', next: 'cm', name: '插管深度',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'oxygen', event: keyf1, value: '', next: 'L/min', name: '吸氧',textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'catheter', event: keyf1, value: '', next: '', name: '留置针',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'deepVeins', event: keyf1, value: '', next: '', name: '深静脉',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'catheterName', event: keyf1, value: '', next: '', name: '项目',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'catheterPosition', event: keyf1, value: '', next: '', name: '部位',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'catheterMode', event: keyf1, value: '', next: '', name: '状态',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
+    { key: 'catheter', event: keyf1, value: '', next: '', name: '留置针', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: IndwellingNeedle } },
+    { key: 'deepVeins', event: keyf1, value: '', next: '', name: '深静脉', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: DeepVeins } },
+    { key: 'catheterName', event: keyf1, value: '', next: '', name: '名称', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: catheterName } },
+    { key: 'catheterPosition', event: keyf1, value: '', next: '', name: '部位', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: catheterPosition } },
+    { key: 'catheterMode', event: keyf1, value: '', next: '', name: '状态', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: catheterMode } },
     { key: 'catheterDepth', event: keyf1, value: '', next: 'cm', name: '深度',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'catheterColour', event: keyf1, value: '', next: '', name: '颜色',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
-    { key: 'catheterTraits', event: keyf1, value: '', next: '', name: '性状',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
+    { key: 'catheterColour', event: keyf1, value: '', next: '', name: '颜色', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: catheterColour } },
+    { key: 'catheterTraits', event: keyf1, value: '', next: '', name: '性状', textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4), autoComplete: { data: catheterTraits } },
     { key: 'drugItem', event: keyf1, value: '', next: '', name: '药物项目',textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
     { key: 'drugQuantity', event: keyf1, value: '', next: '', name: '药物量ml',textarea: { width: 32 }, change: (e, td) => limitChange(e, td, 4) },
     { key: 'dietItems', event: keyf1, value: '', next: '', name: '饮食项目',textarea: { width: 42 }, change: (e, td) => limitChange(e, td, 6) },
