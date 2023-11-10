@@ -4,7 +4,7 @@
       <div v-loading="iconLoading">
         <div class="list-con">
           <span class="key">患者：</span>
-          <span v-if="HOSPITAL_ID === 'nfyksdyy'" class="value">{{data.bedLabel}}床{{data.nameOrigin}}</span>
+          <span v-if="['nfyksdyy', 'sdhpwk'].includes(HOSPITAL_ID)" class="value">{{data.bedLabel}}床{{data.nameOrigin}}</span>
           <span v-else class="value">{{data.bedLabel}}床{{data.name}}</span>
         </div>
         <div class="list-con">

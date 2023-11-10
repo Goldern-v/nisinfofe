@@ -206,11 +206,6 @@
               </el-row>
             </router-link>
 
-            <router-link to="/badEvent" tag="span" v-if="HOSPITAL_ID == 'hj'">
-              <el-row class="nav-item" type="flex" align="middle"
-                >不良事件
-              </el-row>
-            </router-link>
             <!-- <router-link to="/catheterPage" tag="span" v-show="isDev">
               <el-row class="nav-item" type="flex" align="middle">
                 <i class="iconfont icon-dongtairizhi"></i> 导管
@@ -234,13 +229,9 @@
                 </el-dropdown-item>
             </el-dropdown-menu>-->
             <!-- </el-dropdown> -->
-            <router-link
-              to="/singleRound"
-              tag="span"
-              v-if="HOSPITAL_ID == 'wujing'"
-            >
+            <router-link to="/board" tag="span">
               <el-row class="nav-item" type="flex" align="middle">
-                <i class="iconfont icon-jiaobanzhi"></i> 查房登记表
+                <i class="board"></i>白板
               </el-row>
             </router-link>
             <el-dropdown

@@ -7,7 +7,7 @@
           :key="key"
         >
          <!-- v-if="!(item.showOrHide && !item.configureValue && (!item.boardConfigures || (item.boardConfigures && item.boardConfigures.length == 0)))" -->
-          <template  v-if="['nfyksdyy'].includes(HOSPITAL_ID) && item.customItem ? item.customItem : !(item.showOrHide && !item.configureValue && (!item.boardConfigures || (!otherHisList.includes(HOSPITAL_ID) && item.boardConfigures && item.boardConfigures.length == 0)))">
+          <template  v-if="['nfyksdyy', 'sdhpwk'].includes(HOSPITAL_ID) && item.customItem ? item.customItem : !(item.showOrHide && !item.configureValue && (!item.boardConfigures || (!otherHisList.includes(HOSPITAL_ID) && item.boardConfigures && item.boardConfigures.length == 0)))">
             <lineBox :dataKey="`${item.name}`" :keyStyle="keyStyle" v-if="item.customItem">
               <span slot="value-con">
                 <div class="save-con">
