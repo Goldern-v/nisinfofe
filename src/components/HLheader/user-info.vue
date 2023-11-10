@@ -470,7 +470,7 @@ export default {
     getCaStatus() {
       if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
         $_$WebSocketObj.GetUserList((usrInfo) => {
-          if(['whhk'].includes(this.HOSPITAL_ID)){
+          if(['whhk','huadu'].includes(this.HOSPITAL_ID)){
             this.strUserCertID = usrInfo.retVal.split('&&&')[0].split('||')[1]
             window.strUserCertID = this.strUserCertID
           }else{

@@ -17,6 +17,7 @@ switch(process.env.HOSPITAL_ID){
   fnPath = `dsvsFssy`;
     break;
   case'whhk':
+  case'huadu':
     fnPath = `dsvsFssy`;
     break;
   default:

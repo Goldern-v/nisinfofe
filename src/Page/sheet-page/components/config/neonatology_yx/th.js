@@ -18,17 +18,17 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1450px"
+      width: "1530px"
     },
     th: {
         top:
          [
             { "name": '',"colspan": "2","rowspan": "1", "key":'recordYear'},
             { "name": "生命体征", "colspan": "4", "rowspan": "1"},
-            { "name": "Sp02<br/>%", "colspan": "1", "rowspan": "3"},
-            { "name": "心电<br/>监护", "colspan": "1", "rowspan": "3"},
+            { "name": "SPO₂<br/>%", "colspan": "1", "rowspan": "3"},
+            { "name": "箱温<br/>/暖床<br/>℃", "colspan": "1", "rowspan": "3" },
+            { "name": "心电<br/>监测", "colspan": "1", "rowspan": "3"},
             { "name": "卧位", "colspan": "1", "rowspan": "3"},
-            { "name": "箱温<br/>/暖床<br/>℃", "colspan": "1", "rowspan": "3"},
             { "name": "呼吸支持及氧疗", "colspan": "5", "rowspan": "1"},
             { "name": "静脉置管", "colspan": "2", "rowspan": "1"},
             { "name": "导管及引流管", "colspan": "6", "rowspan": "1"},
@@ -50,7 +50,7 @@ export default {
                 {"name": "R<br/>次/分", "colspan": "1", "rowspan": "2"},
                 {"name": "BP<br/>mmHg", "colspan": "1", "rowspan": "2"},
                 // 呼吸支持及氧疗
-                {"name": "呼吸机<br/>模式", "colspan": "1", "rowspan": "2"},
+                {"name": "呼吸机<br/>模式<br/>/氧疗", "colspan": "1", "rowspan": "2"},
                 {"name": "频率<br/>次/分", "colspan": "1", "rowspan": "2"},
                 {"name": "氧浓度%", "colspan": "1", "rowspan": "2"},
                 {"name": "插管<br/>深度<br/>cm", "colspan": "1", "rowspan": "2"},
@@ -66,7 +66,7 @@ export default {
                 {"name": "颜色", "colspan": "1", "rowspan": "2"},
                 {"name": "性状", "colspan": "1", "rowspan": "2"},
                 // 入量
-                {"name": "药物", "colspan": "2", "rowspan": "1"},
+                {"name": "给药", "colspan": "2", "rowspan": "1"},
                 {"name": "饮食", "colspan": "2", "rowspan": "1"},
                 // 出量
                 {"name": "项目", "colspan": "1", "rowspan": "2"},

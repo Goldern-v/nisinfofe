@@ -5,10 +5,11 @@
     size="small"
     title="登录验证"
     :overlay-theme="overlayTheme"
-    style="z-index: 10002"
+    style="z-index:999999"
     @close="clearIntervalItem"
   >
     <el-tabs v-model="activeName">
+      <template v-if="['whhk'].includes(HOSPITAL_ID)">
       <el-tab-pane label="CA认证" name="first">
         <figure class="ewm-box">
           <!-- <img alt="" :src="'data:text/html;base64,'+ewmBaseData" class="ewm-icon" /> -->
@@ -35,6 +36,18 @@
         <div style="height: 20px"></div>
        
       </el-tab-pane>
+      </template>
+      <template v-else>
+        <!-- 花都用武汉的接口，所以屏蔽usb登录 -->
+        <el-tab-pane label="CA认证" name="first">
+        <figure class="ewm-box">
+          <div class="qrcode" ref="qrcodeContainer"></div>
+        </figure>
+        <div class="info-box1" v-if="authoState==='1'">请在CA移动端扫一扫登录</div>
+        <div class="info-box2"  v-if="authoState==='2'">二维码已过期</div>
+        <div style="height: 20px"></div>
+         </el-tab-pane>
+      </template>
       
     </el-tabs>
       <div slot="button">
@@ -234,20 +247,21 @@ export default {
     },
 
     getWebSocket(){
-		this.getCaStatus();
-      this.ukeyTimer=setInterval(()=>{
-          if (process.env.ENABLE_BLUETOOTH_SIGN) {
-            // console.log('ENABLE_BLUETOOTH_SIGN',process.env.ENABLE_BLUETOOTH_SIGN)
+      if(!['huadu'].includes(this.HOSPITAL_ID)){
+	     this.getCaStatus();
+        this.ukeyTimer=setInterval(()=>{
+           if (process.env.ENABLE_BLUETOOTH_SIGN) {
+             // console.log('ENABLE_BLUETOOTH_SIGN',process.env.ENABLE_BLUETOOTH_SIGN)
             this.getCaStatus();
         }
       },1000*10)//10s
+      }
     },
 
      getCaStatus() {
       // if(!['foshanrenyi'].includes(this.HOSPITAL_ID)){
 		// console.log('111')
         $_$WebSocketObj.GetUserList((usrInfo) => {
- 
 		// "汉口医院测试一(测试)||998000100595880/5901202003005871&&&移动证书||MSSPDefaultContainer/msspDev000000000000000000&&&"
           this.strUserCertID = usrInfo.retVal.split('&&&')[0].split('||')[1]
             // .substring(usrInfo.retVal.indexOf("||") + 2, usrInfo.retVal.length)
@@ -309,25 +323,25 @@ export default {
       axios.post(`${apiPath}manufactor/whhk/loginAddSignJob`,
       { "empNo": JSON.parse(localStorage.getItem("user")).empNo},
       {headers: {'Auth-Token-Nursing':window.app.authToken}}).then(res=>{
+        // 清空二维码
+        this.$refs.qrcodeContainer.innerHTML = ''
         let qrcode = new QRCode(this.$refs.qrcodeContainer, {
-        width: 160,// 二维码的宽
-        height: 160,// 二维码的高
-        //text: this.userName + " " + this.passWord , // 二维码的内容
-        text: res.data.data.qrCode , // 二维码的内容
-        colorDark: '#000',// 二维码的颜色
-        colorLight: '#fff',
-        correctLevel: QRCode.CorrectLevel.H,//容错级别
-      })
-	  	this.signDataId = res.data.data.signDataId
-		this.userId = res.data.data.userId
-	  	this.authoState='1'
-          this.startSetIntervalItem();
-		  //启动轮询
-          this.startRotationApi()
+          width: 160,// 二维码的宽
+          height: 160,// 二维码的高
+          //text: this.userName + " " + this.passWord , // 二维码的内容
+          text: res.data.data.qrCode , // 二维码的内容
+          colorDark: '#000',// 二维码的颜色
+          colorLight: '#fff',
+          correctLevel: QRCode.CorrectLevel.H,//容错级别
+         })
+	    	this.signDataId = res.data.data.signDataId
+        this.userId = res.data.data.userId
+	     	this.authoState='1'
+        this.startSetIntervalItem();
+        this.startRotationApi()
       }).catch(err=>{
 
       })
-     
     },
     
 
@@ -335,11 +349,10 @@ export default {
     getTrustUserInfoApi(){
       getTrustUserInfo({signDataId:this.signDataId}).then(res=>{
           //授权成功
-
           // 状态（UNSIGN：待签，FINISH：已签，
-		  //EXPIRE： 过期， REVOKE：签名任务被服务端撤销， REFUSE：签名任务被客户端拒绝）
+		      //EXPIRE： 过期， REVOKE：签名任务被服务端撤销， REFUSE：签名任务被客户端拒绝）
 
-        //   if(res.data && res.data.data.jobStatus=='0'){
+          //   if(res.data && res.data.data.jobStatus=='0'){
             if(res.data.data.jobStatus=='EXPIRE' || res.data.data.jobStatus=='REVOKE' || res.data.data.jobStatus=='REFUSE'){
               this.$message({
                 type: "error",
@@ -362,17 +375,28 @@ export default {
               // });
               this.$message.success("登入成功");
               // 就是成功
-              this.$router.push("/");
+              if(['whhk'].includes(this.HOSPITAL_ID)){
+                 this.$router.push("/");
+              }
               this.close()
-
+              if(['whhk'].includes(this.HOSPITAL_ID)){
+                //CA登录触发,替换签名框
+                window.openSignModal = window.openWhhkSignModal
+                window.localStorage.setItem("whhkCaOrUsbSignIn",true);
+              }
+              if(['huadu'].includes(this.HOSPITAL_ID)){
+                window.localStorage.setItem("huaduCaSignIn",true);
+              }
               // 成功之后调一个函数，获取用户的签名照片--用于签名表单签名显示—漳州五院
               this.getSignPhoto()
-              //local保存
-              let {data} = res.data.data
+              let data
+              if(['whhk'].includes(this.HOSPITAL_ID)){
+                 data = res.data.data
+              }else{
+                 data={"userName": JSON.parse(localStorage.getItem("user")).empNo}
+              }
+              // 现在data是空的
 			        window.localStorage.setItem("fuyouCaData",JSON.stringify(data));
-              //CA登录触发 
-              window.openSignModal = window.openWhhkSignModal
-              window.localStorage.setItem("whhkCaOrUsbSignIn",true);
               this.bus.$emit("updateFuyouCaData")
               //清除轮询定时器
               clearInterval(this.setIntervalApi)
