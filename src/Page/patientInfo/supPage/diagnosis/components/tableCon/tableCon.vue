@@ -73,6 +73,7 @@ export default {
       let ID_Component = {
         "huadu":DTableHD,
         "guizhou":DTableGZ,
+        "925":DTableGZ,
         "foshanrenyi":DTableFSSY,
         "qhwy":DTableQHWY,
         "zhzxy": DTableZhzxy,
