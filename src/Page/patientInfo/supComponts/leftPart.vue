@@ -87,7 +87,7 @@
           </div>
           <div class="list2-li">医生：{{ info.doctorInCharge }}</div>
           <div class="list2-li over-text" :title="info.diagnosis">
-            诊断：{{ info.diagnosis }}
+            {{["beihairenyi"].includes(HOSPITAL_ID) ? '入院诊断：' : '诊断：'}}{{ info.diagnosis }}
           </div>
           <div
             class="print-btn"
