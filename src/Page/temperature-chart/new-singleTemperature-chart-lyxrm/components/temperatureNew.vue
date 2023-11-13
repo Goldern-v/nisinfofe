@@ -121,6 +121,8 @@ export default {
       return 'http://192.168.4.175:9091/temperature/'
     case 'ytll':
       return 'http://192.168.254.92:9091/temperature/'
+    case 'hj':
+      return 'http://10.35.0.94:9091/temperature/'
     case 'stmz':
       return 'http://192.168.0.39:9091/temperature/'
     default:
