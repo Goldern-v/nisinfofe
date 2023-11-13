@@ -738,7 +738,7 @@ export default {
                   this.$refs.scrollCon.offsetHeight
                 ) {
                   if (isBottom) {
-                    sheetScrollBottom.call(this, 0);
+                    sheetScrollBottom.call(this, 300);
                     timeNum > 0 && toBottom.call(this);
                     localStorage.setItem('sheetPageScrollValue', null)
                   } else {

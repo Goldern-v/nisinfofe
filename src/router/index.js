@@ -97,11 +97,14 @@ const shiftWorkWujing = () => import("@/Page/shift-work-wujing/shift-work.vue");
 const shiftWorkDetailWujing = () => import("@/Page/shift-work-wujing/shift-work-detail.vue");
 const shiftWorkWhfk = () => import("@/Page/shift-work-whfk/shift-work.vue");
 const shiftWorkDetailWhfk = () => import("@/Page/shift-work-whfk/shift-work-detail.vue");
+const shiftWork925 = () => import("@/Page/shift-work-925/shift-work.vue");
+const shiftWorkDetail925 = () => import("@/Page/shift-work-925/shift-work-detail.vue");
 
 const shiftWorkGuizhou = () => import("@/Page/shift-work-gz/shift-work.vue");//贵州交班志
 const shiftWorkNFZXY = () => import("@/Page/shift-work-nfzxy/shift-work.vue");//贵州交班志
 const shiftWorkSdlj = () => import("@/Page/shift-work-lj/shift-work.vue");//龙江交班志
 const shiftWorkFsxt = () => import("@/Page/shift-work-fsxt/shift-work.vue");//佛山杏坛交班志
+
 
 const ISBARshiftWorkHd = () => import("@/Page/shift-work/shift-work.vue");//花都ISBAR交班志
 
@@ -953,6 +956,8 @@ const router = new Router({
               return shiftWorkFsxt
             case 'whhk':
               return shiftWorkWhhk
+            case '925':
+              return shiftWork925;
             default:
               return shiftWork
           }
@@ -997,6 +1002,8 @@ const router = new Router({
                 return shiftWorkDetailFsxt
               case 'whhk':
                 return shiftWorkDetailWhhk
+              case '925':
+                return shiftWorkDetail925
               default:
                 return shiftWorkDetail
             }

@@ -65,7 +65,7 @@
         <div class="new-modal-top-left">
           <div class="new-modal-top-left-first">
             <div>
-              床号:{{ currentBottle.bedLabel ? currentBottle.bedLabel + "床" : "" }}
+              床号:{{ currentBottle.bedLabel}}
             </div>
             <div style="display: flex;">姓名:<span style="width:76px; overflow-x:hidden;">{{ currentBottle.name }}</span>({{currentBottle.sex || ""}})</div>
           </div>
@@ -170,7 +170,7 @@
       font-size: 14px;
     }
     .new-modal-top-left {
-      /* width: calc(100% - 50px); */
+       width: calc(100% - 50px);
       height: 50px;
       .new-modal-top-left-first {
         display: flex;

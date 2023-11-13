@@ -473,7 +473,9 @@ export default {
     patientGroup4Expand3() {
       const result = Array.from(
         new Set(this.data.map(item => item.expand3))
-      ).map(item => {
+      )
+      .sort()
+      .map(item => {
         return {
           name: item ? `分组${item}` : '无',
           value: item

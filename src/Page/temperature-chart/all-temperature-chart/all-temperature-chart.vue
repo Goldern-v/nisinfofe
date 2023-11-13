@@ -81,6 +81,7 @@
             'foshanrenyi',
             '925',
             'dglb',
+            'dgdl'
           ].includes(HOSPITAL_ID)
         "
       >

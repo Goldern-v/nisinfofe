@@ -66,7 +66,6 @@ export function getRowNum(index) {
     sheetInfo.sheetType === 'babyarea_fs'||
     sheetInfo.sheetType == "icu_yz" ||
     sheetInfo.sheetType === 'intravenous_whhk' ||
-    sheetInfo.sheetType === 'oxytocin_ytll' ||
     sheetInfo.sheetType === 'record_new_zzwy' ||
     sheetInfo.sheetType === 'pediatrics_new_zzwy' ||
     sheetInfo.sheetType === 'record_icu_zzwy' ||
@@ -92,7 +91,7 @@ export function getRowNum(index) {
     return 35
   } else if (sheetInfo.sheetType === 'intravenous_sdlj'|| sheetInfo.sheetType === 'criticaldisease_xt' || sheetInfo.sheetType === 'cardiovascular_xt' ) {
     return 20
-  } else if ( sheetInfo.sheetType === 'access_fk'||sheetInfo.sheetType === 'cardiac_lcey' || sheetInfo.sheetType == 'postpartum_yz' || sheetInfo.sheetType == 'general_item_weihai') {
+  } else if ( sheetInfo.sheetType === 'access_fk'||sheetInfo.sheetType === 'cardiac_lcey' || sheetInfo.sheetType == 'postpartum_yz' || sheetInfo.sheetType == 'general_item_weihai' || sheetInfo.sheetType === 'oxytocin_ytll') {
     return 28
   } else if (sheetInfo.sheetType === 'mechanical_sdlj'||sheetInfo.sheetType === 'custody_yz') {
     return 33

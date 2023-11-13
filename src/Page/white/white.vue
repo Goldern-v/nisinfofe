@@ -36,7 +36,7 @@
 
         <right3 :data="deptInfo" :isSave="isSave"></right3>
         <div style="height: 20px"></div>
-        <right4 :data="deptInfo" :isSave="isSave" v-if="HOSPITAL_ID !=='nfyksdyy'"></right4>
+        <right4 :data="deptInfo" :isSave="isSave" v-if="!['nfyksdyy', 'sdhpwk'].includes(HOSPITAL_ID)"></right4>
         <div style="height: 20px"></div>
         <right5 :data="deptInfo" ref="right5"></right5>
       </div>
@@ -107,7 +107,7 @@ export default {
       this.pageLoading = true;
       queryByDeptCode(this.deptCode).then(res => {
         this.deptInfo = res.data.data;
-        if(this.HOSPITAL_ID ==='nfyksdyy'){
+        if(['nfyksdyy', 'sdhpwk'].includes(this.HOSPITAL_ID)){
           if(!res.data.data.customization1)this.deptInfo.customization1 ='值班医生'
           if(!res.data.data.customization2)this.deptInfo.customization2 ='副班医生'
           if(!res.data.data.customization3)this.deptInfo.customization3 ='门诊医生'

@@ -448,12 +448,15 @@ export default {
     patientGroup4Expand3() {
       const result = Array.from(
         new Set(this.tableData.map(item => item.expand3))
-      ).map(item => {
+      )
+      .sort()
+      .map(item => {
         return {
           name: item ? `分组${item}` : '无',
           value: item
         }
       })
+      // console.log(Array.from(new Set(this.tableData.map(item => item.expand3))).sort(),'patientGroup4Expand312121211212');
       return result
     },
   },

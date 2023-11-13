@@ -1,7 +1,7 @@
 <template>
   <div class="doctor-emr-wrapper" v-if="routeQuery.patientId">
     <div
-      v-if="show && !['zhzxy', 'fsxt','dglb','whsl', 'whhk','ytll'].includes(HOSPITAL_ID)"
+      v-if="show && !['zhzxy', 'fsxt','dglb','whsl', 'whhk','ytll',].includes(HOSPITAL_ID)"
       v-loading="pageLoading"
       class="doctor-emr-content dragNode2"
     >
@@ -17,7 +17,7 @@
       <div class="e-resize" v-eResize="{ target: 'dragNode2' }"></div>
       <div class="s-resize" v-sResize="{ target: 'dragNode2' }"></div>
     </div>
-    <template v-if="!['dglb','whhk'].includes(HOSPITAL_ID)">
+    <template v-if="!['dglb','whhk','925'].includes(HOSPITAL_ID)">
       <el-tooltip class="item" effect="dark" content="患者资料" placement="left">
         <div class="fixed-icon" :class="{ open: open }" @click="onToggle">
           <img src="./images/患者资料@2x.png" alt v-if="HOSPITAL_ID != 'nfyksdyy'" />
@@ -25,7 +25,7 @@
         </div>
       </el-tooltip>
     </template>
-    <template v-if="!['zhzxy','dglb','whsl'].includes(HOSPITAL_ID)">
+    <template v-if="!['zhzxy','dglb','whsl','925'].includes(HOSPITAL_ID)">
       <el-tooltip v-if="!show" effect="dark" content="电子病历" placement="left" :enterable="true">
         <div @click="onload" class="doctor-emr-icon">
           <img src="./img.png" v-if="HOSPITAL_ID != 'nfyksdyy'" alt/>
@@ -52,6 +52,13 @@
         </div>
       </el-tooltip>
     </template>
+        <template v-if="HOSPITAL_ID == '925'">
+      <el-tooltip effect="dark" content="营养系统" placement="left" :enterable="true">
+        <div @click="onOpenNourishment('营养系统')" class="doctor-feel-icon">
+          <span style="font-size: 12px;">营养系统</span>
+        </div>
+      </el-tooltip>
+    </template>
     <patientInfoSlide
       ref="patientInfoSlide"
       @onClose="onClose"
@@ -74,6 +81,7 @@
 import patientInfoSlide from "./modal/patient-info-slide";
 import doctorEmrModal from "./modal/doctor-emr-modal";
 import bus from 'vue-happy-bus'
+import base from '@/utils/base64'
 
 export default {
   directives: {
@@ -312,7 +320,7 @@ export default {
     },
     async onload() {
       !['ytll'].includes(this.HOSPITAL_ID) && (this.show = true);
-      if(['zhzxy','fsxt','dglb','whhk','ytll'].includes(this.HOSPITAL_ID)){
+      if(['zhzxy','fsxt','dglb','whhk','ytll','925'].includes(this.HOSPITAL_ID)){
         this.openModal('doctorEmrModal')
       }else await this.getTreeData();
     },
@@ -339,7 +347,25 @@ export default {
         '重症': `http://192.168.5.131:8090/?look=1&&hisid=${newInpNo}&visitid=${this.$route.query.visitId}`
       }
       window.open(selectUrl[params])
+    },
+    onOpenNourishment(){
+      let user = localStorage.getItem('user')
+      let ppp = localStorage.getItem('ppp')
+      if (user) {
+        user = JSON.parse(user)
+      }
+      const base64 = new base()
+      const UseEmp = base64.encode(user.empNo)
+      const UsePin = base64.encode(ppp)
+
+      let newPid = this.$route.query.patientId
+      let newVis = this.$route.query.visitId
+
+      let newPidAndVis = newPid + newVis
+      let fileUrl = `http://192.168.1.46:8003/LoginManager/MDTLoginPortal?id=${newPidAndVis}&un=${UseEmp}&name=${UsePin}&departno=${this.$route.query.deptCode}&hc=qu3RLs24Ohb/ThJ41G4A0YTB151dtVGaUjivi28D2xQHHEQLg4ByrQ==`
+      window.open(fileUrl)
     }
+
   },
 };
 </script>

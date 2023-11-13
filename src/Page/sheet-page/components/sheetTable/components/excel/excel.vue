@@ -699,6 +699,9 @@
           sheetInfo.sheetType == 'orthopaedic_hzly' ||
           sheetInfo.sheetType == 'prenatal_hzly' ||
           sheetInfo.sheetType == 'postpartum_hzly' ||
+          sheetInfo.sheetType == 'emergency_treat_yx' ||
+          sheetInfo.sheetType == 'common_yx' ||
+          sheetInfo.sheetType == 'neonatology_yx' ||
           sheetInfo.sheetType == 'postpartum2_hzly'
         "
           >质控护士签名：</span
@@ -863,6 +866,7 @@ export default {
         "com_lc",
         "icu_lc",
         "common_hd",
+        'critical_hd',
         'nursing_dglb',
         "stress_injury_hd",
         "wait_delivery_hd",
@@ -936,7 +940,11 @@ export default {
         'cardiology_tj',
         'cardiac_therapy_tj',
         'critical_new_lc',
-        'record_common_sdhp'
+        'record_common_sdhp',
+        'emergency_treat_yx',
+        'common_yx',
+        'neonatology_yx'
+
       ],
       // 需要双签名的记录单code
       multiSignArr: [
@@ -3232,6 +3240,7 @@ export default {
             }else{
               sheetInfo.auditorMap[`PageIndex_${this.index}_auditorNo`] = empNo;
               sheetInfo.auditorMap[`PageIndex_${this.index}_auditorName`] = empName;
+
               const auditorTimeArr=['internal_eval_lcey','critical_lcey','critical_new_lcey','critical2_lcey','internal_eval_linyi','critical_linyi','baby_lcey',"generalnursing_tj",'magnesiumsulf_fs', 'internal_eval_weihai','pediatric3_tj','baby_tj','ops_linyi','internal_eval_yz']
               if(auditorTimeArr.includes(this.sheetInfo.sheetType)){
                 // 审核时间签名时选择的时间
@@ -3239,6 +3248,8 @@ export default {
                 moment(auditDate).format("YYYY-MM-DD HH:mm");
               }
               sheetInfo.auditorMap = { ...sheetInfo.auditorMap };
+              sheetInfo.updateWholeMap = true;
+              console.log(sheetInfo, 99999)
             }
             this.$notify.success({
               title: "提示",

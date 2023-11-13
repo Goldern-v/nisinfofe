@@ -43,15 +43,16 @@
                 style="font-size: 32px; padding-left: 5px"
                 flex-box="1"
                 class="bottom-line"
-                :value="query.name + ' ' + query.sex + ' ' + query.age"
+                :value="query.name + ' ' + ' ' + query.sex + query.age + ' '  + ' ' + query.bedLabel"
               />
 
             </div>
             <div
-              class="title-name"
+              class="title-name input-item"
               flex="cross:center"
               style="height: 43px"
             >
+              <span class="label" >入院日期:</span>
               <input
                 type="text"
                 flex-box="1"
@@ -105,7 +106,7 @@
                   v-for="item in tipList"
                   :key="item.label"
                 >
-                  <img :src="item.img" alt />
+                  <!-- <img :src="item.img" alt /> -->
                   <span>{{ item.label }}</span>
                 </div>
               </div>
@@ -364,6 +365,7 @@ input[type='checkbox']:checked:after {
   line-height: 42px;
   margin-right: 5px;
   // margin-bottom: 15px;
+  width: 100px;
 }
 
 .label {
@@ -374,22 +376,22 @@ input[type='checkbox']:checked:after {
 
 .aliCenter {
   display: flex;
-  flex-direction: column;
-
-
+  // flex-direction: column;
+  width: 230px;
+  flex-wrap: wrap;
   .tip-item-con {
     border: 1px solid #000;
     border-radius: 8px;
     display: flex;
     justify-content: space-around;
-    padding: 2px 10px;
+    padding: 2px 7px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    font-size: 17px;
+    font-size: 15px;
     align-items: center;
-    height: 50px;
-    width: 150px;
-    margin: 10px;
+    height: 35px;
+    width: 106px;
+    margin: 3px;
     img {
       width: 40px;
       padding: 2px;
@@ -459,6 +461,39 @@ export default {
           label: "防止偷盗",
           img: require("./images/Group 10.png"),
         },
+        {
+          label: "防跌倒",
+          img: require("./images/Group 10.png"),
+        },
+        {
+          label: "防误吸",
+          img: require("./images/Group 10.png"),
+        },
+        {
+          label: "防拔管",
+          img: require("./images/Group 10.png"),
+        },
+        {
+          label: "防坠床",
+          img: require("./images/Group 10.png"),
+        },
+        {
+          label: "防压疮",
+          img: require("./images/Group 10.png"),
+        },
+        {
+          label: "防走失",
+          img: require("./images/Group 10.png"),
+        },
+        {
+          label: "严格卧床休息",
+          img: require("./images/Group 10.png"),
+        },
+        {
+          label: "VIT高危",
+          img: require("./images/Group 10.png"),
+        }
+
       ],
       whhktipList: [
         {

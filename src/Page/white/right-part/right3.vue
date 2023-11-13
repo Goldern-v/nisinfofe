@@ -23,7 +23,7 @@
           <input flex-box="1" v-model="data.workClass" @blur="update" />
         </div>
       </div>
-      <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else-if="HOSPITAL_ID =='nfyksdyy'">
+      <div class="body-con" v-loading="pageLoading" slot="body-con" flex="dir:top main:top" v-else-if="['nfyksdyy', 'sdhpwk'].includes(HOSPITAL_ID)">
         <div flex="cross:center">
           <div class="label"><input style="width: 65px;border: none;padding-left: 0;color: #0000FF" v-model="data.customization1" />:</div>
           <input flex-box="1" v-model="data.mainClassDoctor"  />

@@ -56,10 +56,10 @@
             <span style="width: 60px; text-align: center" v-else-if="deptCode == '042302' && index==4 && HOSPITAL_ID=='hj'">A3：</span>
 
             <span style="width: 60px; text-align: center" v-else-if="HOSPITAL_ID=='whyx'">{{index+1}}：</span>
-            <span style="width: 100px; text-align: center" v-else-if="['gdtj', 'zhzxy', 'xiegang'].includes(HOSPITAL_ID)">
+            <span style="width: 100px; text-align: center" v-else-if="['gdtj', 'zhzxy', 'xiegang', 'dglb'].includes(HOSPITAL_ID)">
               <input  style="width: 60px;margin-right: 20px" v-model="item.groupCode" @blur="update">
             </span>
-            <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi',"nfyksdyy",'whhk','lyxrm','925'].includes(HOSPITAL_ID)? index+1 : index}}：</span>
+            <span style="width: 60px; text-align: center" v-else>A{{(deptCode == '041002' && HOSPITAL_ID=='hj') || ['huadu','liaocheng','nanfangzhongxiyi','yangchunzhongyi',"nfyksdyy",'whhk','lyxrm','925', 'sdhpwk'].includes(HOSPITAL_ID)? index+1 : index}}：</span>
             <input v-if="HOSPITAL_ID !== 'liaocheng'" flex-box="1" style="width: 0;margin-right: 20px" v-model="item.bedSet" @blur="update">
             <!-- 聊城二院 床位 添加 下拉选项 -->
             <el-select

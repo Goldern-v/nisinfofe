@@ -208,7 +208,7 @@ export default {
         })
       }
       // 多选转数组，'a/b' => ['a', 'b']
-      if (this.HOSPITAL_ID === 'nfyksdyy') {
+      if (['nfyksdyy', 'sdhpwk'].includes(this.HOSPITAL_ID)) {
         filterArr = filterArr.map(item => {
           if (typeof item.addExpand == 'string') {
             item.addExpand = item.addExpand ? item.addExpand.split('/') : []
@@ -232,7 +232,7 @@ export default {
     post() {
       let boardConfigureList = this.boardConfigureList;
       // 处理多选，['a', 'b'] => 'a/b'
-      if (this.HOSPITAL_ID == 'nfyksdyy') {
+      if (['nfyksdyy', 'sdhpwk'].includes(this.HOSPITAL_ID)) {
         boardConfigureList = this.boardConfigureList.map(item => {
           return {
             ...item,

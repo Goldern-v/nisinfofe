@@ -1,6 +1,10 @@
 <template>
   <div class="header-con">
-    <div class="his-name">{{ HOSPITAL_NAME_SPACE }}</div>
+    <div class="his-name" style="display: flex; justify-content: space-between;">
+      <!-- {{ HOSPITAL_NAME_SPACE }} -->
+      <div> <img src="./images/whyx_logo.png" alt="" height="45" width="300" /></div>
+      <div style="font-weight: 900;">{{selectCode}}</div>
+    </div>
     <div class="title">{{ patientInfo.recordName }}</div>
     <!-- {{ sheetInfo.relObj }} -->
      <div class="info-con" flex="main:justify" >
@@ -206,6 +210,16 @@ export default {
         this.patientInfo.deliveryTime
       );
     },
+    selectCode(){
+      switch (sheetInfo.sheetType) {
+        case 'common_yx':
+          return 'QR-1600-043B';
+        case 'neonatology_yx' :
+          return 'QR-1600-096A';
+          // default:
+          // retrun "";
+      }
+    }
   },
   methods: {
     openBedRecordModal(){
