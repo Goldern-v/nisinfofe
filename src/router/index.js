@@ -327,6 +327,8 @@ const newSingleTemperatureChartSDLJ = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-zhzxy/new-singleTemperature-chart.vue");//珠海中西医新版体温单单人录入
   const newSingleTemperatureChartYTLL = () =>
   import("@/Page/temperature-chart/new-singleTemperature-chart-ytll/new-singleTemperature-chart.vue");//烟台玲珑新版体温单单人录入
+  const newSingleTemperatureChartHJ = () =>
+  import("@/Page/temperature-chart/new-singleTemperature-chart-hj/new-singleTemperature-chart.vue");//厚街新版体温单单人录入
 const showPatientDetails = () =>
   import("@/Page/show-patient-details/show-patient-details.vue"); //查看评估单、记录单、病历、检查、检验、体温单
 const nursingPreview = () => import("@/Page/NursingPreview/NursingPreview.vue"); //查看所有的评估单、记录单、体温单
@@ -396,6 +398,7 @@ import temperatureSDLJ from "@/Page/patientInfo/supPage/temperature/temperature-
 import temperatureWHYX from "@/Page/patientInfo/supPage/temperature/temperature-whyx";
 import temperatureGDTJ from "@/Page/patientInfo/supPage/temperature/temperature-gdtj";
 import temperatureZHZYX from "@/Page/patientInfo/supPage/temperature/temperature-zhzxy";
+import temperatureHJ from "@/Page/patientInfo/supPage/temperature/temperature-hj";
 import temperatureYTLL from "@/Page/patientInfo/supPage/temperature/temperature-linlong";
 import temperatureSDHPWK from "@/Page/patientInfo/supPage/temperature/temperature-sdhpwk";
 import diagnosis from "@/Page/patientInfo/supPage/diagnosis/diagnosis";
@@ -693,6 +696,8 @@ const router = new Router({
               return temperatureYTLL
           case 'sdhpwk':
             return temperatureSDHPWK
+          case 'hj':
+            return temperatureHJ
           default:
             return temperature
         }
@@ -1264,6 +1269,8 @@ const router = new Router({
                 return temperatureYTLL
               case 'sdhpwk':
                 return temperatureSDHPWK
+              case 'hj':
+                return temperatureHJ
               default:
                 return temperature
             }
@@ -1803,9 +1810,10 @@ const router = new Router({
             case "whfk":
               return newSingleTemperatureChartWHFK;
             case "lyxrm":
-            case "hj":
             case "stmz":
               return newSingleTemperatureChartLYXRM;
+            case "hj":
+              return newSingleTemperatureChartHJ;
             case "whsl":
               return newSingleTemperatureChartWHSL;
             case "sdlj":
