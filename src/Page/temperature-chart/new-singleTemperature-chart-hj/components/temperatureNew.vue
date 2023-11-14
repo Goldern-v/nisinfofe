@@ -5,10 +5,6 @@
       <el-button-group>
         <el-button size="mini" type="primary" @click="onPrint()">打印当周</el-button>
         <el-button size="mini" type="primary" @click="printAll()">批量打印</el-button>
-        <el-button size="mini" type="primary" @click="openDetailChat()" v-if="['lyxrm', 'stmz'].includes(this.HOSPITAL_ID)">曲线详情</el-button>
-        <el-button size="mini" type="primary" @click="onSyncMedical()" v-if="['lyxrm'].includes(this.HOSPITAL_ID)">
-          同步麦迪斯顿
-        </el-button>
       </el-button-group>
       <!-- <div class="newBorn">
         <div @click="nomalModel()" class="nomal">默认体温单</div>
@@ -114,17 +110,10 @@ export default {
     queryTem: Object,
   },
   data() {
-    //跟临邑医院共用录入界面 ，判断ip地址 部署方式不同  #是hash 否则是history
  const baseUrl=(()=>{
   switch (process.env.HOSPITAL_ID) {
-    case 'lyxrm':
-      return 'http://192.168.4.175:9091/temperature/'
-    case 'ytll':
-      return 'http://192.168.254.92:9091/temperature/'
     case 'hj':
       return 'http://10.35.0.94:9091/temperature/'
-    case 'stmz':
-      return 'http://192.168.0.39:9091/temperature/'
     default:
       break;
   }
@@ -167,17 +156,6 @@ export default {
     getDataFromPage(dateTime){
       this.bus.$emit('getDataFromPage',dateTime)
     },
-    async openDetailChat() {
-      await this.$store.commit("newDialogVisible", true);
-      let value = this.currentPage;
-      if (this.$refs.detailChat.contentWindow && this.filePath) {
-        this.$refs.detailChat.contentWindow.postMessage(
-          { type: "currentPage", value },
-          this.detailChatUrl /* 内网 */
-          // this.outNetUrl /* 外网 */
-        );
-      }
-    },
     printAll() {
       this.isPrintAll = true; //隐藏页码控制区域
       setTimeout(() => {
@@ -190,17 +168,7 @@ export default {
         );
       }, 1500);
     },
-    // 同步麦迪斯顿
-    async onSyncMedical() {
-      try {
-        const res = await syncMedical()
-        if (res.data.code == '200') {
-          this.$message.success('同步成功')
-        }
-      } catch (e) {
-        this.$message.error('同步失败')
-      }
-    },
+
     toNext() {
       if (this.currentPage === this.pageTotal) return;
       this.currentPage++;

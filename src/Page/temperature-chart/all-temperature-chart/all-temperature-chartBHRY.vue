@@ -971,7 +971,7 @@ export default {
     handleKeyDown(e) {
       if (this.handleKeyCode.includes(e.keyCode)) {
         this.colClass = e.target.className;
-        let rowIndex = e.path[3].rowIndex;
+        // let rowIndex = e.path[3].rowIndex;
         //回车保存
         if(e.keyCode===13){
           this.debounceSave()
@@ -1025,6 +1025,7 @@ export default {
       }
     },
     toRow(e) {
+      if (this.HOSPITAL_ID === 'beihairenyi') return;
       let rowIndex = e.path[3].rowIndex;
       var trs = e.path[4].getElementsByTagName("tr");
       for (let i = 0; i < trs.length; i++) {
@@ -1036,6 +1037,7 @@ export default {
       }
     },
     handleKeyUp(e) {
+      if (this.HOSPITAL_ID === 'beihairenyi') return;
       let rowIndex = e.path[3].rowIndex;
       var trs = e.path[4].getElementsByTagName("tr");
       for (let i = 0; i < trs.length; i++) {

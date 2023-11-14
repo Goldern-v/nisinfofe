@@ -3,13 +3,19 @@ export const tableColumns = [
     key: 'consultationTime',
     title: '申请时间',
     align: 'center',
-    width: 120,
+    width: 180,
+  },
+  {
+    key: 'createTime',
+    title: '会诊时间',
+    align: 'center',
+    width: 180,
   },
   {
     key: 'deptName',
     title: '申请科室',
     align: 'center',
-    width: 160,
+    width: 200,
   },
   {
     key: 'creator',

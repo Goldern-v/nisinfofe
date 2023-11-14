@@ -18,7 +18,7 @@ export default {
     // 科室的名称
     deptType: "",
     style: {
-      width: "1380px"
+      width: "1460px"
     },
     th: {
         top:
@@ -28,12 +28,12 @@ export default {
             { "name": "生命体征", "colspan": "4", "rowspan": "1"},
             { "name": "Sp02<br/>%", "colspan": "1", "rowspan": "3"},
             { "name": "CVP<br/>mmHg", "colspan": "1", "rowspan": "3"},
-            { "name": "心电<br/>监护", "colspan": "1", "rowspan": "3"},
+            { "name": "心电<br/>监测", "colspan": "1", "rowspan": "3"},
             { "name": "切口<br/>敷料", "colspan": "1", "rowspan": "3"},
-            { "name": "氧气<br/>升/分", "colspan": "1", "rowspan": "3"},
-            { "name": "静脉<br/>置管", "colspan": "1", "rowspan": "3"},
+            { "name": "吸氧<br/>方式<br/>L/Min", "colspan": "1", "rowspan": "3"},
+            { "name": "静脉置管", "colspan": "2", "rowspan": "1"},
             { "name": "", "colspan": "1", "rowspan": "3","key":"customItem1","canSet":"true"},
-            { "name": "", "colspan": "1", "rowspan": "3","key":"customItem2","canSet":"true"},
+            // { "name": "", "colspan": "1", "rowspan": "3","key":"customItem2","canSet":"true"},
             { "name": "导管及引流管", "colspan": "6", "rowspan": "1"},
             { "name": "卧位", "colspan": "1", "rowspan": "3"},
             { "name": "受压<br/>皮肤", "colspan": "1", "rowspan": "3"},
@@ -54,6 +54,9 @@ export default {
                 {"name": "HR<br/>次/分", "colspan": "1", "rowspan": "2"},
                 {"name": "R<br/>次/分", "colspan": "1", "rowspan": "2"},
                 {"name": "BP<br/>mmHg", "colspan": "1", "rowspan": "2"},
+                //静脉置管
+                { "name": "留置针", "colspan": "1", "rowspan": "2" },
+                { "name": "深静脉", "colspan": "1", "rowspan": "2" },
                 // 导管及引流管
                 {"name": "名称", "colspan": "1", "rowspan": "2"},
                 {"name": "部位", "colspan": "1", "rowspan": "2"},

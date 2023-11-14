@@ -170,7 +170,7 @@
       font-size: 14px;
     }
     .new-modal-top-left {
-      /* width: calc(100% - 50px); */
+       width: calc(100% - 50px);
       height: 50px;
       .new-modal-top-left-first {
         display: flex;
