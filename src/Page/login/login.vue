@@ -1111,6 +1111,8 @@ export default {
           return require("../../common/images/logo_sdhp.png");
         case "hzly":
           return require("../../common/images/logo_hzly_login.png");
+        case "whyx":
+          return require("../../common/images/logo_whyx.jpg");
         default:
           return require("../../common/images/logo.png");
       }

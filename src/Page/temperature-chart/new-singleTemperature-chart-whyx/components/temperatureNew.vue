@@ -85,9 +85,9 @@ export default {
       isPrintAll: false, //是否打印所有
        intranetUrl:
         // "http://192.168.3.193:8080/#/" /* 医院正式环境内网 导致跨域 */,
-        "http://220.202.32.51:9091/temperature/#/" /* 医院正式环境内网 导致跨域 */,
+        "http://220.202.32.51:9091/temperature/" /* 医院正式环境内网 导致跨域 */,
       printAllUrl:
-        "http://220.202.32.51:9091/temperature/#/printAll" /* 医院正式环境内网 */,
+        "http://220.202.32.51:9091/temperature/printAll" /* 医院正式环境内网 */,
     };
   },
   methods: {

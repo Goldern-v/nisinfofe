@@ -179,15 +179,15 @@ export default {
           }
           this.bus.$emit("openAddTemplateModal", this.data);
         }
-        else 
+        else
           this.$message.warning('普通没有权限编辑模板！')
       } else {
         this.bus.$emit("openAddTemplateModal", this.data);
       }
-      
+
     },
     toDel() {
-      if (['foshanrenyi', 'nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (['foshanrenyi', 'nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID)) {
         if (this.isRoleManage || this.isNewAdminOrNursingDepartment){
           if (!this.data.wardCode) {
             if (this.isRoleManage && !this.isNewAdminOrNursingDepartment) {
@@ -206,7 +206,7 @@ export default {
                 message: "删除成功!"
               });
               this.bus.$emit("refreshTemplate", this.delete());
-              
+
             });
           });
         }else this.$message.warning('普通没有权限编辑模板！')
