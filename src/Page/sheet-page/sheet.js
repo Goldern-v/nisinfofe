@@ -435,6 +435,20 @@ export function cleanDataOnly() {
       autoOptionsData: customOptions.filter(v => v.pageIndex == 0)
     }));
   }
+  if (data.length == 1 && sheetInfo.sheetType == "cbp_zjhj") {
+    // 南部战区海军第一医院连续性血液净化（CBP）治疗记录单默认展示两页
+    data.push(Page({
+      titleData: titleList.filter(item => {
+        return item.pageIndex == 1;
+      }),
+      autoTitleData: autoTitleDataDisk,
+      bodyData: bodyList.filter(item => {
+        return item.pageIndex == 1;
+      }),
+      index: 1,
+      autoOptionsData: customOptions.filter(v => v.pageIndex == 1)
+    }));
+  }
 }
 let forMatData = () => {
   sheetData = data.map((item, index, arr) => {

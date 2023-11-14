@@ -302,6 +302,7 @@ import sheetTable_oxytocin_dglb from "./components/sheetTable-oxytocin_dglb/shee
 import sheetTable_emergency_rescue from "./components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "./components/sheetTable-dressing_count_hl/sheetTable";
 import sheetTable_prenatal_ytll from "./components/sheetTable-prenatal_ytll/sheetTable";
+import sheetTable_cbp_zjhj from "./components/sheetTable_cbp_zjhj/sheetTable";
 import common from "@/common/mixin/common.mixin.js";
 import evalModel from "./components/modal/eval-model/eval-model.vue";
 import evalModelPaging from "./components/modal/eval-model/eval-model-paging.vue"
@@ -479,6 +480,7 @@ export default {
         "dressing_count_hl" : sheetTable_dressing_count_hl,
         "intersurgerycure_qzx" : sheetTable_intersurgerycure_qzx,
         "prenatal_ytll" : sheetTable_prenatal_ytll,
+        "cbp_zjhj" : sheetTable_cbp_zjhj,
       }
         if(data[sheetInfo.sheetType]){
           return data[sheetInfo.sheetType]
@@ -748,7 +750,7 @@ export default {
           }
           setTimeout(() => {
             this.$nextTick(() => {
-              if (!this.patientInfo.recordId) {
+              if (!this.patientInfo.recordId && !['cbp_zjhj'].includes(this.sheetInfo.sheetType) ) {
                 toBottom.call(this);
               }
             });
@@ -1597,6 +1599,7 @@ export default {
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,
     sheetTable_prenatal_ytll,
+    sheetTable_cbp_zjhj,
     changeMajorRadio,
     changeMajorCheckbox,
     SheetTags,

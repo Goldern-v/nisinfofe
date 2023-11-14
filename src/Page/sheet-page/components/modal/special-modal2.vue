@@ -2694,7 +2694,14 @@ export default {
               } else {
                 text += allDoc[i];
               }
-            } else if (
+            }  else if (["cbp_zjhj"].includes(this.sheetInfo.sheetType)) {
+              if (GetLength(text) > 66) {
+                result.push(text);
+                text = allDoc[i];
+              } else {
+                text += allDoc[i];
+              }
+            }else if (
               this.sheetInfo.sheetType === "areageneral_fs" ||
               this.sheetInfo.sheetType === "pediatric_fs" ||
               this.sheetInfo.sheetType === "pupilgeneral_fs" ||
