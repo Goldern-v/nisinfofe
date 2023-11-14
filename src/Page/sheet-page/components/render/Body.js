@@ -2098,6 +2098,11 @@ function switchSheetType(type) {
       schema = require("../config/wait_delivery_zjhj/tr.js").default;
     }
       break;
+    case "cbp_zjhj": {
+        // 湛江海军医院 - 连续性血液净化（CBP）治疗记
+        schema = require("../config/cbp_zjhj/tr.js").default;
+      }
+      break;  
     case "record_common_sdhp": {
       // 顺德和平外科 - 护理记录单（全院通用）
       schema = require("../config/record_common_sdhp/tr.js").default;

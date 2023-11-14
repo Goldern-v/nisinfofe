@@ -2778,6 +2778,13 @@ export default function Title(
     );
   }
   break;
+  case "cbp_zjhj": {
+    // 湛江海军医院 - 连续性血液净化（CBP）治疗记
+    Th = JSON.parse(
+      JSON.stringify(require("../config/cbp_zjhj/th").default)
+    );
+  }
+  break;
   case "record_common_sdhp": {
     // 顺德和平外科 - 护理记录单（全院通用）
     Th = JSON.parse(
