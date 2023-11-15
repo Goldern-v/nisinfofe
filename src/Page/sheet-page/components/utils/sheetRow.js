@@ -112,7 +112,8 @@ export function getRowNum(index) {
   }else if (
     sheetInfo.sheetType === 'neonate_sdlj' ||
     sheetInfo.sheetType === 'one_whhk' ||
-    sheetInfo.sheetType === 'two_whhk'
+    sheetInfo.sheetType === 'two_whhk' ||
+    sheetInfo.sheetType === 'cbp_zjhj'
   ) {
     return 18
   } else if (sheetInfo.sheetType=='babymilk_ytll') {

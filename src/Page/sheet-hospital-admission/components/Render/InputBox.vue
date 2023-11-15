@@ -466,7 +466,7 @@ export default {
                         relateRef[key].$el.children[0].classList.remove('is-checked');
                       }
                     }
-                    if( process.env.HOSPITAL_ID == "nfyksdyy" && result <= 0 ){
+                    if(['nfyksdyy', 'whyx'].includes(process.env.HOSPITAL_ID) && result <= 0 ){
                       relateRef[relateItem.value].$el.children[0].classList.remove('is-checked')
                     }else{
                       relateRef[relateItem.value].$el.children[0].classList.add('is-checked');

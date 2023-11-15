@@ -50,7 +50,7 @@
           property="bloodPressure"
           label="血压（BP）"
         ></el-table-column>
-        <template v-if="['nfyksdyy'].includes(HOSPITAL_ID)">
+        <template v-if="['nfyksdyy', 'whyx'].includes(HOSPITAL_ID)">
           <el-table-column
           property="heartRate"
           label="心率（HR）"

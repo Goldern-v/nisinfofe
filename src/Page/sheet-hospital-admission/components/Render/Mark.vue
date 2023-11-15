@@ -526,7 +526,7 @@ export default {
       return uuid_;
     },
     openTemplateModal() {
-      if (this.HOSPITAL_ID === 'foshanrenyi'||this.HOSPITAL_ID === 'nfyksdyy')
+      if (['nfyksdyy', 'foshanrenyi', 'whyx'].includes(this.HOSPITAL_ID))
       {
         this.$root.$refs.templateSlideFoshanshiyi.open(this.obj.name);
 

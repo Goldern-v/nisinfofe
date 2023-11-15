@@ -91,7 +91,8 @@ export default {
         中国人民解放军南部战区海军第一医院: 'ZhanJiangHaiJunHeader',
         顺德和平外科医院: 'SdhpwkHeader',
         惠州市第六人民医院: 'hzlyHeader',
-        东莞市大朗医院: 'dgdlHeader'
+        东莞市大朗医院: 'dgdlHeader',
+        武汉亚心医院: 'WuhanYaxinHeader',
       };
       return hisList[HisName] || "HLheader";
     },

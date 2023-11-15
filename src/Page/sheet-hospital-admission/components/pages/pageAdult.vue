@@ -159,6 +159,10 @@ export default {
         file = JSON.parse(
         JSON.stringify(require("../data/formNfyksdyy/adult/入院评估.form.json"))
       )
+      } else if (this.HOSPITAL_ID === 'whyx') {
+        file = JSON.parse(
+          JSON.stringify(require("../data/formWhyx/adult/入院评估.form.json"))
+        )
       } else{
         file = JSON.parse(
         JSON.stringify(require("../data/formFoshanrenyi/adult/入院评估.form.json"))
@@ -179,6 +183,8 @@ export default {
       let dictionary = null
       if (this.HOSPITAL_ID === 'nfyksdyy') {
          dictionary = JSON.parse(JSON.stringify(require("../data/formNfyksdyy/adult/formDictionary/入院评估.dictionary.nfyksdyy.json")))
+      } else if (this.HOSPITAL_ID === 'whyx') {
+        dictionary = JSON.parse(JSON.stringify(require("../data/formWhyx/adult/formDictionary/入院评估.dictionary.whyx.json")))
       } else{
         dictionary = JSON.parse(JSON.stringify(require("../data/formFoshanrenyi/adult/formDictionary/入院评估.dictionary.foshanrenyi.json")))
       }
@@ -208,6 +214,8 @@ export default {
       // } else
      if (this.HOSPITAL_ID === 'nfyksdyy') {
         contexts = require.context('../data/formNfyksdyy/adult/formDialog', true, /\.json$/);
+      } else if (this.HOSPITAL_ID === 'whyx') {
+        contexts = require.context('../data/formWhyx/adult/formDialog', true, /\.json$/);
       } else {
         contexts = require.context('../data/formFoshanrenyi/adult/formDialog', true, /\.json$/);
       }
@@ -509,7 +517,7 @@ export default {
   },
 
   beforeRouteLeave(to, from, next) {
-    if(this.HOSPITAL_ID == 'nfyksdyy' && from.path == '/admissionPageAdult2' && !this.$store.state.admittingSave.isLeaveTip ){
+    if(['nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID) && from.path == '/admissionPageAdult2' && !this.$store.state.admittingSave.isLeaveTip ){
     window.app
       .$confirm("入院评估（成人），离开将会丢失数据", "提示", {
         confirmButtonText: "离开",

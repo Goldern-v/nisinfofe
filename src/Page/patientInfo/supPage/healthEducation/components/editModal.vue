@@ -142,9 +142,9 @@ export default {
         method: [
           { required: true, message: "请选择教育方法", trigger: "blur" }
         ],
-        assessment: [
-          { required: true, message: "请选择教育评估", trigger: "blur" }
-        ],
+        // assessment: [
+        //   { required: true, message: "请选择教育评估", trigger: "blur" }
+        // ],
         signature: [{ required: true, message: "请输入签名", trigger: "blur" }]
       },
       educationObiect: educationObiect,
@@ -153,6 +153,14 @@ export default {
       verifySignObj:{},
       SigndataObj:{}
     };
+  },
+  created() {
+    if (this.HOSPITAL_ID !== 'zhzxy') {
+      this.rules = {
+        ...this.rules, 
+        assessment: [{ required: true, message: "请选择教育评估", trigger: "blur" }]
+      }
+    }
   },
   methods: {
     // 打开弹框
@@ -335,9 +343,13 @@ export default {
         item => item.value === this.form.method
       );
       let method = (haveValue.length > 0 && haveValue[0].text) || "在线"; // 教育方法
-      let assessment = educationAssessment.filter(
+
+      let assessmentArr = educationAssessment.filter(
         item => item.value === this.form.assessment
-      )[0].text; // 教育评估
+      ); // 教育评估
+      let assessment = ''
+      if (assessmentArr.length) assessment = assessmentArr[0].text
+
       let pageParam = {
         教育时间: this.date ? dayjs(this.date).format("MM-DD HH:mm") : date,
         教育对象: object,
@@ -382,7 +394,6 @@ export default {
         recordId:this.type === 2 ? this.itemData.id : "",
         signData:JSON.stringify(pageParam),
       }
-      console.log("queryInfo",queryInfo,this.form,this.itemData)
       return data;
     },
     submitFormFun(){

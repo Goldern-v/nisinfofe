@@ -24,9 +24,9 @@
           @focus="getSelectionStart"
           @keydown.native="getSelectionStartInput"
             :picker-options="{
-              start: '02:00',
+              start:this.HOSPITAL_ID == 'hzly'? '04:00':'02:00',
               step: '04:00',
-              end: '22:00',
+              end: this.HOSPITAL_ID == 'hzly'? '24:00':'22:00',
             }"
             class="new-time-select"
             placeholder="选择时间"

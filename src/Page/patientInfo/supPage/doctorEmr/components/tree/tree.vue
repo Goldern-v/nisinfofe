@@ -63,7 +63,7 @@ export default {
     getTreeData() {
       this.treeLoading = true;
       setTimeout(()=>{
-        if(['beihairenyi','nfyksdyy','foshanrenyi'].includes(this.HOSPITAL_ID)) return
+        if(['beihairenyi','nfyksdyy','foshanrenyi', 'whyx'].includes(this.HOSPITAL_ID)) return
         if(this.HOSPITAL_ID == "hj"){
           Promise.all([getDoctorEmr2(this.$route.query.patientId, this.$route.query.visitId)]).then(res2=>{
             let regions = [];

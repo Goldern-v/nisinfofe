@@ -2,7 +2,30 @@
   <div>
     <sweet-modal ref="modal" :modalWidth="isZhzxy ? 770 : 600" title="编辑床位卡" :enable-mobile-fullscreen="false"
       class="modal">
-      <div class="bed-card-wrapper" v-loading="modalLoading" ref="printCon">
+      <div v-if="isZhzxy" class="bed-card-wrapper" v-loading="modalLoading">
+        <div class="printCon" ref="printCon">
+          <div class="container_zhzxy">
+            <div style="line-height: 18px;margin-top: 12px;font-size: 26px">床 位 卡</div>
+            <div class="bed-card-con_zhzxy" flex :class="{ remarkCon: formData.remarkPrint }">
+              <div style="flex: 1;" flex-box="1" flex="dir:top main:justify">
+                <img class="qr-code_zhzxy" :src="qrCode" />
+              </div>
+              <div style="flex: 1 1 16%; margin-top: 38px" >
+                <div flex="cross:center;" class="title-bed title-bed_zhzxy">
+                  <div>
+                    <span>病区:{{ query.wardName }}</span>
+                  </div>
+                  <div class="text">
+                    <span style="line-height: 34px">床号:{{query.bedLabel + '床'}}</span>
+                    <!-- <input type="text" style="border: none;" class="title-bed__1" :value="query.bedLabel + '床'" /> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else class="bed-card-wrapper" v-loading="modalLoading" ref="printCon">
         <div class="container">
           <div style="line-height: 28px;margin-top:24px;font-size: 30px">床 位 卡</div>
           <div class="bed-card-con" flex :class="{ remarkCon: formData.remarkPrint }">
@@ -63,6 +86,26 @@
   position: relative;
   border: 1px solid #000;
 }
+.container_zhzxy{
+  margin: 5px;
+  width: 67mm;
+  height: 46.5mm;
+  padding: 2px 4px;
+  box-sizing: border-box;
+  position: relative;
+  border: 1px solid #000;
+  font-size: 20px;
+}
+.bed-card-con_zhzxy{
+  display: flex;
+  .qr-code_zhzxy{
+    position: absolute;
+    top: 24%;
+    width: 40%;
+    height:62%;
+  }
+}
+
 .bed-card-con {
   display: flex;
   height:300px;
@@ -78,28 +121,6 @@
     &.hasRemark {
       width: 96px;
       height: 96px;
-    }
-  }
-
-  .qr-code-num {
-    position: absolute;
-    top: 92px;
-    left: 0px;
-    width: 120px;
-    text-align: center;
-    z-index: 2;
-    font-size: 16px;
-
-    &.zhzxyStyle {
-      font-size: 20px;
-      min-width: 100px;
-    }
-
-    &.hasRemark {
-      top: 78px;
-      left: 0px;
-      width: 84px;
-      font-size: 14px;
     }
   }
 }
@@ -185,6 +206,9 @@
     font-size: 18px;
     padding-left: 2px;
   }
+}
+.title-bed_zhzxy {
+  height: 100%;
 }
 
 input[type='checkbox'] {
@@ -352,6 +376,7 @@ import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
 import bedModalCtxDglb from "./bed-modal-ctx-dglb.vue";
 import { hisMatch } from "@/utils/tool.js";
+import printing from "printing";
 
 export default {
   data() {
@@ -508,7 +533,12 @@ export default {
     },
     isOpen() {
       this.$refs.modal.open();
-      let qr_png_value =this.HOSPITAL_ID ==='nfyksdyy' ? `B_${this.query.wardCode}_${this.query.bedLabel}` : this.query.inpNo;
+      // let qr_png_value =this.HOSPITAL_ID ==='nfyksdyy' ? `B_${this.query.wardCode}_${this.query.bedLabel}` : this.query.inpNo;
+      let code = {
+        'nfyksdyy': `B_${this.query.wardCode}_${this.query.bedLabel}`,
+        'zhzxy': `${this.query.wardCode}_${this.query.bedLabel}`
+      }
+      let qr_png_value = code[this.HOSPITAL_ID] || this.query.inpNo;
       var qr_png = qr.imageSync(qr_png_value, {
         type: "png",
         margin: 4,
@@ -571,13 +601,44 @@ export default {
             other: this.$refs.printCon,
           },
         });
-        print(
-          ref,
-          (el) => {
-              el.style.marginLeft = "194mm";
-          },
-          this.isZhzxy ? "v" : ""
-        );
+        if(this.isZhzxy) {
+          // print(
+          //   ref,
+          //   "v"
+          // );
+          printing(ref, {
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+            .printCon{
+              display: flex; 
+              justify-content: center;
+              align-items: center;
+            }
+            .container_zhzxy{
+              text-align: center;
+              font-size: 18px;
+            }
+            .text{
+              display: flex; 
+              justify-content: center;
+              line-height: 34px
+            }
+            @page {
+              size: landscape;
+            }
+            `,
+          });
+        }else {
+          print(
+            ref,
+            (el) => {
+                el.style.marginLeft = "194mm";
+            },
+            ""
+          );
+        }
+        
       });
     },
     querySearchAsyncDoc(queryString, cb) {
