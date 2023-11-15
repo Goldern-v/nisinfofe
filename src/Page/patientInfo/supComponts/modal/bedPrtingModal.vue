@@ -2,22 +2,21 @@
   <div>
     <sweet-modal ref="modal" :modalWidth="isZhzxy ? 770 : 600" title="编辑床位卡" :enable-mobile-fullscreen="false"
       class="modal">
-      <div v-if="isZhzxy" class="bed-card-wrapper" v-loading="modalLoading" ref="printCon">
-        <div class="container_zhzxy">
+      <div v-if="isZhzxy" class="bed-card-wrapper" v-loading="modalLoading">
+        <div class="container_zhzxy" ref="printCon">
           <div style="line-height: 18px;margin-top: 12px;font-size: 26px">床 位 卡</div>
           <div class="bed-card-con_zhzxy" flex :class="{ remarkCon: formData.remarkPrint }">
             <div style="flex: 1;" flex-box="1" flex="dir:top main:justify">
               <img class="qr-code_zhzxy" :src="qrCode" />
             </div>
-            <div style="flex: 1 1 14%;margin-top: 43px" >
-              <div flex="cross:center;" class="title-bed">
+            <div style="flex: 1 1 16%; margin-top: 38px" >
+              <div flex="cross:center;" class="title-bed title-bed_zhzxy">
                 <div>
-                  <span style="font-size: 20px;margin:0">病区:</span>
-                  {{ query.wardName }}
+                  <span>病区:{{ query.wardName }}</span>
                 </div>
-                <div>
-                  <span style="font-size: 20px; margin:0; line-height: 36px">床号:</span>
-                  <input type="text" style="font-size: 20px;border: none;" class="title-bed__1" :value="query.bedLabel + '床'" />
+                <div class="text">
+                  <span style="line-height: 34px">床号:{{query.bedLabel + '床'}}</span>
+                  <!-- <input type="text" style="border: none;" class="title-bed__1" :value="query.bedLabel + '床'" /> -->
                 </div>
               </div>
             </div>
@@ -87,12 +86,13 @@
 }
 .container_zhzxy{
   margin: 5px;
-  width: 70mm;
-  height: 50mm;
+  width: 67mm;
+  height: 46.5mm;
   padding: 2px 4px;
   box-sizing: border-box;
   position: relative;
   border: 1px solid #000;
+  font-size: 20px;
 }
 .bed-card-con_zhzxy{
   display: flex;
@@ -204,6 +204,9 @@
     font-size: 18px;
     padding-left: 2px;
   }
+}
+.title-bed_zhzxy {
+  height: 100%;
 }
 
 input[type='checkbox'] {
@@ -371,6 +374,7 @@ import { textOver } from "@/utils/text-over";
 import { multiDictInfo } from "@/api/common";
 import bedModalCtxDglb from "./bed-modal-ctx-dglb.vue";
 import { hisMatch } from "@/utils/tool.js";
+import printing from "printing";
 
 export default {
   data() {
@@ -595,13 +599,39 @@ export default {
             other: this.$refs.printCon,
           },
         });
-        print(
-          ref,
-          (el) => {
-              el.style.marginLeft = "194mm";
-          },
-          this.isZhzxy ? "v" : ""
-        );
+        if(this.isZhzxy) {
+          // print(
+          //   ref,
+          //   "v"
+          // );
+          printing(ref, {
+            injectGlobalCss: true,
+            scanStyles: false,
+            css: `
+            .container_zhzxy{
+              text-align: center;
+              font-size: 18px;
+            }
+            .text{
+              display: flex; 
+              justify-content: center;
+              line-height: 34px
+            }
+            @page {
+              size: landscape;
+            }
+            `,
+          });
+        }else {
+          print(
+            ref,
+            (el) => {
+                el.style.marginLeft = "194mm";
+            },
+            ""
+          );
+        }
+        
       });
     },
     querySearchAsyncDoc(queryString, cb) {
