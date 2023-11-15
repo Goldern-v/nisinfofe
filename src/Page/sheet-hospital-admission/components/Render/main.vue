@@ -28,7 +28,7 @@
     <autoComplete ref="autoInput" />
 
     <!-- 模板 -->
-    <templateSlide v-if="HOSPITAL_ID !== 'foshanrenyi' && HOSPITAL_ID !== 'nfyksdyy'" ref="templateSlide" />
+    <templateSlide v-if="!['foshanrenyi', 'nfyksdyy', 'whyx'].includes(HOSPITAL_ID)" ref="templateSlide" />
 
     <templateSlideFoshanshiyi v-else ref="templateSlideFoshanshiyi" />
 

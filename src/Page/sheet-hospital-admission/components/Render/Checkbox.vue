@@ -268,7 +268,7 @@ export default {
           ]
         }
       }
-      if(this.HOSPITAL_ID === 'nfyksdyy' && !this.obj.tasks){
+      if(['nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID) && !this.obj.tasks){
         obj=[
           {
             id: 'I2332044',

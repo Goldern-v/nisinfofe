@@ -1,0 +1,850 @@
+{
+    "I2332001": [
+        {
+            "code": "门诊",
+            "name": "门诊",
+            "pinyin": "menzhen"
+        },
+        {
+            "code": "急诊",
+            "name": "急诊",
+            "pinyin": "jizhen"
+        },
+        {
+            "code": "转诊",
+            "name": "转诊",
+            "pinyin": "zhuanzhen"
+        }
+    ],
+    "I2332002": [
+        {
+            "code": "步行",
+            "name": "步行",
+            "pinyin": "buxing"
+        },
+        {
+            "code": "扶行",
+            "name": "扶行",
+            "pinyin": "fuxing"
+        },
+        {
+            "code": "轮椅",
+            "name": "轮椅",
+            "pinyin": "lunyi"
+        }  ,
+        {
+            "code": "平车",
+            "name": "平车",
+            "pinyin": "pingche"
+        },
+        {
+            "code": "拐杖",
+            "name": "拐杖",
+            "pinyin": "guaizhang"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I2332219" : [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu"
+        },  
+        {
+            "code": "高血压病",
+            "name": "高血压病",
+            "pinyin": "gxyb"
+        },  
+        {
+            "code": "糖尿病",
+            "name": "糖尿病",
+            "pinyin": "tnb"
+        },  {
+            "code": "冠心病",
+            "name": "冠心病",
+            "pinyin": "gxb"
+        },   {
+            "code": "脑血管病",
+            "name": "脑血管病",
+            "pinyin": "nxgb"
+        },  {
+            "code": "支气管哮喘",
+            "name": "支气管哮喘",
+            "pinyin": "zqgxc"
+        },  {
+            "code": "类风湿性关节炎",
+            "name": "类风湿性关节炎",
+            "pinyin": "lfsxgjy"
+        },  {
+            "code": "帕金森综合征",
+            "name": "帕金森综合征",
+            "pinyin": "pjszhz"
+        },  {
+            "code": "重型肝炎、肝硬化",
+            "name": "重型肝炎、肝硬化",
+            "pinyin": "zzgy"
+        },  {
+            "code": "阿尔兹海默病",
+            "name": "阿尔兹海默病",
+            "pinyin": "aezhmb"
+        },  {
+            "code": "白内障",
+            "name": "白内障",
+            "pinyin": "bnz"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I2332019": [
+        {
+            "code": "食物",
+            "name": "食物",
+            "pinyin": "shiwu"
+        },
+        {
+            "code": "药物",
+            "name": "药物",
+            "pinyin": "yaowu"
+        },
+        {
+            "code": "不明确",
+            "name": "不明确",
+            "pinyin": "bmq"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I2332041": [
+        {
+            "code": "轻度",
+            "name": "轻度",
+            "pinyin": "qingdu"
+        },
+        {
+            "code": "中度",
+            "name": "中度",
+            "pinyin": "zhongdu"
+        },
+        {
+            "code": "重度",
+            "name": "重度",
+            "pinyin": "zhongdu"
+        }
+    ],
+    "I2332262": [
+        {
+            "code": "间歇性",
+            "name": "间歇性",
+            "pinyin": "jianjiexing"
+        },
+        {
+            "code": "持续性",
+            "name": "持续性",
+            "pinyin": "chixuxing"
+        }
+    ],
+    "I2332263": [
+        {
+            "code": "绞榨样",
+            "name": "绞榨样",
+            "pinyin": "jiaozhayang"
+        },
+        {
+            "code": "撕裂样",
+            "name": "撕裂样",
+            "pinyin": "silieyang"
+        },
+        {
+            "code": "针刺样",
+            "name": "针刺样",
+            "pinyin": "zhenciyang"
+        },
+        {
+            "code": "胀痛",
+            "name": "胀痛",
+            "pinyin": "zhangtong"
+        },
+        {
+            "code": "刀割样",
+            "name": "刀割样",
+            "pinyin": "daogeyang"
+        },
+        {
+            "code": "烧灼样",
+            "name": "烧灼样",
+            "pinyin": "shaozhuoyang"
+        },
+        {
+            "code": "酸痛",
+            "name": "酸痛",
+            "pinyin": "suantong"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qita"
+        }
+    ],
+    "I2332052": [
+        {
+            "code": "完整",
+            "name": "完整",
+            "pinyin": "wanzheng"
+        },
+        {
+            "code": "水疱",
+            "name": "水疱",
+            "pinyin": "shuipao"
+        },
+        {
+            "code": "硬结",
+            "name": "硬结",
+            "pinyin": "yingjie"
+        },
+        {
+            "code": "瘀斑",
+            "name": "瘀斑",
+            "pinyin": "yuban"
+        },
+        {
+            "code": "出血点",
+            "name": "出血点",
+            "pinyin": "chuxuedian"
+        },
+        {
+            "code": "皮疹",
+            "name": "皮疹",
+            "pinyin": "chuxuedian"
+        },
+        {
+            "code": "破损",
+            "name": "破损",
+            "pinyin": "chuxuedian"
+        },
+        {
+            "code": "潮红",
+            "name": "潮红",
+            "pinyin": "chuxuedian"
+        },
+        {
+            "code": "丘疹",
+            "name": "丘疹",
+            "pinyin": "quzhen"
+        },
+        {
+            "code": "溃疡部位",
+            "name": "溃疡部位",
+            "pinyin": "kuiyang"
+        },
+        {
+            "code": "皲裂",
+            "name": "皲裂",
+            "pinyin": "junlie"
+        },
+        {
+            "code": "抓痕",
+            "name": "抓痕",
+            "pinyin": "zhuahen"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I233204": [
+        {
+            "code": "体重过低（<18.5）",
+            "name": "体重过低（<18.5）",
+            "pinyin": "tizhongguodi"
+        },
+        {
+            "code": "体重正常（18.5-23.9）",
+            "name": "体重正常（18.5-23.9）样",
+            "pinyin": "tizhongzhengchang"
+        },
+        {
+            "code": "超重（24-26.9）",
+            "name": "超重（24-26.9）",
+            "pinyin": "chaozhong"
+        }
+    ],
+    "I2332005": [
+        {
+            "code": "患者",
+            "name": "患者",
+            "pinyin": "huanzhe"
+        }  ,
+        {
+            "code": "家属",
+            "name": "家属",
+            "pinyin": "jiashu"
+        },
+        {
+            "code": "朋友 、保姆",
+            "name": "朋友 、保姆",
+            "pinyin": "baomu"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qt"
+        }
+    ],
+    "I2332063": [
+        {
+            "code": "完整",
+            "name": "完整",
+            "pinyin": "wangzheng"
+        },
+        {
+            "code": "溃疡",
+            "name": "溃疡",
+            "pinyin": "kuiyang"
+        },
+        {
+            "code": "白斑",
+            "name": "白斑",
+            "pinyin": "baiban"
+        },
+        {
+            "code": "红肿",
+            "name": "红肿",
+            "pinyin": "hongzhong"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qita"
+        }
+    ],
+    "I2332064": [
+        {
+            "code": "良好",
+            "name": "良好",
+            "pinyin": "lianghao"
+        },
+        {
+            "code": "一般",
+            "name": "一般",
+            "pinyin": "yiban"
+        }, {
+            "code": "差",
+            "name": "差",
+            "pinyin": "cha"
+        }
+    ],
+    "I2332065": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu"
+        },
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "you"
+        }
+    ],
+    "I2332011": [
+        {
+            "code": "博士",
+            "name": "博士",
+            "pinyin": "poshi"
+        }  ,
+        {
+            "code": "硕士",
+            "name": "硕士",
+            "pinyin": "shuoshi"
+        }  ,
+        {
+            "code": "本科",
+            "name": "本科",
+            "pinyin": "bengke"
+        },
+        {
+            "code": "大专",
+            "name": "大专",
+            "pinyin": "dazhuan"
+        },
+        {
+            "code": "中专",
+            "name": "中专",
+            "pinyin": "zhongzhuan"
+        },
+        {
+            "code": "职中",
+            "name": "职中",
+            "pinyin": "zizhon"
+        },
+        {
+            "code": "技校",
+            "name": "技校",
+            "pinyin": "jixiao"
+        },
+        {
+            "code": "高中",
+            "name": "高中",
+            "pinyin": "gaozhong"
+        },
+        {
+            "code": "初中",
+            "name": "初中",
+            "pinyin": "chuzhong"
+        },
+        {
+            "code": "小学",
+            "name": "小学",
+            "pinyin": "xiaoxue"
+        },
+        {
+            "code": "学龄前儿童",
+            "name": "学龄前儿童",
+            "pinyin": "xqnrt"
+        },
+        {
+            "code": "其他",
+            "name": "其他",
+            "pinyin": "qita"
+        }
+    ],
+    "I2332010": [
+        {
+            "code": "已婚",
+            "name": "已婚",
+            "pinyin": "yihun"
+        },
+        {
+            "code": "未婚",
+            "name": "未婚",
+            "pinyin": "weihun"
+        }
+    ],
+    "I2332008": [
+        {
+            "code": "汉族",
+            "name": "汉族",
+            "pinyin": "hanz"
+        }
+    ],
+    "I2332015": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "w"
+        },
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "y"
+        }
+    ],
+    "I2332017": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "yinjiuw"
+        },
+        {
+            "code": "有   ml/天",
+            "name": "有   ml/天",
+            "pinyin": "yinjiuy"
+        },
+        {
+            "code": "嗜酒",
+            "name": "嗜酒",
+            "pinyin": "shijiu"
+        }
+    ],
+    "I2332022": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "shoushuw"
+        },
+        {
+            "code": "有",
+            "name": "有",
+            "pinyin": "shoushuy"
+        }
+    ],
+    "I2332039": [
+        {
+            "code": "是",
+            "name": "是",
+            "pinyin": "s"
+        },
+        {
+            "code": "否",
+            "name": "否",
+            "pinyin": "f"
+        }
+    ],
+    "I2332048": [
+        {
+            "code": "正常",
+            "name": "正常",
+            "pinyin": "zc"
+        },
+        {
+            "code": "吞咽障碍",
+            "name": "吞咽障碍",
+            "pinyin": "tykn"
+        },
+        {
+            "code": "饮水试验",
+            "name": "饮水试验",
+            "pinyin": "yssy"
+        }
+    ],
+    "I2332061": [
+        {
+            "code": "轻",
+            "name": "轻",
+            "pinyin": "q"
+        },
+        {
+            "code": "中",
+            "name": "中",
+            "pinyin": "zhong"
+        },
+        {
+            "code": "重",
+            "name": "重",
+            "pinyin": "z"
+        }
+    ],
+    "I2332062": [
+        {
+            "code": "凹陷性",
+            "name": "凹陷性",
+            "pinyin": "t"
+        },
+        {
+            "code": "非凹陷性",
+            "name": "非凹陷性",
+            "pinyin": "o"
+        }
+    ],
+   
+    "I2332088": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ],
+    "I2332089": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ],
+    "I2332090": [
+        {
+            "code": "0",
+            "name": "0",
+            "pinyin": "0"
+        },
+        {
+            "code": "Ⅰ",
+            "name": "Ⅰ",
+            "pinyin": "Ⅰ"
+        },
+        {
+            "code": "Ⅱ",
+            "name": "Ⅱ",
+            "pinyin": "Ⅱ"
+        },
+        {
+            "code": "Ⅲ",
+            "name": "Ⅲ",
+            "pinyin": "Ⅲ"
+        },
+        {
+            "code": "Ⅳ",
+            "name": "Ⅳ",
+            "pinyin": "Ⅳ"
+        },
+        {
+            "code": "Ⅴ",
+            "name": "Ⅴ",
+            "pinyin": "Ⅴ"
+        }
+    ],
+    "I2332094": [
+        {
+            "code": "已完成",
+            "name": "已完成",
+            "pinyin": "ywc"
+        },
+        {
+            "code": "未完成",
+            "name": "未完成",
+            "pinyin": "wwc"
+        }
+    ],
+    "I2332226": [
+        {
+            "code": "灵敏",
+            "name": "灵敏",
+            "pinyin": "lm"
+        },
+        {
+            "code": "迟钝",
+            "name": "迟钝",
+            "pinyin": "ct"
+        },
+        {
+            "code": "消失",
+            "name": "消失",
+            "pinyin": "xs"
+        }
+    ],
+    "I2332202": [
+        {
+            "code": "灵敏",
+            "name": "灵敏",
+            "pinyin": "lm1"
+        },
+        {
+            "code": "迟钝",
+            "name": "迟钝",
+            "pinyin": "ct2"
+        },
+        {
+            "code": "消失",
+            "name": "消失",
+            "pinyin": "xs3"
+        }
+    ],
+    "I2332201": [
+        {
+            "code": "昏迷",
+            "name": "昏迷",
+            "pinyin": "hunm"
+        }
+    ],
+    "I2332248": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu1"
+        }
+    ],
+    "I2332194": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu3"
+        }
+    ],
+    "I2332184": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu4"
+        }
+    ],
+    "I2332189": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu5"
+        }
+    ],
+    "I2332060": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu6"
+        }
+    ],
+    "I2332100": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu7"
+        }
+    ],
+    "I2332097": [
+        {
+            "code": "无",
+            "name": "无",
+            "pinyin": "wu8"
+        }
+    ],
+    "I2332025": [
+        {
+            "code": "青霉素",
+            "name": "青霉素",
+            "pinyin": "qinmeis"
+        },
+        {
+            "code": "头孢类",
+            "name": "头孢类",
+            "pinyin": "toubaolei"
+        }
+        
+    ],
+    "I2332261": [
+        {
+            "code": "酒精",
+            "name": "酒精",
+            "pinyin": "jiuj"
+        },
+        {
+            "code": "花粉",
+            "name": "花粉",
+            "pinyin": "huafen"
+        }
+        
+    ],
+    "I2332046": [
+        {
+            "code": "低盐低脂饮食",
+            "name": "低盐低脂饮食",
+            "pinyin": "dydzys"
+        },
+        {
+            "code": "糖尿病饮食",
+            "name": "糖尿病饮食",
+            "pinyin": "tdbys"
+        },
+        {
+            "code": "高蛋白饮食",
+            "name": "高蛋白饮食",
+            "pinyin": "gdbys"
+        },
+        {
+            "code": "低嘌呤饮食",
+            "name": "低嘌呤饮食",
+            "pinyin": "xplys"
+        },
+        {
+            "code": "优质低蛋白饮食",
+            "name": "优质低蛋白饮食",
+            "pinyin": "yzdbys"
+        },
+        {
+            "code": "清淡饮食",
+            "name": "清淡饮食",
+            "pinyin": "qtys"
+        }
+    ],
+    "I2332220": [
+        {
+            "code": "海鲜类",
+            "name": "海鲜类",
+            "pinyin": "haixlei"
+        },
+        {
+            "code": "鸡蛋",
+            "name": "鸡蛋",
+            "pinyin": "jidan"
+        },
+        {
+            "code": "乳制品",
+            "name": "乳制品",
+            "pinyin": "ruzhip"
+        },
+        {
+            "code": "芒果",
+            "name": "芒果",
+            "pinyin": "manguo"
+        }
+    ],
+    "I2332": [
+        {
+            "code": "血性液",
+            "name": "血性液",
+            "pinyin": "xueye"
+        },
+        {
+            "code": "淡红色液",
+            "name": "淡红色液",
+            "pinyin": "dhsy"
+        },
+        {
+            "code": "暗红色液",
+            "name": "暗红色液",
+            "pinyin": "anhsy"
+        },
+        {
+            "code": "黄色液",
+            "name": "黄色液",
+            "pinyin": "hsy"
+        },
+        {
+            "code": "淡黄色液",
+            "name": "淡黄色液",
+            "pinyin": "dhsy"
+        },
+        {
+            "code": "深黄色液",
+            "name": "深黄色液",
+            "pinyin": "shsy"
+        }
+    ]
+}

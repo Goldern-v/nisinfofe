@@ -608,7 +608,7 @@
           />
         </span>
       </span>
-      <span  :class="{'common_wj':sheetInfo.sheetType == 'common_wj'}">第 {{ index + sheetStartPage }} 页</span>
+      <span v-if="!['cbp_zjhj'].includes(sheetInfo.sheetType)" :class="{'common_wj':sheetInfo.sheetType == 'common_wj'}">第 {{ index + sheetStartPage }} 页</span>
       <!-- 表单底部开启审核签名时需要在src\Page\sheet-page\components\render\decode.js文件中添加对应医院 -->
       <span
         class="sh-name"

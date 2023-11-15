@@ -57,7 +57,7 @@
 
       <div style="width: 5px"></div>
       <div
-        v-if="!['foshanrenyi','nfyksdyy'].includes(HOSPITAL_ID)"
+        v-if="!['foshanrenyi','nfyksdyy', 'whyx'].includes(HOSPITAL_ID)"
         class="item-box"
         flex="cross:center main:center"
         :class="{ disabled: selectBlock.status != '2' }"
@@ -71,7 +71,7 @@
     <previewEvalModal ref="previewEvalModal"></previewEvalModal>
     <SynchronousModal :dialogTableVisible.sync="dialogTableVisible" @leftTablelist="leftTablelist"></SynchronousModal>
     <doctorEmr
-      v-if="['foshanrenyi','nfyksdyy'].includes(HOSPITAL_ID)"
+      v-if="['foshanrenyi','nfyksdyy', 'whyx'].includes(HOSPITAL_ID)"
     />
     <patientInfo
             :notNurseRecordList="true"
@@ -218,6 +218,7 @@ import doctorEmr from "@/components/doctorEmr";
 import patientInfo from "@/Page/sheet-page/components/sheet-tool/patient-info";
 import { adult_notCheckFill, child_notCheckFill } from "@/Page/sheet-hospital-admission/components/data/formFoshanrenyi/notCheckFill"
 import { adult_notCheckFill2, child_notCheckFill2 } from "@/Page/sheet-hospital-admission/components/data/formNfyksdyy/notCheckFill"
+import { adult_notCheckFill_Whyx, child_notCheckFill_Whyx } from "@/Page/sheet-hospital-admission/components/data/formWhyx/notCheckFill"
 import {
   createForm,
   save,
@@ -267,7 +268,7 @@ export default {
       user: JSON.parse(localStorage.user),
       selectList: [],
       pageArea: "",
-      formCode: (this.HOSPITAL_ID === 'foshanrenyi'||this.HOSPITAL_ID === 'nfyksdyy') ? this.formCodeFy : 'E0001',
+      formCode: ['foshanrenyi','nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID) ? this.formCodeFy : 'E0001',
       formId: "",
       // sheetModel,
       // sheetInfo,
@@ -398,7 +399,7 @@ export default {
         {
           label: "打印预览",
           // style: "min-width:100px",
-          style: this.HOSPITAL_ID !== 'nfyksdyy' ?'': "display:none",
+          style: !['nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID) ?'': "display:none",
           onClick: (e) => {
             this.$refs.previewEvalModal.open(window.formObj.model);
           },
@@ -481,7 +482,7 @@ export default {
           let valData = res.data.data
             window.formObj.model.I001012 = valData.marriage;
           // 直接赋值，有点问题 临邑不需要
-          if (!['lyxrm', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID)) {
+          if (!['lyxrm', 'stmz','nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID)) {
             window.formObj.model.I001002 = valData.occupation;
             window.formObj.model.I001003 = valData.nation;
           }
@@ -528,7 +529,7 @@ export default {
       keys = [...keys];
       keys.map((key) => {
         // 临邑 不需要同步已存在数据的字段
-        if(['lyxrm', 'stmz','nfyksdyy'].includes(this.HOSPITAL_ID) && window.formObj.model[keyMap[key]]) return
+        if(['lyxrm', 'stmz','nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID) && window.formObj.model[keyMap[key]]) return
         if (
           model[key] != undefined &&
           model[key] != "undefined" &&
@@ -833,12 +834,19 @@ export default {
         else
           notCheckFill = child_notCheckFill
       }
- if (this.HOSPITAL_ID === 'nfyksdyy') {
+      if (this.HOSPITAL_ID === 'nfyksdyy') {
         // 成人
         if (this.formCode === 'E2332')
           notCheckFill = adult_notCheckFill2
         else
           notCheckFill = child_notCheckFill2
+      }
+      if (this.HOSPITAL_ID === 'whyx') {
+        if (this.formCode === 'E2332') {
+          notCheckFill = adult_notCheckFill_Whyx;
+        } else {
+          notCheckFill = child_notCheckFill_Whyx;
+        }
       }
       for (const key in object) {
         if (object.hasOwnProperty(key)) {
@@ -1188,7 +1196,7 @@ export default {
         titleModal = "取消护士签名";
       }
       this.useCaData()
-      if(this.HOSPITAL_ID == 'nfyksdyy'){
+      if(['nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID)){
          let post = {
           id: this.formId || "",
           patientId: this.patientInfo.patientId,
@@ -1385,7 +1393,7 @@ export default {
             if (signType.hasOwnProperty("sign")) {
               signType["evalDate"] =
                 dayjs(signDate).format("YYYY-MM-DD HH:mm") || "";
-            }else if (signType.hasOwnProperty("audit")&&['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+            }else if (signType.hasOwnProperty("audit")&&['nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID)) {
               // 处理弹窗审核签名完后没有审核时间的问题
               signType["I2332233"] =
                 dayjs(signDate).format("YYYY-MM-DD HH:mm") || "";
@@ -1496,7 +1504,7 @@ export default {
     formSave(title = '') {
       const sheetTableContain = document.querySelector('.sheetTable-contain');
       let scrollHeight=0
-      if (sheetTableContain && ['nfyksdyy'].includes(this.HOSPITAL_ID)) {
+      if (sheetTableContain && ['nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID)) {
         // 记录保存的时候滚动高度，保存后依然在当前位置
         scrollHeight = sheetTableContain.scrollTop;
       }
@@ -1614,7 +1622,7 @@ export default {
       this.dialogTableVisible = false;
 
       // 佛一体征同步
-      if (this.HOSPITAL_ID == 'foshanrenyi'||this.HOSPITAL_ID == 'nfyksdyy') {
+      if (['foshanrenyi', 'nfyksdyy', 'whyx'].includes(this.HOSPITAL_ID)) {
         // 成人
         if (this.formCode === "E2332") {
 
@@ -1724,7 +1732,7 @@ export default {
       this.$router.push(route);
     },
     formCodeFy: function (newVal) {
-      this.formCode = [ "nfyksdyy","foshanrenyi"].includes(this.HOSPITAL_ID) ? newVal : 'E0001'
+      this.formCode = [ "nfyksdyy","foshanrenyi", 'whyx'].includes(this.HOSPITAL_ID) ? newVal : 'E0001'
     },
   },
   components: {

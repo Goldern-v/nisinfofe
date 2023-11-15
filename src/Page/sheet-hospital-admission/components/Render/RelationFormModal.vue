@@ -37,7 +37,7 @@
         type="primary"
         @click="handleSign"
         :disabled="loading"
-        v-show="showSignBtn && HOSPITAL_ID != 'nfyksdyy' "
+        v-show="showSignBtn && !['nfyksdyy', 'whyx'].includes(HOSPITAL_ID)"
         >签名</el-button
       >
     </div>
@@ -116,7 +116,7 @@ export default {
     },
     handleRedirectSrc(){
         /* 关联表单，从左侧删除后。主表再进入会报errorCode=='305',这个时候把拼接src去除id。重定向页面 */
-        // 当前iframe的url   
+        // 当前iframe的url
         const currentUrl= this.$refs.iframe.src
         // 使用URLSearchParams解析URL参数
         const urlParams = new URLSearchParams(currentUrl.slice(currentUrl.indexOf('?')));

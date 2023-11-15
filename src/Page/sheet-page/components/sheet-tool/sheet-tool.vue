@@ -306,6 +306,7 @@
       <div
         class="item-box"
         v-show="limitAddPage"
+        v-if="!['cbp_zjhj'].includes(sheetInfo.sheetType)"
         @click="emit('addSheetPage')"
       >
         <div class="text-con">添加新页</div>
