@@ -48,7 +48,7 @@
           </td>
           <!-- 教育评估 -->
           <td v-for="q in assessment" :key="q + 'c'">
-            <span class="is-radio" v-if="data['教育评估'] === q">√</span>
+            <span class="is-radio" v-if="data['教育评估'] === q || (HOSPITAL_ID == 'zhzxy' && data['宣教人员评价'] === q) ">√</span>
           </td>
           <!-- 备注 -->
           <td class="remark contentLeft" v-if="HOSPITAL_ID !== 'qhwy'">

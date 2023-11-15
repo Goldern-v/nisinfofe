@@ -3,20 +3,22 @@
     <sweet-modal ref="modal" :modalWidth="isZhzxy ? 770 : 600" title="编辑床位卡" :enable-mobile-fullscreen="false"
       class="modal">
       <div v-if="isZhzxy" class="bed-card-wrapper" v-loading="modalLoading">
-        <div class="container_zhzxy" ref="printCon">
-          <div style="line-height: 18px;margin-top: 12px;font-size: 26px">床 位 卡</div>
-          <div class="bed-card-con_zhzxy" flex :class="{ remarkCon: formData.remarkPrint }">
-            <div style="flex: 1;" flex-box="1" flex="dir:top main:justify">
-              <img class="qr-code_zhzxy" :src="qrCode" />
-            </div>
-            <div style="flex: 1 1 16%; margin-top: 38px" >
-              <div flex="cross:center;" class="title-bed title-bed_zhzxy">
-                <div>
-                  <span>病区:{{ query.wardName }}</span>
-                </div>
-                <div class="text">
-                  <span style="line-height: 34px">床号:{{query.bedLabel + '床'}}</span>
-                  <!-- <input type="text" style="border: none;" class="title-bed__1" :value="query.bedLabel + '床'" /> -->
+        <div class="printCon" ref="printCon">
+          <div class="container_zhzxy">
+            <div style="line-height: 18px;margin-top: 12px;font-size: 26px">床 位 卡</div>
+            <div class="bed-card-con_zhzxy" flex :class="{ remarkCon: formData.remarkPrint }">
+              <div style="flex: 1;" flex-box="1" flex="dir:top main:justify">
+                <img class="qr-code_zhzxy" :src="qrCode" />
+              </div>
+              <div style="flex: 1 1 16%; margin-top: 38px" >
+                <div flex="cross:center;" class="title-bed title-bed_zhzxy">
+                  <div>
+                    <span>病区:{{ query.wardName }}</span>
+                  </div>
+                  <div class="text">
+                    <span style="line-height: 34px">床号:{{query.bedLabel + '床'}}</span>
+                    <!-- <input type="text" style="border: none;" class="title-bed__1" :value="query.bedLabel + '床'" /> -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -608,6 +610,11 @@ export default {
             injectGlobalCss: true,
             scanStyles: false,
             css: `
+            .printCon{
+              display: flex; 
+              justify-content: center;
+              align-items: center;
+            }
             .container_zhzxy{
               text-align: center;
               font-size: 18px;
