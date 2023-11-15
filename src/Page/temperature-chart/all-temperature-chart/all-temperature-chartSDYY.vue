@@ -15,7 +15,7 @@
         />
       </span>
       <template>
-        <div class="times">
+        <div class="times" >
           <label
             :for="`time${item.id}`"
             v-for="item in timesPoint"
@@ -49,7 +49,7 @@
             ></el-option>
           </el-select>
         </div>
-        <div>
+        <div v-if="HOSPITAL_ID != 'hzly'">
           <span class="label">病人分组:</span>
           <el-select
             v-model="patientGroup"
@@ -798,14 +798,15 @@ import print from "printing";
 import formatter from "../print-formatter";
 import CustomInput from "./components/CustomInput.vue";
 import { listItem } from "@/api/common.js";
-const timesPoint = [
-  { id: 0, value: "02" },
-  { id: 1, value: "06" },
-  { id: 2, value: "10" },
-  { id: 3, value: "14" },
-  { id: 4, value: "18" },
-  { id: 5, value: "22" },
-]
+// const timesPoint =  [
+//   { id: 0, value: "02" },
+//   { id: 1, value: "06" },
+//   { id: 2, value: "10" },
+//   { id: 3, value: "14" },
+//   { id: 4, value: "18" },
+//   { id: 5, value: "22" },
+// ]
+
 export default {
   mixins: [common],
   props: {},
@@ -846,28 +847,73 @@ export default {
         startFiltering: false,
         entryDate: moment(new Date()).format("YYYY-MM-DD"), //录入日期
         entryTime: (() => {
-          if (this.getHours() >= 0 && this.getHours() <= 4) {
-            return "02";
+          switch(this.HOSPITAL_ID){
+             case 'hzly' :
+              if (this.getHours() >= 0 && this.getHours() <= 6) {
+                return "04";
+              }
+              if (this.getHours() > 6 && this.getHours() <= 10) {
+                return "08";
+              }
+              if (this.getHours() > 10 && this.getHours() <= 14) {
+                return "12";
+              }
+              if (this.getHours() > 14 && this.getHours() <= 18) {
+                return "16";
+              }
+              if (this.getHours() > 18 && this.getHours() <= 22) {
+                return "20";
+              }
+              if (this.getHours() > 22 && this.getHours() <= 24) {
+                return "24";
+              }
+            default:
+              if (this.getHours() >= 0 && this.getHours() <= 4) {
+                return "02";
+              }
+              if (this.getHours() > 4 && this.getHours() <= 8) {
+                return "06";
+              }
+              if (this.getHours() > 8 && this.getHours() <= 12) {
+                return "10";
+              }
+              if (this.getHours() > 12 && this.getHours() <= 16) {
+                return "14";
+              }
+              if (this.getHours() > 16 && this.getHours() <= 20) {
+                return "18";
+              }
+              if (this.getHours() > 20 && this.getHours() <= 23) {
+                return "22";
+              }
           }
-          if (this.getHours() > 4 && this.getHours() <= 8) {
-            return "06";
-          }
-          if (this.getHours() > 8 && this.getHours() <= 12) {
-            return "10";
-          }
-          if (this.getHours() > 12 && this.getHours() <= 16) {
-            return "14";
-          }
-          if (this.getHours() > 16 && this.getHours() <= 20) {
-            return "18";
-          }
-          if (this.getHours() > 20 && this.getHours() <= 23) {
-            return "22";
-          }
-        })() //录入时间
+        })(), //录入时间
       },
-      timesEven: timesPoint,
-      timesPoint,
+      timesPoint:(()=>{
+        switch(this.HOSPITAL_ID){
+          case 'hzly':
+            return [
+              { id: 0, value: "04" },
+              { id: 1, value: "08" },
+              { id: 2, value: "12" },
+              { id: 3, value: "16" },
+              { id: 4, value: "20" },
+              { id: 5, value: "24" },
+            ]
+          default:
+            return [
+              { id: 0, value: "02" },
+              { id: 1, value: "06" },
+              { id: 2, value: "10" },
+              { id: 3, value: "14" },
+              { id: 4, value: "18" },
+              { id: 5, value: "22" },
+            ]
+        }
+      })(),
+
+      // timesEven: timesPoint,
+      // timesPoint,
       patientsInfoData: [],
       searchWordlist: [],
       searchWord: "",
@@ -1066,6 +1112,7 @@ export default {
     },
     //费整点的患者数据只允许查看不许修改
     isReadonly(recordDate) {
+      if(this.HOSPITAL_ID != 'hzly'){
       recordDate = moment(recordDate).format("YYYY-MM-DD HH:mm:ss");
       return (
         recordDate !==
@@ -1073,6 +1120,7 @@ export default {
           this.query.entryTime
         }:00:00`
       );
+      }
     },
     //获取对应护理等级背景颜色
     getBaColor(row) {
