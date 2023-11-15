@@ -55,6 +55,7 @@
         :currentType="query.itemType"
         :tableData="tableData"
         ref="plTable"
+        id="plTable"
       ></dTable>
 
       <el-dialog title="执行时间" :visible.sync="isExecutionTime">
@@ -73,6 +74,13 @@
           <el-button type="primary" @click="confirm">确 定</el-button>
         </div>
       </el-dialog>
+      <printTable
+        :pageLoadng="pageLoadng"
+        :currentType="query.itemType"
+        :tableData="tableData"
+        ref="printTable"
+        id="printTable"
+      ></printTable>
     </div>
   </div>
 </template>
@@ -121,11 +129,13 @@
 </style>
 <script>
 import dTable from "@/Page/implementation-list/components/table/d-table.vue";
+import printTable from "./components/print-table.vue";
 import { handleWebExecuteBatch } from "@/Page/implementation-list/api/index.js";
 import { getOrdersExecuteWithPatinetIdNew, getExportOrdersExecuteByPatient } from "./api/index";
 import common from "@/common/mixin/common.mixin.js";
 import moment from "moment";
 import bus from "vue-happy-bus";
+import printing from "printing";
 export default {
   mixins: [common],
   data() {
@@ -258,42 +268,62 @@ export default {
     },
     // 导出
     handleExport(){
-      if (this.pageLoadng) return
-      try {
-        this.pageLoadng = true
-        let obj = {
-          wardCode: this.deptCode,
-          startDate: moment(this.startDate).format("YYYY-MM-DD"),
-          endDate: moment(this.endDate).format("YYYY-MM-DD"),
-          repeatIndicator: this.repeatIndicator,
-          executeType: this.type,
-          executeStatus: this.status,
-          patientId: this.$route.query.patientId,
-          visitId: this.$route.query.visitId,
-          pageIndex: this.page.pageIndex,
-          pageSize: this.page.pageNum
-        };
-        getExportOrdersExecuteByPatient(obj).then(res=>{
-          let fileName = res.headers["content-disposition"]
-          ? decodeURIComponent(
-            res.headers["content-disposition"].replace("attachment;filename=", "")
-          ) : this.$route.meta.title + '.xls';
-          let blob = new Blob([res.data], {
-            type: res.data.type
-          });
-          let a = document.createElement('a')
-          let href = window.URL.createObjectURL(blob) // 创建链接对象
-          a.href = href
-          a.download = fileName // 自定义文件名
-          document.body.appendChild(a)
-          a.click()
-          window.URL.revokeObjectURL(href)
-          document.body.removeChild(a) // 移除a元素
-          this.pageLoadng = false
+      if (this.pageLoadng) return;
+      console.log(document.getElementById("printTable"),'ddddddddddd');
+      document.getElementById("printTable").style.display = "block"
+      setTimeout(()=>{
+        this.$nextTick(() => {
+          printing(document.getElementById("printTable"), {
+            direction: 'horizontal',
+            injectGlobalCss: true,
+            scanStyles: false,
+            // margin: 0 0;
+            css: `
+
+            `,
+          })
+            .then(() => {
+              // document.getElementById("printTable").style.display = "none"
+            })
+            .catch((e) => {});
         })
-      } catch (e) {
-        this.pageLoadng = false
-      }
+
+      },500)
+      // try {
+      //   this.pageLoadng = true
+      //   let obj = {
+      //     wardCode: this.deptCode,
+      //     startDate: moment(this.startDate).format("YYYY-MM-DD"),
+      //     endDate: moment(this.endDate).format("YYYY-MM-DD"),
+      //     repeatIndicator: this.repeatIndicator,
+      //     executeType: this.type,
+      //     executeStatus: this.status,
+      //     patientId: this.$route.query.patientId,
+      //     visitId: this.$route.query.visitId,
+      //     pageIndex: this.page.pageIndex,
+      //     pageSize: this.page.pageNum
+      //   };
+      //   getExportOrdersExecuteByPatient(obj).then(res=>{
+      //     let fileName = res.headers["content-disposition"]
+      //     ? decodeURIComponent(
+      //       res.headers["content-disposition"].replace("attachment;filename=", "")
+      //     ) : this.$route.meta.title + '.xls';
+      //     let blob = new Blob([res.data], {
+      //       type: res.data.type
+      //     });
+      //     let a = document.createElement('a')
+      //     let href = window.URL.createObjectURL(blob) // 创建链接对象
+      //     a.href = href
+      //     a.download = fileName // 自定义文件名
+      //     document.body.appendChild(a)
+      //     a.click()
+      //     window.URL.revokeObjectURL(href)
+      //     document.body.removeChild(a) // 移除a元素
+      //     this.pageLoadng = false
+      //   })
+      // } catch (e) {
+      //   this.pageLoadng = false
+      // }
     },
     // 全选
     allSelection() {
@@ -379,7 +409,8 @@ export default {
     }
   },
   components: {
-    dTable
+    dTable,
+    printTable
     // pagination
   }
 };
