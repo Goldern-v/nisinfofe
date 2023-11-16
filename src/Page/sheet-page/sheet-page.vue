@@ -729,6 +729,11 @@ export default {
           //isDone 判断护记执行完所有操作后 加载完成标准
           this.tableLoading = false;
           sheetInfo.isDone = true;
+          // 固定滚第一页
+          if(['cbp_zjhj'].includes(this.sheetInfo.sheetType) ){
+           this.scrollFun(0)
+           return
+          }
           function toBottom() {
             timeNum--;
               //初始化护记数据都设置保存状态为已经保存，放这里运行是借用多次执行判断护记加载完成再设置
@@ -750,7 +755,7 @@ export default {
           }
           setTimeout(() => {
             this.$nextTick(() => {
-              if (!this.patientInfo.recordId && !['cbp_zjhj'].includes(this.sheetInfo.sheetType) ) {
+              if (!this.patientInfo.recordId) {
                 toBottom.call(this);
               }
             });

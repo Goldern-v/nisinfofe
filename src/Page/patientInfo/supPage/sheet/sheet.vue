@@ -248,7 +248,7 @@ import sheetTable_oxytocinck_dglb from "@/Page/sheet-page/components/sheetTable_
 import sheetTable_emergency_rescue from "@/Page/sheet-page/components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "@/Page/sheet-page/components/sheetTable-dressing_count_hl/sheetTable";
 import sheetTable_prenatal_ytll from "@/Page/sheet-page/components/sheetTable-prenatal_ytll/sheetTable";
-
+import sheetTable_cbp_zjhj from "@/Page/sheet-page/components/sheetTable_cbp_zjhj/sheetTable.vue";
 import common from "@/common/mixin/common.mixin.js";
 import { nursingUnit } from "@/api/lesion";
 import sheetModel, {
@@ -434,7 +434,9 @@ export default {
         return sheetTable_intersurgerycure_qzx;
       } else if (sheetInfo.sheetType == "prenatal_ytll") {
         return sheetTable_prenatal_ytll;
-      } else {
+      }  else if (sheetInfo.sheetType == "cbp_zjhj") {
+        return sheetTable_cbp_zjhj
+      }else {
         return sheetTable;
       }
     }
@@ -575,6 +577,11 @@ export default {
           //页面初始化之后 从本地localStorage拿值 如果是有值 就滚动到当前值回到当前操作页面  如果没有 就滚动到底部
           //isDone 判断护记执行完所有操作后 加载完成标准
           sheetInfo.isDone = true;
+          // 固定滚第一页
+          if(['cbp_zjhj'].includes(this.sheetInfo.sheetType) ){
+           this.scrollFun(0)
+           return
+          }
           let timeNum = 15;
           function toBottom() {
             timeNum--;
@@ -1408,6 +1415,7 @@ export default {
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,
     sheetTable_prenatal_ytll,
+    sheetTable_cbp_zjhj,
     SheetTags,
     changeMajorCheckbox,
     confirmModal
