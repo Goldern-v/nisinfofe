@@ -8,21 +8,27 @@
                 <!-- 是否确定删除？ -->
             </div>
             <div class="username" v-if="modalTitle=='拔管'" style="margin-top:20px;">
-                <div style="width:80px;">拔管时间：</div>
-                <!-- <cr-date-picker
-                    v-model="extubationTime"
-                    format="yyyy-MM-dd HH:mm"
-                    placeholder="选择拔管日期"
-                    style="width: 200px"
-                ></cr-date-picker> -->
-                <el-date-picker
-                  size='small'
-                  align="left"
+              <div style="width:80px;">拔管时间：</div>
+              <!-- <cr-date-picker
                   v-model="extubationTime"
-                  type="datetime"
                   format="yyyy-MM-dd HH:mm"
-                  placeholder="请输入选择拔管日期"
-                ></el-date-picker>
+                  placeholder="选择拔管日期"
+                  style="width: 200px"
+              ></cr-date-picker> -->
+              <el-date-picker
+                size='small'
+                align="left"
+                v-model="extubationTime"
+                type="datetime"
+                format="yyyy-MM-dd HH:mm"
+                placeholder="请输入选择拔管日期"
+              ></el-date-picker>
+            </div>
+            <div v-if="HOSPITAL_ID == '925' && modalTitle=='拔管'">
+              <el-radio-group v-model="plannedExtubation">
+                <el-radio v-model="plannedExtubation" label="1">计划拔管</el-radio>
+                <el-radio v-model="plannedExtubation" label="0">非计划拔管</el-radio>
+              </el-radio-group>
             </div>
             <!-- <div class="password">
                 <div style="width:100px;">密码：</div><el-input placeholder="请输入密码" v-model="password" type="password"></el-input>
@@ -118,7 +124,8 @@ data() {
 return {
     empNo:JSON.parse(localStorage.getItem('user')).empNo||'',
     password:'',
-    extubationTime:""
+    extubationTime:"",
+    plannedExtubation: '1'
 };
 },
 methods: {
@@ -126,7 +133,8 @@ methods: {
         this.$emit('closeModal');
     },
     sureDel(){
-        this.$emit('delRow','','',this.extubationTime)
+      console.log(this.plannedExtubation, 8888)
+        this.$emit('delRow','','', this.extubationTime, this.plannedExtubation)
     }
 },
 components: {}

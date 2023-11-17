@@ -185,6 +185,17 @@
       >
         <div class="nav-item">手术</div>
       </router-link>
+      <router-link
+        v-if="HOSPITAL_ID === '925'"
+        :to="{
+          path: '/catheter',
+          query: { patientId: query.patientId, visitId: query.visitId }
+        }"
+        tag="span"
+      >
+        <div class="nav-item">导管</div>
+      </router-link>
+      
     </div>
     <div style="height: 50px"></div>
   </div>

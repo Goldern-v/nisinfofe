@@ -193,7 +193,7 @@
 .sheetTable-contain {
   height: 100%;
   background: #DFDFDF;
-  overflow: auto;
+  // overflow: auto;
   padding: 5px 5px 15px;
   box-sizing: border-box;
   margin: 0 0 20px 0;

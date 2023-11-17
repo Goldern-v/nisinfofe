@@ -3,6 +3,7 @@
         <div class="fix-table" v-if="!pageNum||pageNum==1" :style="{width:contentWidth,}">
             <div style="background:#dfdfdf;height:5px;"></div>
             <div class="tabel-title">{{title}}<el-button class="extubation-btn" type="primary" @click="extubationModal" :disabled="tableInfo.catheterStatus==2">拔管</el-button></div>
+            <div class="watermark" v-if="HOSPITAL_ID === '925'">{{ plannedExtubation[tableInfo.plannedExtubation] }}</div>
             <div class="cathter-tool">
                 <div class="catch-info">
                     <div class="set-cathter">
@@ -33,83 +34,87 @@
                 </div>
                 <div class="tool-btns">
                     <button @click="toPrint" v-if="HOSPITAL_ID == 'lyxrm'">打印</button>
+                    <button @click="toExport" v-if="HOSPITAL_ID == '925' && exportText.includes(title)">导出</button>
                     <button @click="delAll">删除整单</button>
                     <button @click="saveTable">保存</button>
                 </div>
             </div>
         </div>
         <div class="withe-part" style="height:175px;"></div>
-        <el-table
-            id="table-box"
-            :data="tabelData"
-            border
-            align="center"
-            style="width: 100%">
-            <el-table-column
-                prop="recordMonth"
-                align="center"
-                width="60"
-                label="日期">
-                <template slot-scope="scope">
-                    <MDMasked type="monthAndDate" :value="scope.row.recordMonth" @input="(val)=>{scope.row.recordMonth=val}"/>
-                    <!-- <el-input type="text" v-model="scope.row.recordMonth" @focus="initDT('date',scope.row)"></el-input> -->
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="recordHour"
-                align="center"
-                width="60"
-                label="时间">
-             <template slot-scope="scope">
-                    <MDMasked type="time" :value="scope.row.recordHour" @input="(val)=>{scope.row.recordHour=val}"/>
-                    <!-- <el-input type="text" v-model="scope.row.recordHour" @focus="initDT('time',scope.row)"></el-input> -->
-                </template>
-            </el-table-column>
-            <el-table-column
-                v-for="(item,index) in config"
-                :key='index'
-                :prop="item.name"
-                resizable
-                min-width="100"
-                align="center"
-                :label="item.title">
-            <template slot-scope="scope">
-                <el-autocomplete
-                    class="cathter-autocomplete"
-                    v-model="scope.row[item.name]"
-                    @input="show"
-                    :fetch-suggestions="(queryString, cb)=>querySearch(queryString, cb,optionsConfig[item.name])"
-                    :title="scope.row[item.name]"
-                    placeholder=""
-                    @select="handleSelect"
-                    >
-                </el-autocomplete>
-                <!-- <el-select v-model="scope.row[item.name]" filterable allow-create default-first-option placeholder="">
-                    <el-option
-                        v-for="item in optionsConfig[item.name]?optionsConfig[item.name]:[]"
-                        :key="item.code"
-                        :label="item.name"
-                        :value="item.code">
-                    </el-option>
-                </el-select> -->
-            </template>
-            </el-table-column>
-            <el-table-column
-                prop="signerName"
-                align="center"
-                width="80"
-                label="评估人">
-            </el-table-column>
-            <el-table-column
-                prop="address"
-                align="center"
-                width="60"
-                label="操作">
-            <template slot-scope="scope">
-                <div @click="showDelModal(scope.row)" class="del-btn">删除</div>
-            </template>
-            </el-table-column>
-        </el-table>
+        <div class="tableCon">
+          <el-table
+              id="table-box"
+              :data="tabelData"
+              border
+              align="center"
+              height="100%"
+              style="width: 100%; height: 100%">
+              <el-table-column
+                  prop="recordMonth"
+                  align="center"
+                  width="60"
+                  label="日期">
+                  <template slot-scope="scope">
+                      <MDMasked type="monthAndDate" :value="scope.row.recordMonth" @input="(val)=>{scope.row.recordMonth=val}"/>
+                      <!-- <el-input type="text" v-model="scope.row.recordMonth" @focus="initDT('date',scope.row)"></el-input> -->
+                  </template>
+              </el-table-column>
+              <el-table-column
+                  prop="recordHour"
+                  align="center"
+                  width="60"
+                  label="时间">
+              <template slot-scope="scope">
+                      <MDMasked type="time" :value="scope.row.recordHour" @input="(val)=>{scope.row.recordHour=val}"/>
+                      <!-- <el-input type="text" v-model="scope.row.recordHour" @focus="initDT('time',scope.row)"></el-input> -->
+                  </template>
+              </el-table-column>
+              <el-table-column
+                  v-for="(item,index) in config"
+                  :key='index'
+                  :prop="item.name"
+                  resizable
+                  min-width="100"
+                  align="center"
+                  :label="item.title">
+              <template slot-scope="scope">
+                  <el-autocomplete
+                      class="cathter-autocomplete"
+                      v-model="scope.row[item.name]"
+                      @input="show"
+                      :fetch-suggestions="(queryString, cb)=>querySearch(queryString, cb,optionsConfig[item.name])"
+                      :title="scope.row[item.name]"
+                      placeholder=""
+                      @select="handleSelect"
+                      >
+                  </el-autocomplete>
+                  <!-- <el-select v-model="scope.row[item.name]" filterable allow-create default-first-option placeholder="">
+                      <el-option
+                          v-for="item in optionsConfig[item.name]?optionsConfig[item.name]:[]"
+                          :key="item.code"
+                          :label="item.name"
+                          :value="item.code">
+                      </el-option>
+                  </el-select> -->
+              </template>
+              </el-table-column>
+              <el-table-column
+                  prop="signerName"
+                  align="center"
+                  width="80"
+                  label="评估人">
+              </el-table-column>
+              <el-table-column
+                  prop="address"
+                  align="center"
+                  width="60"
+                  label="操作">
+              <template slot-scope="scope">
+                  <div @click="showDelModal(scope.row)" class="del-btn">删除</div>
+              </template>
+              </el-table-column>
+          </el-table>
+        </div>
         <div style="line-height:40px;text-align:center">第{{pageNum||1}}页</div>
         <delModal v-if="isDel" @closeModal='closeModal' @delRow='delRow' :modalTitle="modalTitle" :modalContont="modalContont"></delModal>
         <repModal v-if="showChangeRt" :replaceTime='tableInfo.replaceTime' @closeRepModal='closeRepModal' @changeRepFn='changeRepFn'></repModal>
@@ -122,6 +127,10 @@
     padding:0 20px 20px;
     background-color: #fff;
     font-size: 14px;
+    position: relative;
+    .tableCon{
+      height: calc(100vh - 280px);
+    }
     .fix-table{
         background-color: #fff;
         position: fixed;
@@ -138,6 +147,16 @@
         line-height: 50px;
         border-bottom: 1px dashed #ccc;
         position: relative;
+    }
+    .watermark{
+      position: absolute;
+      top: 15px;
+      right: 120px;
+      opacity: 0.5;
+      font-size: 30px;
+      color: #ccc;
+      pointer-events: none;
+      z-index: -1;
     }
     .extubation-btn{
         position: absolute;
@@ -229,15 +248,15 @@
     // }
 }
 
-.first-page /deep/ .el-table__header-wrapper{
+/* .first-page /deep/ .el-table__header-wrapper{
     position: fixed;
     z-index: 997;
-}
-.first-page /deep/ tbody::before{
+} */
+/* .first-page /deep/ tbody::before{
     content: "";
     display: block;
     height: 40px;
-}
+} */
 
 </style>
 <style lang='scss'>
@@ -257,7 +276,8 @@ import {
     delRowApi,
     delAllApi,
     updateInfo,
-    extubationApi
+    extubationApi,
+    catheterExport
 } from '@/Page/allCatheter/api/catheter'
 import delModal from '@/Page/allCatheter/components/del-row-modal/del-row-modal.vue'
 import repModal from '@/Page/allCatheter/components/replace-modal/replace-modal.vue'
@@ -292,11 +312,41 @@ return {
     contentWidth:"auto",
     tableHtml:null,
     showRemoveStatus: false,
+    plannedExtubation: {
+      0: '非计划拔管',
+      1: '计划拔管'
+    },
+    exportText: ['尿管', '深静脉插管', '气管插管']
 };
 },
 methods: {
     show(){
         // console.log(111);
+    },
+    toExport() {
+      let {code,type,id,patientId,visitId} = this.tableInfo
+      console.log(code, type, id, patientId, visitId, 8888)
+      try {
+        catheterExport({ code, type, id, patientId, visitId }, code, type).then(res => {
+          let fileName = res.headers["content-disposition"]
+          ? decodeURIComponent(
+            res.headers["content-disposition"].replace("attachment;filename=", "")
+          ) : this.$route.meta.title + '.xls';
+          let blob = new Blob([res.data], {
+            type: res.data.type
+          });
+          let a = document.createElement('a')
+          let href = window.URL.createObjectURL(blob) // 创建链接对象
+          a.href = href
+          a.download = fileName // 自定义文件名
+          document.body.appendChild(a)
+          a.click()
+          window.URL.revokeObjectURL(href)
+          document.body.removeChild(a) // 移除a元素
+        })
+      } catch (e) {
+        console.log(e)
+      }
     },
     toPrint(){
         this.$emit("toPrint")
@@ -331,8 +381,12 @@ methods: {
         this.delType = 'extubation'
         this.isDel = true
     },
-    extubation(extubationTime){
-        extubationApi({...this.tableInfo,extubationTime},this.tableInfo.code).then(res=>{
+    extubation(extubationTime, plannedExtubation){
+        let params = {...this.tableInfo, extubationTime }
+        if (this.HOSPITAL_ID === '925') {
+          params = { ...params, plannedExtubation }
+        }
+        extubationApi({ ...params }, this.tableInfo.code).then(res=>{
             this.$message.success('操作成功')
             let config = res.data.data
             this.$emit('updateTableConfig',config)
@@ -399,7 +453,7 @@ methods: {
         this.delType = 'row'
         this.isDel = true
     },
-    delRow(empNo,password,extubationTime){
+    delRow(empNo,password,extubationTime, plannedExtubation){
         let {code,type,id,patientId,visitId} = this.tableInfo
         if(this.delType==='row'){
             delRowApi({
@@ -427,8 +481,8 @@ methods: {
                 this.$message.error(err.desc)
             })
         }else if(this.delType==='extubation'){
-            let formatTime= moment(extubationTime).format('YYYY-MM-DD HH:mm');
-            this.extubation(formatTime)
+            let formatTime = moment(extubationTime).format('YYYY-MM-DD HH:mm');
+            this.extubation(formatTime, plannedExtubation)
         }
     },
     saveTable(){

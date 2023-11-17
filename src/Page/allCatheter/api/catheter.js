@@ -14,6 +14,14 @@ export const getCatheterTable = (params,formCode) => {
     params
   );
 };
+
+export const catheterExport = (params,formCode, type) => {
+  return axios.post(
+    `${apiPath}catheter/${type}/${formCode}/export`,
+    params, { responseType: 'blob' }
+  );
+};
+
 export const getCatheterTemplate = (params) => {
   return axios.get(
     `${apiPath}form/common/templates/catheter`,{params}
