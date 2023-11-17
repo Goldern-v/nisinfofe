@@ -82,7 +82,9 @@ export default [
     key: "fieldSeven", //宫缩
     value: "",
     event: keyf1,
-    name: "宫缩"
+    name: "宫缩",
+    change: (e, td) => limitChange(e, td, 4),
+    textarea: { width: 45 },
   },
   {
     key: "fieldOne", //胎膜

@@ -154,13 +154,14 @@ export const otherColumns_foshanrenyi = [{
     },
 ]
 
-export const otherColumns_925 = [{
-        key: 'hierarchy',
-        title: '层级',
-        align: 'center',
-        width: 120,
-        sortable: true
-    },
+export const otherColumns_925 = [
+    // {
+    //     key: 'hierarchy',
+    //     title: '层级',
+    //     align: 'center',
+    //     width: 120,
+    //     sortable: true
+    // },
     {
         key: 'transfusion',
         title: '静脉输液',
@@ -316,6 +317,14 @@ export const otherColumns_925 = [{
         sortable: true
     },
     {
+        key: 'injection',
+        title: '各类注射',
+        align: 'center',
+        width: 120,
+        sortable: true
+    },
+
+    {
         key: 'coloclyster',
         title: '灌肠',
         align: 'center',
@@ -421,7 +430,7 @@ export const otherColumns_925 = [{
         sortable: true
     },
     {
-        key: 'Specialtfff',
+        key: 'specialtfff',
         title: '五官特殊治疗',
         align: 'center',
         width: 120,
