@@ -1,143 +1,151 @@
 <template>
+  <div class="page">
     <div class="table-page" :class="[!pageNum||pageNum==1?'first-page':'']">
-        <div class="fix-table" v-if="!pageNum||pageNum==1" :style="{width:contentWidth,}">
-            <div style="background:#dfdfdf;height:5px;"></div>
-            <div class="tabel-title">{{title}}<el-button class="extubation-btn" type="primary" @click="extubationModal" :disabled="tableInfo.catheterStatus==2">拔管</el-button></div>
-            <div class="watermark" v-if="HOSPITAL_ID === '925'">{{ plannedExtubation[tableInfo.plannedExtubation] }}</div>
-            <div class="cathter-tool">
-                <div class="catch-info">
-                    <div class="set-cathter">
-                        <div>置管时间：{{tableInfo.intubationTime}}</div>
-                        <div>置管天数：第{{intubationDays}}天</div>
-                        <div :style="{width:'140px'}">置管来源：{{tableInfo.catheterSource}}</div>
-                    </div>
-                    <div class="up-cathter">
-                        <div style="cursor:pointer;" v-show="!!tableInfo.replaceTime" @dblclick="changeReplaceTime">计划更换时间：{{tableInfo.replaceTime}}</div>
-                        <div style="cursor:pointer;" v-show="!tableInfo.replaceTime" @dblclick="changeReplaceTime">计划更换时间：未确定</div>
-                        <div v-show="replaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
-                        <div v-show="!['unShow','outTime','unSet','today'].includes(replaceDays)" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：{{replaceDays}}天</div>
-                        <div v-show="replaceDays=='today'" :style="{color:tableInfo.catheterStatus==1?'red':''}">今天拔管</div>
-                        <!-- <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div> -->
-                    </div>
-                    <div class="up-cathter">
-                        <div style="cursor:pointer;" v-show="!!tableInfo.expectExtubationTime" @dblclick="removeTime">计划拔除时间：{{tableInfo.expectExtubationTime}}</div>
-                        <div style="cursor:pointer;" v-show="!tableInfo.expectExtubationTime" @dblclick="removeTime">计划拔除时间：未确定</div>
-                        <div v-show="ExtReplaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
-                        <div v-show="!['unShow', 'outTime','unSet','today'].includes(ExtReplaceDays)" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：{{ExtReplaceDays}}天</div>
-                        <div v-show="ExtReplaceDays =='today'" :style="{color:tableInfo.catheterStatus==1?'red':''}">今天拔管</div>
-                        <!-- <div v-show="ExtReplaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div> -->
-                    </div>
-                    <div class="up-cathter">
-                        <div v-show="!tableInfo.extubationTime">实际拔管时间：未拔除</div>
-                        <div v-show="tableInfo.extubationTime">实际拔管时间：{{tableInfo.extubationTime}}</div>
-                    </div>
-                </div>
-                <div class="tool-btns">
-                    <button @click="toPrint" v-if="HOSPITAL_ID == 'lyxrm'">打印</button>
-                    <button @click="toExport" v-if="HOSPITAL_ID == '925' && exportText.includes(title)">导出</button>
-                    <button @click="delAll">删除整单</button>
-                    <button @click="saveTable">保存</button>
-                </div>
-            </div>
-        </div>
-        <div class="withe-part" style="height:175px;"></div>
-        <div class="tableCon">
-          <el-table
-              id="table-box"
-              :data="tabelData"
-              border
-              align="center"
-              height="100%"
-              style="width: 100%; height: 100%">
-              <el-table-column
-                  prop="recordMonth"
-                  align="center"
-                  width="60"
-                  label="日期">
-                  <template slot-scope="scope">
-                      <MDMasked type="monthAndDate" :value="scope.row.recordMonth" @input="(val)=>{scope.row.recordMonth=val}"/>
-                      <!-- <el-input type="text" v-model="scope.row.recordMonth" @focus="initDT('date',scope.row)"></el-input> -->
-                  </template>
-              </el-table-column>
-              <el-table-column
-                  prop="recordHour"
-                  align="center"
-                  width="60"
-                  label="时间">
-              <template slot-scope="scope">
-                      <MDMasked type="time" :value="scope.row.recordHour" @input="(val)=>{scope.row.recordHour=val}"/>
-                      <!-- <el-input type="text" v-model="scope.row.recordHour" @focus="initDT('time',scope.row)"></el-input> -->
-                  </template>
-              </el-table-column>
-              <el-table-column
-                  v-for="(item,index) in config"
-                  :key='index'
-                  :prop="item.name"
-                  resizable
-                  min-width="100"
-                  align="center"
-                  :label="item.title">
-              <template slot-scope="scope">
-                  <el-autocomplete
-                      class="cathter-autocomplete"
-                      v-model="scope.row[item.name]"
-                      @input="show"
-                      :fetch-suggestions="(queryString, cb)=>querySearch(queryString, cb,optionsConfig[item.name])"
-                      :title="scope.row[item.name]"
-                      placeholder=""
-                      @select="handleSelect"
-                      >
-                  </el-autocomplete>
-                  <!-- <el-select v-model="scope.row[item.name]" filterable allow-create default-first-option placeholder="">
-                      <el-option
-                          v-for="item in optionsConfig[item.name]?optionsConfig[item.name]:[]"
-                          :key="item.code"
-                          :label="item.name"
-                          :value="item.code">
-                      </el-option>
-                  </el-select> -->
-              </template>
-              </el-table-column>
-              <el-table-column
-                  prop="signerName"
-                  align="center"
-                  width="80"
-                  label="评估人">
-              </el-table-column>
-              <el-table-column
-                  prop="address"
-                  align="center"
-                  width="60"
-                  label="操作">
-              <template slot-scope="scope">
-                  <div @click="showDelModal(scope.row)" class="del-btn">删除</div>
-              </template>
-              </el-table-column>
-          </el-table>
-        </div>
-        <div style="line-height:40px;text-align:center">第{{pageNum||1}}页</div>
-        <delModal v-if="isDel" @closeModal='closeModal' @delRow='delRow' :modalTitle="modalTitle" :modalContont="modalContont"></delModal>
-        <repModal v-if="showChangeRt" :replaceTime='tableInfo.replaceTime' @closeRepModal='closeRepModal' @changeRepFn='changeRepFn'></repModal>
-        <removeModal v-if="showRemoveStatus" :replaceTime='tableInfo.expectExtubationTime' @closeRepModal='removeClose' @changeRepFn='removeChangeRepFn'></removeModal>
+      <div class="fix-table" v-if="!pageNum||pageNum==1">
+          <!-- <div style="background:#dfdfdf;height:5px;"></div> -->
+          <div class="tabel-title">{{title}}<el-button class="extubation-btn" type="primary" @click="extubationModal" :disabled="tableInfo.catheterStatus==2">拔管</el-button></div>
+          <div class="watermark" v-if="HOSPITAL_ID === '925'">{{ plannedExtubation[tableInfo.plannedExtubation] }}</div>
+          <div class="cathter-tool">
+              <div class="catch-info">
+                  <div class="set-cathter">
+                      <div>置管时间：{{tableInfo.intubationTime}}</div>
+                      <div>置管天数：第{{intubationDays}}天</div>
+                      <div :style="{width:'140px'}">置管来源：{{tableInfo.catheterSource}}</div>
+                  </div>
+                  <div class="up-cathter">
+                      <div style="cursor:pointer;" v-show="!!tableInfo.replaceTime" @dblclick="changeReplaceTime">计划更换时间：{{tableInfo.replaceTime}}</div>
+                      <div style="cursor:pointer;" v-show="!tableInfo.replaceTime" @dblclick="changeReplaceTime">计划更换时间：未确定</div>
+                      <div v-show="replaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
+                      <div v-show="!['unShow','outTime','unSet','today'].includes(replaceDays)" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：{{replaceDays}}天</div>
+                      <div v-show="replaceDays=='today'" :style="{color:tableInfo.catheterStatus==1?'red':''}">今天拔管</div>
+                      <!-- <div v-show="replaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div> -->
+                  </div>
+                  <div class="up-cathter">
+                      <div style="cursor:pointer;" v-show="!!tableInfo.expectExtubationTime" @dblclick="removeTime">计划拔除时间：{{tableInfo.expectExtubationTime}}</div>
+                      <div style="cursor:pointer;" v-show="!tableInfo.expectExtubationTime" @dblclick="removeTime">计划拔除时间：未确定</div>
+                      <div v-show="ExtReplaceDays=='outTime'" style="color:red">剩余天数：已超时</div>
+                      <div v-show="!['unShow', 'outTime','unSet','today'].includes(ExtReplaceDays)" :style="{color:tableInfo.catheterStatus==1?'red':''}">剩余天数：{{ExtReplaceDays}}天</div>
+                      <div v-show="ExtReplaceDays =='today'" :style="{color:tableInfo.catheterStatus==1?'red':''}">今天拔管</div>
+                      <!-- <div v-show="ExtReplaceDays=='unShow'">实际拔管时间：{{tableInfo.extubationTime}}</div> -->
+                  </div>
+                  <div class="up-cathter">
+                      <div v-show="!tableInfo.extubationTime">实际拔管时间：未拔除</div>
+                      <div v-show="tableInfo.extubationTime">实际拔管时间：{{tableInfo.extubationTime}}</div>
+                  </div>
+              </div>
+              <div class="tool-btns">
+                  <button @click="toPrint" v-if="HOSPITAL_ID == 'lyxrm'">打印</button>
+                  <button @click="toExport" v-if="HOSPITAL_ID == '925' && exportText.includes(title)">导出</button>
+                  <button @click="delAll">删除整单</button>
+                  <button @click="saveTable">保存</button>
+              </div>
+          </div>
+      </div>
+      <!-- <div class="withe-part" style="height:175px;"></div> -->
+      <div class="tableCon">
+        <el-table
+            id="table-box"
+            :data="tabelData"
+            border
+            align="center"
+            height="100%"
+            style="width: 100%; height: 100%">
+            <el-table-column
+                prop="recordMonth"
+                align="center"
+                width="60"
+                label="日期">
+                <template slot-scope="scope">
+                    <MDMasked type="monthAndDate" :value="scope.row.recordMonth" @input="(val)=>{scope.row.recordMonth=val}"/>
+                    <!-- <el-input type="text" v-model="scope.row.recordMonth" @focus="initDT('date',scope.row)"></el-input> -->
+                </template>
+            </el-table-column>
+            <el-table-column
+                prop="recordHour"
+                align="center"
+                width="60"
+                label="时间">
+            <template slot-scope="scope">
+                    <MDMasked type="time" :value="scope.row.recordHour" @input="(val)=>{scope.row.recordHour=val}"/>
+                    <!-- <el-input type="text" v-model="scope.row.recordHour" @focus="initDT('time',scope.row)"></el-input> -->
+                </template>
+            </el-table-column>
+            <el-table-column
+                v-for="(item,index) in config"
+                :key='index'
+                :prop="item.name"
+                resizable
+                min-width="100"
+                align="center"
+                :label="item.title">
+            <template slot-scope="scope">
+                <el-autocomplete
+                    class="cathter-autocomplete"
+                    v-model="scope.row[item.name]"
+                    @input="show"
+                    :fetch-suggestions="(queryString, cb)=>querySearch(queryString, cb,optionsConfig[item.name])"
+                    :title="scope.row[item.name]"
+                    placeholder=""
+                    @select="handleSelect"
+                    >
+                </el-autocomplete>
+                <!-- <el-select v-model="scope.row[item.name]" filterable allow-create default-first-option placeholder="">
+                    <el-option
+                        v-for="item in optionsConfig[item.name]?optionsConfig[item.name]:[]"
+                        :key="item.code"
+                        :label="item.name"
+                        :value="item.code">
+                    </el-option>
+                </el-select> -->
+            </template>
+            </el-table-column>
+            <el-table-column
+                prop="signerName"
+                align="center"
+                width="80"
+                label="评估人">
+            </el-table-column>
+            <el-table-column
+                prop="address"
+                align="center"
+                width="60"
+                label="操作">
+            <template slot-scope="scope">
+                <div @click="showDelModal(scope.row)" class="del-btn">删除</div>
+            </template>
+            </el-table-column>
+        </el-table>
+      </div>
+      <div style="line-height:40px;text-align:center">第{{pageNum||1}}页</div>
+      <delModal v-if="isDel" @closeModal='closeModal' @delRow='delRow' :modalTitle="modalTitle" :modalContont="modalContont"></delModal>
+      <repModal v-if="showChangeRt" :replaceTime='tableInfo.replaceTime' @closeRepModal='closeRepModal' @changeRepFn='changeRepFn'></repModal>
+      <removeModal v-if="showRemoveStatus" :replaceTime='tableInfo.expectExtubationTime' @closeRepModal='removeClose' @changeRepFn='removeChangeRepFn'></removeModal>
     </div>
+  </div>
 </template>
 <style lang='scss' scoped>
+.page{
+  background-color: #fff;
+  width: 100%;
+}
 .table-page{
     overflow: hidden;
-    padding:0 20px 20px;
+    padding: 0 20px 20px;
     background-color: #fff;
     font-size: 14px;
     position: relative;
+    width: 98%;
     .tableCon{
       height: calc(100vh - 280px);
+      width: 100%;
     }
     .fix-table{
         background-color: #fff;
-        position: fixed;
+        /* position: fixed;
         z-index: 998;
         top: 61px;
-        margin-left:-20px ;
-        width: 62%;
+        margin-left:-20px ; */
+        width: 100%;
         box-sizing: border-box;
     }
     .tabel-title{
@@ -154,7 +162,7 @@
       right: 120px;
       opacity: 0.5;
       font-size: 30px;
-      color: #ccc;
+      color: #4bb08d;
       pointer-events: none;
       z-index: -1;
     }

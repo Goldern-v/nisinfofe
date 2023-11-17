@@ -59,7 +59,7 @@
         <div
           class="sheetTable-contain"
           :style="{
-            width: `calc(100% - ${isAllCathterPage ? '280px' : '81px'} )`,
+            width: `calc(100% - ${isAllCathterPage || isCatheter ? '280px' : '81px'} )`,
             marginLeft: `${isAllCathterPage ? '280px' : '81px'}`
           }"
           ref="scrollCon"
@@ -163,6 +163,7 @@
     .right-part {
       margin-left: 199px;
       height: 100%;
+      width: calc(100vw - 210px)
       overflow: hidden;
       display:flex;
     }
@@ -301,6 +302,9 @@ export default {
     // 判断路由是否主页导管（与患者详情页的导管作区分）
     isAllCathterPage() {
       return this.$route.path.includes("allCatheter");
+    },
+    isCatheter() {
+      return this.$route.path.includes("catheter");
     },
     // 计算内容高度
     containHeight() {
