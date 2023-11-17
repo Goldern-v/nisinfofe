@@ -2,7 +2,7 @@ export default {
   // 科室的名称
   deptType: '',
   style: {
-    width: "850px"
+    width: "860px"
   },
   th: {
     top: [
@@ -96,8 +96,8 @@ export default {
       },{
         name: `胎心<br>次/分`,
         style: {
-          minWidth: '36px',
-          maxWidth: '36px'
+          minWidth: '46px',
+          maxWidth: '46px'
         },
         colspan: '1',
         rowspan: '3'

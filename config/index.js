@@ -182,8 +182,8 @@ const currentTargetUrl = (() => {
 
       // 佛山杏坛
     case 'fsxt':
-       return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@23nr
-      // return "http://192.168.1.54:9883" // 测试
+      //  return "http://218.13.87.27:9094"  // 正式地址 admin Bcy@23nr
+      return "http://192.168.1.54:9883" // 测试
 
     //阳春
     case 'yangchunzhongyi':

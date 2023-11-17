@@ -12,7 +12,7 @@ import {
   click_time
 } from "../keyEvent/date";
 
-const jkjyList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩', '⑪']
+const jkjyList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩', '(11)']
 const hlcsList = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩']
 let ysList = []
 export default [

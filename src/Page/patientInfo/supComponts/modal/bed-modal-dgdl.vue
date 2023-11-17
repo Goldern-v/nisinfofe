@@ -498,7 +498,7 @@
   height：100px
 
   .wrist-line1{
-    width: calc(100% - 100px);
+    width: calc(100% - 97px);
     // display: flex;
     justify-content: space-between;
   }
@@ -519,7 +519,7 @@
 
   .qr-code {
     position: absolute;
-    right: 10px;
+    right: 0px;
     top: 50%;
     margin-top: -64px;
     height: 100px;
@@ -757,6 +757,8 @@ export default {
             printRef = this.$refs.printConW;
             css = `
               .bed-card-wrapper {
+                margin-top: 5cm !important;
+
                 box-shadow: none !important;
                 width:560px!important;
                 // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
@@ -769,6 +771,7 @@ export default {
             printRef = this.$refs.printCon4;
             css = `
             .bed-card-warpper {
+                margin-top: 5cm !important;
                 box-shadow: none !important;
                 width:560px!important;
                 // transform: rotate(-90deg) translateY(65%) translateX(-67%) scale(0.8);
