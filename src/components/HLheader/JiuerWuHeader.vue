@@ -118,6 +118,11 @@
                 <i class="iconfont icon-xuetang"></i> 健康宣教
               </el-row>
             </router-link>
+            <router-link to="/infuse" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
+              </el-row>
+            </router-link>
             <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理诊断计划</el-row
