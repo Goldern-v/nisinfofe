@@ -43,7 +43,7 @@
         </el-select>
         <!--北海的查询条件-->
 
-        <template v-if="['beihairenyi','whhk'].includes(this.HOSPITAL_ID)">
+        <template v-if="['beihairenyi','whhk','foshanrenyi'].includes(this.HOSPITAL_ID)">
           <span class="type-label">姓名:</span>
           <el-input
             v-model="query.patientName"
