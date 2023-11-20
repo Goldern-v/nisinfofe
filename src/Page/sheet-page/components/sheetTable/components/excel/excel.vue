@@ -647,7 +647,12 @@
             sheetInfo.sheetType == 'baby_dglb' ||
             sheetInfo.sheetType == 'baby_dgdl' ||
             sheetInfo.sheetType == 'baby_obs_dglb' ||
-            sheetInfo.sheetType == 'baby_obs_dgdl'
+            sheetInfo.sheetType == 'baby_obs_dgdl' ||
+            sheetInfo.sheetType == 'cbp_dgdl' || 
+            sheetInfo.sheetType == 'gynecology_dgdl' || 
+            sheetInfo.sheetType == 'insulin_pump_dgdl' || 
+            sheetInfo.sheetType == 'oxytocin_dgdl' || 
+            sheetInfo.sheetType == 'orthopaedic_dgdl'
           "
           >审核人：</span
         >
@@ -943,8 +948,12 @@ export default {
         'record_common_sdhp',
         'emergency_treat_yx',
         'common_yx',
-        'neonatology_yx'
-
+        'neonatology_yx',
+        'cbp_dgdl',
+        'gynecology_dgdl',
+        'insulin_pump_dgdl',
+        'oxytocin_dgdl',
+        'orthopaedic_dgdl'
       ],
       // 需要双签名的记录单code
       multiSignArr: [
