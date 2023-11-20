@@ -317,6 +317,7 @@
       </u-table-column>
     </u-table>
     <editModal ref="editModal" @resetScrollTop="resetScrollTop"></editModal>
+    <editBbatchModal ref="editBbatchModal" @resetScrollTop="resetScrollTop"></editBbatchModal>
   </div>
 </template>
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus" scoped>
@@ -475,6 +476,7 @@ import {
   updateOrderExecutePc,
 } from "../../api/index";
 import editModal from "../common/edit-modal";
+import editBbatchModal from "../common/edit-batch-modal.vue";
 import bus from "vue-happy-bus";
 export default {
   props: {
@@ -594,11 +596,12 @@ export default {
   },
   components: {
     editModal,
+    editBbatchModal
   },
   methods: {
     // 多选
     handleSelectionChange(row) {
-      if(!['lyxrm','925'].includes(this.HOSPITAL_ID)) return
+      if(!['lyxrm','925', 'hzly'].includes(this.HOSPITAL_ID)) return
       this.$emit("onSelection", row)
     },
     // 取消执行
@@ -635,7 +638,7 @@ export default {
     },
     // 补录
     backTracking(item) {
-      if(['925', 'lyxrm'].includes(this.HOSPITAL_ID)){
+      if(['925', 'lyxrm', 'hzly'].includes(this.HOSPITAL_ID)){
         this.$refs.editModal.open(item,'补执行');
       }else{
       this.$prompt("请输入补执行的原因", "提示", {

@@ -409,38 +409,42 @@ export default {
           type: 'warning'
         });
       }else {
-        let user = JSON.parse(localStorage.getItem("user"));
-        this.$prompt("请输入补录的原因", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-        })
-          .then(({ value }) => {
-            let data = []
-            this.selectData.forEach(item => {
-              data.push(isExecute ? {
-                barcode: item.barCode, //条码号
-                empNO: user.empNo, //执行人
-                type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
-                typeReason: value, //补执行的原因填写
-              } : {
-                patientId: item.patientId,
-                visitId: item.visitId,
-                orderNo: item.orderNo, //医嘱号
-                barcode: item.barCode, //条码号
-                executeNurse: this.empNo, //执行人
-                verifyNurse: "", //核对人
-                supplementaryRes: value, //备注的原因填写
+        if(this.HOSPITAL_ID == 'hzly'){
+          this.$refs.plTable.$refs.editBbatchModal.open(this.selectData);
+        }else{
+          let user = JSON.parse(localStorage.getItem("user"));
+          this.$prompt("请输入补录的原因", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+          })
+            .then(({ value }) => {
+              let data = []
+              this.selectData.forEach(item => {
+                data.push(isExecute ? {
+                  barcode: item.barCode, //条码号
+                  empNO: user.empNo, //执行人
+                  type: 1, //是否补执行(pda默认传0正常执行  1补执行pc端)
+                  typeReason: value, //补执行的原因填写
+                } : {
+                  patientId: item.patientId,
+                  visitId: item.visitId,
+                  orderNo: item.orderNo, //医嘱号
+                  barcode: item.barCode, //条码号
+                  executeNurse: this.empNo, //执行人
+                  verifyNurse: "", //核对人
+                  supplementaryRes: value, //备注的原因填写
+                })
+              })
+              const getBatchOrder = isExecute ? batchUpdateOrderExecutePcApi : batchOrderRemarkApi
+              getBatchOrder(data).then(res => {
+                this.$message.success(res.data.desc);
+                this.onLoad();
               })
             })
-            const getBatchOrder = isExecute ? batchUpdateOrderExecutePcApi : batchOrderRemarkApi
-            getBatchOrder(data).then(res => {
-              this.$message.success(res.data.desc);
-              this.onLoad();
-            })
-          })
-          .catch((err) => {
-            this.$message.success(err.data.desc);
-          });
+            .catch((err) => {
+              this.$message.success(err.data.desc);
+            });
+        }
       }
     },
     onSelection(row){

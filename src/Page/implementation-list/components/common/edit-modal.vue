@@ -30,6 +30,19 @@
             style="width:120px"
           ></el-date-picker></div
       ></template>
+      <template v-else-if="HOSPITAL_ID == 'hzly'">
+        <div class="group">
+          <span>执行时间：</span>
+          <el-date-picker
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择开始执行时间"
+            size="small"
+            v-model="executeDateTime"
+            style="width:120px"
+          ></el-date-picker>
+        </div>
+      </template>
       <template v-else>
         <div class="group">
           <span>开始执行时间：</span>
@@ -170,6 +183,7 @@ export default {
       eidtRowData: {},
       afterStartExecuteTime: moment().format("YYYY-MM-DD HH:mm"),
       afterEndExecuteTime: moment().format("YYYY-MM-DD HH:mm"),
+      executeDateTime: moment().format("YYYY-MM-DD HH:mm"),
       bus: bus(this),
       type: "",
       reason: "",
@@ -244,6 +258,13 @@ export default {
           ? moment(this.afterEndExecuteTime).format("YYYY-MM-DD HH:mm:ss")
           : this.afterEndExecuteTime //需要修改后的实际结束时间
       };
+      if(this.HOSPITAL_ID == 'hzly'){
+       data.executeDateTime = this.executeDateTime
+          ? moment(this.executeDateTime).format("YYYY-MM-DD HH:mm:ss")
+          : this.executeDateTime ;
+        delete data.p_startdate;
+        delete data.p_enddate;
+      }
       updateOrderExecutePc(data).then(res => {
         this.$message.success("补录成功");
         this.bus.$emit("loadImplementationList");
