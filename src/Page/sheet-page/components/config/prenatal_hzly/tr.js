@@ -268,7 +268,7 @@ export default [
     value: "",
     next: "cm",
     name: "宫颈扩张",
-    autoComplete: { data: ["未查","未开"] },
+    autoComplete: { data: ["未查","未开","容一指"] },
     textarea: { width: 40 },
     change: (e, td) => limitChange(e, td, 6)
   },
@@ -319,7 +319,7 @@ export default [
     value: "",
     next: "",
     name: "非药物镇痛方法",
-    autoComplete: { data: ["呼吸减痛法", "自由体位", "音乐疗法", "分娩球", "陪伴", "助产指导"] },
+    autoComplete: { data: ["呼吸减痛法", "自由体位", "音乐疗法", "分娩球", "陪伴", "助产指导","分娩操","豆袋热敷"] },
     textarea: {
       width: 45
     }
