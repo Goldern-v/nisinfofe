@@ -593,6 +593,11 @@
           </span>
         </div>
       </div>
+      <div class="bottomCon" style="justify-content: center;bottom:20px">
+        <div class="showModal">
+           第 {{index+1}} 页
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -626,6 +626,7 @@ export default {
             }
             @page {
               size: landscape;
+              margin: 0mm;
             }
             `,
           });

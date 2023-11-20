@@ -462,6 +462,42 @@ export default function Title(
     );
   }
   break;
+  case "cbp_dgdl": {
+      // 东莞寮步-护理记录单（新生儿科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/cbp_dgdl/th").default)
+      );
+    }
+      break;
+
+    case "oxytocin_dgdl": {
+      // 东莞寮步-护理记录单（新生儿科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/oxytocin_dgdl/th").default)
+      );
+    }
+      break;
+    case "gynecology_dgdl": {
+      // 东莞寮步-护理记录单（新生儿科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/gynecology_dgdl/th").default)
+      );
+    }
+      break;
+    case "insulin_pump_dgdl": {
+      // 东莞寮步-护理记录单（新生儿科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/insulin_pump_dgdl/th").default)
+      );
+    }
+      break;
+    case "orthopaedic_dgdl": {
+      // 东莞寮步-护理记录单（新生儿科）
+      Th = JSON.parse(
+        JSON.stringify(require("../config/orthopaedic_dgdl/th").default)
+      );
+    }
+      break;
     case "baby_dgdl": {
       // 东莞寮步-护理记录单（新生儿科）
       Th = JSON.parse(

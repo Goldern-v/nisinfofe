@@ -118,6 +118,11 @@
                 <i class="iconfont icon-xuetang"></i> 健康宣教
               </el-row>
             </router-link>
+            <router-link to="/infuse" tag="span">
+              <el-row class="nav-item" type="flex" align="middle">
+                <i class="iconfont icon-zhihuishuye"></i> 智慧输液
+              </el-row>
+            </router-link>
             <router-link to="/planList" tag="span">
               <el-row class="nav-item" type="flex" align="middle"
                 >护理诊断计划</el-row
@@ -176,6 +181,11 @@
                 <i class="iconfont icon-guidang"></i> 归档
               </el-row>
             </router-link>
+            <router-link  to="/badEvent" tag="span">
+                  <el-row class="nav-item" type="flex" align="middle">
+                    <i class="badEvent"></i>不良事件
+                  </el-row>
+            </router-link>
             <el-dropdown
               menu-align="start"
               :hide-on-click="false"
@@ -210,16 +220,7 @@
                     </el-row>
                   </router-link>
                 </el-dropdown-item>
-                <el-dropdown-item
-                  :class="{ active: $route.path == '/badEvent' }"
-                >
-                  <router-link  to="/badEvent" tag="span">
-                  <el-row class="menu-item" type="flex" align="middle"
-                    >
-                    <i class="badEvent"></i>不良事件
-                  </el-row>
-                </router-link>
-                </el-dropdown-item>
+
                 <el-dropdown-item
                   :class="{ active: $route.path == '/wardManagement' }"
                 >
