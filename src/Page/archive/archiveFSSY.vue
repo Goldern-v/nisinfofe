@@ -10,7 +10,7 @@
           format="yyyy-MM-dd"
           placeholder="开始日期"
           v-model="query.dischargeDateBegin"
-          :editable="HOSPITAL_ID === 'whhk' ? false : true" 
+          :editable="HOSPITAL_ID === 'whhk' ? false : true"
           clearable
         />
         <span>-</span>
@@ -21,7 +21,7 @@
           format="yyyy-MM-dd"
           placeholder="结束日期"
           v-model="query.dischargeDateEnd"
-          :editable="HOSPITAL_ID === 'whhk' ? false : true" 
+          :editable="HOSPITAL_ID === 'whhk' ? false : true"
           clearable
         />
       </div>
@@ -43,7 +43,7 @@
         </el-select>
         <!--北海的查询条件-->
 
-        <template v-if="['beihairenyi'].includes(this.HOSPITAL_ID)">
+        <template v-if="['beihairenyi','whhk'].includes(this.HOSPITAL_ID)">
           <span class="type-label">姓名:</span>
           <el-input
             v-model="query.patientName"

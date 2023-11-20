@@ -526,7 +526,7 @@ export default {
         case "7*5":
           return { width: "50mm", height: "69mm" };
         case '8*7':
-          return { width: '8.1cm', height: '7cm'}
+          return { width: '8.1cm', height: '6.7cm'}
         default:
           // case '7*7':
           return { width: "70mm", height: "69mm" };
