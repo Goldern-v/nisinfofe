@@ -878,8 +878,8 @@ export default {
             }
           }
         }
-        // const printingFun = this.isPreview ? printing.preview :printing
-        const printingFun = printing.preview
+        const printingFun = this.isPreview ? printing.preview :printing
+        // const printingFun = printing.preview
         printingFun(this.$refs.new_print_modal, {
           injectGlobalCss: true,
           scanStyles: false,
