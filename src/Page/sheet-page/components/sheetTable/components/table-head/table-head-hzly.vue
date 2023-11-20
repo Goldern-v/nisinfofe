@@ -247,16 +247,16 @@
               :data-value="sheetInfo.relObj['parity']"
               v-model="sheetInfo.relObj['parity']"
             />
-            孕
+            <!-- 孕
             <input
               style="width: 35px;font-size:13px;text-align: center;"
               class="bottom-line"
               :data-value="sheetInfo.relObj[`${index}pregnantWeeks`]"
               v-model="sheetInfo.relObj[`${index}pregnantWeeks`]"
-            />
-            周
+            /> -->
+            <!-- 周 -->
           </span>
-          <span>&nbsp;&nbsp;引产(</span>
+          <!-- <span>&nbsp;&nbsp;引产(</span>
           <input
             style="width: 20px;font-size:13px;text-align: center;"
             class="bottom-line"
@@ -273,7 +273,7 @@
               v-model="sheetInfo.relObj[`${index}options`]"
               style="width:160px;"
             />
-          </customSelectCanRepeat>
+          </customSelectCanRepeat> -->
         </template>
 
         <!-- 顺德人医产后产房表头处理 -->

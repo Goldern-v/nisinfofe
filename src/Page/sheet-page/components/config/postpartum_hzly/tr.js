@@ -31,17 +31,18 @@ import {
   click_time
 } from "../keyEvent/date";
 let niaoguan = ['拔','通畅','夹闭','√']
-let shaoOrzhDuo = ['少','中等','多']
-let shangkou = ['干洁','红肿','渗液','水肿','正常']
+let shaoOrzhDuo = ['正常','泌乳不足','乳汁过多']
+let shangkou = ['干洁','红肿','渗液','水肿','正常','渗血']
+let shangkouHuiYin = ['干洁','红肿','渗液','水肿','正常','渗血','裂伤']
 let gongjin = ['U=0','U+1','U+2','U+3','U-1','U-2','U-3']
 const yishi = ["清醒", "嗜睡", "浅昏迷", "中昏迷","深昏迷", "模糊", "昏睡", "谵妄","痴呆","药眠"]
 const yanse = [{name: '①血性液', value: '血性液'},{name: '②淡红色液', value: '淡红色液'},{name: '③暗红色液', value: '暗红色液'},{name: '④黄色液', value: '黄色液'},{name: '⑤淡黄色液', value: '淡黄色液'},{name: '⑥深黄色液', value: '深黄色液'}];
 const ruliang = ["饮水","进食","鼻饲","输血","输液","静注"]
 const chuliang = ["尿液","大便","引流液","呕吐物","胃液","恶露"]
-const breastCondition = ["胀痛","无异常"];
-const uterineContractions = ["硬","软"];
+const breastCondition = ["无肿胀","乳房肿胀","乳头疼痛","乳管堵塞","乳房感染","乳头血性分泌物"];
+const uterineContractions = ["良好","乏力"];
 const outputContent = ["尿", "引流液", "大便", "呕吐物", "恶露", "24h恶露", "阴道出血", "术中出血","恶露量"]
-const pangguang = ['空虚','轻度','中度','重度']
+const pangguang = ['空虚','轻度充盈','中度充盈','重度充盈']
 const pomo = ['拔', '自脱', '通畅/', '/通畅','夹闭']
 
 export default [
@@ -55,11 +56,11 @@ export default [
   { key: 'bloodPressure', event: keyf1, value: '', next: 'mmHg', name: 'BP',textarea: { width: 55 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'spo2', event: keyf1, value: '', next: '%', name: '血氧饱和度', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'lactation', event: keyf1, value: '', next: '', name: '泌乳情况',autoComplete: { data: shaoOrzhDuo }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'breastCondition', event: keyf1, value: '', next: '', name: '乳房情况', autoComplete: { data: breastCondition },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'breastCondition', event: keyf1, value: '', next: '', name: '乳房情况', autoComplete: { data: breastCondition },textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6) },
   { key: 'uterineFloor', event: keyf1, value: '', next: '', name: '宫底高度', autoComplete: { data: gongjin },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'uterineShrink', event: keyf1, value: '', next: '', name: '子宫收缩', autoComplete: { data: uterineContractions },textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'abdomen', event: keyf1, value: '', next: '', name: '伤口腹部',autoComplete: { data: shangkou }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
-  { key: 'perineum', event: keyf1, value: '', next: '', name: '伤口会阴', autoComplete: { data: shangkou }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
+  { key: 'perineum', event: keyf1, value: '', next: '', name: '伤口会阴', autoComplete: { data: shangkouHuiYin }, textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'pain', event: keyf1, value: '', next: '', name: '伤口疼痛',  textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
   { key: 'food', event: keyf1, value: '', next: '', name: '入量', textarea: { width: 45 }, change: (e, td) => limitChange(e, td, 6),autoComplete: { data: ruliang } },
   { key: 'foodSize', event: keyf1, value: '', next: '', name: '入量ml', textarea: { width: 35 }, change: (e, td) => limitChange(e, td, 4) },
