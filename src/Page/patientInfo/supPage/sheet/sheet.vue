@@ -245,6 +245,7 @@ import sheetTable_oxytocin_hzly from "@/Page/sheet-page/components/sheetTable-ox
 import sheetTable_insulin_pump_sdry from "@/Page/sheet-page/components/sheetTable-insulin_pump_sdry/sheetTable";
 import sheetTable_oxytocin_dglb from "@/Page/sheet-page/components/sheetTable-oxytocin_dglb/sheetTable";
 import sheetTable_oxytocinck_dglb from "@/Page/sheet-page/components/sheetTable_oxytocinck_dglb/sheetTable";
+import sheetTable_oxytocin_dgdl from "@/Page/sheet-page/components/sheetTable_oxytocin_dgdl/sheetTable";
 import sheetTable_emergency_rescue from "@/Page/sheet-page/components/sheetTable-emergency_rescue/sheetTable";
 import sheetTable_dressing_count_hl from "@/Page/sheet-page/components/sheetTable-dressing_count_hl/sheetTable";
 import sheetTable_prenatal_ytll from "@/Page/sheet-page/components/sheetTable-prenatal_ytll/sheetTable";
@@ -425,6 +426,8 @@ export default {
         return sheetTable_insulin_pump_sdry;
       }else if (sheetInfo.sheetType == "oxytocin_dglb") {
         return sheetTable_oxytocin_dglb;
+      }else if (sheetInfo.sheetType == "oxytocin_dgdl") {
+        return sheetTable_oxytocin_dgdl;
       }else if (sheetInfo.sheetType == "oxytocinck_dglb") {
         return sheetTable_oxytocinck_dglb;
       }
@@ -1410,6 +1413,7 @@ export default {
     sheetTable_oxytocin_hzly,
     sheetTable_insulin_pump_sdry,
     sheetTable_oxytocin_dglb,
+    sheetTable_oxytocin_dgdl,
     sheetTable_oxytocinck_dglb,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,

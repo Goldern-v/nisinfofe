@@ -295,6 +295,7 @@ import sheetTable_cardiology_lcey from "./components/sheetTable-cardiology_lcey/
 import sheetTable_oxytocin_hl from "./components/sheetTable-oxytocin_hl/sheetTable";
 import sheetTable_oxytocin_sdlj from "./components/sheetTable-oxytocin_sdlj/sheetTable";
 import sheetTable_oxytocinck_dglb from "./components/sheetTable_oxytocinck_dglb/sheetTable";
+import sheetTable_oxytocin_dgdl from "./components/sheetTable_oxytocin_dgdl/sheetTable";
 import sheetTable_insulin_pump_sdry from "./components/sheetTable-insulin_pump_sdry/sheetTable";
 import sheetTable_oxytocin_sdry from "./components/sheetTable-oxytocin_sdry/sheetTable";
 import sheetTable_oxytocin_hzly from "./components/sheetTable-oxytocin_hzly/sheetTable";
@@ -473,6 +474,7 @@ export default {
         "oxytocin_hl" : sheetTable_oxytocin_hl,
         "oxytocin_sdlj" : sheetTable_oxytocin_sdlj,
         "oxytocinck_dglb" : sheetTable_oxytocinck_dglb,
+        "oxytocin_dgdl" : sheetTable_oxytocin_dgdl,
         "oxytocin_sdry" : sheetTable_oxytocin_sdry,
         "oxytocin_hzly" : sheetTable_oxytocin_hzly,
         "insulin_pump_sdry" : sheetTable_insulin_pump_sdry,
@@ -1600,6 +1602,7 @@ export default {
     sheetTable_oxytocin_sdry,
     sheetTable_oxytocin_hzly,
     sheetTable_oxytocin_dglb,
+    sheetTable_oxytocin_dgdl,
     sheetTable_emergency_rescue,
     sheetTable_dressing_count_hl,
     sheetTable_cardiology_lcey,
