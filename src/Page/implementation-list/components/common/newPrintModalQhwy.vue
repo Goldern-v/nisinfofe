@@ -420,11 +420,12 @@ export default {
       let cloneObj = cloneDeep(this.itemObj[0]);
       let orderText = [];
       let dosageDosageUnits = [];
-
+      let freqDetail=''
       this.itemObj.map((item) => {
         orderText.push(item.orderText + (DRUG_TYPES[item.drugType] || ""));
         let content = `${item.dosage || ""}${item.dosageUnits || ""}`;
         dosageDosageUnits.push(content);
+        freqDetail = freqDetail ? `${freqDetail},${item.freqDetail}`:`${item.freqDetail}`
       });
       let qr_png_value = this.itemObj[0].barCode;
       var qr_png = qr.imageSync(qr_png_value, { type: "png",margin: 2 });
@@ -439,7 +440,7 @@ export default {
       }
       let base64 = arrayBufferToBase64(qr_png);
       let qcSrc = base64;
-      cloneObj = { ...cloneObj, orderText, dosageDosageUnits, qcSrc };
+      cloneObj = { ...cloneObj, orderText, dosageDosageUnits, freqDetail,qcSrc };
       return cloneObj;
     },
     isLargeType() {
