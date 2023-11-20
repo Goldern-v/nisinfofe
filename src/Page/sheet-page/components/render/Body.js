@@ -436,6 +436,31 @@ function switchSheetType(type) {
       schema = require("../config/postpartum2_dgdl/tr.js").default;
     }
       break;
+    case "cbp_dgdl": {
+      // 东莞大朗-产后产房观察表
+      schema = require("../config/cbp_dgdl/tr.js").default;
+    }
+      break;
+    case "oxytocin_dgdl": {
+      // 东莞大朗-产后产房观察表
+      schema = require("../config/oxytocin_dgdl/tr.js").default;
+    }
+      break;
+    case "gynecology_dgdl": {
+      // 东莞大朗-产后产房观察表
+      schema = require("../config/gynecology_dgdl/tr.js").default;
+    }
+      break;
+    case "orthopaedic_dgdl": {
+      // 东莞大朗-产后产房观察表
+      schema = require("../config/orthopaedic_dgdl/tr.js").default;
+    }
+      break;
+    case "insulin_pump_dgdl": {
+      // 东莞大朗-产后产房观察表
+      schema = require("../config/insulin_pump_dgdl/tr.js").default;
+    }
+      break;
     case "baby_dglb": {
       // 东莞大朗-护理记录单（新生儿科）
       schema = require("../config/baby_dglb/tr.js").default;
@@ -2102,7 +2127,7 @@ function switchSheetType(type) {
         // 湛江海军医院 - 连续性血液净化（CBP）治疗记
         schema = require("../config/cbp_zjhj/tr.js").default;
       }
-      break;  
+      break;
     case "record_common_sdhp": {
       // 顺德和平外科 - 护理记录单（全院通用）
       schema = require("../config/record_common_sdhp/tr.js").default;
