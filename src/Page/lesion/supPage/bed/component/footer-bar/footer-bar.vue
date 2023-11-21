@@ -93,7 +93,7 @@ export default {
           length: this.HOSPITAL_ID=="whfk" ? this.hasYachuang.length : this.dangerInYachuang.length
         },
         {
-          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ?"已有压力性损伤": ['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID) ?"已有压力性损伤风险" : this.HOSPITAL_ID == 'nfyksdyy'?'VTE高风险' : "已有压疮",
+          key: this.HOSPITAL_ID=="beihairenyi"?"难免压疮": this.HOSPITAL_ID=="liaocheng" || this.HOSPITAL_ID=="ytll" ?"已有压力性损伤": ['lyxrm', 'whhk', 'stmz'].includes(this.HOSPITAL_ID) ?"已有压力性损伤风险" : this.HOSPITAL_ID == 'nfyksdyy'?'VTE高风险': this.HOSPITAL_ID=="hzly"?"自理高风险": "已有压疮",
           length:  this.HOSPITAL_ID == 'nfyksdyy'? this.dangerInVteLy.length : this.hasYachuang.length
         },
         {
