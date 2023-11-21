@@ -257,6 +257,15 @@ export default {
           value: 8,
           label: "8",
         },
+        ...hisMatch({
+          map: {
+            'beihairenyi': [
+              { value: 9, label: '9' },
+              { value: 10, label: '10' },
+            ],
+            other: [],
+          }
+        }),
       ],
       hengliOptions: [],
       value: 4,

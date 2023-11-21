@@ -133,6 +133,7 @@ export default {
         case "925":
         case "whhk":
         case "hj":
+        case 'beihairenyi':
           return "A班："
         default:
           return "P班："
@@ -147,6 +148,7 @@ export default {
           return "P班："
         case "nanfangzhongxiyi":
         case "yangchunzhongyi":
+        case 'beihairenyi':
           return "P班："
         case "fsxt":
           return "P班："

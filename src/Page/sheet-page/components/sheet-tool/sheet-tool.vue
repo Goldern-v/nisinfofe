@@ -717,7 +717,7 @@
         class="right-btn"
         @click.stop="openZxdtbModal"
         v-if="
-           ['wujing', 'quzhou', 'weixian', 'liaocheng', 'whfk', 'whhk', 'gdtj', 'lyxrm', 'stmz', 'lyyz','ytll','whsl'].includes(HOSPITAL_ID)
+           ['wujing', 'quzhou', 'weixian', 'liaocheng', 'whfk', 'whhk', 'gdtj', 'lyxrm', 'stmz', 'lyyz','ytll','whsl', 'beihairenyi'].includes(HOSPITAL_ID)
         "
       >
         <div class="text-con">
