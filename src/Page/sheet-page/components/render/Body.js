@@ -2103,6 +2103,11 @@ function switchSheetType(type) {
       schema = require("../config/record_new_zzwy/tr.js").default;
     }
       break;
+    case "oxytocin_zjhj": {
+      // 湛江海军医院 - 护理记录单
+      schema = require("../config/oxytocin_zjhj/tr.js").default;
+    }
+      break;
     case "record_common_zjhj": {
       // 湛江海军医院 - 护理记录单
       schema = require("../config/record_common_zjhj/tr.js").default;

@@ -46,11 +46,12 @@
           <div
             class="bottom-line"
             style="
-              width: 1200px;
+              /* width: 1200px; */
               height: 11px;
               text-overflow: ellipsis;
               white-space: nowrap;
             "
+            :style="{width : recordCode ? '1000px' : '1200px'}"
           >
             {{ patientInfo.diagnosis }}
           </div>
@@ -254,6 +255,11 @@ export default {
   },
   watch: {
 
+  },
+  computed:{
+    recordCode(){
+      return ['oxytocin_zjhj'].includes(this.sheetInfo.sheetType)
+    }
   },
   components: {}
 };
