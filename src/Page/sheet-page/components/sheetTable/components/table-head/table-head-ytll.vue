@@ -156,12 +156,12 @@
       </span>
     </div>
     <div class="info-con">
-      <span v-if="!['labor_ytll','inout_ytll','labor_con_ytll', 'babymilk_ytll', 'oxytocin_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
-        {{ sheetInfo.sheetType === 'critical_ytll' ? '主要诊断：' : '诊断：'}}
+      <div style="display: flex" v-if="!['labor_ytll','inout_ytll','labor_con_ytll', 'babymilk_ytll', 'oxytocin_ytll'].includes(sheetInfo.sheetType)" @click="updateDiagnosis('diagnosis', '诊断', patientInfo.diagnosis)">
+        <span style="line-height: 21px" >{{ sheetInfo.sheetType === 'critical_ytll' ? '主要诊断：' : '诊断：'}}</span>
         <div
           class="bottom-line"
           style="
-            min-width: 1100px;
+            flex: 1;
             min-height: 13px;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -169,8 +169,8 @@
         >
           {{ diagnosis }}
         </div>
-      </span>
-      <template v-if=" sheetInfo.sheetType === 'critical_ytll'">
+      </div>
+      <!-- <template v-if=" sheetInfo.sheetType === 'critical_ytll'">
       <el-checkbox-group v-model="checklist" @change="setRelValue" style="display:inline;">
         <el-checkbox label="转入"></el-checkbox>
         <el-checkbox label="新入"></el-checkbox>
@@ -178,7 +178,7 @@
         <el-checkbox label="病危"></el-checkbox>
         <el-checkbox label="病重"></el-checkbox>
       </el-checkbox-group>
-      </template>
+      </template> -->
 
     </div>
     <bedRecordModal v-if="!routePath.includes('print')" ref="bedRecordModal"></bedRecordModal>
