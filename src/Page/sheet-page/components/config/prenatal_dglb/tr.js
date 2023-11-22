@@ -251,9 +251,10 @@ export default [
     name: "持续",
     next: "s",
     change: (e, td) => limitChange(e, td, 6),
-    textarea: {
-      width: 30
-    },
+    // textarea: {
+    //   width: 30
+    // },
+    style:{width:40},
     autoComplete: {
       data: UC
     },

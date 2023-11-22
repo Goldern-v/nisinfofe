@@ -350,19 +350,19 @@ export default {
     },
     onOpenNourishment(){
       let user = localStorage.getItem('user')
-      let ppp = localStorage.getItem('ppp')
+      // let ppp = localStorage.getItem('ppp')
       if (user) {
         user = JSON.parse(user)
       }
       const base64 = new base()
       const UseEmp = base64.encode(user.empNo)
-      const UsePin = base64.encode(ppp)
+      const UseEmN = base64.encode(user.empName)
 
       let newPid = this.$route.query.patientId
       let newVis = this.$route.query.visitId
 
       let newPidAndVis = newPid + newVis
-      let fileUrl = `http://192.168.1.46:8003/LoginManager/MDTLoginPortal?id=${newPidAndVis}&un=${UseEmp}&name=${UsePin}&departno=${this.$route.query.deptCode}&hc=qu3RLs24Ohb/ThJ41G4A0YTB151dtVGaUjivi28D2xQHHEQLg4ByrQ==`
+      let fileUrl = `http://192.168.1.46:8003/LoginManager/MDTLoginPortal?id=${newPidAndVis}&un=${UseEmp}&name=${UseEmN}&departno=${this.$route.query.deptCode}&hc=qu3RLs24Ohb/ThJ41G4A0YTB151dtVGaUjivi28D2xQHHEQLg4ByrQ==`
       window.open(fileUrl)
     }
 

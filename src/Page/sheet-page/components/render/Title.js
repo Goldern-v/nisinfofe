@@ -2786,6 +2786,13 @@ export default function Title(
     );
   }
   break;
+  case "oxytocin_zjhj": {
+      // 湛江海军医院 - 护理记录单
+      Th = JSON.parse(
+        JSON.stringify(require("../config/oxytocin_zjhj/th").default)
+      );
+    }
+  break;
   case "record_common_zjhj": {
     // 湛江海军医院 - 护理记录单
     Th = JSON.parse(

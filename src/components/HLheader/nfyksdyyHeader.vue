@@ -629,7 +629,7 @@
                 </el-dropdown-item>-->
               </el-dropdown-menu>
             </el-dropdown>
-            <el-dropdown>
+            <!-- <el-dropdown>
               <el-row class="nav-item" type="flex" align="middle">
                 <div class="before"></div>
                 <i class="iconfont icon-hulijiludan"></i>系统跳转
@@ -646,7 +646,18 @@
                   </div>
                 </el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
+
+            <el-row class="nav-item" type="flex" align="middle">
+              <div @click="openOtherPage">
+                <i class="iconfont icon-guidang"></i> 宣教知识库
+              </div>
+            </el-row>
+            <el-row class="nav-item" type="flex" align="middle">
+              <div @click="openManage">
+                <i class="iconfont icon-guidang"></i> 护理管理
+              </div>
+            </el-row>
           </el-row>
 
           <el-row class="right-part" type="flex" align="middle">
@@ -1121,6 +1132,7 @@ export default {
   },
   methods: {
     openOtherPage() {
+      console.log("asdasdasda");
       var { token, deptCode } = JSON.parse(localStorage['user'])
       let url = process.env.NODE_ENV === "production" ? 'http://192.168.5.127:9091' : 'http://192.168.1.54:9901'
       window.open(
@@ -1132,8 +1144,8 @@ export default {
         const base64SecretKey = 'DjENO3BQGhSCpkwBWghkyQ=='; // 提供的密钥
         const secretKey = CryptoJS.enc.Base64.parse(base64SecretKey); // 将 Base64 字符串解析为密钥对象
         const encrypted = CryptoJS.AES.encrypt(acount, secretKey, {
-          mode: CryptoJS.mode.ECB, 
-          padding: CryptoJS.pad.Pkcs7 
+          mode: CryptoJS.mode.ECB,
+          padding: CryptoJS.pad.Pkcs7
         });
         const encryptedText = encrypted.toString(); // 将加密后的数据转换为字符串形式
 

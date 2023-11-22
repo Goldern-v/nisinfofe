@@ -152,7 +152,7 @@ export default {
                 },
               },
             ],
-            'lyxrm,qhwy': [
+            'lyxrm,qhwy,foshanrenyi': [
               {
                 name: "statisticalTumble",
                 meta: {

@@ -529,6 +529,7 @@ const getImplementation = () => {
       return implementationListWhhk;
     case 'wujing':
     case 'sdlj':
+    case 'sdhpwk':
       return implementationListWujing
     case 'gdtj':
       return () => import("@/Page/implementation-list/implementation-list-gdtj.vue")
