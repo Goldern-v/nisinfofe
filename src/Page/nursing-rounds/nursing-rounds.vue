@@ -404,7 +404,7 @@ export default {
         getNursingVisitLc({
           ...this.query,
           bedLabel: this.query.bedLabel.trim(),
-          pageSize: 9999
+          pageSize:["lyxrm"].includes(this.HOSPITAL_ID) ? 1000 : 9999
         }).then(res => {
           if (["lyxrm", "whsl", "whhk", "stmz", 'ytll'].includes(this.HOSPITAL_ID)) {
             let child = [],
@@ -489,7 +489,7 @@ export default {
       });
     },
     exportExcel() {
-      exportExcel({ ...this.query, pageSize: 9999 }).then(res => {
+      exportExcel({ ...this.query, pageSize:["lyxrm"].includes(this.HOSPITAL_ID)?1000 : 9999 }).then(res => {
         fileDownload(res);
       });
     }

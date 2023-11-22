@@ -10,7 +10,7 @@ import {
   click_date,
   click_time
 } from "../keyEvent/date";
-let ysList = [],ruList = [], chuList;
+let ysList = [],ruList = [], chuList= [];
 export default [{
     key: "recordMonth", //日期
     value: "",
@@ -307,8 +307,8 @@ export function getListData() {
     promiseList.push(getDictItemValueList(list2[i], deptCode));
   }
   Promise.all(promiseList).then(([r1, r2]) => {
-    setList(ruList, r1.data.data);
-    setList(chuList, r2.data.data);
+    setList1(ruList, r1.data.data);
+    setList1(chuList, r2.data.data);
   });
 }
 
@@ -323,5 +323,15 @@ function setList(list, key, data) {
   list.splice(0, list.length);
   for (let item of data[key]) {
     list.push(item.name);
+  }
+}
+/**
+ *
+ * @param {*} list 原数组
+ * @param {*} data 数据源
+ */
+function setList1(list, data) {
+  for (let item of data) {
+    list.push(item);
   }
 }
