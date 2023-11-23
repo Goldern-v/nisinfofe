@@ -1104,6 +1104,7 @@ export default {
         case "难免压疮":
         case "已有压力性损伤":
         case "已有压力性损伤风险":
+        case "自理高风险":
         case "已有压疮":
           {
             this.$parent.bedList = this.hasYachuang;
