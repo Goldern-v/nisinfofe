@@ -243,7 +243,7 @@ export default {
         outHospital: "出院",
         transOut: "转出",
         death: "死亡",
-        inHospital: "入院",
+        inHospital: "入科",
         transIn: "转入",
         patientNow: "现有",
         operation: "手术",

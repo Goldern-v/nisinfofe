@@ -543,7 +543,23 @@ export default {
             height: ${sheetTableWidth * 0.755}px !important;
             transform: scaleX(0.99) scaleY(1.2) !important;
             transform-origin: top center !important;
-            margin-top: -40px !important;
+            margin-top: -90px !important;
+          }
+        }
+        `
+      );
+    }
+    else if (["extracardi_one_weihai"].includes(this.query.sheetType)) {
+    // else if (this.sheetInfo.sheetType ==  "extracardi_one_weihai") {
+      addCSS(
+        window,
+        `
+        @media print {
+          .iframe > div:nth-of-type(n) {
+            height: ${sheetTableWidth * 0.755}px !important;
+            transform: scaleX(0.99) scaleY(1) !important;
+            transform-origin: top center !important;
+            margin-top: -70px !important;
           }
         }
         `

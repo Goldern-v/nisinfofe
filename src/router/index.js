@@ -522,6 +522,7 @@ const getImplementation = () => {
     case 'dglb':
     case 'qhwy':
     case 'hzly':
+    case 'sdhpwk':
       return () => import("@/Page/implementation-list/implementation-list-lyxrm-n.vue")
       case 'zjhj':
         return () => import("@/Page/implementation-list/implementation-list-zjhj.vue")
@@ -529,7 +530,6 @@ const getImplementation = () => {
       return implementationListWhhk;
     case 'wujing':
     case 'sdlj':
-    case 'sdhpwk':
       return implementationListWujing
     case 'gdtj':
       return () => import("@/Page/implementation-list/implementation-list-gdtj.vue")
