@@ -547,7 +547,7 @@ export default {
       this.pw = false;
 
       // 如果已经是ca签名的情况下 点开签名弹窗 默认开启ca签名
-      if (["hj", "zhly"].includes(this.HOSPITAL_ID)) {
+      if (["hj", "hzly"].includes(this.HOSPITAL_ID)) {
         if (this.fuyouCaData && this.fuyouCaData.userName) {
           this.isCaSign = true;
           this.pw = true;
