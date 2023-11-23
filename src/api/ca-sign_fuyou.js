@@ -44,6 +44,7 @@ export const getAuthorize=(data)=>{
   switch(process.env.HOSPITAL_ID){
     case 'hj':
     case 'guizhou':
+    case 'hzly':
       return axios.get(`${apiPath}caSignHoujie/getAccessToken`)
     case 'zhzxy':
       return axios.get(`${apiPath}caSignZhzxy/authorizeCaZhzxy`,{params:{selfSign:true}})
@@ -60,6 +61,7 @@ export const getTrustUserInfo=(data)=>{
   switch(process.env.HOSPITAL_ID){
     case 'hj':
     case 'guizhou':
+    case 'hzly':
       return axios.post(`${apiPath}caSignHoujie/auth/getOauthStatus`,{
         accessToken:data.accessToken,
         transactionId:data.transactionId,
@@ -93,7 +95,7 @@ export function getCaSignJmfy(data) {
   switch(process.env.HOSPITAL_ID){
     case 'hj':
     case 'guizhou':
-      console.log(data);
+    case 'hzly':
       return axios.post(`${apiPath}caSignHoujie/sign/signdata`,data)
     case "zhzxy":
       return axios.post(`${apiPath}caSignZhzxy/pushCaSignCommon`,data);

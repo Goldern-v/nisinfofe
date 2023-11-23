@@ -564,6 +564,7 @@ export default {
           code: '',
           repaint:true,
         };
+        // 验证码接口
       login(loginOBJ).then((res) => {
         this.verificationImg = res.data.data;
       });
@@ -577,7 +578,12 @@ export default {
         this.translateType ="translateX(0)"
       }
     },
+    // 点击登录按钮触发
     async login(type) {
+      /**
+       * this.account 工号
+       * this.password 密码
+      */
       if (!(this.account && this.password)) {
         // 如果空
         this.$message({
@@ -587,6 +593,7 @@ export default {
         });
         return;
       }
+      // 验证码verificationCode
       if (this.showVerification && !this.verificationCode) {
         // 如果空
         this.$message({
@@ -600,39 +607,17 @@ export default {
       if (this.ajax === true) return;
       this.ajax = true;
       let password = this.password;
+      // 需要加密的判断
+      // isMd5 有后端接口返回， md5HisList：写死的医院
       (this.isMd5 || this.md5HisList) &&
       // this.md5HisList.includes(this.HOSPITAL_ID) &&
       //   this.password !== "Bcy@22qw" &&
         !this.caLoginFlag &&
         (password = md5(this.password));
-      // login(this.account, this.password, this.verificationCode)
       // login前先执行his校验 by谢岗
       useLogin = login;
       if (this.HOSPITAL_ID == "xiegang") {
         useLogin = hisLogin;
-        // try {
-        //   const res = await hisLogin({
-        //     empNo: this.account,
-        //     password: password,
-        //     code: this.verificationCode,
-        //   });
-        //   if (res.data.code == 200) {
-        //     // this.$message.error(res.data.desc)
-        //     this.loginSucceed(res, type);
-        //     this.ajax = false;
-        //   } else {
-        //     this.$message.error(res.data.desc);
-        //     this.ajax = false;
-        //     return;
-        //   }
-        //   // if (!(res && res.status === 200 && res.data.indexOf('0')> -1)) {
-        //   //   this.$message.error("请重新登录");
-        //   // }
-        // } catch (e) {
-        //   this.$message.error("请重新登录");
-        //   this.ajax = false;
-        //   return;
-        // }
       }
       //是否切换到了ca登录
       if (this.caLoginFlag) {
@@ -661,10 +646,13 @@ export default {
           password,
           code: this.verificationCode,
         };
+        // 对接登录方法
         this.loginIn(loginOBJ, type);
       }
     },
+    // 登录抽离方法
     loginIn(loginOBJ, type, ifCA) {
+      // useLogin接口验证
       useLogin(loginOBJ)
         .then(async (res) => {
           this.ajax = false;
@@ -856,7 +844,7 @@ export default {
           window.openCaSignModal();
         } else if (["zhzxy"].includes(this.HOSPITAL_ID)) {
           window.openFuyouCaSignModal(true);
-        } else if (["hj"].includes(this.HOSPITAL_ID)) {
+        } else if (["hj",'hzly'].includes(this.HOSPITAL_ID)) {
           window.openHjCaSignModal();
         }else if (["whhk"].includes(this.HOSPITAL_ID)) {
           // 防止各种操作。签名框没有初始原来的账号密码框。

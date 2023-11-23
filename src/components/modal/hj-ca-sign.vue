@@ -166,32 +166,6 @@ export default {
           }
       },2000)
     },
-    //获取授权二维码 测试环境
-    // getAuthorizeApi() {
-    //   getAuthorize().then(res=>{
-    //     console.log(res)
-    //     if(res.status===200 && res.data){
-    //       this.ewmBaseData=res.data.data.imgBase64;
-    //       this.requestId=res.data.data.requestId;
-    //       console.log(res.data.data.requestId)
-    //       this.authoState='1'
-    //       this.startSetIntervalItem();
-    //       //启动轮询
-    //       this.startRotationApi()
-    //     }else {
-    //       this.$message({
-    //         type: "info",
-    //         message: res.data.message
-    //       });
-    //     }
-    //   }).catch(error=>{
-    //      console.log(error)
-    //      this.$message({
-    //         type: "info",
-    //         message: "请求失败"
-    //       });
-    //   })
-    // },
     //获取授权二维码
     getAuthorizeApi() {
       getAuthorize().then(res=>{
@@ -219,20 +193,6 @@ export default {
               message: res.data.message
             });
         }
-        // if(res.status===200 && res.data.code=='200' && res.data.data){
-        //   this.ewmBaseData=res.data.data.imgBase64;
-        //   this.requestId=res.data.data.requestId;
-        //   console.log(res.data.data.requestId)
-        //   this.authoState='1'
-        //   this.startSetIntervalItem();
-        //   //启动轮询
-        //   this.startRotationApi()
-        // }else {
-        //   this.$message({
-        //     type: "info",
-        //     message: res.data.errorCode
-        //   });
-        // }
       }).catch(error=>{
          console.log(error)
          this.$message({
@@ -241,40 +201,6 @@ export default {
           });
       })
     },
-    //数字信息授权获取用户信息 测试环境
-    // getTrustUserInfoApi(){
-    //   getTrustUserInfo({requestId:this.requestId}).then(res=>{
-    //       //授权成功
-    //       console.log(res)
-    //       //code
-    //       if(res.data && res.data.status=='0'){
-    //         this.$message({
-    //           type: "success",
-    //           message: res.data.message
-    //         });
-    //         //清除轮询定时器
-    //         clearInterval(this.setIntervalApi)
-    //         this.setIntervalApi=null;
-    //         setTimeout(() => {
-    //           clearInterval(this.setIntervalItem)
-    //           this.setIntervalItem=null;
-    //           this.authoState='0'
-    //           this.close()
-    //         }, 1000);
-    //       }else {
-    //         this.$message({
-    //           type: "info",
-    //           message: res.data.message
-    //         });
-    //       }
-    //   }).catch(error=>{
-    //      this.$message({
-    //         type: "info",
-    //         message: "请求失败"
-    //       });
-    //   })
-    // },
-
     ////数字信息授权获取用户信息
     getTrustUserInfoApi(){
       getTrustUserInfo({transactionId:this.requestId,accessToken:this.accessToken}).then(res=>{

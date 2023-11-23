@@ -109,9 +109,9 @@
       </el-tab-pane>
       </el-tabs>
     </template>
-    <div 
-      v-if="['huadu'].includes(HOSPITAL_ID) && (huaduCaSignIn ==false )" 
-      style="margin-top: 10px;color:#4bb08d;font-weight:bold;" 
+    <div
+      v-if="['huadu'].includes(HOSPITAL_ID) && (huaduCaSignIn ==false )"
+      style="margin-top: 10px;color:#4bb08d;font-weight:bold;"
       class="loginCa"
       @click="openWhhkCaSign">
       CA登录验证
@@ -354,8 +354,8 @@ export default {
         "internal_eval_yz"
       ],
       activeSheetType: "",
-      hasQrCaSignHos: ["fuyou", "hj", "guizhou", "zhzxy", "whsl","haudu"],
-      caSignHasNoSignType: ["hj", "guizhou"],
+      hasQrCaSignHos: ["fuyou", "hj","hzly", "guizhou", "zhzxy", "whsl","haudu"],
+      caSignHasNoSignType: ["hj","hzly", "guizhou"],
       btnLoading: false,
       verifySignObj: {},
       SigndataObj: {},
@@ -440,13 +440,13 @@ export default {
         this.huaduSignTye=localStorage.getItem("huaduSignTye")?localStorage.getItem("huaduSignTye"):''
         this.clearIntervalItem()
         this.huaduSignTye = localStorage.getItem('huaduSignTye') || ''
-     
+
         if(this.huaduSignTye==''){
           // 如果是删除，就不用二维码
           this.getAuthorizeApi()
         }
       }
-      
+
       if (["foshanrenyi"].includes(this.HOSPITAL_ID)) {
         GetUserList().then(
           res => {
@@ -547,7 +547,7 @@ export default {
       this.pw = false;
 
       // 如果已经是ca签名的情况下 点开签名弹窗 默认开启ca签名
-      if (["hj"].includes(this.HOSPITAL_ID)) {
+      if (["hj", "zhly"].includes(this.HOSPITAL_ID)) {
         if (this.fuyouCaData && this.fuyouCaData.userName) {
           this.isCaSign = true;
           this.pw = true;
@@ -908,7 +908,7 @@ export default {
           let username = "";
           if (this.caSignHasNoSignType.includes(this.HOSPITAL_ID)) {
             let fileCode = res.data.data.data.fileCode;
-            aduitDate = ["hj"].includes(this.HOSPITAL_ID)
+            aduitDate = ["hj","hzly"].includes(this.HOSPITAL_ID)
               ? dayjs().format("YYYY-MM-DD HH:mm")
               : "";
             let hjRes = await verifyData(
@@ -963,7 +963,7 @@ export default {
       this.signDataId = ''
       if(this.$refs.qrcodeContainer){
         this.$refs.qrcodeContainer.innerHTML = ''//销毁二维码实例
-      } 
+      }
     },
     //获取授权二维码
     getAuthorizeApi() {
@@ -981,7 +981,7 @@ export default {
         correctLevel: QRCode.CorrectLevel.H,//容错级别
       })
 	  	this.signDataId = res.data.data.signDataId
-      
+
 		  this.userId = res.data.data.userId
 	  	this.authoState='1'
           this.startSetIntervalItem();
