@@ -1,6 +1,6 @@
 <template>
     <div class="table-page" :class="[!pageNum||pageNum==1?'first-page':'']">
-        <div class="fix-table" v-if="!pageNum||pageNum==1" :style="{width:contentWidth,}">
+        <div class="fix-table" v-if="(!pageNum||pageNum==1) && !isNursingPreview" :style="{width:contentWidth,}">
             <div style="background:#dfdfdf;height:5px;"></div>
             <div class="tabel-title">{{title}}
                 <el-button class="extubation-btn" type="primary" @click="extubationModal" :disabled="tableInfo.catheterStatus==2">拔管</el-button>
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="withe-part" style="height:175px;"></div>
+        <div class="withe-part" style="height:175px;" v-if="!isNursingPreview"></div>
         <el-table
             id="table-box"
             :data="tabelData"
@@ -512,6 +512,9 @@ export default {
     removeModal
   },
   computed:{
+    isNursingPreview(){
+        return this.$route.path.indexOf('/nursingPreview') != -1
+    },
     intubationDays(){
       let m1 = moment(this.tableInfo.intubationTime)
       let m2 = this.tableInfo.extubationTime?moment(this.tableInfo.extubationTime):moment()

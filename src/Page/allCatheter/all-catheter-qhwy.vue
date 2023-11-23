@@ -27,7 +27,7 @@
       </div>
       <div class="right-part" v-loading="tableLoading" :class="{noAllpage:!isAllCathterPage}">
         <catheterList :cathterArr='cathterArr' @addCathter='addCathter' @updateTableConfig='updateTableConfig' ref="catheterList"/>
-        <div class="sheetTable-contain" :style="{width:`calc(100% - ${isAllCathterPage?'280px':'81px'} )`,marginLeft:`${isAllCathterPage?'280px':'81px'}`}" ref="scrollCon">
+        <div class="sheetTable-contain" :style="{width:`calc(100% - ${isAllCathterPage?'280px':'81px'} )`,marginLeft:`${isAllCathterPage?'280px':'81px'}`, padding: isNursingPreview ? '0px' :'' , }" ref="scrollCon">
           <cathterTabel
             @onChangePatient_self='onChangePatient_self'
             :title="tableInfo.formTitle"
@@ -244,6 +244,9 @@ export default {
     };
   },
   computed: {
+    isNursingPreview(){
+        return this.$route.path.indexOf('/nursingPreview') != -1
+    },
     // 判断路由是否主页导管（与患者详情页的导管作区分）
     isAllCathterPage(){
       return this.$route.path.includes('allCatheter')

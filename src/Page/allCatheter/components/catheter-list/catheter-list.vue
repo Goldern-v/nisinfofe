@@ -3,7 +3,7 @@
         <div class="cathter-tool">
             <div style="flex:1;">导管</div>
             <div style="flex:3;text-indent:0;"><el-checkbox v-model="showExtubation">显示已拔除导管</el-checkbox></div>
-            <div style="flex:2;" class="add-btn" @click="addCathter">+添加导管</div>
+            <div style="flex:2;" class="add-btn" @click="addCathter" v-if="!$parent.isNursingPreview">+添加导管</div>
         </div>
         <div class="cathter-list">
             <div

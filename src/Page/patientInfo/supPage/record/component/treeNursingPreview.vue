@@ -116,6 +116,13 @@
         <div class="title" style="cursor:pointer" @click="setItemShow('six')">健康宣教</div>
         <baseTree v-if="isShowObj.six" :configList="configList" class="baseTree"></baseTree>
       </div>
+      <div v-if="showAllCatheter.includes(HOSPITAL_ID)">
+        <div @click="showForm('allCatheter')" class="title" >导管</div>
+        <!-- <div v-if="isShowObj.eight" @click="showForm('allCatheter')" class='fromCss'>
+          <img src='@/common/images/record/文件.png' class="img"/>
+          <span class="name">导管</span>
+        </div> -->
+      </div>
       </template>
     </div>
     <!-- 弹出框 -->
@@ -285,6 +292,7 @@ export default {
         five:false,
         six: false,
         seven: false,
+        eight: false,
       }, // 一级菜单开关 (默认关闭)
       handleAddTemplateAtDoc: null,
       nursingPreviewIsShow: true, //南医三嘉禾展示去除头部按钮 -true展示  false去除
@@ -292,6 +300,7 @@ export default {
       showBloodOxygen:['whfk'] ,// 是否开放血氧模块
       hiddenTemperature: [], // 隐藏体温单模块
       showHealthEdu: ['guizhou'],
+      showAllCatheter: ['qhwy'], // 是否开放导管
       timer:null,
       configList: [], // 健康教育
     };

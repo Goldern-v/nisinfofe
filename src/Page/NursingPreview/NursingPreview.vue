@@ -125,6 +125,7 @@ import bloodSugarSdhpwk from "@/Page/patientInfo/supPage/blood-sugar/blood-sugar
 
 import bloodSugarSdlj from "@/Page/patientInfo/supPage/blood-sugar-sdlj/blood-sugar-sdlj.vue"; //血糖
 import bloodOxygen from "@/Page/patientInfo/supPage/oxygen-sugar/oxygen-sugar"; // 血氧
+import allCatheter from "@/Page/allCatheter/all-catheter-qhwy.vue"; //导管
 import rightPart from "@/Page/patientInfo/supPage/record/component/right-part/right-part.vue";
 import healthEducationGuizhou from "@/Page/patientInfo/supPage/healthEducationGuizhou/healthEducation";
 
@@ -296,6 +297,7 @@ export default {
     treeNursingPreview,
     rightPart,
     sheet,
+    allCatheter,
     bloodSugar,
     bloodSugarBhry,
     bloodSugarFsxt,
