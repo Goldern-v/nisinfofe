@@ -214,24 +214,13 @@ export default {
       }else this.$refs[name].open(feature);
     },
     url360() {
-      const { patientId, deptCode } = this.selectPatient;
-      const obj = {
-        ViewType: 3,
-        patientId: patientId,
-        userName: this.empName,
-        Hash: md5(patientId + this.empName + "wego2022"),
-        patientType: 1,
-        userData: `{"userCode":"${
-          this.empNo
-        }","orgCode":"${deptCode}","key":"${md5(this.empNo + "@wego2022")}"}`,
-        isExternal: 1
-      };
+      const { patientId, deptCode, visitId } = this.selectPatient;
       const { inpNo = '' } = this.$route.query
       // const { patientId } = this.selectPatient;
       const { empNo, empName } = (JSON.parse(localStorage.user) || {})
       const huaduURL = `http://172.16.8.135:9092/?vid=${inpNo}&vidType=02&appId=360&security=123#/personInfo`;
       const zhzxyURL = `http://10.95.6.17:9016/index.html#appid=FFEC62BF-AFE5-49CA-8E64-8A5AE79D8DEF&ysdm=${empNo}&hzid=${patientId}&jzlb=3`;
-      const whslURL = `http://221.2.154.22:9094/pdv-ui/medicalLeportList/?ViewType=3&patientId=${patientId}&userName=${empName}&Hash=${md5(patientId+empName+'wego2022')}&patientType=&userData={"userCode":"${empNo}","orgCode":"${deptCode}","key":"${md5(empNo+'@wego2022')}"}&isExternal=1`;
+      const whslURL = `http://10.108.1.33/hostPages-ui/caseHistoryBrowse/?_sys=INPD&_userId=${empNo}&sys=INPD&oldPatientId=&patientId=${patientId}&source=2&visitId=${visitId}&userData={"userCode":"${empNo}","orgCode":"${deptCode}","key":"${md5(empNo + "@wego2022")}"}&data={"patientId":"${patientId}","visitId":"${visitId}","PatientType":"2"}&isExternal=1`
       const url360Map = {
         'huadu': huaduURL,
         'zhzxy': zhzxyURL,

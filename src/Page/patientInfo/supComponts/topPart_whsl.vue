@@ -296,28 +296,9 @@ export default {
       }
     },
     gotoView() {
-      const { patientId, deptCode } = this.patient;
-      const obj = {
-        ViewType: 3,
-        patientId: patientId,
-        userName: this.empName,
-        Hash: md5(patientId + this.empName + "wego2022"),
-        patientType: 1,
-        userData: `{"userCode":"${
-          this.empNo
-        }","orgCode":"${deptCode}","key":"${md5(this.empNo + "@wego2022")}"}`,
-        isExternal: 1
-      };
-      // http://10.101.1.159/pdv-ui/medicalLeportList/?ViewType=3&patientId=2022642569&userName=周文强&Hash=6e5e7a5294c128d99adf1598012c02fb&patientType=&userData={"userCode":"199852","orgCode":"10010201","key":"b31e71cfee6e9fba03019b353203545b"}&isExternal=1
-      let url = `http://10.108.1.33/pdv-ui/medicalLeportList/?ViewType=3&patientId=${patientId}&userName=${
-        this.empName
-      }&Hash=${md5(
-        patientId + this.empName + "wego2022"
-      )}&patientType=&userData={"userCode":"${
-        this.empNo
-      }","orgCode":"${deptCode}","key":"${md5(
-        this.empNo + "@wego2022"
-      )}"}&isExternal=1`;
+      const { patientId, deptCode, visitId } = this.patient;
+      // http://10.108.1.33/hostPages-ui/caseHistoryBrowse/?_sys=INPD&_userId=199852&sys=INPD&oldPatientId=371002197607201028&patientId=902865&source=2&visitId=1&userData={"userCode":"199852","orgCode":"10440201","key":"b31e71cfee6e9fba03019b353203545b"}&data={"patientId":"902865","visitId":"1","PatientType":"2"}&isExternal=1
+      let url = `http://10.108.1.33/hostPages-ui/caseHistoryBrowse/?_sys=INPD&_userId=${this.empNo}&sys=INPD&oldPatientId=&patientId=${patientId}&source=2&visitId=${visitId}&userData={"userCode":"${this.empNo}","orgCode":"${deptCode}","key":"${md5(this.empNo + "@wego2022")}"}&data={"patientId":"${patientId}","visitId":"${visitId}","PatientType":"2"}&isExternal=1`
       window.open(url);
     },
     formatValue(value, obj) {

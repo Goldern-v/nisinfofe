@@ -289,8 +289,8 @@ export default {
       return `http://10.45.0.184/EmrVieww/Index.aspx?hospital_no=45722882244190011A1001&patient_id=${patientId}&visit_id=${visitId}`
     },
     whslViewUrl(){
-      const {patientId,deptCode} = this.patient;
-       return `http://10.108.1.33/pdv-ui/medicalLeportList/?ViewType=3&patientId=${patientId}&userName=${this.empName}&Hash=${md5(patientId+this.empName+'wego2022')}&patientType=&userData={"userCode":"${this.empNo}","orgCode":"${deptCode}","key":"${md5(this.empNo+'@wego2022')}"}&isExternal=1`
+      const {patientId,deptCode,visitId} = this.patient;
+       return `http://10.108.1.33/hostPages-ui/caseHistoryBrowse/?_sys=INPD&_userId=${this.empNo}&sys=INPD&oldPatientId=&patientId=${patientId}&source=2&visitId=${visitId}&userData={"userCode":"${this.empNo}","orgCode":"${deptCode}","key":"${md5(this.empNo + "@wego2022")}"}&data={"patientId":"${patientId}","visitId":"${visitId}","PatientType":"2"}&isExternal=1`
     },
     patientRecord() {
       const { inpNo ='' } = this.$route.query

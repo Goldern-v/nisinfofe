@@ -22,103 +22,7 @@
       >
         <div class="nav-item">首页</div>
       </router-link>
-      <el-dropdown
-        v-if="HOSPITAL_ID == 'nfyksdyy'"
-        menu-align="start"
-        class="nav-item"
-        :class="{ 'router-link-active': isNursing }"
-      >
-        <el-row class="nav-items" type="flex" align="middle">
-          护理文书
-        </el-row>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item
-            :class="{ active: $route.path == '/admissionPageAdult2' }"
-          >
-            <router-link
-              :to="{
-                path: '/admissionPageAdult2',
-                query: { patientId: query.patientId, visitId: query.visitId }
-              }"
-              tag="span"
-            >
-              <el-row class="menu-item" type="flex" align="middle">
-                <i class="sheetHospitalAdmission"></i>入院评估(成人)
-              </el-row>
-            </router-link>
-          </el-dropdown-item>
-          <el-dropdown-item :class="{ active: $route.path == '/record' }">
-            <router-link
-              :to="{
-                path: '/record',
-                query: { patientId: query.patientId, visitId: query.visitId }
-              }"
-              tag="span"
-            >
-              <el-row class="menu-item" type="flex" align="middle">
-                <i class="nursingAssessment"></i>护理文书
-              </el-row>
-            </router-link>
-          </el-dropdown-item>
-          <!-- <el-dropdown-item :class="{ active: $route.path == '/sheet' }">
-            <router-link
-              :to="{
-                path: '/sheet',
-                query: { patientId: query.patientId, visitId: query.visitId }
-              }"
-              tag="span"
-            >
-              <el-row class="menu-item" type="flex" align="middle">
-                <i class="sheetHospitalEval"></i>护理记录单
-              </el-row>
-            </router-link>
-          </el-dropdown-item>
-
-          <el-dropdown-item :class="{ active: $route.path == '/bloodSugar' }">
-            <router-link
-              :to="{
-                path: '/bloodSugar',
-                query: { patientId: query.patientId, visitId: query.visitId }
-              }"
-              tag="span"
-            >
-              <el-row class="menu-item" type="flex" align="middle"
-                ><i class="bloodSugar"></i>血糖</el-row
-              >
-            </router-link>
-          </el-dropdown-item>
-          <el-dropdown-item
-            :class="{ active: $route.path == '/healthEducation' }"
-          >
-            <router-link
-              :to="{
-                path: '/healthEducation',
-                query: { patientId: query.patientId, visitId: query.visitId }
-              }"
-              tag="span"
-            >
-              <el-row class="menu-item" type="flex" align="middle">
-                <i class="healthEdu"></i>健康教育单
-              </el-row>
-            </router-link>
-          </el-dropdown-item>
-          <el-dropdown-item :class="{ active: $route.path == '/diagnosis' }">
-            <router-link
-              :to="{
-                path: '/diagnosis',
-                query: { patientId: query.patientId, visitId: query.visitId }
-              }"
-              tag="span"
-            >
-              <el-row class="menu-item" type="flex" align="middle">
-                <i class="sheetHospitalAdmission"></i>护理计划单</el-row
-              >
-            </router-link>
-          </el-dropdown-item> -->
-        </el-dropdown-menu>
-      </el-dropdown>
       <router-link
-        v-else
         :to="{
           path: '/record',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -137,23 +41,9 @@
       >
         <div class="nav-item">病历</div>
       </router-link>
-      <div
-        class="nav-item"
-        v-if="['nfyksdyy'].includes(HOSPITAL_ID)"
-        @click="openNewPage('onnfyksdyyEmrWeb')"
-      >
-        病历
-      </div>
-      <!-- <span v-if="['hj'].includes(HOSPITAL_ID)">
-        <a
-          class="nav-item no-under-link"
-          :href="`openIE:http://10.35.0.135:9080/htweb/ShowInpatientInfo.jsp?ipid=${query.patientId}~${query.visitId}`"
-        >病历(新)</a>
-      </span> -->
       <router-link
         v-if="
           HOSPITAL_ID !== 'zhzxy' &&
-            HOSPITAL_ID !== 'whsl' &&
             HOSPITAL_ID !== 'gdtj'
         "
         :to="{
@@ -170,7 +60,6 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
-        v-if="HOSPITAL_ID != 'nfyksdyy'"
       >
         <div class="nav-item">护理记录单</div>
       </router-link>
@@ -180,7 +69,6 @@
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
         tag="span"
-        v-if="HOSPITAL_ID != 'nfyksdyy'"
       >
         <div class="nav-item">体温单</div>
       </router-link>
@@ -200,9 +88,7 @@
         v-if="
           HOSPITAL_ID !== 'zhzxy' &&
             HOSPITAL_ID !== 'gdtj' &&
-            HOSPITAL_ID !== 'whsl' &&
             HOSPITAL_ID !== 'ytll' &&
-            HOSPITAL_ID !== 'nfyksdyy' &&
             HOSPITAL_ID !== 'dglb' &&
             HOSPITAL_ID !== 'dgdl'
         "
@@ -219,7 +105,6 @@
           path: '/diagnosis',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
-        v-if="HOSPITAL_ID != 'nfyksdyy'"
         tag="span"
       >
         <div class="nav-item">护理计划</div>
@@ -229,7 +114,7 @@
           path: '/bloodSugar',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
-        v-if="!(['gdtj', 'nfyksdyy'].includes(HOSPITAL_ID))"
+        v-if="!(['gdtj'].includes(HOSPITAL_ID))"
         tag="span"
       >
         <div class="nav-item">血糖</div>
@@ -241,7 +126,6 @@
           path: '/healthEducation',
           query: { patientId: query.patientId, visitId: query.visitId }
         }"
-        v-if="HOSPITAL_ID != 'nfyksdyy'"
         tag="span"
       >
         <div class="nav-item">健康教育单</div>
@@ -328,16 +212,6 @@
       >
         <div class="nav-item">会诊</div>
       </router-link>
-      <router-link
-        v-if="HOSPITAL_ID === 'whsl'"
-        :to="{
-          path: '/sheetNursingOrder',
-          query: { patientId: query.patientId, visitId: query.visitId }
-        }"
-        tag="span"
-      >
-        <div class="nav-item">护嘱单</div>
-      </router-link>
       <span
         class="nav-item"
         v-if="['gdtj'].includes(HOSPITAL_ID)"
@@ -351,15 +225,9 @@
       >
         病历
       </div>
-      <div
-        class="nav-item"
-        v-if="['whsl'].includes(HOSPITAL_ID)"
-        @click="openNewPage('gotoView')"
-      >
-        360视图
-      </div>
+
       <router-link
-        v-if=" ['whsl', 'fsxt','ytll'].includes(HOSPITAL_ID)"
+        v-if=" ['fsxt','ytll'].includes(HOSPITAL_ID)"
         :to="{
           path: '/patientNursingRound',
           query: { patientId: query.patientId, visitId: query.visitId }
@@ -383,7 +251,7 @@
         </el-row>
       </router-link>
       <router-link
-        v-if=" ['whsl', 'nfyksdyy', 'fsxt', 'ytll', 'hj'].includes(HOSPITAL_ID)"
+        v-if=" ['fsxt', 'ytll', 'hj'].includes(HOSPITAL_ID)"
         :to="{
           path: '/implementationPerson',
           query: {
@@ -589,12 +457,7 @@ export default {
         a.click();
       });
     },
-    // （顺德龙江）手麻记录单（第三方链接）
-    toHandNumbness() {
-      window.open(
-        `http://192.168.100.9:8280/trackao/basedata/userLoginForClient.action?id=1668&password=123&resultCode=getTrackaoAnaesRecordPDF&hisId=${this.query.inpNo}`
-      );
-    },
+
     // 医膳通
     toYst() {
       const {
@@ -629,37 +492,6 @@ export default {
       console.log(this.patient);
       const { patientId } = this.patient;
       let url = `http://192.168.10.63/EmrWeb/WebForm.aspx?flag=thirdPlat&codePi=${patientId}`;
-      window.open(url);
-    },
-    gotoView() {
-      const { patientId, deptCode } = this.patient;
-      const obj = {
-        ViewType: 3,
-        patientId: patientId,
-        userName: this.empName,
-        Hash: md5(patientId + this.empName + "wego2022"),
-        patientType: 1,
-        userData: `{"userCode":"${
-          this.empNo
-        }","orgCode":"${deptCode}","key":"${md5(this.empNo + "@wego2022")}"}`,
-        isExternal: 1
-      };
-      // http://10.101.1.159/pdv-ui/medicalLeportList/?ViewType=3&patientId=2022642569&userName=周文强&Hash=6e5e7a5294c128d99adf1598012c02fb&patientType=&userData={"userCode":"199852","orgCode":"10010201","key":"b31e71cfee6e9fba03019b353203545b"}&isExternal=1
-      let url = `http://10.108.1.33/pdv-ui/medicalLeportList/?ViewType=3&patientId=${patientId}&userName=${
-        this.empName
-      }&Hash=${md5(
-        patientId + this.empName + "wego2022"
-      )}&patientType=&userData={"userCode":"${
-        this.empNo
-      }","orgCode":"${deptCode}","key":"${md5(
-        this.empNo + "@wego2022"
-      )}"}&isExternal=1`;
-      window.open(url);
-    },
-    // 南方医科大学顺德医院项目病历
-    onnfyksdyyEmrWeb() {
-      const { patientId, inpNo, visitId } = this.patient;
-      let url = `http://192.168.8.174:8000/Content/GetSingleContentData?a=1&mdt=H&ordinal=HMedical&ids=${inpNo}`;
       window.open(url);
     },
     toBloodSugar() {
